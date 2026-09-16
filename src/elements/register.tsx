@@ -17,7 +17,7 @@ import { Tooltip } from "../components/ui/Tooltip/Tooltip";
 // trigger, Modal's close request) go through r2wc's `events` bridge.
 
 customElements.define(
-  "lojee-button",
+  "l-button",
   r2wc(withTailwind(Button), {
     shadow: "open",
     props: {
@@ -39,7 +39,7 @@ customElements.define(
 );
 
 customElements.define(
-  "lojee-split-button",
+  "l-split-button",
   r2wc(withTailwind(SplitButton), {
     shadow: "open",
     props: {
@@ -56,12 +56,12 @@ customElements.define(
 );
 
 customElements.define(
-  "lojee-button-group",
+  "l-button-group",
   r2wc(withTailwind(ButtonGroup), { shadow: "open", props: {} })
 );
 
 customElements.define(
-  "lojee-segment-button",
+  "l-segment-button",
   r2wc(withTailwind(SegmentButton), {
     shadow: "open",
     props: {
@@ -72,7 +72,7 @@ customElements.define(
 );
 
 customElements.define(
-  "lojee-modal",
+  "l-modal",
   r2wc(withTailwind(ModalElement), {
     shadow: "open",
     props: { open: "boolean", heading: "string" },
@@ -81,7 +81,7 @@ customElements.define(
 );
 
 customElements.define(
-  "lojee-badge",
+  "l-badge",
   r2wc(withTailwind(Badge), {
     shadow: "open",
     props: {
@@ -96,7 +96,7 @@ customElements.define(
 );
 
 customElements.define(
-  "lojee-avatar",
+  "l-avatar",
   r2wc(withTailwind(Avatar), {
     shadow: "open",
     props: {
@@ -112,12 +112,12 @@ customElements.define(
 );
 
 customElements.define(
-  "lojee-avatar-group",
+  "l-avatar-group",
   r2wc(withTailwind(AvatarGroup), { shadow: "open", props: {} })
 );
 
 customElements.define(
-  "lojee-icon",
+  "l-icon",
   r2wc(withTailwind(Icon), {
     shadow: "open",
     props: { name: "string", size: "number", className: "string" },
@@ -125,7 +125,7 @@ customElements.define(
 );
 
 customElements.define(
-  "lojee-spinner",
+  "l-spinner",
   r2wc(withTailwind(Spinner), {
     shadow: "open",
     props: { size: "string", color: "string", variant: "string", label: "string" },
@@ -133,7 +133,7 @@ customElements.define(
 );
 
 customElements.define(
-  "lojee-loader",
+  "l-loader",
   r2wc(withTailwind(Loader), {
     shadow: "open",
     props: { shape: "string", width: "number", height: "number", lines: "number" },
@@ -141,7 +141,7 @@ customElements.define(
 );
 
 customElements.define(
-  "lojee-divider",
+  "l-divider",
   r2wc(withTailwind(Divider), {
     shadow: "open",
     props: { orientation: "string", label: "string", color: "string", adjustable: "boolean", step: "number" },
@@ -150,7 +150,7 @@ customElements.define(
 );
 
 customElements.define(
-  "lojee-tooltip",
+  "l-tooltip",
   r2wc(withTailwind(Tooltip), {
     shadow: "open",
     props: { content: "string", position: "string", delayMs: "number", color: "string" },

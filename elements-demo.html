@@ -50,21 +50,21 @@
       <section>
         <h2>Button</h2>
         <div class="row">
-          <lojee-button color="slate" label="Default"></lojee-button>
-          <lojee-button variant="outline" color="indigo" label="Outline"></lojee-button>
-          <lojee-button variant="soft" color="rose" label="Soft"></lojee-button>
-          <lojee-button variant="gradient" color="emerald" label="Gradient"></lojee-button>
-          <lojee-button color="slate" icon="download" icon-position="right" label="Download"></lojee-button>
-          <lojee-button color="slate" disabled="true" label="Disabled"></lojee-button>
+          <l-button color="slate" label="Default"></l-button>
+          <l-button variant="outline" color="indigo" label="Outline"></l-button>
+          <l-button variant="soft" color="rose" label="Soft"></l-button>
+          <l-button variant="gradient" color="emerald" label="Gradient"></l-button>
+          <l-button color="slate" icon="download" icon-position="right" label="Download"></l-button>
+          <l-button color="slate" disabled="true" label="Disabled"></l-button>
         </div>
       </section>
 
       <section>
         <h2>Icon-only</h2>
         <div class="row">
-          <lojee-button icon="settings" icon-only="true" variant="ghost" shape="pill" label="Settings"></lojee-button>
-          <lojee-button icon="mail" icon-only="true" variant="soft" color="indigo" shape="pill" label="Mail"></lojee-button>
-          <lojee-button
+          <l-button icon="settings" icon-only="true" variant="ghost" shape="pill" label="Settings"></l-button>
+          <l-button icon="mail" icon-only="true" variant="soft" color="indigo" shape="pill" label="Mail"></l-button>
+          <l-button
             icon="bell"
             icon-only="true"
             variant="soft"
@@ -72,85 +72,85 @@
             shape="pill"
             badge="3"
             label="Notifications"
-          ></lojee-button>
-          <lojee-button icon="plus" icon-only="true" variant="solid" color="emerald" shape="square" label="Add"></lojee-button>
+          ></l-button>
+          <l-button icon="plus" icon-only="true" variant="solid" color="emerald" shape="square" label="Add"></l-button>
         </div>
       </section>
 
       <section>
         <h2>Split button</h2>
         <div class="row">
-          <lojee-split-button id="split" icon="check" label="Approve"></lojee-split-button>
+          <l-split-button id="split" icon="check" label="Approve"></l-split-button>
         </div>
       </section>
 
       <section>
         <h2>Button group</h2>
         <div class="row">
-          <lojee-button-group>
-            <lojee-segment-button id="seg-day">Day</lojee-segment-button>
-            <lojee-segment-button id="seg-week" active="true">Week</lojee-segment-button>
-            <lojee-segment-button id="seg-month">Month</lojee-segment-button>
-          </lojee-button-group>
+          <l-button-group>
+            <l-segment-button id="seg-day">Day</l-segment-button>
+            <l-segment-button id="seg-week" active="true">Week</l-segment-button>
+            <l-segment-button id="seg-month">Month</l-segment-button>
+          </l-button-group>
         </div>
       </section>
 
       <section>
         <h2>Modal</h2>
         <div class="row">
-          <lojee-button id="open-modal" color="slate" label="Open modal"></lojee-button>
+          <l-button id="open-modal" color="slate" label="Open modal"></l-button>
         </div>
-        <lojee-modal id="modal" heading="Framework-agnostic Modal">
-          <p>This dialog is a &lt;lojee-modal&gt; custom element — no React anywhere on this page.</p>
-        </lojee-modal>
+        <l-modal id="modal" heading="Framework-agnostic Modal">
+          <p>This dialog is a &lt;l-modal&gt; custom element — no React anywhere on this page.</p>
+        </l-modal>
       </section>
 
       <section>
         <h2>Badge</h2>
         <div class="row">
-          <lojee-badge variant="solid" color="indigo" label="Solid"></lojee-badge>
-          <lojee-badge variant="outline" color="rose" label="Outline"></lojee-badge>
-          <lojee-badge variant="soft" color="emerald" icon="check" label="Verified"></lojee-badge>
-          <lojee-badge dot="true" color="emerald" label="Online"></lojee-badge>
+          <l-badge variant="solid" color="indigo" label="Solid"></l-badge>
+          <l-badge variant="outline" color="rose" label="Outline"></l-badge>
+          <l-badge variant="soft" color="emerald" icon="check" label="Verified"></l-badge>
+          <l-badge dot="true" color="emerald" label="Online"></l-badge>
         </div>
       </section>
 
       <section>
         <h2>Avatar</h2>
         <div class="row">
-          <lojee-avatar initials="AB" color="indigo"></lojee-avatar>
-          <lojee-avatar initials="ON" status="online"></lojee-avatar>
-          <lojee-avatar-group>
-            <lojee-avatar initials="AA" color="indigo"></lojee-avatar>
-            <lojee-avatar initials="BB" color="rose"></lojee-avatar>
-            <lojee-avatar initials="CC" color="emerald"></lojee-avatar>
-          </lojee-avatar-group>
+          <l-avatar initials="AB" color="indigo"></l-avatar>
+          <l-avatar initials="ON" status="online"></l-avatar>
+          <l-avatar-group>
+            <l-avatar initials="AA" color="indigo"></l-avatar>
+            <l-avatar initials="BB" color="rose"></l-avatar>
+            <l-avatar initials="CC" color="emerald"></l-avatar>
+          </l-avatar-group>
         </div>
       </section>
 
       <section>
         <h2>Icon</h2>
         <div class="row">
-          <lojee-icon name="settings"></lojee-icon>
-          <lojee-icon name="heart" size="28"></lojee-icon>
-          <lojee-icon name="star" size="32"></lojee-icon>
+          <l-icon name="settings"></l-icon>
+          <l-icon name="heart" size="28"></l-icon>
+          <l-icon name="star" size="32"></l-icon>
         </div>
       </section>
 
       <section>
         <h2>Spinner</h2>
         <div class="row">
-          <lojee-spinner size="lg" color="indigo"></lojee-spinner>
-          <lojee-spinner size="lg" color="rose" variant="dots"></lojee-spinner>
+          <l-spinner size="lg" color="indigo"></l-spinner>
+          <l-spinner size="lg" color="rose" variant="dots"></l-spinner>
         </div>
       </section>
 
       <section>
         <h2>Loader</h2>
         <div class="row">
-          <lojee-loader shape="circle" width="40"></lojee-loader>
+          <l-loader shape="circle" width="40"></l-loader>
           <div style="width: 200px">
-            <lojee-loader shape="text" lines="3"></lojee-loader>
+            <l-loader shape="text" lines="3"></l-loader>
           </div>
         </div>
       </section>
@@ -158,16 +158,16 @@
       <section>
         <h2>Divider</h2>
         <div style="max-width: 300px">
-          <lojee-divider label="OR"></lojee-divider>
+          <l-divider label="OR"></l-divider>
         </div>
       </section>
 
       <section>
         <h2>Tooltip</h2>
         <div class="row">
-          <lojee-tooltip content="Hello from a Web Component" position="top">
-            <lojee-button color="slate" label="Hover me"></lojee-button>
-          </lojee-tooltip>
+          <l-tooltip content="Hello from a Web Component" position="top">
+            <l-button color="slate" label="Hover me"></l-button>
+          </l-tooltip>
         </div>
       </section>
 
@@ -187,9 +187,9 @@
       document.getElementById("split").addEventListener("click", () => write("split-button: main action clicked"));
       document.getElementById("split").addEventListener("menuclick", () => write("split-button: menuclick"));
 
-      for (const seg of document.querySelectorAll("lojee-segment-button")) {
+      for (const seg of document.querySelectorAll("l-segment-button")) {
         seg.addEventListener("click", () => {
-          for (const s of document.querySelectorAll("lojee-segment-button")) s.active = s === seg;
+          for (const s of document.querySelectorAll("l-segment-button")) s.active = s === seg;
           write(`segment-button: ${seg.id} selected`);
         });
       }
