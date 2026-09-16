@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>lojee-ui elements (no React)</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 2.5rem;
+        font-family: system-ui, sans-serif;
+        background: #fff;
+        color: #0f172a;
+      }
+      main {
+        max-width: 56rem;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 2.5rem;
+      }
+      section h2 {
+        font-size: 1.125rem;
+        margin: 0 0 0.75rem;
+      }
+      .row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.75rem;
+      }
+      #event-log {
+        white-space: pre-wrap;
+        background: #0f172a;
+        color: #e2e8f0;
+        padding: 0.75rem 1rem;
+        border-radius: 0.5rem;
+        font: 12px/1.5 ui-monospace, monospace;
+        min-height: 3lh;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div>
+        <h1>lojee-ui Web Components</h1>
+        <p>Plain HTML, zero React, zero JSX — just custom elements registered by <code>src/elements/index.ts</code>.</p>
+      </div>
+
+      <section>
+        <h2>Button</h2>
+        <div class="row">
+          <lojee-button color="slate" label="Default"></lojee-button>
+          <lojee-button variant="outline" color="indigo" label="Outline"></lojee-button>
+          <lojee-button variant="soft" color="rose" label="Soft"></lojee-button>
+          <lojee-button variant="gradient" color="emerald" label="Gradient"></lojee-button>
+          <lojee-button color="slate" icon="download" icon-position="right" label="Download"></lojee-button>
+          <lojee-button color="slate" disabled="true" label="Disabled"></lojee-button>
+        </div>
+      </section>
+
+      <section>
+        <h2>Icon-only</h2>
+        <div class="row">
+          <lojee-button icon="settings" icon-only="true" variant="ghost" shape="pill" label="Settings"></lojee-button>
+          <lojee-button icon="mail" icon-only="true" variant="soft" color="indigo" shape="pill" label="Mail"></lojee-button>
+          <lojee-button
+            icon="bell"
+            icon-only="true"
+            variant="soft"
+            color="rose"
+            shape="pill"
+            badge="3"
+            label="Notifications"
+          ></lojee-button>
+          <lojee-button icon="plus" icon-only="true" variant="solid" color="emerald" shape="square" label="Add"></lojee-button>
+        </div>
+      </section>
+
+      <section>
+        <h2>Split button</h2>
+        <div class="row">
+          <lojee-split-button id="split" icon="check" label="Approve"></lojee-split-button>
+        </div>
+      </section>
+
+      <section>
+        <h2>Button group</h2>
+        <div class="row">
+          <lojee-button-group>
+            <lojee-segment-button id="seg-day">Day</lojee-segment-button>
+            <lojee-segment-button id="seg-week" active="true">Week</lojee-segment-button>
+            <lojee-segment-button id="seg-month">Month</lojee-segment-button>
+          </lojee-button-group>
+        </div>
+      </section>
+
+      <section>
+        <h2>Modal</h2>
+        <div class="row">
+          <lojee-button id="open-modal" color="slate" label="Open modal"></lojee-button>
+        </div>
+        <lojee-modal id="modal" heading="Framework-agnostic Modal">
+          <p>This dialog is a &lt;lojee-modal&gt; custom element — no React anywhere on this page.</p>
+        </lojee-modal>
+      </section>
+
+      <section>
+        <h2>Badge</h2>
+        <div class="row">
+          <lojee-badge variant="solid" color="indigo" label="Solid"></lojee-badge>
+          <lojee-badge variant="outline" color="rose" label="Outline"></lojee-badge>
+          <lojee-badge variant="soft" color="emerald" icon="check" label="Verified"></lojee-badge>
+          <lojee-badge dot="true" color="emerald" label="Online"></lojee-badge>
+        </div>
+      </section>
+
+      <section>
+        <h2>Avatar</h2>
+        <div class="row">
+          <lojee-avatar initials="AB" color="indigo"></lojee-avatar>
+          <lojee-avatar initials="ON" status="online"></lojee-avatar>
+          <lojee-avatar-group>
+            <lojee-avatar initials="AA" color="indigo"></lojee-avatar>
+            <lojee-avatar initials="BB" color="rose"></lojee-avatar>
+            <lojee-avatar initials="CC" color="emerald"></lojee-avatar>
+          </lojee-avatar-group>
+        </div>
+      </section>
+
+      <section>
+        <h2>Icon</h2>
+        <div class="row">
+          <lojee-icon name="settings"></lojee-icon>
+          <lojee-icon name="heart" size="28"></lojee-icon>
+          <lojee-icon name="star" size="32"></lojee-icon>
+        </div>
+      </section>
+
+      <section>
+        <h2>Spinner</h2>
+        <div class="row">
+          <lojee-spinner size="lg" color="indigo"></lojee-spinner>
+          <lojee-spinner size="lg" color="rose" variant="dots"></lojee-spinner>
+        </div>
+      </section>
+
+      <section>
+        <h2>Loader</h2>
+        <div class="row">
+          <lojee-loader shape="circle" width="40"></lojee-loader>
+          <div style="width: 200px">
+            <lojee-loader shape="text" lines="3"></lojee-loader>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Divider</h2>
+        <div style="max-width: 300px">
+          <lojee-divider label="OR"></lojee-divider>
+        </div>
+      </section>
+
+      <section>
+        <h2>Tooltip</h2>
+        <div class="row">
+          <lojee-tooltip content="Hello from a Web Component" position="top">
+            <lojee-button color="slate" label="Hover me"></lojee-button>
+          </lojee-tooltip>
+        </div>
+      </section>
+
+      <section>
+        <h2>Event log</h2>
+        <div id="event-log">(interact with the components above)</div>
+      </section>
+    </main>
+
+    <script type="module" src="/src/elements/index.ts"></script>
+    <script type="module">
+      const log = document.getElementById("event-log");
+      const write = (msg) => {
+        log.textContent = `${new Date().toLocaleTimeString()}  ${msg}\n` + log.textContent;
+      };
+
+      document.getElementById("split").addEventListener("click", () => write("split-button: main action clicked"));
+      document.getElementById("split").addEventListener("menuclick", () => write("split-button: menuclick"));
+
+      for (const seg of document.querySelectorAll("lojee-segment-button")) {
+        seg.addEventListener("click", () => {
+          for (const s of document.querySelectorAll("lojee-segment-button")) s.active = s === seg;
+          write(`segment-button: ${seg.id} selected`);
+        });
+      }
+
+      const modal = document.getElementById("modal");
+      document.getElementById("open-modal").addEventListener("click", () => {
+        modal.open = true;
+        write("modal: opened");
+      });
+      modal.addEventListener("close", () => {
+        modal.open = false;
+        write("modal: close requested (backdrop, ✕, or Escape)");
+      });
+    </script>
+  </body>
+</html>
