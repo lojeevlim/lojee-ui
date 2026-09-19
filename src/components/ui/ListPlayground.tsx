@@ -32,7 +32,7 @@ export default function ListPlayground() {
   // HTML page needs to actually load the `<l-*>` definitions. Note the
   // explicit `ordered="true"` — r2wc's boolean parser needs a non-empty
   // value, so a bare attribute would silently parse to false.
-  const htmlMarkup = `<List variant="${variant}"${ordered ? ` ordered="true"` : ""}>
+  const htmlMarkup = `<List variant="${variant}"${ordered ? ` ordered` : ""}>
   <ListItem icon="file">Project brief.pdf</ListItem>
   <ListItem icon="image">Cover photo.png</ListItem>
   <ListItem icon="folder">Archive</ListItem>

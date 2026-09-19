@@ -195,18 +195,18 @@ export class ButtonShowcaseComponent {}`,
 <Button variant="gradient" color="rose" label="Upgrade to Pro" />
 <Button variant="gradient" color="emerald" label="Claim offer" />
 <Button variant="gradient" color="blue" label="Try for free" />`,
-            js: `<Button variant="gradient" color="indigo" icon="arrow-right" icon-position="right" label="Get started" />
+            js: `<Button variant="gradient" color="indigo" icon="arrow-right" iconPosition="right" label="Get started" />
 <Button variant="gradient" color="rose" label="Upgrade to Pro" />
 <Button variant="gradient" color="emerald" label="Claim offer" />
 <Button variant="gradient" color="blue" label="Try for free" />`,
             vue: `<template>
-  <Button variant="gradient" color="indigo" icon="arrow-right" icon-position="right" label="Get started" />
+  <Button variant="gradient" color="indigo" icon="arrow-right" iconPosition="right" label="Get started" />
   <Button variant="gradient" color="rose" label="Upgrade to Pro" />
   <Button variant="gradient" color="emerald" label="Claim offer" />
   <Button variant="gradient" color="blue" label="Try for free" />
 </template>`,
             angular: `<!-- reuses ButtonShowcaseComponent from above -->
-<Button variant="gradient" color="indigo" icon="arrow-right" icon-position="right" label="Get started" />
+<Button variant="gradient" color="indigo" icon="arrow-right" iconPosition="right" label="Get started" />
 <Button variant="gradient" color="rose" label="Upgrade to Pro" />
 <Button variant="gradient" color="emerald" label="Claim offer" />
 <Button variant="gradient" color="blue" label="Try for free" />`,
@@ -232,19 +232,19 @@ export class ButtonShowcaseComponent {}`,
 <Button icon="arrow-right" iconPosition="right" variant="ghost" label="Continue" />
 <Button color="rose" variant="outline" icon="trash-2" label="Delete" />`,
             js: `<Button icon="plus" variant="solid" label="New item" />
-<Button icon="download" icon-position="right" variant="outline" label="Download" />
-<Button icon="arrow-right" icon-position="right" variant="ghost" label="Continue" />
+<Button icon="download" iconPosition="right" variant="outline" label="Download" />
+<Button icon="arrow-right" iconPosition="right" variant="ghost" label="Continue" />
 <Button color="rose" variant="outline" icon="trash-2" label="Delete" />`,
             vue: `<template>
   <Button icon="plus" variant="solid" label="New item" />
-  <Button icon="download" icon-position="right" variant="outline" label="Download" />
-  <Button icon="arrow-right" icon-position="right" variant="ghost" label="Continue" />
+  <Button icon="download" iconPosition="right" variant="outline" label="Download" />
+  <Button icon="arrow-right" iconPosition="right" variant="ghost" label="Continue" />
   <Button color="rose" variant="outline" icon="trash-2" label="Delete" />
 </template>`,
             angular: `<!-- reuses ButtonShowcaseComponent from above -->
 <Button icon="plus" variant="solid" label="New item" />
-<Button icon="download" icon-position="right" variant="outline" label="Download" />
-<Button icon="arrow-right" icon-position="right" variant="ghost" label="Continue" />
+<Button icon="download" iconPosition="right" variant="outline" label="Download" />
+<Button icon="arrow-right" iconPosition="right" variant="ghost" label="Continue" />
 <Button color="rose" variant="outline" icon="trash-2" label="Delete" />`,
           }}
         />
@@ -271,21 +271,21 @@ export class ButtonShowcaseComponent {}`,
 <Button icon="mail" iconOnly variant="soft" color="indigo" shape="pill" label="Mail" />
 <Button icon="bell" iconOnly variant="soft" color="rose" shape="pill" badge={3} label="Notifications" />
 <Button icon="plus" iconOnly variant="solid" color="emerald" shape="square" label="Add" />`,
-            js: `<Button icon="settings" icon-only="true" variant="ghost" shape="pill" label="Settings" />
-<Button icon="mail" icon-only="true" variant="soft" color="indigo" shape="pill" label="Mail" />
-<Button icon="bell" icon-only="true" variant="soft" color="rose" shape="pill" badge="3" label="Notifications" />
-<Button icon="plus" icon-only="true" variant="solid" color="emerald" shape="square" label="Add" />`,
+            js: `<Button icon="settings" iconOnly variant="ghost" shape="pill" label="Settings" />
+<Button icon="mail" iconOnly variant="soft" color="indigo" shape="pill" label="Mail" />
+<Button icon="bell" iconOnly variant="soft" color="rose" shape="pill" badge="3" label="Notifications" />
+<Button icon="plus" iconOnly variant="solid" color="emerald" shape="square" label="Add" />`,
             vue: `<template>
-  <Button icon="settings" icon-only="true" variant="ghost" shape="pill" label="Settings" />
-  <Button icon="mail" icon-only="true" variant="soft" color="indigo" shape="pill" label="Mail" />
-  <Button icon="bell" icon-only="true" variant="soft" color="rose" shape="pill" badge="3" label="Notifications" />
-  <Button icon="plus" icon-only="true" variant="solid" color="emerald" shape="square" label="Add" />
+  <Button icon="settings" iconOnly variant="ghost" shape="pill" label="Settings" />
+  <Button icon="mail" iconOnly variant="soft" color="indigo" shape="pill" label="Mail" />
+  <Button icon="bell" iconOnly variant="soft" color="rose" shape="pill" badge="3" label="Notifications" />
+  <Button icon="plus" iconOnly variant="solid" color="emerald" shape="square" label="Add" />
 </template>`,
             angular: `<!-- reuses ButtonShowcaseComponent from above -->
-<Button icon="settings" icon-only="true" variant="ghost" shape="pill" label="Settings" />
-<Button icon="mail" icon-only="true" variant="soft" color="indigo" shape="pill" label="Mail" />
-<Button icon="bell" icon-only="true" variant="soft" color="rose" shape="pill" badge="3" label="Notifications" />
-<Button icon="plus" icon-only="true" variant="solid" color="emerald" shape="square" label="Add" />`,
+<Button icon="settings" iconOnly variant="ghost" shape="pill" label="Settings" />
+<Button icon="mail" iconOnly variant="soft" color="indigo" shape="pill" label="Mail" />
+<Button icon="bell" iconOnly variant="soft" color="rose" shape="pill" badge="3" label="Notifications" />
+<Button icon="plus" iconOnly variant="solid" color="emerald" shape="square" label="Add" />`,
           }}
         />
       </section>
@@ -313,7 +313,7 @@ export class ButtonShowcaseComponent {}`,
 <Button color="slate" disabled label="Disabled" />
 <Button color="slate" loading={isSaving} onClick={handleSave} label={isSaving ? "Saving…" : "Save changes"} />`,
             js: `<Button color="slate" label="Default — hover me" />
-<Button color="slate" disabled="true" label="Disabled" />
+<Button color="slate" disabled label="Disabled" />
 <Button id="save-btn" color="slate" label="Save changes" />
 
 <script type="module">
@@ -329,7 +329,7 @@ export class ButtonShowcaseComponent {}`,
 </script>`,
             vue: `<template>
   <Button color="slate" label="Default — hover me" />
-  <Button color="slate" disabled="true" label="Disabled" />
+  <Button color="slate" disabled label="Disabled" />
   <Button
     color="slate"
     :loading="isSaving"
@@ -339,7 +339,7 @@ export class ButtonShowcaseComponent {}`,
 </template>`,
             angular: `<!-- reuses ButtonShowcaseComponent from above -->
 <Button color="slate" label="Default — hover me" />
-<Button color="slate" disabled="true" label="Disabled" />
+<Button color="slate" disabled label="Disabled" />
 <Button
   color="slate"
   [loading]="isSaving"
@@ -410,12 +410,38 @@ export class ButtonShowcaseComponent {}`,
           />
         </Row>
         <CodeBlock
-          code={`// Override the root element
+          variants={{
+            react: `// Override the root element
 <Button className="rounded-full ring-2 ring-offset-2 ring-indigo-500" label="Custom root" />
 
 // Target an internal part with classNames — icon, badge (Button also has "root")
 <Button icon="heart" color="rose" variant="soft" label="Liked" classNames={{ icon: "fill-rose-600 text-rose-600" }} />
-<Button icon="bell" iconOnly shape="pill" badge={5} label="Notifications" classNames={{ badge: "bg-indigo-600" }} />`}
+<Button icon="bell" iconOnly shape="pill" badge={5} label="Notifications" classNames={{ badge: "bg-indigo-600" }} />`,
+            js: `<Button className="rounded-full ring-2 ring-offset-2 ring-indigo-500" label="Custom root" />
+<Button id="liked-btn" icon="heart" color="rose" variant="soft" label="Liked" />
+<Button id="notif-btn" icon="bell" iconOnly shape="pill" badge="5" label="Notifications" />
+
+<script type="module">
+  document.getElementById("liked-btn").classNames = { icon: "fill-rose-600 text-rose-600" };
+  document.getElementById("notif-btn").classNames = { badge: "bg-indigo-600" };
+</script>`,
+            vue: `<template>
+  <Button className="rounded-full ring-2 ring-offset-2 ring-indigo-500" label="Custom root" />
+  <Button icon="heart" color="rose" variant="soft" label="Liked" :classNames="likedClassNames" />
+  <Button icon="bell" iconOnly shape="pill" badge="5" label="Notifications" :classNames="notifClassNames" />
+</template>
+
+<script setup>
+const likedClassNames = { icon: "fill-rose-600 text-rose-600" };
+const notifClassNames = { badge: "bg-indigo-600" };
+</script>`,
+            angular: `<Button className="rounded-full ring-2 ring-offset-2 ring-indigo-500" label="Custom root" />
+<Button icon="heart" color="rose" variant="soft" label="Liked" [classNames]="likedClassNames" />
+<Button icon="bell" iconOnly shape="pill" badge="5" label="Notifications" [classNames]="notifClassNames" />
+
+likedClassNames = { icon: "fill-rose-600 text-rose-600" };
+notifClassNames = { badge: "bg-indigo-600" };`,
+          }}
         />
       </section>
     </>

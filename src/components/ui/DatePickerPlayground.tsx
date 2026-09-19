@@ -46,12 +46,12 @@ export default function DatePickerPlayground() {
   // plain attribute. Boolean props need an explicit "true" value since r2wc
   // parses a bare attribute (empty string) as false.
   const wcOptionalAttrs = `${variant !== "outline" ? ` variant="${variant}"` : ""}${
-    invalid ? ` invalid="true"` : ""
-  }${disabled ? ` disabled="true"` : ""}`;
+    invalid ? ` invalid` : ""
+  }${disabled ? ` disabled` : ""}`;
 
   const htmlMarkup =
     layout === "range"
-      ? `<DateRangePicker size="${size}"${wcOptionalAttrs} start-value="${start}" end-value="${end}" />`
+      ? `<DateRangePicker size="${size}"${wcOptionalAttrs} startValue="${start}" endValue="${end}" />`
       : `<DatePicker size="${size}"${wcOptionalAttrs} />`;
 
   const codeVariants: CodeBlockVariants = {

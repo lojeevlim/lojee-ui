@@ -19,10 +19,9 @@ export default function IconPlayground() {
   const preview = <Icon name={name} size={size} className={colorClass} />;
   const code = `<Icon name="${name}" size={${size}}${colorClass !== "text-slate-900" ? ` className="${colorClass}"` : ""} />`;
 
-  // Custom-element markup for the current configuration — l-icon's
-  // `className` prop is dash-cased to "class-name" per r2wc's rule.
+  // Custom-element markup for the current configuration.
   const htmlMarkup = `<Icon name="${name}" size="${size}"${
-    colorClass !== "text-slate-900" ? ` class-name="${colorClass}"` : ""
+    colorClass !== "text-slate-900" ? ` className="${colorClass}"` : ""
   } />`;
 
   const codeVariants: CodeBlockVariants = {

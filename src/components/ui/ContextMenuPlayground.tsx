@@ -43,7 +43,7 @@ export default function ContextMenuPlayground() {
   <div slot="menu">
     <DropdownMenuItem icon="copy">Copy</DropdownMenuItem>
     <DropdownMenuItem icon="pencil">Rename</DropdownMenuItem>
-    <DropdownMenuItem icon="trash-2" danger="true">Delete</DropdownMenuItem>
+    <DropdownMenuItem icon="trash-2" danger>Delete</DropdownMenuItem>
   </div>
   <div>Right-click here</div>
 </ContextMenu>`;

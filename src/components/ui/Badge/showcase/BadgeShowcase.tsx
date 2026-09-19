@@ -148,12 +148,12 @@ export class BadgeShowcaseComponent {}`,
           <CodeBlock
             variants={{
               react: `<Badge dot color="emerald" label="Online" />`,
-              js: `<Badge dot="true" color="emerald" label="Online" />`,
+              js: `<Badge dot color="emerald" label="Online" />`,
               vue: `<template>
-  <Badge dot="true" color="emerald" label="Online" />
+  <Badge dot color="emerald" label="Online" />
 </template>`,
               angular: `<!-- reuses BadgeShowcaseComponent from above -->
-<Badge dot="true" color="emerald" label="Online" />`,
+<Badge dot color="emerald" label="Online" />`,
             }}
           />
         </section>

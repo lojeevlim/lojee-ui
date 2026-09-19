@@ -88,13 +88,13 @@ export class AppComponent {
     <div className="flex h-48 items-center justify-center bg-orange-100 text-orange-700">Slide 4</div>,
   ]}
 />`,
-              js: `<Carousel id="autoplay-carousel" auto-play interval-ms="2500" />
+              js: `<Carousel id="autoplay-carousel" autoPlay intervalMs="2500" />
 
 <script type="module">
   document.getElementById("autoplay-carousel").slides = ["Slide 1", "Slide 2", "Slide 3", "Slide 4"];
 </script>`,
               vue: `<template>
-  <Carousel :slides="slides" auto-play interval-ms="2500" />
+  <Carousel :slides="slides" autoPlay intervalMs="2500" />
 </template>
 
 <script setup>
@@ -104,7 +104,7 @@ const slides = ["Slide 1", "Slide 2", "Slide 3", "Slide 4"];
 slides = ["Slide 1", "Slide 2", "Slide 3", "Slide 4"];
 
 // app.component.html
-<Carousel [slides]="slides" auto-play interval-ms="2500" />`,
+<Carousel [slides]="slides" autoPlay intervalMs="2500" />`,
             }}
           />
         </section>
@@ -127,13 +127,13 @@ slides = ["Slide 1", "Slide 2", "Slide 3", "Slide 4"];
     <div className="flex h-48 items-center justify-center bg-pink-100 text-pink-700">Slide 2</div>,
   ]}
 />`,
-              js: `<Carousel id="dots-carousel" show-arrows="false" />
+              js: `<Carousel id="dots-carousel" showArrows="false" />
 
 <script type="module">
   document.getElementById("dots-carousel").slides = ["Slide 1", "Slide 2"];
 </script>`,
               vue: `<template>
-  <Carousel :slides="slides" show-arrows="false" />
+  <Carousel :slides="slides" showArrows="false" />
 </template>
 
 <script setup>
@@ -143,7 +143,7 @@ const slides = ["Slide 1", "Slide 2"];
 slides = ["Slide 1", "Slide 2"];
 
 // app.component.html
-<Carousel [slides]="slides" show-arrows="false" />`,
+<Carousel [slides]="slides" showArrows="false" />`,
             }}
           />
         </section>

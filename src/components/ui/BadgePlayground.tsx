@@ -27,7 +27,7 @@ export default function BadgePlayground() {
   // attributes are enough for a static snapshot; boolean props must be
   // written as explicit `="true"` since r2wc treats a bare attribute as "".
   const htmlMarkup = `<Badge variant="${variant}" color="${color}" size="${size}"${
-    dot ? ` dot="true"` : ""
+    dot ? ` dot` : ""
   }${icon && !dot ? ` icon="check"` : ""}${dot ? "" : ` label="${label || "Badge"}"`} />`;
 
   const codeVariants: CodeBlockVariants = {

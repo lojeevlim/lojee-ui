@@ -38,10 +38,10 @@ export default function DropdownMenuShowcase() {
   <DropdownMenuItem icon="trash-2" danger onClick={() => remove()}>Delete</DropdownMenuItem>
 </DropdownMenu>`,
               js: `<DropdownMenu id="actions-menu">
-  <Button slot="trigger" variant="outline" icon="more-horizontal" icon-only="true" label="Actions" />
+  <Button slot="trigger" variant="outline" icon="more-horizontal" iconOnly label="Actions" />
   <DropdownMenuItem icon="pencil" id="edit-item">Edit</DropdownMenuItem>
   <DropdownMenuItem icon="copy" id="duplicate-item">Duplicate</DropdownMenuItem>
-  <DropdownMenuItem icon="trash-2" danger="true" id="delete-item">Delete</DropdownMenuItem>
+  <DropdownMenuItem icon="trash-2" danger id="delete-item">Delete</DropdownMenuItem>
 </DropdownMenu>
 
 <script type="module">
@@ -53,10 +53,10 @@ export default function DropdownMenuShowcase() {
 </script>`,
               vue: `<template>
   <DropdownMenu>
-    <Button slot="trigger" variant="outline" icon="more-horizontal" icon-only="true" label="Actions" />
+    <Button slot="trigger" variant="outline" icon="more-horizontal" iconOnly label="Actions" />
     <DropdownMenuItem icon="pencil" @click="edit">Edit</DropdownMenuItem>
     <DropdownMenuItem icon="copy" @click="duplicate">Duplicate</DropdownMenuItem>
-    <DropdownMenuItem icon="trash-2" danger="true" @click="remove">Delete</DropdownMenuItem>
+    <DropdownMenuItem icon="trash-2" danger @click="remove">Delete</DropdownMenuItem>
   </DropdownMenu>
 </template>
 
@@ -73,10 +73,10 @@ import "lojee-ui/elements";
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
     <DropdownMenu>
-      <Button slot="trigger" variant="outline" icon="more-horizontal" icon-only="true" label="Actions" />
+      <Button slot="trigger" variant="outline" icon="more-horizontal" iconOnly label="Actions" />
       <DropdownMenuItem icon="pencil" (click)="edit()">Edit</DropdownMenuItem>
       <DropdownMenuItem icon="copy" (click)="duplicate()">Duplicate</DropdownMenuItem>
-      <DropdownMenuItem icon="trash-2" danger="true" (click)="remove()">Delete</DropdownMenuItem>
+      <DropdownMenuItem icon="trash-2" danger (click)="remove()">Delete</DropdownMenuItem>
     </DropdownMenu>
   \`,
 })
@@ -115,7 +115,7 @@ export class DropdownMenuShowcaseComponent {
   <Button slot="trigger" icon="chevron-down" label="Options" />
   <DropdownMenuItem icon="settings" id="settings-item">Settings</DropdownMenuItem>
   <DropdownMenuItem icon="share-2" id="share-item">Share</DropdownMenuItem>
-  <DropdownMenuItem disabled="true">Archived</DropdownMenuItem>
+  <DropdownMenuItem disabled>Archived</DropdownMenuItem>
 </DropdownMenu>
 
 <script type="module">
@@ -127,7 +127,7 @@ export class DropdownMenuShowcaseComponent {
     <Button slot="trigger" icon="chevron-down" label="Options" />
     <DropdownMenuItem icon="settings" @click="openSettings">Settings</DropdownMenuItem>
     <DropdownMenuItem icon="share-2" @click="share">Share</DropdownMenuItem>
-    <DropdownMenuItem disabled="true">Archived</DropdownMenuItem>
+    <DropdownMenuItem disabled>Archived</DropdownMenuItem>
   </DropdownMenu>
 </template>`,
               angular: `<!-- reuses DropdownMenuShowcaseComponent from above -->
@@ -135,7 +135,7 @@ export class DropdownMenuShowcaseComponent {
   <Button slot="trigger" icon="chevron-down" label="Options" />
   <DropdownMenuItem icon="settings" (click)="openSettings()">Settings</DropdownMenuItem>
   <DropdownMenuItem icon="share-2" (click)="share()">Share</DropdownMenuItem>
-  <DropdownMenuItem disabled="true">Archived</DropdownMenuItem>
+  <DropdownMenuItem disabled>Archived</DropdownMenuItem>
 </DropdownMenu>`,
             }}
           />

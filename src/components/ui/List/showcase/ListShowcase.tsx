@@ -206,10 +206,39 @@ export class AppComponent {}`,
             </div>
           </Row>
           <CodeBlock
-            code={`<List variant="bordered" className="shadow-sm">
+            variants={{
+              react: `<List variant="bordered" className="shadow-sm">
   <ListItem icon="star" classNames={{ icon: "text-amber-500" }}>Featured item</ListItem>
   <ListItem icon="heart" classNames={{ icon: "text-rose-500" }}>Liked item</ListItem>
-</List>`}
+</List>`,
+              js: `<List variant="bordered" className="shadow-sm">
+  <ListItem id="featured-item" icon="star">Featured item</ListItem>
+  <ListItem id="liked-item" icon="heart">Liked item</ListItem>
+</List>
+
+<script type="module">
+  document.getElementById("featured-item").classNames = { icon: "text-amber-500" };
+  document.getElementById("liked-item").classNames = { icon: "text-rose-500" };
+</script>`,
+              vue: `<template>
+  <List variant="bordered" className="shadow-sm">
+    <ListItem icon="star" :classNames="featuredClassNames">Featured item</ListItem>
+    <ListItem icon="heart" :classNames="likedClassNames">Liked item</ListItem>
+  </List>
+</template>
+
+<script setup>
+const featuredClassNames = { icon: "text-amber-500" };
+const likedClassNames = { icon: "text-rose-500" };
+</script>`,
+              angular: `<List variant="bordered" className="shadow-sm">
+  <ListItem icon="star" [classNames]="featuredClassNames">Featured item</ListItem>
+  <ListItem icon="heart" [classNames]="likedClassNames">Liked item</ListItem>
+</List>
+
+featuredClassNames = { icon: "text-amber-500" };
+likedClassNames = { icon: "text-rose-500" };`,
+            }}
           />
         </section>
       </div>

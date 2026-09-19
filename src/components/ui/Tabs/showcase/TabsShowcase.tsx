@@ -147,7 +147,7 @@ tabs = [
     { label: "Shipping", content: <p>Shipping and returns.</p> },
   ]}
 />`,
-              js: `<Tabs id="color-tabs" color="indigo" default-index="1" />
+              js: `<Tabs id="color-tabs" color="indigo" defaultIndex="1" />
 
 <script type="module">
   document.getElementById("color-tabs").tabs = [
@@ -157,7 +157,7 @@ tabs = [
   ];
 </script>`,
               vue: `<template>
-  <Tabs :tabs="tabs" color="indigo" default-index="1" />
+  <Tabs :tabs="tabs" color="indigo" defaultIndex="1" />
 </template>
 
 <script setup>
@@ -175,7 +175,7 @@ tabs = [
 ];
 
 // app.component.html
-<Tabs [tabs]="tabs" color="indigo" default-index="1" />`,
+<Tabs [tabs]="tabs" color="indigo" defaultIndex="1" />`,
             }}
           />
         </section>

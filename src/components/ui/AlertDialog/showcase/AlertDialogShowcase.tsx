@@ -140,7 +140,7 @@ export class AlertDialogShowcaseComponent {
   variant="destructive"
   heading="Delete item?"
   description="This will permanently remove the item. This action cannot be undone."
-  confirm-label="Delete"
+  confirmLabel="Delete"
  />
 
 <script type="module">
@@ -157,7 +157,7 @@ export class AlertDialogShowcaseComponent {
     variant="destructive"
     heading="Delete item?"
     description="This will permanently remove the item. This action cannot be undone."
-    confirm-label="Delete"
+    confirmLabel="Delete"
     @close="open = false"
     @confirm="handleConfirm"
   />
@@ -168,7 +168,7 @@ export class AlertDialogShowcaseComponent {
   variant="destructive"
   heading="Delete item?"
   description="This will permanently remove the item. This action cannot be undone."
-  confirm-label="Delete"
+  confirmLabel="Delete"
   (close)="open = false"
   (confirm)="handleConfirm()"
  />`,
@@ -203,8 +203,8 @@ export class AlertDialogShowcaseComponent {
   id="leave-dialog"
   heading="Leave without saving?"
   description="You have unsaved changes that will be lost."
-  confirm-label="Leave"
-  cancel-label="Stay"
+  confirmLabel="Leave"
+  cancelLabel="Stay"
  />
 
 <script type="module">
@@ -220,8 +220,8 @@ export class AlertDialogShowcaseComponent {
     :open="open"
     heading="Leave without saving?"
     description="You have unsaved changes that will be lost."
-    confirm-label="Leave"
-    cancel-label="Stay"
+    confirmLabel="Leave"
+    cancelLabel="Stay"
     @close="open = false"
     @confirm="handleConfirm"
   />
@@ -231,8 +231,8 @@ export class AlertDialogShowcaseComponent {
   [open]="open"
   heading="Leave without saving?"
   description="You have unsaved changes that will be lost."
-  confirm-label="Leave"
-  cancel-label="Stay"
+  confirmLabel="Leave"
+  cancelLabel="Stay"
   (close)="open = false"
   (confirm)="handleConfirm()"
  />`,

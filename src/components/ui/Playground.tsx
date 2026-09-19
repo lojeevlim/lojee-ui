@@ -41,6 +41,14 @@ import PopoverPlayground from "./PopoverPlayground";
 import DropdownMenuPlayground from "./DropdownMenuPlayground";
 import ContextMenuPlayground from "./ContextMenuPlayground";
 import CommandMenuPlayground from "./CommandMenuPlayground";
+import AlertPlayground from "./AlertPlayground";
+import ToastPlayground from "./ToastPlayground";
+import NotificationPlayground from "./NotificationPlayground";
+import ProgressBarPlayground from "./ProgressBarPlayground";
+import EmptyStatePlayground from "./EmptyStatePlayground";
+import ErrorStatePlayground from "./ErrorStatePlayground";
+import SuccessStatePlayground from "./SuccessStatePlayground";
+import LoadingStatePlayground from "./LoadingStatePlayground";
 
 export interface PlaygroundProps {
   itemLabel?: string;
@@ -89,6 +97,14 @@ const PLAYGROUNDS: Record<string, ComponentType> = {
   "Command Menu": CommandMenuPlayground,
   "Alert Dialog": AlertDialogPlayground,
   Tooltip: TooltipPlayground,
+  Alert: AlertPlayground,
+  Toast: ToastPlayground,
+  Notification: NotificationPlayground,
+  "Progress Bar": ProgressBarPlayground,
+  "Empty State": EmptyStatePlayground,
+  "Error State": ErrorStatePlayground,
+  "Success State": SuccessStatePlayground,
+  "Loading State": LoadingStatePlayground,
 };
 
 export default function Playground({ itemLabel }: PlaygroundProps) {

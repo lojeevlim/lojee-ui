@@ -76,7 +76,7 @@ export class AppComponent {
           <CodeBlock
             variants={{
               react: `<RangeSlider value={value} onChange={setValue} color="indigo" showValue />`,
-              js: `<RangeSlider id="range-colored" color="indigo" show-value />
+              js: `<RangeSlider id="range-colored" color="indigo" showValue />
 
 <script type="module">
   const rangeColored = document.getElementById("range-colored");
@@ -86,10 +86,10 @@ export class AppComponent {
   });
 </script>`,
               vue: `<template>
-  <RangeSlider :value="value" color="indigo" show-value @change="value = $event.detail" />
+  <RangeSlider :value="value" color="indigo" showValue @change="value = $event.detail" />
 </template>`,
               angular: `<!-- app.component.html — reuses the same AppComponent class, with value initialized to [30, 80] -->
-<RangeSlider [value]="value" color="indigo" show-value (change)="value = $event.detail" />`,
+<RangeSlider [value]="value" color="indigo" showValue (change)="value = $event.detail" />`,
             }}
           />
         </section>
@@ -118,7 +118,7 @@ export class AppComponent {
   color="emerald"
   showValue
 />`,
-              js: `<RangeSlider id="price-range" min="0" max="1000" step="10" color="emerald" show-value />
+              js: `<RangeSlider id="price-range" min="0" max="1000" step="10" color="emerald" showValue />
 
 <script type="module">
   const priceRange = document.getElementById("price-range");
@@ -134,7 +134,7 @@ export class AppComponent {
     max="1000"
     step="10"
     color="emerald"
-    show-value
+    showValue
     @change="value = $event.detail"
   />
 </template>`,
@@ -145,7 +145,7 @@ export class AppComponent {
   max="1000"
   step="10"
   color="emerald"
-  show-value
+  showValue
   (change)="value = $event.detail"
  />`,
             }}

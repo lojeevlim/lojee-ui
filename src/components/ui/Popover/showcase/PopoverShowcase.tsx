@@ -95,7 +95,8 @@ export class PopoverShowcaseComponent {}`,
             </Popover>
           </Row>
           <CodeBlock
-            code={`<Popover
+            variants={{
+              react: `<Popover
   position="bottom"
   content={
     <div className="w-56">
@@ -107,7 +108,37 @@ export class PopoverShowcaseComponent {}`,
   }
 >
   <Button icon="plus" label="Invite" />
-</Popover>`}
+</Popover>`,
+              js: `<Popover position="bottom">
+  <Button icon="plus" label="Invite" />
+  <div slot="content" className="w-56">
+    <p className="text-sm font-semibold text-slate-900">Invite a teammate</p>
+    <p className="mt-1 text-xs text-slate-500">They'll get an email invite to join this workspace.</p>
+    <input type="email" placeholder="name@company.com" />
+    <Button className="mt-3 w-full" size="sm" label="Send invite" />
+  </div>
+</Popover>`,
+              vue: `<template>
+  <Popover position="bottom">
+    <Button icon="plus" label="Invite" />
+    <div slot="content" class="w-56">
+      <p class="text-sm font-semibold text-slate-900">Invite a teammate</p>
+      <p class="mt-1 text-xs text-slate-500">They'll get an email invite to join this workspace.</p>
+      <input type="email" placeholder="name@company.com" />
+      <Button class="mt-3 w-full" size="sm" label="Send invite" />
+    </div>
+  </Popover>
+</template>`,
+              angular: `<Popover position="bottom">
+  <Button icon="plus" label="Invite" />
+  <div slot="content" class="w-56">
+    <p class="text-sm font-semibold text-slate-900">Invite a teammate</p>
+    <p class="mt-1 text-xs text-slate-500">They'll get an email invite to join this workspace.</p>
+    <input type="email" placeholder="name@company.com" />
+    <Button class="mt-3 w-full" size="sm" label="Send invite" />
+  </div>
+</Popover>`,
+            }}
           />
         </section>
       </div>

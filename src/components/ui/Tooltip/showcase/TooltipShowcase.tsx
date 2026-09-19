@@ -124,12 +124,12 @@ export class TooltipShowcaseComponent {}`,
           <CodeBlock
             variants={{
               react: `<Tooltip content="Waits a bit" delayMs={500}>...</Tooltip>`,
-              js: `<Tooltip content="Waits a bit" delay-ms="500">...</Tooltip>`,
+              js: `<Tooltip content="Waits a bit" delayMs="500">...</Tooltip>`,
               vue: `<template>
-  <Tooltip content="Waits a bit" delay-ms="500">...</Tooltip>
+  <Tooltip content="Waits a bit" delayMs="500">...</Tooltip>
 </template>`,
               angular: `<!-- reuses TooltipShowcaseComponent from above -->
-<Tooltip content="Waits a bit" delay-ms="500">...</Tooltip>`,
+<Tooltip content="Waits a bit" delayMs="500">...</Tooltip>`,
             }}
           />
         </section>

@@ -34,7 +34,7 @@ export default function CardPlayground() {
 
   // Custom-element markup for the current configuration — l-card's `footer`
   // prop is a plain string (unlike React's JSX footer node above).
-  const htmlMarkup = `<Card variant="${variant}" padding="${padding}"${hoverable ? ` hoverable="true"` : ""}${
+  const htmlMarkup = `<Card variant="${variant}" padding="${padding}"${hoverable ? ` hoverable` : ""}${
     withTitle ? ` title="Card title"` : ""
   }${withFooter ? ` footer="Footer content"` : ""}>
   Sample content

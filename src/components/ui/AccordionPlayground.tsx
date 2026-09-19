@@ -48,7 +48,7 @@ export default function AccordionPlayground() {
   // <AccordionItem> siblings stay mutually exclusive via the native
   // <details name> behavior, so this works identically in plain HTML too.
   const htmlMarkup = `<Accordion>
-  <AccordionItem${name ? ` name="${name}"` : ""} title="Section one" default-open="true">
+  <AccordionItem${name ? ` name="${name}"` : ""} title="Section one" defaultOpen>
     Content for section one.
   </AccordionItem>
   <AccordionItem${name ? ` name="${name}"` : ""} title="Section two">

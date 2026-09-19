@@ -44,8 +44,8 @@ export default function CarouselPlayground() {
   // SAMPLE_SLIDES have no registered `<Carousel>` equivalent (arbitrary JSX
   // content isn't representable outside React), so each slide's plain text
   // is reproduced instead.
-  const attrs = `${autoPlay ? ` auto-play="true"` : ""}${!showArrows ? ` show-arrows="false"` : ""}${
-    !showDots ? ` show-dots="false"` : ""
+  const attrs = `${autoPlay ? ` autoPlay` : ""}${!showArrows ? ` showArrows="false"` : ""}${
+    !showDots ? ` showDots="false"` : ""
   }`;
 
   const slidesData = `["Slide 1", "Slide 2", "Slide 3"]`;

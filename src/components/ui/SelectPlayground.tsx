@@ -43,7 +43,7 @@ export default function SelectPlayground() {
   // one exception — it's JSON-typed on `<Select>`, so it's assigned via a
   // real DOM property (js) or a `:options`/`[options]` binding (vue/angular)
   // against the same fixed constant, never as a stringified attribute.
-  const selectAttrs = `size="${size}"${invalid ? ` invalid="true"` : ""}${disabled ? ` disabled="true"` : ""}${
+  const selectAttrs = `size="${size}"${invalid ? ` invalid` : ""}${disabled ? ` disabled` : ""}${
     placeholder ? ` placeholder="${placeholder}"` : ""
   }`;
 

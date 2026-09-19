@@ -25,7 +25,7 @@ export default function PaginationShowcase() {
               react: `const [page, setPage] = useState(1);
 
 <Pagination page={page} totalPages={5} onPageChange={setPage} />`,
-              js: `<Pagination id="basic-pagination" total-pages="5" />
+              js: `<Pagination id="basic-pagination" totalPages="5" />
 
 <script type="module">
   import "lojee-ui/elements";
@@ -37,7 +37,7 @@ export default function PaginationShowcase() {
   });
 </script>`,
               vue: `<template>
-  <Pagination :page="page" total-pages="5" @pagechange="page = $event.detail" />
+  <Pagination :page="page" totalPages="5" @pagechange="page = $event.detail" />
 </template>
 
 <script setup>
@@ -54,7 +54,7 @@ import "lojee-ui/elements";
   selector: "app-root",
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  template: \`<Pagination [page]="page" total-pages="5" (pagechange)="page = $event.detail" />\`,
+  template: \`<Pagination [page]="page" totalPages="5" (pagechange)="page = $event.detail" />\`,
 })
 export class AppComponent {
   page = 1;
@@ -71,7 +71,7 @@ export class AppComponent {
               react: `const [page, setPage] = useState(6);
 
 <Pagination page={page} totalPages={20} onPageChange={setPage} />`,
-              js: `<Pagination id="long-pagination" total-pages="20" />
+              js: `<Pagination id="long-pagination" totalPages="20" />
 
 <script type="module">
   const pagination = document.getElementById("long-pagination");
@@ -81,7 +81,7 @@ export class AppComponent {
   });
 </script>`,
               vue: `<template>
-  <Pagination :page="page" total-pages="20" @pagechange="page = $event.detail" />
+  <Pagination :page="page" totalPages="20" @pagechange="page = $event.detail" />
 </template>
 
 <script setup>
@@ -90,7 +90,7 @@ import { ref } from "vue";
 const page = ref(6);
 </script>`,
               angular: `<!-- reuses the AppComponent class from above (with \`page\` initialized accordingly) -->
-<Pagination [page]="page" total-pages="20" (pagechange)="page = $event.detail" />`,
+<Pagination [page]="page" totalPages="20" (pagechange)="page = $event.detail" />`,
             }}
           />
         </section>
@@ -101,7 +101,7 @@ const page = ref(6);
           <CodeBlock
             variants={{
               react: `<Pagination page={page} totalPages={20} siblingCount={2} onPageChange={setPage} />`,
-              js: `<Pagination id="wide-pagination" total-pages="20" sibling-count="2" />
+              js: `<Pagination id="wide-pagination" totalPages="20" siblingCount="2" />
 
 <script type="module">
   const pagination = document.getElementById("wide-pagination");
@@ -111,7 +111,7 @@ const page = ref(6);
   });
 </script>`,
               vue: `<template>
-  <Pagination :page="page" total-pages="20" sibling-count="2" @pagechange="page = $event.detail" />
+  <Pagination :page="page" totalPages="20" siblingCount="2" @pagechange="page = $event.detail" />
 </template>
 
 <script setup>
@@ -120,7 +120,7 @@ import { ref } from "vue";
 const page = ref(6);
 </script>`,
               angular: `<!-- reuses the AppComponent class from above (with \`page\` initialized accordingly) -->
-<Pagination [page]="page" total-pages="20" sibling-count="2" (pagechange)="page = $event.detail" />`,
+<Pagination [page]="page" totalPages="20" siblingCount="2" (pagechange)="page = $event.detail" />`,
             }}
           />
         </section>
@@ -131,7 +131,7 @@ const page = ref(6);
           <CodeBlock
             variants={{
               react: `<Pagination page={page} totalPages={10} color="indigo" onPageChange={setPage} />`,
-              js: `<Pagination id="color-pagination" total-pages="10" color="indigo" />
+              js: `<Pagination id="color-pagination" totalPages="10" color="indigo" />
 
 <script type="module">
   const pagination = document.getElementById("color-pagination");
@@ -141,7 +141,7 @@ const page = ref(6);
   });
 </script>`,
               vue: `<template>
-  <Pagination :page="page" total-pages="10" color="indigo" @pagechange="page = $event.detail" />
+  <Pagination :page="page" totalPages="10" color="indigo" @pagechange="page = $event.detail" />
 </template>
 
 <script setup>
@@ -150,7 +150,7 @@ import { ref } from "vue";
 const page = ref(3);
 </script>`,
               angular: `<!-- reuses the AppComponent class from above (with \`page\` initialized accordingly) -->
-<Pagination [page]="page" total-pages="10" color="indigo" (pagechange)="page = $event.detail" />`,
+<Pagination [page]="page" totalPages="10" color="indigo" (pagechange)="page = $event.detail" />`,
             }}
           />
         </section>

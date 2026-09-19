@@ -187,16 +187,16 @@ export default function ButtonPlayground() {
   const htmlMarkup = (() => {
     if (layout === "icon") {
       const shapeAttr = shape !== "default" ? ` shape="${shape}"` : "";
-      return `<Button icon="${iconKey}" icon-only="true" variant="${variant}" color="${color}" size="${size}"${shapeAttr} label="${label || "Icon button"}" />`;
+      return `<Button icon="${iconKey}" iconOnly variant="${variant}" color="${color}" size="${size}"${shapeAttr} label="${label || "Icon button"}" />`;
     }
     if (layout === "group") {
       const shapeAttr = shape !== "default" ? ` shape="${shape}"` : "";
       const colorAttr = color !== "slate" ? ` color="${color}"` : "";
-      return `<ButtonGroup${shapeAttr}>\n  <SegmentButton active="true"${colorAttr}>${label || "One"}</SegmentButton>\n  <SegmentButton${colorAttr}>Two</SegmentButton>\n  <SegmentButton${colorAttr}>Three</SegmentButton>\n</ButtonGroup>`;
+      return `<ButtonGroup${shapeAttr}>\n  <SegmentButton active${colorAttr}>${label || "One"}</SegmentButton>\n  <SegmentButton${colorAttr}>Two</SegmentButton>\n  <SegmentButton${colorAttr}>Three</SegmentButton>\n</ButtonGroup>`;
     }
     if (layout === "split") {
       const shapeAttr = shape !== "default" ? ` shape="${shape}"` : "";
-      const menuIconAttr = menuIconKey !== "chevron-down" ? ` menu-icon="${menuIconKey}"` : "";
+      const menuIconAttr = menuIconKey !== "chevron-down" ? ` menuIcon="${menuIconKey}"` : "";
       if (menuItems.length > 0) {
         const itemsCode = menuItems
           .map((item) => {
@@ -209,9 +209,9 @@ export default function ButtonPlayground() {
       return `<SplitButton icon="check" label="${label || "Approve"}" color="${color}" size="${size}"${shapeAttr}${menuIconAttr} />`;
     }
     return `<Button variant="${variant}" color="${color}"${
-      variant === "gradient" ? ` gradient-to="${gradientTo}"` : ""
+      variant === "gradient" ? ` gradientTo="${gradientTo}"` : ""
     } size="${size}"${shape !== "default" ? ` shape="${shape}"` : ""} icon="${iconKey}"${
-      iconPosition === "right" ? ` icon-position="right"` : ""
+      iconPosition === "right" ? ` iconPosition="right"` : ""
     } label="${label}" />`;
   })();
 

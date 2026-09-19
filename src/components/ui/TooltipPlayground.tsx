@@ -31,7 +31,7 @@ export default function TooltipPlayground() {
   // child, mirroring how the React code nests <Button> inside <Tooltip>.
   const htmlMarkup = `<Tooltip content="${content || "Tooltip text"}" position="${position}"${
     color !== "slate" ? ` color="${color}"` : ""
-  }${delayMs !== 150 ? ` delay-ms="${delayMs}"` : ""}>
+  }${delayMs !== 150 ? ` delayMs="${delayMs}"` : ""}>
   <Button variant="outline" label="Hover me" />
 </Tooltip>`;
 

@@ -34,7 +34,7 @@ export default function AccordionShowcase() {
   </AccordionItem>
 </Accordion>`,
               js: `<Accordion>
-  <AccordionItem title="What is lojee-ui?" default-open>
+  <AccordionItem title="What is lojee-ui?" defaultOpen>
     A React + TypeScript + Tailwind component library that also ships as
     framework-agnostic Web Components.
   </AccordionItem>
@@ -45,7 +45,7 @@ export default function AccordionShowcase() {
 </script>`,
               vue: `<template>
   <Accordion>
-    <AccordionItem title="What is lojee-ui?" default-open>
+    <AccordionItem title="What is lojee-ui?" defaultOpen>
       A React + TypeScript + Tailwind component library that also ships as
       framework-agnostic Web Components.
     </AccordionItem>
@@ -65,7 +65,7 @@ import "lojee-ui/elements";
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
     <Accordion>
-      <AccordionItem title="What is lojee-ui?" default-open>
+      <AccordionItem title="What is lojee-ui?" defaultOpen>
         A React + TypeScript + Tailwind component library that also ships as
         framework-agnostic Web Components.
       </AccordionItem>
@@ -112,7 +112,7 @@ export class AppComponent {}`,
   </AccordionItem>
 </Accordion>`,
               js: `<Accordion>
-  <AccordionItem name="faq" title="How do I install it?" default-open>
+  <AccordionItem name="faq" title="How do I install it?" defaultOpen>
     Run \`npm install lojee-ui\` and import the component you need.
   </AccordionItem>
   <AccordionItem name="faq" title="Does it work outside React?">
@@ -126,7 +126,7 @@ export class AppComponent {}`,
 </Accordion>`,
               vue: `<template>
   <Accordion>
-    <AccordionItem name="faq" title="How do I install it?" default-open>
+    <AccordionItem name="faq" title="How do I install it?" defaultOpen>
       Run \`npm install lojee-ui\` and import the component you need.
     </AccordionItem>
     <AccordionItem name="faq" title="Does it work outside React?">
@@ -141,7 +141,7 @@ export class AppComponent {}`,
 </template>`,
               angular: `<!-- reuses the AppComponent from above -->
 <Accordion>
-  <AccordionItem name="faq" title="How do I install it?" default-open>
+  <AccordionItem name="faq" title="How do I install it?" defaultOpen>
     Run \`npm install lojee-ui\` and import the component you need.
   </AccordionItem>
   <AccordionItem name="faq" title="Does it work outside React?">
@@ -247,7 +247,8 @@ export class AppComponent {}`,
             </div>
           </Row>
           <CodeBlock
-            code={`<Accordion className="border-indigo-200 divide-indigo-200">
+            variants={{
+              react: `<Accordion className="border-indigo-200 divide-indigo-200">
   <AccordionItem
     title="Custom colors"
     defaultOpen
@@ -255,7 +256,39 @@ export class AppComponent {}`,
   >
     Every slot can be restyled independently via classNames.
   </AccordionItem>
-</Accordion>`}
+</Accordion>`,
+              js: `<Accordion className="border-indigo-200 divide-indigo-200">
+  <AccordionItem id="custom-colors-item" title="Custom colors" defaultOpen>
+    Every slot can be restyled independently via classNames.
+  </AccordionItem>
+</Accordion>
+
+<script type="module">
+  document.getElementById("custom-colors-item").classNames = {
+    trigger: "text-indigo-900",
+    icon: "text-indigo-400",
+    panel: "text-indigo-700",
+  };
+</script>`,
+              vue: `<template>
+  <Accordion className="border-indigo-200 divide-indigo-200">
+    <AccordionItem title="Custom colors" defaultOpen :classNames="itemClassNames">
+      Every slot can be restyled independently via classNames.
+    </AccordionItem>
+  </Accordion>
+</template>
+
+<script setup>
+const itemClassNames = { trigger: "text-indigo-900", icon: "text-indigo-400", panel: "text-indigo-700" };
+</script>`,
+              angular: `<Accordion className="border-indigo-200 divide-indigo-200">
+  <AccordionItem title="Custom colors" defaultOpen [classNames]="itemClassNames">
+    Every slot can be restyled independently via classNames.
+  </AccordionItem>
+</Accordion>
+
+itemClassNames = { trigger: "text-indigo-900", icon: "text-indigo-400", panel: "text-indigo-700" };`,
+            }}
           />
         </section>
       </div>

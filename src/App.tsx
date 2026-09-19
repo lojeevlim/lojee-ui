@@ -42,6 +42,14 @@ import PopoverShowcase from './components/ui/Popover'
 import DropdownMenuShowcase from './components/ui/DropdownMenu'
 import ContextMenuShowcase from './components/ui/ContextMenu'
 import CommandMenuShowcase from './components/ui/CommandMenu'
+import AlertShowcase from './components/ui/Alert'
+import ToastShowcase from './components/ui/Toast'
+import NotificationShowcase from './components/ui/Notification'
+import ProgressBarShowcase from './components/ui/ProgressBar'
+import EmptyStateShowcase from './components/ui/EmptyState'
+import ErrorStateShowcase from './components/ui/ErrorState'
+import SuccessStateShowcase from './components/ui/SuccessState'
+import LoadingStateShowcase from './components/ui/LoadingState'
 
 import Sidebar from './components/layouts/Sidebar'
 import Header, { type HeaderNavKey } from './components/layouts/Header'
@@ -93,6 +101,14 @@ const SHOWCASES: Record<string, ComponentType> = {
   'Command Menu': CommandMenuShowcase,
   'Alert Dialog': AlertDialogShowcase,
   Tooltip: TooltipShowcase,
+  Alert: AlertShowcase,
+  Toast: ToastShowcase,
+  Notification: NotificationShowcase,
+  'Progress Bar': ProgressBarShowcase,
+  'Empty State': EmptyStateShowcase,
+  'Error State': ErrorStateShowcase,
+  'Success State': SuccessStateShowcase,
+  'Loading State': LoadingStateShowcase,
 }
 
 function App() {

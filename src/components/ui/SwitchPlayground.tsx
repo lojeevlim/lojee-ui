@@ -33,8 +33,8 @@ export default function SwitchPlayground() {
   // snapshot); the "js" variant just adds the one-time module import a plain
   // HTML page needs to actually load the `<l-*>` definitions.
   const htmlMarkup = `<Switch size="${size}" color="${color}"${
-    checked ? ` default-checked="true"` : ""
-  }${disabled ? ` disabled="true"` : ""}${label ? ` label="${label}"` : ""} />`;
+    checked ? ` defaultChecked` : ""
+  }${disabled ? ` disabled` : ""}${label ? ` label="${label}"` : ""} />`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,

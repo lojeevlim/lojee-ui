@@ -42,7 +42,7 @@ ${OPTIONS.map(
 ${OPTIONS.map(
   (option) =>
     `  <Radio name="playground" color="${color}" label="${option}"${
-      option === selected ? ` default-checked="true"` : ""
+      option === selected ? ` defaultChecked` : ""
     } />`
 ).join("\n")}
 </RadioGroup>`;

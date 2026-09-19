@@ -35,7 +35,7 @@ export default function DropdownMenuPlayground() {
   <Button slot="trigger" icon="chevron-down" label="Options" />
   <DropdownMenuItem icon="pencil">Edit</DropdownMenuItem>
   <DropdownMenuItem icon="copy">Duplicate</DropdownMenuItem>
-  <DropdownMenuItem icon="trash-2" danger="true">Delete</DropdownMenuItem>
+  <DropdownMenuItem icon="trash-2" danger>Delete</DropdownMenuItem>
 </DropdownMenu>`;
 
   const codeVariants: CodeBlockVariants = {

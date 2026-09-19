@@ -60,18 +60,18 @@ export class SplitButtonShowcaseComponent {}`,
             js: `<SplitButton icon="check" label="Approve" shape="default" />
 <SplitButton icon="check" label="Approve" shape="pill" />
 <SplitButton icon="check" label="Approve" shape="square" />
-<SplitButton icon="download" label="Export" menu-icon="more-vertical" />`,
+<SplitButton icon="download" label="Export" menuIcon="more-vertical" />`,
             vue: `<template>
   <SplitButton icon="check" label="Approve" shape="default" />
   <SplitButton icon="check" label="Approve" shape="pill" />
   <SplitButton icon="check" label="Approve" shape="square" />
-  <SplitButton icon="download" label="Export" menu-icon="more-vertical" />
+  <SplitButton icon="download" label="Export" menuIcon="more-vertical" />
 </template>`,
             angular: `<!-- reuses SplitButtonShowcaseComponent from above -->
 <SplitButton icon="check" label="Approve" shape="default" />
 <SplitButton icon="check" label="Approve" shape="pill" />
 <SplitButton icon="check" label="Approve" shape="square" />
-<SplitButton icon="download" label="Export" menu-icon="more-vertical" />`,
+<SplitButton icon="download" label="Export" menuIcon="more-vertical" />`,
           }}
         />
       </div>
@@ -106,7 +106,7 @@ export class SplitButtonShowcaseComponent {}`,
   <SplitButtonMenuItem icon="file" id="export-pdf">Export as PDF</SplitButtonMenuItem>
   <SplitButtonMenuItem icon="list" id="export-csv">Export as CSV</SplitButtonMenuItem>
   <SplitButtonMenuItem icon="image" id="export-png">Export as PNG</SplitButtonMenuItem>
-  <SplitButtonMenuItem disabled="true">Cancel</SplitButtonMenuItem>
+  <SplitButtonMenuItem disabled>Cancel</SplitButtonMenuItem>
 </SplitButton>
 
 <script type="module">
@@ -119,7 +119,7 @@ export class SplitButtonShowcaseComponent {}`,
     <SplitButtonMenuItem icon="file" @click="exportAs('pdf')">Export as PDF</SplitButtonMenuItem>
     <SplitButtonMenuItem icon="list" @click="exportAs('csv')">Export as CSV</SplitButtonMenuItem>
     <SplitButtonMenuItem icon="image" @click="exportAs('png')">Export as PNG</SplitButtonMenuItem>
-    <SplitButtonMenuItem disabled="true">Cancel</SplitButtonMenuItem>
+    <SplitButtonMenuItem disabled>Cancel</SplitButtonMenuItem>
   </SplitButton>
 </template>`,
             angular: `<!-- reuses SplitButtonShowcaseComponent from above -->
@@ -127,7 +127,7 @@ export class SplitButtonShowcaseComponent {}`,
   <SplitButtonMenuItem icon="file" (click)="exportAs('pdf')">Export as PDF</SplitButtonMenuItem>
   <SplitButtonMenuItem icon="list" (click)="exportAs('csv')">Export as CSV</SplitButtonMenuItem>
   <SplitButtonMenuItem icon="image" (click)="exportAs('png')">Export as PNG</SplitButtonMenuItem>
-  <SplitButtonMenuItem disabled="true">Cancel</SplitButtonMenuItem>
+  <SplitButtonMenuItem disabled>Cancel</SplitButtonMenuItem>
 </SplitButton>`,
           }}
         />

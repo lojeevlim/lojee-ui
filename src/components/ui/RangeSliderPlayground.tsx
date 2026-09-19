@@ -23,7 +23,7 @@ export default function RangeSliderPlayground() {
   // stringified attribute. `showValue` needs an explicit "true" since r2wc
   // parses a bare attribute as false.
   const valueLiteral = `[${value[0]}, ${value[1]}]`;
-  const showValueAttr = showValue ? ` show-value="true"` : "";
+  const showValueAttr = showValue ? ` showValue` : "";
 
   const codeVariants: CodeBlockVariants = {
     react: code,

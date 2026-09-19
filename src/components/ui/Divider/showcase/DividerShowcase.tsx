@@ -149,7 +149,7 @@ export class DividerShowcaseComponent {}`,
 </div>`,
               js: `<div class="flex">
   <div id="left-panel" style="width: 180px">...</div>
-  <Divider id="resize-divider" orientation="vertical" resizable="true" />
+  <Divider id="resize-divider" orientation="vertical" resizable />
   <div class="flex-1">...</div>
 </div>
 
@@ -165,7 +165,7 @@ export class DividerShowcaseComponent {}`,
     <div :style="{ width: leftWidth + 'px' }">...</div>
     <Divider
       orientation="vertical"
-      resizable="true"
+      resizable
       @resize="leftWidth += $event.detail"
     />
     <div class="flex-1">...</div>
@@ -182,7 +182,7 @@ const leftWidth = ref(180);
   <div [style.width.px]="leftWidth">...</div>
   <Divider
     orientation="vertical"
-    resizable="true"
+    resizable
     (resize)="leftWidth = leftWidth + $event.detail"
    />
   <div class="flex-1">...</div>

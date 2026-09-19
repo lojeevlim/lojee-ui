@@ -38,7 +38,7 @@ export default function SearchInputPlayground() {
   // snapshot); the "js" variant just adds the one-time module import a plain
   // HTML page needs to actually load the `<l-*>` definitions.
   const htmlMarkup = `<SearchInput size="${size}"${
-    disabled ? ` disabled="true"` : ""
+    disabled ? ` disabled` : ""
   } value="${value}" placeholder="Search…" />`;
 
   const codeVariants: CodeBlockVariants = {

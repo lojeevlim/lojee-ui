@@ -40,7 +40,7 @@ export default function TablePlayground() {
   // they must be assigned as real DOM properties (js) or bound (vue/angular)
   // rather than stringified into the tag. The literal values mirror COLUMNS
   // and DATA above exactly.
-  const attrs = `size="${size}"${striped ? ` striped="true"` : ""}${bordered ? ` bordered="true"` : ""}`;
+  const attrs = `size="${size}"${striped ? ` striped` : ""}${bordered ? ` bordered` : ""}`;
 
   const jsData = `  const columns = [
     { key: "name", header: "Name" },

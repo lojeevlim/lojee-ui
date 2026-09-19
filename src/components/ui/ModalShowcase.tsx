@@ -131,7 +131,8 @@ const open = ref(false);
             <p className="text-sm text-slate-600">This modal's header and body pick up custom colors via classNames.</p>
           </Modal>
           <CodeBlock
-            code={`<Modal
+            variants={{
+              react: `<Modal
   open={open}
   onClose={() => setOpen(false)}
   title="Styled modal"
@@ -143,7 +144,54 @@ const open = ref(false);
   }}
 >
   <p>This modal's header and body pick up custom colors via classNames.</p>
-</Modal>`}
+</Modal>`,
+              js: `<Button label="Open styled modal" id="open-styled-modal-btn" />
+<Modal id="styled-modal" heading="Styled modal">
+  <p>This modal's header and body pick up custom colors via classNames.</p>
+</Modal>
+
+<script type="module">
+  const modal = document.getElementById("styled-modal");
+  modal.classNames = {
+    root: "max-w-md",
+    header: "bg-indigo-50 border-indigo-100",
+    title: "text-indigo-900",
+    body: "bg-indigo-50/40",
+  };
+  document.getElementById("open-styled-modal-btn")
+    .addEventListener("click", () => { modal.open = true; });
+  modal.addEventListener("close", () => { modal.open = false; });
+</script>`,
+              vue: `<template>
+  <Button label="Open styled modal" @click="open = true" />
+  <Modal :open="open" heading="Styled modal" :classNames="modalClassNames" @close="open = false">
+    <p>This modal's header and body pick up custom colors via classNames.</p>
+  </Modal>
+</template>
+
+<script setup>
+import { ref } from "vue";
+
+const open = ref(false);
+const modalClassNames = {
+  root: "max-w-md",
+  header: "bg-indigo-50 border-indigo-100",
+  title: "text-indigo-900",
+  body: "bg-indigo-50/40",
+};
+</script>`,
+              angular: `<Button label="Open styled modal" (click)="open = true" />
+<Modal [open]="open" heading="Styled modal" [classNames]="modalClassNames" (close)="open = false">
+  <p>This modal's header and body pick up custom colors via classNames.</p>
+</Modal>
+
+modalClassNames = {
+  root: "max-w-md",
+  header: "bg-indigo-50 border-indigo-100",
+  title: "text-indigo-900",
+  body: "bg-indigo-50/40",
+};`,
+            }}
           />
         </section>
       </div>

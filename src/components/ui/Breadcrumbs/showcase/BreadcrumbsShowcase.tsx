@@ -165,11 +165,42 @@ export class AppComponent {}`,
             </Breadcrumbs>
           </Row>
           <CodeBlock
-            code={`<Breadcrumbs>
+            variants={{
+              react: `<Breadcrumbs>
   <BreadcrumbItem href="/" classNames={{ separator: "text-indigo-300" }}>Home</BreadcrumbItem>
   <BreadcrumbItem href="/docs" classNames={{ separator: "text-indigo-300" }}>Docs</BreadcrumbItem>
   <BreadcrumbItem className="text-indigo-600">Getting started</BreadcrumbItem>
-</Breadcrumbs>`}
+</Breadcrumbs>`,
+              js: `<Breadcrumbs>
+  <BreadcrumbItem id="home-crumb" href="/">Home</BreadcrumbItem>
+  <BreadcrumbItem id="docs-crumb" href="/docs">Docs</BreadcrumbItem>
+  <BreadcrumbItem className="text-indigo-600">Getting started</BreadcrumbItem>
+</Breadcrumbs>
+
+<script type="module">
+  const separatorClassNames = { separator: "text-indigo-300" };
+  document.getElementById("home-crumb").classNames = separatorClassNames;
+  document.getElementById("docs-crumb").classNames = separatorClassNames;
+</script>`,
+              vue: `<template>
+  <Breadcrumbs>
+    <BreadcrumbItem href="/" :classNames="separatorClassNames">Home</BreadcrumbItem>
+    <BreadcrumbItem href="/docs" :classNames="separatorClassNames">Docs</BreadcrumbItem>
+    <BreadcrumbItem className="text-indigo-600">Getting started</BreadcrumbItem>
+  </Breadcrumbs>
+</template>
+
+<script setup>
+const separatorClassNames = { separator: "text-indigo-300" };
+</script>`,
+              angular: `<Breadcrumbs>
+  <BreadcrumbItem href="/" [classNames]="separatorClassNames">Home</BreadcrumbItem>
+  <BreadcrumbItem href="/docs" [classNames]="separatorClassNames">Docs</BreadcrumbItem>
+  <BreadcrumbItem className="text-indigo-600">Getting started</BreadcrumbItem>
+</Breadcrumbs>
+
+separatorClassNames = { separator: "text-indigo-300" };`,
+            }}
           />
         </section>
       </div>

@@ -1,6 +1,17 @@
 import r2wc from "@r2wc/react-to-web-component";
 import { Button, SplitButton, SplitButtonMenuItem, ButtonGroup, SegmentButton } from "../components/ui/Buttons";
-import { ModalElement, AlertDialogElement, DrawerElement, SheetElement } from "./modal-adapter";
+import {
+  ModalElement,
+  AlertDialogElement,
+  DrawerElement,
+  SheetElement,
+  AlertElement,
+  ToastElement,
+  EmptyStateElement,
+  ErrorStateElement,
+  SuccessStateElement,
+  LoadingStateElement,
+} from "./modal-adapter";
 import { withTailwind } from "./with-tailwind";
 import { Badge } from "../components/ui/Badge/Badge";
 import { Avatar } from "../components/ui/Avatar/Avatar";
@@ -46,6 +57,8 @@ import { DropdownMenu } from "../components/ui/DropdownMenu/DropdownMenu";
 import { DropdownMenuItem } from "../components/ui/DropdownMenu/DropdownMenuItem";
 import { ContextMenu } from "../components/ui/ContextMenu/ContextMenu";
 import { CommandMenu } from "../components/ui/CommandMenu/CommandMenu";
+import { Notification } from "../components/ui/Notification/Notification";
+import { ProgressBar } from "../components/ui/ProgressBar/ProgressBar";
 
 // Each element is a real <button>/<div> tree, so a native click already
 // bubbles across the shadow boundary — no "events" entry needed for plain
@@ -70,6 +83,8 @@ customElements.define(
       label: "string",
       badge: "string",
       type: "string",
+      className: "string",
+      classNames: "json",
     },
   })
 );
@@ -128,7 +143,7 @@ customElements.define(
   "l-modal",
   r2wc(withTailwind(ModalElement), {
     shadow: "open",
-    props: { open: "boolean", heading: "string" },
+    props: { open: "boolean", heading: "string", className: "string", classNames: "json" },
     events: { onClose: {} }, // dispatches "close"
   })
 );
@@ -246,7 +261,7 @@ customElements.define(
   "l-list",
   r2wc(withTailwind(List), {
     shadow: "open",
-    props: { ordered: "boolean", variant: "string" },
+    props: { ordered: "boolean", variant: "string", className: "string" },
   })
 );
 
@@ -256,7 +271,7 @@ customElements.define(
   "l-list-item",
   r2wc(withTailwind(ListItem), {
     shadow: "open",
-    props: { icon: "string" },
+    props: { icon: "string", classNames: "json" },
   })
 );
 
@@ -269,13 +284,13 @@ customElements.define(
   "l-breadcrumb-item",
   r2wc(withTailwind(BreadcrumbItem), {
     shadow: "open",
-    props: { href: "string", icon: "string" },
+    props: { href: "string", icon: "string", className: "string", classNames: "json" },
   })
 );
 
 customElements.define(
   "l-accordion",
-  r2wc(withTailwind(Accordion), { shadow: "open", props: {} })
+  r2wc(withTailwind(Accordion), { shadow: "open", props: { className: "string" } })
 );
 
 // Same-`name` <l-accordion-item> siblings become mutually exclusive via the
@@ -285,7 +300,13 @@ customElements.define(
   "l-accordion-item",
   r2wc(withTailwind(AccordionItem), {
     shadow: "open",
-    props: { title: "string", name: "string", defaultOpen: "boolean", disabled: "boolean" },
+    props: {
+      title: "string",
+      name: "string",
+      defaultOpen: "boolean",
+      disabled: "boolean",
+      classNames: "json",
+    },
   })
 );
 
@@ -627,5 +648,94 @@ customElements.define(
     shadow: "open",
     props: { open: "boolean", items: "json", placeholder: "string" },
     events: { onClose: {} }, // dispatches "close"
+  })
+);
+
+customElements.define(
+  "l-alert",
+  r2wc(withTailwind(AlertElement), {
+    shadow: "open",
+    props: {
+      variant: "string",
+      heading: "string",
+      icon: "string",
+      closable: "boolean",
+      className: "string",
+      classNames: "json",
+    },
+    events: { onClose: {} }, // dispatches "close"
+  })
+);
+
+customElements.define(
+  "l-toast",
+  r2wc(withTailwind(ToastElement), {
+    shadow: "open",
+    props: {
+      open: "boolean",
+      variant: "string",
+      heading: "string",
+      duration: "number",
+      position: "string",
+      icon: "string",
+    },
+    events: { onClose: {} }, // dispatches "close"
+  })
+);
+
+customElements.define(
+  "l-notification",
+  r2wc(withTailwind(Notification), {
+    shadow: "open",
+    props: { icon: "string", timestamp: "string", unread: "boolean" },
+    events: { onDismiss: {} }, // dispatches "dismiss" — no native DOM equivalent
+  })
+);
+
+customElements.define(
+  "l-progress-bar",
+  r2wc(withTailwind(ProgressBar), {
+    shadow: "open",
+    props: {
+      value: "number",
+      max: "number",
+      size: "string",
+      color: "string",
+      showLabel: "boolean",
+      striped: "boolean",
+      indeterminate: "boolean",
+    },
+  })
+);
+
+customElements.define(
+  "l-empty-state",
+  r2wc(withTailwind(EmptyStateElement), {
+    shadow: "open",
+    props: { icon: "string", heading: "string" },
+  })
+);
+
+customElements.define(
+  "l-error-state",
+  r2wc(withTailwind(ErrorStateElement), {
+    shadow: "open",
+    props: { icon: "string", heading: "string" },
+  })
+);
+
+customElements.define(
+  "l-success-state",
+  r2wc(withTailwind(SuccessStateElement), {
+    shadow: "open",
+    props: { icon: "string", heading: "string" },
+  })
+);
+
+customElements.define(
+  "l-loading-state",
+  r2wc(withTailwind(LoadingStateElement), {
+    shadow: "open",
+    props: { heading: "string", size: "string" },
   })
 );

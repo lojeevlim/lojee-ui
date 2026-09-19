@@ -55,7 +55,7 @@ export default function ContextMenuShowcase() {
   <div slot="menu">
     <DropdownMenuItem icon="copy" id="copy-item">Copy</DropdownMenuItem>
     <DropdownMenuItem icon="pencil" id="rename-item">Rename</DropdownMenuItem>
-    <DropdownMenuItem icon="trash-2" danger="true" id="delete-item">Delete</DropdownMenuItem>
+    <DropdownMenuItem icon="trash-2" danger id="delete-item">Delete</DropdownMenuItem>
   </div>
   <div>Right-click here</div>
 </ContextMenu>
@@ -72,7 +72,7 @@ export default function ContextMenuShowcase() {
     <div slot="menu">
       <DropdownMenuItem icon="copy" @click="copy">Copy</DropdownMenuItem>
       <DropdownMenuItem icon="pencil" @click="rename">Rename</DropdownMenuItem>
-      <DropdownMenuItem icon="trash-2" danger="true" @click="remove">Delete</DropdownMenuItem>
+      <DropdownMenuItem icon="trash-2" danger @click="remove">Delete</DropdownMenuItem>
     </div>
     <div>Right-click here</div>
   </ContextMenu>
@@ -94,7 +94,7 @@ import "lojee-ui/elements";
       <div slot="menu">
         <DropdownMenuItem icon="copy" (click)="copy()">Copy</DropdownMenuItem>
         <DropdownMenuItem icon="pencil" (click)="rename()">Rename</DropdownMenuItem>
-        <DropdownMenuItem icon="trash-2" danger="true" (click)="remove()">Delete</DropdownMenuItem>
+        <DropdownMenuItem icon="trash-2" danger (click)="remove()">Delete</DropdownMenuItem>
       </div>
       <div>Right-click here</div>
     </ContextMenu>

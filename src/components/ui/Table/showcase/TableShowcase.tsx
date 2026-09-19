@@ -205,7 +205,8 @@ export class AppComponent {
           <SectionLabel sub="A custom render function, here rendering a status Badge.">Custom cell rendering</SectionLabel>
           <Table columns={STATUS_COLUMNS} data={PEOPLE} striped />
           <CodeBlock
-            code={`const columns = [
+            variants={{
+              react: `const columns = [
   { key: "name", header: "Name" },
   { key: "email", header: "Email" },
   {
@@ -216,7 +217,57 @@ export class AppComponent {
   },
 ];
 
-<Table columns={columns} data={people} striped />`}
+<Table columns={columns} data={people} striped />`,
+              js: `<Table id="status-table" striped></Table>
+
+<script type="module">
+  const columns = [
+    { key: "name", header: "Name" },
+    { key: "email", header: "Email" },
+    {
+      key: "status",
+      header: "Status",
+      align: "right",
+      // A column's render function can return any value React can render —
+      // here a plain string stands in for the Badge shown in the React version,
+      // since a real React element can't cross into a Web Component property.
+      render: (row) => row.status,
+    },
+  ];
+
+  const table = document.getElementById("status-table");
+  table.columns = columns;
+  table.data = people;
+</script>`,
+              vue: `<template>
+  <Table :columns="columns" :data="people" striped />
+</template>
+
+<script setup>
+const columns = [
+  { key: "name", header: "Name" },
+  { key: "email", header: "Email" },
+  {
+    key: "status",
+    header: "Status",
+    align: "right",
+    render: (row) => row.status,
+  },
+];
+</script>`,
+              angular: `<Table [columns]="columns" [data]="people" striped></Table>
+
+columns = [
+  { key: "name", header: "Name" },
+  { key: "email", header: "Email" },
+  {
+    key: "status",
+    header: "Status",
+    align: "right",
+    render: (row) => row.status,
+  },
+];`,
+            }}
           />
         </section>
       </div>

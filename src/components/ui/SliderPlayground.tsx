@@ -22,7 +22,7 @@ export default function SliderPlayground() {
   // everything is a plain attribute. `showValue` needs an explicit "true"
   // since r2wc parses a bare attribute as false.
   const htmlMarkup = `<Slider color="${color}"${
-    showValue ? ` show-value="true"` : ""
+    showValue ? ` showValue` : ""
   } value="${value}" />`;
 
   const codeVariants: CodeBlockVariants = {

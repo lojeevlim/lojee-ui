@@ -57,7 +57,7 @@ export function Popover({ content, children, position = "bottom", className, cla
             classNames?.panel
           )}
         >
-          {content}
+          <slot name="content">{content}</slot>
         </div>
       )}
     </span>

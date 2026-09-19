@@ -35,7 +35,7 @@ export default function TabsPlayground() {
   // stringified into the tag. Its `content` field is plain text here (a
   // registered `<Tabs>` has no slot/prop for arbitrary JSX like the
   // React-only `<p>` wrappers in SAMPLE_TABS above).
-  const attrs = `color="${color}" default-index="${defaultIndex}"`;
+  const attrs = `color="${color}" defaultIndex="${defaultIndex}"`;
 
   const tabsData = `  { label: "Overview", content: "A quick summary of the project." },
   { label: "Activity", content: "Recent activity shows up here." },
