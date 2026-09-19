@@ -30,9 +30,35 @@ export { AvatarGroup, type AvatarGroupProps } from "../components/ui/Avatar/Avat
 export { Icon, type IconProps } from "../components/ui/Icons/Icon";
 export { getIcon, ICONS, ICON_NAMES } from "../components/ui/Icons/registry";
 export { Spinner, type SpinnerProps, type SpinnerSize, type SpinnerVariant } from "../components/ui/Spinner/Spinner";
-export { Loader, type LoaderProps, type LoaderShape } from "../components/ui/Loader/Loader";
+export { Loader, type LoaderProps, type LoaderShape, type LoaderVariant } from "../components/ui/Loader/Loader";
 export { Divider, type DividerProps, type DividerOrientation } from "../components/ui/Divider/Divider";
 export { Tooltip, type TooltipProps, type TooltipPosition } from "../components/ui/Tooltip/Tooltip";
+
+export { Card, type CardProps, type CardVariant, type CardPadding } from "../components/ui/Card/Card";
+export { Container, type ContainerProps, type ContainerSize } from "../components/ui/Container/Container";
+export { Section, type SectionProps, type SectionSpacing } from "../components/ui/Section/Section";
+export { Grid, type GridProps, type GridCols, type GridGap } from "../components/ui/Grid/Grid";
+export { List, type ListProps, type ListVariant } from "../components/ui/List/List";
+export { ListItem, type ListItemProps } from "../components/ui/List/ListItem";
+export { Breadcrumbs, type BreadcrumbsProps } from "../components/ui/Breadcrumbs/Breadcrumbs";
+export {
+  BreadcrumbItem,
+  type BreadcrumbItemProps,
+} from "../components/ui/Breadcrumbs/BreadcrumbItem";
+export { Accordion, type AccordionProps } from "../components/ui/Accordion/Accordion";
+export {
+  AccordionItem,
+  type AccordionItemProps,
+} from "../components/ui/Accordion/AccordionItem";
+export {
+  Table,
+  type TableProps,
+  type TableColumn,
+  type TableSize,
+} from "../components/ui/Table/Table";
+export { Pagination, type PaginationProps } from "../components/ui/Pagination/Pagination";
+export { Tabs, type TabsProps, type TabItem } from "../components/ui/Tabs/Tabs";
+export { Carousel, type CarouselProps } from "../components/ui/Carousel/Carousel";
 
 export {
   COLORS,

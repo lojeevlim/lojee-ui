@@ -8,6 +8,17 @@ import SpinnerShowcase from './components/ui/Spinner'
 import LoaderShowcase from './components/ui/Loader'
 import DividerShowcase from './components/ui/Divider'
 import TooltipShowcase from './components/ui/Tooltip'
+import CardShowcase from './components/ui/Card'
+import ContainerShowcase from './components/ui/Container'
+import SectionShowcase from './components/ui/Section'
+import GridShowcase from './components/ui/Grid'
+import ListShowcase from './components/ui/List'
+import TableShowcase from './components/ui/Table'
+import AccordionShowcase from './components/ui/Accordion'
+import TabsShowcase from './components/ui/Tabs'
+import BreadcrumbsShowcase from './components/ui/Breadcrumbs'
+import PaginationShowcase from './components/ui/Pagination'
+import CarouselShowcase from './components/ui/Carousel'
 
 import Sidebar from './components/layouts/Sidebar'
 import Header, { type HeaderNavKey } from './components/layouts/Header'
@@ -25,6 +36,17 @@ const SHOWCASES: Record<string, ComponentType> = {
   Loaders: LoaderShowcase,
   Dividers: DividerShowcase,
   Tooltips: TooltipShowcase,
+  Cards: CardShowcase,
+  Containers: ContainerShowcase,
+  Sections: SectionShowcase,
+  Grids: GridShowcase,
+  Lists: ListShowcase,
+  Tables: TableShowcase,
+  Accordions: AccordionShowcase,
+  Tabs: TabsShowcase,
+  Breadcrumbs: BreadcrumbsShowcase,
+  Pagination: PaginationShowcase,
+  Carousels: CarouselShowcase,
 }
 
 function App() {
