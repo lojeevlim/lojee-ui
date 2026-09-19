@@ -26,12 +26,54 @@ export default function AccordionShowcase() {
             </div>
           </Row>
           <CodeBlock
-            code={`<Accordion>
+            variants={{
+              react: `<Accordion>
   <AccordionItem title="What is lojee-ui?" defaultOpen>
     A React + TypeScript + Tailwind component library that also ships as
     framework-agnostic Web Components.
   </AccordionItem>
-</Accordion>`}
+</Accordion>`,
+              js: `<Accordion>
+  <AccordionItem title="What is lojee-ui?" default-open>
+    A React + TypeScript + Tailwind component library that also ships as
+    framework-agnostic Web Components.
+  </AccordionItem>
+</Accordion>
+
+<script type="module">
+  import "lojee-ui/elements";
+</script>`,
+              vue: `<template>
+  <Accordion>
+    <AccordionItem title="What is lojee-ui?" default-open>
+      A React + TypeScript + Tailwind component library that also ships as
+      framework-agnostic Web Components.
+    </AccordionItem>
+  </Accordion>
+</template>
+
+<script setup>
+import "lojee-ui/elements";
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <Accordion>
+      <AccordionItem title="What is lojee-ui?" default-open>
+        A React + TypeScript + Tailwind component library that also ships as
+        framework-agnostic Web Components.
+      </AccordionItem>
+    </Accordion>
+  \`,
+})
+export class AppComponent {}`,
+            }}
           />
         </section>
 
@@ -55,7 +97,8 @@ export default function AccordionShowcase() {
             </div>
           </Row>
           <CodeBlock
-            code={`<Accordion>
+            variants={{
+              react: `<Accordion>
   <AccordionItem name="faq" title="How do I install it?" defaultOpen>
     Run \`npm install lojee-ui\` and import the component you need.
   </AccordionItem>
@@ -67,7 +110,50 @@ export default function AccordionShowcase() {
     Every component accepts a \`className\` for the root and a \`classNames\`
     map for its internal parts.
   </AccordionItem>
-</Accordion>`}
+</Accordion>`,
+              js: `<Accordion>
+  <AccordionItem name="faq" title="How do I install it?" default-open>
+    Run \`npm install lojee-ui\` and import the component you need.
+  </AccordionItem>
+  <AccordionItem name="faq" title="Does it work outside React?">
+    Yes — every component is also published as a Web Component, usable from
+    any framework or plain HTML.
+  </AccordionItem>
+  <AccordionItem name="faq" title="Can I customize the styling?">
+    Every component accepts a \`className\` for the root and a \`classNames\`
+    map for its internal parts.
+  </AccordionItem>
+</Accordion>`,
+              vue: `<template>
+  <Accordion>
+    <AccordionItem name="faq" title="How do I install it?" default-open>
+      Run \`npm install lojee-ui\` and import the component you need.
+    </AccordionItem>
+    <AccordionItem name="faq" title="Does it work outside React?">
+      Yes — every component is also published as a Web Component, usable from
+      any framework or plain HTML.
+    </AccordionItem>
+    <AccordionItem name="faq" title="Can I customize the styling?">
+      Every component accepts a \`className\` for the root and a \`classNames\`
+      map for its internal parts.
+    </AccordionItem>
+  </Accordion>
+</template>`,
+              angular: `<!-- reuses the AppComponent from above -->
+<Accordion>
+  <AccordionItem name="faq" title="How do I install it?" default-open>
+    Run \`npm install lojee-ui\` and import the component you need.
+  </AccordionItem>
+  <AccordionItem name="faq" title="Does it work outside React?">
+    Yes — every component is also published as a Web Component, usable from
+    any framework or plain HTML.
+  </AccordionItem>
+  <AccordionItem name="faq" title="Can I customize the styling?">
+    Every component accepts a \`className\` for the root and a \`classNames\`
+    map for its internal parts.
+  </AccordionItem>
+</Accordion>`,
+            }}
           />
         </section>
 
@@ -82,10 +168,27 @@ export default function AccordionShowcase() {
             </div>
           </Row>
           <CodeBlock
-            code={`<Accordion>
+            variants={{
+              react: `<Accordion>
   <AccordionItem title="Shipping">Ships within 3-5 business days.</AccordionItem>
   <AccordionItem title="Returns">Free returns within 30 days of delivery.</AccordionItem>
-</Accordion>`}
+</Accordion>`,
+              js: `<Accordion>
+  <AccordionItem title="Shipping">Ships within 3-5 business days.</AccordionItem>
+  <AccordionItem title="Returns">Free returns within 30 days of delivery.</AccordionItem>
+</Accordion>`,
+              vue: `<template>
+  <Accordion>
+    <AccordionItem title="Shipping">Ships within 3-5 business days.</AccordionItem>
+    <AccordionItem title="Returns">Free returns within 30 days of delivery.</AccordionItem>
+  </Accordion>
+</template>`,
+              angular: `<!-- reuses the AppComponent from above -->
+<Accordion>
+  <AccordionItem title="Shipping">Ships within 3-5 business days.</AccordionItem>
+  <AccordionItem title="Returns">Free returns within 30 days of delivery.</AccordionItem>
+</Accordion>`,
+            }}
           />
         </section>
 
@@ -102,10 +205,27 @@ export default function AccordionShowcase() {
             </div>
           </Row>
           <CodeBlock
-            code={`<Accordion>
+            variants={{
+              react: `<Accordion>
   <AccordionItem title="Available section">This one opens normally.</AccordionItem>
   <AccordionItem title="Locked section" disabled>This content is unavailable.</AccordionItem>
-</Accordion>`}
+</Accordion>`,
+              js: `<Accordion>
+  <AccordionItem title="Available section">This one opens normally.</AccordionItem>
+  <AccordionItem title="Locked section" disabled>This content is unavailable.</AccordionItem>
+</Accordion>`,
+              vue: `<template>
+  <Accordion>
+    <AccordionItem title="Available section">This one opens normally.</AccordionItem>
+    <AccordionItem title="Locked section" disabled>This content is unavailable.</AccordionItem>
+  </Accordion>
+</template>`,
+              angular: `<!-- reuses the AppComponent from above -->
+<Accordion>
+  <AccordionItem title="Available section">This one opens normally.</AccordionItem>
+  <AccordionItem title="Locked section" disabled>This content is unavailable.</AccordionItem>
+</Accordion>`,
+            }}
           />
         </section>
 

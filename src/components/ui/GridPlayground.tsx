@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Grid, type GridCols, type GridGap } from "./Grid/Grid";
 import { OptionGroup, PlaygroundLayout } from "./PlaygroundHelpers";
+import type { CodeBlockVariants } from "./CodeBlock";
 
 const COLS: GridCols[] = [1, 2, 3, 4, 6, 12];
 const GAPS: GridGap[] = ["sm", "md", "lg"];
@@ -25,8 +26,25 @@ export default function GridPlayground() {
   ...
 </Grid>`;
 
+  // Custom-element markup for the current configuration — identical across
+  // Vue/Angular templates (plain attributes, no bindings needed for a static
+  // snapshot); the "js" variant just adds the one-time module import a plain
+  // HTML page needs to actually load the `<l-*>` definitions.
+  const htmlMarkup = `<Grid cols="${cols}" gap="${gap}">
+  <div>Item 1</div>
+  <div>Item 2</div>
+  ...
+</Grid>`;
+
+  const codeVariants: CodeBlockVariants = {
+    react: code,
+    js: `${htmlMarkup}\n\n<script type="module">import "lojee-ui/elements";</script>`,
+    vue: htmlMarkup,
+    angular: htmlMarkup,
+  };
+
   return (
-    <PlaygroundLayout preview={preview} code={code}>
+    <PlaygroundLayout preview={preview} variants={codeVariants}>
       <OptionGroup
         label="Columns"
         options={COLS.map(String)}

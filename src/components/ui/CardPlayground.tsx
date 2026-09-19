@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Card, type CardVariant, type CardPadding } from "./Card/Card";
 import { OptionGroup, PlaygroundLayout } from "./PlaygroundHelpers";
+import type { CodeBlockVariants } from "./CodeBlock";
 
 const VARIANTS: CardVariant[] = ["outline", "elevated", "soft", "ghost"];
 const PADDINGS: CardPadding[] = ["none", "sm", "md", "lg"];
@@ -31,8 +32,23 @@ export default function CardPlayground() {
   Sample content
 </Card>`;
 
+  // Custom-element markup for the current configuration — l-card's `footer`
+  // prop is a plain string (unlike React's JSX footer node above).
+  const htmlMarkup = `<Card variant="${variant}" padding="${padding}"${hoverable ? ` hoverable="true"` : ""}${
+    withTitle ? ` title="Card title"` : ""
+  }${withFooter ? ` footer="Footer content"` : ""}>
+  Sample content
+</Card>`;
+
+  const codeVariants: CodeBlockVariants = {
+    react: code,
+    js: `${htmlMarkup}\n\n<script type="module">import "lojee-ui/elements";</script>`,
+    vue: htmlMarkup,
+    angular: htmlMarkup,
+  };
+
   return (
-    <PlaygroundLayout preview={preview} code={code}>
+    <PlaygroundLayout preview={preview} variants={codeVariants}>
       <OptionGroup label="Variant" options={VARIANTS} value={variant} onChange={setVariant} />
       <OptionGroup label="Padding" options={PADDINGS} value={padding} onChange={setPadding} />
 

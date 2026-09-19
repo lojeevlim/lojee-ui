@@ -24,11 +24,50 @@ export default function ListShowcase() {
             </div>
           </Row>
           <CodeBlock
-            code={`<List variant="plain">
+            variants={{
+              react: `<List variant="plain">
   <ListItem>Overview</ListItem>
   <ListItem>Settings</ListItem>
   <ListItem>Billing</ListItem>
-</List>`}
+</List>`,
+              js: `<List variant="plain">
+  <ListItem>Overview</ListItem>
+  <ListItem>Settings</ListItem>
+  <ListItem>Billing</ListItem>
+</List>
+
+<script type="module">
+  import "lojee-ui/elements";
+</script>`,
+              vue: `<template>
+  <List variant="plain">
+    <ListItem>Overview</ListItem>
+    <ListItem>Settings</ListItem>
+    <ListItem>Billing</ListItem>
+  </List>
+</template>
+
+<script setup>
+import "lojee-ui/elements";
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <List variant="plain">
+      <ListItem>Overview</ListItem>
+      <ListItem>Settings</ListItem>
+      <ListItem>Billing</ListItem>
+    </List>
+  \`,
+})
+export class AppComponent {}`,
+            }}
           />
         </section>
 
@@ -44,11 +83,31 @@ export default function ListShowcase() {
             </div>
           </Row>
           <CodeBlock
-            code={`<List variant="divided">
+            variants={{
+              react: `<List variant="divided">
   <ListItem icon="file">Project brief.pdf</ListItem>
   <ListItem icon="image">Cover photo.png</ListItem>
   <ListItem icon="folder">Archive</ListItem>
-</List>`}
+</List>`,
+              js: `<List variant="divided">
+  <ListItem icon="file">Project brief.pdf</ListItem>
+  <ListItem icon="image">Cover photo.png</ListItem>
+  <ListItem icon="folder">Archive</ListItem>
+</List>`,
+              vue: `<template>
+  <List variant="divided">
+    <ListItem icon="file">Project brief.pdf</ListItem>
+    <ListItem icon="image">Cover photo.png</ListItem>
+    <ListItem icon="folder">Archive</ListItem>
+  </List>
+</template>`,
+              angular: `<!-- reuses the AppComponent from above -->
+<List variant="divided">
+  <ListItem icon="file">Project brief.pdf</ListItem>
+  <ListItem icon="image">Cover photo.png</ListItem>
+  <ListItem icon="folder">Archive</ListItem>
+</List>`,
+            }}
           />
         </section>
 
@@ -64,11 +123,31 @@ export default function ListShowcase() {
             </div>
           </Row>
           <CodeBlock
-            code={`<List variant="bordered">
+            variants={{
+              react: `<List variant="bordered">
   <ListItem icon="circle-check">Email verified</ListItem>
   <ListItem icon="circle-check">Password set</ListItem>
   <ListItem icon="circle-alert">Two-factor auth pending</ListItem>
-</List>`}
+</List>`,
+              js: `<List variant="bordered">
+  <ListItem icon="circle-check">Email verified</ListItem>
+  <ListItem icon="circle-check">Password set</ListItem>
+  <ListItem icon="circle-alert">Two-factor auth pending</ListItem>
+</List>`,
+              vue: `<template>
+  <List variant="bordered">
+    <ListItem icon="circle-check">Email verified</ListItem>
+    <ListItem icon="circle-check">Password set</ListItem>
+    <ListItem icon="circle-alert">Two-factor auth pending</ListItem>
+  </List>
+</template>`,
+              angular: `<!-- reuses the AppComponent from above -->
+<List variant="bordered">
+  <ListItem icon="circle-check">Email verified</ListItem>
+  <ListItem icon="circle-check">Password set</ListItem>
+  <ListItem icon="circle-alert">Two-factor auth pending</ListItem>
+</List>`,
+            }}
           />
         </section>
 
@@ -84,11 +163,31 @@ export default function ListShowcase() {
             </div>
           </Row>
           <CodeBlock
-            code={`<List ordered variant="divided">
+            variants={{
+              react: `<List ordered variant="divided">
   <ListItem>Create an account</ListItem>
   <ListItem>Verify your email</ListItem>
   <ListItem>Invite your team</ListItem>
-</List>`}
+</List>`,
+              js: `<List ordered variant="divided">
+  <ListItem>Create an account</ListItem>
+  <ListItem>Verify your email</ListItem>
+  <ListItem>Invite your team</ListItem>
+</List>`,
+              vue: `<template>
+  <List ordered variant="divided">
+    <ListItem>Create an account</ListItem>
+    <ListItem>Verify your email</ListItem>
+    <ListItem>Invite your team</ListItem>
+  </List>
+</template>`,
+              angular: `<!-- reuses the AppComponent from above -->
+<List ordered variant="divided">
+  <ListItem>Create an account</ListItem>
+  <ListItem>Verify your email</ListItem>
+  <ListItem>Invite your team</ListItem>
+</List>`,
+            }}
           />
         </section>
 

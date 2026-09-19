@@ -2,6 +2,7 @@ import { useState } from "react";
 import { List, type ListVariant } from "./List/List";
 import { ListItem } from "./List/ListItem";
 import { OptionGroup, PlaygroundLayout } from "./PlaygroundHelpers";
+import type { CodeBlockVariants } from "./CodeBlock";
 
 const VARIANTS: ListVariant[] = ["plain", "divided", "bordered"];
 
@@ -25,8 +26,27 @@ export default function ListPlayground() {
   <ListItem icon="folder">Archive</ListItem>
 </List>`;
 
+  // Custom-element markup for the current configuration — identical across
+  // Vue/Angular templates (plain attributes, no bindings needed for a static
+  // snapshot); the "js" variant just adds the one-time module import a plain
+  // HTML page needs to actually load the `<l-*>` definitions. Note the
+  // explicit `ordered="true"` — r2wc's boolean parser needs a non-empty
+  // value, so a bare attribute would silently parse to false.
+  const htmlMarkup = `<List variant="${variant}"${ordered ? ` ordered="true"` : ""}>
+  <ListItem icon="file">Project brief.pdf</ListItem>
+  <ListItem icon="image">Cover photo.png</ListItem>
+  <ListItem icon="folder">Archive</ListItem>
+</List>`;
+
+  const codeVariants: CodeBlockVariants = {
+    react: code,
+    js: `${htmlMarkup}\n\n<script type="module">import "lojee-ui/elements";</script>`,
+    vue: htmlMarkup,
+    angular: htmlMarkup,
+  };
+
   return (
-    <PlaygroundLayout preview={preview} code={code}>
+    <PlaygroundLayout preview={preview} variants={codeVariants}>
       <OptionGroup label="Variant" options={VARIANTS} value={variant} onChange={setVariant} />
 
       <div>

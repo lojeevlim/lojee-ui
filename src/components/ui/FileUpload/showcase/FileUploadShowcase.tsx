@@ -18,7 +18,43 @@ export default function FileUploadShowcase() {
           <div className="max-w-sm">
             <FileUpload onFilesSelected={(files) => console.log("selected files", files)} />
           </div>
-          <CodeBlock code={`<FileUpload onFilesSelected={(files) => console.log(files)} />`} />
+          <CodeBlock
+            variants={{
+              react: `<FileUpload onFilesSelected={(files) => console.log(files)} />`,
+              js: `<FileUpload id="file-upload" />
+
+<script type="module">
+  import "lojee-ui/elements";
+
+  document.getElementById("file-upload")
+    .addEventListener("filesselected", (e) => console.log(e.detail));
+</script>`,
+              vue: `<template>
+  <FileUpload @filesselected="(e) => console.log(e.detail)" />
+</template>
+
+<script setup>
+import "lojee-ui/elements";
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+})
+export class AppComponent {
+  onFilesSelected(event: CustomEvent<FileList | null>) {
+    console.log(event.detail);
+  }
+}
+
+<!-- app.component.html -->
+<FileUpload (filesselected)="onFilesSelected($event)" />`,
+            }}
+          />
         </section>
 
         <section>
@@ -32,12 +68,35 @@ export default function FileUploadShowcase() {
             />
           </div>
           <CodeBlock
-            code={`<FileUpload
+            variants={{
+              react: `<FileUpload
   label="Upload product photos"
   accept="image/*"
   multiple
   onFilesSelected={(files) => console.log(files)}
-/>`}
+/>`,
+              js: `<FileUpload id="photo-upload" label="Upload product photos" accept="image/*" multiple />
+
+<script type="module">
+  document.getElementById("photo-upload")
+    .addEventListener("filesselected", (e) => console.log(e.detail));
+</script>`,
+              vue: `<template>
+  <FileUpload
+    label="Upload product photos"
+    accept="image/*"
+    multiple
+    @filesselected="(e) => console.log(e.detail)"
+  />
+</template>`,
+              angular: `<!-- app.component.html — reuses the onFilesSelected method from AppComponent above -->
+<FileUpload
+  label="Upload product photos"
+  accept="image/*"
+  multiple
+  (filesselected)="onFilesSelected($event)"
+ />`,
+            }}
           />
         </section>
       </div>

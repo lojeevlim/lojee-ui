@@ -20,8 +20,38 @@ export default function CheckboxShowcase() {
             <Checkbox defaultChecked />
           </Row>
           <CodeBlock
-            code={`<Checkbox />
-<Checkbox defaultChecked />`}
+            variants={{
+              react: `<Checkbox />
+<Checkbox defaultChecked />`,
+              js: `<Checkbox />
+<Checkbox defaultChecked />
+
+<script type="module">
+  import "lojee-ui/elements";
+</script>`,
+              vue: `<template>
+  <Checkbox />
+  <Checkbox defaultChecked />
+</template>
+
+<script setup>
+import "lojee-ui/elements";
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <Checkbox />
+    <Checkbox defaultChecked />
+  \`,
+})
+export class AppComponent {}`,
+            }}
           />
         </section>
 
@@ -35,9 +65,23 @@ export default function CheckboxShowcase() {
             <Checkbox color="amber" defaultChecked />
           </Row>
           <CodeBlock
-            code={`<Checkbox color="indigo" defaultChecked />
+            variants={{
+              react: `<Checkbox color="indigo" defaultChecked />
 <Checkbox color="emerald" defaultChecked />
-<Checkbox color="rose" defaultChecked />`}
+<Checkbox color="rose" defaultChecked />`,
+              js: `<Checkbox color="indigo" defaultChecked />
+<Checkbox color="emerald" defaultChecked />
+<Checkbox color="rose" defaultChecked />`,
+              vue: `<template>
+  <Checkbox color="indigo" defaultChecked />
+  <Checkbox color="emerald" defaultChecked />
+  <Checkbox color="rose" defaultChecked />
+</template>`,
+              angular: `<!-- app.component.html — same AppComponent as above -->
+<Checkbox color="indigo" defaultChecked />
+<Checkbox color="emerald" defaultChecked />
+<Checkbox color="rose" defaultChecked />`,
+            }}
           />
         </section>
 
@@ -48,8 +92,19 @@ export default function CheckboxShowcase() {
             <Checkbox disabled defaultChecked />
           </Row>
           <CodeBlock
-            code={`<Checkbox disabled />
-<Checkbox disabled defaultChecked />`}
+            variants={{
+              react: `<Checkbox disabled />
+<Checkbox disabled defaultChecked />`,
+              js: `<Checkbox disabled />
+<Checkbox disabled defaultChecked />`,
+              vue: `<template>
+  <Checkbox disabled />
+  <Checkbox disabled defaultChecked />
+</template>`,
+              angular: `<!-- app.component.html — same AppComponent as above -->
+<Checkbox disabled />
+<Checkbox disabled defaultChecked />`,
+            }}
           />
         </section>
 
@@ -59,7 +114,14 @@ export default function CheckboxShowcase() {
             <Checkbox label="Accept terms and conditions" />
             <Checkbox label="Subscribe to newsletter" defaultChecked color="indigo" />
           </Row>
-          <CodeBlock code={`<Checkbox label="Accept terms and conditions" />`} />
+          <CodeBlock
+            variants={{
+              react: `<Checkbox label="Accept terms and conditions" />`,
+              js: `<Checkbox label="Accept terms and conditions" />`,
+              vue: `<Checkbox label="Accept terms and conditions" />`,
+              angular: `<Checkbox label="Accept terms and conditions" />`,
+            }}
+          />
         </section>
       </div>
     </div>

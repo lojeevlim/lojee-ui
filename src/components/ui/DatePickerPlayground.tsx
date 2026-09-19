@@ -2,6 +2,7 @@ import { useState } from "react";
 import { DatePicker, type DatePickerSize, type DatePickerVariant } from "./DatePicker/DatePicker";
 import { DateRangePicker } from "./DatePicker/DateRangePicker";
 import { OptionGroup, PlaygroundLayout } from "./PlaygroundHelpers";
+import type { CodeBlockVariants } from "./CodeBlock";
 
 const SIZES: DatePickerSize[] = ["sm", "md", "lg"];
 const VARIANTS: DatePickerVariant[] = ["outline", "filled", "underline"];
@@ -40,8 +41,28 @@ export default function DatePickerPlayground() {
       ? `<DateRangePicker\n  size="${size}"${optionalAttrs}\n  startValue={start}\n  endValue={end}\n  onStartChange={setStart}\n  onEndChange={setEnd}\n/>`
       : `<DatePicker size="${size}"${optionalAttrs} />`;
 
+  // No json props on <DatePicker>/<DateRangePicker> for what's demoed
+  // here (presets aren't wired up in this playground) — everything is a
+  // plain attribute. Boolean props need an explicit "true" value since r2wc
+  // parses a bare attribute (empty string) as false.
+  const wcOptionalAttrs = `${variant !== "outline" ? ` variant="${variant}"` : ""}${
+    invalid ? ` invalid="true"` : ""
+  }${disabled ? ` disabled="true"` : ""}`;
+
+  const htmlMarkup =
+    layout === "range"
+      ? `<DateRangePicker size="${size}"${wcOptionalAttrs} start-value="${start}" end-value="${end}" />`
+      : `<DatePicker size="${size}"${wcOptionalAttrs} />`;
+
+  const codeVariants: CodeBlockVariants = {
+    react: code,
+    js: `${htmlMarkup}\n\n<script type="module">import "lojee-ui/elements";</script>`,
+    vue: htmlMarkup,
+    angular: htmlMarkup,
+  };
+
   return (
-    <PlaygroundLayout preview={preview} code={code}>
+    <PlaygroundLayout preview={preview} variants={codeVariants}>
       <OptionGroup label="Layout" options={LAYOUTS} value={layout} onChange={setLayout} />
       <OptionGroup label="Size" options={SIZES} value={size} onChange={setSize} />
       <OptionGroup label="Variant" options={VARIANTS} value={variant} onChange={setVariant} />

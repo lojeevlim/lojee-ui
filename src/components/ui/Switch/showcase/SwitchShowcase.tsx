@@ -20,8 +20,38 @@ export default function SwitchShowcase() {
             <Switch defaultChecked />
           </Row>
           <CodeBlock
-            code={`<Switch />
-<Switch defaultChecked />`}
+            variants={{
+              react: `<Switch />
+<Switch defaultChecked />`,
+              js: `<Switch />
+<Switch defaultChecked />
+
+<script type="module">
+  import "lojee-ui/elements";
+</script>`,
+              vue: `<template>
+  <Switch />
+  <Switch defaultChecked />
+</template>
+
+<script setup>
+import "lojee-ui/elements";
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <Switch />
+    <Switch defaultChecked />
+  \`,
+})
+export class AppComponent {}`,
+            }}
           />
         </section>
 
@@ -33,9 +63,23 @@ export default function SwitchShowcase() {
             <Switch size="lg" defaultChecked />
           </Row>
           <CodeBlock
-            code={`<Switch size="sm" defaultChecked />
+            variants={{
+              react: `<Switch size="sm" defaultChecked />
 <Switch size="md" defaultChecked />
-<Switch size="lg" defaultChecked />`}
+<Switch size="lg" defaultChecked />`,
+              js: `<Switch size="sm" defaultChecked />
+<Switch size="md" defaultChecked />
+<Switch size="lg" defaultChecked />`,
+              vue: `<template>
+  <Switch size="sm" defaultChecked />
+  <Switch size="md" defaultChecked />
+  <Switch size="lg" defaultChecked />
+</template>`,
+              angular: `<!-- app.component.html — same AppComponent as above -->
+<Switch size="sm" defaultChecked />
+<Switch size="md" defaultChecked />
+<Switch size="lg" defaultChecked />`,
+            }}
           />
         </section>
 
@@ -49,9 +93,23 @@ export default function SwitchShowcase() {
             <Switch color="amber" defaultChecked />
           </Row>
           <CodeBlock
-            code={`<Switch color="indigo" defaultChecked />
+            variants={{
+              react: `<Switch color="indigo" defaultChecked />
 <Switch color="emerald" defaultChecked />
-<Switch color="rose" defaultChecked />`}
+<Switch color="rose" defaultChecked />`,
+              js: `<Switch color="indigo" defaultChecked />
+<Switch color="emerald" defaultChecked />
+<Switch color="rose" defaultChecked />`,
+              vue: `<template>
+  <Switch color="indigo" defaultChecked />
+  <Switch color="emerald" defaultChecked />
+  <Switch color="rose" defaultChecked />
+</template>`,
+              angular: `<!-- app.component.html — same AppComponent as above -->
+<Switch color="indigo" defaultChecked />
+<Switch color="emerald" defaultChecked />
+<Switch color="rose" defaultChecked />`,
+            }}
           />
         </section>
 
@@ -62,8 +120,19 @@ export default function SwitchShowcase() {
             <Switch disabled defaultChecked />
           </Row>
           <CodeBlock
-            code={`<Switch disabled />
-<Switch disabled defaultChecked />`}
+            variants={{
+              react: `<Switch disabled />
+<Switch disabled defaultChecked />`,
+              js: `<Switch disabled />
+<Switch disabled defaultChecked />`,
+              vue: `<template>
+  <Switch disabled />
+  <Switch disabled defaultChecked />
+</template>`,
+              angular: `<!-- app.component.html — same AppComponent as above -->
+<Switch disabled />
+<Switch disabled defaultChecked />`,
+            }}
           />
         </section>
 
@@ -73,7 +142,14 @@ export default function SwitchShowcase() {
             <Switch label="Enable notifications" />
             <Switch label="Dark mode" defaultChecked color="indigo" />
           </Row>
-          <CodeBlock code={`<Switch label="Enable notifications" />`} />
+          <CodeBlock
+            variants={{
+              react: `<Switch label="Enable notifications" />`,
+              js: `<Switch label="Enable notifications" />`,
+              vue: `<Switch label="Enable notifications" />`,
+              angular: `<Switch label="Enable notifications" />`,
+            }}
+          />
         </section>
       </div>
     </div>

@@ -1,6 +1,6 @@
 import r2wc from "@r2wc/react-to-web-component";
 import { Button, SplitButton, SplitButtonMenuItem, ButtonGroup, SegmentButton } from "../components/ui/Buttons";
-import { ModalElement } from "./modal-adapter";
+import { ModalElement, AlertDialogElement, DrawerElement, SheetElement } from "./modal-adapter";
 import { withTailwind } from "./with-tailwind";
 import { Badge } from "../components/ui/Badge/Badge";
 import { Avatar } from "../components/ui/Avatar/Avatar";
@@ -41,6 +41,11 @@ import { TimePicker } from "../components/ui/TimePicker/TimePicker";
 import { FileUpload } from "../components/ui/FileUpload/FileUpload";
 import { Slider } from "../components/ui/Slider/Slider";
 import { RangeSlider } from "../components/ui/RangeSlider/RangeSlider";
+import { Popover } from "../components/ui/Popover/Popover";
+import { DropdownMenu } from "../components/ui/DropdownMenu/DropdownMenu";
+import { DropdownMenuItem } from "../components/ui/DropdownMenu/DropdownMenuItem";
+import { ContextMenu } from "../components/ui/ContextMenu/ContextMenu";
+import { CommandMenu } from "../components/ui/CommandMenu/CommandMenu";
 
 // Each element is a real <button>/<div> tree, so a native click already
 // bubbles across the shadow boundary — no "events" entry needed for plain
@@ -550,5 +555,77 @@ customElements.define(
     shadow: "open",
     props: { label: "string", accept: "string", multiple: "boolean", disabled: "boolean" },
     events: { onFilesSelected: {} }, // dispatches "filesselected", detail = FileList | null
+  })
+);
+
+customElements.define(
+  "l-alert-dialog",
+  r2wc(withTailwind(AlertDialogElement), {
+    shadow: "open",
+    props: { open: "boolean", heading: "string", description: "string", variant: "string", confirmLabel: "string", cancelLabel: "string" },
+    events: { onClose: {}, onConfirm: {} }, // dispatch "close"/"confirm"
+  })
+);
+
+customElements.define(
+  "l-drawer",
+  r2wc(withTailwind(DrawerElement), {
+    shadow: "open",
+    props: { open: "boolean", heading: "string", position: "string", size: "string" },
+    events: { onClose: {} }, // dispatches "close"
+  })
+);
+
+customElements.define(
+  "l-sheet",
+  r2wc(withTailwind(SheetElement), {
+    shadow: "open",
+    props: { open: "boolean", heading: "string" },
+    events: { onClose: {} }, // dispatches "close"
+  })
+);
+
+customElements.define(
+  "l-popover",
+  r2wc(withTailwind(Popover), {
+    shadow: "open",
+    props: { content: "string", position: "string" },
+  })
+);
+
+customElements.define(
+  "l-dropdown-menu",
+  r2wc(withTailwind(DropdownMenu), {
+    shadow: "open",
+    props: { align: "string" },
+  })
+);
+
+// Light-DOM children of <l-dropdown-menu> — e.g.
+// <l-dropdown-menu-item slot="trigger">...</l-dropdown-menu-item> for the
+// trigger and plain (default-slotted) <l-dropdown-menu-item> children for
+// the menu itself — project via named/default <slot>s, same idea as
+// <l-split-button-menu-item> inside <l-split-button>.
+customElements.define(
+  "l-dropdown-menu-item",
+  r2wc(withTailwind(DropdownMenuItem), {
+    shadow: "open",
+    props: { icon: "string", disabled: "boolean", danger: "boolean" },
+  })
+);
+
+customElements.define(
+  "l-context-menu",
+  r2wc(withTailwind(ContextMenu), { shadow: "open", props: {} })
+);
+
+// `items` is plain data — set the `items` DOM property directly with a real
+// array (including onSelect callbacks) for full control.
+customElements.define(
+  "l-command-menu",
+  r2wc(withTailwind(CommandMenu), {
+    shadow: "open",
+    props: { open: "boolean", items: "json", placeholder: "string" },
+    events: { onClose: {} }, // dispatches "close"
   })
 );

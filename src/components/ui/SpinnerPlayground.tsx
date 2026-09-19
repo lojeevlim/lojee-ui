@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Spinner, type SpinnerSize, type SpinnerVariant } from "./Spinner/Spinner";
 import type { ColorName } from "../../core/tokens";
 import { OptionGroup, ColorSwatches, PlaygroundLayout } from "./PlaygroundHelpers";
+import type { CodeBlockVariants } from "./CodeBlock";
 
 const SIZES: SpinnerSize[] = ["xs", "sm", "md", "lg", "xl"];
 const VARIANTS: SpinnerVariant[] = ["circle", "dots", "ring", "bars", "pulse"];
@@ -14,8 +15,17 @@ export default function SpinnerPlayground() {
   const preview = <Spinner size={size} variant={variant} color={color} />;
   const code = `<Spinner variant="${variant}" size="${size}" color="${color}" />`;
 
+  const htmlMarkup = `<Spinner variant="${variant}" size="${size}" color="${color}" />`;
+
+  const codeVariants: CodeBlockVariants = {
+    react: code,
+    js: `${htmlMarkup}\n\n<script type="module">import "lojee-ui/elements";</script>`,
+    vue: htmlMarkup,
+    angular: htmlMarkup,
+  };
+
   return (
-    <PlaygroundLayout preview={preview} code={code}>
+    <PlaygroundLayout preview={preview} variants={codeVariants}>
       <OptionGroup label="Variant" options={VARIANTS} value={variant} onChange={setVariant} />
       <OptionGroup label="Size" options={SIZES} value={size} onChange={setSize} />
       <ColorSwatches value={color} onChange={setColor} />

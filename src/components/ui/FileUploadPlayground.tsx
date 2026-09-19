@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { FileUpload } from "./FileUpload/FileUpload";
 import { PlaygroundLayout } from "./PlaygroundHelpers";
+import type { CodeBlockVariants } from "./CodeBlock";
 
 export default function FileUploadPlayground() {
   const [label, setLabel] = useState("Click to upload or drag and drop");
@@ -22,8 +23,22 @@ export default function FileUploadPlayground() {
   onFilesSelected={(files) => console.log(files)}
 />`;
 
+  // No json props on <FileUpload>, and `accept` isn't demoed by this
+  // playground — just the plain attributes. `multiple` needs an explicit
+  // "true" since r2wc parses a bare attribute as false.
+  const htmlMarkup = `<FileUpload label="${label || "Click to upload or drag and drop"}"${
+    multiple ? ` multiple="true"` : ""
+  } />`;
+
+  const codeVariants: CodeBlockVariants = {
+    react: code,
+    js: `${htmlMarkup}\n\n<script type="module">import "lojee-ui/elements";</script>`,
+    vue: htmlMarkup,
+    angular: htmlMarkup,
+  };
+
   return (
-    <PlaygroundLayout preview={preview} code={code}>
+    <PlaygroundLayout preview={preview} variants={codeVariants}>
       <div className="sm:col-span-2">
         <span className="mb-1.5 block text-xs font-medium text-slate-500">Label</span>
         <input

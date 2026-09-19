@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Slider } from "./Slider/Slider";
 import type { ColorName } from "../../core/tokens";
 import { ColorSwatches, PlaygroundLayout } from "./PlaygroundHelpers";
+import type { CodeBlockVariants } from "./CodeBlock";
 
 export default function SliderPlayground() {
   const [color, setColor] = useState<ColorName>("slate");
@@ -16,8 +17,23 @@ export default function SliderPlayground() {
 
   const code = `<Slider color="${color}"${showValue ? " showValue" : ""} value={${value}} onChange={(e) => setValue(Number(e.target.value))} />`;
 
+  // `value` on <Slider> is a plain string/number prop (not an array like
+  // RangeSlider's), and there are no min/max/step controls here, so
+  // everything is a plain attribute. `showValue` needs an explicit "true"
+  // since r2wc parses a bare attribute as false.
+  const htmlMarkup = `<Slider color="${color}"${
+    showValue ? ` show-value="true"` : ""
+  } value="${value}" />`;
+
+  const codeVariants: CodeBlockVariants = {
+    react: code,
+    js: `${htmlMarkup}\n\n<script type="module">import "lojee-ui/elements";</script>`,
+    vue: htmlMarkup,
+    angular: htmlMarkup,
+  };
+
   return (
-    <PlaygroundLayout preview={preview} code={code}>
+    <PlaygroundLayout preview={preview} variants={codeVariants}>
       <ColorSwatches value={color} onChange={setColor} />
 
       <div>

@@ -30,13 +30,58 @@ export function ButtonSection() {
           <Button variant="glass" label="Glass"/>
         </Row>
         <CodeBlock
-          code={`<Button variant="solid" label="Solid"/>
+          variants={{
+            react: `<Button variant="solid" label="Solid"/>
 <Button variant="outline" label="Outline"/>
 <Button variant="ghost" label="Ghost"/>
 <Button variant="soft" label="Soft"/>
 <Button variant="link" label="Link"/>
 <Button variant="dashed" label="Dashed"/>
-<Button variant="glass" label="Glass"/>`}
+<Button variant="glass" label="Glass"/>`,
+            js: `<Button variant="solid" label="Solid" />
+<Button variant="outline" label="Outline" />
+<Button variant="ghost" label="Ghost" />
+<Button variant="soft" label="Soft" />
+<Button variant="link" label="Link" />
+<Button variant="dashed" label="Dashed" />
+<Button variant="glass" label="Glass" />
+
+<script type="module">
+  import "lojee-ui/elements";
+</script>`,
+            vue: `<template>
+  <Button variant="solid" label="Solid" />
+  <Button variant="outline" label="Outline" />
+  <Button variant="ghost" label="Ghost" />
+  <Button variant="soft" label="Soft" />
+  <Button variant="link" label="Link" />
+  <Button variant="dashed" label="Dashed" />
+  <Button variant="glass" label="Glass" />
+</template>
+
+<script setup>
+import "lojee-ui/elements";
+</script>`,
+            angular: `// button-showcase.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-button-showcase",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <Button variant="solid" label="Solid" />
+    <Button variant="outline" label="Outline" />
+    <Button variant="ghost" label="Ghost" />
+    <Button variant="soft" label="Soft" />
+    <Button variant="link" label="Link" />
+    <Button variant="dashed" label="Dashed" />
+    <Button variant="glass" label="Glass" />
+  \`,
+})
+export class ButtonShowcaseComponent {}`,
+          }}
         />
       </section>
 
@@ -56,12 +101,35 @@ export function ButtonSection() {
           <Button size="full" label="Full Width" />
         </div>
         <CodeBlock
-          code={`<Button size="xs" label="Extra small" />
+          variants={{
+            react: `<Button size="xs" label="Extra small" />
 <Button size="sm" label="Small" />
 <Button size="md" label="Medium" />
 <Button size="lg" label="Large" />
 <Button size="xl" label="Extra large" />
-<Button size="full" label="Full Width" />`}
+<Button size="full" label="Full Width" />`,
+            js: `<Button size="xs" label="Extra small" />
+<Button size="sm" label="Small" />
+<Button size="md" label="Medium" />
+<Button size="lg" label="Large" />
+<Button size="xl" label="Extra large" />
+<Button size="full" label="Full Width" />`,
+            vue: `<template>
+  <Button size="xs" label="Extra small" />
+  <Button size="sm" label="Small" />
+  <Button size="md" label="Medium" />
+  <Button size="lg" label="Large" />
+  <Button size="xl" label="Extra large" />
+  <Button size="full" label="Full Width" />
+</template>`,
+            angular: `<!-- reuses ButtonShowcaseComponent from above -->
+<Button size="xs" label="Extra small" />
+<Button size="sm" label="Small" />
+<Button size="md" label="Medium" />
+<Button size="lg" label="Large" />
+<Button size="xl" label="Extra large" />
+<Button size="full" label="Full Width" />`,
+          }}
         />
       </section>
 
@@ -84,11 +152,31 @@ export function ButtonSection() {
           ))}
         </div>
         <CodeBlock
-          code={`<Button color="${activeColor}" variant="solid" label="Solid" />
+          variants={{
+            react: `<Button color="${activeColor}" variant="solid" label="Solid" />
 <Button color="${activeColor}" variant="outline" label="Outline" />
 <Button color="${activeColor}" variant="ghost" label="Ghost" />
 <Button color="${activeColor}" variant="soft" label="Soft" />
-<Button color="${activeColor}" variant="link" label="Link" />`}
+<Button color="${activeColor}" variant="link" label="Link" />`,
+            js: `<Button color="${activeColor}" variant="solid" label="Solid" />
+<Button color="${activeColor}" variant="outline" label="Outline" />
+<Button color="${activeColor}" variant="ghost" label="Ghost" />
+<Button color="${activeColor}" variant="soft" label="Soft" />
+<Button color="${activeColor}" variant="link" label="Link" />`,
+            vue: `<template>
+  <Button color="${activeColor}" variant="solid" label="Solid" />
+  <Button color="${activeColor}" variant="outline" label="Outline" />
+  <Button color="${activeColor}" variant="ghost" label="Ghost" />
+  <Button color="${activeColor}" variant="soft" label="Soft" />
+  <Button color="${activeColor}" variant="link" label="Link" />
+</template>`,
+            angular: `<!-- reuses ButtonShowcaseComponent from above -->
+<Button color="${activeColor}" variant="solid" label="Solid" />
+<Button color="${activeColor}" variant="outline" label="Outline" />
+<Button color="${activeColor}" variant="ghost" label="Ghost" />
+<Button color="${activeColor}" variant="soft" label="Soft" />
+<Button color="${activeColor}" variant="link" label="Link" />`,
+          }}
         />
       </section>
 
@@ -102,10 +190,27 @@ export function ButtonSection() {
           <Button variant="gradient" color="blue" label="Try for free" />
         </Row>
         <CodeBlock
-          code={`<Button variant="gradient" color="indigo" icon="arrow-right" iconPosition="right" label="Get started" />
+          variants={{
+            react: `<Button variant="gradient" color="indigo" icon="arrow-right" iconPosition="right" label="Get started" />
 <Button variant="gradient" color="rose" label="Upgrade to Pro" />
 <Button variant="gradient" color="emerald" label="Claim offer" />
-<Button variant="gradient" color="blue" label="Try for free" />`}
+<Button variant="gradient" color="blue" label="Try for free" />`,
+            js: `<Button variant="gradient" color="indigo" icon="arrow-right" icon-position="right" label="Get started" />
+<Button variant="gradient" color="rose" label="Upgrade to Pro" />
+<Button variant="gradient" color="emerald" label="Claim offer" />
+<Button variant="gradient" color="blue" label="Try for free" />`,
+            vue: `<template>
+  <Button variant="gradient" color="indigo" icon="arrow-right" icon-position="right" label="Get started" />
+  <Button variant="gradient" color="rose" label="Upgrade to Pro" />
+  <Button variant="gradient" color="emerald" label="Claim offer" />
+  <Button variant="gradient" color="blue" label="Try for free" />
+</template>`,
+            angular: `<!-- reuses ButtonShowcaseComponent from above -->
+<Button variant="gradient" color="indigo" icon="arrow-right" icon-position="right" label="Get started" />
+<Button variant="gradient" color="rose" label="Upgrade to Pro" />
+<Button variant="gradient" color="emerald" label="Claim offer" />
+<Button variant="gradient" color="blue" label="Try for free" />`,
+          }}
         />
       </section>
 
@@ -121,10 +226,27 @@ export function ButtonSection() {
           <Button color="rose" variant="outline" icon="trash-2" label="Delete" />
         </Row>
         <CodeBlock
-          code={`<Button icon="plus" variant="solid" label="New item" />
+          variants={{
+            react: `<Button icon="plus" variant="solid" label="New item" />
 <Button icon="download" iconPosition="right" variant="outline" label="Download" />
 <Button icon="arrow-right" iconPosition="right" variant="ghost" label="Continue" />
-<Button color="rose" variant="outline" icon="trash-2" label="Delete" />`}
+<Button color="rose" variant="outline" icon="trash-2" label="Delete" />`,
+            js: `<Button icon="plus" variant="solid" label="New item" />
+<Button icon="download" icon-position="right" variant="outline" label="Download" />
+<Button icon="arrow-right" icon-position="right" variant="ghost" label="Continue" />
+<Button color="rose" variant="outline" icon="trash-2" label="Delete" />`,
+            vue: `<template>
+  <Button icon="plus" variant="solid" label="New item" />
+  <Button icon="download" icon-position="right" variant="outline" label="Download" />
+  <Button icon="arrow-right" icon-position="right" variant="ghost" label="Continue" />
+  <Button color="rose" variant="outline" icon="trash-2" label="Delete" />
+</template>`,
+            angular: `<!-- reuses ButtonShowcaseComponent from above -->
+<Button icon="plus" variant="solid" label="New item" />
+<Button icon="download" icon-position="right" variant="outline" label="Download" />
+<Button icon="arrow-right" icon-position="right" variant="ghost" label="Continue" />
+<Button color="rose" variant="outline" icon="trash-2" label="Delete" />`,
+          }}
         />
       </section>
 
@@ -144,10 +266,27 @@ export function ButtonSection() {
           <Button icon="plus" iconOnly variant="solid" color="emerald" size="md" shape="square" label="Add" />
         </Row>
         <CodeBlock
-          code={`<Button icon="settings" iconOnly variant="ghost" shape="pill" label="Settings" />
+          variants={{
+            react: `<Button icon="settings" iconOnly variant="ghost" shape="pill" label="Settings" />
 <Button icon="mail" iconOnly variant="soft" color="indigo" shape="pill" label="Mail" />
 <Button icon="bell" iconOnly variant="soft" color="rose" shape="pill" badge={3} label="Notifications" />
-<Button icon="plus" iconOnly variant="solid" color="emerald" shape="square" label="Add" />`}
+<Button icon="plus" iconOnly variant="solid" color="emerald" shape="square" label="Add" />`,
+            js: `<Button icon="settings" icon-only="true" variant="ghost" shape="pill" label="Settings" />
+<Button icon="mail" icon-only="true" variant="soft" color="indigo" shape="pill" label="Mail" />
+<Button icon="bell" icon-only="true" variant="soft" color="rose" shape="pill" badge="3" label="Notifications" />
+<Button icon="plus" icon-only="true" variant="solid" color="emerald" shape="square" label="Add" />`,
+            vue: `<template>
+  <Button icon="settings" icon-only="true" variant="ghost" shape="pill" label="Settings" />
+  <Button icon="mail" icon-only="true" variant="soft" color="indigo" shape="pill" label="Mail" />
+  <Button icon="bell" icon-only="true" variant="soft" color="rose" shape="pill" badge="3" label="Notifications" />
+  <Button icon="plus" icon-only="true" variant="solid" color="emerald" shape="square" label="Add" />
+</template>`,
+            angular: `<!-- reuses ButtonShowcaseComponent from above -->
+<Button icon="settings" icon-only="true" variant="ghost" shape="pill" label="Settings" />
+<Button icon="mail" icon-only="true" variant="soft" color="indigo" shape="pill" label="Mail" />
+<Button icon="bell" icon-only="true" variant="soft" color="rose" shape="pill" badge="3" label="Notifications" />
+<Button icon="plus" icon-only="true" variant="solid" color="emerald" shape="square" label="Add" />`,
+          }}
         />
       </section>
 
@@ -169,9 +308,45 @@ export function ButtonSection() {
           />
         </Row>
         <CodeBlock
-          code={`<Button color="slate" label="Default — hover me" />
+          variants={{
+            react: `<Button color="slate" label="Default — hover me" />
 <Button color="slate" disabled label="Disabled" />
-<Button color="slate" loading={isSaving} onClick={handleSave} label={isSaving ? "Saving…" : "Save changes"} />`}
+<Button color="slate" loading={isSaving} onClick={handleSave} label={isSaving ? "Saving…" : "Save changes"} />`,
+            js: `<Button color="slate" label="Default — hover me" />
+<Button color="slate" disabled="true" label="Disabled" />
+<Button id="save-btn" color="slate" label="Save changes" />
+
+<script type="module">
+  const saveBtn = document.getElementById("save-btn");
+  saveBtn.addEventListener("click", () => {
+    saveBtn.loading = true;
+    saveBtn.label = "Saving…";
+    handleSave().then(() => {
+      saveBtn.loading = false;
+      saveBtn.label = "Save changes";
+    });
+  });
+</script>`,
+            vue: `<template>
+  <Button color="slate" label="Default — hover me" />
+  <Button color="slate" disabled="true" label="Disabled" />
+  <Button
+    color="slate"
+    :loading="isSaving"
+    :label="isSaving ? 'Saving…' : 'Save changes'"
+    @click="handleSave"
+  />
+</template>`,
+            angular: `<!-- reuses ButtonShowcaseComponent from above -->
+<Button color="slate" label="Default — hover me" />
+<Button color="slate" disabled="true" label="Disabled" />
+<Button
+  color="slate"
+  [loading]="isSaving"
+  [label]="isSaving ? 'Saving…' : 'Save changes'"
+  (click)="handleSave()"
+ />`,
+          }}
         />
       </section>
 
@@ -184,9 +359,23 @@ export function ButtonSection() {
           <Button variant="solid" color="slate" shape="square" label="Square" />
         </Row>
         <CodeBlock
-          code={`<Button shape="default" label="Default" />
+          variants={{
+            react: `<Button shape="default" label="Default" />
 <Button shape="pill" label="Pill" />
-<Button shape="square" label="Square" />`}
+<Button shape="square" label="Square" />`,
+            js: `<Button shape="default" label="Default" />
+<Button shape="pill" label="Pill" />
+<Button shape="square" label="Square" />`,
+            vue: `<template>
+  <Button shape="default" label="Default" />
+  <Button shape="pill" label="Pill" />
+  <Button shape="square" label="Square" />
+</template>`,
+            angular: `<!-- reuses ButtonShowcaseComponent from above -->
+<Button shape="default" label="Default" />
+<Button shape="pill" label="Pill" />
+<Button shape="square" label="Square" />`,
+          }}
         />
       </section>
 

@@ -53,26 +53,122 @@ export default function TableShowcase() {
           <SectionLabel sub="Columns + data, rendered as a plain table.">Basic</SectionLabel>
           <Table columns={BASIC_COLUMNS} data={PEOPLE} />
           <CodeBlock
-            code={`const columns = [
+            variants={{
+              react: `const columns = [
   { key: "name", header: "Name" },
   { key: "email", header: "Email" },
   { key: "role", header: "Role", align: "right" },
 ];
 
-<Table columns={columns} data={people} />`}
+<Table columns={columns} data={people} />`,
+              js: `<Table id="basic-table" />
+
+<script type="module">
+  import "lojee-ui/elements";
+
+  const table = document.getElementById("basic-table");
+  table.columns = [
+    { key: "name", header: "Name" },
+    { key: "email", header: "Email" },
+    { key: "role", header: "Role", align: "right" },
+  ];
+  table.data = [
+    { name: "Ava Chen", email: "ava@acme.com", role: "Admin" },
+    { name: "Marcus Lee", email: "marcus@acme.com", role: "Editor" },
+    { name: "Priya Nair", email: "priya@acme.com", role: "Viewer" },
+    { name: "Dan Ostrow", email: "dan@acme.com", role: "Editor" },
+  ];
+</script>`,
+              vue: `<template>
+  <Table :columns="columns" :data="people" />
+</template>
+
+<script setup>
+import "lojee-ui/elements";
+
+const columns = [
+  { key: "name", header: "Name" },
+  { key: "email", header: "Email" },
+  { key: "role", header: "Role", align: "right" },
+];
+
+const people = [
+  { name: "Ava Chen", email: "ava@acme.com", role: "Admin" },
+  { name: "Marcus Lee", email: "marcus@acme.com", role: "Editor" },
+  { name: "Priya Nair", email: "priya@acme.com", role: "Viewer" },
+  { name: "Dan Ostrow", email: "dan@acme.com", role: "Editor" },
+];
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`<Table [columns]="columns" [data]="people" />\`,
+})
+export class AppComponent {
+  columns = [
+    { key: "name", header: "Name" },
+    { key: "email", header: "Email" },
+    { key: "role", header: "Role", align: "right" },
+  ];
+
+  people = [
+    { name: "Ava Chen", email: "ava@acme.com", role: "Admin" },
+    { name: "Marcus Lee", email: "marcus@acme.com", role: "Editor" },
+    { name: "Priya Nair", email: "priya@acme.com", role: "Viewer" },
+    { name: "Dan Ostrow", email: "dan@acme.com", role: "Editor" },
+  ];
+}`,
+            }}
           />
         </section>
 
         <section>
           <SectionLabel sub="Alternating row background.">Striped</SectionLabel>
           <Table columns={BASIC_COLUMNS} data={PEOPLE} striped />
-          <CodeBlock code={`<Table columns={columns} data={people} striped />`} />
+          <CodeBlock
+            variants={{
+              react: `<Table columns={columns} data={people} striped />`,
+              js: `<Table id="striped-table" striped />
+
+<script type="module">
+  const table = document.getElementById("striped-table");
+  table.columns = columns;
+  table.data = people;
+</script>`,
+              vue: `<template>
+  <Table :columns="columns" :data="people" striped />
+</template>`,
+              angular: `<!-- reuses the AppComponent from above -->
+<Table [columns]="columns" [data]="people" striped />`,
+            }}
+          />
         </section>
 
         <section>
           <SectionLabel sub="Border around the table plus column dividers.">Bordered</SectionLabel>
           <Table columns={BASIC_COLUMNS} data={PEOPLE} bordered />
-          <CodeBlock code={`<Table columns={columns} data={people} bordered />`} />
+          <CodeBlock
+            variants={{
+              react: `<Table columns={columns} data={people} bordered />`,
+              js: `<Table id="bordered-table" bordered />
+
+<script type="module">
+  const table = document.getElementById("bordered-table");
+  table.columns = columns;
+  table.data = people;
+</script>`,
+              vue: `<template>
+  <Table :columns="columns" :data="people" bordered />
+</template>`,
+              angular: `<!-- reuses the AppComponent from above -->
+<Table [columns]="columns" [data]="people" bordered />`,
+            }}
+          />
         </section>
 
         <section>
@@ -82,8 +178,26 @@ export default function TableShowcase() {
             <Table columns={BASIC_COLUMNS} data={PEOPLE} size="lg" bordered />
           </div>
           <CodeBlock
-            code={`<Table columns={columns} data={people} size="sm" bordered />
-<Table columns={columns} data={people} size="lg" bordered />`}
+            variants={{
+              react: `<Table columns={columns} data={people} size="sm" bordered />
+<Table columns={columns} data={people} size="lg" bordered />`,
+              js: `<Table id="table-sm" size="sm" bordered />
+<Table id="table-lg" size="lg" bordered />
+
+<script type="module">
+  document.getElementById("table-sm").columns = columns;
+  document.getElementById("table-sm").data = people;
+  document.getElementById("table-lg").columns = columns;
+  document.getElementById("table-lg").data = people;
+</script>`,
+              vue: `<template>
+  <Table :columns="columns" :data="people" size="sm" bordered />
+  <Table :columns="columns" :data="people" size="lg" bordered />
+</template>`,
+              angular: `<!-- reuses the AppComponent from above -->
+<Table [columns]="columns" [data]="people" size="sm" bordered />
+<Table [columns]="columns" [data]="people" size="lg" bordered />`,
+            }}
           />
         </section>
 

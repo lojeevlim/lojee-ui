@@ -12,7 +12,34 @@ export function SplitButtonSection() {
       <Row>
         <SplitButton icon="check" label="Approve" />
       </Row>
-      <CodeBlock code={`<SplitButton icon="check" label="Approve" />`} />
+      <CodeBlock
+        variants={{
+          react: `<SplitButton icon="check" label="Approve" />`,
+          js: `<SplitButton icon="check" label="Approve" />
+
+<script type="module">
+  import "lojee-ui/elements";
+</script>`,
+          vue: `<template>
+  <SplitButton icon="check" label="Approve" />
+</template>
+
+<script setup>
+import "lojee-ui/elements";
+</script>`,
+          angular: `// split-button-showcase.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-split-button-showcase",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`<SplitButton icon="check" label="Approve" />\`,
+})
+export class SplitButtonShowcaseComponent {}`,
+        }}
+      />
 
       <div className="mt-8">
         <SectionLabel sub="shape controls the group's outer corners; menuIcon swaps the dropdown trigger's icon.">
@@ -25,10 +52,27 @@ export function SplitButtonSection() {
           <SplitButton icon="download" label="Export" menuIcon="more-vertical" />
         </Row>
         <CodeBlock
-          code={`<SplitButton icon="check" label="Approve" shape="default" />
+          variants={{
+            react: `<SplitButton icon="check" label="Approve" shape="default" />
 <SplitButton icon="check" label="Approve" shape="pill" />
 <SplitButton icon="check" label="Approve" shape="square" />
-<SplitButton icon="download" label="Export" menuIcon="more-vertical" />`}
+<SplitButton icon="download" label="Export" menuIcon="more-vertical" />`,
+            js: `<SplitButton icon="check" label="Approve" shape="default" />
+<SplitButton icon="check" label="Approve" shape="pill" />
+<SplitButton icon="check" label="Approve" shape="square" />
+<SplitButton icon="download" label="Export" menu-icon="more-vertical" />`,
+            vue: `<template>
+  <SplitButton icon="check" label="Approve" shape="default" />
+  <SplitButton icon="check" label="Approve" shape="pill" />
+  <SplitButton icon="check" label="Approve" shape="square" />
+  <SplitButton icon="download" label="Export" menu-icon="more-vertical" />
+</template>`,
+            angular: `<!-- reuses SplitButtonShowcaseComponent from above -->
+<SplitButton icon="check" label="Approve" shape="default" />
+<SplitButton icon="check" label="Approve" shape="pill" />
+<SplitButton icon="check" label="Approve" shape="square" />
+<SplitButton icon="download" label="Export" menu-icon="more-vertical" />`,
+          }}
         />
       </div>
 
@@ -51,12 +95,41 @@ export function SplitButtonSection() {
           </SplitButton>
         </Row>
         <CodeBlock
-          code={`<SplitButton icon="download" label="Export" color="indigo">
+          variants={{
+            react: `<SplitButton icon="download" label="Export" color="indigo">
   <SplitButtonMenuItem icon="file" onClick={() => exportAs("pdf")}>Export as PDF</SplitButtonMenuItem>
   <SplitButtonMenuItem icon="list" onClick={() => exportAs("csv")}>Export as CSV</SplitButtonMenuItem>
   <SplitButtonMenuItem icon="image" onClick={() => exportAs("png")}>Export as PNG</SplitButtonMenuItem>
   <SplitButtonMenuItem disabled>Cancel</SplitButtonMenuItem>
-</SplitButton>`}
+</SplitButton>`,
+            js: `<SplitButton icon="download" label="Export" color="indigo">
+  <SplitButtonMenuItem icon="file" id="export-pdf">Export as PDF</SplitButtonMenuItem>
+  <SplitButtonMenuItem icon="list" id="export-csv">Export as CSV</SplitButtonMenuItem>
+  <SplitButtonMenuItem icon="image" id="export-png">Export as PNG</SplitButtonMenuItem>
+  <SplitButtonMenuItem disabled="true">Cancel</SplitButtonMenuItem>
+</SplitButton>
+
+<script type="module">
+  document.getElementById("export-pdf").addEventListener("click", () => exportAs("pdf"));
+  document.getElementById("export-csv").addEventListener("click", () => exportAs("csv"));
+  document.getElementById("export-png").addEventListener("click", () => exportAs("png"));
+</script>`,
+            vue: `<template>
+  <SplitButton icon="download" label="Export" color="indigo">
+    <SplitButtonMenuItem icon="file" @click="exportAs('pdf')">Export as PDF</SplitButtonMenuItem>
+    <SplitButtonMenuItem icon="list" @click="exportAs('csv')">Export as CSV</SplitButtonMenuItem>
+    <SplitButtonMenuItem icon="image" @click="exportAs('png')">Export as PNG</SplitButtonMenuItem>
+    <SplitButtonMenuItem disabled="true">Cancel</SplitButtonMenuItem>
+  </SplitButton>
+</template>`,
+            angular: `<!-- reuses SplitButtonShowcaseComponent from above -->
+<SplitButton icon="download" label="Export" color="indigo">
+  <SplitButtonMenuItem icon="file" (click)="exportAs('pdf')">Export as PDF</SplitButtonMenuItem>
+  <SplitButtonMenuItem icon="list" (click)="exportAs('csv')">Export as CSV</SplitButtonMenuItem>
+  <SplitButtonMenuItem icon="image" (click)="exportAs('png')">Export as PNG</SplitButtonMenuItem>
+  <SplitButtonMenuItem disabled="true">Cancel</SplitButtonMenuItem>
+</SplitButton>`,
+          }}
         />
       </div>
     </section>

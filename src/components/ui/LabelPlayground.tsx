@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Label } from "./Label/Label";
 import { Input } from "./Input/Input";
 import { PlaygroundLayout } from "./PlaygroundHelpers";
+import type { CodeBlockVariants } from "./CodeBlock";
 
 export default function LabelPlayground() {
   const [required, setRequired] = useState(false);
@@ -19,8 +20,26 @@ export default function LabelPlayground() {
   const code = `<Label htmlFor="field"${required ? " required" : ""}>${text || "Email address"}</Label>
 <Input id="field" placeholder="you@example.com" />`;
 
+  // Custom-element markup for the current configuration — identical across
+  // Vue/Angular templates (plain attributes, no bindings needed for a static
+  // snapshot); the "js" variant just adds the one-time module import a plain
+  // HTML page needs to actually load the `<l-*>` definitions. `l-label`'s
+  // registered attribute is literally `htmlFor` (not the HTML-standard
+  // `for`), predating dash-casing conventions elsewhere.
+  const htmlMarkup = `<Label htmlFor="field"${required ? ` required="true"` : ""}>${
+    text || "Email address"
+  }</Label>
+<Input id="field" placeholder="you@example.com" />`;
+
+  const codeVariants: CodeBlockVariants = {
+    react: code,
+    js: `${htmlMarkup}\n\n<script type="module">import "lojee-ui/elements";</script>`,
+    vue: htmlMarkup,
+    angular: htmlMarkup,
+  };
+
   return (
-    <PlaygroundLayout preview={preview} code={code}>
+    <PlaygroundLayout preview={preview} variants={codeVariants}>
       <div className="sm:col-span-2">
         <span className="mb-1.5 block text-xs font-medium text-slate-500">Text</span>
         <input

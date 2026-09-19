@@ -34,6 +34,14 @@ import FileUploadShowcase from './components/ui/FileUpload'
 import SearchInputShowcase from './components/ui/SearchInput'
 import SliderShowcase from './components/ui/Slider'
 import RangeSliderShowcase from './components/ui/RangeSlider'
+import ModalShowcase from './components/ui/ModalShowcase'
+import AlertDialogShowcase from './components/ui/AlertDialog'
+import DrawerShowcase from './components/ui/Drawer'
+import SheetShowcase from './components/ui/Sheet'
+import PopoverShowcase from './components/ui/Popover'
+import DropdownMenuShowcase from './components/ui/DropdownMenu'
+import ContextMenuShowcase from './components/ui/ContextMenu'
+import CommandMenuShowcase from './components/ui/CommandMenu'
 
 import Sidebar from './components/layouts/Sidebar'
 import Header, { type HeaderNavKey } from './components/layouts/Header'
@@ -50,7 +58,6 @@ const SHOWCASES: Record<string, ComponentType> = {
   Spinners: SpinnerShowcase,
   Loaders: LoaderShowcase,
   Dividers: DividerShowcase,
-  Tooltips: TooltipShowcase,
   Cards: CardShowcase,
   Containers: ContainerShowcase,
   Sections: SectionShowcase,
@@ -77,6 +84,15 @@ const SHOWCASES: Record<string, ComponentType> = {
   'Search Input': SearchInputShowcase,
   Slider: SliderShowcase,
   'Range Slider': RangeSliderShowcase,
+  'Modal / Dialog': ModalShowcase,
+  Drawer: DrawerShowcase,
+  Sheet: SheetShowcase,
+  Popover: PopoverShowcase,
+  'Dropdown Menu': DropdownMenuShowcase,
+  'Context Menu': ContextMenuShowcase,
+  'Command Menu': CommandMenuShowcase,
+  'Alert Dialog': AlertDialogShowcase,
+  Tooltip: TooltipShowcase,
 }
 
 function App() {

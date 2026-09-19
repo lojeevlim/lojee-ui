@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Switch, type SwitchSize } from "./Switch/Switch";
 import type { ColorName } from "../../core/tokens";
 import { OptionGroup, ColorSwatches, PlaygroundLayout } from "./PlaygroundHelpers";
+import type { CodeBlockVariants } from "./CodeBlock";
 
 const SIZES: SwitchSize[] = ["sm", "md", "lg"];
 
@@ -27,8 +28,23 @@ export default function SwitchPlayground() {
     label ? ` label="${label}"` : ""
   } />`;
 
+  // Custom-element markup for the current configuration — identical across
+  // Vue/Angular templates (plain attributes, no bindings needed for a static
+  // snapshot); the "js" variant just adds the one-time module import a plain
+  // HTML page needs to actually load the `<l-*>` definitions.
+  const htmlMarkup = `<Switch size="${size}" color="${color}"${
+    checked ? ` default-checked="true"` : ""
+  }${disabled ? ` disabled="true"` : ""}${label ? ` label="${label}"` : ""} />`;
+
+  const codeVariants: CodeBlockVariants = {
+    react: code,
+    js: `${htmlMarkup}\n\n<script type="module">import "lojee-ui/elements";</script>`,
+    vue: htmlMarkup,
+    angular: htmlMarkup,
+  };
+
   return (
-    <PlaygroundLayout preview={preview} code={code}>
+    <PlaygroundLayout preview={preview} variants={codeVariants}>
       <div className="sm:col-span-2">
         <span className="mb-1.5 block text-xs font-medium text-slate-500">Label</span>
         <input

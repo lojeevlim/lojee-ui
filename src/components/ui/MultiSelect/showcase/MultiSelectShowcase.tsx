@@ -34,9 +34,73 @@ export default function MultiSelectShowcase() {
             <MultiSelect options={FRUIT_OPTIONS} value={basic} onChange={setBasic} placeholder="Select fruits..." />
           </div>
           <CodeBlock
-            code={`const [value, setValue] = useState<string[]>(["banana"]);
+            variants={{
+              react: `const [value, setValue] = useState<string[]>(["banana"]);
 
-<MultiSelect options={options} value={value} onChange={setValue} placeholder="Select fruits..." />`}
+<MultiSelect options={options} value={value} onChange={setValue} placeholder="Select fruits..." />`,
+              js: `<MultiSelect id="fruit-select" placeholder="Select fruits..." />
+
+<script type="module">
+  import "lojee-ui/elements";
+
+  const options = [
+    { label: "Apple", value: "apple" },
+    { label: "Banana", value: "banana" },
+    { label: "Cherry", value: "cherry" },
+    { label: "Mango", value: "mango" },
+    { label: "Papaya", value: "papaya", disabled: true },
+    { label: "Watermelon", value: "watermelon" },
+  ];
+
+  const select = document.getElementById("fruit-select");
+  select.options = options;
+  select.value = ["banana"];
+  select.addEventListener("change", (e) => {
+    select.value = e.detail;
+  });
+</script>`,
+              vue: `<template>
+  <MultiSelect :options="options" :value="value" placeholder="Select fruits..." @change="value = $event.detail" />
+</template>
+
+<script setup>
+import { ref } from "vue";
+import "lojee-ui/elements";
+
+const options = [
+  { label: "Apple", value: "apple" },
+  { label: "Banana", value: "banana" },
+  { label: "Cherry", value: "cherry" },
+  { label: "Mango", value: "mango" },
+  { label: "Papaya", value: "papaya", disabled: true },
+  { label: "Watermelon", value: "watermelon" },
+];
+const value = ref(["banana"]);
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+})
+export class AppComponent {
+  options = [
+    { label: "Apple", value: "apple" },
+    { label: "Banana", value: "banana" },
+    { label: "Cherry", value: "cherry" },
+    { label: "Mango", value: "mango" },
+    { label: "Papaya", value: "papaya", disabled: true },
+    { label: "Watermelon", value: "watermelon" },
+  ];
+  value = ["banana"];
+}
+
+<!-- app.component.html -->
+<MultiSelect [options]="options" [value]="value" placeholder="Select fruits..." (change)="value = $event.detail" />`,
+            }}
           />
         </section>
 
@@ -47,7 +111,26 @@ export default function MultiSelectShowcase() {
               <MultiSelect options={FRUIT_OPTIONS} value={colored} onChange={setColored} color="violet" />
             </div>
           </Row>
-          <CodeBlock code={`<MultiSelect options={options} value={value} onChange={setValue} color="violet" />`} />
+          <CodeBlock
+            variants={{
+              react: `<MultiSelect options={options} value={value} onChange={setValue} color="violet" />`,
+              js: `<MultiSelect id="colored-select" color="violet" />
+
+<script type="module">
+  const select = document.getElementById("colored-select");
+  select.options = options; // same fruit options as above
+  select.value = ["apple", "mango"];
+  select.addEventListener("change", (e) => {
+    select.value = e.detail;
+  });
+</script>`,
+              vue: `<template>
+  <MultiSelect :options="options" :value="value" color="violet" @change="value = $event.detail" />
+</template>`,
+              angular: `<!-- app.component.html — same AppComponent class as above -->
+<MultiSelect [options]="options" [value]="value" color="violet" (change)="value = $event.detail" />`,
+            }}
+          />
         </section>
 
         <section>
@@ -55,7 +138,26 @@ export default function MultiSelectShowcase() {
           <div className="max-w-sm">
             <MultiSelect options={FRUIT_OPTIONS} value={empty} onChange={setEmpty} placeholder="Nothing selected yet" />
           </div>
-          <CodeBlock code={`<MultiSelect options={options} value={[]} onChange={setValue} placeholder="Nothing selected yet" />`} />
+          <CodeBlock
+            variants={{
+              react: `<MultiSelect options={options} value={[]} onChange={setValue} placeholder="Nothing selected yet" />`,
+              js: `<MultiSelect id="empty-select" placeholder="Nothing selected yet" />
+
+<script type="module">
+  const select = document.getElementById("empty-select");
+  select.options = options; // same fruit options as above
+  select.value = [];
+  select.addEventListener("change", (e) => {
+    select.value = e.detail;
+  });
+</script>`,
+              vue: `<template>
+  <MultiSelect :options="options" :value="[]" placeholder="Nothing selected yet" @change="value = $event.detail" />
+</template>`,
+              angular: `<!-- app.component.html — same AppComponent class as above -->
+<MultiSelect [options]="options" [value]="[]" placeholder="Nothing selected yet" (change)="value = $event.detail" />`,
+            }}
+          />
         </section>
       </div>
     </div>

@@ -32,9 +32,42 @@ export default function TooltipShowcase() {
             </Tooltip>
           </Row>
           <CodeBlock
-            code={`<Tooltip content="Tooltip on top" position="top">
+            variants={{
+              react: `<Tooltip content="Tooltip on top" position="top">
   <Button variant="outline" label="Top" />
-</Tooltip>`}
+</Tooltip>`,
+              js: `<Tooltip content="Tooltip on top" position="top">
+  <Button variant="outline" label="Top" />
+</Tooltip>
+
+<script type="module">
+  import "lojee-ui/elements";
+</script>`,
+              vue: `<template>
+  <Tooltip content="Tooltip on top" position="top">
+    <Button variant="outline" label="Top" />
+  </Tooltip>
+</template>
+
+<script setup>
+import "lojee-ui/elements";
+</script>`,
+              angular: `// tooltip-showcase.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-tooltip-showcase",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <Tooltip content="Tooltip on top" position="top">
+      <Button variant="outline" label="Top" />
+    </Tooltip>
+  \`,
+})
+export class TooltipShowcaseComponent {}`,
+            }}
           />
         </section>
 
@@ -58,9 +91,23 @@ export default function TooltipShowcase() {
             </Tooltip>
           </Row>
           <CodeBlock
-            code={`<Tooltip content="Indigo tooltip" color="indigo">
+            variants={{
+              react: `<Tooltip content="Indigo tooltip" color="indigo">
   <Button variant="outline" label="Indigo" />
-</Tooltip>`}
+</Tooltip>`,
+              js: `<Tooltip content="Indigo tooltip" color="indigo">
+  <Button variant="outline" label="Indigo" />
+</Tooltip>`,
+              vue: `<template>
+  <Tooltip content="Indigo tooltip" color="indigo">
+    <Button variant="outline" label="Indigo" />
+  </Tooltip>
+</template>`,
+              angular: `<!-- reuses TooltipShowcaseComponent from above -->
+<Tooltip content="Indigo tooltip" color="indigo">
+  <Button variant="outline" label="Indigo" />
+</Tooltip>`,
+            }}
           />
         </section>
 
@@ -74,7 +121,17 @@ export default function TooltipShowcase() {
               <Button variant="soft" label="500ms delay" />
             </Tooltip>
           </Row>
-          <CodeBlock code={`<Tooltip content="Waits a bit" delayMs={500}>...</Tooltip>`} />
+          <CodeBlock
+            variants={{
+              react: `<Tooltip content="Waits a bit" delayMs={500}>...</Tooltip>`,
+              js: `<Tooltip content="Waits a bit" delay-ms="500">...</Tooltip>`,
+              vue: `<template>
+  <Tooltip content="Waits a bit" delay-ms="500">...</Tooltip>
+</template>`,
+              angular: `<!-- reuses TooltipShowcaseComponent from above -->
+<Tooltip content="Waits a bit" delay-ms="500">...</Tooltip>`,
+            }}
+          />
         </section>
 
         <section>
@@ -85,9 +142,23 @@ export default function TooltipShowcase() {
             </Tooltip>
           </Row>
           <CodeBlock
-            code={`<Tooltip content="This works on plain text too">
+            variants={{
+              react: `<Tooltip content="This works on plain text too">
   <span>Hover this text</span>
-</Tooltip>`}
+</Tooltip>`,
+              js: `<Tooltip content="This works on plain text too">
+  <span>Hover this text</span>
+</Tooltip>`,
+              vue: `<template>
+  <Tooltip content="This works on plain text too">
+    <span>Hover this text</span>
+  </Tooltip>
+</template>`,
+              angular: `<!-- reuses TooltipShowcaseComponent from above -->
+<Tooltip content="This works on plain text too">
+  <span>Hover this text</span>
+</Tooltip>`,
+            }}
           />
         </section>
       </div>

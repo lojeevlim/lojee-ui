@@ -18,7 +18,36 @@ export default function TimePickerShowcase() {
           <div className="max-w-sm">
             <TimePicker />
           </div>
-          <CodeBlock code={`<TimePicker />`} />
+          <CodeBlock
+            variants={{
+              react: `<TimePicker />`,
+              js: `<TimePicker />
+
+<script type="module">
+  import "lojee-ui/elements";
+</script>`,
+              vue: `<template>
+  <TimePicker />
+</template>
+
+<script setup>
+import "lojee-ui/elements";
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+})
+export class AppComponent {}
+
+<!-- app.component.html -->
+<TimePicker />`,
+            }}
+          />
         </section>
 
         <section>
@@ -28,7 +57,17 @@ export default function TimePickerShowcase() {
             <TimePicker size="md" />
             <TimePicker size="lg" />
           </div>
-          <CodeBlock code={`<TimePicker size="sm" />`} />
+          <CodeBlock
+            variants={{
+              react: `<TimePicker size="sm" />`,
+              js: `<TimePicker size="sm" />`,
+              vue: `<template>
+  <TimePicker size="sm" />
+</template>`,
+              angular: `<!-- app.component.html -->
+<TimePicker size="sm" />`,
+            }}
+          />
         </section>
 
         <section>
@@ -36,7 +75,17 @@ export default function TimePickerShowcase() {
           <div className="max-w-sm">
             <TimePicker invalid />
           </div>
-          <CodeBlock code={`<TimePicker invalid />`} />
+          <CodeBlock
+            variants={{
+              react: `<TimePicker invalid />`,
+              js: `<TimePicker invalid />`,
+              vue: `<template>
+  <TimePicker invalid />
+</template>`,
+              angular: `<!-- app.component.html -->
+<TimePicker invalid />`,
+            }}
+          />
         </section>
 
         <section>
@@ -44,7 +93,17 @@ export default function TimePickerShowcase() {
           <div className="max-w-sm">
             <TimePicker disabled />
           </div>
-          <CodeBlock code={`<TimePicker disabled />`} />
+          <CodeBlock
+            variants={{
+              react: `<TimePicker disabled />`,
+              js: `<TimePicker disabled />`,
+              vue: `<template>
+  <TimePicker disabled />
+</template>`,
+              angular: `<!-- app.component.html -->
+<TimePicker disabled />`,
+            }}
+          />
         </section>
       </div>
     </div>

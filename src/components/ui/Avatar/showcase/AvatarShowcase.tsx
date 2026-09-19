@@ -23,7 +23,34 @@ export default function AvatarShowcase() {
             <Avatar size="lg" initials="AB" color="indigo" />
             <Avatar size="xl" initials="AB" color="indigo" />
           </Row>
-          <CodeBlock code={`<Avatar size="md" initials="AB" color="indigo" />`} />
+          <CodeBlock
+            variants={{
+              react: `<Avatar size="md" initials="AB" color="indigo" />`,
+              js: `<Avatar size="md" initials="AB" color="indigo" />
+
+<script type="module">
+  import "lojee-ui/elements";
+</script>`,
+              vue: `<template>
+  <Avatar size="md" initials="AB" color="indigo" />
+</template>
+
+<script setup>
+import "lojee-ui/elements";
+</script>`,
+              angular: `// avatar-showcase.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-avatar-showcase",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`<Avatar size="md" initials="AB" color="indigo" />\`,
+})
+export class AvatarShowcaseComponent {}`,
+            }}
+          />
         </section>
 
         <section>
@@ -33,7 +60,17 @@ export default function AvatarShowcase() {
             <Avatar initials="JD" color="emerald" alt="Jane Doe" />
             <Avatar initials="MK" color="amber" alt="Max King" />
           </Row>
-          <CodeBlock code={`<Avatar src="/me.jpg" initials="LL" alt="Lojee Lim" />`} />
+          <CodeBlock
+            variants={{
+              react: `<Avatar src="/me.jpg" initials="LL" alt="Lojee Lim" />`,
+              js: `<Avatar src="/me.jpg" initials="LL" alt="Lojee Lim" />`,
+              vue: `<template>
+  <Avatar src="/me.jpg" initials="LL" alt="Lojee Lim" />
+</template>`,
+              angular: `<!-- reuses AvatarShowcaseComponent from above -->
+<Avatar src="/me.jpg" initials="LL" alt="Lojee Lim" />`,
+            }}
+          />
         </section>
 
         <section>
@@ -44,7 +81,17 @@ export default function AvatarShowcase() {
             <Avatar initials="BS" color="slate" status="busy" />
             <Avatar initials="OF" color="slate" status="offline" />
           </Row>
-          <CodeBlock code={`<Avatar initials="ON" status="online" />`} />
+          <CodeBlock
+            variants={{
+              react: `<Avatar initials="ON" status="online" />`,
+              js: `<Avatar initials="ON" status="online" />`,
+              vue: `<template>
+  <Avatar initials="ON" status="online" />
+</template>`,
+              angular: `<!-- reuses AvatarShowcaseComponent from above -->
+<Avatar initials="ON" status="online" />`,
+            }}
+          />
         </section>
 
         <section>
@@ -53,7 +100,17 @@ export default function AvatarShowcase() {
             <Avatar initials="CI" color="violet" shape="circle" />
             <Avatar initials="SQ" color="violet" shape="square" />
           </Row>
-          <CodeBlock code={`<Avatar initials="SQ" shape="square" />`} />
+          <CodeBlock
+            variants={{
+              react: `<Avatar initials="SQ" shape="square" />`,
+              js: `<Avatar initials="SQ" shape="square" />`,
+              vue: `<template>
+  <Avatar initials="SQ" shape="square" />
+</template>`,
+              angular: `<!-- reuses AvatarShowcaseComponent from above -->
+<Avatar initials="SQ" shape="square" />`,
+            }}
+          />
         </section>
 
         <section>
@@ -67,11 +124,31 @@ export default function AvatarShowcase() {
             </AvatarGroup>
           </Row>
           <CodeBlock
-            code={`<AvatarGroup>
+            variants={{
+              react: `<AvatarGroup>
   <Avatar initials="AA" color="indigo" />
   <Avatar initials="BB" color="rose" />
   <Avatar initials="CC" color="emerald" />
-</AvatarGroup>`}
+</AvatarGroup>`,
+              js: `<AvatarGroup>
+  <Avatar initials="AA" color="indigo" />
+  <Avatar initials="BB" color="rose" />
+  <Avatar initials="CC" color="emerald" />
+</AvatarGroup>`,
+              vue: `<template>
+  <AvatarGroup>
+    <Avatar initials="AA" color="indigo" />
+    <Avatar initials="BB" color="rose" />
+    <Avatar initials="CC" color="emerald" />
+  </AvatarGroup>
+</template>`,
+              angular: `<!-- reuses AvatarShowcaseComponent from above -->
+<AvatarGroup>
+  <Avatar initials="AA" color="indigo" />
+  <Avatar initials="BB" color="rose" />
+  <Avatar initials="CC" color="emerald" />
+</AvatarGroup>`,
+            }}
           />
         </section>
       </div>

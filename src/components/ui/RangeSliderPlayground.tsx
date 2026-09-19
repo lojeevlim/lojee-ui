@@ -2,6 +2,7 @@ import { useState } from "react";
 import { RangeSlider } from "./RangeSlider/RangeSlider";
 import type { ColorName } from "../../core/tokens";
 import { ColorSwatches, PlaygroundLayout } from "./PlaygroundHelpers";
+import type { CodeBlockVariants } from "./CodeBlock";
 
 export default function RangeSliderPlayground() {
   const [color, setColor] = useState<ColorName>("slate");
@@ -16,8 +17,37 @@ export default function RangeSliderPlayground() {
 
   const code = `<RangeSlider color="${color}"${showValue ? " showValue" : ""} value={[${value[0]}, ${value[1]}]} onChange={setValue} />`;
 
+  // `value` is registered as a "json" prop on <RangeSlider> — it's a
+  // [number, number] tuple, not a single native input value, so it must be
+  // assigned as a real DOM property (js) / bound (vue/angular), never a
+  // stringified attribute. `showValue` needs an explicit "true" since r2wc
+  // parses a bare attribute as false.
+  const valueLiteral = `[${value[0]}, ${value[1]}]`;
+  const showValueAttr = showValue ? ` show-value="true"` : "";
+
+  const codeVariants: CodeBlockVariants = {
+    react: code,
+    js: `<RangeSlider id="range-slider" color="${color}"${showValueAttr} />
+
+<script type="module">
+  import "lojee-ui/elements";
+
+  document.querySelector("#range-slider").value = ${valueLiteral};
+</script>`,
+    vue: `<template>
+  <RangeSlider :value="value" color="${color}"${showValueAttr} />
+</template>
+
+<script setup>
+const value = ${valueLiteral};
+</script>`,
+    angular: `<RangeSlider [value]="value" color="${color}"${showValueAttr} />
+
+value = ${valueLiteral};`,
+  };
+
   return (
-    <PlaygroundLayout preview={preview} code={code}>
+    <PlaygroundLayout preview={preview} variants={codeVariants}>
       <ColorSwatches value={color} onChange={setColor} />
 
       <div>

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { TimePicker, type TimePickerSize } from "./TimePicker/TimePicker";
 import { OptionGroup, PlaygroundLayout } from "./PlaygroundHelpers";
+import type { CodeBlockVariants } from "./CodeBlock";
 
 const SIZES: TimePickerSize[] = ["sm", "md", "lg"];
 
@@ -13,8 +14,21 @@ export default function TimePickerPlayground() {
 
   const code = `<TimePicker size="${size}"${invalid ? " invalid" : ""}${disabled ? " disabled" : ""} />`;
 
+  // No json props on <TimePicker> — plain attributes only. Booleans need
+  // an explicit "true" since r2wc parses a bare attribute as false.
+  const htmlMarkup = `<TimePicker size="${size}"${invalid ? ` invalid="true"` : ""}${
+    disabled ? ` disabled="true"` : ""
+  } />`;
+
+  const codeVariants: CodeBlockVariants = {
+    react: code,
+    js: `${htmlMarkup}\n\n<script type="module">import "lojee-ui/elements";</script>`,
+    vue: htmlMarkup,
+    angular: htmlMarkup,
+  };
+
   return (
-    <PlaygroundLayout preview={preview} code={code}>
+    <PlaygroundLayout preview={preview} variants={codeVariants}>
       <OptionGroup label="Size" options={SIZES} value={size} onChange={setSize} />
 
       <div>

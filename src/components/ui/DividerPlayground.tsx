@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Divider, type DividerOrientation } from "./Divider/Divider";
 import type { ColorName } from "../../core/tokens";
 import { OptionGroup, ColorSwatches, PlaygroundLayout } from "./PlaygroundHelpers";
+import type { CodeBlockVariants } from "./CodeBlock";
 
 const ORIENTATIONS: DividerOrientation[] = ["horizontal", "vertical"];
 
@@ -35,8 +36,28 @@ export default function DividerPlayground() {
     .join(" ");
   const code = attrs ? `<Divider ${attrs} />` : `<Divider />`;
 
+  // Custom-element markup for the current configuration — `resizable` is a
+  // boolean prop, so it must be written as an explicit `="true"` (a bare
+  // attribute would parse to false via r2wc's boolean parser).
+  const htmlAttrs = [
+    isVertical ? `orientation="vertical"` : null,
+    color !== "slate" ? `color="${color}"` : null,
+    !isVertical && !resizable && label ? `label="${label}"` : null,
+    resizable ? `resizable="true"` : null,
+  ]
+    .filter(Boolean)
+    .join(" ");
+  const htmlMarkup = htmlAttrs ? `<Divider ${htmlAttrs} />` : `<Divider />`;
+
+  const codeVariants: CodeBlockVariants = {
+    react: code,
+    js: `${htmlMarkup}\n\n<script type="module">import "lojee-ui/elements";</script>`,
+    vue: htmlMarkup,
+    angular: htmlMarkup,
+  };
+
   return (
-    <PlaygroundLayout preview={preview} code={code}>
+    <PlaygroundLayout preview={preview} variants={codeVariants}>
       <OptionGroup label="Orientation" options={ORIENTATIONS} value={orientation} onChange={setOrientation} />
       <ColorSwatches value={color} onChange={setColor} />
 

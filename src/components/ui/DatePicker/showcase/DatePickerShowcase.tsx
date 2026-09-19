@@ -27,7 +27,36 @@ export default function DatePickerShowcase() {
           <div className="max-w-sm">
             <DatePicker />
           </div>
-          <CodeBlock code={`<DatePicker />`} />
+          <CodeBlock
+            variants={{
+              react: `<DatePicker />`,
+              js: `<DatePicker />
+
+<script type="module">
+  import "lojee-ui/elements";
+</script>`,
+              vue: `<template>
+  <DatePicker />
+</template>
+
+<script setup>
+import "lojee-ui/elements";
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+})
+export class AppComponent {}
+
+<!-- app.component.html -->
+<DatePicker />`,
+            }}
+          />
         </section>
 
         <section>
@@ -38,9 +67,23 @@ export default function DatePickerShowcase() {
             <DatePicker variant="underline" />
           </div>
           <CodeBlock
-            code={`<DatePicker variant="outline" />
+            variants={{
+              react: `<DatePicker variant="outline" />
 <DatePicker variant="filled" />
-<DatePicker variant="underline" />`}
+<DatePicker variant="underline" />`,
+              js: `<DatePicker variant="outline" />
+<DatePicker variant="filled" />
+<DatePicker variant="underline" />`,
+              vue: `<template>
+  <DatePicker variant="outline" />
+  <DatePicker variant="filled" />
+  <DatePicker variant="underline" />
+</template>`,
+              angular: `<!-- app.component.html -->
+<DatePicker variant="outline" />
+<DatePicker variant="filled" />
+<DatePicker variant="underline" />`,
+            }}
           />
         </section>
 
@@ -51,7 +94,17 @@ export default function DatePickerShowcase() {
             <DatePicker size="md" />
             <DatePicker size="lg" />
           </div>
-          <CodeBlock code={`<DatePicker size="sm" />`} />
+          <CodeBlock
+            variants={{
+              react: `<DatePicker size="sm" />`,
+              js: `<DatePicker size="sm" />`,
+              vue: `<template>
+  <DatePicker size="sm" />
+</template>`,
+              angular: `<!-- app.component.html -->
+<DatePicker size="sm" />`,
+            }}
+          />
         </section>
 
         <section>
@@ -60,9 +113,37 @@ export default function DatePickerShowcase() {
             <DatePicker value={clearableValue} onChange={(e) => setClearableValue(e.target.value)} onClear={() => setClearableValue("")} />
           </div>
           <CodeBlock
-            code={`const [value, setValue] = useState("2026-06-15");
+            variants={{
+              react: `const [value, setValue] = useState("2026-06-15");
 
-<DatePicker value={value} onChange={(e) => setValue(e.target.value)} onClear={() => setValue("")} />`}
+<DatePicker value={value} onChange={(e) => setValue(e.target.value)} onClear={() => setValue("")} />`,
+              js: `<DatePicker id="date-field" />
+
+<script type="module">
+  const picker = document.getElementById("date-field");
+  picker.value = "2026-06-15";
+  picker.addEventListener("input", (e) => {
+    picker.value = e.target.value;
+  });
+  picker.addEventListener("clear", () => {
+    picker.value = "";
+  });
+</script>`,
+              vue: `<template>
+  <DatePicker :value="value" @input="value = $event.target.value" @clear="value = ''" />
+</template>
+
+<script setup>
+import { ref } from "vue";
+
+const value = ref("2026-06-15");
+</script>`,
+              angular: `// app.component.ts (relevant property, added to the AppComponent class above)
+value = "2026-06-15";
+
+<!-- app.component.html -->
+<DatePicker [value]="value" (input)="value = $event.target.value" (clear)="value = ''" />`,
+            }}
           />
         </section>
 
@@ -71,7 +152,17 @@ export default function DatePickerShowcase() {
           <div className="max-w-sm">
             <DatePicker invalid />
           </div>
-          <CodeBlock code={`<DatePicker invalid />`} />
+          <CodeBlock
+            variants={{
+              react: `<DatePicker invalid />`,
+              js: `<DatePicker invalid />`,
+              vue: `<template>
+  <DatePicker invalid />
+</template>`,
+              angular: `<!-- app.component.html -->
+<DatePicker invalid />`,
+            }}
+          />
         </section>
 
         <section>
@@ -79,7 +170,17 @@ export default function DatePickerShowcase() {
           <div className="max-w-sm">
             <DatePicker disabled />
           </div>
-          <CodeBlock code={`<DatePicker disabled />`} />
+          <CodeBlock
+            variants={{
+              react: `<DatePicker disabled />`,
+              js: `<DatePicker disabled />`,
+              vue: `<template>
+  <DatePicker disabled />
+</template>`,
+              angular: `<!-- app.component.html -->
+<DatePicker disabled />`,
+            }}
+          />
         </section>
 
         <section>
@@ -95,10 +196,51 @@ export default function DatePickerShowcase() {
             />
           </div>
           <CodeBlock
-            code={`const [start, setStart] = useState("2026-06-01");
+            variants={{
+              react: `const [start, setStart] = useState("2026-06-01");
 const [end, setEnd] = useState("2026-06-14");
 
-<DateRangePicker startValue={start} endValue={end} onStartChange={setStart} onEndChange={setEnd} />`}
+<DateRangePicker startValue={start} endValue={end} onStartChange={setStart} onEndChange={setEnd} />`,
+              js: `<DateRangePicker id="range-picker" />
+
+<script type="module">
+  const range = document.getElementById("range-picker");
+  range.startValue = "2026-06-01";
+  range.endValue = "2026-06-14";
+  range.addEventListener("startchange", (e) => {
+    range.startValue = e.detail;
+  });
+  range.addEventListener("endchange", (e) => {
+    range.endValue = e.detail;
+  });
+</script>`,
+              vue: `<template>
+  <DateRangePicker
+    :startValue="start"
+    :endValue="end"
+    @startchange="start = $event.detail"
+    @endchange="end = $event.detail"
+  />
+</template>
+
+<script setup>
+import { ref } from "vue";
+
+const start = ref("2026-06-01");
+const end = ref("2026-06-14");
+</script>`,
+              angular: `// app.component.ts (relevant properties, added to the AppComponent class above)
+start = "2026-06-01";
+end = "2026-06-14";
+
+<!-- app.component.html -->
+<DateRangePicker
+  [startValue]="start"
+  [endValue]="end"
+  (startchange)="start = $event.detail"
+  (endchange)="end = $event.detail"
+ />`,
+            }}
           />
         </section>
 
@@ -119,7 +261,8 @@ const [end, setEnd] = useState("2026-06-14");
             />
           </div>
           <CodeBlock
-            code={`<DateRangePicker
+            variants={{
+              react: `<DateRangePicker
   startValue={start}
   endValue={end}
   onStartChange={setStart}
@@ -130,7 +273,66 @@ const [end, setEnd] = useState("2026-06-14");
     { label: "Last 30 days", range: ["2026-05-15", "2026-06-14"] },
     { label: "This month", range: ["2026-06-01", "2026-06-30"] },
   ]}
-/>`}
+/>`,
+              js: `<DateRangePicker id="preset-range-picker" variant="filled" />
+
+<script type="module">
+  const rangeWithPresets = document.getElementById("preset-range-picker");
+  rangeWithPresets.startValue = "";
+  rangeWithPresets.endValue = "";
+  rangeWithPresets.presets = [
+    { label: "Last 7 days", range: ["2026-06-08", "2026-06-14"] },
+    { label: "Last 30 days", range: ["2026-05-15", "2026-06-14"] },
+    { label: "This month", range: ["2026-06-01", "2026-06-30"] },
+  ];
+  rangeWithPresets.addEventListener("startchange", (e) => {
+    rangeWithPresets.startValue = e.detail;
+  });
+  rangeWithPresets.addEventListener("endchange", (e) => {
+    rangeWithPresets.endValue = e.detail;
+  });
+</script>`,
+              vue: `<template>
+  <DateRangePicker
+    :startValue="start"
+    :endValue="end"
+    variant="filled"
+    :presets="presets"
+    @startchange="start = $event.detail"
+    @endchange="end = $event.detail"
+  />
+</template>
+
+<script setup>
+import { ref } from "vue";
+
+const start = ref("");
+const end = ref("");
+const presets = [
+  { label: "Last 7 days", range: ["2026-06-08", "2026-06-14"] },
+  { label: "Last 30 days", range: ["2026-05-15", "2026-06-14"] },
+  { label: "This month", range: ["2026-06-01", "2026-06-30"] },
+];
+</script>`,
+              angular: `// app.component.ts (relevant properties, added to the AppComponent class above)
+start = "";
+end = "";
+presets = [
+  { label: "Last 7 days", range: ["2026-06-08", "2026-06-14"] },
+  { label: "Last 30 days", range: ["2026-05-15", "2026-06-14"] },
+  { label: "This month", range: ["2026-06-01", "2026-06-30"] },
+];
+
+<!-- app.component.html -->
+<DateRangePicker
+  [startValue]="start"
+  [endValue]="end"
+  variant="filled"
+  [presets]="presets"
+  (startchange)="start = $event.detail"
+  (endchange)="end = $event.detail"
+ />`,
+            }}
           />
         </section>
       </div>

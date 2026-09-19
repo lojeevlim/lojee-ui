@@ -23,9 +23,42 @@ export default function InputShowcase() {
             <Input size="lg" placeholder="Large" />
           </div>
           <CodeBlock
-            code={`<Input size="sm" placeholder="Small" />
+            variants={{
+              react: `<Input size="sm" placeholder="Small" />
 <Input size="md" placeholder="Medium" />
-<Input size="lg" placeholder="Large" />`}
+<Input size="lg" placeholder="Large" />`,
+              js: `<Input size="sm" placeholder="Small" />
+<Input size="md" placeholder="Medium" />
+<Input size="lg" placeholder="Large" />
+
+<script type="module">
+  import "lojee-ui/elements";
+</script>`,
+              vue: `<template>
+  <Input size="sm" placeholder="Small" />
+  <Input size="md" placeholder="Medium" />
+  <Input size="lg" placeholder="Large" />
+</template>
+
+<script setup>
+import "lojee-ui/elements";
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <Input size="sm" placeholder="Small" />
+    <Input size="md" placeholder="Medium" />
+    <Input size="lg" placeholder="Large" />
+  \`,
+})
+export class AppComponent {}`,
+            }}
           />
         </section>
 
@@ -37,9 +70,23 @@ export default function InputShowcase() {
             <Input leadingIcon="user" trailingIcon="circle-check" placeholder="Username" />
           </div>
           <CodeBlock
-            code={`<Input leadingIcon="mail" placeholder="Email address" />
+            variants={{
+              react: `<Input leadingIcon="mail" placeholder="Email address" />
 <Input trailingIcon="eye" type="password" placeholder="Password" />
-<Input leadingIcon="user" trailingIcon="circle-check" placeholder="Username" />`}
+<Input leadingIcon="user" trailingIcon="circle-check" placeholder="Username" />`,
+              js: `<Input leadingIcon="mail" placeholder="Email address" />
+<Input trailingIcon="eye" type="password" placeholder="Password" />
+<Input leadingIcon="user" trailingIcon="circle-check" placeholder="Username" />`,
+              vue: `<template>
+  <Input leadingIcon="mail" placeholder="Email address" />
+  <Input trailingIcon="eye" type="password" placeholder="Password" />
+  <Input leadingIcon="user" trailingIcon="circle-check" placeholder="Username" />
+</template>`,
+              angular: `<!-- app.component.html — same AppComponent as above -->
+<Input leadingIcon="mail" placeholder="Email address" />
+<Input trailingIcon="eye" type="password" placeholder="Password" />
+<Input leadingIcon="user" trailingIcon="circle-check" placeholder="Username" />`,
+            }}
           />
         </section>
 
@@ -48,7 +95,14 @@ export default function InputShowcase() {
           <div className="max-w-sm">
             <Input invalid defaultValue="not-an-email" leadingIcon="mail" />
           </div>
-          <CodeBlock code={`<Input invalid defaultValue="not-an-email" leadingIcon="mail" />`} />
+          <CodeBlock
+            variants={{
+              react: `<Input invalid defaultValue="not-an-email" leadingIcon="mail" />`,
+              js: `<Input invalid value="not-an-email" leadingIcon="mail" />`,
+              vue: `<Input invalid value="not-an-email" leadingIcon="mail" />`,
+              angular: `<Input invalid value="not-an-email" leadingIcon="mail" />`,
+            }}
+          />
         </section>
 
         <section>
@@ -66,7 +120,8 @@ export default function InputShowcase() {
             {isInvalidEmail && <p className="mt-1.5 text-xs text-rose-600">Must contain an "@".</p>}
           </div>
           <CodeBlock
-            code={`const [email, setEmail] = useState("");
+            variants={{
+              react: `const [email, setEmail] = useState("");
 const isInvalidEmail = email.length > 0 && !email.includes("@");
 
 <Input
@@ -75,7 +130,57 @@ const isInvalidEmail = email.length > 0 && !email.includes("@");
   value={email}
   onChange={(e) => setEmail(e.target.value)}
   placeholder="Type something…"
-/>`}
+/>`,
+              js: `<Input id="email-input" size="md" placeholder="Type something…" />
+<p id="email-error" class="hidden">Must contain an "@".</p>
+
+<script type="module">
+  const input = document.getElementById("email-input");
+  const error = document.getElementById("email-error");
+
+  input.addEventListener("input", (e) => {
+    const email = e.target.value;
+    const isInvalidEmail = email.length > 0 && !email.includes("@");
+    input.invalid = isInvalidEmail;
+    error.classList.toggle("hidden", !isInvalidEmail);
+  });
+</script>`,
+              vue: `<template>
+  <Input
+    size="md"
+    :invalid="isInvalidEmail"
+    :value="email"
+    @input="email = $event.target.value"
+    placeholder="Type something…"
+  />
+  <p v-if="isInvalidEmail">Must contain an "@".</p>
+</template>
+
+<script setup>
+import { ref, computed } from "vue";
+
+const email = ref("");
+const isInvalidEmail = computed(() => email.value.length > 0 && !email.value.includes("@"));
+</script>`,
+              angular: `// app.component.ts — add these members to the same AppComponent
+email = "";
+get isInvalidEmail() {
+  return this.email.length > 0 && !this.email.includes("@");
+}
+onEmailInput(e: Event) {
+  this.email = (e.target as HTMLInputElement).value;
+}
+
+<!-- app.component.html -->
+<Input
+  size="md"
+  [invalid]="isInvalidEmail"
+  [value]="email"
+  (input)="onEmailInput($event)"
+  placeholder="Type something…"
+ />
+<p *ngIf="isInvalidEmail">Must contain an "@".</p>`,
+            }}
           />
         </section>
 
@@ -84,7 +189,14 @@ const isInvalidEmail = email.length > 0 && !email.includes("@");
           <div className="max-w-sm">
             <Input disabled placeholder="Disabled" />
           </div>
-          <CodeBlock code={`<Input disabled placeholder="Disabled" />`} />
+          <CodeBlock
+            variants={{
+              react: `<Input disabled placeholder="Disabled" />`,
+              js: `<Input disabled placeholder="Disabled" />`,
+              vue: `<Input disabled placeholder="Disabled" />`,
+              angular: `<Input disabled placeholder="Disabled" />`,
+            }}
+          />
         </section>
       </div>
     </div>

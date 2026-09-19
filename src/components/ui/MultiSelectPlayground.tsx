@@ -2,6 +2,7 @@ import { useState } from "react";
 import { MultiSelect, type MultiSelectOption } from "./MultiSelect/MultiSelect";
 import type { ColorName } from "../../core/tokens";
 import { ColorSwatches, PlaygroundLayout } from "./PlaygroundHelpers";
+import type { CodeBlockVariants } from "./CodeBlock";
 
 const OPTIONS: MultiSelectOption[] = [
   { label: "Apple", value: "apple" },
@@ -31,8 +32,43 @@ export default function MultiSelectPlayground() {
   placeholder="${placeholder}"
 />`;
 
+  // `options`/`value` are registered as "json" props on <MultiSelect> — a
+  // stringified attribute won't do, they need to be assigned as real DOM
+  // properties (js) or bound (vue/angular), same as the OPTIONS constant and
+  // current `value` selection above.
+  const optionsLiteral = JSON.stringify(OPTIONS, null, 2);
+  const valueLiteral = JSON.stringify(value);
+
+  const codeVariants: CodeBlockVariants = {
+    react: code,
+    js: `<MultiSelect id="multi-select" placeholder="${placeholder}" color="${color}" />
+
+<script type="module">
+  import "lojee-ui/elements";
+
+  const options = ${optionsLiteral};
+  const value = ${valueLiteral};
+
+  const el = document.querySelector("#multi-select");
+  el.options = options;
+  el.value = value;
+</script>`,
+    vue: `<template>
+  <MultiSelect :options="options" :value="value" placeholder="${placeholder}" color="${color}" />
+</template>
+
+<script setup>
+const options = ${optionsLiteral};
+const value = ${valueLiteral};
+</script>`,
+    angular: `<MultiSelect [options]="options" [value]="value" placeholder="${placeholder}" color="${color}" />
+
+options = ${optionsLiteral};
+value = ${valueLiteral};`,
+  };
+
   return (
-    <PlaygroundLayout preview={preview} code={code}>
+    <PlaygroundLayout preview={preview} variants={codeVariants}>
       <div className="sm:col-span-2">
         <span className="mb-1.5 block text-xs font-medium text-slate-500">Placeholder</span>
         <input

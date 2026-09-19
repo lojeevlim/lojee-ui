@@ -19,8 +19,38 @@ export default function LabelShowcase() {
             <Input id="showcase-email" placeholder="you@example.com" />
           </div>
           <CodeBlock
-            code={`<Label htmlFor="email">Email address</Label>
-<Input id="email" placeholder="you@example.com" />`}
+            variants={{
+              react: `<Label htmlFor="email">Email address</Label>
+<Input id="email" placeholder="you@example.com" />`,
+              js: `<Label htmlFor="email">Email address</Label>
+<Input id="email" placeholder="you@example.com" />
+
+<script type="module">
+  import "lojee-ui/elements";
+</script>`,
+              vue: `<template>
+  <Label htmlFor="email">Email address</Label>
+  <Input id="email" placeholder="you@example.com" />
+</template>
+
+<script setup>
+import "lojee-ui/elements";
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <Label htmlFor="email">Email address</Label>
+    <Input id="email" placeholder="you@example.com" />
+  \`,
+})
+export class AppComponent {}`,
+            }}
           />
         </section>
 
@@ -33,8 +63,19 @@ export default function LabelShowcase() {
             <Input id="showcase-name" placeholder="Jane Doe" />
           </div>
           <CodeBlock
-            code={`<Label htmlFor="name" required>Full name</Label>
-<Input id="name" placeholder="Jane Doe" />`}
+            variants={{
+              react: `<Label htmlFor="name" required>Full name</Label>
+<Input id="name" placeholder="Jane Doe" />`,
+              js: `<Label htmlFor="name" required>Full name</Label>
+<Input id="name" placeholder="Jane Doe" />`,
+              vue: `<template>
+  <Label htmlFor="name" required>Full name</Label>
+  <Input id="name" placeholder="Jane Doe" />
+</template>`,
+              angular: `<!-- app.component.html — same AppComponent as above -->
+<Label htmlFor="name" required>Full name</Label>
+<Input id="name" placeholder="Jane Doe" />`,
+            }}
           />
         </section>
       </div>

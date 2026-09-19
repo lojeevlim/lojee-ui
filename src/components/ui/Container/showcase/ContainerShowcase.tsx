@@ -23,11 +23,50 @@ export default function ContainerShowcase() {
             ))}
           </div>
           <CodeBlock
-            code={`<Container size="sm">...</Container>
+            variants={{
+              react: `<Container size="sm">...</Container>
 <Container size="md">...</Container>
 <Container size="lg">...</Container>
 <Container size="xl">...</Container>
-<Container size="full">...</Container>`}
+<Container size="full">...</Container>`,
+              js: `<Container size="sm">...</Container>
+<Container size="md">...</Container>
+<Container size="lg">...</Container>
+<Container size="xl">...</Container>
+<Container size="full">...</Container>
+
+<script type="module">
+  import "lojee-ui/elements";
+</script>`,
+              vue: `<template>
+  <Container size="sm">...</Container>
+  <Container size="md">...</Container>
+  <Container size="lg">...</Container>
+  <Container size="xl">...</Container>
+  <Container size="full">...</Container>
+</template>
+
+<script setup>
+import "lojee-ui/elements";
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <Container size="sm">...</Container>
+    <Container size="md">...</Container>
+    <Container size="lg">...</Container>
+    <Container size="xl">...</Container>
+    <Container size="full">...</Container>
+  \`,
+})
+export class AppComponent {}`,
+            }}
           />
         </section>
 
@@ -45,7 +84,17 @@ export default function ContainerShowcase() {
               </Container>
             </div>
           </div>
-          <CodeBlock code={`<Container size="sm" padded={false}>...</Container>`} />
+          <CodeBlock
+            variants={{
+              react: `<Container size="sm" padded={false}>...</Container>`,
+              js: `<Container size="sm" padded="false">...</Container>`,
+              vue: `<template>
+  <Container size="sm" padded="false">...</Container>
+</template>`,
+              angular: `<!-- reuses the AppComponent from above -->
+<Container size="sm" padded="false">...</Container>`,
+            }}
+          />
         </section>
       </div>
     </div>

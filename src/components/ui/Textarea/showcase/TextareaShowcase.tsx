@@ -16,7 +16,36 @@ export default function TextareaShowcase() {
           <div className="max-w-sm">
             <Textarea placeholder="Write something…" />
           </div>
-          <CodeBlock code={`<Textarea placeholder="Write something…" />`} />
+          <CodeBlock
+            variants={{
+              react: `<Textarea placeholder="Write something…" />`,
+              js: `<Textarea placeholder="Write something…" />
+
+<script type="module">
+  import "lojee-ui/elements";
+</script>`,
+              vue: `<template>
+  <Textarea placeholder="Write something…" />
+</template>
+
+<script setup>
+import "lojee-ui/elements";
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <Textarea placeholder="Write something…" />
+  \`,
+})
+export class AppComponent {}`,
+            }}
+          />
         </section>
 
         <section>
@@ -29,9 +58,23 @@ export default function TextareaShowcase() {
             </div>
           </Row>
           <CodeBlock
-            code={`<Textarea resize="none" placeholder="resize: none" />
+            variants={{
+              react: `<Textarea resize="none" placeholder="resize: none" />
 <Textarea resize="vertical" placeholder="resize: vertical" />
-<Textarea resize="both" placeholder="resize: both" />`}
+<Textarea resize="both" placeholder="resize: both" />`,
+              js: `<Textarea resize="none" placeholder="resize: none" />
+<Textarea resize="vertical" placeholder="resize: vertical" />
+<Textarea resize="both" placeholder="resize: both" />`,
+              vue: `<template>
+  <Textarea resize="none" placeholder="resize: none" />
+  <Textarea resize="vertical" placeholder="resize: vertical" />
+  <Textarea resize="both" placeholder="resize: both" />
+</template>`,
+              angular: `<!-- app.component.html — same AppComponent as above -->
+<Textarea resize="none" placeholder="resize: none" />
+<Textarea resize="vertical" placeholder="resize: vertical" />
+<Textarea resize="both" placeholder="resize: both" />`,
+            }}
           />
         </section>
 
@@ -40,7 +83,14 @@ export default function TextareaShowcase() {
           <div className="max-w-sm">
             <Textarea invalid defaultValue="Too short" />
           </div>
-          <CodeBlock code={`<Textarea invalid defaultValue="Too short" />`} />
+          <CodeBlock
+            variants={{
+              react: `<Textarea invalid defaultValue="Too short" />`,
+              js: `<Textarea invalid value="Too short" />`,
+              vue: `<Textarea invalid value="Too short" />`,
+              angular: `<Textarea invalid value="Too short" />`,
+            }}
+          />
         </section>
 
         <section>
@@ -48,7 +98,14 @@ export default function TextareaShowcase() {
           <div className="max-w-sm">
             <Textarea disabled placeholder="Disabled" />
           </div>
-          <CodeBlock code={`<Textarea disabled placeholder="Disabled" />`} />
+          <CodeBlock
+            variants={{
+              react: `<Textarea disabled placeholder="Disabled" />`,
+              js: `<Textarea disabled placeholder="Disabled" />`,
+              vue: `<Textarea disabled placeholder="Disabled" />`,
+              angular: `<Textarea disabled placeholder="Disabled" />`,
+            }}
+          />
         </section>
       </div>
     </div>

@@ -15,6 +15,7 @@ import {
 } from "./Buttons";
 import { OptionGroup, ColorSwatches, CodeBar } from "./PlaygroundHelpers";
 import { cx } from "./playgroundUtils";
+import type { CodeBlockVariants } from "./CodeBlock";
 
 const VARIANTS: ButtonVariant[] = ["solid", "outline", "ghost", "soft", "link", "dashed", "gradient", "glass"];
 const SIZES: Size[] = ["xs", "sm", "md", "lg", "xl", "full"];
@@ -179,6 +180,48 @@ export default function ButtonPlayground() {
     } label="${label}" />`;
   })();
 
+  // Custom-element markup for the current configuration — identical across
+  // Vue/Angular templates (plain attributes, no bindings needed for a static
+  // snapshot); the "js" variant just adds the one-time module import a plain
+  // HTML page needs to actually load the `<l-*>` definitions.
+  const htmlMarkup = (() => {
+    if (layout === "icon") {
+      const shapeAttr = shape !== "default" ? ` shape="${shape}"` : "";
+      return `<Button icon="${iconKey}" icon-only="true" variant="${variant}" color="${color}" size="${size}"${shapeAttr} label="${label || "Icon button"}" />`;
+    }
+    if (layout === "group") {
+      const shapeAttr = shape !== "default" ? ` shape="${shape}"` : "";
+      const colorAttr = color !== "slate" ? ` color="${color}"` : "";
+      return `<ButtonGroup${shapeAttr}>\n  <SegmentButton active="true"${colorAttr}>${label || "One"}</SegmentButton>\n  <SegmentButton${colorAttr}>Two</SegmentButton>\n  <SegmentButton${colorAttr}>Three</SegmentButton>\n</ButtonGroup>`;
+    }
+    if (layout === "split") {
+      const shapeAttr = shape !== "default" ? ` shape="${shape}"` : "";
+      const menuIconAttr = menuIconKey !== "chevron-down" ? ` menu-icon="${menuIconKey}"` : "";
+      if (menuItems.length > 0) {
+        const itemsCode = menuItems
+          .map((item) => {
+            const iconAttr = item.icon ? ` icon="${item.icon}"` : "";
+            return `  <SplitButtonMenuItem${iconAttr}>${item.label}</SplitButtonMenuItem>`;
+          })
+          .join("\n");
+        return `<SplitButton\n  icon="check"\n  label="${label || "Approve"}"\n  color="${color}"\n  size="${size}"${shapeAttr}${menuIconAttr}\n>\n${itemsCode}\n</SplitButton>`;
+      }
+      return `<SplitButton icon="check" label="${label || "Approve"}" color="${color}" size="${size}"${shapeAttr}${menuIconAttr} />`;
+    }
+    return `<Button variant="${variant}" color="${color}"${
+      variant === "gradient" ? ` gradient-to="${gradientTo}"` : ""
+    } size="${size}"${shape !== "default" ? ` shape="${shape}"` : ""} icon="${iconKey}"${
+      iconPosition === "right" ? ` icon-position="right"` : ""
+    } label="${label}" />`;
+  })();
+
+  const codeVariants: CodeBlockVariants = {
+    react: code,
+    js: `${htmlMarkup}\n\n<script type="module">import "lojee-ui/elements";</script>`,
+    vue: htmlMarkup,
+    angular: htmlMarkup,
+  };
+
   return (
     <div className="flex flex-col gap-6">
       {/* Live preview */}
@@ -334,7 +377,7 @@ export default function ButtonPlayground() {
         )}
       </div>
 
-      <CodeBar code={code} />
+      <CodeBar variants={codeVariants} />
     </div>
   );
 }

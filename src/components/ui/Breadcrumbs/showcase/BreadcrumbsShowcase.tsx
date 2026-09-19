@@ -21,10 +21,46 @@ export default function BreadcrumbsShowcase() {
             </Breadcrumbs>
           </Row>
           <CodeBlock
-            code={`<Breadcrumbs>
+            variants={{
+              react: `<Breadcrumbs>
   <BreadcrumbItem href="/">Home</BreadcrumbItem>
   <BreadcrumbItem>Settings</BreadcrumbItem>
-</Breadcrumbs>`}
+</Breadcrumbs>`,
+              js: `<Breadcrumbs>
+  <BreadcrumbItem href="/">Home</BreadcrumbItem>
+  <BreadcrumbItem>Settings</BreadcrumbItem>
+</Breadcrumbs>
+
+<script type="module">
+  import "lojee-ui/elements";
+</script>`,
+              vue: `<template>
+  <Breadcrumbs>
+    <BreadcrumbItem href="/">Home</BreadcrumbItem>
+    <BreadcrumbItem>Settings</BreadcrumbItem>
+  </Breadcrumbs>
+</template>
+
+<script setup>
+import "lojee-ui/elements";
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <Breadcrumbs>
+      <BreadcrumbItem href="/">Home</BreadcrumbItem>
+      <BreadcrumbItem>Settings</BreadcrumbItem>
+    </Breadcrumbs>
+  \`,
+})
+export class AppComponent {}`,
+            }}
           />
         </section>
 
@@ -39,12 +75,35 @@ export default function BreadcrumbsShowcase() {
             </Breadcrumbs>
           </Row>
           <CodeBlock
-            code={`<Breadcrumbs>
+            variants={{
+              react: `<Breadcrumbs>
   <BreadcrumbItem href="/">Home</BreadcrumbItem>
   <BreadcrumbItem href="/projects">Projects</BreadcrumbItem>
   <BreadcrumbItem href="/projects/lojee-ui">lojee-ui</BreadcrumbItem>
   <BreadcrumbItem>Breadcrumbs</BreadcrumbItem>
-</Breadcrumbs>`}
+</Breadcrumbs>`,
+              js: `<Breadcrumbs>
+  <BreadcrumbItem href="/">Home</BreadcrumbItem>
+  <BreadcrumbItem href="/projects">Projects</BreadcrumbItem>
+  <BreadcrumbItem href="/projects/lojee-ui">lojee-ui</BreadcrumbItem>
+  <BreadcrumbItem>Breadcrumbs</BreadcrumbItem>
+</Breadcrumbs>`,
+              vue: `<template>
+  <Breadcrumbs>
+    <BreadcrumbItem href="/">Home</BreadcrumbItem>
+    <BreadcrumbItem href="/projects">Projects</BreadcrumbItem>
+    <BreadcrumbItem href="/projects/lojee-ui">lojee-ui</BreadcrumbItem>
+    <BreadcrumbItem>Breadcrumbs</BreadcrumbItem>
+  </Breadcrumbs>
+</template>`,
+              angular: `<!-- reuses the AppComponent from above -->
+<Breadcrumbs>
+  <BreadcrumbItem href="/">Home</BreadcrumbItem>
+  <BreadcrumbItem href="/projects">Projects</BreadcrumbItem>
+  <BreadcrumbItem href="/projects/lojee-ui">lojee-ui</BreadcrumbItem>
+  <BreadcrumbItem>Breadcrumbs</BreadcrumbItem>
+</Breadcrumbs>`,
+            }}
           />
         </section>
 
@@ -62,11 +121,31 @@ export default function BreadcrumbsShowcase() {
             </Breadcrumbs>
           </Row>
           <CodeBlock
-            code={`<Breadcrumbs>
+            variants={{
+              react: `<Breadcrumbs>
   <BreadcrumbItem href="/" icon="home">Home</BreadcrumbItem>
   <BreadcrumbItem href="/team" icon="users">Team</BreadcrumbItem>
   <BreadcrumbItem icon="circle-user">Profile</BreadcrumbItem>
-</Breadcrumbs>`}
+</Breadcrumbs>`,
+              js: `<Breadcrumbs>
+  <BreadcrumbItem href="/" icon="home">Home</BreadcrumbItem>
+  <BreadcrumbItem href="/team" icon="users">Team</BreadcrumbItem>
+  <BreadcrumbItem icon="circle-user">Profile</BreadcrumbItem>
+</Breadcrumbs>`,
+              vue: `<template>
+  <Breadcrumbs>
+    <BreadcrumbItem href="/" icon="home">Home</BreadcrumbItem>
+    <BreadcrumbItem href="/team" icon="users">Team</BreadcrumbItem>
+    <BreadcrumbItem icon="circle-user">Profile</BreadcrumbItem>
+  </Breadcrumbs>
+</template>`,
+              angular: `<!-- reuses the AppComponent from above -->
+<Breadcrumbs>
+  <BreadcrumbItem href="/" icon="home">Home</BreadcrumbItem>
+  <BreadcrumbItem href="/team" icon="users">Team</BreadcrumbItem>
+  <BreadcrumbItem icon="circle-user">Profile</BreadcrumbItem>
+</Breadcrumbs>`,
+            }}
           />
         </section>
 

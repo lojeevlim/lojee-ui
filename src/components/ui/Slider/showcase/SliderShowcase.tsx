@@ -16,7 +16,36 @@ export default function SliderShowcase() {
           <div className="max-w-sm">
             <Slider defaultValue={40} />
           </div>
-          <CodeBlock code={`<Slider defaultValue={40} />`} />
+          <CodeBlock
+            variants={{
+              react: `<Slider defaultValue={40} />`,
+              js: `<Slider value="40" />
+
+<script type="module">
+  import "lojee-ui/elements";
+</script>`,
+              vue: `<template>
+  <Slider value="40" />
+</template>
+
+<script setup>
+import "lojee-ui/elements";
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+})
+export class AppComponent {}
+
+<!-- app.component.html -->
+<Slider value="40" />`,
+            }}
+          />
         </section>
 
         <section>
@@ -24,7 +53,17 @@ export default function SliderShowcase() {
           <div className="max-w-sm">
             <Slider defaultValue={65} showValue />
           </div>
-          <CodeBlock code={`<Slider defaultValue={65} showValue />`} />
+          <CodeBlock
+            variants={{
+              react: `<Slider defaultValue={65} showValue />`,
+              js: `<Slider value="65" show-value />`,
+              vue: `<template>
+  <Slider value="65" show-value />
+</template>`,
+              angular: `<!-- app.component.html -->
+<Slider value="65" show-value />`,
+            }}
+          />
         </section>
 
         <section>
@@ -34,7 +73,17 @@ export default function SliderShowcase() {
             <Slider defaultValue={55} color="emerald" showValue />
             <Slider defaultValue={80} color="rose" showValue />
           </div>
-          <CodeBlock code={`<Slider defaultValue={30} color="indigo" showValue />`} />
+          <CodeBlock
+            variants={{
+              react: `<Slider defaultValue={30} color="indigo" showValue />`,
+              js: `<Slider value="30" color="indigo" show-value />`,
+              vue: `<template>
+  <Slider value="30" color="indigo" show-value />
+</template>`,
+              angular: `<!-- app.component.html -->
+<Slider value="30" color="indigo" show-value />`,
+            }}
+          />
         </section>
 
         <section>
@@ -44,7 +93,17 @@ export default function SliderShowcase() {
               <Slider min={0} max={10} step={1} defaultValue={5} showValue />
             </div>
           </Row>
-          <CodeBlock code={`<Slider min={0} max={10} step={1} defaultValue={5} showValue />`} />
+          <CodeBlock
+            variants={{
+              react: `<Slider min={0} max={10} step={1} defaultValue={5} showValue />`,
+              js: `<Slider min="0" max="10" step="1" value="5" show-value />`,
+              vue: `<template>
+  <Slider min="0" max="10" step="1" value="5" show-value />
+</template>`,
+              angular: `<!-- app.component.html -->
+<Slider min="0" max="10" step="1" value="5" show-value />`,
+            }}
+          />
         </section>
 
         <section>
@@ -52,7 +111,17 @@ export default function SliderShowcase() {
           <div className="max-w-sm">
             <Slider defaultValue={40} disabled />
           </div>
-          <CodeBlock code={`<Slider defaultValue={40} disabled />`} />
+          <CodeBlock
+            variants={{
+              react: `<Slider defaultValue={40} disabled />`,
+              js: `<Slider value="40" disabled />`,
+              vue: `<template>
+  <Slider value="40" disabled />
+</template>`,
+              angular: `<!-- app.component.html -->
+<Slider value="40" disabled />`,
+            }}
+          />
         </section>
       </div>
     </div>

@@ -3,6 +3,7 @@ import { Radio } from "./Radio/Radio";
 import { RadioGroup, type RadioGroupOrientation } from "./Radio/RadioGroup";
 import type { ColorName } from "../../core/tokens";
 import { OptionGroup, ColorSwatches, PlaygroundLayout } from "./PlaygroundHelpers";
+import type { CodeBlockVariants } from "./CodeBlock";
 
 const ORIENTATIONS: RadioGroupOrientation[] = ["vertical", "horizontal"];
 const OPTIONS = ["Free", "Pro", "Enterprise"];
@@ -33,8 +34,28 @@ ${OPTIONS.map(
 ).join("\n")}
 </RadioGroup>`;
 
+  // Custom-element markup for the current configuration — identical across
+  // Vue/Angular templates (plain attributes, no bindings needed for a static
+  // snapshot); the "js" variant just adds the one-time module import a plain
+  // HTML page needs to actually load the `<l-*>` definitions.
+  const htmlMarkup = `<RadioGroup orientation="${orientation}">
+${OPTIONS.map(
+  (option) =>
+    `  <Radio name="playground" color="${color}" label="${option}"${
+      option === selected ? ` default-checked="true"` : ""
+    } />`
+).join("\n")}
+</RadioGroup>`;
+
+  const codeVariants: CodeBlockVariants = {
+    react: code,
+    js: `${htmlMarkup}\n\n<script type="module">import "lojee-ui/elements";</script>`,
+    vue: htmlMarkup,
+    angular: htmlMarkup,
+  };
+
   return (
-    <PlaygroundLayout preview={preview} code={code}>
+    <PlaygroundLayout preview={preview} variants={codeVariants}>
       <OptionGroup label="Orientation" options={ORIENTATIONS} value={orientation} onChange={setOrientation} />
       <ColorSwatches value={color} onChange={setColor} />
     </PlaygroundLayout>

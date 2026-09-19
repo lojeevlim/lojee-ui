@@ -24,9 +24,47 @@ export default function RangeSliderShowcase() {
             <RangeSlider value={basic} onChange={setBasic} />
           </div>
           <CodeBlock
-            code={`const [value, setValue] = useState<[number, number]>([20, 70]);
+            variants={{
+              react: `const [value, setValue] = useState<[number, number]>([20, 70]);
 
-<RangeSlider value={value} onChange={setValue} />`}
+<RangeSlider value={value} onChange={setValue} />`,
+              js: `<RangeSlider id="range" />
+
+<script type="module">
+  import "lojee-ui/elements";
+
+  const range = document.getElementById("range");
+  range.value = [20, 70];
+  range.addEventListener("change", (e) => {
+    range.value = e.detail;
+  });
+</script>`,
+              vue: `<template>
+  <RangeSlider :value="value" @change="value = $event.detail" />
+</template>
+
+<script setup>
+import { ref } from "vue";
+import "lojee-ui/elements";
+
+const value = ref([20, 70]);
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+})
+export class AppComponent {
+  value: [number, number] = [20, 70];
+}
+
+<!-- app.component.html -->
+<RangeSlider [value]="value" (change)="value = $event.detail" />`,
+            }}
           />
         </section>
 
@@ -35,7 +73,25 @@ export default function RangeSliderShowcase() {
           <div className="max-w-sm">
             <RangeSlider value={colored} onChange={setColored} color="indigo" showValue />
           </div>
-          <CodeBlock code={`<RangeSlider value={value} onChange={setValue} color="indigo" showValue />`} />
+          <CodeBlock
+            variants={{
+              react: `<RangeSlider value={value} onChange={setValue} color="indigo" showValue />`,
+              js: `<RangeSlider id="range-colored" color="indigo" show-value />
+
+<script type="module">
+  const rangeColored = document.getElementById("range-colored");
+  rangeColored.value = [30, 80];
+  rangeColored.addEventListener("change", (e) => {
+    rangeColored.value = e.detail;
+  });
+</script>`,
+              vue: `<template>
+  <RangeSlider :value="value" color="indigo" show-value @change="value = $event.detail" />
+</template>`,
+              angular: `<!-- app.component.html — reuses the same AppComponent class, with value initialized to [30, 80] -->
+<RangeSlider [value]="value" color="indigo" show-value (change)="value = $event.detail" />`,
+            }}
+          />
         </section>
 
         <section>
@@ -52,7 +108,8 @@ export default function RangeSliderShowcase() {
             />
           </div>
           <CodeBlock
-            code={`<RangeSlider
+            variants={{
+              react: `<RangeSlider
   min={0}
   max={1000}
   step={10}
@@ -60,7 +117,38 @@ export default function RangeSliderShowcase() {
   onChange={setValue}
   color="emerald"
   showValue
-/>`}
+/>`,
+              js: `<RangeSlider id="price-range" min="0" max="1000" step="10" color="emerald" show-value />
+
+<script type="module">
+  const priceRange = document.getElementById("price-range");
+  priceRange.value = [200, 750];
+  priceRange.addEventListener("change", (e) => {
+    priceRange.value = e.detail;
+  });
+</script>`,
+              vue: `<template>
+  <RangeSlider
+    :value="value"
+    min="0"
+    max="1000"
+    step="10"
+    color="emerald"
+    show-value
+    @change="value = $event.detail"
+  />
+</template>`,
+              angular: `<!-- app.component.html — reuses the same AppComponent class, with value initialized to [200, 750] -->
+<RangeSlider
+  [value]="value"
+  min="0"
+  max="1000"
+  step="10"
+  color="emerald"
+  show-value
+  (change)="value = $event.detail"
+ />`,
+            }}
           />
         </section>
       </div>

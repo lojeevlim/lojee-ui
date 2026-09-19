@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Input, type InputSize } from "./Input/Input";
 import { OptionGroup, PlaygroundLayout } from "./PlaygroundHelpers";
+import type { CodeBlockVariants } from "./CodeBlock";
 
 const SIZES: InputSize[] = ["sm", "md", "lg"];
 const ICONS = ["none", "mail", "search", "user"] as const;
@@ -29,8 +30,23 @@ export default function InputPlayground() {
     leadingIcon !== "none" ? ` leadingIcon="${leadingIcon}"` : ""
   } placeholder="${placeholder || "Type something…"}" />`;
 
+  // Custom-element markup for the current configuration — identical across
+  // Vue/Angular templates (plain attributes, no bindings needed for a static
+  // snapshot); the "js" variant just adds the one-time module import a plain
+  // HTML page needs to actually load the `<l-*>` definitions.
+  const htmlMarkup = `<Input size="${size}"${invalid ? ` invalid="true"` : ""}${disabled ? ` disabled="true"` : ""}${
+    leadingIcon !== "none" ? ` leading-icon="${leadingIcon}"` : ""
+  } placeholder="${placeholder || "Type something…"}" />`;
+
+  const codeVariants: CodeBlockVariants = {
+    react: code,
+    js: `${htmlMarkup}\n\n<script type="module">import "lojee-ui/elements";</script>`,
+    vue: htmlMarkup,
+    angular: htmlMarkup,
+  };
+
   return (
-    <PlaygroundLayout preview={preview} code={code}>
+    <PlaygroundLayout preview={preview} variants={codeVariants}>
       <div className="sm:col-span-2">
         <span className="mb-1.5 block text-xs font-medium text-slate-500">Placeholder</span>
         <input

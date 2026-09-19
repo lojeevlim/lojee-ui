@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { SearchInput, type SearchInputSize } from "./SearchInput/SearchInput";
 import { OptionGroup, PlaygroundLayout } from "./PlaygroundHelpers";
+import type { CodeBlockVariants } from "./CodeBlock";
 
 const SIZES: SearchInputSize[] = ["sm", "md", "lg"];
 
@@ -32,8 +33,23 @@ export default function SearchInputPlayground() {
   placeholder="Search…"
 />`;
 
+  // Custom-element markup for the current configuration — identical across
+  // Vue/Angular templates (plain attributes, no bindings needed for a static
+  // snapshot); the "js" variant just adds the one-time module import a plain
+  // HTML page needs to actually load the `<l-*>` definitions.
+  const htmlMarkup = `<SearchInput size="${size}"${
+    disabled ? ` disabled="true"` : ""
+  } value="${value}" placeholder="Search…" />`;
+
+  const codeVariants: CodeBlockVariants = {
+    react: code,
+    js: `${htmlMarkup}\n\n<script type="module">import "lojee-ui/elements";</script>`,
+    vue: htmlMarkup,
+    angular: htmlMarkup,
+  };
+
   return (
-    <PlaygroundLayout preview={preview} code={code}>
+    <PlaygroundLayout preview={preview} variants={codeVariants}>
       <div className="sm:col-span-2">
         <span className="mb-1.5 block text-xs font-medium text-slate-500">Value</span>
         <input

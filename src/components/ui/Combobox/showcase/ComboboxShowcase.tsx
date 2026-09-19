@@ -34,9 +34,79 @@ export default function ComboboxShowcase() {
             <Combobox options={CITY_OPTIONS} value={city} onChange={setCity} placeholder="Search a city..." />
           </div>
           <CodeBlock
-            code={`const [value, setValue] = useState<string | undefined>("manila");
+            variants={{
+              react: `const [value, setValue] = useState<string | undefined>("manila");
 
-<Combobox options={options} value={value} onChange={setValue} placeholder="Search a city..." />`}
+<Combobox options={options} value={value} onChange={setValue} placeholder="Search a city..." />`,
+              js: `<Combobox id="city-combobox" placeholder="Search a city..." />
+
+<script type="module">
+  import "lojee-ui/elements";
+
+  const options = [
+    { label: "Tokyo", value: "tokyo" },
+    { label: "Manila", value: "manila" },
+    { label: "Singapore", value: "singapore" },
+    { label: "Bangkok", value: "bangkok" },
+    { label: "Seoul", value: "seoul" },
+    { label: "Jakarta", value: "jakarta" },
+    { label: "Kuala Lumpur", value: "kuala-lumpur" },
+    { label: "Hong Kong", value: "hong-kong" },
+  ];
+
+  const combobox = document.getElementById("city-combobox");
+  combobox.options = options;
+  combobox.value = "manila";
+  combobox.addEventListener("change", (e) => {
+    combobox.value = e.detail;
+  });
+</script>`,
+              vue: `<template>
+  <Combobox :options="options" :value="value" placeholder="Search a city..." @change="value = $event.detail" />
+</template>
+
+<script setup>
+import { ref } from "vue";
+import "lojee-ui/elements";
+
+const options = [
+  { label: "Tokyo", value: "tokyo" },
+  { label: "Manila", value: "manila" },
+  { label: "Singapore", value: "singapore" },
+  { label: "Bangkok", value: "bangkok" },
+  { label: "Seoul", value: "seoul" },
+  { label: "Jakarta", value: "jakarta" },
+  { label: "Kuala Lumpur", value: "kuala-lumpur" },
+  { label: "Hong Kong", value: "hong-kong" },
+];
+const value = ref("manila");
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+})
+export class AppComponent {
+  options = [
+    { label: "Tokyo", value: "tokyo" },
+    { label: "Manila", value: "manila" },
+    { label: "Singapore", value: "singapore" },
+    { label: "Bangkok", value: "bangkok" },
+    { label: "Seoul", value: "seoul" },
+    { label: "Jakarta", value: "jakarta" },
+    { label: "Kuala Lumpur", value: "kuala-lumpur" },
+    { label: "Hong Kong", value: "hong-kong" },
+  ];
+  value = "manila";
+}
+
+<!-- app.component.html -->
+<Combobox [options]="options" [value]="value" placeholder="Search a city..." (change)="value = $event.detail" />`,
+            }}
           />
         </section>
 
@@ -45,7 +115,25 @@ export default function ComboboxShowcase() {
           <div className="max-w-sm">
             <Combobox options={CITY_OPTIONS} value={empty} onChange={setEmpty} placeholder="Search a city..." />
           </div>
-          <CodeBlock code={`<Combobox options={options} value={undefined} onChange={setValue} placeholder="Search a city..." />`} />
+          <CodeBlock
+            variants={{
+              react: `<Combobox options={options} value={undefined} onChange={setValue} placeholder="Search a city..." />`,
+              js: `<Combobox id="city-combobox-empty" placeholder="Search a city..." />
+
+<script type="module">
+  const combobox = document.getElementById("city-combobox-empty");
+  combobox.options = options; // same city options as above
+  combobox.addEventListener("change", (e) => {
+    combobox.value = e.detail;
+  });
+</script>`,
+              vue: `<template>
+  <Combobox :options="options" placeholder="Search a city..." @change="value = $event.detail" />
+</template>`,
+              angular: `<!-- app.component.html — same AppComponent class as above, value left undefined -->
+<Combobox [options]="options" placeholder="Search a city..." (change)="value = $event.detail" />`,
+            }}
+          />
         </section>
       </div>
     </div>

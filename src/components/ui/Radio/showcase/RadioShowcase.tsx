@@ -22,11 +22,50 @@ export default function RadioShowcase() {
             <Radio name="plan" label="Enterprise" />
           </RadioGroup>
           <CodeBlock
-            code={`<RadioGroup>
+            variants={{
+              react: `<RadioGroup>
   <Radio name="plan" label="Free" defaultChecked />
   <Radio name="plan" label="Pro" />
   <Radio name="plan" label="Enterprise" />
-</RadioGroup>`}
+</RadioGroup>`,
+              js: `<RadioGroup>
+  <Radio name="plan" label="Free" defaultChecked />
+  <Radio name="plan" label="Pro" />
+  <Radio name="plan" label="Enterprise" />
+</RadioGroup>
+
+<script type="module">
+  import "lojee-ui/elements";
+</script>`,
+              vue: `<template>
+  <RadioGroup>
+    <Radio name="plan" label="Free" defaultChecked />
+    <Radio name="plan" label="Pro" />
+    <Radio name="plan" label="Enterprise" />
+  </RadioGroup>
+</template>
+
+<script setup>
+import "lojee-ui/elements";
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <RadioGroup>
+      <Radio name="plan" label="Free" defaultChecked />
+      <Radio name="plan" label="Pro" />
+      <Radio name="plan" label="Enterprise" />
+    </RadioGroup>
+  \`,
+})
+export class AppComponent {}`,
+            }}
           />
         </section>
 
@@ -38,11 +77,31 @@ export default function RadioShowcase() {
             <Radio name="size" label="Large" />
           </RadioGroup>
           <CodeBlock
-            code={`<RadioGroup orientation="horizontal">
+            variants={{
+              react: `<RadioGroup orientation="horizontal">
   <Radio name="size" label="Small" defaultChecked />
   <Radio name="size" label="Medium" />
   <Radio name="size" label="Large" />
-</RadioGroup>`}
+</RadioGroup>`,
+              js: `<RadioGroup orientation="horizontal">
+  <Radio name="size" label="Small" defaultChecked />
+  <Radio name="size" label="Medium" />
+  <Radio name="size" label="Large" />
+</RadioGroup>`,
+              vue: `<template>
+  <RadioGroup orientation="horizontal">
+    <Radio name="size" label="Small" defaultChecked />
+    <Radio name="size" label="Medium" />
+    <Radio name="size" label="Large" />
+  </RadioGroup>
+</template>`,
+              angular: `<!-- app.component.html — same AppComponent as above -->
+<RadioGroup orientation="horizontal">
+  <Radio name="size" label="Small" defaultChecked />
+  <Radio name="size" label="Medium" />
+  <Radio name="size" label="Large" />
+</RadioGroup>`,
+            }}
           />
         </section>
 
@@ -55,8 +114,19 @@ export default function RadioShowcase() {
             <Radio name="color-amber" color="amber" label="Amber" defaultChecked />
           </Row>
           <CodeBlock
-            code={`<Radio name="color-indigo" color="indigo" label="Indigo" defaultChecked />
-<Radio name="color-emerald" color="emerald" label="Emerald" defaultChecked />`}
+            variants={{
+              react: `<Radio name="color-indigo" color="indigo" label="Indigo" defaultChecked />
+<Radio name="color-emerald" color="emerald" label="Emerald" defaultChecked />`,
+              js: `<Radio name="color-indigo" color="indigo" label="Indigo" defaultChecked />
+<Radio name="color-emerald" color="emerald" label="Emerald" defaultChecked />`,
+              vue: `<template>
+  <Radio name="color-indigo" color="indigo" label="Indigo" defaultChecked />
+  <Radio name="color-emerald" color="emerald" label="Emerald" defaultChecked />
+</template>`,
+              angular: `<!-- app.component.html — same AppComponent as above -->
+<Radio name="color-indigo" color="indigo" label="Indigo" defaultChecked />
+<Radio name="color-emerald" color="emerald" label="Emerald" defaultChecked />`,
+            }}
           />
         </section>
       </div>

@@ -21,13 +21,56 @@ export default function TabsShowcase() {
             ]}
           />
           <CodeBlock
-            code={`<Tabs
+            variants={{
+              react: `<Tabs
   tabs={[
     { label: "Overview", content: <p>A quick summary of the project.</p> },
     { label: "Activity", content: <p>Recent activity shows up here.</p> },
     { label: "Settings", content: <p>Adjust your preferences.</p> },
   ]}
-/>`}
+/>`,
+              js: `<Tabs id="basic-tabs" />
+
+<script type="module">
+  import "lojee-ui/elements";
+
+  document.getElementById("basic-tabs").tabs = [
+    { label: "Overview", content: "A quick summary of the project." },
+    { label: "Activity", content: "Recent activity shows up here." },
+    { label: "Settings", content: "Adjust your preferences." },
+  ];
+</script>`,
+              vue: `<template>
+  <Tabs :tabs="tabs" />
+</template>
+
+<script setup>
+import "lojee-ui/elements";
+
+const tabs = [
+  { label: "Overview", content: "A quick summary of the project." },
+  { label: "Activity", content: "Recent activity shows up here." },
+  { label: "Settings", content: "Adjust your preferences." },
+];
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`<Tabs [tabs]="tabs" />\`,
+})
+export class AppComponent {
+  tabs = [
+    { label: "Overview", content: "A quick summary of the project." },
+    { label: "Activity", content: "Recent activity shows up here." },
+    { label: "Settings", content: "Adjust your preferences." },
+  ];
+}`,
+            }}
           />
         </section>
 
@@ -41,13 +84,44 @@ export default function TabsShowcase() {
             ]}
           />
           <CodeBlock
-            code={`<Tabs
+            variants={{
+              react: `<Tabs
   tabs={[
     { label: "Plan", content: <p>Choose your plan.</p> },
     { label: "Billing", content: <p>Billing details.</p>, disabled: true },
     { label: "Review", content: <p>Review and confirm.</p> },
   ]}
-/>`}
+/>`,
+              js: `<Tabs id="disabled-tabs" />
+
+<script type="module">
+  document.getElementById("disabled-tabs").tabs = [
+    { label: "Plan", content: "Choose your plan." },
+    { label: "Billing", content: "Billing details.", disabled: true },
+    { label: "Review", content: "Review and confirm." },
+  ];
+</script>`,
+              vue: `<template>
+  <Tabs :tabs="tabs" />
+</template>
+
+<script setup>
+const tabs = [
+  { label: "Plan", content: "Choose your plan." },
+  { label: "Billing", content: "Billing details.", disabled: true },
+  { label: "Review", content: "Review and confirm." },
+];
+</script>`,
+              angular: `// app.component.ts (same component as above, with its own \`tabs\` array)
+tabs = [
+  { label: "Plan", content: "Choose your plan." },
+  { label: "Billing", content: "Billing details.", disabled: true },
+  { label: "Review", content: "Review and confirm." },
+];
+
+// app.component.html
+<Tabs [tabs]="tabs" />`,
+            }}
           />
         </section>
 
@@ -63,7 +137,8 @@ export default function TabsShowcase() {
             ]}
           />
           <CodeBlock
-            code={`<Tabs
+            variants={{
+              react: `<Tabs
   color="indigo"
   defaultIndex={1}
   tabs={[
@@ -71,7 +146,37 @@ export default function TabsShowcase() {
     { label: "Reviews", content: <p>What people are saying.</p> },
     { label: "Shipping", content: <p>Shipping and returns.</p> },
   ]}
-/>`}
+/>`,
+              js: `<Tabs id="color-tabs" color="indigo" default-index="1" />
+
+<script type="module">
+  document.getElementById("color-tabs").tabs = [
+    { label: "Details", content: "Item details." },
+    { label: "Reviews", content: "What people are saying." },
+    { label: "Shipping", content: "Shipping and returns." },
+  ];
+</script>`,
+              vue: `<template>
+  <Tabs :tabs="tabs" color="indigo" default-index="1" />
+</template>
+
+<script setup>
+const tabs = [
+  { label: "Details", content: "Item details." },
+  { label: "Reviews", content: "What people are saying." },
+  { label: "Shipping", content: "Shipping and returns." },
+];
+</script>`,
+              angular: `// app.component.ts (same component as above, with its own \`tabs\` array)
+tabs = [
+  { label: "Details", content: "Item details." },
+  { label: "Reviews", content: "What people are saying." },
+  { label: "Shipping", content: "Shipping and returns." },
+];
+
+// app.component.html
+<Tabs [tabs]="tabs" color="indigo" default-index="1" />`,
+            }}
           />
         </section>
       </div>

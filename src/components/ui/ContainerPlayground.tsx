@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Container, type ContainerSize } from "./Container/Container";
 import { OptionGroup, PlaygroundLayout } from "./PlaygroundHelpers";
+import type { CodeBlockVariants } from "./CodeBlock";
 
 const SIZES: ContainerSize[] = ["sm", "md", "lg", "xl", "full"];
 
@@ -21,8 +22,23 @@ export default function ContainerPlayground() {
   Sample content
 </Container>`;
 
+  // Custom-element markup for the current configuration — identical across
+  // Vue/Angular templates (plain attributes, no bindings needed for a static
+  // snapshot); the "js" variant just adds the one-time module import a plain
+  // HTML page needs to actually load the `<l-*>` definitions.
+  const htmlMarkup = `<Container size="${size}"${centered ? "" : ` centered="false"`}${padded ? "" : ` padded="false"`}>
+  Sample content
+</Container>`;
+
+  const codeVariants: CodeBlockVariants = {
+    react: code,
+    js: `${htmlMarkup}\n\n<script type="module">import "lojee-ui/elements";</script>`,
+    vue: htmlMarkup,
+    angular: htmlMarkup,
+  };
+
   return (
-    <PlaygroundLayout preview={preview} code={code}>
+    <PlaygroundLayout preview={preview} variants={codeVariants}>
       <OptionGroup label="Size" options={SIZES} value={size} onChange={setSize} />
 
       <div>

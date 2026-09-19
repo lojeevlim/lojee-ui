@@ -33,6 +33,14 @@ import FileUploadPlayground from "./FileUploadPlayground";
 import SearchInputPlayground from "./SearchInputPlayground";
 import SliderPlayground from "./SliderPlayground";
 import RangeSliderPlayground from "./RangeSliderPlayground";
+import ModalPlayground from "./ModalPlayground";
+import AlertDialogPlayground from "./AlertDialogPlayground";
+import DrawerPlayground from "./DrawerPlayground";
+import SheetPlayground from "./SheetPlayground";
+import PopoverPlayground from "./PopoverPlayground";
+import DropdownMenuPlayground from "./DropdownMenuPlayground";
+import ContextMenuPlayground from "./ContextMenuPlayground";
+import CommandMenuPlayground from "./CommandMenuPlayground";
 
 export interface PlaygroundProps {
   itemLabel?: string;
@@ -46,7 +54,6 @@ const PLAYGROUNDS: Record<string, ComponentType> = {
   Spinners: SpinnerPlayground,
   Loaders: LoaderPlayground,
   Dividers: DividerPlayground,
-  Tooltips: TooltipPlayground,
   Cards: CardPlayground,
   Containers: ContainerPlayground,
   Sections: SectionPlayground,
@@ -73,6 +80,15 @@ const PLAYGROUNDS: Record<string, ComponentType> = {
   "Search Input": SearchInputPlayground,
   Slider: SliderPlayground,
   "Range Slider": RangeSliderPlayground,
+  "Modal / Dialog": ModalPlayground,
+  Drawer: DrawerPlayground,
+  Sheet: SheetPlayground,
+  Popover: PopoverPlayground,
+  "Dropdown Menu": DropdownMenuPlayground,
+  "Context Menu": ContextMenuPlayground,
+  "Command Menu": CommandMenuPlayground,
+  "Alert Dialog": AlertDialogPlayground,
+  Tooltip: TooltipPlayground,
 };
 
 export default function Playground({ itemLabel }: PlaygroundProps) {

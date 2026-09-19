@@ -1,3 +1,5 @@
+import { CODE_FRAMEWORKS, useCodeFramework, type CodeFramework } from "../../core/codeFramework";
+
 export type HeaderNavKey = "docs" | "components" | "playground" | "about";
 
 const NAV_ITEMS: { key: HeaderNavKey; label: string }[] = [
@@ -13,6 +15,8 @@ export interface HeaderProps {
 }
 
 export default function Header({ activeNav = "components", onNavChange }: HeaderProps) {
+  const { framework, setFramework } = useCodeFramework();
+
   return (
     <header className="w-full bg-white border-b border-slate-200">
       <div className="mx-auto max-w-7xl flex items-center justify-between px-6 py-4">
@@ -37,13 +41,31 @@ export default function Header({ activeNav = "components", onNavChange }: Header
           ))}
         </nav>
 
-        {/* CTA */}
-        <button
-          type="button"
-          className="rounded-md bg-slate-900 px-4 py-2 text-sm font-medium text-white hover:bg-slate-800"
-        >
-          Search
-        </button>
+        <div className="flex items-center gap-2">
+          <label className="sr-only" htmlFor="code-framework-select">
+            Code example language
+          </label>
+          <select
+            id="code-framework-select"
+            value={framework}
+            onChange={(e) => setFramework(e.target.value as CodeFramework)}
+            className="rounded-md border border-slate-200 bg-white px-2.5 py-2 text-sm text-slate-600 transition-colors hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-slate-900/10"
+          >
+            {CODE_FRAMEWORKS.map((f) => (
+              <option key={f.value} value={f.value}>
+                {f.label}
+              </option>
+            ))}
+          </select>
+
+          {/* CTA */}
+          <button
+            type="button"
+            className="rounded-md bg-slate-900 px-4 py-2 text-sm font-medium text-white hover:bg-slate-800"
+          >
+            Search
+          </button>
+        </div>
       </div>
     </header>
   );

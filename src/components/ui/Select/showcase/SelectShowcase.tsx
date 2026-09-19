@@ -23,7 +23,58 @@ export default function SelectShowcase() {
           <div className="max-w-sm">
             <Select options={FRUITS} placeholder="Choose a fruit" />
           </div>
-          <CodeBlock code={`<Select options={options} placeholder="Choose a fruit" />`} />
+          <CodeBlock
+            variants={{
+              react: `<Select options={options} placeholder="Choose a fruit" />`,
+              js: `<Select id="fruit-select" placeholder="Choose a fruit" />
+
+<script type="module">
+  import "lojee-ui/elements";
+
+  // options must be set via real DOM property assignment, not an attribute
+  document.getElementById("fruit-select").options = [
+    { label: "Apple", value: "apple" },
+    { label: "Banana", value: "banana" },
+    { label: "Cherry", value: "cherry", disabled: true },
+    { label: "Durian", value: "durian" },
+  ];
+</script>`,
+              vue: `<template>
+  <Select :options="options" placeholder="Choose a fruit" />
+</template>
+
+<script setup>
+import "lojee-ui/elements";
+
+const options = [
+  { label: "Apple", value: "apple" },
+  { label: "Banana", value: "banana" },
+  { label: "Cherry", value: "cherry", disabled: true },
+  { label: "Durian", value: "durian" },
+];
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <Select [options]="options" placeholder="Choose a fruit" />
+  \`,
+})
+export class AppComponent {
+  options = [
+    { label: "Apple", value: "apple" },
+    { label: "Banana", value: "banana" },
+    { label: "Cherry", value: "cherry", disabled: true },
+    { label: "Durian", value: "durian" },
+  ];
+}`,
+            }}
+          />
         </section>
 
         <section>
@@ -33,7 +84,15 @@ export default function SelectShowcase() {
             <Select options={FRUITS} size="md" placeholder="Medium" />
             <Select options={FRUITS} size="lg" placeholder="Large" />
           </div>
-          <CodeBlock code={`<Select options={options} size="sm" placeholder="Small" />`} />
+          <CodeBlock
+            variants={{
+              react: `<Select options={options} size="sm" placeholder="Small" />`,
+              js: `<Select size="sm" placeholder="Small" />
+<!-- .options set via DOM property assignment — see the Placeholder example above -->`,
+              vue: `<Select :options="options" size="sm" placeholder="Small" />`,
+              angular: `<Select [options]="options" size="sm" placeholder="Small" />`,
+            }}
+          />
         </section>
 
         <section>
@@ -41,7 +100,15 @@ export default function SelectShowcase() {
           <div className="max-w-sm">
             <Select options={FRUITS} placeholder="Choose a fruit" invalid />
           </div>
-          <CodeBlock code={`<Select options={options} placeholder="Choose a fruit" invalid />`} />
+          <CodeBlock
+            variants={{
+              react: `<Select options={options} placeholder="Choose a fruit" invalid />`,
+              js: `<Select placeholder="Choose a fruit" invalid />
+<!-- .options set via DOM property assignment — see the Placeholder example above -->`,
+              vue: `<Select :options="options" placeholder="Choose a fruit" invalid />`,
+              angular: `<Select [options]="options" placeholder="Choose a fruit" invalid />`,
+            }}
+          />
         </section>
 
         <section>
@@ -52,10 +119,24 @@ export default function SelectShowcase() {
             </div>
           </Row>
           <CodeBlock
-            code={`const options = [
+            variants={{
+              react: `const options = [
   { label: "Apple", value: "apple" },
   { label: "Cherry", value: "cherry", disabled: true },
-];`}
+];`,
+              js: `selectEl.options = [
+  { label: "Apple", value: "apple" },
+  { label: "Cherry", value: "cherry", disabled: true },
+];`,
+              vue: `const options = [
+  { label: "Apple", value: "apple" },
+  { label: "Cherry", value: "cherry", disabled: true },
+];`,
+              angular: `options = [
+  { label: "Apple", value: "apple" },
+  { label: "Cherry", value: "cherry", disabled: true },
+];`,
+            }}
           />
         </section>
 
@@ -64,7 +145,15 @@ export default function SelectShowcase() {
           <div className="max-w-sm">
             <Select options={FRUITS} placeholder="Choose a fruit" disabled />
           </div>
-          <CodeBlock code={`<Select options={options} placeholder="Choose a fruit" disabled />`} />
+          <CodeBlock
+            variants={{
+              react: `<Select options={options} placeholder="Choose a fruit" disabled />`,
+              js: `<Select placeholder="Choose a fruit" disabled />
+<!-- .options set via DOM property assignment — see the Placeholder example above -->`,
+              vue: `<Select :options="options" placeholder="Choose a fruit" disabled />`,
+              angular: `<Select [options]="options" placeholder="Choose a fruit" disabled />`,
+            }}
+          />
         </section>
       </div>
     </div>
