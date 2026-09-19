@@ -24,6 +24,23 @@ import { Table } from "../components/ui/Table/Table";
 import { Pagination } from "../components/ui/Pagination/Pagination";
 import { Tabs } from "../components/ui/Tabs/Tabs";
 import { Carousel } from "../components/ui/Carousel/Carousel";
+import { Input } from "../components/ui/Input/Input";
+import { Textarea } from "../components/ui/Textarea/Textarea";
+import { Label } from "../components/ui/Label/Label";
+import { SearchInput } from "../components/ui/SearchInput/SearchInput";
+import { Checkbox } from "../components/ui/Checkbox/Checkbox";
+import { Radio } from "../components/ui/Radio/Radio";
+import { RadioGroup } from "../components/ui/Radio/RadioGroup";
+import { Switch } from "../components/ui/Switch/Switch";
+import { Select } from "../components/ui/Select/Select";
+import { MultiSelect } from "../components/ui/MultiSelect/MultiSelect";
+import { Combobox } from "../components/ui/Combobox/Combobox";
+import { DatePicker } from "../components/ui/DatePicker/DatePicker";
+import { DateRangePicker } from "../components/ui/DatePicker/DateRangePicker";
+import { TimePicker } from "../components/ui/TimePicker/TimePicker";
+import { FileUpload } from "../components/ui/FileUpload/FileUpload";
+import { Slider } from "../components/ui/Slider/Slider";
+import { RangeSlider } from "../components/ui/RangeSlider/RangeSlider";
 
 // Each element is a real <button>/<div> tree, so a native click already
 // bubbles across the shadow boundary — no "events" entry needed for plain
@@ -302,5 +319,236 @@ customElements.define(
   r2wc(withTailwind(Carousel), {
     shadow: "open",
     props: { slides: "json", autoPlay: "boolean", intervalMs: "number", showArrows: "boolean", showDots: "boolean" },
+  })
+);
+
+customElements.define(
+  "l-input",
+  r2wc(withTailwind(Input), {
+    shadow: "open",
+    props: {
+      value: "string",
+      placeholder: "string",
+      disabled: "boolean",
+      required: "boolean",
+      name: "string",
+      type: "string",
+      size: "string",
+      invalid: "boolean",
+      leadingIcon: "string",
+      trailingIcon: "string",
+    },
+  })
+);
+
+customElements.define(
+  "l-textarea",
+  r2wc(withTailwind(Textarea), {
+    shadow: "open",
+    props: {
+      value: "string",
+      placeholder: "string",
+      disabled: "boolean",
+      required: "boolean",
+      name: "string",
+      rows: "number",
+      invalid: "boolean",
+      resize: "string",
+    },
+  })
+);
+
+customElements.define(
+  "l-label",
+  r2wc(withTailwind(Label), {
+    shadow: "open",
+    props: { htmlFor: "string", required: "boolean" },
+  })
+);
+
+customElements.define(
+  "l-search-input",
+  r2wc(withTailwind(SearchInput), {
+    shadow: "open",
+    props: { value: "string", placeholder: "string", size: "string", disabled: "boolean" },
+    events: { onClear: {} }, // dispatches "clear" — no native DOM equivalent for the clear button
+  })
+);
+
+customElements.define(
+  "l-checkbox",
+  r2wc(withTailwind(Checkbox), {
+    shadow: "open",
+    props: {
+      checked: "boolean",
+      defaultChecked: "boolean",
+      disabled: "boolean",
+      name: "string",
+      value: "string",
+      color: "string",
+      label: "string",
+    },
+  })
+);
+
+customElements.define(
+  "l-radio",
+  r2wc(withTailwind(Radio), {
+    shadow: "open",
+    props: {
+      checked: "boolean",
+      defaultChecked: "boolean",
+      disabled: "boolean",
+      name: "string",
+      value: "string",
+      color: "string",
+      label: "string",
+    },
+  })
+);
+
+// Pure layout wrapper — same-`name` <l-radio> siblings are natively
+// mutually exclusive via the browser, no JS coordination needed.
+customElements.define(
+  "l-radio-group",
+  r2wc(withTailwind(RadioGroup), {
+    shadow: "open",
+    props: { orientation: "string" },
+  })
+);
+
+customElements.define(
+  "l-switch",
+  r2wc(withTailwind(Switch), {
+    shadow: "open",
+    props: {
+      checked: "boolean",
+      defaultChecked: "boolean",
+      disabled: "boolean",
+      name: "string",
+      size: "string",
+      color: "string",
+      label: "string",
+    },
+  })
+);
+
+customElements.define(
+  "l-select",
+  r2wc(withTailwind(Select), {
+    shadow: "open",
+    props: {
+      options: "json",
+      value: "string",
+      placeholder: "string",
+      size: "string",
+      invalid: "boolean",
+      disabled: "boolean",
+    },
+  })
+);
+
+customElements.define(
+  "l-date-picker",
+  r2wc(withTailwind(DatePicker), {
+    shadow: "open",
+    props: { value: "string", size: "string", variant: "string", invalid: "boolean", disabled: "boolean" },
+    events: { onClear: {} }, // dispatches "clear" — no native DOM equivalent for the clear button
+  })
+);
+
+// startValue/endValue are a pair, not a single native input value — set the
+// `startValue`/`endValue` DOM properties directly, and listen for the
+// bridged "startchange"/"endchange" events instead of a native input event.
+customElements.define(
+  "l-date-range-picker",
+  r2wc(withTailwind(DateRangePicker), {
+    shadow: "open",
+    props: {
+      startValue: "string",
+      endValue: "string",
+      min: "string",
+      max: "string",
+      size: "string",
+      variant: "string",
+      invalid: "boolean",
+      disabled: "boolean",
+      presets: "json",
+    },
+    events: { onStartChange: {}, onEndChange: {} }, // dispatch "startchange"/"endchange", detail = the new date string
+  })
+);
+
+customElements.define(
+  "l-time-picker",
+  r2wc(withTailwind(TimePicker), {
+    shadow: "open",
+    props: { value: "string", size: "string", invalid: "boolean", disabled: "boolean" },
+  })
+);
+
+customElements.define(
+  "l-slider",
+  r2wc(withTailwind(Slider), {
+    shadow: "open",
+    props: {
+      value: "string",
+      min: "number",
+      max: "number",
+      step: "number",
+      color: "string",
+      showValue: "boolean",
+      disabled: "boolean",
+    },
+  })
+);
+
+// `value`/`onChange` are a tuple, not a single native input value — set the
+// `value` DOM property directly with a real [number, number], and listen for
+// the bridged "change" event (detail = the new tuple) instead of a native
+// input/change event.
+customElements.define(
+  "l-range-slider",
+  r2wc(withTailwind(RangeSlider), {
+    shadow: "open",
+    props: {
+      value: "json",
+      min: "number",
+      max: "number",
+      step: "number",
+      color: "string",
+      showValue: "boolean",
+    },
+    events: { onChange: {} }, // dispatches "change", detail = [number, number]
+  })
+);
+
+// options/value are plain data — set the `options`/`value` DOM properties
+// directly with real arrays for full control; listen for the bridged
+// "change" event (detail = string[]) instead of a native change event.
+customElements.define(
+  "l-multi-select",
+  r2wc(withTailwind(MultiSelect), {
+    shadow: "open",
+    props: { options: "json", value: "json", placeholder: "string", color: "string" },
+    events: { onChange: {} }, // dispatches "change", detail = string[]
+  })
+);
+
+customElements.define(
+  "l-combobox",
+  r2wc(withTailwind(Combobox), {
+    shadow: "open",
+    props: { options: "json", value: "string", placeholder: "string" },
+    events: { onChange: {} }, // dispatches "change", detail = the selected value
+  })
+);
+
+customElements.define(
+  "l-file-upload",
+  r2wc(withTailwind(FileUpload), {
+    shadow: "open",
+    props: { label: "string", accept: "string", multiple: "boolean", disabled: "boolean" },
+    events: { onFilesSelected: {} }, // dispatches "filesselected", detail = FileList | null
   })
 );

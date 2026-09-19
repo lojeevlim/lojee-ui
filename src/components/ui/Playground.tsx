@@ -18,6 +18,21 @@ import TabsPlayground from "./TabsPlayground";
 import BreadcrumbsPlayground from "./BreadcrumbsPlayground";
 import PaginationPlayground from "./PaginationPlayground";
 import CarouselPlayground from "./CarouselPlayground";
+import InputPlayground from "./InputPlayground";
+import TextareaPlayground from "./TextareaPlayground";
+import LabelPlayground from "./LabelPlayground";
+import CheckboxPlayground from "./CheckboxPlayground";
+import RadioPlayground from "./RadioPlayground";
+import SwitchPlayground from "./SwitchPlayground";
+import SelectPlayground from "./SelectPlayground";
+import MultiSelectPlayground from "./MultiSelectPlayground";
+import ComboboxPlayground from "./ComboboxPlayground";
+import DatePickerPlayground from "./DatePickerPlayground";
+import TimePickerPlayground from "./TimePickerPlayground";
+import FileUploadPlayground from "./FileUploadPlayground";
+import SearchInputPlayground from "./SearchInputPlayground";
+import SliderPlayground from "./SliderPlayground";
+import RangeSliderPlayground from "./RangeSliderPlayground";
 
 export interface PlaygroundProps {
   itemLabel?: string;
@@ -43,6 +58,21 @@ const PLAYGROUNDS: Record<string, ComponentType> = {
   Breadcrumbs: BreadcrumbsPlayground,
   Pagination: PaginationPlayground,
   Carousels: CarouselPlayground,
+  Input: InputPlayground,
+  Textarea: TextareaPlayground,
+  Label: LabelPlayground,
+  Checkbox: CheckboxPlayground,
+  "Radio Group": RadioPlayground,
+  "Switch / Toggle": SwitchPlayground,
+  Select: SelectPlayground,
+  "Multi Select": MultiSelectPlayground,
+  Combobox: ComboboxPlayground,
+  "Date Picker": DatePickerPlayground,
+  "Time Picker": TimePickerPlayground,
+  "File Upload": FileUploadPlayground,
+  "Search Input": SearchInputPlayground,
+  Slider: SliderPlayground,
+  "Range Slider": RangeSliderPlayground,
 };
 
 export default function Playground({ itemLabel }: PlaygroundProps) {

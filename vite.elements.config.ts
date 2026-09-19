@@ -12,6 +12,15 @@ import { resolve } from "node:path";
 export default defineConfig({
   publicDir: false,
   plugins: [react(), tailwindcss()],
+  // React (bundled in here, unlike the peer-dep lib build) checks
+  // `process.env.NODE_ENV` internally. This entry ships as a plain
+  // `<script type="module">` for non-bundled consumers, so there's no
+  // Node/webpack polyfill to fall back on — without this, the literal
+  // string `process.env.NODE_ENV` survives into the bundle and throws
+  // `ReferenceError: process is not defined` the moment it loads.
+  define: {
+    "process.env.NODE_ENV": JSON.stringify("production"),
+  },
   build: {
     outDir: "dist",
     emptyOutDir: false,

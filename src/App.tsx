@@ -19,6 +19,21 @@ import TabsShowcase from './components/ui/Tabs'
 import BreadcrumbsShowcase from './components/ui/Breadcrumbs'
 import PaginationShowcase from './components/ui/Pagination'
 import CarouselShowcase from './components/ui/Carousel'
+import InputShowcase from './components/ui/Input'
+import TextareaShowcase from './components/ui/Textarea'
+import LabelShowcase from './components/ui/Label'
+import CheckboxShowcase from './components/ui/Checkbox'
+import RadioShowcase from './components/ui/Radio'
+import SwitchShowcase from './components/ui/Switch'
+import SelectShowcase from './components/ui/Select'
+import MultiSelectShowcase from './components/ui/MultiSelect'
+import ComboboxShowcase from './components/ui/Combobox'
+import DatePickerShowcase from './components/ui/DatePicker'
+import TimePickerShowcase from './components/ui/TimePicker'
+import FileUploadShowcase from './components/ui/FileUpload'
+import SearchInputShowcase from './components/ui/SearchInput'
+import SliderShowcase from './components/ui/Slider'
+import RangeSliderShowcase from './components/ui/RangeSlider'
 
 import Sidebar from './components/layouts/Sidebar'
 import Header, { type HeaderNavKey } from './components/layouts/Header'
@@ -47,6 +62,21 @@ const SHOWCASES: Record<string, ComponentType> = {
   Breadcrumbs: BreadcrumbsShowcase,
   Pagination: PaginationShowcase,
   Carousels: CarouselShowcase,
+  Input: InputShowcase,
+  Textarea: TextareaShowcase,
+  Label: LabelShowcase,
+  Checkbox: CheckboxShowcase,
+  'Radio Group': RadioShowcase,
+  'Switch / Toggle': SwitchShowcase,
+  Select: SelectShowcase,
+  'Multi Select': MultiSelectShowcase,
+  Combobox: ComboboxShowcase,
+  'Date Picker': DatePickerShowcase,
+  'Time Picker': TimePickerShowcase,
+  'File Upload': FileUploadShowcase,
+  'Search Input': SearchInputShowcase,
+  Slider: SliderShowcase,
+  'Range Slider': RangeSliderShowcase,
 }
 
 function App() {
