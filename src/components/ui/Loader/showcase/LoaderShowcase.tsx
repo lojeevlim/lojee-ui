@@ -39,6 +39,32 @@ export default function LoaderShowcase() {
         </section>
 
         <section>
+          <SectionLabel sub="pulse (default), a sweeping shimmer highlight, or no animation at all.">
+            Variant
+          </SectionLabel>
+          <Row>
+            <Loader shape="rect" variant="pulse" width={140} height={80} />
+            <Loader shape="rect" variant="shimmer" width={140} height={80} />
+            <Loader shape="rect" variant="none" width={140} height={80} />
+          </Row>
+          <CodeBlock
+            code={`<Loader shape="rect" variant="pulse" width={140} height={80} />
+<Loader shape="rect" variant="shimmer" width={140} height={80} />
+<Loader shape="rect" variant="none" width={140} height={80} />`}
+          />
+        </section>
+
+        <section>
+          <SectionLabel sub="Like pulse, but each line's delay is staggered so they ripple instead of fading in sync.">
+            Wave variant
+          </SectionLabel>
+          <div className="max-w-sm">
+            <Loader shape="text" variant="wave" lines={4} />
+          </div>
+          <CodeBlock code={`<Loader shape="text" variant="wave" lines={4} />`} />
+        </section>
+
+        <section>
           <SectionLabel sub="A common composition — avatar + text lines.">Card example</SectionLabel>
           <div className="flex max-w-sm items-center gap-3">
             <Loader shape="circle" width={40} />

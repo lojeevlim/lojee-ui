@@ -12,6 +12,11 @@ export interface TooltipProps {
   /** Bubble background/text color — same palette as Button (default: slate). */
   color?: ColorName;
   className?: string;
+  /** Per-part class overrides — merged after (and win over) the built-in styling. */
+  classNames?: {
+    root?: string;
+    bubble?: string;
+  };
 }
 
 const POSITION_CLASSES: Record<TooltipPosition, string> = {
@@ -45,11 +50,19 @@ function closestDelayClass(ms: number): string {
 
 // Pure CSS show/hide (group-hover) — no useState, no positioning library.
 // Fixed-offset placement only (no collision detection/auto-flip).
-export function Tooltip({ content, children, position = "top", delayMs = 150, color = "slate", className }: TooltipProps) {
+export function Tooltip({
+  content,
+  children,
+  position = "top",
+  delayMs = 150,
+  color = "slate",
+  className,
+  classNames,
+}: TooltipProps) {
   const bubbleColor = nonInteractive((colorClasses[color] || colorClasses.slate).solid);
 
   return (
-    <span className={cx("group relative inline-block", className)}>
+    <span className={cx("group relative inline-block", className, classNames?.root)}>
       <slot>{children}</slot>
       <span
         role="tooltip"
@@ -57,7 +70,8 @@ export function Tooltip({ content, children, position = "top", delayMs = 150, co
           "pointer-events-none absolute z-50 whitespace-nowrap rounded-md px-2 py-1 text-xs opacity-0 shadow-sm transition-opacity duration-150 group-hover:opacity-100",
           bubbleColor,
           closestDelayClass(delayMs),
-          POSITION_CLASSES[position]
+          POSITION_CLASSES[position],
+          classNames?.bubble
         )}
       >
         {content}

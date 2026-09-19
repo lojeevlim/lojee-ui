@@ -1,18 +1,20 @@
 import { useState } from "react";
 import type { LucideIcon } from "lucide-react";
-import { Copy, Check, Plus, Settings, Mail, Bell, Download, ArrowRight } from "lucide-react";
+import { Plus, Settings, Mail, Bell, Download, ArrowRight, ChevronDown, MoreVertical, MoreHorizontal, X } from "lucide-react";
 import {
   Button,
   SplitButton,
+  SplitButtonMenuItem,
   ButtonGroup,
   SegmentButton,
-  COLORS,
   defaultGradientPartner,
   type ColorName,
   type ButtonVariant,
   type Size,
   type Shape,
 } from "./Buttons";
+import { OptionGroup, ColorSwatches, CodeBar } from "./PlaygroundHelpers";
+import { cx } from "./playgroundUtils";
 
 const VARIANTS: ButtonVariant[] = ["solid", "outline", "ghost", "soft", "link", "dashed", "gradient", "glass"];
 const SIZES: Size[] = ["xs", "sm", "md", "lg", "xl", "full"];
@@ -38,59 +40,28 @@ const ICONS: { key: string; icon: LucideIcon }[] = [
   { key: "arrow-right", icon: ArrowRight },
 ];
 
-const swatchClasses: Record<ColorName, string> = {
-  slate: "bg-slate-500",
-  gray: "bg-gray-500",
-  indigo: "bg-indigo-500",
-  violet: "bg-violet-500",
-  blue: "bg-blue-500",
-  cyan: "bg-cyan-500",
-  emerald: "bg-emerald-500",
-  teal: "bg-teal-500",
-  amber: "bg-amber-500",
-  orange: "bg-orange-500",
-  rose: "bg-rose-500",
-  pink: "bg-pink-500",
-};
+// SplitButton's dropdown trigger — a smaller, curated set of icons that
+// actually read as "more options" rather than the general icon picker above.
+const MENU_ICONS: { key: string; icon: LucideIcon }[] = [
+  { key: "chevron-down", icon: ChevronDown },
+  { key: "more-vertical", icon: MoreVertical },
+  { key: "more-horizontal", icon: MoreHorizontal },
+];
 
-function cx(...classes: (string | false | null | undefined)[]): string {
-  return classes.filter(Boolean).join(" ");
-}
-
-function OptionGroup<T extends string>({
-  label,
-  options,
-  value,
-  onChange,
-  render,
-}: {
+// A draft entry for the "Dropdown menu items" editor below — turned into a
+// real `<SplitButtonMenuItem>` child for the preview and generated code.
+interface MenuItemDraft {
   label: string;
-  options: readonly T[];
-  value: T;
-  onChange: (value: T) => void;
-  render?: (option: T) => React.ReactNode;
-}) {
-  return (
-    <div>
-      <span className="mb-1.5 block text-xs font-medium text-slate-500">{label}</span>
-      <div className="flex flex-wrap gap-1.5">
-        {options.map((option) => (
-          <button
-            key={option}
-            type="button"
-            onClick={() => onChange(option)}
-            className={cx(
-              "rounded-md px-2.5 py-1 text-xs font-medium capitalize transition-colors",
-              value === option ? "bg-slate-900 text-white" : "bg-slate-100 text-slate-600 hover:bg-slate-200"
-            )}
-          >
-            {render ? render(option) : option}
-          </button>
-        ))}
-      </div>
-    </div>
-  );
+  icon?: string;
 }
+
+// Seeds the list below for the Split layout — the user can add more or
+// remove these from the playground itself.
+const INITIAL_MENU_ITEMS: MenuItemDraft[] = [
+  { label: "Duplicate", icon: "copy" },
+  { label: "Archive", icon: "folder" },
+  { label: "Delete", icon: "trash-2" },
+];
 
 export default function ButtonPlayground() {
   const [variant, setVariant] = useState<ButtonVariant>("solid");
@@ -102,7 +73,20 @@ export default function ButtonPlayground() {
   const [layout, setLayout] = useState<Layout>("single");
   const [iconKey, setIconKey] = useState("plus");
   const [iconPosition, setIconPosition] = useState<"left" | "right">("left");
-  const [copied, setCopied] = useState(false);
+  const [menuIconKey, setMenuIconKey] = useState("chevron-down");
+  const [menuItems, setMenuItems] = useState<MenuItemDraft[]>(INITIAL_MENU_ITEMS);
+  const [newMenuItemLabel, setNewMenuItemLabel] = useState("");
+
+  const addMenuItem = () => {
+    const trimmed = newMenuItemLabel.trim();
+    if (!trimmed) return;
+    setMenuItems((prev) => [...prev, { label: trimmed }]);
+    setNewMenuItemLabel("");
+  };
+
+  const removeMenuItem = (index: number) => {
+    setMenuItems((prev) => prev.filter((_, i) => i !== index));
+  };
 
   const preview = (() => {
     if (layout === "icon") {
@@ -120,15 +104,34 @@ export default function ButtonPlayground() {
     }
     if (layout === "group") {
       return (
-        <ButtonGroup>
-          <SegmentButton active>{label || "One"}</SegmentButton>
-          <SegmentButton>Two</SegmentButton>
-          <SegmentButton>Three</SegmentButton>
+        <ButtonGroup shape={shape}>
+          <SegmentButton active color={color}>
+            {label || "One"}
+          </SegmentButton>
+          <SegmentButton color={color}>Two</SegmentButton>
+          <SegmentButton color={color}>Three</SegmentButton>
         </ButtonGroup>
       );
     }
     if (layout === "split") {
-      return <SplitButton icon="check" label={label || "Approve"} color={color} size={size} />;
+      return (
+        <SplitButton
+          icon="check"
+          label={label || "Approve"}
+          color={color}
+          size={size}
+          shape={shape}
+          menuIcon={menuIconKey}
+        >
+          {menuItems.length > 0
+            ? menuItems.map((item, i) => (
+                <SplitButtonMenuItem key={i} icon={item.icon}>
+                  {item.label}
+                </SplitButtonMenuItem>
+              ))
+            : undefined}
+        </SplitButton>
+      );
     }
     return (
       <Button
@@ -151,10 +154,23 @@ export default function ButtonPlayground() {
       } label="${label || "Icon button"}" />`;
     }
     if (layout === "group") {
-      return `<ButtonGroup>\n  <SegmentButton active>${label || "One"}</SegmentButton>\n  <SegmentButton>Two</SegmentButton>\n  <SegmentButton>Three</SegmentButton>\n</ButtonGroup>`;
+      const shapeAttr = shape !== "default" ? ` shape="${shape}"` : "";
+      const colorAttr = color !== "slate" ? ` color="${color}"` : "";
+      return `<ButtonGroup${shapeAttr}>\n  <SegmentButton active${colorAttr}>${label || "One"}</SegmentButton>\n  <SegmentButton${colorAttr}>Two</SegmentButton>\n  <SegmentButton${colorAttr}>Three</SegmentButton>\n</ButtonGroup>`;
     }
     if (layout === "split") {
-      return `<SplitButton icon="check" label="${label || "Approve"}" color="${color}" size="${size}" />`;
+      const shapeAttr = shape !== "default" ? ` shape="${shape}"` : "";
+      const menuIconAttr = menuIconKey !== "chevron-down" ? ` menuIcon="${menuIconKey}"` : "";
+      if (menuItems.length > 0) {
+        const itemsCode = menuItems
+          .map((item) => {
+            const iconAttr = item.icon ? ` icon="${item.icon}"` : "";
+            return `  <SplitButtonMenuItem${iconAttr} onClick={() => {}}>${item.label}</SplitButtonMenuItem>`;
+          })
+          .join("\n");
+        return `<SplitButton\n  icon="check"\n  label="${label || "Approve"}"\n  color="${color}"\n  size="${size}"${shapeAttr}${menuIconAttr}\n>\n${itemsCode}\n</SplitButton>`;
+      }
+      return `<SplitButton icon="check" label="${label || "Approve"}" color="${color}" size="${size}"${shapeAttr}${menuIconAttr} />`;
     }
     return `<Button variant="${variant}" color="${color}"${
       variant === "gradient" ? ` gradientTo="${gradientTo}"` : ""
@@ -162,16 +178,6 @@ export default function ButtonPlayground() {
       iconPosition === "right" ? ` iconPosition="right"` : ""
     } label="${label}" />`;
   })();
-
-  const handleCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(code);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 1500);
-    } catch {
-      /* clipboard unavailable in this context — silently ignore */
-    }
-  };
 
   return (
     <div className="flex flex-col gap-6">
@@ -245,73 +251,90 @@ export default function ButtonPlayground() {
           <OptionGroup label="Icon position" options={["left", "right"] as const} value={iconPosition} onChange={setIconPosition} />
         )}
 
-        {(layout === "single" || layout === "icon" || layout === "split") && (
-          <OptionGroup label="Shape" options={SHAPES} value={shape} onChange={setShape} />
-        )}
+        <OptionGroup label="Shape" options={SHAPES} value={shape} onChange={setShape} />
 
-        {layout !== "group" && (
+        {layout === "split" && (
           <div>
-            <span className="mb-1.5 block text-xs font-medium text-slate-500">
-              {layout === "single" && variant === "gradient" ? "From color" : "Color"}
-            </span>
+            <span className="mb-1.5 block text-xs font-medium text-slate-500">Dropdown icon</span>
             <div className="flex flex-wrap gap-1.5">
-              {COLORS.map((c) => (
+              {MENU_ICONS.map(({ key, icon: Icon }) => (
                 <button
-                  key={c.base}
+                  key={key}
                   type="button"
-                  onClick={() => setColor(c.base)}
-                  aria-label={c.name}
-                  title={c.name}
+                  onClick={() => setMenuIconKey(key)}
+                  aria-label={key}
+                  title={key}
                   className={cx(
-                    "h-6 w-6 rounded-full ring-2 ring-offset-2 transition-transform",
-                    swatchClasses[c.base],
-                    color === c.base ? "scale-110 ring-slate-900" : "ring-transparent hover:scale-105"
+                    "flex h-7 w-7 items-center justify-center rounded-md transition-colors",
+                    menuIconKey === key ? "bg-slate-900 text-white" : "bg-slate-100 text-slate-600 hover:bg-slate-200"
                   )}
-                />
+                >
+                  <Icon size={14} />
+                </button>
               ))}
             </div>
           </div>
         )}
+
+        {layout === "split" && (
+          <div className="sm:col-span-2">
+            <span className="mb-1.5 block text-xs font-medium text-slate-500">Dropdown menu items</span>
+            {menuItems.length > 0 && (
+              <div className="mb-2 flex flex-wrap gap-1.5">
+                {menuItems.map((item, i) => (
+                  <span
+                    key={i}
+                    className="inline-flex items-center gap-1 rounded-md bg-slate-100 py-1 pr-1 pl-2.5 text-xs font-medium text-slate-700"
+                  >
+                    {item.label}
+                    <button
+                      type="button"
+                      onClick={() => removeMenuItem(i)}
+                      aria-label={`Remove ${item.label}`}
+                      className="rounded p-0.5 text-slate-400 transition-colors hover:bg-slate-200 hover:text-slate-700"
+                    >
+                      <X size={12} />
+                    </button>
+                  </span>
+                ))}
+              </div>
+            )}
+            <div className="flex gap-1.5">
+              <input
+                value={newMenuItemLabel}
+                onChange={(e) => setNewMenuItemLabel(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault();
+                    addMenuItem();
+                  }
+                }}
+                placeholder="New option label"
+                className="flex-1 rounded-md border border-slate-200 px-2.5 py-1.5 text-xs text-slate-900 outline-none transition-colors focus:border-slate-400"
+              />
+              <button
+                type="button"
+                onClick={addMenuItem}
+                className="rounded-md bg-slate-900 px-3 py-1.5 text-xs font-medium text-white transition-colors hover:bg-slate-700"
+              >
+                Add
+              </button>
+            </div>
+          </div>
+        )}
+
+        <ColorSwatches
+          label={layout === "single" && variant === "gradient" ? "From color" : "Color"}
+          value={color}
+          onChange={setColor}
+        />
 
         {layout === "single" && variant === "gradient" && (
-          <div>
-            <span className="mb-1.5 block text-xs font-medium text-slate-500">To color</span>
-            <div className="flex flex-wrap gap-1.5">
-              {COLORS.map((c) => (
-                <button
-                  key={c.base}
-                  type="button"
-                  onClick={() => setGradientTo(c.base)}
-                  aria-label={c.name}
-                  title={c.name}
-                  className={cx(
-                    "h-6 w-6 rounded-full ring-2 ring-offset-2 transition-transform",
-                    swatchClasses[c.base],
-                    gradientTo === c.base ? "scale-110 ring-slate-900" : "ring-transparent hover:scale-105"
-                  )}
-                />
-              ))}
-            </div>
-          </div>
+          <ColorSwatches label="To color" value={gradientTo} onChange={setGradientTo} />
         )}
       </div>
 
-      {/* Code + copy — pinned to the bottom of the modal */}
-      <div className="sticky bottom-0 -mx-6 -mb-6 mt-2 border-t border-slate-200 bg-white/95 px-6 py-4 backdrop-blur">
-        <div className="relative rounded-lg bg-slate-900 p-4 pr-24">
-          <pre className="overflow-x-auto text-xs leading-relaxed text-slate-100">
-            <code>{code}</code>
-          </pre>
-          <button
-            type="button"
-            onClick={handleCopy}
-            className="absolute right-3 top-3 inline-flex items-center gap-1.5 rounded-md bg-white/10 px-2.5 py-1.5 text-xs font-medium text-white transition-colors hover:bg-white/20"
-          >
-            {copied ? <Check size={14} /> : <Copy size={14} />}
-            {copied ? "Copied" : "Copy"}
-          </button>
-        </div>
-      </div>
+      <CodeBar code={code} />
     </div>
   );
 }

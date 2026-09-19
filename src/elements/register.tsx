@@ -1,5 +1,5 @@
 import r2wc from "@r2wc/react-to-web-component";
-import { Button, SplitButton, ButtonGroup, SegmentButton } from "../components/ui/Buttons";
+import { Button, SplitButton, SplitButtonMenuItem, ButtonGroup, SegmentButton } from "../components/ui/Buttons";
 import { ModalElement } from "./modal-adapter";
 import { withTailwind } from "./with-tailwind";
 import { Badge } from "../components/ui/Badge/Badge";
@@ -46,12 +46,29 @@ customElements.define(
       icon: "string",
       label: "string",
       menuLabel: "string",
+      menuIcon: "string",
       variant: "string",
       color: "string",
       size: "string",
+      shape: "string",
       disabled: "boolean",
     },
     events: { onMenuClick: {} }, // dispatches "menuclick"
+  })
+);
+
+// Light-DOM children of <l-split-button> — e.g.
+// <l-split-button-menu-item icon="trash-2">Delete</l-split-button-menu-item>
+// — project into its dropdown via the native <slot>, same as
+// <l-segment-button> does inside <l-button-group>.
+customElements.define(
+  "l-split-button-menu-item",
+  r2wc(withTailwind(SplitButtonMenuItem), {
+    shadow: "open",
+    props: {
+      icon: "string",
+      disabled: "boolean",
+    },
   })
 );
 
@@ -136,7 +153,7 @@ customElements.define(
   "l-loader",
   r2wc(withTailwind(Loader), {
     shadow: "open",
-    props: { shape: "string", width: "number", height: "number", lines: "number" },
+    props: { shape: "string", variant: "string", width: "number", height: "number", lines: "number" },
   })
 );
 
@@ -144,7 +161,7 @@ customElements.define(
   "l-divider",
   r2wc(withTailwind(Divider), {
     shadow: "open",
-    props: { orientation: "string", label: "string", color: "string", adjustable: "boolean", step: "number" },
+    props: { orientation: "string", label: "string", color: "string", resizable: "boolean", step: "number" },
     events: { onResize: {} }, // dispatches "resize", detail = delta px
   })
 );

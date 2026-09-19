@@ -16,6 +16,13 @@ export interface AvatarProps {
   /** Background color for the initials fallback. */
   color?: ColorName;
   className?: string;
+  /** Per-part class overrides — merged after (and win over) the built-in styling. */
+  classNames?: {
+    root?: string;
+    image?: string;
+    fallback?: string;
+    status?: string;
+  };
 }
 
 const SIZE_PX: Record<AvatarSize, number> = { xs: 24, sm: 32, md: 40, lg: 48, xl: 64 };
@@ -52,6 +59,7 @@ export function Avatar({
   status,
   color = "slate",
   className,
+  classNames,
 }: AvatarProps) {
   const [imageFailed, setImageFailed] = useState(false);
   const px = SIZE_PX[size];
@@ -60,33 +68,40 @@ export function Avatar({
 
   return (
     <span
-      className={cx("relative inline-flex shrink-0 items-center justify-center overflow-hidden", shapeClass, className)}
+      className={cx("relative inline-flex shrink-0 items-center justify-center", className, classNames?.root)}
       style={{ width: px, height: px }}
     >
-      {showImage ? (
-        <img
-          src={src}
-          alt={alt}
-          className="h-full w-full object-cover"
-          onError={() => setImageFailed(true)}
-        />
-      ) : (
-        <span
-          className={cx(
-            "flex h-full w-full items-center justify-center font-medium uppercase",
-            TEXT_SIZE[size],
-            (colorClasses[color] || colorClasses.slate).soft
-          )}
-        >
-          {initials}
-        </span>
-      )}
+      {/* Clips the image/fallback to the avatar's shape — kept off the root
+          span so the status dot below (a sibling, not a child of this) isn't
+          clipped along with it when it overlaps the corner. */}
+      <span className={cx("flex h-full w-full items-center justify-center overflow-hidden", shapeClass)}>
+        {showImage ? (
+          <img
+            src={src}
+            alt={alt}
+            className={cx("h-full w-full object-cover", classNames?.image)}
+            onError={() => setImageFailed(true)}
+          />
+        ) : (
+          <span
+            className={cx(
+              "flex h-full w-full items-center justify-center font-medium uppercase",
+              TEXT_SIZE[size],
+              (colorClasses[color] || colorClasses.slate).soft,
+              classNames?.fallback
+            )}
+          >
+            {initials}
+          </span>
+        )}
+      </span>
       {status && (
         <span
           className={cx(
             "absolute right-0 bottom-0 rounded-full ring-2 ring-white",
             STATUS_CLASSES[status],
-            STATUS_DOT_SIZE[size]
+            STATUS_DOT_SIZE[size],
+            classNames?.status
           )}
           aria-label={status}
         />

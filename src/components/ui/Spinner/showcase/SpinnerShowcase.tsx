@@ -9,7 +9,7 @@ export default function SpinnerShowcase() {
         <div>
           <h1 className="text-2xl font-semibold text-slate-900">Spinner</h1>
           <p className="text-sm text-slate-500 mt-1">
-            Inline loading indicators — a spinning circle or three bouncing dots.
+            Inline loading indicators — five variants, from a spinning icon to a pulsing dot.
           </p>
         </div>
 
@@ -38,12 +38,21 @@ export default function SpinnerShowcase() {
         </section>
 
         <section>
-          <SectionLabel sub="circle or dots.">Variant</SectionLabel>
+          <SectionLabel sub="circle, dots, ring, bars, or pulse.">Variant</SectionLabel>
           <Row>
             <Spinner variant="circle" color="indigo" size="lg" />
             <Spinner variant="dots" color="indigo" size="lg" />
+            <Spinner variant="ring" color="indigo" size="lg" />
+            <Spinner variant="bars" color="indigo" size="lg" />
+            <Spinner variant="pulse" color="indigo" size="lg" />
           </Row>
-          <CodeBlock code={`<Spinner variant="dots" color="indigo" />`} />
+          <CodeBlock
+            code={`<Spinner variant="circle" color="indigo" />
+<Spinner variant="dots" color="indigo" />
+<Spinner variant="ring" color="indigo" />
+<Spinner variant="bars" color="indigo" />
+<Spinner variant="pulse" color="indigo" />`}
+          />
         </section>
       </div>
     </div>

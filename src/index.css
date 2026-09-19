@@ -1,1 +1,13 @@
 @import "tailwindcss";
+
+/* Loader's "shimmer" variant — a moving highlight sweep, as an alternative
+   to the built-in animate-pulse. Tailwind has no equivalent utility. */
+@theme {
+  --animate-shimmer: lojee-shimmer 1.6s ease-in-out infinite;
+}
+
+@keyframes lojee-shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}

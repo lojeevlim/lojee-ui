@@ -1,5 +1,5 @@
 import { Loader2 } from "lucide-react";
-import type { ReactNode, MouseEventHandler, CSSProperties } from "react";
+import type { AriaAttributes, ReactNode, MouseEventHandler, CSSProperties } from "react";
 import {
   colorClasses,
   destructiveClasses,
@@ -39,7 +39,16 @@ export interface ButtonProps {
   children?: ReactNode;
   onClick?: MouseEventHandler<HTMLButtonElement>;
   type?: "button" | "submit" | "reset";
+  /** For a button that toggles a disclosure (menu, listbox, etc.) it doesn't own itself. */
+  "aria-haspopup"?: AriaAttributes["aria-haspopup"];
+  "aria-expanded"?: boolean;
   className?: string;
+  /** Per-part class overrides — merged after (and win over) the built-in styling. */
+  classNames?: {
+    root?: string;
+    icon?: string;
+    badge?: string;
+  };
 }
 
 export function Button({
@@ -58,7 +67,10 @@ export function Button({
   children,
   onClick,
   type = "button",
+  "aria-haspopup": ariaHaspopup,
+  "aria-expanded": ariaExpanded,
   className,
+  classNames,
 }: ButtonProps) {
   // getIcon() always returns the same stable, module-level-imported
   // component reference for a given name, so this never actually causes a
@@ -99,16 +111,23 @@ export function Button({
       onClick={onClick}
       style={gradientStyle}
       aria-label={iconOnly ? label : undefined}
-      className={cx(base, className, variantClass, sizeClass, shapeClass, badge != null && "relative")}
+      aria-haspopup={ariaHaspopup}
+      aria-expanded={ariaExpanded}
+      className={cx(base, variantClass, sizeClass, shapeClass, badge != null && "relative", className, classNames?.root)}
     >
       {loading && <Loader2 size={iconSize[size]} className="animate-spin" />}
       {/* eslint-disable-next-line react-hooks/static-components -- see comment above `const Icon` */}
-      {!loading && Icon && (iconOnly || iconPosition === "left") && <Icon size={iconSize[size]} />}
+      {!loading && Icon && (iconOnly || iconPosition === "left") && <Icon size={iconSize[size]} className={classNames?.icon} />}
       {!iconOnly && <slot>{content}</slot>}
       {/* eslint-disable-next-line react-hooks/static-components -- see comment above `const Icon` */}
-      {!loading && Icon && !iconOnly && iconPosition === "right" && <Icon size={iconSize[size]} />}
+      {!loading && Icon && !iconOnly && iconPosition === "right" && <Icon size={iconSize[size]} className={classNames?.icon} />}
       {badge && (
-        <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-[10px] font-semibold text-white">
+        <span
+          className={cx(
+            "absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-red-500 text-[10px] font-semibold text-white",
+            classNames?.badge
+          )}
+        >
           {badge}
         </span>
       )}

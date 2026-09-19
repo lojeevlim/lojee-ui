@@ -1,0 +1,46 @@
+import { useState } from "react";
+import { Loader, type LoaderShape, type LoaderVariant } from "./Loader/Loader";
+import { OptionGroup, PlaygroundLayout } from "./PlaygroundHelpers";
+
+const SHAPES: LoaderShape[] = ["text", "circle", "rect"];
+const VARIANTS: LoaderVariant[] = ["pulse", "shimmer", "wave", "none"];
+
+export default function LoaderPlayground() {
+  const [shape, setShape] = useState<LoaderShape>("text");
+  const [variant, setVariant] = useState<LoaderVariant>("pulse");
+  const [lines, setLines] = useState(3);
+
+  const preview =
+    shape === "text" ? (
+      <div className="w-64">
+        <Loader shape="text" variant={variant} lines={lines} />
+      </div>
+    ) : shape === "circle" ? (
+      <Loader shape="circle" variant={variant} width={56} />
+    ) : (
+      <Loader shape="rect" variant={variant} width={200} height={100} />
+    );
+
+  const code =
+    shape === "text"
+      ? `<Loader shape="text" variant="${variant}" lines={${lines}} />`
+      : shape === "circle"
+        ? `<Loader shape="circle" variant="${variant}" width={56} />`
+        : `<Loader shape="rect" variant="${variant}" width={200} height={100} />`;
+
+  return (
+    <PlaygroundLayout preview={preview} code={code}>
+      <OptionGroup label="Shape" options={SHAPES} value={shape} onChange={setShape} />
+      <OptionGroup label="Variant" options={VARIANTS} value={variant} onChange={setVariant} />
+
+      {shape === "text" && (
+        <OptionGroup
+          label="Lines"
+          options={["2", "3", "4", "5"]}
+          value={String(lines)}
+          onChange={(v) => setLines(Number(v))}
+        />
+      )}
+    </PlaygroundLayout>
+  );
+}

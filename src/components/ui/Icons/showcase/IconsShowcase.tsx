@@ -22,9 +22,27 @@ export default function IconsShowcase() {
         <div>
           <h1 className="text-2xl font-semibold text-slate-900">Icons</h1>
           <p className="text-sm text-slate-500 mt-1">
-            Every icon registered in <code className="text-xs">src/core/icons.ts</code> — click one to copy its
-            name. Used as a plain string via <code className="text-xs">icon="name"</code> on any component that
-            supports an icon prop.
+            A curated subset of the{" "}
+            <a
+              href="https://lucide.dev/icons/"
+              target="_blank"
+              rel="noreferrer"
+              className="text-slate-700 underline underline-offset-2 hover:text-slate-900"
+            >
+              Lucide icon library
+            </a>{" "}
+            — click one to copy its name. Used as a plain string via{" "}
+            <code className="text-xs">icon="name"</code> on any component that supports an icon prop. Need one
+            that isn't here? Browse the full set at{" "}
+            <a
+              href="https://lucide.dev/icons/"
+              target="_blank"
+              rel="noreferrer"
+              className="text-slate-700 underline underline-offset-2 hover:text-slate-900"
+            >
+              lucide.dev/icons
+            </a>
+            .
           </p>
         </div>
 

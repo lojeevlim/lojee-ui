@@ -61,7 +61,7 @@ export default function DividerShowcase() {
             </div>
             <Divider
               orientation="vertical"
-              adjustable
+              resizable
               onResize={(dx) => setLeftWidth((w) => Math.min(400, Math.max(MIN_PANEL_PX, w + dx)))}
             />
             <div className="flex flex-1 items-center justify-center bg-white text-xs text-slate-500">flex-1</div>
@@ -73,20 +73,18 @@ export default function DividerShowcase() {
               {topHeight}px
             </div>
             <Divider
-              adjustable
+              resizable
               onResize={(dy) => setTopHeight((h) => Math.min(160, Math.max(MIN_PANEL_PX, h + dy)))}
             />
             <div className="flex flex-1 items-center justify-center bg-white text-xs text-slate-500">flex-1</div>
           </div>
 
           <CodeBlock
-            code={`const [leftWidth, setLeftWidth] = useState(180);
-
-<div className="flex">
+            code={`<div className="flex">
   <div style={{ width: leftWidth }}>...</div>
   <Divider
     orientation="vertical"
-    adjustable
+    resizable
     onResize={(dx) => setLeftWidth((w) => w + dx)}
   />
   <div className="flex-1">...</div>

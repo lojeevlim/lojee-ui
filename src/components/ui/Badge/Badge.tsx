@@ -17,6 +17,11 @@ export interface BadgeProps {
   label?: string;
   children?: ReactNode;
   className?: string;
+  /** Per-part class overrides — merged after (and win over) the built-in styling. */
+  classNames?: {
+    root?: string;
+    icon?: string;
+  };
 }
 
 const SIZE_CLASSES: Record<BadgeSize, string> = {
@@ -42,13 +47,20 @@ export function Badge({
   label,
   children,
   className,
+  classNames,
 }: BadgeProps) {
   const colorSet = colorClasses[color] || colorClasses.slate;
 
   if (dot) {
     return (
       <span
-        className={cx("inline-block rounded-full", solidBg(colorSet.solid), DOT_SIZE[size], className)}
+        className={cx(
+          "inline-block rounded-full",
+          solidBg(colorSet.solid),
+          DOT_SIZE[size],
+          className,
+          classNames?.root
+        )}
         role={label ? "status" : undefined}
         aria-label={label}
       />
@@ -68,11 +80,12 @@ export function Badge({
         "inline-flex items-center font-medium whitespace-nowrap",
         variantClass,
         SIZE_CLASSES[size],
-        className
+        className,
+        classNames?.root
       )}
     >
       {/* eslint-disable-next-line react-hooks/static-components -- see comment above `const Icon` */}
-      {Icon && <Icon size={ICON_PX[size]} />}
+      {Icon && <Icon size={ICON_PX[size]} className={classNames?.icon} />}
       <slot>{content}</slot>
     </span>
   );

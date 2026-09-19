@@ -189,6 +189,46 @@ export function ButtonSection() {
 <Button shape="square" label="Square" />`}
         />
       </section>
+
+      {/* CUSTOM STYLING — className for the root, classNames for internal parts */}
+      <section>
+        <SectionLabel sub="Override the root with className, or target an internal part (icon, badge) with classNames — both merge on top of the built-in styling via tailwind-merge, so your classes always win.">
+          Custom styling
+        </SectionLabel>
+        <Row>
+          <Button
+            variant="solid"
+            color="slate"
+            label="Custom root"
+            className="rounded-full ring-2 ring-offset-2 ring-indigo-500"
+          />
+          <Button
+            variant="soft"
+            color="rose"
+            icon="heart"
+            label="Liked"
+            classNames={{ icon: "fill-rose-600 text-rose-600" }}
+          />
+          <Button
+            variant="soft"
+            color="indigo"
+            icon="bell"
+            iconOnly
+            shape="pill"
+            badge={5}
+            label="Notifications"
+            classNames={{ badge: "bg-indigo-600" }}
+          />
+        </Row>
+        <CodeBlock
+          code={`// Override the root element
+<Button className="rounded-full ring-2 ring-offset-2 ring-indigo-500" label="Custom root" />
+
+// Target an internal part with classNames — icon, badge (Button also has "root")
+<Button icon="heart" color="rose" variant="soft" label="Liked" classNames={{ icon: "fill-rose-600 text-rose-600" }} />
+<Button icon="bell" iconOnly shape="pill" badge={5} label="Notifications" classNames={{ badge: "bg-indigo-600" }} />`}
+        />
+      </section>
     </>
   );
 }

@@ -3,6 +3,8 @@
 // no React, no Lit — so both surfaces render pixel-identical output from
 // one source of truth.
 
+import { twMerge } from "tailwind-merge";
+
 export const COLORS = [
   { name: "Slate", base: "slate" },
   { name: "Gray", base: "gray" },
@@ -155,7 +157,7 @@ export const iconSize = {
 };
 
 export function cx(...classes: (string | false | null | undefined)[]): string {
-  return classes.filter(Boolean).join(" ");
+  return twMerge(classes.filter(Boolean).join(" "));
 }
 
 export const shapeClasses = {

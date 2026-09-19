@@ -6,7 +6,7 @@ export type DividerOrientation = "horizontal" | "vertical";
 
 export interface DividerProps {
   orientation?: DividerOrientation;
-  /** Centered text (e.g. "OR") — only meaningful for horizontal, non-adjustable dividers. */
+  /** Centered text (e.g. "OR") — only meaningful for horizontal, non-resizable dividers. */
   label?: string;
   children?: ReactNode;
   color?: ColorName;
@@ -18,11 +18,19 @@ export interface DividerProps {
    * delta (e.g. to a panel's width/height), same as a headless split-pane
    * handle.
    */
-  adjustable?: boolean;
+  resizable?: boolean;
   /** Called with the pointer/keyboard movement in px (positive = right/down). */
   onResize?: (deltaPx: number) => void;
-  /** Keyboard step size in px when adjustable (default 10). */
+  /** Keyboard step size in px when resizable (default 10). */
   step?: number;
+  /** Per-part class overrides — merged after (and win over) the built-in styling. */
+  classNames?: {
+    root?: string;
+    /** The line segment(s) either side of a labeled divider, or the sole line otherwise. */
+    line?: string;
+    /** The centered label/content, when present. */
+    label?: string;
+  };
 }
 
 const BORDER_COLOR: Record<ColorName, string> = {
@@ -46,9 +54,10 @@ export function Divider({
   children,
   color = "slate",
   className,
-  adjustable = false,
+  resizable = false,
   onResize,
   step = 10,
+  classNames,
 }: DividerProps) {
   const borderClass = BORDER_COLOR[color] || BORDER_COLOR.slate;
   const content = children ?? label;
@@ -56,13 +65,13 @@ export function Divider({
   const dragOrigin = useRef<{ x: number; y: number } | null>(null);
 
   const handlePointerDown = (e: PointerEvent<HTMLSpanElement>) => {
-    if (!adjustable) return;
+    if (!resizable) return;
     e.currentTarget.setPointerCapture(e.pointerId);
     dragOrigin.current = { x: e.clientX, y: e.clientY };
   };
 
   const handlePointerMove = (e: PointerEvent<HTMLSpanElement>) => {
-    if (!adjustable || !dragOrigin.current) return;
+    if (!resizable || !dragOrigin.current) return;
     const delta = isVertical ? e.clientX - dragOrigin.current.x : e.clientY - dragOrigin.current.y;
     if (delta !== 0) {
       onResize?.(delta);
@@ -71,13 +80,13 @@ export function Divider({
   };
 
   const handlePointerUp = (e: PointerEvent<HTMLSpanElement>) => {
-    if (!adjustable) return;
+    if (!resizable) return;
     e.currentTarget.releasePointerCapture(e.pointerId);
     dragOrigin.current = null;
   };
 
   const handleKeyDown = (e: KeyboardEvent<HTMLSpanElement>) => {
-    if (!adjustable) return;
+    if (!resizable) return;
     const increaseKey = isVertical ? "ArrowRight" : "ArrowDown";
     const decreaseKey = isVertical ? "ArrowLeft" : "ArrowUp";
     if (e.key === increaseKey) {
@@ -89,7 +98,7 @@ export function Divider({
     }
   };
 
-  const dragHandleProps = adjustable
+  const dragHandleProps = resizable
     ? {
         tabIndex: 0,
         onPointerDown: handlePointerDown,
@@ -106,8 +115,9 @@ export function Divider({
         aria-orientation="vertical"
         className={cx(
           "group inline-flex h-full shrink-0 items-stretch justify-center",
-          adjustable ? "w-3 cursor-col-resize touch-none select-none" : "w-px",
-          className
+          resizable ? "w-3 cursor-col-resize touch-none select-none" : "w-px",
+          className,
+          classNames?.root
         )}
         {...dragHandleProps}
       >
@@ -115,38 +125,49 @@ export function Divider({
           className={cx(
             "w-px border-l transition-colors",
             borderClass,
-            adjustable && "group-hover:border-slate-400 group-focus-visible:border-slate-500"
+            resizable && "group-hover:border-slate-400 group-focus-visible:border-slate-500",
+            classNames?.line
           )}
         />
       </span>
     );
   }
 
-  if (adjustable) {
+  if (resizable) {
     return (
       <span
         role="separator"
         aria-orientation="horizontal"
         className={cx(
           "group flex h-3 w-full cursor-row-resize touch-none select-none items-center",
-          className
+          className,
+          classNames?.root
         )}
         {...dragHandleProps}
       >
-        <span className={cx("h-px w-full border-t transition-colors", borderClass, "group-hover:border-slate-400 group-focus-visible:border-slate-500")} />
+        <span
+          className={cx(
+            "h-px w-full border-t transition-colors",
+            borderClass,
+            "group-hover:border-slate-400 group-focus-visible:border-slate-500",
+            classNames?.line
+          )}
+        />
       </span>
     );
   }
 
   if (content == null) {
-    return <hr role="separator" className={cx("border-t", borderClass, className)} />;
+    return <hr role="separator" className={cx("border-t", borderClass, className, classNames?.root)} />;
   }
 
   return (
-    <div role="separator" className={cx("flex items-center gap-3 text-xs font-medium text-slate-400", className)}>
-      <span className={cx("h-px flex-1 border-t", borderClass)} />
-      <slot>{content}</slot>
-      <span className={cx("h-px flex-1 border-t", borderClass)} />
+    <div role="separator" className={cx("flex items-center gap-3 text-xs font-medium text-slate-400", className, classNames?.root)}>
+      <span className={cx("h-px flex-1 border-t", borderClass, classNames?.line)} />
+      <slot>
+        <span className={classNames?.label}>{content}</span>
+      </slot>
+      <span className={cx("h-px flex-1 border-t", borderClass, classNames?.line)} />
     </div>
   );
 }
