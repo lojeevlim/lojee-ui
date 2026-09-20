@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Icon } from "./Icons/Icon";
 import { ICON_NAMES } from "./Icons/registry";
-import { OptionGroup, PlaygroundLayout } from "./PlaygroundHelpers";
+import { OptionGroup, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import { cx } from "./playgroundUtils";
+import type { CodeBlockVariants } from "./CodeBlock";
 
 const SIZES = [16, 20, 24, 32, 48] as const;
 const COLOR_CLASSES = ["text-slate-900", "text-indigo-600", "text-emerald-600", "text-rose-600", "text-amber-500"] as const;
@@ -15,11 +16,29 @@ export default function IconPlayground() {
 
   const filteredNames = filter ? ICON_NAMES.filter((n) => n.includes(filter.toLowerCase())) : ICON_NAMES;
 
-  const preview = <Icon name={name} size={size} className={colorClass} />;
+  const preview = (
+    <AppWindowFrame>
+      <AppWindowBody>
+        <Icon name={name} size={size} className={colorClass} />
+      </AppWindowBody>
+    </AppWindowFrame>
+  );
   const code = `<Icon name="${name}" size={${size}}${colorClass !== "text-slate-900" ? ` className="${colorClass}"` : ""} />`;
 
+  // Custom-element markup for the current configuration.
+  const htmlMarkup = `<Icon name="${name}" size="${size}"${
+    colorClass !== "text-slate-900" ? ` className="${colorClass}"` : ""
+  } />`;
+
+  const codeVariants: CodeBlockVariants = {
+    react: code,
+    js: `${htmlMarkup}\n\n<script type="module">import "lojee-ui/elements";</script>`,
+    vue: htmlMarkup,
+    angular: htmlMarkup,
+  };
+
   return (
-    <PlaygroundLayout preview={preview} code={code}>
+    <PlaygroundLayout preview={preview} variants={codeVariants}>
       <OptionGroup label="Size" options={SIZES.map(String)} value={String(size)} onChange={(v) => setSize(Number(v) as (typeof SIZES)[number])} />
 
       <div>

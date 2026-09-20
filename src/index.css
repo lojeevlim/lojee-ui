@@ -4,10 +4,22 @@
    to the built-in animate-pulse. Tailwind has no equivalent utility. */
 @theme {
   --animate-shimmer: lojee-shimmer 1.6s ease-in-out infinite;
+  --animate-progress-indeterminate: lojee-progress-indeterminate 1.4s ease-in-out infinite;
 }
 
 @keyframes lojee-shimmer {
   100% {
     transform: translateX(100%);
+  }
+}
+
+/* ProgressBar's "indeterminate" mode — a short bar sweeping fully across an
+   unknown-duration track. Same @theme convention as the shimmer above. */
+@keyframes lojee-progress-indeterminate {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(250%);
   }
 }

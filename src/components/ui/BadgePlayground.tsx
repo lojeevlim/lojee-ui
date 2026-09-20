@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Badge, type BadgeVariant, type BadgeSize } from "./Badge/Badge";
 import type { ColorName } from "../../core/tokens";
-import { OptionGroup, ColorSwatches, PlaygroundLayout } from "./PlaygroundHelpers";
+import { OptionGroup, ColorSwatches, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
+import type { CodeBlockVariants } from "./CodeBlock";
 
 const VARIANTS: BadgeVariant[] = ["solid", "outline", "soft"];
 const SIZES: BadgeSize[] = ["sm", "md", "lg"];
@@ -15,15 +16,33 @@ export default function BadgePlayground() {
   const [label, setLabel] = useState("Badge");
 
   const preview = (
-    <Badge variant={variant} color={color} size={size} dot={dot} icon={icon ? "check" : undefined} label={label || "Badge"} />
+    <AppWindowFrame>
+      <AppWindowBody>
+        <Badge variant={variant} color={color} size={size} dot={dot} icon={icon ? "check" : undefined} label={label || "Badge"} />
+      </AppWindowBody>
+    </AppWindowFrame>
   );
 
   const code = `<Badge variant="${variant}" color="${color}" size="${size}"${dot ? " dot" : ""}${
     icon && !dot ? ` icon="check"` : ""
   }${dot ? "" : ` label="${label || "Badge"}"`} />`;
 
+  // Custom-element markup for the current configuration — plain literal
+  // attributes are enough for a static snapshot; boolean props must be
+  // written as explicit `="true"` since r2wc treats a bare attribute as "".
+  const htmlMarkup = `<Badge variant="${variant}" color="${color}" size="${size}"${
+    dot ? ` dot` : ""
+  }${icon && !dot ? ` icon="check"` : ""}${dot ? "" : ` label="${label || "Badge"}"`} />`;
+
+  const codeVariants: CodeBlockVariants = {
+    react: code,
+    js: `${htmlMarkup}\n\n<script type="module">import "lojee-ui/elements";</script>`,
+    vue: htmlMarkup,
+    angular: htmlMarkup,
+  };
+
   return (
-    <PlaygroundLayout preview={preview} code={code}>
+    <PlaygroundLayout preview={preview} variants={codeVariants}>
       {!dot && (
         <div className="sm:col-span-2">
           <span className="mb-1.5 block text-xs font-medium text-slate-500">Label</span>

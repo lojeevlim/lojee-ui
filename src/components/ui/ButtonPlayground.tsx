@@ -13,8 +13,9 @@ import {
   type Size,
   type Shape,
 } from "./Buttons";
-import { OptionGroup, ColorSwatches, CodeBar } from "./PlaygroundHelpers";
+import { OptionGroup, ColorSwatches, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import { cx } from "./playgroundUtils";
+import type { CodeBlockVariants } from "./CodeBlock";
 
 const VARIANTS: ButtonVariant[] = ["solid", "outline", "ghost", "soft", "link", "dashed", "gradient", "glass"];
 const SIZES: Size[] = ["xs", "sm", "md", "lg", "xl", "full"];
@@ -179,15 +180,57 @@ export default function ButtonPlayground() {
     } label="${label}" />`;
   })();
 
-  return (
-    <div className="flex flex-col gap-6">
-      {/* Live preview */}
-      <div className="flex min-h-[180px] items-center justify-center rounded-xl border border-dashed border-slate-200 bg-slate-50 p-10">
-        {preview}
-      </div>
+  // Custom-element markup for the current configuration — identical across
+  // Vue/Angular templates (plain attributes, no bindings needed for a static
+  // snapshot); the "js" variant just adds the one-time module import a plain
+  // HTML page needs to actually load the `<l-*>` definitions.
+  const htmlMarkup = (() => {
+    if (layout === "icon") {
+      const shapeAttr = shape !== "default" ? ` shape="${shape}"` : "";
+      return `<Button icon="${iconKey}" iconOnly variant="${variant}" color="${color}" size="${size}"${shapeAttr} label="${label || "Icon button"}" />`;
+    }
+    if (layout === "group") {
+      const shapeAttr = shape !== "default" ? ` shape="${shape}"` : "";
+      const colorAttr = color !== "slate" ? ` color="${color}"` : "";
+      return `<ButtonGroup${shapeAttr}>\n  <SegmentButton active${colorAttr}>${label || "One"}</SegmentButton>\n  <SegmentButton${colorAttr}>Two</SegmentButton>\n  <SegmentButton${colorAttr}>Three</SegmentButton>\n</ButtonGroup>`;
+    }
+    if (layout === "split") {
+      const shapeAttr = shape !== "default" ? ` shape="${shape}"` : "";
+      const menuIconAttr = menuIconKey !== "chevron-down" ? ` menuIcon="${menuIconKey}"` : "";
+      if (menuItems.length > 0) {
+        const itemsCode = menuItems
+          .map((item) => {
+            const iconAttr = item.icon ? ` icon="${item.icon}"` : "";
+            return `  <SplitButtonMenuItem${iconAttr}>${item.label}</SplitButtonMenuItem>`;
+          })
+          .join("\n");
+        return `<SplitButton\n  icon="check"\n  label="${label || "Approve"}"\n  color="${color}"\n  size="${size}"${shapeAttr}${menuIconAttr}\n>\n${itemsCode}\n</SplitButton>`;
+      }
+      return `<SplitButton icon="check" label="${label || "Approve"}" color="${color}" size="${size}"${shapeAttr}${menuIconAttr} />`;
+    }
+    return `<Button variant="${variant}" color="${color}"${
+      variant === "gradient" ? ` gradientTo="${gradientTo}"` : ""
+    } size="${size}"${shape !== "default" ? ` shape="${shape}"` : ""} icon="${iconKey}"${
+      iconPosition === "right" ? ` iconPosition="right"` : ""
+    } label="${label}" />`;
+  })();
 
-      {/* Controls */}
-      <div className="grid gap-4 sm:grid-cols-2">
+  const codeVariants: CodeBlockVariants = {
+    react: code,
+    js: `${htmlMarkup}\n\n<script type="module">import "lojee-ui/elements";</script>`,
+    vue: htmlMarkup,
+    angular: htmlMarkup,
+  };
+
+  return (
+    <PlaygroundLayout
+      preview={
+        <AppWindowFrame>
+          <AppWindowBody>{preview}</AppWindowBody>
+        </AppWindowFrame>
+      }
+      variants={codeVariants}
+    >
         <div className="sm:col-span-2">
           <span className="mb-1.5 block text-xs font-medium text-slate-500">Label</span>
           <input
@@ -332,9 +375,6 @@ export default function ButtonPlayground() {
         {layout === "single" && variant === "gradient" && (
           <ColorSwatches label="To color" value={gradientTo} onChange={setGradientTo} />
         )}
-      </div>
-
-      <CodeBar code={code} />
-    </div>
+    </PlaygroundLayout>
   );
 }

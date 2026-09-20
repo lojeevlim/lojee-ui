@@ -69,14 +69,7 @@ import {
 
 type IconComponent = React.ComponentType<{ size?: number; className?: string }>;
 
-interface MenuItem {
-    icon: IconComponent;
-    label: string;
-    badge?: string;
-    href?: string;
-}
-
-interface MenuItem {
+export interface MenuItem {
     icon: IconComponent;
     label: string;
     badge?: string;
@@ -130,11 +123,6 @@ export const COMPONENT_MENU: Menu[]  = [
                 label: "Dividers",
             },
 
-            {
-                icon: MessageCircle,
-                label: "Tooltips",
-            },
-
         ],
     },
 
@@ -181,16 +169,6 @@ export const COMPONENT_MENU: Menu[]  = [
             {
                 icon: PanelTop,
                 label: "Tabs",
-            },
-
-            {
-                icon: ChevronRight,
-                label: "Breadcrumbs",
-            },
-
-            {
-                icon: ChevronsLeftRight,
-                label: "Pagination",
             },
 
             {
@@ -363,11 +341,6 @@ export const COMPONENT_MENU: Menu[]  = [
             },
 
             {
-                icon: LoaderCircle,
-                label: "Skeleton",
-            },
-
-            {
                 icon: Inbox,
                 label: "Empty State",
             },
@@ -385,11 +358,6 @@ export const COMPONENT_MENU: Menu[]  = [
             {
                 icon: Loader,
                 label: "Loading State",
-            },
-
-            {
-                icon: CircleCheck,
-                label: "Confirmation",
             },
 
         ],
@@ -437,7 +405,7 @@ export const COMPONENT_MENU: Menu[]  = [
 
             {
                 icon: ChevronRight,
-                label: "Breadcrumb",
+                label: "Breadcrumbs",
             },
 
             {
@@ -454,18 +422,8 @@ export const COMPONENT_MENU: Menu[]  = [
         items: [
 
             {
-                icon: Table,
-                label: "Table",
-            },
-
-            {
                 icon: Table2,
                 label: "Data Grid",
-            },
-
-            {
-                icon: LoaderCircle,
-                label: "Progress",
             },
 
             {
@@ -500,11 +458,6 @@ export const COMPONENT_MENU: Menu[]  = [
         section: "User / Account",
 
         items: [
-
-            {
-                icon: CircleUser,
-                label: "Avatar",
-            },
 
             {
                 icon: ContactRound,
