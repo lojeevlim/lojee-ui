@@ -63,6 +63,13 @@ import StatShowcase from './components/ui/Stat'
 import ChartShowcase from './components/ui/Chart'
 import CalendarShowcase from './components/ui/Calendar'
 import ActivityFeedShowcase from './components/ui/ActivityFeed'
+import ProfileCardShowcase from './components/ui/ProfileCard'
+import UserMenuShowcase from './components/ui/UserMenu'
+import PasswordInputShowcase from './components/ui/PasswordInput'
+import LoginFormShowcase from './components/ui/LoginForm'
+import SignupFormShowcase from './components/ui/SignupForm'
+import ProfileSettingsShowcase from './components/ui/ProfileSettings'
+import AccountSettingsShowcase from './components/ui/AccountSettings'
 
 import Sidebar from './components/layouts/Sidebar'
 import Header, { type HeaderNavKey } from './components/layouts/Header'
@@ -135,6 +142,13 @@ const SHOWCASES: Record<string, ComponentType> = {
   Charts: ChartShowcase,
   Calendar: CalendarShowcase,
   'Activity Feed': ActivityFeedShowcase,
+  'Profile Card': ProfileCardShowcase,
+  'User Menu': UserMenuShowcase,
+  'Password Input': PasswordInputShowcase,
+  'Login Form': LoginFormShowcase,
+  'Signup Form': SignupFormShowcase,
+  'Profile Settings': ProfileSettingsShowcase,
+  'Account Settings': AccountSettingsShowcase,
 }
 
 function App() {

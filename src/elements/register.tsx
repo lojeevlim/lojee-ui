@@ -72,6 +72,13 @@ import { Stat } from "../components/ui/Stat/Stat";
 import { Chart } from "../components/ui/Chart/Chart";
 import { Calendar } from "../components/ui/Calendar/Calendar";
 import { ActivityFeed } from "../components/ui/ActivityFeed/ActivityFeed";
+import { ProfileCard } from "../components/ui/ProfileCard/ProfileCard";
+import { UserMenu } from "../components/ui/UserMenu/UserMenu";
+import { PasswordInput } from "../components/ui/PasswordInput/PasswordInput";
+import { LoginForm } from "../components/ui/LoginForm/LoginForm";
+import { SignupForm } from "../components/ui/SignupForm/SignupForm";
+import { ProfileSettings } from "../components/ui/ProfileSettings/ProfileSettings";
+import { AccountSettings } from "../components/ui/AccountSettings/AccountSettings";
 
 // Each element is a real <button>/<div> tree, so a native click already
 // bubbles across the shadow boundary — no "events" entry needed for plain
@@ -873,5 +880,87 @@ customElements.define(
   r2wc(withTailwind(ActivityFeed), {
     shadow: "open",
     props: { items: "json", compact: "boolean" },
+  })
+);
+
+customElements.define(
+  "l-profile-card",
+  r2wc(withTailwind(ProfileCard), {
+    shadow: "open",
+    props: {
+      name: "string",
+      role: "string",
+      bio: "string",
+      avatarSrc: "string",
+      avatarInitials: "string",
+      stats: "json",
+      color: "string",
+    },
+  })
+);
+
+customElements.define(
+  "l-user-menu",
+  r2wc(withTailwind(UserMenu), {
+    shadow: "open",
+    props: {
+      name: "string",
+      email: "string",
+      avatarSrc: "string",
+      avatarInitials: "string",
+      items: "json",
+      align: "string",
+    },
+    events: { onItemSelect: {} },
+  })
+);
+
+customElements.define(
+  "l-password-input",
+  r2wc(withTailwind(PasswordInput), {
+    shadow: "open",
+    props: { size: "string", invalid: "boolean", disabled: "boolean" },
+  })
+);
+
+customElements.define(
+  "l-login-form",
+  r2wc(withTailwind(LoginForm), {
+    shadow: "open",
+    props: {
+      title: "string",
+      description: "string",
+      submitLabel: "string",
+      showRemember: "boolean",
+      showForgotPassword: "boolean",
+    },
+    events: { onSubmit: {}, onForgotPassword: {} },
+  })
+);
+
+customElements.define(
+  "l-signup-form",
+  r2wc(withTailwind(SignupForm), {
+    shadow: "open",
+    props: { title: "string", description: "string", submitLabel: "string", mismatchError: "string" },
+    events: { onSubmit: {} },
+  })
+);
+
+customElements.define(
+  "l-profile-settings",
+  r2wc(withTailwind(ProfileSettings), {
+    shadow: "open",
+    props: { defaultValues: "json", avatarSrc: "string", avatarInitials: "string", saveLabel: "string" },
+    events: { onSave: {}, onAvatarChange: {} },
+  })
+);
+
+customElements.define(
+  "l-account-settings",
+  r2wc(withTailwind(AccountSettings), {
+    shadow: "open",
+    props: { email: "string", notifications: "json" },
+    events: { onEmailChange: {}, onPasswordChange: {}, onNotificationsChange: {}, onDeleteAccount: {} },
   })
 );

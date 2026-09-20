@@ -212,6 +212,30 @@ export {
 } from "../components/ui/ActivityFeed/ActivityFeed";
 
 export {
+  ProfileCard,
+  type ProfileCardProps,
+  type ProfileCardStat,
+} from "../components/ui/ProfileCard/ProfileCard";
+export { UserMenu, type UserMenuProps, type UserMenuItem } from "../components/ui/UserMenu/UserMenu";
+export {
+  PasswordInput,
+  type PasswordInputProps,
+  type PasswordInputSize,
+} from "../components/ui/PasswordInput/PasswordInput";
+export { LoginForm, type LoginFormProps, type LoginFormValues } from "../components/ui/LoginForm/LoginForm";
+export { SignupForm, type SignupFormProps, type SignupFormValues } from "../components/ui/SignupForm/SignupForm";
+export {
+  ProfileSettings,
+  type ProfileSettingsProps,
+  type ProfileSettingsValues,
+} from "../components/ui/ProfileSettings/ProfileSettings";
+export {
+  AccountSettings,
+  type AccountSettingsProps,
+  type NotificationPreference,
+} from "../components/ui/AccountSettings/AccountSettings";
+
+export {
   COLORS,
   colorClasses,
   defaultGradientPartner,

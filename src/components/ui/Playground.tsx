@@ -62,6 +62,13 @@ import StatPlayground from "./StatPlayground";
 import ChartPlayground from "./ChartPlayground";
 import CalendarPlayground from "./CalendarPlayground";
 import ActivityFeedPlayground from "./ActivityFeedPlayground";
+import ProfileCardPlayground from "./ProfileCardPlayground";
+import UserMenuPlayground from "./UserMenuPlayground";
+import PasswordInputPlayground from "./PasswordInputPlayground";
+import LoginFormPlayground from "./LoginFormPlayground";
+import SignupFormPlayground from "./SignupFormPlayground";
+import ProfileSettingsPlayground from "./ProfileSettingsPlayground";
+import AccountSettingsPlayground from "./AccountSettingsPlayground";
 
 export interface PlaygroundProps {
   itemLabel?: string;
@@ -131,6 +138,13 @@ const PLAYGROUNDS: Record<string, ComponentType> = {
   Charts: ChartPlayground,
   Calendar: CalendarPlayground,
   "Activity Feed": ActivityFeedPlayground,
+  "Profile Card": ProfileCardPlayground,
+  "User Menu": UserMenuPlayground,
+  "Password Input": PasswordInputPlayground,
+  "Login Form": LoginFormPlayground,
+  "Signup Form": SignupFormPlayground,
+  "Profile Settings": ProfileSettingsPlayground,
+  "Account Settings": AccountSettingsPlayground,
 };
 
 export default function Playground({ itemLabel }: PlaygroundProps) {
