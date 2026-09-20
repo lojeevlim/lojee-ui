@@ -83,14 +83,32 @@ prop), each with its own `className`:
 `Icon` has no `classNames` — it renders a single element, so its existing `className`
 prop already covers full customization.
 
-## Distributing without npm
+## Installation
 
-npm publishing for this package is currently on hold, so until that's restored, use one
-of these registry-free ways to get `dist/` (built via `npm run build:pkg`) into a
-consumer project. All of them ship the exact same output that `npm publish` would
-(`package.json` already declares `"files": ["dist"]` plus the right `main`/`module`/
-`types`/`exports` fields). Consumers still need `react`, `react-dom`, and `lucide-react`
-installed as peer dependencies for the React build.
+```bash
+npm install lojee-ui
+```
+
+Consumers need `react`, `react-dom`, and `lucide-react` installed as peer dependencies
+for the React build. Import the compiled stylesheet once, anywhere in your app:
+
+```ts
+import "lojee-ui/style.css";
+```
+
+For non-React consumers, the auto-generated `<l-*>` Web Components are available from
+the `lojee-ui/elements` subpath (self-contained, bundles React internally):
+
+```ts
+import "lojee-ui/elements";
+```
+
+## Alternative distribution methods
+
+Registry-free ways to get `dist/` (built via `npm run build:pkg`) into a consumer
+project — useful for local development or non-npm environments. All of them ship the
+exact same output that `npm publish` does (`package.json` already declares
+`"files": ["dist"]` plus the right `main`/`module`/`types`/`exports` fields).
 
 ### 1. Build the package
 
@@ -173,8 +191,3 @@ easiest path for non-npm consumers who just want the `<l-*>` Web Components:
 
 Requires `dist/` to be committed (or attached) at that tag, same as the git-install
 caveat above.
-
----
-
-Once npm publishing access is restored, these are stopgaps — the primary distribution
-path resumes via `npm publish` (see `PLAN.md` for the full release checklist).
