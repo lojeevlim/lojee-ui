@@ -55,7 +55,10 @@ export default function Sidebar({
       className="flex flex-col relative bg-white border-r-2 border-zinc-200"
       style={{ width: widthPx, transition: `width .24s ${EASE}` }}
     >
-      <div className="flex flex-col h-full" style={{ overflow: "hidden" }}>
+      {/* Only clips while expanded — same cross-axis-clipping reasoning as
+          the nav container below, and this is the outermost wrapper, so it
+          would clip a collapsed item's tooltip regardless of any inner fix. */}
+      <div className="flex flex-col h-full" style={{ overflow: collapsedNow ? "visible" : "hidden" }}>
         {/* Logo row */}
         <div
           className="flex items-center gap-2 px-4 h-16  border-zinc-200"
@@ -80,7 +83,13 @@ export default function Sidebar({
         </div>
 
         {/* Nav */}
-        <div className="flex-1 overflow-y-auto py-2">
+        {/* `overflow-y-auto` only while expanded — the CSS overflow spec
+            clips absolutely-positioned descendants on BOTH axes once either
+            one is non-"visible", which would cut off a collapsed item's
+            tooltip trying to escape to the right. Collapsed is exactly when
+            the tooltip is needed (labels are hidden), so this trades
+            scrolling for an unclipped tooltip in that state. */}
+        <div className={`flex-1 py-2 ${collapsedNow ? "overflow-visible" : "overflow-y-auto"}`}>
           {nav.map((group, gi) => {
             const sectionKey = group.section ?? String(gi);
             const defaultOpen = gi === 0 || (group.items ?? []).some((i) => i.label === activeLabel);
@@ -116,7 +125,14 @@ export default function Sidebar({
                     transition: `grid-template-rows .22s ${EASE}`,
                   }}
                 >
-                  <div style={{ overflow: "hidden" }}>
+                  {/* Also only clips while expanded, for the same reason as
+                      the outer nav container above — this wrapper exists to
+                      clip a closed section's content during the accordion
+                      animation, but while the sidebar itself is collapsed
+                      every section is forced open (`sectionOpen` above), so
+                      there's nothing left for it to clip except a tooltip
+                      trying to escape. */}
+                  <div style={{ overflow: collapsedNow ? "visible" : "hidden" }}>
                     <div className="px-2 space-y-0.5">
                       {(group.items ?? []).map((item) => {
                         const Icon = item.icon;
@@ -125,8 +141,8 @@ export default function Sidebar({
                           <Link
                             key={item.label}
                             to={pathFor(navKind, item.label)}
-                            title={item.label}
-                            className={`flex items-center gap-2 px-3 py-2 rounded-lg transition select-none ${
+                            aria-label={item.label}
+                            className={`group relative flex items-center gap-2 px-3 py-2 rounded-lg transition select-none ${
                               active ? "bg-black text-white font-medium shadow-sm" : "text-zinc-600 hover:bg-zinc-100"
                             }`}
                             style={{ justifyContent: collapsedNow ? "center" : "flex-start", transition: "justify-content .22s ease, gap .22s ease" }}
@@ -135,6 +151,17 @@ export default function Sidebar({
                             <span className="text-sm truncate" style={slide(collapsedNow, { maxWidth: 160 })}>
                               {item.label}
                             </span>
+                            {/* Only while collapsed — the label itself is
+                                already visible otherwise, no need for a
+                                tooltip repeating it. */}
+                            {collapsedNow && (
+                              <span
+                                role="tooltip"
+                                className="pointer-events-none absolute left-full top-1/2 z-20 ml-2 -translate-y-1/2 whitespace-nowrap rounded-md bg-zinc-900 px-2 py-1 text-xs font-medium text-white opacity-0 shadow-lg transition-opacity duration-150 group-hover:opacity-100"
+                              >
+                                {item.label}
+                              </span>
+                            )}
                             {item.badge && (
                               <span
                                 className={`ml-auto text-xs font-medium px-1.5 py-0.5 rounded-full ${
