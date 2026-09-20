@@ -1,4 +1,4 @@
-import { cx, type ColorName } from "../../../core/tokens";
+import { cx, COLOR_HEX, type ColorName } from "../../../core/tokens";
 
 export type ChartType = "bar" | "line" | "donut";
 
@@ -30,24 +30,6 @@ export interface ChartProps {
     label?: string;
   };
 }
-
-// SVG `fill`/`stroke` need real color values, not Tailwind classes — this is
-// a fixed hex approximation of each ColorName's 600-shade, matched by eye to
-// the Tailwind palette this library otherwise draws from via `colorClasses`.
-const COLOR_HEX: Record<ColorName, string> = {
-  slate: "#475569",
-  gray: "#4b5563",
-  indigo: "#4f46e5",
-  violet: "#7c3aed",
-  blue: "#2563eb",
-  cyan: "#0891b2",
-  emerald: "#059669",
-  teal: "#0d9488",
-  amber: "#d97706",
-  orange: "#ea580c",
-  rose: "#e11d48",
-  pink: "#db2777",
-};
 
 const VIEW_W = 400;
 const VIEW_H = 200;

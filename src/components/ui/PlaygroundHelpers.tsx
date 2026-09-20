@@ -48,14 +48,20 @@ export function ColorSwatches({
   label = "Color",
   value,
   onChange,
+  actions,
 }: {
   label?: string;
   value: ColorName;
   onChange: (color: ColorName) => void;
+  /** Extra control(s) (e.g. a "Random" shuffle button) rendered inline next to the label. */
+  actions?: ReactNode;
 }) {
   return (
     <div>
-      <span className="mb-1.5 block text-xs font-medium text-slate-500">{label}</span>
+      <div className="mb-1.5 flex items-center justify-between gap-2">
+        <span className="block text-xs font-medium text-slate-500">{label}</span>
+        {actions}
+      </div>
       <div className="flex flex-wrap gap-1.5">
         {COLORS.map((c) => (
           <button
@@ -105,7 +111,7 @@ export function CodeBar({ code, variants }: { code?: string; variants?: CodeBloc
   };
 
   return (
-    <div className="sticky bottom-0 -mx-6 mt-2 border-t border-slate-200 bg-white/95 px-6 py-4 backdrop-blur">
+    <div className="sticky bottom-0 mt-2 border-t border-slate-200 bg-white/95 py-4 backdrop-blur">
       {isFallback && (
         <p className="mb-2 text-xs text-amber-600">
           No {CODE_FRAMEWORK_LABEL[framework]} example yet for this one — showing {CODE_FRAMEWORK_LABEL[activeFramework!]}.
@@ -202,12 +208,25 @@ export function PlaygroundLayout({
   variants?: CodeBlockVariants;
 }) {
   return (
-    <div className="flex flex-col gap-6">
-      <div className="flex min-h-[180px] items-center justify-center rounded-xl border border-dashed border-slate-200 bg-slate-50">
+    // Stacked (preview, then controls, then code) below `lg` — that's a
+    // narrow modal, so there's no room for two columns anyway. From `lg` up,
+    // preview moves to its own left column and controls+code share a right
+    // column instead of running the full modal width — this is what
+    // actually stops a component with a lot of controls (a Sidebar, a
+    // DataGrid, …) from turning the whole modal into one long scroll.
+    // `items-center` (not `items-start`) so a short preview sits centered
+    // against the taller controls+code column instead of pinned to its top.
+    // `lg:min-h-[420px]` on the row itself (not just the preview box) keeps a
+    // component with barely any controls (a Divider, a Spinner, …) from
+    // rendering a cramped, oddly-short playground next to a much taller one.
+    <div className="flex flex-col gap-6 lg:grid lg:grid-cols-2 lg:items-center lg:gap-8 lg:min-h-[420px]">
+      <div className="flex min-h-[180px] items-center justify-center rounded-xl border-none bg-slate-50">
         {preview}
       </div>
-      <div className="grid gap-4 sm:grid-cols-2">{children}</div>
-      <CodeBar code={code} variants={variants} />
+      <div className="flex min-w-0 flex-col gap-6">
+        <div className="grid gap-4 sm:grid-cols-2">{children}</div>
+        <CodeBar code={code} variants={variants} />
+      </div>
     </div>
   );
 }

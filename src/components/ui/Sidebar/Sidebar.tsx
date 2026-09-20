@@ -1,8 +1,21 @@
 import { Children, isValidElement } from "react";
 import type { CSSProperties, ReactNode } from "react";
-import { cx, type ColorName } from "../../../core/tokens";
+import { cx, isColorName, type ColorName } from "../../../core/tokens";
 import { Icon } from "../Icons/Icon";
 import { Tooltip } from "../Tooltip/Tooltip";
+
+// Darkens a "#rrggbb" hex color for the second stop of a custom gradient —
+// the same role Tailwind's 600→700 step plays for a named ColorName. Only
+// meaningful for hex input (the native color-wheel picker's format); an
+// arbitrary CSS color keyword passed as a custom color renders as a flat
+// fill instead of a gradient rather than fail outright.
+function darkenHex(hex: string, factor = 0.82): string {
+  const match = /^#?([0-9a-f]{6})$/i.exec(hex);
+  if (!match) return hex;
+  const value = parseInt(match[1], 16);
+  const channel = (shift: number) => Math.max(0, Math.min(255, Math.round(((value >> shift) & 255) * factor)));
+  return `#${[16, 8, 0].map((shift) => channel(shift).toString(16).padStart(2, "0")).join("")}`;
+}
 
 export type SidebarVariant = "light" | "dark" | "bordered" | "elevated" | "minimal" | "gradient" | "glass";
 
@@ -53,13 +66,16 @@ export interface SidebarProps {
    * - "glass" — a frosted dark panel (backdrop blur over translucent slate-900).
    */
   variant?: SidebarVariant;
-  /** Accent color (default: "slate"). For "gradient" it's the gradient itself; otherwise it tints the
-   * built-in toggle button's hover state — pair it with the same color on your own active nav-item
-   * styling for a coordinated look. */
-  color?: ColorName;
-  /** Shows a built-in collapse/expand toggle button, anchored to the same spot on the panel's
-   * edge in both states. `collapsed` stays a controlled prop — this only reports the requested
-   * change via `onCollapsedChange`. */
+  /** Accent color (default: "slate") — one of the built-in ColorNames, or any other CSS color value
+   * (e.g. "#7c3aed" from a color-wheel picker) for a fully custom accent, unconstrained by the fixed
+   * palette. For "gradient" it's the gradient itself (600→700-equivalent; a custom hex gets a
+   * programmatically darkened second stop); otherwise it tints the built-in toggle button's hover
+   * state — pair it with the same value on your own active nav-item styling for a coordinated look. */
+  color?: ColorName | (string & {});
+  /** Shows a built-in collapse/expand toggle button, inline at the start of the header row (with a
+   * divider before any `<SidebarHeader>` content) — while collapsed it takes over that row on its
+   * own. `collapsed` stays a controlled prop — this only reports the requested change via
+   * `onCollapsedChange`. */
   collapsible?: boolean;
   onCollapsedChange?: (collapsed: boolean) => void;
   className?: string;
@@ -92,11 +108,8 @@ const VARIANT_DIVIDER_CLASSES: Record<SidebarVariant, string> = {
   glass: "border-white/10",
 };
 
-// Both the inline (expanded) and floating (collapsed) toggle buttons share
-// this exact shell — same circular white pill either way — so collapsing
-// reads as one control handing off to another, not two different designs.
 const TOGGLE_BUTTON_CLASSES =
-  "flex h-6 w-6 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-400 shadow-sm transition-all duration-200 hover:scale-110 hover:shadow-md active:scale-95";
+  "flex h-8 w-8 shrink-0 items-center justify-center rounded-md border text-slate-400 transition-colors";
 
 const TOGGLE_HOVER_TEXT: Record<ColorName, string> = {
   slate: "hover:text-slate-700",
@@ -138,20 +151,41 @@ export function Sidebar({
     }
   });
 
+  const colorIsNamed = isColorName(color);
   const style: CSSProperties = {
     width: collapsed ? COLLAPSED_WIDTH : width,
     transitionTimingFunction: "cubic-bezier(.4, 0, .2, 1)",
     ...(variant === "gradient" && {
-      // 600 → 700, not a deeper shade like 900: Tailwind v4 only emits a
-      // `--color-{name}-{shade}` variable for shades an actual utility class
-      // already references somewhere in the build, and 700 is the darkest
-      // shade every ColorName's `colorClasses` entry uses (its `active:`
-      // state) — a shade with no referencing utility resolves to an empty
-      // custom property, silently breaking the whole `linear-gradient()`.
-      backgroundImage: `linear-gradient(to bottom, var(--color-${color}-600), var(--color-${color}-700))`,
+      backgroundImage: colorIsNamed
+        ? // 600 → 700, not a deeper shade like 900: Tailwind v4 only emits a
+          // `--color-{name}-{shade}` variable for shades an actual utility
+          // class already references somewhere in the build, and 700 is the
+          // darkest shade every ColorName's `colorClasses` entry uses (its
+          // `active:` state) — a shade with no referencing utility resolves
+          // to an empty custom property, silently breaking the gradient.
+          `linear-gradient(to bottom, var(--color-${color}-600), var(--color-${color}-700))`
+        : // A custom (non-ColorName) color has no 600/700 shade to reach for
+          // — darken it programmatically instead, mirroring that same step.
+          `linear-gradient(to bottom, ${color}, ${darkenHex(color)})`,
     }),
-  };
-  const toggleClasses = cx(TOGGLE_BUTTON_CLASSES, TOGGLE_HOVER_TEXT[color]);
+    // Only for a custom color: a named ColorName's hover tint comes from
+    // TOGGLE_HOVER_TEXT below via a real Tailwind class instead, since that
+    // also covers browsers/situations where arbitrary CSS custom properties
+    // in a Tailwind arbitrary-value selector might not be desired.
+    ...(!colorIsNamed && { "--sidebar-toggle-hover": color }),
+  } as CSSProperties;
+  const toggleClasses = cx(
+    TOGGLE_BUTTON_CLASSES,
+    VARIANT_DIVIDER_CLASSES[variant],
+    colorIsNamed ? TOGGLE_HOVER_TEXT[color] : "hover:text-[var(--sidebar-toggle-hover)]"
+  );
+  // The built-in toggle takes over the header row's only slot while
+  // collapsed (there's no room for it alongside the header content in a
+  // 72px rail) — but only when it's actually rendering something there to
+  // take over from. A consumer driving `collapsed` externally without
+  // `collapsible` (no built-in button at all) still gets to show their own
+  // icon-only header content while collapsed, same as before.
+  const hideHeaderContent = collapsed && collapsible;
 
   return (
     <div
@@ -163,50 +197,58 @@ export function Sidebar({
       )}
       style={style}
     >
-      {headerContent != null && (
+      {(collapsible || headerContent != null) && (
         <div
           className={cx(
-            "flex shrink-0 items-center gap-2 border-b p-4",
+            "flex shrink-0 items-center gap-2 border-b p-3",
             VARIANT_DIVIDER_CLASSES[variant],
             collapsed && "justify-center",
             classNames?.header
           )}
         >
-          {/* `flex-1` only while expanded — keeping it while collapsed would
-              stretch this div to the full row width, pinning its content
-              (typically just a small logo mark) to the left instead of
-              letting the row's `justify-center` actually center it. */}
-          <div className={cx("min-w-0 truncate", !collapsed && "flex-1")}>
-            <slot name="header">{headerContent}</slot>
-          </div>
+          {/* Header content first (flex-1 pushes it to the left), toggle at
+              the row's own right edge — scoped to inside this component
+              since there's no external header to anchor it to here. */}
+          {headerContent != null && (
+            // A `grid-template-columns` 1fr/0fr transition (not a plain
+            // conditional unmount) so the content shrinks away in step with
+            // the panel's own width animation instead of popping out
+            // instantly — works for arbitrary consumer content since, unlike
+            // `max-width`, it doesn't need to know the content's actual
+            // width to animate smoothly down to zero.
+            <div
+              className={cx("grid min-w-0 transition-[grid-template-columns,opacity] duration-300 ease-[cubic-bezier(.4,0,.2,1)]", !collapsed && "flex-1")}
+              style={{ gridTemplateColumns: hideHeaderContent ? "0fr" : "1fr", opacity: hideHeaderContent ? 0 : 1 }}
+            >
+              <div className="min-w-0 overflow-hidden truncate">
+                <slot name="header">{headerContent}</slot>
+              </div>
+            </div>
+          )}
+          {collapsible && (
+            <Tooltip content={collapsed ? "Expand sidebar" : "Collapse sidebar"} position="right">
+              <button
+                type="button"
+                onClick={() => onCollapsedChange?.(!collapsed)}
+                aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+                className={cx(toggleClasses, classNames?.toggle)}
+              >
+                <Icon name="panel-left" size={16} />
+              </button>
+            </Tooltip>
+          )}
         </div>
       )}
-      {/* One toggle button, always in this same spot (half outside the
-          panel, like a drawer handle) whether expanded or collapsed — only
-          its icon rotates and its tooltip/label swap. Living inline in the
-          header instead would mean it moves (or gets squeezed out) as the
-          header shrinks to icon-only, which reads as two different controls
-          rather than one you can keep clicking in place. */}
-      {collapsible && (
-        <Tooltip content={collapsed ? "Expand sidebar" : "Collapse sidebar"} position="right">
-          <button
-            type="button"
-            onClick={() => onCollapsedChange?.(!collapsed)}
-            aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
-            className={cx("absolute -right-3 top-14 z-10", toggleClasses, classNames?.toggle)}
-          >
-            <Icon name="chevron-left" size={14} className={cx("transition-transform duration-300", collapsed && "rotate-180")} />
-          </button>
-        </Tooltip>
-      )}
-      {/* `overflow-y-auto` only applies when expanded — any `overflow` value
-          other than `visible` clips absolutely-positioned children on BOTH
-          axes (not just the scrolling one), which would cut off a Tooltip
-          (e.g. ListItem's `tooltip` prop) trying to escape to the right.
-          Collapsed is exactly when tooltips are needed (labels are hidden),
-          so this trades scrolling for an unclipped tooltip in that state —
-          a reasonable swap for a narrow icon-only rail. */}
-      <div className={cx("flex-1 p-2", !collapsed && "overflow-y-auto", classNames?.body)}>
+      {/* Always scrollable, expanded or collapsed — a collapsed icon-only
+          rail with many items still needs to scroll. This used to be
+          conditional on `!collapsed` because `overflow-y-auto` clips
+          absolutely-positioned descendants on BOTH axes (not just the
+          scrolling one), which would cut off a ListItem `tooltip` trying to
+          escape to the right — but that's fixed at the source now
+          (ListItem's tooltip portals itself out of this container instead
+          of relying on CSS overflow to escape it), so scrolling no longer
+          has to be sacrificed for it. */}
+      <div className={cx("flex-1 overflow-y-auto p-2", classNames?.body)}>
         <slot>{bodyChildren}</slot>
       </div>
       {footerContent != null && (

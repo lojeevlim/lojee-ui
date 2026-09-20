@@ -20,9 +20,6 @@ export default function Header({ activeNav = "components", onNavChange }: Header
   return (
     <header className="w-full bg-white border-b border-slate-200">
       <div className="mx-auto max-w-7xl flex items-center justify-between px-6 py-4">
-        {/* Logo */}
-        {/* <span className="text-lg font-semibold text-slate-900">Brandly</span> */}
-
         {/* Nav */}
         <nav className="hidden md:flex items-center gap-1">
           {NAV_ITEMS.map((item) => (

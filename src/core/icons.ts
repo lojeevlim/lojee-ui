@@ -69,6 +69,7 @@ import {
   Loader2,
   CircleUser,
   CircleDot,
+  PanelLeft,
 } from "lucide-react";
 
 // The canonical icon-name registry for the whole library. Icons are
@@ -89,6 +90,7 @@ export const ICONS: Record<string, LucideIcon> = {
   "chevron-down": ChevronDown,
   "chevron-up": ChevronUp,
   "chevron-left": ChevronLeft,
+  "panel-left": PanelLeft,
   "chevron-right": ChevronRight,
   check: Check,
   "align-left": AlignLeft,

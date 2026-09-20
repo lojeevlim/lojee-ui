@@ -69,7 +69,7 @@ import {
 
 type IconComponent = React.ComponentType<{ size?: number; className?: string }>;
 
-interface MenuItem {
+export interface MenuItem {
     icon: IconComponent;
     label: string;
     badge?: string;

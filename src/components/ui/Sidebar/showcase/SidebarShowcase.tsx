@@ -1,14 +1,15 @@
 import { useState } from "react";
+import { createPortal } from "react-dom";
 import type { CSSProperties } from "react";
 import { Sidebar, SidebarHeader, SidebarFooter } from "../Sidebar";
 import { List } from "../../List/List";
 import { ListItem } from "../../List/ListItem";
 import { Avatar } from "../../Avatar/Avatar";
 import { Icon } from "../../Icons/Icon";
-import { Tooltip } from "../../Tooltip/Tooltip";
 import CodeBlock from "../../CodeBlock";
 import { SectionLabel } from "../../ShowcaseHelpers";
-import { type ColorName } from "../../../../core/tokens";
+import { cx, type ColorName } from "../../../../core/tokens";
+import { useTooltipPortal, tooltipPortalPositionStyle, TOOLTIP_PORTAL_Z_CLASS } from "../../../../core/tooltipPortal";
 
 const NAV_ITEMS = [
   { icon: "home", label: "Dashboard", active: true },
@@ -63,56 +64,85 @@ function labelSlideStyle(hidden: boolean): CSSProperties {
   };
 }
 
+// One nav row. Pulled out from the `.map()` below so each row gets its own
+// `useTooltipPortal` instance (hooks can't be called a variable number of
+// times inside a single component's render).
+function NavRow({
+  item,
+  dark,
+  collapsed,
+  color,
+}: {
+  item: (typeof NAV_ITEMS)[number];
+  dark?: boolean;
+  collapsed?: boolean;
+  color: ColorName;
+}) {
+  const { ref: triggerRef, state: tooltipState, show, hide } = useTooltipPortal<HTMLAnchorElement>();
+
+  return (
+    <div className={collapsed ? "flex w-full justify-center" : undefined}>
+      <a
+        ref={triggerRef}
+        href="#"
+        onMouseEnter={collapsed ? show : undefined}
+        onMouseLeave={collapsed ? hide : undefined}
+        onFocus={collapsed ? show : undefined}
+        onBlur={collapsed ? hide : undefined}
+        className={`flex items-center rounded-lg py-2 text-sm transition-colors ${
+          // Little horizontal padding and no gap while collapsed: the
+          // row's only ~40px wide by then (Sidebar's own 72px rail,
+          // minus its body padding minus this nav's own padding) —
+          // `px-3 gap-2.5` on top of that pushes the link's min-content
+          // past its container width, so the active pill visibly
+          // overflows the rail's right edge instead of just showing the icon.
+          collapsed ? "w-fit justify-center px-2" : "w-full gap-2.5 px-3"
+        } ${
+          item.active
+            ? dark
+              ? `${DARK_ACTIVE_BG[color]} font-medium text-white`
+              : `${ACTIVE_BG[color]} font-medium text-white shadow-sm`
+            : dark
+              ? "text-slate-400 hover:bg-white/5 hover:text-slate-200"
+              : "text-slate-600 hover:bg-slate-100"
+        }`}
+      >
+        <Icon name={item.icon} size={18} className="shrink-0" />
+        <span className="truncate" style={labelSlideStyle(!!collapsed)}>
+          {item.label}
+        </span>
+      </a>
+      {/* Portals out of the Sidebar's scrollable body instead of relying on
+          CSS overflow to escape it — so scrolling never has to be traded off
+          against an unclipped tooltip (see core/tooltipPortal.ts). */}
+      {collapsed &&
+        tooltipState &&
+        createPortal(
+          <span
+            role="tooltip"
+            style={{ position: "fixed", ...tooltipPortalPositionStyle(tooltipState.rect, "right") }}
+            className={cx(
+              "pointer-events-none whitespace-nowrap rounded-md bg-slate-900 px-2 py-1 text-xs font-medium text-white shadow-lg",
+              TOOLTIP_PORTAL_Z_CLASS
+            )}
+          >
+            {item.label}
+          </span>,
+          tooltipState.root
+        )}
+    </div>
+  );
+}
+
 // Demo-only nav rows — NOT part of the Sidebar component itself (it's a plain
 // shell with no built-in nav-item rendering). Pass the same `color` you give
 // the Sidebar to your own active-item styling for a coordinated look.
 function NavRows({ dark, collapsed, color = "slate" }: { dark?: boolean; collapsed?: boolean; color?: ColorName }) {
   return (
     <nav className="space-y-0.5 p-2">
-      {NAV_ITEMS.map((item) => {
-        const link = (
-          <a
-            href="#"
-            className={`flex items-center rounded-lg py-2 text-sm transition-colors ${
-              // Little horizontal padding and no gap while collapsed: the
-              // row's only ~40px wide by then (Sidebar's own 72px rail,
-              // minus its body padding minus this nav's own padding) —
-              // `px-3 gap-2.5` on top of that pushes the link's min-content
-              // past its container width, so the active pill visibly
-              // overflows the rail's right edge instead of just showing the icon.
-              collapsed ? "w-fit justify-center px-2" : "w-full gap-2.5 px-3"
-            } ${
-              item.active
-                ? dark
-                  ? `${DARK_ACTIVE_BG[color]} font-medium text-white`
-                  : `${ACTIVE_BG[color]} font-medium text-white shadow-sm`
-                : dark
-                  ? "text-slate-400 hover:bg-white/5 hover:text-slate-200"
-                  : "text-slate-600 hover:bg-slate-100"
-            }`}
-          >
-            <Icon name={item.icon} size={18} className="shrink-0" />
-            <span className="truncate" style={labelSlideStyle(!!collapsed)}>
-              {item.label}
-            </span>
-          </a>
-        );
-
-        // Collapsed hides the visible label — a Tooltip fills the gap so the
-        // item's meaning isn't lost, just deferred to hover.
-        return collapsed ? (
-          <Tooltip
-            key={item.label}
-            content={item.label}
-            position="right"
-            classNames={{ root: "flex w-full justify-center" }}
-          >
-            {link}
-          </Tooltip>
-        ) : (
-          <div key={item.label}>{link}</div>
-        );
-      })}
+      {NAV_ITEMS.map((item) => (
+        <NavRow key={item.label} item={item} dark={dark} collapsed={collapsed} color={color} />
+      ))}
     </nav>
   );
 }
@@ -329,11 +359,11 @@ export default function SidebarShowcase() {
               </Sidebar>
             </div>
             <div className="h-72 overflow-hidden rounded-lg">
-              <Sidebar variant="glass" color="violet">
+              <Sidebar variant="glass" color="slate">
                 <SidebarHeader>
                   <span className="font-semibold text-white">Lojee Inc</span>
                 </SidebarHeader>
-                <NavRows dark color="violet" />
+                <NavRows dark color="slate" />
                 <SidebarFooter>
                   <div className="flex items-center gap-2"><Avatar initials="JD" size="sm" /><span className="text-sm font-medium text-white/80">Jordan Diaz</span></div>
                 </SidebarFooter>
@@ -430,7 +460,7 @@ export default function SidebarShowcase() {
           <SectionLabel sub="Set `collapsible` to show a built-in toggle button — `collapsed` stays a controlled prop, driven here by `onCollapsedChange`.">
             Collapsible
           </SectionLabel>
-          <div className="h-80 w-fit rounded-lg border border-slate-200">
+          <div className="h-80 w-fit overflow-hidden rounded-lg border border-slate-200">
             <Sidebar collapsible collapsed={toggleCollapsed} onCollapsedChange={setToggleCollapsed}>
               <SidebarHeader>
                 <div className="flex items-center gap-2.5">
@@ -492,61 +522,6 @@ collapsed = false;`,
           />
         </section>
 
-        <section>
-          <SectionLabel sub="Narrows the rail to an icon-only width — keep passing each item's label as children even when collapsed, and set `tooltip` on ListItem so it isn't lost, just deferred to hover.">
-            Collapsed
-          </SectionLabel>
-          <div className="h-80 w-fit rounded-lg border border-slate-200">
-            <Sidebar collapsed>
-              <List>
-                <ListItem icon="home" tooltip>Dashboard</ListItem>
-                <ListItem icon="folder" tooltip>Projects</ListItem>
-                <ListItem icon="users" tooltip>Team</ListItem>
-                <ListItem icon="settings" tooltip>Settings</ListItem>
-              </List>
-            </Sidebar>
-          </div>
-          <CodeBlock
-            variants={{
-              react: `<Sidebar collapsed>
-  <List>
-    <ListItem icon="home" tooltip>Dashboard</ListItem>
-    <ListItem icon="folder" tooltip>Projects</ListItem>
-    <ListItem icon="users" tooltip>Team</ListItem>
-    <ListItem icon="settings" tooltip>Settings</ListItem>
-  </List>
-</Sidebar>`,
-              js: `<Sidebar collapsed>
-  <List>
-    <ListItem icon="home" tooltip>Dashboard</ListItem>
-    <ListItem icon="folder" tooltip>Projects</ListItem>
-    <ListItem icon="users" tooltip>Team</ListItem>
-    <ListItem icon="settings" tooltip>Settings</ListItem>
-  </List>
-</Sidebar>
-
-<script type="module">import "lojee-ui/elements";</script>`,
-              vue: `<template>
-  <Sidebar collapsed>
-    <List>
-      <ListItem icon="home" tooltip>Dashboard</ListItem>
-      <ListItem icon="folder" tooltip>Projects</ListItem>
-      <ListItem icon="users" tooltip>Team</ListItem>
-      <ListItem icon="settings" tooltip>Settings</ListItem>
-    </List>
-  </Sidebar>
-</template>`,
-              angular: `<Sidebar collapsed>
-  <List>
-    <ListItem icon="home" tooltip>Dashboard</ListItem>
-    <ListItem icon="folder" tooltip>Projects</ListItem>
-    <ListItem icon="users" tooltip>Team</ListItem>
-    <ListItem icon="settings" tooltip>Settings</ListItem>
-  </List>
-</Sidebar>`,
-            }}
-          />
-        </section>
       </div>
     </div>
   );

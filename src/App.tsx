@@ -155,6 +155,7 @@ function App() {
   const { navKind: rawNavKind, item } = useParams()
   const navigate = useNavigate()
   const [playgroundOpen, setPlaygroundOpen] = useState(false)
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
 
   const navKind: NavKind = rawNavKind === 'docs' ? 'docs' : 'components'
   const menu = navKind === 'docs' ? DOCS_MENU : COMPONENT_MENU
@@ -176,10 +177,17 @@ function App() {
     <>
 
     <div className="flex h-screen">
-        <Sidebar key={navKind} nav={menu} navKind={navKind} activeLabel={found.item.label} />
+        <Sidebar
+          key={navKind}
+          nav={menu}
+          navKind={navKind}
+          activeLabel={found.item.label}
+          collapsed={sidebarCollapsed}
+          onCollapsedChange={setSidebarCollapsed}
+        />
         <div className="flex flex-col flex-1 min-w-0">
           <div className="flex-shrink-0">
-            <Header activeNav={navKind} onNavChange={handleNavChange}/>
+            <Header activeNav={navKind} onNavChange={handleNavChange} />
           </div>
           <div className="flex-1 p-4 overflow-y-auto">
             {(() => {
@@ -202,6 +210,7 @@ function App() {
       open={playgroundOpen}
       onClose={() => setPlaygroundOpen(false)}
       title={`${found.item.label} Playground`}
+      className="lg:max-w-6xl"
       classNames={{ body: 'pb-0' }}
     >
       <Playground itemLabel={found.item.label} />

@@ -13,7 +13,7 @@ import {
   type Size,
   type Shape,
 } from "./Buttons";
-import { OptionGroup, ColorSwatches, CodeBar, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
+import { OptionGroup, ColorSwatches, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import { cx } from "./playgroundUtils";
 import type { CodeBlockVariants } from "./CodeBlock";
 
@@ -223,16 +223,14 @@ export default function ButtonPlayground() {
   };
 
   return (
-    <div className="flex flex-col gap-6">
-      {/* Live preview */}
-      <div className="flex min-h-[180px] items-center justify-center rounded-xl border border-dashed border-slate-200 bg-slate-50">
+    <PlaygroundLayout
+      preview={
         <AppWindowFrame>
           <AppWindowBody>{preview}</AppWindowBody>
         </AppWindowFrame>
-      </div>
-
-      {/* Controls */}
-      <div className="grid gap-4 sm:grid-cols-2">
+      }
+      variants={codeVariants}
+    >
         <div className="sm:col-span-2">
           <span className="mb-1.5 block text-xs font-medium text-slate-500">Label</span>
           <input
@@ -377,9 +375,6 @@ export default function ButtonPlayground() {
         {layout === "single" && variant === "gradient" && (
           <ColorSwatches label="To color" value={gradientTo} onChange={setGradientTo} />
         )}
-      </div>
-
-      <CodeBar variants={codeVariants} />
-    </div>
+    </PlaygroundLayout>
   );
 }

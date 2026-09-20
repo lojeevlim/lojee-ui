@@ -200,3 +200,33 @@ export function nonInteractive(classString: string): string {
 export function solidBg(classString: string): string {
   return classString.split(" ").find((c) => c.startsWith("bg-")) ?? "bg-slate-900";
 }
+
+// A fixed hex approximation of each ColorName's 600-shade, matched by eye to
+// the Tailwind palette this library otherwise draws from via `colorClasses`
+// — for the rare surface (an SVG fill, a native `<input type="color">`
+// picker) that needs a real color value instead of a Tailwind class.
+export const COLOR_HEX: Record<ColorName, string> = {
+  slate: "#475569",
+  gray: "#4b5563",
+  indigo: "#4f46e5",
+  violet: "#7c3aed",
+  blue: "#2563eb",
+  cyan: "#0891b2",
+  emerald: "#059669",
+  teal: "#0d9488",
+  amber: "#d97706",
+  orange: "#ea580c",
+  rose: "#e11d48",
+  pink: "#db2777",
+};
+
+const NAMED_COLOR_SET = new Set<string>(COLORS.map((c) => c.base));
+
+// Type guard distinguishing a built-in ColorName from an arbitrary custom
+// color value (e.g. a hex string from a native color-wheel picker) — lets a
+// component accept `ColorName | (string & {})` for a color prop and branch
+// cleanly at runtime between "use the named Tailwind token" and "use this
+// literal value directly".
+export function isColorName(value: string): value is ColorName {
+  return NAMED_COLOR_SET.has(value);
+}
