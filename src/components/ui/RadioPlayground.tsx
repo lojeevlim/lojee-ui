@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Radio } from "./Radio/Radio";
 import { RadioGroup, type RadioGroupOrientation } from "./Radio/RadioGroup";
 import type { ColorName } from "../../core/tokens";
-import { OptionGroup, ColorSwatches, PlaygroundLayout } from "./PlaygroundHelpers";
+import { OptionGroup, ColorSwatches, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
 
 const ORIENTATIONS: RadioGroupOrientation[] = ["vertical", "horizontal"];
@@ -14,18 +14,22 @@ export default function RadioPlayground() {
   const [selected, setSelected] = useState(OPTIONS[0]);
 
   const preview = (
-    <RadioGroup orientation={orientation}>
-      {OPTIONS.map((option) => (
-        <Radio
-          key={option}
-          name="playground"
-          label={option}
-          color={color}
-          checked={selected === option}
-          onChange={() => setSelected(option)}
-        />
-      ))}
-    </RadioGroup>
+    <AppWindowFrame>
+      <AppWindowBody>
+        <RadioGroup orientation={orientation}>
+          {OPTIONS.map((option) => (
+            <Radio
+              key={option}
+              name="playground"
+              label={option}
+              color={color}
+              checked={selected === option}
+              onChange={() => setSelected(option)}
+            />
+          ))}
+        </RadioGroup>
+      </AppWindowBody>
+    </AppWindowFrame>
   );
 
   const code = `<RadioGroup orientation="${orientation}">

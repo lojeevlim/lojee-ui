@@ -2,7 +2,7 @@ import { useState } from "react";
 import { DropdownMenu, type DropdownMenuAlign } from "./DropdownMenu/DropdownMenu";
 import { DropdownMenuItem } from "./DropdownMenu/DropdownMenuItem";
 import { Button } from "./Buttons/Button";
-import { OptionGroup, PlaygroundLayout } from "./PlaygroundHelpers";
+import { OptionGroup, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
 
 const ALIGNS: DropdownMenuAlign[] = ["start", "end"];
@@ -10,14 +10,21 @@ const ALIGNS: DropdownMenuAlign[] = ["start", "end"];
 export default function DropdownMenuPlayground() {
   const [align, setAlign] = useState<DropdownMenuAlign>("start");
 
+  // `overflow-visible`: the menu panel is absolutely positioned relative to
+  // its trigger (not portaled), so the window's default rounded-corner
+  // clipping would cut it off when it opens near an edge.
   const preview = (
-    <DropdownMenu align={align} trigger={<Button icon="chevron-down" label="Options" />}>
-      <DropdownMenuItem icon="pencil">Edit</DropdownMenuItem>
-      <DropdownMenuItem icon="copy">Duplicate</DropdownMenuItem>
-      <DropdownMenuItem icon="trash-2" danger>
-        Delete
-      </DropdownMenuItem>
-    </DropdownMenu>
+    <AppWindowFrame className="overflow-visible">
+      <AppWindowBody>
+        <DropdownMenu align={align} trigger={<Button icon="chevron-down" label="Options" />}>
+          <DropdownMenuItem icon="pencil">Edit</DropdownMenuItem>
+          <DropdownMenuItem icon="copy">Duplicate</DropdownMenuItem>
+          <DropdownMenuItem icon="trash-2" danger>
+            Delete
+          </DropdownMenuItem>
+        </DropdownMenu>
+      </AppWindowBody>
+    </AppWindowFrame>
   );
 
   const code = `<DropdownMenu align="${align}" trigger={<Button icon="chevron-down" label="Options" />}>

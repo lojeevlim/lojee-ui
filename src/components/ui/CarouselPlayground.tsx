@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Carousel } from "./Carousel/Carousel";
-import { PlaygroundLayout } from "./PlaygroundHelpers";
+import { PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
 
 const SLIDE_CLASS = "flex h-40 w-full items-center justify-center text-sm font-medium";
@@ -29,7 +29,11 @@ export default function CarouselPlayground() {
   const [showDots, setShowDots] = useState(true);
 
   const preview = (
-    <Carousel slides={SAMPLE_SLIDES} autoPlay={autoPlay} showArrows={showArrows} showDots={showDots} />
+    <AppWindowFrame>
+      <AppWindowBody>
+        <Carousel slides={SAMPLE_SLIDES} autoPlay={autoPlay} showArrows={showArrows} showDots={showDots} />
+      </AppWindowBody>
+    </AppWindowFrame>
   );
 
   const code = `<Carousel

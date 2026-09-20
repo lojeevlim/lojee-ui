@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Label } from "./Label/Label";
 import { Input } from "./Input/Input";
-import { PlaygroundLayout } from "./PlaygroundHelpers";
+import { PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
 
 export default function LabelPlayground() {
@@ -9,12 +9,16 @@ export default function LabelPlayground() {
   const [text, setText] = useState("Email address");
 
   const preview = (
-    <div className="max-w-sm w-full space-y-1.5">
-      <Label htmlFor="playground-field" required={required}>
-        {text || "Email address"}
-      </Label>
-      <Input id="playground-field" placeholder="you@example.com" />
-    </div>
+    <AppWindowFrame>
+      <AppWindowBody>
+        <div className="max-w-sm w-full space-y-1.5">
+          <Label htmlFor="playground-field" required={required}>
+            {text || "Email address"}
+          </Label>
+          <Input id="playground-field" placeholder="you@example.com" />
+        </div>
+      </AppWindowBody>
+    </AppWindowFrame>
   );
 
   const code = `<Label htmlFor="field"${required ? " required" : ""}>${text || "Email address"}</Label>

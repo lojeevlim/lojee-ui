@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Combobox, type ComboboxOption } from "./Combobox/Combobox";
-import { PlaygroundLayout } from "./PlaygroundHelpers";
+import { PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
 
 const OPTIONS: ComboboxOption[] = [
@@ -18,10 +18,17 @@ export default function ComboboxPlayground() {
   const [value, setValue] = useState<string | undefined>("manila");
   const [placeholder, setPlaceholder] = useState("Search a city...");
 
+  // `overflow-visible`: the options panel is an absolutely-positioned div
+  // (not a portal), so AppWindowFrame's default `overflow-hidden` (for clean
+  // rounded corners) would clip it when open.
   const preview = (
-    <div className="w-full max-w-xs">
-      <Combobox options={OPTIONS} value={value} onChange={setValue} placeholder={placeholder} />
-    </div>
+    <AppWindowFrame className="overflow-visible">
+      <AppWindowBody>
+        <div className="w-full max-w-xs">
+          <Combobox options={OPTIONS} value={value} onChange={setValue} placeholder={placeholder} />
+        </div>
+      </AppWindowBody>
+    </AppWindowFrame>
   );
 
   const code = `<Combobox

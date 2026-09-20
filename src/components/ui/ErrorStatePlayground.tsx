@@ -3,7 +3,7 @@ import { ErrorState } from "./ErrorState/ErrorState";
 import { Button } from "./Buttons/Button";
 import { Icon } from "./Icons/Icon";
 import { ICON_NAMES } from "../../core/icons";
-import { PlaygroundLayout } from "./PlaygroundHelpers";
+import { PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import { cx } from "./playgroundUtils";
 import type { CodeBlockVariants } from "./CodeBlock";
 
@@ -17,13 +17,17 @@ export default function ErrorStatePlayground() {
   const filteredIcons = iconFilter ? ICON_NAMES.filter((n) => n.includes(iconFilter.toLowerCase())) : ICON_NAMES;
 
   const preview = (
-    <ErrorState
-      title={title || "Something went wrong"}
-      icon={icon}
-      action={showAction ? <Button variant="destructive" icon="refresh-cw" label="Retry" /> : undefined}
-    >
-      {description || undefined}
-    </ErrorState>
+    <AppWindowFrame>
+      <AppWindowBody className="min-h-[280px]">
+        <ErrorState
+          title={title || "Something went wrong"}
+          icon={icon}
+          action={showAction ? <Button variant="destructive" icon="refresh-cw" label="Retry" /> : undefined}
+        >
+          {description || undefined}
+        </ErrorState>
+      </AppWindowBody>
+    </AppWindowFrame>
   );
 
   const titleAttr = title && title !== "Something went wrong" ? ` title="${title}"` : "";

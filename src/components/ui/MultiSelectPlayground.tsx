@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { MultiSelect, type MultiSelectOption } from "./MultiSelect/MultiSelect";
 import type { ColorName } from "../../core/tokens";
-import { ColorSwatches, PlaygroundLayout } from "./PlaygroundHelpers";
+import { ColorSwatches, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
 
 const OPTIONS: MultiSelectOption[] = [
@@ -18,10 +18,17 @@ export default function MultiSelectPlayground() {
   const [color, setColor] = useState<ColorName>("slate");
   const [placeholder, setPlaceholder] = useState("Select fruits...");
 
+  // `overflow-visible`: the options panel is an absolutely-positioned div
+  // (not a portal), so AppWindowFrame's default `overflow-hidden` (for clean
+  // rounded corners) would clip it when open.
   const preview = (
-    <div className="w-full max-w-xs">
-      <MultiSelect options={OPTIONS} value={value} onChange={setValue} color={color} placeholder={placeholder} />
-    </div>
+    <AppWindowFrame className="overflow-visible">
+      <AppWindowBody>
+        <div className="w-full max-w-xs">
+          <MultiSelect options={OPTIONS} value={value} onChange={setValue} color={color} placeholder={placeholder} />
+        </div>
+      </AppWindowBody>
+    </AppWindowFrame>
   );
 
   const code = `<MultiSelect

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Modal from "./Modal";
 import { Button } from "./Buttons/Button";
-import { PlaygroundLayout } from "./PlaygroundHelpers";
+import { PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
 
 export default function ModalPlayground() {
@@ -9,12 +9,14 @@ export default function ModalPlayground() {
   const [title, setTitle] = useState("Modal title");
 
   const preview = (
-    <>
-      <Button label="Open modal" onClick={() => setOpen(true)} />
-      <Modal open={open} onClose={() => setOpen(false)} title={title || "Modal title"}>
-        <p className="text-sm text-slate-600">This is the modal body content.</p>
-      </Modal>
-    </>
+    <AppWindowFrame>
+      <AppWindowBody>
+        <Button label="Open modal" onClick={() => setOpen(true)} />
+        <Modal open={open} onClose={() => setOpen(false)} title={title || "Modal title"}>
+          <p className="text-sm text-slate-600">This is the modal body content.</p>
+        </Modal>
+      </AppWindowBody>
+    </AppWindowFrame>
   );
 
   const code = `<Modal open={open} onClose={() => setOpen(false)} title="${title || "Modal title"}">

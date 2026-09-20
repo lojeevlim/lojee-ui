@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { LoadingState, type LoadingStateSize } from "./LoadingState/LoadingState";
-import { OptionGroup, PlaygroundLayout } from "./PlaygroundHelpers";
+import { OptionGroup, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
 
 const SIZES: LoadingStateSize[] = ["sm", "md", "lg"];
@@ -11,9 +11,13 @@ export default function LoadingStatePlayground() {
   const [size, setSize] = useState<LoadingStateSize>("md");
 
   const preview = (
-    <LoadingState title={title || "Loading…"} size={size}>
-      {description || undefined}
-    </LoadingState>
+    <AppWindowFrame>
+      <AppWindowBody className="min-h-[280px]">
+        <LoadingState title={title || "Loading…"} size={size}>
+          {description || undefined}
+        </LoadingState>
+      </AppWindowBody>
+    </AppWindowFrame>
   );
 
   const titleAttr = title && title !== "Loading…" ? ` title="${title}"` : "";

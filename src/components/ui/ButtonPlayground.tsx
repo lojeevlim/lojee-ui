@@ -13,7 +13,7 @@ import {
   type Size,
   type Shape,
 } from "./Buttons";
-import { OptionGroup, ColorSwatches, CodeBar } from "./PlaygroundHelpers";
+import { OptionGroup, ColorSwatches, CodeBar, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import { cx } from "./playgroundUtils";
 import type { CodeBlockVariants } from "./CodeBlock";
 
@@ -225,8 +225,10 @@ export default function ButtonPlayground() {
   return (
     <div className="flex flex-col gap-6">
       {/* Live preview */}
-      <div className="flex min-h-[180px] items-center justify-center rounded-xl border border-dashed border-slate-200 bg-slate-50 p-10">
-        {preview}
+      <div className="flex min-h-[180px] items-center justify-center rounded-xl border border-dashed border-slate-200 bg-slate-50">
+        <AppWindowFrame>
+          <AppWindowBody>{preview}</AppWindowBody>
+        </AppWindowFrame>
       </div>
 
       {/* Controls */}

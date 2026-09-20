@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Divider, type DividerOrientation } from "./Divider/Divider";
 import type { ColorName } from "../../core/tokens";
-import { OptionGroup, ColorSwatches, PlaygroundLayout } from "./PlaygroundHelpers";
+import { OptionGroup, ColorSwatches, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
 
 const ORIENTATIONS: DividerOrientation[] = ["horizontal", "vertical"];
@@ -14,16 +14,22 @@ export default function DividerPlayground() {
 
   const isVertical = orientation === "vertical";
 
-  const preview = isVertical ? (
-    <div className="flex h-24 items-center gap-3">
-      <div className="text-xs text-slate-400">Left</div>
-      <Divider orientation="vertical" color={color} resizable={resizable} />
-      <div className="text-xs text-slate-400">Right</div>
-    </div>
-  ) : (
-    <div className="w-64">
-      <Divider color={color} label={label || undefined} resizable={resizable} />
-    </div>
+  const preview = (
+    <AppWindowFrame>
+      <AppWindowBody>
+        {isVertical ? (
+          <div className="flex h-24 items-center gap-3">
+            <div className="text-xs text-slate-400">Left</div>
+            <Divider orientation="vertical" color={color} resizable={resizable} />
+            <div className="text-xs text-slate-400">Right</div>
+          </div>
+        ) : (
+          <div className="w-64">
+            <Divider color={color} label={label || undefined} resizable={resizable} />
+          </div>
+        )}
+      </AppWindowBody>
+    </AppWindowFrame>
   );
 
   const attrs = [

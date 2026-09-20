@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Textarea, type TextareaResize } from "./Textarea/Textarea";
-import { OptionGroup, PlaygroundLayout } from "./PlaygroundHelpers";
+import { OptionGroup, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
 
 const RESIZE_OPTIONS: TextareaResize[] = ["none", "vertical", "both"];
@@ -12,9 +12,13 @@ export default function TextareaPlayground() {
   const [placeholder, setPlaceholder] = useState("Write something…");
 
   const preview = (
-    <div className="max-w-sm w-full">
-      <Textarea resize={resize} invalid={invalid} disabled={disabled} placeholder={placeholder || "Write something…"} />
-    </div>
+    <AppWindowFrame>
+      <AppWindowBody>
+        <div className="max-w-sm w-full">
+          <Textarea resize={resize} invalid={invalid} disabled={disabled} placeholder={placeholder || "Write something…"} />
+        </div>
+      </AppWindowBody>
+    </AppWindowFrame>
   );
 
   const code = `<Textarea resize="${resize}"${invalid ? " invalid" : ""}${disabled ? " disabled" : ""} placeholder="${

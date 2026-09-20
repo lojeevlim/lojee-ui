@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Grid, type GridCols, type GridGap } from "./Grid/Grid";
-import { OptionGroup, PlaygroundLayout } from "./PlaygroundHelpers";
+import { OptionGroup, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
 
 const COLS: GridCols[] = [1, 2, 3, 4, 6, 12];
@@ -11,13 +11,17 @@ export default function GridPlayground() {
   const [gap, setGap] = useState<GridGap>("md");
 
   const preview = (
-    <Grid cols={cols} gap={gap} className="w-full">
-      {Array.from({ length: 6 }, (_, i) => (
-        <div key={i} className="rounded-md bg-slate-100 p-4 text-center text-xs text-slate-500">
-          Item {i + 1}
-        </div>
-      ))}
-    </Grid>
+    <AppWindowFrame>
+      <AppWindowBody className="items-stretch">
+        <Grid cols={cols} gap={gap} className="w-full">
+          {Array.from({ length: 6 }, (_, i) => (
+            <div key={i} className="rounded-md bg-slate-100 p-4 text-center text-xs text-slate-500">
+              Item {i + 1}
+            </div>
+          ))}
+        </Grid>
+      </AppWindowBody>
+    </AppWindowFrame>
   );
 
   const code = `<Grid cols={${cols}} gap="${gap}">

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Checkbox } from "./Checkbox/Checkbox";
 import type { ColorName } from "../../core/tokens";
-import { ColorSwatches, PlaygroundLayout } from "./PlaygroundHelpers";
+import { ColorSwatches, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
 
 export default function CheckboxPlayground() {
@@ -11,13 +11,17 @@ export default function CheckboxPlayground() {
   const [label, setLabel] = useState("Accept terms and conditions");
 
   const preview = (
-    <Checkbox
-      checked={checked}
-      onChange={(e) => setChecked(e.target.checked)}
-      color={color}
-      disabled={disabled}
-      label={label || undefined}
-    />
+    <AppWindowFrame>
+      <AppWindowBody>
+        <Checkbox
+          checked={checked}
+          onChange={(e) => setChecked(e.target.checked)}
+          color={color}
+          disabled={disabled}
+          label={label || undefined}
+        />
+      </AppWindowBody>
+    </AppWindowFrame>
   );
 
   const code = `<Checkbox color="${color}"${checked ? " defaultChecked" : ""}${disabled ? " disabled" : ""}${

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Table, type TableColumn, type TableSize } from "./Table/Table";
-import { OptionGroup, PlaygroundLayout } from "./PlaygroundHelpers";
+import { OptionGroup, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
 
 const SIZES: TableSize[] = ["sm", "md", "lg"];
@@ -28,7 +28,13 @@ export default function TablePlayground() {
   const [striped, setStriped] = useState(false);
   const [bordered, setBordered] = useState(false);
 
-  const preview = <Table columns={COLUMNS} data={DATA} size={size} striped={striped} bordered={bordered} />;
+  const preview = (
+    <AppWindowFrame>
+      <AppWindowBody className="items-stretch">
+        <Table columns={COLUMNS} data={DATA} size={size} striped={striped} bordered={bordered} />
+      </AppWindowBody>
+    </AppWindowFrame>
+  );
 
   const code = `<Table
   columns={columns}

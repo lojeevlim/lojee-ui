@@ -1,18 +1,22 @@
 import { useState } from "react";
 import { Breadcrumbs } from "./Breadcrumbs/Breadcrumbs";
 import { BreadcrumbItem } from "./Breadcrumbs/BreadcrumbItem";
-import { PlaygroundLayout } from "./PlaygroundHelpers";
+import { PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
 
 export default function BreadcrumbsPlayground() {
   const [lastIcon, setLastIcon] = useState(false);
 
   const preview = (
-    <Breadcrumbs>
-      <BreadcrumbItem href="/">Home</BreadcrumbItem>
-      <BreadcrumbItem href="/projects">Projects</BreadcrumbItem>
-      <BreadcrumbItem icon={lastIcon ? "circle-user" : undefined}>Profile</BreadcrumbItem>
-    </Breadcrumbs>
+    <AppWindowFrame>
+      <AppWindowBody>
+        <Breadcrumbs>
+          <BreadcrumbItem href="/">Home</BreadcrumbItem>
+          <BreadcrumbItem href="/projects">Projects</BreadcrumbItem>
+          <BreadcrumbItem icon={lastIcon ? "circle-user" : undefined}>Profile</BreadcrumbItem>
+        </Breadcrumbs>
+      </AppWindowBody>
+    </AppWindowFrame>
   );
 
   const code = `<Breadcrumbs>

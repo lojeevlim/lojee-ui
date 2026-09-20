@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Sheet } from "./Sheet/Sheet";
 import { Button } from "./Buttons/Button";
-import { PlaygroundLayout } from "./PlaygroundHelpers";
+import { PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
 
 export default function SheetPlayground() {
@@ -9,12 +9,14 @@ export default function SheetPlayground() {
   const [title, setTitle] = useState("Sheet title");
 
   const preview = (
-    <>
-      <Button label="Open sheet" onClick={() => setOpen(true)} />
-      <Sheet open={open} onClose={() => setOpen(false)} title={title || "Sheet title"}>
-        <p className="text-sm text-slate-600">This is the sheet body content.</p>
-      </Sheet>
-    </>
+    <AppWindowFrame>
+      <AppWindowBody>
+        <Button label="Open sheet" onClick={() => setOpen(true)} />
+        <Sheet open={open} onClose={() => setOpen(false)} title={title || "Sheet title"}>
+          <p className="text-sm text-slate-600">This is the sheet body content.</p>
+        </Sheet>
+      </AppWindowBody>
+    </AppWindowFrame>
   );
 
   const code = `<Sheet open={open} onClose={() => setOpen(false)} title="${title || "Sheet title"}">

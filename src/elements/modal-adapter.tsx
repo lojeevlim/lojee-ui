@@ -8,6 +8,7 @@ import { EmptyState, type EmptyStateProps } from "../components/ui/EmptyState/Em
 import { ErrorState, type ErrorStateProps } from "../components/ui/ErrorState/ErrorState";
 import { SuccessState, type SuccessStateProps } from "../components/ui/SuccessState/SuccessState";
 import { LoadingState, type LoadingStateProps } from "../components/ui/LoadingState/LoadingState";
+import { Header, type HeaderProps } from "../components/ui/Header/Header";
 
 /**
  * r2wc derives a custom element's attribute name directly from the React
@@ -70,4 +71,8 @@ export function LoadingStateElement({
   ...rest
 }: Omit<LoadingStateProps, "title"> & { heading?: string }) {
   return <LoadingState title={heading} {...rest} />;
+}
+
+export function HeaderElement({ heading, ...rest }: Omit<HeaderProps, "title"> & { heading?: string }) {
+  return <Header title={heading} {...rest} />;
 }

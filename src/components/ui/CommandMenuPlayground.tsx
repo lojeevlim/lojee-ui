@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { CommandMenu, type CommandMenuItem } from "./CommandMenu";
 import { Button } from "./Buttons/Button";
-import { PlaygroundLayout } from "./PlaygroundHelpers";
+import { PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
 
 const ITEMS: CommandMenuItem[] = [
@@ -23,13 +23,17 @@ export default function CommandMenuPlayground() {
   }));
 
   const preview = (
-    <div className="flex flex-col items-center gap-3">
-      <Button label="Open command menu" onClick={() => setOpen(true)} />
-      <p className="text-sm text-slate-600">
-        Last selected: <span className="font-medium text-slate-900">{lastSelected}</span>
-      </p>
-      <CommandMenu open={open} onClose={() => setOpen(false)} items={items} />
-    </div>
+    <AppWindowFrame>
+      <AppWindowBody>
+        <div className="flex flex-col items-center gap-3">
+          <Button label="Open command menu" onClick={() => setOpen(true)} />
+          <p className="text-sm text-slate-600">
+            Last selected: <span className="font-medium text-slate-900">{lastSelected}</span>
+          </p>
+          <CommandMenu open={open} onClose={() => setOpen(false)} items={items} />
+        </div>
+      </AppWindowBody>
+    </AppWindowFrame>
   );
 
   const code = `const items: CommandMenuItem[] = [

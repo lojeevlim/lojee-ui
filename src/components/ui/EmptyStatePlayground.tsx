@@ -3,7 +3,7 @@ import { EmptyState } from "./EmptyState/EmptyState";
 import { Button } from "./Buttons/Button";
 import { Icon } from "./Icons/Icon";
 import { ICON_NAMES } from "../../core/icons";
-import { PlaygroundLayout } from "./PlaygroundHelpers";
+import { PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import { cx } from "./playgroundUtils";
 import type { CodeBlockVariants } from "./CodeBlock";
 
@@ -17,9 +17,13 @@ export default function EmptyStatePlayground() {
   const filteredIcons = iconFilter ? ICON_NAMES.filter((n) => n.includes(iconFilter.toLowerCase())) : ICON_NAMES;
 
   const preview = (
-    <EmptyState title={title || "No items yet"} icon={icon} action={showAction ? <Button label="Add item" /> : undefined}>
-      {description || undefined}
-    </EmptyState>
+    <AppWindowFrame>
+      <AppWindowBody className="min-h-[280px]">
+        <EmptyState title={title || "No items yet"} icon={icon} action={showAction ? <Button label="Add item" /> : undefined}>
+          {description || undefined}
+        </EmptyState>
+      </AppWindowBody>
+    </AppWindowFrame>
   );
 
   const iconAttr = icon !== "folder" ? ` icon="${icon}"` : "";

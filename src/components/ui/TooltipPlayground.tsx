@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Tooltip, type TooltipPosition } from "./Tooltip/Tooltip";
 import { Button } from "./Buttons/Button";
 import type { ColorName } from "../../core/tokens";
-import { OptionGroup, ColorSwatches, PlaygroundLayout } from "./PlaygroundHelpers";
+import { OptionGroup, ColorSwatches, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
 
 const POSITIONS: TooltipPosition[] = ["top", "bottom", "left", "right"];
@@ -15,9 +15,15 @@ export default function TooltipPlayground() {
   const [content, setContent] = useState("Tooltip text");
 
   const preview = (
-    <Tooltip content={content || "Tooltip text"} position={position} color={color} delayMs={delayMs}>
-      <Button variant="outline" label="Hover me" />
-    </Tooltip>
+    // `overflow-visible` — the tooltip bubble needs to escape the window
+    // frame's rounded corners instead of getting clipped by them.
+    <AppWindowFrame className="overflow-visible">
+      <AppWindowBody>
+        <Tooltip content={content || "Tooltip text"} position={position} color={color} delayMs={delayMs}>
+          <Button variant="outline" label="Hover me" />
+        </Tooltip>
+      </AppWindowBody>
+    </AppWindowFrame>
   );
 
   const code = `<Tooltip content="${content || "Tooltip text"}" position="${position}"${

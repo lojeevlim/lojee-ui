@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Select, type SelectSize } from "./Select/Select";
-import { OptionGroup, PlaygroundLayout } from "./PlaygroundHelpers";
+import { OptionGroup, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
 
 const SIZES: SelectSize[] = ["sm", "md", "lg"];
@@ -28,7 +28,11 @@ export default function SelectPlayground() {
   const [placeholder, setPlaceholder] = useState("Choose a fruit");
 
   const preview = (
-    <Select options={OPTIONS} size={size} invalid={invalid} disabled={disabled} placeholder={placeholder || undefined} />
+    <AppWindowFrame>
+      <AppWindowBody>
+        <Select options={OPTIONS} size={size} invalid={invalid} disabled={disabled} placeholder={placeholder || undefined} />
+      </AppWindowBody>
+    </AppWindowFrame>
   );
 
   const code = `<Select

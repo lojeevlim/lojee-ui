@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { DatePicker, type DatePickerSize, type DatePickerVariant } from "./DatePicker/DatePicker";
 import { DateRangePicker } from "./DatePicker/DateRangePicker";
-import { OptionGroup, PlaygroundLayout } from "./PlaygroundHelpers";
+import { OptionGroup, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
 
 const SIZES: DatePickerSize[] = ["sm", "md", "lg"];
@@ -18,21 +18,26 @@ export default function DatePickerPlayground() {
   const [start, setStart] = useState("2026-06-01");
   const [end, setEnd] = useState("2026-06-14");
 
-  const preview =
-    layout === "range" ? (
-      <DateRangePicker
-        size={size}
-        variant={variant}
-        invalid={invalid}
-        disabled={disabled}
-        startValue={start}
-        endValue={end}
-        onStartChange={setStart}
-        onEndChange={setEnd}
-      />
-    ) : (
-      <DatePicker size={size} variant={variant} invalid={invalid} disabled={disabled} />
-    );
+  const preview = (
+    <AppWindowFrame>
+      <AppWindowBody>
+        {layout === "range" ? (
+          <DateRangePicker
+            size={size}
+            variant={variant}
+            invalid={invalid}
+            disabled={disabled}
+            startValue={start}
+            endValue={end}
+            onStartChange={setStart}
+            onEndChange={setEnd}
+          />
+        ) : (
+          <DatePicker size={size} variant={variant} invalid={invalid} disabled={disabled} />
+        )}
+      </AppWindowBody>
+    </AppWindowFrame>
+  );
 
   const optionalAttrs = `${variant !== "outline" ? ` variant="${variant}"` : ""}${invalid ? " invalid" : ""}${disabled ? " disabled" : ""}`;
 

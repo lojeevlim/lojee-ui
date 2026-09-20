@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Badge, type BadgeVariant, type BadgeSize } from "./Badge/Badge";
 import type { ColorName } from "../../core/tokens";
-import { OptionGroup, ColorSwatches, PlaygroundLayout } from "./PlaygroundHelpers";
+import { OptionGroup, ColorSwatches, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
 
 const VARIANTS: BadgeVariant[] = ["solid", "outline", "soft"];
@@ -16,7 +16,11 @@ export default function BadgePlayground() {
   const [label, setLabel] = useState("Badge");
 
   const preview = (
-    <Badge variant={variant} color={color} size={size} dot={dot} icon={icon ? "check" : undefined} label={label || "Badge"} />
+    <AppWindowFrame>
+      <AppWindowBody>
+        <Badge variant={variant} color={color} size={size} dot={dot} icon={icon ? "check" : undefined} label={label || "Badge"} />
+      </AppWindowBody>
+    </AppWindowFrame>
   );
 
   const code = `<Badge variant="${variant}" color="${color}" size="${size}"${dot ? " dot" : ""}${

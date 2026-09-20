@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Icon } from "./Icons/Icon";
 import { ICON_NAMES } from "./Icons/registry";
-import { OptionGroup, PlaygroundLayout } from "./PlaygroundHelpers";
+import { OptionGroup, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import { cx } from "./playgroundUtils";
 import type { CodeBlockVariants } from "./CodeBlock";
 
@@ -16,7 +16,13 @@ export default function IconPlayground() {
 
   const filteredNames = filter ? ICON_NAMES.filter((n) => n.includes(filter.toLowerCase())) : ICON_NAMES;
 
-  const preview = <Icon name={name} size={size} className={colorClass} />;
+  const preview = (
+    <AppWindowFrame>
+      <AppWindowBody>
+        <Icon name={name} size={size} className={colorClass} />
+      </AppWindowBody>
+    </AppWindowFrame>
+  );
   const code = `<Icon name="${name}" size={${size}}${colorClass !== "text-slate-900" ? ` className="${colorClass}"` : ""} />`;
 
   // Custom-element markup for the current configuration.

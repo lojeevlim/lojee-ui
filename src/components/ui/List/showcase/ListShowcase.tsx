@@ -192,6 +192,48 @@ export class AppComponent {}`,
         </section>
 
         <section>
+          <SectionLabel sub="Set `tooltip` to hide the visible label and show it in a Tooltip on hover instead — handy for an icon-only rail, e.g. Sidebar's `collapsed` state.">
+            With tooltip
+          </SectionLabel>
+          <Row>
+            <div className="w-14 rounded-lg border border-slate-200">
+              <List>
+                <ListItem icon="home" tooltip>Dashboard</ListItem>
+                <ListItem icon="folder" tooltip>Projects</ListItem>
+                <ListItem icon="users" tooltip>Team</ListItem>
+              </List>
+            </div>
+          </Row>
+          <CodeBlock
+            variants={{
+              react: `<List>
+  <ListItem icon="home" tooltip>Dashboard</ListItem>
+  <ListItem icon="folder" tooltip>Projects</ListItem>
+  <ListItem icon="users" tooltip>Team</ListItem>
+</List>`,
+              js: `<List>
+  <ListItem icon="home" tooltip>Dashboard</ListItem>
+  <ListItem icon="folder" tooltip>Projects</ListItem>
+  <ListItem icon="users" tooltip>Team</ListItem>
+</List>`,
+              vue: `<template>
+  <List>
+    <ListItem icon="home" tooltip>Dashboard</ListItem>
+    <ListItem icon="folder" tooltip>Projects</ListItem>
+    <ListItem icon="users" tooltip>Team</ListItem>
+  </List>
+</template>`,
+              angular: `<!-- reuses the AppComponent from above -->
+<List>
+  <ListItem icon="home" tooltip>Dashboard</ListItem>
+  <ListItem icon="folder" tooltip>Projects</ListItem>
+  <ListItem icon="users" tooltip>Team</ListItem>
+</List>`,
+            }}
+          />
+        </section>
+
+        <section>
           <SectionLabel sub="Override the root with className, or target the leading icon with classNames.">Custom styling</SectionLabel>
           <Row>
             <div className="w-72">

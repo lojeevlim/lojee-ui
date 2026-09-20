@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Avatar, type AvatarSize, type AvatarShape, type AvatarStatus } from "./Avatar/Avatar";
 import type { ColorName } from "../../core/tokens";
-import { OptionGroup, ColorSwatches, PlaygroundLayout } from "./PlaygroundHelpers";
+import { OptionGroup, ColorSwatches, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
 
 const SIZES: AvatarSize[] = ["xs", "sm", "md", "lg", "xl"];
@@ -22,14 +22,18 @@ export default function AvatarPlayground() {
   const statusProp = status === "none" ? undefined : (status as AvatarStatus);
 
   const preview = (
-    <Avatar
-      size={size}
-      shape={shape}
-      status={statusProp}
-      color={color}
-      initials={initials || "AB"}
-      src={useImage ? SAMPLE_IMAGE : undefined}
-    />
+    <AppWindowFrame>
+      <AppWindowBody>
+        <Avatar
+          size={size}
+          shape={shape}
+          status={statusProp}
+          color={color}
+          initials={initials || "AB"}
+          src={useImage ? SAMPLE_IMAGE : undefined}
+        />
+      </AppWindowBody>
+    </AppWindowFrame>
   );
 
   const code = `<Avatar${useImage ? ` src="${SAMPLE_IMAGE}"` : ""} initials="${initials || "AB"}" size="${size}"${

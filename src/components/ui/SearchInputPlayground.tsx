@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { SearchInput, type SearchInputSize } from "./SearchInput/SearchInput";
-import { OptionGroup, PlaygroundLayout } from "./PlaygroundHelpers";
+import { OptionGroup, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
 
 const SIZES: SearchInputSize[] = ["sm", "md", "lg"];
@@ -11,16 +11,20 @@ export default function SearchInputPlayground() {
   const [value, setValue] = useState("lojee-ui");
 
   const preview = (
-    <div className="max-w-sm w-full">
-      <SearchInput
-        size={size}
-        disabled={disabled}
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-        onClear={() => setValue("")}
-        placeholder="Search…"
-      />
-    </div>
+    <AppWindowFrame>
+      <AppWindowBody>
+        <div className="max-w-sm w-full">
+          <SearchInput
+            size={size}
+            disabled={disabled}
+            value={value}
+            onChange={(e) => setValue(e.target.value)}
+            onClear={() => setValue("")}
+            placeholder="Search…"
+          />
+        </div>
+      </AppWindowBody>
+    </AppWindowFrame>
   );
 
   const code = `const [value, setValue] = useState("${value}");

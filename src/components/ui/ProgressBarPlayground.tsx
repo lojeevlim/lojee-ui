@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { ProgressBar, type ProgressBarSize } from "./ProgressBar/ProgressBar";
 import type { ColorName } from "../../core/tokens";
-import { OptionGroup, ColorSwatches, PlaygroundLayout } from "./PlaygroundHelpers";
+import { OptionGroup, ColorSwatches, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
 
 const SIZES: ProgressBarSize[] = ["sm", "md", "lg"];
@@ -15,16 +15,20 @@ export default function ProgressBarPlayground() {
   const [showLabel, setShowLabel] = useState(false);
 
   const preview = (
-    <div className="w-full max-w-sm">
-      <ProgressBar
-        value={value}
-        size={size}
-        color={color}
-        striped={striped}
-        indeterminate={indeterminate}
-        showLabel={showLabel}
-      />
-    </div>
+    <AppWindowFrame>
+      <AppWindowBody>
+        <div className="w-full max-w-sm">
+          <ProgressBar
+            value={value}
+            size={size}
+            color={color}
+            striped={striped}
+            indeterminate={indeterminate}
+            showLabel={showLabel}
+          />
+        </div>
+      </AppWindowBody>
+    </AppWindowFrame>
   );
 
   const sizeAttr = size !== "md" ? ` size="${size}"` : "";

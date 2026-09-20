@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FileUpload } from "./FileUpload/FileUpload";
-import { PlaygroundLayout } from "./PlaygroundHelpers";
+import { PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
 
 export default function FileUploadPlayground() {
@@ -9,13 +9,17 @@ export default function FileUploadPlayground() {
   const [lastFiles, setLastFiles] = useState<string[]>([]);
 
   const preview = (
-    <div className="w-full max-w-sm">
-      <FileUpload
-        label={label || undefined}
-        multiple={multiple}
-        onFilesSelected={(files) => setLastFiles(files ? Array.from(files).map((f) => f.name) : [])}
-      />
-    </div>
+    <AppWindowFrame>
+      <AppWindowBody>
+        <div className="w-full max-w-sm">
+          <FileUpload
+            label={label || undefined}
+            multiple={multiple}
+            onFilesSelected={(files) => setLastFiles(files ? Array.from(files).map((f) => f.name) : [])}
+          />
+        </div>
+      </AppWindowBody>
+    </AppWindowFrame>
   );
 
   const code = `<FileUpload

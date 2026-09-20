@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Notification } from "./Notification/Notification";
-import { PlaygroundLayout } from "./PlaygroundHelpers";
+import { PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
 
 export default function NotificationPlayground() {
@@ -11,23 +11,29 @@ export default function NotificationPlayground() {
   const [dismissible, setDismissible] = useState(false);
   const [visible, setVisible] = useState(true);
 
-  const preview = visible ? (
-    <Notification
-      title={title || "New comment"}
-      timestamp={timestamp || undefined}
-      unread={unread}
-      onDismiss={dismissible ? () => setVisible(false) : undefined}
-    >
-      {description || "Alex left a comment on your document."}
-    </Notification>
-  ) : (
-    <button
-      type="button"
-      onClick={() => setVisible(true)}
-      className="text-sm font-medium text-slate-500 underline underline-offset-4 hover:text-slate-700"
-    >
-      Show notification again
-    </button>
+  const preview = (
+    <AppWindowFrame>
+      <AppWindowBody>
+        {visible ? (
+          <Notification
+            title={title || "New comment"}
+            timestamp={timestamp || undefined}
+            unread={unread}
+            onDismiss={dismissible ? () => setVisible(false) : undefined}
+          >
+            {description || "Alex left a comment on your document."}
+          </Notification>
+        ) : (
+          <button
+            type="button"
+            onClick={() => setVisible(true)}
+            className="text-sm font-medium text-slate-500 underline underline-offset-4 hover:text-slate-700"
+          >
+            Show notification again
+          </button>
+        )}
+      </AppWindowBody>
+    </AppWindowFrame>
   );
 
   const titleAttr = ` title="${title || "New comment"}"`;

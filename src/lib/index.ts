@@ -162,6 +162,34 @@ export {
   type LoadingStateSize,
 } from "../components/ui/LoadingState/LoadingState";
 
+export { Navbar, type NavbarProps, type NavbarVariant } from "../components/ui/Navbar/Navbar";
+export {
+  Sidebar,
+  type SidebarProps,
+  type SidebarVariant,
+  SidebarHeader,
+  type SidebarHeaderProps,
+  SidebarFooter,
+  type SidebarFooterProps,
+} from "../components/ui/Sidebar/Sidebar";
+export { Header, type HeaderProps } from "../components/ui/Header/Header";
+export { Footer, type FooterProps, type FooterVariant } from "../components/ui/Footer/Footer";
+export {
+  NavigationMenu,
+  type NavigationMenuProps,
+  type NavigationMenuItem,
+} from "../components/ui/NavigationMenu/NavigationMenu";
+export {
+  BottomNavigation,
+  type BottomNavigationProps,
+  type BottomNavigationItem,
+} from "../components/ui/BottomNavigation/BottomNavigation";
+export {
+  Stepper,
+  type StepperProps,
+  type StepperStep,
+} from "../components/ui/Stepper/Stepper";
+
 export {
   COLORS,
   colorClasses,

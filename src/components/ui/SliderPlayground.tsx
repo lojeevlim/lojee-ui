@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Slider } from "./Slider/Slider";
 import type { ColorName } from "../../core/tokens";
-import { ColorSwatches, PlaygroundLayout } from "./PlaygroundHelpers";
+import { ColorSwatches, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
 
 export default function SliderPlayground() {
@@ -10,9 +10,13 @@ export default function SliderPlayground() {
   const [value, setValue] = useState(50);
 
   const preview = (
-    <div className="w-64">
-      <Slider color={color} showValue={showValue} value={value} onChange={(e) => setValue(Number(e.target.value))} />
-    </div>
+    <AppWindowFrame>
+      <AppWindowBody>
+        <div className="w-64">
+          <Slider color={color} showValue={showValue} value={value} onChange={(e) => setValue(Number(e.target.value))} />
+        </div>
+      </AppWindowBody>
+    </AppWindowFrame>
   );
 
   const code = `<Slider color="${color}"${showValue ? " showValue" : ""} value={${value}} onChange={(e) => setValue(Number(e.target.value))} />`;

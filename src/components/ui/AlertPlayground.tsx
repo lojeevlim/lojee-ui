@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Alert, type AlertVariant } from "./Alert/Alert";
-import { OptionGroup, PlaygroundLayout } from "./PlaygroundHelpers";
+import { OptionGroup, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
 
 const VARIANTS: AlertVariant[] = ["info", "success", "warning", "error"];
@@ -12,23 +12,29 @@ export default function AlertPlayground() {
   const [closable, setClosable] = useState(false);
   const [visible, setVisible] = useState(true);
 
-  const preview = visible ? (
-    <Alert
-      variant={variant}
-      title={title || undefined}
-      closable={closable}
-      onClose={() => setVisible(false)}
-    >
-      {description || "This is an informational message."}
-    </Alert>
-  ) : (
-    <button
-      type="button"
-      onClick={() => setVisible(true)}
-      className="text-sm font-medium text-slate-500 underline underline-offset-4 hover:text-slate-700"
-    >
-      Show alert again
-    </button>
+  const preview = (
+    <AppWindowFrame>
+      <AppWindowBody>
+        {visible ? (
+          <Alert
+            variant={variant}
+            title={title || undefined}
+            closable={closable}
+            onClose={() => setVisible(false)}
+          >
+            {description || "This is an informational message."}
+          </Alert>
+        ) : (
+          <button
+            type="button"
+            onClick={() => setVisible(true)}
+            className="text-sm font-medium text-slate-500 underline underline-offset-4 hover:text-slate-700"
+          >
+            Show alert again
+          </button>
+        )}
+      </AppWindowBody>
+    </AppWindowFrame>
   );
 
   const titleAttr = title ? `\n  title="${title}"` : "";

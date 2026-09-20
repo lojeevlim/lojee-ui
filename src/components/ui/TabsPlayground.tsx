@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Tabs, type TabItem } from "./Tabs/Tabs";
 import type { ColorName } from "../../core/tokens";
-import { OptionGroup, ColorSwatches, PlaygroundLayout } from "./PlaygroundHelpers";
+import { OptionGroup, ColorSwatches, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
 
 const INDICES = ["0", "1", "2"] as const;
@@ -22,7 +22,13 @@ export default function TabsPlayground() {
   const [color, setColor] = useState<ColorName>("slate");
   const [defaultIndex, setDefaultIndex] = useState<(typeof INDICES)[number]>("0");
 
-  const preview = <Tabs tabs={SAMPLE_TABS} color={color} defaultIndex={Number(defaultIndex)} />;
+  const preview = (
+    <AppWindowFrame>
+      <AppWindowBody>
+        <Tabs tabs={SAMPLE_TABS} color={color} defaultIndex={Number(defaultIndex)} />
+      </AppWindowBody>
+    </AppWindowFrame>
+  );
 
   const code = `<Tabs
   tabs={${SAMPLE_TABS_CODE}}

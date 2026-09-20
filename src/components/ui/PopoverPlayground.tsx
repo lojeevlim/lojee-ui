@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Popover, type PopoverPosition } from "./Popover/Popover";
 import { Button } from "./Buttons/Button";
-import { OptionGroup, PlaygroundLayout } from "./PlaygroundHelpers";
+import { OptionGroup, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
 
 const POSITIONS: PopoverPosition[] = ["top", "bottom", "left", "right"];
@@ -9,10 +9,17 @@ const POSITIONS: PopoverPosition[] = ["top", "bottom", "left", "right"];
 export default function PopoverPlayground() {
   const [position, setPosition] = useState<PopoverPosition>("bottom");
 
+  // `overflow-visible`: the panel is absolutely positioned relative to its
+  // trigger (not portaled), so the window's default rounded-corner clipping
+  // would cut it off, especially with `position="top"` or `"left"`.
   const preview = (
-    <Popover position={position} content="Popover content">
-      <Button label="Click me" />
-    </Popover>
+    <AppWindowFrame className="overflow-visible">
+      <AppWindowBody>
+        <Popover position={position} content="Popover content">
+          <Button label="Click me" />
+        </Popover>
+      </AppWindowBody>
+    </AppWindowFrame>
   );
 
   const code = `<Popover position="${position}" content="Popover content">

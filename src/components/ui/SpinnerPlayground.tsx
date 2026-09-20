@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Spinner, type SpinnerSize, type SpinnerVariant } from "./Spinner/Spinner";
 import type { ColorName } from "../../core/tokens";
-import { OptionGroup, ColorSwatches, PlaygroundLayout } from "./PlaygroundHelpers";
+import { OptionGroup, ColorSwatches, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
 
 const SIZES: SpinnerSize[] = ["xs", "sm", "md", "lg", "xl"];
@@ -12,7 +12,13 @@ export default function SpinnerPlayground() {
   const [variant, setVariant] = useState<SpinnerVariant>("circle");
   const [color, setColor] = useState<ColorName>("slate");
 
-  const preview = <Spinner size={size} variant={variant} color={color} />;
+  const preview = (
+    <AppWindowFrame>
+      <AppWindowBody>
+        <Spinner size={size} variant={variant} color={color} />
+      </AppWindowBody>
+    </AppWindowFrame>
+  );
   const code = `<Spinner variant="${variant}" size="${size}" color="${color}" />`;
 
   const htmlMarkup = `<Spinner variant="${variant}" size="${size}" color="${color}" />`;

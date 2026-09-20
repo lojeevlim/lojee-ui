@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Drawer, type DrawerPosition } from "./Drawer/Drawer";
 import { Button } from "./Buttons/Button";
-import { OptionGroup, PlaygroundLayout } from "./PlaygroundHelpers";
+import { OptionGroup, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
 
 const POSITIONS: DrawerPosition[] = ["left", "right", "top", "bottom"];
@@ -12,12 +12,14 @@ export default function DrawerPlayground() {
   const [title, setTitle] = useState("Drawer title");
 
   const preview = (
-    <>
-      <Button label="Open drawer" onClick={() => setOpen(true)} />
-      <Drawer open={open} onClose={() => setOpen(false)} position={position} title={title || "Drawer title"}>
-        <p className="text-sm text-slate-600">This is the drawer body content.</p>
-      </Drawer>
-    </>
+    <AppWindowFrame>
+      <AppWindowBody>
+        <Button label="Open drawer" onClick={() => setOpen(true)} />
+        <Drawer open={open} onClose={() => setOpen(false)} position={position} title={title || "Drawer title"}>
+          <p className="text-sm text-slate-600">This is the drawer body content.</p>
+        </Drawer>
+      </AppWindowBody>
+    </AppWindowFrame>
   );
 
   const code = `<Drawer open={open} onClose={() => setOpen(false)} position="${position}" title="${title || "Drawer title"}">

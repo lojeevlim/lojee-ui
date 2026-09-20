@@ -11,6 +11,7 @@ import {
   ErrorStateElement,
   SuccessStateElement,
   LoadingStateElement,
+  HeaderElement,
 } from "./modal-adapter";
 import { withTailwind } from "./with-tailwind";
 import { Badge } from "../components/ui/Badge/Badge";
@@ -59,6 +60,12 @@ import { ContextMenu } from "../components/ui/ContextMenu/ContextMenu";
 import { CommandMenu } from "../components/ui/CommandMenu/CommandMenu";
 import { Notification } from "../components/ui/Notification/Notification";
 import { ProgressBar } from "../components/ui/ProgressBar/ProgressBar";
+import { Navbar } from "../components/ui/Navbar/Navbar";
+import { Sidebar } from "../components/ui/Sidebar/Sidebar";
+import { Footer } from "../components/ui/Footer/Footer";
+import { NavigationMenu } from "../components/ui/NavigationMenu/NavigationMenu";
+import { BottomNavigation } from "../components/ui/BottomNavigation/BottomNavigation";
+import { Stepper } from "../components/ui/Stepper/Stepper";
 
 // Each element is a real <button>/<div> tree, so a native click already
 // bubbles across the shadow boundary — no "events" entry needed for plain
@@ -271,7 +278,7 @@ customElements.define(
   "l-list-item",
   r2wc(withTailwind(ListItem), {
     shadow: "open",
-    props: { icon: "string", classNames: "json" },
+    props: { icon: "string", tooltip: "boolean", tooltipPosition: "string", classNames: "json" },
   })
 );
 
@@ -737,5 +744,71 @@ customElements.define(
   r2wc(withTailwind(LoadingStateElement), {
     shadow: "open",
     props: { heading: "string", size: "string" },
+  })
+);
+
+// brand/menu-items/actions are ReactNode props projected via named/default
+// <slot>s (same pattern as Notification's icon/actions) — no attribute
+// equivalent for them, since they're arbitrary composed markup, not strings.
+customElements.define(
+  "l-navbar",
+  r2wc(withTailwind(Navbar), {
+    shadow: "open",
+    props: { sticky: "boolean", bordered: "boolean", variant: "string" },
+  })
+);
+
+customElements.define(
+  "l-sidebar",
+  r2wc(withTailwind(Sidebar), {
+    shadow: "open",
+    props: {
+      width: "number",
+      collapsed: "boolean",
+      variant: "string",
+      color: "string",
+      collapsible: "boolean",
+    },
+    events: { onCollapsedChange: {} }, // dispatches "collapsedchange", detail = the requested boolean
+  })
+);
+
+customElements.define(
+  "l-header",
+  r2wc(withTailwind(HeaderElement), {
+    shadow: "open",
+    props: { heading: "string" },
+  })
+);
+
+customElements.define(
+  "l-footer",
+  r2wc(withTailwind(Footer), { shadow: "open", props: { variant: "string" } })
+);
+
+// `items` is plain data (label/href/icon/active/disabled) — set the `items`
+// DOM property directly with a real array, same as Tabs' `tabs`.
+customElements.define(
+  "l-navigation-menu",
+  r2wc(withTailwind(NavigationMenu), {
+    shadow: "open",
+    props: { items: "json", orientation: "string" },
+    events: { onChange: {} }, // dispatches "change", detail = the selected item's index
+  })
+);
+
+customElements.define(
+  "l-bottom-navigation",
+  r2wc(withTailwind(BottomNavigation), {
+    shadow: "open",
+    props: { items: "json" },
+  })
+);
+
+customElements.define(
+  "l-stepper",
+  r2wc(withTailwind(Stepper), {
+    shadow: "open",
+    props: { steps: "json", currentStep: "number", orientation: "string" },
   })
 );

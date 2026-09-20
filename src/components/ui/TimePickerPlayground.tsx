@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { TimePicker, type TimePickerSize } from "./TimePicker/TimePicker";
-import { OptionGroup, PlaygroundLayout } from "./PlaygroundHelpers";
+import { OptionGroup, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
 
 const SIZES: TimePickerSize[] = ["sm", "md", "lg"];
@@ -10,7 +10,13 @@ export default function TimePickerPlayground() {
   const [invalid, setInvalid] = useState(false);
   const [disabled, setDisabled] = useState(false);
 
-  const preview = <TimePicker size={size} invalid={invalid} disabled={disabled} />;
+  const preview = (
+    <AppWindowFrame>
+      <AppWindowBody>
+        <TimePicker size={size} invalid={invalid} disabled={disabled} />
+      </AppWindowBody>
+    </AppWindowFrame>
+  );
 
   const code = `<TimePicker size="${size}"${invalid ? " invalid" : ""}${disabled ? " disabled" : ""} />`;
 

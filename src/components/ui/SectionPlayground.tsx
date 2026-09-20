@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Section, type SectionSpacing } from "./Section/Section";
-import { OptionGroup, PlaygroundLayout } from "./PlaygroundHelpers";
+import { OptionGroup, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
 
 const SPACINGS: SectionSpacing[] = ["sm", "md", "lg"];
@@ -11,16 +11,20 @@ export default function SectionPlayground() {
   const [withSubtitle, setWithSubtitle] = useState(true);
 
   const preview = (
-    <div className="w-full border border-dashed border-slate-200 rounded-lg">
-      <Section
-        spacing={spacing}
-        title={withTitle ? "Section title" : undefined}
-        subtitle={withSubtitle ? "A short supporting description." : undefined}
-        className="px-4"
-      >
-        <div className="rounded-md bg-slate-100 p-3 text-center text-xs text-slate-500">Sample content</div>
-      </Section>
-    </div>
+    <AppWindowFrame>
+      <AppWindowBody className="items-stretch">
+        <div className="w-full rounded-lg border border-dashed border-slate-200">
+          <Section
+            spacing={spacing}
+            title={withTitle ? "Section title" : undefined}
+            subtitle={withSubtitle ? "A short supporting description." : undefined}
+            className="px-4"
+          >
+            <div className="rounded-md bg-slate-100 p-3 text-center text-xs text-slate-500">Sample content</div>
+          </Section>
+        </div>
+      </AppWindowBody>
+    </AppWindowFrame>
   );
 
   const code = `<Section spacing="${spacing}"${withTitle ? ` title="Section title"` : ""}${

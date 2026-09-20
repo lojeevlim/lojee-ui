@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Switch, type SwitchSize } from "./Switch/Switch";
 import type { ColorName } from "../../core/tokens";
-import { OptionGroup, ColorSwatches, PlaygroundLayout } from "./PlaygroundHelpers";
+import { OptionGroup, ColorSwatches, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
 
 const SIZES: SwitchSize[] = ["sm", "md", "lg"];
@@ -14,14 +14,18 @@ export default function SwitchPlayground() {
   const [label, setLabel] = useState("Enable notifications");
 
   const preview = (
-    <Switch
-      checked={checked}
-      onChange={(e) => setChecked(e.target.checked)}
-      size={size}
-      color={color}
-      disabled={disabled}
-      label={label || undefined}
-    />
+    <AppWindowFrame>
+      <AppWindowBody>
+        <Switch
+          checked={checked}
+          onChange={(e) => setChecked(e.target.checked)}
+          size={size}
+          color={color}
+          disabled={disabled}
+          label={label || undefined}
+        />
+      </AppWindowBody>
+    </AppWindowFrame>
   );
 
   const code = `<Switch size="${size}" color="${color}"${checked ? " defaultChecked" : ""}${disabled ? " disabled" : ""}${

@@ -49,6 +49,13 @@ import EmptyStatePlayground from "./EmptyStatePlayground";
 import ErrorStatePlayground from "./ErrorStatePlayground";
 import SuccessStatePlayground from "./SuccessStatePlayground";
 import LoadingStatePlayground from "./LoadingStatePlayground";
+import NavbarPlayground from "./NavbarPlayground";
+import SidebarPlayground from "./SidebarPlayground";
+import HeaderPlayground from "./HeaderPlayground";
+import FooterPlayground from "./FooterPlayground";
+import NavigationMenuPlayground from "./NavigationMenuPlayground";
+import BottomNavigationPlayground from "./BottomNavigationPlayground";
+import StepperPlayground from "./StepperPlayground";
 
 export interface PlaygroundProps {
   itemLabel?: string;
@@ -105,6 +112,13 @@ const PLAYGROUNDS: Record<string, ComponentType> = {
   "Error State": ErrorStatePlayground,
   "Success State": SuccessStatePlayground,
   "Loading State": LoadingStatePlayground,
+  Navbar: NavbarPlayground,
+  Sidebar: SidebarPlayground,
+  Header: HeaderPlayground,
+  Footer: FooterPlayground,
+  "Navigation Menu": NavigationMenuPlayground,
+  "Bottom Navigation": BottomNavigationPlayground,
+  Stepper: StepperPlayground,
 };
 
 export default function Playground({ itemLabel }: PlaygroundProps) {

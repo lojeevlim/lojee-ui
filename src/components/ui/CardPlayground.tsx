@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Card, type CardVariant, type CardPadding } from "./Card/Card";
-import { OptionGroup, PlaygroundLayout } from "./PlaygroundHelpers";
+import { OptionGroup, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
 
 const VARIANTS: CardVariant[] = ["outline", "elevated", "soft", "ghost"];
@@ -14,16 +14,20 @@ export default function CardPlayground() {
   const [withFooter, setWithFooter] = useState(false);
 
   const preview = (
-    <Card
-      variant={variant}
-      padding={padding}
-      hoverable={hoverable}
-      title={withTitle ? "Card title" : undefined}
-      footer={withFooter ? <span className="text-xs text-slate-500">Footer content</span> : undefined}
-      className="w-64"
-    >
-      Sample content
-    </Card>
+    <AppWindowFrame>
+      <AppWindowBody>
+        <Card
+          variant={variant}
+          padding={padding}
+          hoverable={hoverable}
+          title={withTitle ? "Card title" : undefined}
+          footer={withFooter ? <span className="text-xs text-slate-500">Footer content</span> : undefined}
+          className="w-64"
+        >
+          Sample content
+        </Card>
+      </AppWindowBody>
+    </AppWindowFrame>
   );
 
   const code = `<Card variant="${variant}" padding="${padding}"${hoverable ? " hoverable" : ""}${

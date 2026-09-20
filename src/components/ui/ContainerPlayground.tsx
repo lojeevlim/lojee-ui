@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Container, type ContainerSize } from "./Container/Container";
-import { OptionGroup, PlaygroundLayout } from "./PlaygroundHelpers";
+import { OptionGroup, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
 
 const SIZES: ContainerSize[] = ["sm", "md", "lg", "xl", "full"];
@@ -11,11 +11,15 @@ export default function ContainerPlayground() {
   const [padded, setPadded] = useState(true);
 
   const preview = (
-    <div className="w-full border border-dashed border-slate-200 rounded-lg">
-      <Container size={size} centered={centered} padded={padded}>
-        <div className="rounded-md bg-slate-100 p-3 text-center text-xs text-slate-500">Sample content</div>
-      </Container>
-    </div>
+    <AppWindowFrame>
+      <AppWindowBody className="items-stretch">
+        <div className="w-full rounded-lg border border-dashed border-slate-200">
+          <Container size={size} centered={centered} padded={padded}>
+            <div className="rounded-md bg-slate-100 p-3 text-center text-xs text-slate-500">Sample content</div>
+          </Container>
+        </div>
+      </AppWindowBody>
+    </AppWindowFrame>
   );
 
   const code = `<Container size="${size}"${centered ? "" : " centered={false}"}${padded ? "" : " padded={false}"}>

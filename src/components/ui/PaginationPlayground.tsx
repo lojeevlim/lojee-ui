@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Pagination } from "./Pagination/Pagination";
 import type { ColorName } from "../../core/tokens";
-import { OptionGroup, ColorSwatches, PlaygroundLayout } from "./PlaygroundHelpers";
+import { OptionGroup, ColorSwatches, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
 
 const TOTAL_PAGES_OPTIONS = ["5", "10", "20"] as const;
@@ -18,13 +18,17 @@ export default function PaginationPlayground() {
   const clampedPage = Math.min(page, totalPagesNum);
 
   const preview = (
-    <Pagination
-      page={clampedPage}
-      totalPages={totalPagesNum}
-      siblingCount={siblingCountNum}
-      color={color}
-      onPageChange={setPage}
-    />
+    <AppWindowFrame>
+      <AppWindowBody>
+        <Pagination
+          page={clampedPage}
+          totalPages={totalPagesNum}
+          siblingCount={siblingCountNum}
+          color={color}
+          onPageChange={setPage}
+        />
+      </AppWindowBody>
+    </AppWindowFrame>
   );
 
   const code = `<Pagination

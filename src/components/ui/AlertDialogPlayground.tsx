@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { AlertDialog, type AlertDialogVariant } from "./AlertDialog/AlertDialog";
 import { Button } from "./Buttons/Button";
-import { OptionGroup, PlaygroundLayout } from "./PlaygroundHelpers";
+import { OptionGroup, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
 
 const VARIANTS: AlertDialogVariant[] = ["default", "destructive"];
@@ -13,17 +13,19 @@ export default function AlertDialogPlayground() {
   const [description, setDescription] = useState("This action cannot be undone.");
 
   const preview = (
-    <>
-      <Button label="Open alert dialog" onClick={() => setOpen(true)} />
-      <AlertDialog
-        open={open}
-        onClose={() => setOpen(false)}
-        variant={variant}
-        title={title || "Are you sure?"}
-        description={description || undefined}
-        onConfirm={() => setOpen(false)}
-      />
-    </>
+    <AppWindowFrame>
+      <AppWindowBody>
+        <Button label="Open alert dialog" onClick={() => setOpen(true)} />
+        <AlertDialog
+          open={open}
+          onClose={() => setOpen(false)}
+          variant={variant}
+          title={title || "Are you sure?"}
+          description={description || undefined}
+          onConfirm={() => setOpen(false)}
+        />
+      </AppWindowBody>
+    </AppWindowFrame>
   );
 
   const code = `<AlertDialog

@@ -50,6 +50,13 @@ import EmptyStateShowcase from './components/ui/EmptyState'
 import ErrorStateShowcase from './components/ui/ErrorState'
 import SuccessStateShowcase from './components/ui/SuccessState'
 import LoadingStateShowcase from './components/ui/LoadingState'
+import NavbarShowcase from './components/ui/Navbar'
+import SidebarShowcase from './components/ui/Sidebar'
+import HeaderShowcase from './components/ui/Header'
+import FooterShowcase from './components/ui/Footer'
+import NavigationMenuShowcase from './components/ui/NavigationMenu'
+import BottomNavigationShowcase from './components/ui/BottomNavigation'
+import StepperShowcase from './components/ui/Stepper'
 
 import Sidebar from './components/layouts/Sidebar'
 import Header, { type HeaderNavKey } from './components/layouts/Header'
@@ -109,6 +116,13 @@ const SHOWCASES: Record<string, ComponentType> = {
   'Error State': ErrorStateShowcase,
   'Success State': SuccessStateShowcase,
   'Loading State': LoadingStateShowcase,
+  Navbar: NavbarShowcase,
+  Sidebar: SidebarShowcase,
+  Header: HeaderShowcase,
+  Footer: FooterShowcase,
+  'Navigation Menu': NavigationMenuShowcase,
+  'Bottom Navigation': BottomNavigationShowcase,
+  Stepper: StepperShowcase,
 }
 
 function App() {
@@ -162,6 +176,7 @@ function App() {
       open={playgroundOpen}
       onClose={() => setPlaygroundOpen(false)}
       title={`${found.item.label} Playground`}
+      classNames={{ body: 'pb-0' }}
     >
       <Playground itemLabel={found.item.label} />
     </Modal>

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Toast, type ToastVariant, type ToastPosition } from "./Toast/Toast";
 import { Button } from "./Buttons/Button";
-import { OptionGroup, PlaygroundLayout } from "./PlaygroundHelpers";
+import { OptionGroup, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
 
 const VARIANTS: ToastVariant[] = ["info", "success", "warning", "error"];
@@ -23,19 +23,21 @@ export default function ToastPlayground() {
   const [duration, setDuration] = useState(4000);
 
   const preview = (
-    <>
-      <Button label="Show toast" onClick={() => setOpen(true)} />
-      <Toast
-        open={open}
-        onClose={() => setOpen(false)}
-        variant={variant}
-        position={position}
-        title={title || undefined}
-        duration={duration}
-      >
-        {description || undefined}
-      </Toast>
-    </>
+    <AppWindowFrame>
+      <AppWindowBody>
+        <Button label="Show toast" onClick={() => setOpen(true)} />
+        <Toast
+          open={open}
+          onClose={() => setOpen(false)}
+          variant={variant}
+          position={position}
+          title={title || undefined}
+          duration={duration}
+        >
+          {description || undefined}
+        </Toast>
+      </AppWindowBody>
+    </AppWindowFrame>
   );
 
   const titleAttr = title ? `\n  title="${title}"` : "";

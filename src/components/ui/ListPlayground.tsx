@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { List, type ListVariant } from "./List/List";
 import { ListItem } from "./List/ListItem";
-import { OptionGroup, PlaygroundLayout } from "./PlaygroundHelpers";
+import { OptionGroup, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
 
 const VARIANTS: ListVariant[] = ["plain", "divided", "bordered"];
@@ -11,13 +11,17 @@ export default function ListPlayground() {
   const [ordered, setOrdered] = useState(false);
 
   const preview = (
-    <div className="w-72">
-      <List variant={variant} ordered={ordered}>
-        <ListItem icon="file">Project brief.pdf</ListItem>
-        <ListItem icon="image">Cover photo.png</ListItem>
-        <ListItem icon="folder">Archive</ListItem>
-      </List>
-    </div>
+    <AppWindowFrame>
+      <AppWindowBody>
+        <div className="w-72">
+          <List variant={variant} ordered={ordered}>
+            <ListItem icon="file">Project brief.pdf</ListItem>
+            <ListItem icon="image">Cover photo.png</ListItem>
+            <ListItem icon="folder">Archive</ListItem>
+          </List>
+        </div>
+      </AppWindowBody>
+    </AppWindowFrame>
   );
 
   const code = `<List variant="${variant}"${ordered ? " ordered" : ""}>

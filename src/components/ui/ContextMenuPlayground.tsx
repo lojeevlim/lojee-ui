@@ -1,25 +1,29 @@
 import { ContextMenu } from "./ContextMenu/ContextMenu";
 import { DropdownMenuItem } from "./DropdownMenu/DropdownMenuItem";
-import { PlaygroundLayout } from "./PlaygroundHelpers";
+import { PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
 
 export default function ContextMenuPlayground() {
   const preview = (
-    <ContextMenu
-      menu={
-        <>
-          <DropdownMenuItem icon="copy">Copy</DropdownMenuItem>
-          <DropdownMenuItem icon="pencil">Rename</DropdownMenuItem>
-          <DropdownMenuItem icon="trash-2" danger>
-            Delete
-          </DropdownMenuItem>
-        </>
-      }
-    >
-      <div className="flex h-40 w-64 items-center justify-center rounded-lg border-2 border-dashed border-slate-200 text-sm text-slate-400">
-        Right-click here
-      </div>
-    </ContextMenu>
+    <AppWindowFrame>
+      <AppWindowBody>
+        <ContextMenu
+          menu={
+            <>
+              <DropdownMenuItem icon="copy">Copy</DropdownMenuItem>
+              <DropdownMenuItem icon="pencil">Rename</DropdownMenuItem>
+              <DropdownMenuItem icon="trash-2" danger>
+                Delete
+              </DropdownMenuItem>
+            </>
+          }
+        >
+          <div className="flex h-40 w-64 items-center justify-center rounded-lg border-2 border-dashed border-slate-200 text-sm text-slate-400">
+            Right-click here
+          </div>
+        </ContextMenu>
+      </AppWindowBody>
+    </AppWindowFrame>
   );
 
   const code = `<ContextMenu

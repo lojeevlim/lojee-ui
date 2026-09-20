@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Input, type InputSize } from "./Input/Input";
-import { OptionGroup, PlaygroundLayout } from "./PlaygroundHelpers";
+import { OptionGroup, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
 
 const SIZES: InputSize[] = ["sm", "md", "lg"];
@@ -15,15 +15,19 @@ export default function InputPlayground() {
   const [placeholder, setPlaceholder] = useState("Type something…");
 
   const preview = (
-    <div className="max-w-sm w-full">
-      <Input
-        size={size}
-        invalid={invalid}
-        disabled={disabled}
-        leadingIcon={leadingIcon === "none" ? undefined : leadingIcon}
-        placeholder={placeholder || "Type something…"}
-      />
-    </div>
+    <AppWindowFrame>
+      <AppWindowBody>
+        <div className="max-w-sm w-full">
+          <Input
+            size={size}
+            invalid={invalid}
+            disabled={disabled}
+            leadingIcon={leadingIcon === "none" ? undefined : leadingIcon}
+            placeholder={placeholder || "Type something…"}
+          />
+        </div>
+      </AppWindowBody>
+    </AppWindowFrame>
   );
 
   const code = `<Input size="${size}"${invalid ? " invalid" : ""}${disabled ? " disabled" : ""}${

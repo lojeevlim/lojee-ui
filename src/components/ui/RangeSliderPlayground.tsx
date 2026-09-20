@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { RangeSlider } from "./RangeSlider/RangeSlider";
 import type { ColorName } from "../../core/tokens";
-import { ColorSwatches, PlaygroundLayout } from "./PlaygroundHelpers";
+import { ColorSwatches, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
 
 export default function RangeSliderPlayground() {
@@ -10,9 +10,13 @@ export default function RangeSliderPlayground() {
   const [value, setValue] = useState<[number, number]>([20, 70]);
 
   const preview = (
-    <div className="w-64">
-      <RangeSlider color={color} showValue={showValue} value={value} onChange={setValue} />
-    </div>
+    <AppWindowFrame>
+      <AppWindowBody>
+        <div className="w-64">
+          <RangeSlider color={color} showValue={showValue} value={value} onChange={setValue} />
+        </div>
+      </AppWindowBody>
+    </AppWindowFrame>
   );
 
   const code = `<RangeSlider color="${color}"${showValue ? " showValue" : ""} value={[${value[0]}, ${value[1]}]} onChange={setValue} />`;
