@@ -66,6 +66,12 @@ import { Footer } from "../components/ui/Footer/Footer";
 import { NavigationMenu } from "../components/ui/NavigationMenu/NavigationMenu";
 import { BottomNavigation } from "../components/ui/BottomNavigation/BottomNavigation";
 import { Stepper } from "../components/ui/Stepper/Stepper";
+import { DataGrid } from "../components/ui/DataGrid/DataGrid";
+import { Timeline } from "../components/ui/Timeline/Timeline";
+import { Stat } from "../components/ui/Stat/Stat";
+import { Chart } from "../components/ui/Chart/Chart";
+import { Calendar } from "../components/ui/Calendar/Calendar";
+import { ActivityFeed } from "../components/ui/ActivityFeed/ActivityFeed";
 
 // Each element is a real <button>/<div> tree, so a native click already
 // bubbles across the shadow boundary — no "events" entry needed for plain
@@ -810,5 +816,62 @@ customElements.define(
   r2wc(withTailwind(Stepper), {
     shadow: "open",
     props: { steps: "json", currentStep: "number", orientation: "string" },
+  })
+);
+
+customElements.define(
+  "l-data-grid",
+  r2wc(withTailwind(DataGrid), {
+    shadow: "open",
+    props: {
+      columns: "json",
+      data: "json",
+      size: "string",
+      striped: "boolean",
+      bordered: "boolean",
+      selectable: "boolean",
+    },
+    events: { onSelectionChange: {} },
+  })
+);
+
+customElements.define(
+  "l-timeline",
+  r2wc(withTailwind(Timeline), {
+    shadow: "open",
+    props: { items: "json", orientation: "string" },
+  })
+);
+
+customElements.define(
+  "l-stat",
+  r2wc(withTailwind(Stat), {
+    shadow: "open",
+    props: { label: "string", value: "string", change: "string", trend: "string", icon: "string", color: "string" },
+  })
+);
+
+customElements.define(
+  "l-chart",
+  r2wc(withTailwind(Chart), {
+    shadow: "open",
+    props: { data: "json", type: "string", height: "number", color: "string", showLabels: "boolean" },
+  })
+);
+
+customElements.define(
+  "l-calendar",
+  r2wc(withTailwind(Calendar), {
+    shadow: "open",
+    props: { month: "string", selected: "string", events: "json", color: "string" },
+    events: { onSelect: {}, onMonthChange: {} }, // dispatches "select"/"monthchange"
+  })
+);
+
+customElements.define(
+  "l-activity-feed",
+  r2wc(withTailwind(ActivityFeed), {
+    shadow: "open",
+    props: { items: "json", compact: "boolean" },
   })
 );

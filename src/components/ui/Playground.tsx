@@ -56,6 +56,12 @@ import FooterPlayground from "./FooterPlayground";
 import NavigationMenuPlayground from "./NavigationMenuPlayground";
 import BottomNavigationPlayground from "./BottomNavigationPlayground";
 import StepperPlayground from "./StepperPlayground";
+import DataGridPlayground from "./DataGridPlayground";
+import TimelinePlayground from "./TimelinePlayground";
+import StatPlayground from "./StatPlayground";
+import ChartPlayground from "./ChartPlayground";
+import CalendarPlayground from "./CalendarPlayground";
+import ActivityFeedPlayground from "./ActivityFeedPlayground";
 
 export interface PlaygroundProps {
   itemLabel?: string;
@@ -119,6 +125,12 @@ const PLAYGROUNDS: Record<string, ComponentType> = {
   "Navigation Menu": NavigationMenuPlayground,
   "Bottom Navigation": BottomNavigationPlayground,
   Stepper: StepperPlayground,
+  "Data Grid": DataGridPlayground,
+  Timeline: TimelinePlayground,
+  "Stats / KPI": StatPlayground,
+  Charts: ChartPlayground,
+  Calendar: CalendarPlayground,
+  "Activity Feed": ActivityFeedPlayground,
 };
 
 export default function Playground({ itemLabel }: PlaygroundProps) {

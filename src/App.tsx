@@ -57,6 +57,12 @@ import FooterShowcase from './components/ui/Footer'
 import NavigationMenuShowcase from './components/ui/NavigationMenu'
 import BottomNavigationShowcase from './components/ui/BottomNavigation'
 import StepperShowcase from './components/ui/Stepper'
+import DataGridShowcase from './components/ui/DataGrid'
+import TimelineShowcase from './components/ui/Timeline'
+import StatShowcase from './components/ui/Stat'
+import ChartShowcase from './components/ui/Chart'
+import CalendarShowcase from './components/ui/Calendar'
+import ActivityFeedShowcase from './components/ui/ActivityFeed'
 
 import Sidebar from './components/layouts/Sidebar'
 import Header, { type HeaderNavKey } from './components/layouts/Header'
@@ -123,6 +129,12 @@ const SHOWCASES: Record<string, ComponentType> = {
   'Navigation Menu': NavigationMenuShowcase,
   'Bottom Navigation': BottomNavigationShowcase,
   Stepper: StepperShowcase,
+  'Data Grid': DataGridShowcase,
+  Timeline: TimelineShowcase,
+  'Stats / KPI': StatShowcase,
+  Charts: ChartShowcase,
+  Calendar: CalendarShowcase,
+  'Activity Feed': ActivityFeedShowcase,
 }
 
 function App() {

@@ -191,6 +191,27 @@ export {
 } from "../components/ui/Stepper/Stepper";
 
 export {
+  DataGrid,
+  type DataGridProps,
+  type DataGridColumn,
+  type DataGridSize,
+} from "../components/ui/DataGrid/DataGrid";
+export {
+  Timeline,
+  type TimelineProps,
+  type TimelineItem,
+  type TimelineOrientation,
+} from "../components/ui/Timeline/Timeline";
+export { Stat, type StatProps, type StatTrend } from "../components/ui/Stat/Stat";
+export { Chart, type ChartProps, type ChartType, type ChartDataPoint } from "../components/ui/Chart/Chart";
+export { Calendar, type CalendarProps, type CalendarEvent } from "../components/ui/Calendar/Calendar";
+export {
+  ActivityFeed,
+  type ActivityFeedProps,
+  type ActivityItem,
+} from "../components/ui/ActivityFeed/ActivityFeed";
+
+export {
   COLORS,
   colorClasses,
   defaultGradientPartner,
