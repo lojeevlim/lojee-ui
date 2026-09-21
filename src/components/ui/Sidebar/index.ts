@@ -7,4 +7,5 @@ export {
   SidebarFooter,
   type SidebarFooterProps,
 } from "./Sidebar";
+export { SidebarMenuItem, type SidebarMenuItemProps } from "./SidebarMenuItem";
 export { default } from "./showcase/SidebarShowcase";

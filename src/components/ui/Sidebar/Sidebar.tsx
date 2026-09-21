@@ -53,6 +53,11 @@ export interface SidebarProps {
   children?: ReactNode;
   /** Pixel width when expanded (default: 256). */
   width?: number;
+  /** CSS height (default: "100vh") — a full-viewport-height rail, the common case for a docked
+   * app-shell sidebar. `h-full`/100% would need every ancestor up the chain to have an explicit
+   * height set, which isn't the case in most real layouts — pass e.g. "100%" yourself if this
+   * Sidebar instead lives inside an already-sized flex/grid container and should fill that instead. */
+  height?: string | number;
   /** Collapses to an icon-only rail (default: false) — when true, `children` (including any
    * <SidebarHeader>/<SidebarFooter>) are still rendered; it's up to the consumer to pass icon-only
    * content, this prop just narrows the container. */
@@ -129,6 +134,7 @@ const TOGGLE_HOVER_TEXT: Record<ColorName, string> = {
 export function Sidebar({
   children,
   width = 256,
+  height = "100vh",
   collapsed = false,
   variant = "light",
   color = "slate",
@@ -154,6 +160,7 @@ export function Sidebar({
   const colorIsNamed = isColorName(color);
   const style: CSSProperties = {
     width: collapsed ? COLLAPSED_WIDTH : width,
+    height,
     transitionTimingFunction: "cubic-bezier(.4, 0, .2, 1)",
     ...(variant === "gradient" && {
       backgroundImage: colorIsNamed
@@ -190,7 +197,7 @@ export function Sidebar({
   return (
     <div
       className={cx(
-        "relative flex h-full flex-col transition-[width] duration-300",
+        "relative flex flex-col transition-[width] duration-300",
         VARIANT_CLASSES[variant],
         className,
         classNames?.root

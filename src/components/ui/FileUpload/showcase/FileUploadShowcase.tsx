@@ -21,7 +21,7 @@ export default function FileUploadShowcase() {
           <CodeBlock
             variants={{
               react: `<FileUpload onFilesSelected={(files) => console.log(files)} />`,
-              js: `<FileUpload id="file-upload" />
+              js: `<l-FileUpload id="file-upload" />
 
 <script type="module">
   import "lojee-ui/elements";
@@ -30,7 +30,7 @@ export default function FileUploadShowcase() {
     .addEventListener("filesselected", (e) => console.log(e.detail));
 </script>`,
               vue: `<template>
-  <FileUpload @filesselected="(e) => console.log(e.detail)" />
+  <l-FileUpload @filesselected="(e) => console.log(e.detail)" />
 </template>
 
 <script setup>
@@ -52,7 +52,7 @@ export class AppComponent {
 }
 
 <!-- app.component.html -->
-<FileUpload (filesselected)="onFilesSelected($event)" />`,
+<l-FileUpload (filesselected)="onFilesSelected($event)" />`,
             }}
           />
         </section>
@@ -75,14 +75,14 @@ export class AppComponent {
   multiple
   onFilesSelected={(files) => console.log(files)}
 />`,
-              js: `<FileUpload id="photo-upload" label="Upload product photos" accept="image/*" multiple />
+              js: `<l-FileUpload id="photo-upload" label="Upload product photos" accept="image/*" multiple />
 
 <script type="module">
   document.getElementById("photo-upload")
     .addEventListener("filesselected", (e) => console.log(e.detail));
 </script>`,
               vue: `<template>
-  <FileUpload
+  <l-FileUpload
     label="Upload product photos"
     accept="image/*"
     multiple
@@ -90,7 +90,7 @@ export class AppComponent {
   />
 </template>`,
               angular: `<!-- app.component.html — reuses the onFilesSelected method from AppComponent above -->
-<FileUpload
+<l-FileUpload
   label="Upload product photos"
   accept="image/*"
   multiple

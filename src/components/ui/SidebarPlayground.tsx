@@ -1,28 +1,17 @@
 import { useState } from "react";
-import { createPortal } from "react-dom";
 import type { CSSProperties } from "react";
 import { Sidebar, SidebarHeader, SidebarFooter, type SidebarVariant } from "./Sidebar/Sidebar";
+import { SidebarMenuItem } from "./Sidebar/SidebarMenuItem";
 import { Icon } from "./Icons/Icon";
 import { Avatar } from "./Avatar/Avatar";
 import { OptionGroup, ColorSwatches, PlaygroundLayout, AppWindowFrame } from "./PlaygroundHelpers";
-import { cx, isColorName, COLOR_HEX, type ColorName } from "../../core/tokens";
-import { useTooltipPortal, tooltipPortalPositionStyle, TOOLTIP_PORTAL_Z_CLASS } from "../../core/tooltipPortal";
+import { cx, isColorName, COLOR_HEX } from "../../core/tokens";
 import type { CodeBlockVariants } from "./CodeBlock";
 
-// A "#rrggbb" → "rgba(r, g, b, alpha)" conversion for a custom (non-ColorName)
-// active-nav-item background on a dark-ish variant — mirrors DARK_ACTIVE_BG's
-// translucent `bg-{color}-500/25` treatment, which only exists as fixed
-// Tailwind classes for the built-in palette.
-function hexToRgba(hex: string, alpha: number): string {
-  const match = /^#?([0-9a-f]{6})$/i.exec(hex);
-  if (!match) return hex;
-  const value = parseInt(match[1], 16);
-  return `rgba(${(value >> 16) & 255}, ${(value >> 8) & 255}, ${value & 255}, ${alpha})`;
-}
-
-// Slides+fades a nav/header label away instead of yanking it out on the
+// Slides+fades the header/footer label away instead of yanking it out on the
 // spot — kept mounted the whole time (only its box shrinks to 0) so the
 // collapse/expand animation reads as one continuous motion, not a mid-width pop.
+// (SidebarMenuItem does the equivalent for its own label internally.)
 function labelSlideStyle(hidden: boolean): CSSProperties {
   return {
     display: "inline-block",
@@ -60,125 +49,6 @@ const NAV_ITEMS = [
   { icon: "users", label: "Team", active: false },
   { icon: "settings", label: "Settings", active: false },
 ];
-
-const ACTIVE_BG: Record<ColorName, string> = {
-  slate: "bg-slate-900",
-  gray: "bg-gray-700",
-  indigo: "bg-indigo-600",
-  violet: "bg-violet-600",
-  blue: "bg-blue-600",
-  cyan: "bg-cyan-600",
-  emerald: "bg-emerald-600",
-  teal: "bg-teal-600",
-  amber: "bg-amber-500",
-  orange: "bg-orange-600",
-  rose: "bg-rose-600",
-  pink: "bg-pink-600",
-};
-
-// Translucent version for dark-ish variants ("dark"/"gradient"/"glass") — a solid ACTIVE_BG
-// color would clash with an already-dark or already-colored surface.
-const DARK_ACTIVE_BG: Record<ColorName, string> = {
-  slate: "bg-white/10",
-  gray: "bg-white/10",
-  indigo: "bg-indigo-500/25",
-  violet: "bg-violet-500/25",
-  blue: "bg-blue-500/25",
-  cyan: "bg-cyan-500/25",
-  emerald: "bg-emerald-500/25",
-  teal: "bg-teal-500/25",
-  amber: "bg-amber-500/25",
-  orange: "bg-orange-500/25",
-  rose: "bg-rose-500/25",
-  pink: "bg-pink-500/25",
-};
-
-// One nav row. Pulled out from the `.map()` below so each row gets its own
-// `useTooltipPortal` instance (hooks can't be called a variable number of
-// times inside a single component's render).
-function NavRow({
-  item,
-  collapsed,
-  dark,
-  isGradient,
-  color,
-}: {
-  item: (typeof NAV_ITEMS)[number];
-  collapsed: boolean;
-  dark: boolean;
-  isGradient: boolean;
-  color: string;
-}) {
-  const { ref: triggerRef, state: tooltipState, show, hide } = useTooltipPortal<HTMLAnchorElement>();
-  const named = isColorName(color);
-
-  return (
-    <div className={collapsed ? "flex w-full justify-center" : undefined}>
-      <a
-        ref={triggerRef}
-        href="#"
-        onMouseEnter={collapsed ? show : undefined}
-        onMouseLeave={collapsed ? hide : undefined}
-        onFocus={collapsed ? show : undefined}
-        onBlur={collapsed ? hide : undefined}
-        // A custom (non-ColorName) color has no fixed Tailwind class to draw
-        // from for the active pill's background — set it inline instead,
-        // translucent on a dark-ish variant like DARK_ACTIVE_BG's `/25`
-        // treatment, solid otherwise like ACTIVE_BG.
-        style={item.active && !named ? { backgroundColor: dark ? hexToRgba(color, 0.25) : color } : undefined}
-        className={`flex items-center rounded-lg py-2 text-sm transition-colors ${
-          // Little horizontal padding and no gap while collapsed: the
-          // row's only ~40px wide by then (Sidebar's own 72px rail,
-          // minus its body padding minus this nav's own padding) —
-          // `px-3 gap-2.5` on top of that pushes the link's min-content
-          // past its container width, so the active pill visibly
-          // overflows the rail's right edge instead of just showing the icon.
-          collapsed ? "w-fit justify-center px-2" : "w-full gap-2.5 px-3"
-        } ${
-          item.active
-            ? named
-              ? dark
-                ? `${DARK_ACTIVE_BG[color]} font-medium text-white`
-                : `${ACTIVE_BG[color]} font-medium text-white shadow-sm`
-              : dark
-                ? "font-medium text-white"
-                : "font-medium text-white shadow-sm"
-            : // A gradient background is saturated/colorful, not neutral like
-              // "dark"/"glass" — slate-based grey text reads as muddy against
-              // it, so it gets a lighter, white-based translucent tone instead.
-              isGradient
-              ? "text-white/75 hover:bg-white/10 hover:text-white"
-              : dark
-                ? "text-slate-400 hover:bg-white/5 hover:text-slate-200"
-                : "text-slate-600 hover:bg-slate-100"
-        }`}
-      >
-        <Icon name={item.icon} size={18} className="shrink-0" />
-        <span className="truncate" style={labelSlideStyle(collapsed)}>
-          {item.label}
-        </span>
-      </a>
-      {/* Portals out of the Sidebar's scrollable body instead of relying on
-          CSS overflow to escape it — so scrolling never has to be traded off
-          against an unclipped tooltip (see core/tooltipPortal.ts). */}
-      {collapsed &&
-        tooltipState &&
-        createPortal(
-          <span
-            role="tooltip"
-            style={{ position: "fixed", ...tooltipPortalPositionStyle(tooltipState.rect, "right") }}
-            className={cx(
-              "pointer-events-none whitespace-nowrap rounded-md bg-slate-900 px-2 py-1 text-xs font-medium text-white shadow-lg",
-              TOOLTIP_PORTAL_Z_CLASS
-            )}
-          >
-            {item.label}
-          </span>,
-          tooltipState.root
-        )}
-    </div>
-  );
-}
 
 export default function SidebarPlayground() {
   const [header, setHeader] = useState("Lojee Inc");
@@ -222,7 +92,9 @@ export default function SidebarPlayground() {
   const navRows = (
     <nav className="space-y-0.5 p-2">
       {NAV_ITEMS.map((item) => (
-        <NavRow key={item.label} item={item} collapsed={collapsed} dark={dark} isGradient={isGradient} color={color} />
+        <SidebarMenuItem key={item.label} icon={item.icon} active={item.active} collapsed={collapsed} dark={dark} color={color}>
+          {item.label}
+        </SidebarMenuItem>
       ))}
     </nav>
   );
@@ -262,6 +134,25 @@ export default function SidebarPlayground() {
   const collapsibleAttr = collapsible ? " collapsible" : "";
   const headerText = header || "Lojee Inc";
 
+  // `dark`/`color` have no attribute equivalent on Sidebar to detect
+  // automatically, so those still need passing to each SidebarMenuItem
+  // directly, mirroring whatever's given to Sidebar itself. `collapsed` is
+  // the exception — in real Web Component usage (js/vue/angular below),
+  // SidebarMenuItem finds its ancestor <l-sidebar> itself and mirrors its
+  // "collapsed" attribute automatically; only the React example still needs
+  // it passed explicitly, since there's no such DOM tag for it to find there.
+  const navDarkAttr = dark ? " dark" : "";
+  const navColorAttr = color !== "slate" ? ` color="${color}"` : "";
+  const navCollapsedAttrJsx = collapsed ? " collapsed" : "";
+  const navItemsJsx = NAV_ITEMS.map((item) => {
+    const activeAttr = item.active ? " active" : "";
+    return `  <SidebarMenuItem icon="${item.icon}"${activeAttr}${navCollapsedAttrJsx}${navDarkAttr}${navColorAttr}>${item.label}</SidebarMenuItem>`;
+  }).join("\n");
+  const navItemsMarkup = NAV_ITEMS.map((item) => {
+    const activeAttr = item.active ? " active" : "";
+    return `  <l-SidebarMenuItem icon="${item.icon}"${activeAttr}${navDarkAttr}${navColorAttr}>${item.label}</l-SidebarMenuItem>`;
+  }).join("\n");
+
   const code = `<Sidebar${widthAttrJsx}${collapsedAttr}${variantAttr}${colorAttr}${collapsibleAttr} onCollapsedChange={setCollapsed}>
   <SidebarHeader>
     {/* keep the logo mark always visible; only the text needs to react to
@@ -271,7 +162,7 @@ export default function SidebarPlayground() {
       {!collapsed && <span>${headerText}</span>}
     </div>
   </SidebarHeader>
-  <NavLinks />
+${navItemsJsx}
   <SidebarFooter>
     <div className="flex items-center gap-2">
       <Avatar initials="JD" size="sm" />
@@ -283,17 +174,17 @@ export default function SidebarPlayground() {
   // <SidebarHeader>/<SidebarFooter> are projected as light-DOM content via
   // slot="header"/slot="footer" — same treatment NotificationShowcase.tsx
   // gives `actions`.
-  const htmlMarkup = `<Sidebar${widthAttrHtml}${collapsedAttr}${variantAttr}${colorAttr}${collapsibleAttr}>
-  <SidebarHeader slot="header" class="flex items-center gap-2.5">
-    <span class="logo-box"><Icon name="zap" size={14}></Icon></span>
+  const htmlMarkup = `<l-Sidebar${widthAttrHtml}${collapsedAttr}${variantAttr}${colorAttr}${collapsibleAttr}>
+  <div slot="header" class="flex items-center gap-2.5">
+    <span class="logo-box"><l-Icon name="zap" size={14}></l-Icon></span>
     <span>${headerText}</span>
-  </SidebarHeader>
-  <!-- nav links -->
-  <SidebarFooter slot="footer" class="flex items-center gap-2">
-    <Avatar initials="JD" size="sm" />
+  </div>
+${navItemsMarkup}
+  <div slot="footer" class="flex items-center gap-2">
+    <l-Avatar initials="JD" size="sm" />
     <span>Jordan Diaz</span>
-  </SidebarFooter>
-</Sidebar>`;
+  </div>
+</l-Sidebar>`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,

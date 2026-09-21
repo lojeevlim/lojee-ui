@@ -23,13 +23,13 @@ export default function LoaderShowcase() {
           <CodeBlock
             variants={{
               react: `<Loader shape="text" lines={3} />`,
-              js: `<Loader shape="text" lines="3" />
+              js: `<l-Loader shape="text" lines="3" />
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <Loader shape="text" lines="3" />
+  <l-Loader shape="text" lines="3" />
 </template>
 
 <script setup>
@@ -43,7 +43,7 @@ import "lojee-ui/elements";
   selector: "app-loader-showcase",
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  template: \`<Loader shape="text" lines="3" />\`,
+  template: \`<l-Loader shape="text" lines="3" />\`,
 })
 export class LoaderShowcaseComponent {}`,
             }}
@@ -59,12 +59,12 @@ export class LoaderShowcaseComponent {}`,
           <CodeBlock
             variants={{
               react: `<Loader shape="circle" width={40} />`,
-              js: `<Loader shape="circle" width="40" />`,
+              js: `<l-Loader shape="circle" width="40" />`,
               vue: `<template>
-  <Loader shape="circle" width="40" />
+  <l-Loader shape="circle" width="40" />
 </template>`,
               angular: `<!-- reuses LoaderShowcaseComponent from above -->
-<Loader shape="circle" width="40" />`,
+<l-Loader shape="circle" width="40" />`,
             }}
           />
         </section>
@@ -75,12 +75,12 @@ export class LoaderShowcaseComponent {}`,
           <CodeBlock
             variants={{
               react: `<Loader shape="rect" height={120} />`,
-              js: `<Loader shape="rect" height="120" />`,
+              js: `<l-Loader shape="rect" height="120" />`,
               vue: `<template>
-  <Loader shape="rect" height="120" />
+  <l-Loader shape="rect" height="120" />
 </template>`,
               angular: `<!-- reuses LoaderShowcaseComponent from above -->
-<Loader shape="rect" height="120" />`,
+<l-Loader shape="rect" height="120" />`,
             }}
           />
         </section>
@@ -99,18 +99,18 @@ export class LoaderShowcaseComponent {}`,
               react: `<Loader shape="rect" variant="pulse" width={140} height={80} />
 <Loader shape="rect" variant="shimmer" width={140} height={80} />
 <Loader shape="rect" variant="none" width={140} height={80} />`,
-              js: `<Loader shape="rect" variant="pulse" width="140" height="80" />
-<Loader shape="rect" variant="shimmer" width="140" height="80" />
-<Loader shape="rect" variant="none" width="140" height="80" />`,
+              js: `<l-Loader shape="rect" variant="pulse" width="140" height="80" />
+<l-Loader shape="rect" variant="shimmer" width="140" height="80" />
+<l-Loader shape="rect" variant="none" width="140" height="80" />`,
               vue: `<template>
-  <Loader shape="rect" variant="pulse" width="140" height="80" />
-  <Loader shape="rect" variant="shimmer" width="140" height="80" />
-  <Loader shape="rect" variant="none" width="140" height="80" />
+  <l-Loader shape="rect" variant="pulse" width="140" height="80" />
+  <l-Loader shape="rect" variant="shimmer" width="140" height="80" />
+  <l-Loader shape="rect" variant="none" width="140" height="80" />
 </template>`,
               angular: `<!-- reuses LoaderShowcaseComponent from above -->
-<Loader shape="rect" variant="pulse" width="140" height="80" />
-<Loader shape="rect" variant="shimmer" width="140" height="80" />
-<Loader shape="rect" variant="none" width="140" height="80" />`,
+<l-Loader shape="rect" variant="pulse" width="140" height="80" />
+<l-Loader shape="rect" variant="shimmer" width="140" height="80" />
+<l-Loader shape="rect" variant="none" width="140" height="80" />`,
             }}
           />
         </section>
@@ -125,12 +125,12 @@ export class LoaderShowcaseComponent {}`,
           <CodeBlock
             variants={{
               react: `<Loader shape="text" variant="wave" lines={4} />`,
-              js: `<Loader shape="text" variant="wave" lines="4" />`,
+              js: `<l-Loader shape="text" variant="wave" lines="4" />`,
               vue: `<template>
-  <Loader shape="text" variant="wave" lines="4" />
+  <l-Loader shape="text" variant="wave" lines="4" />
 </template>`,
               angular: `<!-- reuses LoaderShowcaseComponent from above -->
-<Loader shape="text" variant="wave" lines="4" />`,
+<l-Loader shape="text" variant="wave" lines="4" />`,
             }}
           />
         </section>
@@ -150,19 +150,19 @@ export class LoaderShowcaseComponent {}`,
   <Loader shape="text" lines={2} />
 </div>`,
               js: `<div class="flex items-center gap-3">
-  <Loader shape="circle" width="40" />
-  <Loader shape="text" lines="2" />
+  <l-Loader shape="circle" width="40" />
+  <l-Loader shape="text" lines="2" />
 </div>`,
               vue: `<template>
   <div class="flex items-center gap-3">
-    <Loader shape="circle" width="40" />
-    <Loader shape="text" lines="2" />
+    <l-Loader shape="circle" width="40" />
+    <l-Loader shape="text" lines="2" />
   </div>
 </template>`,
               angular: `<!-- reuses LoaderShowcaseComponent from above -->
 <div class="flex items-center gap-3">
-  <Loader shape="circle" width="40" />
-  <Loader shape="text" lines="2" />
+  <l-Loader shape="circle" width="40" />
+  <l-Loader shape="text" lines="2" />
 </div>`,
             }}
           />

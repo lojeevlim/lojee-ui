@@ -30,28 +30,28 @@ export default function StatShowcase() {
   <Stat label="Conversion Rate" value="3.42%" />
   <Stat label="Churn Rate" value="1.08%" />
 </Grid>`,
-              js: `<Grid cols="4" gap="md">
-  <Stat label="Revenue" value="$48,290" />
-  <Stat label="Active Users" value="12,483" />
-  <Stat label="Conversion Rate" value="3.42%" />
-  <Stat label="Churn Rate" value="1.08%" />
-</Grid>
+              js: `<l-Grid cols="4" gap="md">
+  <l-Stat label="Revenue" value="$48,290" />
+  <l-Stat label="Active Users" value="12,483" />
+  <l-Stat label="Conversion Rate" value="3.42%" />
+  <l-Stat label="Churn Rate" value="1.08%" />
+</l-Grid>
 
 <script type="module">import "lojee-ui/elements";</script>`,
               vue: `<template>
-  <Grid cols="4" gap="md">
-    <Stat label="Revenue" value="$48,290" />
-    <Stat label="Active Users" value="12,483" />
-    <Stat label="Conversion Rate" value="3.42%" />
-    <Stat label="Churn Rate" value="1.08%" />
-  </Grid>
+  <l-Grid cols="4" gap="md">
+    <l-Stat label="Revenue" value="$48,290" />
+    <l-Stat label="Active Users" value="12,483" />
+    <l-Stat label="Conversion Rate" value="3.42%" />
+    <l-Stat label="Churn Rate" value="1.08%" />
+  </l-Grid>
 </template>`,
-              angular: `<Grid cols="4" gap="md">
-  <Stat label="Revenue" value="$48,290" />
-  <Stat label="Active Users" value="12,483" />
-  <Stat label="Conversion Rate" value="3.42%" />
-  <Stat label="Churn Rate" value="1.08%" />
-</Grid>`,
+              angular: `<l-Grid cols="4" gap="md">
+  <l-Stat label="Revenue" value="$48,290" />
+  <l-Stat label="Active Users" value="12,483" />
+  <l-Stat label="Conversion Rate" value="3.42%" />
+  <l-Stat label="Churn Rate" value="1.08%" />
+</l-Grid>`,
             }}
           />
         </section>
@@ -70,16 +70,16 @@ export default function StatShowcase() {
             variants={{
               react: `<Stat label="Revenue" value="$48,290" change="12.5%" trend="up" />
 <Stat label="Churn Rate" value="1.08%" change="0.3%" trend="down" />`,
-              js: `<Stat label="Revenue" value="$48,290" change="12.5%" trend="up" />
-<Stat label="Churn Rate" value="1.08%" change="0.3%" trend="down" />
+              js: `<l-Stat label="Revenue" value="$48,290" change="12.5%" trend="up" />
+<l-Stat label="Churn Rate" value="1.08%" change="0.3%" trend="down" />
 
 <script type="module">import "lojee-ui/elements";</script>`,
               vue: `<template>
-  <Stat label="Revenue" value="$48,290" change="12.5%" trend="up" />
-  <Stat label="Churn Rate" value="1.08%" change="0.3%" trend="down" />
+  <l-Stat label="Revenue" value="$48,290" change="12.5%" trend="up" />
+  <l-Stat label="Churn Rate" value="1.08%" change="0.3%" trend="down" />
 </template>`,
-              angular: `<Stat label="Revenue" value="$48,290" change="12.5%" trend="up" />
-<Stat label="Churn Rate" value="1.08%" change="0.3%" trend="down" />`,
+              angular: `<l-Stat label="Revenue" value="$48,290" change="12.5%" trend="up" />
+<l-Stat label="Churn Rate" value="1.08%" change="0.3%" trend="down" />`,
             }}
           />
         </section>
@@ -102,13 +102,13 @@ export default function StatShowcase() {
   icon="zap"
   color="indigo"
 />`,
-              js: `<Stat label="Revenue" value="$48,290" change="12.5%" trend="up" icon="zap" color="indigo" />
+              js: `<l-Stat label="Revenue" value="$48,290" change="12.5%" trend="up" icon="zap" color="indigo" />
 
 <script type="module">import "lojee-ui/elements";</script>`,
               vue: `<template>
-  <Stat label="Revenue" value="$48,290" change="12.5%" trend="up" icon="zap" color="indigo" />
+  <l-Stat label="Revenue" value="$48,290" change="12.5%" trend="up" icon="zap" color="indigo" />
 </template>`,
-              angular: `<Stat label="Revenue" value="$48,290" change="12.5%" trend="up" icon="zap" color="indigo" />`,
+              angular: `<l-Stat label="Revenue" value="$48,290" change="12.5%" trend="up" icon="zap" color="indigo" />`,
             }}
           />
         </section>
@@ -126,11 +126,11 @@ export default function StatShowcase() {
           <CodeBlock
             variants={{
               react: `<Stat label="Violet" value="256" icon="zap" color="violet" />`,
-              js: `<Stat label="Violet" value="256" icon="zap" color="violet" />`,
+              js: `<l-Stat label="Violet" value="256" icon="zap" color="violet" />`,
               vue: `<template>
-  <Stat label="Violet" value="256" icon="zap" color="violet" />
+  <l-Stat label="Violet" value="256" icon="zap" color="violet" />
 </template>`,
-              angular: `<Stat label="Violet" value="256" icon="zap" color="violet" />`,
+              angular: `<l-Stat label="Violet" value="256" icon="zap" color="violet" />`,
             }}
           />
         </section>

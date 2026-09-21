@@ -39,20 +39,20 @@ export default function AlertShowcase() {
 <Alert variant="success" title="Saved">Your changes have been saved.</Alert>
 <Alert variant="warning" title="Careful">This action may have unintended side effects.</Alert>
 <Alert variant="error" title="Something went wrong">We couldn't process your request. Please try again.</Alert>`,
-              js: `<Alert variant="info" title="Heads up">This is an informational message.</Alert>
-<Alert variant="success" title="Saved">Your changes have been saved.</Alert>
-<Alert variant="warning" title="Careful">This action may have unintended side effects.</Alert>
-<Alert variant="error" title="Something went wrong">We couldn't process your request. Please try again.</Alert>
+              js: `<l-Alert variant="info" title="Heads up">This is an informational message.</l-Alert>
+<l-Alert variant="success" title="Saved">Your changes have been saved.</l-Alert>
+<l-Alert variant="warning" title="Careful">This action may have unintended side effects.</l-Alert>
+<l-Alert variant="error" title="Something went wrong">We couldn't process your request. Please try again.</l-Alert>
 
 <script type="module">import "lojee-ui/elements";</script>`,
-              vue: `<Alert variant="info" title="Heads up">This is an informational message.</Alert>
-<Alert variant="success" title="Saved">Your changes have been saved.</Alert>
-<Alert variant="warning" title="Careful">This action may have unintended side effects.</Alert>
-<Alert variant="error" title="Something went wrong">We couldn't process your request. Please try again.</Alert>`,
-              angular: `<Alert variant="info" title="Heads up">This is an informational message.</Alert>
-<Alert variant="success" title="Saved">Your changes have been saved.</Alert>
-<Alert variant="warning" title="Careful">This action may have unintended side effects.</Alert>
-<Alert variant="error" title="Something went wrong">We couldn't process your request. Please try again.</Alert>`,
+              vue: `<l-Alert variant="info" title="Heads up">This is an informational message.</l-Alert>
+<l-Alert variant="success" title="Saved">Your changes have been saved.</l-Alert>
+<l-Alert variant="warning" title="Careful">This action may have unintended side effects.</l-Alert>
+<l-Alert variant="error" title="Something went wrong">We couldn't process your request. Please try again.</l-Alert>`,
+              angular: `<l-Alert variant="info" title="Heads up">This is an informational message.</l-Alert>
+<l-Alert variant="success" title="Saved">Your changes have been saved.</l-Alert>
+<l-Alert variant="warning" title="Careful">This action may have unintended side effects.</l-Alert>
+<l-Alert variant="error" title="Something went wrong">We couldn't process your request. Please try again.</l-Alert>`,
             }}
           />
         </section>
@@ -63,11 +63,11 @@ export default function AlertShowcase() {
           <CodeBlock
             variants={{
               react: `<Alert variant="info">A new version is available. Refresh to update.</Alert>`,
-              js: `<Alert variant="info">A new version is available. Refresh to update.</Alert>
+              js: `<l-Alert variant="info">A new version is available. Refresh to update.</l-Alert>
 
 <script type="module">import "lojee-ui/elements";</script>`,
-              vue: `<Alert variant="info">A new version is available. Refresh to update.</Alert>`,
-              angular: `<Alert variant="info">A new version is available. Refresh to update.</Alert>`,
+              vue: `<l-Alert variant="info">A new version is available. Refresh to update.</l-Alert>`,
+              angular: `<l-Alert variant="info">A new version is available. Refresh to update.</l-Alert>`,
             }}
           />
         </section>
@@ -96,9 +96,9 @@ export default function AlertShowcase() {
     You have unsaved changes that will be lost if you navigate away.
   </Alert>
 )}`,
-              js: `<Alert variant="warning" title="Unsaved changes" closable id="unsaved-alert">
+              js: `<l-Alert variant="warning" title="Unsaved changes" closable id="unsaved-alert">
   You have unsaved changes that will be lost if you navigate away.
-</Alert>
+</l-Alert>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -107,7 +107,7 @@ export default function AlertShowcase() {
     .addEventListener("close", (e) => { e.target.remove(); });
 </script>`,
               vue: `<template>
-  <Alert
+  <l-Alert
     v-if="visible"
     variant="warning"
     title="Unsaved changes"
@@ -115,7 +115,7 @@ export default function AlertShowcase() {
     @close="visible = false"
   >
     You have unsaved changes that will be lost if you navigate away.
-  </Alert>
+  </l-Alert>
 </template>
 
 <script setup>
@@ -124,7 +124,7 @@ import "lojee-ui/elements";
 
 const visible = ref(true);
 </script>`,
-              angular: `<Alert
+              angular: `<l-Alert
   *ngIf="visible"
   variant="warning"
   title="Unsaved changes"
@@ -132,7 +132,7 @@ const visible = ref(true);
   (close)="visible = false"
 >
   You have unsaved changes that will be lost if you navigate away.
-</Alert>`,
+</l-Alert>`,
             }}
           />
         </section>
@@ -155,26 +155,26 @@ const visible = ref(true);
 <Alert variant="info" title="No icon" icon={false}>
   This alert renders without a leading icon.
 </Alert>`,
-              js: `<Alert variant="info" title="New feature" icon="bell">
+              js: `<l-Alert variant="info" title="New feature" icon="bell">
   We just shipped keyboard shortcuts. Press "?" to see them.
-</Alert>
-<Alert variant="info" title="No icon" icon="false">
+</l-Alert>
+<l-Alert variant="info" title="No icon" icon="false">
   This alert renders without a leading icon.
-</Alert>
+</l-Alert>
 
 <script type="module">import "lojee-ui/elements";</script>`,
-              vue: `<Alert variant="info" title="New feature" icon="bell">
+              vue: `<l-Alert variant="info" title="New feature" icon="bell">
   We just shipped keyboard shortcuts. Press "?" to see them.
-</Alert>
-<Alert variant="info" title="No icon" :icon="false">
+</l-Alert>
+<l-Alert variant="info" title="No icon" :icon="false">
   This alert renders without a leading icon.
-</Alert>`,
-              angular: `<Alert variant="info" title="New feature" icon="bell">
+</l-Alert>`,
+              angular: `<l-Alert variant="info" title="New feature" icon="bell">
   We just shipped keyboard shortcuts. Press "?" to see them.
-</Alert>
-<Alert variant="info" title="No icon" [icon]="false">
+</l-Alert>
+<l-Alert variant="info" title="No icon" [icon]="false">
   This alert renders without a leading icon.
-</Alert>`,
+</l-Alert>`,
             }}
           />
         </section>
@@ -203,9 +203,9 @@ const visible = ref(true);
 >
   This alert's border, background, and icon pick up custom colors via classNames.
 </Alert>`,
-              js: `<Alert id="styled-alert" variant="info" heading="Styled alert">
+              js: `<l-Alert id="styled-alert" variant="info" heading="Styled alert">
   This alert's border, background, and icon pick up custom colors via classNames.
-</Alert>
+</l-Alert>
 
 <script type="module">
   document.getElementById("styled-alert").classNames = {
@@ -214,9 +214,9 @@ const visible = ref(true);
   };
 </script>`,
               vue: `<template>
-  <Alert variant="info" heading="Styled alert" :classNames="alertClassNames">
+  <l-Alert variant="info" heading="Styled alert" :classNames="alertClassNames">
     This alert's border, background, and icon pick up custom colors via classNames.
-  </Alert>
+  </l-Alert>
 </template>
 
 <script setup>
@@ -225,9 +225,9 @@ const alertClassNames = {
   icon: "text-indigo-500",
 };
 </script>`,
-              angular: `<Alert variant="info" heading="Styled alert" [classNames]="alertClassNames">
+              angular: `<l-Alert variant="info" heading="Styled alert" [classNames]="alertClassNames">
   This alert's border, background, and icon pick up custom colors via classNames.
-</Alert>
+</l-Alert>
 
 alertClassNames = {
   root: "border-indigo-200 bg-indigo-50 text-indigo-900",

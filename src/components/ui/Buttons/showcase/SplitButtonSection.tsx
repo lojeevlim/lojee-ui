@@ -15,13 +15,13 @@ export function SplitButtonSection() {
       <CodeBlock
         variants={{
           react: `<SplitButton icon="check" label="Approve" />`,
-          js: `<SplitButton icon="check" label="Approve" />
+          js: `<l-SplitButton icon="check" label="Approve" />
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
           vue: `<template>
-  <SplitButton icon="check" label="Approve" />
+  <l-SplitButton icon="check" label="Approve" />
 </template>
 
 <script setup>
@@ -35,7 +35,7 @@ import "lojee-ui/elements";
   selector: "app-split-button-showcase",
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  template: \`<SplitButton icon="check" label="Approve" />\`,
+  template: \`<l-SplitButton icon="check" label="Approve" />\`,
 })
 export class SplitButtonShowcaseComponent {}`,
         }}
@@ -57,21 +57,21 @@ export class SplitButtonShowcaseComponent {}`,
 <SplitButton icon="check" label="Approve" shape="pill" />
 <SplitButton icon="check" label="Approve" shape="square" />
 <SplitButton icon="download" label="Export" menuIcon="more-vertical" />`,
-            js: `<SplitButton icon="check" label="Approve" shape="default" />
-<SplitButton icon="check" label="Approve" shape="pill" />
-<SplitButton icon="check" label="Approve" shape="square" />
-<SplitButton icon="download" label="Export" menuIcon="more-vertical" />`,
+            js: `<l-SplitButton icon="check" label="Approve" shape="default" />
+<l-SplitButton icon="check" label="Approve" shape="pill" />
+<l-SplitButton icon="check" label="Approve" shape="square" />
+<l-SplitButton icon="download" label="Export" menuIcon="more-vertical" />`,
             vue: `<template>
-  <SplitButton icon="check" label="Approve" shape="default" />
-  <SplitButton icon="check" label="Approve" shape="pill" />
-  <SplitButton icon="check" label="Approve" shape="square" />
-  <SplitButton icon="download" label="Export" menuIcon="more-vertical" />
+  <l-SplitButton icon="check" label="Approve" shape="default" />
+  <l-SplitButton icon="check" label="Approve" shape="pill" />
+  <l-SplitButton icon="check" label="Approve" shape="square" />
+  <l-SplitButton icon="download" label="Export" menuIcon="more-vertical" />
 </template>`,
             angular: `<!-- reuses SplitButtonShowcaseComponent from above -->
-<SplitButton icon="check" label="Approve" shape="default" />
-<SplitButton icon="check" label="Approve" shape="pill" />
-<SplitButton icon="check" label="Approve" shape="square" />
-<SplitButton icon="download" label="Export" menuIcon="more-vertical" />`,
+<l-SplitButton icon="check" label="Approve" shape="default" />
+<l-SplitButton icon="check" label="Approve" shape="pill" />
+<l-SplitButton icon="check" label="Approve" shape="square" />
+<l-SplitButton icon="download" label="Export" menuIcon="more-vertical" />`,
           }}
         />
       </div>
@@ -102,12 +102,12 @@ export class SplitButtonShowcaseComponent {}`,
   <SplitButtonMenuItem icon="image" onClick={() => exportAs("png")}>Export as PNG</SplitButtonMenuItem>
   <SplitButtonMenuItem disabled>Cancel</SplitButtonMenuItem>
 </SplitButton>`,
-            js: `<SplitButton icon="download" label="Export" color="indigo">
-  <SplitButtonMenuItem icon="file" id="export-pdf">Export as PDF</SplitButtonMenuItem>
-  <SplitButtonMenuItem icon="list" id="export-csv">Export as CSV</SplitButtonMenuItem>
-  <SplitButtonMenuItem icon="image" id="export-png">Export as PNG</SplitButtonMenuItem>
-  <SplitButtonMenuItem disabled>Cancel</SplitButtonMenuItem>
-</SplitButton>
+            js: `<l-SplitButton icon="download" label="Export" color="indigo">
+  <l-SplitButtonMenuItem icon="file" id="export-pdf">Export as PDF</l-SplitButtonMenuItem>
+  <l-SplitButtonMenuItem icon="list" id="export-csv">Export as CSV</l-SplitButtonMenuItem>
+  <l-SplitButtonMenuItem icon="image" id="export-png">Export as PNG</l-SplitButtonMenuItem>
+  <l-SplitButtonMenuItem disabled>Cancel</l-SplitButtonMenuItem>
+</l-SplitButton>
 
 <script type="module">
   document.getElementById("export-pdf").addEventListener("click", () => exportAs("pdf"));
@@ -115,20 +115,20 @@ export class SplitButtonShowcaseComponent {}`,
   document.getElementById("export-png").addEventListener("click", () => exportAs("png"));
 </script>`,
             vue: `<template>
-  <SplitButton icon="download" label="Export" color="indigo">
-    <SplitButtonMenuItem icon="file" @click="exportAs('pdf')">Export as PDF</SplitButtonMenuItem>
-    <SplitButtonMenuItem icon="list" @click="exportAs('csv')">Export as CSV</SplitButtonMenuItem>
-    <SplitButtonMenuItem icon="image" @click="exportAs('png')">Export as PNG</SplitButtonMenuItem>
-    <SplitButtonMenuItem disabled>Cancel</SplitButtonMenuItem>
-  </SplitButton>
+  <l-SplitButton icon="download" label="Export" color="indigo">
+    <l-SplitButtonMenuItem icon="file" @click="exportAs('pdf')">Export as PDF</l-SplitButtonMenuItem>
+    <l-SplitButtonMenuItem icon="list" @click="exportAs('csv')">Export as CSV</l-SplitButtonMenuItem>
+    <l-SplitButtonMenuItem icon="image" @click="exportAs('png')">Export as PNG</l-SplitButtonMenuItem>
+    <l-SplitButtonMenuItem disabled>Cancel</l-SplitButtonMenuItem>
+  </l-SplitButton>
 </template>`,
             angular: `<!-- reuses SplitButtonShowcaseComponent from above -->
-<SplitButton icon="download" label="Export" color="indigo">
-  <SplitButtonMenuItem icon="file" (click)="exportAs('pdf')">Export as PDF</SplitButtonMenuItem>
-  <SplitButtonMenuItem icon="list" (click)="exportAs('csv')">Export as CSV</SplitButtonMenuItem>
-  <SplitButtonMenuItem icon="image" (click)="exportAs('png')">Export as PNG</SplitButtonMenuItem>
-  <SplitButtonMenuItem disabled>Cancel</SplitButtonMenuItem>
-</SplitButton>`,
+<l-SplitButton icon="download" label="Export" color="indigo">
+  <l-SplitButtonMenuItem icon="file" (click)="exportAs('pdf')">Export as PDF</l-SplitButtonMenuItem>
+  <l-SplitButtonMenuItem icon="list" (click)="exportAs('csv')">Export as CSV</l-SplitButtonMenuItem>
+  <l-SplitButtonMenuItem icon="image" (click)="exportAs('png')">Export as PNG</l-SplitButtonMenuItem>
+  <l-SplitButtonMenuItem disabled>Cancel</l-SplitButtonMenuItem>
+</l-SplitButton>`,
           }}
         />
       </div>

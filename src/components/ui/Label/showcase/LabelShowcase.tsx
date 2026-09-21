@@ -22,15 +22,15 @@ export default function LabelShowcase() {
             variants={{
               react: `<Label htmlFor="email">Email address</Label>
 <Input id="email" placeholder="you@example.com" />`,
-              js: `<Label htmlFor="email">Email address</Label>
-<Input id="email" placeholder="you@example.com" />
+              js: `<l-Label htmlFor="email">Email address</l-Label>
+<l-Input id="email" placeholder="you@example.com" />
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <Label htmlFor="email">Email address</Label>
-  <Input id="email" placeholder="you@example.com" />
+  <l-Label htmlFor="email">Email address</l-Label>
+  <l-Input id="email" placeholder="you@example.com" />
 </template>
 
 <script setup>
@@ -45,8 +45,8 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <Label htmlFor="email">Email address</Label>
-    <Input id="email" placeholder="you@example.com" />
+    <l-Label htmlFor="email">Email address</l-Label>
+    <l-Input id="email" placeholder="you@example.com" />
   \`,
 })
 export class AppComponent {}`,
@@ -66,15 +66,15 @@ export class AppComponent {}`,
             variants={{
               react: `<Label htmlFor="name" required>Full name</Label>
 <Input id="name" placeholder="Jane Doe" />`,
-              js: `<Label htmlFor="name" required>Full name</Label>
-<Input id="name" placeholder="Jane Doe" />`,
+              js: `<l-Label htmlFor="name" required>Full name</l-Label>
+<l-Input id="name" placeholder="Jane Doe" />`,
               vue: `<template>
-  <Label htmlFor="name" required>Full name</Label>
-  <Input id="name" placeholder="Jane Doe" />
+  <l-Label htmlFor="name" required>Full name</l-Label>
+  <l-Input id="name" placeholder="Jane Doe" />
 </template>`,
               angular: `<!-- app.component.html — same AppComponent as above -->
-<Label htmlFor="name" required>Full name</Label>
-<Input id="name" placeholder="Jane Doe" />`,
+<l-Label htmlFor="name" required>Full name</l-Label>
+<l-Input id="name" placeholder="Jane Doe" />`,
             }}
           />
         </section>

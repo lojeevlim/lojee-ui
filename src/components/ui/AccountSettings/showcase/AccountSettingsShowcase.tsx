@@ -53,7 +53,7 @@ export default function AccountSettingsShowcase() {
   onNotificationsChange={setNotifications}
   onDeleteAccount={() => deleteAccount()}
 />`,
-              js: `<AccountSettings id="account-settings" email="jordan@lojee.io"></AccountSettings>
+              js: `<l-AccountSettings id="account-settings" email="jordan@lojee.io"></l-AccountSettings>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -69,7 +69,7 @@ export default function AccountSettingsShowcase() {
   el.addEventListener("deleteAccount", () => { /* confirm + delete */ });
 </script>`,
               vue: `<template>
-  <AccountSettings
+  <l-AccountSettings
     email="jordan@lojee.io"
     :notifications="notifications"
     @emailChange="onEmailChange"
@@ -89,14 +89,14 @@ function onEmailChange(email) { /* save */ }
 function onPasswordChange(current, next) { /* change */ }
 function onDeleteAccount() { /* confirm + delete */ }
 </script>`,
-              angular: `<AccountSettings
+              angular: `<l-AccountSettings
   email="jordan@lojee.io"
   [notifications]="notifications"
   (emailChange)="onEmailChange($event)"
   (passwordChange)="onPasswordChange($event)"
   (notificationsChange)="notifications = $event"
   (deleteAccount)="onDeleteAccount()"
-></AccountSettings>
+></l-AccountSettings>
 
 notifications = [
   { key: "product", label: "Product updates", enabled: true },

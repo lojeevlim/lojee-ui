@@ -56,8 +56,8 @@ export default function DatePickerPlayground() {
 
   const htmlMarkup =
     layout === "range"
-      ? `<DateRangePicker size="${size}"${wcOptionalAttrs} startValue="${start}" endValue="${end}" />`
-      : `<DatePicker size="${size}"${wcOptionalAttrs} />`;
+      ? `<l-DateRangePicker size="${size}"${wcOptionalAttrs} startValue="${start}" endValue="${end}" />`
+      : `<l-DatePicker size="${size}"${wcOptionalAttrs} />`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,

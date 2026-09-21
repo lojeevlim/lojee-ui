@@ -187,12 +187,12 @@ export default function ButtonPlayground() {
   const htmlMarkup = (() => {
     if (layout === "icon") {
       const shapeAttr = shape !== "default" ? ` shape="${shape}"` : "";
-      return `<Button icon="${iconKey}" iconOnly variant="${variant}" color="${color}" size="${size}"${shapeAttr} label="${label || "Icon button"}" />`;
+      return `<l-Button icon="${iconKey}" iconOnly variant="${variant}" color="${color}" size="${size}"${shapeAttr} label="${label || "Icon button"}" />`;
     }
     if (layout === "group") {
       const shapeAttr = shape !== "default" ? ` shape="${shape}"` : "";
       const colorAttr = color !== "slate" ? ` color="${color}"` : "";
-      return `<ButtonGroup${shapeAttr}>\n  <SegmentButton active${colorAttr}>${label || "One"}</SegmentButton>\n  <SegmentButton${colorAttr}>Two</SegmentButton>\n  <SegmentButton${colorAttr}>Three</SegmentButton>\n</ButtonGroup>`;
+      return `<l-ButtonGroup${shapeAttr}>\n  <l-SegmentButton active${colorAttr}>${label || "One"}</l-SegmentButton>\n  <l-SegmentButton${colorAttr}>Two</l-SegmentButton>\n  <l-SegmentButton${colorAttr}>Three</l-SegmentButton>\n</l-ButtonGroup>`;
     }
     if (layout === "split") {
       const shapeAttr = shape !== "default" ? ` shape="${shape}"` : "";
@@ -201,14 +201,14 @@ export default function ButtonPlayground() {
         const itemsCode = menuItems
           .map((item) => {
             const iconAttr = item.icon ? ` icon="${item.icon}"` : "";
-            return `  <SplitButtonMenuItem${iconAttr}>${item.label}</SplitButtonMenuItem>`;
+            return `  <l-SplitButtonMenuItem${iconAttr}>${item.label}</l-SplitButtonMenuItem>`;
           })
           .join("\n");
-        return `<SplitButton\n  icon="check"\n  label="${label || "Approve"}"\n  color="${color}"\n  size="${size}"${shapeAttr}${menuIconAttr}\n>\n${itemsCode}\n</SplitButton>`;
+        return `<l-SplitButton\n  icon="check"\n  label="${label || "Approve"}"\n  color="${color}"\n  size="${size}"${shapeAttr}${menuIconAttr}\n>\n${itemsCode}\n</l-SplitButton>`;
       }
-      return `<SplitButton icon="check" label="${label || "Approve"}" color="${color}" size="${size}"${shapeAttr}${menuIconAttr} />`;
+      return `<l-SplitButton icon="check" label="${label || "Approve"}" color="${color}" size="${size}"${shapeAttr}${menuIconAttr} />`;
     }
-    return `<Button variant="${variant}" color="${color}"${
+    return `<l-Button variant="${variant}" color="${color}"${
       variant === "gradient" ? ` gradientTo="${gradientTo}"` : ""
     } size="${size}"${shape !== "default" ? ` shape="${shape}"` : ""} icon="${iconKey}"${
       iconPosition === "right" ? ` iconPosition="right"` : ""

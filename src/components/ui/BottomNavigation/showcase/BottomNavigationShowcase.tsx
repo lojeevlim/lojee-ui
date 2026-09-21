@@ -36,7 +36,7 @@ export default function BottomNavigationShowcase() {
     { icon: "user", label: "Profile" },
   ]}
 />`,
-              js: `<BottomNavigation id="bottom-nav-basic" />
+              js: `<l-BottomNavigation id="bottom-nav-basic" />
 
 <script type="module">
   import "lojee-ui/elements";
@@ -49,7 +49,7 @@ export default function BottomNavigationShowcase() {
   ];
 </script>`,
               vue: `<template>
-  <BottomNavigation :items="items" />
+  <l-BottomNavigation :items="items" />
 </template>
 
 <script setup>
@@ -70,7 +70,7 @@ import "lojee-ui/elements";
   selector: "app-root",
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  template: \`<BottomNavigation [items]="items" />\`,
+  template: \`<l-BottomNavigation [items]="items" />\`,
 })
 export class AppComponent {
   items = [
@@ -107,7 +107,7 @@ export class AppComponent {
     { icon: "user", label: "Profile" },
   ]}
 />`,
-              js: `<BottomNavigation id="bottom-nav-badge" />
+              js: `<l-BottomNavigation id="bottom-nav-badge" />
 
 <script type="module">
   document.getElementById("bottom-nav-badge").items = [
@@ -118,7 +118,7 @@ export class AppComponent {
   ];
 </script>`,
               vue: `<template>
-  <BottomNavigation :items="items" />
+  <l-BottomNavigation :items="items" />
 </template>
 
 <script setup>
@@ -138,7 +138,7 @@ items = [
 ];
 
 // app.component.html
-<BottomNavigation [items]="items" />`,
+<l-BottomNavigation [items]="items" />`,
             }}
           />
         </section>

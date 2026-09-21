@@ -24,13 +24,13 @@ export default function DividerShowcase() {
           <CodeBlock
             variants={{
               react: `<Divider />`,
-              js: `<Divider />
+              js: `<l-Divider />
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <Divider />
+  <l-Divider />
 </template>
 
 <script setup>
@@ -44,7 +44,7 @@ import "lojee-ui/elements";
   selector: "app-divider-showcase",
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  template: \`<Divider />\`,
+  template: \`<l-Divider />\`,
 })
 export class DividerShowcaseComponent {}`,
             }}
@@ -57,12 +57,12 @@ export class DividerShowcaseComponent {}`,
           <CodeBlock
             variants={{
               react: `<Divider label="OR" />`,
-              js: `<Divider label="OR" />`,
+              js: `<l-Divider label="OR" />`,
               vue: `<template>
-  <Divider label="OR" />
+  <l-Divider label="OR" />
 </template>`,
               angular: `<!-- reuses DividerShowcaseComponent from above -->
-<Divider label="OR" />`,
+<l-Divider label="OR" />`,
             }}
           />
         </section>
@@ -77,12 +77,12 @@ export class DividerShowcaseComponent {}`,
           <CodeBlock
             variants={{
               react: `<Divider orientation="vertical" />`,
-              js: `<Divider orientation="vertical" />`,
+              js: `<l-Divider orientation="vertical" />`,
               vue: `<template>
-  <Divider orientation="vertical" />
+  <l-Divider orientation="vertical" />
 </template>`,
               angular: `<!-- reuses DividerShowcaseComponent from above -->
-<Divider orientation="vertical" />`,
+<l-Divider orientation="vertical" />`,
             }}
           />
         </section>
@@ -96,12 +96,12 @@ export class DividerShowcaseComponent {}`,
           <CodeBlock
             variants={{
               react: `<Divider color="indigo" label="Indigo" />`,
-              js: `<Divider color="indigo" label="Indigo" />`,
+              js: `<l-Divider color="indigo" label="Indigo" />`,
               vue: `<template>
-  <Divider color="indigo" label="Indigo" />
+  <l-Divider color="indigo" label="Indigo" />
 </template>`,
               angular: `<!-- reuses DividerShowcaseComponent from above -->
-<Divider color="indigo" label="Indigo" />`,
+<l-Divider color="indigo" label="Indigo" />`,
             }}
           />
         </section>
@@ -149,7 +149,7 @@ export class DividerShowcaseComponent {}`,
 </div>`,
               js: `<div class="flex">
   <div id="left-panel" style="width: 180px">...</div>
-  <Divider id="resize-divider" orientation="vertical" resizable />
+  <l-Divider id="resize-divider" orientation="vertical" resizable />
   <div class="flex-1">...</div>
 </div>
 
@@ -163,7 +163,7 @@ export class DividerShowcaseComponent {}`,
               vue: `<template>
   <div class="flex">
     <div :style="{ width: leftWidth + 'px' }">...</div>
-    <Divider
+    <l-Divider
       orientation="vertical"
       resizable
       @resize="leftWidth += $event.detail"
@@ -180,7 +180,7 @@ const leftWidth = ref(180);
               angular: `<!-- reuses DividerShowcaseComponent from above -->
 <div class="flex">
   <div [style.width.px]="leftWidth">...</div>
-  <Divider
+  <l-Divider
     orientation="vertical"
     resizable
     (resize)="leftWidth = leftWidth + $event.detail"

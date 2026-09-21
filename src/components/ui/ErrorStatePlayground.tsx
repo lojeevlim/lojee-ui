@@ -46,10 +46,10 @@ export default function ErrorStatePlayground() {
     : `<ErrorState${titleAttr}${iconAttr} />`;
 
   const htmlMarkup = hasBody
-    ? `<ErrorState${titleAttr}${iconAttr}>${description ? `\n  ${description}` : ""}${
-        showAction ? `\n  <Button slot="action" variant="destructive" icon="refresh-cw" label="Retry" id="retry-btn" />` : ""
-      }\n</ErrorState>`
-    : `<ErrorState${titleAttr}${iconAttr} />`;
+    ? `<l-ErrorState${titleAttr}${iconAttr}>${description ? `\n  ${description}` : ""}${
+        showAction ? `\n  <l-Button slot="action" variant="destructive" icon="refresh-cw" label="Retry" id="retry-btn" />` : ""
+      }\n</l-ErrorState>`
+    : `<l-ErrorState${titleAttr}${iconAttr} />`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,

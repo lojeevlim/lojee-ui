@@ -40,11 +40,17 @@ export default function StatPlayground() {
 
   const code = `<Stat label="${labelValue}" value="${valueValue}"${changeAttr}${trendAttr}${iconAttr}${colorAttr} />`;
 
+  // Custom-element markup for the js/vue/angular tabs — identical to `code`
+  // above except for the tag name, since Vue/Angular/plain HTML can only
+  // ever consume the real `<l-Stat>` custom element, never the bare
+  // PascalCase tag React uses.
+  const htmlMarkup = `<l-Stat label="${labelValue}" value="${valueValue}"${changeAttr}${trendAttr}${iconAttr}${colorAttr} />`;
+
   const codeVariants: CodeBlockVariants = {
     react: code,
-    js: `${code}\n\n<script type="module">import "lojee-ui/elements";</script>`,
-    vue: code,
-    angular: code,
+    js: `${htmlMarkup}\n\n<script type="module">import "lojee-ui/elements";</script>`,
+    vue: htmlMarkup,
+    angular: htmlMarkup,
   };
 
   return (

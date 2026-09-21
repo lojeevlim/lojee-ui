@@ -38,7 +38,7 @@ export default function ComboboxShowcase() {
               react: `const [value, setValue] = useState<string | undefined>("manila");
 
 <Combobox options={options} value={value} onChange={setValue} placeholder="Search a city..." />`,
-              js: `<Combobox id="city-combobox" placeholder="Search a city..." />
+              js: `<l-Combobox id="city-combobox" placeholder="Search a city..." />
 
 <script type="module">
   import "lojee-ui/elements";
@@ -62,7 +62,7 @@ export default function ComboboxShowcase() {
   });
 </script>`,
               vue: `<template>
-  <Combobox :options="options" :value="value" placeholder="Search a city..." @change="value = $event.detail" />
+  <l-Combobox :options="options" :value="value" placeholder="Search a city..." @change="value = $event.detail" />
 </template>
 
 <script setup>
@@ -105,7 +105,7 @@ export class AppComponent {
 }
 
 <!-- app.component.html -->
-<Combobox [options]="options" [value]="value" placeholder="Search a city..." (change)="value = $event.detail" />`,
+<l-Combobox [options]="options" [value]="value" placeholder="Search a city..." (change)="value = $event.detail" />`,
             }}
           />
         </section>
@@ -118,7 +118,7 @@ export class AppComponent {
           <CodeBlock
             variants={{
               react: `<Combobox options={options} value={undefined} onChange={setValue} placeholder="Search a city..." />`,
-              js: `<Combobox id="city-combobox-empty" placeholder="Search a city..." />
+              js: `<l-Combobox id="city-combobox-empty" placeholder="Search a city..." />
 
 <script type="module">
   const combobox = document.getElementById("city-combobox-empty");
@@ -128,10 +128,10 @@ export class AppComponent {
   });
 </script>`,
               vue: `<template>
-  <Combobox :options="options" placeholder="Search a city..." @change="value = $event.detail" />
+  <l-Combobox :options="options" placeholder="Search a city..." @change="value = $event.detail" />
 </template>`,
               angular: `<!-- app.component.html — same AppComponent class as above, value left undefined -->
-<Combobox [options]="options" placeholder="Search a city..." (change)="value = $event.detail" />`,
+<l-Combobox [options]="options" placeholder="Search a city..." (change)="value = $event.detail" />`,
             }}
           />
         </section>

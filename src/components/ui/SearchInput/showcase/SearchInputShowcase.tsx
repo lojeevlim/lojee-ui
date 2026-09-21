@@ -34,7 +34,7 @@ export default function SearchInputShowcase() {
   onClear={() => setQuery("")}
   placeholder="Search…"
 />`,
-              js: `<SearchInput id="search" placeholder="Search…" />
+              js: `<l-SearchInput id="search" placeholder="Search…" />
 
 <script type="module">
   import "lojee-ui/elements";
@@ -45,7 +45,7 @@ export default function SearchInputShowcase() {
   search.addEventListener("clear", () => { search.value = ""; });
 </script>`,
               vue: `<template>
-  <SearchInput
+  <l-SearchInput
     :value="query"
     @input="query = $event.target.value"
     @clear="query = ''"
@@ -68,7 +68,7 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <SearchInput
+    <l-SearchInput
       [value]="query"
       (input)="query = $any($event.target).value"
       (clear)="query = ''"
@@ -95,18 +95,18 @@ export class AppComponent {
               react: `<SearchInput size="sm" placeholder="Small" />
 <SearchInput size="md" placeholder="Medium" />
 <SearchInput size="lg" placeholder="Large" />`,
-              js: `<SearchInput size="sm" placeholder="Small" />
-<SearchInput size="md" placeholder="Medium" />
-<SearchInput size="lg" placeholder="Large" />`,
+              js: `<l-SearchInput size="sm" placeholder="Small" />
+<l-SearchInput size="md" placeholder="Medium" />
+<l-SearchInput size="lg" placeholder="Large" />`,
               vue: `<template>
-  <SearchInput size="sm" placeholder="Small" />
-  <SearchInput size="md" placeholder="Medium" />
-  <SearchInput size="lg" placeholder="Large" />
+  <l-SearchInput size="sm" placeholder="Small" />
+  <l-SearchInput size="md" placeholder="Medium" />
+  <l-SearchInput size="lg" placeholder="Large" />
 </template>`,
               angular: `<!-- app.component.html — same AppComponent as above -->
-<SearchInput size="sm" placeholder="Small" />
-<SearchInput size="md" placeholder="Medium" />
-<SearchInput size="lg" placeholder="Large" />`,
+<l-SearchInput size="sm" placeholder="Small" />
+<l-SearchInput size="md" placeholder="Medium" />
+<l-SearchInput size="lg" placeholder="Large" />`,
             }}
           />
         </section>
@@ -119,9 +119,9 @@ export class AppComponent {
           <CodeBlock
             variants={{
               react: `<SearchInput disabled placeholder="Disabled" />`,
-              js: `<SearchInput disabled placeholder="Disabled" />`,
-              vue: `<SearchInput disabled placeholder="Disabled" />`,
-              angular: `<SearchInput disabled placeholder="Disabled" />`,
+              js: `<l-SearchInput disabled placeholder="Disabled" />`,
+              vue: `<l-SearchInput disabled placeholder="Disabled" />`,
+              angular: `<l-SearchInput disabled placeholder="Disabled" />`,
             }}
           />
         </section>

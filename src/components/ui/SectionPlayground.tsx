@@ -37,11 +37,11 @@ export default function SectionPlayground() {
   // Vue/Angular templates (plain attributes, no bindings needed for a static
   // snapshot); the "js" variant just adds the one-time module import a plain
   // HTML page needs to actually load the `<l-*>` definitions.
-  const htmlMarkup = `<Section spacing="${spacing}"${withTitle ? ` title="Section title"` : ""}${
+  const htmlMarkup = `<l-Section spacing="${spacing}"${withTitle ? ` title="Section title"` : ""}${
     withSubtitle ? ` subtitle="A short supporting description."` : ""
   }>
   Sample content
-</Section>`;
+</l-Section>`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,

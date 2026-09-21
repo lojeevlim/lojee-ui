@@ -54,7 +54,7 @@ export default function ChartShowcase() {
 ${REVENUE_CODE}
   ]}
 />`,
-              js: `<Chart id="chart-bar" type="bar" />
+              js: `<l-Chart id="chart-bar" type="bar" />
 
 <script type="module">
   import "lojee-ui/elements";
@@ -64,7 +64,7 @@ ${REVENUE_CODE}
   ];
 </script>`,
               vue: `<template>
-  <Chart :data="data" type="bar" />
+  <l-Chart :data="data" type="bar" />
 </template>
 
 <script setup>
@@ -72,7 +72,7 @@ const data = [
 ${REVENUE_CODE}
 ];
 </script>`,
-              angular: `<Chart [data]="data" type="bar" />
+              angular: `<l-Chart [data]="data" type="bar" />
 
 data = [
 ${REVENUE_CODE}
@@ -95,7 +95,7 @@ ${REVENUE_CODE}
 ${REVENUE_CODE}
   ]}
 />`,
-              js: `<Chart id="chart-line" type="line" color="emerald" />
+              js: `<l-Chart id="chart-line" type="line" color="emerald" />
 
 <script type="module">
   import "lojee-ui/elements";
@@ -105,7 +105,7 @@ ${REVENUE_CODE}
   ];
 </script>`,
               vue: `<template>
-  <Chart :data="data" type="line" color="emerald" />
+  <l-Chart :data="data" type="line" color="emerald" />
 </template>
 
 <script setup>
@@ -113,7 +113,7 @@ const data = [
 ${REVENUE_CODE}
 ];
 </script>`,
-              angular: `<Chart [data]="data" type="line" color="emerald" />
+              angular: `<l-Chart [data]="data" type="line" color="emerald" />
 
 data = [
 ${REVENUE_CODE}
@@ -135,7 +135,7 @@ ${REVENUE_CODE}
 ${TRAFFIC_CODE}
   ]}
 />`,
-              js: `<Chart id="chart-donut" type="donut" />
+              js: `<l-Chart id="chart-donut" type="donut" />
 
 <script type="module">
   import "lojee-ui/elements";
@@ -145,7 +145,7 @@ ${TRAFFIC_CODE}
   ];
 </script>`,
               vue: `<template>
-  <Chart :data="data" type="donut" />
+  <l-Chart :data="data" type="donut" />
 </template>
 
 <script setup>
@@ -153,7 +153,7 @@ const data = [
 ${TRAFFIC_CODE}
 ];
 </script>`,
-              angular: `<Chart [data]="data" type="donut" />
+              angular: `<l-Chart [data]="data" type="donut" />
 
 data = [
 ${TRAFFIC_CODE}
@@ -184,16 +184,16 @@ ${TRAFFIC_CODE}
 
 {/* Any of the 12 palette colors work: slate, gray, indigo, violet, blue,
     cyan, emerald, teal, amber, orange, rose, pink. */}`,
-              js: `<Chart id="chart-color" type="bar" color="rose" />
+              js: `<l-Chart id="chart-color" type="bar" color="rose" />
 
 <script type="module">
   import "lojee-ui/elements";
   document.getElementById("chart-color").data = data;
 </script>`,
               vue: `<template>
-  <Chart :data="data" type="bar" color="rose" />
+  <l-Chart :data="data" type="bar" color="rose" />
 </template>`,
-              angular: `<Chart [data]="data" type="bar" color="rose" />`,
+              angular: `<l-Chart [data]="data" type="bar" color="rose" />`,
             }}
           />
         </section>

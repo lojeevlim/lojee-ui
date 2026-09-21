@@ -35,11 +35,11 @@ export default function TooltipPlayground() {
   // Custom-element markup for the current configuration — l-tooltip's
   // trigger is the default slot, so the trigger element nests as a plain
   // child, mirroring how the React code nests <Button> inside <Tooltip>.
-  const htmlMarkup = `<Tooltip content="${content || "Tooltip text"}" position="${position}"${
+  const htmlMarkup = `<l-Tooltip content="${content || "Tooltip text"}" position="${position}"${
     color !== "slate" ? ` color="${color}"` : ""
   }${delayMs !== 150 ? ` delayMs="${delayMs}"` : ""}>
-  <Button variant="outline" label="Hover me" />
-</Tooltip>`;
+  <l-Button variant="outline" label="Hover me" />
+</l-Tooltip>`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,

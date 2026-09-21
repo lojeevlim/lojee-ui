@@ -13,7 +13,7 @@ import {
   LoadingStateElement,
   HeaderElement,
 } from "./modal-adapter";
-import { withTailwind } from "./with-tailwind";
+import { withTailwind, withHostBlock } from "./with-tailwind";
 import { Badge } from "../components/ui/Badge/Badge";
 import { Avatar } from "../components/ui/Avatar/Avatar";
 import { AvatarGroup } from "../components/ui/Avatar/AvatarGroup";
@@ -62,6 +62,7 @@ import { Notification } from "../components/ui/Notification/Notification";
 import { ProgressBar } from "../components/ui/ProgressBar/ProgressBar";
 import { Navbar } from "../components/ui/Navbar/Navbar";
 import { Sidebar } from "../components/ui/Sidebar/Sidebar";
+import { SidebarMenuItem } from "../components/ui/Sidebar/SidebarMenuItem";
 import { Footer } from "../components/ui/Footer/Footer";
 import { NavigationMenu } from "../components/ui/NavigationMenu/NavigationMenu";
 import { BottomNavigation } from "../components/ui/BottomNavigation/BottomNavigation";
@@ -777,12 +778,35 @@ customElements.define(
     shadow: "open",
     props: {
       width: "number",
+      height: "string",
       collapsed: "boolean",
       variant: "string",
       color: "string",
       collapsible: "boolean",
     },
     events: { onCollapsedChange: {} }, // dispatches "collapsedchange", detail = the requested boolean
+  })
+);
+
+// `collapsed` is optional — when omitted, SidebarMenuItem finds its nearest ancestor <l-sidebar>
+// itself (a plain DOM `.closest()` from its own host element, both being ordinary light-DOM
+// elements) and mirrors that element's own `collapsed` attribute, which r2wc always keeps reflected
+// on it. `variant`/`color`/`dark` have no such attribute to read on Sidebar (color isn't boolean,
+// and Sidebar has no single "dark" flag, just 7 variant names), so those still need passing directly.
+customElements.define(
+  "l-sidebar-menu-item",
+  r2wc(withHostBlock(withTailwind(SidebarMenuItem)), {
+    shadow: "open",
+    props: {
+      icon: "string",
+      href: "string",
+      active: "boolean",
+      disabled: "boolean",
+      collapsed: "boolean",
+      dark: "boolean",
+      color: "string",
+      tooltipPosition: "string",
+    },
   })
 );
 

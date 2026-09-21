@@ -56,7 +56,7 @@ export default function StepperPlayground() {
 ${SAMPLE_STEPS_CODE}
   ]}
 />`,
-    js: `<Stepper id="stepper-demo" ${attrs} />
+    js: `<l-Stepper id="stepper-demo" ${attrs} />
 
 <script type="module">
   import "lojee-ui/elements";
@@ -69,7 +69,7 @@ ${SAMPLE_STEPS_CODE}
   el.steps = steps;
 </script>`,
     vue: `<template>
-  <Stepper :steps="steps" ${attrs} />
+  <l-Stepper :steps="steps" ${attrs} />
 </template>
 
 <script setup>
@@ -77,7 +77,7 @@ const steps = [
 ${SAMPLE_STEPS_CODE}
 ];
 </script>`,
-    angular: `<Stepper [steps]="steps" ${attrs} />
+    angular: `<l-Stepper [steps]="steps" ${attrs} />
 
 steps = [
 ${SAMPLE_STEPS_CODE}

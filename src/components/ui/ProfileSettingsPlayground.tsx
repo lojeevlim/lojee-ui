@@ -28,7 +28,7 @@ export default function ProfileSettingsPlayground() {
 
   const code = `<ProfileSettings avatarInitials="JD" defaultValues={${defaultsCode}}${saveLabelAttr} />`;
 
-  const htmlMarkup = `<ProfileSettings id="profile-settings" avatarInitials="JD"${saveLabelAttr}></ProfileSettings>
+  const htmlMarkup = `<l-ProfileSettings id="profile-settings" avatarInitials="JD"${saveLabelAttr}></l-ProfileSettings>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -37,14 +37,14 @@ export default function ProfileSettingsPlayground() {
 </script>`;
 
   const vueMarkup = `<template>
-  <ProfileSettings avatarInitials="JD" :defaultValues="defaults"${saveLabelAttr} />
+  <l-ProfileSettings avatarInitials="JD" :defaultValues="defaults"${saveLabelAttr} />
 </template>
 
 <script setup>
 const defaults = ${defaultsCode};
 </script>`;
 
-  const angularMarkup = `<ProfileSettings avatarInitials="JD" [defaultValues]="defaults"${saveLabelAttr}></ProfileSettings>
+  const angularMarkup = `<l-ProfileSettings avatarInitials="JD" [defaultValues]="defaults"${saveLabelAttr}></l-ProfileSettings>
 
 defaults = ${defaultsCode};`;
 

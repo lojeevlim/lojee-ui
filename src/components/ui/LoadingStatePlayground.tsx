@@ -29,8 +29,8 @@ export default function LoadingStatePlayground() {
   // A self-closing tag when there's no description to project, matching how
   // the "react" variant collapses to `<LoadingState ... />` in the same case.
   const htmlMarkup = description
-    ? `<LoadingState${titleAttr}${sizeAttr}>\n  ${description}\n</LoadingState>`
-    : `<LoadingState${titleAttr}${sizeAttr} />`;
+    ? `<l-LoadingState${titleAttr}${sizeAttr}>\n  ${description}\n</l-LoadingState>`
+    : `<l-LoadingState${titleAttr}${sizeAttr} />`;
 
   const codeVariants: CodeBlockVariants = {
     react: description ? code : `<LoadingState${titleAttr}${sizeAttr} />`,

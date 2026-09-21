@@ -37,7 +37,7 @@ export default function AccountSettingsPlayground() {
   onNotificationsChange={setNotifications}
 />`;
 
-  const htmlMarkup = `<AccountSettings id="account-settings" email="${email}"></AccountSettings>
+  const htmlMarkup = `<l-AccountSettings id="account-settings" email="${email}"></l-AccountSettings>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -46,7 +46,7 @@ export default function AccountSettingsPlayground() {
 </script>`;
 
   const vueMarkup = `<template>
-  <AccountSettings email="${email}" :notifications="notifications" @notificationsChange="notifications = $event" />
+  <l-AccountSettings email="${email}" :notifications="notifications" @notificationsChange="notifications = $event" />
 </template>
 
 <script setup>
@@ -54,7 +54,7 @@ import { ref } from "vue";
 const notifications = ref(${notificationsCode});
 </script>`;
 
-  const angularMarkup = `<AccountSettings email="${email}" [notifications]="notifications" (notificationsChange)="notifications = $event"></AccountSettings>
+  const angularMarkup = `<l-AccountSettings email="${email}" [notifications]="notifications" (notificationsChange)="notifications = $event"></l-AccountSettings>
 
 notifications = ${notificationsCode};`;
 

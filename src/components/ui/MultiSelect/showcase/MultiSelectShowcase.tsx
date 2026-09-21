@@ -38,7 +38,7 @@ export default function MultiSelectShowcase() {
               react: `const [value, setValue] = useState<string[]>(["banana"]);
 
 <MultiSelect options={options} value={value} onChange={setValue} placeholder="Select fruits..." />`,
-              js: `<MultiSelect id="fruit-select" placeholder="Select fruits..." />
+              js: `<l-MultiSelect id="fruit-select" placeholder="Select fruits..." />
 
 <script type="module">
   import "lojee-ui/elements";
@@ -60,7 +60,7 @@ export default function MultiSelectShowcase() {
   });
 </script>`,
               vue: `<template>
-  <MultiSelect :options="options" :value="value" placeholder="Select fruits..." @change="value = $event.detail" />
+  <l-MultiSelect :options="options" :value="value" placeholder="Select fruits..." @change="value = $event.detail" />
 </template>
 
 <script setup>
@@ -99,7 +99,7 @@ export class AppComponent {
 }
 
 <!-- app.component.html -->
-<MultiSelect [options]="options" [value]="value" placeholder="Select fruits..." (change)="value = $event.detail" />`,
+<l-MultiSelect [options]="options" [value]="value" placeholder="Select fruits..." (change)="value = $event.detail" />`,
             }}
           />
         </section>
@@ -114,7 +114,7 @@ export class AppComponent {
           <CodeBlock
             variants={{
               react: `<MultiSelect options={options} value={value} onChange={setValue} color="violet" />`,
-              js: `<MultiSelect id="colored-select" color="violet" />
+              js: `<l-MultiSelect id="colored-select" color="violet" />
 
 <script type="module">
   const select = document.getElementById("colored-select");
@@ -125,10 +125,10 @@ export class AppComponent {
   });
 </script>`,
               vue: `<template>
-  <MultiSelect :options="options" :value="value" color="violet" @change="value = $event.detail" />
+  <l-MultiSelect :options="options" :value="value" color="violet" @change="value = $event.detail" />
 </template>`,
               angular: `<!-- app.component.html — same AppComponent class as above -->
-<MultiSelect [options]="options" [value]="value" color="violet" (change)="value = $event.detail" />`,
+<l-MultiSelect [options]="options" [value]="value" color="violet" (change)="value = $event.detail" />`,
             }}
           />
         </section>
@@ -141,7 +141,7 @@ export class AppComponent {
           <CodeBlock
             variants={{
               react: `<MultiSelect options={options} value={[]} onChange={setValue} placeholder="Nothing selected yet" />`,
-              js: `<MultiSelect id="empty-select" placeholder="Nothing selected yet" />
+              js: `<l-MultiSelect id="empty-select" placeholder="Nothing selected yet" />
 
 <script type="module">
   const select = document.getElementById("empty-select");
@@ -152,10 +152,10 @@ export class AppComponent {
   });
 </script>`,
               vue: `<template>
-  <MultiSelect :options="options" :value="[]" placeholder="Nothing selected yet" @change="value = $event.detail" />
+  <l-MultiSelect :options="options" :value="[]" placeholder="Nothing selected yet" @change="value = $event.detail" />
 </template>`,
               angular: `<!-- app.component.html — same AppComponent class as above -->
-<MultiSelect [options]="options" [value]="[]" placeholder="Nothing selected yet" (change)="value = $event.detail" />`,
+<l-MultiSelect [options]="options" [value]="[]" placeholder="Nothing selected yet" (change)="value = $event.detail" />`,
             }}
           />
         </section>

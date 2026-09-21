@@ -36,7 +36,7 @@ export default function SwitchPlayground() {
   // Vue/Angular templates (plain attributes, no bindings needed for a static
   // snapshot); the "js" variant just adds the one-time module import a plain
   // HTML page needs to actually load the `<l-*>` definitions.
-  const htmlMarkup = `<Switch size="${size}" color="${color}"${
+  const htmlMarkup = `<l-Switch size="${size}" color="${color}"${
     checked ? ` defaultChecked` : ""
   }${disabled ? ` disabled` : ""}${label ? ` label="${label}"` : ""} />`;
 

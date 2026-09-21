@@ -30,10 +30,10 @@ export default function LabelPlayground() {
   // HTML page needs to actually load the `<l-*>` definitions. `l-label`'s
   // registered attribute is literally `htmlFor` (not the HTML-standard
   // `for`), predating dash-casing conventions elsewhere.
-  const htmlMarkup = `<Label htmlFor="field"${required ? ` required` : ""}>${
+  const htmlMarkup = `<l-Label htmlFor="field"${required ? ` required` : ""}>${
     text || "Email address"
-  }</Label>
-<Input id="field" placeholder="you@example.com" />`;
+  }</l-Label>
+<l-Input id="field" placeholder="you@example.com" />`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,

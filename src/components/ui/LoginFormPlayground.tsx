@@ -40,7 +40,7 @@ export default function LoginFormPlayground() {
   onSubmit={(values) => console.log(values)}
 />`;
 
-  const htmlMarkup = `<LoginForm title="${titleValue}"${descriptionAttr.replace("\n ", " ")} submitLabel="${submitLabelValue}"${rememberAttrHtml}${forgotAttrHtml}></LoginForm>`;
+  const htmlMarkup = `<l-LoginForm title="${titleValue}"${descriptionAttr.replace("\n ", " ")} submitLabel="${submitLabelValue}"${rememberAttrHtml}${forgotAttrHtml}></l-LoginForm>`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,

@@ -41,11 +41,11 @@ export function ButtonGroupSection() {
   <SegmentButton icon="align-center" active={align === "center"} onClick={() => setAlign("center")} />
   <SegmentButton icon="align-right" active={align === "right"} onClick={() => setAlign("right")} />
 </ButtonGroup>`,
-          js: `<ButtonGroup>
-  <SegmentButton icon="align-left" id="align-left" />
-  <SegmentButton icon="align-center" id="align-center" />
-  <SegmentButton icon="align-right" id="align-right" />
-</ButtonGroup>
+          js: `<l-ButtonGroup>
+  <l-SegmentButton icon="align-left" id="align-left" />
+  <l-SegmentButton icon="align-center" id="align-center" />
+  <l-SegmentButton icon="align-right" id="align-right" />
+</l-ButtonGroup>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -65,11 +65,11 @@ export function ButtonGroupSection() {
   buttons.right.addEventListener("click", () => setAlign("right"));
 </script>`,
           vue: `<template>
-  <ButtonGroup>
-    <SegmentButton icon="align-left" :active="align === 'left'" @click="align = 'left'" />
-    <SegmentButton icon="align-center" :active="align === 'center'" @click="align = 'center'" />
-    <SegmentButton icon="align-right" :active="align === 'right'" @click="align = 'right'" />
-  </ButtonGroup>
+  <l-ButtonGroup>
+    <l-SegmentButton icon="align-left" :active="align === 'left'" @click="align = 'left'" />
+    <l-SegmentButton icon="align-center" :active="align === 'center'" @click="align = 'center'" />
+    <l-SegmentButton icon="align-right" :active="align === 'right'" @click="align = 'right'" />
+  </l-ButtonGroup>
 </template>
 
 <script setup>
@@ -87,11 +87,11 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <ButtonGroup>
-      <SegmentButton icon="align-left" [active]="align === 'left'" (click)="align = 'left'" />
-      <SegmentButton icon="align-center" [active]="align === 'center'" (click)="align = 'center'" />
-      <SegmentButton icon="align-right" [active]="align === 'right'" (click)="align = 'right'" />
-    </ButtonGroup>
+    <l-ButtonGroup>
+      <l-SegmentButton icon="align-left" [active]="align === 'left'" (click)="align = 'left'" />
+      <l-SegmentButton icon="align-center" [active]="align === 'center'" (click)="align = 'center'" />
+      <l-SegmentButton icon="align-right" [active]="align === 'right'" (click)="align = 'right'" />
+    </l-ButtonGroup>
   \`,
 })
 export class ButtonGroupShowcaseComponent {

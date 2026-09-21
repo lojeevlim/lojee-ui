@@ -37,21 +37,21 @@ export default function GridShowcase() {
   <div>Item 2</div>
   <div>Item 3</div>
 </Grid>`,
-              js: `<Grid cols="3">
+              js: `<l-Grid cols="3">
   <div>Item 1</div>
   <div>Item 2</div>
   <div>Item 3</div>
-</Grid>
+</l-Grid>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <Grid cols="3">
+  <l-Grid cols="3">
     <div>Item 1</div>
     <div>Item 2</div>
     <div>Item 3</div>
-  </Grid>
+  </l-Grid>
 </template>
 
 <script setup>
@@ -66,11 +66,11 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <Grid cols="3">
+    <l-Grid cols="3">
       <div>Item 1</div>
       <div>Item 2</div>
       <div>Item 3</div>
-    </Grid>
+    </l-Grid>
   \`,
 })
 export class AppComponent {}`,
@@ -95,12 +95,12 @@ export class AppComponent {}`,
           <CodeBlock
             variants={{
               react: `<Grid cols={4} gap="lg">...</Grid>`,
-              js: `<Grid cols="4" gap="lg">...</Grid>`,
+              js: `<l-Grid cols="4" gap="lg">...</l-Grid>`,
               vue: `<template>
-  <Grid cols="4" gap="lg">...</Grid>
+  <l-Grid cols="4" gap="lg">...</l-Grid>
 </template>`,
               angular: `<!-- reuses the AppComponent from above -->
-<Grid cols="4" gap="lg">...</Grid>`,
+<l-Grid cols="4" gap="lg">...</l-Grid>`,
             }}
           />
         </section>

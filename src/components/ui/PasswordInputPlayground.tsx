@@ -37,7 +37,7 @@ export default function PasswordInputPlayground() {
   placeholder="Password"
 />`;
 
-  const htmlMarkup = `<PasswordInput size="${size}"${disabled ? ` disabled` : ""}${
+  const htmlMarkup = `<l-PasswordInput size="${size}"${disabled ? ` disabled` : ""}${
     invalid ? ` invalid` : ""
   } value="${value}" placeholder="Password" />`;
 

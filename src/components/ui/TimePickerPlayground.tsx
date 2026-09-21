@@ -22,7 +22,7 @@ export default function TimePickerPlayground() {
 
   // No json props on <TimePicker> — plain attributes only. Booleans need
   // an explicit "true" since r2wc parses a bare attribute as false.
-  const htmlMarkup = `<TimePicker size="${size}"${invalid ? ` invalid` : ""}${
+  const htmlMarkup = `<l-TimePicker size="${size}"${invalid ? ` invalid` : ""}${
     disabled ? ` disabled` : ""
   } />`;
 

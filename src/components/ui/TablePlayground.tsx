@@ -61,7 +61,7 @@ export default function TablePlayground() {
 
   const codeVariants: CodeBlockVariants = {
     react: code,
-    js: `<Table id="people-table" ${attrs} />
+    js: `<l-Table id="people-table" ${attrs} />
 
 <script type="module">
   import "lojee-ui/elements";
@@ -73,7 +73,7 @@ ${jsData}
   el.data = data;
 </script>`,
     vue: `<template>
-  <Table :columns="columns" :data="data" ${attrs} />
+  <l-Table :columns="columns" :data="data" ${attrs} />
 </template>
 
 <script setup>
@@ -88,7 +88,7 @@ const data = [
   { name: "Priya Nair", email: "priya@acme.com", role: "Viewer" },
 ];
 </script>`,
-    angular: `<Table [columns]="columns" [data]="data" ${attrs} />
+    angular: `<l-Table [columns]="columns" [data]="data" ${attrs} />
 
 columns = [
   { key: "name", header: "Name" },

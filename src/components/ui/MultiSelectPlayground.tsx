@@ -48,7 +48,7 @@ export default function MultiSelectPlayground() {
 
   const codeVariants: CodeBlockVariants = {
     react: code,
-    js: `<MultiSelect id="multi-select" placeholder="${placeholder}" color="${color}" />
+    js: `<l-MultiSelect id="multi-select" placeholder="${placeholder}" color="${color}" />
 
 <script type="module">
   import "lojee-ui/elements";
@@ -61,14 +61,14 @@ export default function MultiSelectPlayground() {
   el.value = value;
 </script>`,
     vue: `<template>
-  <MultiSelect :options="options" :value="value" placeholder="${placeholder}" color="${color}" />
+  <l-MultiSelect :options="options" :value="value" placeholder="${placeholder}" color="${color}" />
 </template>
 
 <script setup>
 const options = ${optionsLiteral};
 const value = ${valueLiteral};
 </script>`,
-    angular: `<MultiSelect [options]="options" [value]="value" placeholder="${placeholder}" color="${color}" />
+    angular: `<l-MultiSelect [options]="options" [value]="value" placeholder="${placeholder}" color="${color}" />
 
 options = ${optionsLiteral};
 value = ${valueLiteral};`,

@@ -98,7 +98,7 @@ export default function ActivityFeedShowcase() {
 ${BASIC_ITEMS_CODE}
   ]}
 />`,
-              js: `<ActivityFeed id="activity-feed-basic" />
+              js: `<l-ActivityFeed id="activity-feed-basic" />
 
 <script type="module">
   import "lojee-ui/elements";
@@ -108,7 +108,7 @@ ${BASIC_ITEMS_CODE}
   ];
 </script>`,
               vue: `<template>
-  <ActivityFeed :items="items" />
+  <l-ActivityFeed :items="items" />
 </template>
 
 <script setup>
@@ -126,7 +126,7 @@ import "lojee-ui/elements";
   selector: "app-root",
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  template: \`<ActivityFeed [items]="items" />\`,
+  template: \`<l-ActivityFeed [items]="items" />\`,
 })
 export class AppComponent {
   items = [
@@ -151,7 +151,7 @@ ${BASIC_ITEMS_CODE}
 ${ICON_ITEMS_CODE}
   ]}
 />`,
-              js: `<ActivityFeed id="activity-feed-icons" />
+              js: `<l-ActivityFeed id="activity-feed-icons" />
 
 <script type="module">
   document.getElementById("activity-feed-icons").items = [
@@ -159,7 +159,7 @@ ${ICON_ITEMS_CODE}
   ];
 </script>`,
               vue: `<template>
-  <ActivityFeed :items="items" />
+  <l-ActivityFeed :items="items" />
 </template>
 
 <script setup>
@@ -173,7 +173,7 @@ ${ICON_ITEMS_CODE}
 ];
 
 // app.component.html
-<ActivityFeed [items]="items" />`,
+<l-ActivityFeed [items]="items" />`,
             }}
           />
         </section>
@@ -193,7 +193,7 @@ ${ICON_ITEMS_CODE}
 ${ICON_ITEMS_CODE}
   ]}
 />`,
-              js: `<ActivityFeed id="activity-feed-compact" compact></ActivityFeed>
+              js: `<l-ActivityFeed id="activity-feed-compact" compact></l-ActivityFeed>
 
 <script type="module">
   document.getElementById("activity-feed-compact").items = [
@@ -201,7 +201,7 @@ ${ICON_ITEMS_CODE}
   ];
 </script>`,
               vue: `<template>
-  <ActivityFeed :items="items" compact />
+  <l-ActivityFeed :items="items" compact />
 </template>
 
 <script setup>
@@ -215,7 +215,7 @@ ${ICON_ITEMS_CODE}
 ];
 
 // app.component.html
-<ActivityFeed [items]="items" compact />`,
+<l-ActivityFeed [items]="items" compact />`,
             }}
           />
         </section>

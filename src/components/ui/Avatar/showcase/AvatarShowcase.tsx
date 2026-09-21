@@ -26,13 +26,13 @@ export default function AvatarShowcase() {
           <CodeBlock
             variants={{
               react: `<Avatar size="md" initials="AB" color="indigo" />`,
-              js: `<Avatar size="md" initials="AB" color="indigo" />
+              js: `<l-Avatar size="md" initials="AB" color="indigo" />
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <Avatar size="md" initials="AB" color="indigo" />
+  <l-Avatar size="md" initials="AB" color="indigo" />
 </template>
 
 <script setup>
@@ -46,7 +46,7 @@ import "lojee-ui/elements";
   selector: "app-avatar-showcase",
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  template: \`<Avatar size="md" initials="AB" color="indigo" />\`,
+  template: \`<l-Avatar size="md" initials="AB" color="indigo" />\`,
 })
 export class AvatarShowcaseComponent {}`,
             }}
@@ -63,12 +63,12 @@ export class AvatarShowcaseComponent {}`,
           <CodeBlock
             variants={{
               react: `<Avatar src="/me.jpg" initials="LL" alt="Lojee Lim" />`,
-              js: `<Avatar src="/me.jpg" initials="LL" alt="Lojee Lim" />`,
+              js: `<l-Avatar src="/me.jpg" initials="LL" alt="Lojee Lim" />`,
               vue: `<template>
-  <Avatar src="/me.jpg" initials="LL" alt="Lojee Lim" />
+  <l-Avatar src="/me.jpg" initials="LL" alt="Lojee Lim" />
 </template>`,
               angular: `<!-- reuses AvatarShowcaseComponent from above -->
-<Avatar src="/me.jpg" initials="LL" alt="Lojee Lim" />`,
+<l-Avatar src="/me.jpg" initials="LL" alt="Lojee Lim" />`,
             }}
           />
         </section>
@@ -84,12 +84,12 @@ export class AvatarShowcaseComponent {}`,
           <CodeBlock
             variants={{
               react: `<Avatar initials="ON" status="online" />`,
-              js: `<Avatar initials="ON" status="online" />`,
+              js: `<l-Avatar initials="ON" status="online" />`,
               vue: `<template>
-  <Avatar initials="ON" status="online" />
+  <l-Avatar initials="ON" status="online" />
 </template>`,
               angular: `<!-- reuses AvatarShowcaseComponent from above -->
-<Avatar initials="ON" status="online" />`,
+<l-Avatar initials="ON" status="online" />`,
             }}
           />
         </section>
@@ -103,12 +103,12 @@ export class AvatarShowcaseComponent {}`,
           <CodeBlock
             variants={{
               react: `<Avatar initials="SQ" shape="square" />`,
-              js: `<Avatar initials="SQ" shape="square" />`,
+              js: `<l-Avatar initials="SQ" shape="square" />`,
               vue: `<template>
-  <Avatar initials="SQ" shape="square" />
+  <l-Avatar initials="SQ" shape="square" />
 </template>`,
               angular: `<!-- reuses AvatarShowcaseComponent from above -->
-<Avatar initials="SQ" shape="square" />`,
+<l-Avatar initials="SQ" shape="square" />`,
             }}
           />
         </section>
@@ -130,24 +130,24 @@ export class AvatarShowcaseComponent {}`,
   <Avatar initials="BB" color="rose" />
   <Avatar initials="CC" color="emerald" />
 </AvatarGroup>`,
-              js: `<AvatarGroup>
-  <Avatar initials="AA" color="indigo" />
-  <Avatar initials="BB" color="rose" />
-  <Avatar initials="CC" color="emerald" />
-</AvatarGroup>`,
+              js: `<l-AvatarGroup>
+  <l-Avatar initials="AA" color="indigo" />
+  <l-Avatar initials="BB" color="rose" />
+  <l-Avatar initials="CC" color="emerald" />
+</l-AvatarGroup>`,
               vue: `<template>
-  <AvatarGroup>
-    <Avatar initials="AA" color="indigo" />
-    <Avatar initials="BB" color="rose" />
-    <Avatar initials="CC" color="emerald" />
-  </AvatarGroup>
+  <l-AvatarGroup>
+    <l-Avatar initials="AA" color="indigo" />
+    <l-Avatar initials="BB" color="rose" />
+    <l-Avatar initials="CC" color="emerald" />
+  </l-AvatarGroup>
 </template>`,
               angular: `<!-- reuses AvatarShowcaseComponent from above -->
-<AvatarGroup>
-  <Avatar initials="AA" color="indigo" />
-  <Avatar initials="BB" color="rose" />
-  <Avatar initials="CC" color="emerald" />
-</AvatarGroup>`,
+<l-AvatarGroup>
+  <l-Avatar initials="AA" color="indigo" />
+  <l-Avatar initials="BB" color="rose" />
+  <l-Avatar initials="CC" color="emerald" />
+</l-AvatarGroup>`,
             }}
           />
         </section>

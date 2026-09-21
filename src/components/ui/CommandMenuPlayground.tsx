@@ -58,8 +58,8 @@ export default function CommandMenuPlayground() {
       `  { label: "${item.label}", icon: "${item.icon}"${item.shortcut ? `, shortcut: "${item.shortcut}"` : ""} }`
   ).join(",\n");
 
-  const htmlMarkup = `<Button label="Open command menu" id="open-command-btn" />
-<CommandMenu id="command-menu" />`;
+  const htmlMarkup = `<l-Button label="Open command menu" id="open-command-btn" />
+<l-CommandMenu id="command-menu" />`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,
@@ -77,8 +77,8 @@ ${itemsSnippet}
   commandMenu.addEventListener("close", () => { commandMenu.open = false; });
 </script>`,
     vue: `<template>
-  <Button label="Open command menu" @click="open = true" />
-  <CommandMenu :open="open" :items="items" @close="open = false" />
+  <l-Button label="Open command menu" @click="open = true" />
+  <l-CommandMenu :open="open" :items="items" @close="open = false" />
 </template>
 
 <script setup>
@@ -91,8 +91,8 @@ ${itemsSnippet}
 ]);
 </script>`,
     angular: `<!-- app.component.html -->
-<Button label="Open command menu" (click)="open = true" />
-<CommandMenu [open]="open" [items]="items" (close)="open = false" />
+<l-Button label="Open command menu" (click)="open = true" />
+<l-CommandMenu [open]="open" [items]="items" (close)="open = false" />
 
 <!-- app.component.ts -->
 items = [

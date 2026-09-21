@@ -19,13 +19,13 @@ export default function SliderShowcase() {
           <CodeBlock
             variants={{
               react: `<Slider defaultValue={40} />`,
-              js: `<Slider value="40" />
+              js: `<l-Slider value="40" />
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <Slider value="40" />
+  <l-Slider value="40" />
 </template>
 
 <script setup>
@@ -43,7 +43,7 @@ import "lojee-ui/elements";
 export class AppComponent {}
 
 <!-- app.component.html -->
-<Slider value="40" />`,
+<l-Slider value="40" />`,
             }}
           />
         </section>
@@ -56,12 +56,12 @@ export class AppComponent {}
           <CodeBlock
             variants={{
               react: `<Slider defaultValue={65} showValue />`,
-              js: `<Slider value="65" showValue />`,
+              js: `<l-Slider value="65" showValue />`,
               vue: `<template>
-  <Slider value="65" showValue />
+  <l-Slider value="65" showValue />
 </template>`,
               angular: `<!-- app.component.html -->
-<Slider value="65" showValue />`,
+<l-Slider value="65" showValue />`,
             }}
           />
         </section>
@@ -76,12 +76,12 @@ export class AppComponent {}
           <CodeBlock
             variants={{
               react: `<Slider defaultValue={30} color="indigo" showValue />`,
-              js: `<Slider value="30" color="indigo" showValue />`,
+              js: `<l-Slider value="30" color="indigo" showValue />`,
               vue: `<template>
-  <Slider value="30" color="indigo" showValue />
+  <l-Slider value="30" color="indigo" showValue />
 </template>`,
               angular: `<!-- app.component.html -->
-<Slider value="30" color="indigo" showValue />`,
+<l-Slider value="30" color="indigo" showValue />`,
             }}
           />
         </section>
@@ -96,12 +96,12 @@ export class AppComponent {}
           <CodeBlock
             variants={{
               react: `<Slider min={0} max={10} step={1} defaultValue={5} showValue />`,
-              js: `<Slider min="0" max="10" step="1" value="5" showValue />`,
+              js: `<l-Slider min="0" max="10" step="1" value="5" showValue />`,
               vue: `<template>
-  <Slider min="0" max="10" step="1" value="5" showValue />
+  <l-Slider min="0" max="10" step="1" value="5" showValue />
 </template>`,
               angular: `<!-- app.component.html -->
-<Slider min="0" max="10" step="1" value="5" showValue />`,
+<l-Slider min="0" max="10" step="1" value="5" showValue />`,
             }}
           />
         </section>
@@ -114,12 +114,12 @@ export class AppComponent {}
           <CodeBlock
             variants={{
               react: `<Slider defaultValue={40} disabled />`,
-              js: `<Slider value="40" disabled />`,
+              js: `<l-Slider value="40" disabled />`,
               vue: `<template>
-  <Slider value="40" disabled />
+  <l-Slider value="40" disabled />
 </template>`,
               angular: `<!-- app.component.html -->
-<Slider value="40" disabled />`,
+<l-Slider value="40" disabled />`,
             }}
           />
         </section>

@@ -172,6 +172,7 @@ export {
   SidebarFooter,
   type SidebarFooterProps,
 } from "../components/ui/Sidebar/Sidebar";
+export { SidebarMenuItem, type SidebarMenuItemProps } from "../components/ui/Sidebar/SidebarMenuItem";
 export { Header, type HeaderProps } from "../components/ui/Header/Header";
 export { Footer, type FooterProps, type FooterVariant } from "../components/ui/Footer/Footer";
 export {

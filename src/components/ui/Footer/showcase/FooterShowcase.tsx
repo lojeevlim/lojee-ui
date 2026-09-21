@@ -71,7 +71,7 @@ export default function FooterShowcase() {
     </ul>
   </div>
 </Footer>`,
-              js: `<Footer bottom="© 2026 Lojee, Inc. All rights reserved.">
+              js: `<l-Footer bottom="© 2026 Lojee, Inc. All rights reserved.">
   <div>
     <h4>Product</h4>
     <ul>
@@ -103,27 +103,27 @@ export default function FooterShowcase() {
       <li><a href="#">Terms</a></li>
     </ul>
   </div>
-</Footer>
+</l-Footer>
 
 <script type="module">import "lojee-ui/elements";</script>`,
               vue: `<template>
-  <Footer bottom="© 2026 Lojee, Inc. All rights reserved.">
+  <l-Footer bottom="© 2026 Lojee, Inc. All rights reserved.">
     <div v-for="column in columns" :key="column.heading">
       <h4>{{ column.heading }}</h4>
       <ul>
         <li v-for="link in column.links" :key="link"><a href="#">{{ link }}</a></li>
       </ul>
     </div>
-  </Footer>
+  </l-Footer>
 </template>`,
-              angular: `<Footer bottom="© 2026 Lojee, Inc. All rights reserved.">
+              angular: `<l-Footer bottom="© 2026 Lojee, Inc. All rights reserved.">
   <div *ngFor="let column of columns">
     <h4>{{ column.heading }}</h4>
     <ul>
       <li *ngFor="let link of column.links"><a href="#">{{ link }}</a></li>
     </ul>
   </div>
-</Footer>`,
+</l-Footer>`,
             }}
           />
         </section>
@@ -155,22 +155,22 @@ export default function FooterShowcase() {
 </Footer>
 
 {/* Also available: variant="minimal" (no background, blends into the page). */}`,
-              js: `<Footer variant="dark">
+              js: `<l-Footer variant="dark">
   <!-- link columns -->
   <div slot="bottom"><span class="text-slate-400">© 2026 Lojee, Inc.</span></div>
-</Footer>
+</l-Footer>
 
 <script type="module">import "lojee-ui/elements";</script>`,
               vue: `<template>
-  <Footer variant="dark">
+  <l-Footer variant="dark">
     <!-- link columns -->
     <template #bottom><span class="text-slate-400">© 2026 Lojee, Inc.</span></template>
-  </Footer>
+  </l-Footer>
 </template>`,
-              angular: `<Footer variant="dark">
+              angular: `<l-Footer variant="dark">
   <!-- link columns -->
   <div slot="bottom"><span class="text-slate-400">© 2026 Lojee, Inc.</span></div>
-</Footer>`,
+</l-Footer>`,
             }}
           />
         </section>
@@ -207,7 +207,7 @@ export default function FooterShowcase() {
     </div>
   }
 />`,
-              js: `<Footer>
+              js: `<l-Footer>
   <div slot="bottom" class="flex flex-wrap items-center justify-between gap-3">
     <span>© 2026 Lojee, Inc. All rights reserved.</span>
     <div class="flex items-center gap-4">
@@ -215,11 +215,11 @@ export default function FooterShowcase() {
       <a href="#">Terms</a>
     </div>
   </div>
-</Footer>
+</l-Footer>
 
 <script type="module">import "lojee-ui/elements";</script>`,
               vue: `<template>
-  <Footer>
+  <l-Footer>
     <template #bottom>
       <div class="flex flex-wrap items-center justify-between gap-3">
         <span>© 2026 Lojee, Inc. All rights reserved.</span>
@@ -229,9 +229,9 @@ export default function FooterShowcase() {
         </div>
       </div>
     </template>
-  </Footer>
+  </l-Footer>
 </template>`,
-              angular: `<Footer>
+              angular: `<l-Footer>
   <div slot="bottom" class="flex flex-wrap items-center justify-between gap-3">
     <span>© 2026 Lojee, Inc. All rights reserved.</span>
     <div class="flex items-center gap-4">
@@ -239,7 +239,7 @@ export default function FooterShowcase() {
       <a href="#">Terms</a>
     </div>
   </div>
-</Footer>`,
+</l-Footer>`,
             }}
           />
         </section>

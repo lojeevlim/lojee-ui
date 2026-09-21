@@ -38,12 +38,12 @@ export default function DropdownMenuPlayground() {
   // trigger goes in the named `slot="trigger"`; menu items default-slot.
   // `danger` is boolean, so it needs the explicit "true" string (r2wc parses
   // a bare attribute as false).
-  const htmlMarkup = `<DropdownMenu align="${align}">
-  <Button slot="trigger" icon="chevron-down" label="Options" />
-  <DropdownMenuItem icon="pencil">Edit</DropdownMenuItem>
-  <DropdownMenuItem icon="copy">Duplicate</DropdownMenuItem>
-  <DropdownMenuItem icon="trash-2" danger>Delete</DropdownMenuItem>
-</DropdownMenu>`;
+  const htmlMarkup = `<l-DropdownMenu align="${align}">
+  <l-Button slot="trigger" icon="chevron-down" label="Options" />
+  <l-DropdownMenuItem icon="pencil">Edit</l-DropdownMenuItem>
+  <l-DropdownMenuItem icon="copy">Duplicate</l-DropdownMenuItem>
+  <l-DropdownMenuItem icon="trash-2" danger>Delete</l-DropdownMenuItem>
+</l-DropdownMenu>`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,

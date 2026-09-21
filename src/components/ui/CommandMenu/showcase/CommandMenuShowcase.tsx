@@ -65,7 +65,7 @@ export default function CommandMenuShowcase() {
 
 <CommandMenu open={open} onClose={() => setOpen(false)} items={items} />`,
               js: `<button id="open-command-menu-btn">Search commands…</button>
-<CommandMenu id="cmd-menu" />
+<l-CommandMenu id="cmd-menu" />
 
 <script type="module">
   import "lojee-ui/elements";
@@ -88,7 +88,7 @@ export default function CommandMenuShowcase() {
 </script>`,
               vue: `<template>
   <button @click="open = true">Search commands…</button>
-  <CommandMenu :open="open" :items="items" @close="open = false" />
+  <l-CommandMenu :open="open" :items="items" @close="open = false" />
 </template>
 
 <script setup>
@@ -117,7 +117,7 @@ import "lojee-ui/elements";
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
     <button (click)="open = true">Search commands…</button>
-    <CommandMenu [open]="open" [items]="items" (close)="open = false" />
+    <l-CommandMenu [open]="open" [items]="items" (close)="open = false" />
   \`,
 })
 export class CommandMenuShowcaseComponent {

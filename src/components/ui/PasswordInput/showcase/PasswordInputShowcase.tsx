@@ -24,7 +24,7 @@ export default function PasswordInputShowcase() {
               react: `const [password, setPassword] = useState("");
 
 <PasswordInput value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" />`,
-              js: `<PasswordInput id="password" placeholder="Password" />
+              js: `<l-PasswordInput id="password" placeholder="Password" />
 
 <script type="module">
   import "lojee-ui/elements";
@@ -34,7 +34,7 @@ export default function PasswordInputShowcase() {
   password.addEventListener("input", (e) => { /* e.target.value */ });
 </script>`,
               vue: `<template>
-  <PasswordInput :value="password" @input="password = $event.target.value" placeholder="Password" />
+  <l-PasswordInput :value="password" @input="password = $event.target.value" placeholder="Password" />
 </template>
 
 <script setup>
@@ -52,7 +52,7 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <PasswordInput [value]="password" (input)="password = $any($event.target).value" placeholder="Password" />
+    <l-PasswordInput [value]="password" (input)="password = $any($event.target).value" placeholder="Password" />
   \`,
 })
 export class AppComponent {
@@ -74,18 +74,18 @@ export class AppComponent {
               react: `<PasswordInput size="sm" placeholder="Small" />
 <PasswordInput size="md" placeholder="Medium" />
 <PasswordInput size="lg" placeholder="Large" />`,
-              js: `<PasswordInput size="sm" placeholder="Small" />
-<PasswordInput size="md" placeholder="Medium" />
-<PasswordInput size="lg" placeholder="Large" />`,
+              js: `<l-PasswordInput size="sm" placeholder="Small" />
+<l-PasswordInput size="md" placeholder="Medium" />
+<l-PasswordInput size="lg" placeholder="Large" />`,
               vue: `<template>
-  <PasswordInput size="sm" placeholder="Small" />
-  <PasswordInput size="md" placeholder="Medium" />
-  <PasswordInput size="lg" placeholder="Large" />
+  <l-PasswordInput size="sm" placeholder="Small" />
+  <l-PasswordInput size="md" placeholder="Medium" />
+  <l-PasswordInput size="lg" placeholder="Large" />
 </template>`,
               angular: `<!-- app.component.html — same AppComponent as above -->
-<PasswordInput size="sm" placeholder="Small" />
-<PasswordInput size="md" placeholder="Medium" />
-<PasswordInput size="lg" placeholder="Large" />`,
+<l-PasswordInput size="sm" placeholder="Small" />
+<l-PasswordInput size="md" placeholder="Medium" />
+<l-PasswordInput size="lg" placeholder="Large" />`,
             }}
           />
         </section>
@@ -98,9 +98,9 @@ export class AppComponent {
           <CodeBlock
             variants={{
               react: `<PasswordInput invalid defaultValue="short" placeholder="Password" />`,
-              js: `<PasswordInput invalid placeholder="Password" />`,
-              vue: `<PasswordInput invalid placeholder="Password" />`,
-              angular: `<PasswordInput invalid placeholder="Password" />`,
+              js: `<l-PasswordInput invalid placeholder="Password" />`,
+              vue: `<l-PasswordInput invalid placeholder="Password" />`,
+              angular: `<l-PasswordInput invalid placeholder="Password" />`,
             }}
           />
         </section>
@@ -113,9 +113,9 @@ export class AppComponent {
           <CodeBlock
             variants={{
               react: `<PasswordInput disabled placeholder="Disabled" />`,
-              js: `<PasswordInput disabled placeholder="Disabled" />`,
-              vue: `<PasswordInput disabled placeholder="Disabled" />`,
-              angular: `<PasswordInput disabled placeholder="Disabled" />`,
+              js: `<l-PasswordInput disabled placeholder="Disabled" />`,
+              vue: `<l-PasswordInput disabled placeholder="Disabled" />`,
+              angular: `<l-PasswordInput disabled placeholder="Disabled" />`,
             }}
           />
         </section>

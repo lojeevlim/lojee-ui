@@ -25,19 +25,19 @@ export default function CardShowcase() {
 <Card variant="elevated">Elevated</Card>
 <Card variant="soft">Soft</Card>
 <Card variant="ghost">Ghost</Card>`,
-              js: `<Card variant="outline">Outline</Card>
-<Card variant="elevated">Elevated</Card>
-<Card variant="soft">Soft</Card>
-<Card variant="ghost">Ghost</Card>
+              js: `<l-Card variant="outline">Outline</l-Card>
+<l-Card variant="elevated">Elevated</l-Card>
+<l-Card variant="soft">Soft</l-Card>
+<l-Card variant="ghost">Ghost</l-Card>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <Card variant="outline">Outline</Card>
-  <Card variant="elevated">Elevated</Card>
-  <Card variant="soft">Soft</Card>
-  <Card variant="ghost">Ghost</Card>
+  <l-Card variant="outline">Outline</l-Card>
+  <l-Card variant="elevated">Elevated</l-Card>
+  <l-Card variant="soft">Soft</l-Card>
+  <l-Card variant="ghost">Ghost</l-Card>
 </template>
 
 <script setup>
@@ -52,10 +52,10 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <Card variant="outline">Outline</Card>
-    <Card variant="elevated">Elevated</Card>
-    <Card variant="soft">Soft</Card>
-    <Card variant="ghost">Ghost</Card>
+    <l-Card variant="outline">Outline</l-Card>
+    <l-Card variant="elevated">Elevated</l-Card>
+    <l-Card variant="soft">Soft</l-Card>
+    <l-Card variant="ghost">Ghost</l-Card>
   \`,
 })
 export class AppComponent {}`,
@@ -75,15 +75,15 @@ export class AppComponent {}`,
             variants={{
               react: `<Card padding="sm">Small</Card>
 <Card padding="lg">Large</Card>`,
-              js: `<Card padding="sm">Small</Card>
-<Card padding="lg">Large</Card>`,
+              js: `<l-Card padding="sm">Small</l-Card>
+<l-Card padding="lg">Large</l-Card>`,
               vue: `<template>
-  <Card padding="sm">Small</Card>
-  <Card padding="lg">Large</Card>
+  <l-Card padding="sm">Small</l-Card>
+  <l-Card padding="lg">Large</l-Card>
 </template>`,
               angular: `<!-- reuses the AppComponent from above -->
-<Card padding="sm">Small</Card>
-<Card padding="lg">Large</Card>`,
+<l-Card padding="sm">Small</l-Card>
+<l-Card padding="lg">Large</l-Card>`,
             }}
           />
         </section>
@@ -99,12 +99,12 @@ export class AppComponent {}`,
           <CodeBlock
             variants={{
               react: `<Card hoverable>Hover me</Card>`,
-              js: `<Card hoverable>Hover me</Card>`,
+              js: `<l-Card hoverable>Hover me</l-Card>`,
               vue: `<template>
-  <Card hoverable>Hover me</Card>
+  <l-Card hoverable>Hover me</l-Card>
 </template>`,
               angular: `<!-- reuses the AppComponent from above -->
-<Card hoverable>Hover me</Card>`,
+<l-Card hoverable>Hover me</l-Card>`,
             }}
           />
         </section>
@@ -122,18 +122,18 @@ export class AppComponent {}`,
 >
   Your subscription renews monthly and includes unlimited seats.
 </Card>`,
-              js: `<Card title="Plan details" footer="Updated 2 days ago">
+              js: `<l-Card title="Plan details" footer="Updated 2 days ago">
   Your subscription renews monthly and includes unlimited seats.
-</Card>`,
+</l-Card>`,
               vue: `<template>
-  <Card title="Plan details" footer="Updated 2 days ago">
+  <l-Card title="Plan details" footer="Updated 2 days ago">
     Your subscription renews monthly and includes unlimited seats.
-  </Card>
+  </l-Card>
 </template>`,
               angular: `<!-- reuses the AppComponent from above -->
-<Card title="Plan details" footer="Updated 2 days ago">
+<l-Card title="Plan details" footer="Updated 2 days ago">
   Your subscription renews monthly and includes unlimited seats.
-</Card>`,
+</l-Card>`,
             }}
           />
         </section>

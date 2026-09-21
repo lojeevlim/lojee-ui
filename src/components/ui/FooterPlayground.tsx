@@ -89,7 +89,9 @@ export default function FooterPlayground() {
     ? `<Footer bottom="${bottomValue}"${variantAttr}>${columnsJsx}</Footer>`
     : `<Footer bottom="${bottomValue}"${variantAttr} />`;
 
-  const htmlMarkup = code;
+  const htmlMarkup = showColumns
+    ? `<l-Footer bottom="${bottomValue}"${variantAttr}>${columnsJsx}</l-Footer>`
+    : `<l-Footer bottom="${bottomValue}"${variantAttr} />`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,

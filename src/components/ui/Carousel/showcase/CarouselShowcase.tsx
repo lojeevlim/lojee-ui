@@ -31,7 +31,7 @@ export default function CarouselShowcase() {
     <div className="flex h-48 items-center justify-center bg-rose-100 text-rose-700">Slide 3</div>,
   ]}
 />`,
-              js: `<Carousel id="basic-carousel" />
+              js: `<l-Carousel id="basic-carousel" />
 
 <script type="module">
   import "lojee-ui/elements";
@@ -39,7 +39,7 @@ export default function CarouselShowcase() {
   document.getElementById("basic-carousel").slides = ["Slide 1", "Slide 2", "Slide 3"];
 </script>`,
               vue: `<template>
-  <Carousel :slides="slides" />
+  <l-Carousel :slides="slides" />
 </template>
 
 <script setup>
@@ -55,7 +55,7 @@ import "lojee-ui/elements";
   selector: "app-root",
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  template: \`<Carousel [slides]="slides" />\`,
+  template: \`<l-Carousel [slides]="slides" />\`,
 })
 export class AppComponent {
   slides = ["Slide 1", "Slide 2", "Slide 3"];
@@ -88,13 +88,13 @@ export class AppComponent {
     <div className="flex h-48 items-center justify-center bg-orange-100 text-orange-700">Slide 4</div>,
   ]}
 />`,
-              js: `<Carousel id="autoplay-carousel" autoPlay intervalMs="2500" />
+              js: `<l-Carousel id="autoplay-carousel" autoPlay intervalMs="2500" />
 
 <script type="module">
   document.getElementById("autoplay-carousel").slides = ["Slide 1", "Slide 2", "Slide 3", "Slide 4"];
 </script>`,
               vue: `<template>
-  <Carousel :slides="slides" autoPlay intervalMs="2500" />
+  <l-Carousel :slides="slides" autoPlay intervalMs="2500" />
 </template>
 
 <script setup>
@@ -104,7 +104,7 @@ const slides = ["Slide 1", "Slide 2", "Slide 3", "Slide 4"];
 slides = ["Slide 1", "Slide 2", "Slide 3", "Slide 4"];
 
 // app.component.html
-<Carousel [slides]="slides" autoPlay intervalMs="2500" />`,
+<l-Carousel [slides]="slides" autoPlay intervalMs="2500" />`,
             }}
           />
         </section>
@@ -127,13 +127,13 @@ slides = ["Slide 1", "Slide 2", "Slide 3", "Slide 4"];
     <div className="flex h-48 items-center justify-center bg-pink-100 text-pink-700">Slide 2</div>,
   ]}
 />`,
-              js: `<Carousel id="dots-carousel" showArrows="false" />
+              js: `<l-Carousel id="dots-carousel" showArrows="false" />
 
 <script type="module">
   document.getElementById("dots-carousel").slides = ["Slide 1", "Slide 2"];
 </script>`,
               vue: `<template>
-  <Carousel :slides="slides" showArrows="false" />
+  <l-Carousel :slides="slides" showArrows="false" />
 </template>
 
 <script setup>
@@ -143,7 +143,7 @@ const slides = ["Slide 1", "Slide 2"];
 slides = ["Slide 1", "Slide 2"];
 
 // app.component.html
-<Carousel [slides]="slides" showArrows="false" />`,
+<l-Carousel [slides]="slides" showArrows="false" />`,
             }}
           />
         </section>

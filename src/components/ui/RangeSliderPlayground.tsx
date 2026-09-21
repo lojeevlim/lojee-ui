@@ -31,7 +31,7 @@ export default function RangeSliderPlayground() {
 
   const codeVariants: CodeBlockVariants = {
     react: code,
-    js: `<RangeSlider id="range-slider" color="${color}"${showValueAttr} />
+    js: `<l-RangeSlider id="range-slider" color="${color}"${showValueAttr} />
 
 <script type="module">
   import "lojee-ui/elements";
@@ -39,13 +39,13 @@ export default function RangeSliderPlayground() {
   document.querySelector("#range-slider").value = ${valueLiteral};
 </script>`,
     vue: `<template>
-  <RangeSlider :value="value" color="${color}"${showValueAttr} />
+  <l-RangeSlider :value="value" color="${color}"${showValueAttr} />
 </template>
 
 <script setup>
 const value = ${valueLiteral};
 </script>`,
-    angular: `<RangeSlider [value]="value" color="${color}"${showValueAttr} />
+    angular: `<l-RangeSlider [value]="value" color="${color}"${showValueAttr} />
 
 value = ${valueLiteral};`,
   };

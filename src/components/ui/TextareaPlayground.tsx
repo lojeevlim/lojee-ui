@@ -29,7 +29,7 @@ export default function TextareaPlayground() {
   // Vue/Angular templates (plain attributes, no bindings needed for a static
   // snapshot); the "js" variant just adds the one-time module import a plain
   // HTML page needs to actually load the `<l-*>` definitions.
-  const htmlMarkup = `<Textarea resize="${resize}"${invalid ? ` invalid` : ""}${
+  const htmlMarkup = `<l-Textarea resize="${resize}"${invalid ? ` invalid` : ""}${
     disabled ? ` disabled` : ""
   } placeholder="${placeholder || "Write something…"}" />`;
 

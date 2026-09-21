@@ -38,7 +38,7 @@ export default function CalendarPlayground() {
 
   const code = `<Calendar${colorAttr}${eventsAttrJsx} />`;
 
-  const htmlOpenTag = `<Calendar${colorAttr}${showEvents ? ` id="calendar-demo"` : ""}></Calendar>`;
+  const htmlOpenTag = `<l-Calendar${colorAttr}${showEvents ? ` id="calendar-demo"` : ""}></l-Calendar>`;
   const htmlMarkup = showEvents
     ? `${htmlOpenTag}
 
@@ -49,13 +49,13 @@ export default function CalendarPlayground() {
 ${SAMPLE_EVENTS_CODE}
   ];
 </script>`
-    : `<Calendar${colorAttr}></Calendar>
+    : `<l-Calendar${colorAttr}></l-Calendar>
 
 <script type="module">import "lojee-ui/elements";</script>`;
 
   const vueMarkup = showEvents
     ? `<template>
-  <Calendar${colorAttr} :events="events" />
+  <l-Calendar${colorAttr} :events="events" />
 </template>
 
 <script setup>
@@ -64,16 +64,16 @@ ${SAMPLE_EVENTS_CODE}
 ];
 </script>`
     : `<template>
-  <Calendar${colorAttr} />
+  <l-Calendar${colorAttr} />
 </template>`;
 
   const angularMarkup = showEvents
-    ? `<Calendar${colorAttr} [events]="events"></Calendar>
+    ? `<l-Calendar${colorAttr} [events]="events"></l-Calendar>
 
 events = [
 ${SAMPLE_EVENTS_CODE}
 ];`
-    : `<Calendar${colorAttr}></Calendar>`;
+    : `<l-Calendar${colorAttr}></l-Calendar>`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,

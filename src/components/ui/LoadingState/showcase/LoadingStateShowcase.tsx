@@ -19,11 +19,11 @@ export default function LoadingStateShowcase() {
           <CodeBlock
             variants={{
               react: `<LoadingState />`,
-              js: `<LoadingState />
+              js: `<l-LoadingState />
 
 <script type="module">import "lojee-ui/elements";</script>`,
-              vue: `<LoadingState />`,
-              angular: `<LoadingState />`,
+              vue: `<l-LoadingState />`,
+              angular: `<l-LoadingState />`,
             }}
           />
         </section>
@@ -34,13 +34,13 @@ export default function LoadingStateShowcase() {
           <CodeBlock
             variants={{
               react: `<LoadingState title="Fetching your data">\n  This should only take a moment.\n</LoadingState>`,
-              js: `<LoadingState title="Fetching your data">
+              js: `<l-LoadingState title="Fetching your data">
   This should only take a moment.
-</LoadingState>
+</l-LoadingState>
 
 <script type="module">import "lojee-ui/elements";</script>`,
-              vue: `<LoadingState title="Fetching your data">\n  This should only take a moment.\n</LoadingState>`,
-              angular: `<LoadingState title="Fetching your data">\n  This should only take a moment.\n</LoadingState>`,
+              vue: `<l-LoadingState title="Fetching your data">\n  This should only take a moment.\n</l-LoadingState>`,
+              angular: `<l-LoadingState title="Fetching your data">\n  This should only take a moment.\n</l-LoadingState>`,
             }}
           />
         </section>
@@ -57,17 +57,17 @@ export default function LoadingStateShowcase() {
               react: `<LoadingState size="sm" title="Loading" />
 <LoadingState size="md" title="Loading" />
 <LoadingState size="lg" title="Loading" />`,
-              js: `<LoadingState size="sm" title="Loading" />
-<LoadingState size="md" title="Loading" />
-<LoadingState size="lg" title="Loading" />
+              js: `<l-LoadingState size="sm" title="Loading" />
+<l-LoadingState size="md" title="Loading" />
+<l-LoadingState size="lg" title="Loading" />
 
 <script type="module">import "lojee-ui/elements";</script>`,
-              vue: `<LoadingState size="sm" title="Loading" />
-<LoadingState size="md" title="Loading" />
-<LoadingState size="lg" title="Loading" />`,
-              angular: `<LoadingState size="sm" title="Loading" />
-<LoadingState size="md" title="Loading" />
-<LoadingState size="lg" title="Loading" />`,
+              vue: `<l-LoadingState size="sm" title="Loading" />
+<l-LoadingState size="md" title="Loading" />
+<l-LoadingState size="lg" title="Loading" />`,
+              angular: `<l-LoadingState size="sm" title="Loading" />
+<l-LoadingState size="md" title="Loading" />
+<l-LoadingState size="lg" title="Loading" />`,
             }}
           />
         </section>

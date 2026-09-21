@@ -66,10 +66,10 @@ export default function ProfileCardPlayground() {
   const code = `<ProfileCard name="${nameValue}"${roleAttr}${bioAttr}${colorAttr}${statsBlock}${actionsBlockJsx} />`;
 
   const actionsSlotHtml = showActions
-    ? `\n  <div slot="actions" class="flex items-center gap-2 w-full">\n    <Button label="Follow" className="flex-1" />\n    <Button variant="outline" label="Message" className="flex-1" />\n  </div>`
+    ? `\n  <div slot="actions" class="flex items-center gap-2 w-full">\n    <l-Button label="Follow" className="flex-1" />\n    <l-Button variant="outline" label="Message" className="flex-1" />\n  </div>`
     : "";
-  const htmlOpenTag = `<ProfileCard${showStats ? ` id="profile-card"` : ""} name="${nameValue}"${roleAttr}${bioAttr}${colorAttr}>`;
-  const htmlMarkup = actionsSlotHtml || showStats ? `${htmlOpenTag}${actionsSlotHtml}\n</ProfileCard>` : `<ProfileCard name="${nameValue}"${roleAttr}${bioAttr}${colorAttr} />`;
+  const htmlOpenTag = `<l-ProfileCard${showStats ? ` id="profile-card"` : ""} name="${nameValue}"${roleAttr}${bioAttr}${colorAttr}>`;
+  const htmlMarkup = actionsSlotHtml || showStats ? `${htmlOpenTag}${actionsSlotHtml}\n</l-ProfileCard>` : `<l-ProfileCard name="${nameValue}"${roleAttr}${bioAttr}${colorAttr} />`;
   const htmlScript = showStats
     ? `\n\n<script type="module">
   import "lojee-ui/elements";
@@ -84,11 +84,11 @@ export default function ProfileCardPlayground() {
 
   const vueMarkup = showStats
     ? `<template>
-  <ProfileCard name="${nameValue}"${roleAttr}${bioAttr}${colorAttr} :stats="stats">${
+  <l-ProfileCard name="${nameValue}"${roleAttr}${bioAttr}${colorAttr} :stats="stats">${
         showActions
-          ? `\n    <template #actions>\n      <Button label="Follow" className="flex-1" />\n      <Button variant="outline" label="Message" className="flex-1" />\n    </template>\n  `
+          ? `\n    <template #actions>\n      <l-Button label="Follow" className="flex-1" />\n      <l-Button variant="outline" label="Message" className="flex-1" />\n    </template>\n  `
           : ""
-      }</ProfileCard>
+      }</l-ProfileCard>
 </template>
 
 <script setup>
@@ -99,11 +99,11 @@ const stats = [
 ];
 </script>`
     : `<template>
-  <ProfileCard name="${nameValue}"${roleAttr}${bioAttr}${colorAttr} />
+  <l-ProfileCard name="${nameValue}"${roleAttr}${bioAttr}${colorAttr} />
 </template>`;
 
-  const angularMarkup = `<ProfileCard name="${nameValue}"${roleAttr}${bioAttr}${colorAttr}${showStats ? ` [stats]="stats"` : ""}>${actionsSlotHtml}
-</ProfileCard>${
+  const angularMarkup = `<l-ProfileCard name="${nameValue}"${roleAttr}${bioAttr}${colorAttr}${showStats ? ` [stats]="stats"` : ""}>${actionsSlotHtml}
+</l-ProfileCard>${
     showStats
       ? `\n\nstats = [\n  { label: "Followers", value: "2,481" },\n  { label: "Following", value: "312" },\n  { label: "Posts", value: "48" },\n];`
       : ""

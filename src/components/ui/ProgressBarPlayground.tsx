@@ -40,7 +40,7 @@ export default function ProgressBarPlayground() {
   const indeterminateAttr = indeterminate ? " indeterminate" : "";
 
   const code = `<ProgressBar${valueAttr}${sizeAttr}${colorAttr}${stripedAttr}${indeterminateAttr}${showLabelAttr} />`;
-  const htmlMarkup = `<ProgressBar${valueAttrHtml}${sizeAttr}${colorAttr}${stripedAttr}${indeterminateAttr}${showLabelAttr} />`;
+  const htmlMarkup = `<l-ProgressBar${valueAttrHtml}${sizeAttr}${colorAttr}${stripedAttr}${indeterminateAttr}${showLabelAttr} />`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,

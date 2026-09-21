@@ -32,7 +32,7 @@ export default function CheckboxPlayground() {
   // Vue/Angular templates (plain attributes, no bindings needed for a static
   // snapshot); the "js" variant just adds the one-time module import a plain
   // HTML page needs to actually load the `<l-*>` definitions.
-  const htmlMarkup = `<Checkbox color="${color}"${checked ? ` defaultChecked` : ""}${
+  const htmlMarkup = `<l-Checkbox color="${color}"${checked ? ` defaultChecked` : ""}${
     disabled ? ` disabled` : ""
   }${label ? ` label="${label}"` : ""} />`;
 

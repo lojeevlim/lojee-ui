@@ -41,7 +41,7 @@ export default function ProfileSettingsShowcase() {
   defaultValues={{ name: "Jordan Diaz", username: "jordandiaz", bio: "Product designer building lojee-ui." }}
   onSave={setSaved}
 />`,
-              js: `<ProfileSettings id="profile-settings" avatarInitials="JD"></ProfileSettings>
+              js: `<l-ProfileSettings id="profile-settings" avatarInitials="JD"></l-ProfileSettings>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -51,14 +51,14 @@ export default function ProfileSettingsShowcase() {
   el.addEventListener("save", (e) => { /* e.detail */ });
 </script>`,
               vue: `<template>
-  <ProfileSettings avatarInitials="JD" :defaultValues="defaults" @save="onSave" />
+  <l-ProfileSettings avatarInitials="JD" :defaultValues="defaults" @save="onSave" />
 </template>
 
 <script setup>
 const defaults = { name: "Jordan Diaz", username: "jordandiaz", bio: "Product designer building lojee-ui." };
 function onSave(values) { /* values */ }
 </script>`,
-              angular: `<ProfileSettings avatarInitials="JD" [defaultValues]="defaults" (save)="onSave($event)"></ProfileSettings>
+              angular: `<l-ProfileSettings avatarInitials="JD" [defaultValues]="defaults" (save)="onSave($event)"></l-ProfileSettings>
 
 defaults = { name: "Jordan Diaz", username: "jordandiaz", bio: "Product designer building lojee-ui." };
 onSave(values) { /* values */ }`,
@@ -78,9 +78,9 @@ onSave(values) { /* values */ }`,
           <CodeBlock
             variants={{
               react: `<ProfileSettings avatarInitials="AC" defaultValues={{ name: "Alex Chen", username: "alexchen" }} saveLabel="Update profile" />`,
-              js: `<ProfileSettings avatarInitials="AC" saveLabel="Update profile"></ProfileSettings>`,
-              vue: `<ProfileSettings avatarInitials="AC" saveLabel="Update profile" />`,
-              angular: `<ProfileSettings avatarInitials="AC" saveLabel="Update profile"></ProfileSettings>`,
+              js: `<l-ProfileSettings avatarInitials="AC" saveLabel="Update profile"></l-ProfileSettings>`,
+              vue: `<l-ProfileSettings avatarInitials="AC" saveLabel="Update profile" />`,
+              angular: `<l-ProfileSettings avatarInitials="AC" saveLabel="Update profile"></l-ProfileSettings>`,
             }}
           />
         </section>

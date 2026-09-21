@@ -27,17 +27,17 @@ export default function SectionShowcase() {
               react: `<Section spacing="sm">...</Section>
 <Section spacing="md">...</Section>
 <Section spacing="lg">...</Section>`,
-              js: `<Section spacing="sm">...</Section>
-<Section spacing="md">...</Section>
-<Section spacing="lg">...</Section>
+              js: `<l-Section spacing="sm">...</l-Section>
+<l-Section spacing="md">...</l-Section>
+<l-Section spacing="lg">...</l-Section>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <Section spacing="sm">...</Section>
-  <Section spacing="md">...</Section>
-  <Section spacing="lg">...</Section>
+  <l-Section spacing="sm">...</l-Section>
+  <l-Section spacing="md">...</l-Section>
+  <l-Section spacing="lg">...</l-Section>
 </template>
 
 <script setup>
@@ -52,9 +52,9 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <Section spacing="sm">...</Section>
-    <Section spacing="md">...</Section>
-    <Section spacing="lg">...</Section>
+    <l-Section spacing="sm">...</l-Section>
+    <l-Section spacing="md">...</l-Section>
+    <l-Section spacing="lg">...</l-Section>
   \`,
 })
 export class AppComponent {}`,
@@ -74,18 +74,18 @@ export class AppComponent {}`,
               react: `<Section title="Team members" subtitle="Manage who has access to this workspace.">
   ...
 </Section>`,
-              js: `<Section title="Team members" subtitle="Manage who has access to this workspace.">
+              js: `<l-Section title="Team members" subtitle="Manage who has access to this workspace.">
   ...
-</Section>`,
+</l-Section>`,
               vue: `<template>
-  <Section title="Team members" subtitle="Manage who has access to this workspace.">
+  <l-Section title="Team members" subtitle="Manage who has access to this workspace.">
     ...
-  </Section>
+  </l-Section>
 </template>`,
               angular: `<!-- reuses the AppComponent from above -->
-<Section title="Team members" subtitle="Manage who has access to this workspace.">
+<l-Section title="Team members" subtitle="Manage who has access to this workspace.">
   ...
-</Section>`,
+</l-Section>`,
             }}
           />
         </section>

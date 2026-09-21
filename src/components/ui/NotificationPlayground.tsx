@@ -45,7 +45,7 @@ export default function NotificationPlayground() {
   ${body}
 </Notification>`;
 
-  const htmlMarkup = `<Notification${titleAttr}${timestampAttr}${unreadAttr}>\n  ${body}\n</Notification>`;
+  const htmlMarkup = `<l-Notification${titleAttr}${timestampAttr}${unreadAttr}>\n  ${body}\n</l-Notification>`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,

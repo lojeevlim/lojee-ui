@@ -26,7 +26,7 @@ export default function SelectShowcase() {
           <CodeBlock
             variants={{
               react: `<Select options={options} placeholder="Choose a fruit" />`,
-              js: `<Select id="fruit-select" placeholder="Choose a fruit" />
+              js: `<l-Select id="fruit-select" placeholder="Choose a fruit" />
 
 <script type="module">
   import "lojee-ui/elements";
@@ -40,7 +40,7 @@ export default function SelectShowcase() {
   ];
 </script>`,
               vue: `<template>
-  <Select :options="options" placeholder="Choose a fruit" />
+  <l-Select :options="options" placeholder="Choose a fruit" />
 </template>
 
 <script setup>
@@ -62,7 +62,7 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <Select [options]="options" placeholder="Choose a fruit" />
+    <l-Select [options]="options" placeholder="Choose a fruit" />
   \`,
 })
 export class AppComponent {
@@ -87,10 +87,10 @@ export class AppComponent {
           <CodeBlock
             variants={{
               react: `<Select options={options} size="sm" placeholder="Small" />`,
-              js: `<Select size="sm" placeholder="Small" />
+              js: `<l-Select size="sm" placeholder="Small" />
 <!-- .options set via DOM property assignment — see the Placeholder example above -->`,
-              vue: `<Select :options="options" size="sm" placeholder="Small" />`,
-              angular: `<Select [options]="options" size="sm" placeholder="Small" />`,
+              vue: `<l-Select :options="options" size="sm" placeholder="Small" />`,
+              angular: `<l-Select [options]="options" size="sm" placeholder="Small" />`,
             }}
           />
         </section>
@@ -103,10 +103,10 @@ export class AppComponent {
           <CodeBlock
             variants={{
               react: `<Select options={options} placeholder="Choose a fruit" invalid />`,
-              js: `<Select placeholder="Choose a fruit" invalid />
+              js: `<l-Select placeholder="Choose a fruit" invalid />
 <!-- .options set via DOM property assignment — see the Placeholder example above -->`,
-              vue: `<Select :options="options" placeholder="Choose a fruit" invalid />`,
-              angular: `<Select [options]="options" placeholder="Choose a fruit" invalid />`,
+              vue: `<l-Select :options="options" placeholder="Choose a fruit" invalid />`,
+              angular: `<l-Select [options]="options" placeholder="Choose a fruit" invalid />`,
             }}
           />
         </section>
@@ -148,10 +148,10 @@ export class AppComponent {
           <CodeBlock
             variants={{
               react: `<Select options={options} placeholder="Choose a fruit" disabled />`,
-              js: `<Select placeholder="Choose a fruit" disabled />
+              js: `<l-Select placeholder="Choose a fruit" disabled />
 <!-- .options set via DOM property assignment — see the Placeholder example above -->`,
-              vue: `<Select :options="options" placeholder="Choose a fruit" disabled />`,
-              angular: `<Select [options]="options" placeholder="Choose a fruit" disabled />`,
+              vue: `<l-Select :options="options" placeholder="Choose a fruit" disabled />`,
+              angular: `<l-Select [options]="options" placeholder="Choose a fruit" disabled />`,
             }}
           />
         </section>

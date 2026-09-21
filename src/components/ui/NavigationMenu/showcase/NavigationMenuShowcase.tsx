@@ -39,7 +39,7 @@ export default function NavigationMenuShowcase() {
     { label: "Contact", href: "#" },
   ]}
 />`,
-              js: `<NavigationMenu id="nav-menu-basic" />
+              js: `<l-NavigationMenu id="nav-menu-basic" />
 
 <script type="module">
   import "lojee-ui/elements";
@@ -53,7 +53,7 @@ export default function NavigationMenuShowcase() {
   ];
 </script>`,
               vue: `<template>
-  <NavigationMenu :items="items" />
+  <l-NavigationMenu :items="items" />
 </template>
 
 <script setup>
@@ -75,7 +75,7 @@ import "lojee-ui/elements";
   selector: "app-root",
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  template: \`<NavigationMenu [items]="items" />\`,
+  template: \`<l-NavigationMenu [items]="items" />\`,
 })
 export class AppComponent {
   items = [
@@ -114,7 +114,7 @@ export class AppComponent {
     { label: "Settings", href: "#" },
   ]}
 />`,
-              js: `<NavigationMenu id="nav-menu-vertical" orientation="vertical" />
+              js: `<l-NavigationMenu id="nav-menu-vertical" orientation="vertical" />
 
 <script type="module">
   document.getElementById("nav-menu-vertical").items = [
@@ -125,7 +125,7 @@ export class AppComponent {
   ];
 </script>`,
               vue: `<template>
-  <NavigationMenu :items="items" orientation="vertical" />
+  <l-NavigationMenu :items="items" orientation="vertical" />
 </template>
 
 <script setup>
@@ -145,7 +145,7 @@ items = [
 ];
 
 // app.component.html
-<NavigationMenu [items]="items" orientation="vertical" />`,
+<l-NavigationMenu [items]="items" orientation="vertical" />`,
             }}
           />
         </section>
@@ -170,7 +170,7 @@ items = [
     { label: "Profile", href: "#", icon: "user" },
   ]}
 />`,
-              js: `<NavigationMenu id="nav-menu-icons" />
+              js: `<l-NavigationMenu id="nav-menu-icons" />
 
 <script type="module">
   document.getElementById("nav-menu-icons").items = [
@@ -181,7 +181,7 @@ items = [
   ];
 </script>`,
               vue: `<template>
-  <NavigationMenu :items="items" />
+  <l-NavigationMenu :items="items" />
 </template>
 
 <script setup>
@@ -201,7 +201,7 @@ items = [
 ];
 
 // app.component.html
-<NavigationMenu [items]="items" />`,
+<l-NavigationMenu [items]="items" />`,
             }}
           />
         </section>
@@ -232,7 +232,7 @@ const labels = ["Home", "Products", "Pricing"];
 
 {/* The active pill animates smoothly between items — real navigation
     (a route change re-rendering with a new \`active\` flag) triggers it too. */}`,
-              js: `<NavigationMenu id="nav-menu-callback" />
+              js: `<l-NavigationMenu id="nav-menu-callback" />
 
 <script type="module">
   import "lojee-ui/elements";
@@ -248,7 +248,7 @@ const labels = ["Home", "Products", "Pricing"];
   });
 </script>`,
               vue: `<template>
-  <NavigationMenu :items="items" @change="onChange" />
+  <l-NavigationMenu :items="items" @change="onChange" />
 </template>
 
 <script setup>
@@ -262,7 +262,7 @@ function onChange(index) {
   console.log("Selected index:", index);
 }
 </script>`,
-              angular: `<NavigationMenu [items]="items" (change)="onChange($event)"></NavigationMenu>
+              angular: `<l-NavigationMenu [items]="items" (change)="onChange($event)"></l-NavigationMenu>
 
 items = [
   { label: "Home", href: "#", active: true },
@@ -326,7 +326,7 @@ onChange(index: number) {
     { label: "Security", icon: "lock", content: <SecurityPanel /> },
   ]}
 />`,
-              js: `<NavigationMenu id="settings-nav" orientation="vertical"></NavigationMenu>
+              js: `<l-NavigationMenu id="settings-nav" orientation="vertical"></l-NavigationMenu>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -338,7 +338,7 @@ onChange(index: number) {
   ];
 </script>`,
               vue: `<template>
-  <NavigationMenu :items="items" orientation="vertical" />
+  <l-NavigationMenu :items="items" orientation="vertical" />
 </template>
 
 <script setup>
@@ -348,7 +348,7 @@ const items = [
   { label: "Security", icon: "lock", content: "Manage your password and two-factor authentication." },
 ];
 </script>`,
-              angular: `<NavigationMenu [items]="items" orientation="vertical"></NavigationMenu>
+              angular: `<l-NavigationMenu [items]="items" orientation="vertical"></l-NavigationMenu>
 
 items = [
   { label: "Profile", icon: "user", content: "Update your name, photo, and public details." },
@@ -379,7 +379,7 @@ items = [
     { label: "Settings", href: "#" },
   ]}
 />`,
-              js: `<NavigationMenu id="nav-menu-disabled" />
+              js: `<l-NavigationMenu id="nav-menu-disabled" />
 
 <script type="module">
   document.getElementById("nav-menu-disabled").items = [
@@ -390,7 +390,7 @@ items = [
   ];
 </script>`,
               vue: `<template>
-  <NavigationMenu :items="items" />
+  <l-NavigationMenu :items="items" />
 </template>
 
 <script setup>
@@ -410,7 +410,7 @@ items = [
 ];
 
 // app.component.html
-<NavigationMenu [items]="items" />`,
+<l-NavigationMenu [items]="items" />`,
             }}
           />
         </section>

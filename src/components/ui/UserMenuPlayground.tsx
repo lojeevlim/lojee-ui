@@ -51,7 +51,7 @@ export default function UserMenuPlayground() {
   { label: "Billing", icon: "tag" },
   { label: "Log out", icon: "arrow-right", danger: true },`;
 
-  const htmlMarkup = `<UserMenu id="user-menu" name="${nameValue}"${emailAttrJsx}${alignAttr} avatarInitials="JD"></UserMenu>
+  const htmlMarkup = `<l-UserMenu id="user-menu" name="${nameValue}"${emailAttrJsx}${alignAttr} avatarInitials="JD"></l-UserMenu>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -62,7 +62,7 @@ ${itemsCode}
 </script>`;
 
   const vueMarkup = `<template>
-  <UserMenu name="${nameValue}"${emailAttrJsx}${alignAttr} avatarInitials="JD" :items="items" />
+  <l-UserMenu name="${nameValue}"${emailAttrJsx}${alignAttr} avatarInitials="JD" :items="items" />
 </template>
 
 <script setup>
@@ -71,7 +71,7 @@ ${itemsCode}
 ];
 </script>`;
 
-  const angularMarkup = `<UserMenu name="${nameValue}"${emailAttrJsx}${alignAttr} avatarInitials="JD" [items]="items"></UserMenu>
+  const angularMarkup = `<l-UserMenu name="${nameValue}"${emailAttrJsx}${alignAttr} avatarInitials="JD" [items]="items"></l-UserMenu>
 
 items = [
 ${itemsCode}

@@ -37,12 +37,12 @@ export default function DropdownMenuShowcase() {
   <DropdownMenuItem icon="copy" onClick={() => duplicate()}>Duplicate</DropdownMenuItem>
   <DropdownMenuItem icon="trash-2" danger onClick={() => remove()}>Delete</DropdownMenuItem>
 </DropdownMenu>`,
-              js: `<DropdownMenu id="actions-menu">
-  <Button slot="trigger" variant="outline" icon="more-horizontal" iconOnly label="Actions" />
-  <DropdownMenuItem icon="pencil" id="edit-item">Edit</DropdownMenuItem>
-  <DropdownMenuItem icon="copy" id="duplicate-item">Duplicate</DropdownMenuItem>
-  <DropdownMenuItem icon="trash-2" danger id="delete-item">Delete</DropdownMenuItem>
-</DropdownMenu>
+              js: `<l-DropdownMenu id="actions-menu">
+  <l-Button slot="trigger" variant="outline" icon="more-horizontal" iconOnly label="Actions" />
+  <l-DropdownMenuItem icon="pencil" id="edit-item">Edit</l-DropdownMenuItem>
+  <l-DropdownMenuItem icon="copy" id="duplicate-item">Duplicate</l-DropdownMenuItem>
+  <l-DropdownMenuItem icon="trash-2" danger id="delete-item">Delete</l-DropdownMenuItem>
+</l-DropdownMenu>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -52,12 +52,12 @@ export default function DropdownMenuShowcase() {
   document.getElementById("delete-item").addEventListener("click", () => remove());
 </script>`,
               vue: `<template>
-  <DropdownMenu>
-    <Button slot="trigger" variant="outline" icon="more-horizontal" iconOnly label="Actions" />
-    <DropdownMenuItem icon="pencil" @click="edit">Edit</DropdownMenuItem>
-    <DropdownMenuItem icon="copy" @click="duplicate">Duplicate</DropdownMenuItem>
-    <DropdownMenuItem icon="trash-2" danger @click="remove">Delete</DropdownMenuItem>
-  </DropdownMenu>
+  <l-DropdownMenu>
+    <l-Button slot="trigger" variant="outline" icon="more-horizontal" iconOnly label="Actions" />
+    <l-DropdownMenuItem icon="pencil" @click="edit">Edit</l-DropdownMenuItem>
+    <l-DropdownMenuItem icon="copy" @click="duplicate">Duplicate</l-DropdownMenuItem>
+    <l-DropdownMenuItem icon="trash-2" danger @click="remove">Delete</l-DropdownMenuItem>
+  </l-DropdownMenu>
 </template>
 
 <script setup>
@@ -72,12 +72,12 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <DropdownMenu>
-      <Button slot="trigger" variant="outline" icon="more-horizontal" iconOnly label="Actions" />
-      <DropdownMenuItem icon="pencil" (click)="edit()">Edit</DropdownMenuItem>
-      <DropdownMenuItem icon="copy" (click)="duplicate()">Duplicate</DropdownMenuItem>
-      <DropdownMenuItem icon="trash-2" danger (click)="remove()">Delete</DropdownMenuItem>
-    </DropdownMenu>
+    <l-DropdownMenu>
+      <l-Button slot="trigger" variant="outline" icon="more-horizontal" iconOnly label="Actions" />
+      <l-DropdownMenuItem icon="pencil" (click)="edit()">Edit</l-DropdownMenuItem>
+      <l-DropdownMenuItem icon="copy" (click)="duplicate()">Duplicate</l-DropdownMenuItem>
+      <l-DropdownMenuItem icon="trash-2" danger (click)="remove()">Delete</l-DropdownMenuItem>
+    </l-DropdownMenu>
   \`,
 })
 export class DropdownMenuShowcaseComponent {
@@ -111,32 +111,32 @@ export class DropdownMenuShowcaseComponent {
   <DropdownMenuItem icon="share-2" onClick={() => share()}>Share</DropdownMenuItem>
   <DropdownMenuItem disabled>Archived</DropdownMenuItem>
 </DropdownMenu>`,
-              js: `<DropdownMenu align="end">
-  <Button slot="trigger" icon="chevron-down" label="Options" />
-  <DropdownMenuItem icon="settings" id="settings-item">Settings</DropdownMenuItem>
-  <DropdownMenuItem icon="share-2" id="share-item">Share</DropdownMenuItem>
-  <DropdownMenuItem disabled>Archived</DropdownMenuItem>
-</DropdownMenu>
+              js: `<l-DropdownMenu align="end">
+  <l-Button slot="trigger" icon="chevron-down" label="Options" />
+  <l-DropdownMenuItem icon="settings" id="settings-item">Settings</l-DropdownMenuItem>
+  <l-DropdownMenuItem icon="share-2" id="share-item">Share</l-DropdownMenuItem>
+  <l-DropdownMenuItem disabled>Archived</l-DropdownMenuItem>
+</l-DropdownMenu>
 
 <script type="module">
   document.getElementById("settings-item").addEventListener("click", () => openSettings());
   document.getElementById("share-item").addEventListener("click", () => share());
 </script>`,
               vue: `<template>
-  <DropdownMenu align="end">
-    <Button slot="trigger" icon="chevron-down" label="Options" />
-    <DropdownMenuItem icon="settings" @click="openSettings">Settings</DropdownMenuItem>
-    <DropdownMenuItem icon="share-2" @click="share">Share</DropdownMenuItem>
-    <DropdownMenuItem disabled>Archived</DropdownMenuItem>
-  </DropdownMenu>
+  <l-DropdownMenu align="end">
+    <l-Button slot="trigger" icon="chevron-down" label="Options" />
+    <l-DropdownMenuItem icon="settings" @click="openSettings">Settings</l-DropdownMenuItem>
+    <l-DropdownMenuItem icon="share-2" @click="share">Share</l-DropdownMenuItem>
+    <l-DropdownMenuItem disabled>Archived</l-DropdownMenuItem>
+  </l-DropdownMenu>
 </template>`,
               angular: `<!-- reuses DropdownMenuShowcaseComponent from above -->
-<DropdownMenu align="end">
-  <Button slot="trigger" icon="chevron-down" label="Options" />
-  <DropdownMenuItem icon="settings" (click)="openSettings()">Settings</DropdownMenuItem>
-  <DropdownMenuItem icon="share-2" (click)="share()">Share</DropdownMenuItem>
-  <DropdownMenuItem disabled>Archived</DropdownMenuItem>
-</DropdownMenu>`,
+<l-DropdownMenu align="end">
+  <l-Button slot="trigger" icon="chevron-down" label="Options" />
+  <l-DropdownMenuItem icon="settings" (click)="openSettings()">Settings</l-DropdownMenuItem>
+  <l-DropdownMenuItem icon="share-2" (click)="share()">Share</l-DropdownMenuItem>
+  <l-DropdownMenuItem disabled>Archived</l-DropdownMenuItem>
+</l-DropdownMenu>`,
             }}
           />
         </section>

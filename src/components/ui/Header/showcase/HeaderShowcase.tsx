@@ -22,11 +22,11 @@ export default function HeaderShowcase() {
           <CodeBlock
             variants={{
               react: `<Header title="Team settings" description="Manage members, roles, and billing for your workspace." />`,
-              js: `<Header heading="Team settings" description="Manage members, roles, and billing for your workspace." />
+              js: `<l-Header heading="Team settings" description="Manage members, roles, and billing for your workspace." />
 
 <script type="module">import "lojee-ui/elements";</script>`,
-              vue: `<Header heading="Team settings" description="Manage members, roles, and billing for your workspace." />`,
-              angular: `<Header heading="Team settings" description="Manage members, roles, and billing for your workspace." />`,
+              vue: `<l-Header heading="Team settings" description="Manage members, roles, and billing for your workspace." />`,
+              angular: `<l-Header heading="Team settings" description="Manage members, roles, and billing for your workspace." />`,
             }}
           />
         </section>
@@ -55,28 +55,28 @@ export default function HeaderShowcase() {
     </>
   }
 />`,
-              js: `<Header heading="Projects" description="All projects across your workspace.">
+              js: `<l-Header heading="Projects" description="All projects across your workspace.">
   <div slot="actions">
-    <Button variant="outline" label="Import" />
-    <Button label="New project" />
+    <l-Button variant="outline" label="Import" />
+    <l-Button label="New project" />
   </div>
-</Header>
+</l-Header>
 
 <script type="module">import "lojee-ui/elements";</script>`,
               vue: `<template>
-  <Header heading="Projects" description="All projects across your workspace.">
+  <l-Header heading="Projects" description="All projects across your workspace.">
     <template #actions>
-      <Button variant="outline" label="Import" />
-      <Button label="New project" />
+      <l-Button variant="outline" label="Import" />
+      <l-Button label="New project" />
     </template>
-  </Header>
+  </l-Header>
 </template>`,
-              angular: `<Header heading="Projects" description="All projects across your workspace.">
+              angular: `<l-Header heading="Projects" description="All projects across your workspace.">
   <div slot="actions">
-    <Button variant="outline" label="Import" />
-    <Button label="New project" />
+    <l-Button variant="outline" label="Import" />
+    <l-Button label="New project" />
   </div>
-</Header>`,
+</l-Header>`,
             }}
           />
         </section>
@@ -109,37 +109,37 @@ export default function HeaderShowcase() {
   title="Lojee Website Redesign"
   description="Created by Jordan Diaz on Sep 12."
 />`,
-              js: `<Header heading="Lojee Website Redesign" description="Created by Jordan Diaz on Sep 12.">
+              js: `<l-Header heading="Lojee Website Redesign" description="Created by Jordan Diaz on Sep 12.">
   <div slot="breadcrumbs">
-    <Breadcrumbs>
-      <BreadcrumbItem href="#" icon="home">Home</BreadcrumbItem>
-      <BreadcrumbItem href="#">Projects</BreadcrumbItem>
-      <BreadcrumbItem>Lojee Website Redesign</BreadcrumbItem>
-    </Breadcrumbs>
+    <l-Breadcrumbs>
+      <l-BreadcrumbItem href="#" icon="home">Home</l-BreadcrumbItem>
+      <l-BreadcrumbItem href="#">Projects</l-BreadcrumbItem>
+      <l-BreadcrumbItem>Lojee Website Redesign</l-BreadcrumbItem>
+    </l-Breadcrumbs>
   </div>
-</Header>
+</l-Header>
 
 <script type="module">import "lojee-ui/elements";</script>`,
               vue: `<template>
-  <Header heading="Lojee Website Redesign" description="Created by Jordan Diaz on Sep 12.">
+  <l-Header heading="Lojee Website Redesign" description="Created by Jordan Diaz on Sep 12.">
     <template #breadcrumbs>
-      <Breadcrumbs>
-        <BreadcrumbItem href="#" icon="home">Home</BreadcrumbItem>
-        <BreadcrumbItem href="#">Projects</BreadcrumbItem>
-        <BreadcrumbItem>Lojee Website Redesign</BreadcrumbItem>
-      </Breadcrumbs>
+      <l-Breadcrumbs>
+        <l-BreadcrumbItem href="#" icon="home">Home</l-BreadcrumbItem>
+        <l-BreadcrumbItem href="#">Projects</l-BreadcrumbItem>
+        <l-BreadcrumbItem>Lojee Website Redesign</l-BreadcrumbItem>
+      </l-Breadcrumbs>
     </template>
-  </Header>
+  </l-Header>
 </template>`,
-              angular: `<Header heading="Lojee Website Redesign" description="Created by Jordan Diaz on Sep 12.">
+              angular: `<l-Header heading="Lojee Website Redesign" description="Created by Jordan Diaz on Sep 12.">
   <div slot="breadcrumbs">
-    <Breadcrumbs>
-      <BreadcrumbItem href="#" icon="home">Home</BreadcrumbItem>
-      <BreadcrumbItem href="#">Projects</BreadcrumbItem>
-      <BreadcrumbItem>Lojee Website Redesign</BreadcrumbItem>
-    </Breadcrumbs>
+    <l-Breadcrumbs>
+      <l-BreadcrumbItem href="#" icon="home">Home</l-BreadcrumbItem>
+      <l-BreadcrumbItem href="#">Projects</l-BreadcrumbItem>
+      <l-BreadcrumbItem>Lojee Website Redesign</l-BreadcrumbItem>
+    </l-Breadcrumbs>
   </div>
-</Header>`,
+</l-Header>`,
             }}
           />
         </section>

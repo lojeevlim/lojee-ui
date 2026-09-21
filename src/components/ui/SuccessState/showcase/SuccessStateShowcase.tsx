@@ -21,11 +21,11 @@ export default function SuccessStateShowcase() {
           <CodeBlock
             variants={{
               react: `<SuccessState />`,
-              js: `<SuccessState />
+              js: `<l-SuccessState />
 
 <script type="module">import "lojee-ui/elements";</script>`,
-              vue: `<SuccessState />`,
-              angular: `<SuccessState />`,
+              vue: `<l-SuccessState />`,
+              angular: `<l-SuccessState />`,
             }}
           />
         </section>
@@ -36,13 +36,13 @@ export default function SuccessStateShowcase() {
           <CodeBlock
             variants={{
               react: `<SuccessState>\n  Your payment was processed successfully.\n</SuccessState>`,
-              js: `<SuccessState>
+              js: `<l-SuccessState>
   Your payment was processed successfully.
-</SuccessState>
+</l-SuccessState>
 
 <script type="module">import "lojee-ui/elements";</script>`,
-              vue: `<SuccessState>\n  Your payment was processed successfully.\n</SuccessState>`,
-              angular: `<SuccessState>\n  Your payment was processed successfully.\n</SuccessState>`,
+              vue: `<l-SuccessState>\n  Your payment was processed successfully.\n</l-SuccessState>`,
+              angular: `<l-SuccessState>\n  Your payment was processed successfully.\n</l-SuccessState>`,
             }}
           />
         </section>
@@ -60,10 +60,10 @@ export default function SuccessStateShowcase() {
 >
   Your account has been created successfully.
 </SuccessState>`,
-              js: `<SuccessState title="You're all set">
+              js: `<l-SuccessState title="You're all set">
   Your account has been created successfully.
-  <Button slot="action" label="View details" id="view-details-btn" />
-</SuccessState>
+  <l-Button slot="action" label="View details" id="view-details-btn" />
+</l-SuccessState>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -73,10 +73,10 @@ export default function SuccessStateShowcase() {
   });
 </script>`,
               vue: `<template>
-  <SuccessState title="You're all set">
+  <l-SuccessState title="You're all set">
     Your account has been created successfully.
-    <Button slot="action" label="View details" @click="handleViewDetails" />
-  </SuccessState>
+    <l-Button slot="action" label="View details" @click="handleViewDetails" />
+  </l-SuccessState>
 </template>
 
 <script setup>
@@ -87,10 +87,10 @@ const handleViewDetails = () => {
 };
 </script>`,
               angular: `<!-- app.component.html -->
-<SuccessState title="You're all set">
+<l-SuccessState title="You're all set">
   Your account has been created successfully.
-  <Button slot="action" label="View details" (click)="handleViewDetails()" />
-</SuccessState>`,
+  <l-Button slot="action" label="View details" (click)="handleViewDetails()" />
+</l-SuccessState>`,
             }}
           />
         </section>
@@ -101,13 +101,13 @@ const handleViewDetails = () => {
           <CodeBlock
             variants={{
               react: `<SuccessState title="Changes saved">\n  Your changes have been saved and applied.\n</SuccessState>`,
-              js: `<SuccessState title="Changes saved">
+              js: `<l-SuccessState title="Changes saved">
   Your changes have been saved and applied.
-</SuccessState>
+</l-SuccessState>
 
 <script type="module">import "lojee-ui/elements";</script>`,
-              vue: `<SuccessState title="Changes saved">\n  Your changes have been saved and applied.\n</SuccessState>`,
-              angular: `<SuccessState title="Changes saved">\n  Your changes have been saved and applied.\n</SuccessState>`,
+              vue: `<l-SuccessState title="Changes saved">\n  Your changes have been saved and applied.\n</l-SuccessState>`,
+              angular: `<l-SuccessState title="Changes saved">\n  Your changes have been saved and applied.\n</l-SuccessState>`,
             }}
           />
         </section>

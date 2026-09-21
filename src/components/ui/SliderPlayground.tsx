@@ -25,7 +25,7 @@ export default function SliderPlayground() {
   // RangeSlider's), and there are no min/max/step controls here, so
   // everything is a plain attribute. `showValue` needs an explicit "true"
   // since r2wc parses a bare attribute as false.
-  const htmlMarkup = `<Slider color="${color}"${
+  const htmlMarkup = `<l-Slider color="${color}"${
     showValue ? ` showValue` : ""
   } value="${value}" />`;
 

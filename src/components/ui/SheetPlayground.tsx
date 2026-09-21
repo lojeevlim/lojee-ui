@@ -26,10 +26,10 @@ export default function SheetPlayground() {
   // `open` is controlled visibility, so it's a DOM property set from the
   // trigger click (matches ModalShowcase.tsx's pattern) rather than a baked
   // literal; `heading` stays a plain snapshot attribute.
-  const htmlMarkup = `<Button label="Open sheet" id="open-sheet-btn" />
-<Sheet id="sheet" heading="${title || "Sheet title"}">
+  const htmlMarkup = `<l-Button label="Open sheet" id="open-sheet-btn" />
+<l-Sheet id="sheet" heading="${title || "Sheet title"}">
   <p>This is the sheet body content.</p>
-</Sheet>`;
+</l-Sheet>`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,
@@ -44,10 +44,10 @@ export default function SheetPlayground() {
   sheet.addEventListener("close", () => { sheet.open = false; });
 </script>`,
     vue: `<template>
-  <Button label="Open sheet" @click="open = true" />
-  <Sheet :open="open" heading="${title || "Sheet title"}" @close="open = false">
+  <l-Button label="Open sheet" @click="open = true" />
+  <l-Sheet :open="open" heading="${title || "Sheet title"}" @close="open = false">
     <p>This is the sheet body content.</p>
-  </Sheet>
+  </l-Sheet>
 </template>
 
 <script setup>
@@ -57,10 +57,10 @@ import "lojee-ui/elements";
 const open = ref(false);
 </script>`,
     angular: `<!-- app.component.html -->
-<Button label="Open sheet" (click)="open = true" />
-<Sheet [open]="open" heading="${title || "Sheet title"}" (close)="open = false">
+<l-Button label="Open sheet" (click)="open = true" />
+<l-Sheet [open]="open" heading="${title || "Sheet title"}" (close)="open = false">
   <p>This is the sheet body content.</p>
-</Sheet>`,
+</l-Sheet>`,
   };
 
   return (

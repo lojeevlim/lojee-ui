@@ -33,10 +33,10 @@ export default function ModalShowcase() {
 <Modal open={open} onClose={() => setOpen(false)} title="Basic modal">
   <p>This is a basic modal with some simple content.</p>
 </Modal>`,
-              js: `<Button label="Open modal" id="open-modal-btn" />
-<Modal id="basic-modal" heading="Basic modal">
+              js: `<l-Button label="Open modal" id="open-modal-btn" />
+<l-Modal id="basic-modal" heading="Basic modal">
   <p>This is a basic modal with some simple content.</p>
-</Modal>
+</l-Modal>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -47,10 +47,10 @@ export default function ModalShowcase() {
   modal.addEventListener("close", () => { modal.open = false; });
 </script>`,
               vue: `<template>
-  <Button label="Open modal" @click="open = true" />
-  <Modal :open="open" heading="Basic modal" @close="open = false">
+  <l-Button label="Open modal" @click="open = true" />
+  <l-Modal :open="open" heading="Basic modal" @close="open = false">
     <p>This is a basic modal with some simple content.</p>
-  </Modal>
+  </l-Modal>
 </template>
 
 <script setup>
@@ -60,10 +60,10 @@ import "lojee-ui/elements";
 const open = ref(false);
 </script>`,
               angular: `<!-- app.component.html -->
-<Button label="Open modal" (click)="open = true" />
-<Modal [open]="open" heading="Basic modal" (close)="open = false">
+<l-Button label="Open modal" (click)="open = true" />
+<l-Modal [open]="open" heading="Basic modal" (close)="open = false">
   <p>This is a basic modal with some simple content.</p>
-</Modal>`,
+</l-Modal>`,
             }}
           />
         </section>
@@ -88,28 +88,28 @@ const open = ref(false);
     {paragraphs.map((p, i) => <p key={i}>{p}</p>)}
   </div>
 </Modal>`,
-              js: `<Modal id="terms-modal" heading="Terms & conditions">
+              js: `<l-Modal id="terms-modal" heading="Terms & conditions">
   <div class="space-y-4">
     <!-- paragraphs -->
   </div>
-</Modal>
+</l-Modal>
 
 <script type="module">
   const modal = document.getElementById("terms-modal");
   modal.addEventListener("close", () => { modal.open = false; });
 </script>`,
               vue: `<template>
-  <Modal :open="open" heading="Terms & conditions" @close="open = false">
+  <l-Modal :open="open" heading="Terms & conditions" @close="open = false">
     <div class="space-y-4">
       <p v-for="(p, i) in paragraphs" :key="i">{{ p }}</p>
     </div>
-  </Modal>
+  </l-Modal>
 </template>`,
-              angular: `<Modal [open]="open" heading="Terms & conditions" (close)="open = false">
+              angular: `<l-Modal [open]="open" heading="Terms & conditions" (close)="open = false">
   <div class="space-y-4">
     <p *ngFor="let p of paragraphs">{{ p }}</p>
   </div>
-</Modal>`,
+</l-Modal>`,
             }}
           />
         </section>
@@ -145,10 +145,10 @@ const open = ref(false);
 >
   <p>This modal's header and body pick up custom colors via classNames.</p>
 </Modal>`,
-              js: `<Button label="Open styled modal" id="open-styled-modal-btn" />
-<Modal id="styled-modal" heading="Styled modal">
+              js: `<l-Button label="Open styled modal" id="open-styled-modal-btn" />
+<l-Modal id="styled-modal" heading="Styled modal">
   <p>This modal's header and body pick up custom colors via classNames.</p>
-</Modal>
+</l-Modal>
 
 <script type="module">
   const modal = document.getElementById("styled-modal");
@@ -163,10 +163,10 @@ const open = ref(false);
   modal.addEventListener("close", () => { modal.open = false; });
 </script>`,
               vue: `<template>
-  <Button label="Open styled modal" @click="open = true" />
-  <Modal :open="open" heading="Styled modal" :classNames="modalClassNames" @close="open = false">
+  <l-Button label="Open styled modal" @click="open = true" />
+  <l-Modal :open="open" heading="Styled modal" :classNames="modalClassNames" @close="open = false">
     <p>This modal's header and body pick up custom colors via classNames.</p>
-  </Modal>
+  </l-Modal>
 </template>
 
 <script setup>
@@ -180,10 +180,10 @@ const modalClassNames = {
   body: "bg-indigo-50/40",
 };
 </script>`,
-              angular: `<Button label="Open styled modal" (click)="open = true" />
-<Modal [open]="open" heading="Styled modal" [classNames]="modalClassNames" (close)="open = false">
+              angular: `<l-Button label="Open styled modal" (click)="open = true" />
+<l-Modal [open]="open" heading="Styled modal" [classNames]="modalClassNames" (close)="open = false">
   <p>This modal's header and body pick up custom colors via classNames.</p>
-</Modal>
+</l-Modal>
 
 modalClassNames = {
   root: "max-w-md",

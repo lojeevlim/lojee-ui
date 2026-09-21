@@ -42,9 +42,9 @@ export default function AvatarPlayground() {
 
   // Custom-element markup for the current configuration — no boolean props
   // on l-avatar, so plain literal attributes mirror the React code exactly.
-  const htmlMarkup = `<Avatar${useImage ? ` src="${SAMPLE_IMAGE}"` : ""} initials="${initials || "AB"}" size="${size}"${
+  const htmlMarkup = `<l-Avatar${useImage ? ` src="${SAMPLE_IMAGE}"` : ""} initials="${initials || "AB"}" size="${size}"${
     shape !== "circle" ? ` shape="${shape}"` : ""
-  }${statusProp ? ` status="${statusProp}"` : ""}${useImage ? "" : ` color="${color}"`}></Avatar>`;
+  }${statusProp ? ` status="${statusProp}"` : ""}${useImage ? "" : ` color="${color}"`}></l-Avatar>`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,

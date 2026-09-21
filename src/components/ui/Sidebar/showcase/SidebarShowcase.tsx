@@ -1,15 +1,14 @@
 import { useState } from "react";
-import { createPortal } from "react-dom";
 import type { CSSProperties } from "react";
 import { Sidebar, SidebarHeader, SidebarFooter } from "../Sidebar";
+import { SidebarMenuItem } from "../SidebarMenuItem";
 import { List } from "../../List/List";
 import { ListItem } from "../../List/ListItem";
 import { Avatar } from "../../Avatar/Avatar";
 import { Icon } from "../../Icons/Icon";
 import CodeBlock from "../../CodeBlock";
 import { SectionLabel } from "../../ShowcaseHelpers";
-import { cx, type ColorName } from "../../../../core/tokens";
-import { useTooltipPortal, tooltipPortalPositionStyle, TOOLTIP_PORTAL_Z_CLASS } from "../../../../core/tooltipPortal";
+import type { ColorName } from "../../../../core/tokens";
 
 const NAV_ITEMS = [
   { icon: "home", label: "Dashboard", active: true },
@@ -18,41 +17,10 @@ const NAV_ITEMS = [
   { icon: "settings", label: "Settings", active: false },
 ];
 
-const ACTIVE_BG: Record<ColorName, string> = {
-  slate: "bg-slate-900",
-  gray: "bg-gray-700",
-  indigo: "bg-indigo-600",
-  violet: "bg-violet-600",
-  blue: "bg-blue-600",
-  cyan: "bg-cyan-600",
-  emerald: "bg-emerald-600",
-  teal: "bg-teal-600",
-  amber: "bg-amber-500",
-  orange: "bg-orange-600",
-  rose: "bg-rose-600",
-  pink: "bg-pink-600",
-};
-
-// Translucent version for dark-ish backgrounds (variant="dark"/"gradient"/"glass") — a solid
-// ACTIVE_BG color would clash with an already-dark or already-colored surface.
-const DARK_ACTIVE_BG: Record<ColorName, string> = {
-  slate: "bg-white/10",
-  gray: "bg-white/10",
-  indigo: "bg-indigo-500/25",
-  violet: "bg-violet-500/25",
-  blue: "bg-blue-500/25",
-  cyan: "bg-cyan-500/25",
-  emerald: "bg-emerald-500/25",
-  teal: "bg-teal-500/25",
-  amber: "bg-amber-500/25",
-  orange: "bg-orange-500/25",
-  rose: "bg-rose-500/25",
-  pink: "bg-pink-500/25",
-};
-
-// Slides+fades a nav label away instead of yanking it out on the spot — kept
-// mounted the whole time (only its box shrinks to 0) so the collapse/expand
-// animation reads as one continuous motion instead of a mid-transition pop.
+// Slides+fades the header label away instead of yanking it out on the spot —
+// kept mounted the whole time (only its box shrinks to 0) so the
+// collapse/expand animation reads as one continuous motion instead of a
+// mid-transition pop. (SidebarMenuItem does the equivalent for its own label.)
 function labelSlideStyle(hidden: boolean): CSSProperties {
   return {
     display: "inline-block",
@@ -64,84 +32,24 @@ function labelSlideStyle(hidden: boolean): CSSProperties {
   };
 }
 
-// One nav row. Pulled out from the `.map()` below so each row gets its own
-// `useTooltipPortal` instance (hooks can't be called a variable number of
-// times inside a single component's render).
-function NavRow({
-  item,
+// Thin wrapper around SidebarMenuItem for this showcase's repeated 4-item nav
+// — pass the same `color`/`dark` you give the parent Sidebar to your own
+// SidebarMenuItems for a coordinated look, same as any other usage.
+function NavRows({
   dark,
   collapsed,
-  color,
+  color = "slate",
 }: {
-  item: (typeof NAV_ITEMS)[number];
   dark?: boolean;
   collapsed?: boolean;
-  color: ColorName;
+  color?: ColorName | (string & {});
 }) {
-  const { ref: triggerRef, state: tooltipState, show, hide } = useTooltipPortal<HTMLAnchorElement>();
-
-  return (
-    <div className={collapsed ? "flex w-full justify-center" : undefined}>
-      <a
-        ref={triggerRef}
-        href="#"
-        onMouseEnter={collapsed ? show : undefined}
-        onMouseLeave={collapsed ? hide : undefined}
-        onFocus={collapsed ? show : undefined}
-        onBlur={collapsed ? hide : undefined}
-        className={`flex items-center rounded-lg py-2 text-sm transition-colors ${
-          // Little horizontal padding and no gap while collapsed: the
-          // row's only ~40px wide by then (Sidebar's own 72px rail,
-          // minus its body padding minus this nav's own padding) —
-          // `px-3 gap-2.5` on top of that pushes the link's min-content
-          // past its container width, so the active pill visibly
-          // overflows the rail's right edge instead of just showing the icon.
-          collapsed ? "w-fit justify-center px-2" : "w-full gap-2.5 px-3"
-        } ${
-          item.active
-            ? dark
-              ? `${DARK_ACTIVE_BG[color]} font-medium text-white`
-              : `${ACTIVE_BG[color]} font-medium text-white shadow-sm`
-            : dark
-              ? "text-slate-400 hover:bg-white/5 hover:text-slate-200"
-              : "text-slate-600 hover:bg-slate-100"
-        }`}
-      >
-        <Icon name={item.icon} size={18} className="shrink-0" />
-        <span className="truncate" style={labelSlideStyle(!!collapsed)}>
-          {item.label}
-        </span>
-      </a>
-      {/* Portals out of the Sidebar's scrollable body instead of relying on
-          CSS overflow to escape it — so scrolling never has to be traded off
-          against an unclipped tooltip (see core/tooltipPortal.ts). */}
-      {collapsed &&
-        tooltipState &&
-        createPortal(
-          <span
-            role="tooltip"
-            style={{ position: "fixed", ...tooltipPortalPositionStyle(tooltipState.rect, "right") }}
-            className={cx(
-              "pointer-events-none whitespace-nowrap rounded-md bg-slate-900 px-2 py-1 text-xs font-medium text-white shadow-lg",
-              TOOLTIP_PORTAL_Z_CLASS
-            )}
-          >
-            {item.label}
-          </span>,
-          tooltipState.root
-        )}
-    </div>
-  );
-}
-
-// Demo-only nav rows — NOT part of the Sidebar component itself (it's a plain
-// shell with no built-in nav-item rendering). Pass the same `color` you give
-// the Sidebar to your own active-item styling for a coordinated look.
-function NavRows({ dark, collapsed, color = "slate" }: { dark?: boolean; collapsed?: boolean; color?: ColorName }) {
   return (
     <nav className="space-y-0.5 p-2">
       {NAV_ITEMS.map((item) => (
-        <NavRow key={item.label} item={item} dark={dark} collapsed={collapsed} color={color} />
+        <SidebarMenuItem key={item.label} icon={item.icon} active={item.active} dark={dark} collapsed={collapsed} color={color}>
+          {item.label}
+        </SidebarMenuItem>
       ))}
     </nav>
   );
@@ -182,34 +90,34 @@ export default function SidebarShowcase() {
     <ListItem icon="settings">Settings</ListItem>
   </List>
 </Sidebar>`,
-              js: `<Sidebar>
-  <List>
-    <ListItem icon="home">Dashboard</ListItem>
-    <ListItem icon="folder">Projects</ListItem>
-    <ListItem icon="users">Team</ListItem>
-    <ListItem icon="settings">Settings</ListItem>
-  </List>
-</Sidebar>
+              js: `<l-Sidebar>
+  <l-List>
+    <l-ListItem icon="home">Dashboard</l-ListItem>
+    <l-ListItem icon="folder">Projects</l-ListItem>
+    <l-ListItem icon="users">Team</l-ListItem>
+    <l-ListItem icon="settings">Settings</l-ListItem>
+  </l-List>
+</l-Sidebar>
 
 <script type="module">import "lojee-ui/elements";</script>`,
               vue: `<template>
-  <Sidebar>
-    <List>
-      <ListItem icon="home">Dashboard</ListItem>
-      <ListItem icon="folder">Projects</ListItem>
-      <ListItem icon="users">Team</ListItem>
-      <ListItem icon="settings">Settings</ListItem>
-    </List>
-  </Sidebar>
+  <l-Sidebar>
+    <l-List>
+      <l-ListItem icon="home">Dashboard</l-ListItem>
+      <l-ListItem icon="folder">Projects</l-ListItem>
+      <l-ListItem icon="users">Team</l-ListItem>
+      <l-ListItem icon="settings">Settings</l-ListItem>
+    </l-List>
+  </l-Sidebar>
 </template>`,
-              angular: `<Sidebar>
-  <List>
-    <ListItem icon="home">Dashboard</ListItem>
-    <ListItem icon="folder">Projects</ListItem>
-    <ListItem icon="users">Team</ListItem>
-    <ListItem icon="settings">Settings</ListItem>
-  </List>
-</Sidebar>`,
+              angular: `<l-Sidebar>
+  <l-List>
+    <l-ListItem icon="home">Dashboard</l-ListItem>
+    <l-ListItem icon="folder">Projects</l-ListItem>
+    <l-ListItem icon="users">Team</l-ListItem>
+    <l-ListItem icon="settings">Settings</l-ListItem>
+  </l-List>
+</l-Sidebar>`,
             }}
           />
         </section>
@@ -252,49 +160,49 @@ export default function SidebarShowcase() {
     </div>
   </SidebarFooter>
 </Sidebar>`,
-              js: `<Sidebar>
-  <SidebarHeader slot="header">Lojee Inc</SidebarHeader>
-  <List>
-    <ListItem icon="home">Dashboard</ListItem>
-    <ListItem icon="folder">Projects</ListItem>
-    <ListItem icon="users">Team</ListItem>
-    <ListItem icon="settings">Settings</ListItem>
-  </List>
-  <SidebarFooter slot="footer" class="flex items-center gap-2">
-    <Avatar initials="JD" size="sm"></Avatar>
+              js: `<l-Sidebar>
+  <div slot="header">Lojee Inc</div>
+  <l-List>
+    <l-ListItem icon="home">Dashboard</l-ListItem>
+    <l-ListItem icon="folder">Projects</l-ListItem>
+    <l-ListItem icon="users">Team</l-ListItem>
+    <l-ListItem icon="settings">Settings</l-ListItem>
+  </l-List>
+  <div slot="footer" class="flex items-center gap-2">
+    <l-Avatar initials="JD" size="sm"></l-Avatar>
     <span>Jordan Diaz</span>
-  </SidebarFooter>
-</Sidebar>
+  </div>
+</l-Sidebar>
 
 <script type="module">import "lojee-ui/elements";</script>`,
               vue: `<template>
-  <Sidebar>
-    <SidebarHeader slot="header">Lojee Inc</SidebarHeader>
-    <List>
-      <ListItem icon="home">Dashboard</ListItem>
-      <ListItem icon="folder">Projects</ListItem>
-      <ListItem icon="users">Team</ListItem>
-      <ListItem icon="settings">Settings</ListItem>
-    </List>
-    <SidebarFooter slot="footer" class="flex items-center gap-2">
-      <Avatar initials="JD" size="sm" />
+  <l-Sidebar>
+    <div slot="header">Lojee Inc</div>
+    <l-List>
+      <l-ListItem icon="home">Dashboard</l-ListItem>
+      <l-ListItem icon="folder">Projects</l-ListItem>
+      <l-ListItem icon="users">Team</l-ListItem>
+      <l-ListItem icon="settings">Settings</l-ListItem>
+    </l-List>
+    <div slot="footer" class="flex items-center gap-2">
+      <l-Avatar initials="JD" size="sm" />
       <span>Jordan Diaz</span>
-    </SidebarFooter>
-  </Sidebar>
+    </div>
+  </l-Sidebar>
 </template>`,
-              angular: `<Sidebar>
-  <SidebarHeader slot="header">Lojee Inc</SidebarHeader>
-  <List>
-    <ListItem icon="home">Dashboard</ListItem>
-    <ListItem icon="folder">Projects</ListItem>
-    <ListItem icon="users">Team</ListItem>
-    <ListItem icon="settings">Settings</ListItem>
-  </List>
-  <SidebarFooter slot="footer" class="flex items-center gap-2">
-    <Avatar initials="JD" size="sm"></Avatar>
+              angular: `<l-Sidebar>
+  <div slot="header">Lojee Inc</div>
+  <l-List>
+    <l-ListItem icon="home">Dashboard</l-ListItem>
+    <l-ListItem icon="folder">Projects</l-ListItem>
+    <l-ListItem icon="users">Team</l-ListItem>
+    <l-ListItem icon="settings">Settings</l-ListItem>
+  </l-List>
+  <div slot="footer" class="flex items-center gap-2">
+    <l-Avatar initials="JD" size="sm"></l-Avatar>
     <span>Jordan Diaz</span>
-  </SidebarFooter>
-</Sidebar>`,
+  </div>
+</l-Sidebar>`,
             }}
           />
         </section>
@@ -376,7 +284,10 @@ export default function SidebarShowcase() {
   <SidebarHeader>
     <span className="font-semibold text-white">Lojee Inc</span>
   </SidebarHeader>
-  <NavLinks />
+  <SidebarMenuItem icon="home" active dark>Dashboard</SidebarMenuItem>
+  <SidebarMenuItem icon="folder" dark>Projects</SidebarMenuItem>
+  <SidebarMenuItem icon="users" dark>Team</SidebarMenuItem>
+  <SidebarMenuItem icon="settings" dark>Settings</SidebarMenuItem>
 </Sidebar>
 
 {/* Also available:
@@ -385,22 +296,31 @@ export default function SidebarShowcase() {
     variant="minimal"  — no background/border at all, blends into the page.
     variant="gradient" — a top-to-bottom gradient built from \`color\` (600 → 700).
     variant="glass"    — a frosted dark panel (backdrop blur over translucent slate-900). */}`,
-              js: `<Sidebar variant="dark">
-  <SidebarHeader slot="header"><span class="font-semibold text-white">Lojee Inc</span></SidebarHeader>
-  <!-- nav links -->
-</Sidebar>
+              js: `<l-Sidebar variant="dark">
+  <div slot="header"><span class="font-semibold text-white">Lojee Inc</span></div>
+  <l-SidebarMenuItem icon="home" active dark>Dashboard</l-SidebarMenuItem>
+  <l-SidebarMenuItem icon="folder" dark>Projects</l-SidebarMenuItem>
+  <l-SidebarMenuItem icon="users" dark>Team</l-SidebarMenuItem>
+  <l-SidebarMenuItem icon="settings" dark>Settings</l-SidebarMenuItem>
+</l-Sidebar>
 
 <script type="module">import "lojee-ui/elements";</script>`,
               vue: `<template>
-  <Sidebar variant="dark">
-    <SidebarHeader slot="header"><span class="font-semibold text-white">Lojee Inc</span></SidebarHeader>
-    <!-- nav links -->
-  </Sidebar>
+  <l-Sidebar variant="dark">
+    <div slot="header"><span class="font-semibold text-white">Lojee Inc</span></div>
+    <l-SidebarMenuItem icon="home" active dark>Dashboard</l-SidebarMenuItem>
+    <l-SidebarMenuItem icon="folder" dark>Projects</l-SidebarMenuItem>
+    <l-SidebarMenuItem icon="users" dark>Team</l-SidebarMenuItem>
+    <l-SidebarMenuItem icon="settings" dark>Settings</l-SidebarMenuItem>
+  </l-Sidebar>
 </template>`,
-              angular: `<Sidebar variant="dark">
-  <SidebarHeader slot="header"><span class="font-semibold text-white">Lojee Inc</span></SidebarHeader>
-  <!-- nav links -->
-</Sidebar>`,
+              angular: `<l-Sidebar variant="dark">
+  <div slot="header"><span class="font-semibold text-white">Lojee Inc</span></div>
+  <l-SidebarMenuItem icon="home" active dark>Dashboard</l-SidebarMenuItem>
+  <l-SidebarMenuItem icon="folder" dark>Projects</l-SidebarMenuItem>
+  <l-SidebarMenuItem icon="users" dark>Team</l-SidebarMenuItem>
+  <l-SidebarMenuItem icon="settings" dark>Settings</l-SidebarMenuItem>
+</l-Sidebar>`,
             }}
           />
         </section>
@@ -433,25 +353,33 @@ export default function SidebarShowcase() {
             variants={{
               react: `<Sidebar color="indigo" collapsible>
   <SidebarHeader>Lojee Inc</SidebarHeader>
-  {/* give your own active nav item the same "indigo" for a matching accent */}
-  <NavLinks activeColor="indigo" />
+  {/* give each SidebarMenuItem the same "indigo" for a matching active-state accent */}
+  <SidebarMenuItem icon="home" active color="indigo">Dashboard</SidebarMenuItem>
+  <SidebarMenuItem icon="folder" color="indigo">Projects</SidebarMenuItem>
+  <SidebarMenuItem icon="users" color="indigo">Team</SidebarMenuItem>
 </Sidebar>`,
-              js: `<Sidebar color="indigo" collapsible>
-  <SidebarHeader slot="header">Lojee Inc</SidebarHeader>
-  <!-- nav links styled with the same indigo accent -->
-</Sidebar>
+              js: `<l-Sidebar color="indigo" collapsible>
+  <div slot="header">Lojee Inc</div>
+  <l-SidebarMenuItem icon="home" active color="indigo">Dashboard</l-SidebarMenuItem>
+  <l-SidebarMenuItem icon="folder" color="indigo">Projects</l-SidebarMenuItem>
+  <l-SidebarMenuItem icon="users" color="indigo">Team</l-SidebarMenuItem>
+</l-Sidebar>
 
 <script type="module">import "lojee-ui/elements";</script>`,
               vue: `<template>
-  <Sidebar color="indigo" collapsible>
-    <SidebarHeader slot="header">Lojee Inc</SidebarHeader>
-    <!-- nav links styled with the same indigo accent -->
-  </Sidebar>
+  <l-Sidebar color="indigo" collapsible>
+    <div slot="header">Lojee Inc</div>
+    <l-SidebarMenuItem icon="home" active color="indigo">Dashboard</l-SidebarMenuItem>
+    <l-SidebarMenuItem icon="folder" color="indigo">Projects</l-SidebarMenuItem>
+    <l-SidebarMenuItem icon="users" color="indigo">Team</l-SidebarMenuItem>
+  </l-Sidebar>
 </template>`,
-              angular: `<Sidebar color="indigo" collapsible>
-  <SidebarHeader slot="header">Lojee Inc</SidebarHeader>
-  <!-- nav links styled with the same indigo accent -->
-</Sidebar>`,
+              angular: `<l-Sidebar color="indigo" collapsible>
+  <div slot="header">Lojee Inc</div>
+  <l-SidebarMenuItem icon="home" active color="indigo">Dashboard</l-SidebarMenuItem>
+  <l-SidebarMenuItem icon="folder" color="indigo">Projects</l-SidebarMenuItem>
+  <l-SidebarMenuItem icon="users" color="indigo">Team</l-SidebarMenuItem>
+</l-Sidebar>`,
             }}
           />
         </section>
@@ -489,11 +417,18 @@ export default function SidebarShowcase() {
       {!collapsed && <span>Lojee Inc</span>}
     </div>
   </SidebarHeader>
-  <NavLinks />
+  {/* SidebarMenuItem needs the same \`collapsed\` too — it's a separate
+      component, not something it can read off its parent Sidebar */}
+  <SidebarMenuItem icon="home" active collapsed={collapsed}>Dashboard</SidebarMenuItem>
+  <SidebarMenuItem icon="folder" collapsed={collapsed}>Projects</SidebarMenuItem>
 </Sidebar>`,
-              js: `<Sidebar id="app-sidebar" collapsible>
-  <SidebarHeader slot="header">Lojee Inc</SidebarHeader>
-</Sidebar>
+              js: `<l-Sidebar id="app-sidebar" collapsible>
+  <div slot="header">Lojee Inc</div>
+  <!-- SidebarMenuItem finds this Sidebar itself and mirrors its "collapsed"
+       attribute automatically — nothing to wire up on the items themselves -->
+  <l-SidebarMenuItem icon="home" active>Dashboard</l-SidebarMenuItem>
+  <l-SidebarMenuItem icon="folder">Projects</l-SidebarMenuItem>
+</l-Sidebar>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -504,18 +439,26 @@ export default function SidebarShowcase() {
   });
 </script>`,
               vue: `<template>
-  <Sidebar collapsible :collapsed="collapsed" @collapsedchange="collapsed = $event">
-    <SidebarHeader slot="header">Lojee Inc</SidebarHeader>
-  </Sidebar>
+  <l-Sidebar collapsible :collapsed="collapsed" @collapsedchange="collapsed = $event">
+    <div slot="header">Lojee Inc</div>
+    <!-- SidebarMenuItem finds this Sidebar itself and mirrors its "collapsed"
+         attribute automatically — nothing to wire up on the items themselves -->
+    <l-SidebarMenuItem icon="home" active>Dashboard</l-SidebarMenuItem>
+    <l-SidebarMenuItem icon="folder">Projects</l-SidebarMenuItem>
+  </l-Sidebar>
 </template>
 
 <script setup>
 import { ref } from "vue";
 const collapsed = ref(false);
 </script>`,
-              angular: `<Sidebar collapsible [collapsed]="collapsed" (collapsedchange)="collapsed = $event">
-  <SidebarHeader slot="header">Lojee Inc</SidebarHeader>
-</Sidebar>
+              angular: `<l-Sidebar collapsible [collapsed]="collapsed" (collapsedchange)="collapsed = $event">
+  <div slot="header">Lojee Inc</div>
+  <!-- SidebarMenuItem finds this Sidebar itself and mirrors its "collapsed"
+       attribute automatically — nothing to wire up on the items themselves -->
+  <l-SidebarMenuItem icon="home" active>Dashboard</l-SidebarMenuItem>
+  <l-SidebarMenuItem icon="folder">Projects</l-SidebarMenuItem>
+</l-Sidebar>
 
 collapsed = false;`,
             }}

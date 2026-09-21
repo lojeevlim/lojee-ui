@@ -34,11 +34,11 @@ export default function GridPlayground() {
   // Vue/Angular templates (plain attributes, no bindings needed for a static
   // snapshot); the "js" variant just adds the one-time module import a plain
   // HTML page needs to actually load the `<l-*>` definitions.
-  const htmlMarkup = `<Grid cols="${cols}" gap="${gap}">
+  const htmlMarkup = `<l-Grid cols="${cols}" gap="${gap}">
   <div>Item 1</div>
   <div>Item 2</div>
   ...
-</Grid>`;
+</l-Grid>`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,

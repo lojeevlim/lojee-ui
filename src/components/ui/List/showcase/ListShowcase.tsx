@@ -30,21 +30,21 @@ export default function ListShowcase() {
   <ListItem>Settings</ListItem>
   <ListItem>Billing</ListItem>
 </List>`,
-              js: `<List variant="plain">
-  <ListItem>Overview</ListItem>
-  <ListItem>Settings</ListItem>
-  <ListItem>Billing</ListItem>
-</List>
+              js: `<l-List variant="plain">
+  <l-ListItem>Overview</l-ListItem>
+  <l-ListItem>Settings</l-ListItem>
+  <l-ListItem>Billing</l-ListItem>
+</l-List>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <List variant="plain">
-    <ListItem>Overview</ListItem>
-    <ListItem>Settings</ListItem>
-    <ListItem>Billing</ListItem>
-  </List>
+  <l-List variant="plain">
+    <l-ListItem>Overview</l-ListItem>
+    <l-ListItem>Settings</l-ListItem>
+    <l-ListItem>Billing</l-ListItem>
+  </l-List>
 </template>
 
 <script setup>
@@ -59,11 +59,11 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <List variant="plain">
-      <ListItem>Overview</ListItem>
-      <ListItem>Settings</ListItem>
-      <ListItem>Billing</ListItem>
-    </List>
+    <l-List variant="plain">
+      <l-ListItem>Overview</l-ListItem>
+      <l-ListItem>Settings</l-ListItem>
+      <l-ListItem>Billing</l-ListItem>
+    </l-List>
   \`,
 })
 export class AppComponent {}`,
@@ -89,24 +89,24 @@ export class AppComponent {}`,
   <ListItem icon="image">Cover photo.png</ListItem>
   <ListItem icon="folder">Archive</ListItem>
 </List>`,
-              js: `<List variant="divided">
-  <ListItem icon="file">Project brief.pdf</ListItem>
-  <ListItem icon="image">Cover photo.png</ListItem>
-  <ListItem icon="folder">Archive</ListItem>
-</List>`,
+              js: `<l-List variant="divided">
+  <l-ListItem icon="file">Project brief.pdf</l-ListItem>
+  <l-ListItem icon="image">Cover photo.png</l-ListItem>
+  <l-ListItem icon="folder">Archive</l-ListItem>
+</l-List>`,
               vue: `<template>
-  <List variant="divided">
-    <ListItem icon="file">Project brief.pdf</ListItem>
-    <ListItem icon="image">Cover photo.png</ListItem>
-    <ListItem icon="folder">Archive</ListItem>
-  </List>
+  <l-List variant="divided">
+    <l-ListItem icon="file">Project brief.pdf</l-ListItem>
+    <l-ListItem icon="image">Cover photo.png</l-ListItem>
+    <l-ListItem icon="folder">Archive</l-ListItem>
+  </l-List>
 </template>`,
               angular: `<!-- reuses the AppComponent from above -->
-<List variant="divided">
-  <ListItem icon="file">Project brief.pdf</ListItem>
-  <ListItem icon="image">Cover photo.png</ListItem>
-  <ListItem icon="folder">Archive</ListItem>
-</List>`,
+<l-List variant="divided">
+  <l-ListItem icon="file">Project brief.pdf</l-ListItem>
+  <l-ListItem icon="image">Cover photo.png</l-ListItem>
+  <l-ListItem icon="folder">Archive</l-ListItem>
+</l-List>`,
             }}
           />
         </section>
@@ -129,24 +129,24 @@ export class AppComponent {}`,
   <ListItem icon="circle-check">Password set</ListItem>
   <ListItem icon="circle-alert">Two-factor auth pending</ListItem>
 </List>`,
-              js: `<List variant="bordered">
-  <ListItem icon="circle-check">Email verified</ListItem>
-  <ListItem icon="circle-check">Password set</ListItem>
-  <ListItem icon="circle-alert">Two-factor auth pending</ListItem>
-</List>`,
+              js: `<l-List variant="bordered">
+  <l-ListItem icon="circle-check">Email verified</l-ListItem>
+  <l-ListItem icon="circle-check">Password set</l-ListItem>
+  <l-ListItem icon="circle-alert">Two-factor auth pending</l-ListItem>
+</l-List>`,
               vue: `<template>
-  <List variant="bordered">
-    <ListItem icon="circle-check">Email verified</ListItem>
-    <ListItem icon="circle-check">Password set</ListItem>
-    <ListItem icon="circle-alert">Two-factor auth pending</ListItem>
-  </List>
+  <l-List variant="bordered">
+    <l-ListItem icon="circle-check">Email verified</l-ListItem>
+    <l-ListItem icon="circle-check">Password set</l-ListItem>
+    <l-ListItem icon="circle-alert">Two-factor auth pending</l-ListItem>
+  </l-List>
 </template>`,
               angular: `<!-- reuses the AppComponent from above -->
-<List variant="bordered">
-  <ListItem icon="circle-check">Email verified</ListItem>
-  <ListItem icon="circle-check">Password set</ListItem>
-  <ListItem icon="circle-alert">Two-factor auth pending</ListItem>
-</List>`,
+<l-List variant="bordered">
+  <l-ListItem icon="circle-check">Email verified</l-ListItem>
+  <l-ListItem icon="circle-check">Password set</l-ListItem>
+  <l-ListItem icon="circle-alert">Two-factor auth pending</l-ListItem>
+</l-List>`,
             }}
           />
         </section>
@@ -169,24 +169,24 @@ export class AppComponent {}`,
   <ListItem>Verify your email</ListItem>
   <ListItem>Invite your team</ListItem>
 </List>`,
-              js: `<List ordered variant="divided">
-  <ListItem>Create an account</ListItem>
-  <ListItem>Verify your email</ListItem>
-  <ListItem>Invite your team</ListItem>
-</List>`,
+              js: `<l-List ordered variant="divided">
+  <l-ListItem>Create an account</l-ListItem>
+  <l-ListItem>Verify your email</l-ListItem>
+  <l-ListItem>Invite your team</l-ListItem>
+</l-List>`,
               vue: `<template>
-  <List ordered variant="divided">
-    <ListItem>Create an account</ListItem>
-    <ListItem>Verify your email</ListItem>
-    <ListItem>Invite your team</ListItem>
-  </List>
+  <l-List ordered variant="divided">
+    <l-ListItem>Create an account</l-ListItem>
+    <l-ListItem>Verify your email</l-ListItem>
+    <l-ListItem>Invite your team</l-ListItem>
+  </l-List>
 </template>`,
               angular: `<!-- reuses the AppComponent from above -->
-<List ordered variant="divided">
-  <ListItem>Create an account</ListItem>
-  <ListItem>Verify your email</ListItem>
-  <ListItem>Invite your team</ListItem>
-</List>`,
+<l-List ordered variant="divided">
+  <l-ListItem>Create an account</l-ListItem>
+  <l-ListItem>Verify your email</l-ListItem>
+  <l-ListItem>Invite your team</l-ListItem>
+</l-List>`,
             }}
           />
         </section>
@@ -211,24 +211,24 @@ export class AppComponent {}`,
   <ListItem icon="folder" tooltip>Projects</ListItem>
   <ListItem icon="users" tooltip>Team</ListItem>
 </List>`,
-              js: `<List>
-  <ListItem icon="home" tooltip>Dashboard</ListItem>
-  <ListItem icon="folder" tooltip>Projects</ListItem>
-  <ListItem icon="users" tooltip>Team</ListItem>
-</List>`,
+              js: `<l-List>
+  <l-ListItem icon="home" tooltip>Dashboard</l-ListItem>
+  <l-ListItem icon="folder" tooltip>Projects</l-ListItem>
+  <l-ListItem icon="users" tooltip>Team</l-ListItem>
+</l-List>`,
               vue: `<template>
-  <List>
-    <ListItem icon="home" tooltip>Dashboard</ListItem>
-    <ListItem icon="folder" tooltip>Projects</ListItem>
-    <ListItem icon="users" tooltip>Team</ListItem>
-  </List>
+  <l-List>
+    <l-ListItem icon="home" tooltip>Dashboard</l-ListItem>
+    <l-ListItem icon="folder" tooltip>Projects</l-ListItem>
+    <l-ListItem icon="users" tooltip>Team</l-ListItem>
+  </l-List>
 </template>`,
               angular: `<!-- reuses the AppComponent from above -->
-<List>
-  <ListItem icon="home" tooltip>Dashboard</ListItem>
-  <ListItem icon="folder" tooltip>Projects</ListItem>
-  <ListItem icon="users" tooltip>Team</ListItem>
-</List>`,
+<l-List>
+  <l-ListItem icon="home" tooltip>Dashboard</l-ListItem>
+  <l-ListItem icon="folder" tooltip>Projects</l-ListItem>
+  <l-ListItem icon="users" tooltip>Team</l-ListItem>
+</l-List>`,
             }}
           />
         </section>
@@ -253,30 +253,30 @@ export class AppComponent {}`,
   <ListItem icon="star" classNames={{ icon: "text-amber-500" }}>Featured item</ListItem>
   <ListItem icon="heart" classNames={{ icon: "text-rose-500" }}>Liked item</ListItem>
 </List>`,
-              js: `<List variant="bordered" className="shadow-sm">
-  <ListItem id="featured-item" icon="star">Featured item</ListItem>
-  <ListItem id="liked-item" icon="heart">Liked item</ListItem>
-</List>
+              js: `<l-List variant="bordered" className="shadow-sm">
+  <l-ListItem id="featured-item" icon="star">Featured item</l-ListItem>
+  <l-ListItem id="liked-item" icon="heart">Liked item</l-ListItem>
+</l-List>
 
 <script type="module">
   document.getElementById("featured-item").classNames = { icon: "text-amber-500" };
   document.getElementById("liked-item").classNames = { icon: "text-rose-500" };
 </script>`,
               vue: `<template>
-  <List variant="bordered" className="shadow-sm">
-    <ListItem icon="star" :classNames="featuredClassNames">Featured item</ListItem>
-    <ListItem icon="heart" :classNames="likedClassNames">Liked item</ListItem>
-  </List>
+  <l-List variant="bordered" className="shadow-sm">
+    <l-ListItem icon="star" :classNames="featuredClassNames">Featured item</l-ListItem>
+    <l-ListItem icon="heart" :classNames="likedClassNames">Liked item</l-ListItem>
+  </l-List>
 </template>
 
 <script setup>
 const featuredClassNames = { icon: "text-amber-500" };
 const likedClassNames = { icon: "text-rose-500" };
 </script>`,
-              angular: `<List variant="bordered" className="shadow-sm">
-  <ListItem icon="star" [classNames]="featuredClassNames">Featured item</ListItem>
-  <ListItem icon="heart" [classNames]="likedClassNames">Liked item</ListItem>
-</List>
+              angular: `<l-List variant="bordered" className="shadow-sm">
+  <l-ListItem icon="star" [classNames]="featuredClassNames">Featured item</l-ListItem>
+  <l-ListItem icon="heart" [classNames]="likedClassNames">Liked item</l-ListItem>
+</l-List>
 
 featuredClassNames = { icon: "text-amber-500" };
 likedClassNames = { icon: "text-rose-500" };`,

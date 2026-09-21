@@ -61,13 +61,13 @@ export default function NavbarPlayground() {
   // text), while `actions` (an Avatar component) is projected as light-DOM
   // content via slot="actions" — same treatment NotificationShowcase.tsx
   // gives its `actions` prop.
-  const htmlMarkup = `<Navbar${brandAttr}${stickyAttr}${borderedAttrHtml}${variantAttr}>
-  <Button variant="ghost" label="Home" />
-  <Button variant="ghost" label="Products" />
+  const htmlMarkup = `<l-Navbar${brandAttr}${stickyAttr}${borderedAttrHtml}${variantAttr}>
+  <l-Button variant="ghost" label="Home" />
+  <l-Button variant="ghost" label="Products" />
   <div slot="actions">
-    <Avatar initials="JD" size="sm" />
+    <l-Avatar initials="JD" size="sm" />
   </div>
-</Navbar>`;
+</l-Navbar>`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,

@@ -28,7 +28,7 @@ export default function StepperShowcase() {
     { label: "Confirm" },
   ]}
 />`,
-              js: `<Stepper id="stepper-basic" currentStep="2" />
+              js: `<l-Stepper id="stepper-basic" currentStep="2" />
 
 <script type="module">
   import "lojee-ui/elements";
@@ -41,7 +41,7 @@ export default function StepperShowcase() {
   ];
 </script>`,
               vue: `<template>
-  <Stepper :steps="steps" currentStep="2" />
+  <l-Stepper :steps="steps" currentStep="2" />
 </template>
 
 <script setup>
@@ -62,7 +62,7 @@ import "lojee-ui/elements";
   selector: "app-root",
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  template: \`<Stepper [steps]="steps" currentStep="2" />\`,
+  template: \`<l-Stepper [steps]="steps" currentStep="2" />\`,
 })
 export class AppComponent {
   steps = [
@@ -96,7 +96,7 @@ export class AppComponent {
     { label: "Review", description: "Confirm your details" },
   ]}
 />`,
-              js: `<Stepper id="stepper-desc" currentStep="1" />
+              js: `<l-Stepper id="stepper-desc" currentStep="1" />
 
 <script type="module">
   document.getElementById("stepper-desc").steps = [
@@ -106,7 +106,7 @@ export class AppComponent {
   ];
 </script>`,
               vue: `<template>
-  <Stepper :steps="steps" currentStep="1" />
+  <l-Stepper :steps="steps" currentStep="1" />
 </template>
 
 <script setup>
@@ -124,7 +124,7 @@ steps = [
 ];
 
 // app.component.html
-<Stepper [steps]="steps" currentStep="1" />`,
+<l-Stepper [steps]="steps" currentStep="1" />`,
             }}
           />
         </section>
@@ -155,7 +155,7 @@ steps = [
     { label: "Delivered" },
   ]}
 />`,
-              js: `<Stepper id="stepper-vertical" orientation="vertical" currentStep="1" />
+              js: `<l-Stepper id="stepper-vertical" orientation="vertical" currentStep="1" />
 
 <script type="module">
   document.getElementById("stepper-vertical").steps = [
@@ -166,7 +166,7 @@ steps = [
   ];
 </script>`,
               vue: `<template>
-  <Stepper :steps="steps" orientation="vertical" currentStep="1" />
+  <l-Stepper :steps="steps" orientation="vertical" currentStep="1" />
 </template>
 
 <script setup>
@@ -186,7 +186,7 @@ steps = [
 ];
 
 // app.component.html
-<Stepper [steps]="steps" orientation="vertical" currentStep="1" />`,
+<l-Stepper [steps]="steps" orientation="vertical" currentStep="1" />`,
             }}
           />
         </section>
@@ -208,7 +208,7 @@ steps = [
     { label: "Confirm" },
   ]}
 />`,
-              js: `<Stepper id="stepper-complete" currentStep="4" />
+              js: `<l-Stepper id="stepper-complete" currentStep="4" />
 
 <script type="module">
   document.getElementById("stepper-complete").steps = [
@@ -219,7 +219,7 @@ steps = [
   ];
 </script>`,
               vue: `<template>
-  <Stepper :steps="steps" currentStep="4" />
+  <l-Stepper :steps="steps" currentStep="4" />
 </template>
 
 <script setup>
@@ -239,7 +239,7 @@ steps = [
 ];
 
 // app.component.html
-<Stepper [steps]="steps" currentStep="4" />`,
+<l-Stepper [steps]="steps" currentStep="4" />`,
             }}
           />
         </section>

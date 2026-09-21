@@ -31,39 +31,39 @@ export default function NavbarShowcase() {
   <Button variant="ghost" label="Products" />
   <Button variant="ghost" label="Pricing" />
 </Navbar>`,
-              js: `<Navbar brand="Lojee">
-  <Button variant="ghost" label="Home"></Button>
-  <Button variant="ghost" label="Products"></Button>
-  <Button variant="ghost" label="Pricing"></Button>
+              js: `<l-Navbar brand="Lojee">
+  <l-Button variant="ghost" label="Home"></l-Button>
+  <l-Button variant="ghost" label="Products"></l-Button>
+  <l-Button variant="ghost" label="Pricing"></l-Button>
   <div slot="actions">
-    <Avatar initials="JD" size="sm"></Avatar>
+    <l-Avatar initials="JD" size="sm"></l-Avatar>
   </div>
-</Navbar>
+</l-Navbar>
 
 <script type="module">import "lojee-ui/elements";</script>`,
               vue: `<template>
-  <Navbar brand="Lojee">
-    <Button variant="ghost" label="Home" />
-    <Button variant="ghost" label="Products" />
-    <Button variant="ghost" label="Pricing" />
+  <l-Navbar brand="Lojee">
+    <l-Button variant="ghost" label="Home" />
+    <l-Button variant="ghost" label="Products" />
+    <l-Button variant="ghost" label="Pricing" />
     <template #actions>
-      <Avatar initials="JD" size="sm" />
+      <l-Avatar initials="JD" size="sm" />
     </template>
-  </Navbar>
+  </l-Navbar>
 </template>
 
 <script setup>
 import "lojee-ui/elements";
 </script>`,
               angular: `<!-- app.component.html -->
-<Navbar brand="Lojee">
-  <Button variant="ghost" label="Home"></Button>
-  <Button variant="ghost" label="Products"></Button>
-  <Button variant="ghost" label="Pricing"></Button>
+<l-Navbar brand="Lojee">
+  <l-Button variant="ghost" label="Home"></l-Button>
+  <l-Button variant="ghost" label="Products"></l-Button>
+  <l-Button variant="ghost" label="Pricing"></l-Button>
   <div slot="actions">
-    <Avatar initials="JD" size="sm"></Avatar>
+    <l-Avatar initials="JD" size="sm"></l-Avatar>
   </div>
-</Navbar>`,
+</l-Navbar>`,
             }}
           />
         </section>
@@ -95,10 +95,10 @@ import "lojee-ui/elements";
   </div>
 </div>`,
               js: `<div class="h-64 overflow-y-auto">
-  <Navbar sticky brand="Lojee">
-    <Button variant="ghost" label="Home"></Button>
-    <Button variant="ghost" label="Products"></Button>
-  </Navbar>
+  <l-Navbar sticky brand="Lojee">
+    <l-Button variant="ghost" label="Home"></l-Button>
+    <l-Button variant="ghost" label="Products"></l-Button>
+  </l-Navbar>
   <div class="p-6 space-y-4">
     <!-- rows -->
   </div>
@@ -107,20 +107,20 @@ import "lojee-ui/elements";
 <script type="module">import "lojee-ui/elements";</script>`,
               vue: `<template>
   <div class="h-64 overflow-y-auto">
-    <Navbar sticky brand="Lojee">
-      <Button variant="ghost" label="Home" />
-      <Button variant="ghost" label="Products" />
-    </Navbar>
+    <l-Navbar sticky brand="Lojee">
+      <l-Button variant="ghost" label="Home" />
+      <l-Button variant="ghost" label="Products" />
+    </l-Navbar>
     <div class="p-6 space-y-4">
       <p v-for="(row, i) in rows" :key="i">{{ row }}</p>
     </div>
   </div>
 </template>`,
               angular: `<div class="h-64 overflow-y-auto">
-  <Navbar sticky brand="Lojee">
-    <Button variant="ghost" label="Home"></Button>
-    <Button variant="ghost" label="Products"></Button>
-  </Navbar>
+  <l-Navbar sticky brand="Lojee">
+    <l-Button variant="ghost" label="Home"></l-Button>
+    <l-Button variant="ghost" label="Products"></l-Button>
+  </l-Navbar>
   <div class="p-6 space-y-4">
     <p *ngFor="let row of rows">{{ row }}</p>
   </div>
@@ -156,22 +156,22 @@ import "lojee-ui/elements";
 </Navbar>
 
 {/* Also available: variant="elevated" (shadow, no border). */}`,
-              js: `<Navbar variant="dark">
+              js: `<l-Navbar variant="dark">
   <div slot="brand"><span class="text-white">Lojee</span></div>
-  <Button variant="ghost" label="Home" class="text-slate-300 hover:text-white"></Button>
-</Navbar>
+  <l-Button variant="ghost" label="Home" class="text-slate-300 hover:text-white"></l-Button>
+</l-Navbar>
 
 <script type="module">import "lojee-ui/elements";</script>`,
               vue: `<template>
-  <Navbar variant="dark">
+  <l-Navbar variant="dark">
     <template #brand><span class="text-white">Lojee</span></template>
-    <Button variant="ghost" label="Home" class="text-slate-300 hover:text-white" />
-  </Navbar>
+    <l-Button variant="ghost" label="Home" class="text-slate-300 hover:text-white" />
+  </l-Navbar>
 </template>`,
-              angular: `<Navbar variant="dark">
+              angular: `<l-Navbar variant="dark">
   <div slot="brand"><span class="text-white">Lojee</span></div>
-  <Button variant="ghost" label="Home" class="text-slate-300 hover:text-white"></Button>
-</Navbar>`,
+  <l-Button variant="ghost" label="Home" class="text-slate-300 hover:text-white"></l-Button>
+</l-Navbar>`,
             }}
           />
         </section>
@@ -201,10 +201,10 @@ import "lojee-ui/elements";
   <Button variant="ghost" label="Home" className="text-indigo-700 hover:bg-indigo-100" />
   <Button variant="ghost" label="Products" className="text-indigo-700 hover:bg-indigo-100" />
 </Navbar>`,
-              js: `<Navbar brand="Lojee" id="indigo-navbar">
-  <Button variant="ghost" label="Home" class="text-indigo-700 hover:bg-indigo-100"></Button>
-  <Button variant="ghost" label="Products" class="text-indigo-700 hover:bg-indigo-100"></Button>
-</Navbar>
+              js: `<l-Navbar brand="Lojee" id="indigo-navbar">
+  <l-Button variant="ghost" label="Home" class="text-indigo-700 hover:bg-indigo-100"></l-Button>
+  <l-Button variant="ghost" label="Products" class="text-indigo-700 hover:bg-indigo-100"></l-Button>
+</l-Navbar>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -215,19 +215,19 @@ import "lojee-ui/elements";
   };
 </script>`,
               vue: `<template>
-  <Navbar brand="Lojee" :classNames="navbarClassNames">
-    <Button variant="ghost" label="Home" class="text-indigo-700 hover:bg-indigo-100" />
-    <Button variant="ghost" label="Products" class="text-indigo-700 hover:bg-indigo-100" />
-  </Navbar>
+  <l-Navbar brand="Lojee" :classNames="navbarClassNames">
+    <l-Button variant="ghost" label="Home" class="text-indigo-700 hover:bg-indigo-100" />
+    <l-Button variant="ghost" label="Products" class="text-indigo-700 hover:bg-indigo-100" />
+  </l-Navbar>
 </template>
 
 <script setup>
 const navbarClassNames = { root: "bg-indigo-50", brand: "text-indigo-900" };
 </script>`,
-              angular: `<Navbar brand="Lojee" [classNames]="navbarClassNames">
-  <Button variant="ghost" label="Home" class="text-indigo-700 hover:bg-indigo-100"></Button>
-  <Button variant="ghost" label="Products" class="text-indigo-700 hover:bg-indigo-100"></Button>
-</Navbar>
+              angular: `<l-Navbar brand="Lojee" [classNames]="navbarClassNames">
+  <l-Button variant="ghost" label="Home" class="text-indigo-700 hover:bg-indigo-100"></l-Button>
+  <l-Button variant="ghost" label="Products" class="text-indigo-700 hover:bg-indigo-100"></l-Button>
+</l-Navbar>
 
 navbarClassNames = { root: "bg-indigo-50", brand: "text-indigo-900" };`,
             }}

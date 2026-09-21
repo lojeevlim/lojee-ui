@@ -103,7 +103,7 @@ export default function DataGridPlayground() {
 
   const codeVariants: CodeBlockVariants = {
     react: code,
-    js: `<DataGrid id="grid-demo" ${attrs}></DataGrid>
+    js: `<l-DataGrid id="grid-demo" ${attrs}></l-DataGrid>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -115,14 +115,14 @@ ${jsData}
   el.data = data;${selectable ? '\n  el.addEventListener("selectionchange", (e) => console.log(e.detail));' : ""}
 </script>`,
     vue: `<template>
-  <DataGrid :columns="columns" :data="data" ${attrs}${selectable ? ' @selectionchange="onSelectionChange"' : ""} />
+  <l-DataGrid :columns="columns" :data="data" ${attrs}${selectable ? ' @selectionchange="onSelectionChange"' : ""} />
 </template>
 
 <script setup>
 ${jsData.trim()}
 ${selectable ? "\nfunction onSelectionChange(rows) {\n  console.log(rows);\n}" : ""}
 </script>`,
-    angular: `<DataGrid [columns]="columns" [data]="data" ${attrs}${
+    angular: `<l-DataGrid [columns]="columns" [data]="data" ${attrs}${
       selectable ? ' (selectionchange)="onSelectionChange($event)"' : ""
     } />
 

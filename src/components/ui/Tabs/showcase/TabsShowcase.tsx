@@ -29,7 +29,7 @@ export default function TabsShowcase() {
     { label: "Settings", content: <p>Adjust your preferences.</p> },
   ]}
 />`,
-              js: `<Tabs id="basic-tabs" />
+              js: `<l-Tabs id="basic-tabs" />
 
 <script type="module">
   import "lojee-ui/elements";
@@ -41,7 +41,7 @@ export default function TabsShowcase() {
   ];
 </script>`,
               vue: `<template>
-  <Tabs :tabs="tabs" />
+  <l-Tabs :tabs="tabs" />
 </template>
 
 <script setup>
@@ -61,7 +61,7 @@ import "lojee-ui/elements";
   selector: "app-root",
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  template: \`<Tabs [tabs]="tabs" />\`,
+  template: \`<l-Tabs [tabs]="tabs" />\`,
 })
 export class AppComponent {
   tabs = [
@@ -92,7 +92,7 @@ export class AppComponent {
     { label: "Review", content: <p>Review and confirm.</p> },
   ]}
 />`,
-              js: `<Tabs id="disabled-tabs" />
+              js: `<l-Tabs id="disabled-tabs" />
 
 <script type="module">
   document.getElementById("disabled-tabs").tabs = [
@@ -102,7 +102,7 @@ export class AppComponent {
   ];
 </script>`,
               vue: `<template>
-  <Tabs :tabs="tabs" />
+  <l-Tabs :tabs="tabs" />
 </template>
 
 <script setup>
@@ -120,7 +120,7 @@ tabs = [
 ];
 
 // app.component.html
-<Tabs [tabs]="tabs" />`,
+<l-Tabs [tabs]="tabs" />`,
             }}
           />
         </section>
@@ -147,7 +147,7 @@ tabs = [
     { label: "Shipping", content: <p>Shipping and returns.</p> },
   ]}
 />`,
-              js: `<Tabs id="color-tabs" color="indigo" defaultIndex="1" />
+              js: `<l-Tabs id="color-tabs" color="indigo" defaultIndex="1" />
 
 <script type="module">
   document.getElementById("color-tabs").tabs = [
@@ -157,7 +157,7 @@ tabs = [
   ];
 </script>`,
               vue: `<template>
-  <Tabs :tabs="tabs" color="indigo" defaultIndex="1" />
+  <l-Tabs :tabs="tabs" color="indigo" defaultIndex="1" />
 </template>
 
 <script setup>
@@ -175,7 +175,7 @@ tabs = [
 ];
 
 // app.component.html
-<Tabs [tabs]="tabs" color="indigo" defaultIndex="1" />`,
+<l-Tabs [tabs]="tabs" color="indigo" defaultIndex="1" />`,
             }}
           />
         </section>

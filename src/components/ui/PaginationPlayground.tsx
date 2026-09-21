@@ -46,7 +46,7 @@ export default function PaginationPlayground() {
   // dispatches a "pagechange" event on interaction, but that wiring isn't
   // part of this baked snapshot's control state, so it's left for the
   // consumer to add (`el.addEventListener("pagechange", ...)`).
-  const htmlMarkup = `<Pagination page="${clampedPage}" totalPages="${totalPagesNum}" siblingCount="${siblingCountNum}" color="${color}" />`;
+  const htmlMarkup = `<l-Pagination page="${clampedPage}" totalPages="${totalPagesNum}" siblingCount="${siblingCountNum}" color="${color}" />`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,

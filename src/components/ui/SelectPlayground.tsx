@@ -55,20 +55,20 @@ export default function SelectPlayground() {
     react: code,
     js: `${OPTIONS_SNIPPET}
 
-<Select ${selectAttrs} />
+<l-Select ${selectAttrs} />
 
 <script type="module">
   import "lojee-ui/elements";
   document.querySelector("l-select").options = options;
 </script>`,
     vue: `<template>
-  <Select ${selectAttrs} :options="options" />
+  <l-Select ${selectAttrs} :options="options" />
 </template>
 
 <script setup>
 ${OPTIONS_SNIPPET}
 </script>`,
-    angular: `<Select ${selectAttrs} [options]="options" />
+    angular: `<l-Select ${selectAttrs} [options]="options" />
 
 // example.component.ts
 export class ExampleComponent {

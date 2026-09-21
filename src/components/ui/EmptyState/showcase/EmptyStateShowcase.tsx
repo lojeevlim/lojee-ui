@@ -21,11 +21,11 @@ export default function EmptyStateShowcase() {
           <CodeBlock
             variants={{
               react: `<EmptyState title="No items yet" />`,
-              js: `<EmptyState title="No items yet" />
+              js: `<l-EmptyState title="No items yet" />
 
 <script type="module">import "lojee-ui/elements";</script>`,
-              vue: `<EmptyState title="No items yet" />`,
-              angular: `<EmptyState title="No items yet" />`,
+              vue: `<l-EmptyState title="No items yet" />`,
+              angular: `<l-EmptyState title="No items yet" />`,
             }}
           />
         </section>
@@ -36,13 +36,13 @@ export default function EmptyStateShowcase() {
           <CodeBlock
             variants={{
               react: `<EmptyState title="No projects">\n  Create your first project to get started.\n</EmptyState>`,
-              js: `<EmptyState title="No projects">
+              js: `<l-EmptyState title="No projects">
   Create your first project to get started.
-</EmptyState>
+</l-EmptyState>
 
 <script type="module">import "lojee-ui/elements";</script>`,
-              vue: `<EmptyState title="No projects">\n  Create your first project to get started.\n</EmptyState>`,
-              angular: `<EmptyState title="No projects">\n  Create your first project to get started.\n</EmptyState>`,
+              vue: `<l-EmptyState title="No projects">\n  Create your first project to get started.\n</l-EmptyState>`,
+              angular: `<l-EmptyState title="No projects">\n  Create your first project to get started.\n</l-EmptyState>`,
             }}
           />
         </section>
@@ -57,13 +57,13 @@ export default function EmptyStateShowcase() {
           <CodeBlock
             variants={{
               react: `<EmptyState title="No results found" icon="search">\n  Try adjusting your filters.\n</EmptyState>`,
-              js: `<EmptyState title="No results found" icon="search">
+              js: `<l-EmptyState title="No results found" icon="search">
   Try adjusting your filters.
-</EmptyState>
+</l-EmptyState>
 
 <script type="module">import "lojee-ui/elements";</script>`,
-              vue: `<EmptyState title="No results found" icon="search">\n  Try adjusting your filters.\n</EmptyState>`,
-              angular: `<EmptyState title="No results found" icon="search">\n  Try adjusting your filters.\n</EmptyState>`,
+              vue: `<l-EmptyState title="No results found" icon="search">\n  Try adjusting your filters.\n</l-EmptyState>`,
+              angular: `<l-EmptyState title="No results found" icon="search">\n  Try adjusting your filters.\n</l-EmptyState>`,
             }}
           />
         </section>
@@ -84,10 +84,10 @@ export default function EmptyStateShowcase() {
 >
   Get started by creating your first item.
 </EmptyState>`,
-              js: `<EmptyState title="No items yet" icon="folder">
+              js: `<l-EmptyState title="No items yet" icon="folder">
   Get started by creating your first item.
-  <Button slot="action" label="Add item" id="add-item-btn" />
-</EmptyState>
+  <l-Button slot="action" label="Add item" id="add-item-btn" />
+</l-EmptyState>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -97,10 +97,10 @@ export default function EmptyStateShowcase() {
   });
 </script>`,
               vue: `<template>
-  <EmptyState title="No items yet" icon="folder">
+  <l-EmptyState title="No items yet" icon="folder">
     Get started by creating your first item.
-    <Button slot="action" label="Add item" @click="handleAdd" />
-  </EmptyState>
+    <l-Button slot="action" label="Add item" @click="handleAdd" />
+  </l-EmptyState>
 </template>
 
 <script setup>
@@ -111,10 +111,10 @@ const handleAdd = () => {
 };
 </script>`,
               angular: `<!-- app.component.html -->
-<EmptyState title="No items yet" icon="folder">
+<l-EmptyState title="No items yet" icon="folder">
   Get started by creating your first item.
-  <Button slot="action" label="Add item" (click)="handleAdd()" />
-</EmptyState>`,
+  <l-Button slot="action" label="Add item" (click)="handleAdd()" />
+</l-EmptyState>`,
             }}
           />
         </section>

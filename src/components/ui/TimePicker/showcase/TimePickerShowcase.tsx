@@ -21,13 +21,13 @@ export default function TimePickerShowcase() {
           <CodeBlock
             variants={{
               react: `<TimePicker />`,
-              js: `<TimePicker />
+              js: `<l-TimePicker />
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <TimePicker />
+  <l-TimePicker />
 </template>
 
 <script setup>
@@ -45,7 +45,7 @@ import "lojee-ui/elements";
 export class AppComponent {}
 
 <!-- app.component.html -->
-<TimePicker />`,
+<l-TimePicker />`,
             }}
           />
         </section>
@@ -60,12 +60,12 @@ export class AppComponent {}
           <CodeBlock
             variants={{
               react: `<TimePicker size="sm" />`,
-              js: `<TimePicker size="sm" />`,
+              js: `<l-TimePicker size="sm" />`,
               vue: `<template>
-  <TimePicker size="sm" />
+  <l-TimePicker size="sm" />
 </template>`,
               angular: `<!-- app.component.html -->
-<TimePicker size="sm" />`,
+<l-TimePicker size="sm" />`,
             }}
           />
         </section>
@@ -78,12 +78,12 @@ export class AppComponent {}
           <CodeBlock
             variants={{
               react: `<TimePicker invalid />`,
-              js: `<TimePicker invalid />`,
+              js: `<l-TimePicker invalid />`,
               vue: `<template>
-  <TimePicker invalid />
+  <l-TimePicker invalid />
 </template>`,
               angular: `<!-- app.component.html -->
-<TimePicker invalid />`,
+<l-TimePicker invalid />`,
             }}
           />
         </section>
@@ -96,12 +96,12 @@ export class AppComponent {}
           <CodeBlock
             variants={{
               react: `<TimePicker disabled />`,
-              js: `<TimePicker disabled />`,
+              js: `<l-TimePicker disabled />`,
               vue: `<template>
-  <TimePicker disabled />
+  <l-TimePicker disabled />
 </template>`,
               angular: `<!-- app.component.html -->
-<TimePicker disabled />`,
+<l-TimePicker disabled />`,
             }}
           />
         </section>

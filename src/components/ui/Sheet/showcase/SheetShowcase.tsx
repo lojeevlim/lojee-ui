@@ -31,10 +31,10 @@ export default function SheetShowcase() {
 <Sheet open={open} onClose={() => setOpen(false)} title="Sheet title">
   <p>This is a basic bottom sheet.</p>
 </Sheet>`,
-              js: `<Button label="Open sheet" id="open-sheet-btn" />
-<Sheet id="basic-sheet" heading="Sheet title">
+              js: `<l-Button label="Open sheet" id="open-sheet-btn" />
+<l-Sheet id="basic-sheet" heading="Sheet title">
   <p>This is a basic bottom sheet.</p>
-</Sheet>
+</l-Sheet>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -45,10 +45,10 @@ export default function SheetShowcase() {
   sheet.addEventListener("close", () => { sheet.open = false; });
 </script>`,
               vue: `<template>
-  <Button label="Open sheet" @click="open = true" />
-  <Sheet :open="open" heading="Sheet title" @close="open = false">
+  <l-Button label="Open sheet" @click="open = true" />
+  <l-Sheet :open="open" heading="Sheet title" @close="open = false">
     <p>This is a basic bottom sheet.</p>
-  </Sheet>
+  </l-Sheet>
 </template>
 
 <script setup>
@@ -66,10 +66,10 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <Button label="Open sheet" (click)="open = true" />
-    <Sheet [open]="open" heading="Sheet title" (close)="open = false">
+    <l-Button label="Open sheet" (click)="open = true" />
+    <l-Sheet [open]="open" heading="Sheet title" (close)="open = false">
       <p>This is a basic bottom sheet.</p>
-    </Sheet>
+    </l-Sheet>
   \`,
 })
 export class SheetShowcaseComponent {
@@ -103,29 +103,29 @@ export class SheetShowcaseComponent {
     {items.map((item) => <p key={item.id}>{item.text}</p>)}
   </div>
 </Sheet>`,
-              js: `<Sheet id="terms-sheet" heading="Terms & conditions">
+              js: `<l-Sheet id="terms-sheet" heading="Terms & conditions">
   <div>
     <!-- items -->
   </div>
-</Sheet>
+</l-Sheet>
 
 <script type="module">
   const sheet = document.getElementById("terms-sheet");
   sheet.addEventListener("close", () => { sheet.open = false; });
 </script>`,
               vue: `<template>
-  <Sheet :open="open" heading="Terms & conditions" @close="open = false">
+  <l-Sheet :open="open" heading="Terms & conditions" @close="open = false">
     <div>
       <p v-for="item in items" :key="item.id">{{ item.text }}</p>
     </div>
-  </Sheet>
+  </l-Sheet>
 </template>`,
               angular: `<!-- reuses SheetShowcaseComponent from above -->
-<Sheet [open]="open" heading="Terms & conditions" (close)="open = false">
+<l-Sheet [open]="open" heading="Terms & conditions" (close)="open = false">
   <div>
     <p *ngFor="let item of items">{{ item.text }}</p>
   </div>
-</Sheet>`,
+</l-Sheet>`,
             }}
           />
         </section>

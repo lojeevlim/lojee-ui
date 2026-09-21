@@ -26,19 +26,19 @@ export default function BreadcrumbsShowcase() {
   <BreadcrumbItem href="/">Home</BreadcrumbItem>
   <BreadcrumbItem>Settings</BreadcrumbItem>
 </Breadcrumbs>`,
-              js: `<Breadcrumbs>
-  <BreadcrumbItem href="/">Home</BreadcrumbItem>
-  <BreadcrumbItem>Settings</BreadcrumbItem>
-</Breadcrumbs>
+              js: `<l-Breadcrumbs>
+  <l-BreadcrumbItem href="/">Home</l-BreadcrumbItem>
+  <l-BreadcrumbItem>Settings</l-BreadcrumbItem>
+</l-Breadcrumbs>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <Breadcrumbs>
-    <BreadcrumbItem href="/">Home</BreadcrumbItem>
-    <BreadcrumbItem>Settings</BreadcrumbItem>
-  </Breadcrumbs>
+  <l-Breadcrumbs>
+    <l-BreadcrumbItem href="/">Home</l-BreadcrumbItem>
+    <l-BreadcrumbItem>Settings</l-BreadcrumbItem>
+  </l-Breadcrumbs>
 </template>
 
 <script setup>
@@ -53,10 +53,10 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <Breadcrumbs>
-      <BreadcrumbItem href="/">Home</BreadcrumbItem>
-      <BreadcrumbItem>Settings</BreadcrumbItem>
-    </Breadcrumbs>
+    <l-Breadcrumbs>
+      <l-BreadcrumbItem href="/">Home</l-BreadcrumbItem>
+      <l-BreadcrumbItem>Settings</l-BreadcrumbItem>
+    </l-Breadcrumbs>
   \`,
 })
 export class AppComponent {}`,
@@ -82,27 +82,27 @@ export class AppComponent {}`,
   <BreadcrumbItem href="/projects/lojee-ui">lojee-ui</BreadcrumbItem>
   <BreadcrumbItem>Breadcrumbs</BreadcrumbItem>
 </Breadcrumbs>`,
-              js: `<Breadcrumbs>
-  <BreadcrumbItem href="/">Home</BreadcrumbItem>
-  <BreadcrumbItem href="/projects">Projects</BreadcrumbItem>
-  <BreadcrumbItem href="/projects/lojee-ui">lojee-ui</BreadcrumbItem>
-  <BreadcrumbItem>Breadcrumbs</BreadcrumbItem>
-</Breadcrumbs>`,
+              js: `<l-Breadcrumbs>
+  <l-BreadcrumbItem href="/">Home</l-BreadcrumbItem>
+  <l-BreadcrumbItem href="/projects">Projects</l-BreadcrumbItem>
+  <l-BreadcrumbItem href="/projects/lojee-ui">lojee-ui</l-BreadcrumbItem>
+  <l-BreadcrumbItem>Breadcrumbs</l-BreadcrumbItem>
+</l-Breadcrumbs>`,
               vue: `<template>
-  <Breadcrumbs>
-    <BreadcrumbItem href="/">Home</BreadcrumbItem>
-    <BreadcrumbItem href="/projects">Projects</BreadcrumbItem>
-    <BreadcrumbItem href="/projects/lojee-ui">lojee-ui</BreadcrumbItem>
-    <BreadcrumbItem>Breadcrumbs</BreadcrumbItem>
-  </Breadcrumbs>
+  <l-Breadcrumbs>
+    <l-BreadcrumbItem href="/">Home</l-BreadcrumbItem>
+    <l-BreadcrumbItem href="/projects">Projects</l-BreadcrumbItem>
+    <l-BreadcrumbItem href="/projects/lojee-ui">lojee-ui</l-BreadcrumbItem>
+    <l-BreadcrumbItem>Breadcrumbs</l-BreadcrumbItem>
+  </l-Breadcrumbs>
 </template>`,
               angular: `<!-- reuses the AppComponent from above -->
-<Breadcrumbs>
-  <BreadcrumbItem href="/">Home</BreadcrumbItem>
-  <BreadcrumbItem href="/projects">Projects</BreadcrumbItem>
-  <BreadcrumbItem href="/projects/lojee-ui">lojee-ui</BreadcrumbItem>
-  <BreadcrumbItem>Breadcrumbs</BreadcrumbItem>
-</Breadcrumbs>`,
+<l-Breadcrumbs>
+  <l-BreadcrumbItem href="/">Home</l-BreadcrumbItem>
+  <l-BreadcrumbItem href="/projects">Projects</l-BreadcrumbItem>
+  <l-BreadcrumbItem href="/projects/lojee-ui">lojee-ui</l-BreadcrumbItem>
+  <l-BreadcrumbItem>Breadcrumbs</l-BreadcrumbItem>
+</l-Breadcrumbs>`,
             }}
           />
         </section>
@@ -127,24 +127,24 @@ export class AppComponent {}`,
   <BreadcrumbItem href="/team" icon="users">Team</BreadcrumbItem>
   <BreadcrumbItem icon="circle-user">Profile</BreadcrumbItem>
 </Breadcrumbs>`,
-              js: `<Breadcrumbs>
-  <BreadcrumbItem href="/" icon="home">Home</BreadcrumbItem>
-  <BreadcrumbItem href="/team" icon="users">Team</BreadcrumbItem>
-  <BreadcrumbItem icon="circle-user">Profile</BreadcrumbItem>
-</Breadcrumbs>`,
+              js: `<l-Breadcrumbs>
+  <l-BreadcrumbItem href="/" icon="home">Home</l-BreadcrumbItem>
+  <l-BreadcrumbItem href="/team" icon="users">Team</l-BreadcrumbItem>
+  <l-BreadcrumbItem icon="circle-user">Profile</l-BreadcrumbItem>
+</l-Breadcrumbs>`,
               vue: `<template>
-  <Breadcrumbs>
-    <BreadcrumbItem href="/" icon="home">Home</BreadcrumbItem>
-    <BreadcrumbItem href="/team" icon="users">Team</BreadcrumbItem>
-    <BreadcrumbItem icon="circle-user">Profile</BreadcrumbItem>
-  </Breadcrumbs>
+  <l-Breadcrumbs>
+    <l-BreadcrumbItem href="/" icon="home">Home</l-BreadcrumbItem>
+    <l-BreadcrumbItem href="/team" icon="users">Team</l-BreadcrumbItem>
+    <l-BreadcrumbItem icon="circle-user">Profile</l-BreadcrumbItem>
+  </l-Breadcrumbs>
 </template>`,
               angular: `<!-- reuses the AppComponent from above -->
-<Breadcrumbs>
-  <BreadcrumbItem href="/" icon="home">Home</BreadcrumbItem>
-  <BreadcrumbItem href="/team" icon="users">Team</BreadcrumbItem>
-  <BreadcrumbItem icon="circle-user">Profile</BreadcrumbItem>
-</Breadcrumbs>`,
+<l-Breadcrumbs>
+  <l-BreadcrumbItem href="/" icon="home">Home</l-BreadcrumbItem>
+  <l-BreadcrumbItem href="/team" icon="users">Team</l-BreadcrumbItem>
+  <l-BreadcrumbItem icon="circle-user">Profile</l-BreadcrumbItem>
+</l-Breadcrumbs>`,
             }}
           />
         </section>
@@ -171,11 +171,11 @@ export class AppComponent {}`,
   <BreadcrumbItem href="/docs" classNames={{ separator: "text-indigo-300" }}>Docs</BreadcrumbItem>
   <BreadcrumbItem className="text-indigo-600">Getting started</BreadcrumbItem>
 </Breadcrumbs>`,
-              js: `<Breadcrumbs>
-  <BreadcrumbItem id="home-crumb" href="/">Home</BreadcrumbItem>
-  <BreadcrumbItem id="docs-crumb" href="/docs">Docs</BreadcrumbItem>
-  <BreadcrumbItem className="text-indigo-600">Getting started</BreadcrumbItem>
-</Breadcrumbs>
+              js: `<l-Breadcrumbs>
+  <l-BreadcrumbItem id="home-crumb" href="/">Home</l-BreadcrumbItem>
+  <l-BreadcrumbItem id="docs-crumb" href="/docs">Docs</l-BreadcrumbItem>
+  <l-BreadcrumbItem className="text-indigo-600">Getting started</l-BreadcrumbItem>
+</l-Breadcrumbs>
 
 <script type="module">
   const separatorClassNames = { separator: "text-indigo-300" };
@@ -183,21 +183,21 @@ export class AppComponent {}`,
   document.getElementById("docs-crumb").classNames = separatorClassNames;
 </script>`,
               vue: `<template>
-  <Breadcrumbs>
-    <BreadcrumbItem href="/" :classNames="separatorClassNames">Home</BreadcrumbItem>
-    <BreadcrumbItem href="/docs" :classNames="separatorClassNames">Docs</BreadcrumbItem>
-    <BreadcrumbItem className="text-indigo-600">Getting started</BreadcrumbItem>
-  </Breadcrumbs>
+  <l-Breadcrumbs>
+    <l-BreadcrumbItem href="/" :classNames="separatorClassNames">Home</l-BreadcrumbItem>
+    <l-BreadcrumbItem href="/docs" :classNames="separatorClassNames">Docs</l-BreadcrumbItem>
+    <l-BreadcrumbItem className="text-indigo-600">Getting started</l-BreadcrumbItem>
+  </l-Breadcrumbs>
 </template>
 
 <script setup>
 const separatorClassNames = { separator: "text-indigo-300" };
 </script>`,
-              angular: `<Breadcrumbs>
-  <BreadcrumbItem href="/" [classNames]="separatorClassNames">Home</BreadcrumbItem>
-  <BreadcrumbItem href="/docs" [classNames]="separatorClassNames">Docs</BreadcrumbItem>
-  <BreadcrumbItem className="text-indigo-600">Getting started</BreadcrumbItem>
-</Breadcrumbs>
+              angular: `<l-Breadcrumbs>
+  <l-BreadcrumbItem href="/" [classNames]="separatorClassNames">Home</l-BreadcrumbItem>
+  <l-BreadcrumbItem href="/docs" [classNames]="separatorClassNames">Docs</l-BreadcrumbItem>
+  <l-BreadcrumbItem className="text-indigo-600">Getting started</l-BreadcrumbItem>
+</l-Breadcrumbs>
 
 separatorClassNames = { separator: "text-indigo-300" };`,
             }}

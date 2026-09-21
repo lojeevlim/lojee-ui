@@ -21,7 +21,7 @@ export default function SpinnerPlayground() {
   );
   const code = `<Spinner variant="${variant}" size="${size}" color="${color}" />`;
 
-  const htmlMarkup = `<Spinner variant="${variant}" size="${size}" color="${color}" />`;
+  const htmlMarkup = `<l-Spinner variant="${variant}" size="${size}" color="${color}" />`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,

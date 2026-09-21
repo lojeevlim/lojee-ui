@@ -29,21 +29,21 @@ export default function ContainerShowcase() {
 <Container size="lg">...</Container>
 <Container size="xl">...</Container>
 <Container size="full">...</Container>`,
-              js: `<Container size="sm">...</Container>
-<Container size="md">...</Container>
-<Container size="lg">...</Container>
-<Container size="xl">...</Container>
-<Container size="full">...</Container>
+              js: `<l-Container size="sm">...</l-Container>
+<l-Container size="md">...</l-Container>
+<l-Container size="lg">...</l-Container>
+<l-Container size="xl">...</l-Container>
+<l-Container size="full">...</l-Container>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <Container size="sm">...</Container>
-  <Container size="md">...</Container>
-  <Container size="lg">...</Container>
-  <Container size="xl">...</Container>
-  <Container size="full">...</Container>
+  <l-Container size="sm">...</l-Container>
+  <l-Container size="md">...</l-Container>
+  <l-Container size="lg">...</l-Container>
+  <l-Container size="xl">...</l-Container>
+  <l-Container size="full">...</l-Container>
 </template>
 
 <script setup>
@@ -58,11 +58,11 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <Container size="sm">...</Container>
-    <Container size="md">...</Container>
-    <Container size="lg">...</Container>
-    <Container size="xl">...</Container>
-    <Container size="full">...</Container>
+    <l-Container size="sm">...</l-Container>
+    <l-Container size="md">...</l-Container>
+    <l-Container size="lg">...</l-Container>
+    <l-Container size="xl">...</l-Container>
+    <l-Container size="full">...</l-Container>
   \`,
 })
 export class AppComponent {}`,
@@ -87,12 +87,12 @@ export class AppComponent {}`,
           <CodeBlock
             variants={{
               react: `<Container size="sm" padded={false}>...</Container>`,
-              js: `<Container size="sm" padded="false">...</Container>`,
+              js: `<l-Container size="sm" padded="false">...</l-Container>`,
               vue: `<template>
-  <Container size="sm" padded="false">...</Container>
+  <l-Container size="sm" padded="false">...</l-Container>
 </template>`,
               angular: `<!-- reuses the AppComponent from above -->
-<Container size="sm" padded="false">...</Container>`,
+<l-Container size="sm" padded="false">...</l-Container>`,
             }}
           />
         </section>

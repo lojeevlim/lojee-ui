@@ -34,7 +34,7 @@ export default function SignupFormShowcase() {
               react: `const [values, setValues] = useState(null);
 
 <SignupForm onSubmit={setValues} />`,
-              js: `<SignupForm id="signup"></SignupForm>
+              js: `<l-SignupForm id="signup"></l-SignupForm>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -44,7 +44,7 @@ export default function SignupFormShowcase() {
   });
 </script>`,
               vue: `<template>
-  <SignupForm @submit="onSubmit" />
+  <l-SignupForm @submit="onSubmit" />
 </template>
 
 <script setup>
@@ -52,7 +52,7 @@ function onSubmit(values) {
   console.log(values);
 }
 </script>`,
-              angular: `<SignupForm (submit)="onSubmit($event)"></SignupForm>
+              angular: `<l-SignupForm (submit)="onSubmit($event)"></l-SignupForm>
 
 onSubmit(values) {
   console.log(values);
@@ -86,21 +86,21 @@ onSubmit(values) {
     </p>
   }
 />`,
-              js: `<SignupForm>
+              js: `<l-SignupForm>
   <p slot="footer">Already have an account? <a href="/login">Log in</a></p>
-</SignupForm>
+</l-SignupForm>
 
 <script type="module">import "lojee-ui/elements";</script>`,
               vue: `<template>
-  <SignupForm>
+  <l-SignupForm>
     <template #footer>
       <p>Already have an account? <a href="/login">Log in</a></p>
     </template>
-  </SignupForm>
+  </l-SignupForm>
 </template>`,
-              angular: `<SignupForm>
+              angular: `<l-SignupForm>
   <p slot="footer">Already have an account? <a href="/login">Log in</a></p>
-</SignupForm>`,
+</l-SignupForm>`,
             }}
           />
         </section>
@@ -115,9 +115,9 @@ onSubmit(values) {
           <CodeBlock
             variants={{
               react: `<SignupForm mismatchError="Those passwords don't match — try again." />`,
-              js: `<SignupForm mismatchError="Those passwords don't match — try again."></SignupForm>`,
-              vue: `<SignupForm mismatchError="Those passwords don't match — try again." />`,
-              angular: `<SignupForm mismatchError="Those passwords don't match — try again."></SignupForm>`,
+              js: `<l-SignupForm mismatchError="Those passwords don't match — try again."></l-SignupForm>`,
+              vue: `<l-SignupForm mismatchError="Those passwords don't match — try again." />`,
+              angular: `<l-SignupForm mismatchError="Those passwords don't match — try again."></l-SignupForm>`,
             }}
           />
         </section>

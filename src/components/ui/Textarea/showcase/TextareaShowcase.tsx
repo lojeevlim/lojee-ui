@@ -19,13 +19,13 @@ export default function TextareaShowcase() {
           <CodeBlock
             variants={{
               react: `<Textarea placeholder="Write something…" />`,
-              js: `<Textarea placeholder="Write something…" />
+              js: `<l-Textarea placeholder="Write something…" />
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <Textarea placeholder="Write something…" />
+  <l-Textarea placeholder="Write something…" />
 </template>
 
 <script setup>
@@ -40,7 +40,7 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <Textarea placeholder="Write something…" />
+    <l-Textarea placeholder="Write something…" />
   \`,
 })
 export class AppComponent {}`,
@@ -62,18 +62,18 @@ export class AppComponent {}`,
               react: `<Textarea resize="none" placeholder="resize: none" />
 <Textarea resize="vertical" placeholder="resize: vertical" />
 <Textarea resize="both" placeholder="resize: both" />`,
-              js: `<Textarea resize="none" placeholder="resize: none" />
-<Textarea resize="vertical" placeholder="resize: vertical" />
-<Textarea resize="both" placeholder="resize: both" />`,
+              js: `<l-Textarea resize="none" placeholder="resize: none" />
+<l-Textarea resize="vertical" placeholder="resize: vertical" />
+<l-Textarea resize="both" placeholder="resize: both" />`,
               vue: `<template>
-  <Textarea resize="none" placeholder="resize: none" />
-  <Textarea resize="vertical" placeholder="resize: vertical" />
-  <Textarea resize="both" placeholder="resize: both" />
+  <l-Textarea resize="none" placeholder="resize: none" />
+  <l-Textarea resize="vertical" placeholder="resize: vertical" />
+  <l-Textarea resize="both" placeholder="resize: both" />
 </template>`,
               angular: `<!-- app.component.html — same AppComponent as above -->
-<Textarea resize="none" placeholder="resize: none" />
-<Textarea resize="vertical" placeholder="resize: vertical" />
-<Textarea resize="both" placeholder="resize: both" />`,
+<l-Textarea resize="none" placeholder="resize: none" />
+<l-Textarea resize="vertical" placeholder="resize: vertical" />
+<l-Textarea resize="both" placeholder="resize: both" />`,
             }}
           />
         </section>
@@ -86,9 +86,9 @@ export class AppComponent {}`,
           <CodeBlock
             variants={{
               react: `<Textarea invalid defaultValue="Too short" />`,
-              js: `<Textarea invalid value="Too short" />`,
-              vue: `<Textarea invalid value="Too short" />`,
-              angular: `<Textarea invalid value="Too short" />`,
+              js: `<l-Textarea invalid value="Too short" />`,
+              vue: `<l-Textarea invalid value="Too short" />`,
+              angular: `<l-Textarea invalid value="Too short" />`,
             }}
           />
         </section>
@@ -101,9 +101,9 @@ export class AppComponent {}`,
           <CodeBlock
             variants={{
               react: `<Textarea disabled placeholder="Disabled" />`,
-              js: `<Textarea disabled placeholder="Disabled" />`,
-              vue: `<Textarea disabled placeholder="Disabled" />`,
-              angular: `<Textarea disabled placeholder="Disabled" />`,
+              js: `<l-Textarea disabled placeholder="Disabled" />`,
+              vue: `<l-Textarea disabled placeholder="Disabled" />`,
+              angular: `<l-Textarea disabled placeholder="Disabled" />`,
             }}
           />
         </section>

@@ -40,10 +40,10 @@ export default function SuccessStatePlayground() {
     : `<SuccessState${titleAttr}${iconAttr} />`;
 
   const htmlMarkup = hasBody
-    ? `<SuccessState${titleAttr}${iconAttr}>${description ? `\n  ${description}` : ""}${
-        showAction ? `\n  <Button slot="action" label="Continue" id="continue-btn" />` : ""
-      }\n</SuccessState>`
-    : `<SuccessState${titleAttr}${iconAttr} />`;
+    ? `<l-SuccessState${titleAttr}${iconAttr}>${description ? `\n  ${description}` : ""}${
+        showAction ? `\n  <l-Button slot="action" label="Continue" id="continue-btn" />` : ""
+      }\n</l-SuccessState>`
+    : `<l-SuccessState${titleAttr}${iconAttr} />`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,

@@ -78,7 +78,7 @@ export default function DataGridShowcase() {
 ];
 
 <DataGrid columns={columns} data={projects} bordered />`,
-              js: `<DataGrid id="basic-grid" bordered></DataGrid>
+              js: `<l-DataGrid id="basic-grid" bordered></l-DataGrid>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -101,7 +101,7 @@ export default function DataGridShowcase() {
   ];
 </script>`,
               vue: `<template>
-  <DataGrid :columns="columns" :data="projects" bordered />
+  <l-DataGrid :columns="columns" :data="projects" bordered />
 </template>
 
 <script setup>
@@ -130,7 +130,7 @@ import "lojee-ui/elements";
   selector: "app-root",
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  template: \`<DataGrid [columns]="columns" [data]="projects" bordered />\`,
+  template: \`<l-DataGrid [columns]="columns" [data]="projects" bordered />\`,
 })
 export class AppComponent {
   columns = [
@@ -167,7 +167,7 @@ export class AppComponent {
 ];
 
 <DataGrid columns={columns} data={projects} bordered />`,
-              js: `<DataGrid id="sortable-grid" bordered></DataGrid>
+              js: `<l-DataGrid id="sortable-grid" bordered></l-DataGrid>
 
 <script type="module">
   const columns = [
@@ -182,7 +182,7 @@ export class AppComponent {
   grid.data = projects;
 </script>`,
               vue: `<template>
-  <DataGrid :columns="columns" :data="projects" bordered />
+  <l-DataGrid :columns="columns" :data="projects" bordered />
 </template>
 
 <script setup>
@@ -195,7 +195,7 @@ const columns = [
 </script>`,
               angular: `<!-- reuses the AppComponent from above, with \`sortable: true\` added to the
      "name" and "tasks" columns -->
-<DataGrid [columns]="columns" [data]="projects" bordered />`,
+<l-DataGrid [columns]="columns" [data]="projects" bordered />`,
             }}
           />
         </section>
@@ -225,7 +225,7 @@ const columns = [
 />
 
 <p>{selected.length} selected</p>`,
-              js: `<DataGrid id="selectable-grid" bordered selectable></DataGrid>
+              js: `<l-DataGrid id="selectable-grid" bordered selectable></l-DataGrid>
 <p id="selection-count">0 selected</p>
 
 <script type="module">
@@ -237,7 +237,7 @@ const columns = [
   });
 </script>`,
               vue: `<template>
-  <DataGrid :columns="columns" :data="projects" bordered selectable @selectionchange="selected = $event" />
+  <l-DataGrid :columns="columns" :data="projects" bordered selectable @selectionchange="selected = $event" />
   <p>{{ selected.length }} selected</p>
 </template>
 
@@ -245,7 +245,7 @@ const columns = [
 import { ref } from "vue";
 const selected = ref([]);
 </script>`,
-              angular: `<DataGrid [columns]="columns" [data]="projects" bordered selectable (selectionchange)="selected = $event"></DataGrid>
+              angular: `<l-DataGrid [columns]="columns" [data]="projects" bordered selectable (selectionchange)="selected = $event"></l-DataGrid>
 <p>{{ selected.length }} selected</p>
 
 selected = [];`,
@@ -263,8 +263,8 @@ selected = [];`,
             variants={{
               react: `<DataGrid columns={columns} data={projects} size="sm" bordered />
 <DataGrid columns={columns} data={projects} size="lg" bordered />`,
-              js: `<DataGrid id="grid-sm" size="sm" bordered></DataGrid>
-<DataGrid id="grid-lg" size="lg" bordered></DataGrid>
+              js: `<l-DataGrid id="grid-sm" size="sm" bordered></l-DataGrid>
+<l-DataGrid id="grid-lg" size="lg" bordered></l-DataGrid>
 
 <script type="module">
   document.getElementById("grid-sm").columns = columns;
@@ -273,12 +273,12 @@ selected = [];`,
   document.getElementById("grid-lg").data = projects;
 </script>`,
               vue: `<template>
-  <DataGrid :columns="columns" :data="projects" size="sm" bordered />
-  <DataGrid :columns="columns" :data="projects" size="lg" bordered />
+  <l-DataGrid :columns="columns" :data="projects" size="sm" bordered />
+  <l-DataGrid :columns="columns" :data="projects" size="lg" bordered />
 </template>`,
               angular: `<!-- reuses the AppComponent from above -->
-<DataGrid [columns]="columns" [data]="projects" size="sm" bordered />
-<DataGrid [columns]="columns" [data]="projects" size="lg" bordered />`,
+<l-DataGrid [columns]="columns" [data]="projects" size="sm" bordered />
+<l-DataGrid [columns]="columns" [data]="projects" size="lg" bordered />`,
             }}
           />
         </section>

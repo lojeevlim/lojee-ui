@@ -30,9 +30,9 @@ export default function ContainerPlayground() {
   // Vue/Angular templates (plain attributes, no bindings needed for a static
   // snapshot); the "js" variant just adds the one-time module import a plain
   // HTML page needs to actually load the `<l-*>` definitions.
-  const htmlMarkup = `<Container size="${size}"${centered ? "" : ` centered="false"`}${padded ? "" : ` padded="false"`}>
+  const htmlMarkup = `<l-Container size="${size}"${centered ? "" : ` centered="false"`}${padded ? "" : ` padded="false"`}>
   Sample content
-</Container>`;
+</l-Container>`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,

@@ -67,7 +67,7 @@ ${itemsCode}
   ]}
   onChange={(index, item) => setActiveLabel(item.label)}
 />`,
-    js: `<NavigationMenu id="nav-menu-demo" ${attrs} />
+    js: `<l-NavigationMenu id="nav-menu-demo" ${attrs} />
 
 <script type="module">
   import "lojee-ui/elements";
@@ -83,7 +83,7 @@ ${itemsCode}
   });
 </script>`,
     vue: `<template>
-  <NavigationMenu :items="items" ${attrs} @change="onChange" />
+  <l-NavigationMenu :items="items" ${attrs} @change="onChange" />
 </template>
 
 <script setup>
@@ -95,7 +95,7 @@ function onChange(index) {
   console.log("Selected index:", index);
 }
 </script>`,
-    angular: `<NavigationMenu [items]="items" ${attrs} (change)="onChange($event)"></NavigationMenu>
+    angular: `<l-NavigationMenu [items]="items" ${attrs} (change)="onChange($event)"></l-NavigationMenu>
 
 items = [
 ${itemsCode}

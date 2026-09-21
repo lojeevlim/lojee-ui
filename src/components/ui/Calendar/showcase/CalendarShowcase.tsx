@@ -41,13 +41,13 @@ export default function CalendarShowcase() {
           <CodeBlock
             variants={{
               react: `<Calendar />`,
-              js: `<Calendar />
+              js: `<l-Calendar />
 
 <script type="module">import "lojee-ui/elements";</script>`,
               vue: `<template>
-  <Calendar />
+  <l-Calendar />
 </template>`,
-              angular: `<Calendar></Calendar>`,
+              angular: `<l-Calendar></l-Calendar>`,
             }}
           />
         </section>
@@ -67,7 +67,7 @@ export default function CalendarShowcase() {
     { date: "2026-06-20", label: "Planning", color: "amber" },
   ]}
 />`,
-              js: `<Calendar id="calendar-events" />
+              js: `<l-Calendar id="calendar-events" />
 
 <script type="module">
   import "lojee-ui/elements";
@@ -80,7 +80,7 @@ export default function CalendarShowcase() {
   ];
 </script>`,
               vue: `<template>
-  <Calendar :events="events" />
+  <l-Calendar :events="events" />
 </template>
 
 <script setup>
@@ -91,7 +91,7 @@ const events = [
   { date: "2026-06-20", label: "Planning", color: "amber" },
 ];
 </script>`,
-              angular: `<Calendar [events]="events"></Calendar>
+              angular: `<l-Calendar [events]="events"></l-Calendar>
 
 events = [
   { date: "2026-06-05", label: "Team sync", color: "indigo" },
@@ -116,7 +116,7 @@ events = [
               react: `const [selected, setSelected] = useState();
 
 <Calendar selected={selected} onSelect={setSelected} />`,
-              js: `<Calendar id="calendar-controlled"></Calendar>
+              js: `<l-Calendar id="calendar-controlled"></l-Calendar>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -127,14 +127,14 @@ events = [
   });
 </script>`,
               vue: `<template>
-  <Calendar :selected="selected" @select="selected = $event" />
+  <l-Calendar :selected="selected" @select="selected = $event" />
 </template>
 
 <script setup>
 import { ref } from "vue";
 const selected = ref();
 </script>`,
-              angular: `<Calendar [selected]="selected" (select)="selected = $event"></Calendar>
+              angular: `<l-Calendar [selected]="selected" (select)="selected = $event"></l-Calendar>
 
 selected?: string;`,
             }}
@@ -153,19 +153,19 @@ selected?: string;`,
               react: `<Calendar color="emerald" />
 <Calendar color="rose" />
 <Calendar color="amber" />`,
-              js: `<Calendar color="emerald"></Calendar>
-<Calendar color="rose"></Calendar>
-<Calendar color="amber"></Calendar>
+              js: `<l-Calendar color="emerald"></l-Calendar>
+<l-Calendar color="rose"></l-Calendar>
+<l-Calendar color="amber"></l-Calendar>
 
 <script type="module">import "lojee-ui/elements";</script>`,
               vue: `<template>
-  <Calendar color="emerald" />
-  <Calendar color="rose" />
-  <Calendar color="amber" />
+  <l-Calendar color="emerald" />
+  <l-Calendar color="rose" />
+  <l-Calendar color="amber" />
 </template>`,
-              angular: `<Calendar color="emerald"></Calendar>
-<Calendar color="rose"></Calendar>
-<Calendar color="amber"></Calendar>`,
+              angular: `<l-Calendar color="emerald"></l-Calendar>
+<l-Calendar color="rose"></l-Calendar>
+<l-Calendar color="amber"></l-Calendar>`,
             }}
           />
         </section>
