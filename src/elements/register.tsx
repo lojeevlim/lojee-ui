@@ -774,7 +774,7 @@ customElements.define(
 
 customElements.define(
   "l-sidebar",
-  r2wc(withTailwind(Sidebar), {
+  r2wc(withHostBlock(withTailwind(Sidebar)), {
     shadow: "open",
     props: {
       width: "number",
@@ -783,8 +783,17 @@ customElements.define(
       variant: "string",
       color: "string",
       collapsible: "boolean",
+      header: "string",
+      headerIcon: "string",
+      footer: "string",
+      items: "json",
+      defaultActiveItem: "string",
+      borderWidth: "number",
     },
-    events: { onCollapsedChange: {} }, // dispatches "collapsedchange", detail = the requested boolean
+    events: {
+      onCollapsedChange: {}, // dispatches "collapsedchange", detail = the requested boolean
+      onActiveItemChange: {}, // dispatches "activeitemchange", detail = the active item object
+    },
   })
 );
 
@@ -804,6 +813,7 @@ customElements.define(
       disabled: "boolean",
       collapsed: "boolean",
       dark: "boolean",
+      vividActive: "boolean",
       color: "string",
       tooltipPosition: "string",
     },

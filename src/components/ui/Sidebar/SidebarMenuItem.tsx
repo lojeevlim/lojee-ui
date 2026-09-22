@@ -47,6 +47,24 @@ const DARK_ACTIVE_BG: Record<ColorName, string> = {
   pink: "bg-pink-500/25",
 };
 
+// Stronger version of the above, for `vividActive` (Sidebar's variant="gradient"/"glass" — but not
+// "dark") — those two sit on a translucent or already-colorful surface, where DARK_ACTIVE_BG's subtle
+// overlay is much easier to lose than it is against "dark"'s plain, solid near-black fill.
+const VIVID_ACTIVE_BG: Record<ColorName, string> = {
+  slate: "bg-white/35",
+  gray: "bg-white/35",
+  indigo: "bg-indigo-500/65",
+  violet: "bg-violet-500/65",
+  blue: "bg-blue-500/65",
+  cyan: "bg-cyan-500/65",
+  emerald: "bg-emerald-500/65",
+  teal: "bg-teal-500/65",
+  amber: "bg-amber-500/65",
+  orange: "bg-orange-500/65",
+  rose: "bg-rose-500/65",
+  pink: "bg-pink-500/65",
+};
+
 // When `collapsed` isn't passed explicitly, mirror the nearest ancestor <l-sidebar>'s own
 // `collapsed` attribute instead of requiring every single item to be wired up individually. This
 // only ever finds anything in real Web Component usage — `l-sidebar-menu-item` nested inside
@@ -114,6 +132,11 @@ export interface SidebarMenuItemProps {
   /** Use the translucent active/hover treatment made for dark surfaces (default: false) — pass
    * `true` alongside a Sidebar `variant="dark"/"gradient"/"glass"`. */
   dark?: boolean;
+  /** Strengthens the active row's background/ring beyond `dark`'s usual subtle overlay (default:
+   * false) — pass `true` alongside a Sidebar `variant="gradient"/"glass"` specifically (not "dark"),
+   * since those sit on a translucent or already-colorful surface where the normal overlay is much
+   * easier to lose than it is against "dark"'s plain, solid fill. Has no effect when `dark` is false. */
+  vividActive?: boolean;
   /** Accent color for the active state (default: "slate") — one of the built-in ColorNames, or any
    * other CSS color value; pair it with the same `color` you gave the parent Sidebar. */
   color?: ColorName | (string & {});
@@ -136,6 +159,7 @@ export function SidebarMenuItem({
   collapsed: collapsedProp,
   tooltipPosition = "right",
   dark = false,
+  vividActive = false,
   color = "slate",
   className,
   classNames,
@@ -146,9 +170,14 @@ export function SidebarMenuItem({
   const { ref: triggerRef, state: tooltipState, show, hide } = useTooltipPortal<HTMLAnchorElement>();
 
   const activeClass = dark
-    ? colorIsNamed
-      ? `${DARK_ACTIVE_BG[color]} font-medium text-white`
-      : "bg-white/10 font-medium text-white"
+    ? cx(
+        colorIsNamed ? (vividActive ? VIVID_ACTIVE_BG[color] : DARK_ACTIVE_BG[color]) : vividActive ? "bg-white/35" : "bg-white/10",
+        "font-medium text-white",
+        // Extra edge definition on top of the stronger fill — a translucent/gradient surface doesn't
+        // give the active row a contrasting opaque background to read against the way "dark"'s plain
+        // fill does, so the ring/shadow does some of that job instead.
+        vividActive && "shadow-md ring-1 ring-inset ring-white/40"
+      )
     : colorIsNamed
       ? `${ACTIVE_BG[color]} font-medium text-white shadow-sm`
       : "font-medium text-white shadow-sm";
@@ -156,7 +185,7 @@ export function SidebarMenuItem({
 
   const rowClasses = cx(
     "flex items-center rounded-lg text-sm transition-colors",
-    collapsed ? "w-fit justify-center px-2 py-2.5" : "w-full gap-2.5 px-3 py-2.5",
+    collapsed ? "w-full justify-center px-2 py-2.5" : "w-full gap-2.5 px-3 py-2.5",
     disabled && "pointer-events-none opacity-50",
     active ? activeClass : idleClass,
     className,

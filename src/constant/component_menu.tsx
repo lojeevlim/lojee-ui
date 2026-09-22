@@ -1,83 +1,15 @@
-import React from "react";
-import {
-    Activity,
-    AlignLeft,
-    Badge,
-    Bell,
-    BellRing,
-    Box,
-    Calendar,
-    CalendarDays,
-    ChartColumn,
-    ChartNoAxesCombined,
-    ChevronDown,
-    ChevronRight,
-    ChevronsLeftRight,
-    ChevronsUpDown,
-    CircleAlert,
-    CircleCheck,
-    CircleDot,
-    CircleUser,
-    CircleX,
-    Clock,
-    Command,
-    ContactRound,
-    CreditCard,
-    GalleryHorizontal,
-    GitBranch,
-    Grid2X2,
-    Inbox,
-    List,
-    ListFilter,
-    ListFilterPlus,
-    ListOrdered,
-    Loader,
-    LoaderCircle,
-    LockKeyhole,
-    Layout,
-    Menu,
-    MessageCircle,
-    MessageSquare,
-    Minus,
-    MousePointer2,
-    PanelBottom,
-    PanelLeft,
-    PanelRight,
-    PanelTop,
-    Search,
-    Settings,
-    Shapes,
-    SlidersHorizontal,
-    SlidersVertical,
-    Square,
-    SquareCheck,
-    SquareChevronDown,
-    SquareStack,
-    Table,
-    Table2,
-    Tag,
-    TextCursorInput,
-    ToggleRight,
-    Upload,
-    UserCog,
-    UserPlus,
-    UserRound,
-    LogIn,
-    BookOpen,
-    Download,
-} from "lucide-react";
-
-type IconComponent = React.ComponentType<{ size?: number; className?: string }>;
-
+// Icons are referenced by name (see src/core/icons.ts), not component reference — matches the
+// registry `SidebarMenuItemSpec.icon` (layouts/Sidebar.tsx flattens this whole menu into `items`
+// for the real site nav) and the wider library's "icons survive an HTML attribute boundary" rule.
 export interface MenuItem {
-    icon: IconComponent;
+    icon: string;
     label: string;
     badge?: string;
     href?: string;
 }
 
 export interface Menu{
-    icon?: IconComponent;
+    icon?: string;
     section?:  string;
     items?: MenuItem[];
 }
@@ -89,37 +21,37 @@ export const COMPONENT_MENU: Menu[]  = [
         items: [
 
             {
-                icon: Square,
+                icon: "square",
                 label: "Buttons",
             },
 
             {
-                icon: Badge,
+                icon: "badge",
                 label: "Badges",
             },
 
             {
-                icon: CircleUser,
+                icon: "circle-user",
                 label: "Avatars",
             },
 
             {
-                icon: Shapes,
+                icon: "shapes",
                 label: "Icons",
             },
 
             {
-                icon: LoaderCircle,
+                icon: "loader-circle",
                 label: "Spinners",
             },
 
             {
-                icon: Loader,
+                icon: "loader",
                 label: "Loaders",
             },
 
             {
-                icon: Minus,
+                icon: "minus",
                 label: "Dividers",
             },
 
@@ -132,47 +64,47 @@ export const COMPONENT_MENU: Menu[]  = [
         items: [
 
             {
-                icon: CreditCard,
+                icon: "credit-card",
                 label: "Cards",
             },
 
             {
-                icon: Box,
+                icon: "box",
                 label: "Containers",
             },
 
             {
-                icon: Layout,
+                icon: "layout",
                 label: "Sections",
             },
 
             {
-                icon: Grid2X2,
+                icon: "grid-2x2",
                 label: "Grids",
             },
 
             {
-                icon: List,
+                icon: "list",
                 label: "Lists",
             },
 
             {
-                icon: Table,
+                icon: "table",
                 label: "Tables",
             },
 
             {
-                icon: SquareChevronDown,
+                icon: "square-chevron-down",
                 label: "Accordions",
             },
 
             {
-                icon: PanelTop,
+                icon: "panel-top",
                 label: "Tabs",
             },
 
             {
-                icon: GalleryHorizontal,
+                icon: "gallery-horizontal",
                 label: "Carousels",
             },
 
@@ -185,77 +117,77 @@ export const COMPONENT_MENU: Menu[]  = [
         items: [
 
             {
-                icon: TextCursorInput,
+                icon: "text-cursor-input",
                 label: "Input",
             },
 
             {
-                icon: AlignLeft,
+                icon: "align-left",
                 label: "Textarea",
             },
 
             {
-                icon: Tag,
+                icon: "tag",
                 label: "Label",
             },
 
             {
-                icon: SquareCheck,
+                icon: "square-check",
                 label: "Checkbox",
             },
 
             {
-                icon: CircleDot,
+                icon: "circle-dot",
                 label: "Radio Group",
             },
 
             {
-                icon: ToggleRight,
+                icon: "toggle-right",
                 label: "Switch / Toggle",
             },
 
             {
-                icon: ListFilter,
+                icon: "list-filter",
                 label: "Select",
             },
 
             {
-                icon: ListFilterPlus,
+                icon: "list-filter-plus",
                 label: "Multi Select",
             },
 
             {
-                icon: ChevronsUpDown,
+                icon: "chevrons-up-down",
                 label: "Combobox",
             },
 
             {
-                icon: CalendarDays,
+                icon: "calendar-days",
                 label: "Date Picker",
             },
 
             {
-                icon: Clock,
+                icon: "clock",
                 label: "Time Picker",
             },
 
             {
-                icon: Upload,
+                icon: "upload",
                 label: "File Upload",
             },
 
             {
-                icon: Search,
+                icon: "search",
                 label: "Search Input",
             },
 
             {
-                icon: SlidersHorizontal,
+                icon: "sliders-horizontal",
                 label: "Slider",
             },
 
             {
-                icon: SlidersVertical,
+                icon: "sliders-vertical",
                 label: "Range Slider",
             },
 
@@ -268,47 +200,47 @@ export const COMPONENT_MENU: Menu[]  = [
         items: [
 
             {
-                icon: SquareStack,
+                icon: "square-stack",
                 label: "Modal / Dialog",
             },
 
             {
-                icon: PanelLeft,
+                icon: "panel-left",
                 label: "Drawer",
             },
 
             {
-                icon: PanelRight,
+                icon: "panel-right",
                 label: "Sheet",
             },
 
             {
-                icon: MessageSquare,
+                icon: "message-square",
                 label: "Popover",
             },
 
             {
-                icon: ChevronDown,
+                icon: "chevron-down",
                 label: "Dropdown Menu",
             },
 
             {
-                icon: MousePointer2,
+                icon: "mouse-pointer-2",
                 label: "Context Menu",
             },
 
             {
-                icon: Command,
+                icon: "command",
                 label: "Command Menu",
             },
 
             {
-                icon: CircleAlert,
+                icon: "circle-alert",
                 label: "Alert Dialog",
             },
 
             {
-                icon: MessageCircle,
+                icon: "message-circle",
                 label: "Tooltip",
             },
 
@@ -321,42 +253,42 @@ export const COMPONENT_MENU: Menu[]  = [
         items: [
 
             {
-                icon: CircleAlert,
+                icon: "circle-alert",
                 label: "Alert",
             },
 
             {
-                icon: Bell,
+                icon: "bell",
                 label: "Toast",
             },
 
             {
-                icon: BellRing,
+                icon: "bell-ring",
                 label: "Notification",
             },
 
             {
-                icon: LoaderCircle,
+                icon: "loader-circle",
                 label: "Progress Bar",
             },
 
             {
-                icon: Inbox,
+                icon: "inbox",
                 label: "Empty State",
             },
 
             {
-                icon: CircleX,
+                icon: "circle-x",
                 label: "Error State",
             },
 
             {
-                icon: CircleCheck,
+                icon: "circle-check",
                 label: "Success State",
             },
 
             {
-                icon: Loader,
+                icon: "loader",
                 label: "Loading State",
             },
 
@@ -369,47 +301,47 @@ export const COMPONENT_MENU: Menu[]  = [
         items: [
 
             {
-                icon: PanelTop,
+                icon: "panel-top",
                 label: "Navbar",
             },
 
             {
-                icon: PanelLeft,
+                icon: "panel-left",
                 label: "Sidebar",
             },
 
             {
-                icon: PanelTop,
+                icon: "panel-top",
                 label: "Header",
             },
 
             {
-                icon: PanelBottom,
+                icon: "panel-bottom",
                 label: "Footer",
             },
 
             {
-                icon: Menu,
+                icon: "menu",
                 label: "Navigation Menu",
             },
 
             {
-                icon: PanelBottom,
+                icon: "panel-bottom",
                 label: "Bottom Navigation",
             },
 
             {
-                icon: ListOrdered,
+                icon: "list-ordered",
                 label: "Stepper",
             },
 
             {
-                icon: ChevronRight,
+                icon: "chevron-right",
                 label: "Breadcrumbs",
             },
 
             {
-                icon: ChevronsLeftRight,
+                icon: "chevrons-left-right",
                 label: "Pagination",
             },
 
@@ -422,32 +354,32 @@ export const COMPONENT_MENU: Menu[]  = [
         items: [
 
             {
-                icon: Table2,
+                icon: "table-2",
                 label: "Data Grid",
             },
 
             {
-                icon: GitBranch,
+                icon: "git-branch",
                 label: "Timeline",
             },
 
             {
-                icon: ChartNoAxesCombined,
+                icon: "chart-no-axes-combined",
                 label: "Stats / KPI",
             },
 
             {
-                icon: ChartColumn,
+                icon: "chart-column",
                 label: "Charts",
             },
 
             {
-                icon: Calendar,
+                icon: "calendar",
                 label: "Calendar",
             },
 
             {
-                icon: Activity,
+                icon: "activity",
                 label: "Activity Feed",
             },
 
@@ -460,37 +392,37 @@ export const COMPONENT_MENU: Menu[]  = [
         items: [
 
             {
-                icon: ContactRound,
+                icon: "contact-round",
                 label: "Profile Card",
             },
 
             {
-                icon: UserRound,
+                icon: "user-round",
                 label: "User Menu",
             },
 
             {
-                icon: LogIn,
+                icon: "log-in",
                 label: "Login Form",
             },
 
             {
-                icon: UserPlus,
+                icon: "user-plus",
                 label: "Signup Form",
             },
 
             {
-                icon: Settings,
+                icon: "settings",
                 label: "Account Settings",
             },
 
             {
-                icon: UserCog,
+                icon: "user-cog",
                 label: "Profile Settings",
             },
 
             {
-                icon: LockKeyhole,
+                icon: "lock-keyhole",
                 label: "Password Input",
             },
 
@@ -504,12 +436,12 @@ export  const DOCS_MENU: Menu [] = [
      section: "Docs",
      items: [
         {
-            icon: BookOpen,
+            icon: "book-open",
             label: "Introduction",
         },
 
         {
-            icon: Download,
+            icon: "download",
             label: "Installation",
         },
 

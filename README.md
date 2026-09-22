@@ -89,12 +89,18 @@ prop already covers full customization.
 npm install lojee-ui
 ```
 
-Consumers need `react`, `react-dom`, and `lucide-react` installed as peer dependencies
-for the React build. Import the compiled stylesheet once, anywhere in your app:
+Consumers need `react`, `react-dom`, `lucide-react`, and `tailwindcss` (v4) installed as
+peer dependencies for the React build — nothing is bundled. Add lojee-ui's `dist` folder
+to your own Tailwind CSS entry's source scanning, and pull in the two custom animation
+tokens (`Loader`'s shimmer, `ProgressBar`'s indeterminate mode) via `lojee-ui/theme.css`:
 
-```ts
-import "lojee-ui/style.css";
+```css
+@import "tailwindcss";
+@import "lojee-ui/theme.css";
+@source "../node_modules/lojee-ui/dist";
 ```
+
+(Adjust the `@source` path to wherever `node_modules` sits relative to your CSS file.)
 
 For non-React consumers, the auto-generated `<l-*>` Web Components are available from
 the `lojee-ui/elements` subpath (self-contained, bundles React internally):
@@ -117,7 +123,7 @@ npm run build:pkg
 ```
 
 Produces `dist/index.js` (ESM), `dist/index.cjs` (CJS), `dist/elements.js` (Web
-Components, ESM), `dist/style.css`, and `dist/lib/index.d.ts`.
+Components, ESM), `dist/theme.css`, and `dist/lib/index.d.ts`.
 
 ### 2. Local install / linking (for active development)
 
