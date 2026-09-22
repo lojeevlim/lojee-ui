@@ -822,9 +822,9 @@ customElements.define(
 
 customElements.define(
   "l-header",
-  r2wc(withTailwind(HeaderElement), {
+  r2wc(withHostBlock(withTailwind(HeaderElement)), {
     shadow: "open",
-    props: { heading: "string" },
+    props: { heading: "string", variant: "string", color: "string", borderWidth: "number" },
   })
 );
 

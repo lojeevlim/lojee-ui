@@ -82,6 +82,132 @@ export default function HeaderShowcase() {
         </section>
 
         <section>
+          <SectionLabel
+            sub={
+              'Seven themes, identical set to Sidebar\'s/Navbar\'s: "light" (default), "dark", ' +
+              '"bordered"/"elevated"/"glass" (detached, floating cards), "minimal" (no chrome at all), ' +
+              'and "gradient" (color-tinted). "bordered" tints its border with `color`/`borderWidth`; ' +
+              '"glass" tints its backdrop with `color` instead.'
+            }
+          >
+            Variants
+          </SectionLabel>
+          <div className="grid gap-4">
+            <div className="overflow-hidden rounded-lg border border-slate-200">
+              <Header
+                title="Team settings"
+                description="Manage members, roles, and billing for your workspace."
+                actions={<Button label="New project" />}
+                classNames={{ root: "px-4" }}
+              />
+            </div>
+            <div className="overflow-hidden rounded-lg border border-slate-800">
+              <Header
+                variant="dark"
+                title="Team settings"
+                description="Manage members, roles, and billing for your workspace."
+                actions={<Button label="New project" />}
+                classNames={{ root: "px-4" }}
+              />
+            </div>
+            <div className="rounded-lg bg-slate-50 p-4">
+              <Header
+                variant="bordered"
+                title="Team settings"
+                description="Manage members, roles, and billing for your workspace."
+                actions={<Button label="New project" />}
+              />
+            </div>
+            <div className="rounded-lg bg-slate-50 p-4">
+              <Header
+                variant="elevated"
+                title="Team settings"
+                description="Manage members, roles, and billing for your workspace."
+                actions={<Button label="New project" />}
+              />
+            </div>
+            <div className="rounded-lg border border-dashed border-slate-300 bg-white p-4">
+              <Header
+                variant="minimal"
+                title="Team settings"
+                description="Manage members, roles, and billing for your workspace."
+                actions={<Button label="New project" />}
+              />
+            </div>
+            <div className="overflow-hidden rounded-lg">
+              <Header
+                variant="gradient"
+                color="indigo"
+                title="Team settings"
+                description="Manage members, roles, and billing for your workspace."
+                actions={<Button variant="outline" label="New project" className="border-white/30 text-white hover:bg-white/10" />}
+                classNames={{ root: "px-4" }}
+              />
+            </div>
+            <div className="overflow-hidden rounded-lg border border-slate-200 bg-indigo-100 p-4">
+              <Header
+                variant="glass"
+                color="indigo"
+                title="Team settings"
+                description="Manage members, roles, and billing for your workspace."
+                actions={<Button variant="outline" label="New project" className="border-white/30 text-white hover:bg-white/10" />}
+              />
+            </div>
+          </div>
+          <CodeBlock
+            variants={{
+              react: `<Header
+  variant="dark"
+  title="Team settings"
+  description="Manage members, roles, and billing for your workspace."
+  actions={<Button label="New project" />}
+/>
+
+{/* Also available:
+    variant="bordered" / "elevated" / "glass" — detached-panel looks (rounded corners, floats
+      inside a page instead of sitting flush in its content flow). Their backdrop (padding + a
+      neutral background) is built in, so no extra markup is needed. "bordered" is a solid white
+      card with a color-tinted border (see \`color\`/\`borderWidth\`); "elevated" is the same card
+      but shadow-only, no border; "glass" has no background color at all, just backdrop-blur-xl —
+      needs something with real color/texture behind it to read.
+    variant="minimal"  — no background/border at all, blends into the page.
+    variant="gradient" — a left-to-right gradient built from \`color\` (600 → 700). */}`,
+              js: `<l-Header heading="Team settings" description="Manage members, roles, and billing for your workspace." variant="dark">
+  <div slot="actions">
+    <l-Button label="New project" />
+  </div>
+</l-Header>
+
+<script type="module">import "lojee-ui/elements";</script>
+
+<!-- "bordered"/"elevated"/"glass" — detached-panel looks; their backdrop is built in, no extra
+     markup needed. "minimal" — no background/border at all, blends into the page. -->`,
+              vue: `<template>
+  <l-Header heading="Team settings" description="Manage members, roles, and billing for your workspace." variant="dark">
+    <template #actions>
+      <l-Button label="New project" />
+    </template>
+  </l-Header>
+
+  <!-- "bordered"/"elevated"/"glass" — detached-panel looks; their backdrop is built in, no extra
+       markup needed. "minimal" — no background/border at all, blends into the page. -->
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+</script>`,
+              angular: `<!-- "bordered"/"elevated"/"glass" — detached-panel looks; their backdrop is built in, no extra
+     markup needed. "minimal" — no background/border at all, blends into the page. -->
+<l-Header heading="Team settings" description="Manage members, roles, and billing for your workspace." variant="dark">
+  <div slot="actions">
+    <l-Button label="New project" />
+  </div>
+</l-Header>`,
+            }}
+          />
+        </section>
+
+        <section>
           <SectionLabel sub="A breadcrumb trail rendered above the title.">With breadcrumbs</SectionLabel>
           <Header
             breadcrumbs={
