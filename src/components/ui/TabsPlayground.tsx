@@ -65,7 +65,7 @@ ${tabsData}
   <l-Tabs :tabs="tabs" ${attrs} />
 </template>
 
-<script setup>
+<script setup lang="ts">
 const tabs = [
 ${tabsData}
 ];

@@ -111,7 +111,7 @@ ${BASIC_ITEMS_CODE}
   <l-ActivityFeed :items="items" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import "lojee-ui/elements";
 
 const items = [
@@ -162,7 +162,7 @@ ${ICON_ITEMS_CODE}
   <l-ActivityFeed :items="items" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 const items = [
 ${ICON_ITEMS_CODE}
 ];
@@ -204,7 +204,7 @@ ${ICON_ITEMS_CODE}
   <l-ActivityFeed :items="items" compact />
 </template>
 
-<script setup>
+<script setup lang="ts">
 const items = [
 ${ICON_ITEMS_CODE}
 ];

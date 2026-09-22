@@ -58,7 +58,7 @@ ${SAMPLE_EVENTS_CODE}
   <l-Calendar${colorAttr} :events="events" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 const events = [
 ${SAMPLE_EVENTS_CODE}
 ];

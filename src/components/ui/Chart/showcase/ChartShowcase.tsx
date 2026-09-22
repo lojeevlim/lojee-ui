@@ -67,7 +67,7 @@ ${REVENUE_CODE}
   <l-Chart :data="data" type="bar" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 const data = [
 ${REVENUE_CODE}
 ];
@@ -108,7 +108,7 @@ ${REVENUE_CODE}
   <l-Chart :data="data" type="line" color="emerald" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 const data = [
 ${REVENUE_CODE}
 ];
@@ -148,7 +148,7 @@ ${TRAFFIC_CODE}
   <l-Chart :data="data" type="donut" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 const data = [
 ${TRAFFIC_CODE}
 ];

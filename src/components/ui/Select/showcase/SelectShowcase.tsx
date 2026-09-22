@@ -43,7 +43,7 @@ export default function SelectShowcase() {
   <l-Select :options="options" placeholder="Choose a fruit" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import "lojee-ui/elements";
 
 const options = [

@@ -34,7 +34,7 @@ export default function SwitchShowcase() {
   <l-Switch defaultChecked />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import "lojee-ui/elements";
 </script>`,
               angular: `// app.component.ts

@@ -24,7 +24,7 @@ export function SplitButtonSection() {
   <l-SplitButton icon="check" label="Approve" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import "lojee-ui/elements";
 </script>`,
           angular: `// split-button-showcase.component.ts

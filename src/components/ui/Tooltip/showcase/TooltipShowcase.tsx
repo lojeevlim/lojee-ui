@@ -49,7 +49,7 @@ export default function TooltipShowcase() {
   </l-Tooltip>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import "lojee-ui/elements";
 </script>`,
               angular: `// tooltip-showcase.component.ts

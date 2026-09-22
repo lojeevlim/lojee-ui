@@ -134,7 +134,7 @@ export default function SidebarPlayground() {
   <l-Sidebar${widthAttrHtml}${collapsedAttrVue}${variantAttr}${colorAttr}${collapsibleAttrVue}${defaultActiveItemAttrHtml}${borderWidthAttrHtml} header="${headerText}" header-icon="zap" footer="Jordan Diaz" :items="items" @activeitemchange="(e) => console.log(e.detail)" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import "lojee-ui/elements";
 
 const items = ${itemsLiteral};

@@ -44,7 +44,7 @@ export default function StepperShowcase() {
   <l-Stepper :steps="steps" currentStep="2" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import "lojee-ui/elements";
 
 const steps = [
@@ -109,7 +109,7 @@ export class AppComponent {
   <l-Stepper :steps="steps" currentStep="1" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 const steps = [
   { label: "Account", description: "Create your login" },
   { label: "Profile", description: "Tell us about you" },
@@ -169,7 +169,7 @@ steps = [
   <l-Stepper :steps="steps" orientation="vertical" currentStep="1" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 const steps = [
   { label: "Order placed", description: "We've received your order" },
   { label: "Processing", description: "Your order is being prepared" },
@@ -222,7 +222,7 @@ steps = [
   <l-Stepper :steps="steps" currentStep="4" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 const steps = [
   { label: "Cart" },
   { label: "Shipping" },

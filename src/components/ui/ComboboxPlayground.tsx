@@ -60,7 +60,7 @@ export default function ComboboxPlayground() {
   <l-Combobox :options="options" placeholder="${placeholder}"${valueAttr} />
 </template>
 
-<script setup>
+<script setup lang="ts">
 const options = ${optionsLiteral};
 </script>`,
     angular: `<l-Combobox [options]="options" placeholder="${placeholder}"${valueAttr} />

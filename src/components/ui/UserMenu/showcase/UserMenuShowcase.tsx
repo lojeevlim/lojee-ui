@@ -61,7 +61,7 @@ export default function UserMenuShowcase() {
   <l-UserMenu name="Jordan Diaz" email="jordan@lojee.io" avatarInitials="JD" :items="items" @itemselect="onSelect" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 const items = [
   { label: "Profile", icon: "user" },
   { label: "Settings", icon: "settings" },

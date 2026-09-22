@@ -65,7 +65,7 @@ export default function SelectPlayground() {
   <l-Select ${selectAttrs} :options="options" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 ${OPTIONS_SNIPPET}
 </script>`,
     angular: `<l-Select ${selectAttrs} [options]="options" />

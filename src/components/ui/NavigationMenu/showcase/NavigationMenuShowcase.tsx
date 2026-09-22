@@ -56,7 +56,7 @@ export default function NavigationMenuShowcase() {
   <l-NavigationMenu :items="items" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import "lojee-ui/elements";
 
 const items = [
@@ -128,7 +128,7 @@ export class AppComponent {
   <l-NavigationMenu :items="items" orientation="vertical" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 const items = [
   { label: "Overview", href: "#", active: true },
   { label: "Analytics", href: "#" },
@@ -184,7 +184,7 @@ items = [
   <l-NavigationMenu :items="items" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 const items = [
   { label: "Home", href: "#", icon: "home", active: true },
   { label: "Search", href: "#", icon: "search" },
@@ -251,7 +251,7 @@ const labels = ["Home", "Products", "Pricing"];
   <l-NavigationMenu :items="items" @change="onChange" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 const items = [
   { label: "Home", href: "#", active: true },
   { label: "Products", href: "#" },
@@ -341,7 +341,7 @@ onChange(index: number) {
   <l-NavigationMenu :items="items" orientation="vertical" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 const items = [
   { label: "Profile", icon: "user", content: "Update your name, photo, and public details." },
   { label: "Notifications", icon: "bell", content: "Choose which emails and alerts you receive." },
@@ -393,7 +393,7 @@ items = [
   <l-NavigationMenu :items="items" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 const items = [
   { label: "Dashboard", href: "#", active: true },
   { label: "Billing", href: "#", disabled: true },

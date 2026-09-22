@@ -86,7 +86,7 @@ ${itemsCode}
   <l-NavigationMenu :items="items" ${attrs} @change="onChange" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 const items = [
 ${itemsCode}
 ];

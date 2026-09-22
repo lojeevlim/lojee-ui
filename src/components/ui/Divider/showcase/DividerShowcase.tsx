@@ -33,7 +33,7 @@ export default function DividerShowcase() {
   <l-Divider />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import "lojee-ui/elements";
 </script>`,
               angular: `// divider-showcase.component.ts
@@ -172,7 +172,7 @@ export class DividerShowcaseComponent {}`,
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 
 const leftWidth = ref(180);

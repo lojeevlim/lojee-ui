@@ -81,7 +81,7 @@ ${itemsSnippet}
   <l-CommandMenu :open="open" :items="items" @close="open = false" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 import "lojee-ui/elements";
 

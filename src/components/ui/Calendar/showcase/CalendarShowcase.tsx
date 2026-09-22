@@ -83,7 +83,7 @@ export default function CalendarShowcase() {
   <l-Calendar :events="events" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 const events = [
   { date: "2026-06-05", label: "Team sync", color: "indigo" },
   { date: "2026-06-12", label: "Deadline", color: "rose" },
@@ -130,7 +130,7 @@ events = [
   <l-Calendar :selected="selected" @select="selected = $event" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 const selected = ref();
 </script>`,

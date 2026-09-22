@@ -103,7 +103,7 @@ export default function EmptyStateShowcase() {
   </l-EmptyState>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import "lojee-ui/elements";
 
 const handleAdd = () => {

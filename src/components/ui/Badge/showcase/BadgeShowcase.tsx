@@ -38,7 +38,7 @@ export default function BadgeShowcase() {
   <l-Badge variant="soft" label="Soft" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import "lojee-ui/elements";
 </script>`,
               angular: `// badge-showcase.component.ts

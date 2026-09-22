@@ -32,7 +32,7 @@ export default function LoaderShowcase() {
   <l-Loader shape="text" lines="3" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import "lojee-ui/elements";
 </script>`,
               angular: `// loader-showcase.component.ts

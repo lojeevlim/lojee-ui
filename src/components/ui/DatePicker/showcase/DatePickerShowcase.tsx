@@ -39,7 +39,7 @@ export default function DatePickerShowcase() {
   <l-DatePicker />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import "lojee-ui/elements";
 </script>`,
               angular: `// app.component.ts
@@ -133,7 +133,7 @@ export class AppComponent {}
   <l-DatePicker :value="value" @input="value = $event.target.value" @clear="value = ''" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 
 const value = ref("2026-06-15");
@@ -223,7 +223,7 @@ const [end, setEnd] = useState("2026-06-14");
   />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 
 const start = ref("2026-06-01");
@@ -303,7 +303,7 @@ end = "2026-06-14";
   />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 
 const start = ref("");

@@ -43,7 +43,7 @@ export default function RangeSliderShowcase() {
   <l-RangeSlider :value="value" @change="value = $event.detail" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 import "lojee-ui/elements";
 

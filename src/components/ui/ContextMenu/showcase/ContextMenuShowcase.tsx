@@ -78,7 +78,7 @@ export default function ContextMenuShowcase() {
   </l-ContextMenu>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import "lojee-ui/elements";
 </script>`,
               angular: `// context-menu-showcase.component.ts

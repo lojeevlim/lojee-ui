@@ -40,7 +40,7 @@ export default function PaginationShowcase() {
   <l-Pagination :page="page" totalPages="5" @pagechange="page = $event.detail" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 import "lojee-ui/elements";
 
@@ -84,7 +84,7 @@ export class AppComponent {
   <l-Pagination :page="page" totalPages="20" @pagechange="page = $event.detail" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 
 const page = ref(6);
@@ -114,7 +114,7 @@ const page = ref(6);
   <l-Pagination :page="page" totalPages="20" siblingCount="2" @pagechange="page = $event.detail" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 
 const page = ref(6);
@@ -144,7 +144,7 @@ const page = ref(6);
   <l-Pagination :page="page" totalPages="10" color="indigo" @pagechange="page = $event.detail" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 
 const page = ref(3);

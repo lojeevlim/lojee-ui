@@ -51,7 +51,7 @@ export default function SheetShowcase() {
   </l-Sheet>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 import "lojee-ui/elements";
 

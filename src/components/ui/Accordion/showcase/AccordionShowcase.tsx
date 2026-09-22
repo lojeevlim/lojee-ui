@@ -52,7 +52,7 @@ export default function AccordionShowcase() {
   </l-Accordion>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import "lojee-ui/elements";
 </script>`,
               angular: `// app.component.ts
@@ -278,7 +278,7 @@ export class AppComponent {}`,
   </l-Accordion>
 </template>
 
-<script setup>
+<script setup lang="ts">
 const itemClassNames = { trigger: "text-indigo-900", icon: "text-indigo-400", panel: "text-indigo-700" };
 </script>`,
               angular: `<l-Accordion className="border-indigo-200 divide-indigo-200">

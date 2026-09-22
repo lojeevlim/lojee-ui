@@ -79,7 +79,7 @@ export default function SuccessStateShowcase() {
   </l-SuccessState>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import "lojee-ui/elements";
 
 const handleViewDetails = () => {

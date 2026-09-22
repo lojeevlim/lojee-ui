@@ -33,7 +33,7 @@ export default function FileUploadShowcase() {
   <l-FileUpload @filesselected="(e) => console.log(e.detail)" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import "lojee-ui/elements";
 </script>`,
               angular: `// app.component.ts

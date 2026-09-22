@@ -52,7 +52,7 @@ export default function NavbarShowcase() {
   </l-Navbar>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import "lojee-ui/elements";
 </script>`,
               angular: `<!-- app.component.html -->
@@ -221,7 +221,7 @@ import "lojee-ui/elements";
   </l-Navbar>
 </template>
 
-<script setup>
+<script setup lang="ts">
 const navbarClassNames = { root: "bg-indigo-50", brand: "text-indigo-900" };
 </script>`,
               angular: `<l-Navbar brand="Lojee" [classNames]="navbarClassNames">

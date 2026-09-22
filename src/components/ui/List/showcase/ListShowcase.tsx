@@ -47,7 +47,7 @@ export default function ListShowcase() {
   </l-List>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import "lojee-ui/elements";
 </script>`,
               angular: `// app.component.ts
@@ -269,7 +269,7 @@ export class AppComponent {}`,
   </l-List>
 </template>
 
-<script setup>
+<script setup lang="ts">
 const featuredClassNames = { icon: "text-amber-500" };
 const likedClassNames = { icon: "text-rose-500" };
 </script>`,

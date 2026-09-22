@@ -48,7 +48,7 @@ export default function LoginFormShowcase() {
   <l-LoginForm @submit="onSubmit" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 function onSubmit(values) {
   console.log(values);
 }

@@ -64,7 +64,7 @@ export default function MultiSelectPlayground() {
   <l-MultiSelect :options="options" :value="value" placeholder="${placeholder}" color="${color}" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 const options = ${optionsLiteral};
 const value = ${valueLiteral};
 </script>`,

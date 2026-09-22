@@ -83,7 +83,7 @@ export default function TableShowcase() {
   <l-Table :columns="columns" :data="people" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import "lojee-ui/elements";
 
 const columns = [
@@ -243,7 +243,7 @@ export class AppComponent {
   <l-Table :columns="columns" :data="people" striped />
 </template>
 
-<script setup>
+<script setup lang="ts">
 const columns = [
   { key: "name", header: "Name" },
   { key: "email", header: "Email" },

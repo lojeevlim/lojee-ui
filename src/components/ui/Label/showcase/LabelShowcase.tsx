@@ -33,7 +33,7 @@ export default function LabelShowcase() {
   <l-Input id="email" placeholder="you@example.com" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import "lojee-ui/elements";
 </script>`,
               angular: `// app.component.ts

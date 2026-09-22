@@ -72,7 +72,7 @@ ${SAMPLE_STEPS_CODE}
   <l-Stepper :steps="steps" ${attrs} />
 </template>
 
-<script setup>
+<script setup lang="ts">
 const steps = [
 ${SAMPLE_STEPS_CODE}
 ];

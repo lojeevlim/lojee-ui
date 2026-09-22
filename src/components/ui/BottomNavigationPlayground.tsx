@@ -62,7 +62,7 @@ ${itemsCode}
   <l-BottomNavigation :items="items" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 const items = [
 ${itemsCode}
 ];

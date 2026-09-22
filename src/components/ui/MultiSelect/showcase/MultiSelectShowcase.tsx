@@ -63,7 +63,7 @@ export default function MultiSelectShowcase() {
   <l-MultiSelect :options="options" :value="value" placeholder="Select fruits..." @change="value = $event.detail" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 import "lojee-ui/elements";
 

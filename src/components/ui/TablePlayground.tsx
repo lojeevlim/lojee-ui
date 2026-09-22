@@ -76,7 +76,7 @@ ${jsData}
   <l-Table :columns="columns" :data="data" ${attrs} />
 </template>
 
-<script setup>
+<script setup lang="ts">
 const columns = [
   { key: "name", header: "Name" },
   { key: "email", header: "Email" },

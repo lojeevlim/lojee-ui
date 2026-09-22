@@ -28,7 +28,7 @@ export default function TextareaShowcase() {
   <l-Textarea placeholder="Write something…" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import "lojee-ui/elements";
 </script>`,
               angular: `// app.component.ts

@@ -59,7 +59,7 @@ export function ButtonSection() {
   <l-Button variant="glass" label="Glass" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import "lojee-ui/elements";
 </script>`,
             angular: `// button-showcase.component.ts
@@ -431,7 +431,7 @@ export class ButtonShowcaseComponent {}`,
   <l-Button icon="bell" iconOnly shape="pill" badge="5" label="Notifications" :classNames="notifClassNames" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 const likedClassNames = { icon: "fill-rose-600 text-rose-600" };
 const notifClassNames = { badge: "bg-indigo-600" };
 </script>`,

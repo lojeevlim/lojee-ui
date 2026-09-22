@@ -40,7 +40,7 @@ export default function CardShowcase() {
   <l-Card variant="ghost">Ghost</l-Card>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import "lojee-ui/elements";
 </script>`,
               angular: `// app.component.ts

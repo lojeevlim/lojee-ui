@@ -209,7 +209,12 @@ export interface SidebarProps {
 
 const VARIANT_CLASSES: Record<SidebarVariant, string> = {
   light: "bg-white border-r border-slate-200",
-  dark: "bg-slate-900 border-r border-slate-800",
+  // `text-white/70` — same idle color SidebarMenuItem gives its own nav rows for `dark` (see
+  // `idleClass`) — so the header/footer (and any consumer-composed `<SidebarHeader>`/`<SidebarFooter>`,
+  // both plain, colorless spans that rely on inheriting this) read as one consistent surface instead of
+  // the header falling back to the browser's default (near-black, invisible against `bg-slate-900`) text
+  // color. "gradient"/"glass" don't need this — they already carry their own `text-white` below.
+  dark: "bg-slate-900 border-r border-slate-800 text-white/70",
   // "bordered", "elevated", and "glass" all float as a detached card (see `isDetachedPanel`) rather
   // than docking to a screen edge — kept as separate `variant` names since each still has its own
   // distinct panel look (colored border / shadow-only / frosted-transparent) on top of that shared

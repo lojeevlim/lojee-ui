@@ -40,7 +40,7 @@ export default function InputShowcase() {
   <l-Input size="lg" placeholder="Large" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import "lojee-ui/elements";
 </script>`,
               angular: `// app.component.ts
@@ -156,7 +156,7 @@ const isInvalidEmail = email.length > 0 && !email.includes("@");
   <p v-if="isInvalidEmail">Must contain an "@".</p>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, computed } from "vue";
 
 const email = ref("");

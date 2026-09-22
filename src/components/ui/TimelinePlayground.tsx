@@ -58,7 +58,7 @@ ${SAMPLE_ITEMS_CODE}
   <l-Timeline :items="items"${orientationAttr} />
 </template>
 
-<script setup>
+<script setup lang="ts">
 const items = [
 ${SAMPLE_ITEMS_CODE}
 ];

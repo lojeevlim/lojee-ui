@@ -44,7 +44,7 @@ export default function TabsShowcase() {
   <l-Tabs :tabs="tabs" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import "lojee-ui/elements";
 
 const tabs = [
@@ -105,7 +105,7 @@ export class AppComponent {
   <l-Tabs :tabs="tabs" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 const tabs = [
   { label: "Plan", content: "Choose your plan." },
   { label: "Billing", content: "Billing details.", disabled: true },
@@ -160,7 +160,7 @@ tabs = [
   <l-Tabs :tabs="tabs" color="indigo" defaultIndex="1" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 const tabs = [
   { label: "Details", content: "Item details." },
   { label: "Reviews", content: "What people are saying." },

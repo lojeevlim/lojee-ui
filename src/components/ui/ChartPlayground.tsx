@@ -59,7 +59,7 @@ ${SAMPLE_DATA_CODE}
   <l-Chart :data="data"${typeAttr}${colorAttr}${showLabelsAttrHtml} />
 </template>
 
-<script setup>
+<script setup lang="ts">
 const data = [
 ${SAMPLE_DATA_CODE}
 ];

@@ -65,7 +65,7 @@ ${itemsCode}
   <l-UserMenu name="${nameValue}"${emailAttrJsx}${alignAttr} avatarInitials="JD" :items="items" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 const items = [
 ${itemsCode}
 ];

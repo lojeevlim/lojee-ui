@@ -79,7 +79,7 @@ export default function AccountSettingsShowcase() {
   />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 const notifications = ref([
   { key: "product", label: "Product updates", enabled: true },

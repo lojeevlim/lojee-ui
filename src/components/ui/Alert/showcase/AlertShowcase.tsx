@@ -118,7 +118,7 @@ export default function AlertShowcase() {
   </l-Alert>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 import "lojee-ui/elements";
 
@@ -219,7 +219,7 @@ const visible = ref(true);
   </l-Alert>
 </template>
 
-<script setup>
+<script setup lang="ts">
 const alertClassNames = {
   root: "border-indigo-200 bg-indigo-50 text-indigo-900",
   icon: "text-indigo-500",

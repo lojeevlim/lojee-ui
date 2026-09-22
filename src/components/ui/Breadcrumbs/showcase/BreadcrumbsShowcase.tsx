@@ -41,7 +41,7 @@ export default function BreadcrumbsShowcase() {
   </l-Breadcrumbs>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import "lojee-ui/elements";
 </script>`,
               angular: `// app.component.ts
@@ -190,7 +190,7 @@ export class AppComponent {}`,
   </l-Breadcrumbs>
 </template>
 
-<script setup>
+<script setup lang="ts">
 const separatorClassNames = { separator: "text-indigo-300" };
 </script>`,
               angular: `<l-Breadcrumbs>

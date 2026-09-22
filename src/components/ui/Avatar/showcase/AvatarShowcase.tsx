@@ -35,7 +35,7 @@ export default function AvatarShowcase() {
   <l-Avatar size="md" initials="AB" color="indigo" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import "lojee-ui/elements";
 </script>`,
               angular: `// avatar-showcase.component.ts

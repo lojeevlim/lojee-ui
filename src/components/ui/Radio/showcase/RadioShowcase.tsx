@@ -45,7 +45,7 @@ export default function RadioShowcase() {
   </l-RadioGroup>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import "lojee-ui/elements";
 </script>`,
               angular: `// app.component.ts

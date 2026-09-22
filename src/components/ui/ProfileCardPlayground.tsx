@@ -91,7 +91,7 @@ export default function ProfileCardPlayground() {
       }</l-ProfileCard>
 </template>
 
-<script setup>
+<script setup lang="ts">
 const stats = [
   { label: "Followers", value: "2,481" },
   { label: "Following", value: "312" },

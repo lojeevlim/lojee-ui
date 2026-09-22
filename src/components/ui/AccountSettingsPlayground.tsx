@@ -49,7 +49,7 @@ export default function AccountSettingsPlayground() {
   <l-AccountSettings email="${email}" :notifications="notifications" @notificationsChange="notifications = $event" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 const notifications = ref(${notificationsCode});
 </script>`;

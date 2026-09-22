@@ -54,7 +54,7 @@ export default function ProfileSettingsShowcase() {
   <l-ProfileSettings avatarInitials="JD" :defaultValues="defaults" @save="onSave" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 const defaults = { name: "Jordan Diaz", username: "jordandiaz", bio: "Product designer building lojee-ui." };
 function onSave(values) { /* values */ }
 </script>`,

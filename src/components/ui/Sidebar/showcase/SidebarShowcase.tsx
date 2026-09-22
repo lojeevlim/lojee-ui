@@ -58,7 +58,7 @@ export default function SidebarShowcase() {
   <l-Sidebar :items="items" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import "lojee-ui/elements";
 
 const items = [
@@ -139,7 +139,7 @@ export class AppComponent {
   <l-Sidebar default-active-item="Dashboard" :items="items" @activeitemchange="(e) => console.log(e.detail)" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import "lojee-ui/elements";
 
 const items = [
@@ -210,7 +210,7 @@ export class AppComponent {
   <l-Sidebar header="Lojee Inc" header-icon="zap" footer="Jordan Diaz" :items="items" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import "lojee-ui/elements";
 
 const items = [
@@ -320,7 +320,7 @@ export class AppComponent {
   <l-Sidebar :collapsible="true" header="Lojee Inc" header-icon="zap" footer="Jordan Diaz" :items="items" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import "lojee-ui/elements";
 
 const items = [
@@ -452,7 +452,7 @@ export class AppComponent {
        "minimal" — no background/border at all, blends into the page. -->
 </template>
 
-<script setup>
+<script setup lang="ts">
 import "lojee-ui/elements";
 
 const items = [
@@ -556,7 +556,7 @@ export class AppComponent {
   <l-Sidebar color="indigo" :collapsible="true" header="Lojee Inc" :items="items" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import "lojee-ui/elements";
 
 const items = [
@@ -632,7 +632,7 @@ export class AppComponent {
   <l-Sidebar :collapsible="true" header="Lojee Inc" header-icon="zap" :items="items" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import "lojee-ui/elements";
 
 const items = [

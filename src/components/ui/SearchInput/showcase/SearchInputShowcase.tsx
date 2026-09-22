@@ -53,7 +53,7 @@ export default function SearchInputShowcase() {
   />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 import "lojee-ui/elements";
 

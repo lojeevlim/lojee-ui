@@ -40,7 +40,7 @@ export default function ProfileSettingsPlayground() {
   <l-ProfileSettings avatarInitials="JD" :defaultValues="defaults"${saveLabelAttr} />
 </template>
 
-<script setup>
+<script setup lang="ts">
 const defaults = ${defaultsCode};
 </script>`;
 

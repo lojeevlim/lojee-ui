@@ -99,7 +99,7 @@ export default function ProfileCardShowcase() {
   <l-ProfileCard name="Priya Nair" role="Product Designer at Lojee" avatarInitials="PN" :stats="stats" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 const stats = [
   { label: "Followers", value: "2,481" },
   { label: "Following", value: "312" },

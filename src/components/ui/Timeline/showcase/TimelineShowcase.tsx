@@ -51,7 +51,7 @@ export default function TimelineShowcase() {
   <l-Timeline :items="items" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import "lojee-ui/elements";
 
 const items = [
@@ -126,7 +126,7 @@ export class AppComponent {
   <l-Timeline :items="items" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import "lojee-ui/elements";
 
 const items = [
@@ -192,7 +192,7 @@ items = [
   <l-Timeline :items="items" orientation="horizontal" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import "lojee-ui/elements";
 
 const items = [

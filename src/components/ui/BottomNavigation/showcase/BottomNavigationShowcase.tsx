@@ -52,7 +52,7 @@ export default function BottomNavigationShowcase() {
   <l-BottomNavigation :items="items" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import "lojee-ui/elements";
 
 const items = [
@@ -121,7 +121,7 @@ export class AppComponent {
   <l-BottomNavigation :items="items" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 const items = [
   { icon: "home", label: "Home", active: true },
   { icon: "search", label: "Search" },

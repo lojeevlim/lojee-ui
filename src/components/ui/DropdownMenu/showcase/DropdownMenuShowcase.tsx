@@ -60,7 +60,7 @@ export default function DropdownMenuShowcase() {
   </l-DropdownMenu>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import "lojee-ui/elements";
 </script>`,
               angular: `// dropdown-menu-showcase.component.ts

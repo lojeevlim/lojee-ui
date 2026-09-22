@@ -74,7 +74,7 @@ ${itemsCode}
   <l-ActivityFeed :items="items"${compactAttr} />
 </template>
 
-<script setup>
+<script setup lang="ts">
 const items = [
 ${itemsCode}
 ];

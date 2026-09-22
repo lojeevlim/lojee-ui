@@ -42,7 +42,7 @@ export default function CarouselShowcase() {
   <l-Carousel :slides="slides" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import "lojee-ui/elements";
 
 const slides = ["Slide 1", "Slide 2", "Slide 3"];
@@ -97,7 +97,7 @@ export class AppComponent {
   <l-Carousel :slides="slides" autoPlay intervalMs="2500" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 const slides = ["Slide 1", "Slide 2", "Slide 3", "Slide 4"];
 </script>`,
               angular: `// app.component.ts (same component as above, with its own \`slides\` array)
@@ -136,7 +136,7 @@ slides = ["Slide 1", "Slide 2", "Slide 3", "Slide 4"];
   <l-Carousel :slides="slides" showArrows="false" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 const slides = ["Slide 1", "Slide 2"];
 </script>`,
               angular: `// app.component.ts (same component as above, with its own \`slides\` array)

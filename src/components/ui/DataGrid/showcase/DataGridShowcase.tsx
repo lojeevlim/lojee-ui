@@ -104,7 +104,7 @@ export default function DataGridShowcase() {
   <l-DataGrid :columns="columns" :data="projects" bordered />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import "lojee-ui/elements";
 
 const columns = [
@@ -185,7 +185,7 @@ export class AppComponent {
   <l-DataGrid :columns="columns" :data="projects" bordered />
 </template>
 
-<script setup>
+<script setup lang="ts">
 const columns = [
   { key: "name", header: "Name", sortable: true },
   { key: "status", header: "Status" },
@@ -241,7 +241,7 @@ const columns = [
   <p>{{ selected.length }} selected</p>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 const selected = ref([]);
 </script>`,

@@ -118,7 +118,7 @@ ${jsData}
   <l-DataGrid :columns="columns" :data="data" ${attrs}${selectable ? ' @selectionchange="onSelectionChange"' : ""} />
 </template>
 
-<script setup>
+<script setup lang="ts">
 ${jsData.trim()}
 ${selectable ? "\nfunction onSelectionChange(rows) {\n  console.log(rows);\n}" : ""}
 </script>`,

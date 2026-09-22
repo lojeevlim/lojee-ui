@@ -70,7 +70,7 @@ export default function CarouselPlayground() {
   <l-Carousel :slides="slides"${attrs} />
 </template>
 
-<script setup>
+<script setup lang="ts">
 const slides = ${slidesData};
 </script>`,
     angular: `<l-Carousel [slides]="slides"${attrs} />

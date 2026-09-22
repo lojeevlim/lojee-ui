@@ -49,7 +49,7 @@ export default function PopoverShowcase() {
   </l-Popover>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import "lojee-ui/elements";
 </script>`,
               angular: `// popover-showcase.component.ts

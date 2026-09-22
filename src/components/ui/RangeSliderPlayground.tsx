@@ -42,7 +42,7 @@ export default function RangeSliderPlayground() {
   <l-RangeSlider :value="value" color="${color}"${showValueAttr} />
 </template>
 
-<script setup>
+<script setup lang="ts">
 const value = ${valueLiteral};
 </script>`,
     angular: `<l-RangeSlider [value]="value" color="${color}"${showValueAttr} />

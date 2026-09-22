@@ -53,7 +53,7 @@ export default function ModalShowcase() {
   </l-Modal>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 import "lojee-ui/elements";
 
@@ -169,7 +169,7 @@ const open = ref(false);
   </l-Modal>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 
 const open = ref(false);

@@ -30,7 +30,7 @@ export default function TimePickerShowcase() {
   <l-TimePicker />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import "lojee-ui/elements";
 </script>`,
               angular: `// app.component.ts

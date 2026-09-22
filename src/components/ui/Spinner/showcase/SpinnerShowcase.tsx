@@ -34,7 +34,7 @@ export default function SpinnerShowcase() {
   <l-Spinner size="md" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import "lojee-ui/elements";
 </script>`,
               angular: `// spinner-showcase.component.ts
