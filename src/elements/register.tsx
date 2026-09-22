@@ -766,9 +766,9 @@ customElements.define(
 // equivalent for them, since they're arbitrary composed markup, not strings.
 customElements.define(
   "l-navbar",
-  r2wc(withTailwind(Navbar), {
+  r2wc(withHostBlock(withTailwind(Navbar)), {
     shadow: "open",
-    props: { sticky: "boolean", bordered: "boolean", variant: "string" },
+    props: { sticky: "boolean", bordered: "boolean", variant: "string", color: "string", borderWidth: "number" },
   })
 );
 
