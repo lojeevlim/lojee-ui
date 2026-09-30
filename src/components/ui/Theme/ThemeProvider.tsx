@@ -37,7 +37,7 @@ export interface ThemeProviderProps {
   children: ReactNode;
   /** Initial mode when nothing is stored. Default "light". */
   defaultMode?: ThemeMode;
-  /** Initial accent when nothing is stored. Default "indigo". */
+  /** Initial accent when nothing is stored. Default "slate". */
   defaultAccent?: AccentName;
   /** Initial active-item style when nothing is stored: "solid" (default), "outline" or "soft". */
   defaultActiveVariant?: ActiveVariant;

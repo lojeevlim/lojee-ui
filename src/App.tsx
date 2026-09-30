@@ -83,6 +83,7 @@ import AppShowcase from './components/ui/AppLayout'
 import { ThemeProvider } from './components/ui/Theme/ThemeProvider'
 import { App as AppShell, Top, Side, Main, Footer } from './components/ui/AppLayout/App'
 import type { GridLayout } from './components/ui/AppLayout/appLayout'
+import ChangelogShowcase from './components/ui/Changelog/ChangelogShowcase'
 import IntroductionShowcase from './components/ui/Introduction/IntroductionShowcase'
 import InstallationShowcase from './components/ui/Installation/InstallationShowcase'
 import ApiReference from './components/ui/ApiReference'
@@ -92,6 +93,7 @@ const SHOWCASES: Record<string, ComponentType> = {
   Introduction: IntroductionShowcase,
   Installation: InstallationShowcase,
   Theming: ThemeShowcase,
+  Changelog: ChangelogShowcase,
   App: AppShowcase,
   Buttons: ButtonShowcase,
   Badges: BadgeShowcase,

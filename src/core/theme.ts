@@ -16,7 +16,7 @@ export const THEME_MODES: { value: ThemeMode; label: string }[] = [
   { value: "dark", label: "Dark" },
 ];
 
-export const DEFAULT_ACCENT: AccentName = "indigo";
+export const DEFAULT_ACCENT: AccentName = "slate";
 
 export function isThemeMode(v: unknown): v is ThemeMode {
   return v === "light" || v === "dark";

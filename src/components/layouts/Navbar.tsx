@@ -1,5 +1,7 @@
 import { Navbar as UINavbar, type NavbarItemSpec } from "../ui/Navbar/Navbar";
 import { SideToggle } from "../ui/AppLayout/App";
+import { useNavigate } from "react-router-dom";
+import Logo from "./Logo";
 import ThemeSwitcher from "./ThemeSwitcher";
 import SearchMenu from "./SearchMenu";
 import CodeFrameworkSwitcher from "./CodeFrameworkSwitcher";
@@ -28,12 +30,20 @@ export default function NavbarLayout({ activeNav = "components", onNavChange, sh
   // *internal* click (since a click here changes the URL, which flows straight back into `activeNav`),
   // destroying and recreating the pill's own DOM node before its CSS transition ever got a frame to
   // animate — the click always looked instant, never sliding, no matter how slow the transition was.
+  const navigate = useNavigate();
   const navItems: NavbarItemSpec[] = NAV_LABELS.map((label) => ({ label, icon: NAV_ICONS[label], active: label === KEY_TO_LABEL[activeNav] }));
 
   return (
     <UINavbar
       color="accent"
-      brand={showSideToggle ? <SideToggle /> : undefined}
+      brand={
+        <>
+          {showSideToggle && <SideToggle />}
+          <button type="button" onClick={() => navigate("/")} aria-label="lojeeUI home" className="rounded-md px-1 py-1 transition-opacity hover:opacity-80">
+            <Logo size={28} className="text-[15px] max-sm:[&>span]:hidden" />
+          </button>
+        </>
+      }
       items={navItems}
       onActiveItemChange={(item) => {
         const key = LABEL_TO_KEY[item.label];

@@ -25,7 +25,7 @@ const PROVIDER = `// main.tsx
 import { ThemeProvider } from "lojee-ui";
 
 createRoot(document.getElementById("root")!).render(
-  <ThemeProvider defaultMode="light" defaultAccent="indigo">
+  <ThemeProvider defaultMode="light" defaultAccent="slate">
     <App />
   </ThemeProvider>
 );`;
@@ -96,7 +96,7 @@ const NO_FLASH = `<!-- index.html: set the saved theme before first paint to avo
     var t = localStorage.getItem("lojee-ui:theme");
     var a = localStorage.getItem("lojee-ui:accent");
     document.documentElement.setAttribute("data-theme", t === "dark" ? "dark" : "light");
-    document.documentElement.setAttribute("data-accent", a || "indigo");
+    document.documentElement.setAttribute("data-accent", a || "slate");
   } catch (e) {}
 </script>`;
 
@@ -117,14 +117,14 @@ export function applyTheme(mode: Mode, accent: string) {
 // on startup
 applyTheme(
   (localStorage.getItem("lojee-ui:theme") as Mode) ?? "light",
-  localStorage.getItem("lojee-ui:accent") ?? "indigo"
+  localStorage.getItem("lojee-ui:accent") ?? "slate"
 );`,
   vue: `// useTheme.ts
 import { ref, watchEffect } from "vue";
 
 type Mode = "light" | "dark";
 const mode = ref<Mode>((localStorage.getItem("lojee-ui:theme") as Mode) ?? "light");
-const accent = ref(localStorage.getItem("lojee-ui:accent") ?? "indigo");
+const accent = ref(localStorage.getItem("lojee-ui:accent") ?? "slate");
 
 watchEffect(() => {
   document.documentElement.dataset.theme = mode.value;
@@ -142,7 +142,7 @@ type Mode = "light" | "dark";
 @Injectable({ providedIn: "root" })
 export class ThemeService {
   mode = signal<Mode>((localStorage.getItem("lojee-ui:theme") as Mode) ?? "light");
-  accent = signal(localStorage.getItem("lojee-ui:accent") ?? "indigo");
+  accent = signal(localStorage.getItem("lojee-ui:accent") ?? "slate");
 
   constructor() {
     effect(() => {
@@ -161,7 +161,7 @@ const USE_THEME_V: CodeBlockVariants = {
 
 document.querySelector("#toggle")!.addEventListener("click", () => {
   const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
-  applyTheme(next, document.documentElement.dataset.accent ?? "indigo");
+  applyTheme(next, document.documentElement.dataset.accent ?? "slate");
 });`,
   vue: `<script setup lang="ts">
 import { useTheme } from "./useTheme";
@@ -479,7 +479,7 @@ export default function ThemeShowcase() {
           <ApiTable
             rows={[
               ["defaultMode", '"light" | "dark" — "light"', "Used when nothing is saved yet."],
-              ["defaultAccent", "AccentName — \"indigo\"", "One of slate, gray, indigo, violet, blue, cyan, emerald, teal, amber, orange, rose, pink."],
+              ["defaultAccent", "AccentName — \"slate\"", "One of slate, gray, indigo, violet, blue, cyan, emerald, teal, amber, orange, rose, pink."],
               ["defaultActiveVariant", '"solid" | "outline" | "soft" — "solid"', "How active items are drawn (current page in a Sidebar / Navbar / Pagination, selected segment…)."],
               ["isolated", "boolean — false", "Scope the theme to this provider's own wrapper (no <html> change, no localStorage) — for self-contained previews."],
               ["mode / accent", "ThemeMode / AccentName", "Controlled values; when given they win over the provider's own state."],

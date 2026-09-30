@@ -468,6 +468,11 @@ export  const DOCS_MENU: Menu [] = [
             label: "Theming",
         },
 
+        {
+            icon: "git-branch",
+            label: "Changelog",
+        },
+
      ]
  }
 ]
