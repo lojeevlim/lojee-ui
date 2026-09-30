@@ -12,8 +12,8 @@ export interface TooltipProps {
   position?: TooltipPosition;
   /** Show delay in ms, snapped to the nearest Tailwind `delay-*` utility. */
   delayMs?: number;
-  /** Bubble background/text color — same palette as Button (default: "accent", which follows the theme's accent color). */
-  color?: ColorName;
+  /** Bubble background/text color — same palette as Button (default: "accent", which follows the theme's accent color), or "neutral" for the theme-inverted bubble (dark in light mode, light in dark mode). */
+  color?: ColorName | "neutral";
   /** Extra class name(s) appended to the root element. */
   className?: string;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
@@ -22,6 +22,14 @@ export interface TooltipProps {
     bubble?: string;
   };
 }
+
+// Arrow: a small rotated square on the edge facing the trigger. `bg-inherit` makes it take the bubble's own color.
+const ARROW_CLASSES: Record<TooltipPosition, string> = {
+  top: "-bottom-1 left-1/2 -translate-x-1/2",
+  bottom: "-top-1 left-1/2 -translate-x-1/2",
+  left: "-right-1 top-1/2 -translate-y-1/2",
+  right: "-left-1 top-1/2 -translate-y-1/2",
+};
 
 const POSITION_CLASSES: Record<TooltipPosition, string> = {
   top: "bottom-full left-1/2 mb-2 -translate-x-1/2",
@@ -63,7 +71,7 @@ export function Tooltip({
   className,
   classNames,
 }: TooltipProps) {
-  const bubbleColor = nonInteractive((colorClasses[color] || colorClasses.slate).solid);
+  const bubbleColor = color === "neutral" ? "bg-fg text-surface" : nonInteractive((colorClasses[color] || colorClasses.slate).solid);
 
   return (
     <span className={cx("group relative inline-block", className, classNames?.root)}>
@@ -71,7 +79,8 @@ export function Tooltip({
       <span
         role="tooltip"
         className={cx(
-          "pointer-events-none absolute z-50 whitespace-nowrap rounded-md px-2 py-1 text-xs opacity-0 shadow-sm transition-opacity duration-150 group-hover:opacity-100",
+          // Soft bubble: rounded, medium-weight text, a real shadow, and a small fade + scale-in (also on keyboard focus).
+          "pointer-events-none absolute z-50 whitespace-nowrap rounded-lg px-3 py-1.5 text-xs font-medium opacity-0 shadow-lg scale-95 transition-[opacity,scale] duration-200 group-hover:scale-100 group-hover:opacity-100 group-focus-within:scale-100 group-focus-within:opacity-100",
           bubbleColor,
           closestDelayClass(delayMs),
           POSITION_CLASSES[position],
@@ -79,6 +88,7 @@ export function Tooltip({
         )}
       >
         {content}
+        <span aria-hidden="true" className={cx("absolute h-2 w-2 rotate-45 bg-inherit", ARROW_CLASSES[position])} />
       </span>
     </span>
   );

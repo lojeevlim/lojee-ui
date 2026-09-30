@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { FlowDiagram, type FlowCurve, type FlowVariant } from "./FlowDiagram/FlowDiagram";
 import { SAMPLE_NAMES, sampleByName } from "./FlowDiagram/samples";
+import { Icon } from "./Icons/Icon";
 import { ColorSwatches, OptionGroup, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { ColorName } from "../../core/tokens";
 import type { CodeBlockVariants } from "./CodeBlock";
@@ -42,7 +43,15 @@ export default function FlowDiagramPlayground() {
 
   const preview = (
     <AppWindowFrame>
-      <AppWindowBody className="min-h-[360px] items-start justify-start p-3">
+      <AppWindowBody className="min-h-[360px] flex-col items-stretch justify-start gap-3 p-3">
+        {(movable || editable) && (
+          <p className="flex items-start gap-2 rounded-lg border border-accent-500/30 bg-accent-500/10 px-3 py-2 text-xs leading-snug text-fg-muted">
+            <Icon name="info" size={14} className="mt-px shrink-0 text-accent-600" />
+            <span>
+              <span className="font-semibold text-fg">The diagram is draggable.</span> Drag any element to move it and the wires follow — or focus one and use the arrow keys. Positions are just for trying it out; the layout re-arranges itself from your data.
+            </span>
+          </p>
+        )}
         <FlowDiagram
           key={`${sampleName}-${resets}`}
           nodes={s.nodes}

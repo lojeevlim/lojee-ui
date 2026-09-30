@@ -72,10 +72,13 @@ export class TooltipShowcaseComponent {}`,
         </section>
 
         <section>
-          <SectionLabel sub="Same color palette as Button. The default is the theme's accent color, so tooltips change with the accent picker.">Colors</SectionLabel>
+          <SectionLabel sub={'Same color palette as Button. The default is the theme accent color, so tooltips change with the accent picker; color="neutral" gives the theme-inverted bubble (dark in light mode, light in dark mode).'}>Colors</SectionLabel>
           <Row>
             <Tooltip content="Accent (default) — follows the theme">
               <Button variant="outline" label="Default" />
+            </Tooltip>
+            <Tooltip content="Neutral — inverts with the light / dark theme" color="neutral">
+              <Button variant="outline" label="Neutral" />
             </Tooltip>
             <Tooltip content="Slate tooltip" color="slate">
               <Button variant="outline" label="Slate" />

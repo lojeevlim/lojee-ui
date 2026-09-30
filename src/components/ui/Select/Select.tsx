@@ -36,6 +36,13 @@ const ICON_PX: Record<SelectSize, number> = { sm: 14, md: 16, lg: 18 };
 const BASE_CLASSES =
   "w-full appearance-none rounded-md border border-border-strong bg-surface pr-9 text-fg outline-none transition-colors focus:border-fg-subtle focus:ring-2 focus:ring-fg-subtle/20 disabled:cursor-not-allowed disabled:opacity-50";
 
+// The open list is drawn from the <option>s, so they carry the theme colors themselves (the page's light / dark
+// mode, plus the accent for the chosen item) — otherwise the browser paints them with its own default palette.
+// `color-scheme` makes the native list chrome (scrollbar, hover highlight) follow light / dark as well.
+const SCHEME_CLASSES = "[color-scheme:light] dark:[color-scheme:dark]";
+const OPTION_CLASSES =
+  "bg-surface text-fg checked:bg-accent-600 checked:text-white disabled:text-fg-subtle";
+
 const INVALID_CLASSES = "border-rose-400 focus:border-rose-500 focus:ring-rose-500/20";
 
 export function Select({
@@ -50,17 +57,17 @@ export function Select({
   return (
     <span className={cx("relative inline-flex w-full items-center", className, classNames?.root)}>
       <select
-        className={cx(BASE_CLASSES, SIZE_CLASSES[size], invalid && INVALID_CLASSES, classNames?.select)}
+        className={cx(BASE_CLASSES, SCHEME_CLASSES, SIZE_CLASSES[size], invalid && INVALID_CLASSES, classNames?.select)}
         defaultValue={placeholder ? "" : undefined}
         {...rest}
       >
         {placeholder && (
-          <option value="" disabled hidden>
+          <option value="" disabled hidden className={OPTION_CLASSES}>
             {placeholder}
           </option>
         )}
         {options.map((o) => (
-          <option key={o.value} value={o.value} disabled={o.disabled}>
+          <option key={o.value} value={o.value} disabled={o.disabled} className={OPTION_CLASSES}>
             {o.label}
           </option>
         ))}

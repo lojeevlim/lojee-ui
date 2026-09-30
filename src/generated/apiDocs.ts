@@ -3897,9 +3897,9 @@ export const API_DOCS: Record<string, ApiDoc> = {
           },
           {
             "name": "color",
-            "type": "ColorName",
+            "type": "ColorName | \"neutral\"",
             "required": false,
-            "description": "Bubble background/text color — same palette as Button (default: \"accent\", which follows the theme's accent color).",
+            "description": "Bubble background/text color — same palette as Button (default: \"accent\", which follows the theme's accent color), or \"neutral\" for the theme-inverted bubble (dark in light mode, light in dark mode).",
             "default": "\"accent\""
           },
           {
