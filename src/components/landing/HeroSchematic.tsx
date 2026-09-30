@@ -28,7 +28,7 @@ export default function HeroSchematic() {
 
   return (
     <div
-      className="relative mx-auto aspect-[1/0.92] w-full max-w-[560px] select-none"
+      className="relative mx-auto aspect-[1/0.92] w-full max-w-[560px] select-none max-sm:aspect-[1/0.72]"
       onPointerMove={onMove}
       onPointerLeave={() => setTilt({ x: 0, y: 0 })}
     >
@@ -39,7 +39,7 @@ export default function HeroSchematic() {
       ))}
 
       {/* connector lines + dimension marks */}
-      <svg className="pointer-events-none absolute inset-0 h-full w-full" viewBox="0 0 560 515" fill="none" aria-hidden="true">
+      <svg className="pointer-events-none absolute inset-0 h-full w-full max-sm:hidden" viewBox="0 0 560 515" fill="none" aria-hidden="true">
         <path className="lp-dash" d="M120 118 C 120 70, 160 62, 214 62" stroke="var(--color-accent-500)" strokeWidth="1.4" />
         <path className="lp-dash" d="M452 178 C 500 178, 504 130, 504 92" stroke="var(--color-accent-500)" strokeWidth="1.4" />
         <path className="lp-dash" d="M112 402 C 60 402, 58 350, 58 318" stroke="var(--color-accent-500)" strokeWidth="1.4" />
@@ -62,12 +62,12 @@ export default function HeroSchematic() {
 
       {/* annotations */}
       <Tag className="left-[22%] top-[5%]" style={layer(4)}>{"<Badge variant=\"soft\" />"}</Tag>
-      <Tag className="right-[3%] top-[10%]" style={layer(5)}>{"<Stat />"}</Tag>
-      <Tag className="left-[2%] top-[56%]" style={layer(4)}>{"<Stepper />"}</Tag>
-      <Tag className="bottom-[13%] right-[4%]" style={layer(6)}>{"<l-switch>"}</Tag>
+      <Tag className="right-[3%] top-[10%] max-sm:hidden" style={layer(5)}>{"<Stat />"}</Tag>
+      <Tag className="left-[2%] top-[56%] max-sm:hidden" style={layer(4)}>{"<Stepper />"}</Tag>
+      <Tag className="bottom-[13%] right-[4%] max-sm:hidden" style={layer(6)}>{"<l-switch>"}</Tag>
 
       {/* main window */}
-      <div className="lp-float-a absolute left-[7%] right-[9%] top-[17%]" style={layer(10)}>
+      <div className="lp-float-a absolute left-[4%] right-[4%] top-[20%] sm:left-[7%] sm:right-[9%] sm:top-[17%]" style={layer(10)}>
         <div className="overflow-hidden rounded-2xl border border-border bg-surface shadow-xl shadow-black/5 ring-1 ring-black/5">
           <div className="flex items-center gap-1.5 border-b border-border bg-surface-muted px-3 py-2">
             <span className="h-2.5 w-2.5 rounded-full bg-rose-400" />
@@ -91,7 +91,7 @@ export default function HeroSchematic() {
       </div>
 
       {/* stat card */}
-      <div className="lp-float-b absolute right-[1%] top-[32%] w-[36%]" style={layer(18)}>
+      <div className="lp-float-b absolute right-[1%] top-[32%] w-[36%] max-sm:hidden" style={layer(18)}>
         <div className="rounded-xl border border-border bg-surface p-3 shadow-lg shadow-black/5">
           <p className="text-[10px] uppercase tracking-wide text-fg-subtle">Weekly installs</p>
           <p className="text-lg font-semibold text-fg">12.4k</p>
@@ -102,7 +102,7 @@ export default function HeroSchematic() {
       </div>
 
       {/* stepper card */}
-      <div className="lp-float-c absolute bottom-[22%] left-[1%] w-[44%]" style={layer(16)}>
+      <div className="lp-float-c absolute bottom-[22%] left-[1%] w-[44%] max-sm:hidden" style={layer(16)}>
         <div className="rounded-xl border border-border bg-surface p-3 shadow-lg shadow-black/5">
           <div className="relative flex items-center justify-between px-1">
             <span className="absolute left-3 right-3 top-3 h-px bg-border-strong" />

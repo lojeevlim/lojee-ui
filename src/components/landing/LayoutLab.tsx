@@ -46,7 +46,7 @@ export default function LayoutLab() {
   const p = PRESETS[i];
 
   return (
-    <div className="grid items-center gap-8 lg:grid-cols-[1.2fr_1fr]">
+    <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)]">
       <div className="lp-grid-fine relative aspect-[16/10] overflow-hidden rounded-2xl border border-border bg-surface-muted p-3">
         <div className="relative h-full w-full">
           {(Object.keys(p.boxes) as Area[]).map((area) => {

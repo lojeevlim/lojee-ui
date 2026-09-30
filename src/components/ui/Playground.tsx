@@ -51,6 +51,7 @@ import SuccessStatePlayground from "./SuccessStatePlayground";
 import LoadingStatePlayground from "./LoadingStatePlayground";
 import NavbarPlayground from "./NavbarPlayground";
 import TopBarPlayground from "./TopBarPlayground";
+import FlowDiagramPlayground from "./FlowDiagramPlayground";
 import SidebarPlayground from "./SidebarPlayground";
 import HeaderPlayground from "./HeaderPlayground";
 import FooterPlayground from "./FooterPlayground";
@@ -129,6 +130,7 @@ const PLAYGROUNDS: Record<string, ComponentType> = {
   "Loading State": LoadingStatePlayground,
   Navbar: NavbarPlayground,
   "Top Bar": TopBarPlayground,
+  "Flow Diagram": FlowDiagramPlayground,
   Sidebar: SidebarPlayground,
   Header: HeaderPlayground,
   Footer: FooterPlayground,

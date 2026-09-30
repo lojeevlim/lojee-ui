@@ -19,7 +19,7 @@ export default function ThemeLab() {
   const [variant, setVariant] = useState<ActiveVariant>("solid");
 
   return (
-    <div className="grid gap-6 lg:grid-cols-[280px_1fr]">
+    <div className="grid grid-cols-1 gap-6 lg:grid-cols-[280px_minmax(0,1fr)]">
       <div className="space-y-5 rounded-2xl border border-border bg-surface p-5">
         <div>
           <p className="mb-2 text-xs font-medium uppercase tracking-wide text-fg-subtle">Mode</p>
@@ -78,7 +78,7 @@ export default function ThemeLab() {
       <ThemeProvider isolated mode={mode} accent={accent} activeVariant={variant}>
         <div className="rounded-2xl border border-border bg-surface p-5 text-fg shadow-sm transition-colors duration-500 md:p-6">
           <div className="flex flex-wrap items-center justify-between gap-3">
-            <NavigationMenu items={[{ label: "Overview", active: true }, { label: "Analytics" }, { label: "Reports" }, { label: "Settings" }]} />
+            <div className="max-w-full overflow-x-auto"><NavigationMenu items={[{ label: "Overview", active: true }, { label: "Analytics" }, { label: "Reports" }, { label: "Settings" }]} /></div>
             <Badge variant="soft" label="Live preview" />
           </div>
           <div className="mt-5 grid gap-5 md:grid-cols-2">

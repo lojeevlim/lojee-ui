@@ -2,8 +2,17 @@
 export interface ChangelogCommit { sha: string; short: string; date: string; author: string; email: string; subject: string; body: string }
 
 export const PACKAGE_VERSION = "0.1.0-alpha.0";
-export const CHANGELOG_GENERATED_AT = "2026-09-30T15:56:20.750Z";
+export const CHANGELOG_GENERATED_AT = "2026-09-30T16:43:04.823Z";
 export const CHANGELOG: ChangelogCommit[] = [
+  {
+    "sha": "c18eaf1a22a1211ad9338e392e93a46dbb3e1f68",
+    "short": "c18eaf1",
+    "date": "2026-09-30T23:59:22+08:00",
+    "author": "lojeevlim",
+    "email": "lojeevlim@gmail.com",
+    "subject": "Add landing page, changelog, lojeeUI logo and slate default accent",
+    "body": "Landing page with schematic hero, framework flow diagram, theme and layout labs; auto-updating Changelog page (git snapshot + live GitHub commits); new logo and favicon; default accent changed to slate."
+  },
   {
     "sha": "3ce37076f14b068a72127f1e6a31501f4bb7b3c5",
     "short": "3ce3707",

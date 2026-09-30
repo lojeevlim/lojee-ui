@@ -405,6 +405,19 @@ export const COMPONENT_MENU: Menu[]  = [
     },
 
     {
+        section: "Diagrams",
+
+        items: [
+
+            {
+                icon: "git-branch",
+                label: "Flow Diagram",
+            },
+
+        ],
+    },
+
+    {
         section: "User / Account",
 
         items: [

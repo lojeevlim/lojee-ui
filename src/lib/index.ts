@@ -261,6 +261,18 @@ export {
   type TopBarSize,
 } from "../components/ui/TopBar/TopBar";
 
+export {
+  FlowDiagram,
+  type FlowDiagramProps,
+  type FlowVariant,
+  type FlowNode,
+  type FlowEdge,
+  type FlowShape,
+  type FlowTone,
+  type FlowDirection,
+  type FlowCurve,
+} from "../components/ui/FlowDiagram/FlowDiagram";
+
 // App Layout — themeable grid shell. Section components are aliased to avoid clashing with Footer above.
 export {
   App,

@@ -52,6 +52,7 @@ import SuccessStateShowcase from './components/ui/SuccessState'
 import LoadingStateShowcase from './components/ui/LoadingState'
 import NavbarShowcase from './components/ui/Navbar'
 import TopBarShowcase from './components/ui/TopBar'
+import FlowDiagramShowcase from './components/ui/FlowDiagram'
 import SidebarShowcase from './components/ui/Sidebar'
 import HeaderShowcase from './components/ui/Header'
 import FooterShowcase from './components/ui/Footer'
@@ -147,6 +148,7 @@ const SHOWCASES: Record<string, ComponentType> = {
   'Loading State': LoadingStateShowcase,
   Navbar: NavbarShowcase,
   'Top Bar': TopBarShowcase,
+  'Flow Diagram': FlowDiagramShowcase,
   Sidebar: SidebarShowcase,
   Header: HeaderShowcase,
   Footer: FooterShowcase,
@@ -214,7 +216,7 @@ function App() {
             onCollapsedChange={setSidebarCollapsed}
           />
         </Side>
-        <Main>
+        <Main className="p-3 pb-20 md:p-4 md:pb-4">
           {(() => {
             const ActiveShowcase = SHOWCASES[found.item.label]
             return ActiveShowcase ? (
@@ -233,7 +235,7 @@ function App() {
     <Button
       type="button"
       onClick={() => setPlaygroundOpen(true)}
-      className="fixed bottom-6  right-6 z-40 flex items-center gap-2  px-5 py-3 text-sm font-medium text-white shadow-lg transition-all"
+      className="fixed bottom-4 right-4 z-10 flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-white shadow-lg transition-all md:bottom-6 md:right-6 md:px-5 md:py-3"
       label='Playground'
       color="accent"
       icon="play-circle"
