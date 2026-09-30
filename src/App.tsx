@@ -1,4 +1,4 @@
-import { useState, type ComponentType } from 'react'
+import { useEffect, useState, type ComponentType } from 'react'
 import { useParams, useNavigate, Navigate } from 'react-router-dom'
 import ButtonShowcase, { Button } from './components/ui/Buttons'
 import BadgeShowcase from './components/ui/Badge'
@@ -181,6 +181,17 @@ function App() {
   const { navKind: rawNavKind, item } = useParams()
   const navigate = useNavigate()
   const [playgroundOpen, setPlaygroundOpen] = useState(false)
+  const [playgroundHint, setPlaygroundHint] = useState(false)
+
+  // The "Try it live" hint shows once per page load, a moment after the page settles, then fades away.
+  useEffect(() => {
+    const show = setTimeout(() => setPlaygroundHint(true), 1800)
+    const hide = setTimeout(() => setPlaygroundHint(false), 8500)
+    return () => {
+      clearTimeout(show)
+      clearTimeout(hide)
+    }
+  }, [])
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
 
   const navKind: NavKind = rawNavKind === 'docs' ? 'docs' : 'components'
@@ -232,17 +243,40 @@ function App() {
         </Footer>
       </AppShell>
 
-    <Button
-      type="button"
-      onClick={() => setPlaygroundOpen(true)}
-      className="fixed bottom-4 right-4 z-10 flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-white shadow-lg transition-all md:bottom-6 md:right-6 md:px-5 md:py-3"
-      label='Playground'
-      color="accent"
-      icon="play-circle"
-    />
+    {/* Playgrounds only exist for components — the docs pages (Introduction, Installation, …) have none. */}
+    {navKind === 'components' && (
+      <div className="fixed bottom-4 right-4 z-10 flex flex-col items-end gap-2 motion-safe:animate-[lojee-fade-up_0.5s_ease-out_both] md:bottom-6 md:right-6">
+        {/* A short "Try it live" hint appears after the page settles and fades away again. */}
+        <div
+          aria-hidden="true"
+          className={`relative rounded-lg bg-fg px-3 py-1.5 text-xs font-medium text-surface shadow-lg transition-all duration-500 ${
+            playgroundHint && !playgroundOpen ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-1 opacity-0'
+          }`}
+        >
+          Try it live — tweak props and copy the code
+          <span className="absolute -bottom-1 right-8 h-2 w-2 rotate-45 bg-fg" />
+        </div>
+        {/* Glow pulses six times after load, then a light sweep glides across the button every few seconds. */}
+        <div className="relative overflow-hidden rounded-full motion-safe:animate-[lojee-glow_1.8s_ease-out_1.2s_6]">
+          <Button
+            type="button"
+            onClick={() => setPlaygroundOpen(true)}
+            className="flex items-center gap-2 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-accent-600/30 ring-1 ring-white/25 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-accent-600/40 active:translate-y-0"
+            label="Playground"
+            color="accent"
+            shape="pill"
+            icon="play-circle"
+          />
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-y-0 left-0 w-1/2 bg-gradient-to-r from-transparent via-white/45 to-transparent motion-safe:animate-[lojee-sweep_5s_ease-in-out_2.5s_infinite] motion-reduce:hidden"
+          />
+        </div>
+      </div>
+    )}
 
     <Modal
-      open={playgroundOpen}
+      open={playgroundOpen && navKind === 'components'}
       onClose={() => setPlaygroundOpen(false)}
       title={`${found.item.label} Playground`}
       className="lg:max-w-6xl"
