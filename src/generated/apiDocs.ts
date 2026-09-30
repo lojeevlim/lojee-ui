@@ -5033,6 +5033,437 @@ export const API_DOCS: Record<string, ApiDoc> = {
       "TopBarSize": "\"sm\" | \"md\" | \"lg\""
     }
   },
+  "Flow Diagram": {
+    "components": [
+      {
+        "name": "FlowDiagram",
+        "props": [
+          {
+            "name": "nodes",
+            "type": "FlowNodeData[]",
+            "required": true,
+            "description": "The boxes of the diagram. Each has an `id`, a `label` and optionally a `sublabel`, `icon`, `shape` (\"rect\", \"pill\" or \"circle\"), `tone` (\"default\", \"accent\" or \"muted\") and a fixed `layer` (otherwise derived from the edges).",
+            "default": null
+          },
+          {
+            "name": "edges",
+            "type": "FlowEdgeData[]",
+            "required": true,
+            "description": "Connections between nodes, by `from` / `to` node id, with an optional `label` drawn on the wire. Nodes are placed in layers automatically from these.",
+            "default": null
+          },
+          {
+            "name": "direction",
+            "type": "FlowDirection | \"auto\"",
+            "required": false,
+            "description": "Flow direction: \"horizontal\" (left → right, default), \"vertical\" (top → bottom) or \"auto\" — horizontal when there is room, vertical when the container is narrow (a phone).",
+            "default": "\"horizontal\""
+          },
+          {
+            "name": "variant",
+            "type": "FlowVariant",
+            "required": false,
+            "description": "Visual style: \"schematic\" (default), \"blueprint\", \"minimal\", \"solid\", \"outline\" or \"glow\".",
+            "default": "\"schematic\""
+          },
+          {
+            "name": "curve",
+            "type": "FlowCurve",
+            "required": false,
+            "description": "Wire shape: \"smooth\" (default), \"step\" (right angles) or \"straight\".",
+            "default": "\"smooth\""
+          },
+          {
+            "name": "color",
+            "type": "ColorName | (string & {})",
+            "required": false,
+            "description": "Accent color of active nodes, wires and packets (default \"accent\" — follows the theme). A built-in color name or any CSS color.",
+            "default": "\"accent\""
+          },
+          {
+            "name": "packets",
+            "type": "boolean",
+            "required": false,
+            "description": "Show small dots travelling along the wires (default true). Off automatically when the user prefers reduced motion.",
+            "default": "true"
+          },
+          {
+            "name": "speed",
+            "type": "number",
+            "required": false,
+            "description": "Seconds a packet takes to cross one wire (default 2.2).",
+            "default": "2.2"
+          },
+          {
+            "name": "animated",
+            "type": "boolean",
+            "required": false,
+            "description": "Animate the dashes of highlighted wires (default true).",
+            "default": "true"
+          },
+          {
+            "name": "arrows",
+            "type": "boolean",
+            "required": false,
+            "description": "Draw arrowheads at the end of each wire (default false).",
+            "default": "false"
+          },
+          {
+            "name": "interactive",
+            "type": "boolean",
+            "required": false,
+            "description": "Hovering or selecting a node highlights its wires and dims the rest; clicking selects it (default true).",
+            "default": "true"
+          },
+          {
+            "name": "activeNode",
+            "type": "string",
+            "required": false,
+            "description": "Selected node id. Uncontrolled (internal state) unless both `activeNode` and `onNodeClick` are given.",
+            "default": null
+          },
+          {
+            "name": "defaultActiveNode",
+            "type": "string",
+            "required": false,
+            "description": "Initially selected node id when `activeNode` isn't given.",
+            "default": null
+          },
+          {
+            "name": "autoPlay",
+            "type": "boolean | number",
+            "required": false,
+            "description": "Walk through the nodes automatically, selecting the next one every N milliseconds (`true` = 1600). Pauses while hovering; ignored when `activeNode` is controlled.",
+            "default": "false"
+          },
+          {
+            "name": "grid",
+            "type": "boolean",
+            "required": false,
+            "description": "Draw a blueprint grid behind the diagram (default: on for the \"blueprint\" variant).",
+            "default": null
+          },
+          {
+            "name": "captionTop",
+            "type": "string",
+            "required": false,
+            "description": "Small monospace label above the diagram.",
+            "default": null
+          },
+          {
+            "name": "captionBottom",
+            "type": "string",
+            "required": false,
+            "description": "Small monospace label below the diagram.",
+            "default": null
+          },
+          {
+            "name": "nodeWidth",
+            "type": "number",
+            "required": false,
+            "description": "Node width in px (default 150). Circles use the node height plus a margin.",
+            "default": "150"
+          },
+          {
+            "name": "nodeHeight",
+            "type": "number",
+            "required": false,
+            "description": "Node height in px (default 56).",
+            "default": "56"
+          },
+          {
+            "name": "gap",
+            "type": "number",
+            "required": false,
+            "description": "Space between layers in px (default 110).",
+            "default": "110"
+          },
+          {
+            "name": "spacing",
+            "type": "number",
+            "required": false,
+            "description": "Space between nodes of the same layer in px (default 22).",
+            "default": "22"
+          },
+          {
+            "name": "movable",
+            "type": "boolean",
+            "required": false,
+            "description": "Let nodes be dragged with the mouse or touch (and nudged with the arrow keys — Shift for bigger steps). The wires follow; nodes stay inside the diagram (default false).",
+            "default": "false"
+          },
+          {
+            "name": "onNodeMove",
+            "type": "(move: { id: string; x: number; y: number }) => void",
+            "required": false,
+            "description": "Called continuously while a node moves, with its id and its new top-left position in diagram units.",
+            "default": null
+          },
+          {
+            "name": "editable",
+            "type": "boolean",
+            "required": false,
+            "description": "Turn the diagram into an editor: a toolbar to add elements (pick a type), connect two elements, rename the selected element or wire, delete it, and reset. Nodes become movable, double-click renames, and Delete removes the selection. The diagram keeps its own edited copy of `nodes` / `edges`, seeded from the props (pass stable arrays — a new array resets the edits).",
+            "default": "false"
+          },
+          {
+            "name": "zoomable",
+            "type": "boolean",
+            "required": false,
+            "description": "Show zoom controls (− / % / +) and allow Ctrl/⌘ + scroll to zoom, from 50% to 250% (default false; always on with `editable`).",
+            "default": "false"
+          },
+          {
+            "name": "nodeTypes",
+            "type": "FlowNodeType[]",
+            "required": false,
+            "description": "The kinds of element the editor can add — each has a `key`, `label` and optional `shape`, `tone` and `icon`. Defaults to Process, Start / End, Decision, Data, Service and Note.",
+            "default": "DEFAULT_NODE_TYPES"
+          },
+          {
+            "name": "onDiagramChange",
+            "type": "(data: { nodes: FlowNodeData[]; edges: FlowEdgeData[] }) => void",
+            "required": false,
+            "description": "Editor: called with the full `{ nodes, edges }` after every edit (add, connect, rename, delete, reset).",
+            "default": null
+          },
+          {
+            "name": "toolbarPosition",
+            "type": "\"top\" | \"right\"",
+            "required": false,
+            "description": "Where the editor / zoom toolbar goes: \"top\" (a row above the diagram, default) or \"right\" (a vertical column at the top right).",
+            "default": "\"top\""
+          },
+          {
+            "name": "toolbarTarget",
+            "type": "HTMLElement | null",
+            "required": false,
+            "description": "React only: render the toolbar into this element (for example a panel beside the diagram) instead of above it. Pass `null` while the element isn't mounted yet — nothing is rendered until it is.",
+            "default": null
+          },
+          {
+            "name": "label",
+            "type": "string",
+            "required": false,
+            "description": "Accessible description of the whole diagram.",
+            "default": "\"Flow diagram\""
+          },
+          {
+            "name": "onNodeClick",
+            "type": "(node: FlowNodeData) => void",
+            "required": false,
+            "description": "Called with the node when it is clicked or activated with the keyboard.",
+            "default": null
+          },
+          {
+            "name": "onNodeHover",
+            "type": "(node: FlowNodeData | null) => void",
+            "required": false,
+            "description": "Called with the node when the pointer enters it, and with `null` when it leaves.",
+            "default": null
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "required": false,
+            "description": "Extra class names applied to the root element.",
+            "default": null
+          },
+          {
+            "name": "classNames",
+            "type": "{ root?: string; svg?: string }",
+            "required": false,
+            "description": "Per-part class overrides (`root`, `svg`) — merged after the built-in styling.",
+            "default": null
+          }
+        ],
+        "element": {
+          "tag": "l-flow-diagram",
+          "props": {
+            "nodes": "json",
+            "edges": "json",
+            "direction": "string",
+            "variant": "string",
+            "curve": "string",
+            "color": "string",
+            "packets": "boolean",
+            "speed": "number",
+            "animated": "boolean",
+            "arrows": "boolean",
+            "interactive": "boolean",
+            "activeNode": "string",
+            "defaultActiveNode": "string",
+            "autoPlay": "json",
+            "grid": "boolean",
+            "captionTop": "string",
+            "captionBottom": "string",
+            "nodeWidth": "number",
+            "nodeHeight": "number",
+            "gap": "number",
+            "spacing": "number",
+            "label": "string",
+            "movable": "boolean",
+            "editable": "boolean",
+            "zoomable": "boolean",
+            "toolbarPosition": "string",
+            "nodeTypes": "json"
+          },
+          "extraProps": [],
+          "events": [
+            {
+              "callback": "onNodeMove",
+              "event": "nodemove"
+            },
+            {
+              "callback": "onDiagramChange",
+              "event": "diagramchange"
+            },
+            {
+              "callback": "onNodeClick",
+              "event": "nodeclick"
+            },
+            {
+              "callback": "onNodeHover",
+              "event": "nodehover"
+            }
+          ]
+        }
+      },
+      {
+        "name": "FlowToolbar",
+        "props": [
+          {
+            "name": "editable",
+            "type": "boolean",
+            "required": true,
+            "description": "",
+            "default": null
+          },
+          {
+            "name": "zoomable",
+            "type": "boolean",
+            "required": true,
+            "description": "",
+            "default": null
+          },
+          {
+            "name": "types",
+            "type": "FlowNodeType[]",
+            "required": true,
+            "description": "",
+            "default": null
+          },
+          {
+            "name": "typeKey",
+            "type": "string",
+            "required": true,
+            "description": "",
+            "default": null
+          },
+          {
+            "name": "onTypeChange",
+            "type": "(key: string) => void",
+            "required": true,
+            "description": "",
+            "default": null
+          },
+          {
+            "name": "onAdd",
+            "type": "() => void",
+            "required": true,
+            "description": "",
+            "default": null
+          },
+          {
+            "name": "connectMode",
+            "type": "boolean",
+            "required": true,
+            "description": "",
+            "default": null
+          },
+          {
+            "name": "connectFrom",
+            "type": "string | null",
+            "required": true,
+            "description": "",
+            "default": null
+          },
+          {
+            "name": "onToggleConnect",
+            "type": "() => void",
+            "required": true,
+            "description": "",
+            "default": null
+          },
+          {
+            "name": "canRename",
+            "type": "boolean",
+            "required": true,
+            "description": "",
+            "default": null
+          },
+          {
+            "name": "onRename",
+            "type": "() => void",
+            "required": true,
+            "description": "",
+            "default": null
+          },
+          {
+            "name": "canDelete",
+            "type": "boolean",
+            "required": true,
+            "description": "",
+            "default": null
+          },
+          {
+            "name": "onDelete",
+            "type": "() => void",
+            "required": true,
+            "description": "",
+            "default": null
+          },
+          {
+            "name": "onReset",
+            "type": "() => void",
+            "required": true,
+            "description": "",
+            "default": null
+          },
+          {
+            "name": "zoom",
+            "type": "number",
+            "required": true,
+            "description": "",
+            "default": null
+          },
+          {
+            "name": "onZoom",
+            "type": "(next: number) => void",
+            "required": true,
+            "description": "",
+            "default": null
+          },
+          {
+            "name": "vertical",
+            "type": "boolean",
+            "required": false,
+            "description": "Stack the tools in a column (used when the toolbar sits at the right of the diagram).",
+            "default": null
+          }
+        ],
+        "element": null
+      }
+    ],
+    "hooks": [],
+    "types": {
+      "FlowVariant": "\"schematic\" | \"blueprint\" | \"minimal\" | \"solid\" | \"outline\" | \"glow\"",
+      "FlowShape": "\"rect\" | \"pill\" | \"circle\" | \"diamond\" | \"hexagon\" | \"parallelogram\" | \"cylinder\"",
+      "FlowTone": "\"default\" | \"accent\" | \"muted\"",
+      "FlowDirection": "\"horizontal\" | \"vertical\"",
+      "FlowCurve": "\"smooth\" | \"step\" | \"straight\""
+    }
+  },
   "Sidebar": {
     "components": [
       {

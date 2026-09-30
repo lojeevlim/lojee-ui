@@ -33,13 +33,13 @@ export default function ThemeSwitcher() {
         aria-haspopup="menu"
         aria-expanded={open}
         onClick={() => setOpen((v) => !v)}
-        className="flex items-center gap-2 rounded-md border border-border bg-surface px-2.5 py-2 text-sm text-fg-muted transition-colors hover:bg-surface-muted focus:outline-none focus:ring-2 focus:ring-fg/10"
+        className="flex items-center gap-2 rounded-md border border-border bg-surface px-2.5 py-2 max-sm:px-2 text-sm text-fg-muted transition-colors hover:bg-surface-muted focus:outline-none focus:ring-2 focus:ring-fg/10"
       >
         <Preview theme={mode} accent={accent} />
         <span className="hidden capitalize sm:inline">
           {MODE_LABEL[mode]} · {accent}
         </span>
-        <ChevronDown size={14} className={`transition-transform ${open ? "rotate-180" : ""}`} />
+        <ChevronDown size={14} className={`hidden transition-transform sm:block ${open ? "rotate-180" : ""}`} />
       </button>
 
       {open && (

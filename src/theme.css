@@ -116,9 +116,22 @@
   --lojee-border-strong: #3a4a63;
 }
 
-/* ---- Accent palettes (default: indigo) ---- */
+/* ---- Accent palettes (default: slate) ---- */
+/* The default comes first, so any [data-accent="…"] rule below (same specificity) overrides it. */
 :root,
-:host,
+:host {
+  --lojee-accent-50: var(--color-slate-50);
+  --lojee-accent-100: var(--color-slate-100);
+  --lojee-accent-200: var(--color-slate-200);
+  --lojee-accent-300: var(--color-slate-300);
+  --lojee-accent-400: var(--color-slate-400);
+  --lojee-accent-500: var(--color-slate-500);
+  --lojee-accent-600: var(--color-slate-700);
+  --lojee-accent-700: var(--color-slate-800);
+  --lojee-accent-800: var(--color-slate-900);
+  --lojee-accent-900: var(--color-slate-900);
+  --lojee-accent-950: var(--color-slate-950);
+}
 [data-accent="indigo"] {
   --lojee-accent-50: var(--color-indigo-50);
   --lojee-accent-100: var(--color-indigo-100);

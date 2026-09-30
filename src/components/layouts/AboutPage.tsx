@@ -5,8 +5,8 @@ import { Badge } from "../ui/Badge/Badge"
 import { Icon } from "../ui/Icons/Icon"
 import { COMPONENT_MENU } from "../../constant/component_menu"
 import { defaultPathFor, pathFor } from "../../core/routes"
+import { REPO_URL } from "../../core/repo"
 
-const REPO_URL = "https://github.com/lojeevlim/lojee-ui"
 
 const VALUES = [
   { icon: "box", title: "One library, every framework", body: "Write React, or use the same components as Web Components in Vue, Angular and plain JS — the design and behaviour never diverge." },
