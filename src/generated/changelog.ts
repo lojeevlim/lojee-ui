@@ -2,8 +2,35 @@
 export interface ChangelogCommit { sha: string; short: string; date: string; author: string; email: string; subject: string; body: string }
 
 export const PACKAGE_VERSION = "0.1.0-alpha.1";
-export const CHANGELOG_GENERATED_AT = "2026-09-30T17:00:49.906Z";
+export const CHANGELOG_GENERATED_AT = "2026-09-30T17:56:34.290Z";
 export const CHANGELOG: ChangelogCommit[] = [
+  {
+    "sha": "78a3e566110cfc78bec44f8903973dff7588a793",
+    "short": "78a3e56",
+    "date": "2026-10-01T01:17:20+08:00",
+    "author": "lojeevlim",
+    "email": "lojeevlim@gmail.com",
+    "subject": "Add Vercel SPA rewrite so deep links like /docs/installation work",
+    "body": ""
+  },
+  {
+    "sha": "aceccafca230495651bd7ba8e71f0cc096dbac80",
+    "short": "aceccaf",
+    "date": "2026-10-01T01:14:53+08:00",
+    "author": "lojeevlim",
+    "email": "lojeevlim@gmail.com",
+    "subject": "Add CHANGELOG.md for 0.1.0-alpha.1",
+    "body": ""
+  },
+  {
+    "sha": "854b404c29c67bcc522f8b8773786cd174e2d368",
+    "short": "854b404",
+    "date": "2026-10-01T01:00:57+08:00",
+    "author": "lojeevlim",
+    "email": "lojeevlim@gmail.com",
+    "subject": "Release 0.1.0-alpha.1",
+    "body": ""
+  },
   {
     "sha": "e636a7f12aed6a3a17df09ac7489099ff88fea2b",
     "short": "e636a7f",
