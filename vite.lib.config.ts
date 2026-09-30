@@ -1,6 +1,5 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import tailwindcss from "@tailwindcss/vite";
 import { resolve } from "node:path";
 
 // Library build for the React entry point (`lojee-ui`, i.e. `dist/index.js`
@@ -15,16 +14,14 @@ import { resolve } from "node:path";
 // output) — plain `tsc --emitDeclarationOnly` sidesteps that entirely.
 export default defineConfig({
   publicDir: false,
-  plugins: [react(), tailwindcss()],
+  plugins: [react()],
   build: {
     outDir: "dist",
     emptyOutDir: false,
-    cssCodeSplit: false,
     lib: {
       entry: resolve(import.meta.dirname, "src/lib/entry.ts"),
       formats: ["es", "cjs"],
       fileName: (format) => `index.${format === "es" ? "js" : "cjs"}`,
-      cssFileName: "style",
     },
     rollupOptions: {
       external: ["react", "react-dom", "react/jsx-runtime", "lucide-react"],

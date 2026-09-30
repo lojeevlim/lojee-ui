@@ -37,7 +37,7 @@ export default function AccountSettingsPlayground() {
   onNotificationsChange={setNotifications}
 />`;
 
-  const htmlMarkup = `<AccountSettings id="account-settings" email="${email}"></AccountSettings>
+  const htmlMarkup = `<l-AccountSettings id="account-settings" email="${email}"></l-AccountSettings>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -46,15 +46,15 @@ export default function AccountSettingsPlayground() {
 </script>`;
 
   const vueMarkup = `<template>
-  <AccountSettings email="${email}" :notifications="notifications" @notificationsChange="notifications = $event" />
+  <l-AccountSettings email="${email}" :notifications="notifications" @notificationsChange="notifications = $event" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 const notifications = ref(${notificationsCode});
 </script>`;
 
-  const angularMarkup = `<AccountSettings email="${email}" [notifications]="notifications" (notificationsChange)="notifications = $event"></AccountSettings>
+  const angularMarkup = `<l-AccountSettings email="${email}" [notifications]="notifications" (notificationsChange)="notifications = $event"></l-AccountSettings>
 
 notifications = ${notificationsCode};`;
 
@@ -68,11 +68,11 @@ notifications = ${notificationsCode};`;
   return (
     <PlaygroundLayout preview={preview} variants={codeVariants}>
       <div className="sm:col-span-2">
-        <span className="mb-1.5 block text-xs font-medium text-slate-500">Email</span>
+        <span className="mb-1.5 block text-xs font-medium text-fg-subtle">Email</span>
         <input
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="w-full rounded-md border border-slate-200 px-3 py-1.5 text-sm text-slate-900 outline-none transition-colors focus:border-slate-400"
+          className="w-full rounded-md border border-border px-3 py-1.5 text-sm text-fg outline-none transition-colors focus:border-border-strong"
           placeholder="jordan@lojee.io"
         />
       </div>

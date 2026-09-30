@@ -27,8 +27,8 @@ export default function CommandMenuPlayground() {
       <AppWindowBody>
         <div className="flex flex-col items-center gap-3">
           <Button label="Open command menu" onClick={() => setOpen(true)} />
-          <p className="text-sm text-slate-600">
-            Last selected: <span className="font-medium text-slate-900">{lastSelected}</span>
+          <p className="text-sm text-fg-muted">
+            Last selected: <span className="font-medium text-fg">{lastSelected}</span>
           </p>
           <CommandMenu open={open} onClose={() => setOpen(false)} items={items} />
         </div>
@@ -58,8 +58,8 @@ export default function CommandMenuPlayground() {
       `  { label: "${item.label}", icon: "${item.icon}"${item.shortcut ? `, shortcut: "${item.shortcut}"` : ""} }`
   ).join(",\n");
 
-  const htmlMarkup = `<Button label="Open command menu" id="open-command-btn" />
-<CommandMenu id="command-menu" />`;
+  const htmlMarkup = `<l-Button label="Open command menu" id="open-command-btn" />
+<l-CommandMenu id="command-menu" />`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,
@@ -77,11 +77,11 @@ ${itemsSnippet}
   commandMenu.addEventListener("close", () => { commandMenu.open = false; });
 </script>`,
     vue: `<template>
-  <Button label="Open command menu" @click="open = true" />
-  <CommandMenu :open="open" :items="items" @close="open = false" />
+  <l-Button label="Open command menu" @click="open = true" />
+  <l-CommandMenu :open="open" :items="items" @close="open = false" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 import "lojee-ui/elements";
 
@@ -91,8 +91,8 @@ ${itemsSnippet}
 ]);
 </script>`,
     angular: `<!-- app.component.html -->
-<Button label="Open command menu" (click)="open = true" />
-<CommandMenu [open]="open" [items]="items" (close)="open = false" />
+<l-Button label="Open command menu" (click)="open = true" />
+<l-CommandMenu [open]="open" [items]="items" (close)="open = false" />
 
 <!-- app.component.ts -->
 items = [
@@ -102,7 +102,7 @@ ${itemsSnippet}
 
   return (
     <PlaygroundLayout preview={preview} variants={codeVariants}>
-      <div className="sm:col-span-2 text-sm text-slate-500">
+      <div className="sm:col-span-2 text-sm text-fg-subtle">
         Try typing to filter, ArrowUp/ArrowDown to navigate, Enter to select, and Escape to close.
       </div>
     </PlaygroundLayout>

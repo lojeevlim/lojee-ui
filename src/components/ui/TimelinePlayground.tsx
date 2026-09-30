@@ -23,11 +23,11 @@ export default function TimelinePlayground() {
   const preview = (
     <AppWindowFrame>
       {orientation === "vertical" ? (
-        <div className="flex justify-center bg-white p-10" style={{ minHeight: 260 }}>
+        <div className="flex justify-center bg-surface p-10" style={{ minHeight: 260 }}>
           <Timeline items={SAMPLE_ITEMS} orientation={orientation} />
         </div>
       ) : (
-        <div className="flex items-center bg-white p-10" style={{ minHeight: 200 }}>
+        <div className="flex items-center bg-surface p-10" style={{ minHeight: 200 }}>
           <Timeline items={SAMPLE_ITEMS} orientation={orientation} className="w-full" />
         </div>
       )}
@@ -45,7 +45,7 @@ export default function TimelinePlayground() {
 ${SAMPLE_ITEMS_CODE}
   ]}
 />`,
-    js: `<Timeline id="timeline-demo"${orientationAttr}></Timeline>
+    js: `<l-Timeline id="timeline-demo"${orientationAttr}></l-Timeline>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -55,15 +55,15 @@ ${SAMPLE_ITEMS_CODE}
   ];
 </script>`,
     vue: `<template>
-  <Timeline :items="items"${orientationAttr} />
+  <l-Timeline :items="items"${orientationAttr} />
 </template>
 
-<script setup>
+<script setup lang="ts">
 const items = [
 ${SAMPLE_ITEMS_CODE}
 ];
 </script>`,
-    angular: `<Timeline [items]="items"${orientationAttr} />
+    angular: `<l-Timeline [items]="items"${orientationAttr} />
 
 items = [
 ${SAMPLE_ITEMS_CODE}

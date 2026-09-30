@@ -32,11 +32,11 @@ const TRAFFIC_CODE = `  { label: "Direct", value: 42, color: "indigo" },
 
 export default function ChartShowcase() {
   return (
-    <div className="min-h-screen bg-white p-6 md:p-10">
+    <div className="min-h-screen rounded-xl bg-surface p-6 md:p-10">
       <div className="max-w-5xl mx-auto space-y-12">
         <div>
-          <h1 className="text-2xl font-semibold text-slate-900">Chart</h1>
-          <p className="text-sm text-slate-500 mt-1">
+          <h1 className="text-2xl font-semibold text-fg">Chart</h1>
+          <p className="text-sm text-fg-subtle mt-1">
             A lightweight, dependency-free chart — bar, line, and donut, rendered as plain inline SVG.
           </p>
         </div>
@@ -54,7 +54,7 @@ export default function ChartShowcase() {
 ${REVENUE_CODE}
   ]}
 />`,
-              js: `<Chart id="chart-bar" type="bar" />
+              js: `<l-Chart id="chart-bar" type="bar" />
 
 <script type="module">
   import "lojee-ui/elements";
@@ -64,15 +64,15 @@ ${REVENUE_CODE}
   ];
 </script>`,
               vue: `<template>
-  <Chart :data="data" type="bar" />
+  <l-Chart :data="data" type="bar" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 const data = [
 ${REVENUE_CODE}
 ];
 </script>`,
-              angular: `<Chart [data]="data" type="bar" />
+              angular: `<l-Chart [data]="data" type="bar" />
 
 data = [
 ${REVENUE_CODE}
@@ -95,7 +95,7 @@ ${REVENUE_CODE}
 ${REVENUE_CODE}
   ]}
 />`,
-              js: `<Chart id="chart-line" type="line" color="emerald" />
+              js: `<l-Chart id="chart-line" type="line" color="emerald" />
 
 <script type="module">
   import "lojee-ui/elements";
@@ -105,15 +105,15 @@ ${REVENUE_CODE}
   ];
 </script>`,
               vue: `<template>
-  <Chart :data="data" type="line" color="emerald" />
+  <l-Chart :data="data" type="line" color="emerald" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 const data = [
 ${REVENUE_CODE}
 ];
 </script>`,
-              angular: `<Chart [data]="data" type="line" color="emerald" />
+              angular: `<l-Chart [data]="data" type="line" color="emerald" />
 
 data = [
 ${REVENUE_CODE}
@@ -135,7 +135,7 @@ ${REVENUE_CODE}
 ${TRAFFIC_CODE}
   ]}
 />`,
-              js: `<Chart id="chart-donut" type="donut" />
+              js: `<l-Chart id="chart-donut" type="donut" />
 
 <script type="module">
   import "lojee-ui/elements";
@@ -145,15 +145,15 @@ ${TRAFFIC_CODE}
   ];
 </script>`,
               vue: `<template>
-  <Chart :data="data" type="donut" />
+  <l-Chart :data="data" type="donut" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 const data = [
 ${TRAFFIC_CODE}
 ];
 </script>`,
-              angular: `<Chart [data]="data" type="donut" />
+              angular: `<l-Chart [data]="data" type="donut" />
 
 data = [
 ${TRAFFIC_CODE}
@@ -166,15 +166,15 @@ ${TRAFFIC_CODE}
           <SectionLabel sub="`color` sets the default for every point that doesn't specify its own.">Colors</SectionLabel>
           <div className="grid gap-6 sm:grid-cols-3">
             <div>
-              <p className="mb-2 text-xs font-medium text-slate-500">Indigo</p>
+              <p className="mb-2 text-xs font-medium text-fg-subtle">Indigo</p>
               <Chart type="bar" data={REVENUE_DATA} color="indigo" showLabels={false} height={120} />
             </div>
             <div>
-              <p className="mb-2 text-xs font-medium text-slate-500">Rose</p>
+              <p className="mb-2 text-xs font-medium text-fg-subtle">Rose</p>
               <Chart type="bar" data={REVENUE_DATA} color="rose" showLabels={false} height={120} />
             </div>
             <div>
-              <p className="mb-2 text-xs font-medium text-slate-500">Amber</p>
+              <p className="mb-2 text-xs font-medium text-fg-subtle">Amber</p>
               <Chart type="bar" data={REVENUE_DATA} color="amber" showLabels={false} height={120} />
             </div>
           </div>
@@ -184,16 +184,16 @@ ${TRAFFIC_CODE}
 
 {/* Any of the 12 palette colors work: slate, gray, indigo, violet, blue,
     cyan, emerald, teal, amber, orange, rose, pink. */}`,
-              js: `<Chart id="chart-color" type="bar" color="rose" />
+              js: `<l-Chart id="chart-color" type="bar" color="rose" />
 
 <script type="module">
   import "lojee-ui/elements";
   document.getElementById("chart-color").data = data;
 </script>`,
               vue: `<template>
-  <Chart :data="data" type="bar" color="rose" />
+  <l-Chart :data="data" type="bar" color="rose" />
 </template>`,
-              angular: `<Chart [data]="data" type="bar" color="rose" />`,
+              angular: `<l-Chart [data]="data" type="bar" color="rose" />`,
             }}
           />
         </section>

@@ -52,11 +52,11 @@ export default function ToastPlayground() {
   position="${position}"${titleAttr}${durationAttr}
 >${body}</Toast>`;
 
-  const htmlMarkup = `<Toast id="toast" variant="${variant}" position="${position}"${titleAttr}${durationAttrHtml}>${body}</Toast>`;
+  const htmlMarkup = `<l-Toast id="toast" variant="${variant}" position="${position}"${titleAttr}${durationAttrHtml}>${body}</l-Toast>`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,
-    js: `<Button label="Show toast" id="show-toast-btn" />
+    js: `<l-Button label="Show toast" id="show-toast-btn" />
 ${htmlMarkup}
 
 <script type="module">
@@ -68,55 +68,55 @@ ${htmlMarkup}
   toast.addEventListener("close", () => { toast.open = false; });
 </script>`,
     vue: `<template>
-  <Button label="Show toast" @click="open = true" />
-  <Toast
+  <l-Button label="Show toast" @click="open = true" />
+  <l-Toast
     :open="open"
     variant="${variant}"
     position="${position}"${titleAttr}${duration !== 4000 ? `\n    :duration="${duration}"` : ""}
     @close="open = false"
-  >${body}</Toast>
+  >${body}</l-Toast>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 import "lojee-ui/elements";
 
 const open = ref(false);
 </script>`,
     angular: `<!-- app.component.html -->
-<Button label="Show toast" (click)="open = true" />
-<Toast
+<l-Button label="Show toast" (click)="open = true" />
+<l-Toast
   [open]="open"
   variant="${variant}"
   position="${position}"${titleAttr}${duration !== 4000 ? `\n  [duration]="${duration}"` : ""}
   (close)="open = false"
->${body}</Toast>`,
+>${body}</l-Toast>`,
   };
 
   return (
     <PlaygroundLayout preview={preview} variants={codeVariants}>
       <div className="sm:col-span-2">
-        <span className="mb-1.5 block text-xs font-medium text-slate-500">Title</span>
+        <span className="mb-1.5 block text-xs font-medium text-fg-subtle">Title</span>
         <input
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          className="w-full rounded-md border border-slate-200 px-3 py-1.5 text-sm text-slate-900 outline-none transition-colors focus:border-slate-400"
+          className="w-full rounded-md border border-border px-3 py-1.5 text-sm text-fg outline-none transition-colors focus:border-border-strong"
           placeholder="Heads up"
         />
       </div>
       <div className="sm:col-span-2">
-        <span className="mb-1.5 block text-xs font-medium text-slate-500">Description</span>
+        <span className="mb-1.5 block text-xs font-medium text-fg-subtle">Description</span>
         <input
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          className="w-full rounded-md border border-slate-200 px-3 py-1.5 text-sm text-slate-900 outline-none transition-colors focus:border-slate-400"
+          className="w-full rounded-md border border-border px-3 py-1.5 text-sm text-fg outline-none transition-colors focus:border-border-strong"
           placeholder="Your changes have been saved."
         />
       </div>
       <OptionGroup label="Variant" options={VARIANTS} value={variant} onChange={setVariant} />
       <OptionGroup label="Position" options={POSITIONS} value={position} onChange={setPosition} />
       <div className="sm:col-span-2">
-        <span className="mb-1.5 block text-xs font-medium text-slate-500">
+        <span className="mb-1.5 block text-xs font-medium text-fg-subtle">
           Duration (ms) — 0 disables auto-dismiss
         </span>
         <input
@@ -125,7 +125,7 @@ const open = ref(false);
           step={500}
           value={duration}
           onChange={(e) => setDuration(Number(e.target.value) || 0)}
-          className="w-full rounded-md border border-slate-200 px-3 py-1.5 text-sm text-slate-900 outline-none transition-colors focus:border-slate-400"
+          className="w-full rounded-md border border-border px-3 py-1.5 text-sm text-fg outline-none transition-colors focus:border-border-strong"
         />
       </div>
     </PlaygroundLayout>

@@ -6,8 +6,11 @@ export type BadgeVariant = "solid" | "outline" | "soft";
 export type BadgeSize = "sm" | "md" | "lg";
 
 export interface BadgeProps {
+  /** "solid" | "outline" | "soft" — filled, bordered or tinted look (default: "soft"). */
   variant?: BadgeVariant;
+  /** Badge color, one of the built-in `ColorName`s (default: "accent", which follows the theme accent). */
   color?: ColorName;
+  /** "sm" | "md" | "lg" (default: "md"). */
   size?: BadgeSize;
   /** Icon name, e.g. "check" — see src/core/icons.ts for the available set. */
   icon?: string;
@@ -15,7 +18,9 @@ export interface BadgeProps {
   dot?: boolean;
   /** Visible text (simple alternative to children). */
   label?: string;
+  /** Badge content; takes precedence over `label` when both are given. */
   children?: ReactNode;
+  /** Extra class names applied to the root element. */
   className?: string;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
   classNames?: {
@@ -40,7 +45,7 @@ const DOT_SIZE: Record<BadgeSize, string> = {
 
 export function Badge({
   variant = "soft",
-  color = "slate",
+  color = "accent",
   size = "md",
   icon,
   dot = false,

@@ -36,10 +36,10 @@ export default function LoaderPlayground() {
 
   const htmlMarkup =
     shape === "text"
-      ? `<Loader shape="text" variant="${variant}" lines="${lines}" />`
+      ? `<l-Loader shape="text" variant="${variant}" lines="${lines}" />`
       : shape === "circle"
-        ? `<Loader shape="circle" variant="${variant}" width="56" />`
-        : `<Loader shape="rect" variant="${variant}" width="200" height="100" />`;
+        ? `<l-Loader shape="circle" variant="${variant}" width="56" />`
+        : `<l-Loader shape="rect" variant="${variant}" width="200" height="100" />`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,

@@ -4,9 +4,13 @@ import { cx } from "../../../core/tokens";
 export type RadioGroupOrientation = "vertical" | "horizontal";
 
 export interface RadioGroupProps {
+  /** Stacking direction of the radios: "vertical" (default) or "horizontal" (wraps). */
   orientation?: RadioGroupOrientation;
+  /** The `Radio` elements to lay out; give each the same `name` so the browser makes them mutually exclusive. */
   children?: ReactNode;
+  /** Extra CSS class(es) added to the root element, merged before `classNames.root`. */
   className?: string;
+  /** Per-part class overrides — merged after (and win over) the built-in styling. */
   classNames?: {
     root?: string;
   };

@@ -4,11 +4,17 @@ import { cx } from "../../../core/tokens";
 export type ContainerSize = "sm" | "md" | "lg" | "xl" | "full";
 
 export interface ContainerProps {
+  /** Maximum width of the container: "sm" | "md" | "lg" | "xl" | "full" (no max width). Defaults to "lg". */
   size?: ContainerSize;
+  /** Horizontally centers the container with auto side margins (default: true). */
   centered?: boolean;
+  /** Adds horizontal padding (px-4) inside the container (default: true). */
   padded?: boolean;
+  /** Content rendered inside the container. */
   children?: ReactNode;
+  /** Extra class name(s) applied to the root element. */
   className?: string;
+  /** Per-part class overrides — merged after (and win over) the built-in styling. */
   classNames?: { root?: string };
 }
 

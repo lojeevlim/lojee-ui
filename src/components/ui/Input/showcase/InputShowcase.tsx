@@ -8,11 +8,11 @@ export default function InputShowcase() {
   const isInvalidEmail = email.length > 0 && !email.includes("@");
 
   return (
-    <div className="min-h-screen bg-white p-6 md:p-10">
+    <div className="min-h-screen rounded-xl bg-surface p-6 md:p-10">
       <div className="max-w-5xl mx-auto space-y-12">
         <div>
-          <h1 className="text-2xl font-semibold text-slate-900">Input</h1>
-          <p className="text-sm text-slate-500 mt-1">A text input wrapping the native &lt;input&gt; element.</p>
+          <h1 className="text-2xl font-semibold text-fg">Input</h1>
+          <p className="text-sm text-fg-subtle mt-1">A text input wrapping the native &lt;input&gt; element.</p>
         </div>
 
         <section>
@@ -27,20 +27,20 @@ export default function InputShowcase() {
               react: `<Input size="sm" placeholder="Small" />
 <Input size="md" placeholder="Medium" />
 <Input size="lg" placeholder="Large" />`,
-              js: `<Input size="sm" placeholder="Small" />
-<Input size="md" placeholder="Medium" />
-<Input size="lg" placeholder="Large" />
+              js: `<l-Input size="sm" placeholder="Small" />
+<l-Input size="md" placeholder="Medium" />
+<l-Input size="lg" placeholder="Large" />
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <Input size="sm" placeholder="Small" />
-  <Input size="md" placeholder="Medium" />
-  <Input size="lg" placeholder="Large" />
+  <l-Input size="sm" placeholder="Small" />
+  <l-Input size="md" placeholder="Medium" />
+  <l-Input size="lg" placeholder="Large" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import "lojee-ui/elements";
 </script>`,
               angular: `// app.component.ts
@@ -52,9 +52,9 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <Input size="sm" placeholder="Small" />
-    <Input size="md" placeholder="Medium" />
-    <Input size="lg" placeholder="Large" />
+    <l-Input size="sm" placeholder="Small" />
+    <l-Input size="md" placeholder="Medium" />
+    <l-Input size="lg" placeholder="Large" />
   \`,
 })
 export class AppComponent {}`,
@@ -74,18 +74,18 @@ export class AppComponent {}`,
               react: `<Input leadingIcon="mail" placeholder="Email address" />
 <Input trailingIcon="eye" type="password" placeholder="Password" />
 <Input leadingIcon="user" trailingIcon="circle-check" placeholder="Username" />`,
-              js: `<Input leadingIcon="mail" placeholder="Email address" />
-<Input trailingIcon="eye" type="password" placeholder="Password" />
-<Input leadingIcon="user" trailingIcon="circle-check" placeholder="Username" />`,
+              js: `<l-Input leadingIcon="mail" placeholder="Email address" />
+<l-Input trailingIcon="eye" type="password" placeholder="Password" />
+<l-Input leadingIcon="user" trailingIcon="circle-check" placeholder="Username" />`,
               vue: `<template>
-  <Input leadingIcon="mail" placeholder="Email address" />
-  <Input trailingIcon="eye" type="password" placeholder="Password" />
-  <Input leadingIcon="user" trailingIcon="circle-check" placeholder="Username" />
+  <l-Input leadingIcon="mail" placeholder="Email address" />
+  <l-Input trailingIcon="eye" type="password" placeholder="Password" />
+  <l-Input leadingIcon="user" trailingIcon="circle-check" placeholder="Username" />
 </template>`,
               angular: `<!-- app.component.html — same AppComponent as above -->
-<Input leadingIcon="mail" placeholder="Email address" />
-<Input trailingIcon="eye" type="password" placeholder="Password" />
-<Input leadingIcon="user" trailingIcon="circle-check" placeholder="Username" />`,
+<l-Input leadingIcon="mail" placeholder="Email address" />
+<l-Input trailingIcon="eye" type="password" placeholder="Password" />
+<l-Input leadingIcon="user" trailingIcon="circle-check" placeholder="Username" />`,
             }}
           />
         </section>
@@ -98,9 +98,9 @@ export class AppComponent {}`,
           <CodeBlock
             variants={{
               react: `<Input invalid defaultValue="not-an-email" leadingIcon="mail" />`,
-              js: `<Input invalid value="not-an-email" leadingIcon="mail" />`,
-              vue: `<Input invalid value="not-an-email" leadingIcon="mail" />`,
-              angular: `<Input invalid value="not-an-email" leadingIcon="mail" />`,
+              js: `<l-Input invalid value="not-an-email" leadingIcon="mail" />`,
+              vue: `<l-Input invalid value="not-an-email" leadingIcon="mail" />`,
+              angular: `<l-Input invalid value="not-an-email" leadingIcon="mail" />`,
             }}
           />
         </section>
@@ -117,7 +117,7 @@ export class AppComponent {}`,
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Type something…"
             />
-            {isInvalidEmail && <p className="mt-1.5 text-xs text-rose-600">Must contain an "@".</p>}
+            {isInvalidEmail && <p className="mt-1.5 text-xs text-rose-600 dark:text-rose-400">Must contain an "@".</p>}
           </div>
           <CodeBlock
             variants={{
@@ -131,7 +131,7 @@ const isInvalidEmail = email.length > 0 && !email.includes("@");
   onChange={(e) => setEmail(e.target.value)}
   placeholder="Type something…"
 />`,
-              js: `<Input id="email-input" size="md" placeholder="Type something…" />
+              js: `<l-Input id="email-input" size="md" placeholder="Type something…" />
 <p id="email-error" class="hidden">Must contain an "@".</p>
 
 <script type="module">
@@ -146,7 +146,7 @@ const isInvalidEmail = email.length > 0 && !email.includes("@");
   });
 </script>`,
               vue: `<template>
-  <Input
+  <l-Input
     size="md"
     :invalid="isInvalidEmail"
     :value="email"
@@ -156,7 +156,7 @@ const isInvalidEmail = email.length > 0 && !email.includes("@");
   <p v-if="isInvalidEmail">Must contain an "@".</p>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, computed } from "vue";
 
 const email = ref("");
@@ -172,7 +172,7 @@ onEmailInput(e: Event) {
 }
 
 <!-- app.component.html -->
-<Input
+<l-Input
   size="md"
   [invalid]="isInvalidEmail"
   [value]="email"
@@ -192,9 +192,9 @@ onEmailInput(e: Event) {
           <CodeBlock
             variants={{
               react: `<Input disabled placeholder="Disabled" />`,
-              js: `<Input disabled placeholder="Disabled" />`,
-              vue: `<Input disabled placeholder="Disabled" />`,
-              angular: `<Input disabled placeholder="Disabled" />`,
+              js: `<l-Input disabled placeholder="Disabled" />`,
+              vue: `<l-Input disabled placeholder="Disabled" />`,
+              angular: `<l-Input disabled placeholder="Disabled" />`,
             }}
           />
         </section>

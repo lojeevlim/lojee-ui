@@ -4,11 +4,11 @@ import { SectionLabel, Row } from "../../ShowcaseHelpers";
 
 export default function SpinnerShowcase() {
   return (
-    <div className="min-h-screen bg-white p-6 md:p-10">
+    <div className="min-h-screen rounded-xl bg-surface p-6 md:p-10">
       <div className="max-w-5xl mx-auto space-y-12">
         <div>
-          <h1 className="text-2xl font-semibold text-slate-900">Spinner</h1>
-          <p className="text-sm text-slate-500 mt-1">
+          <h1 className="text-2xl font-semibold text-fg">Spinner</h1>
+          <p className="text-sm text-fg-subtle mt-1">
             Inline loading indicators — five variants, from a spinning icon to a pulsing dot.
           </p>
         </div>
@@ -25,16 +25,16 @@ export default function SpinnerShowcase() {
           <CodeBlock
             variants={{
               react: `<Spinner size="md" />`,
-              js: `<Spinner size="md" />
+              js: `<l-Spinner size="md" />
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <Spinner size="md" />
+  <l-Spinner size="md" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import "lojee-ui/elements";
 </script>`,
               angular: `// spinner-showcase.component.ts
@@ -45,7 +45,7 @@ import "lojee-ui/elements";
   selector: "app-spinner-showcase",
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  template: \`<Spinner size="md" />\`,
+  template: \`<l-Spinner size="md" />\`,
 })
 export class SpinnerShowcaseComponent {}`,
             }}
@@ -64,12 +64,12 @@ export class SpinnerShowcaseComponent {}`,
           <CodeBlock
             variants={{
               react: `<Spinner color="indigo" />`,
-              js: `<Spinner color="indigo" />`,
+              js: `<l-Spinner color="indigo" />`,
               vue: `<template>
-  <Spinner color="indigo" />
+  <l-Spinner color="indigo" />
 </template>`,
               angular: `<!-- reuses SpinnerShowcaseComponent from above -->
-<Spinner color="indigo" />`,
+<l-Spinner color="indigo" />`,
             }}
           />
         </section>
@@ -90,24 +90,24 @@ export class SpinnerShowcaseComponent {}`,
 <Spinner variant="ring" color="indigo" />
 <Spinner variant="bars" color="indigo" />
 <Spinner variant="pulse" color="indigo" />`,
-              js: `<Spinner variant="circle" color="indigo" />
-<Spinner variant="dots" color="indigo" />
-<Spinner variant="ring" color="indigo" />
-<Spinner variant="bars" color="indigo" />
-<Spinner variant="pulse" color="indigo" />`,
+              js: `<l-Spinner variant="circle" color="indigo" />
+<l-Spinner variant="dots" color="indigo" />
+<l-Spinner variant="ring" color="indigo" />
+<l-Spinner variant="bars" color="indigo" />
+<l-Spinner variant="pulse" color="indigo" />`,
               vue: `<template>
-  <Spinner variant="circle" color="indigo" />
-  <Spinner variant="dots" color="indigo" />
-  <Spinner variant="ring" color="indigo" />
-  <Spinner variant="bars" color="indigo" />
-  <Spinner variant="pulse" color="indigo" />
+  <l-Spinner variant="circle" color="indigo" />
+  <l-Spinner variant="dots" color="indigo" />
+  <l-Spinner variant="ring" color="indigo" />
+  <l-Spinner variant="bars" color="indigo" />
+  <l-Spinner variant="pulse" color="indigo" />
 </template>`,
               angular: `<!-- reuses SpinnerShowcaseComponent from above -->
-<Spinner variant="circle" color="indigo" />
-<Spinner variant="dots" color="indigo" />
-<Spinner variant="ring" color="indigo" />
-<Spinner variant="bars" color="indigo" />
-<Spinner variant="pulse" color="indigo" />`,
+<l-Spinner variant="circle" color="indigo" />
+<l-Spinner variant="dots" color="indigo" />
+<l-Spinner variant="ring" color="indigo" />
+<l-Spinner variant="bars" color="indigo" />
+<l-Spinner variant="pulse" color="indigo" />`,
             }}
           />
         </section>

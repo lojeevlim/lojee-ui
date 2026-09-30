@@ -19,11 +19,11 @@ export default function ComboboxShowcase() {
   const [empty, setEmpty] = useState<string | undefined>(undefined);
 
   return (
-    <div className="min-h-screen bg-white p-6 md:p-10">
+    <div className="min-h-screen rounded-xl bg-surface p-6 md:p-10">
       <div className="max-w-5xl mx-auto space-y-12">
         <div>
-          <h1 className="text-2xl font-semibold text-slate-900">Combobox</h1>
-          <p className="text-sm text-slate-500 mt-1">
+          <h1 className="text-2xl font-semibold text-fg">Combobox</h1>
+          <p className="text-sm text-fg-subtle mt-1">
             A single-select text input with a filtered, keyboard-navigable autocomplete dropdown.
           </p>
         </div>
@@ -38,7 +38,7 @@ export default function ComboboxShowcase() {
               react: `const [value, setValue] = useState<string | undefined>("manila");
 
 <Combobox options={options} value={value} onChange={setValue} placeholder="Search a city..." />`,
-              js: `<Combobox id="city-combobox" placeholder="Search a city..." />
+              js: `<l-Combobox id="city-combobox" placeholder="Search a city..." />
 
 <script type="module">
   import "lojee-ui/elements";
@@ -62,10 +62,10 @@ export default function ComboboxShowcase() {
   });
 </script>`,
               vue: `<template>
-  <Combobox :options="options" :value="value" placeholder="Search a city..." @change="value = $event.detail" />
+  <l-Combobox :options="options" :value="value" placeholder="Search a city..." @change="value = $event.detail" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 import "lojee-ui/elements";
 
@@ -105,7 +105,7 @@ export class AppComponent {
 }
 
 <!-- app.component.html -->
-<Combobox [options]="options" [value]="value" placeholder="Search a city..." (change)="value = $event.detail" />`,
+<l-Combobox [options]="options" [value]="value" placeholder="Search a city..." (change)="value = $event.detail" />`,
             }}
           />
         </section>
@@ -118,7 +118,7 @@ export class AppComponent {
           <CodeBlock
             variants={{
               react: `<Combobox options={options} value={undefined} onChange={setValue} placeholder="Search a city..." />`,
-              js: `<Combobox id="city-combobox-empty" placeholder="Search a city..." />
+              js: `<l-Combobox id="city-combobox-empty" placeholder="Search a city..." />
 
 <script type="module">
   const combobox = document.getElementById("city-combobox-empty");
@@ -128,10 +128,10 @@ export class AppComponent {
   });
 </script>`,
               vue: `<template>
-  <Combobox :options="options" placeholder="Search a city..." @change="value = $event.detail" />
+  <l-Combobox :options="options" placeholder="Search a city..." @change="value = $event.detail" />
 </template>`,
               angular: `<!-- app.component.html — same AppComponent class as above, value left undefined -->
-<Combobox [options]="options" placeholder="Search a city..." (change)="value = $event.detail" />`,
+<l-Combobox [options]="options" placeholder="Search a city..." (change)="value = $event.detail" />`,
             }}
           />
         </section>

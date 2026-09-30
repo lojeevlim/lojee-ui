@@ -7,8 +7,11 @@ import { Button } from "./Button";
 export interface SplitButtonProps {
   /** Icon name, e.g. "check" — see src/core/icons.ts for the available set. */
   icon?: string;
+  /** Text of the main action button (also used to build the default menu accessible name). */
   label: string;
+  /** Called with the click event when the main action button is clicked. */
   onClick?: MouseEventHandler<HTMLButtonElement>;
+  /** Called with the click event when the chevron trigger is clicked, before the menu (if any) toggles. */
   onMenuClick?: MouseEventHandler<HTMLButtonElement>;
   /** Accessible name for the chevron trigger; defaults to `${label} options`. */
   menuLabel?: string;
@@ -21,8 +24,11 @@ export interface SplitButtonProps {
    * callback. Closes on selecting an item, outside click, or Escape.
    */
   children?: ReactNode;
+  /** Visual style shared by both halves: "solid", "outline", "ghost", "soft", "link" or "dashed" (default: "solid"). */
   variant?: ColorVariant;
+  /** Button color, one of the built-in `ColorName`s (default: "accent", which follows the theme accent). */
   color?: ColorName;
+  /** "xs" | "sm" | "md" | "lg" | "xl" | "full" (default: "md"). */
   size?: Size;
   /**
    * Corner treatment for the whole group (default keeps the built-in
@@ -31,7 +37,9 @@ export interface SplitButtonProps {
    * `overflow-hidden`, so the divider between them stays a straight edge.
    */
   shape?: Shape;
+  /** Disables both the main button and the chevron trigger (default: false). */
   disabled?: boolean;
+  /** Extra class names applied to the button group element. */
   className?: string;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
   classNames?: {
@@ -52,7 +60,7 @@ export function SplitButton({
   menuIcon = "chevron-down",
   children,
   variant = "solid",
-  color = "slate",
+  color = "accent",
   size = "md",
   shape = "default",
   disabled = false,
@@ -135,7 +143,7 @@ export function SplitButton({
           // never closes the menu, with no extra handling needed.
           onClick={() => setOpen(false)}
           className={cx(
-            "absolute right-0 z-10 mt-1.5 min-w-[10rem] overflow-hidden rounded-lg border border-slate-200 bg-white py-1 shadow-lg",
+            "absolute right-0 z-10 mt-1.5 min-w-[10rem] overflow-hidden rounded-lg border border-border bg-surface py-1 shadow-lg",
             classNames?.menu
           )}
         >

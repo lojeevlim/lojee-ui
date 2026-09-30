@@ -1,31 +1,57 @@
 import { useState } from "react";
 import { Navbar, type NavbarVariant } from "./Navbar/Navbar";
-import { Button } from "./Buttons/Button";
 import { Avatar } from "./Avatar/Avatar";
-import { OptionGroup, PlaygroundLayout, AppWindowFrame } from "./PlaygroundHelpers";
+import { OptionGroup, ColorSwatches, PlaygroundLayout, AppWindowFrame } from "./PlaygroundHelpers";
+import { cx, isColorName, COLOR_HEX } from "../../core/tokens";
 import type { CodeBlockVariants } from "./CodeBlock";
 
-const VARIANTS: NavbarVariant[] = ["light", "dark", "elevated"];
+const VARIANTS: NavbarVariant[] = ["light", "dark", "bordered", "elevated", "minimal", "gradient", "glass"];
+
+// `items` instead of composed NavbarItems — dark/color theming all come from Navbar itself
+// automatically once items are generated from it, no manual wiring needed the way composing
+// NavbarItem directly requires (same split as Sidebar's own `items`/`SidebarMenuItem`). None of these
+// set `active` themselves, so Navbar's own self-managed selection kicks in — click a link below to
+// see it (tracked here only to show the "Active" readout, not required for it to work).
+const NAV_ITEMS = [{ label: "Home" }, { label: "Products" }];
+const DEFAULT_ACTIVE_OPTIONS = ["none", ...NAV_ITEMS.map((item) => item.label)];
 
 export default function NavbarPlayground() {
   const [brand, setBrand] = useState("Lojee");
   const [sticky, setSticky] = useState(false);
   const [bordered, setBordered] = useState(true);
   const [variant, setVariant] = useState<NavbarVariant>("light");
-  const onDark = variant === "dark";
-  const linkClass = onDark ? "text-white/80 hover:text-white hover:bg-white/10" : undefined;
+  const [color, setColor] = useState<string>("accent");
+  const [borderWidth, setBorderWidth] = useState(2);
+  const [defaultActiveItem, setDefaultActiveItem] = useState("Home");
+  const [activeLabel, setActiveLabel] = useState<string | undefined>(undefined);
+  const defaultActiveItemValue = defaultActiveItem === "none" ? undefined : defaultActiveItem;
+  const onDark = variant === "dark" || variant === "gradient" || variant === "glass";
+  // Only "bordered" has an adjustable border — "elevated" is shadow-only (see Navbar.tsx's
+  // `hasAccentBorder`), so the border-thickness control has nothing to affect there.
+  const showBorderWidthControl = variant === "bordered";
+  // "minimal" has no chrome of its own by design (it's meant to blend into the page) — this tint is
+  // purely so its boundary is visible in the playground UI, not something a real usage needs to
+  // replicate (same purpose as SidebarPlayground's own `DOCK_CELL_CLASSES`). Applied to the scroll
+  // container itself (below), not a div wrapping just the navbar — see that div's own comment for why.
+  const isMinimal = variant === "minimal";
 
   const navbar = (
+    // Only an initial default (see Navbar.tsx's `defaultActiveItem` doc) — the preview remounts on
+    // change (via `key`) so picking a different one is actually visible here, same as a fresh page
+    // load would show; it wouldn't otherwise re-apply on top of whatever's already selected.
     <Navbar
+      key={defaultActiveItemValue}
       brand={brand ? <span className={onDark ? "text-white" : undefined}>{brand}</span> : undefined}
       sticky={sticky}
       bordered={bordered}
       variant={variant}
+      color={color}
+      borderWidth={borderWidth}
+      defaultActiveItem={defaultActiveItemValue}
+      onActiveItemChange={(item) => setActiveLabel(item.label)}
+      items={NAV_ITEMS}
       actions={<Avatar initials="JD" size="sm" />}
-    >
-      <Button variant="ghost" label="Home" className={linkClass} />
-      <Button variant="ghost" label="Products" className={linkClass} />
-    </Navbar>
+    />
   );
 
   // Navbar docks to the top of a page — shown with scrollable content below
@@ -33,11 +59,19 @@ export default function NavbarPlayground() {
   // scrolling away with the rest of the page.
   const preview = (
     <AppWindowFrame>
-      <div className="h-56 overflow-y-auto bg-white">
+      {/* A `position: sticky` element can only stay stuck within the bounds of its own immediate
+          parent's box — once you scroll past that parent's bottom edge, it scrolls away with it, since
+          there's nowhere left to stick to. A div wrapping just the navbar (even an unstyled one) gives
+          it a parent whose height exactly equals the navbar's own height, with zero room below it — so
+          `sticky` broke immediately on any scroll at all, no matter how small. The navbar is a direct
+          child of this scroll container instead, sharing its full `h-56` height as its containing block
+          so sticky has real room to work — "minimal"'s own visibility tint (see `isMinimal` above)
+          lives on this same container rather than a separate wrapper div, for the same reason. */}
+      <div className={cx("h-56 overflow-y-auto", isMinimal ? "bg-surface-muted p-3" : "bg-surface")}>
         {navbar}
-        <div className="space-y-3 p-4">
+        <div className={cx("space-y-3", !isMinimal && "p-4")}>
           {Array.from({ length: 8 }).map((_, i) => (
-            <p key={i} className="text-sm text-slate-400">
+            <p key={i} className="text-sm text-fg-subtle">
               Scroll row {i + 1}
             </p>
           ))}
@@ -51,52 +85,167 @@ export default function NavbarPlayground() {
   const borderedAttrJsx = bordered ? "" : " bordered={false}";
   const borderedAttrHtml = bordered ? "" : ` bordered="false"`;
   const variantAttr = variant !== "light" ? ` variant="${variant}"` : "";
+  const colorAttr = color !== "accent" ? ` color="${color}"` : "";
+  // Only meaningful for "bordered" — no point showing it in the sample for any other variant.
+  const borderWidthAttrJsx = showBorderWidthControl && borderWidth !== 2 ? ` borderWidth={${borderWidth}}` : "";
+  const borderWidthAttrHtml = showBorderWidthControl && borderWidth !== 2 ? ` border-width="${borderWidth}"` : "";
+  const itemsLiteral = `[\n${NAV_ITEMS.map((item) => `    { label: "${item.label}" },`).join("\n")}\n  ]`;
+  const defaultActiveItemAttrJsx = defaultActiveItemValue ? ` defaultActiveItem="${defaultActiveItemValue}"` : "";
+  const defaultActiveItemAttrHtml = defaultActiveItemValue ? ` default-active-item="${defaultActiveItemValue}"` : "";
 
-  const code = `<Navbar${brandAttr}${stickyAttr}${borderedAttrJsx}${variantAttr} actions={<Avatar initials="JD" size="sm" />}>
-  <Button variant="ghost" label="Home" />
-  <Button variant="ghost" label="Products" />
-</Navbar>`;
+  const code = `<Navbar${brandAttr}${stickyAttr}${borderedAttrJsx}${variantAttr}${colorAttr}${borderWidthAttrJsx}${defaultActiveItemAttrJsx}
+  onActiveItemChange={(item) => console.log(item)}
+  items={${itemsLiteral}}
+  actions={<Avatar initials="JD" size="sm" />}
+/>`;
 
   // Custom-element markup: `brand` stays a plain snapshot attribute (simple
   // text), while `actions` (an Avatar component) is projected as light-DOM
   // content via slot="actions" — same treatment NotificationShowcase.tsx
-  // gives its `actions` prop.
-  const htmlMarkup = `<Navbar${brandAttr}${stickyAttr}${borderedAttrHtml}${variantAttr}>
-  <Button variant="ghost" label="Home" />
-  <Button variant="ghost" label="Products" />
-  <div slot="actions">
-    <Avatar initials="JD" size="sm" />
-  </div>
-</Navbar>`;
-
+  // gives its `actions` prop. `items` itself always goes through the real
+  // property (`.items =` / `:items` / `[items]`), never an attribute — same
+  // reasoning as SidebarPlayground's own sample: arrays can't round-trip
+  // through a plain HTML attribute string.
   const codeVariants: CodeBlockVariants = {
     react: code,
-    js: `${htmlMarkup}\n\n<script type="module">import "lojee-ui/elements";</script>`,
-    vue: htmlMarkup,
-    angular: htmlMarkup,
+    js: `<l-Navbar id="app-navbar"${brandAttr}${stickyAttr}${borderedAttrHtml}${variantAttr}${colorAttr}${borderWidthAttrHtml}${defaultActiveItemAttrHtml}>
+  <div slot="actions">
+    <l-Avatar initials="JD" size="sm" />
+  </div>
+</l-Navbar>
+
+<script type="module">
+  import "lojee-ui/elements";
+
+  const navbar = document.getElementById("app-navbar");
+  navbar.items = ${itemsLiteral};
+  navbar.addEventListener("activeitemchange", (e) => console.log(e.detail));
+</script>`,
+    vue: `<template>
+  <!-- l-Navbar is a native custom element, not a Vue component — Vue's own #slotName shorthand only
+       resolves for actual Vue components, so a real light-DOM slot="actions" is what projects here,
+       same plain attribute vanilla JS/Angular use below. -->
+  <l-Navbar${brandAttr}${stickyAttr}${borderedAttrHtml}${variantAttr}${colorAttr}${borderWidthAttrHtml}${defaultActiveItemAttrHtml} :items="items" @activeitemchange="(e) => console.log(e.detail)">
+    <div slot="actions">
+      <l-Avatar initials="JD" size="sm" />
+    </div>
+  </l-Navbar>
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+
+const items = ${itemsLiteral};
+</script>`,
+    angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`<l-Navbar${brandAttr}${stickyAttr}${borderedAttrHtml}${variantAttr}${colorAttr}${borderWidthAttrHtml}${defaultActiveItemAttrHtml} [items]="items" (activeitemchange)="onActiveItemChange($event.detail)">
+    <div slot="actions">
+      <l-Avatar initials="JD" size="sm" />
+    </div>
+  </l-Navbar>\`,
+})
+export class AppComponent {
+  items = ${itemsLiteral};
+  onActiveItemChange(item: unknown) {
+    console.log(item);
+  }
+}`,
   };
 
   return (
     <PlaygroundLayout preview={preview} variants={codeVariants}>
       <div className="sm:col-span-2">
-        <span className="mb-1.5 block text-xs font-medium text-slate-500">Brand</span>
+        <span className="mb-1.5 block text-xs font-medium text-fg-subtle">Brand</span>
         <input
           value={brand}
           onChange={(e) => setBrand(e.target.value)}
-          className="w-full rounded-md border border-slate-200 px-3 py-1.5 text-sm text-slate-900 outline-none transition-colors focus:border-slate-400"
+          className="w-full rounded-md border border-border px-3 py-1.5 text-sm text-fg outline-none transition-colors focus:border-border-strong"
           placeholder="Lojee"
         />
       </div>
       <OptionGroup label="Variant" options={VARIANTS} value={variant} onChange={setVariant} />
-      <div className="flex items-center gap-4">
-        <label className="flex items-center gap-2 text-xs font-medium text-slate-500">
-          <input type="checkbox" checked={sticky} onChange={(e) => setSticky(e.target.checked)} />
-          Sticky
-        </label>
-        <label className="flex items-center gap-2 text-xs font-medium text-slate-500">
-          <input type="checkbox" checked={bordered} onChange={(e) => setBordered(e.target.checked)} />
-          Bordered
-        </label>
+      {showBorderWidthControl && (
+        <div>
+          <span className="mb-1.5 flex items-center justify-between text-xs font-medium text-fg-subtle">
+            Border thickness (px)
+            <span className="text-fg-muted">{borderWidth}</span>
+          </span>
+          <input
+            type="range"
+            value={borderWidth}
+            onChange={(e) => setBorderWidth(Number(e.target.value))}
+            className="w-full accent-slate-900"
+            min={1}
+            max={12}
+          />
+        </div>
+      )}
+      <OptionGroup
+        label="Default active item"
+        options={DEFAULT_ACTIVE_OPTIONS}
+        value={defaultActiveItem}
+        onChange={setDefaultActiveItem}
+      />
+      <ColorSwatches
+        // Only ever reflects a *named* selection back onto the fixed swatch
+        // row — a custom color from the wheel below naturally shows none of
+        // them as selected, which is the correct state (it isn't one of them).
+        value={isColorName(color) ? color : "accent"}
+        onChange={setColor}
+        actions={
+          <label
+            className="flex cursor-pointer items-center gap-1.5 rounded-md px-1.5 py-0.5 text-xs font-medium text-fg-subtle transition-colors hover:bg-surface-muted hover:text-fg-muted"
+            title="Pick a custom color — not limited to the swatches above"
+          >
+            {/* A real color wheel: whatever hue the user picks is used
+                exactly as-is (no snapping to the nearest built-in swatch),
+                since `Navbar`'s `color` prop accepts any CSS color value,
+                not just a ColorName. The input itself is invisible and
+                overlaid on a swatch showing the current color, since native
+                color inputs can't otherwise be restyled to match the
+                swatches above it. */}
+            <span
+              className="relative flex h-4 w-4 shrink-0 items-center justify-center rounded-full ring-1 ring-inset ring-black/10"
+              style={{ backgroundColor: isColorName(color) ? COLOR_HEX[color] : color }}
+            >
+              <input
+                type="color"
+                value={isColorName(color) ? COLOR_HEX[color] : color}
+                onChange={(e) => setColor(e.target.value)}
+                aria-label="Pick a custom color"
+                className="absolute inset-0 h-full w-full cursor-pointer opacity-0"
+              />
+            </span>
+            Custom
+          </label>
+        }
+      />
+      {/* Beside (not below) the color swatches above — a normal, un-col-spanned grid cell, same
+          reasoning as OptionGroup/ColorSwatches themselves, so the two share one row instead of this
+          stacking as its own full-width row underneath. */}
+      <div className="flex flex-col justify-center gap-2">
+        <div className="flex items-center gap-4">
+          <label className="flex items-center gap-2 text-xs font-medium text-fg-subtle">
+            <input type="checkbox" checked={sticky} onChange={(e) => setSticky(e.target.checked)} />
+            Sticky
+          </label>
+          <label className="flex items-center gap-2 text-xs font-medium text-fg-subtle">
+            <input type="checkbox" checked={bordered} onChange={(e) => setBordered(e.target.checked)} />
+            Bordered
+          </label>
+        </div>
+        {activeLabel != null && (
+          <p className="text-xs font-medium text-fg-subtle">
+            Active: <span className="text-fg-muted">{activeLabel}</span>
+          </p>
+        )}
       </div>
     </PlaygroundLayout>
   );

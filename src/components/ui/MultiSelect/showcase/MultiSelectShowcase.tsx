@@ -18,11 +18,11 @@ export default function MultiSelectShowcase() {
   const [empty, setEmpty] = useState<string[]>([]);
 
   return (
-    <div className="min-h-screen bg-white p-6 md:p-10">
+    <div className="min-h-screen rounded-xl bg-surface p-6 md:p-10">
       <div className="max-w-5xl mx-auto space-y-12">
         <div>
-          <h1 className="text-2xl font-semibold text-slate-900">MultiSelect</h1>
-          <p className="text-sm text-slate-500 mt-1">
+          <h1 className="text-2xl font-semibold text-fg">MultiSelect</h1>
+          <p className="text-sm text-fg-subtle mt-1">
             A button trigger showing selected items as removable chips, opening a checkbox-style dropdown listbox on
             click.
           </p>
@@ -38,7 +38,7 @@ export default function MultiSelectShowcase() {
               react: `const [value, setValue] = useState<string[]>(["banana"]);
 
 <MultiSelect options={options} value={value} onChange={setValue} placeholder="Select fruits..." />`,
-              js: `<MultiSelect id="fruit-select" placeholder="Select fruits..." />
+              js: `<l-MultiSelect id="fruit-select" placeholder="Select fruits..." />
 
 <script type="module">
   import "lojee-ui/elements";
@@ -60,10 +60,10 @@ export default function MultiSelectShowcase() {
   });
 </script>`,
               vue: `<template>
-  <MultiSelect :options="options" :value="value" placeholder="Select fruits..." @change="value = $event.detail" />
+  <l-MultiSelect :options="options" :value="value" placeholder="Select fruits..." @change="value = $event.detail" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 import "lojee-ui/elements";
 
@@ -99,7 +99,7 @@ export class AppComponent {
 }
 
 <!-- app.component.html -->
-<MultiSelect [options]="options" [value]="value" placeholder="Select fruits..." (change)="value = $event.detail" />`,
+<l-MultiSelect [options]="options" [value]="value" placeholder="Select fruits..." (change)="value = $event.detail" />`,
             }}
           />
         </section>
@@ -114,7 +114,7 @@ export class AppComponent {
           <CodeBlock
             variants={{
               react: `<MultiSelect options={options} value={value} onChange={setValue} color="violet" />`,
-              js: `<MultiSelect id="colored-select" color="violet" />
+              js: `<l-MultiSelect id="colored-select" color="violet" />
 
 <script type="module">
   const select = document.getElementById("colored-select");
@@ -125,10 +125,10 @@ export class AppComponent {
   });
 </script>`,
               vue: `<template>
-  <MultiSelect :options="options" :value="value" color="violet" @change="value = $event.detail" />
+  <l-MultiSelect :options="options" :value="value" color="violet" @change="value = $event.detail" />
 </template>`,
               angular: `<!-- app.component.html — same AppComponent class as above -->
-<MultiSelect [options]="options" [value]="value" color="violet" (change)="value = $event.detail" />`,
+<l-MultiSelect [options]="options" [value]="value" color="violet" (change)="value = $event.detail" />`,
             }}
           />
         </section>
@@ -141,7 +141,7 @@ export class AppComponent {
           <CodeBlock
             variants={{
               react: `<MultiSelect options={options} value={[]} onChange={setValue} placeholder="Nothing selected yet" />`,
-              js: `<MultiSelect id="empty-select" placeholder="Nothing selected yet" />
+              js: `<l-MultiSelect id="empty-select" placeholder="Nothing selected yet" />
 
 <script type="module">
   const select = document.getElementById("empty-select");
@@ -152,10 +152,10 @@ export class AppComponent {
   });
 </script>`,
               vue: `<template>
-  <MultiSelect :options="options" :value="[]" placeholder="Nothing selected yet" @change="value = $event.detail" />
+  <l-MultiSelect :options="options" :value="[]" placeholder="Nothing selected yet" @change="value = $event.detail" />
 </template>`,
               angular: `<!-- app.component.html — same AppComponent class as above -->
-<MultiSelect [options]="options" [value]="[]" placeholder="Nothing selected yet" (change)="value = $event.detail" />`,
+<l-MultiSelect [options]="options" [value]="[]" placeholder="Nothing selected yet" (change)="value = $event.detail" />`,
             }}
           />
         </section>

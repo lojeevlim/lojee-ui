@@ -3,9 +3,11 @@ import { cx, type ColorName } from "../../../core/tokens";
 import { getIcon } from "../../../core/icons";
 
 export interface CheckboxProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "size" | "type"> {
+  /** Text or node shown beside the box; clicking it toggles the checkbox. */
   label?: ReactNode;
-  /** Checked background color (default: slate). */
+  /** Checked background color (default: accent — follows the theme). */
   color?: ColorName;
+  /** Extra class names applied to the root `<label>` element. */
   className?: string;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
   classNames?: {
@@ -16,9 +18,10 @@ export interface CheckboxProps extends Omit<InputHTMLAttributes<HTMLInputElement
 }
 
 const CHECKED_BG: Record<ColorName, string> = {
-  slate: "peer-checked:bg-slate-900",
+  slate: "peer-checked:bg-slate-900 dark:peer-checked:bg-slate-600",
   gray: "peer-checked:bg-gray-600",
   indigo: "peer-checked:bg-indigo-600",
+  accent: "peer-checked:bg-accent-600",
   violet: "peer-checked:bg-violet-600",
   blue: "peer-checked:bg-blue-600",
   cyan: "peer-checked:bg-cyan-600",
@@ -30,7 +33,7 @@ const CHECKED_BG: Record<ColorName, string> = {
   pink: "peer-checked:bg-pink-600",
 };
 
-export function Checkbox({ label, color = "slate", className, classNames, ...rest }: CheckboxProps) {
+export function Checkbox({ label, color = "accent", className, classNames, ...rest }: CheckboxProps) {
   // getIcon() always returns the same stable, module-level-imported
   // component reference for a given name, so this never actually causes a
   // remount — the lint rule can't verify that statically, hence the disable.
@@ -38,7 +41,7 @@ export function Checkbox({ label, color = "slate", className, classNames, ...res
   return (
     <label
       className={cx(
-        "inline-flex items-center gap-2 text-sm text-slate-700",
+        "inline-flex items-center gap-2 text-sm text-fg-muted",
         rest.disabled && "opacity-40 pointer-events-none",
         className,
         classNames?.root
@@ -52,7 +55,7 @@ export function Checkbox({ label, color = "slate", className, classNames, ...res
         <input type="checkbox" className="peer sr-only" {...rest} />
         <span
           className={cx(
-            "absolute inset-0 rounded border border-slate-300 bg-white transition-colors peer-checked:border-transparent peer-focus-visible:ring-2 peer-focus-visible:ring-slate-500/30",
+            "absolute inset-0 rounded border border-border-strong bg-surface transition-colors peer-checked:border-transparent peer-focus-visible:ring-2 peer-focus-visible:ring-slate-500/30",
             CHECKED_BG[color],
             classNames?.box
           )}

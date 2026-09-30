@@ -4,10 +4,15 @@ import { X } from "lucide-react";
 import { cx } from "../../../core/tokens";
 
 export interface SheetProps {
+  /** Whether the sheet is shown (controlled) — renders nothing when false; slides up from the bottom when it becomes true. */
   open: boolean;
+  /** Called with no arguments when the user presses Escape, clicks the overlay, or clicks the close button; the consumer should set `open` to false. */
   onClose: () => void;
+  /** Content of the header title, rendered next to the close button. */
   title?: ReactNode;
+  /** Body content, rendered in the scrollable area below the header. */
   children?: ReactNode;
+  /** Extra CSS class(es) added to the sliding panel (same target as `classNames.panel`). */
   className?: string;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
   classNames?: {
@@ -58,19 +63,19 @@ export function Sheet({ open, onClose, title, children, className, classNames }:
       <div className={cx("absolute inset-0 bg-black/40 backdrop-blur-sm", classNames?.overlay)} onClick={onClose} />
       <div
         className={cx(
-          "fixed bottom-0 left-0 right-0 flex max-h-[80vh] flex-col overflow-hidden rounded-t-2xl bg-white shadow-2xl ring-1 ring-black/5 transition-transform duration-300 ease-out",
+          "fixed bottom-0 left-0 right-0 flex max-h-[80vh] flex-col overflow-hidden rounded-t-2xl bg-surface shadow-2xl ring-1 ring-black/5 dark:ring-white/10 transition-transform duration-300 ease-out",
           entered ? "translate-y-0" : "translate-y-full",
           className,
           classNames?.panel
         )}
       >
         <div className="flex shrink-0 justify-center pt-3">
-          <div className={cx("mx-auto h-1 w-10 rounded-full bg-slate-300", classNames?.handle)} />
+          <div className={cx("mx-auto h-1 w-10 rounded-full bg-border-strong", classNames?.handle)} />
         </div>
         <div
-          className={cx("flex shrink-0 items-center justify-between border-b border-slate-200 px-6 py-4", classNames?.header)}
+          className={cx("flex shrink-0 items-center justify-between border-b border-border px-6 py-4", classNames?.header)}
         >
-          <h2 className={cx("text-base font-semibold text-slate-900", classNames?.title)}>
+          <h2 className={cx("text-base font-semibold text-fg", classNames?.title)}>
             <slot name="title">{title}</slot>
           </h2>
           <button
@@ -78,7 +83,7 @@ export function Sheet({ open, onClose, title, children, className, classNames }:
             onClick={onClose}
             aria-label="Close"
             className={cx(
-              "rounded-md p-1.5 text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-700",
+              "rounded-md p-1.5 text-fg-subtle transition-colors hover:bg-surface-muted hover:text-fg-muted",
               classNames?.closeButton
             )}
           >

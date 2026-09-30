@@ -14,11 +14,11 @@ export default function UserMenuShowcase() {
   const [lastClicked, setLastClicked] = useState<string | null>(null);
 
   return (
-    <div className="min-h-screen bg-white p-6 md:p-10">
+    <div className="min-h-screen rounded-xl bg-surface p-6 md:p-10">
       <div className="max-w-5xl mx-auto space-y-12">
         <div>
-          <h1 className="text-2xl font-semibold text-slate-900">User Menu</h1>
-          <p className="text-sm text-slate-500 mt-1">
+          <h1 className="text-2xl font-semibold text-fg">User Menu</h1>
+          <p className="text-sm text-fg-subtle mt-1">
             An avatar-triggered dropdown menu — the classic "click your avatar" pattern, built on top of DropdownMenu.
           </p>
         </div>
@@ -41,7 +41,7 @@ export default function UserMenuShowcase() {
     { label: "Log out", icon: "arrow-right", danger: true },
   ]}
 />`,
-              js: `<UserMenu id="user-menu" name="Jordan Diaz" email="jordan@lojee.io" avatarInitials="JD"></UserMenu>
+              js: `<l-UserMenu id="user-menu" name="Jordan Diaz" email="jordan@lojee.io" avatarInitials="JD"></l-UserMenu>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -58,10 +58,10 @@ export default function UserMenuShowcase() {
   });
 </script>`,
               vue: `<template>
-  <UserMenu name="Jordan Diaz" email="jordan@lojee.io" avatarInitials="JD" :items="items" @itemselect="onSelect" />
+  <l-UserMenu name="Jordan Diaz" email="jordan@lojee.io" avatarInitials="JD" :items="items" @itemselect="onSelect" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 const items = [
   { label: "Profile", icon: "user" },
   { label: "Settings", icon: "settings" },
@@ -73,13 +73,13 @@ function onSelect(item) {
   console.log("Selected:", item);
 }
 </script>`,
-              angular: `<UserMenu
+              angular: `<l-UserMenu
   name="Jordan Diaz"
   email="jordan@lojee.io"
   avatarInitials="JD"
   [items]="items"
   (itemselect)="onSelect($event)"
-></UserMenu>
+></l-UserMenu>
 
 items = [
   { label: "Profile", icon: "user" },
@@ -103,9 +103,9 @@ onSelect(item) {
           <CodeBlock
             variants={{
               react: `<UserMenu name="Jordan Diaz" avatarInitials="JD" items={items} align="start" />`,
-              js: `<UserMenu align="start"></UserMenu>`,
-              vue: `<UserMenu align="start" :items="items" />`,
-              angular: `<UserMenu align="start" [items]="items"></UserMenu>`,
+              js: `<l-UserMenu align="start"></l-UserMenu>`,
+              vue: `<l-UserMenu align="start" :items="items" />`,
+              angular: `<l-UserMenu align="start" [items]="items"></l-UserMenu>`,
             }}
           />
         </section>
@@ -121,7 +121,7 @@ onSelect(item) {
                 items={ITEMS}
                 onItemSelect={(item) => setLastClicked(item.label)}
               />
-              {lastClicked && <span className="text-sm text-slate-500">Last clicked: {lastClicked}</span>}
+              {lastClicked && <span className="text-sm text-fg-subtle">Last clicked: {lastClicked}</span>}
             </div>
           </Row>
           <CodeBlock
@@ -134,15 +134,15 @@ onSelect(item) {
   items={items}
   onItemSelect={(item) => setLastClicked(item.label)}
 />`,
-              js: `<UserMenu id="user-menu"></UserMenu>
+              js: `<l-UserMenu id="user-menu"></l-UserMenu>
 
 <script type="module">
   document.getElementById("user-menu").addEventListener("itemselect", (e) => {
     console.log("Last clicked:", e.detail.label);
   });
 </script>`,
-              vue: `<UserMenu :items="items" @itemselect="(item) => lastClicked = item.label" />`,
-              angular: `<UserMenu [items]="items" (itemselect)="lastClicked = $event.label"></UserMenu>`,
+              vue: `<l-UserMenu :items="items" @itemselect="(item) => lastClicked = item.label" />`,
+              angular: `<l-UserMenu [items]="items" (itemselect)="lastClicked = $event.label"></l-UserMenu>`,
             }}
           />
         </section>

@@ -15,7 +15,7 @@ const OPTIONS: MultiSelectOption[] = [
 
 export default function MultiSelectPlayground() {
   const [value, setValue] = useState<string[]>(["banana"]);
-  const [color, setColor] = useState<ColorName>("slate");
+  const [color, setColor] = useState<ColorName>("accent");
   const [placeholder, setPlaceholder] = useState("Select fruits...");
 
   // `overflow-visible`: the options panel is an absolutely-positioned div
@@ -48,7 +48,7 @@ export default function MultiSelectPlayground() {
 
   const codeVariants: CodeBlockVariants = {
     react: code,
-    js: `<MultiSelect id="multi-select" placeholder="${placeholder}" color="${color}" />
+    js: `<l-MultiSelect id="multi-select" placeholder="${placeholder}" color="${color}" />
 
 <script type="module">
   import "lojee-ui/elements";
@@ -61,14 +61,14 @@ export default function MultiSelectPlayground() {
   el.value = value;
 </script>`,
     vue: `<template>
-  <MultiSelect :options="options" :value="value" placeholder="${placeholder}" color="${color}" />
+  <l-MultiSelect :options="options" :value="value" placeholder="${placeholder}" color="${color}" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 const options = ${optionsLiteral};
 const value = ${valueLiteral};
 </script>`,
-    angular: `<MultiSelect [options]="options" [value]="value" placeholder="${placeholder}" color="${color}" />
+    angular: `<l-MultiSelect [options]="options" [value]="value" placeholder="${placeholder}" color="${color}" />
 
 options = ${optionsLiteral};
 value = ${valueLiteral};`,
@@ -77,11 +77,11 @@ value = ${valueLiteral};`,
   return (
     <PlaygroundLayout preview={preview} variants={codeVariants}>
       <div className="sm:col-span-2">
-        <span className="mb-1.5 block text-xs font-medium text-slate-500">Placeholder</span>
+        <span className="mb-1.5 block text-xs font-medium text-fg-subtle">Placeholder</span>
         <input
           value={placeholder}
           onChange={(e) => setPlaceholder(e.target.value)}
-          className="w-full rounded-md border border-slate-200 px-3 py-1.5 text-sm text-slate-900 outline-none transition-colors focus:border-slate-400"
+          className="w-full rounded-md border border-border px-3 py-1.5 text-sm text-fg outline-none transition-colors focus:border-border-strong"
           placeholder="Placeholder text"
         />
       </div>
@@ -89,11 +89,11 @@ value = ${valueLiteral};`,
       <ColorSwatches value={color} onChange={setColor} />
 
       <div>
-        <span className="mb-1.5 block text-xs font-medium text-slate-500">Selected</span>
+        <span className="mb-1.5 block text-xs font-medium text-fg-subtle">Selected</span>
         <div className="flex flex-wrap gap-1.5">
-          {value.length === 0 && <span className="text-xs text-slate-400">None</span>}
+          {value.length === 0 && <span className="text-xs text-fg-subtle">None</span>}
           {value.map((v) => (
-            <span key={v} className="rounded-md bg-slate-100 px-2 py-1 text-xs font-medium text-slate-600">
+            <span key={v} className="rounded-md bg-surface-muted px-2 py-1 text-xs font-medium text-fg-muted">
               {v}
             </span>
           ))}

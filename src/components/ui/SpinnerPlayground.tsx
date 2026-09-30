@@ -10,7 +10,7 @@ const VARIANTS: SpinnerVariant[] = ["circle", "dots", "ring", "bars", "pulse"];
 export default function SpinnerPlayground() {
   const [size, setSize] = useState<SpinnerSize>("md");
   const [variant, setVariant] = useState<SpinnerVariant>("circle");
-  const [color, setColor] = useState<ColorName>("slate");
+  const [color, setColor] = useState<ColorName>("accent");
 
   const preview = (
     <AppWindowFrame>
@@ -21,7 +21,7 @@ export default function SpinnerPlayground() {
   );
   const code = `<Spinner variant="${variant}" size="${size}" color="${color}" />`;
 
-  const htmlMarkup = `<Spinner variant="${variant}" size="${size}" color="${color}" />`;
+  const htmlMarkup = `<l-Spinner variant="${variant}" size="${size}" color="${color}" />`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,

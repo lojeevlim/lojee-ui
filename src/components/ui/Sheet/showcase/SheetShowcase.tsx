@@ -9,11 +9,11 @@ export default function SheetShowcase() {
   const [longOpen, setLongOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-white p-6 md:p-10">
+    <div className="min-h-screen rounded-xl bg-surface p-6 md:p-10">
       <div className="max-w-5xl mx-auto space-y-12">
         <div>
-          <h1 className="text-2xl font-semibold text-slate-900">Sheet</h1>
-          <p className="text-sm text-slate-500 mt-1">A mobile-style bottom sheet that slides up from the bottom edge.</p>
+          <h1 className="text-2xl font-semibold text-fg">Sheet</h1>
+          <p className="text-sm text-fg-subtle mt-1">A mobile-style bottom sheet that slides up from the bottom edge.</p>
         </div>
 
         <section>
@@ -22,7 +22,7 @@ export default function SheetShowcase() {
             <Button label="Open sheet" onClick={() => setBasicOpen(true)} />
           </Row>
           <Sheet open={basicOpen} onClose={() => setBasicOpen(false)} title="Sheet title">
-            <p className="text-sm text-slate-600">This is a basic bottom sheet.</p>
+            <p className="text-sm text-fg-muted">This is a basic bottom sheet.</p>
           </Sheet>
           <CodeBlock
             variants={{
@@ -31,10 +31,10 @@ export default function SheetShowcase() {
 <Sheet open={open} onClose={() => setOpen(false)} title="Sheet title">
   <p>This is a basic bottom sheet.</p>
 </Sheet>`,
-              js: `<Button label="Open sheet" id="open-sheet-btn" />
-<Sheet id="basic-sheet" heading="Sheet title">
+              js: `<l-Button label="Open sheet" id="open-sheet-btn" />
+<l-Sheet id="basic-sheet" heading="Sheet title">
   <p>This is a basic bottom sheet.</p>
-</Sheet>
+</l-Sheet>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -45,13 +45,13 @@ export default function SheetShowcase() {
   sheet.addEventListener("close", () => { sheet.open = false; });
 </script>`,
               vue: `<template>
-  <Button label="Open sheet" @click="open = true" />
-  <Sheet :open="open" heading="Sheet title" @close="open = false">
+  <l-Button label="Open sheet" @click="open = true" />
+  <l-Sheet :open="open" heading="Sheet title" @close="open = false">
     <p>This is a basic bottom sheet.</p>
-  </Sheet>
+  </l-Sheet>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 import "lojee-ui/elements";
 
@@ -66,10 +66,10 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <Button label="Open sheet" (click)="open = true" />
-    <Sheet [open]="open" heading="Sheet title" (close)="open = false">
+    <l-Button label="Open sheet" (click)="open = true" />
+    <l-Sheet [open]="open" heading="Sheet title" (close)="open = false">
       <p>This is a basic bottom sheet.</p>
-    </Sheet>
+    </l-Sheet>
   \`,
 })
 export class SheetShowcaseComponent {
@@ -87,7 +87,7 @@ export class SheetShowcaseComponent {
             <Button label="Open long sheet" onClick={() => setLongOpen(true)} />
           </Row>
           <Sheet open={longOpen} onClose={() => setLongOpen(false)} title="Terms & conditions">
-            <div className="space-y-4 text-sm text-slate-600">
+            <div className="space-y-4 text-sm text-fg-muted">
               {Array.from({ length: 20 }, (_, i) => (
                 <p key={i}>
                   Paragraph {i + 1}. Scroll down to see the rest of this content while the sheet stays anchored to the bottom
@@ -103,29 +103,29 @@ export class SheetShowcaseComponent {
     {items.map((item) => <p key={item.id}>{item.text}</p>)}
   </div>
 </Sheet>`,
-              js: `<Sheet id="terms-sheet" heading="Terms & conditions">
+              js: `<l-Sheet id="terms-sheet" heading="Terms & conditions">
   <div>
     <!-- items -->
   </div>
-</Sheet>
+</l-Sheet>
 
 <script type="module">
   const sheet = document.getElementById("terms-sheet");
   sheet.addEventListener("close", () => { sheet.open = false; });
 </script>`,
               vue: `<template>
-  <Sheet :open="open" heading="Terms & conditions" @close="open = false">
+  <l-Sheet :open="open" heading="Terms & conditions" @close="open = false">
     <div>
       <p v-for="item in items" :key="item.id">{{ item.text }}</p>
     </div>
-  </Sheet>
+  </l-Sheet>
 </template>`,
               angular: `<!-- reuses SheetShowcaseComponent from above -->
-<Sheet [open]="open" heading="Terms & conditions" (close)="open = false">
+<l-Sheet [open]="open" heading="Terms & conditions" (close)="open = false">
   <div>
     <p *ngFor="let item of items">{{ item.text }}</p>
   </div>
-</Sheet>`,
+</l-Sheet>`,
             }}
           />
         </section>

@@ -18,17 +18,26 @@ export interface LoginFormValues {
 // primitives internally rather than accepting compound children, so the
 // same component works identically once wrapped as a Web Component.
 export interface LoginFormProps {
+  /** Form heading (default: "Welcome back"). */
   title?: string;
+  /** Helper text shown under the title (default: "Log in to your account to continue."); pass an empty string to hide it. */
   description?: string;
+  /** Submit button label (default: "Log in"). */
   submitLabel?: string;
+  /** Shows the "Remember me" checkbox (default: true). */
   showRemember?: boolean;
+  /** Shows the "Forgot password?" link next to the password label (default: true). */
   showForgotPassword?: boolean;
+  /** Fires on form submit with `{ email, password, remember }`; the default browser submit is prevented. */
   onSubmit?: (values: LoginFormValues) => void;
+  /** Fires when the "Forgot password?" link is clicked, with no arguments. */
   onForgotPassword?: () => void;
   /** Content below the form, e.g. a "Don't have an account? Sign up" link — this component has no
    * opinion about routing/links, the consumer supplies it. */
   footer?: ReactNode;
+  /** Extra class name(s) applied to the root element. */
   className?: string;
+  /** Per-part class overrides — merged after (and win over) the built-in styling. */
   classNames?: { root?: string; header?: string; field?: string; footer?: string };
 }
 
@@ -56,11 +65,11 @@ export function LoginForm({
   return (
     <form
       onSubmit={handleSubmit}
-      className={cx("flex w-full flex-col gap-5 rounded-xl border border-slate-200 bg-white p-6", className, classNames?.root)}
+      className={cx("flex w-full flex-col gap-5 rounded-xl border border-border bg-surface p-6", className, classNames?.root)}
     >
       <div className={classNames?.header}>
-        <h2 className="text-xl font-semibold text-slate-900">{title}</h2>
-        {description && <p className="mt-1 text-sm text-slate-500">{description}</p>}
+        <h2 className="text-xl font-semibold text-fg">{title}</h2>
+        {description && <p className="mt-1 text-sm text-fg-subtle">{description}</p>}
       </div>
 
       <div className={cx("flex flex-col gap-1.5", classNames?.field)}>
@@ -83,7 +92,7 @@ export function LoginForm({
             <button
               type="button"
               onClick={onForgotPassword}
-              className="text-sm font-medium text-slate-600 hover:text-slate-900"
+              className="text-sm font-medium text-fg-muted hover:text-fg"
             >
               Forgot password?
             </button>

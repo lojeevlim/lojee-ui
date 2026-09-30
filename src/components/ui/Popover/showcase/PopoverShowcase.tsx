@@ -5,11 +5,11 @@ import { SectionLabel, Row } from "../../ShowcaseHelpers";
 
 export default function PopoverShowcase() {
   return (
-    <div className="min-h-screen bg-white p-6 md:p-10">
+    <div className="min-h-screen rounded-xl bg-surface p-6 md:p-10">
       <div className="max-w-5xl mx-auto space-y-12">
         <div>
-          <h1 className="text-2xl font-semibold text-slate-900">Popover</h1>
-          <p className="text-sm text-slate-500 mt-1">
+          <h1 className="text-2xl font-semibold text-fg">Popover</h1>
+          <p className="text-sm text-fg-subtle mt-1">
             Click-triggered floating content, anchored to a trigger element — closes on outside
             click or Escape.
           </p>
@@ -36,20 +36,20 @@ export default function PopoverShowcase() {
               react: `<Popover content="Popover on top" position="top">
   <Button variant="outline" label="Top" />
 </Popover>`,
-              js: `<Popover content="Popover on top" position="top">
-  <Button variant="outline" label="Top" />
-</Popover>
+              js: `<l-Popover content="Popover on top" position="top">
+  <l-Button variant="outline" label="Top" />
+</l-Popover>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <Popover content="Popover on top" position="top">
-    <Button variant="outline" label="Top" />
-  </Popover>
+  <l-Popover content="Popover on top" position="top">
+    <l-Button variant="outline" label="Top" />
+  </l-Popover>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import "lojee-ui/elements";
 </script>`,
               angular: `// popover-showcase.component.ts
@@ -61,9 +61,9 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <Popover content="Popover on top" position="top">
-      <Button variant="outline" label="Top" />
-    </Popover>
+    <l-Popover content="Popover on top" position="top">
+      <l-Button variant="outline" label="Top" />
+    </l-Popover>
   \`,
 })
 export class PopoverShowcaseComponent {}`,
@@ -80,12 +80,12 @@ export class PopoverShowcaseComponent {}`,
               position="bottom"
               content={
                 <div className="w-56">
-                  <p className="text-sm font-semibold text-slate-900">Invite a teammate</p>
-                  <p className="mt-1 text-xs text-slate-500">They&apos;ll get an email invite to join this workspace.</p>
+                  <p className="text-sm font-semibold text-fg">Invite a teammate</p>
+                  <p className="mt-1 text-xs text-fg-subtle">They&apos;ll get an email invite to join this workspace.</p>
                   <input
                     type="email"
                     placeholder="name@company.com"
-                    className="mt-3 w-full rounded-md border border-slate-200 px-2.5 py-1.5 text-sm text-slate-900 outline-none transition-colors focus:border-slate-400"
+                    className="mt-3 w-full rounded-md border border-border px-2.5 py-1.5 text-sm text-fg outline-none transition-colors focus:border-border-strong"
                   />
                   <Button className="mt-3 w-full" size="sm" label="Send invite" />
                 </div>
@@ -100,8 +100,8 @@ export class PopoverShowcaseComponent {}`,
   position="bottom"
   content={
     <div className="w-56">
-      <p className="text-sm font-semibold text-slate-900">Invite a teammate</p>
-      <p className="mt-1 text-xs text-slate-500">They'll get an email invite to join this workspace.</p>
+      <p className="text-sm font-semibold text-fg">Invite a teammate</p>
+      <p className="mt-1 text-xs text-fg-subtle">They'll get an email invite to join this workspace.</p>
       <input type="email" placeholder="name@company.com" />
       <Button className="mt-3 w-full" size="sm" label="Send invite" />
     </div>
@@ -109,35 +109,35 @@ export class PopoverShowcaseComponent {}`,
 >
   <Button icon="plus" label="Invite" />
 </Popover>`,
-              js: `<Popover position="bottom">
-  <Button icon="plus" label="Invite" />
+              js: `<l-Popover position="bottom">
+  <l-Button icon="plus" label="Invite" />
   <div slot="content" className="w-56">
-    <p className="text-sm font-semibold text-slate-900">Invite a teammate</p>
-    <p className="mt-1 text-xs text-slate-500">They'll get an email invite to join this workspace.</p>
+    <p className="text-sm font-semibold text-fg">Invite a teammate</p>
+    <p className="mt-1 text-xs text-fg-subtle">They'll get an email invite to join this workspace.</p>
     <input type="email" placeholder="name@company.com" />
-    <Button className="mt-3 w-full" size="sm" label="Send invite" />
+    <l-Button className="mt-3 w-full" size="sm" label="Send invite" />
   </div>
-</Popover>`,
+</l-Popover>`,
               vue: `<template>
-  <Popover position="bottom">
-    <Button icon="plus" label="Invite" />
+  <l-Popover position="bottom">
+    <l-Button icon="plus" label="Invite" />
     <div slot="content" class="w-56">
-      <p class="text-sm font-semibold text-slate-900">Invite a teammate</p>
-      <p class="mt-1 text-xs text-slate-500">They'll get an email invite to join this workspace.</p>
+      <p class="text-sm font-semibold text-fg">Invite a teammate</p>
+      <p class="mt-1 text-xs text-fg-subtle">They'll get an email invite to join this workspace.</p>
       <input type="email" placeholder="name@company.com" />
-      <Button class="mt-3 w-full" size="sm" label="Send invite" />
+      <l-Button class="mt-3 w-full" size="sm" label="Send invite" />
     </div>
-  </Popover>
+  </l-Popover>
 </template>`,
-              angular: `<Popover position="bottom">
-  <Button icon="plus" label="Invite" />
+              angular: `<l-Popover position="bottom">
+  <l-Button icon="plus" label="Invite" />
   <div slot="content" class="w-56">
-    <p class="text-sm font-semibold text-slate-900">Invite a teammate</p>
-    <p class="mt-1 text-xs text-slate-500">They'll get an email invite to join this workspace.</p>
+    <p class="text-sm font-semibold text-fg">Invite a teammate</p>
+    <p class="mt-1 text-xs text-fg-subtle">They'll get an email invite to join this workspace.</p>
     <input type="email" placeholder="name@company.com" />
-    <Button class="mt-3 w-full" size="sm" label="Send invite" />
+    <l-Button class="mt-3 w-full" size="sm" label="Send invite" />
   </div>
-</Popover>`,
+</l-Popover>`,
             }}
           />
         </section>

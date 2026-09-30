@@ -5,10 +5,15 @@ import { cx } from "../../../core/tokens";
 export type PopoverPosition = "top" | "bottom" | "left" | "right";
 
 export interface PopoverProps {
+  /** Content rendered inside the popover panel while it is open. */
   content: ReactNode;
+  /** The trigger element; clicking it toggles the popover. */
   children: ReactNode;
+  /** Which side of the trigger the panel appears on: "top", "bottom" (default), "left" or "right". */
   position?: PopoverPosition;
+  /** Extra CSS class(es) added to the root element, merged before `classNames.root`. */
   className?: string;
+  /** Per-part class overrides — merged after (and win over) the built-in styling. */
   classNames?: {
     root?: string;
     panel?: string;
@@ -52,7 +57,7 @@ export function Popover({ content, children, position = "bottom", className, cla
         <div
           role="dialog"
           className={cx(
-            "absolute z-10 rounded-lg border border-slate-200 bg-white p-4 shadow-lg",
+            "absolute z-10 rounded-lg border border-border bg-surface p-4 shadow-lg",
             POSITION_CLASSES[position],
             classNames?.panel
           )}

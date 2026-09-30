@@ -13,9 +13,9 @@ export default function ContainerPlayground() {
   const preview = (
     <AppWindowFrame>
       <AppWindowBody className="items-stretch">
-        <div className="w-full rounded-lg border border-dashed border-slate-200">
+        <div className="w-full rounded-lg border border-dashed border-border">
           <Container size={size} centered={centered} padded={padded}>
-            <div className="rounded-md bg-slate-100 p-3 text-center text-xs text-slate-500">Sample content</div>
+            <div className="rounded-md bg-surface-muted p-3 text-center text-xs text-fg-subtle">Sample content</div>
           </Container>
         </div>
       </AppWindowBody>
@@ -30,9 +30,9 @@ export default function ContainerPlayground() {
   // Vue/Angular templates (plain attributes, no bindings needed for a static
   // snapshot); the "js" variant just adds the one-time module import a plain
   // HTML page needs to actually load the `<l-*>` definitions.
-  const htmlMarkup = `<Container size="${size}"${centered ? "" : ` centered="false"`}${padded ? "" : ` padded="false"`}>
+  const htmlMarkup = `<l-Container size="${size}"${centered ? "" : ` centered="false"`}${padded ? "" : ` padded="false"`}>
   Sample content
-</Container>`;
+</l-Container>`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,
@@ -46,14 +46,14 @@ export default function ContainerPlayground() {
       <OptionGroup label="Size" options={SIZES} value={size} onChange={setSize} />
 
       <div>
-        <span className="mb-1.5 block text-xs font-medium text-slate-500">Options</span>
+        <span className="mb-1.5 block text-xs font-medium text-fg-subtle">Options</span>
         <div className="flex flex-wrap gap-1.5">
           <button
             type="button"
             onClick={() => setCentered((v) => !v)}
             className={
               "rounded-md px-2.5 py-1 text-xs font-medium transition-colors " +
-              (centered ? "bg-slate-900 text-white" : "bg-slate-100 text-slate-600 hover:bg-slate-200")
+              (centered ? "bg-fg text-surface" : "bg-surface-muted text-fg-muted hover:bg-border")
             }
           >
             Centered
@@ -63,7 +63,7 @@ export default function ContainerPlayground() {
             onClick={() => setPadded((v) => !v)}
             className={
               "rounded-md px-2.5 py-1 text-xs font-medium transition-colors " +
-              (padded ? "bg-slate-900 text-white" : "bg-slate-100 text-slate-600 hover:bg-slate-200")
+              (padded ? "bg-fg text-surface" : "bg-surface-muted text-fg-muted hover:bg-border")
             }
           >
             Padded

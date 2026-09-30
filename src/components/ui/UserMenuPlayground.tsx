@@ -51,7 +51,7 @@ export default function UserMenuPlayground() {
   { label: "Billing", icon: "tag" },
   { label: "Log out", icon: "arrow-right", danger: true },`;
 
-  const htmlMarkup = `<UserMenu id="user-menu" name="${nameValue}"${emailAttrJsx}${alignAttr} avatarInitials="JD"></UserMenu>
+  const htmlMarkup = `<l-UserMenu id="user-menu" name="${nameValue}"${emailAttrJsx}${alignAttr} avatarInitials="JD"></l-UserMenu>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -62,16 +62,16 @@ ${itemsCode}
 </script>`;
 
   const vueMarkup = `<template>
-  <UserMenu name="${nameValue}"${emailAttrJsx}${alignAttr} avatarInitials="JD" :items="items" />
+  <l-UserMenu name="${nameValue}"${emailAttrJsx}${alignAttr} avatarInitials="JD" :items="items" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 const items = [
 ${itemsCode}
 ];
 </script>`;
 
-  const angularMarkup = `<UserMenu name="${nameValue}"${emailAttrJsx}${alignAttr} avatarInitials="JD" [items]="items"></UserMenu>
+  const angularMarkup = `<l-UserMenu name="${nameValue}"${emailAttrJsx}${alignAttr} avatarInitials="JD" [items]="items"></l-UserMenu>
 
 items = [
 ${itemsCode}
@@ -87,20 +87,20 @@ ${itemsCode}
   return (
     <PlaygroundLayout preview={preview} variants={codeVariants}>
       <div>
-        <span className="mb-1.5 block text-xs font-medium text-slate-500">Name</span>
+        <span className="mb-1.5 block text-xs font-medium text-fg-subtle">Name</span>
         <input
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="w-full rounded-md border border-slate-200 px-3 py-1.5 text-sm text-slate-900 outline-none transition-colors focus:border-slate-400"
+          className="w-full rounded-md border border-border px-3 py-1.5 text-sm text-fg outline-none transition-colors focus:border-border-strong"
           placeholder="Jordan Diaz"
         />
       </div>
       <div>
-        <span className="mb-1.5 block text-xs font-medium text-slate-500">Email</span>
+        <span className="mb-1.5 block text-xs font-medium text-fg-subtle">Email</span>
         <input
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="w-full rounded-md border border-slate-200 px-3 py-1.5 text-sm text-slate-900 outline-none transition-colors focus:border-slate-400"
+          className="w-full rounded-md border border-border px-3 py-1.5 text-sm text-fg outline-none transition-colors focus:border-border-strong"
           placeholder="jordan@lojee.io"
         />
       </div>

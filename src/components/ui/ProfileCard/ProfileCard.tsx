@@ -8,20 +8,26 @@ export interface ProfileCardStat {
 }
 
 export interface ProfileCardProps {
+  /** The person's display name, shown as the card heading. */
   name: string;
   /** e.g. "Product Designer at Acme". */
   role?: string;
+  /** Short biography paragraph shown below the role. */
   bio?: string;
+  /** Image URL for the avatar; falls back to `avatarInitials` when omitted. */
   avatarSrc?: string;
+  /** Initials shown in the avatar when there is no `avatarSrc`. */
   avatarInitials?: string;
   /** A short row of stats, e.g. Followers/Following/Posts. */
   stats?: ProfileCardStat[];
   /** Action buttons/content, e.g. Follow + Message buttons — this component doesn't know about
    * Button, the consumer supplies real elements here. */
   actions?: ReactNode;
-  /** Accent color for the banner strip behind the avatar (default "indigo"). */
+  /** Accent color for the banner strip behind the avatar (default "accent"). */
   color?: ColorName;
+  /** Extra CSS class(es) added to the root element, merged before `classNames.root`. */
   className?: string;
+  /** Per-part class overrides — merged after (and win over) the built-in styling. */
   classNames?: {
     root?: string;
     banner?: string;
@@ -39,6 +45,7 @@ const BANNER_CLASSES: Record<ColorName, string> = {
   slate: "bg-gradient-to-r from-slate-700 to-slate-500",
   gray: "bg-gradient-to-r from-gray-700 to-gray-500",
   indigo: "bg-gradient-to-r from-indigo-600 to-violet-500",
+  accent: "bg-gradient-to-r from-accent-600 to-violet-500",
   violet: "bg-gradient-to-r from-violet-600 to-purple-500",
   blue: "bg-gradient-to-r from-blue-600 to-cyan-500",
   cyan: "bg-gradient-to-r from-cyan-600 to-sky-500",
@@ -58,14 +65,14 @@ export function ProfileCard({
   avatarInitials,
   stats,
   actions,
-  color = "indigo",
+  color = "accent",
   className,
   classNames,
 }: ProfileCardProps) {
   return (
     <div
       className={cx(
-        "w-full overflow-hidden rounded-xl border border-slate-200 bg-white",
+        "w-full overflow-hidden rounded-xl border border-border bg-surface",
         className,
         classNames?.root
       )}
@@ -78,20 +85,20 @@ export function ProfileCard({
             src={avatarSrc}
             initials={avatarInitials}
             size="xl"
-            className="ring-4 ring-white"
+            className="ring-4 ring-surface"
           />
         </div>
 
-        <h3 className="text-lg font-semibold text-slate-900">{name}</h3>
-        {role != null && <p className="mt-0.5 text-sm text-slate-500">{role}</p>}
-        {bio != null && <p className="mt-3 text-sm leading-relaxed text-slate-600">{bio}</p>}
+        <h3 className="text-lg font-semibold text-fg">{name}</h3>
+        {role != null && <p className="mt-0.5 text-sm text-fg-subtle">{role}</p>}
+        {bio != null && <p className="mt-3 text-sm leading-relaxed text-fg-muted">{bio}</p>}
 
         {stats != null && stats.length > 0 && (
-          <div className={cx("mt-4 flex divide-x divide-slate-200 border-t border-slate-100 pt-4", classNames?.stats)}>
+          <div className={cx("mt-4 flex divide-x divide-border border-t border-border pt-4", classNames?.stats)}>
             {stats.map((stat, i) => (
               <div key={i} className="flex-1 px-2 text-center first:pl-0 last:pr-0">
-                <p className="text-base font-semibold text-slate-900">{stat.value}</p>
-                <p className="text-xs text-slate-500">{stat.label}</p>
+                <p className="text-base font-semibold text-fg">{stat.value}</p>
+                <p className="text-xs text-fg-subtle">{stat.label}</p>
               </div>
             ))}
           </div>

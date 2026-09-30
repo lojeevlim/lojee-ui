@@ -4,11 +4,11 @@ import { SectionLabel } from "../../ShowcaseHelpers";
 
 export default function FileUploadShowcase() {
   return (
-    <div className="min-h-screen bg-white p-6 md:p-10">
+    <div className="min-h-screen rounded-xl bg-surface p-6 md:p-10">
       <div className="max-w-5xl mx-auto space-y-12">
         <div>
-          <h1 className="text-2xl font-semibold text-slate-900">FileUpload</h1>
-          <p className="text-sm text-slate-500 mt-1">
+          <h1 className="text-2xl font-semibold text-fg">FileUpload</h1>
+          <p className="text-sm text-fg-subtle mt-1">
             A styled dropzone-style wrapper around a native, visually hidden file input.
           </p>
         </div>
@@ -21,7 +21,7 @@ export default function FileUploadShowcase() {
           <CodeBlock
             variants={{
               react: `<FileUpload onFilesSelected={(files) => console.log(files)} />`,
-              js: `<FileUpload id="file-upload" />
+              js: `<l-FileUpload id="file-upload" />
 
 <script type="module">
   import "lojee-ui/elements";
@@ -30,10 +30,10 @@ export default function FileUploadShowcase() {
     .addEventListener("filesselected", (e) => console.log(e.detail));
 </script>`,
               vue: `<template>
-  <FileUpload @filesselected="(e) => console.log(e.detail)" />
+  <l-FileUpload @filesselected="(e) => console.log(e.detail)" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import "lojee-ui/elements";
 </script>`,
               angular: `// app.component.ts
@@ -52,7 +52,7 @@ export class AppComponent {
 }
 
 <!-- app.component.html -->
-<FileUpload (filesselected)="onFilesSelected($event)" />`,
+<l-FileUpload (filesselected)="onFilesSelected($event)" />`,
             }}
           />
         </section>
@@ -75,14 +75,14 @@ export class AppComponent {
   multiple
   onFilesSelected={(files) => console.log(files)}
 />`,
-              js: `<FileUpload id="photo-upload" label="Upload product photos" accept="image/*" multiple />
+              js: `<l-FileUpload id="photo-upload" label="Upload product photos" accept="image/*" multiple />
 
 <script type="module">
   document.getElementById("photo-upload")
     .addEventListener("filesselected", (e) => console.log(e.detail));
 </script>`,
               vue: `<template>
-  <FileUpload
+  <l-FileUpload
     label="Upload product photos"
     accept="image/*"
     multiple
@@ -90,7 +90,7 @@ export class AppComponent {
   />
 </template>`,
               angular: `<!-- app.component.html — reuses the onFilesSelected method from AppComponent above -->
-<FileUpload
+<l-FileUpload
   label="Upload product photos"
   accept="image/*"
   multiple

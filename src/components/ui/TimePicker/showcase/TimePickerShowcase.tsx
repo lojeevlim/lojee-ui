@@ -4,11 +4,11 @@ import { SectionLabel } from "../../ShowcaseHelpers";
 
 export default function TimePickerShowcase() {
   return (
-    <div className="min-h-screen bg-white p-6 md:p-10">
+    <div className="min-h-screen rounded-xl bg-surface p-6 md:p-10">
       <div className="max-w-5xl mx-auto space-y-12">
         <div>
-          <h1 className="text-2xl font-semibold text-slate-900">TimePicker</h1>
-          <p className="text-sm text-slate-500 mt-1">
+          <h1 className="text-2xl font-semibold text-fg">TimePicker</h1>
+          <p className="text-sm text-fg-subtle mt-1">
             A styled native time input — the browser's own picker UI handles time selection.
           </p>
         </div>
@@ -21,16 +21,16 @@ export default function TimePickerShowcase() {
           <CodeBlock
             variants={{
               react: `<TimePicker />`,
-              js: `<TimePicker />
+              js: `<l-TimePicker />
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <TimePicker />
+  <l-TimePicker />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import "lojee-ui/elements";
 </script>`,
               angular: `// app.component.ts
@@ -45,7 +45,7 @@ import "lojee-ui/elements";
 export class AppComponent {}
 
 <!-- app.component.html -->
-<TimePicker />`,
+<l-TimePicker />`,
             }}
           />
         </section>
@@ -60,12 +60,12 @@ export class AppComponent {}
           <CodeBlock
             variants={{
               react: `<TimePicker size="sm" />`,
-              js: `<TimePicker size="sm" />`,
+              js: `<l-TimePicker size="sm" />`,
               vue: `<template>
-  <TimePicker size="sm" />
+  <l-TimePicker size="sm" />
 </template>`,
               angular: `<!-- app.component.html -->
-<TimePicker size="sm" />`,
+<l-TimePicker size="sm" />`,
             }}
           />
         </section>
@@ -78,12 +78,12 @@ export class AppComponent {}
           <CodeBlock
             variants={{
               react: `<TimePicker invalid />`,
-              js: `<TimePicker invalid />`,
+              js: `<l-TimePicker invalid />`,
               vue: `<template>
-  <TimePicker invalid />
+  <l-TimePicker invalid />
 </template>`,
               angular: `<!-- app.component.html -->
-<TimePicker invalid />`,
+<l-TimePicker invalid />`,
             }}
           />
         </section>
@@ -96,12 +96,12 @@ export class AppComponent {}
           <CodeBlock
             variants={{
               react: `<TimePicker disabled />`,
-              js: `<TimePicker disabled />`,
+              js: `<l-TimePicker disabled />`,
               vue: `<template>
-  <TimePicker disabled />
+  <l-TimePicker disabled />
 </template>`,
               angular: `<!-- app.component.html -->
-<TimePicker disabled />`,
+<l-TimePicker disabled />`,
             }}
           />
         </section>

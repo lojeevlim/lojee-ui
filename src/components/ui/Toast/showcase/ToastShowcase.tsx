@@ -30,11 +30,11 @@ export default function ToastShowcase() {
   const [persistentOpen, setPersistentOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-white p-6 md:p-10">
+    <div className="min-h-screen rounded-xl bg-surface p-6 md:p-10">
       <div className="max-w-5xl mx-auto space-y-12">
         <div>
-          <h1 className="text-2xl font-semibold text-slate-900">Toast</h1>
-          <p className="text-sm text-slate-500 mt-1">
+          <h1 className="text-2xl font-semibold text-fg">Toast</h1>
+          <p className="text-sm text-fg-subtle mt-1">
             A transient, fixed-position, auto-dismissing notification. Controlled visibility like Modal/Drawer —
             render as many as you need for a stack of your own.
           </p>
@@ -74,10 +74,10 @@ export default function ToastShowcase() {
 <Toast open={open} onClose={() => setOpen(false)} variant="success" title="Success">
   This is a success toast notification.
 </Toast>`,
-              js: `<Button label="Success" id="open-toast-btn" />
-<Toast id="success-toast" variant="success" title="Success">
+              js: `<l-Button label="Success" id="open-toast-btn" />
+<l-Toast id="success-toast" variant="success" title="Success">
   This is a success toast notification.
-</Toast>
+</l-Toast>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -88,23 +88,23 @@ export default function ToastShowcase() {
   toast.addEventListener("close", () => { toast.open = false; });
 </script>`,
               vue: `<template>
-  <Button label="Success" @click="open = true" />
-  <Toast :open="open" variant="success" title="Success" @close="open = false">
+  <l-Button label="Success" @click="open = true" />
+  <l-Toast :open="open" variant="success" title="Success" @close="open = false">
     This is a success toast notification.
-  </Toast>
+  </l-Toast>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 import "lojee-ui/elements";
 
 const open = ref(false);
 </script>`,
               angular: `<!-- app.component.html -->
-<Button label="Success" (click)="open = true" />
-<Toast [open]="open" variant="success" title="Success" (close)="open = false">
+<l-Button label="Success" (click)="open = true" />
+<l-Toast [open]="open" variant="success" title="Success" (close)="open = false">
   This is a success toast notification.
-</Toast>`,
+</l-Toast>`,
             }}
           />
         </section>
@@ -138,20 +138,20 @@ const open = ref(false);
               react: `<Toast open={open} onClose={() => setOpen(false)} position="top-center" title="Positioned toast">
   Anchored to top-center.
 </Toast>`,
-              js: `<Toast id="positioned-toast" position="top-center" title="Positioned toast">
+              js: `<l-Toast id="positioned-toast" position="top-center" title="Positioned toast">
   Anchored to top-center.
-</Toast>
+</l-Toast>
 
 <script type="module">
   const toast = document.getElementById("positioned-toast");
   toast.addEventListener("close", () => { toast.open = false; });
 </script>`,
-              vue: `<Toast :open="open" position="top-center" title="Positioned toast" @close="open = false">
+              vue: `<l-Toast :open="open" position="top-center" title="Positioned toast" @close="open = false">
   Anchored to top-center.
-</Toast>`,
-              angular: `<Toast [open]="open" position="top-center" title="Positioned toast" (close)="open = false">
+</l-Toast>`,
+              angular: `<l-Toast [open]="open" position="top-center" title="Positioned toast" (close)="open = false">
   Anchored to top-center.
-</Toast>`,
+</l-Toast>`,
             }}
           />
         </section>
@@ -175,20 +175,20 @@ const open = ref(false);
               react: `<Toast open={open} onClose={() => setOpen(false)} variant="warning" title="Action required" duration={0}>
   This toast stays open until you dismiss it.
 </Toast>`,
-              js: `<Toast id="persistent-toast" variant="warning" title="Action required" duration="0">
+              js: `<l-Toast id="persistent-toast" variant="warning" title="Action required" duration="0">
   This toast stays open until you dismiss it.
-</Toast>
+</l-Toast>
 
 <script type="module">
   const toast = document.getElementById("persistent-toast");
   toast.addEventListener("close", () => { toast.open = false; });
 </script>`,
-              vue: `<Toast :open="open" variant="warning" title="Action required" :duration="0" @close="open = false">
+              vue: `<l-Toast :open="open" variant="warning" title="Action required" :duration="0" @close="open = false">
   This toast stays open until you dismiss it.
-</Toast>`,
-              angular: `<Toast [open]="open" variant="warning" title="Action required" [duration]="0" (close)="open = false">
+</l-Toast>`,
+              angular: `<l-Toast [open]="open" variant="warning" title="Action required" [duration]="0" (close)="open = false">
   This toast stays open until you dismiss it.
-</Toast>`,
+</l-Toast>`,
             }}
           />
         </section>

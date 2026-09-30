@@ -18,7 +18,7 @@ export interface ActivityItem {
   timestamp: string;
   /** Icon name (src/core/icons.ts) shown as a small badge on the avatar's corner. */
   icon?: string;
-  /** Tints the icon badge (default "slate"). */
+  /** Tints the icon badge (default "accent" — follows the theme accent). */
   color?: ColorName;
 }
 
@@ -28,10 +28,13 @@ export interface ActivityItem {
 // across the shadow boundary, so a plain data array is the only shape that
 // works identically in both the React and Web Component builds.
 export interface ActivityFeedProps {
+  /** Activity entries to display, in order, each as an avatar, an actor/action/target sentence and a timestamp. */
   items: ActivityItem[];
   /** Denser spacing and smaller avatars, for sidebars or narrow panels. */
   compact?: boolean;
+  /** Extra class names applied to the root element. */
   className?: string;
+  /** Per-part class overrides (`root`, `item`, `avatar`, `content`, `timestamp`) — merged after the built-in styling. */
   classNames?: {
     root?: string;
     item?: string;
@@ -45,6 +48,7 @@ const ICON_BADGE_BG: Record<ColorName, string> = {
   slate: "bg-slate-500",
   gray: "bg-gray-500",
   indigo: "bg-indigo-500",
+  accent: "bg-accent-500",
   violet: "bg-violet-500",
   blue: "bg-blue-500",
   cyan: "bg-cyan-500",
@@ -58,7 +62,7 @@ const ICON_BADGE_BG: Record<ColorName, string> = {
 
 export function ActivityFeed({ items, compact = false, className, classNames }: ActivityFeedProps) {
   return (
-    <div className={cx("divide-y divide-slate-100", className, classNames?.root)}>
+    <div className={cx("divide-y divide-border", className, classNames?.root)}>
       {items.map((item, i) => (
         <div key={i} className={cx("flex items-start gap-3", compact ? "py-2" : "py-3", classNames?.item)}>
           <span className="relative shrink-0">
@@ -71,8 +75,8 @@ export function ActivityFeed({ items, compact = false, className, classNames }: 
             {item.icon && (
               <span
                 className={cx(
-                  "absolute -bottom-0.5 -right-0.5 flex h-4 w-4 items-center justify-center rounded-full text-white ring-2 ring-white",
-                  ICON_BADGE_BG[item.color ?? "slate"]
+                  "absolute -bottom-0.5 -right-0.5 flex h-4 w-4 items-center justify-center rounded-full text-white ring-2 ring-surface",
+                  ICON_BADGE_BG[item.color ?? "accent"]
                 )}
               >
                 <Icon name={item.icon} size={10} />
@@ -80,16 +84,16 @@ export function ActivityFeed({ items, compact = false, className, classNames }: 
             )}
           </span>
           <div className={cx("min-w-0 flex-1", classNames?.content)}>
-            <p className="text-sm text-slate-700">
-              <span className="font-medium text-slate-900">{item.actor}</span> {item.action}
+            <p className="text-sm text-fg-muted">
+              <span className="font-medium text-fg">{item.actor}</span> {item.action}
               {item.target && (
                 <>
                   {" "}
-                  <span className="font-medium text-slate-900">{item.target}</span>
+                  <span className="font-medium text-fg">{item.target}</span>
                 </>
               )}
             </p>
-            <p className={cx("mt-0.5 text-xs text-slate-400", classNames?.timestamp)}>{item.timestamp}</p>
+            <p className={cx("mt-0.5 text-xs text-fg-subtle", classNames?.timestamp)}>{item.timestamp}</p>
           </div>
         </div>
       ))}

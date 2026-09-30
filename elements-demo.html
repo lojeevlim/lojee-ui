@@ -12,6 +12,10 @@
         background: #fff;
         color: #0f172a;
       }
+      html[data-theme="dark"] body {
+        background: #0b1220;
+        color: #f1f5f9;
+      }
       main {
         max-width: 56rem;
         margin: 0 auto;
@@ -42,6 +46,11 @@
   </head>
   <body>
     <main>
+      <div class="row">
+        <button id="theme-toggle" type="button">Toggle dark mode</button>
+        <select id="accent-select" aria-label="Accent color"></select>
+      </div>
+
       <div>
         <h1>lojee-ui Web Components</h1>
         <p>Plain HTML, zero React, zero JSX — just custom elements registered by <code>src/elements/index.ts</code>.</p>
@@ -179,6 +188,18 @@
 
     <script type="module" src="/src/elements/index.ts"></script>
     <script type="module">
+      // Web components follow <html data-theme / data-accent> — same attributes the React ThemeProvider sets.
+      const root = document.documentElement;
+      root.dataset.theme = "light";
+      document.getElementById("theme-toggle").addEventListener("click", () => {
+        root.dataset.theme = root.dataset.theme === "dark" ? "light" : "dark";
+      });
+      const accentSelect = document.getElementById("accent-select");
+      for (const c of ["indigo", "slate", "gray", "violet", "blue", "cyan", "emerald", "teal", "amber", "orange", "rose", "pink"]) {
+        accentSelect.add(new Option(c, c));
+      }
+      accentSelect.addEventListener("change", () => (root.dataset.accent = accentSelect.value));
+
       const log = document.getElementById("event-log");
       const write = (msg) => {
         log.textContent = `${new Date().toLocaleTimeString()}  ${msg}\n` + log.textContent;

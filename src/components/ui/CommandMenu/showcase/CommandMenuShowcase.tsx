@@ -20,11 +20,11 @@ export default function CommandMenuShowcase() {
   ];
 
   return (
-    <div className="min-h-screen bg-white p-6 md:p-10">
+    <div className="min-h-screen rounded-xl bg-surface p-6 md:p-10">
       <div className="max-w-5xl mx-auto space-y-12">
         <div>
-          <h1 className="text-2xl font-semibold text-slate-900">Command Menu</h1>
-          <p className="text-sm text-slate-500 mt-1">
+          <h1 className="text-2xl font-semibold text-fg">Command Menu</h1>
+          <p className="text-sm text-fg-subtle mt-1">
             A searchable, keyboard-navigable command palette overlay — the classic "Cmd+K" pattern.
           </p>
         </div>
@@ -37,15 +37,15 @@ export default function CommandMenuShowcase() {
             <button
               type="button"
               onClick={() => setOpen(true)}
-              className="flex w-72 items-center gap-2 rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-500 shadow-sm transition-colors hover:border-slate-400"
+              className="flex w-72 items-center gap-2 rounded-lg border border-border-strong bg-surface px-3 py-2 text-sm text-fg-subtle shadow-sm transition-colors hover:border-border-strong"
             >
               <span className="flex-1 text-left">Search commands…</span>
-              <span className="rounded border border-slate-200 bg-slate-50 px-1.5 py-0.5 text-xs text-slate-400">⌘K</span>
+              <span className="rounded border border-border bg-surface-muted px-1.5 py-0.5 text-xs text-fg-subtle">⌘K</span>
             </button>
             <Button variant="outline" label="Open command menu" onClick={() => setOpen(true)} />
           </Row>
-          <p className="mt-3 text-sm text-slate-600">
-            Last selected: <span className="font-medium text-slate-900">{lastSelected}</span>
+          <p className="mt-3 text-sm text-fg-muted">
+            Last selected: <span className="font-medium text-fg">{lastSelected}</span>
           </p>
 
           <CommandMenu open={open} onClose={() => setOpen(false)} items={items} />
@@ -65,7 +65,7 @@ export default function CommandMenuShowcase() {
 
 <CommandMenu open={open} onClose={() => setOpen(false)} items={items} />`,
               js: `<button id="open-command-menu-btn">Search commands…</button>
-<CommandMenu id="cmd-menu" />
+<l-CommandMenu id="cmd-menu" />
 
 <script type="module">
   import "lojee-ui/elements";
@@ -88,10 +88,10 @@ export default function CommandMenuShowcase() {
 </script>`,
               vue: `<template>
   <button @click="open = true">Search commands…</button>
-  <CommandMenu :open="open" :items="items" @close="open = false" />
+  <l-CommandMenu :open="open" :items="items" @close="open = false" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 import "lojee-ui/elements";
 
@@ -117,7 +117,7 @@ import "lojee-ui/elements";
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
     <button (click)="open = true">Search commands…</button>
-    <CommandMenu [open]="open" [items]="items" (close)="open = false" />
+    <l-CommandMenu [open]="open" [items]="items" (close)="open = false" />
   \`,
 })
 export class CommandMenuShowcaseComponent {

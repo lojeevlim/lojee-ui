@@ -6,11 +6,13 @@ import { StatusLayout } from "../internal/StatusLayout";
 export interface EmptyStateProps {
   /** Icon name — see src/core/icons.ts for the available set (default: "folder"). */
   icon?: string;
+  /** Heading text shown under the icon. */
   title: ReactNode;
   /** The description/body. */
   children?: ReactNode;
   /** e.g. a <Button>, rendered below the description. */
   action?: ReactNode;
+  /** Extra class name(s) applied to the root element. */
   className?: string;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
   classNames?: {
@@ -28,7 +30,7 @@ export function EmptyState({ icon = "folder", title, children, action, className
       icon={
         <div
           className={cx(
-            "flex h-14 w-14 items-center justify-center rounded-full bg-slate-100 text-slate-400",
+            "flex h-14 w-14 items-center justify-center rounded-full bg-surface-muted text-fg-subtle",
             classNames?.icon
           )}
         >

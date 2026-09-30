@@ -4,16 +4,16 @@ import CodeBlock from "../../CodeBlock";
 import { SectionLabel } from "../../ShowcaseHelpers";
 
 function SampleItem({ children }: { children: ReactNode }) {
-  return <div className="rounded-md bg-slate-100 p-4 text-center text-xs text-slate-500">{children}</div>;
+  return <div className="rounded-md bg-surface-muted p-4 text-center text-xs text-fg-subtle">{children}</div>;
 }
 
 export default function GridShowcase() {
   return (
-    <div className="min-h-screen bg-white p-6 md:p-10">
+    <div className="min-h-screen rounded-xl bg-surface p-6 md:p-10">
       <div className="max-w-5xl mx-auto space-y-12">
         <div>
-          <h1 className="text-2xl font-semibold text-slate-900">Grid</h1>
-          <p className="text-sm text-slate-500 mt-1">A responsive CSS grid for laying out cards, items, or tiles.</p>
+          <h1 className="text-2xl font-semibold text-fg">Grid</h1>
+          <p className="text-sm text-fg-subtle mt-1">A responsive CSS grid for laying out cards, items, or tiles.</p>
         </div>
 
         <section>
@@ -21,7 +21,7 @@ export default function GridShowcase() {
           <div className="space-y-6">
             {([2, 3, 4] as const).map((cols) => (
               <div key={cols}>
-                <p className="mb-2 text-xs font-medium text-slate-500">cols={cols}</p>
+                <p className="mb-2 text-xs font-medium text-fg-subtle">cols={cols}</p>
                 <Grid cols={cols}>
                   {Array.from({ length: 6 }, (_, i) => (
                     <SampleItem key={i}>Item {i + 1}</SampleItem>
@@ -37,24 +37,24 @@ export default function GridShowcase() {
   <div>Item 2</div>
   <div>Item 3</div>
 </Grid>`,
-              js: `<Grid cols="3">
+              js: `<l-Grid cols="3">
   <div>Item 1</div>
   <div>Item 2</div>
   <div>Item 3</div>
-</Grid>
+</l-Grid>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <Grid cols="3">
+  <l-Grid cols="3">
     <div>Item 1</div>
     <div>Item 2</div>
     <div>Item 3</div>
-  </Grid>
+  </l-Grid>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import "lojee-ui/elements";
 </script>`,
               angular: `// app.component.ts
@@ -66,11 +66,11 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <Grid cols="3">
+    <l-Grid cols="3">
       <div>Item 1</div>
       <div>Item 2</div>
       <div>Item 3</div>
-    </Grid>
+    </l-Grid>
   \`,
 })
 export class AppComponent {}`,
@@ -83,7 +83,7 @@ export class AppComponent {}`,
           <div className="space-y-6">
             {(["sm", "md", "lg"] as const).map((gap) => (
               <div key={gap}>
-                <p className="mb-2 text-xs font-medium text-slate-500">gap="{gap}"</p>
+                <p className="mb-2 text-xs font-medium text-fg-subtle">gap="{gap}"</p>
                 <Grid cols={4} gap={gap}>
                   {Array.from({ length: 4 }, (_, i) => (
                     <SampleItem key={i}>Item {i + 1}</SampleItem>
@@ -95,12 +95,12 @@ export class AppComponent {}`,
           <CodeBlock
             variants={{
               react: `<Grid cols={4} gap="lg">...</Grid>`,
-              js: `<Grid cols="4" gap="lg">...</Grid>`,
+              js: `<l-Grid cols="4" gap="lg">...</l-Grid>`,
               vue: `<template>
-  <Grid cols="4" gap="lg">...</Grid>
+  <l-Grid cols="4" gap="lg">...</l-Grid>
 </template>`,
               angular: `<!-- reuses the AppComponent from above -->
-<Grid cols="4" gap="lg">...</Grid>`,
+<l-Grid cols="4" gap="lg">...</l-Grid>`,
             }}
           />
         </section>

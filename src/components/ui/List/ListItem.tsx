@@ -14,6 +14,7 @@ export type { TooltipPortalPosition };
 export interface ListItemProps {
   /** Icon name, e.g. "check" — see src/core/icons.ts for the available set. */
   icon?: string;
+  /** The item's label content. */
   children?: ReactNode;
   /**
    * Wraps the row in a Tooltip showing `children` as its content and hides the visible label —
@@ -25,7 +26,9 @@ export interface ListItemProps {
   /** Tooltip placement when `tooltip` is set (default: "right" — the usual fly-out direction for a
    * left-docked collapsed rail). */
   tooltipPosition?: TooltipPortalPosition;
+  /** Extra class name(s) applied to the root element. */
   className?: string;
+  /** Per-part class overrides — merged after (and win over) the built-in styling. */
   classNames?: {
     root?: string;
     icon?: string;
@@ -50,11 +53,11 @@ export function ListItem({
 
   const iconEl = Icon && (
     // eslint-disable-next-line react-hooks/static-components -- see comment above `const Icon`
-    <Icon size={16} className={cx("shrink-0 text-slate-400", classNames?.icon)} />
+    <Icon size={16} className={cx("shrink-0 text-fg-subtle", classNames?.icon)} />
   );
 
   return (
-    <li className={cx("flex items-center gap-2.5 px-3 py-2.5 text-sm text-slate-700", className, classNames?.root)}>
+    <li className={cx("flex items-center gap-2.5 px-3 py-2.5 text-sm text-fg-muted", className, classNames?.root)}>
       {showTooltip ? (
         // Wraps just the icon here (not the <li> itself), so this row stays
         // a valid direct child of the parent <List>'s <ul>/<ol>.
@@ -73,7 +76,7 @@ export function ListItem({
                 role="tooltip"
                 style={{ position: "fixed", ...tooltipPortalPositionStyle(tooltipState.rect, tooltipPosition) }}
                 className={cx(
-                  "pointer-events-none whitespace-nowrap rounded-md bg-slate-900 px-2 py-1 text-xs text-white shadow-sm",
+                  "pointer-events-none whitespace-nowrap rounded-md bg-accent-600 px-2 py-1 text-xs text-white shadow-sm",
                   TOOLTIP_PORTAL_Z_CLASS
                 )}
               >

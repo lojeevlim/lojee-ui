@@ -12,11 +12,11 @@ export default function DrawerShowcase() {
   const [wideOpen, setWideOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-white p-6 md:p-10">
+    <div className="min-h-screen rounded-xl bg-surface p-6 md:p-10">
       <div className="max-w-5xl mx-auto space-y-12">
         <div>
-          <h1 className="text-2xl font-semibold text-slate-900">Drawer</h1>
-          <p className="text-sm text-slate-500 mt-1">An edge-anchored panel that slides in over the page from any side.</p>
+          <h1 className="text-2xl font-semibold text-fg">Drawer</h1>
+          <p className="text-sm text-fg-subtle mt-1">An edge-anchored panel that slides in over the page from any side.</p>
         </div>
 
         <section>
@@ -35,7 +35,7 @@ export default function DrawerShowcase() {
             ))}
           </Row>
           <Drawer open={positionOpen} onClose={() => setPositionOpen(false)} position={position} title={`${position} drawer`}>
-            <p className="text-sm text-slate-600">This drawer slid in from the {position} edge.</p>
+            <p className="text-sm text-fg-muted">This drawer slid in from the {position} edge.</p>
           </Drawer>
           <CodeBlock
             variants={{
@@ -44,10 +44,10 @@ export default function DrawerShowcase() {
 <Drawer open={open} onClose={() => setOpen(false)} position="${position}" title="${position} drawer">
   <p>This drawer slid in from the ${position} edge.</p>
 </Drawer>`,
-              js: `<Button label="Open ${position} drawer" id="open-drawer-btn" />
-<Drawer id="edge-drawer" position="${position}" heading="${position} drawer">
+              js: `<l-Button label="Open ${position} drawer" id="open-drawer-btn" />
+<l-Drawer id="edge-drawer" position="${position}" heading="${position} drawer">
   <p>This drawer slid in from the ${position} edge.</p>
-</Drawer>
+</l-Drawer>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -58,13 +58,13 @@ export default function DrawerShowcase() {
   drawer.addEventListener("close", () => { drawer.open = false; });
 </script>`,
               vue: `<template>
-  <Button label="Open ${position} drawer" @click="open = true" />
-  <Drawer :open="open" position="${position}" heading="${position} drawer" @close="open = false">
+  <l-Button label="Open ${position} drawer" @click="open = true" />
+  <l-Drawer :open="open" position="${position}" heading="${position} drawer" @close="open = false">
     <p>This drawer slid in from the ${position} edge.</p>
-  </Drawer>
+  </l-Drawer>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 import "lojee-ui/elements";
 
@@ -79,10 +79,10 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <Button label="Open ${position} drawer" (click)="open = true" />
-    <Drawer [open]="open" position="${position}" heading="${position} drawer" (close)="open = false">
+    <l-Button label="Open ${position} drawer" (click)="open = true" />
+    <l-Drawer [open]="open" position="${position}" heading="${position} drawer" (close)="open = false">
       <p>This drawer slid in from the ${position} edge.</p>
-    </Drawer>
+    </l-Drawer>
   \`,
 })
 export class DrawerShowcaseComponent {
@@ -98,30 +98,30 @@ export class DrawerShowcaseComponent {
             <Button label="Open wide drawer" onClick={() => setWideOpen(true)} />
           </Row>
           <Drawer open={wideOpen} onClose={() => setWideOpen(false)} position="right" size="480px" title="Wide drawer">
-            <p className="text-sm text-slate-600">This drawer is 480px wide instead of the 320px default.</p>
+            <p className="text-sm text-fg-muted">This drawer is 480px wide instead of the 320px default.</p>
           </Drawer>
           <CodeBlock
             variants={{
               react: `<Drawer open={open} onClose={() => setOpen(false)} position="right" size="480px" title="Wide drawer">
   <p>This drawer is 480px wide instead of the 320px default.</p>
 </Drawer>`,
-              js: `<Drawer id="wide-drawer" position="right" size="480px" heading="Wide drawer">
+              js: `<l-Drawer id="wide-drawer" position="right" size="480px" heading="Wide drawer">
   <p>This drawer is 480px wide instead of the 320px default.</p>
-</Drawer>
+</l-Drawer>
 
 <script type="module">
   const drawer = document.getElementById("wide-drawer");
   drawer.addEventListener("close", () => { drawer.open = false; });
 </script>`,
               vue: `<template>
-  <Drawer :open="open" position="right" size="480px" heading="Wide drawer" @close="open = false">
+  <l-Drawer :open="open" position="right" size="480px" heading="Wide drawer" @close="open = false">
     <p>This drawer is 480px wide instead of the 320px default.</p>
-  </Drawer>
+  </l-Drawer>
 </template>`,
               angular: `<!-- reuses DrawerShowcaseComponent from above -->
-<Drawer [open]="open" position="right" size="480px" heading="Wide drawer" (close)="open = false">
+<l-Drawer [open]="open" position="right" size="480px" heading="Wide drawer" (close)="open = false">
   <p>This drawer is 480px wide instead of the 320px default.</p>
-</Drawer>`,
+</l-Drawer>`,
             }}
           />
         </section>

@@ -15,7 +15,7 @@ export default function GridPlayground() {
       <AppWindowBody className="items-stretch">
         <Grid cols={cols} gap={gap} className="w-full">
           {Array.from({ length: 6 }, (_, i) => (
-            <div key={i} className="rounded-md bg-slate-100 p-4 text-center text-xs text-slate-500">
+            <div key={i} className="rounded-md bg-surface-muted p-4 text-center text-xs text-fg-subtle">
               Item {i + 1}
             </div>
           ))}
@@ -34,11 +34,11 @@ export default function GridPlayground() {
   // Vue/Angular templates (plain attributes, no bindings needed for a static
   // snapshot); the "js" variant just adds the one-time module import a plain
   // HTML page needs to actually load the `<l-*>` definitions.
-  const htmlMarkup = `<Grid cols="${cols}" gap="${gap}">
+  const htmlMarkup = `<l-Grid cols="${cols}" gap="${gap}">
   <div>Item 1</div>
   <div>Item 2</div>
   ...
-</Grid>`;
+</l-Grid>`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,

@@ -28,7 +28,7 @@ export default function AlertPlayground() {
           <button
             type="button"
             onClick={() => setVisible(true)}
-            className="text-sm font-medium text-slate-500 underline underline-offset-4 hover:text-slate-700"
+            className="text-sm font-medium text-fg-subtle underline underline-offset-4 hover:text-fg-muted"
           >
             Show alert again
           </button>
@@ -47,9 +47,9 @@ export default function AlertPlayground() {
   ${description || "This is an informational message."}
 </Alert>`;
 
-  const htmlMarkup = `<Alert variant="${variant}"${titleAttr}${closableAttr}>
+  const htmlMarkup = `<l-Alert variant="${variant}"${titleAttr}${closableAttr}>
   ${description || "This is an informational message."}
-</Alert>`;
+</l-Alert>`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,
@@ -61,26 +61,26 @@ export default function AlertPlayground() {
   return (
     <PlaygroundLayout preview={preview} variants={codeVariants}>
       <div className="sm:col-span-2">
-        <span className="mb-1.5 block text-xs font-medium text-slate-500">Title</span>
+        <span className="mb-1.5 block text-xs font-medium text-fg-subtle">Title</span>
         <input
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          className="w-full rounded-md border border-slate-200 px-3 py-1.5 text-sm text-slate-900 outline-none transition-colors focus:border-slate-400"
+          className="w-full rounded-md border border-border px-3 py-1.5 text-sm text-fg outline-none transition-colors focus:border-border-strong"
           placeholder="Heads up"
         />
       </div>
       <div className="sm:col-span-2">
-        <span className="mb-1.5 block text-xs font-medium text-slate-500">Description</span>
+        <span className="mb-1.5 block text-xs font-medium text-fg-subtle">Description</span>
         <input
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          className="w-full rounded-md border border-slate-200 px-3 py-1.5 text-sm text-slate-900 outline-none transition-colors focus:border-slate-400"
+          className="w-full rounded-md border border-border px-3 py-1.5 text-sm text-fg outline-none transition-colors focus:border-border-strong"
           placeholder="This is an informational message."
         />
       </div>
       <OptionGroup label="Variant" options={VARIANTS} value={variant} onChange={setVariant} />
       <div>
-        <span className="mb-1.5 block text-xs font-medium text-slate-500">Closable</span>
+        <span className="mb-1.5 block text-xs font-medium text-fg-subtle">Closable</span>
         <button
           type="button"
           onClick={() => {
@@ -89,7 +89,7 @@ export default function AlertPlayground() {
           }}
           className={
             "rounded-md px-2.5 py-1 text-xs font-medium capitalize transition-colors " +
-            (closable ? "bg-slate-900 text-white" : "bg-slate-100 text-slate-600 hover:bg-slate-200")
+            (closable ? "bg-fg text-surface" : "bg-surface-muted text-fg-muted hover:bg-border")
           }
         >
           {closable ? "On" : "Off"}

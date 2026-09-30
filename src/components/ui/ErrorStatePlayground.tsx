@@ -46,10 +46,10 @@ export default function ErrorStatePlayground() {
     : `<ErrorState${titleAttr}${iconAttr} />`;
 
   const htmlMarkup = hasBody
-    ? `<ErrorState${titleAttr}${iconAttr}>${description ? `\n  ${description}` : ""}${
-        showAction ? `\n  <Button slot="action" variant="destructive" icon="refresh-cw" label="Retry" id="retry-btn" />` : ""
-      }\n</ErrorState>`
-    : `<ErrorState${titleAttr}${iconAttr} />`;
+    ? `<l-ErrorState${titleAttr}${iconAttr}>${description ? `\n  ${description}` : ""}${
+        showAction ? `\n  <l-Button slot="action" variant="destructive" icon="refresh-cw" label="Retry" id="retry-btn" />` : ""
+      }\n</l-ErrorState>`
+    : `<l-ErrorState${titleAttr}${iconAttr} />`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,
@@ -71,32 +71,32 @@ export default function ErrorStatePlayground() {
   return (
     <PlaygroundLayout preview={preview} variants={codeVariants}>
       <div className="sm:col-span-2">
-        <span className="mb-1.5 block text-xs font-medium text-slate-500">Title</span>
+        <span className="mb-1.5 block text-xs font-medium text-fg-subtle">Title</span>
         <input
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          className="w-full rounded-md border border-slate-200 px-3 py-1.5 text-sm text-slate-900 outline-none transition-colors focus:border-slate-400"
+          className="w-full rounded-md border border-border px-3 py-1.5 text-sm text-fg outline-none transition-colors focus:border-border-strong"
           placeholder="Something went wrong"
         />
       </div>
       <div className="sm:col-span-2">
-        <span className="mb-1.5 block text-xs font-medium text-slate-500">Description</span>
+        <span className="mb-1.5 block text-xs font-medium text-fg-subtle">Description</span>
         <input
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          className="w-full rounded-md border border-slate-200 px-3 py-1.5 text-sm text-slate-900 outline-none transition-colors focus:border-slate-400"
+          className="w-full rounded-md border border-border px-3 py-1.5 text-sm text-fg outline-none transition-colors focus:border-border-strong"
           placeholder="We couldn't load your data. Please try again."
         />
       </div>
       <div className="sm:col-span-2">
-        <span className="mb-1.5 block text-xs font-medium text-slate-500">
+        <span className="mb-1.5 block text-xs font-medium text-fg-subtle">
           Icon ({filteredIcons.length} of {ICON_NAMES.length})
         </span>
         <input
           value={iconFilter}
           onChange={(e) => setIconFilter(e.target.value)}
           placeholder="Filter by name…"
-          className="mb-2 w-full rounded-md border border-slate-200 px-3 py-1.5 text-sm text-slate-900 outline-none transition-colors focus:border-slate-400"
+          className="mb-2 w-full rounded-md border border-border px-3 py-1.5 text-sm text-fg outline-none transition-colors focus:border-border-strong"
         />
         <div className="grid max-h-40 grid-cols-6 gap-1.5 overflow-y-auto sm:grid-cols-10">
           {filteredIcons.map((n) => (
@@ -107,7 +107,7 @@ export default function ErrorStatePlayground() {
               title={n}
               className={cx(
                 "flex h-9 w-9 items-center justify-center rounded-md transition-colors",
-                icon === n ? "bg-slate-900 text-white" : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                icon === n ? "bg-fg text-surface" : "bg-surface-muted text-fg-muted hover:bg-border"
               )}
             >
               <Icon name={n} size={16} />
@@ -115,7 +115,7 @@ export default function ErrorStatePlayground() {
           ))}
         </div>
       </div>
-      <label className="flex items-center gap-2 text-xs font-medium text-slate-500">
+      <label className="flex items-center gap-2 text-xs font-medium text-fg-subtle">
         <input type="checkbox" checked={showAction} onChange={(e) => setShowAction(e.target.checked)} />
         Show retry action
       </label>

@@ -1,14 +1,20 @@
 import { useState } from "react";
 import { NavigationMenu, type NavigationMenuItem, type NavigationMenuOrientation } from "./NavigationMenu/NavigationMenu";
-import { OptionGroup, PlaygroundLayout, AppWindowFrame } from "./PlaygroundHelpers";
+import { OptionGroup, ColorSwatches, PlaygroundLayout, AppWindowFrame } from "./PlaygroundHelpers";
+import type { ColorName } from "../../core/tokens";
+import type { ActiveVariant } from "../../core/activeVariant";
 import type { CodeBlockVariants } from "./CodeBlock";
 
 const ORIENTATIONS: NavigationMenuOrientation[] = ["horizontal", "vertical"];
 
+// "theme" = no `variant` prop: the active item follows the theme's active-item style.
+const VARIANTS = ["theme", "solid", "outline", "soft"] as const;
 const LABELS = ["Home", "Products", "Pricing", "About", "Contact"] as const;
 
 export default function NavigationMenuPlayground() {
   const [orientation, setOrientation] = useState<NavigationMenuOrientation>("horizontal");
+  const [color, setColor] = useState<ColorName>("accent");
+  const [variant, setVariant] = useState<(typeof VARIANTS)[number]>("theme");
   const [activeLabel, setActiveLabel] = useState<(typeof LABELS)[number]>("Home");
 
   const items: NavigationMenuItem[] = LABELS.map((label) => ({
@@ -24,12 +30,14 @@ export default function NavigationMenuPlayground() {
     <NavigationMenu
       items={items}
       orientation={orientation}
-      onChange={(_, item) => setActiveLabel(item.label as (typeof LABELS)[number])}
+      color={color}
+      variant={variant === "theme" ? undefined : (variant as ActiveVariant)}
+      onActiveItemChange={(item) => setActiveLabel(item.label as (typeof LABELS)[number])}
     />
   );
 
   const pageFiller = (
-    <div className="flex h-28 items-center justify-center rounded-xl border border-dashed border-slate-200 text-sm text-slate-300">
+    <div className="flex h-28 items-center justify-center rounded-xl border border-dashed border-border text-sm text-fg-subtle">
       Page content
     </div>
   );
@@ -37,13 +45,13 @@ export default function NavigationMenuPlayground() {
   const preview = (
     <AppWindowFrame>
       {orientation === "horizontal" ? (
-        <div className="bg-white" style={{ height: 220 }}>
-          <div className="border-b border-slate-200 px-4 py-3">{menu}</div>
+        <div className="bg-surface" style={{ height: 220 }}>
+          <div className="border-b border-border px-4 py-3">{menu}</div>
           <div className="p-6">{pageFiller}</div>
         </div>
       ) : (
-        <div className="flex bg-white" style={{ height: 260 }}>
-          <div className="w-48 shrink-0 border-r border-slate-200 p-4">{menu}</div>
+        <div className="flex bg-surface" style={{ height: 260 }}>
+          <div className="w-48 shrink-0 border-r border-border p-4">{menu}</div>
           <div className="flex-1 p-6">{pageFiller}</div>
         </div>
       )}
@@ -57,7 +65,13 @@ export default function NavigationMenuPlayground() {
   // `items` is a "json"-typed prop with no native attribute form — it must be
   // assigned as a real DOM property (js) or bound (vue/angular) rather than
   // stringified into the tag.
-  const attrs = `orientation="${orientation}"`;
+  const attrs = [
+    `orientation="${orientation}"`,
+    color !== "accent" ? `color="${color}"` : null,
+    variant !== "theme" ? `variant="${variant}"` : null,
+  ]
+    .filter(Boolean)
+    .join(" ");
 
   const codeVariants: CodeBlockVariants = {
     react: `<NavigationMenu
@@ -65,9 +79,9 @@ export default function NavigationMenuPlayground() {
   items={[
 ${itemsCode}
   ]}
-  onChange={(index, item) => setActiveLabel(item.label)}
+  onActiveItemChange={(item) => setActiveLabel(item.label)}
 />`,
-    js: `<NavigationMenu id="nav-menu-demo" ${attrs} />
+    js: `<l-NavigationMenu id="nav-menu-demo" ${attrs} />
 
 <script type="module">
   import "lojee-ui/elements";
@@ -78,37 +92,39 @@ ${itemsCode}
 
   const el = document.getElementById("nav-menu-demo");
   el.items = items;
-  el.addEventListener("change", (e) => {
-    console.log("Selected index:", e.detail);
+  el.addEventListener("activeitemchange", (e) => {
+    console.log("Active:", e.detail.label);
   });
 </script>`,
     vue: `<template>
-  <NavigationMenu :items="items" ${attrs} @change="onChange" />
+  <l-NavigationMenu :items="items" ${attrs} @activeitemchange="onChange" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 const items = [
 ${itemsCode}
 ];
 
-function onChange(index) {
-  console.log("Selected index:", index);
+function onChange(e: CustomEvent) {
+  console.log("Active:", e.detail.label);
 }
 </script>`,
-    angular: `<NavigationMenu [items]="items" ${attrs} (change)="onChange($event)"></NavigationMenu>
+    angular: `<l-NavigationMenu [items]="items" ${attrs} (activeitemchange)="onChange($event)"></l-NavigationMenu>
 
 items = [
 ${itemsCode}
 ];
 
-onChange(index: number) {
-  console.log("Selected index:", index);
+onChange(e: CustomEvent) {
+  console.log("Active:", e.detail.label);
 }`,
   };
 
   return (
     <PlaygroundLayout preview={preview} variants={codeVariants}>
       <OptionGroup label="Orientation" options={ORIENTATIONS} value={orientation} onChange={setOrientation} />
+      <OptionGroup label="Variant" options={VARIANTS} value={variant} onChange={setVariant} />
+      <ColorSwatches value={color} onChange={setColor} />
       <OptionGroup label="Active item" options={LABELS} value={activeLabel} onChange={setActiveLabel} />
     </PlaygroundLayout>
   );

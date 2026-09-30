@@ -7,11 +7,11 @@ export default function SearchInputShowcase() {
   const [query, setQuery] = useState("lojee-ui");
 
   return (
-    <div className="min-h-screen bg-white p-6 md:p-10">
+    <div className="min-h-screen rounded-xl bg-surface p-6 md:p-10">
       <div className="max-w-5xl mx-auto space-y-12">
         <div>
-          <h1 className="text-2xl font-semibold text-slate-900">SearchInput</h1>
-          <p className="text-sm text-slate-500 mt-1">A text input with a leading search icon and a working clear button.</p>
+          <h1 className="text-2xl font-semibold text-fg">SearchInput</h1>
+          <p className="text-sm text-fg-subtle mt-1">A text input with a leading search icon and a working clear button.</p>
         </div>
 
         <section>
@@ -34,7 +34,7 @@ export default function SearchInputShowcase() {
   onClear={() => setQuery("")}
   placeholder="Search…"
 />`,
-              js: `<SearchInput id="search" placeholder="Search…" />
+              js: `<l-SearchInput id="search" placeholder="Search…" />
 
 <script type="module">
   import "lojee-ui/elements";
@@ -45,7 +45,7 @@ export default function SearchInputShowcase() {
   search.addEventListener("clear", () => { search.value = ""; });
 </script>`,
               vue: `<template>
-  <SearchInput
+  <l-SearchInput
     :value="query"
     @input="query = $event.target.value"
     @clear="query = ''"
@@ -53,7 +53,7 @@ export default function SearchInputShowcase() {
   />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 import "lojee-ui/elements";
 
@@ -68,7 +68,7 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <SearchInput
+    <l-SearchInput
       [value]="query"
       (input)="query = $any($event.target).value"
       (clear)="query = ''"
@@ -95,18 +95,18 @@ export class AppComponent {
               react: `<SearchInput size="sm" placeholder="Small" />
 <SearchInput size="md" placeholder="Medium" />
 <SearchInput size="lg" placeholder="Large" />`,
-              js: `<SearchInput size="sm" placeholder="Small" />
-<SearchInput size="md" placeholder="Medium" />
-<SearchInput size="lg" placeholder="Large" />`,
+              js: `<l-SearchInput size="sm" placeholder="Small" />
+<l-SearchInput size="md" placeholder="Medium" />
+<l-SearchInput size="lg" placeholder="Large" />`,
               vue: `<template>
-  <SearchInput size="sm" placeholder="Small" />
-  <SearchInput size="md" placeholder="Medium" />
-  <SearchInput size="lg" placeholder="Large" />
+  <l-SearchInput size="sm" placeholder="Small" />
+  <l-SearchInput size="md" placeholder="Medium" />
+  <l-SearchInput size="lg" placeholder="Large" />
 </template>`,
               angular: `<!-- app.component.html — same AppComponent as above -->
-<SearchInput size="sm" placeholder="Small" />
-<SearchInput size="md" placeholder="Medium" />
-<SearchInput size="lg" placeholder="Large" />`,
+<l-SearchInput size="sm" placeholder="Small" />
+<l-SearchInput size="md" placeholder="Medium" />
+<l-SearchInput size="lg" placeholder="Large" />`,
             }}
           />
         </section>
@@ -119,9 +119,9 @@ export class AppComponent {
           <CodeBlock
             variants={{
               react: `<SearchInput disabled placeholder="Disabled" />`,
-              js: `<SearchInput disabled placeholder="Disabled" />`,
-              vue: `<SearchInput disabled placeholder="Disabled" />`,
-              angular: `<SearchInput disabled placeholder="Disabled" />`,
+              js: `<l-SearchInput disabled placeholder="Disabled" />`,
+              vue: `<l-SearchInput disabled placeholder="Disabled" />`,
+              angular: `<l-SearchInput disabled placeholder="Disabled" />`,
             }}
           />
         </section>

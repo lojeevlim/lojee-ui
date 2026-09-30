@@ -10,11 +10,11 @@ export default function AlertDialogShowcase() {
   const [customOpen, setCustomOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-white p-6 md:p-10">
+    <div className="min-h-screen rounded-xl bg-surface p-6 md:p-10">
       <div className="max-w-5xl mx-auto space-y-12">
         <div>
-          <h1 className="text-2xl font-semibold text-slate-900">Alert Dialog</h1>
-          <p className="text-sm text-slate-500 mt-1">
+          <h1 className="text-2xl font-semibold text-fg">Alert Dialog</h1>
+          <p className="text-sm text-fg-subtle mt-1">
             A focused confirmation dialog with an icon, title, description, and Cancel/Confirm actions.
           </p>
         </div>
@@ -41,8 +41,8 @@ export default function AlertDialogShowcase() {
   description="Your changes will be applied immediately."
   onConfirm={() => { /* persist */ }}
 />`,
-              js: `<Button label="Open confirmation" id="open-confirm-btn" />
-<AlertDialog
+              js: `<l-Button label="Open confirmation" id="open-confirm-btn" />
+<l-AlertDialog
   id="save-dialog"
   heading="Save changes?"
   description="Your changes will be applied immediately."
@@ -61,8 +61,8 @@ export default function AlertDialogShowcase() {
   });
 </script>`,
               vue: `<template>
-  <Button label="Open confirmation" @click="open = true" />
-  <AlertDialog
+  <l-Button label="Open confirmation" @click="open = true" />
+  <l-AlertDialog
     :open="open"
     heading="Save changes?"
     description="Your changes will be applied immediately."
@@ -71,7 +71,7 @@ export default function AlertDialogShowcase() {
   />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 import "lojee-ui/elements";
 
@@ -90,8 +90,8 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <Button label="Open confirmation" (click)="open = true" />
-    <AlertDialog
+    <l-Button label="Open confirmation" (click)="open = true" />
+    <l-AlertDialog
       [open]="open"
       heading="Save changes?"
       description="Your changes will be applied immediately."
@@ -135,7 +135,7 @@ export class AlertDialogShowcaseComponent {
   confirmLabel="Delete"
   onConfirm={() => { /* delete */ }}
 />`,
-              js: `<AlertDialog
+              js: `<l-AlertDialog
   id="delete-dialog"
   variant="destructive"
   heading="Delete item?"
@@ -152,7 +152,7 @@ export class AlertDialogShowcaseComponent {
   });
 </script>`,
               vue: `<template>
-  <AlertDialog
+  <l-AlertDialog
     :open="open"
     variant="destructive"
     heading="Delete item?"
@@ -163,7 +163,7 @@ export class AlertDialogShowcaseComponent {
   />
 </template>`,
               angular: `<!-- reuses AlertDialogShowcaseComponent from above -->
-<AlertDialog
+<l-AlertDialog
   [open]="open"
   variant="destructive"
   heading="Delete item?"
@@ -199,7 +199,7 @@ export class AlertDialogShowcaseComponent {
   cancelLabel="Stay"
   onConfirm={() => { /* navigate away */ }}
 />`,
-              js: `<AlertDialog
+              js: `<l-AlertDialog
   id="leave-dialog"
   heading="Leave without saving?"
   description="You have unsaved changes that will be lost."
@@ -216,7 +216,7 @@ export class AlertDialogShowcaseComponent {
   });
 </script>`,
               vue: `<template>
-  <AlertDialog
+  <l-AlertDialog
     :open="open"
     heading="Leave without saving?"
     description="You have unsaved changes that will be lost."
@@ -227,7 +227,7 @@ export class AlertDialogShowcaseComponent {
   />
 </template>`,
               angular: `<!-- reuses AlertDialogShowcaseComponent from above -->
-<AlertDialog
+<l-AlertDialog
   [open]="open"
   heading="Leave without saving?"
   description="You have unsaved changes that will be lost."

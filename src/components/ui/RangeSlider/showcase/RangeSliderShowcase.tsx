@@ -9,11 +9,11 @@ export default function RangeSliderShowcase() {
   const [priceRange, setPriceRange] = useState<[number, number]>([200, 750]);
 
   return (
-    <div className="min-h-screen bg-white p-6 md:p-10">
+    <div className="min-h-screen rounded-xl bg-surface p-6 md:p-10">
       <div className="max-w-5xl mx-auto space-y-12">
         <div>
-          <h1 className="text-2xl font-semibold text-slate-900">RangeSlider</h1>
-          <p className="text-sm text-slate-500 mt-1">
+          <h1 className="text-2xl font-semibold text-fg">RangeSlider</h1>
+          <p className="text-sm text-fg-subtle mt-1">
             A dual-thumb range built from two overlapping native range inputs sharing one track.
           </p>
         </div>
@@ -28,7 +28,7 @@ export default function RangeSliderShowcase() {
               react: `const [value, setValue] = useState<[number, number]>([20, 70]);
 
 <RangeSlider value={value} onChange={setValue} />`,
-              js: `<RangeSlider id="range" />
+              js: `<l-RangeSlider id="range" />
 
 <script type="module">
   import "lojee-ui/elements";
@@ -40,10 +40,10 @@ export default function RangeSliderShowcase() {
   });
 </script>`,
               vue: `<template>
-  <RangeSlider :value="value" @change="value = $event.detail" />
+  <l-RangeSlider :value="value" @change="value = $event.detail" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 import "lojee-ui/elements";
 
@@ -63,7 +63,7 @@ export class AppComponent {
 }
 
 <!-- app.component.html -->
-<RangeSlider [value]="value" (change)="value = $event.detail" />`,
+<l-RangeSlider [value]="value" (change)="value = $event.detail" />`,
             }}
           />
         </section>
@@ -76,7 +76,7 @@ export class AppComponent {
           <CodeBlock
             variants={{
               react: `<RangeSlider value={value} onChange={setValue} color="indigo" showValue />`,
-              js: `<RangeSlider id="range-colored" color="indigo" showValue />
+              js: `<l-RangeSlider id="range-colored" color="indigo" showValue />
 
 <script type="module">
   const rangeColored = document.getElementById("range-colored");
@@ -86,10 +86,10 @@ export class AppComponent {
   });
 </script>`,
               vue: `<template>
-  <RangeSlider :value="value" color="indigo" showValue @change="value = $event.detail" />
+  <l-RangeSlider :value="value" color="indigo" showValue @change="value = $event.detail" />
 </template>`,
               angular: `<!-- app.component.html — reuses the same AppComponent class, with value initialized to [30, 80] -->
-<RangeSlider [value]="value" color="indigo" showValue (change)="value = $event.detail" />`,
+<l-RangeSlider [value]="value" color="indigo" showValue (change)="value = $event.detail" />`,
             }}
           />
         </section>
@@ -118,7 +118,7 @@ export class AppComponent {
   color="emerald"
   showValue
 />`,
-              js: `<RangeSlider id="price-range" min="0" max="1000" step="10" color="emerald" showValue />
+              js: `<l-RangeSlider id="price-range" min="0" max="1000" step="10" color="emerald" showValue />
 
 <script type="module">
   const priceRange = document.getElementById("price-range");
@@ -128,7 +128,7 @@ export class AppComponent {
   });
 </script>`,
               vue: `<template>
-  <RangeSlider
+  <l-RangeSlider
     :value="value"
     min="0"
     max="1000"
@@ -139,7 +139,7 @@ export class AppComponent {
   />
 </template>`,
               angular: `<!-- app.component.html — reuses the same AppComponent class, with value initialized to [200, 750] -->
-<RangeSlider
+<l-RangeSlider
   [value]="value"
   min="0"
   max="1000"

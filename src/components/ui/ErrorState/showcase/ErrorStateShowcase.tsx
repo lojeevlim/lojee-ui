@@ -5,11 +5,11 @@ import { SectionLabel } from "../../ShowcaseHelpers";
 
 export default function ErrorStateShowcase() {
   return (
-    <div className="min-h-screen bg-white p-6 md:p-10">
+    <div className="min-h-screen rounded-xl bg-surface p-6 md:p-10">
       <div className="max-w-5xl mx-auto space-y-12">
         <div>
-          <h1 className="text-2xl font-semibold text-slate-900">Error State</h1>
-          <p className="text-sm text-slate-500 mt-1">
+          <h1 className="text-2xl font-semibold text-fg">Error State</h1>
+          <p className="text-sm text-fg-subtle mt-1">
             A rose-toned placeholder for a failed data fetch or action — an icon, a title, an optional description,
             and an optional retry action.
           </p>
@@ -21,11 +21,11 @@ export default function ErrorStateShowcase() {
           <CodeBlock
             variants={{
               react: `<ErrorState />`,
-              js: `<ErrorState />
+              js: `<l-ErrorState />
 
 <script type="module">import "lojee-ui/elements";</script>`,
-              vue: `<ErrorState />`,
-              angular: `<ErrorState />`,
+              vue: `<l-ErrorState />`,
+              angular: `<l-ErrorState />`,
             }}
           />
         </section>
@@ -36,13 +36,13 @@ export default function ErrorStateShowcase() {
           <CodeBlock
             variants={{
               react: `<ErrorState>\n  We couldn't load your data. Please try again.\n</ErrorState>`,
-              js: `<ErrorState>
+              js: `<l-ErrorState>
   We couldn't load your data. Please try again.
-</ErrorState>
+</l-ErrorState>
 
 <script type="module">import "lojee-ui/elements";</script>`,
-              vue: `<ErrorState>\n  We couldn't load your data. Please try again.\n</ErrorState>`,
-              angular: `<ErrorState>\n  We couldn't load your data. Please try again.\n</ErrorState>`,
+              vue: `<l-ErrorState>\n  We couldn't load your data. Please try again.\n</l-ErrorState>`,
+              angular: `<l-ErrorState>\n  We couldn't load your data. Please try again.\n</l-ErrorState>`,
             }}
           />
         </section>
@@ -61,10 +61,10 @@ export default function ErrorStateShowcase() {
 >
   We couldn't load your data. Please try again.
 </ErrorState>`,
-              js: `<ErrorState>
+              js: `<l-ErrorState>
   We couldn't load your data. Please try again.
-  <Button slot="action" variant="destructive" icon="refresh-cw" label="Retry" id="retry-btn" />
-</ErrorState>
+  <l-Button slot="action" variant="destructive" icon="refresh-cw" label="Retry" id="retry-btn" />
+</l-ErrorState>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -74,13 +74,13 @@ export default function ErrorStateShowcase() {
   });
 </script>`,
               vue: `<template>
-  <ErrorState>
+  <l-ErrorState>
     We couldn't load your data. Please try again.
-    <Button slot="action" variant="destructive" icon="refresh-cw" label="Retry" @click="handleRetry" />
-  </ErrorState>
+    <l-Button slot="action" variant="destructive" icon="refresh-cw" label="Retry" @click="handleRetry" />
+  </l-ErrorState>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import "lojee-ui/elements";
 
 const handleRetry = () => {
@@ -88,10 +88,10 @@ const handleRetry = () => {
 };
 </script>`,
               angular: `<!-- app.component.html -->
-<ErrorState>
+<l-ErrorState>
   We couldn't load your data. Please try again.
-  <Button slot="action" variant="destructive" icon="refresh-cw" label="Retry" (click)="handleRetry()" />
-</ErrorState>`,
+  <l-Button slot="action" variant="destructive" icon="refresh-cw" label="Retry" (click)="handleRetry()" />
+</l-ErrorState>`,
             }}
           />
         </section>
@@ -106,13 +106,13 @@ const handleRetry = () => {
           <CodeBlock
             variants={{
               react: `<ErrorState title="Connection lost" icon="triangle-alert">\n  Check your internet connection and try again.\n</ErrorState>`,
-              js: `<ErrorState title="Connection lost" icon="triangle-alert">
+              js: `<l-ErrorState title="Connection lost" icon="triangle-alert">
   Check your internet connection and try again.
-</ErrorState>
+</l-ErrorState>
 
 <script type="module">import "lojee-ui/elements";</script>`,
-              vue: `<ErrorState title="Connection lost" icon="triangle-alert">\n  Check your internet connection and try again.\n</ErrorState>`,
-              angular: `<ErrorState title="Connection lost" icon="triangle-alert">\n  Check your internet connection and try again.\n</ErrorState>`,
+              vue: `<l-ErrorState title="Connection lost" icon="triangle-alert">\n  Check your internet connection and try again.\n</l-ErrorState>`,
+              angular: `<l-ErrorState title="Connection lost" icon="triangle-alert">\n  Check your internet connection and try again.\n</l-ErrorState>`,
             }}
           />
         </section>

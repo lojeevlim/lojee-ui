@@ -21,7 +21,7 @@ export default function CardPlayground() {
           padding={padding}
           hoverable={hoverable}
           title={withTitle ? "Card title" : undefined}
-          footer={withFooter ? <span className="text-xs text-slate-500">Footer content</span> : undefined}
+          footer={withFooter ? <span className="text-xs text-fg-subtle">Footer content</span> : undefined}
           className="w-64"
         >
           Sample content
@@ -38,11 +38,11 @@ export default function CardPlayground() {
 
   // Custom-element markup for the current configuration — l-card's `footer`
   // prop is a plain string (unlike React's JSX footer node above).
-  const htmlMarkup = `<Card variant="${variant}" padding="${padding}"${hoverable ? ` hoverable` : ""}${
+  const htmlMarkup = `<l-Card variant="${variant}" padding="${padding}"${hoverable ? ` hoverable` : ""}${
     withTitle ? ` title="Card title"` : ""
   }${withFooter ? ` footer="Footer content"` : ""}>
   Sample content
-</Card>`;
+</l-Card>`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,
@@ -57,14 +57,14 @@ export default function CardPlayground() {
       <OptionGroup label="Padding" options={PADDINGS} value={padding} onChange={setPadding} />
 
       <div>
-        <span className="mb-1.5 block text-xs font-medium text-slate-500">Options</span>
+        <span className="mb-1.5 block text-xs font-medium text-fg-subtle">Options</span>
         <div className="flex flex-wrap gap-1.5">
           <button
             type="button"
             onClick={() => setHoverable((v) => !v)}
             className={
               "rounded-md px-2.5 py-1 text-xs font-medium transition-colors " +
-              (hoverable ? "bg-slate-900 text-white" : "bg-slate-100 text-slate-600 hover:bg-slate-200")
+              (hoverable ? "bg-fg text-surface" : "bg-surface-muted text-fg-muted hover:bg-border")
             }
           >
             Hoverable
@@ -74,7 +74,7 @@ export default function CardPlayground() {
             onClick={() => setWithTitle((v) => !v)}
             className={
               "rounded-md px-2.5 py-1 text-xs font-medium transition-colors " +
-              (withTitle ? "bg-slate-900 text-white" : "bg-slate-100 text-slate-600 hover:bg-slate-200")
+              (withTitle ? "bg-fg text-surface" : "bg-surface-muted text-fg-muted hover:bg-border")
             }
           >
             With title
@@ -84,7 +84,7 @@ export default function CardPlayground() {
             onClick={() => setWithFooter((v) => !v)}
             className={
               "rounded-md px-2.5 py-1 text-xs font-medium transition-colors " +
-              (withFooter ? "bg-slate-900 text-white" : "bg-slate-100 text-slate-600 hover:bg-slate-200")
+              (withFooter ? "bg-fg text-surface" : "bg-surface-muted text-fg-muted hover:bg-border")
             }
           >
             With footer

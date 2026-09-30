@@ -16,7 +16,7 @@ export default function DrawerPlayground() {
       <AppWindowBody>
         <Button label="Open drawer" onClick={() => setOpen(true)} />
         <Drawer open={open} onClose={() => setOpen(false)} position={position} title={title || "Drawer title"}>
-          <p className="text-sm text-slate-600">This is the drawer body content.</p>
+          <p className="text-sm text-fg-muted">This is the drawer body content.</p>
         </Drawer>
       </AppWindowBody>
     </AppWindowFrame>
@@ -29,10 +29,10 @@ export default function DrawerPlayground() {
   // `open` is controlled visibility, so it's a DOM property set from the
   // trigger click (matches ModalShowcase.tsx's pattern) rather than a baked
   // literal; `position`/`heading` stay plain snapshot attributes.
-  const htmlMarkup = `<Button label="Open drawer" id="open-drawer-btn" />
-<Drawer id="drawer" position="${position}" heading="${title || "Drawer title"}">
+  const htmlMarkup = `<l-Button label="Open drawer" id="open-drawer-btn" />
+<l-Drawer id="drawer" position="${position}" heading="${title || "Drawer title"}">
   <p>This is the drawer body content.</p>
-</Drawer>`;
+</l-Drawer>`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,
@@ -47,33 +47,33 @@ export default function DrawerPlayground() {
   drawer.addEventListener("close", () => { drawer.open = false; });
 </script>`,
     vue: `<template>
-  <Button label="Open drawer" @click="open = true" />
-  <Drawer :open="open" position="${position}" heading="${title || "Drawer title"}" @close="open = false">
+  <l-Button label="Open drawer" @click="open = true" />
+  <l-Drawer :open="open" position="${position}" heading="${title || "Drawer title"}" @close="open = false">
     <p>This is the drawer body content.</p>
-  </Drawer>
+  </l-Drawer>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 import "lojee-ui/elements";
 
 const open = ref(false);
 </script>`,
     angular: `<!-- app.component.html -->
-<Button label="Open drawer" (click)="open = true" />
-<Drawer [open]="open" position="${position}" heading="${title || "Drawer title"}" (close)="open = false">
+<l-Button label="Open drawer" (click)="open = true" />
+<l-Drawer [open]="open" position="${position}" heading="${title || "Drawer title"}" (close)="open = false">
   <p>This is the drawer body content.</p>
-</Drawer>`,
+</l-Drawer>`,
   };
 
   return (
     <PlaygroundLayout preview={preview} variants={codeVariants}>
       <div className="sm:col-span-2">
-        <span className="mb-1.5 block text-xs font-medium text-slate-500">Title</span>
+        <span className="mb-1.5 block text-xs font-medium text-fg-subtle">Title</span>
         <input
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          className="w-full rounded-md border border-slate-200 px-3 py-1.5 text-sm text-slate-900 outline-none transition-colors focus:border-slate-400"
+          className="w-full rounded-md border border-border px-3 py-1.5 text-sm text-fg outline-none transition-colors focus:border-border-strong"
           placeholder="Drawer title"
         />
       </div>

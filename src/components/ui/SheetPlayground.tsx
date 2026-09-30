@@ -13,7 +13,7 @@ export default function SheetPlayground() {
       <AppWindowBody>
         <Button label="Open sheet" onClick={() => setOpen(true)} />
         <Sheet open={open} onClose={() => setOpen(false)} title={title || "Sheet title"}>
-          <p className="text-sm text-slate-600">This is the sheet body content.</p>
+          <p className="text-sm text-fg-muted">This is the sheet body content.</p>
         </Sheet>
       </AppWindowBody>
     </AppWindowFrame>
@@ -26,10 +26,10 @@ export default function SheetPlayground() {
   // `open` is controlled visibility, so it's a DOM property set from the
   // trigger click (matches ModalShowcase.tsx's pattern) rather than a baked
   // literal; `heading` stays a plain snapshot attribute.
-  const htmlMarkup = `<Button label="Open sheet" id="open-sheet-btn" />
-<Sheet id="sheet" heading="${title || "Sheet title"}">
+  const htmlMarkup = `<l-Button label="Open sheet" id="open-sheet-btn" />
+<l-Sheet id="sheet" heading="${title || "Sheet title"}">
   <p>This is the sheet body content.</p>
-</Sheet>`;
+</l-Sheet>`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,
@@ -44,33 +44,33 @@ export default function SheetPlayground() {
   sheet.addEventListener("close", () => { sheet.open = false; });
 </script>`,
     vue: `<template>
-  <Button label="Open sheet" @click="open = true" />
-  <Sheet :open="open" heading="${title || "Sheet title"}" @close="open = false">
+  <l-Button label="Open sheet" @click="open = true" />
+  <l-Sheet :open="open" heading="${title || "Sheet title"}" @close="open = false">
     <p>This is the sheet body content.</p>
-  </Sheet>
+  </l-Sheet>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 import "lojee-ui/elements";
 
 const open = ref(false);
 </script>`,
     angular: `<!-- app.component.html -->
-<Button label="Open sheet" (click)="open = true" />
-<Sheet [open]="open" heading="${title || "Sheet title"}" (close)="open = false">
+<l-Button label="Open sheet" (click)="open = true" />
+<l-Sheet [open]="open" heading="${title || "Sheet title"}" (close)="open = false">
   <p>This is the sheet body content.</p>
-</Sheet>`,
+</l-Sheet>`,
   };
 
   return (
     <PlaygroundLayout preview={preview} variants={codeVariants}>
       <div className="sm:col-span-2">
-        <span className="mb-1.5 block text-xs font-medium text-slate-500">Title</span>
+        <span className="mb-1.5 block text-xs font-medium text-fg-subtle">Title</span>
         <input
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          className="w-full rounded-md border border-slate-200 px-3 py-1.5 text-sm text-slate-900 outline-none transition-colors focus:border-slate-400"
+          className="w-full rounded-md border border-border px-3 py-1.5 text-sm text-fg outline-none transition-colors focus:border-border-strong"
           placeholder="Sheet title"
         />
       </div>

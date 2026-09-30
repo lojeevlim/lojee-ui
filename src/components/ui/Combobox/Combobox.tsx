@@ -9,11 +9,15 @@ export interface ComboboxOption {
 }
 
 export interface ComboboxProps {
+  /** The selectable options; typing in the input filters them by case-insensitive label match. */
   options: ComboboxOption[];
   /** Controlled selected value. */
   value?: string;
+  /** Called with the chosen option's `value` when the user selects an option by click or Enter. */
   onChange?: (value: string) => void;
+  /** Placeholder text shown in the input while it is empty. */
   placeholder?: string;
+  /** Extra class names applied to the root element. */
   className?: string;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
   classNames?: {
@@ -88,7 +92,7 @@ export function Combobox({ options, value, onChange, placeholder, className, cla
   return (
     <div ref={rootRef} className={cx("relative w-full", className, classNames?.root)}>
       <span className="relative flex w-full items-center">
-        <Icon name="search" size={16} className="pointer-events-none absolute left-3 text-slate-400" />
+        <Icon name="search" size={16} className="pointer-events-none absolute left-3 text-fg-subtle" />
         <input
           type="text"
           value={inputValue}
@@ -101,7 +105,7 @@ export function Combobox({ options, value, onChange, placeholder, className, cla
           }}
           onKeyDown={handleKeyDown}
           className={cx(
-            "w-full rounded-md border border-slate-300 bg-white py-2 pl-9 pr-3 text-sm text-slate-900 placeholder:text-slate-400 outline-none transition-colors focus:border-slate-500 focus:ring-2 focus:ring-slate-500/20",
+            "w-full rounded-md border border-border-strong bg-surface py-2 pl-9 pr-3 text-sm text-fg placeholder:text-fg-subtle outline-none transition-colors focus:border-slate-500 focus:ring-2 focus:ring-slate-500/20",
             classNames?.input
           )}
         />
@@ -111,11 +115,11 @@ export function Combobox({ options, value, onChange, placeholder, className, cla
         <div
           role="listbox"
           className={cx(
-            "absolute z-10 mt-1 w-full max-h-60 overflow-y-auto rounded-lg border border-slate-200 bg-white py-1 shadow-lg",
+            "absolute z-10 mt-1 w-full max-h-60 overflow-y-auto rounded-lg border border-border bg-surface py-1 shadow-lg",
             classNames?.menu
           )}
         >
-          {filtered.length === 0 && <div className="px-3 py-1.5 text-sm text-slate-400">No results</div>}
+          {filtered.length === 0 && <div className="px-3 py-1.5 text-sm text-fg-subtle">No results</div>}
           {filtered.map((o, i) => (
             <button
               key={o.value}
@@ -125,8 +129,8 @@ export function Combobox({ options, value, onChange, placeholder, className, cla
               onMouseEnter={() => setHighlightedIndex(i)}
               onClick={() => selectOption(o)}
               className={cx(
-                "flex w-full items-center gap-2 px-3 py-1.5 text-left text-sm text-slate-700",
-                i === safeHighlighted && "bg-slate-100",
+                "flex w-full items-center gap-2 px-3 py-1.5 text-left text-sm text-fg-muted",
+                i === safeHighlighted && "bg-surface-muted",
                 i === safeHighlighted && classNames?.activeOption,
                 classNames?.option
               )}

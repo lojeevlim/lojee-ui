@@ -4,20 +4,20 @@ import { SectionLabel } from "../../ShowcaseHelpers";
 
 export default function SectionShowcase() {
   return (
-    <div className="min-h-screen bg-white p-6 md:p-10">
+    <div className="min-h-screen rounded-xl bg-surface p-6 md:p-10">
       <div className="max-w-5xl mx-auto space-y-12">
         <div>
-          <h1 className="text-2xl font-semibold text-slate-900">Section</h1>
-          <p className="text-sm text-slate-500 mt-1">Vertical rhythm for stacked page sections, with an optional title/subtitle header.</p>
+          <h1 className="text-2xl font-semibold text-fg">Section</h1>
+          <p className="text-sm text-fg-subtle mt-1">Vertical rhythm for stacked page sections, with an optional title/subtitle header.</p>
         </div>
 
         <section>
           <SectionLabel sub="sm, md, lg vertical padding.">Spacing</SectionLabel>
           <div className="space-y-3">
             {(["sm", "md", "lg"] as const).map((spacing) => (
-              <div key={spacing} className="border border-dashed border-slate-200 rounded-lg">
+              <div key={spacing} className="border border-dashed border-border rounded-lg">
                 <Section spacing={spacing} className="px-4">
-                  <div className="rounded-md bg-slate-100 p-3 text-center text-xs text-slate-500">spacing="{spacing}"</div>
+                  <div className="rounded-md bg-surface-muted p-3 text-center text-xs text-fg-subtle">spacing="{spacing}"</div>
                 </Section>
               </div>
             ))}
@@ -27,20 +27,20 @@ export default function SectionShowcase() {
               react: `<Section spacing="sm">...</Section>
 <Section spacing="md">...</Section>
 <Section spacing="lg">...</Section>`,
-              js: `<Section spacing="sm">...</Section>
-<Section spacing="md">...</Section>
-<Section spacing="lg">...</Section>
+              js: `<l-Section spacing="sm">...</l-Section>
+<l-Section spacing="md">...</l-Section>
+<l-Section spacing="lg">...</l-Section>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <Section spacing="sm">...</Section>
-  <Section spacing="md">...</Section>
-  <Section spacing="lg">...</Section>
+  <l-Section spacing="sm">...</l-Section>
+  <l-Section spacing="md">...</l-Section>
+  <l-Section spacing="lg">...</l-Section>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import "lojee-ui/elements";
 </script>`,
               angular: `// app.component.ts
@@ -52,9 +52,9 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <Section spacing="sm">...</Section>
-    <Section spacing="md">...</Section>
-    <Section spacing="lg">...</Section>
+    <l-Section spacing="sm">...</l-Section>
+    <l-Section spacing="md">...</l-Section>
+    <l-Section spacing="lg">...</l-Section>
   \`,
 })
 export class AppComponent {}`,
@@ -64,9 +64,9 @@ export class AppComponent {}`,
 
         <section>
           <SectionLabel sub="Renders a heading and description above the body.">Title and subtitle</SectionLabel>
-          <div className="border border-dashed border-slate-200 rounded-lg">
+          <div className="border border-dashed border-border rounded-lg">
             <Section title="Team members" subtitle="Manage who has access to this workspace." className="px-4">
-              <div className="rounded-md bg-slate-100 p-3 text-center text-xs text-slate-500">Body content</div>
+              <div className="rounded-md bg-surface-muted p-3 text-center text-xs text-fg-subtle">Body content</div>
             </Section>
           </div>
           <CodeBlock
@@ -74,18 +74,18 @@ export class AppComponent {}`,
               react: `<Section title="Team members" subtitle="Manage who has access to this workspace.">
   ...
 </Section>`,
-              js: `<Section title="Team members" subtitle="Manage who has access to this workspace.">
+              js: `<l-Section title="Team members" subtitle="Manage who has access to this workspace.">
   ...
-</Section>`,
+</l-Section>`,
               vue: `<template>
-  <Section title="Team members" subtitle="Manage who has access to this workspace.">
+  <l-Section title="Team members" subtitle="Manage who has access to this workspace.">
     ...
-  </Section>
+  </l-Section>
 </template>`,
               angular: `<!-- reuses the AppComponent from above -->
-<Section title="Team members" subtitle="Manage who has access to this workspace.">
+<l-Section title="Team members" subtitle="Manage who has access to this workspace.">
   ...
-</Section>`,
+</l-Section>`,
             }}
           />
         </section>

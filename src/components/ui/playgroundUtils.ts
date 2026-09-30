@@ -11,6 +11,7 @@ export const swatchClasses: Record<ColorName, string> = {
   slate: "bg-slate-900",
   gray: "bg-gray-500",
   indigo: "bg-indigo-500",
+  accent: "bg-accent-500",
   violet: "bg-violet-500",
   blue: "bg-blue-500",
   cyan: "bg-cyan-500",

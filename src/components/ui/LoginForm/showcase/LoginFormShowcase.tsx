@@ -7,11 +7,11 @@ export default function LoginFormShowcase() {
   const [submitted, setSubmitted] = useState<LoginFormValues | null>(null);
 
   return (
-    <div className="min-h-screen bg-white p-6 md:p-10">
+    <div className="min-h-screen rounded-xl bg-surface p-6 md:p-10">
       <div className="max-w-5xl mx-auto space-y-12">
         <div>
-          <h1 className="text-2xl font-semibold text-slate-900">LoginForm</h1>
-          <p className="text-sm text-slate-500 mt-1">
+          <h1 className="text-2xl font-semibold text-fg">LoginForm</h1>
+          <p className="text-sm text-fg-subtle mt-1">
             A ready-to-use login block — email, password, remember-me, and submit — built from this library's own
             form primitives.
           </p>
@@ -25,8 +25,8 @@ export default function LoginFormShowcase() {
             <LoginForm onSubmit={setSubmitted} />
           </div>
           {submitted && (
-            <p className="mt-3 text-sm text-slate-500">
-              Submitted: <span className="font-medium text-slate-900">{submitted.email}</span>
+            <p className="mt-3 text-sm text-fg-subtle">
+              Submitted: <span className="font-medium text-fg">{submitted.email}</span>
               {submitted.remember ? " (remembered)" : ""}
             </p>
           )}
@@ -35,7 +35,7 @@ export default function LoginFormShowcase() {
               react: `const [values, setValues] = useState(null);
 
 <LoginForm onSubmit={setValues} />`,
-              js: `<LoginForm id="login"></LoginForm>
+              js: `<l-LoginForm id="login"></l-LoginForm>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -45,15 +45,15 @@ export default function LoginFormShowcase() {
   });
 </script>`,
               vue: `<template>
-  <LoginForm @submit="onSubmit" />
+  <l-LoginForm @submit="onSubmit" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 function onSubmit(values) {
   console.log(values);
 }
 </script>`,
-              angular: `<LoginForm (submit)="onSubmit($event)"></LoginForm>
+              angular: `<l-LoginForm (submit)="onSubmit($event)"></l-LoginForm>
 
 onSubmit(values) {
   console.log(values);
@@ -69,9 +69,9 @@ onSubmit(values) {
           <div className="max-w-sm">
             <LoginForm
               footer={
-                <p className="text-center text-sm text-slate-500">
+                <p className="text-center text-sm text-fg-subtle">
                   Don&apos;t have an account?{" "}
-                  <a className="font-medium text-slate-900" href="#">
+                  <a className="font-medium text-fg" href="#">
                     Sign up
                   </a>
                 </p>
@@ -87,21 +87,21 @@ onSubmit(values) {
     </p>
   }
 />`,
-              js: `<LoginForm>
+              js: `<l-LoginForm>
   <p slot="footer">Don't have an account? <a href="/signup">Sign up</a></p>
-</LoginForm>
+</l-LoginForm>
 
 <script type="module">import "lojee-ui/elements";</script>`,
               vue: `<template>
-  <LoginForm>
+  <l-LoginForm>
     <template #footer>
       <p>Don't have an account? <a href="/signup">Sign up</a></p>
     </template>
-  </LoginForm>
+  </l-LoginForm>
 </template>`,
-              angular: `<LoginForm>
+              angular: `<l-LoginForm>
   <p slot="footer">Don't have an account? <a href="/signup">Sign up</a></p>
-</LoginForm>`,
+</l-LoginForm>`,
             }}
           />
         </section>
@@ -116,11 +116,11 @@ onSubmit(values) {
           <CodeBlock
             variants={{
               react: `<LoginForm showRemember={false} showForgotPassword={false} />`,
-              js: `<LoginForm showRemember="false" showForgotPassword="false"></LoginForm>
+              js: `<l-LoginForm showRemember="false" showForgotPassword="false"></l-LoginForm>
 
 <script type="module">import "lojee-ui/elements";</script>`,
-              vue: `<LoginForm :showRemember="false" :showForgotPassword="false" />`,
-              angular: `<LoginForm [showRemember]="false" [showForgotPassword]="false"></LoginForm>`,
+              vue: `<l-LoginForm :showRemember="false" :showForgotPassword="false" />`,
+              angular: `<l-LoginForm [showRemember]="false" [showForgotPassword]="false"></l-LoginForm>`,
             }}
           />
         </section>

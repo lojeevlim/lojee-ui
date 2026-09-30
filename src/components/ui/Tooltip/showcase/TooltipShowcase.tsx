@@ -5,11 +5,11 @@ import { SectionLabel, Row } from "../../ShowcaseHelpers";
 
 export default function TooltipShowcase() {
   return (
-    <div className="min-h-screen bg-white p-6 md:p-10">
+    <div className="min-h-screen rounded-xl bg-surface p-6 md:p-10">
       <div className="max-w-5xl mx-auto space-y-12">
         <div>
-          <h1 className="text-2xl font-semibold text-slate-900">Tooltip</h1>
-          <p className="text-sm text-slate-500 mt-1">
+          <h1 className="text-2xl font-semibold text-fg">Tooltip</h1>
+          <p className="text-sm text-fg-subtle mt-1">
             Hover-triggered floating text, positioned via pure CSS — no JS state, no positioning
             library.
           </p>
@@ -36,20 +36,20 @@ export default function TooltipShowcase() {
               react: `<Tooltip content="Tooltip on top" position="top">
   <Button variant="outline" label="Top" />
 </Tooltip>`,
-              js: `<Tooltip content="Tooltip on top" position="top">
-  <Button variant="outline" label="Top" />
-</Tooltip>
+              js: `<l-Tooltip content="Tooltip on top" position="top">
+  <l-Button variant="outline" label="Top" />
+</l-Tooltip>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <Tooltip content="Tooltip on top" position="top">
-    <Button variant="outline" label="Top" />
-  </Tooltip>
+  <l-Tooltip content="Tooltip on top" position="top">
+    <l-Button variant="outline" label="Top" />
+  </l-Tooltip>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import "lojee-ui/elements";
 </script>`,
               angular: `// tooltip-showcase.component.ts
@@ -61,9 +61,9 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <Tooltip content="Tooltip on top" position="top">
-      <Button variant="outline" label="Top" />
-    </Tooltip>
+    <l-Tooltip content="Tooltip on top" position="top">
+      <l-Button variant="outline" label="Top" />
+    </l-Tooltip>
   \`,
 })
 export class TooltipShowcaseComponent {}`,
@@ -72,9 +72,12 @@ export class TooltipShowcaseComponent {}`,
         </section>
 
         <section>
-          <SectionLabel sub="Same color palette as Button — defaults to slate.">Colors</SectionLabel>
+          <SectionLabel sub="Same color palette as Button. The default is the theme's accent color, so tooltips change with the accent picker.">Colors</SectionLabel>
           <Row>
-            <Tooltip content="Slate (default)" color="slate">
+            <Tooltip content="Accent (default) — follows the theme">
+              <Button variant="outline" label="Default" />
+            </Tooltip>
+            <Tooltip content="Slate tooltip" color="slate">
               <Button variant="outline" label="Slate" />
             </Tooltip>
             <Tooltip content="Indigo tooltip" color="indigo">
@@ -95,18 +98,18 @@ export class TooltipShowcaseComponent {}`,
               react: `<Tooltip content="Indigo tooltip" color="indigo">
   <Button variant="outline" label="Indigo" />
 </Tooltip>`,
-              js: `<Tooltip content="Indigo tooltip" color="indigo">
-  <Button variant="outline" label="Indigo" />
-</Tooltip>`,
+              js: `<l-Tooltip content="Indigo tooltip" color="indigo">
+  <l-Button variant="outline" label="Indigo" />
+</l-Tooltip>`,
               vue: `<template>
-  <Tooltip content="Indigo tooltip" color="indigo">
-    <Button variant="outline" label="Indigo" />
-  </Tooltip>
+  <l-Tooltip content="Indigo tooltip" color="indigo">
+    <l-Button variant="outline" label="Indigo" />
+  </l-Tooltip>
 </template>`,
               angular: `<!-- reuses TooltipShowcaseComponent from above -->
-<Tooltip content="Indigo tooltip" color="indigo">
-  <Button variant="outline" label="Indigo" />
-</Tooltip>`,
+<l-Tooltip content="Indigo tooltip" color="indigo">
+  <l-Button variant="outline" label="Indigo" />
+</l-Tooltip>`,
             }}
           />
         </section>
@@ -124,12 +127,12 @@ export class TooltipShowcaseComponent {}`,
           <CodeBlock
             variants={{
               react: `<Tooltip content="Waits a bit" delayMs={500}>...</Tooltip>`,
-              js: `<Tooltip content="Waits a bit" delayMs="500">...</Tooltip>`,
+              js: `<l-Tooltip content="Waits a bit" delayMs="500">...</l-Tooltip>`,
               vue: `<template>
-  <Tooltip content="Waits a bit" delayMs="500">...</Tooltip>
+  <l-Tooltip content="Waits a bit" delayMs="500">...</l-Tooltip>
 </template>`,
               angular: `<!-- reuses TooltipShowcaseComponent from above -->
-<Tooltip content="Waits a bit" delayMs="500">...</Tooltip>`,
+<l-Tooltip content="Waits a bit" delayMs="500">...</l-Tooltip>`,
             }}
           />
         </section>
@@ -146,18 +149,18 @@ export class TooltipShowcaseComponent {}`,
               react: `<Tooltip content="This works on plain text too">
   <span>Hover this text</span>
 </Tooltip>`,
-              js: `<Tooltip content="This works on plain text too">
+              js: `<l-Tooltip content="This works on plain text too">
   <span>Hover this text</span>
-</Tooltip>`,
+</l-Tooltip>`,
               vue: `<template>
-  <Tooltip content="This works on plain text too">
+  <l-Tooltip content="This works on plain text too">
     <span>Hover this text</span>
-  </Tooltip>
+  </l-Tooltip>
 </template>`,
               angular: `<!-- reuses TooltipShowcaseComponent from above -->
-<Tooltip content="This works on plain text too">
+<l-Tooltip content="This works on plain text too">
   <span>Hover this text</span>
-</Tooltip>`,
+</l-Tooltip>`,
             }}
           />
         </section>

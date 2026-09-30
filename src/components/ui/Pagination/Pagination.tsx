@@ -1,4 +1,6 @@
-import { colorClasses, cx, nonInteractive, type ColorName } from "../../../core/tokens";
+import { useLayoutEffect, useRef, useState } from "react";
+import { colorClasses, cx, isColorName, nonInteractive, type ColorName } from "../../../core/tokens";
+import { ACTIVE_ITEM_TRANSITION, ACTIVE_PILL_TRANSITION, activeMarker } from "../../../core/activeVariant";
 import { Icon } from "../Icons/Icon";
 
 // Controlled like Divider's resizable/onResize: Pagination owns no page
@@ -8,12 +10,19 @@ import { Icon } from "../Icons/Icon";
 // Component via r2wc, arbitrary light-DOM children can't be inspected or
 // cloned across the shadow boundary.
 export interface PaginationProps {
+  /** The current 1-based page number (controlled) — highlighted as active. */
   page: number;
+  /** Total number of pages available. */
   totalPages: number;
+  /** Called with the new 1-based page number when a page button, or the previous/next button, is clicked. */
   onPageChange?: (page: number) => void;
+  /** How many page buttons to show on each side of the current page before collapsing into an ellipsis (default: 1). */
   siblingCount?: number;
+  /** Color of the active page indicator (default: "accent" — follows the theme accent). */
   color?: ColorName;
+  /** Extra CSS class(es) added to the root element, merged before `classNames.root`. */
   className?: string;
+  /** Per-part class overrides — merged after (and win over) the built-in styling. */
   classNames?: { root?: string; item?: string; activeItem?: string };
 }
 
@@ -44,17 +53,35 @@ function getPageItems(page: number, totalPages: number, siblingCount: number): P
   return [1, "left-ellipsis", ...range(leftSibling, rightSibling), "right-ellipsis", totalPages];
 }
 
-const ITEM_BASE_CLASSES = "flex h-8 w-8 items-center justify-center rounded-md text-sm font-medium transition-colors";
-const INACTIVE_CLASSES = "text-slate-600 hover:bg-slate-100";
+const ITEM_BASE_CLASSES = cx("flex h-8 w-8 items-center justify-center rounded-md text-sm font-medium", ACTIVE_ITEM_TRANSITION);
+const INACTIVE_CLASSES = "text-fg-muted hover:bg-surface-muted";
 const NAV_BUTTON_CLASSES = "disabled:opacity-40 disabled:pointer-events-none";
 
-export function Pagination({ page, totalPages, onPageChange, siblingCount = 1, color = "slate", className, classNames }: PaginationProps) {
+export function Pagination({ page, totalPages, onPageChange, siblingCount = 1, color = "accent", className, classNames }: PaginationProps) {
   const items = getPageItems(page, totalPages, siblingCount);
   const activeClasses = nonInteractive(colorClasses[color]?.solid ?? colorClasses.slate.solid);
+  const colorIsNamed = isColorName(color);
+
+  // One pill slides to the current page (same slide as Sidebar / Navbar) instead of each page button
+  // repainting its own background. Measured from the active button's real box after every page change.
+  const pageRefs = useRef<Record<number, HTMLButtonElement | null>>({});
+  const [pill, setPill] = useState<{ left: number; top: number; width: number; height: number } | null>(null);
+  useLayoutEffect(() => {
+    const el = pageRefs.current[page];
+    setPill(el ? { left: el.offsetLeft, top: el.offsetTop, width: el.offsetWidth, height: el.offsetHeight } : null);
+  }, [page, totalPages, siblingCount]);
 
   return (
     <nav aria-label="Pagination" className={cx(className, classNames?.root)}>
-      <ul className="flex items-center gap-1">
+      <ul className="relative flex items-center gap-1">
+        {pill && (
+          <li
+            aria-hidden
+            role="presentation"
+            className={cx("pointer-events-none absolute rounded-md", ACTIVE_PILL_TRANSITION, activeClasses)}
+            {...activeMarker("fill", color, colorIsNamed, false, pill)}
+          />
+        )}
         <li>
           <button
             type="button"
@@ -72,11 +99,16 @@ export function Pagination({ page, totalPages, onPageChange, siblingCount = 1, c
             <li key={item}>
               <button
                 type="button"
+                ref={(el) => {
+                  pageRefs.current[item] = el;
+                }}
                 aria-current={item === page ? "page" : undefined}
+                {...(item === page && activeMarker("text", color, colorIsNamed))}
                 onClick={() => onPageChange?.(item)}
                 className={cx(
                   ITEM_BASE_CLASSES,
-                  item === page ? activeClasses : INACTIVE_CLASSES,
+                  "relative z-10",
+                  item === page ? "text-white" : INACTIVE_CLASSES,
                   classNames?.item,
                   item === page && classNames?.activeItem
                 )}
@@ -86,7 +118,7 @@ export function Pagination({ page, totalPages, onPageChange, siblingCount = 1, c
             </li>
           ) : (
             <li key={item}>
-              <span aria-hidden="true" className={cx(ITEM_BASE_CLASSES, "text-slate-400", classNames?.item)}>
+              <span aria-hidden="true" className={cx(ITEM_BASE_CLASSES, "text-fg-subtle", classNames?.item)}>
                 …
               </span>
             </li>

@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { cx, shapeClasses, type Shape } from "../../../core/tokens";
 
 export interface ButtonGroupProps {
+  /** The buttons (e.g. `Button` or `SegmentButton`) to join into one connected group. */
   children: ReactNode;
   /**
    * Corner treatment for the whole group (default keeps the built-in
@@ -9,6 +10,7 @@ export interface ButtonGroupProps {
    * group's outer container does the rounding, via `overflow-hidden`.
    */
   shape?: Shape;
+  /** Extra class names applied to the root element. */
   className?: string;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
   classNames?: {
@@ -20,7 +22,7 @@ export function ButtonGroup({ children, shape = "default", className, classNames
   return (
     <div
       className={cx(
-        "inline-flex rounded-lg border border-slate-200 overflow-hidden divide-x divide-slate-200",
+        "inline-flex rounded-lg border border-border overflow-hidden divide-x divide-border",
         shapeClasses[shape],
         className,
         classNames?.root

@@ -8,11 +8,11 @@ export default function NotificationShowcase() {
   const [dismissibleVisible, setDismissibleVisible] = useState(true);
 
   return (
-    <div className="min-h-screen bg-white p-6 md:p-10">
+    <div className="min-h-screen rounded-xl bg-surface p-6 md:p-10">
       <div className="max-w-5xl mx-auto space-y-12">
         <div>
-          <h1 className="text-2xl font-semibold text-slate-900">Notification</h1>
-          <p className="text-sm text-slate-500 mt-1">
+          <h1 className="text-2xl font-semibold text-fg">Notification</h1>
+          <p className="text-sm text-fg-subtle mt-1">
             A static, richer notification-feed list item, meant to be rendered inside a list, dropdown, or panel you
             build.
           </p>
@@ -28,23 +28,23 @@ export default function NotificationShowcase() {
               react: `<Notification title="New comment" icon="mail">
   Alex left a comment on your document.
 </Notification>`,
-              js: `<Notification title="New comment" icon="mail">
+              js: `<l-Notification title="New comment" icon="mail">
   Alex left a comment on your document.
-</Notification>
+</l-Notification>
 
 <script type="module">import "lojee-ui/elements";</script>`,
-              vue: `<Notification title="New comment" icon="mail">
+              vue: `<l-Notification title="New comment" icon="mail">
   Alex left a comment on your document.
-</Notification>`,
-              angular: `<Notification title="New comment" icon="mail">
+</l-Notification>`,
+              angular: `<l-Notification title="New comment" icon="mail">
   Alex left a comment on your document.
-</Notification>`,
+</l-Notification>`,
             }}
           />
         </section>
 
         <section>
-          <SectionLabel sub="A small indigo dot next to the title marks it unread.">Unread</SectionLabel>
+          <SectionLabel sub="A small accent-colored dot next to the title marks it unread.">Unread</SectionLabel>
           <Notification title="New follower" unread>
             Jordan started following you.
           </Notification>
@@ -53,17 +53,17 @@ export default function NotificationShowcase() {
               react: `<Notification title="New follower" unread>
   Jordan started following you.
 </Notification>`,
-              js: `<Notification title="New follower" unread>
+              js: `<l-Notification title="New follower" unread>
   Jordan started following you.
-</Notification>
+</l-Notification>
 
 <script type="module">import "lojee-ui/elements";</script>`,
-              vue: `<Notification title="New follower" unread>
+              vue: `<l-Notification title="New follower" unread>
   Jordan started following you.
-</Notification>`,
-              angular: `<Notification title="New follower" unread>
+</l-Notification>`,
+              angular: `<l-Notification title="New follower" unread>
   Jordan started following you.
-</Notification>`,
+</l-Notification>`,
             }}
           />
         </section>
@@ -78,17 +78,17 @@ export default function NotificationShowcase() {
               react: `<Notification title="Deploy finished" timestamp="2m ago">
   Your latest deploy to production finished successfully.
 </Notification>`,
-              js: `<Notification title="Deploy finished" timestamp="2m ago">
+              js: `<l-Notification title="Deploy finished" timestamp="2m ago">
   Your latest deploy to production finished successfully.
-</Notification>
+</l-Notification>
 
 <script type="module">import "lojee-ui/elements";</script>`,
-              vue: `<Notification title="Deploy finished" timestamp="2m ago">
+              vue: `<l-Notification title="Deploy finished" timestamp="2m ago">
   Your latest deploy to production finished successfully.
-</Notification>`,
-              angular: `<Notification title="Deploy finished" timestamp="2m ago">
+</l-Notification>`,
+              angular: `<l-Notification title="Deploy finished" timestamp="2m ago">
   Your latest deploy to production finished successfully.
-</Notification>`,
+</l-Notification>`,
             }}
           />
         </section>
@@ -123,29 +123,29 @@ export default function NotificationShowcase() {
 >
   Priya invited you to join the "Design" team.
 </Notification>`,
-              js: `<Notification title="Team invite" timestamp="10m ago" unread>
+              js: `<l-Notification title="Team invite" timestamp="10m ago" unread>
   Priya invited you to join the "Design" team.
   <div slot="actions">
-    <Button size="sm" label="Accept"></Button>
-    <Button size="sm" variant="outline" label="Decline"></Button>
+    <l-Button size="sm" label="Accept"></l-Button>
+    <l-Button size="sm" variant="outline" label="Decline"></l-Button>
   </div>
-</Notification>
+</l-Notification>
 
 <script type="module">import "lojee-ui/elements";</script>`,
-              vue: `<Notification title="Team invite" timestamp="10m ago" unread>
+              vue: `<l-Notification title="Team invite" timestamp="10m ago" unread>
   Priya invited you to join the "Design" team.
   <template #actions>
-    <Button size="sm" label="Accept" />
-    <Button size="sm" variant="outline" label="Decline" />
+    <l-Button size="sm" label="Accept" />
+    <l-Button size="sm" variant="outline" label="Decline" />
   </template>
-</Notification>`,
-              angular: `<Notification title="Team invite" timestamp="10m ago" unread>
+</l-Notification>`,
+              angular: `<l-Notification title="Team invite" timestamp="10m ago" unread>
   Priya invited you to join the "Design" team.
   <div slot="actions">
-    <Button size="sm" label="Accept"></Button>
-    <Button size="sm" variant="outline" label="Decline"></Button>
+    <l-Button size="sm" label="Accept"></l-Button>
+    <l-Button size="sm" variant="outline" label="Decline"></l-Button>
   </div>
-</Notification>`,
+</l-Notification>`,
             }}
           />
         </section>
@@ -160,7 +160,7 @@ export default function NotificationShowcase() {
             <button
               type="button"
               onClick={() => setDismissibleVisible(true)}
-              className="text-sm font-medium text-slate-500 underline underline-offset-4 hover:text-slate-700"
+              className="text-sm font-medium text-fg-subtle underline underline-offset-4 hover:text-fg-muted"
             >
               Show notification again
             </button>
@@ -174,9 +174,9 @@ export default function NotificationShowcase() {
     You're using 92% of your available storage.
   </Notification>
 )}`,
-              js: `<Notification title="Storage almost full" id="storage-notification">
+              js: `<l-Notification title="Storage almost full" id="storage-notification">
   You're using 92% of your available storage.
-</Notification>
+</l-Notification>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -185,20 +185,20 @@ export default function NotificationShowcase() {
     .addEventListener("dismiss", (e) => { e.target.remove(); });
 </script>`,
               vue: `<template>
-  <Notification v-if="visible" title="Storage almost full" @dismiss="visible = false">
+  <l-Notification v-if="visible" title="Storage almost full" @dismiss="visible = false">
     You're using 92% of your available storage.
-  </Notification>
+  </l-Notification>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 import "lojee-ui/elements";
 
 const visible = ref(true);
 </script>`,
-              angular: `<Notification *ngIf="visible" title="Storage almost full" (dismiss)="visible = false">
+              angular: `<l-Notification *ngIf="visible" title="Storage almost full" (dismiss)="visible = false">
   You're using 92% of your available storage.
-</Notification>`,
+</l-Notification>`,
             }}
           />
         </section>

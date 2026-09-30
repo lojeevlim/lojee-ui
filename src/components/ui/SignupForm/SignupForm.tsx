@@ -16,9 +16,13 @@ export interface SignupFormValues {
 }
 
 export interface SignupFormProps {
+  /** Heading shown at the top of the form (default: "Create your account"). */
   title?: string;
+  /** Supporting text shown under the title (default: "Start your free trial — no credit card required."). */
   description?: string;
+  /** Text of the submit button (default: "Create account"). */
   submitLabel?: string;
+  /** Called with the entered `SignupFormValues` (name, email, password, confirmPassword, agreeTerms) when the form is submitted and the two password fields match. */
   onSubmit?: (values: SignupFormValues) => void;
   /** Shown inline under the confirm-password field when the two password fields don't match at
    * submit time — `onSubmit` is not called in that case. */
@@ -26,7 +30,9 @@ export interface SignupFormProps {
   /** Rich content below the form, e.g. a "Already have an account? Log in" link — this component has
    * no opinion about routing/links, the consumer supplies it. */
   footer?: ReactNode;
+  /** Extra class name(s) appended to the root element. */
   className?: string;
+  /** Per-part class overrides — merged after (and win over) the built-in styling. */
   classNames?: { root?: string; header?: string; field?: string; footer?: string };
 }
 
@@ -66,10 +72,10 @@ export function SignupForm({
       className={cx("flex w-full flex-col gap-5", className, classNames?.root)}
     >
       <div className={classNames?.header}>
-        <h2 className="text-xl font-semibold text-slate-900">
+        <h2 className="text-xl font-semibold text-fg">
           <slot name="title">{title}</slot>
         </h2>
-        <p className="mt-1 text-sm text-slate-500">
+        <p className="mt-1 text-sm text-fg-subtle">
           <slot name="description">{description}</slot>
         </p>
       </div>
@@ -112,7 +118,7 @@ export function SignupForm({
           placeholder="Confirm your password"
           required
         />
-        {showMismatch && <p className="text-sm text-rose-600">{mismatchError}</p>}
+        {showMismatch && <p className="text-sm text-rose-600 dark:text-rose-400">{mismatchError}</p>}
       </div>
 
       <Checkbox

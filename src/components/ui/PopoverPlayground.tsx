@@ -29,9 +29,9 @@ export default function PopoverPlayground() {
   // `l-popover` has no `open` prop and no events — it's fully self-contained,
   // opening on click of its trigger child internally — so this is a plain
   // snapshot with no controlled-visibility wiring needed.
-  const htmlMarkup = `<Popover position="${position}" content="Popover content">
-  <Button label="Click me" />
-</Popover>`;
+  const htmlMarkup = `<l-Popover position="${position}" content="Popover content">
+  <l-Button label="Click me" />
+</l-Popover>`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,

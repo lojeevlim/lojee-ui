@@ -30,10 +30,10 @@ export default function LabelPlayground() {
   // HTML page needs to actually load the `<l-*>` definitions. `l-label`'s
   // registered attribute is literally `htmlFor` (not the HTML-standard
   // `for`), predating dash-casing conventions elsewhere.
-  const htmlMarkup = `<Label htmlFor="field"${required ? ` required` : ""}>${
+  const htmlMarkup = `<l-Label htmlFor="field"${required ? ` required` : ""}>${
     text || "Email address"
-  }</Label>
-<Input id="field" placeholder="you@example.com" />`;
+  }</l-Label>
+<l-Input id="field" placeholder="you@example.com" />`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,
@@ -45,24 +45,24 @@ export default function LabelPlayground() {
   return (
     <PlaygroundLayout preview={preview} variants={codeVariants}>
       <div className="sm:col-span-2">
-        <span className="mb-1.5 block text-xs font-medium text-slate-500">Text</span>
+        <span className="mb-1.5 block text-xs font-medium text-fg-subtle">Text</span>
         <input
           value={text}
           onChange={(e) => setText(e.target.value)}
-          className="w-full rounded-md border border-slate-200 px-3 py-1.5 text-sm text-slate-900 outline-none transition-colors focus:border-slate-400"
+          className="w-full rounded-md border border-border px-3 py-1.5 text-sm text-fg outline-none transition-colors focus:border-border-strong"
           placeholder="Label text"
         />
       </div>
 
       <div>
-        <span className="mb-1.5 block text-xs font-medium text-slate-500">Options</span>
+        <span className="mb-1.5 block text-xs font-medium text-fg-subtle">Options</span>
         <div className="flex flex-wrap gap-1.5">
           <button
             type="button"
             onClick={() => setRequired((v) => !v)}
             className={
               "rounded-md px-2.5 py-1 text-xs font-medium transition-colors " +
-              (required ? "bg-slate-900 text-white" : "bg-slate-100 text-slate-600 hover:bg-slate-200")
+              (required ? "bg-fg text-surface" : "bg-surface-muted text-fg-muted hover:bg-border")
             }
           >
             Required

@@ -4,11 +4,11 @@ import { SectionLabel, Row } from "../../ShowcaseHelpers";
 
 export default function CardShowcase() {
   return (
-    <div className="min-h-screen bg-white p-6 md:p-10">
+    <div className="min-h-screen rounded-xl bg-surface p-6 md:p-10">
       <div className="max-w-5xl mx-auto space-y-12">
         <div>
-          <h1 className="text-2xl font-semibold text-slate-900">Card</h1>
-          <p className="text-sm text-slate-500 mt-1">A surface for grouping related content, with optional title and footer.</p>
+          <h1 className="text-2xl font-semibold text-fg">Card</h1>
+          <p className="text-sm text-fg-subtle mt-1">A surface for grouping related content, with optional title and footer.</p>
         </div>
 
         <section>
@@ -25,22 +25,22 @@ export default function CardShowcase() {
 <Card variant="elevated">Elevated</Card>
 <Card variant="soft">Soft</Card>
 <Card variant="ghost">Ghost</Card>`,
-              js: `<Card variant="outline">Outline</Card>
-<Card variant="elevated">Elevated</Card>
-<Card variant="soft">Soft</Card>
-<Card variant="ghost">Ghost</Card>
+              js: `<l-Card variant="outline">Outline</l-Card>
+<l-Card variant="elevated">Elevated</l-Card>
+<l-Card variant="soft">Soft</l-Card>
+<l-Card variant="ghost">Ghost</l-Card>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <Card variant="outline">Outline</Card>
-  <Card variant="elevated">Elevated</Card>
-  <Card variant="soft">Soft</Card>
-  <Card variant="ghost">Ghost</Card>
+  <l-Card variant="outline">Outline</l-Card>
+  <l-Card variant="elevated">Elevated</l-Card>
+  <l-Card variant="soft">Soft</l-Card>
+  <l-Card variant="ghost">Ghost</l-Card>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import "lojee-ui/elements";
 </script>`,
               angular: `// app.component.ts
@@ -52,10 +52,10 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <Card variant="outline">Outline</Card>
-    <Card variant="elevated">Elevated</Card>
-    <Card variant="soft">Soft</Card>
-    <Card variant="ghost">Ghost</Card>
+    <l-Card variant="outline">Outline</l-Card>
+    <l-Card variant="elevated">Elevated</l-Card>
+    <l-Card variant="soft">Soft</l-Card>
+    <l-Card variant="ghost">Ghost</l-Card>
   \`,
 })
 export class AppComponent {}`,
@@ -75,15 +75,15 @@ export class AppComponent {}`,
             variants={{
               react: `<Card padding="sm">Small</Card>
 <Card padding="lg">Large</Card>`,
-              js: `<Card padding="sm">Small</Card>
-<Card padding="lg">Large</Card>`,
+              js: `<l-Card padding="sm">Small</l-Card>
+<l-Card padding="lg">Large</l-Card>`,
               vue: `<template>
-  <Card padding="sm">Small</Card>
-  <Card padding="lg">Large</Card>
+  <l-Card padding="sm">Small</l-Card>
+  <l-Card padding="lg">Large</l-Card>
 </template>`,
               angular: `<!-- reuses the AppComponent from above -->
-<Card padding="sm">Small</Card>
-<Card padding="lg">Large</Card>`,
+<l-Card padding="sm">Small</l-Card>
+<l-Card padding="lg">Large</l-Card>`,
             }}
           />
         </section>
@@ -99,41 +99,41 @@ export class AppComponent {}`,
           <CodeBlock
             variants={{
               react: `<Card hoverable>Hover me</Card>`,
-              js: `<Card hoverable>Hover me</Card>`,
+              js: `<l-Card hoverable>Hover me</l-Card>`,
               vue: `<template>
-  <Card hoverable>Hover me</Card>
+  <l-Card hoverable>Hover me</l-Card>
 </template>`,
               angular: `<!-- reuses the AppComponent from above -->
-<Card hoverable>Hover me</Card>`,
+<l-Card hoverable>Hover me</l-Card>`,
             }}
           />
         </section>
 
         <section>
           <SectionLabel sub="A title above the body and a footer below it, separated by a border.">Title and footer</SectionLabel>
-          <Card title="Plan details" footer={<span className="text-xs text-slate-500">Updated 2 days ago</span>}>
+          <Card title="Plan details" footer={<span className="text-xs text-fg-subtle">Updated 2 days ago</span>}>
             Your subscription renews monthly and includes unlimited seats.
           </Card>
           <CodeBlock
             variants={{
               react: `<Card
   title="Plan details"
-  footer={<span className="text-xs text-slate-500">Updated 2 days ago</span>}
+  footer={<span className="text-xs text-fg-subtle">Updated 2 days ago</span>}
 >
   Your subscription renews monthly and includes unlimited seats.
 </Card>`,
-              js: `<Card title="Plan details" footer="Updated 2 days ago">
+              js: `<l-Card title="Plan details" footer="Updated 2 days ago">
   Your subscription renews monthly and includes unlimited seats.
-</Card>`,
+</l-Card>`,
               vue: `<template>
-  <Card title="Plan details" footer="Updated 2 days ago">
+  <l-Card title="Plan details" footer="Updated 2 days ago">
     Your subscription renews monthly and includes unlimited seats.
-  </Card>
+  </l-Card>
 </template>`,
               angular: `<!-- reuses the AppComponent from above -->
-<Card title="Plan details" footer="Updated 2 days ago">
+<l-Card title="Plan details" footer="Updated 2 days ago">
   Your subscription renews monthly and includes unlimited seats.
-</Card>`,
+</l-Card>`,
             }}
           />
         </section>

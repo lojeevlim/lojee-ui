@@ -13,17 +13,27 @@ export interface DateRangePickerProps {
   startValue?: string;
   /** yyyy-mm-dd, controlled. */
   endValue?: string;
+  /** Fires when the start date changes (or a preset is clicked), with the new yyyy-mm-dd string. */
   onStartChange?: (value: string) => void;
+  /** Fires when the end date changes (or a preset is clicked), with the new yyyy-mm-dd string. */
   onEndChange?: (value: string) => void;
+  /** Earliest selectable date (yyyy-mm-dd); the end input's minimum is the start value when set, otherwise this. */
   min?: string;
+  /** Latest selectable date (yyyy-mm-dd); the start input's maximum is the end value when set, otherwise this. */
   max?: string;
+  /** Control height and text size: "sm" | "md" | "lg". Defaults to "md". */
   size?: DatePickerSize;
+  /** Visual style: "outline" (default) | "filled" | "underline". */
   variant?: DatePickerVariant;
+  /** Applies error (rose) styling when true (default: false). */
   invalid?: boolean;
+  /** Disables both date inputs and all preset buttons (default: false). */
   disabled?: boolean;
   /** Quick-select buttons rendered below the inputs (e.g. "Last 7 days"). */
   presets?: DateRangePreset[];
+  /** Extra class name(s) applied to the root element. */
   className?: string;
+  /** Per-part class overrides — merged after (and win over) the built-in styling. */
   classNames?: {
     root?: string;
     input?: string;
@@ -44,10 +54,10 @@ const ICON_PX: Record<DatePickerSize, number> = { sm: 14, md: 16, lg: 18 };
 
 const VARIANT_CLASSES: Record<DatePickerVariant, string> = {
   outline:
-    "rounded-md border border-slate-300 bg-white focus-within:border-slate-500 focus-within:ring-2 focus-within:ring-slate-500/20",
+    "rounded-md border border-border-strong bg-surface focus-within:border-slate-500 focus-within:ring-2 focus-within:ring-slate-500/20",
   filled:
-    "rounded-md border border-transparent bg-slate-100 focus-within:border-slate-300 focus-within:bg-white focus-within:ring-2 focus-within:ring-slate-500/20",
-  underline: "rounded-none border-b-2 border-slate-300 bg-transparent focus-within:border-slate-900",
+    "rounded-md border border-transparent bg-surface-muted focus-within:border-border-strong focus-within:bg-surface focus-within:ring-2 focus-within:ring-slate-500/20",
+  underline: "rounded-none border-b-2 border-border-strong bg-transparent focus-within:border-fg",
 };
 
 const INVALID_CLASSES = "border-rose-400 focus-within:border-rose-500 focus-within:ring-rose-500/20";
@@ -74,7 +84,7 @@ export function DateRangePicker({
     <div className="w-full">
       <div
         className={cx(
-          "group inline-flex w-full items-center gap-2 px-3 text-slate-900 outline-none transition-colors",
+          "group inline-flex w-full items-center gap-2 px-3 text-fg outline-none transition-colors",
           SIZE_CLASSES[size],
           VARIANT_CLASSES[variant],
           invalid && INVALID_CLASSES,
@@ -86,7 +96,7 @@ export function DateRangePicker({
         <Icon
           name="calendar"
           size={ICON_PX[size]}
-          className={cx("shrink-0 text-slate-400 transition-colors group-focus-within:text-slate-600", classNames?.icon)}
+          className={cx("shrink-0 text-fg-subtle transition-colors group-focus-within:text-fg-muted", classNames?.icon)}
         />
         <input
           type="date"
@@ -96,7 +106,7 @@ export function DateRangePicker({
           onChange={(e) => onStartChange?.(e.target.value)}
           className={cx("w-full min-w-0 bg-transparent outline-none disabled:cursor-not-allowed", classNames?.input)}
         />
-        <Icon name="arrow-right" size={ICON_PX[size] - 2} className={cx("shrink-0 text-slate-300", classNames?.separator)} />
+        <Icon name="arrow-right" size={ICON_PX[size] - 2} className={cx("shrink-0 text-border-strong", classNames?.separator)} />
         <input
           type="date"
           value={endValue}
@@ -119,7 +129,7 @@ export function DateRangePicker({
                 onEndChange?.(preset.range[1]);
               }}
               className={cx(
-                "rounded-md bg-slate-100 px-2.5 py-1 text-xs font-medium text-slate-600 transition-colors hover:bg-slate-200 disabled:pointer-events-none disabled:opacity-40",
+                "rounded-md bg-surface-muted px-2.5 py-1 text-xs font-medium text-fg-muted transition-colors hover:bg-border disabled:pointer-events-none disabled:opacity-40",
                 classNames?.preset
               )}
             >

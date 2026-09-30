@@ -7,11 +7,11 @@ export default function ProfileSettingsShowcase() {
   const [saved, setSaved] = useState<ProfileSettingsValues | null>(null);
 
   return (
-    <div className="min-h-screen bg-white p-6 md:p-10">
+    <div className="min-h-screen rounded-xl bg-surface p-6 md:p-10">
       <div className="max-w-5xl mx-auto space-y-12">
         <div>
-          <h1 className="text-2xl font-semibold text-slate-900">Profile Settings</h1>
-          <p className="text-sm text-slate-500 mt-1">
+          <h1 className="text-2xl font-semibold text-fg">Profile Settings</h1>
+          <p className="text-sm text-fg-subtle mt-1">
             A settings-card block for editing personal profile info — avatar, display name, username, and bio.
           </p>
         </div>
@@ -28,8 +28,8 @@ export default function ProfileSettingsShowcase() {
             />
           </div>
           {saved && (
-            <p className="mt-3 text-sm text-slate-500">
-              Saved: <span className="font-medium text-slate-900">{saved.name}</span> (@{saved.username}) — "{saved.bio}"
+            <p className="mt-3 text-sm text-fg-subtle">
+              Saved: <span className="font-medium text-fg">{saved.name}</span> (@{saved.username}) — "{saved.bio}"
             </p>
           )}
           <CodeBlock
@@ -41,7 +41,7 @@ export default function ProfileSettingsShowcase() {
   defaultValues={{ name: "Jordan Diaz", username: "jordandiaz", bio: "Product designer building lojee-ui." }}
   onSave={setSaved}
 />`,
-              js: `<ProfileSettings id="profile-settings" avatarInitials="JD"></ProfileSettings>
+              js: `<l-ProfileSettings id="profile-settings" avatarInitials="JD"></l-ProfileSettings>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -51,14 +51,14 @@ export default function ProfileSettingsShowcase() {
   el.addEventListener("save", (e) => { /* e.detail */ });
 </script>`,
               vue: `<template>
-  <ProfileSettings avatarInitials="JD" :defaultValues="defaults" @save="onSave" />
+  <l-ProfileSettings avatarInitials="JD" :defaultValues="defaults" @save="onSave" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 const defaults = { name: "Jordan Diaz", username: "jordandiaz", bio: "Product designer building lojee-ui." };
 function onSave(values) { /* values */ }
 </script>`,
-              angular: `<ProfileSettings avatarInitials="JD" [defaultValues]="defaults" (save)="onSave($event)"></ProfileSettings>
+              angular: `<l-ProfileSettings avatarInitials="JD" [defaultValues]="defaults" (save)="onSave($event)"></l-ProfileSettings>
 
 defaults = { name: "Jordan Diaz", username: "jordandiaz", bio: "Product designer building lojee-ui." };
 onSave(values) { /* values */ }`,
@@ -78,9 +78,9 @@ onSave(values) { /* values */ }`,
           <CodeBlock
             variants={{
               react: `<ProfileSettings avatarInitials="AC" defaultValues={{ name: "Alex Chen", username: "alexchen" }} saveLabel="Update profile" />`,
-              js: `<ProfileSettings avatarInitials="AC" saveLabel="Update profile"></ProfileSettings>`,
-              vue: `<ProfileSettings avatarInitials="AC" saveLabel="Update profile" />`,
-              angular: `<ProfileSettings avatarInitials="AC" saveLabel="Update profile"></ProfileSettings>`,
+              js: `<l-ProfileSettings avatarInitials="AC" saveLabel="Update profile"></l-ProfileSettings>`,
+              vue: `<l-ProfileSettings avatarInitials="AC" saveLabel="Update profile" />`,
+              angular: `<l-ProfileSettings avatarInitials="AC" saveLabel="Update profile"></l-ProfileSettings>`,
             }}
           />
         </section>

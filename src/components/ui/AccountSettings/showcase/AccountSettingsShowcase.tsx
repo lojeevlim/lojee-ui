@@ -14,11 +14,11 @@ export default function AccountSettingsShowcase() {
   const [notifications, setNotifications] = useState(SAMPLE_NOTIFICATIONS);
 
   return (
-    <div className="min-h-screen bg-white p-6 md:p-10">
+    <div className="min-h-screen rounded-xl bg-surface p-6 md:p-10">
       <div className="max-w-5xl mx-auto space-y-12">
         <div>
-          <h1 className="text-2xl font-semibold text-slate-900">Account Settings</h1>
-          <p className="text-sm text-slate-500 mt-1">
+          <h1 className="text-2xl font-semibold text-fg">Account Settings</h1>
+          <p className="text-sm text-fg-subtle mt-1">
             Account-level settings — email, password, notification preferences, and account deletion — as three
             independent sections, each saved on its own.
           </p>
@@ -53,7 +53,7 @@ export default function AccountSettingsShowcase() {
   onNotificationsChange={setNotifications}
   onDeleteAccount={() => deleteAccount()}
 />`,
-              js: `<AccountSettings id="account-settings" email="jordan@lojee.io"></AccountSettings>
+              js: `<l-AccountSettings id="account-settings" email="jordan@lojee.io"></l-AccountSettings>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -69,7 +69,7 @@ export default function AccountSettingsShowcase() {
   el.addEventListener("deleteAccount", () => { /* confirm + delete */ });
 </script>`,
               vue: `<template>
-  <AccountSettings
+  <l-AccountSettings
     email="jordan@lojee.io"
     :notifications="notifications"
     @emailChange="onEmailChange"
@@ -79,7 +79,7 @@ export default function AccountSettingsShowcase() {
   />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 const notifications = ref([
   { key: "product", label: "Product updates", enabled: true },
@@ -89,14 +89,14 @@ function onEmailChange(email) { /* save */ }
 function onPasswordChange(current, next) { /* change */ }
 function onDeleteAccount() { /* confirm + delete */ }
 </script>`,
-              angular: `<AccountSettings
+              angular: `<l-AccountSettings
   email="jordan@lojee.io"
   [notifications]="notifications"
   (emailChange)="onEmailChange($event)"
   (passwordChange)="onPasswordChange($event)"
   (notificationsChange)="notifications = $event"
   (deleteAccount)="onDeleteAccount()"
-></AccountSettings>
+></l-AccountSettings>
 
 notifications = [
   { key: "product", label: "Product updates", enabled: true },
@@ -113,7 +113,7 @@ onDeleteAccount() { /* confirm + delete */ }`,
           <SectionLabel sub="onDeleteAccount is only the request — a real app would show its own confirmation (e.g. this library's own AlertDialog component) before actually deleting anything.">
             Danger zone
           </SectionLabel>
-          <p className="text-sm text-slate-500">
+          <p className="text-sm text-fg-subtle">
             See the bottom section in the example above — a red-tinted card with a destructive "Delete account"
             button.
           </p>

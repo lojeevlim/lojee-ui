@@ -5,11 +5,11 @@ import { SectionLabel, Row } from "../../ShowcaseHelpers";
 
 export default function RadioShowcase() {
   return (
-    <div className="min-h-screen bg-white p-6 md:p-10">
+    <div className="min-h-screen rounded-xl bg-surface p-6 md:p-10">
       <div className="max-w-5xl mx-auto space-y-12">
         <div>
-          <h1 className="text-2xl font-semibold text-slate-900">Radio</h1>
-          <p className="text-sm text-slate-500 mt-1">
+          <h1 className="text-2xl font-semibold text-fg">Radio</h1>
+          <p className="text-sm text-fg-subtle mt-1">
             A styled radio input, plus a RadioGroup layout wrapper — exclusivity is native, via a shared `name`.
           </p>
         </div>
@@ -28,24 +28,24 @@ export default function RadioShowcase() {
   <Radio name="plan" label="Pro" />
   <Radio name="plan" label="Enterprise" />
 </RadioGroup>`,
-              js: `<RadioGroup>
-  <Radio name="plan" label="Free" defaultChecked />
-  <Radio name="plan" label="Pro" />
-  <Radio name="plan" label="Enterprise" />
-</RadioGroup>
+              js: `<l-RadioGroup>
+  <l-Radio name="plan" label="Free" defaultChecked />
+  <l-Radio name="plan" label="Pro" />
+  <l-Radio name="plan" label="Enterprise" />
+</l-RadioGroup>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <RadioGroup>
-    <Radio name="plan" label="Free" defaultChecked />
-    <Radio name="plan" label="Pro" />
-    <Radio name="plan" label="Enterprise" />
-  </RadioGroup>
+  <l-RadioGroup>
+    <l-Radio name="plan" label="Free" defaultChecked />
+    <l-Radio name="plan" label="Pro" />
+    <l-Radio name="plan" label="Enterprise" />
+  </l-RadioGroup>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import "lojee-ui/elements";
 </script>`,
               angular: `// app.component.ts
@@ -57,11 +57,11 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <RadioGroup>
-      <Radio name="plan" label="Free" defaultChecked />
-      <Radio name="plan" label="Pro" />
-      <Radio name="plan" label="Enterprise" />
-    </RadioGroup>
+    <l-RadioGroup>
+      <l-Radio name="plan" label="Free" defaultChecked />
+      <l-Radio name="plan" label="Pro" />
+      <l-Radio name="plan" label="Enterprise" />
+    </l-RadioGroup>
   \`,
 })
 export class AppComponent {}`,
@@ -83,24 +83,24 @@ export class AppComponent {}`,
   <Radio name="size" label="Medium" />
   <Radio name="size" label="Large" />
 </RadioGroup>`,
-              js: `<RadioGroup orientation="horizontal">
-  <Radio name="size" label="Small" defaultChecked />
-  <Radio name="size" label="Medium" />
-  <Radio name="size" label="Large" />
-</RadioGroup>`,
+              js: `<l-RadioGroup orientation="horizontal">
+  <l-Radio name="size" label="Small" defaultChecked />
+  <l-Radio name="size" label="Medium" />
+  <l-Radio name="size" label="Large" />
+</l-RadioGroup>`,
               vue: `<template>
-  <RadioGroup orientation="horizontal">
-    <Radio name="size" label="Small" defaultChecked />
-    <Radio name="size" label="Medium" />
-    <Radio name="size" label="Large" />
-  </RadioGroup>
+  <l-RadioGroup orientation="horizontal">
+    <l-Radio name="size" label="Small" defaultChecked />
+    <l-Radio name="size" label="Medium" />
+    <l-Radio name="size" label="Large" />
+  </l-RadioGroup>
 </template>`,
               angular: `<!-- app.component.html — same AppComponent as above -->
-<RadioGroup orientation="horizontal">
-  <Radio name="size" label="Small" defaultChecked />
-  <Radio name="size" label="Medium" />
-  <Radio name="size" label="Large" />
-</RadioGroup>`,
+<l-RadioGroup orientation="horizontal">
+  <l-Radio name="size" label="Small" defaultChecked />
+  <l-Radio name="size" label="Medium" />
+  <l-Radio name="size" label="Large" />
+</l-RadioGroup>`,
             }}
           />
         </section>
@@ -117,15 +117,15 @@ export class AppComponent {}`,
             variants={{
               react: `<Radio name="color-indigo" color="indigo" label="Indigo" defaultChecked />
 <Radio name="color-emerald" color="emerald" label="Emerald" defaultChecked />`,
-              js: `<Radio name="color-indigo" color="indigo" label="Indigo" defaultChecked />
-<Radio name="color-emerald" color="emerald" label="Emerald" defaultChecked />`,
+              js: `<l-Radio name="color-indigo" color="indigo" label="Indigo" defaultChecked />
+<l-Radio name="color-emerald" color="emerald" label="Emerald" defaultChecked />`,
               vue: `<template>
-  <Radio name="color-indigo" color="indigo" label="Indigo" defaultChecked />
-  <Radio name="color-emerald" color="emerald" label="Emerald" defaultChecked />
+  <l-Radio name="color-indigo" color="indigo" label="Indigo" defaultChecked />
+  <l-Radio name="color-emerald" color="emerald" label="Emerald" defaultChecked />
 </template>`,
               angular: `<!-- app.component.html — same AppComponent as above -->
-<Radio name="color-indigo" color="indigo" label="Indigo" defaultChecked />
-<Radio name="color-emerald" color="emerald" label="Emerald" defaultChecked />`,
+<l-Radio name="color-indigo" color="indigo" label="Indigo" defaultChecked />
+<l-Radio name="color-emerald" color="emerald" label="Emerald" defaultChecked />`,
             }}
           />
         </section>

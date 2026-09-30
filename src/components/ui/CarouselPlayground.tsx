@@ -6,21 +6,21 @@ import type { CodeBlockVariants } from "./CodeBlock";
 const SLIDE_CLASS = "flex h-40 w-full items-center justify-center text-sm font-medium";
 
 const SAMPLE_SLIDES = [
-  <div key="1" className={`${SLIDE_CLASS} bg-indigo-100 text-indigo-700`}>
+  <div key="1" className={`${SLIDE_CLASS} bg-indigo-100 text-indigo-700 dark:bg-indigo-950/50 dark:text-indigo-300`}>
     Slide 1
   </div>,
-  <div key="2" className={`${SLIDE_CLASS} bg-emerald-100 text-emerald-700`}>
+  <div key="2" className={`${SLIDE_CLASS} bg-emerald-100 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-300`}>
     Slide 2
   </div>,
-  <div key="3" className={`${SLIDE_CLASS} bg-rose-100 text-rose-700`}>
+  <div key="3" className={`${SLIDE_CLASS} bg-rose-100 text-rose-700 dark:bg-rose-950/50 dark:text-rose-300`}>
     Slide 3
   </div>,
 ];
 
 const SAMPLE_SLIDES_CODE = `[
-    <div className="flex h-40 items-center justify-center bg-indigo-100 text-indigo-700">Slide 1</div>,
-    <div className="flex h-40 items-center justify-center bg-emerald-100 text-emerald-700">Slide 2</div>,
-    <div className="flex h-40 items-center justify-center bg-rose-100 text-rose-700">Slide 3</div>,
+    <div className="flex h-40 items-center justify-center bg-indigo-100 text-indigo-700 dark:bg-indigo-950/50 dark:text-indigo-300">Slide 1</div>,
+    <div className="flex h-40 items-center justify-center bg-emerald-100 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-300">Slide 2</div>,
+    <div className="flex h-40 items-center justify-center bg-rose-100 text-rose-700 dark:bg-rose-950/50 dark:text-rose-300">Slide 3</div>,
   ]`;
 
 export default function CarouselPlayground() {
@@ -56,7 +56,7 @@ export default function CarouselPlayground() {
 
   const codeVariants: CodeBlockVariants = {
     react: code,
-    js: `<Carousel id="carousel-demo"${attrs} />
+    js: `<l-Carousel id="carousel-demo"${attrs} />
 
 <script type="module">
   import "lojee-ui/elements";
@@ -67,13 +67,13 @@ export default function CarouselPlayground() {
   el.slides = slides;
 </script>`,
     vue: `<template>
-  <Carousel :slides="slides"${attrs} />
+  <l-Carousel :slides="slides"${attrs} />
 </template>
 
-<script setup>
+<script setup lang="ts">
 const slides = ${slidesData};
 </script>`,
-    angular: `<Carousel [slides]="slides"${attrs} />
+    angular: `<l-Carousel [slides]="slides"${attrs} />
 
 slides = ${slidesData};`,
   };
@@ -81,14 +81,14 @@ slides = ${slidesData};`,
   return (
     <PlaygroundLayout preview={preview} variants={codeVariants}>
       <div>
-        <span className="mb-1.5 block text-xs font-medium text-slate-500">Options</span>
+        <span className="mb-1.5 block text-xs font-medium text-fg-subtle">Options</span>
         <div className="flex flex-wrap gap-1.5">
           <button
             type="button"
             onClick={() => setAutoPlay((v) => !v)}
             className={
               "rounded-md px-2.5 py-1 text-xs font-medium transition-colors " +
-              (autoPlay ? "bg-slate-900 text-white" : "bg-slate-100 text-slate-600 hover:bg-slate-200")
+              (autoPlay ? "bg-fg text-surface" : "bg-surface-muted text-fg-muted hover:bg-border")
             }
           >
             Autoplay
@@ -98,7 +98,7 @@ slides = ${slidesData};`,
             onClick={() => setShowArrows((v) => !v)}
             className={
               "rounded-md px-2.5 py-1 text-xs font-medium transition-colors " +
-              (showArrows ? "bg-slate-900 text-white" : "bg-slate-100 text-slate-600 hover:bg-slate-200")
+              (showArrows ? "bg-fg text-surface" : "bg-surface-muted text-fg-muted hover:bg-border")
             }
           >
             Arrows
@@ -108,7 +108,7 @@ slides = ${slidesData};`,
             onClick={() => setShowDots((v) => !v)}
             className={
               "rounded-md px-2.5 py-1 text-xs font-medium transition-colors " +
-              (showDots ? "bg-slate-900 text-white" : "bg-slate-100 text-slate-600 hover:bg-slate-200")
+              (showDots ? "bg-fg text-surface" : "bg-surface-muted text-fg-muted hover:bg-border")
             }
           >
             Dots

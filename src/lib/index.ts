@@ -162,7 +162,8 @@ export {
   type LoadingStateSize,
 } from "../components/ui/LoadingState/LoadingState";
 
-export { Navbar, type NavbarProps, type NavbarVariant } from "../components/ui/Navbar/Navbar";
+export { Navbar, type NavbarProps, type NavbarVariant, type NavbarItemSpec } from "../components/ui/Navbar/Navbar";
+export { NavbarItem, type NavbarItemProps } from "../components/ui/Navbar/NavbarItem";
 export {
   Sidebar,
   type SidebarProps,
@@ -172,7 +173,8 @@ export {
   SidebarFooter,
   type SidebarFooterProps,
 } from "../components/ui/Sidebar/Sidebar";
-export { Header, type HeaderProps } from "../components/ui/Header/Header";
+export { SidebarMenuItem, type SidebarMenuItemProps } from "../components/ui/Sidebar/SidebarMenuItem";
+export { Header, type HeaderProps, type HeaderVariant } from "../components/ui/Header/Header";
 export { Footer, type FooterProps, type FooterVariant } from "../components/ui/Footer/Footer";
 export {
   NavigationMenu,
@@ -188,7 +190,12 @@ export {
   Stepper,
   type StepperProps,
   type StepperStep,
+  type StepperHandle,
+  type StepperContent,
+  type StepperStepContext,
 } from "../components/ui/Stepper/Stepper";
+export { StepperItem, type StepperItemProps } from "../components/ui/Stepper/StepperItem";
+export { useStepper } from "../components/ui/Stepper/stepperContext";
 
 export {
   DataGrid,
@@ -204,7 +211,7 @@ export {
 } from "../components/ui/Timeline/Timeline";
 export { Stat, type StatProps, type StatTrend } from "../components/ui/Stat/Stat";
 export { Chart, type ChartProps, type ChartType, type ChartDataPoint } from "../components/ui/Chart/Chart";
-export { Calendar, type CalendarProps, type CalendarEvent } from "../components/ui/Calendar/Calendar";
+export { Calendar, type CalendarProps, type CalendarEvent, type CalendarRange, type CalendarSelectionMode } from "../components/ui/Calendar/Calendar";
 export {
   ActivityFeed,
   type ActivityFeedProps,
@@ -245,3 +252,31 @@ export {
   BASE_BUTTON_CLASSES,
 } from "../core/tokens";
 export type { ColorName, ColorVariant, ButtonVariant, Size, Shape } from "../core/tokens";
+
+export {
+  TopBar,
+  type TopBarProps,
+  type TopBarAction,
+  type TopBarVariant,
+  type TopBarSize,
+} from "../components/ui/TopBar/TopBar";
+
+// App Layout — themeable grid shell. Section components are aliased to avoid clashing with Footer above.
+export {
+  App,
+  Top as AppTop,
+  Side as AppSide,
+  Main as AppMain,
+  Footer as AppFooter,
+  SideToggle as AppSideToggle,
+  type AppProps,
+} from "../components/ui/AppLayout/App";
+export { useAppLayout } from "../components/ui/AppLayout/appLayoutContext";
+export type { AppBreakpoint } from "../components/ui/AppLayout/breakpoints";
+export { APP_SECTIONS, APP_THEME_OPTIONS, DEFAULT_LAYOUT, gridTemplateAreas, isValidLayout } from "../components/ui/AppLayout/appLayout";
+export type { AppSection, AppTheme, GridLayout } from "../components/ui/AppLayout/appLayout";
+
+// Theming — light/dark mode + brand accent. Pair with `@import "lojee-ui/theme.css"`.
+export { ThemeProvider, type ThemeProviderProps } from "../components/ui/Theme/ThemeProvider";
+export { useTheme, applyTheme, THEME_MODES, DEFAULT_ACCENT } from "../core/theme";
+export type { ThemeMode, ResolvedTheme, AccentName, ThemeContextValue } from "../core/theme";

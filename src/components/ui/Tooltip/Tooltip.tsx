@@ -4,13 +4,17 @@ import { colorClasses, cx, nonInteractive, type ColorName } from "../../../core/
 export type TooltipPosition = "top" | "bottom" | "left" | "right";
 
 export interface TooltipProps {
+  /** What the tooltip bubble displays. */
   content: ReactNode;
+  /** The trigger element the tooltip is attached to; hovering it shows the bubble. */
   children: ReactNode;
+  /** Which side of the trigger the bubble appears on: "top", "bottom", "left" or "right" (default: "top"). */
   position?: TooltipPosition;
   /** Show delay in ms, snapped to the nearest Tailwind `delay-*` utility. */
   delayMs?: number;
-  /** Bubble background/text color — same palette as Button (default: slate). */
+  /** Bubble background/text color — same palette as Button (default: "accent", which follows the theme's accent color). */
   color?: ColorName;
+  /** Extra class name(s) appended to the root element. */
   className?: string;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
   classNames?: {
@@ -55,7 +59,7 @@ export function Tooltip({
   children,
   position = "top",
   delayMs = 150,
-  color = "slate",
+  color = "accent",
   className,
   classNames,
 }: TooltipProps) {

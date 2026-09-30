@@ -3,9 +3,13 @@ import type { MouseEvent as ReactMouseEvent, ReactNode } from "react";
 import { cx } from "../../../core/tokens";
 
 export interface ContextMenuProps {
+  /** The area that opens the menu when right-clicked (the trigger region). */
   children: ReactNode;
+  /** Menu content (typically DropdownMenuItem elements) shown at the pointer position on right-click; closes on item click, outside click, or Escape. */
   menu?: ReactNode;
+  /** Extra class name(s) applied to the root element. */
   className?: string;
+  /** Per-part class overrides — merged after (and win over) the built-in styling. */
   classNames?: {
     root?: string;
     menu?: string;
@@ -54,7 +58,7 @@ export function ContextMenu({ children, menu, className, classNames }: ContextMe
           // never closes the menu, with no extra handling needed.
           onClick={() => setOpen(false)}
           className={cx(
-            "fixed z-10 min-w-[10rem] overflow-hidden rounded-lg border border-slate-200 bg-white py-1 shadow-lg",
+            "fixed z-10 min-w-[10rem] overflow-hidden rounded-lg border border-border bg-surface py-1 shadow-lg",
             classNames?.menu
           )}
         >

@@ -12,16 +12,24 @@ export interface UserMenuItem {
 }
 
 export interface UserMenuProps {
+  /** The user's display name, shown in the trigger and at the top of the menu; also the avatar's alt text. */
   name: string;
+  /** Email address shown under the name at the top of the menu. */
   email?: string;
+  /** Image URL for the avatar; falls back to `avatarInitials` when omitted. */
   avatarSrc?: string;
+  /** Initials shown in the avatar when no `avatarSrc` is given. */
   avatarInitials?: string;
+  /** Menu entries, in order — each has a `label`, and optional `icon` and `danger`. */
   items: UserMenuItem[];
+  /** Called with the clicked item and its index in `items` when the user selects a menu entry. */
   onItemSelect?: (item: UserMenuItem, index: number) => void;
   /** Which edge of the trigger the panel hugs (default "end" — a user menu is
    * almost always top-right, so its panel should hug the right edge). */
   align?: DropdownMenuAlign;
+  /** Extra class name(s) appended to the root element. */
   className?: string;
+  /** Per-part class overrides — merged after (and win over) the built-in styling. */
   classNames?: { root?: string; trigger?: string; menu?: string };
 }
 
@@ -52,18 +60,18 @@ export function UserMenu({
         <button
           type="button"
           className={cx(
-            "flex items-center gap-2 rounded-md px-1.5 py-1 text-left transition-colors hover:bg-slate-100",
+            "flex items-center gap-2 rounded-md px-1.5 py-1 text-left transition-colors hover:bg-surface-muted",
             classNames?.trigger
           )}
         >
           <Avatar src={avatarSrc} initials={avatarInitials} alt={name} size="sm" />
-          <span className="hidden text-sm font-medium text-slate-700 sm:inline">{name}</span>
+          <span className="hidden text-sm font-medium text-fg-muted sm:inline">{name}</span>
         </button>
       }
     >
-      <div className="border-b border-slate-100 px-3 py-2">
-        <p className="truncate text-sm font-medium text-slate-900">{name}</p>
-        {email && <p className="truncate text-xs text-slate-400">{email}</p>}
+      <div className="border-b border-border px-3 py-2">
+        <p className="truncate text-sm font-medium text-fg">{name}</p>
+        {email && <p className="truncate text-xs text-fg-subtle">{email}</p>}
       </div>
       <div className="py-1">
         {items.map((item, index) => (

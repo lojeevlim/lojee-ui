@@ -36,11 +36,11 @@ export default function ListPlayground() {
   // HTML page needs to actually load the `<l-*>` definitions. Note the
   // explicit `ordered="true"` — r2wc's boolean parser needs a non-empty
   // value, so a bare attribute would silently parse to false.
-  const htmlMarkup = `<List variant="${variant}"${ordered ? ` ordered` : ""}>
-  <ListItem icon="file">Project brief.pdf</ListItem>
-  <ListItem icon="image">Cover photo.png</ListItem>
-  <ListItem icon="folder">Archive</ListItem>
-</List>`;
+  const htmlMarkup = `<l-List variant="${variant}"${ordered ? ` ordered` : ""}>
+  <l-ListItem icon="file">Project brief.pdf</l-ListItem>
+  <l-ListItem icon="image">Cover photo.png</l-ListItem>
+  <l-ListItem icon="folder">Archive</l-ListItem>
+</l-List>`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,
@@ -54,14 +54,14 @@ export default function ListPlayground() {
       <OptionGroup label="Variant" options={VARIANTS} value={variant} onChange={setVariant} />
 
       <div>
-        <span className="mb-1.5 block text-xs font-medium text-slate-500">Options</span>
+        <span className="mb-1.5 block text-xs font-medium text-fg-subtle">Options</span>
         <div className="flex flex-wrap gap-1.5">
           <button
             type="button"
             onClick={() => setOrdered((v) => !v)}
             className={
               "rounded-md px-2.5 py-1 text-xs font-medium transition-colors " +
-              (ordered ? "bg-slate-900 text-white" : "bg-slate-100 text-slate-600 hover:bg-slate-200")
+              (ordered ? "bg-fg text-surface" : "bg-surface-muted text-fg-muted hover:bg-border")
             }
           >
             Ordered

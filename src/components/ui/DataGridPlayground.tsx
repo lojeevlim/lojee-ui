@@ -57,7 +57,7 @@ export default function DataGridPlayground() {
             selectable={selectable}
             onSelectionChange={(rows) => setSelectedCount(rows.length)}
           />
-          {selectable && <p className="mt-2 text-sm text-slate-500">{selectedCount} selected</p>}
+          {selectable && <p className="mt-2 text-sm text-fg-subtle">{selectedCount} selected</p>}
         </div>
       </AppWindowBody>
     </AppWindowFrame>
@@ -103,7 +103,7 @@ export default function DataGridPlayground() {
 
   const codeVariants: CodeBlockVariants = {
     react: code,
-    js: `<DataGrid id="grid-demo" ${attrs}></DataGrid>
+    js: `<l-DataGrid id="grid-demo" ${attrs}></l-DataGrid>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -115,14 +115,14 @@ ${jsData}
   el.data = data;${selectable ? '\n  el.addEventListener("selectionchange", (e) => console.log(e.detail));' : ""}
 </script>`,
     vue: `<template>
-  <DataGrid :columns="columns" :data="data" ${attrs}${selectable ? ' @selectionchange="onSelectionChange"' : ""} />
+  <l-DataGrid :columns="columns" :data="data" ${attrs}${selectable ? ' @selectionchange="onSelectionChange"' : ""} />
 </template>
 
-<script setup>
+<script setup lang="ts">
 ${jsData.trim()}
 ${selectable ? "\nfunction onSelectionChange(rows) {\n  console.log(rows);\n}" : ""}
 </script>`,
-    angular: `<DataGrid [columns]="columns" [data]="data" ${attrs}${
+    angular: `<l-DataGrid [columns]="columns" [data]="data" ${attrs}${
       selectable ? ' (selectionchange)="onSelectionChange($event)"' : ""
     } />
 
@@ -134,7 +134,7 @@ ${jsData.trim()}`,
       <OptionGroup label="Size" options={SIZES} value={size} onChange={setSize} />
 
       <div>
-        <span className="mb-1.5 block text-xs font-medium text-slate-500">Options</span>
+        <span className="mb-1.5 block text-xs font-medium text-fg-subtle">Options</span>
         <div className="flex flex-wrap gap-1.5">
           {[
             { label: "Striped", value: striped, set: setStriped },
@@ -148,7 +148,7 @@ ${jsData.trim()}`,
               onClick={() => opt.set((v) => !v)}
               className={
                 "rounded-md px-2.5 py-1 text-xs font-medium transition-colors " +
-                (opt.value ? "bg-slate-900 text-white" : "bg-slate-100 text-slate-600 hover:bg-slate-200")
+                (opt.value ? "bg-fg text-surface" : "bg-surface-muted text-fg-muted hover:bg-border")
               }
             >
               {opt.label}

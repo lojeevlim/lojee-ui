@@ -29,8 +29,8 @@ export default function LoadingStatePlayground() {
   // A self-closing tag when there's no description to project, matching how
   // the "react" variant collapses to `<LoadingState ... />` in the same case.
   const htmlMarkup = description
-    ? `<LoadingState${titleAttr}${sizeAttr}>\n  ${description}\n</LoadingState>`
-    : `<LoadingState${titleAttr}${sizeAttr} />`;
+    ? `<l-LoadingState${titleAttr}${sizeAttr}>\n  ${description}\n</l-LoadingState>`
+    : `<l-LoadingState${titleAttr}${sizeAttr} />`;
 
   const codeVariants: CodeBlockVariants = {
     react: description ? code : `<LoadingState${titleAttr}${sizeAttr} />`,
@@ -42,20 +42,20 @@ export default function LoadingStatePlayground() {
   return (
     <PlaygroundLayout preview={preview} variants={codeVariants}>
       <div className="sm:col-span-2">
-        <span className="mb-1.5 block text-xs font-medium text-slate-500">Title</span>
+        <span className="mb-1.5 block text-xs font-medium text-fg-subtle">Title</span>
         <input
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          className="w-full rounded-md border border-slate-200 px-3 py-1.5 text-sm text-slate-900 outline-none transition-colors focus:border-slate-400"
+          className="w-full rounded-md border border-border px-3 py-1.5 text-sm text-fg outline-none transition-colors focus:border-border-strong"
           placeholder="Loading…"
         />
       </div>
       <div className="sm:col-span-2">
-        <span className="mb-1.5 block text-xs font-medium text-slate-500">Description</span>
+        <span className="mb-1.5 block text-xs font-medium text-fg-subtle">Description</span>
         <input
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          className="w-full rounded-md border border-slate-200 px-3 py-1.5 text-sm text-slate-900 outline-none transition-colors focus:border-slate-400"
+          className="w-full rounded-md border border-border px-3 py-1.5 text-sm text-fg outline-none transition-colors focus:border-border-strong"
           placeholder="This should only take a moment."
         />
       </div>

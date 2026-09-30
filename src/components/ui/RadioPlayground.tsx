@@ -10,7 +10,7 @@ const OPTIONS = ["Free", "Pro", "Enterprise"];
 
 export default function RadioPlayground() {
   const [orientation, setOrientation] = useState<RadioGroupOrientation>("vertical");
-  const [color, setColor] = useState<ColorName>("slate");
+  const [color, setColor] = useState<ColorName>("accent");
   const [selected, setSelected] = useState(OPTIONS[0]);
 
   const preview = (
@@ -42,14 +42,14 @@ ${OPTIONS.map(
   // Vue/Angular templates (plain attributes, no bindings needed for a static
   // snapshot); the "js" variant just adds the one-time module import a plain
   // HTML page needs to actually load the `<l-*>` definitions.
-  const htmlMarkup = `<RadioGroup orientation="${orientation}">
+  const htmlMarkup = `<l-RadioGroup orientation="${orientation}">
 ${OPTIONS.map(
   (option) =>
-    `  <Radio name="playground" color="${color}" label="${option}"${
+    `  <l-Radio name="playground" color="${color}" label="${option}"${
       option === selected ? ` defaultChecked` : ""
     } />`
 ).join("\n")}
-</RadioGroup>`;
+</l-RadioGroup>`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,

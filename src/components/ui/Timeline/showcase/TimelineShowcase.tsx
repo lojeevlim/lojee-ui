@@ -4,11 +4,11 @@ import { SectionLabel } from "../../ShowcaseHelpers";
 
 export default function TimelineShowcase() {
   return (
-    <div className="min-h-screen bg-white p-6 md:p-10">
+    <div className="min-h-screen rounded-xl bg-surface p-6 md:p-10">
       <div className="max-w-5xl mx-auto space-y-12">
         <div>
-          <h1 className="text-2xl font-semibold text-slate-900">Timeline</h1>
-          <p className="text-sm text-slate-500 mt-1">
+          <h1 className="text-2xl font-semibold text-fg">Timeline</h1>
+          <p className="text-sm text-fg-subtle mt-1">
             A vertical (or horizontal) sequence of events — a connecting line with a marker per item.
           </p>
         </div>
@@ -35,7 +35,7 @@ export default function TimelineShowcase() {
     { title: "Delivered", timestamp: "Jan 6, 1:47 PM" },
   ]}
 />`,
-              js: `<Timeline id="timeline-basic"></Timeline>
+              js: `<l-Timeline id="timeline-basic"></l-Timeline>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -48,10 +48,10 @@ export default function TimelineShowcase() {
   ];
 </script>`,
               vue: `<template>
-  <Timeline :items="items" />
+  <l-Timeline :items="items" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import "lojee-ui/elements";
 
 const items = [
@@ -69,7 +69,7 @@ import "lojee-ui/elements";
   selector: "app-root",
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  template: \`<Timeline [items]="items" />\`,
+  template: \`<l-Timeline [items]="items" />\`,
 })
 export class AppComponent {
   items = [
@@ -109,7 +109,7 @@ export class AppComponent {
     { title: "Delivered", icon: "circle-dot", color: "slate" },
   ]}
 />`,
-              js: `<Timeline id="timeline-icons"></Timeline>
+              js: `<l-Timeline id="timeline-icons"></l-Timeline>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -123,10 +123,10 @@ export class AppComponent {
   ];
 </script>`,
               vue: `<template>
-  <Timeline :items="items" />
+  <l-Timeline :items="items" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import "lojee-ui/elements";
 
 const items = [
@@ -147,7 +147,7 @@ items = [
 ];
 
 // app.component.html
-<Timeline [items]="items" />`,
+<l-Timeline [items]="items" />`,
             }}
           />
         </section>
@@ -176,7 +176,7 @@ items = [
     { title: "Delivered", icon: "circle-dot", color: "slate" },
   ]}
 />`,
-              js: `<Timeline id="timeline-horizontal" orientation="horizontal"></Timeline>
+              js: `<l-Timeline id="timeline-horizontal" orientation="horizontal"></l-Timeline>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -189,10 +189,10 @@ items = [
   ];
 </script>`,
               vue: `<template>
-  <Timeline :items="items" orientation="horizontal" />
+  <l-Timeline :items="items" orientation="horizontal" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import "lojee-ui/elements";
 
 const items = [
@@ -211,7 +211,7 @@ items = [
 ];
 
 // app.component.html
-<Timeline [items]="items" orientation="horizontal" />`,
+<l-Timeline [items]="items" orientation="horizontal" />`,
             }}
           />
         </section>

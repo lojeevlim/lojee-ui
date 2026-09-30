@@ -5,11 +5,11 @@ import { SectionLabel, Row } from "../../ShowcaseHelpers";
 
 export default function ContextMenuShowcase() {
   return (
-    <div className="min-h-screen bg-white p-6 md:p-10">
+    <div className="min-h-screen rounded-xl bg-surface p-6 md:p-10">
       <div className="max-w-5xl mx-auto space-y-12">
         <div>
-          <h1 className="text-2xl font-semibold text-slate-900">Context Menu</h1>
-          <p className="text-sm text-slate-500 mt-1">
+          <h1 className="text-2xl font-semibold text-fg">Context Menu</h1>
+          <p className="text-sm text-fg-subtle mt-1">
             Right-click anywhere on the target area to open a menu at the cursor — closes on
             selection, outside click, or Escape.
           </p>
@@ -33,7 +33,7 @@ export default function ContextMenuShowcase() {
                 </>
               }
             >
-              <div className="flex h-40 w-96 items-center justify-center rounded-lg border-2 border-dashed border-slate-200 text-sm text-slate-400">
+              <div className="flex h-40 w-96 items-center justify-center rounded-lg border-2 border-dashed border-border text-sm text-fg-subtle">
                 Right-click here
               </div>
             </ContextMenu>
@@ -51,14 +51,14 @@ export default function ContextMenuShowcase() {
 >
   <div>Right-click here</div>
 </ContextMenu>`,
-              js: `<ContextMenu>
+              js: `<l-ContextMenu>
   <div slot="menu">
-    <DropdownMenuItem icon="copy" id="copy-item">Copy</DropdownMenuItem>
-    <DropdownMenuItem icon="pencil" id="rename-item">Rename</DropdownMenuItem>
-    <DropdownMenuItem icon="trash-2" danger id="delete-item">Delete</DropdownMenuItem>
+    <l-DropdownMenuItem icon="copy" id="copy-item">Copy</l-DropdownMenuItem>
+    <l-DropdownMenuItem icon="pencil" id="rename-item">Rename</l-DropdownMenuItem>
+    <l-DropdownMenuItem icon="trash-2" danger id="delete-item">Delete</l-DropdownMenuItem>
   </div>
   <div>Right-click here</div>
-</ContextMenu>
+</l-ContextMenu>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -68,17 +68,17 @@ export default function ContextMenuShowcase() {
   document.getElementById("delete-item").addEventListener("click", () => remove());
 </script>`,
               vue: `<template>
-  <ContextMenu>
+  <l-ContextMenu>
     <div slot="menu">
-      <DropdownMenuItem icon="copy" @click="copy">Copy</DropdownMenuItem>
-      <DropdownMenuItem icon="pencil" @click="rename">Rename</DropdownMenuItem>
-      <DropdownMenuItem icon="trash-2" danger @click="remove">Delete</DropdownMenuItem>
+      <l-DropdownMenuItem icon="copy" @click="copy">Copy</l-DropdownMenuItem>
+      <l-DropdownMenuItem icon="pencil" @click="rename">Rename</l-DropdownMenuItem>
+      <l-DropdownMenuItem icon="trash-2" danger @click="remove">Delete</l-DropdownMenuItem>
     </div>
     <div>Right-click here</div>
-  </ContextMenu>
+  </l-ContextMenu>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import "lojee-ui/elements";
 </script>`,
               angular: `// context-menu-showcase.component.ts
@@ -90,14 +90,14 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <ContextMenu>
+    <l-ContextMenu>
       <div slot="menu">
-        <DropdownMenuItem icon="copy" (click)="copy()">Copy</DropdownMenuItem>
-        <DropdownMenuItem icon="pencil" (click)="rename()">Rename</DropdownMenuItem>
-        <DropdownMenuItem icon="trash-2" danger (click)="remove()">Delete</DropdownMenuItem>
+        <l-DropdownMenuItem icon="copy" (click)="copy()">Copy</l-DropdownMenuItem>
+        <l-DropdownMenuItem icon="pencil" (click)="rename()">Rename</l-DropdownMenuItem>
+        <l-DropdownMenuItem icon="trash-2" danger (click)="remove()">Delete</l-DropdownMenuItem>
       </div>
       <div>Right-click here</div>
-    </ContextMenu>
+    </l-ContextMenu>
   \`,
 })
 export class ContextMenuShowcaseComponent {

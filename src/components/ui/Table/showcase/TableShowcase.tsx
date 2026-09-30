@@ -42,11 +42,11 @@ const STATUS_COLUMNS: TableColumn<Person>[] = [
 
 export default function TableShowcase() {
   return (
-    <div className="min-h-screen bg-white p-6 md:p-10">
+    <div className="min-h-screen rounded-xl bg-surface p-6 md:p-10">
       <div className="max-w-5xl mx-auto space-y-12">
         <div>
-          <h1 className="text-2xl font-semibold text-slate-900">Table</h1>
-          <p className="text-sm text-slate-500 mt-1">A data-driven table — pass columns and rows, no compound children.</p>
+          <h1 className="text-2xl font-semibold text-fg">Table</h1>
+          <p className="text-sm text-fg-subtle mt-1">A data-driven table — pass columns and rows, no compound children.</p>
         </div>
 
         <section>
@@ -61,7 +61,7 @@ export default function TableShowcase() {
 ];
 
 <Table columns={columns} data={people} />`,
-              js: `<Table id="basic-table" />
+              js: `<l-Table id="basic-table" />
 
 <script type="module">
   import "lojee-ui/elements";
@@ -80,10 +80,10 @@ export default function TableShowcase() {
   ];
 </script>`,
               vue: `<template>
-  <Table :columns="columns" :data="people" />
+  <l-Table :columns="columns" :data="people" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import "lojee-ui/elements";
 
 const columns = [
@@ -107,7 +107,7 @@ import "lojee-ui/elements";
   selector: "app-root",
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  template: \`<Table [columns]="columns" [data]="people" />\`,
+  template: \`<l-Table [columns]="columns" [data]="people" />\`,
 })
 export class AppComponent {
   columns = [
@@ -133,7 +133,7 @@ export class AppComponent {
           <CodeBlock
             variants={{
               react: `<Table columns={columns} data={people} striped />`,
-              js: `<Table id="striped-table" striped />
+              js: `<l-Table id="striped-table" striped />
 
 <script type="module">
   const table = document.getElementById("striped-table");
@@ -141,10 +141,10 @@ export class AppComponent {
   table.data = people;
 </script>`,
               vue: `<template>
-  <Table :columns="columns" :data="people" striped />
+  <l-Table :columns="columns" :data="people" striped />
 </template>`,
               angular: `<!-- reuses the AppComponent from above -->
-<Table [columns]="columns" [data]="people" striped />`,
+<l-Table [columns]="columns" [data]="people" striped />`,
             }}
           />
         </section>
@@ -155,7 +155,7 @@ export class AppComponent {
           <CodeBlock
             variants={{
               react: `<Table columns={columns} data={people} bordered />`,
-              js: `<Table id="bordered-table" bordered />
+              js: `<l-Table id="bordered-table" bordered />
 
 <script type="module">
   const table = document.getElementById("bordered-table");
@@ -163,10 +163,10 @@ export class AppComponent {
   table.data = people;
 </script>`,
               vue: `<template>
-  <Table :columns="columns" :data="people" bordered />
+  <l-Table :columns="columns" :data="people" bordered />
 </template>`,
               angular: `<!-- reuses the AppComponent from above -->
-<Table [columns]="columns" [data]="people" bordered />`,
+<l-Table [columns]="columns" [data]="people" bordered />`,
             }}
           />
         </section>
@@ -181,8 +181,8 @@ export class AppComponent {
             variants={{
               react: `<Table columns={columns} data={people} size="sm" bordered />
 <Table columns={columns} data={people} size="lg" bordered />`,
-              js: `<Table id="table-sm" size="sm" bordered />
-<Table id="table-lg" size="lg" bordered />
+              js: `<l-Table id="table-sm" size="sm" bordered />
+<l-Table id="table-lg" size="lg" bordered />
 
 <script type="module">
   document.getElementById("table-sm").columns = columns;
@@ -191,12 +191,12 @@ export class AppComponent {
   document.getElementById("table-lg").data = people;
 </script>`,
               vue: `<template>
-  <Table :columns="columns" :data="people" size="sm" bordered />
-  <Table :columns="columns" :data="people" size="lg" bordered />
+  <l-Table :columns="columns" :data="people" size="sm" bordered />
+  <l-Table :columns="columns" :data="people" size="lg" bordered />
 </template>`,
               angular: `<!-- reuses the AppComponent from above -->
-<Table [columns]="columns" [data]="people" size="sm" bordered />
-<Table [columns]="columns" [data]="people" size="lg" bordered />`,
+<l-Table [columns]="columns" [data]="people" size="sm" bordered />
+<l-Table [columns]="columns" [data]="people" size="lg" bordered />`,
             }}
           />
         </section>
@@ -218,7 +218,7 @@ export class AppComponent {
 ];
 
 <Table columns={columns} data={people} striped />`,
-              js: `<Table id="status-table" striped></Table>
+              js: `<l-Table id="status-table" striped></l-Table>
 
 <script type="module">
   const columns = [
@@ -240,10 +240,10 @@ export class AppComponent {
   table.data = people;
 </script>`,
               vue: `<template>
-  <Table :columns="columns" :data="people" striped />
+  <l-Table :columns="columns" :data="people" striped />
 </template>
 
-<script setup>
+<script setup lang="ts">
 const columns = [
   { key: "name", header: "Name" },
   { key: "email", header: "Email" },
@@ -255,7 +255,7 @@ const columns = [
   },
 ];
 </script>`,
-              angular: `<Table [columns]="columns" [data]="people" striped></Table>
+              angular: `<l-Table [columns]="columns" [data]="people" striped></l-Table>
 
 columns = [
   { key: "name", header: "Name" },

@@ -7,9 +7,9 @@ import type { CodeBlockVariants } from "./CodeBlock";
 const INDICES = ["0", "1", "2"] as const;
 
 const SAMPLE_TABS: TabItem[] = [
-  { label: "Overview", content: <p className="text-sm text-slate-600">A quick summary of the project.</p> },
-  { label: "Activity", content: <p className="text-sm text-slate-600">Recent activity shows up here.</p> },
-  { label: "Settings", content: <p className="text-sm text-slate-600">Adjust your preferences.</p> },
+  { label: "Overview", content: <p className="text-sm text-fg-muted">A quick summary of the project.</p> },
+  { label: "Activity", content: <p className="text-sm text-fg-muted">Recent activity shows up here.</p> },
+  { label: "Settings", content: <p className="text-sm text-fg-muted">Adjust your preferences.</p> },
 ];
 
 const SAMPLE_TABS_CODE = `[
@@ -19,7 +19,7 @@ const SAMPLE_TABS_CODE = `[
   ]`;
 
 export default function TabsPlayground() {
-  const [color, setColor] = useState<ColorName>("slate");
+  const [color, setColor] = useState<ColorName>("accent");
   const [defaultIndex, setDefaultIndex] = useState<(typeof INDICES)[number]>("0");
 
   const preview = (
@@ -49,7 +49,7 @@ export default function TabsPlayground() {
 
   const codeVariants: CodeBlockVariants = {
     react: code,
-    js: `<Tabs id="tabs-demo" ${attrs} />
+    js: `<l-Tabs id="tabs-demo" ${attrs} />
 
 <script type="module">
   import "lojee-ui/elements";
@@ -62,15 +62,15 @@ ${tabsData}
   el.tabs = tabs;
 </script>`,
     vue: `<template>
-  <Tabs :tabs="tabs" ${attrs} />
+  <l-Tabs :tabs="tabs" ${attrs} />
 </template>
 
-<script setup>
+<script setup lang="ts">
 const tabs = [
 ${tabsData}
 ];
 </script>`,
-    angular: `<Tabs [tabs]="tabs" ${attrs} />
+    angular: `<l-Tabs [tabs]="tabs" ${attrs} />
 
 tabs = [
 ${tabsData}
