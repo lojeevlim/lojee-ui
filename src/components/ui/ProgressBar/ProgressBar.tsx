@@ -9,7 +9,7 @@ export interface ProgressBarProps {
   max?: number;
   /** Controls track height (default: "md"). */
   size?: ProgressBarSize;
-  /** default "slate" */
+  /** default "accent" — follows the theme accent */
   color?: ColorName;
   /** Shows the percentage as text. */
   showLabel?: boolean;
@@ -17,6 +17,7 @@ export interface ProgressBarProps {
   striped?: boolean;
   /** Animated sweeping bar, ignores `value`. */
   indeterminate?: boolean;
+  /** Extra CSS class(es) added to the root element, merged before `classNames.root`. */
   className?: string;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
   classNames?: {
@@ -34,9 +35,10 @@ const TRACK_HEIGHT: Record<ProgressBarSize, string> = {
 };
 
 const BG_COLOR: Record<ColorName, string> = {
-  slate: "bg-slate-900",
+  slate: "bg-slate-900 dark:bg-slate-200",
   gray: "bg-gray-600",
   indigo: "bg-indigo-600",
+  accent: "bg-accent-600",
   violet: "bg-violet-600",
   blue: "bg-blue-600",
   cyan: "bg-cyan-600",
@@ -55,7 +57,7 @@ export function ProgressBar({
   value,
   max = 100,
   size = "md",
-  color = "slate",
+  color = "accent",
   showLabel = false,
   striped = false,
   indeterminate = false,
@@ -74,7 +76,7 @@ export function ProgressBar({
         aria-valuemax={max}
         aria-valuenow={indeterminate ? undefined : clamped}
         className={cx(
-          "relative w-full overflow-hidden rounded-full bg-slate-100",
+          "relative w-full overflow-hidden rounded-full bg-surface-muted",
           TRACK_HEIGHT[size],
           classNames?.track
         )}
@@ -100,7 +102,7 @@ export function ProgressBar({
         )}
       </div>
       {showLabel && !indeterminate && (
-        <div className={cx("mt-1 text-right text-xs text-slate-500", classNames?.label)}>{Math.round(pct)}%</div>
+        <div className={cx("mt-1 text-right text-xs text-fg-subtle", classNames?.label)}>{Math.round(pct)}%</div>
       )}
     </div>
   );

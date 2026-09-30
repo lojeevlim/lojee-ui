@@ -50,9 +50,11 @@ import ErrorStatePlayground from "./ErrorStatePlayground";
 import SuccessStatePlayground from "./SuccessStatePlayground";
 import LoadingStatePlayground from "./LoadingStatePlayground";
 import NavbarPlayground from "./NavbarPlayground";
+import TopBarPlayground from "./TopBarPlayground";
 import SidebarPlayground from "./SidebarPlayground";
 import HeaderPlayground from "./HeaderPlayground";
 import FooterPlayground from "./FooterPlayground";
+import AppLayoutPlayground from "./AppLayoutPlayground";
 import NavigationMenuPlayground from "./NavigationMenuPlayground";
 import BottomNavigationPlayground from "./BottomNavigationPlayground";
 import StepperPlayground from "./StepperPlayground";
@@ -126,9 +128,11 @@ const PLAYGROUNDS: Record<string, ComponentType> = {
   "Success State": SuccessStatePlayground,
   "Loading State": LoadingStatePlayground,
   Navbar: NavbarPlayground,
+  "Top Bar": TopBarPlayground,
   Sidebar: SidebarPlayground,
   Header: HeaderPlayground,
   Footer: FooterPlayground,
+  App: AppLayoutPlayground,
   "Navigation Menu": NavigationMenuPlayground,
   "Bottom Navigation": BottomNavigationPlayground,
   Stepper: StepperPlayground,
@@ -155,10 +159,10 @@ export default function Playground({ itemLabel }: PlaygroundProps) {
 
   return (
     <div className="flex flex-col items-center justify-center gap-1.5 py-16 text-center">
-      <p className="text-sm font-medium text-slate-900">
+      <p className="text-sm font-medium text-fg">
         {itemLabel ? `No playground for "${itemLabel}" yet` : "Pick a component to try it out"}
       </p>
-      <p className="text-sm text-slate-500">Select a component with a playground in the sidebar.</p>
+      <p className="text-sm text-fg-subtle">Select a component with a playground in the sidebar.</p>
     </div>
   );
 }

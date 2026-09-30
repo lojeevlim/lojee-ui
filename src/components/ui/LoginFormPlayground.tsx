@@ -52,38 +52,38 @@ export default function LoginFormPlayground() {
   return (
     <PlaygroundLayout preview={preview} variants={codeVariants}>
       <div className="sm:col-span-2">
-        <span className="mb-1.5 block text-xs font-medium text-slate-500">Title</span>
+        <span className="mb-1.5 block text-xs font-medium text-fg-subtle">Title</span>
         <input
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          className="w-full rounded-md border border-slate-200 px-3 py-1.5 text-sm text-slate-900 outline-none transition-colors focus:border-slate-400"
+          className="w-full rounded-md border border-border px-3 py-1.5 text-sm text-fg outline-none transition-colors focus:border-border-strong"
           placeholder="Welcome back"
         />
       </div>
       <div className="sm:col-span-2">
-        <span className="mb-1.5 block text-xs font-medium text-slate-500">Description</span>
+        <span className="mb-1.5 block text-xs font-medium text-fg-subtle">Description</span>
         <input
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          className="w-full rounded-md border border-slate-200 px-3 py-1.5 text-sm text-slate-900 outline-none transition-colors focus:border-slate-400"
+          className="w-full rounded-md border border-border px-3 py-1.5 text-sm text-fg outline-none transition-colors focus:border-border-strong"
           placeholder="Log in to your account to continue."
         />
       </div>
       <div>
-        <span className="mb-1.5 block text-xs font-medium text-slate-500">Submit label</span>
+        <span className="mb-1.5 block text-xs font-medium text-fg-subtle">Submit label</span>
         <input
           value={submitLabel}
           onChange={(e) => setSubmitLabel(e.target.value)}
-          className="w-full rounded-md border border-slate-200 px-3 py-1.5 text-sm text-slate-900 outline-none transition-colors focus:border-slate-400"
+          className="w-full rounded-md border border-border px-3 py-1.5 text-sm text-fg outline-none transition-colors focus:border-border-strong"
           placeholder="Log in"
         />
       </div>
       <div className="flex items-center gap-4">
-        <label className="flex items-center gap-2 text-xs font-medium text-slate-500">
+        <label className="flex items-center gap-2 text-xs font-medium text-fg-subtle">
           <input type="checkbox" checked={showRemember} onChange={(e) => setShowRemember(e.target.checked)} />
           Remember me
         </label>
-        <label className="flex items-center gap-2 text-xs font-medium text-slate-500">
+        <label className="flex items-center gap-2 text-xs font-medium text-fg-subtle">
           <input
             type="checkbox"
             checked={showForgotPassword}

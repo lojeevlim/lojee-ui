@@ -18,10 +18,15 @@ export interface StatusLayoutClassNames {
 export interface StatusLayoutProps {
   /** The already-styled icon (or spinner) element, including its own wrapper/circle markup. */
   icon: ReactNode;
+  /** Heading shown under the icon. */
   title: ReactNode;
+  /** Body text under the title; omitted entirely when not provided. */
   description?: ReactNode;
+  /** Element rendered below the description, e.g. a button; omitted when not provided. */
   action?: ReactNode;
+  /** Extra class name(s) appended to the root element. */
   className?: string;
+  /** Per-part class overrides — merged after (and win over) the built-in styling. */
   classNames?: StatusLayoutClassNames;
 }
 
@@ -35,11 +40,11 @@ export function StatusLayout({ icon, title, description, action, className, clas
       )}
     >
       {icon}
-      <h3 className={cx("mt-4 text-base font-semibold text-slate-900", classNames?.title)}>
+      <h3 className={cx("mt-4 text-base font-semibold text-fg", classNames?.title)}>
         <slot name="title">{title}</slot>
       </h3>
       {description != null && (
-        <div className={cx("mt-1 max-w-sm text-sm text-slate-500", classNames?.description)}>
+        <div className={cx("mt-1 max-w-sm text-sm text-fg-subtle", classNames?.description)}>
           <slot>{description}</slot>
         </div>
       )}

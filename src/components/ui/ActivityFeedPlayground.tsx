@@ -12,7 +12,7 @@ const BASE_ITEMS: BaseItem[] = [
 ];
 
 const ICON_BY_INDEX: Record<number, { icon: string; color: ActivityItem["color"] }> = {
-  0: { icon: "pencil", color: "indigo" },
+  0: { icon: "pencil", color: "accent" },
   1: { icon: "circle-check", color: "emerald" },
   2: { icon: "user", color: "slate" },
 };
@@ -26,7 +26,7 @@ export default function ActivityFeedPlayground() {
   const preview = (
     <AppWindowFrame>
       <AppWindowBody>
-        <div className="w-full max-w-sm rounded-lg border border-slate-200 p-2">
+        <div className="w-full max-w-sm rounded-lg border border-border p-2">
           <ActivityFeed items={items} compact={compact} />
         </div>
       </AppWindowBody>
@@ -88,11 +88,11 @@ ${itemsCode}
 
   return (
     <PlaygroundLayout preview={preview} variants={codeVariants}>
-      <label className="flex items-center gap-2 text-xs font-medium text-slate-500">
+      <label className="flex items-center gap-2 text-xs font-medium text-fg-subtle">
         <input type="checkbox" checked={compact} onChange={(e) => setCompact(e.target.checked)} />
         Compact
       </label>
-      <label className="flex items-center gap-2 text-xs font-medium text-slate-500">
+      <label className="flex items-center gap-2 text-xs font-medium text-fg-subtle">
         <input type="checkbox" checked={showIcons} onChange={(e) => setShowIcons(e.target.checked)} />
         Show icon badges
       </label>

@@ -11,7 +11,7 @@ export default function StatPlayground() {
   const [value, setValue] = useState("$48,290");
   const [change, setChange] = useState("12.5%");
   const [trend, setTrend] = useState<StatTrend>("up");
-  const [color, setColor] = useState<ColorName>("indigo");
+  const [color, setColor] = useState<ColorName>("accent");
   const [icon, setIcon] = useState(true);
 
   const preview = (
@@ -36,7 +36,7 @@ export default function StatPlayground() {
   const changeAttr = change ? ` change="${change}"` : "";
   const trendAttr = change && trend !== "neutral" ? ` trend="${trend}"` : "";
   const iconAttr = icon ? ` icon="zap"` : "";
-  const colorAttr = icon && color !== "slate" ? ` color="${color}"` : "";
+  const colorAttr = icon && color !== "accent" ? ` color="${color}"` : "";
 
   const code = `<Stat label="${labelValue}" value="${valueValue}"${changeAttr}${trendAttr}${iconAttr}${colorAttr} />`;
 
@@ -56,35 +56,35 @@ export default function StatPlayground() {
   return (
     <PlaygroundLayout preview={preview} variants={codeVariants}>
       <div>
-        <span className="mb-1.5 block text-xs font-medium text-slate-500">Label</span>
+        <span className="mb-1.5 block text-xs font-medium text-fg-subtle">Label</span>
         <input
           value={label}
           onChange={(e) => setLabel(e.target.value)}
-          className="w-full rounded-md border border-slate-200 px-3 py-1.5 text-sm text-slate-900 outline-none transition-colors focus:border-slate-400"
+          className="w-full rounded-md border border-border px-3 py-1.5 text-sm text-fg outline-none transition-colors focus:border-border-strong"
           placeholder="Revenue"
         />
       </div>
       <div>
-        <span className="mb-1.5 block text-xs font-medium text-slate-500">Value</span>
+        <span className="mb-1.5 block text-xs font-medium text-fg-subtle">Value</span>
         <input
           value={value}
           onChange={(e) => setValue(e.target.value)}
-          className="w-full rounded-md border border-slate-200 px-3 py-1.5 text-sm text-slate-900 outline-none transition-colors focus:border-slate-400"
+          className="w-full rounded-md border border-border px-3 py-1.5 text-sm text-fg outline-none transition-colors focus:border-border-strong"
           placeholder="$48,290"
         />
       </div>
       <div>
-        <span className="mb-1.5 block text-xs font-medium text-slate-500">Change</span>
+        <span className="mb-1.5 block text-xs font-medium text-fg-subtle">Change</span>
         <input
           value={change}
           onChange={(e) => setChange(e.target.value)}
-          className="w-full rounded-md border border-slate-200 px-3 py-1.5 text-sm text-slate-900 outline-none transition-colors focus:border-slate-400"
+          className="w-full rounded-md border border-border px-3 py-1.5 text-sm text-fg outline-none transition-colors focus:border-border-strong"
           placeholder="12.5%"
         />
       </div>
       <OptionGroup label="Trend" options={TRENDS} value={trend} onChange={setTrend} />
       <ColorSwatches value={color} onChange={setColor} />
-      <label className="flex items-center gap-2 text-xs font-medium text-slate-500">
+      <label className="flex items-center gap-2 text-xs font-medium text-fg-subtle">
         <input type="checkbox" checked={icon} onChange={(e) => setIcon(e.target.checked)} />
         Show icon
       </label>

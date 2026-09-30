@@ -6,7 +6,9 @@ import { Icon } from "../Icons/Icon";
 export interface FileUploadProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "type" | "size"> {
   /** e.g. "Click to upload or drag and drop" — has a sensible default if omitted. */
   label?: ReactNode;
+  /** Fires when the user picks files (via click or drop), with the selected FileList (or null). */
   onFilesSelected?: (files: FileList | null) => void;
+  /** Extra class name(s) applied to the root element. */
   className?: string;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
   classNames?: {
@@ -31,7 +33,7 @@ export function FileUpload({
   return (
     <label
       className={cx(
-        "flex cursor-pointer flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed border-slate-300 bg-slate-50 px-6 py-8 text-center transition-colors hover:border-slate-400 hover:bg-slate-100",
+        "flex cursor-pointer flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed border-border-strong bg-surface-muted px-6 py-8 text-center transition-colors hover:border-border-strong hover:bg-surface-muted",
         className,
         classNames?.root
       )}
@@ -47,13 +49,13 @@ export function FileUpload({
         {...rest}
       />
       <div className={cx("flex flex-col items-center justify-center gap-2", classNames?.dropzone)}>
-        <Icon name="upload" size={20} className={cx("text-slate-400", classNames?.icon)} />
-        <span className={cx("text-sm text-slate-500", classNames?.label)}>{label}</span>
+        <Icon name="upload" size={20} className={cx("text-fg-subtle", classNames?.icon)} />
+        <span className={cx("text-sm text-fg-subtle", classNames?.label)}>{label}</span>
       </div>
       {fileNames.length > 0 && (
         <div className={cx("mt-1 w-full space-y-1", classNames?.fileList)}>
           {fileNames.map((name, i) => (
-            <div key={`${name}-${i}`} className="flex items-center justify-center gap-1.5 text-xs text-slate-600">
+            <div key={`${name}-${i}`} className="flex items-center justify-center gap-1.5 text-xs text-fg-muted">
               <Icon name="file" size={12} />
               {name}
             </div>

@@ -1,17 +1,20 @@
 import { useState } from "react";
 import { Footer, type FooterVariant } from "./Footer/Footer";
-import { OptionGroup, PlaygroundLayout, AppWindowFrame } from "./PlaygroundHelpers";
+import { OptionGroup, ColorSwatches, PlaygroundLayout, AppWindowFrame } from "./PlaygroundHelpers";
+import type { ColorName } from "../../core/tokens";
 import type { CodeBlockVariants } from "./CodeBlock";
 
-const VARIANTS: FooterVariant[] = ["light", "dark", "minimal"];
+const VARIANTS: FooterVariant[] = ["light", "dark", "minimal", "accent"];
 
 export default function FooterPlayground() {
   const [copyright, setCopyright] = useState("© 2026 Lojee, Inc. All rights reserved.");
   const [showColumns, setShowColumns] = useState(true);
   const [variant, setVariant] = useState<FooterVariant>("light");
-  const dark = variant === "dark";
-  const headingClass = dark ? "text-white" : "text-slate-900";
-  const linkClass = dark ? "text-slate-400 hover:text-white" : "text-slate-600 hover:text-slate-900";
+  const [color, setColor] = useState<ColorName>("accent");
+  // "dark" and "accent" both sit on a strong background, so their text is light.
+  const dark = variant === "dark" || variant === "accent";
+  const headingClass = dark ? "text-white" : "text-fg";
+  const linkClass = variant === "accent" ? "text-white/70 hover:text-white" : dark ? "text-fg-subtle hover:text-white" : "text-fg-muted hover:text-fg";
 
   const columns = (
     <>
@@ -52,13 +55,15 @@ export default function FooterPlayground() {
   // above it so it reads as sitting at the bottom of a real page.
   const preview = (
     <AppWindowFrame>
-      <div className="flex flex-col justify-between bg-white" style={{ height: 320 }}>
-        <div className="flex h-20 items-center justify-center rounded-xl border border-dashed border-slate-200 text-sm text-slate-300 m-6 mb-0">
+      {/* Fills the (full-height) preview window with the footer pinned to its bottom edge. */}
+      <div className="flex min-h-[320px] flex-1 flex-col justify-between bg-surface">
+        <div className="m-6 mb-0 flex flex-1 items-center justify-center rounded-xl border border-dashed border-border text-sm text-fg-subtle">
           Page content
         </div>
         <Footer
-          bottom={copyright ? <span className={dark ? "text-slate-400" : undefined}>{copyright}</span> : undefined}
+          bottom={copyright ? <span className={variant === "dark" ? "text-fg-subtle" : undefined}>{copyright}</span> : undefined}
           variant={variant}
+          color={color}
         >
           {showColumns ? columns : undefined}
         </Footer>
@@ -67,7 +72,8 @@ export default function FooterPlayground() {
   );
 
   const bottomValue = copyright || "© 2026 Lojee, Inc. All rights reserved.";
-  const variantAttr = variant !== "light" ? ` variant="${variant}"` : "";
+  const variantAttr =
+    (variant !== "light" ? ` variant="${variant}"` : "") + (variant === "accent" && color !== "accent" ? ` color="${color}"` : "");
   const columnsJsx = `
   <div>
     <h4>Product</h4>
@@ -103,16 +109,17 @@ export default function FooterPlayground() {
   return (
     <PlaygroundLayout preview={preview} variants={codeVariants}>
       <div className="sm:col-span-2">
-        <span className="mb-1.5 block text-xs font-medium text-slate-500">Bottom text</span>
+        <span className="mb-1.5 block text-xs font-medium text-fg-subtle">Bottom text</span>
         <input
           value={copyright}
           onChange={(e) => setCopyright(e.target.value)}
-          className="w-full rounded-md border border-slate-200 px-3 py-1.5 text-sm text-slate-900 outline-none transition-colors focus:border-slate-400"
+          className="w-full rounded-md border border-border px-3 py-1.5 text-sm text-fg outline-none transition-colors focus:border-border-strong"
           placeholder="© 2026 Lojee, Inc. All rights reserved."
         />
       </div>
       <OptionGroup label="Variant" options={VARIANTS} value={variant} onChange={setVariant} />
-      <label className="flex items-center gap-2 text-xs font-medium text-slate-500">
+      {variant === "accent" && <ColorSwatches label="Color" value={color} onChange={setColor} />}
+      <label className="flex items-center gap-2 text-xs font-medium text-fg-subtle">
         <input type="checkbox" checked={showColumns} onChange={(e) => setShowColumns(e.target.checked)} />
         Show link columns
       </label>

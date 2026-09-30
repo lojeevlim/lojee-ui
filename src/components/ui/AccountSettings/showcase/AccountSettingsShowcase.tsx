@@ -14,11 +14,11 @@ export default function AccountSettingsShowcase() {
   const [notifications, setNotifications] = useState(SAMPLE_NOTIFICATIONS);
 
   return (
-    <div className="min-h-screen bg-white p-6 md:p-10">
+    <div className="min-h-screen rounded-xl bg-surface p-6 md:p-10">
       <div className="max-w-5xl mx-auto space-y-12">
         <div>
-          <h1 className="text-2xl font-semibold text-slate-900">Account Settings</h1>
-          <p className="text-sm text-slate-500 mt-1">
+          <h1 className="text-2xl font-semibold text-fg">Account Settings</h1>
+          <p className="text-sm text-fg-subtle mt-1">
             Account-level settings — email, password, notification preferences, and account deletion — as three
             independent sections, each saved on its own.
           </p>
@@ -113,7 +113,7 @@ onDeleteAccount() { /* confirm + delete */ }`,
           <SectionLabel sub="onDeleteAccount is only the request — a real app would show its own confirmation (e.g. this library's own AlertDialog component) before actually deleting anything.">
             Danger zone
           </SectionLabel>
-          <p className="text-sm text-slate-500">
+          <p className="text-sm text-fg-subtle">
             See the bottom section in the example above — a red-tinted card with a destructive "Delete account"
             button.
           </p>

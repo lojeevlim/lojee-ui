@@ -2,16 +2,21 @@ import { useState, type ChangeEvent, type InputHTMLAttributes } from "react";
 import { cx, type ColorName } from "../../../core/tokens";
 
 export interface SliderProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "type"> {
+  /** Color of the slider thumb (default: "accent" — follows the theme accent). */
   color?: ColorName;
+  /** Shows the current numeric value in a label beside the slider, kept in sync in both controlled and uncontrolled use (default: false). */
   showValue?: boolean;
+  /** Extra class name(s) appended to the root element. */
   className?: string;
+  /** Per-part class overrides — merged after (and win over) the built-in styling. */
   classNames?: { root?: string; input?: string; value?: string };
 }
 
 const THUMB_CLASSES: Record<ColorName, string> = {
-  slate: "[&::-webkit-slider-thumb]:bg-slate-900 [&::-moz-range-thumb]:bg-slate-900",
+  slate: "[&::-webkit-slider-thumb]:bg-slate-900 [&::-moz-range-thumb]:bg-slate-900 dark:[&::-webkit-slider-thumb]:bg-slate-200 dark:[&::-moz-range-thumb]:bg-slate-200",
   gray: "[&::-webkit-slider-thumb]:bg-gray-600 [&::-moz-range-thumb]:bg-gray-600",
   indigo: "[&::-webkit-slider-thumb]:bg-indigo-600 [&::-moz-range-thumb]:bg-indigo-600",
+  accent: "[&::-webkit-slider-thumb]:bg-accent-600 [&::-moz-range-thumb]:bg-accent-600",
   violet: "[&::-webkit-slider-thumb]:bg-violet-600 [&::-moz-range-thumb]:bg-violet-600",
   blue: "[&::-webkit-slider-thumb]:bg-blue-600 [&::-moz-range-thumb]:bg-blue-600",
   cyan: "[&::-webkit-slider-thumb]:bg-cyan-600 [&::-moz-range-thumb]:bg-cyan-600",
@@ -24,10 +29,10 @@ const THUMB_CLASSES: Record<ColorName, string> = {
 };
 
 const BASE_CLASSES =
-  "h-1.5 w-full cursor-pointer appearance-none rounded-full bg-slate-200 disabled:cursor-not-allowed disabled:opacity-50 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:cursor-pointer [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:appearance-none [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-0 [&::-moz-range-thumb]:cursor-pointer";
+  "h-1.5 w-full cursor-pointer appearance-none rounded-full bg-border disabled:cursor-not-allowed disabled:opacity-50 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:cursor-pointer [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:appearance-none [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-0 [&::-moz-range-thumb]:cursor-pointer";
 
 export function Slider({
-  color = "slate",
+  color = "accent",
   showValue = false,
   className,
   classNames,
@@ -69,7 +74,7 @@ export function Slider({
   return (
     <div className={cx("flex items-center gap-3", className, classNames?.root)}>
       {input}
-      <span className={cx("text-sm tabular-nums text-slate-600", classNames?.value)}>{currentValue}</span>
+      <span className={cx("text-sm tabular-nums text-fg-muted", classNames?.value)}>{currentValue}</span>
     </div>
   );
 }

@@ -7,9 +7,9 @@ import type { CodeBlockVariants } from "./CodeBlock";
 const INDICES = ["0", "1", "2"] as const;
 
 const SAMPLE_TABS: TabItem[] = [
-  { label: "Overview", content: <p className="text-sm text-slate-600">A quick summary of the project.</p> },
-  { label: "Activity", content: <p className="text-sm text-slate-600">Recent activity shows up here.</p> },
-  { label: "Settings", content: <p className="text-sm text-slate-600">Adjust your preferences.</p> },
+  { label: "Overview", content: <p className="text-sm text-fg-muted">A quick summary of the project.</p> },
+  { label: "Activity", content: <p className="text-sm text-fg-muted">Recent activity shows up here.</p> },
+  { label: "Settings", content: <p className="text-sm text-fg-muted">Adjust your preferences.</p> },
 ];
 
 const SAMPLE_TABS_CODE = `[
@@ -19,7 +19,7 @@ const SAMPLE_TABS_CODE = `[
   ]`;
 
 export default function TabsPlayground() {
-  const [color, setColor] = useState<ColorName>("slate");
+  const [color, setColor] = useState<ColorName>("accent");
   const [defaultIndex, setDefaultIndex] = useState<(typeof INDICES)[number]>("0");
 
   const preview = (

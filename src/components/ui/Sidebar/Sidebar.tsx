@@ -1,9 +1,12 @@
-import { Children, isValidElement, useEffect, useRef, useState } from "react";
+import { Children, isValidElement, useEffect, useLayoutEffect, useRef, useState } from "react";
 import type { CSSProperties, ReactNode } from "react";
 import { cx, isColorName, type ColorName } from "../../../core/tokens";
 import { Icon } from "../Icons/Icon";
-import { Tooltip } from "../Tooltip/Tooltip";
+import { createPortal } from "react-dom";
+import { useTooltipPortal, tooltipPortalPositionStyle, TOOLTIP_PORTAL_Z_CLASS } from "../../../core/tooltipPortal";
 import { SidebarMenuItem } from "./SidebarMenuItem";
+import { sidebarActiveFillClasses } from "./sidebarActiveStyles";
+import { activeMarker } from "../../../core/activeVariant";
 
 // Determines which `items` row matches the current URL, for the built-in active-item detection
 // below — an exact `href` match always wins outright; otherwise the longest `href` the current path
@@ -29,7 +32,8 @@ function findActiveLabel(items: SidebarMenuItemSpec[], pathname: string): string
 // fill instead of a gradient rather than fail outright.
 function darkenHex(hex: string, factor = 0.82): string {
   const match = /^#?([0-9a-f]{6})$/i.exec(hex);
-  if (!match) return hex;
+  // Not a "#rrggbb" (e.g. a `var(...)`/`rgb(...)` value) — can't be scaled channel-wise, so mix toward black instead.
+  if (!match) return `color-mix(in srgb, ${hex}, black ${Math.round((1 - factor) * 100)}%)`;
   const value = parseInt(match[1], 16);
   const channel = (shift: number) => Math.max(0, Math.min(255, Math.round(((value >> shift) & 255) * factor)));
   return `#${[16, 8, 0].map((shift) => channel(shift).toString(16).padStart(2, "0")).join("")}`;
@@ -42,12 +46,13 @@ export type SidebarVariant = "light" | "dark" | "bordered" | "elevated" | "minim
 // surrounding body/nav padding a consumer typically adds is subtracted —
 // 72px keeps the rail feeling compact while giving nav items enough room
 // not to need near-zero horizontal padding to avoid overflowing it.
-const COLLAPSED_WIDTH = 72;
+const COLLAPSED_WIDTH = 88;
 
 // The "bordered"/"elevated"/"glass" backdrop's own padding (p-3 = 12px a side) — see `isDetachedPanel`.
 const DETACHED_PANEL_PADDING = 12;
 
 export interface SidebarHeaderProps {
+  /** Content rendered in the header area, docked above the nav rows. */
   children?: ReactNode;
 }
 
@@ -58,6 +63,7 @@ export function SidebarHeader({ children }: SidebarHeaderProps) {
 }
 
 export interface SidebarFooterProps {
+  /** Content rendered in the footer area, pinned below the nav rows. */
   children?: ReactNode;
 }
 
@@ -136,6 +142,17 @@ export interface SidebarProps {
    * height set, which isn't the case in most real layouts — pass e.g. "100%" yourself if this
    * Sidebar instead lives inside an already-sized flex/grid container and should fill that instead. */
   height?: string | number;
+  /** Sticks to the top of its scroll container (default: false) — same idea as Navbar's own `sticky`.
+   * A 100vh-tall Sidebar placed in the page's ordinary document flow *below* something else (e.g. a
+   * `<Navbar>` docked above it, the common "navbar on top, sidebar+content below" app-shell shape)
+   * pushes the page taller than the viewport by that something-else's own height — without `sticky`,
+   * scrolling the page scrolls the Sidebar away with it instead of leaving it in place. Pass `sticky`
+   * to pin it at the viewport's top edge instead once you scroll past whatever's above it, so it then
+   * stays fully visible on screen for the rest of the page, same as a real app-shell sidebar should.
+   * If it's inside a flex row instead (e.g. alongside a `<main>` that scrolls on its own), give that
+   * `<main>` its own `overflow-y-auto` and leave `height="100%"` on this Sidebar (see `height` above)
+   * — `sticky` isn't needed there, since the Sidebar already never scrolls out of its own container. */
+  sticky?: boolean;
   /** Collapses to an icon-only rail (default: false) — composed `children` (nav rows, a
    * `<SidebarHeader>`) are still rendered as given; it's up to the consumer to pass icon-only
    * content for those (pair `header` with `headerIcon`, or branch on `collapsed` yourself for
@@ -159,7 +176,7 @@ export interface SidebarProps {
    *   backdrop, never your page — so a fully colorless panel would camouflage against a backdrop of the
    *   same color, with
    *   no contrast left to reveal its rounded corners or shadow. All three are self-contained — an
-   *   inset backdrop is included automatically (padding + `bg-zinc-100`, or `color` for "glass") so
+   *   inset backdrop is included automatically (padding + `bg-surface-muted`, or `color` for "glass") so
    *   the panel always reads correctly (rounded corners, blur) with no wrapper markup needed on your
    *   end.
    * - "minimal" — no background/border at all, blends into the page (no backdrop added, by design —
@@ -167,7 +184,7 @@ export interface SidebarProps {
    * - "gradient" — a top-to-bottom gradient built from `color` (600 → 700).
    */
   variant?: SidebarVariant;
-  /** Accent color (default: "slate") — one of the built-in ColorNames, or any other CSS color value
+  /** Accent color (default: "accent" — follows the theme accent) — one of the built-in ColorNames, or any other CSS color value
    * (e.g. "#7c3aed" from a color-wheel picker) for a fully custom accent, unconstrained by the fixed
    * palette. For "gradient" it's the gradient itself (600→700-equivalent; a custom hex gets a
    * programmatically darkened second stop); for "bordered" it tints the panel's own border (has no
@@ -197,7 +214,9 @@ export interface SidebarProps {
    * called for rows composed directly via `children` (only the data-driven `items` shortcut has a
    * "current item" concept). */
   onActiveItemChange?: (item: SidebarMenuItemSpec) => void;
+  /** Extra class name(s) appended to the root element. */
   className?: string;
+  /** Per-part class overrides — merged after (and win over) the built-in styling. */
   classNames?: {
     root?: string;
     header?: string;
@@ -208,7 +227,7 @@ export interface SidebarProps {
 }
 
 const VARIANT_CLASSES: Record<SidebarVariant, string> = {
-  light: "bg-white border-r border-slate-200",
+  light: "bg-surface text-fg border-r border-border",
   // `text-white/70` — same idle color SidebarMenuItem gives its own nav rows for `dark` (see
   // `idleClass`) — so the header/footer (and any consumer-composed `<SidebarHeader>`/`<SidebarFooter>`,
   // both plain, colorless spans that rely on inheriting this) read as one consistent surface instead of
@@ -220,9 +239,9 @@ const VARIANT_CLASSES: Record<SidebarVariant, string> = {
   // distinct panel look (colored border / shadow-only / frosted-transparent) on top of that shared
   // shape. "elevated" deliberately carries no border — shadow-lg alone does the "floating card" job,
   // Material-style — so it stays visually distinct from "bordered" instead of duplicating it.
-  bordered: "bg-white border-2 border-slate-300 rounded-xl shadow-lg",
-  elevated: "bg-white rounded-xl shadow-lg",
-  minimal: "bg-transparent",
+  bordered: "bg-surface text-fg border-2 border-border-strong rounded-xl shadow-lg",
+  elevated: "bg-surface text-fg rounded-xl shadow-lg",
+  minimal: "bg-transparent text-fg",
   gradient: "text-white border-r border-white/10",
   // `backdrop-blur-2xl` can only ever blur what's *behind it within this same component* — and
   // that's always this panel's own solid-colored backdrop (see `glassBackdropClass`/`color`), never
@@ -240,15 +259,15 @@ const VARIANT_CLASSES: Record<SidebarVariant, string> = {
   // zero X/Y offset (just blur + spread) so it reads
   // the same on every side, not stronger on one edge than another the way a conventional drop shadow
   // (offset toward one direction) would.
-  glass: "bg-white/10 backdrop-blur-2xl border border-white/10 text-white rounded-xl shadow-[0_0_90px_-5px_rgba(0,0,0,0.55)]",
+  glass: "bg-white/10 backdrop-blur-2xl border border-white/10 text-white rounded-xl shadow-[0_0_55px_-10px_rgba(0,0,0,0.25)]",
 };
 
 const VARIANT_DIVIDER_CLASSES: Record<SidebarVariant, string> = {
-  light: "border-slate-200",
+  light: "border-border",
   dark: "border-slate-800",
-  bordered: "border-slate-100",
-  elevated: "border-slate-100",
-  minimal: "border-slate-100",
+  bordered: "border-border",
+  elevated: "border-border",
+  minimal: "border-border",
   gradient: "border-white/15",
   glass: "border-white/10",
 };
@@ -258,18 +277,19 @@ const VARIANT_DIVIDER_CLASSES: Record<SidebarVariant, string> = {
 // uses elsewhere in the library (see core/tokens.ts's colorClasses), for consistency. "elevated" has
 // no border to tint, so it doesn't use this map.
 const DETACHED_PANEL_ACCENT_BORDER: Record<ColorName, string> = {
-  slate: "border-slate-300",
-  gray: "border-gray-300",
-  indigo: "border-indigo-300",
-  violet: "border-violet-300",
-  blue: "border-blue-300",
-  cyan: "border-cyan-300",
-  emerald: "border-emerald-300",
-  teal: "border-teal-300",
-  amber: "border-amber-300",
-  orange: "border-orange-300",
-  rose: "border-rose-300",
-  pink: "border-pink-300",
+  slate: "border-border-strong",
+  gray: "border-border-strong",
+  indigo: "border-indigo-300 dark:border-indigo-700",
+  accent: "border-accent-300 dark:border-accent-700",
+  violet: "border-violet-300 dark:border-violet-700",
+  blue: "border-blue-300 dark:border-blue-700",
+  cyan: "border-cyan-300 dark:border-cyan-700",
+  emerald: "border-emerald-300 dark:border-emerald-700",
+  teal: "border-teal-300 dark:border-teal-700",
+  amber: "border-amber-300 dark:border-amber-700",
+  orange: "border-orange-300 dark:border-orange-700",
+  rose: "border-rose-300 dark:border-rose-700",
+  pink: "border-pink-300 dark:border-pink-700",
 };
 
 // "glass" itself has no background color (see VARIANT_CLASSES) — its own backdrop, the space around
@@ -280,6 +300,7 @@ const GLASS_BACKDROP: Record<ColorName, string> = {
   slate: "bg-slate-500",
   gray: "bg-gray-500",
   indigo: "bg-indigo-500",
+  accent: "bg-accent-500",
   violet: "bg-violet-500",
   blue: "bg-blue-500",
   cyan: "bg-cyan-500",
@@ -295,9 +316,10 @@ const TOGGLE_BUTTON_CLASSES =
   "flex h-8 w-8 shrink-0 items-center justify-center rounded-md border transition-colors";
 
 const TOGGLE_HOVER_TEXT: Record<ColorName, string> = {
-  slate: "hover:text-slate-700",
-  gray: "hover:text-gray-700",
+  slate: "hover:text-fg",
+  gray: "hover:text-fg",
   indigo: "hover:text-indigo-600",
+  accent: "hover:text-accent-600",
   violet: "hover:text-violet-600",
   blue: "hover:text-blue-600",
   cyan: "hover:text-cyan-600",
@@ -318,9 +340,10 @@ export function Sidebar({
   defaultActiveItem,
   width = 256,
   height = "100vh",
+  sticky = false,
   collapsed: collapsedProp,
   variant = "light",
-  color = "slate",
+  color = "accent",
   borderWidth,
   collapsible = false,
   onCollapsedChange,
@@ -335,6 +358,11 @@ export function Sidebar({
   const [uncontrolledCollapsed, setUncontrolledCollapsed] = useState(false);
   const isCollapsedControlled = collapsedProp !== undefined;
   const collapsed = isCollapsedControlled ? collapsedProp : uncontrolledCollapsed;
+  // The toggle's tooltip portals out of the sidebar (same as the menu items' own) — an inline CSS tooltip is
+  // clipped by the scrollable/overflow-hidden ancestors around a docked sidebar and sinks under the main content.
+  const { ref: toggleRef, state: toggleTip, show: showToggleTip, hide: hideToggleTip } = useTooltipPortal<HTMLButtonElement>();
+  const toggleLabel = collapsed ? "Expand sidebar" : "Collapse sidebar";
+
   const toggleCollapsed = () => {
     const next = !collapsed;
     if (!isCollapsedControlled) setUncontrolledCollapsed(next);
@@ -374,6 +402,7 @@ export function Sidebar({
   // translucent or already-colorful surface where the usual subtle overlay is much easier to lose.
   const dark = variant === "dark" || variant === "gradient" || variant === "glass";
   const vividActive = variant === "gradient" || variant === "glass";
+  const colorIsNamed = isColorName(color);
   // Always self-manages which `items` row is highlighted — clicking a row updates it immediately, no
   // external state required. A row's own `active: true` is read as an *initial/updated default*, not
   // a permanent lock: it seeds the very first render (mount), and re-syncs again any time it actually
@@ -420,12 +449,62 @@ export function Sidebar({
     if (item) onActiveItemChange?.(item);
     // eslint-disable-next-line react-hooks/exhaustive-deps -- onActiveItemChange intentionally excluded: it's a callback prop, not reactive state, and including it would re-fire this effect on every render whenever the consumer passes a new inline function.
   }, [selectedLabel]);
+  // A single shared "pill" slides between rows instead of each row cross-fading its own background —
+  // identical reasoning to Navbar's own sliding pill (see NavbarItem's `activeStyle` doc for the full
+  // case for it). Only `top`/`height` ever need measuring, unlike Navbar's `left`/`width` — every row
+  // is already `w-full` regardless of `collapsed`, so the pill only ever needs `inset-x-0` to match.
+  // `itemNodesRef` holds each rendered row's real DOM node (keyed by label) purely so this effect can
+  // measure it; `navRef` is the positioned ancestor those measurements are made relative to.
+  const navRef = useRef<HTMLElement>(null);
+  const itemNodesRef = useRef<Record<string, HTMLElement | null>>({});
+  const [pillRect, setPillRect] = useState<{ top: number; height: number } | null>(null);
+  // A row inside a currently-closed category never has a real visible position to pin the pill to —
+  // `getBoundingClientRect()` on it still reports its normal, "as if open" box even once its category's
+  // grid track is resting at `0fr` (an ancestor's `overflow-hidden` clips what paints, but never changes
+  // what a descendant itself reports as its own layout box) — so without this, the pill would keep
+  // floating at that stale, invisible position instead of hiding until its row is visible again.
+  const closedCategoryLabels = new Set<string>();
+  items?.forEach((entry, index) => {
+    if (!("category" in entry)) return;
+    const defaultOpen = index === 0 || entry.items.some((item) => item.active);
+    const isOpen = collapsed || (openCategories[entry.category] ?? defaultOpen);
+    if (!isOpen) entry.items.forEach((item) => closedCategoryLabels.add(item.label));
+  });
+  useLayoutEffect(() => {
+    const measure = () => {
+      const container = navRef.current;
+      const activeEl =
+        selectedLabel && !closedCategoryLabels.has(selectedLabel) ? itemNodesRef.current[selectedLabel] : null;
+      if (!container || !activeEl) {
+        setPillRect(null);
+        return;
+      }
+      const containerRect = container.getBoundingClientRect();
+      const activeElRect = activeEl.getBoundingClientRect();
+      setPillRect({ top: activeElRect.top - containerRect.top, height: activeElRect.height });
+    };
+    measure();
+    // `collapsed`/`openCategories` both reflow the rows below them (the rail's own width transition,
+    // a category's own height transition) — re-measuring on either keeps the pill honest about where
+    // the active row actually ends up, rather than animating toward a now-stale position.
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- closedCategoryLabels is a fresh Set every render, derived purely from collapsed/openCategories/items, which are already listed below.
+  }, [selectedLabel, items, collapsed, openCategories]);
   const renderItemRow = (item: SidebarMenuItemSpec, key: string) => (
     <SidebarMenuItem
       key={key}
+      ref={(el) => {
+        itemNodesRef.current[item.label] = el;
+      }}
       icon={item.icon}
       href={item.href}
       active={selectedLabel === item.label}
+      activeStyle="text"
+      // A unique value per row — see SidebarMenuItem's own `slotName` doc for why: every generated
+      // row shares this single Sidebar's shadow root, so their internal label slots would otherwise
+      // all be unnamed together and collide.
+      slotName={`sidebar-item-label-${key}`}
       collapsed={collapsed}
       color={color}
       dark={dark}
@@ -436,7 +515,21 @@ export function Sidebar({
     </SidebarMenuItem>
   );
   const itemRows = items && items.length > 0 && (
-    <nav className="space-y-0.5">
+    <nav ref={navRef} className="relative space-y-0.5">
+      {pillRect && (
+        <div
+          aria-hidden
+          className={cx(
+            "pointer-events-none absolute inset-x-0 rounded-lg transition-[top,height,background-color,box-shadow] duration-200 ease-[cubic-bezier(.4,0,.2,1)]",
+            sidebarActiveFillClasses(color, dark, vividActive)
+          )}
+          {...activeMarker("fill", color, colorIsNamed, dark, {
+            top: pillRect.top,
+            height: pillRect.height,
+            ...(!colorIsNamed && !dark && { backgroundColor: color }),
+          })}
+        />
+      )}
       {items.map((entry, index) => {
         if (!("category" in entry)) return renderItemRow(entry, `${entry.label}-${index}`);
         // Not a controlled prop — each group's open/closed state is purely local UI state, same
@@ -446,17 +539,19 @@ export function Sidebar({
         const isOpen = collapsed || (openCategories[entry.category] ?? defaultOpen);
         return (
           <div key={entry.category}>
-            {/* `sr-only` while collapsed rather than unmounting — a bare label has nothing to
-                visually anchor a collapse transition to (unlike the header/footer, there's no icon
-                standing in for it), so it just needs to stop taking up space; the icon-only rail
-                always shows every item regardless of each group's open/closed state anyway. */}
+            {/* Collapsed: the category label gives way to a thin divider between groups (the label stays
+                for screen readers via `sr-only`; the icon-only rail always shows every item regardless of
+                each group's open/closed state). */}
+            {collapsed && index > 0 && (
+              <div aria-hidden className={cx("mx-2 my-2 border-t", dark ? "border-white/15" : "border-border")} />
+            )}
             <button
               type="button"
               onClick={() => setOpenCategories((prev) => ({ ...prev, [entry.category]: !isOpen }))}
               aria-expanded={isOpen}
               className={cx(
-                "flex w-full items-center justify-between gap-1 px-3 pt-3 pb-1 text-xs font-medium tracking-wide transition-colors",
-                dark ? "text-white/50 hover:text-white/80" : "text-slate-400 hover:text-slate-600",
+                "flex w-full items-center justify-between gap-1 px-3 pb-1 pt-3 text-xs font-medium tracking-wide transition-colors",
+                dark ? "text-white/50 hover:text-white/80" : "text-fg-subtle hover:text-fg-muted",
                 collapsed && "sr-only"
               )}
             >
@@ -486,7 +581,6 @@ export function Sidebar({
   // of shrinking to a cramped 48px once the padding is subtracted.
   const collapsedWidth = isDetachedPanel ? COLLAPSED_WIDTH + DETACHED_PANEL_PADDING * 2 : COLLAPSED_WIDTH;
 
-  const colorIsNamed = isColorName(color);
   // Only "bordered" ties its border to `color`/`borderWidth` — "elevated" has no border at all
   // (shadow-only), "glass" deliberately stays colorless (a real frosted-glass look has no tint), and
   // every other variant's border is a fixed-width neutral divider, not an adjustable, colored one.
@@ -535,7 +629,7 @@ export function Sidebar({
     // Idle color matches SidebarMenuItem's own idle nav-item text color exactly (same "dark" split),
     // instead of a fixed neutral gray that used to look mismatched against white-ish nav item text on
     // "dark"/"gradient"/"glass".
-    dark ? "text-white/70" : "text-slate-600",
+    dark ? "text-white/70" : "text-fg-muted",
     VARIANT_DIVIDER_CLASSES[variant],
     colorIsNamed ? TOGGLE_HOVER_TEXT[color] : "hover:text-[var(--sidebar-toggle-hover)]"
   );
@@ -555,7 +649,11 @@ export function Sidebar({
             "flex shrink-0 items-center border-b p-3 transition-[gap] duration-300 ease-[cubic-bezier(.4,0,.2,1)]",
             hideHeaderContent ? "gap-0" : "gap-2",
             VARIANT_DIVIDER_CLASSES[variant],
-            collapsed && "justify-center",
+            // Expanded, no header content at all (no `header`/`headerIcon`, no composed
+            // `<SidebarHeader>`): the toggle button is then this row's *only* child, with no
+            // `flex-1` header-content div left to push it to the far edge (see below) — `justify-end`
+            // stands in for that so it still lands at the row's right edge instead of its left one.
+            collapsed ? "justify-center" : headerContent == null && "justify-end",
             classNames?.header
           )}
         >
@@ -585,16 +683,35 @@ export function Sidebar({
             </div>
           )}
           {collapsible && (
-            <Tooltip content={collapsed ? "Expand sidebar" : "Collapse sidebar"} position="right">
+            <>
               <button
+                ref={toggleRef}
                 type="button"
                 onClick={toggleCollapsed}
-                aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+                onMouseEnter={showToggleTip}
+                onMouseLeave={hideToggleTip}
+                onFocus={showToggleTip}
+                onBlur={hideToggleTip}
+                aria-label={toggleLabel}
                 className={cx(toggleClasses, classNames?.toggle)}
               >
                 <Icon name="panel-left" size={16} />
               </button>
-            </Tooltip>
+              {toggleTip &&
+                createPortal(
+                  <span
+                    role="tooltip"
+                    style={{ position: "fixed", ...tooltipPortalPositionStyle(toggleTip.rect, "right") }}
+                    className={cx(
+                      "pointer-events-none whitespace-nowrap rounded-md bg-accent-600 px-2 py-1 text-xs font-medium text-white shadow-lg",
+                      TOOLTIP_PORTAL_Z_CLASS
+                    )}
+                  >
+                    {toggleLabel}
+                  </span>,
+                  toggleTip.root
+                )}
+            </>
           )}
         </div>
       )}
@@ -638,13 +755,17 @@ export function Sidebar({
     <div
       className={cx(
         "relative flex flex-col transition-[width] duration-300",
+        // `self-start` stops a sticky flex item from stretching to match a taller row sibling (e.g. a
+        // `<main>` full of content) — cross-axis `stretch` is the flex default, and would otherwise
+        // fight the explicit `height` this component already sets via `style` below.
+        sticky && "sticky top-0 z-40 self-start",
         isDetachedPanel && "p-3",
         // "bordered"/"elevated" keep a neutral backdrop ("bordered"'s own panel already carries
         // `color` via its border; "elevated" has no border/color of its own at all, so there's nothing
         // for the backdrop to echo either way). "glass" has no other way to show `color` at all, so its backdrop takes it on
         // instead — colorIsNamed uses the Tailwind class here; a custom value is applied via `style`
         // above instead, same fallback pattern as everywhere else `color` accepts an arbitrary value.
-        isDetachedPanel && (isGlass ? glassBackdropClass : "bg-zinc-100"),
+        isDetachedPanel && (isGlass ? glassBackdropClass : "bg-surface-muted"),
         !isDetachedPanel && VARIANT_CLASSES[variant],
         className,
         classNames?.root

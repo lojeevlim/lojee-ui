@@ -5,11 +5,11 @@ import { SectionLabel, Row } from "../../ShowcaseHelpers";
 
 export default function AccordionShowcase() {
   return (
-    <div className="min-h-screen bg-white p-6 md:p-10">
+    <div className="min-h-screen rounded-xl bg-surface p-6 md:p-10">
       <div className="max-w-5xl mx-auto space-y-12">
         <div>
-          <h1 className="text-2xl font-semibold text-slate-900">Accordion</h1>
-          <p className="text-sm text-slate-500 mt-1">
+          <h1 className="text-2xl font-semibold text-fg">Accordion</h1>
+          <p className="text-sm text-fg-subtle mt-1">
             Collapsible panels built on native &lt;details&gt;/&lt;summary&gt; — zero JS state.
           </p>
         </div>
@@ -235,11 +235,11 @@ export class AppComponent {}`,
           </SectionLabel>
           <Row>
             <div className="w-full max-w-lg">
-              <Accordion className="border-indigo-200 divide-indigo-200">
+              <Accordion className="border-indigo-200 divide-indigo-200 dark:border-indigo-900 dark:divide-indigo-900">
                 <AccordionItem
                   title="Custom colors"
                   defaultOpen
-                  classNames={{ trigger: "text-indigo-900", icon: "text-indigo-400", panel: "text-indigo-700" }}
+                  classNames={{ trigger: "text-indigo-900 dark:text-indigo-200", icon: "text-indigo-400", panel: "text-indigo-700 dark:text-indigo-300" }}
                 >
                   Every slot can be restyled independently via classNames.
                 </AccordionItem>
@@ -248,16 +248,16 @@ export class AppComponent {}`,
           </Row>
           <CodeBlock
             variants={{
-              react: `<Accordion className="border-indigo-200 divide-indigo-200">
+              react: `<Accordion className="border-indigo-200 divide-indigo-200 dark:border-indigo-900 dark:divide-indigo-900">
   <AccordionItem
     title="Custom colors"
     defaultOpen
-    classNames={{ trigger: "text-indigo-900", icon: "text-indigo-400", panel: "text-indigo-700" }}
+    classNames={{ trigger: "text-indigo-900 dark:text-indigo-200", icon: "text-indigo-400", panel: "text-indigo-700 dark:text-indigo-300" }}
   >
     Every slot can be restyled independently via classNames.
   </AccordionItem>
 </Accordion>`,
-              js: `<l-Accordion className="border-indigo-200 divide-indigo-200">
+              js: `<l-Accordion className="border-indigo-200 divide-indigo-200 dark:border-indigo-900 dark:divide-indigo-900">
   <l-AccordionItem id="custom-colors-item" title="Custom colors" defaultOpen>
     Every slot can be restyled independently via classNames.
   </l-AccordionItem>
@@ -265,13 +265,13 @@ export class AppComponent {}`,
 
 <script type="module">
   document.getElementById("custom-colors-item").classNames = {
-    trigger: "text-indigo-900",
+    trigger: "text-indigo-900 dark:text-indigo-200",
     icon: "text-indigo-400",
-    panel: "text-indigo-700",
+    panel: "text-indigo-700 dark:text-indigo-300",
   };
 </script>`,
               vue: `<template>
-  <l-Accordion className="border-indigo-200 divide-indigo-200">
+  <l-Accordion className="border-indigo-200 divide-indigo-200 dark:border-indigo-900 dark:divide-indigo-900">
     <l-AccordionItem title="Custom colors" defaultOpen :classNames="itemClassNames">
       Every slot can be restyled independently via classNames.
     </l-AccordionItem>
@@ -279,15 +279,15 @@ export class AppComponent {}`,
 </template>
 
 <script setup lang="ts">
-const itemClassNames = { trigger: "text-indigo-900", icon: "text-indigo-400", panel: "text-indigo-700" };
+const itemClassNames = { trigger: "text-indigo-900 dark:text-indigo-200", icon: "text-indigo-400", panel: "text-indigo-700 dark:text-indigo-300" };
 </script>`,
-              angular: `<l-Accordion className="border-indigo-200 divide-indigo-200">
+              angular: `<l-Accordion className="border-indigo-200 divide-indigo-200 dark:border-indigo-900 dark:divide-indigo-900">
   <l-AccordionItem title="Custom colors" defaultOpen [classNames]="itemClassNames">
     Every slot can be restyled independently via classNames.
   </l-AccordionItem>
 </l-Accordion>
 
-itemClassNames = { trigger: "text-indigo-900", icon: "text-indigo-400", panel: "text-indigo-700" };`,
+itemClassNames = { trigger: "text-indigo-900 dark:text-indigo-200", icon: "text-indigo-400", panel: "text-indigo-700 dark:text-indigo-300" };`,
             }}
           />
         </section>

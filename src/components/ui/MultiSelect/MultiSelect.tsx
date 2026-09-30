@@ -9,14 +9,17 @@ export interface MultiSelectOption {
 }
 
 export interface MultiSelectProps {
+  /** The selectable options; each has a display `label`, a unique `value`, and an optional `disabled` flag. */
   options: MultiSelectOption[];
   /** Controlled — array of selected `value`s. */
   value: string[];
+  /** Called with the new array of selected `value`s whenever an option is toggled or a chip's remove button is clicked; the consumer must store it back into `value`. */
   onChange?: (value: string[]) => void;
   /** Shown in the trigger when `value` is empty. */
   placeholder?: string;
-  /** Chip background / selected-option accent color (default: slate). */
+  /** Chip background / selected-option accent color (default: accent — follows the theme). */
   color?: ColorName;
+  /** Extra CSS class(es) added to the root element, merged before `classNames.root`. */
   className?: string;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
   classNames?: {
@@ -29,33 +32,35 @@ export interface MultiSelectProps {
 }
 
 const CHIP_CLASSES: Record<ColorName, string> = {
-  slate: "bg-slate-100 text-slate-700",
-  gray: "bg-gray-100 text-gray-700",
-  indigo: "bg-indigo-100 text-indigo-700",
-  violet: "bg-violet-100 text-violet-700",
-  blue: "bg-blue-100 text-blue-700",
-  cyan: "bg-cyan-100 text-cyan-700",
-  emerald: "bg-emerald-100 text-emerald-700",
-  teal: "bg-teal-100 text-teal-700",
-  amber: "bg-amber-100 text-amber-700",
-  orange: "bg-orange-100 text-orange-700",
-  rose: "bg-rose-100 text-rose-700",
-  pink: "bg-pink-100 text-pink-700",
+  slate: "bg-surface-muted text-fg-muted",
+  gray: "bg-surface-muted text-fg-muted",
+  indigo: "bg-indigo-100 text-indigo-700 dark:bg-indigo-500/20 dark:text-indigo-300",
+  accent: "bg-accent-100 text-accent-700 dark:bg-accent-500/20 dark:text-accent-300",
+  violet: "bg-violet-100 text-violet-700 dark:bg-violet-500/20 dark:text-violet-300",
+  blue: "bg-blue-100 text-blue-700 dark:bg-blue-500/20 dark:text-blue-300",
+  cyan: "bg-cyan-100 text-cyan-700 dark:bg-cyan-500/20 dark:text-cyan-300",
+  emerald: "bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-300",
+  teal: "bg-teal-100 text-teal-700 dark:bg-teal-500/20 dark:text-teal-300",
+  amber: "bg-amber-100 text-amber-700 dark:bg-amber-500/20 dark:text-amber-300",
+  orange: "bg-orange-100 text-orange-700 dark:bg-orange-500/20 dark:text-orange-300",
+  rose: "bg-rose-100 text-rose-700 dark:bg-rose-500/20 dark:text-rose-300",
+  pink: "bg-pink-100 text-pink-700 dark:bg-pink-500/20 dark:text-pink-300",
 };
 
 const OPTION_ACCENT_CLASSES: Record<ColorName, string> = {
-  slate: "text-slate-900",
-  gray: "text-gray-700",
-  indigo: "text-indigo-700",
-  violet: "text-violet-700",
-  blue: "text-blue-700",
-  cyan: "text-cyan-700",
-  emerald: "text-emerald-700",
-  teal: "text-teal-700",
-  amber: "text-amber-700",
-  orange: "text-orange-700",
-  rose: "text-rose-700",
-  pink: "text-pink-700",
+  slate: "text-fg",
+  gray: "text-fg-muted",
+  indigo: "text-indigo-700 dark:text-indigo-300",
+  accent: "text-accent-700 dark:text-accent-300",
+  violet: "text-violet-700 dark:text-violet-300",
+  blue: "text-blue-700 dark:text-blue-300",
+  cyan: "text-cyan-700 dark:text-cyan-300",
+  emerald: "text-emerald-700 dark:text-emerald-300",
+  teal: "text-teal-700 dark:text-teal-300",
+  amber: "text-amber-700 dark:text-amber-300",
+  orange: "text-orange-700 dark:text-orange-300",
+  rose: "text-rose-700 dark:text-rose-300",
+  pink: "text-pink-700 dark:text-pink-300",
 };
 
 export function MultiSelect({
@@ -63,7 +68,7 @@ export function MultiSelect({
   value,
   onChange,
   placeholder = "Select...",
-  color = "slate",
+  color = "accent",
   className,
   classNames,
 }: MultiSelectProps) {
@@ -113,11 +118,11 @@ export function MultiSelect({
         aria-haspopup="listbox"
         aria-expanded={open}
         className={cx(
-          "flex min-h-10 w-full cursor-pointer flex-wrap items-center gap-1.5 rounded-md border border-slate-300 px-2 py-1.5 text-left outline-none transition-colors focus:border-slate-500 focus:ring-2 focus:ring-slate-500/20",
+          "flex min-h-10 w-full cursor-pointer flex-wrap items-center gap-1.5 rounded-md border border-border-strong px-2 py-1.5 text-left outline-none transition-colors focus:border-fg-subtle focus:ring-2 focus:ring-fg-subtle/20",
           classNames?.trigger
         )}
       >
-        {selectedOptions.length === 0 && <span className="text-sm text-slate-400">{placeholder}</span>}
+        {selectedOptions.length === 0 && <span className="text-sm text-fg-subtle">{placeholder}</span>}
         {selectedOptions.map((o) => (
           <span
             key={o.value}
@@ -137,7 +142,7 @@ export function MultiSelect({
             </button>
           </span>
         ))}
-        <Icon name="chevron-down" size={16} className="ml-auto shrink-0 text-slate-400" />
+        <Icon name="chevron-down" size={16} className="ml-auto shrink-0 text-fg-subtle" />
       </div>
 
       {open && (
@@ -145,7 +150,7 @@ export function MultiSelect({
           role="listbox"
           aria-multiselectable="true"
           className={cx(
-            "absolute z-10 mt-1 w-full max-h-60 overflow-y-auto rounded-lg border border-slate-200 bg-white py-1 shadow-lg",
+            "absolute z-10 mt-1 w-full max-h-60 overflow-y-auto rounded-lg border border-border bg-surface py-1 shadow-lg",
             classNames?.menu
           )}
         >
@@ -160,7 +165,7 @@ export function MultiSelect({
                 disabled={o.disabled}
                 onClick={() => toggle(o.value)}
                 className={cx(
-                  "flex w-full items-center gap-2 px-3 py-1.5 text-left text-sm text-slate-700 hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-40",
+                  "flex w-full items-center gap-2 px-3 py-1.5 text-left text-sm text-fg-muted hover:bg-surface-muted disabled:cursor-not-allowed disabled:opacity-40",
                   selected && OPTION_ACCENT_CLASSES[color],
                   classNames?.option
                 )}

@@ -6,11 +6,13 @@ import { StatusLayout } from "../internal/StatusLayout";
 export interface SuccessStateProps {
   /** Icon name — see src/core/icons.ts for the available set (default: "circle-check"). */
   icon?: string;
+  /** Heading text (default: "Success!"). */
   title?: ReactNode;
   /** The description/body. */
   children?: ReactNode;
   /** e.g. a "Continue" <Button>, rendered below the description. */
   action?: ReactNode;
+  /** Extra class name(s) appended to the root element. */
   className?: string;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
   classNames?: {
@@ -35,7 +37,7 @@ export function SuccessState({
       icon={
         <div
           className={cx(
-            "flex h-14 w-14 items-center justify-center rounded-full bg-emerald-50 text-emerald-500",
+            "flex h-14 w-14 items-center justify-center rounded-full bg-emerald-50 text-emerald-500 dark:bg-emerald-950/40 dark:text-emerald-400",
             classNames?.icon
           )}
         >

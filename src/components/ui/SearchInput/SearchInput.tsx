@@ -5,9 +5,11 @@ import { Icon } from "../Icons/Icon";
 export type SearchInputSize = "sm" | "md" | "lg";
 
 export interface SearchInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "size" | "type"> {
+  /** Control height and text size: "sm", "md" (default) or "lg". */
   size?: SearchInputSize;
   /** Called when the clear (x) button is clicked — only rendered when `value` is truthy and this is provided. */
   onClear?: () => void;
+  /** Extra CSS class(es) added to the root element, merged before `classNames.root`. */
   className?: string;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
   classNames?: { root?: string; input?: string; icon?: string; clearButton?: string };
@@ -22,7 +24,7 @@ const SIZE_CLASSES: Record<SearchInputSize, string> = {
 const ICON_PX: Record<SearchInputSize, number> = { sm: 14, md: 16, lg: 18 };
 
 const BASE_CLASSES =
-  "w-full rounded-md border border-slate-300 bg-white text-slate-900 placeholder:text-slate-400 outline-none transition-colors focus:border-slate-500 focus:ring-2 focus:ring-slate-500/20 disabled:cursor-not-allowed disabled:opacity-50";
+  "w-full rounded-md border border-border-strong bg-surface text-fg placeholder:text-fg-subtle outline-none transition-colors focus:border-fg-subtle focus:ring-2 focus:ring-fg-subtle/20 disabled:cursor-not-allowed disabled:opacity-50";
 
 export function SearchInput({ size = "md", onClear, value, className, classNames, ...rest }: SearchInputProps) {
   const showClear = Boolean(value) && Boolean(onClear);
@@ -32,7 +34,7 @@ export function SearchInput({ size = "md", onClear, value, className, classNames
       <Icon
         name="search"
         size={ICON_PX[size]}
-        className={cx("pointer-events-none absolute left-3 text-slate-400", classNames?.icon)}
+        className={cx("pointer-events-none absolute left-3 text-fg-subtle", classNames?.icon)}
       />
       <input
         type="text"
@@ -45,7 +47,7 @@ export function SearchInput({ size = "md", onClear, value, className, classNames
           type="button"
           onClick={onClear}
           aria-label="Clear search"
-          className={cx("pointer-events-auto absolute right-3 text-slate-400 hover:text-slate-600", classNames?.clearButton)}
+          className={cx("pointer-events-auto absolute right-3 text-fg-subtle hover:text-fg-muted", classNames?.clearButton)}
         >
           <Icon name="x" size={14} />
         </button>

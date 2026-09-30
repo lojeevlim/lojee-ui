@@ -4,20 +4,20 @@ import { SectionLabel } from "../../ShowcaseHelpers";
 
 export default function TabsShowcase() {
   return (
-    <div className="min-h-screen bg-white p-6 md:p-10">
+    <div className="min-h-screen rounded-xl bg-surface p-6 md:p-10">
       <div className="max-w-5xl mx-auto space-y-12">
         <div>
-          <h1 className="text-2xl font-semibold text-slate-900">Tabs</h1>
-          <p className="text-sm text-slate-500 mt-1">A self-contained, data-driven tabbed panel.</p>
+          <h1 className="text-2xl font-semibold text-fg">Tabs</h1>
+          <p className="text-sm text-fg-subtle mt-1">A self-contained, data-driven tabbed panel.</p>
         </div>
 
         <section>
           <SectionLabel sub="A plain list of tabs, each with its own content.">Basic</SectionLabel>
           <Tabs
             tabs={[
-              { label: "Overview", content: <p className="text-sm text-slate-600">A quick summary of the project.</p> },
-              { label: "Activity", content: <p className="text-sm text-slate-600">Recent activity shows up here.</p> },
-              { label: "Settings", content: <p className="text-sm text-slate-600">Adjust your preferences.</p> },
+              { label: "Overview", content: <p className="text-sm text-fg-muted">A quick summary of the project.</p> },
+              { label: "Activity", content: <p className="text-sm text-fg-muted">Recent activity shows up here.</p> },
+              { label: "Settings", content: <p className="text-sm text-fg-muted">Adjust your preferences.</p> },
             ]}
           />
           <CodeBlock
@@ -78,9 +78,9 @@ export class AppComponent {
           <SectionLabel sub="A tab can be disabled and skipped over.">Disabled tab</SectionLabel>
           <Tabs
             tabs={[
-              { label: "Plan", content: <p className="text-sm text-slate-600">Choose your plan.</p> },
-              { label: "Billing", content: <p className="text-sm text-slate-600">Billing details.</p>, disabled: true },
-              { label: "Review", content: <p className="text-sm text-slate-600">Review and confirm.</p> },
+              { label: "Plan", content: <p className="text-sm text-fg-muted">Choose your plan.</p> },
+              { label: "Billing", content: <p className="text-sm text-fg-muted">Billing details.</p>, disabled: true },
+              { label: "Review", content: <p className="text-sm text-fg-muted">Review and confirm.</p> },
             ]}
           />
           <CodeBlock
@@ -131,9 +131,9 @@ tabs = [
             color="indigo"
             defaultIndex={1}
             tabs={[
-              { label: "Details", content: <p className="text-sm text-slate-600">Item details.</p> },
-              { label: "Reviews", content: <p className="text-sm text-slate-600">What people are saying.</p> },
-              { label: "Shipping", content: <p className="text-sm text-slate-600">Shipping and returns.</p> },
+              { label: "Details", content: <p className="text-sm text-fg-muted">Item details.</p> },
+              { label: "Reviews", content: <p className="text-sm text-fg-muted">What people are saying.</p> },
+              { label: "Shipping", content: <p className="text-sm text-fg-muted">Shipping and returns.</p> },
             ]}
           />
           <CodeBlock

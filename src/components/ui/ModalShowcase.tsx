@@ -10,11 +10,11 @@ export default function ModalShowcase() {
   const [customOpen, setCustomOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-white p-6 md:p-10">
+    <div className="min-h-screen rounded-xl bg-surface p-6 md:p-10">
       <div className="max-w-5xl mx-auto space-y-12">
         <div>
-          <h1 className="text-2xl font-semibold text-slate-900">Modal / Dialog</h1>
-          <p className="text-sm text-slate-500 mt-1">
+          <h1 className="text-2xl font-semibold text-fg">Modal / Dialog</h1>
+          <p className="text-sm text-fg-subtle mt-1">
             A centered overlay dialog with a header, scrollable body, and backdrop/Escape dismissal.
           </p>
         </div>
@@ -23,7 +23,7 @@ export default function ModalShowcase() {
           <SectionLabel sub="A titled dialog dismissed via the close button, backdrop click, or Escape.">Basic</SectionLabel>
           <Button label="Open modal" onClick={() => setBasicOpen(true)} />
           <Modal open={basicOpen} onClose={() => setBasicOpen(false)} title="Basic modal">
-            <p className="text-sm text-slate-600">This is a basic modal with some simple content.</p>
+            <p className="text-sm text-fg-muted">This is a basic modal with some simple content.</p>
           </Modal>
           <CodeBlock
             variants={{
@@ -72,7 +72,7 @@ const open = ref(false);
           <SectionLabel sub="Long content scrolls within the body while the header stays pinned.">Long content</SectionLabel>
           <Button label="Open long modal" onClick={() => setLongOpen(true)} />
           <Modal open={longOpen} onClose={() => setLongOpen(false)} title="Terms & conditions">
-            <div className="space-y-4 text-sm text-slate-600">
+            <div className="space-y-4 text-sm text-fg-muted">
               {Array.from({ length: 12 }).map((_, i) => (
                 <p key={i}>
                   Paragraph {i + 1}. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
@@ -128,7 +128,7 @@ const open = ref(false);
               body: "bg-indigo-50/40",
             }}
           >
-            <p className="text-sm text-slate-600">This modal's header and body pick up custom colors via classNames.</p>
+            <p className="text-sm text-fg-muted">This modal's header and body pick up custom colors via classNames.</p>
           </Modal>
           <CodeBlock
             variants={{

@@ -58,38 +58,38 @@ defaults = ${defaultsCode};`;
   return (
     <PlaygroundLayout preview={preview} variants={codeVariants}>
       <div>
-        <span className="mb-1.5 block text-xs font-medium text-slate-500">Name</span>
+        <span className="mb-1.5 block text-xs font-medium text-fg-subtle">Name</span>
         <input
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="w-full rounded-md border border-slate-200 px-3 py-1.5 text-sm text-slate-900 outline-none transition-colors focus:border-slate-400"
+          className="w-full rounded-md border border-border px-3 py-1.5 text-sm text-fg outline-none transition-colors focus:border-border-strong"
           placeholder="Jordan Diaz"
         />
       </div>
       <div>
-        <span className="mb-1.5 block text-xs font-medium text-slate-500">Username</span>
+        <span className="mb-1.5 block text-xs font-medium text-fg-subtle">Username</span>
         <input
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-          className="w-full rounded-md border border-slate-200 px-3 py-1.5 text-sm text-slate-900 outline-none transition-colors focus:border-slate-400"
+          className="w-full rounded-md border border-border px-3 py-1.5 text-sm text-fg outline-none transition-colors focus:border-border-strong"
           placeholder="jordandiaz"
         />
       </div>
       <div className="sm:col-span-2">
-        <span className="mb-1.5 block text-xs font-medium text-slate-500">Bio</span>
+        <span className="mb-1.5 block text-xs font-medium text-fg-subtle">Bio</span>
         <input
           value={bio}
           onChange={(e) => setBio(e.target.value)}
-          className="w-full rounded-md border border-slate-200 px-3 py-1.5 text-sm text-slate-900 outline-none transition-colors focus:border-slate-400"
+          className="w-full rounded-md border border-border px-3 py-1.5 text-sm text-fg outline-none transition-colors focus:border-border-strong"
           placeholder="Tell people a little about yourself."
         />
       </div>
       <div>
-        <span className="mb-1.5 block text-xs font-medium text-slate-500">Save label</span>
+        <span className="mb-1.5 block text-xs font-medium text-fg-subtle">Save label</span>
         <input
           value={saveLabel}
           onChange={(e) => setSaveLabel(e.target.value)}
-          className="w-full rounded-md border border-slate-200 px-3 py-1.5 text-sm text-slate-900 outline-none transition-colors focus:border-slate-400"
+          className="w-full rounded-md border border-border px-3 py-1.5 text-sm text-fg outline-none transition-colors focus:border-border-strong"
           placeholder="Save changes"
         />
       </div>

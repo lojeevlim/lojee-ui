@@ -15,7 +15,9 @@ export interface ChartDataPoint {
 // plain data array is the only shape that works identically in both the
 // React and Web Component builds.
 export interface ChartProps {
+  /** "bar" | "line" | "donut" (default: "bar"). */
   type?: ChartType;
+  /** The data points to plot, in order — each with a `label`, a numeric `value` and an optional `color`. */
   data: ChartDataPoint[];
   /** Pixel height of the chart area (width always fills its container). */
   height?: number;
@@ -23,7 +25,9 @@ export interface ChartProps {
   color?: ColorName;
   /** Shows each point's label under the plot (bar/line) or as a legend (donut). */
   showLabels?: boolean;
+  /** Extra class names applied to the root element. */
   className?: string;
+  /** Per-part class overrides (`root`, `svg`, `label`) — merged after the built-in styling. */
   classNames?: {
     root?: string;
     svg?: string;
@@ -38,7 +42,7 @@ const TOP_PADDING = VIEW_H * 0.12;
 
 function LabelRow({ data, className }: { data: ChartDataPoint[]; className?: string }) {
   return (
-    <div className={cx("mt-2 flex justify-between text-xs text-slate-500", className)}>
+    <div className={cx("mt-2 flex justify-between text-xs text-fg-subtle", className)}>
       {data.map((point, i) => (
         <span key={i} className="truncate px-0.5 text-center" style={{ flexBasis: 0, flexGrow: 1 }}>
           {point.label}
@@ -47,6 +51,9 @@ function LabelRow({ data, className }: { data: ChartDataPoint[]; className?: str
     </div>
   );
 }
+
+// "accent" follows the theme's brand color (CSS var) instead of a fixed hex.
+const hex = (c: ColorName) => (c === "accent" ? "var(--lojee-accent-600)" : COLOR_HEX[c]);
 
 function BarChart({ data, color, height, svgClassName }: { data: ChartDataPoint[]; color: ColorName; height: number; svgClassName?: string }) {
   const max = Math.max(...data.map((d) => d.value), 1);
@@ -67,7 +74,7 @@ function BarChart({ data, color, height, svgClassName }: { data: ChartDataPoint[
         const x = i * (barWidth + gap) + gap / 2;
         const y = VIEW_H - barHeight;
         return (
-          <rect key={i} x={x} y={y} width={barWidth} height={barHeight} rx={4} fill={COLOR_HEX[point.color ?? color]}>
+          <rect key={i} x={x} y={y} width={barWidth} height={barHeight} rx={4} fill={hex(point.color ?? color)}>
             <title>
               {point.label}: {point.value}
             </title>
@@ -93,7 +100,7 @@ function LineChart({ data, color, height, svgClassName }: { data: ChartDataPoint
     const y = VIEW_H - (point.value / max) * (VIEW_H - TOP_PADDING);
     return { x, y, point };
   });
-  const strokeColor = COLOR_HEX[color];
+  const strokeColor = hex(color);
 
   return (
     <svg
@@ -113,7 +120,7 @@ function LineChart({ data, color, height, svgClassName }: { data: ChartDataPoint
         strokeLinecap="round"
       />
       {points.map(({ x, y, point }, i) => (
-        <circle key={i} cx={x} cy={y} r={4} fill={COLOR_HEX[point.color ?? color]} stroke="white" strokeWidth={1.5}>
+        <circle key={i} cx={x} cy={y} r={4} fill={hex(point.color ?? color)} stroke="var(--lojee-surface)" strokeWidth={1.5}>
           <title>
             {point.label}: {point.value}
           </title>
@@ -166,7 +173,7 @@ function DonutChart({
               cy={DONUT_SIZE / 2}
               r={DONUT_RADIUS}
               fill="none"
-              stroke={COLOR_HEX[point.color ?? color]}
+              stroke={hex(point.color ?? color)}
               strokeWidth={DONUT_STROKE}
               strokeDasharray={`${segmentLength} ${DONUT_CIRCUMFERENCE - segmentLength}`}
               strokeDashoffset={offset}
@@ -181,10 +188,10 @@ function DonutChart({
       {showLabels && (
         <ul className={cx("space-y-1.5 text-sm", labelClassName)}>
           {data.map((point, i) => (
-            <li key={i} className="flex items-center gap-2 text-slate-600">
-              <span className="h-2.5 w-2.5 shrink-0 rounded-full" style={{ backgroundColor: COLOR_HEX[point.color ?? color] }} />
-              <span className="font-medium text-slate-900">{point.label}</span>
-              <span className="text-slate-400">{point.value}</span>
+            <li key={i} className="flex items-center gap-2 text-fg-muted">
+              <span className="h-2.5 w-2.5 shrink-0 rounded-full" style={{ backgroundColor: hex(point.color ?? color) }} />
+              <span className="font-medium text-fg">{point.label}</span>
+              <span className="text-fg-subtle">{point.value}</span>
             </li>
           ))}
         </ul>
@@ -193,7 +200,7 @@ function DonutChart({
   );
 }
 
-export function Chart({ type = "bar", data, height = 200, color = "indigo", showLabels = true, className, classNames }: ChartProps) {
+export function Chart({ type = "bar", data, height = 200, color = "accent", showLabels = true, className, classNames }: ChartProps) {
   return (
     <div className={cx("w-full", className, classNames?.root)}>
       {type === "bar" && <BarChart data={data} color={color} height={height} svgClassName={classNames?.svg} />}

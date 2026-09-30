@@ -7,8 +7,11 @@ export interface BreadcrumbItemProps {
   href?: string;
   /** Icon name, e.g. "home" — see src/core/icons.ts for the available set. */
   icon?: string;
+  /** The item's text/content. */
   children?: ReactNode;
+  /** Extra class names applied to the item's link or current-page element. */
   className?: string;
+  /** Per-part class overrides (`root`, `separator`, `icon`) — merged after the built-in styling. */
   classNames?: {
     root?: string;
     separator?: string;
@@ -33,7 +36,7 @@ export function BreadcrumbItem({ href, icon, children, className, classNames }: 
         tree, so it works the same whether this item arrives as a plain React
         child or as light-DOM-projected content in the Web Component build.
       */}
-      <span aria-hidden="true" className={cx("flex text-slate-300 first:hidden", classNames?.separator)}>
+      <span aria-hidden="true" className={cx("flex text-border-strong first:hidden", classNames?.separator)}>
         {/* eslint-disable-next-line react-hooks/static-components -- see comment above `const Icon` */}
         {SeparatorIcon && <SeparatorIcon size={14} />}
       </span>
@@ -41,7 +44,7 @@ export function BreadcrumbItem({ href, icon, children, className, classNames }: 
         <a
           href={href}
           className={cx(
-            "flex items-center gap-1 text-sm text-slate-500 transition-colors hover:text-slate-900",
+            "flex items-center gap-1 text-sm text-fg-subtle transition-colors hover:text-[var(--ac,var(--color-fg))]",
             className,
             classNames?.root
           )}
@@ -53,7 +56,15 @@ export function BreadcrumbItem({ href, icon, children, className, classNames }: 
       ) : (
         <span
           aria-current="page"
-          className={cx("flex items-center gap-1 text-sm font-medium text-slate-900", className, classNames?.root)}
+          // Colors / fill come from the parent Breadcrumbs' `color` + `variant` (CSS variables); the fallbacks
+          // keep a standalone item looking like plain current-page text.
+          style={{
+            color: "var(--bc-color, var(--lojee-fg))",
+            backgroundColor: "var(--bc-bg, transparent)",
+            boxShadow: "var(--bc-shadow, none)",
+            paddingInline: "var(--bc-px, 0)",
+          }}
+          className={cx("flex items-center gap-1 rounded-md py-0.5 text-sm font-medium", className, classNames?.root)}
         >
           {/* eslint-disable-next-line react-hooks/static-components -- see comment above `const Icon` */}
           {Icon && <Icon size={14} />}

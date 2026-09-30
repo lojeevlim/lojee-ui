@@ -15,7 +15,7 @@ export default function GridPlayground() {
       <AppWindowBody className="items-stretch">
         <Grid cols={cols} gap={gap} className="w-full">
           {Array.from({ length: 6 }, (_, i) => (
-            <div key={i} className="rounded-md bg-slate-100 p-4 text-center text-xs text-slate-500">
+            <div key={i} className="rounded-md bg-surface-muted p-4 text-center text-xs text-fg-subtle">
               Item {i + 1}
             </div>
           ))}

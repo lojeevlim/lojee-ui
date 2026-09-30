@@ -18,7 +18,7 @@ export default function ContextMenuPlayground() {
             </>
           }
         >
-          <div className="flex h-40 w-64 items-center justify-center rounded-lg border-2 border-dashed border-slate-200 text-sm text-slate-400">
+          <div className="flex h-40 w-64 items-center justify-center rounded-lg border-2 border-dashed border-border text-sm text-fg-subtle">
             Right-click here
           </div>
         </ContextMenu>
@@ -61,7 +61,7 @@ export default function ContextMenuPlayground() {
 
   return (
     <PlaygroundLayout preview={preview} variants={codeVariants}>
-      <p className="text-sm text-slate-500 sm:col-span-2">
+      <p className="text-sm text-fg-subtle sm:col-span-2">
         No configurable options — right-click the box above to see the menu.
       </p>
     </PlaygroundLayout>

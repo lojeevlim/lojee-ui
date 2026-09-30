@@ -5,11 +5,11 @@ import { SectionLabel } from "../../ShowcaseHelpers";
 
 export default function ProfileCardShowcase() {
   return (
-    <div className="min-h-screen bg-white p-6 md:p-10">
+    <div className="min-h-screen rounded-xl bg-surface p-6 md:p-10">
       <div className="max-w-5xl mx-auto space-y-12">
         <div>
-          <h1 className="text-2xl font-semibold text-slate-900">ProfileCard</h1>
-          <p className="text-sm text-slate-500 mt-1">
+          <h1 className="text-2xl font-semibold text-fg">ProfileCard</h1>
+          <p className="text-sm text-fg-subtle mt-1">
             A user profile summary — avatar, name, role, bio, and optional stats or actions.
           </p>
         </div>

@@ -4,11 +4,11 @@ import { SectionLabel, Row } from "../../ShowcaseHelpers";
 
 export default function LoadingStateShowcase() {
   return (
-    <div className="min-h-screen bg-white p-6 md:p-10">
+    <div className="min-h-screen rounded-xl bg-surface p-6 md:p-10">
       <div className="max-w-5xl mx-auto space-y-12">
         <div>
-          <h1 className="text-2xl font-semibold text-slate-900">Loading State</h1>
-          <p className="text-sm text-slate-500 mt-1">
+          <h1 className="text-2xl font-semibold text-fg">Loading State</h1>
+          <p className="text-sm text-fg-subtle mt-1">
             A placeholder for a section that's still loading — a spinner, a title, and an optional description.
           </p>
         </div>

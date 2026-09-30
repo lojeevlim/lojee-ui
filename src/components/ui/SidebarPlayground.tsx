@@ -17,7 +17,7 @@ const DOCK_CELL_CLASSES: Record<SidebarVariant, string> = {
   elevated: "",
   gradient: "",
   glass: "",
-  minimal: "flex bg-zinc-100 p-3",
+  minimal: "flex bg-surface-muted p-3",
 };
 
 // `items` instead of composed SidebarMenuItems — dark/color/collapsed theming and the
@@ -39,7 +39,7 @@ export default function SidebarPlayground() {
   const [width, setWidth] = useState(256);
   const [collapsed, setCollapsed] = useState(false);
   const [variant, setVariant] = useState<SidebarVariant>("light");
-  const [color, setColor] = useState<string>("slate");
+  const [color, setColor] = useState<string>("accent");
   const [collapsible, setCollapsible] = useState(true);
   const [defaultActiveItem, setDefaultActiveItem] = useState("none");
   const [borderWidth, setBorderWidth] = useState(2);
@@ -81,7 +81,7 @@ export default function SidebarPlayground() {
             items={NAV_ITEMS}
           />
         </div>
-        <div className="flex-1 overflow-y-auto bg-zinc-50" />
+        <div className="flex-1 overflow-y-auto bg-surface-muted" />
       </div>
     </AppWindowFrame>
   );
@@ -90,7 +90,7 @@ export default function SidebarPlayground() {
   const widthAttrHtml = !collapsed && width !== 256 ? ` width="${width}"` : "";
   const collapsedAttr = collapsed ? " collapsed" : "";
   const variantAttr = variant !== "light" ? ` variant="${variant}"` : "";
-  const colorAttr = color !== "slate" ? ` color="${color}"` : "";
+  const colorAttr = color !== "accent" ? ` color="${color}"` : "";
   const collapsibleAttr = collapsible ? " collapsible" : "";
   // `collapsed`/`collapsible` are boolean props — a bare attribute (no `="..."`) parses as an empty
   // string, which r2wc's boolean coercion reads as false, so every non-JSX target needs an explicit
@@ -160,22 +160,22 @@ export class AppComponent {
   return (
     <PlaygroundLayout preview={preview} variants={codeVariants}>
       <div>
-        <span className="mb-1.5 block text-xs font-medium text-slate-500">Header</span>
+        <span className="mb-1.5 block text-xs font-medium text-fg-subtle">Header</span>
         <input
           value={header}
           onChange={(e) => setHeader(e.target.value)}
-          className="w-full rounded-md border border-slate-200 px-3 py-1.5 text-sm text-slate-900 outline-none transition-colors focus:border-slate-400"
+          className="w-full rounded-md border border-border px-3 py-1.5 text-sm text-fg outline-none transition-colors focus:border-border-strong"
           placeholder="Lojee Inc"
         />
       </div>
       <div>
-        <span className="mb-1.5 block text-xs font-medium text-slate-500">Width (px)</span>
+        <span className="mb-1.5 block text-xs font-medium text-fg-subtle">Width (px)</span>
         <input
           type="number"
           value={width}
           disabled={collapsed}
           onChange={(e) => setWidth(Number(e.target.value) || 256)}
-          className="w-full rounded-md border border-slate-200 px-3 py-1.5 text-sm text-slate-900 outline-none transition-colors focus:border-slate-400 disabled:opacity-50"
+          className="w-full rounded-md border border-border px-3 py-1.5 text-sm text-fg outline-none transition-colors focus:border-border-strong disabled:opacity-50"
           min={160}
           max={400}
         />
@@ -183,9 +183,9 @@ export class AppComponent {
       <OptionGroup label="Variant" options={VARIANTS} value={variant} onChange={setVariant} />
       {showBorderWidthControl && (
         <div>
-          <span className="mb-1.5 flex items-center justify-between text-xs font-medium text-slate-500">
+          <span className="mb-1.5 flex items-center justify-between text-xs font-medium text-fg-subtle">
             Border thickness (px)
-            <span className="text-slate-700">{borderWidth}</span>
+            <span className="text-fg-muted">{borderWidth}</span>
           </span>
           <input
             type="range"
@@ -210,11 +210,11 @@ export class AppComponent {
         // Only ever reflects a *named* selection back onto the fixed swatch
         // row — a custom color from the wheel below naturally shows none of
         // them as selected, which is the correct state (it isn't one of them).
-        value={isColorName(color) ? color : "slate"}
+        value={isColorName(color) ? color : "accent"}
         onChange={setColor}
         actions={
           <label
-            className="flex cursor-pointer items-center gap-1.5 rounded-md px-1.5 py-0.5 text-xs font-medium text-slate-500 transition-colors hover:bg-slate-100 hover:text-slate-700"
+            className="flex cursor-pointer items-center gap-1.5 rounded-md px-1.5 py-0.5 text-xs font-medium text-fg-subtle transition-colors hover:bg-surface-muted hover:text-fg-muted"
             title="Pick a custom color — not limited to the swatches above"
           >
             {/* A real color wheel: whatever hue the user picks is used
@@ -241,18 +241,18 @@ export class AppComponent {
         }
       />
       <div className="flex items-center gap-4 sm:col-span-2">
-        <label className="flex items-center gap-2 text-xs font-medium text-slate-500">
+        <label className="flex items-center gap-2 text-xs font-medium text-fg-subtle">
           <input type="checkbox" checked={collapsible} onChange={(e) => setCollapsible(e.target.checked)} />
           Collapsible
         </label>
-        <label className="flex items-center gap-2 text-xs font-medium text-slate-500">
+        <label className="flex items-center gap-2 text-xs font-medium text-fg-subtle">
           <input type="checkbox" checked={collapsed} onChange={(e) => setCollapsed(e.target.checked)} />
           Collapsed
         </label>
         {/* Click a row in the preview — no state wiring above drives this beyond onActiveItemChange
             itself, demonstrating the built-in self-managed selection live. */}
-        <span className="text-xs font-medium text-slate-400">
-          Active: <span className="text-slate-700">{activeLabel ?? "none yet — click a row"}</span>
+        <span className="text-xs font-medium text-fg-subtle">
+          Active: <span className="text-fg-muted">{activeLabel ?? "none yet — click a row"}</span>
         </span>
       </div>
     </PlaygroundLayout>

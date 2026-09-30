@@ -16,7 +16,7 @@ export default function DrawerPlayground() {
       <AppWindowBody>
         <Button label="Open drawer" onClick={() => setOpen(true)} />
         <Drawer open={open} onClose={() => setOpen(false)} position={position} title={title || "Drawer title"}>
-          <p className="text-sm text-slate-600">This is the drawer body content.</p>
+          <p className="text-sm text-fg-muted">This is the drawer body content.</p>
         </Drawer>
       </AppWindowBody>
     </AppWindowFrame>
@@ -69,11 +69,11 @@ const open = ref(false);
   return (
     <PlaygroundLayout preview={preview} variants={codeVariants}>
       <div className="sm:col-span-2">
-        <span className="mb-1.5 block text-xs font-medium text-slate-500">Title</span>
+        <span className="mb-1.5 block text-xs font-medium text-fg-subtle">Title</span>
         <input
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          className="w-full rounded-md border border-slate-200 px-3 py-1.5 text-sm text-slate-900 outline-none transition-colors focus:border-slate-400"
+          className="w-full rounded-md border border-border px-3 py-1.5 text-sm text-fg outline-none transition-colors focus:border-border-strong"
           placeholder="Drawer title"
         />
       </div>

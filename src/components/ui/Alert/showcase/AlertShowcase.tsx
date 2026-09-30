@@ -7,11 +7,11 @@ export default function AlertShowcase() {
   const [closableVisible, setClosableVisible] = useState(true);
 
   return (
-    <div className="min-h-screen bg-white p-6 md:p-10">
+    <div className="min-h-screen rounded-xl bg-surface p-6 md:p-10">
       <div className="max-w-5xl mx-auto space-y-12">
         <div>
-          <h1 className="text-2xl font-semibold text-slate-900">Alert</h1>
-          <p className="text-sm text-slate-500 mt-1">
+          <h1 className="text-2xl font-semibold text-fg">Alert</h1>
+          <p className="text-sm text-fg-subtle mt-1">
             An inline, non-dismissing-by-default banner message for surfacing status, feedback, or warnings inline
             in a page.
           </p>
@@ -82,7 +82,7 @@ export default function AlertShowcase() {
             <button
               type="button"
               onClick={() => setClosableVisible(true)}
-              className="text-sm font-medium text-slate-500 underline underline-offset-4 hover:text-slate-700"
+              className="text-sm font-medium text-fg-subtle underline underline-offset-4 hover:text-fg-muted"
             >
               Show alert again
             </button>
@@ -185,7 +185,7 @@ const visible = ref(true);
             variant="info"
             title="Styled alert"
             classNames={{
-              root: "border-indigo-200 bg-indigo-50 text-indigo-900",
+              root: "border-indigo-200 bg-indigo-50 text-indigo-900 dark:border-indigo-900 dark:bg-indigo-950/40 dark:text-indigo-200",
               icon: "text-indigo-500",
             }}
           >
@@ -197,7 +197,7 @@ const visible = ref(true);
   variant="info"
   title="Styled alert"
   classNames={{
-    root: "border-indigo-200 bg-indigo-50 text-indigo-900",
+    root: "border-indigo-200 bg-indigo-50 text-indigo-900 dark:border-indigo-900 dark:bg-indigo-950/40 dark:text-indigo-200",
     icon: "text-indigo-500",
   }}
 >
@@ -209,7 +209,7 @@ const visible = ref(true);
 
 <script type="module">
   document.getElementById("styled-alert").classNames = {
-    root: "border-indigo-200 bg-indigo-50 text-indigo-900",
+    root: "border-indigo-200 bg-indigo-50 text-indigo-900 dark:border-indigo-900 dark:bg-indigo-950/40 dark:text-indigo-200",
     icon: "text-indigo-500",
   };
 </script>`,
@@ -221,7 +221,7 @@ const visible = ref(true);
 
 <script setup lang="ts">
 const alertClassNames = {
-  root: "border-indigo-200 bg-indigo-50 text-indigo-900",
+  root: "border-indigo-200 bg-indigo-50 text-indigo-900 dark:border-indigo-900 dark:bg-indigo-950/40 dark:text-indigo-200",
   icon: "text-indigo-500",
 };
 </script>`,
@@ -230,7 +230,7 @@ const alertClassNames = {
 </l-Alert>
 
 alertClassNames = {
-  root: "border-indigo-200 bg-indigo-50 text-indigo-900",
+  root: "border-indigo-200 bg-indigo-50 text-indigo-900 dark:border-indigo-900 dark:bg-indigo-950/40 dark:text-indigo-200",
   icon: "text-indigo-500",
 };`,
             }}

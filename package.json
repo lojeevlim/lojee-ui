@@ -45,12 +45,13 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "node scripts/gen-api-docs.mjs && tsc -b && vite build",
     "build:lib": "vite build --config vite.lib.config.ts && tsc -p tsconfig.lib.json && cp src/theme.css dist/theme.css",
     "build:elements": "vite build --config vite.elements.config.ts",
     "build:pkg": "npm run build:lib && npm run build:elements",
     "clean": "rm -rf dist",
     "prepublishOnly": "npm run clean && npm run build:pkg",
+    "docs:api": "node scripts/gen-api-docs.mjs",
     "lint": "eslint .",
     "preview": "vite preview"
   },

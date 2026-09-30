@@ -10,7 +10,7 @@ const OPTIONS = ["Free", "Pro", "Enterprise"];
 
 export default function RadioPlayground() {
   const [orientation, setOrientation] = useState<RadioGroupOrientation>("vertical");
-  const [color, setColor] = useState<ColorName>("slate");
+  const [color, setColor] = useState<ColorName>("accent");
   const [selected, setSelected] = useState(OPTIONS[0]);
 
   const preview = (

@@ -23,11 +23,11 @@ export default function TimelinePlayground() {
   const preview = (
     <AppWindowFrame>
       {orientation === "vertical" ? (
-        <div className="flex justify-center bg-white p-10" style={{ minHeight: 260 }}>
+        <div className="flex justify-center bg-surface p-10" style={{ minHeight: 260 }}>
           <Timeline items={SAMPLE_ITEMS} orientation={orientation} />
         </div>
       ) : (
-        <div className="flex items-center bg-white p-10" style={{ minHeight: 200 }}>
+        <div className="flex items-center bg-surface p-10" style={{ minHeight: 200 }}>
           <Timeline items={SAMPLE_ITEMS} orientation={orientation} className="w-full" />
         </div>
       )}

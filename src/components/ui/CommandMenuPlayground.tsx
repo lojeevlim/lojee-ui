@@ -27,8 +27,8 @@ export default function CommandMenuPlayground() {
       <AppWindowBody>
         <div className="flex flex-col items-center gap-3">
           <Button label="Open command menu" onClick={() => setOpen(true)} />
-          <p className="text-sm text-slate-600">
-            Last selected: <span className="font-medium text-slate-900">{lastSelected}</span>
+          <p className="text-sm text-fg-muted">
+            Last selected: <span className="font-medium text-fg">{lastSelected}</span>
           </p>
           <CommandMenu open={open} onClose={() => setOpen(false)} items={items} />
         </div>
@@ -102,7 +102,7 @@ ${itemsSnippet}
 
   return (
     <PlaygroundLayout preview={preview} variants={codeVariants}>
-      <div className="sm:col-span-2 text-sm text-slate-500">
+      <div className="sm:col-span-2 text-sm text-fg-subtle">
         Try typing to filter, ArrowUp/ArrowDown to navigate, Enter to select, and Escape to close.
       </div>
     </PlaygroundLayout>

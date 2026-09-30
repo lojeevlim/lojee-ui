@@ -10,7 +10,7 @@ const DELAYS = [0, 150, 300, 500] as const;
 
 export default function TooltipPlayground() {
   const [position, setPosition] = useState<TooltipPosition>("top");
-  const [color, setColor] = useState<ColorName>("slate");
+  const [color, setColor] = useState<ColorName>("accent");
   const [delayMs, setDelayMs] = useState<(typeof DELAYS)[number]>(150);
   const [content, setContent] = useState("Tooltip text");
 
@@ -27,7 +27,7 @@ export default function TooltipPlayground() {
   );
 
   const code = `<Tooltip content="${content || "Tooltip text"}" position="${position}"${
-    color !== "slate" ? ` color="${color}"` : ""
+    color !== "accent" ? ` color="${color}"` : ""
   }${delayMs !== 150 ? ` delayMs={${delayMs}}` : ""}>
   <Button variant="outline" label="Hover me" />
 </Tooltip>`;
@@ -36,7 +36,7 @@ export default function TooltipPlayground() {
   // trigger is the default slot, so the trigger element nests as a plain
   // child, mirroring how the React code nests <Button> inside <Tooltip>.
   const htmlMarkup = `<l-Tooltip content="${content || "Tooltip text"}" position="${position}"${
-    color !== "slate" ? ` color="${color}"` : ""
+    color !== "accent" ? ` color="${color}"` : ""
   }${delayMs !== 150 ? ` delayMs="${delayMs}"` : ""}>
   <l-Button variant="outline" label="Hover me" />
 </l-Tooltip>`;
@@ -51,11 +51,11 @@ export default function TooltipPlayground() {
   return (
     <PlaygroundLayout preview={preview} variants={codeVariants}>
       <div className="sm:col-span-2">
-        <span className="mb-1.5 block text-xs font-medium text-slate-500">Content</span>
+        <span className="mb-1.5 block text-xs font-medium text-fg-subtle">Content</span>
         <input
           value={content}
           onChange={(e) => setContent(e.target.value)}
-          className="w-full rounded-md border border-slate-200 px-3 py-1.5 text-sm text-slate-900 outline-none transition-colors focus:border-slate-400"
+          className="w-full rounded-md border border-border px-3 py-1.5 text-sm text-fg outline-none transition-colors focus:border-border-strong"
           placeholder="Tooltip text"
         />
       </div>

@@ -5,11 +5,15 @@ import { cx, type ColorName } from "../../../core/tokens";
 export type DividerOrientation = "horizontal" | "vertical";
 
 export interface DividerProps {
+  /** "horizontal" (default) draws a full-width line; "vertical" draws a full-height line. */
   orientation?: DividerOrientation;
   /** Centered text (e.g. "OR") — only meaningful for horizontal, non-resizable dividers. */
   label?: string;
+  /** Custom centered content shown in place of `label` on a labeled horizontal divider. */
   children?: ReactNode;
+  /** Line color: a built-in ColorName (default: "accent"). */
   color?: ColorName;
+  /** Extra class name(s) applied to the root element. */
   className?: string;
   /**
    * Turns the divider into a draggable resize handle (mouse/touch drag, or
@@ -34,25 +38,26 @@ export interface DividerProps {
 }
 
 const BORDER_COLOR: Record<ColorName, string> = {
-  slate: "border-slate-200",
-  gray: "border-gray-200",
-  indigo: "border-indigo-200",
-  violet: "border-violet-200",
-  blue: "border-blue-200",
-  cyan: "border-cyan-200",
-  emerald: "border-emerald-200",
-  teal: "border-teal-200",
-  amber: "border-amber-200",
-  orange: "border-orange-200",
-  rose: "border-rose-200",
-  pink: "border-pink-200",
+  slate: "border-border",
+  gray: "border-border",
+  indigo: "border-indigo-200 dark:border-indigo-800",
+  accent: "border-accent-200 dark:border-accent-800",
+  violet: "border-violet-200 dark:border-violet-800",
+  blue: "border-blue-200 dark:border-blue-800",
+  cyan: "border-cyan-200 dark:border-cyan-800",
+  emerald: "border-emerald-200 dark:border-emerald-800",
+  teal: "border-teal-200 dark:border-teal-800",
+  amber: "border-amber-200 dark:border-amber-800",
+  orange: "border-orange-200 dark:border-orange-800",
+  rose: "border-rose-200 dark:border-rose-800",
+  pink: "border-pink-200 dark:border-pink-800",
 };
 
 export function Divider({
   orientation = "horizontal",
   label,
   children,
-  color = "slate",
+  color = "accent",
   className,
   resizable = false,
   onResize,
@@ -125,7 +130,7 @@ export function Divider({
           className={cx(
             "w-px border-l transition-colors",
             borderClass,
-            resizable && "group-hover:border-slate-400 group-focus-visible:border-slate-500",
+            resizable && "group-hover:border-border-strong group-focus-visible:border-slate-500",
             classNames?.line
           )}
         />
@@ -149,7 +154,7 @@ export function Divider({
           className={cx(
             "h-px w-full border-t transition-colors",
             borderClass,
-            "group-hover:border-slate-400 group-focus-visible:border-slate-500",
+            "group-hover:border-border-strong group-focus-visible:border-slate-500",
             classNames?.line
           )}
         />
@@ -162,7 +167,7 @@ export function Divider({
   }
 
   return (
-    <div role="separator" className={cx("flex items-center gap-3 text-xs font-medium text-slate-400", className, classNames?.root)}>
+    <div role="separator" className={cx("flex items-center gap-3 text-xs font-medium text-fg-subtle", className, classNames?.root)}>
       <span className={cx("h-px flex-1 border-t", borderClass, classNames?.line)} />
       <slot>
         <span className={classNames?.label}>{content}</span>

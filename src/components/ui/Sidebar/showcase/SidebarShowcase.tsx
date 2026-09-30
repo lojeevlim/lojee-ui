@@ -16,11 +16,11 @@ export default function SidebarShowcase() {
   const [activeLabel, setActiveLabel] = useState<string | undefined>(undefined);
 
   return (
-    <div className="min-h-screen bg-white p-6 md:p-10">
+    <div className="min-h-screen rounded-xl bg-surface p-6 md:p-10">
       <div className="max-w-5xl mx-auto space-y-12">
         <div>
-          <h1 className="text-2xl font-semibold text-slate-900">Sidebar</h1>
-          <p className="text-sm text-slate-500 mt-1">
+          <h1 className="text-2xl font-semibold text-fg">Sidebar</h1>
+          <p className="text-sm text-fg-subtle mt-1">
             A vertical navigation panel — an app-shell shell for the rest of the library's nav content.
           </p>
         </div>
@@ -29,7 +29,7 @@ export default function SidebarShowcase() {
           <SectionLabel sub="items is the data-driven shortcut for a simple nav list — label + icon rows with no active/href/onClick/disabled state (compose SidebarMenuItem directly instead when you need that).">
             Basic
           </SectionLabel>
-          <div className="h-80 overflow-hidden rounded-lg border border-slate-200">
+          <div className="h-80 overflow-hidden rounded-lg border border-border">
             <Sidebar items={VARIANT_ITEMS} />
           </div>
           <CodeBlock
@@ -94,7 +94,7 @@ export class AppComponent {
           <SectionLabel sub="Leave `active` unset on every row (the common case) and Sidebar determines and manages it itself: a row's href is matched against the current URL on load/back-forward-navigation, and clicking any row updates it immediately — no router wiring or state needed. defaultActiveItem seeds which row starts active (Dashboard here) without touching the items themselves — purely an initial default, so clicking around afterward still works normally. onActiveItemChange reports the full item object whenever the active row changes, e.g. to sync it elsewhere.">
             Active item
           </SectionLabel>
-          <div className="h-80 overflow-hidden rounded-lg border border-slate-200">
+          <div className="h-80 overflow-hidden rounded-lg border border-border">
             <Sidebar
               defaultActiveItem="Dashboard"
               onActiveItemChange={(item) => setActiveLabel(item.label)}
@@ -106,8 +106,8 @@ export class AppComponent {
               ]}
             />
           </div>
-          <p className="mt-2 text-xs font-medium text-slate-400">
-            Active: <span className="text-slate-700">{activeLabel ?? "none yet — click a row"}</span>
+          <p className="mt-2 text-xs font-medium text-fg-subtle">
+            Active: <span className="text-fg-muted">{activeLabel ?? "none yet — click a row"}</span>
           </p>
           <CodeBlock
             variants={{
@@ -178,7 +178,7 @@ export class AppComponent {
           <SectionLabel sub="header/headerIcon and footer are the data-driven shortcut for a workspace name pinned above the nav content and a user row pinned below it (compose SidebarHeader/SidebarFooter directly instead for custom markup like an avatar).">
             With header and footer
           </SectionLabel>
-          <div className="h-96 overflow-hidden rounded-lg border border-slate-200">
+          <div className="h-96 overflow-hidden rounded-lg border border-border">
             <Sidebar header="Lojee Inc" headerIcon="zap" footer="Jordan Diaz" items={VARIANT_ITEMS} />
           </div>
           <CodeBlock
@@ -246,7 +246,7 @@ export class AppComponent {
           <SectionLabel sub="Mix { category, items } entries into items for labeled, collapsible section groups — click a heading to toggle it. Defaults open for the first group or one containing an active row; every other group starts closed.">
             Categories
           </SectionLabel>
-          <div className="h-96 overflow-hidden rounded-lg border border-slate-200">
+          <div className="h-96 overflow-hidden rounded-lg border border-border">
             <Sidebar
               collapsible
               header="Lojee Inc"
@@ -382,25 +382,25 @@ export class AppComponent {
             Variants
           </SectionLabel>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            <div className="h-72 overflow-hidden rounded-lg border border-slate-200">
+            <div className="h-72 overflow-hidden rounded-lg border border-border">
               <Sidebar header="Lojee Inc" footer="Jordan Diaz" items={VARIANT_ITEMS} />
             </div>
             <div className="h-72 overflow-hidden rounded-lg border border-slate-800">
               <Sidebar variant="dark" header="Lojee Inc" footer="Jordan Diaz" items={VARIANT_ITEMS} />
             </div>
-            <div className="h-72 overflow-hidden rounded-lg border border-slate-200">
+            <div className="h-72 overflow-hidden rounded-lg border border-border">
               <Sidebar variant="bordered" height="100%" className="h-full" header="Lojee Inc" items={VARIANT_ITEMS} />
             </div>
-            <div className="h-72 overflow-hidden rounded-lg border border-slate-200">
+            <div className="h-72 overflow-hidden rounded-lg border border-border">
               <Sidebar variant="elevated" height="100%" className="h-full" header="Lojee Inc" items={VARIANT_ITEMS} />
             </div>
-            <div className="h-72 rounded-lg border border-dashed border-slate-300 bg-white p-4">
+            <div className="h-72 rounded-lg border border-dashed border-border-strong bg-surface p-4">
               <Sidebar variant="minimal" height="100%" className="h-full" header="Lojee Inc" items={VARIANT_ITEMS} />
             </div>
             <div className="h-72 overflow-hidden rounded-lg">
               <Sidebar variant="gradient" color="indigo" header="Lojee Inc" footer="Jordan Diaz" items={VARIANT_ITEMS} />
             </div>
-            <div className="h-72 overflow-hidden rounded-lg border border-slate-200">
+            <div className="h-72 overflow-hidden rounded-lg border border-border">
               <Sidebar variant="glass" color="indigo" height="100%" className="h-full" header="Lojee Inc" footer="Jordan Diaz" items={VARIANT_ITEMS} />
             </div>
           </div>
@@ -422,8 +422,8 @@ export class AppComponent {
     variant="bordered" / "elevated" / "glass" — detached-panel looks (rounded corners, floats
       inside a page instead of docking to a screen edge). Their backdrop (padding + a neutral
       background) is built in, so no extra markup is needed — just give them a height, e.g.
-      height="100%" inside a sized parent. "bordered" is a solid white panel with a color-tinted
-      border (see \`color\`/\`borderWidth\`); "elevated" is the same solid white panel but
+      height="100%" inside a sized parent. "bordered" is a solid panel on the page surface with a color-tinted
+      border (see \`color\`/\`borderWidth\`); "elevated" is the same solid panel on the page surface but
       shadow-only, no border; "glass" has no background color at all, just backdrop-blur-xl —
       needs something with real color/texture behind it to read.
     variant="minimal"  — no background/border at all, blends into the page.
@@ -492,7 +492,7 @@ export class AppComponent {
             Colors
           </SectionLabel>
           <div className="grid gap-4 sm:grid-cols-2">
-            <div className="h-64 overflow-hidden rounded-lg border border-slate-200">
+            <div className="h-64 overflow-hidden rounded-lg border border-border">
               <Sidebar
                 color="indigo"
                 collapsible
@@ -504,7 +504,7 @@ export class AppComponent {
                 ]}
               />
             </div>
-            <div className="h-64 overflow-hidden rounded-lg border border-slate-200">
+            <div className="h-64 overflow-hidden rounded-lg border border-border">
               <Sidebar
                 color="emerald"
                 collapsible
@@ -516,7 +516,7 @@ export class AppComponent {
                 ]}
               />
             </div>
-            <div className="h-64 overflow-hidden rounded-lg border border-slate-200">
+            <div className="h-64 overflow-hidden rounded-lg border border-border">
               <Sidebar
                 color="rose"
                 collapsible
@@ -590,7 +590,7 @@ export class AppComponent {
           <SectionLabel sub="Set `collapsible` to show a built-in toggle button — Sidebar tracks its own collapsed state internally, so this works with no other props. header/headerIcon and each generated item already animate for the collapse/expand transition, nothing extra to wire up.">
             Collapsible
           </SectionLabel>
-          <div className="h-80 w-fit overflow-hidden rounded-lg border border-slate-200">
+          <div className="h-80 w-fit overflow-hidden rounded-lg border border-border">
             <Sidebar
               collapsible
               header="Lojee Inc"

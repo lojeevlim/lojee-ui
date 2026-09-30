@@ -5,10 +5,15 @@ import { cx } from "../../../core/tokens";
 export type DropdownMenuAlign = "start" | "end";
 
 export interface DropdownMenuProps {
+  /** Element that toggles the menu when clicked. */
   trigger: ReactNode;
+  /** Which edge of the trigger the menu aligns to: "start" (default) | "end". */
   align?: DropdownMenuAlign;
+  /** Menu content, typically DropdownMenuItem elements; closes on item click, outside click, or Escape. */
   children?: ReactNode;
+  /** Extra class name(s) applied to the root element. */
   className?: string;
+  /** Per-part class overrides — merged after (and win over) the built-in styling. */
   classNames?: {
     root?: string;
     menu?: string;
@@ -51,7 +56,7 @@ export function DropdownMenu({ trigger, align = "start", children, className, cl
           // never closes the menu, with no extra handling needed.
           onClick={() => setOpen(false)}
           className={cx(
-            "absolute z-10 mt-1.5 min-w-[10rem] overflow-hidden rounded-lg border border-slate-200 bg-white py-1 shadow-lg",
+            "absolute z-10 mt-1.5 min-w-[10rem] overflow-hidden rounded-lg border border-border bg-surface py-1 shadow-lg",
             align === "end" ? "right-0" : "left-0",
             classNames?.menu
           )}

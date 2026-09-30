@@ -30,7 +30,7 @@ const ICON_ITEMS = [
     target: "Q3 Report",
     timestamp: "2h ago",
     icon: "pencil",
-    color: "indigo" as const,
+    color: "accent" as const,
   },
   {
     actor: "Alex Chen",
@@ -69,7 +69,7 @@ const ICON_ITEMS = [
   },
 ];
 
-const ICON_ITEMS_CODE = `  { actor: "Jordan Diaz", avatarInitials: "JD", action: "commented on", target: "Q3 Report", timestamp: "2h ago", icon: "pencil", color: "indigo" },
+const ICON_ITEMS_CODE = `  { actor: "Jordan Diaz", avatarInitials: "JD", action: "commented on", target: "Q3 Report", timestamp: "2h ago", icon: "pencil", color: "accent" },
   { actor: "Alex Chen", avatarInitials: "AC", action: "closed", target: "Bug #482", timestamp: "4h ago", icon: "circle-check", color: "emerald" },
   { actor: "Priya Nair", avatarInitials: "PN", action: "assigned Jordan Diaz to", target: "the Landing Page Redesign", timestamp: "6h ago", icon: "tag", color: "amber" },
   { actor: "Alex Chen", avatarInitials: "AC", action: "joined the team", timestamp: "1d ago", icon: "user", color: "slate" },
@@ -77,18 +77,18 @@ const ICON_ITEMS_CODE = `  { actor: "Jordan Diaz", avatarInitials: "JD", action:
 
 export default function ActivityFeedShowcase() {
   return (
-    <div className="min-h-screen bg-white p-6 md:p-10">
+    <div className="min-h-screen rounded-xl bg-surface p-6 md:p-10">
       <div className="max-w-5xl mx-auto space-y-12">
         <div>
-          <h1 className="text-2xl font-semibold text-slate-900">Activity Feed</h1>
-          <p className="text-sm text-slate-500 mt-1">
+          <h1 className="text-2xl font-semibold text-fg">Activity Feed</h1>
+          <p className="text-sm text-fg-subtle mt-1">
             A vertical feed of "who did what" activity entries — an avatar, a sentence, and a timestamp.
           </p>
         </div>
 
         <section>
           <SectionLabel sub="Each entry pairs an avatar with a short sentence and a relative timestamp.">Basic</SectionLabel>
-          <div className="max-w-lg rounded-lg border border-slate-200 p-2">
+          <div className="max-w-lg rounded-lg border border-border p-2">
             <ActivityFeed items={BASIC_ITEMS} />
           </div>
           <CodeBlock
@@ -141,7 +141,7 @@ ${BASIC_ITEMS_CODE}
           <SectionLabel sub="A small colored icon badge on the avatar's corner — useful to signal the kind of action at a glance.">
             With icon badges
           </SectionLabel>
-          <div className="max-w-lg rounded-lg border border-slate-200 p-2">
+          <div className="max-w-lg rounded-lg border border-border p-2">
             <ActivityFeed items={ICON_ITEMS} />
           </div>
           <CodeBlock
@@ -182,7 +182,7 @@ ${ICON_ITEMS_CODE}
           <SectionLabel sub="Set compact for tighter spacing and smaller avatars — handy in a sidebar or narrow panel.">
             Compact
           </SectionLabel>
-          <div className="max-w-sm rounded-lg border border-slate-200 p-2">
+          <div className="max-w-sm rounded-lg border border-border p-2">
             <ActivityFeed items={ICON_ITEMS} compact />
           </div>
           <CodeBlock

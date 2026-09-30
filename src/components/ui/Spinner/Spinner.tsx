@@ -5,9 +5,13 @@ export type SpinnerSize = "xs" | "sm" | "md" | "lg" | "xl";
 export type SpinnerVariant = "circle" | "dots" | "ring" | "bars" | "pulse";
 
 export interface SpinnerProps {
+  /** Spinner size, from "xs" to "xl" (default: "md"). */
   size?: SpinnerSize;
+  /** Spinner color, one of the built-in ColorNames (default: "accent" — follows the theme accent). */
   color?: ColorName;
+  /** Animation style: "circle", "dots", "ring", "bars" or "pulse" (default: "circle"). */
   variant?: SpinnerVariant;
+  /** Extra class name(s) appended to the root element. */
   className?: string;
   /** Accessible label for screen readers (spinners carry no visible text). */
   label?: string;
@@ -58,9 +62,10 @@ const RING_BORDER_WIDTH: Record<SpinnerSize, string> = {
 };
 
 const TEXT_COLOR: Record<ColorName, string> = {
-  slate: "text-slate-600",
-  gray: "text-gray-600",
+  slate: "text-fg-muted",
+  gray: "text-fg-muted",
   indigo: "text-indigo-600",
+  accent: "text-accent-600",
   violet: "text-violet-600",
   blue: "text-blue-600",
   cyan: "text-cyan-600",
@@ -73,9 +78,10 @@ const TEXT_COLOR: Record<ColorName, string> = {
 };
 
 const BG_COLOR: Record<ColorName, string> = {
-  slate: "bg-slate-600",
+  slate: "bg-slate-600 dark:bg-slate-300",
   gray: "bg-gray-600",
   indigo: "bg-indigo-600",
+  accent: "bg-accent-600",
   violet: "bg-violet-600",
   blue: "bg-blue-600",
   cyan: "bg-cyan-600",
@@ -89,9 +95,10 @@ const BG_COLOR: Record<ColorName, string> = {
 
 // The spinning arc on top of the "ring" variant's static gray track.
 const RING_TOP_COLOR: Record<ColorName, string> = {
-  slate: "border-t-slate-600",
+  slate: "border-t-slate-600 dark:border-t-slate-300",
   gray: "border-t-gray-600",
   indigo: "border-t-indigo-600",
+  accent: "border-t-accent-600",
   violet: "border-t-violet-600",
   blue: "border-t-blue-600",
   cyan: "border-t-cyan-600",
@@ -103,7 +110,7 @@ const RING_TOP_COLOR: Record<ColorName, string> = {
   pink: "border-t-pink-600",
 };
 
-export function Spinner({ size = "md", color = "slate", variant = "circle", className, classNames, label }: SpinnerProps) {
+export function Spinner({ size = "md", color = "accent", variant = "circle", className, classNames, label }: SpinnerProps) {
   if (variant === "dots") {
     return (
       <span
@@ -137,7 +144,7 @@ export function Spinner({ size = "md", color = "slate", variant = "circle", clas
     return (
       <span
         className={cx(
-          "inline-block animate-spin rounded-full border-slate-200",
+          "inline-block animate-spin rounded-full border-border",
           RING_BORDER_WIDTH[size],
           RING_TOP_COLOR[color] || RING_TOP_COLOR.slate,
           className,

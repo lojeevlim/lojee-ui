@@ -6,7 +6,7 @@ import type { CodeBlockVariants } from "./CodeBlock";
 
 export default function CheckboxPlayground() {
   const [checked, setChecked] = useState(true);
-  const [color, setColor] = useState<ColorName>("slate");
+  const [color, setColor] = useState<ColorName>("accent");
   const [disabled, setDisabled] = useState(false);
   const [label, setLabel] = useState("Accept terms and conditions");
 
@@ -46,11 +46,11 @@ export default function CheckboxPlayground() {
   return (
     <PlaygroundLayout preview={preview} variants={codeVariants}>
       <div className="sm:col-span-2">
-        <span className="mb-1.5 block text-xs font-medium text-slate-500">Label</span>
+        <span className="mb-1.5 block text-xs font-medium text-fg-subtle">Label</span>
         <input
           value={label}
           onChange={(e) => setLabel(e.target.value)}
-          className="w-full rounded-md border border-slate-200 px-3 py-1.5 text-sm text-slate-900 outline-none transition-colors focus:border-slate-400"
+          className="w-full rounded-md border border-border px-3 py-1.5 text-sm text-fg outline-none transition-colors focus:border-border-strong"
           placeholder="Checkbox label"
         />
       </div>
@@ -58,14 +58,14 @@ export default function CheckboxPlayground() {
       <ColorSwatches value={color} onChange={setColor} />
 
       <div>
-        <span className="mb-1.5 block text-xs font-medium text-slate-500">Options</span>
+        <span className="mb-1.5 block text-xs font-medium text-fg-subtle">Options</span>
         <div className="flex flex-wrap gap-1.5">
           <button
             type="button"
             onClick={() => setChecked((v) => !v)}
             className={
               "rounded-md px-2.5 py-1 text-xs font-medium transition-colors " +
-              (checked ? "bg-slate-900 text-white" : "bg-slate-100 text-slate-600 hover:bg-slate-200")
+              (checked ? "bg-fg text-surface" : "bg-surface-muted text-fg-muted hover:bg-border")
             }
           >
             Checked
@@ -75,7 +75,7 @@ export default function CheckboxPlayground() {
             onClick={() => setDisabled((v) => !v)}
             className={
               "rounded-md px-2.5 py-1 text-xs font-medium transition-colors " +
-              (disabled ? "bg-slate-900 text-white" : "bg-slate-100 text-slate-600 hover:bg-slate-200")
+              (disabled ? "bg-fg text-surface" : "bg-surface-muted text-fg-muted hover:bg-border")
             }
           >
             Disabled

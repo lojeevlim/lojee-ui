@@ -32,11 +32,11 @@ const TRAFFIC_CODE = `  { label: "Direct", value: 42, color: "indigo" },
 
 export default function ChartShowcase() {
   return (
-    <div className="min-h-screen bg-white p-6 md:p-10">
+    <div className="min-h-screen rounded-xl bg-surface p-6 md:p-10">
       <div className="max-w-5xl mx-auto space-y-12">
         <div>
-          <h1 className="text-2xl font-semibold text-slate-900">Chart</h1>
-          <p className="text-sm text-slate-500 mt-1">
+          <h1 className="text-2xl font-semibold text-fg">Chart</h1>
+          <p className="text-sm text-fg-subtle mt-1">
             A lightweight, dependency-free chart — bar, line, and donut, rendered as plain inline SVG.
           </p>
         </div>
@@ -166,15 +166,15 @@ ${TRAFFIC_CODE}
           <SectionLabel sub="`color` sets the default for every point that doesn't specify its own.">Colors</SectionLabel>
           <div className="grid gap-6 sm:grid-cols-3">
             <div>
-              <p className="mb-2 text-xs font-medium text-slate-500">Indigo</p>
+              <p className="mb-2 text-xs font-medium text-fg-subtle">Indigo</p>
               <Chart type="bar" data={REVENUE_DATA} color="indigo" showLabels={false} height={120} />
             </div>
             <div>
-              <p className="mb-2 text-xs font-medium text-slate-500">Rose</p>
+              <p className="mb-2 text-xs font-medium text-fg-subtle">Rose</p>
               <Chart type="bar" data={REVENUE_DATA} color="rose" showLabels={false} height={120} />
             </div>
             <div>
-              <p className="mb-2 text-xs font-medium text-slate-500">Amber</p>
+              <p className="mb-2 text-xs font-medium text-fg-subtle">Amber</p>
               <Chart type="bar" data={REVENUE_DATA} color="amber" showLabels={false} height={120} />
             </div>
           </div>

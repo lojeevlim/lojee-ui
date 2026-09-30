@@ -1,8 +1,329 @@
-/* Loader's "shimmer" variant and ProgressBar's "indeterminate" mode.
-   Import this after your own `@import "tailwindcss";` to get these two animate-* tokens. */
+/* lojee-ui theme tokens.
+   Importing this file is all a consumer needs besides Tailwind itself: the `@source` below (outside this
+   comment) makes Tailwind scan the library's own build — this file is copied next to the JS in `dist/` —
+   so the components' classes get generated with no `@source ../node_modules/...` line in the consumer's CSS.
+   Import this after your own `@import "tailwindcss";`. It provides:
+     - the animate-* tokens (Loader "shimmer", ProgressBar "indeterminate")
+     - semantic color utilities: bg-surface, bg-surface-muted, bg-surface-raised,
+       text-fg, text-fg-muted, text-fg-subtle, border-border, border-border-strong
+     - an `accent` palette (bg-accent-600, text-accent-700, ...) — the default brand color
+
+   Switch modes with `data-theme="light|dark"` and brands with `data-accent="<color>"` on
+   <html> (or use <ThemeProvider>). Override any `--lojee-*` variable in your own CSS to
+   customise a theme.
+
+   The utilities point at `--lojee-*` variables (plain CSS, defined on :root only) instead
+   of holding values themselves: Tailwind emits @theme variables under `:root, :host`, and
+   a `:host` value would shadow the html-level theme inside web-component shadow roots.
+   Going through var() lets the html-level value inherit into every shadow tree.
+
+   Selectors deliberately match any element carrying data-theme / data-accent, not just
+   :root: web components mirror <html>'s attributes onto a wrapper inside each shadow root
+   (see with-tailwind.tsx), so the palette variables also resolve there. */
+
+/* Scan the library's own files (see the note at the top). */
+@source "./";
+
+/* `dark:` follows data-theme (not the OS) so the light/dark toggle wins. Web components
+   mirror data-theme onto a wrapper inside each shadow root — see with-tailwind.tsx. */
+
+@custom-variant dark (
+  &:where([data-theme="dark"], [data-theme="dark"] *):not(
+      :where([data-theme="dark"] [data-theme="light"], [data-theme="dark"] [data-theme="light"] *)
+    )
+);
+
 @theme {
   --animate-shimmer: lojee-shimmer 1.6s ease-in-out infinite;
   --animate-progress-indeterminate: lojee-progress-indeterminate 1.4s ease-in-out infinite;
+
+  --color-surface: var(--lojee-surface);
+  --color-surface-muted: var(--lojee-surface-muted);
+  --color-surface-raised: var(--lojee-surface-raised);
+  --color-fg: var(--lojee-fg);
+  --color-fg-muted: var(--lojee-fg-muted);
+  --color-fg-subtle: var(--lojee-fg-subtle);
+  --color-border: var(--lojee-border);
+  --color-border-strong: var(--lojee-border-strong);
+
+  --color-accent-50: var(--lojee-accent-50);
+  --color-accent-100: var(--lojee-accent-100);
+  --color-accent-200: var(--lojee-accent-200);
+  --color-accent-300: var(--lojee-accent-300);
+  --color-accent-400: var(--lojee-accent-400);
+  --color-accent-500: var(--lojee-accent-500);
+  --color-accent-600: var(--lojee-accent-600);
+  --color-accent-700: var(--lojee-accent-700);
+  --color-accent-800: var(--lojee-accent-800);
+  --color-accent-900: var(--lojee-accent-900);
+  --color-accent-950: var(--lojee-accent-950);
+}
+
+/* A custom property that references another is resolved where it's declared and then inherited as
+   that resolved value — so the @theme mapping above, declared once on :root, would hand every nested
+   [data-theme] / [data-accent] scope (an <App theme="dark"> on a light page, a theme preview tile, a
+   shadow-root wrapper) the *root's* colors. Re-declaring it on every scope re-resolves it there. */
+:root,
+:host,
+[data-theme],
+[data-accent] {
+  --color-surface: var(--lojee-surface);
+  --color-surface-muted: var(--lojee-surface-muted);
+  --color-surface-raised: var(--lojee-surface-raised);
+  --color-fg: var(--lojee-fg);
+  --color-fg-muted: var(--lojee-fg-muted);
+  --color-fg-subtle: var(--lojee-fg-subtle);
+  --color-border: var(--lojee-border);
+  --color-border-strong: var(--lojee-border-strong);
+  --color-accent-50: var(--lojee-accent-50);
+  --color-accent-100: var(--lojee-accent-100);
+  --color-accent-200: var(--lojee-accent-200);
+  --color-accent-300: var(--lojee-accent-300);
+  --color-accent-400: var(--lojee-accent-400);
+  --color-accent-500: var(--lojee-accent-500);
+  --color-accent-600: var(--lojee-accent-600);
+  --color-accent-700: var(--lojee-accent-700);
+  --color-accent-800: var(--lojee-accent-800);
+  --color-accent-900: var(--lojee-accent-900);
+  --color-accent-950: var(--lojee-accent-950);
+}
+
+/* ---- Light (default) ---- */
+:root,
+:host,
+[data-theme="light"] {
+  color-scheme: light;
+  --lojee-surface: #ffffff;
+  --lojee-surface-muted: #f1f5f9;
+  --lojee-surface-raised: #ffffff;
+  --lojee-fg: #0f172a;
+  --lojee-fg-muted: #475569;
+  --lojee-fg-subtle: #64748b;
+  --lojee-border: #e2e8f0;
+  --lojee-border-strong: #cbd5e1;
+}
+
+/* ---- Dark ---- */
+[data-theme="dark"] {
+  color-scheme: dark;
+  --lojee-surface: #0b1220;
+  --lojee-surface-muted: #162033;
+  --lojee-surface-raised: #111a2b;
+  --lojee-fg: #f1f5f9;
+  --lojee-fg-muted: #a3b1c6;
+  --lojee-fg-subtle: #7c8aa0;
+  --lojee-border: #263449;
+  --lojee-border-strong: #3a4a63;
+}
+
+/* ---- Accent palettes (default: indigo) ---- */
+:root,
+:host,
+[data-accent="indigo"] {
+  --lojee-accent-50: var(--color-indigo-50);
+  --lojee-accent-100: var(--color-indigo-100);
+  --lojee-accent-200: var(--color-indigo-200);
+  --lojee-accent-300: var(--color-indigo-300);
+  --lojee-accent-400: var(--color-indigo-400);
+  --lojee-accent-500: var(--color-indigo-500);
+  --lojee-accent-600: var(--color-indigo-600);
+  --lojee-accent-700: var(--color-indigo-700);
+  --lojee-accent-800: var(--color-indigo-800);
+  --lojee-accent-900: var(--color-indigo-900);
+  --lojee-accent-950: var(--color-indigo-950);
+}
+[data-accent="slate"] {
+  --lojee-accent-50: var(--color-slate-50);
+  --lojee-accent-100: var(--color-slate-100);
+  --lojee-accent-200: var(--color-slate-200);
+  --lojee-accent-300: var(--color-slate-300);
+  --lojee-accent-400: var(--color-slate-400);
+  --lojee-accent-500: var(--color-slate-500);
+  --lojee-accent-600: var(--color-slate-700);
+  --lojee-accent-700: var(--color-slate-800);
+  --lojee-accent-800: var(--color-slate-900);
+  --lojee-accent-900: var(--color-slate-900);
+  --lojee-accent-950: var(--color-slate-950);
+}
+[data-accent="gray"] {
+  --lojee-accent-50: var(--color-gray-50);
+  --lojee-accent-100: var(--color-gray-100);
+  --lojee-accent-200: var(--color-gray-200);
+  --lojee-accent-300: var(--color-gray-300);
+  --lojee-accent-400: var(--color-gray-400);
+  --lojee-accent-500: var(--color-gray-500);
+  --lojee-accent-600: var(--color-gray-600);
+  --lojee-accent-700: var(--color-gray-700);
+  --lojee-accent-800: var(--color-gray-800);
+  --lojee-accent-900: var(--color-gray-900);
+  --lojee-accent-950: var(--color-gray-950);
+}
+[data-accent="violet"] {
+  --lojee-accent-50: var(--color-violet-50);
+  --lojee-accent-100: var(--color-violet-100);
+  --lojee-accent-200: var(--color-violet-200);
+  --lojee-accent-300: var(--color-violet-300);
+  --lojee-accent-400: var(--color-violet-400);
+  --lojee-accent-500: var(--color-violet-500);
+  --lojee-accent-600: var(--color-violet-600);
+  --lojee-accent-700: var(--color-violet-700);
+  --lojee-accent-800: var(--color-violet-800);
+  --lojee-accent-900: var(--color-violet-900);
+  --lojee-accent-950: var(--color-violet-950);
+}
+[data-accent="blue"] {
+  --lojee-accent-50: var(--color-blue-50);
+  --lojee-accent-100: var(--color-blue-100);
+  --lojee-accent-200: var(--color-blue-200);
+  --lojee-accent-300: var(--color-blue-300);
+  --lojee-accent-400: var(--color-blue-400);
+  --lojee-accent-500: var(--color-blue-500);
+  --lojee-accent-600: var(--color-blue-600);
+  --lojee-accent-700: var(--color-blue-700);
+  --lojee-accent-800: var(--color-blue-800);
+  --lojee-accent-900: var(--color-blue-900);
+  --lojee-accent-950: var(--color-blue-950);
+}
+[data-accent="cyan"] {
+  --lojee-accent-50: var(--color-cyan-50);
+  --lojee-accent-100: var(--color-cyan-100);
+  --lojee-accent-200: var(--color-cyan-200);
+  --lojee-accent-300: var(--color-cyan-300);
+  --lojee-accent-400: var(--color-cyan-400);
+  --lojee-accent-500: var(--color-cyan-500);
+  --lojee-accent-600: var(--color-cyan-600);
+  --lojee-accent-700: var(--color-cyan-700);
+  --lojee-accent-800: var(--color-cyan-800);
+  --lojee-accent-900: var(--color-cyan-900);
+  --lojee-accent-950: var(--color-cyan-950);
+}
+[data-accent="emerald"] {
+  --lojee-accent-50: var(--color-emerald-50);
+  --lojee-accent-100: var(--color-emerald-100);
+  --lojee-accent-200: var(--color-emerald-200);
+  --lojee-accent-300: var(--color-emerald-300);
+  --lojee-accent-400: var(--color-emerald-400);
+  --lojee-accent-500: var(--color-emerald-500);
+  --lojee-accent-600: var(--color-emerald-600);
+  --lojee-accent-700: var(--color-emerald-700);
+  --lojee-accent-800: var(--color-emerald-800);
+  --lojee-accent-900: var(--color-emerald-900);
+  --lojee-accent-950: var(--color-emerald-950);
+}
+[data-accent="teal"] {
+  --lojee-accent-50: var(--color-teal-50);
+  --lojee-accent-100: var(--color-teal-100);
+  --lojee-accent-200: var(--color-teal-200);
+  --lojee-accent-300: var(--color-teal-300);
+  --lojee-accent-400: var(--color-teal-400);
+  --lojee-accent-500: var(--color-teal-500);
+  --lojee-accent-600: var(--color-teal-600);
+  --lojee-accent-700: var(--color-teal-700);
+  --lojee-accent-800: var(--color-teal-800);
+  --lojee-accent-900: var(--color-teal-900);
+  --lojee-accent-950: var(--color-teal-950);
+}
+[data-accent="amber"] {
+  --lojee-accent-50: var(--color-amber-50);
+  --lojee-accent-100: var(--color-amber-100);
+  --lojee-accent-200: var(--color-amber-200);
+  --lojee-accent-300: var(--color-amber-300);
+  --lojee-accent-400: var(--color-amber-400);
+  --lojee-accent-500: var(--color-amber-500);
+  --lojee-accent-600: var(--color-amber-600);
+  --lojee-accent-700: var(--color-amber-700);
+  --lojee-accent-800: var(--color-amber-800);
+  --lojee-accent-900: var(--color-amber-900);
+  --lojee-accent-950: var(--color-amber-950);
+}
+[data-accent="orange"] {
+  --lojee-accent-50: var(--color-orange-50);
+  --lojee-accent-100: var(--color-orange-100);
+  --lojee-accent-200: var(--color-orange-200);
+  --lojee-accent-300: var(--color-orange-300);
+  --lojee-accent-400: var(--color-orange-400);
+  --lojee-accent-500: var(--color-orange-500);
+  --lojee-accent-600: var(--color-orange-600);
+  --lojee-accent-700: var(--color-orange-700);
+  --lojee-accent-800: var(--color-orange-800);
+  --lojee-accent-900: var(--color-orange-900);
+  --lojee-accent-950: var(--color-orange-950);
+}
+[data-accent="rose"] {
+  --lojee-accent-50: var(--color-rose-50);
+  --lojee-accent-100: var(--color-rose-100);
+  --lojee-accent-200: var(--color-rose-200);
+  --lojee-accent-300: var(--color-rose-300);
+  --lojee-accent-400: var(--color-rose-400);
+  --lojee-accent-500: var(--color-rose-500);
+  --lojee-accent-600: var(--color-rose-600);
+  --lojee-accent-700: var(--color-rose-700);
+  --lojee-accent-800: var(--color-rose-800);
+  --lojee-accent-900: var(--color-rose-900);
+  --lojee-accent-950: var(--color-rose-950);
+}
+[data-accent="pink"] {
+  --lojee-accent-50: var(--color-pink-50);
+  --lojee-accent-100: var(--color-pink-100);
+  --lojee-accent-200: var(--color-pink-200);
+  --lojee-accent-300: var(--color-pink-300);
+  --lojee-accent-400: var(--color-pink-400);
+  --lojee-accent-500: var(--color-pink-500);
+  --lojee-accent-600: var(--color-pink-600);
+  --lojee-accent-700: var(--color-pink-700);
+  --lojee-accent-800: var(--color-pink-800);
+  --lojee-accent-900: var(--color-pink-900);
+  --lojee-accent-950: var(--color-pink-950);
+}
+
+/* ---- Accordion open / close transition ----
+   AccordionItem is a native <details>; browsers snap it open and shut. Where supported (`::details-content` and
+   `interpolate-size` — current Chromium, newer Safari) the content area's height animates with the same easing as
+   the rest of the library; elsewhere it simply keeps its instant open/close. Sibling items sharing a `name` animate
+   their close as another one opens. */
+.lojee-accordion-item {
+  interpolate-size: allow-keywords;
+}
+.lojee-accordion-item::details-content {
+  block-size: 0;
+  overflow: clip;
+  transition:
+    block-size 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    content-visibility 250ms cubic-bezier(0.4, 0, 0.2, 1) allow-discrete;
+}
+.lojee-accordion-item[open]::details-content {
+  block-size: auto;
+}
+@media (prefers-reduced-motion: reduce) {
+  .lojee-accordion-item::details-content {
+    transition: none;
+  }
+}
+
+/* ---- Active-item style (solid | outline | soft) ----
+   Components mark their active elements with data-active-fill (the element carrying the active background:
+   a row, or the sliding pill) / data-active-text (an item whose fill is drawn by the pill) and set --ac to the
+   item's color (see core/activeVariant.ts). "solid" keeps each component's own classes; these rules turn the fill
+   into an outline or a soft tint. !important because the components' own bg / ring / text utilities (and, for
+   custom colors, inline styles) would otherwise win. */
+[data-active-variant="outline"] [data-active-fill] {
+  background-color: transparent !important;
+  box-shadow: inset 0 0 0 1.5px var(--ac) !important;
+}
+[data-active-variant="soft"] [data-active-fill] {
+  background-color: color-mix(in srgb, var(--ac) 16%, transparent) !important;
+  box-shadow: none !important;
+}
+[data-active-variant="outline"] [data-active-fill],
+[data-active-variant="outline"] [data-active-text],
+[data-active-variant="soft"] [data-active-fill],
+[data-active-variant="soft"] [data-active-text] {
+  color: color-mix(in srgb, var(--ac) 72%, var(--lojee-fg)) !important;
+}
+/* on dark surfaces (dark / gradient / glass bars) the text stays white */
+[data-active-variant="outline"] [data-active-dark],
+[data-active-variant="soft"] [data-active-dark] {
+  color: #fff !important;
 }
 
 @keyframes lojee-shimmer {

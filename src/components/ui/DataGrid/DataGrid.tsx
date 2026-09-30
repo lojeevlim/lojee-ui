@@ -5,9 +5,13 @@ import { Icon } from "../Icons/Icon";
 import { Checkbox } from "../Checkbox/Checkbox";
 
 export interface DataGridColumn<T> {
+  /** Unique column id; also the row property read for the cell value when no `render` is given. */
   key: string;
+  /** Header cell content. */
   header: ReactNode;
+  /** Custom cell renderer, called with the row — defaults to `String(row[key])`. */
   render?: (row: T) => ReactNode;
+  /** Horizontal alignment of header and cells: "left" (default) | "center" | "right". */
   align?: "left" | "center" | "right";
   /** Enables click-to-sort on this column's header. */
   sortable?: boolean;
@@ -25,17 +29,25 @@ type SortState = { key: string; direction: "asc" | "desc" } | null;
 // and selection are internal state (not props) since neither needs to cross
 // that boundary except as an outgoing `onSelectionChange` event.
 export interface DataGridProps<T> {
+  /** Column definitions, in display order. */
   columns: DataGridColumn<T>[];
+  /** Row objects to render, one table row each. */
   data: T[];
+  /** Cell padding/text size: "sm" | "md" | "lg". Defaults to "md". */
   size?: DataGridSize;
+  /** Shades every other body row (default: false). */
   striped?: boolean;
+  /** Draws an outer border and dividers between rows and cells (default: false). */
   bordered?: boolean;
   /** Adds a checkbox column — select-all in the header, per-row in the body. */
   selectable?: boolean;
   /** Row identity for selection tracking — defaults to the row's array index. */
   getRowId?: (row: T, index: number) => string | number;
+  /** Fires whenever the selection changes (when `selectable`), with the array of currently selected rows in display (sorted) order. */
   onSelectionChange?: (selectedRows: T[]) => void;
+  /** Extra class name(s) applied to the root element. */
   className?: string;
+  /** Per-part class overrides — merged after (and win over) the built-in styling. */
   classNames?: {
     root?: string;
     header?: string;
@@ -132,11 +144,11 @@ export function DataGrid<T>({
 
   return (
     <div className={cx("overflow-x-auto", className, classNames?.root)}>
-      <table className={cx("w-full", bordered && "border border-slate-200")}>
+      <table className={cx("w-full", bordered && "border border-border")}>
         <thead>
-          <tr className={cx(bordered && "divide-x divide-slate-200")}>
+          <tr className={cx(bordered && "divide-x divide-border")}>
             {selectable && (
-              <th className={cx("w-10 bg-slate-50 text-center", paddingClass, classNames?.header)}>
+              <th className={cx("w-10 bg-surface-muted text-center", paddingClass, classNames?.header)}>
                 <Checkbox
                   aria-label="Select all rows"
                   checked={allSelected}
@@ -151,7 +163,7 @@ export function DataGrid<T>({
                 <th
                   key={column.key}
                   className={cx(
-                    "bg-slate-50 text-xs font-semibold uppercase tracking-wide text-slate-500",
+                    "bg-surface-muted text-xs font-semibold uppercase tracking-wide text-fg-subtle",
                     paddingClass,
                     ALIGN_CLASSES[column.align ?? "left"],
                     classNames?.header
@@ -162,7 +174,7 @@ export function DataGrid<T>({
                       type="button"
                       onClick={() => toggleSort(column.key)}
                       className={cx(
-                        "inline-flex items-center gap-1 transition-colors hover:text-slate-700",
+                        "inline-flex items-center gap-1 transition-colors hover:text-fg-muted",
                         column.align === "right" && "flex-row-reverse",
                         column.align === "center" && "justify-center"
                       )}
@@ -183,7 +195,7 @@ export function DataGrid<T>({
           </tr>
         </thead>
         <tbody
-          className={cx(bordered && "divide-y divide-slate-200", striped && "[&>tr:nth-child(even)]:bg-slate-50")}
+          className={cx(bordered && "divide-y divide-border", striped && "[&>tr:nth-child(even)]:bg-surface-muted")}
         >
           {sortedData.map((row, rowIndex) => {
             const id = rowId(row, rowIndex);
@@ -192,8 +204,8 @@ export function DataGrid<T>({
               <tr
                 key={id}
                 className={cx(
-                  bordered && "divide-x divide-slate-200",
-                  isSelected && "bg-slate-50",
+                  bordered && "divide-x divide-border",
+                  isSelected && "bg-surface-muted",
                   classNames?.row
                 )}
               >

@@ -5,12 +5,17 @@ import { getIcon } from "../../../core/icons";
 export interface DropdownMenuItemProps {
   /** Icon name, e.g. "pencil" — see src/core/icons.ts for the available set. */
   icon?: string;
+  /** The item's label content. */
   children: ReactNode;
+  /** Fires when the item is clicked (never for a disabled item); the parent menu closes afterwards. */
   onClick?: () => void;
+  /** Disables the item so it can't be clicked (default: false). */
   disabled?: boolean;
   /** Styles the item for a destructive action (rose text). */
   danger?: boolean;
+  /** Extra class name(s) applied to the root element. */
   className?: string;
+  /** Per-part class overrides — merged after (and win over) the built-in styling. */
   classNames?: {
     root?: string;
     icon?: string;
@@ -41,7 +46,7 @@ export function DropdownMenuItem({
       onClick={onClick}
       className={cx(
         "flex w-full items-center gap-2 px-3 py-1.5 text-left text-sm transition-colors disabled:pointer-events-none disabled:opacity-40",
-        danger ? "text-rose-600 hover:bg-rose-50" : "text-slate-700 hover:bg-slate-100",
+        danger ? "text-rose-600 hover:bg-rose-50 dark:text-rose-400 dark:hover:bg-rose-950/40" : "text-fg-muted hover:bg-surface-muted",
         className,
         classNames?.root
       )}

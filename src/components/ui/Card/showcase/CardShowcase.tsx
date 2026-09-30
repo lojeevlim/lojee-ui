@@ -4,11 +4,11 @@ import { SectionLabel, Row } from "../../ShowcaseHelpers";
 
 export default function CardShowcase() {
   return (
-    <div className="min-h-screen bg-white p-6 md:p-10">
+    <div className="min-h-screen rounded-xl bg-surface p-6 md:p-10">
       <div className="max-w-5xl mx-auto space-y-12">
         <div>
-          <h1 className="text-2xl font-semibold text-slate-900">Card</h1>
-          <p className="text-sm text-slate-500 mt-1">A surface for grouping related content, with optional title and footer.</p>
+          <h1 className="text-2xl font-semibold text-fg">Card</h1>
+          <p className="text-sm text-fg-subtle mt-1">A surface for grouping related content, with optional title and footer.</p>
         </div>
 
         <section>
@@ -111,14 +111,14 @@ export class AppComponent {}`,
 
         <section>
           <SectionLabel sub="A title above the body and a footer below it, separated by a border.">Title and footer</SectionLabel>
-          <Card title="Plan details" footer={<span className="text-xs text-slate-500">Updated 2 days ago</span>}>
+          <Card title="Plan details" footer={<span className="text-xs text-fg-subtle">Updated 2 days ago</span>}>
             Your subscription renews monthly and includes unlimited seats.
           </Card>
           <CodeBlock
             variants={{
               react: `<Card
   title="Plan details"
-  footer={<span className="text-xs text-slate-500">Updated 2 days ago</span>}
+  footer={<span className="text-xs text-fg-subtle">Updated 2 days ago</span>}
 >
   Your subscription renews monthly and includes unlimited seats.
 </Card>`,

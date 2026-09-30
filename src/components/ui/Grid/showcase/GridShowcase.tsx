@@ -4,16 +4,16 @@ import CodeBlock from "../../CodeBlock";
 import { SectionLabel } from "../../ShowcaseHelpers";
 
 function SampleItem({ children }: { children: ReactNode }) {
-  return <div className="rounded-md bg-slate-100 p-4 text-center text-xs text-slate-500">{children}</div>;
+  return <div className="rounded-md bg-surface-muted p-4 text-center text-xs text-fg-subtle">{children}</div>;
 }
 
 export default function GridShowcase() {
   return (
-    <div className="min-h-screen bg-white p-6 md:p-10">
+    <div className="min-h-screen rounded-xl bg-surface p-6 md:p-10">
       <div className="max-w-5xl mx-auto space-y-12">
         <div>
-          <h1 className="text-2xl font-semibold text-slate-900">Grid</h1>
-          <p className="text-sm text-slate-500 mt-1">A responsive CSS grid for laying out cards, items, or tiles.</p>
+          <h1 className="text-2xl font-semibold text-fg">Grid</h1>
+          <p className="text-sm text-fg-subtle mt-1">A responsive CSS grid for laying out cards, items, or tiles.</p>
         </div>
 
         <section>
@@ -21,7 +21,7 @@ export default function GridShowcase() {
           <div className="space-y-6">
             {([2, 3, 4] as const).map((cols) => (
               <div key={cols}>
-                <p className="mb-2 text-xs font-medium text-slate-500">cols={cols}</p>
+                <p className="mb-2 text-xs font-medium text-fg-subtle">cols={cols}</p>
                 <Grid cols={cols}>
                   {Array.from({ length: 6 }, (_, i) => (
                     <SampleItem key={i}>Item {i + 1}</SampleItem>
@@ -83,7 +83,7 @@ export class AppComponent {}`,
           <div className="space-y-6">
             {(["sm", "md", "lg"] as const).map((gap) => (
               <div key={gap}>
-                <p className="mb-2 text-xs font-medium text-slate-500">gap="{gap}"</p>
+                <p className="mb-2 text-xs font-medium text-fg-subtle">gap="{gap}"</p>
                 <Grid cols={4} gap={gap}>
                   {Array.from({ length: 4 }, (_, i) => (
                     <SampleItem key={i}>Item {i + 1}</SampleItem>

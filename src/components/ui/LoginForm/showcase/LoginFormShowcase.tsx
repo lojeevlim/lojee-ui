@@ -7,11 +7,11 @@ export default function LoginFormShowcase() {
   const [submitted, setSubmitted] = useState<LoginFormValues | null>(null);
 
   return (
-    <div className="min-h-screen bg-white p-6 md:p-10">
+    <div className="min-h-screen rounded-xl bg-surface p-6 md:p-10">
       <div className="max-w-5xl mx-auto space-y-12">
         <div>
-          <h1 className="text-2xl font-semibold text-slate-900">LoginForm</h1>
-          <p className="text-sm text-slate-500 mt-1">
+          <h1 className="text-2xl font-semibold text-fg">LoginForm</h1>
+          <p className="text-sm text-fg-subtle mt-1">
             A ready-to-use login block — email, password, remember-me, and submit — built from this library's own
             form primitives.
           </p>
@@ -25,8 +25,8 @@ export default function LoginFormShowcase() {
             <LoginForm onSubmit={setSubmitted} />
           </div>
           {submitted && (
-            <p className="mt-3 text-sm text-slate-500">
-              Submitted: <span className="font-medium text-slate-900">{submitted.email}</span>
+            <p className="mt-3 text-sm text-fg-subtle">
+              Submitted: <span className="font-medium text-fg">{submitted.email}</span>
               {submitted.remember ? " (remembered)" : ""}
             </p>
           )}
@@ -69,9 +69,9 @@ onSubmit(values) {
           <div className="max-w-sm">
             <LoginForm
               footer={
-                <p className="text-center text-sm text-slate-500">
+                <p className="text-center text-sm text-fg-subtle">
                   Don&apos;t have an account?{" "}
-                  <a className="font-medium text-slate-900" href="#">
+                  <a className="font-medium text-fg" href="#">
                     Sign up
                   </a>
                 </p>

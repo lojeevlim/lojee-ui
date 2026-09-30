@@ -99,11 +99,6 @@ export const COMPONENT_MENU: Menu[]  = [
             },
 
             {
-                icon: "panel-top",
-                label: "Tabs",
-            },
-
-            {
                 icon: "gallery-horizontal",
                 label: "Carousels",
             },
@@ -312,6 +307,11 @@ export const COMPONENT_MENU: Menu[]  = [
 
             {
                 icon: "panel-top",
+                label: "Top Bar",
+            },
+
+            {
+                icon: "panel-top",
                 label: "Header",
             },
 
@@ -331,6 +331,11 @@ export const COMPONENT_MENU: Menu[]  = [
             },
 
             {
+                icon: "panel-top",
+                label: "Tabs",
+            },
+
+            {
                 icon: "list-ordered",
                 label: "Stepper",
             },
@@ -343,6 +348,19 @@ export const COMPONENT_MENU: Menu[]  = [
             {
                 icon: "chevrons-left-right",
                 label: "Pagination",
+            },
+
+        ],
+    },
+
+    {
+        section: "App Layout",
+
+        items: [
+
+            {
+                icon: "layout-dashboard",
+                label: "App",
             },
 
         ],
@@ -443,6 +461,11 @@ export  const DOCS_MENU: Menu [] = [
         {
             icon: "download",
             label: "Installation",
+        },
+
+        {
+            icon: "palette",
+            label: "Theming",
         },
 
      ]

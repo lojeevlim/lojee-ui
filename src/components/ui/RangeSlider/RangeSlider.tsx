@@ -1,14 +1,23 @@
 import { cx, type ColorName } from "../../../core/tokens";
 
 export interface RangeSliderProps {
+  /** Lowest selectable value (default: 0). */
   min?: number;
+  /** Highest selectable value (default: 100). */
   max?: number;
+  /** Increment between selectable values (default: 1). */
   step?: number;
+  /** Controlled `[low, high]` tuple of the two thumbs' current values. */
   value: [number, number];
+  /** Called with the new `[low, high]` tuple whenever either thumb is moved; the consumer must store it back into `value`. */
   onChange?: (value: [number, number]) => void;
+  /** Color of the filled range and thumbs (default: "accent" — follows the theme accent). */
   color?: ColorName;
+  /** Shows the current "low – high" text below the slider (default: false). */
   showValue?: boolean;
+  /** Extra CSS class(es) added to the root element, merged before `classNames.root`. */
   className?: string;
+  /** Per-part class overrides — merged after (and win over) the built-in styling. */
   classNames?: { root?: string; track?: string; range?: string; thumb?: string; value?: string };
 }
 
@@ -16,6 +25,7 @@ const RANGE_BG: Record<ColorName, string> = {
   slate: "bg-slate-500",
   gray: "bg-gray-500",
   indigo: "bg-indigo-500",
+  accent: "bg-accent-500",
   violet: "bg-violet-500",
   blue: "bg-blue-500",
   cyan: "bg-cyan-500",
@@ -28,9 +38,10 @@ const RANGE_BG: Record<ColorName, string> = {
 };
 
 const THUMB_BG: Record<ColorName, string> = {
-  slate: "[&::-webkit-slider-thumb]:bg-slate-900 [&::-moz-range-thumb]:bg-slate-900",
+  slate: "[&::-webkit-slider-thumb]:bg-slate-900 [&::-moz-range-thumb]:bg-slate-900 dark:[&::-webkit-slider-thumb]:bg-slate-200 dark:[&::-moz-range-thumb]:bg-slate-200",
   gray: "[&::-webkit-slider-thumb]:bg-gray-600 [&::-moz-range-thumb]:bg-gray-600",
   indigo: "[&::-webkit-slider-thumb]:bg-indigo-600 [&::-moz-range-thumb]:bg-indigo-600",
+  accent: "[&::-webkit-slider-thumb]:bg-accent-600 [&::-moz-range-thumb]:bg-accent-600",
   violet: "[&::-webkit-slider-thumb]:bg-violet-600 [&::-moz-range-thumb]:bg-violet-600",
   blue: "[&::-webkit-slider-thumb]:bg-blue-600 [&::-moz-range-thumb]:bg-blue-600",
   cyan: "[&::-webkit-slider-thumb]:bg-cyan-600 [&::-moz-range-thumb]:bg-cyan-600",
@@ -51,7 +62,7 @@ export function RangeSlider({
   step = 1,
   value,
   onChange,
-  color = "slate",
+  color = "accent",
   showValue = false,
   className,
   classNames,
@@ -63,7 +74,7 @@ export function RangeSlider({
   return (
     <div className={cx("w-full", className, classNames?.root)}>
       <div className="relative h-4 flex items-center">
-        <div className={cx("absolute h-1.5 w-full rounded-full bg-slate-200", classNames?.track)} />
+        <div className={cx("absolute h-1.5 w-full rounded-full bg-border", classNames?.track)} />
         <div
           className={cx("absolute h-1.5 rounded-full", RANGE_BG[color], classNames?.range)}
           style={{ left: `${leftPct}%`, right: `${rightPct}%` }}
@@ -88,7 +99,7 @@ export function RangeSlider({
         />
       </div>
       {showValue && (
-        <div className={cx("mt-2 text-sm tabular-nums text-slate-600", classNames?.value)}>
+        <div className={cx("mt-2 text-sm tabular-nums text-fg-muted", classNames?.value)}>
           {low} – {high}
         </div>
       )}

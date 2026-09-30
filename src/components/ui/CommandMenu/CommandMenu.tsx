@@ -5,6 +5,12 @@ import { Icon } from "../Icons/Icon";
 
 export interface CommandMenuItem {
   label: string;
+  /** Stable key when labels can repeat (default: the label). */
+  id?: string;
+  /** Secondary text shown after the label (e.g. the group an item belongs to) — also searchable. */
+  description?: string;
+  /** Extra search terms that match this item without being displayed. */
+  keywords?: string[];
   icon?: string;
   /** Display-only text, e.g. "⌘K" — not wired to an actual keyboard shortcut. */
   shortcut?: string;
@@ -13,10 +19,15 @@ export interface CommandMenuItem {
 }
 
 export interface CommandMenuProps {
+  /** Whether the command palette is visible (controlled); nothing is rendered when false, and the search resets each time it opens. */
   open: boolean;
+  /** Called with no arguments when the menu should close: on Escape, on backdrop click, or after an item is selected. */
   onClose: () => void;
+  /** The commands to list; typing filters them by label, description and keywords, and Enter runs the highlighted one. */
   items: CommandMenuItem[];
+  /** Placeholder text of the search input (default: "Type a command or search…"). */
   placeholder?: string;
+  /** Extra class names applied to the root overlay element. */
   className?: string;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
   classNames?: {
@@ -67,8 +78,11 @@ export function CommandMenu({
 
   if (!open) return null;
 
-  const filtered = query
-    ? items.filter((item) => item.label.toLowerCase().includes(query.toLowerCase()))
+  const q = query.trim().toLowerCase();
+  const filtered = q
+    ? items.filter((item) =>
+        [item.label, item.description, ...(item.keywords ?? [])].some((text) => text?.toLowerCase().includes(q))
+      )
     : items;
   const safeHighlighted = filtered.length ? Math.min(highlightedIndex, filtered.length - 1) : 0;
 
@@ -103,12 +117,12 @@ export function CommandMenu({
       <div className={cx("absolute inset-0 bg-black/40 backdrop-blur-sm", classNames?.overlay)} onClick={onClose} />
       <div
         className={cx(
-          "relative w-full max-w-lg overflow-hidden rounded-xl bg-white shadow-2xl ring-1 ring-black/5",
+          "relative w-full max-w-lg overflow-hidden rounded-xl bg-surface shadow-2xl ring-1 ring-black/5",
           classNames?.panel
         )}
       >
-        <span className="relative flex w-full items-center border-b border-slate-200 px-4 py-3">
-          <Icon name="search" size={16} className={cx("pointer-events-none mr-2 shrink-0 text-slate-400", classNames?.icon)} />
+        <span className="relative flex w-full items-center border-b border-border px-4 py-3">
+          <Icon name="search" size={16} className={cx("pointer-events-none mr-2 shrink-0 text-fg-subtle", classNames?.icon)} />
           <input
             type="text"
             autoFocus
@@ -120,7 +134,7 @@ export function CommandMenu({
             }}
             onKeyDown={handleKeyDown}
             className={cx(
-              "w-full bg-transparent text-sm text-slate-900 placeholder:text-slate-400 outline-none",
+              "w-full bg-transparent text-sm text-fg placeholder:text-fg-subtle outline-none",
               classNames?.input
             )}
           />
@@ -128,28 +142,32 @@ export function CommandMenu({
 
         <div role="listbox" className={cx("max-h-80 overflow-y-auto py-2", classNames?.list)}>
           {filtered.length === 0 && (
-            <div className={cx("px-4 py-6 text-center text-sm text-slate-400", classNames?.empty)}>No results found.</div>
+            <div className={cx("px-4 py-6 text-center text-sm text-fg-subtle", classNames?.empty)}>No results found.</div>
           )}
           {filtered.map((item, i) => (
             <button
-              key={item.label}
+              key={item.id ?? item.label}
               type="button"
               role="option"
+              ref={(el) => {
+                if (el && i === safeHighlighted) el.scrollIntoView({ block: "nearest" });
+              }}
               aria-selected={i === safeHighlighted}
               aria-disabled={item.disabled}
               disabled={item.disabled}
               onMouseEnter={() => setHighlightedIndex(i)}
               onClick={() => selectItem(item)}
               className={cx(
-                "flex w-full items-center gap-2.5 px-4 py-2 text-left text-sm text-slate-700 disabled:cursor-not-allowed disabled:opacity-40",
-                i === safeHighlighted && "bg-slate-100",
+                "flex w-full items-center gap-2.5 px-4 py-2 text-left text-sm text-fg-muted disabled:cursor-not-allowed disabled:opacity-40",
+                i === safeHighlighted && "bg-surface-muted",
                 i === safeHighlighted && classNames?.activeItem,
                 classNames?.item
               )}
             >
-              {item.icon && <Icon name={item.icon} size={16} className="shrink-0 text-slate-500" />}
+              {item.icon && <Icon name={item.icon} size={16} className="shrink-0 text-fg-subtle" />}
               <span className="flex-1 truncate">{item.label}</span>
-              {item.shortcut && <span className="text-xs text-slate-400">{item.shortcut}</span>}
+              {item.description && <span className="shrink-0 text-xs text-fg-subtle">{item.description}</span>}
+              {item.shortcut && <span className="text-xs text-fg-subtle">{item.shortcut}</span>}
             </button>
           ))}
         </div>

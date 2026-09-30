@@ -144,7 +144,7 @@ export class ButtonShowcaseComponent {}`,
               key={c.base}
               className={cx(
                 "rounded-lg",
-                activeColor === c.base && "ring-2 ring-slate-900 ring-offset-2"
+                activeColor === c.base && "ring-2 ring-fg ring-offset-2 ring-offset-surface"
               )}
             >
               <Button color={c.base} variant="solid" size="sm" label={c.name} onClick={() => setActiveColor(c.base)} />

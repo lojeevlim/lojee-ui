@@ -4,10 +4,13 @@ import { cx, type ColorName } from "../../../core/tokens";
 export type SwitchSize = "sm" | "md" | "lg";
 
 export interface SwitchProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "size" | "type"> {
+  /** Text or element shown next to the switch. */
   label?: ReactNode;
+  /** Switch size: "sm", "md" or "lg" (default: "md"). */
   size?: SwitchSize;
-  /** "On" track color (default: slate). */
+  /** "On" track color (default: accent — follows the theme). */
   color?: ColorName;
+  /** Extra class name(s) appended to the root element. */
   className?: string;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
   classNames?: {
@@ -31,9 +34,10 @@ const THUMB_SIZE: Record<SwitchSize, string> = {
 };
 
 const ON_BG: Record<ColorName, string> = {
-  slate: "peer-checked:bg-slate-900",
+  slate: "peer-checked:bg-slate-900 dark:peer-checked:bg-slate-500",
   gray: "peer-checked:bg-gray-600",
   indigo: "peer-checked:bg-indigo-600",
+  accent: "peer-checked:bg-accent-600",
   violet: "peer-checked:bg-violet-600",
   blue: "peer-checked:bg-blue-600",
   cyan: "peer-checked:bg-cyan-600",
@@ -46,9 +50,10 @@ const ON_BG: Record<ColorName, string> = {
 };
 
 const RING: Record<ColorName, string> = {
-  slate: "peer-focus-visible:ring-slate-500/30",
+  slate: "peer-focus-visible:ring-fg-subtle/30",
   gray: "peer-focus-visible:ring-gray-500/30",
   indigo: "peer-focus-visible:ring-indigo-500/30",
+  accent: "peer-focus-visible:ring-accent-500/30",
   violet: "peer-focus-visible:ring-violet-500/30",
   blue: "peer-focus-visible:ring-blue-500/30",
   cyan: "peer-focus-visible:ring-cyan-500/30",
@@ -60,11 +65,11 @@ const RING: Record<ColorName, string> = {
   pink: "peer-focus-visible:ring-pink-500/30",
 };
 
-export function Switch({ label, size = "md", color = "slate", className, classNames, ...rest }: SwitchProps) {
+export function Switch({ label, size = "md", color = "accent", className, classNames, ...rest }: SwitchProps) {
   return (
     <label
       className={cx(
-        "inline-flex items-center gap-2 text-sm text-slate-700",
+        "inline-flex items-center gap-2 text-sm text-fg-muted",
         rest.disabled && "opacity-40 pointer-events-none",
         className,
         classNames?.root
@@ -78,7 +83,7 @@ export function Switch({ label, size = "md", color = "slate", className, classNa
         <input type="checkbox" role="switch" className="peer sr-only" {...rest} />
         <span
           className={cx(
-            "absolute inset-0 rounded-full bg-slate-200 transition-colors peer-focus-visible:ring-2",
+            "absolute inset-0 rounded-full bg-border transition-colors peer-focus-visible:ring-2",
             ON_BG[color],
             RING[color],
             classNames?.track

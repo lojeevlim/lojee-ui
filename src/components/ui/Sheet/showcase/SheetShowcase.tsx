@@ -9,11 +9,11 @@ export default function SheetShowcase() {
   const [longOpen, setLongOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-white p-6 md:p-10">
+    <div className="min-h-screen rounded-xl bg-surface p-6 md:p-10">
       <div className="max-w-5xl mx-auto space-y-12">
         <div>
-          <h1 className="text-2xl font-semibold text-slate-900">Sheet</h1>
-          <p className="text-sm text-slate-500 mt-1">A mobile-style bottom sheet that slides up from the bottom edge.</p>
+          <h1 className="text-2xl font-semibold text-fg">Sheet</h1>
+          <p className="text-sm text-fg-subtle mt-1">A mobile-style bottom sheet that slides up from the bottom edge.</p>
         </div>
 
         <section>
@@ -22,7 +22,7 @@ export default function SheetShowcase() {
             <Button label="Open sheet" onClick={() => setBasicOpen(true)} />
           </Row>
           <Sheet open={basicOpen} onClose={() => setBasicOpen(false)} title="Sheet title">
-            <p className="text-sm text-slate-600">This is a basic bottom sheet.</p>
+            <p className="text-sm text-fg-muted">This is a basic bottom sheet.</p>
           </Sheet>
           <CodeBlock
             variants={{
@@ -87,7 +87,7 @@ export class SheetShowcaseComponent {
             <Button label="Open long sheet" onClick={() => setLongOpen(true)} />
           </Row>
           <Sheet open={longOpen} onClose={() => setLongOpen(false)} title="Terms & conditions">
-            <div className="space-y-4 text-sm text-slate-600">
+            <div className="space-y-4 text-sm text-fg-muted">
               {Array.from({ length: 20 }, (_, i) => (
                 <p key={i}>
                   Paragraph {i + 1}. Scroll down to see the rest of this content while the sheet stays anchored to the bottom

@@ -51,6 +51,7 @@ import ErrorStateShowcase from './components/ui/ErrorState'
 import SuccessStateShowcase from './components/ui/SuccessState'
 import LoadingStateShowcase from './components/ui/LoadingState'
 import NavbarShowcase from './components/ui/Navbar'
+import TopBarShowcase from './components/ui/TopBar'
 import SidebarShowcase from './components/ui/Sidebar'
 import HeaderShowcase from './components/ui/Header'
 import FooterShowcase from './components/ui/Footer'
@@ -71,14 +72,27 @@ import SignupFormShowcase from './components/ui/SignupForm'
 import ProfileSettingsShowcase from './components/ui/ProfileSettings'
 import AccountSettingsShowcase from './components/ui/AccountSettings'
 
-import Sidebar from './components/layouts/Sidebar'
-import Header, { type HeaderNavKey } from './components/layouts/Header'
+import SidebarLayout from './components/layouts/Sidebar'
+import NavbarLayout, { type TopNavKey } from './components/layouts/Navbar'
 import Modal from './components/ui/Modal'
 import Playground from './components/ui/Playground'
 import { COMPONENT_MENU, DOCS_MENU } from './constant/component_menu'
 import { findMenuItem, defaultPathFor, type NavKind } from './core/routes'
 
+import AppShowcase from './components/ui/AppLayout'
+import { ThemeProvider } from './components/ui/Theme/ThemeProvider'
+import { App as AppShell, Top, Side, Main, Footer } from './components/ui/AppLayout/App'
+import type { GridLayout } from './components/ui/AppLayout/appLayout'
+import IntroductionShowcase from './components/ui/Introduction/IntroductionShowcase'
+import InstallationShowcase from './components/ui/Installation/InstallationShowcase'
+import ApiReference from './components/ui/ApiReference'
+import ThemeShowcase from './components/ui/Theme/ThemeShowcase'
+
 const SHOWCASES: Record<string, ComponentType> = {
+  Introduction: IntroductionShowcase,
+  Installation: InstallationShowcase,
+  Theming: ThemeShowcase,
+  App: AppShowcase,
   Buttons: ButtonShowcase,
   Badges: BadgeShowcase,
   Avatars: AvatarShowcase,
@@ -130,6 +144,7 @@ const SHOWCASES: Record<string, ComponentType> = {
   'Success State': SuccessStateShowcase,
   'Loading State': LoadingStateShowcase,
   Navbar: NavbarShowcase,
+  'Top Bar': TopBarShowcase,
   Sidebar: SidebarShowcase,
   Header: HeaderShowcase,
   Footer: FooterShowcase,
@@ -151,6 +166,13 @@ const SHOWCASES: Record<string, ComponentType> = {
   'Account Settings': AccountSettingsShowcase,
 }
 
+// The docs site is itself built from the library's App layout: sidebar docked full-height on the left.
+const APP_LAYOUT: GridLayout = [
+  ['side', 'top'],
+  ['side', 'main'],
+  ['side', 'footer'],
+]
+
 function App() {
   const { navKind: rawNavKind, item } = useParams()
   const navigate = useNavigate()
@@ -165,7 +187,7 @@ function App() {
     return <Navigate to={defaultPathFor('components')} replace />
   }
 
-  const handleNavChange = (key: HeaderNavKey) => {
+  const handleNavChange = (key: TopNavKey) => {
     if (key === 'about') {
       navigate('/about')
       return
@@ -174,35 +196,44 @@ function App() {
   }
 
   return (
-    <>
+    <ThemeProvider>
 
-    <div className="flex h-screen">
-        <Sidebar
-          key={navKind}
-          nav={menu}
-          navKind={navKind}
-          activeLabel={found.item.label}
-          collapsed={sidebarCollapsed}
-          onCollapsedChange={setSidebarCollapsed}
-        />
-        <div className="flex flex-col flex-1 min-w-0">
-          <div className="flex-shrink-0">
-            <Header activeNav={navKind} onNavChange={handleNavChange} />
-          </div>
-          <div className="flex-1 p-4 overflow-y-auto">
-            {(() => {
-              const ActiveShowcase = SHOWCASES[found.item.label]
-              return ActiveShowcase ? <ActiveShowcase /> : <p>This is the main content area.</p>
-            })()}
-          </div>
-        </div>
-      </div>
+      <AppShell layout={APP_LAYOUT} collapseBelow="3xl">
+        <Top>
+          <NavbarLayout activeNav={navKind} onNavChange={handleNavChange} />
+        </Top>
+        <Side>
+          <SidebarLayout
+            key={navKind}
+            nav={menu}
+            navKind={navKind}
+            activeLabel={found.item.label}
+            collapsed={sidebarCollapsed}
+            onCollapsedChange={setSidebarCollapsed}
+          />
+        </Side>
+        <Main>
+          {(() => {
+            const ActiveShowcase = SHOWCASES[found.item.label]
+            return ActiveShowcase ? (
+              <>
+                <ActiveShowcase />
+                <div className="mx-auto max-w-6xl px-6 md:px-10"><ApiReference name={found.item.label} /></div>
+              </>
+            ) : <p>This is the main content area.</p>
+          })()}
+        </Main>
+        <Footer>
+          <div className="border-t border-border bg-surface-muted px-4 py-2 text-xs text-fg-subtle">© 2026 Lojee, Inc.</div>
+        </Footer>
+      </AppShell>
 
     <Button
       type="button"
       onClick={() => setPlaygroundOpen(true)}
       className="fixed bottom-6  right-6 z-40 flex items-center gap-2  px-5 py-3 text-sm font-medium text-white shadow-lg transition-all"
       label='Playground'
+      color="accent"
       icon="play-circle"
     />
 
@@ -211,12 +242,12 @@ function App() {
       onClose={() => setPlaygroundOpen(false)}
       title={`${found.item.label} Playground`}
       className="lg:max-w-6xl"
-      classNames={{ body: 'pb-0' }}
+      classNames={{ body: 'pb-6' }}
     >
       <Playground itemLabel={found.item.label} />
     </Modal>
 
-    </>
+    </ThemeProvider>
   )
 }
 

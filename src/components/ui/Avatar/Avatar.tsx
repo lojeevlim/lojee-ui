@@ -6,15 +6,21 @@ export type AvatarShape = "circle" | "square";
 export type AvatarStatus = "online" | "offline" | "busy" | "away";
 
 export interface AvatarProps {
+  /** Image URL; falls back to `initials` when omitted or if the image fails to load. */
   src?: string;
+  /** Alternative text for the image (default: ""). */
   alt?: string;
   /** Fallback text shown when there's no image, or the image fails to load. */
   initials?: string;
+  /** "xs" | "sm" | "md" | "lg" | "xl" — 24, 32, 40, 48 or 64 px (default: "md"). */
   size?: AvatarSize;
+  /** "circle" or "square" (rounded corners) (default: "circle"). */
   shape?: AvatarShape;
+  /** Shows a presence dot at the bottom-right corner: "online", "offline", "busy" or "away"; omit for no dot. */
   status?: AvatarStatus;
   /** Background color for the initials fallback. */
   color?: ColorName;
+  /** Extra class names applied to the root element. */
   className?: string;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
   classNames?: {
@@ -57,7 +63,7 @@ export function Avatar({
   size = "md",
   shape = "circle",
   status,
-  color = "slate",
+  color = "accent",
   className,
   classNames,
 }: AvatarProps) {
@@ -98,7 +104,7 @@ export function Avatar({
       {status && (
         <span
           className={cx(
-            "absolute right-0 bottom-0 rounded-full ring-2 ring-white",
+            "absolute right-0 bottom-0 rounded-full ring-2 ring-surface",
             STATUS_CLASSES[status],
             STATUS_DOT_SIZE[size],
             classNames?.status

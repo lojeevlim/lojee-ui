@@ -1,4 +1,4 @@
-import type { ComponentType } from "react";
+import { useEffect, useState, type ComponentType } from "react";
 import tailwindCss from "./tailwind-css";
 
 /**
@@ -9,13 +9,40 @@ import tailwindCss from "./tailwind-css";
  */
 export function withTailwind<Props extends object>(Component: ComponentType<Props>) {
   return function WithTailwind(props: Props) {
+    const { theme, accent, active } = useHtmlTheme();
     return (
       <>
         <style>{tailwindCss}</style>
-        <Component {...props} />
+        {/* Mirror <html>'s theme attributes: the `dark:` variant matches an ancestor
+            [data-theme], and the accent palette variables resolve against the Tailwind
+            palette that only exists inside this shadow root's own stylesheet. */}
+        <div style={{ display: "contents" }} data-theme={theme} data-accent={accent} data-active-variant={active}>
+          <Component {...props} />
+        </div>
       </>
     );
   };
+}
+
+/** Tracks <html data-theme / data-accent>, which ThemeProvider / applyTheme keep current. */
+function useHtmlTheme() {
+  const read = () => ({
+    theme: document.documentElement.getAttribute("data-theme") ?? undefined,
+    accent: document.documentElement.getAttribute("data-accent") ?? undefined,
+    active: document.documentElement.getAttribute("data-active-variant") ?? undefined,
+  });
+  const [state, setState] = useState(read);
+  useEffect(() => {
+    const sync = () => {
+      const next = read();
+      setState((prev) => (prev.theme === next.theme && prev.accent === next.accent && prev.active === next.active ? prev : next));
+    };
+    const obs = new MutationObserver(sync);
+    obs.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme", "data-accent", "data-active-variant"] });
+    sync();
+    return () => obs.disconnect();
+  }, []);
+  return state;
 }
 
 /**

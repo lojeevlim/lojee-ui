@@ -5,10 +5,15 @@ export type GridCols = 1 | 2 | 3 | 4 | 6 | 12;
 export type GridGap = "sm" | "md" | "lg";
 
 export interface GridProps {
+  /** Number of columns at the widest breakpoint (1, 2, 3, 4, 6 or 12); fewer columns are used on narrow screens. Defaults to 3. */
   cols?: GridCols;
+  /** Spacing between cells: "sm" | "md" | "lg". Defaults to "md". */
   gap?: GridGap;
+  /** Grid cells. */
   children?: ReactNode;
+  /** Extra class name(s) applied to the root element. */
   className?: string;
+  /** Per-part class overrides — merged after (and win over) the built-in styling. */
   classNames?: { root?: string };
 }
 

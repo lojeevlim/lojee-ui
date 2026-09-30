@@ -7,7 +7,8 @@ import { cx, isColorName, type ColorName } from "../../../core/tokens";
 // kept local instead of centralized.
 function darkenHex(hex: string, factor = 0.82): string {
   const match = /^#?([0-9a-f]{6})$/i.exec(hex);
-  if (!match) return hex;
+  // Not a "#rrggbb" (e.g. a `var(...)`/`rgb(...)` value) — mix toward black instead.
+  if (!match) return `color-mix(in srgb, ${hex}, black ${Math.round((1 - factor) * 100)}%)`;
   const value = parseInt(match[1], 16);
   const channel = (shift: number) => Math.max(0, Math.min(255, Math.round(((value >> shift) & 255) * factor)));
   return `#${[16, 8, 0].map((shift) => channel(shift).toString(16).padStart(2, "0")).join("")}`;
@@ -16,7 +17,9 @@ function darkenHex(hex: string, factor = 0.82): string {
 export type HeaderVariant = "light" | "dark" | "bordered" | "elevated" | "minimal" | "gradient" | "glass";
 
 export interface HeaderProps {
+  /** Main heading content. */
   title: ReactNode;
+  /** Secondary text shown below the title. */
   description?: ReactNode;
   /** Optional content above the title, e.g. a <Breadcrumbs> trail. */
   breadcrumbs?: ReactNode;
@@ -34,7 +37,7 @@ export interface HeaderProps {
    *   only ever blur what's behind it *within this same component* — its own backdrop, never your page
    *   — so a fully colorless card would camouflage against a backdrop of the same color, with no
    *   contrast left to reveal its rounded corners or shadow. All three are self-contained — an inset
-   *   backdrop is included automatically (padding + `bg-zinc-100`, or `color` for "glass") so the card
+   *   backdrop is included automatically (padding + `bg-surface-muted`, or `color` for "glass") so the card
    *   always reads correctly (rounded corners, blur) with no wrapper markup needed on your end.
    * - "dark" — slate-900 background, title/description switch to white/white-ish.
    * - "minimal" — no background/border at all, blends fully into the page (unlike "light", which keeps
@@ -42,7 +45,7 @@ export interface HeaderProps {
    * - "gradient" — a left-to-right gradient built from `color` (600 → 700).
    */
   variant?: HeaderVariant;
-  /** Accent color (default: "slate") — one of the built-in ColorNames, or any other CSS color value
+  /** Accent color (default: "accent" — follows the theme accent) — one of the built-in ColorNames, or any other CSS color value
    * (e.g. "#7c3aed" from a color-wheel picker) for a fully custom accent, unconstrained by the fixed
    * palette. For "gradient" it's the gradient itself (600→700-equivalent; a custom hex gets a
    * programmatically darkened second stop); for "bordered" it tints the card's own border (has no
@@ -52,7 +55,9 @@ export interface HeaderProps {
   color?: ColorName | (string & {});
   /** "bordered"'s own border thickness in px (default: 2). Has no effect on any other variant. */
   borderWidth?: number;
+  /** Extra class name(s) applied to the root element. */
   className?: string;
+  /** Per-part class overrides — merged after (and win over) the built-in styling. */
   classNames?: {
     root?: string;
     breadcrumbs?: string;
@@ -63,38 +68,38 @@ export interface HeaderProps {
 }
 
 const VARIANT_CLASSES: Record<HeaderVariant, string> = {
-  light: "bg-white border-b border-slate-200",
+  light: "bg-surface border-b border-border",
   dark: "bg-slate-900 border-b border-slate-800",
   // "bordered", "elevated", and "glass" all float as a detached card (see `isDetachedPanel`) rather
   // than sitting flush in the page's own content flow — kept as separate `variant` names since each
   // still has its own distinct look (colored border / shadow-only / frosted-transparent) on top of
   // that shared shape. "elevated" deliberately carries no border — shadow-lg alone does the "floating
   // card" job, Material-style — so it stays visually distinct from "bordered" instead of duplicating it.
-  bordered: "bg-white border-2 border-slate-300 rounded-xl shadow-lg",
-  elevated: "bg-white rounded-xl shadow-lg",
+  bordered: "bg-surface border-2 border-border-strong rounded-xl shadow-lg",
+  elevated: "bg-surface rounded-xl shadow-lg",
   minimal: "bg-transparent",
   gradient: "text-white",
   // Same frosted-glass treatment as Sidebar's/Navbar's own "glass" — see Sidebar.tsx for the full
   // reasoning on `bg-white/10`/`backdrop-blur-2xl`/the arbitrary shadow value.
-  glass: "bg-white/10 backdrop-blur-2xl border border-white/10 rounded-xl shadow-[0_0_60px_-8px_rgba(0,0,0,0.45)]",
+  glass: "bg-white/10 backdrop-blur-2xl border border-white/10 rounded-xl shadow-[0_0_35px_-12px_rgba(0,0,0,0.18)]",
 };
 
 const VARIANT_TITLE_TEXT: Record<HeaderVariant, string> = {
-  light: "text-slate-900",
+  light: "text-fg",
   dark: "text-white",
-  bordered: "text-slate-900",
-  elevated: "text-slate-900",
-  minimal: "text-slate-900",
+  bordered: "text-fg",
+  elevated: "text-fg",
+  minimal: "text-fg",
   gradient: "text-white",
   glass: "text-white",
 };
 
 const VARIANT_DESCRIPTION_TEXT: Record<HeaderVariant, string> = {
-  light: "text-slate-500",
+  light: "text-fg-subtle",
   dark: "text-white/60",
-  bordered: "text-slate-500",
-  elevated: "text-slate-500",
-  minimal: "text-slate-500",
+  bordered: "text-fg-subtle",
+  elevated: "text-fg-subtle",
+  minimal: "text-fg-subtle",
   gradient: "text-white/70",
   glass: "text-white/70",
 };
@@ -104,18 +109,19 @@ const VARIANT_DESCRIPTION_TEXT: Record<HeaderVariant, string> = {
 // elsewhere in the library (see core/tokens.ts's colorClasses, and Sidebar's/Navbar's identical map),
 // for consistency. "elevated" has no border to tint, so it doesn't use this map.
 const DETACHED_PANEL_ACCENT_BORDER: Record<ColorName, string> = {
-  slate: "border-slate-300",
-  gray: "border-gray-300",
-  indigo: "border-indigo-300",
-  violet: "border-violet-300",
-  blue: "border-blue-300",
-  cyan: "border-cyan-300",
-  emerald: "border-emerald-300",
-  teal: "border-teal-300",
-  amber: "border-amber-300",
-  orange: "border-orange-300",
-  rose: "border-rose-300",
-  pink: "border-pink-300",
+  slate: "border-border-strong",
+  gray: "border-border-strong",
+  indigo: "border-indigo-300 dark:border-indigo-700",
+  accent: "border-accent-300 dark:border-accent-700",
+  violet: "border-violet-300 dark:border-violet-700",
+  blue: "border-blue-300 dark:border-blue-700",
+  cyan: "border-cyan-300 dark:border-cyan-700",
+  emerald: "border-emerald-300 dark:border-emerald-700",
+  teal: "border-teal-300 dark:border-teal-700",
+  amber: "border-amber-300 dark:border-amber-700",
+  orange: "border-orange-300 dark:border-orange-700",
+  rose: "border-rose-300 dark:border-rose-700",
+  pink: "border-pink-300 dark:border-pink-700",
 };
 
 // "glass" itself has no background color (see VARIANT_CLASSES) — its own backdrop, the space around
@@ -126,6 +132,7 @@ const GLASS_BACKDROP: Record<ColorName, string> = {
   slate: "bg-slate-500",
   gray: "bg-gray-500",
   indigo: "bg-indigo-500",
+  accent: "bg-accent-500",
   violet: "bg-violet-500",
   blue: "bg-blue-500",
   cyan: "bg-cyan-500",
@@ -143,7 +150,7 @@ export function Header({
   breadcrumbs,
   actions,
   variant = "light",
-  color = "slate",
+  color = "accent",
   borderWidth,
   className,
   classNames,
@@ -231,7 +238,7 @@ export function Header({
   if (!isDetachedPanel) return panel;
 
   return (
-    <div className={cx("p-3", isGlass ? glassBackdropClass : "bg-zinc-100")} style={style}>
+    <div className={cx("p-3", isGlass ? glassBackdropClass : "bg-surface-muted")} style={style}>
       {panel}
     </div>
   );

@@ -14,6 +14,8 @@ import {
   HeaderElement,
 } from "./modal-adapter";
 import { withTailwind, withHostBlock } from "./with-tailwind";
+import { StepperItemElement } from "./stepper-item";
+import { TopBarElement } from "./top-bar-element";
 import { Badge } from "../components/ui/Badge/Badge";
 import { Avatar } from "../components/ui/Avatar/Avatar";
 import { AvatarGroup } from "../components/ui/Avatar/AvatarGroup";
@@ -61,6 +63,7 @@ import { CommandMenu } from "../components/ui/CommandMenu/CommandMenu";
 import { Notification } from "../components/ui/Notification/Notification";
 import { ProgressBar } from "../components/ui/ProgressBar/ProgressBar";
 import { Navbar } from "../components/ui/Navbar/Navbar";
+import { NavbarItem } from "../components/ui/Navbar/NavbarItem";
 import { Sidebar } from "../components/ui/Sidebar/Sidebar";
 import { SidebarMenuItem } from "../components/ui/Sidebar/SidebarMenuItem";
 import { Footer } from "../components/ui/Footer/Footer";
@@ -298,7 +301,7 @@ customElements.define(
 
 customElements.define(
   "l-breadcrumbs",
-  r2wc(withTailwind(Breadcrumbs), { shadow: "open", props: {} })
+  r2wc(withTailwind(Breadcrumbs), { shadow: "open", props: { color: "string", variant: "string" } })
 );
 
 customElements.define(
@@ -761,14 +764,49 @@ customElements.define(
   })
 );
 
-// brand/menu-items/actions are ReactNode props projected via named/default
-// <slot>s (same pattern as Notification's icon/actions) — no attribute
-// equivalent for them, since they're arbitrary composed markup, not strings.
+// `brand` doubles as both a plain string attribute (the common case, e.g. `brand="Lojee"`) and a
+// named `<slot name="brand">` for richer composed content (`<div slot="brand">`) — Navbar.tsx renders
+// that slot unconditionally so the latter actually works standalone, with no `brand` attribute needed
+// at all. `actions`/menu-items are ReactNode-only (arbitrary composed markup, not reducible to a single
+// string) and project via `<slot name="actions">`/the default `<slot>` the same way.
 customElements.define(
   "l-navbar",
   r2wc(withHostBlock(withTailwind(Navbar)), {
     shadow: "open",
-    props: { sticky: "boolean", bordered: "boolean", variant: "string", color: "string", borderWidth: "number" },
+    props: {
+      brand: "string",
+      sticky: "boolean",
+      bordered: "boolean",
+      variant: "string",
+      color: "string",
+      borderWidth: "number",
+      items: "json",
+      defaultActiveItem: "string",
+    },
+    events: {
+      onActiveItemChange: {}, // dispatches "activeitemchange", detail = the active item object
+    },
+  })
+);
+
+// `dark`/`vividActive`/`color` have no ancestor attribute to auto-detect the way `l-sidebar-menu-item`
+// reads `l-sidebar`'s own `collapsed` (Navbar has no single "dark" flag either, just 7 variant names —
+// same reasoning as that element's own comment) — pass them directly, matching the parent `l-navbar`'s
+// `variant`/`color`.
+customElements.define(
+  "l-navbar-item",
+  r2wc(withHostBlock(withTailwind(NavbarItem)), {
+    shadow: "open",
+    props: {
+      icon: "string",
+      href: "string",
+      active: "boolean",
+      disabled: "boolean",
+      dark: "boolean",
+      vividActive: "boolean",
+      color: "string",
+      activeStyle: "string",
+    },
   })
 );
 
@@ -789,6 +827,7 @@ customElements.define(
       items: "json",
       defaultActiveItem: "string",
       borderWidth: "number",
+      sticky: "boolean",
     },
     events: {
       onCollapsedChange: {}, // dispatches "collapsedchange", detail = the requested boolean
@@ -830,7 +869,7 @@ customElements.define(
 
 customElements.define(
   "l-footer",
-  r2wc(withTailwind(Footer), { shadow: "open", props: { variant: "string" } })
+  r2wc(withTailwind(Footer), { shadow: "open", props: { variant: "string", color: "string" } })
 );
 
 // `items` is plain data (label/href/icon/active/disabled) — set the `items`
@@ -839,8 +878,11 @@ customElements.define(
   "l-navigation-menu",
   r2wc(withTailwind(NavigationMenu), {
     shadow: "open",
-    props: { items: "json", orientation: "string" },
-    events: { onChange: {} }, // dispatches "change", detail = the selected item's index
+    props: { items: "json", orientation: "string", color: "string", variant: "string", defaultActiveItem: "string" },
+    events: {
+      onChange: {}, // dispatches "change", detail = the clicked item's index
+      onActiveItemChange: {}, // dispatches "activeitemchange", detail = the active item object
+    },
   })
 );
 
@@ -848,7 +890,8 @@ customElements.define(
   "l-bottom-navigation",
   r2wc(withTailwind(BottomNavigation), {
     shadow: "open",
-    props: { items: "json" },
+    props: { items: "json", color: "string", variant: "string", defaultActiveItem: "string" },
+    events: { onActiveItemChange: {} }, // dispatches "activeitemchange", detail = the active item object
   })
 );
 
@@ -856,8 +899,60 @@ customElements.define(
   "l-stepper",
   r2wc(withTailwind(Stepper), {
     shadow: "open",
-    props: { steps: "json", currentStep: "number", orientation: "string" },
+    props: {
+      steps: "json",
+      currentStep: "number",
+      defaultStep: "number",
+      orientation: "string",
+      color: "string",
+      navigation: "boolean",
+      sections: "boolean",
+      clickable: "boolean",
+      backLabel: "string",
+      nextLabel: "string",
+      finishLabel: "string",
+      completedContent: "string",
+    },
+    events: { onStepChange: {} }, // dispatches "stepchange", detail = the new step index
   })
+);
+
+// `actions` is plain data ({ icon, label, badge?, href? }[]) — set the `actions` DOM property with a real array. The
+// bar's free-form parts are slots: `leading`, the default slot (center) and `trailing`.
+customElements.define(
+  "l-top-bar",
+  r2wc(withHostBlock(withTailwind(TopBarElement)), {
+    shadow: "open",
+    props: {
+      title: "string",
+      subtitle: "string",
+      back: "boolean",
+      backLabel: "string",
+      menu: "boolean",
+      menuLabel: "string",
+      search: "boolean",
+      searchPlaceholder: "string",
+      actions: "json",
+      variant: "string",
+      color: "string",
+      size: "string",
+      sticky: "boolean",
+    },
+    events: {
+      onBack: {}, // dispatches "back"
+      onMenuClick: {}, // dispatches "menuclick"
+      onSearch: {}, // dispatches "search", detail = the query
+      onSearchChange: {}, // dispatches "searchchange", detail = the query
+      onActionClick: {}, // dispatches "actionclick", detail = the pressed action
+    },
+  })
+);
+
+// `<l-stepper-item step="1">…</l-stepper-item>` inside `<l-stepper>` — shown only while that step is current
+// (step="complete" for the finished state). Coordinates with its parent through the DOM; see stepper-item.tsx.
+customElements.define(
+  "l-stepper-item",
+  r2wc(withHostBlock(withTailwind(StepperItemElement)), { shadow: "open", props: { step: "string" } })
 );
 
 customElements.define(
@@ -904,8 +999,30 @@ customElements.define(
   "l-calendar",
   r2wc(withTailwind(Calendar), {
     shadow: "open",
-    props: { month: "string", selected: "string", events: "json", color: "string" },
-    events: { onSelect: {}, onMonthChange: {} }, // dispatches "select"/"monthchange"
+    props: {
+      month: "string",
+      selected: "string",
+      defaultSelected: "string",
+      selectionMode: "string",
+      selectedRange: "json",
+      defaultRange: "json",
+      events: "json",
+      color: "string",
+      variant: "string",
+      title: "string",
+      open: "boolean",
+      footer: "boolean",
+      confirmLabel: "string",
+      cancelLabel: "string",
+    },
+    events: {
+      onSelect: {}, // dispatches "select"
+      onRangeSelect: {}, // dispatches "rangeselect", detail = { start, end }
+      onMonthChange: {}, // dispatches "monthchange"
+      onConfirm: {}, // dispatches "confirm", detail = the selected date (range mode: undefined — use the last "rangeselect")
+      onCancel: {}, // dispatches "cancel"
+      onClose: {}, // dispatches "close"
+    },
   })
 );
 

@@ -5,11 +5,11 @@ import { SectionLabel, Row } from "../../ShowcaseHelpers";
 
 export default function TooltipShowcase() {
   return (
-    <div className="min-h-screen bg-white p-6 md:p-10">
+    <div className="min-h-screen rounded-xl bg-surface p-6 md:p-10">
       <div className="max-w-5xl mx-auto space-y-12">
         <div>
-          <h1 className="text-2xl font-semibold text-slate-900">Tooltip</h1>
-          <p className="text-sm text-slate-500 mt-1">
+          <h1 className="text-2xl font-semibold text-fg">Tooltip</h1>
+          <p className="text-sm text-fg-subtle mt-1">
             Hover-triggered floating text, positioned via pure CSS — no JS state, no positioning
             library.
           </p>
@@ -72,9 +72,12 @@ export class TooltipShowcaseComponent {}`,
         </section>
 
         <section>
-          <SectionLabel sub="Same color palette as Button — defaults to slate.">Colors</SectionLabel>
+          <SectionLabel sub="Same color palette as Button. The default is the theme's accent color, so tooltips change with the accent picker.">Colors</SectionLabel>
           <Row>
-            <Tooltip content="Slate (default)" color="slate">
+            <Tooltip content="Accent (default) — follows the theme">
+              <Button variant="outline" label="Default" />
+            </Tooltip>
+            <Tooltip content="Slate tooltip" color="slate">
               <Button variant="outline" label="Slate" />
             </Tooltip>
             <Tooltip content="Indigo tooltip" color="indigo">

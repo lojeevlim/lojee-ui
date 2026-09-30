@@ -116,6 +116,8 @@ import {
   UserPlus,
   UserRound,
   BookOpen,
+  Palette,
+  LayoutDashboard,
 } from "lucide-react";
 
 // The canonical icon-name registry for the whole library. Icons are
@@ -237,6 +239,8 @@ export const ICONS: Record<string, LucideIcon> = {
   "user-plus": UserPlus,
   "user-round": UserRound,
   "book-open": BookOpen,
+  palette: Palette,
+  "layout-dashboard": LayoutDashboard,
 };
 
 export const ICON_NAMES = Object.keys(ICONS).sort();

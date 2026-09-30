@@ -22,7 +22,7 @@ const SAMPLE_DATA_CODE = `  { label: "Mon", value: 24 },
 
 export default function ChartPlayground() {
   const [type, setType] = useState<ChartType>("bar");
-  const [color, setColor] = useState<ColorName>("indigo");
+  const [color, setColor] = useState<ColorName>("accent");
   const [showLabels, setShowLabels] = useState(true);
 
   const preview = (
@@ -36,7 +36,7 @@ export default function ChartPlayground() {
   );
 
   const typeAttr = type !== "bar" ? ` type="${type}"` : "";
-  const colorAttr = color !== "indigo" ? ` color="${color}"` : "";
+  const colorAttr = color !== "accent" ? ` color="${color}"` : "";
   const showLabelsAttr = showLabels ? "" : " showLabels={false}";
   const showLabelsAttrHtml = showLabels ? "" : ` showLabels="false"`;
 
@@ -75,7 +75,7 @@ ${SAMPLE_DATA_CODE}
     <PlaygroundLayout preview={preview} variants={codeVariants}>
       <OptionGroup label="Type" options={TYPES} value={type} onChange={setType} />
       <ColorSwatches value={color} onChange={setColor} />
-      <label className="flex items-center gap-2 text-xs font-medium text-slate-500">
+      <label className="flex items-center gap-2 text-xs font-medium text-fg-subtle">
         <input type="checkbox" checked={showLabels} onChange={(e) => setShowLabels(e.target.checked)} />
         Show labels
       </label>

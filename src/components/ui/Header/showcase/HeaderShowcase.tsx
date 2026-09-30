@@ -7,11 +7,11 @@ import { SectionLabel } from "../../ShowcaseHelpers";
 
 export default function HeaderShowcase() {
   return (
-    <div className="min-h-screen bg-white p-6 md:p-10">
+    <div className="min-h-screen rounded-xl bg-surface p-6 md:p-10">
       <div className="max-w-5xl mx-auto space-y-12">
         <div>
-          <h1 className="text-2xl font-semibold text-slate-900">Header</h1>
-          <p className="text-sm text-slate-500 mt-1">
+          <h1 className="text-2xl font-semibold text-fg">Header</h1>
+          <p className="text-sm text-fg-subtle mt-1">
             A page-level header — title, description, and actions, e.g. the bar at the top of a dashboard page.
           </p>
         </div>
@@ -93,7 +93,7 @@ export default function HeaderShowcase() {
             Variants
           </SectionLabel>
           <div className="grid gap-4">
-            <div className="overflow-hidden rounded-lg border border-slate-200">
+            <div className="overflow-hidden rounded-lg border border-border">
               <Header
                 title="Team settings"
                 description="Manage members, roles, and billing for your workspace."
@@ -110,7 +110,7 @@ export default function HeaderShowcase() {
                 classNames={{ root: "px-4" }}
               />
             </div>
-            <div className="rounded-lg bg-slate-50 p-4">
+            <div className="rounded-lg bg-surface-muted p-4">
               <Header
                 variant="bordered"
                 title="Team settings"
@@ -118,7 +118,7 @@ export default function HeaderShowcase() {
                 actions={<Button label="New project" />}
               />
             </div>
-            <div className="rounded-lg bg-slate-50 p-4">
+            <div className="rounded-lg bg-surface-muted p-4">
               <Header
                 variant="elevated"
                 title="Team settings"
@@ -126,7 +126,7 @@ export default function HeaderShowcase() {
                 actions={<Button label="New project" />}
               />
             </div>
-            <div className="rounded-lg border border-dashed border-slate-300 bg-white p-4">
+            <div className="rounded-lg border border-dashed border-border-strong bg-surface p-4">
               <Header
                 variant="minimal"
                 title="Team settings"
@@ -140,17 +140,17 @@ export default function HeaderShowcase() {
                 color="indigo"
                 title="Team settings"
                 description="Manage members, roles, and billing for your workspace."
-                actions={<Button variant="outline" label="New project" className="border-white/30 text-white hover:bg-white/10" />}
+                actions={<Button variant="outline" label="New project" className="border-white/30 text-white hover:bg-surface/10" />}
                 classNames={{ root: "px-4" }}
               />
             </div>
-            <div className="overflow-hidden rounded-lg border border-slate-200 bg-indigo-100 p-4">
+            <div className="overflow-hidden rounded-lg border border-border bg-indigo-100 p-4">
               <Header
                 variant="glass"
                 color="indigo"
                 title="Team settings"
                 description="Manage members, roles, and billing for your workspace."
-                actions={<Button variant="outline" label="New project" className="border-white/30 text-white hover:bg-white/10" />}
+                actions={<Button variant="outline" label="New project" className="border-white/30 text-white hover:bg-surface/10" />}
               />
             </div>
           </div>
@@ -166,7 +166,7 @@ export default function HeaderShowcase() {
 {/* Also available:
     variant="bordered" / "elevated" / "glass" — detached-panel looks (rounded corners, floats
       inside a page instead of sitting flush in its content flow). Their backdrop (padding + a
-      neutral background) is built in, so no extra markup is needed. "bordered" is a solid white
+      neutral background) is built in, so no extra markup is needed. "bordered" is a solid page-surface
       card with a color-tinted border (see \`color\`/\`borderWidth\`); "elevated" is the same card
       but shadow-only, no border; "glass" has no background color at all, just backdrop-blur-xl —
       needs something with real color/texture behind it to read.

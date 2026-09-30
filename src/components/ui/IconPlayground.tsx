@@ -6,12 +6,12 @@ import { cx } from "./playgroundUtils";
 import type { CodeBlockVariants } from "./CodeBlock";
 
 const SIZES = [16, 20, 24, 32, 48] as const;
-const COLOR_CLASSES = ["text-slate-900", "text-indigo-600", "text-emerald-600", "text-rose-600", "text-amber-500"] as const;
+const COLOR_CLASSES = ["text-fg", "text-indigo-600", "text-emerald-600", "text-rose-600", "text-amber-500"] as const;
 
 export default function IconPlayground() {
   const [name, setName] = useState("settings");
   const [size, setSize] = useState<(typeof SIZES)[number]>(24);
-  const [colorClass, setColorClass] = useState<(typeof COLOR_CLASSES)[number]>("text-slate-900");
+  const [colorClass, setColorClass] = useState<(typeof COLOR_CLASSES)[number]>("text-fg");
   const [filter, setFilter] = useState("");
 
   const filteredNames = filter ? ICON_NAMES.filter((n) => n.includes(filter.toLowerCase())) : ICON_NAMES;
@@ -23,11 +23,11 @@ export default function IconPlayground() {
       </AppWindowBody>
     </AppWindowFrame>
   );
-  const code = `<Icon name="${name}" size={${size}}${colorClass !== "text-slate-900" ? ` className="${colorClass}"` : ""} />`;
+  const code = `<Icon name="${name}" size={${size}}${colorClass !== "text-fg" ? ` className="${colorClass}"` : ""} />`;
 
   // Custom-element markup for the current configuration.
   const htmlMarkup = `<l-Icon name="${name}" size="${size}"${
-    colorClass !== "text-slate-900" ? ` className="${colorClass}"` : ""
+    colorClass !== "text-fg" ? ` className="${colorClass}"` : ""
   } />`;
 
   const codeVariants: CodeBlockVariants = {
@@ -42,7 +42,7 @@ export default function IconPlayground() {
       <OptionGroup label="Size" options={SIZES.map(String)} value={String(size)} onChange={(v) => setSize(Number(v) as (typeof SIZES)[number])} />
 
       <div>
-        <span className="mb-1.5 block text-xs font-medium text-slate-500">Color</span>
+        <span className="mb-1.5 block text-xs font-medium text-fg-subtle">Color</span>
         <div className="flex flex-wrap gap-1.5">
           {COLOR_CLASSES.map((c) => (
             <button
@@ -52,9 +52,9 @@ export default function IconPlayground() {
               aria-label={c}
               title={c}
               className={cx(
-                "h-6 w-6 rounded-full ring-2 ring-offset-2 transition-transform",
+                "h-6 w-6 rounded-full ring-2 ring-offset-2 ring-offset-surface transition-transform",
                 c.replace("text-", "bg-"),
-                colorClass === c ? "scale-110 ring-slate-900" : "ring-transparent hover:scale-105"
+                colorClass === c ? "scale-110 ring-fg" : "ring-transparent hover:scale-105"
               )}
             />
           ))}
@@ -62,14 +62,14 @@ export default function IconPlayground() {
       </div>
 
       <div className="sm:col-span-2">
-        <span className="mb-1.5 block text-xs font-medium text-slate-500">
+        <span className="mb-1.5 block text-xs font-medium text-fg-subtle">
           Icon ({filteredNames.length} of {ICON_NAMES.length})
         </span>
         <input
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
           placeholder="Filter by name…"
-          className="mb-2 w-full rounded-md border border-slate-200 px-3 py-1.5 text-sm text-slate-900 outline-none transition-colors focus:border-slate-400"
+          className="mb-2 w-full rounded-md border border-border px-3 py-1.5 text-sm text-fg outline-none transition-colors focus:border-border-strong"
         />
         <div className="grid max-h-48 grid-cols-6 gap-1.5 overflow-y-auto sm:grid-cols-10">
           {filteredNames.map((n) => (
@@ -80,7 +80,7 @@ export default function IconPlayground() {
               title={n}
               className={cx(
                 "flex h-9 w-9 items-center justify-center rounded-md transition-colors",
-                name === n ? "bg-slate-900 text-white" : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                name === n ? "bg-fg text-surface" : "bg-surface-muted text-fg-muted hover:bg-border"
               )}
             >
               <Icon name={n} size={16} />

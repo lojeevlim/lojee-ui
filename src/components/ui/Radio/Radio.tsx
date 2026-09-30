@@ -2,9 +2,11 @@ import type { InputHTMLAttributes, ReactNode } from "react";
 import { cx, type ColorName } from "../../../core/tokens";
 
 export interface RadioProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "size" | "type"> {
+  /** Text or node rendered beside the radio; omit for a bare radio. */
   label?: ReactNode;
-  /** Selected dot/border color (default: slate). */
+  /** Selected dot/border color (default: accent — follows the theme). */
   color?: ColorName;
+  /** Extra CSS class(es) added to the wrapping `<label>`, merged before `classNames.root`. */
   className?: string;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
   classNames?: {
@@ -15,9 +17,10 @@ export interface RadioProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 
 }
 
 const BORDER: Record<ColorName, string> = {
-  slate: "peer-checked:border-slate-900",
+  slate: "peer-checked:border-slate-900 dark:peer-checked:border-slate-200",
   gray: "peer-checked:border-gray-600",
   indigo: "peer-checked:border-indigo-600",
+  accent: "peer-checked:border-accent-600",
   violet: "peer-checked:border-violet-600",
   blue: "peer-checked:border-blue-600",
   cyan: "peer-checked:border-cyan-600",
@@ -30,9 +33,10 @@ const BORDER: Record<ColorName, string> = {
 };
 
 const FILL: Record<ColorName, string> = {
-  slate: "bg-slate-900",
+  slate: "bg-slate-900 dark:bg-slate-200",
   gray: "bg-gray-600",
   indigo: "bg-indigo-600",
+  accent: "bg-accent-600",
   violet: "bg-violet-600",
   blue: "bg-blue-600",
   cyan: "bg-cyan-600",
@@ -44,11 +48,11 @@ const FILL: Record<ColorName, string> = {
   pink: "bg-pink-600",
 };
 
-export function Radio({ label, color = "slate", className, classNames, ...rest }: RadioProps) {
+export function Radio({ label, color = "accent", className, classNames, ...rest }: RadioProps) {
   return (
     <label
       className={cx(
-        "inline-flex items-center gap-2 text-sm text-slate-700",
+        "inline-flex items-center gap-2 text-sm text-fg-muted",
         rest.disabled && "opacity-40 pointer-events-none",
         className,
         classNames?.root
@@ -65,7 +69,7 @@ export function Radio({ label, color = "slate", className, classNames, ...rest }
         <input type="radio" className="peer sr-only" {...rest} />
         <span
           className={cx(
-            "absolute inset-0 rounded-full border border-slate-300 transition-colors peer-focus-visible:ring-2 peer-focus-visible:ring-slate-500/30",
+            "absolute inset-0 rounded-full border border-border-strong transition-colors peer-focus-visible:ring-2 peer-focus-visible:ring-fg-subtle/30",
             BORDER[color]
           )}
         />

@@ -8,12 +8,19 @@ import { Icon } from "../Icons/Icon";
 // coordination (track offset + dots + arrows) needs a data array plus
 // internal `useState` rather than compound slide children.
 export interface CarouselProps {
+  /** The slides to show, one node per slide, in order; the carousel manages the active slide itself. */
   slides: ReactNode[];
+  /** Automatically advances to the next slide (looping) every `intervalMs` (default: false). */
   autoPlay?: boolean;
+  /** Milliseconds between automatic slide changes when `autoPlay` is on (default: 4000). */
   intervalMs?: number;
+  /** Shows previous/next arrow buttons when there is more than one slide (default: true). */
   showArrows?: boolean;
+  /** Shows the clickable dot indicators when there is more than one slide (default: true). */
   showDots?: boolean;
+  /** Extra class names applied to the root element. */
   className?: string;
+  /** Per-part class overrides (`root`, `track`, `slide`, `arrow`, `dot`, `activeDot`) — merged after the built-in styling. */
   classNames?: {
     root?: string;
     track?: string;
@@ -64,7 +71,7 @@ export function Carousel({
             aria-label="Previous slide"
             onClick={() => goTo(activeIndex - 1)}
             className={cx(
-              "absolute left-2 top-1/2 -translate-y-1/2 flex h-8 w-8 items-center justify-center rounded-full bg-white/90 shadow-sm hover:bg-white",
+              "absolute left-2 top-1/2 -translate-y-1/2 flex h-8 w-8 items-center justify-center rounded-full bg-white/90 text-slate-900 shadow-sm hover:bg-white",
               classNames?.arrow
             )}
           >
@@ -75,7 +82,7 @@ export function Carousel({
             aria-label="Next slide"
             onClick={() => goTo(activeIndex + 1)}
             className={cx(
-              "absolute right-2 top-1/2 -translate-y-1/2 flex h-8 w-8 items-center justify-center rounded-full bg-white/90 shadow-sm hover:bg-white",
+              "absolute right-2 top-1/2 -translate-y-1/2 flex h-8 w-8 items-center justify-center rounded-full bg-white/90 text-slate-900 shadow-sm hover:bg-white",
               classNames?.arrow
             )}
           >

@@ -6,13 +6,19 @@ import { cx } from "../../../core/tokens";
 export type DrawerPosition = "left" | "right" | "top" | "bottom";
 
 export interface DrawerProps {
+  /** Whether the drawer is visible (controlled). */
   open: boolean;
+  /** Fires when the user requests closing (overlay click or close button) — the consumer should set `open` to false. */
   onClose: () => void;
+  /** Edge the drawer slides in from: "left" | "right" (default) | "top" | "bottom". */
   position?: DrawerPosition;
+  /** Header title content; shown next to the close button. */
   title?: ReactNode;
+  /** Drawer body content. */
   children?: ReactNode;
   /** Panel width (left/right) or height (top/bottom) as a CSS size, e.g. "320px". */
   size?: string;
+  /** Extra class name(s) applied to the root element. */
   className?: string;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
   classNames?: {
@@ -86,7 +92,7 @@ export function Drawer({ open, onClose, position = "right", title, children, siz
       <div className={cx("absolute inset-0 bg-black/40 backdrop-blur-sm", classNames?.overlay)} onClick={onClose} />
       <div
         className={cx(
-          "fixed flex flex-col overflow-hidden bg-white shadow-2xl ring-1 ring-black/5 transition-transform duration-300 ease-out",
+          "fixed flex flex-col overflow-hidden bg-surface shadow-2xl ring-1 ring-black/5 transition-transform duration-300 ease-out",
           POSITION_CLASSES[position],
           entered ? "translate-x-0 translate-y-0" : CLOSED_TRANSFORM[position],
           className,
@@ -95,9 +101,9 @@ export function Drawer({ open, onClose, position = "right", title, children, siz
         style={isHorizontal ? { width: resolvedSize } : { height: resolvedSize }}
       >
         <div
-          className={cx("flex shrink-0 items-center justify-between border-b border-slate-200 px-6 py-4", classNames?.header)}
+          className={cx("flex shrink-0 items-center justify-between border-b border-border px-6 py-4", classNames?.header)}
         >
-          <h2 className={cx("text-base font-semibold text-slate-900", classNames?.title)}>
+          <h2 className={cx("text-base font-semibold text-fg", classNames?.title)}>
             <slot name="title">{title}</slot>
           </h2>
           <button
@@ -105,7 +111,7 @@ export function Drawer({ open, onClose, position = "right", title, children, siz
             onClick={onClose}
             aria-label="Close"
             className={cx(
-              "rounded-md p-1.5 text-slate-400 transition-colors hover:bg-slate-100 hover:text-slate-700",
+              "rounded-md p-1.5 text-fg-subtle transition-colors hover:bg-surface-muted hover:text-fg-muted",
               classNames?.closeButton
             )}
           >

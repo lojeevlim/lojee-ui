@@ -71,18 +71,18 @@ options = ${optionsLiteral};`,
   return (
     <PlaygroundLayout preview={preview} variants={codeVariants}>
       <div className="sm:col-span-2">
-        <span className="mb-1.5 block text-xs font-medium text-slate-500">Placeholder</span>
+        <span className="mb-1.5 block text-xs font-medium text-fg-subtle">Placeholder</span>
         <input
           value={placeholder}
           onChange={(e) => setPlaceholder(e.target.value)}
-          className="w-full rounded-md border border-slate-200 px-3 py-1.5 text-sm text-slate-900 outline-none transition-colors focus:border-slate-400"
+          className="w-full rounded-md border border-border px-3 py-1.5 text-sm text-fg outline-none transition-colors focus:border-border-strong"
           placeholder="Placeholder text"
         />
       </div>
 
       <div>
-        <span className="mb-1.5 block text-xs font-medium text-slate-500">Selected value</span>
-        <span className="text-sm text-slate-700">{value ?? <span className="text-slate-400">None</span>}</span>
+        <span className="mb-1.5 block text-xs font-medium text-fg-subtle">Selected value</span>
+        <span className="text-sm text-fg-muted">{value ?? <span className="text-fg-subtle">None</span>}</span>
       </div>
     </PlaygroundLayout>
   );

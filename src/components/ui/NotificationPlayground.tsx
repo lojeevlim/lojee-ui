@@ -27,7 +27,7 @@ export default function NotificationPlayground() {
           <button
             type="button"
             onClick={() => setVisible(true)}
-            className="text-sm font-medium text-slate-500 underline underline-offset-4 hover:text-slate-700"
+            className="text-sm font-medium text-fg-subtle underline underline-offset-4 hover:text-fg-muted"
           >
             Show notification again
           </button>
@@ -57,47 +57,47 @@ export default function NotificationPlayground() {
   return (
     <PlaygroundLayout preview={preview} variants={codeVariants}>
       <div className="sm:col-span-2">
-        <span className="mb-1.5 block text-xs font-medium text-slate-500">Title</span>
+        <span className="mb-1.5 block text-xs font-medium text-fg-subtle">Title</span>
         <input
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          className="w-full rounded-md border border-slate-200 px-3 py-1.5 text-sm text-slate-900 outline-none transition-colors focus:border-slate-400"
+          className="w-full rounded-md border border-border px-3 py-1.5 text-sm text-fg outline-none transition-colors focus:border-border-strong"
           placeholder="New comment"
         />
       </div>
       <div className="sm:col-span-2">
-        <span className="mb-1.5 block text-xs font-medium text-slate-500">Description</span>
+        <span className="mb-1.5 block text-xs font-medium text-fg-subtle">Description</span>
         <input
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          className="w-full rounded-md border border-slate-200 px-3 py-1.5 text-sm text-slate-900 outline-none transition-colors focus:border-slate-400"
+          className="w-full rounded-md border border-border px-3 py-1.5 text-sm text-fg outline-none transition-colors focus:border-border-strong"
           placeholder="Alex left a comment on your document."
         />
       </div>
       <div className="sm:col-span-2">
-        <span className="mb-1.5 block text-xs font-medium text-slate-500">Timestamp</span>
+        <span className="mb-1.5 block text-xs font-medium text-fg-subtle">Timestamp</span>
         <input
           value={timestamp}
           onChange={(e) => setTimestamp(e.target.value)}
-          className="w-full rounded-md border border-slate-200 px-3 py-1.5 text-sm text-slate-900 outline-none transition-colors focus:border-slate-400"
+          className="w-full rounded-md border border-border px-3 py-1.5 text-sm text-fg outline-none transition-colors focus:border-border-strong"
           placeholder="2m ago"
         />
       </div>
       <div>
-        <span className="mb-1.5 block text-xs font-medium text-slate-500">Unread</span>
+        <span className="mb-1.5 block text-xs font-medium text-fg-subtle">Unread</span>
         <button
           type="button"
           onClick={() => setUnread((v) => !v)}
           className={
             "rounded-md px-2.5 py-1 text-xs font-medium capitalize transition-colors " +
-            (unread ? "bg-slate-900 text-white" : "bg-slate-100 text-slate-600 hover:bg-slate-200")
+            (unread ? "bg-fg text-surface" : "bg-surface-muted text-fg-muted hover:bg-border")
           }
         >
           {unread ? "On" : "Off"}
         </button>
       </div>
       <div>
-        <span className="mb-1.5 block text-xs font-medium text-slate-500">Dismissible</span>
+        <span className="mb-1.5 block text-xs font-medium text-fg-subtle">Dismissible</span>
         <button
           type="button"
           onClick={() => {
@@ -106,7 +106,7 @@ export default function NotificationPlayground() {
           }}
           className={
             "rounded-md px-2.5 py-1 text-xs font-medium capitalize transition-colors " +
-            (dismissible ? "bg-slate-900 text-white" : "bg-slate-100 text-slate-600 hover:bg-slate-200")
+            (dismissible ? "bg-fg text-surface" : "bg-surface-muted text-fg-muted hover:bg-border")
           }
         >
           {dismissible ? "On" : "Off"}

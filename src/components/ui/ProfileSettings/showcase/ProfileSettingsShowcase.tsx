@@ -7,11 +7,11 @@ export default function ProfileSettingsShowcase() {
   const [saved, setSaved] = useState<ProfileSettingsValues | null>(null);
 
   return (
-    <div className="min-h-screen bg-white p-6 md:p-10">
+    <div className="min-h-screen rounded-xl bg-surface p-6 md:p-10">
       <div className="max-w-5xl mx-auto space-y-12">
         <div>
-          <h1 className="text-2xl font-semibold text-slate-900">Profile Settings</h1>
-          <p className="text-sm text-slate-500 mt-1">
+          <h1 className="text-2xl font-semibold text-fg">Profile Settings</h1>
+          <p className="text-sm text-fg-subtle mt-1">
             A settings-card block for editing personal profile info — avatar, display name, username, and bio.
           </p>
         </div>
@@ -28,8 +28,8 @@ export default function ProfileSettingsShowcase() {
             />
           </div>
           {saved && (
-            <p className="mt-3 text-sm text-slate-500">
-              Saved: <span className="font-medium text-slate-900">{saved.name}</span> (@{saved.username}) — "{saved.bio}"
+            <p className="mt-3 text-sm text-fg-subtle">
+              Saved: <span className="font-medium text-fg">{saved.name}</span> (@{saved.username}) — "{saved.bio}"
             </p>
           )}
           <CodeBlock

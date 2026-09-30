@@ -7,11 +7,11 @@ export default function SignupFormShowcase() {
   const [submitted, setSubmitted] = useState<SignupFormValues | null>(null);
 
   return (
-    <div className="min-h-screen bg-white p-6 md:p-10">
+    <div className="min-h-screen rounded-xl bg-surface p-6 md:p-10">
       <div className="max-w-5xl mx-auto space-y-12">
         <div>
-          <h1 className="text-2xl font-semibold text-slate-900">SignupForm</h1>
-          <p className="text-sm text-slate-500 mt-1">
+          <h1 className="text-2xl font-semibold text-fg">SignupForm</h1>
+          <p className="text-sm text-fg-subtle mt-1">
             A ready-to-use signup block — name, email, password, confirm password, and terms — built from this
             library's own form primitives.
           </p>
@@ -25,8 +25,8 @@ export default function SignupFormShowcase() {
             <SignupForm onSubmit={setSubmitted} />
           </div>
           {submitted && (
-            <p className="mt-3 text-sm text-slate-500">
-              Submitted: <span className="font-medium text-slate-900">{submitted.name}</span> ({submitted.email})
+            <p className="mt-3 text-sm text-fg-subtle">
+              Submitted: <span className="font-medium text-fg">{submitted.name}</span> ({submitted.email})
             </p>
           )}
           <CodeBlock
@@ -68,9 +68,9 @@ onSubmit(values) {
           <div className="max-w-sm">
             <SignupForm
               footer={
-                <p className="text-center text-sm text-slate-500">
+                <p className="text-center text-sm text-fg-subtle">
                   Already have an account?{" "}
-                  <a className="font-medium text-slate-900" href="#">
+                  <a className="font-medium text-fg" href="#">
                     Log in
                   </a>
                 </p>

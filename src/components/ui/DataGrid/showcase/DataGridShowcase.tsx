@@ -51,11 +51,11 @@ export default function DataGridShowcase() {
   const [selectedCount, setSelectedCount] = useState(0);
 
   return (
-    <div className="min-h-screen bg-white p-6 md:p-10">
+    <div className="min-h-screen rounded-xl bg-surface p-6 md:p-10">
       <div className="max-w-5xl mx-auto space-y-12">
         <div>
-          <h1 className="text-2xl font-semibold text-slate-900">Data Grid</h1>
-          <p className="text-sm text-slate-500 mt-1">
+          <h1 className="text-2xl font-semibold text-fg">Data Grid</h1>
+          <p className="text-sm text-fg-subtle mt-1">
             A richer Table — click-to-sort columns and row selection, still fully data-driven (columns + data, no
             compound children).
           </p>
@@ -211,7 +211,7 @@ const columns = [
             selectable
             onSelectionChange={(rows) => setSelectedCount(rows.length)}
           />
-          <p className="mt-2 text-sm text-slate-500">{selectedCount} selected</p>
+          <p className="mt-2 text-sm text-fg-subtle">{selectedCount} selected</p>
           <CodeBlock
             variants={{
               react: `const [selected, setSelected] = useState([]);

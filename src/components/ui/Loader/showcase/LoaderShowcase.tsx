@@ -5,11 +5,11 @@ import { SectionLabel, Row } from "../../ShowcaseHelpers";
 
 export default function LoaderShowcase() {
   return (
-    <div className="min-h-screen bg-white p-6 md:p-10">
+    <div className="min-h-screen rounded-xl bg-surface p-6 md:p-10">
       <div className="max-w-5xl mx-auto space-y-12">
         <div>
-          <h1 className="text-2xl font-semibold text-slate-900">Loader</h1>
-          <p className="text-sm text-slate-500 mt-1">
+          <h1 className="text-2xl font-semibold text-fg">Loader</h1>
+          <p className="text-sm text-fg-subtle mt-1">
             Skeleton placeholders for content that's still loading — distinct from Spinner's
             spinning/bouncing indicators.
           </p>
@@ -173,8 +173,8 @@ export class LoaderShowcaseComponent {}`,
           <div className="flex items-center gap-3">
             <Avatar initials="JD" color="indigo" />
             <div>
-              <p className="text-sm font-medium text-slate-900">Jane Doe</p>
-              <p className="text-sm text-slate-500">jane@example.com</p>
+              <p className="text-sm font-medium text-fg">Jane Doe</p>
+              <p className="text-sm text-fg-subtle">jane@example.com</p>
             </div>
           </div>
         </section>

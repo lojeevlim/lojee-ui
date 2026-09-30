@@ -11,11 +11,11 @@ export default function DividerShowcase() {
   const [topHeight, setTopHeight] = useState(90);
 
   return (
-    <div className="min-h-screen bg-white p-6 md:p-10">
+    <div className="min-h-screen rounded-xl bg-surface p-6 md:p-10">
       <div className="max-w-5xl mx-auto space-y-12">
         <div>
-          <h1 className="text-2xl font-semibold text-slate-900">Divider</h1>
-          <p className="text-sm text-slate-500 mt-1">A plain rule, one with centered label text, or a draggable resize handle.</p>
+          <h1 className="text-2xl font-semibold text-fg">Divider</h1>
+          <p className="text-sm text-fg-subtle mt-1">A plain rule, one with centered label text, or a draggable resize handle.</p>
         </div>
 
         <section>
@@ -111,9 +111,9 @@ export class DividerShowcaseComponent {}`,
             Adjustable
           </SectionLabel>
 
-          <p className="mb-2 text-xs font-medium text-slate-500">Side by side (drag the vertical divider left/right)</p>
-          <div className="flex h-40 overflow-hidden rounded-lg border border-slate-200">
-            <div className="flex items-center justify-center bg-slate-50 text-xs text-slate-500" style={{ width: leftWidth }}>
+          <p className="mb-2 text-xs font-medium text-fg-subtle">Side by side (drag the vertical divider left/right)</p>
+          <div className="flex h-40 overflow-hidden rounded-lg border border-border">
+            <div className="flex items-center justify-center bg-surface-muted text-xs text-fg-subtle" style={{ width: leftWidth }}>
               {leftWidth}px
             </div>
             <Divider
@@ -121,19 +121,19 @@ export class DividerShowcaseComponent {}`,
               resizable
               onResize={(dx) => setLeftWidth((w) => Math.min(400, Math.max(MIN_PANEL_PX, w + dx)))}
             />
-            <div className="flex flex-1 items-center justify-center bg-white text-xs text-slate-500">flex-1</div>
+            <div className="flex flex-1 items-center justify-center bg-surface text-xs text-fg-subtle">flex-1</div>
           </div>
 
-          <p className="mt-6 mb-2 text-xs font-medium text-slate-500">Stacked (drag the horizontal divider up/down)</p>
-          <div className="flex h-40 flex-col overflow-hidden rounded-lg border border-slate-200">
-            <div className="flex items-center justify-center bg-slate-50 text-xs text-slate-500" style={{ height: topHeight }}>
+          <p className="mt-6 mb-2 text-xs font-medium text-fg-subtle">Stacked (drag the horizontal divider up/down)</p>
+          <div className="flex h-40 flex-col overflow-hidden rounded-lg border border-border">
+            <div className="flex items-center justify-center bg-surface-muted text-xs text-fg-subtle" style={{ height: topHeight }}>
               {topHeight}px
             </div>
             <Divider
               resizable
               onResize={(dy) => setTopHeight((h) => Math.min(160, Math.max(MIN_PANEL_PX, h + dy)))}
             />
-            <div className="flex flex-1 items-center justify-center bg-white text-xs text-slate-500">flex-1</div>
+            <div className="flex flex-1 items-center justify-center bg-surface text-xs text-fg-subtle">flex-1</div>
           </div>
 
           <CodeBlock

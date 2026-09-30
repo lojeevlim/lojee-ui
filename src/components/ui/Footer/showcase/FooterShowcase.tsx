@@ -2,14 +2,14 @@ import { Footer } from "../Footer";
 import CodeBlock from "../../CodeBlock";
 import { SectionLabel } from "../../ShowcaseHelpers";
 
-function LinkColumn({ heading, links, dark }: { heading: string; links: string[]; dark?: boolean }) {
+function LinkColumn({ heading, links, dark, accent }: { heading: string; links: string[]; dark?: boolean; accent?: boolean }) {
   return (
     <div>
-      <h4 className={`text-sm font-semibold ${dark ? "text-white" : "text-slate-900"}`}>{heading}</h4>
+      <h4 className={`text-sm font-semibold ${dark || accent ? "text-white" : "text-fg"}`}>{heading}</h4>
       <ul className="mt-3 space-y-2">
         {links.map((link) => (
           <li key={link}>
-            <a href="#" className={`text-sm ${dark ? "text-slate-400 hover:text-white" : "text-slate-600 hover:text-slate-900"}`}>
+            <a href="#" className={`text-sm ${accent ? "text-white/70 hover:text-white" : dark ? "text-slate-400 hover:text-white" : "text-fg-muted hover:text-fg"}`}>
               {link}
             </a>
           </li>
@@ -21,11 +21,11 @@ function LinkColumn({ heading, links, dark }: { heading: string; links: string[]
 
 export default function FooterShowcase() {
   return (
-    <div className="min-h-screen bg-white p-6 md:p-10">
+    <div className="min-h-screen rounded-xl bg-surface p-6 md:p-10">
       <div className="max-w-5xl mx-auto space-y-12">
         <div>
-          <h1 className="text-2xl font-semibold text-slate-900">Footer</h1>
-          <p className="text-sm text-slate-500 mt-1">A site-wide bottom footer with link columns and a copyright bar.</p>
+          <h1 className="text-2xl font-semibold text-fg">Footer</h1>
+          <p className="text-sm text-fg-subtle mt-1">A site-wide bottom footer with link columns and a copyright bar.</p>
         </div>
 
         <section>
@@ -129,7 +129,7 @@ export default function FooterShowcase() {
         </section>
 
         <section>
-          <SectionLabel sub={'Three themes: "light" (default), "dark", and "minimal" (no background, blends into the page).'}>
+          <SectionLabel sub={`Four looks: "light" (default), "dark", "minimal" (no background, blends into the page) and "accent" (a solid color background — the theme's accent by default, so it changes with the accent picker; pass color for another).`}>
             Variants
           </SectionLabel>
           <div className="space-y-4">
@@ -141,7 +141,21 @@ export default function FooterShowcase() {
                 <LinkColumn heading="Legal" links={["Privacy", "Terms"]} dark />
               </Footer>
             </div>
-            <div className="rounded-lg border border-dashed border-slate-300 bg-white">
+            <div className="overflow-hidden rounded-lg border border-border">
+              <Footer variant="accent" bottom="© 2026 Lojee, Inc. All rights reserved.">
+                <LinkColumn heading="Product" links={["Features", "Pricing"]} accent />
+                <LinkColumn heading="Company" links={["About", "Careers"]} accent />
+                <LinkColumn heading="Resources" links={["Docs", "Support"]} accent />
+                <LinkColumn heading="Legal" links={["Privacy", "Terms"]} accent />
+              </Footer>
+            </div>
+            <div className="overflow-hidden rounded-lg border border-border">
+              <Footer variant="accent" color="emerald" bottom="© 2026 Lojee, Inc. — color=&quot;emerald&quot;">
+                <LinkColumn heading="Product" links={["Features", "Pricing"]} accent />
+                <LinkColumn heading="Company" links={["About", "Careers"]} accent />
+              </Footer>
+            </div>
+            <div className="rounded-lg border border-dashed border-border-strong bg-surface">
               <Footer variant="minimal" bottom="© 2026 Lojee, Inc. All rights reserved.">
                 <LinkColumn heading="Product" links={["Features", "Pricing"]} />
                 <LinkColumn heading="Company" links={["About", "Careers"]} />
@@ -154,11 +168,20 @@ export default function FooterShowcase() {
   <LinkColumns />
 </Footer>
 
-{/* Also available: variant="minimal" (no background, blends into the page). */}`,
+{/* Also available: variant="minimal" (no background, blends into the page)
+    and variant="accent" — a solid background in the theme accent: */}
+<Footer variant="accent" bottom="© 2026 Lojee, Inc.">
+  <LinkColumns />
+</Footer>
+
+{/* pin another color */}
+<Footer variant="accent" color="emerald" bottom="© 2026 Lojee, Inc." />`,
               js: `<l-Footer variant="dark">
   <!-- link columns -->
   <div slot="bottom"><span class="text-slate-400">© 2026 Lojee, Inc.</span></div>
 </l-Footer>
+
+<!-- Theme-accent footer: <l-Footer variant="accent"> — pin a color with color="emerald" -->
 
 <script type="module">import "lojee-ui/elements";</script>`,
               vue: `<template>
@@ -184,10 +207,10 @@ export default function FooterShowcase() {
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <span>© 2026 Lojee, Inc. All rights reserved.</span>
                 <div className="flex items-center gap-4">
-                  <a href="#" className="hover:text-slate-900">
+                  <a href="#" className="hover:text-fg">
                     Privacy
                   </a>
-                  <a href="#" className="hover:text-slate-900">
+                  <a href="#" className="hover:text-fg">
                     Terms
                   </a>
                 </div>

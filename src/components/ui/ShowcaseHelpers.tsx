@@ -10,8 +10,8 @@ export interface SectionLabelProps {
 export function SectionLabel({ children, sub }: SectionLabelProps) {
   return (
     <div className="mb-4">
-      <h2 className="text-lg font-semibold text-slate-900">{children}</h2>
-      {sub && <p className="text-sm text-slate-500 mt-0.5">{sub}</p>}
+      <h2 className="text-lg font-semibold text-fg">{children}</h2>
+      {sub && <p className="text-sm text-fg-subtle mt-0.5">{sub}</p>}
     </div>
   );
 }

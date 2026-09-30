@@ -8,11 +8,11 @@ export default function NotificationShowcase() {
   const [dismissibleVisible, setDismissibleVisible] = useState(true);
 
   return (
-    <div className="min-h-screen bg-white p-6 md:p-10">
+    <div className="min-h-screen rounded-xl bg-surface p-6 md:p-10">
       <div className="max-w-5xl mx-auto space-y-12">
         <div>
-          <h1 className="text-2xl font-semibold text-slate-900">Notification</h1>
-          <p className="text-sm text-slate-500 mt-1">
+          <h1 className="text-2xl font-semibold text-fg">Notification</h1>
+          <p className="text-sm text-fg-subtle mt-1">
             A static, richer notification-feed list item, meant to be rendered inside a list, dropdown, or panel you
             build.
           </p>
@@ -44,7 +44,7 @@ export default function NotificationShowcase() {
         </section>
 
         <section>
-          <SectionLabel sub="A small indigo dot next to the title marks it unread.">Unread</SectionLabel>
+          <SectionLabel sub="A small accent-colored dot next to the title marks it unread.">Unread</SectionLabel>
           <Notification title="New follower" unread>
             Jordan started following you.
           </Notification>
@@ -160,7 +160,7 @@ export default function NotificationShowcase() {
             <button
               type="button"
               onClick={() => setDismissibleVisible(true)}
-              className="text-sm font-medium text-slate-500 underline underline-offset-4 hover:text-slate-700"
+              className="text-sm font-medium text-fg-subtle underline underline-offset-4 hover:text-fg-muted"
             >
               Show notification again
             </button>
