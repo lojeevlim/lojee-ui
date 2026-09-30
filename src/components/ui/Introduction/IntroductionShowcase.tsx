@@ -61,7 +61,7 @@ import { ThemeProvider, Button, Badge } from "lojee-ui";
 
 export default function App() {
   return (
-    <ThemeProvider defaultMode="light" defaultAccent="indigo">
+    <ThemeProvider defaultMode="light" defaultAccent="slate">
       <Badge variant="soft" label="Hello, lojee-ui" />
       <Button label="Get started" />
     </ThemeProvider>

@@ -100,7 +100,7 @@ const { mode, setMode, accent, setAccent } = useTheme(); // mode: "light" | "dar
 
 `ThemeProvider` persists the choice in `localStorage` and sets `data-theme` / `data-accent`
 on `<html>`. Without React, set those attributes yourself (`<html data-theme="dark"
-data-accent="teal">`); with neither set, the theme is light and the accent is indigo.
+data-accent="teal">`); with neither set, the theme is light and the accent is slate.
 
 - **Semantic utilities** for your own UI: `bg-surface`, `bg-surface-muted`, `bg-surface-raised`,
   `text-fg`, `text-fg-muted`, `text-fg-subtle`, `border-border`, `border-border-strong`.

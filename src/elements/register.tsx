@@ -75,6 +75,7 @@ import { Timeline } from "../components/ui/Timeline/Timeline";
 import { Stat } from "../components/ui/Stat/Stat";
 import { Chart } from "../components/ui/Chart/Chart";
 import { Calendar } from "../components/ui/Calendar/Calendar";
+import { FlowDiagram } from "../components/ui/FlowDiagram/FlowDiagram";
 import { ActivityFeed } from "../components/ui/ActivityFeed/ActivityFeed";
 import { ProfileCard } from "../components/ui/ProfileCard/ProfileCard";
 import { UserMenu } from "../components/ui/UserMenu/UserMenu";
@@ -992,6 +993,50 @@ customElements.define(
   r2wc(withTailwind(Chart), {
     shadow: "open",
     props: { data: "json", type: "string", height: "number", color: "string", showLabels: "boolean" },
+  })
+);
+
+// `nodes` / `edges` are plain data — set them as DOM properties with real arrays. `autoPlay` is JSON so it accepts both
+// `true` and a number of milliseconds.
+customElements.define(
+  "l-flow-diagram",
+  r2wc(withHostBlock(withTailwind(FlowDiagram)), {
+    shadow: "open",
+    props: {
+      nodes: "json",
+      edges: "json",
+      direction: "string",
+      variant: "string",
+      curve: "string",
+      color: "string",
+      packets: "boolean",
+      speed: "number",
+      animated: "boolean",
+      arrows: "boolean",
+      interactive: "boolean",
+      activeNode: "string",
+      defaultActiveNode: "string",
+      autoPlay: "json",
+      grid: "boolean",
+      captionTop: "string",
+      captionBottom: "string",
+      nodeWidth: "number",
+      nodeHeight: "number",
+      gap: "number",
+      spacing: "number",
+      label: "string",
+      movable: "boolean",
+      editable: "boolean",
+      zoomable: "boolean",
+      toolbarPosition: "string",
+      nodeTypes: "json",
+    },
+    events: {
+      onNodeMove: {}, // dispatches "nodemove", detail = { id, x, y }
+      onDiagramChange: {}, // dispatches "diagramchange", detail = { nodes, edges } after every edit
+      onNodeClick: {}, // dispatches "nodeclick", detail = the node
+      onNodeHover: {}, // dispatches "nodehover", detail = the node (or null on leave)
+    },
   })
 );
 
