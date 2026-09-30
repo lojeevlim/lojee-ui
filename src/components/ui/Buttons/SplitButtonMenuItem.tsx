@@ -5,9 +5,13 @@ import { getIcon } from "../../../core/icons";
 export interface SplitButtonMenuItemProps {
   /** Icon name, e.g. "trash-2" — see src/core/icons.ts for the available set. */
   icon?: string;
+  /** The menu item's label content. */
   children: ReactNode;
+  /** Called with no arguments when the item is clicked; the parent menu then closes. */
   onClick?: () => void;
+  /** Disables the item so it can't be clicked and doesn't close the menu (default: false). */
   disabled?: boolean;
+  /** Extra class names applied to the item's button element. */
   className?: string;
 }
 
@@ -26,7 +30,7 @@ export function SplitButtonMenuItem({ icon, children, onClick, disabled = false,
       disabled={disabled}
       onClick={onClick}
       className={cx(
-        "flex w-full items-center gap-2 px-3 py-1.5 text-left text-sm text-slate-700 transition-colors hover:bg-slate-100 disabled:pointer-events-none disabled:opacity-40",
+        "flex w-full items-center gap-2 px-3 py-1.5 text-left text-sm text-fg-muted transition-colors hover:bg-surface-muted disabled:pointer-events-none disabled:opacity-40",
         className
       )}
     >

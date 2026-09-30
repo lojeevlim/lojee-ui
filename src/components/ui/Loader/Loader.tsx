@@ -5,6 +5,7 @@ export type LoaderShape = "text" | "circle" | "rect";
 export type LoaderVariant = "pulse" | "shimmer" | "wave" | "none";
 
 export interface LoaderProps {
+  /** Skeleton shape: "text" (stacked lines), "circle" or "rect". Defaults to "text". */
   shape?: LoaderShape;
   /**
    * Animation style for the skeleton (default: "pulse"). "wave" is like
@@ -19,6 +20,7 @@ export interface LoaderProps {
   height?: number;
   /** Number of stacked lines, for "text" only. */
   lines?: number;
+  /** Extra class name(s) applied to the root element. */
   className?: string;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
   classNames?: {
@@ -28,7 +30,7 @@ export interface LoaderProps {
   };
 }
 
-const BASE = "rounded-md bg-slate-200";
+const BASE = "rounded-md bg-border";
 
 // A single skeleton block. `delayMs` staggers "wave"'s animate-pulse across
 // sibling items — unused by the other variants.
@@ -48,7 +50,7 @@ function Skeleton({
       // The sweep overlay is absolutely positioned inside this block, so it
       // needs `overflow-hidden` + `relative` on the block itself.
       <span className={cx(className, "relative overflow-hidden")} style={style}>
-        <span className="absolute inset-0 -translate-x-full animate-shimmer bg-gradient-to-r from-transparent via-white/60 to-transparent" />
+        <span className="absolute inset-0 -translate-x-full animate-shimmer bg-gradient-to-r from-transparent via-white/60 to-transparent dark:via-white/10" />
       </span>
     );
   }

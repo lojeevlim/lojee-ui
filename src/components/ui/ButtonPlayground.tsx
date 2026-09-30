@@ -13,8 +13,9 @@ import {
   type Size,
   type Shape,
 } from "./Buttons";
-import { OptionGroup, ColorSwatches, CodeBar } from "./PlaygroundHelpers";
+import { OptionGroup, ColorSwatches, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import { cx } from "./playgroundUtils";
+import type { CodeBlockVariants } from "./CodeBlock";
 
 const VARIANTS: ButtonVariant[] = ["solid", "outline", "ghost", "soft", "link", "dashed", "gradient", "glass"];
 const SIZES: Size[] = ["xs", "sm", "md", "lg", "xl", "full"];
@@ -65,7 +66,7 @@ const INITIAL_MENU_ITEMS: MenuItemDraft[] = [
 
 export default function ButtonPlayground() {
   const [variant, setVariant] = useState<ButtonVariant>("solid");
-  const [color, setColor] = useState<ColorName>("slate");
+  const [color, setColor] = useState<ColorName>("accent");
   const [gradientTo, setGradientTo] = useState<ColorName>("violet");
   const [size, setSize] = useState<Size>("lg");
   const [shape, setShape] = useState<Shape>("default");
@@ -155,7 +156,7 @@ export default function ButtonPlayground() {
     }
     if (layout === "group") {
       const shapeAttr = shape !== "default" ? ` shape="${shape}"` : "";
-      const colorAttr = color !== "slate" ? ` color="${color}"` : "";
+      const colorAttr = color !== "accent" ? ` color="${color}"` : "";
       return `<ButtonGroup${shapeAttr}>\n  <SegmentButton active${colorAttr}>${label || "One"}</SegmentButton>\n  <SegmentButton${colorAttr}>Two</SegmentButton>\n  <SegmentButton${colorAttr}>Three</SegmentButton>\n</ButtonGroup>`;
     }
     if (layout === "split") {
@@ -179,21 +180,63 @@ export default function ButtonPlayground() {
     } label="${label}" />`;
   })();
 
-  return (
-    <div className="flex flex-col gap-6">
-      {/* Live preview */}
-      <div className="flex min-h-[180px] items-center justify-center rounded-xl border border-dashed border-slate-200 bg-slate-50 p-10">
-        {preview}
-      </div>
+  // Custom-element markup for the current configuration — identical across
+  // Vue/Angular templates (plain attributes, no bindings needed for a static
+  // snapshot); the "js" variant just adds the one-time module import a plain
+  // HTML page needs to actually load the `<l-*>` definitions.
+  const htmlMarkup = (() => {
+    if (layout === "icon") {
+      const shapeAttr = shape !== "default" ? ` shape="${shape}"` : "";
+      return `<l-Button icon="${iconKey}" iconOnly variant="${variant}" color="${color}" size="${size}"${shapeAttr} label="${label || "Icon button"}" />`;
+    }
+    if (layout === "group") {
+      const shapeAttr = shape !== "default" ? ` shape="${shape}"` : "";
+      const colorAttr = color !== "accent" ? ` color="${color}"` : "";
+      return `<l-ButtonGroup${shapeAttr}>\n  <l-SegmentButton active${colorAttr}>${label || "One"}</l-SegmentButton>\n  <l-SegmentButton${colorAttr}>Two</l-SegmentButton>\n  <l-SegmentButton${colorAttr}>Three</l-SegmentButton>\n</l-ButtonGroup>`;
+    }
+    if (layout === "split") {
+      const shapeAttr = shape !== "default" ? ` shape="${shape}"` : "";
+      const menuIconAttr = menuIconKey !== "chevron-down" ? ` menuIcon="${menuIconKey}"` : "";
+      if (menuItems.length > 0) {
+        const itemsCode = menuItems
+          .map((item) => {
+            const iconAttr = item.icon ? ` icon="${item.icon}"` : "";
+            return `  <l-SplitButtonMenuItem${iconAttr}>${item.label}</l-SplitButtonMenuItem>`;
+          })
+          .join("\n");
+        return `<l-SplitButton\n  icon="check"\n  label="${label || "Approve"}"\n  color="${color}"\n  size="${size}"${shapeAttr}${menuIconAttr}\n>\n${itemsCode}\n</l-SplitButton>`;
+      }
+      return `<l-SplitButton icon="check" label="${label || "Approve"}" color="${color}" size="${size}"${shapeAttr}${menuIconAttr} />`;
+    }
+    return `<l-Button variant="${variant}" color="${color}"${
+      variant === "gradient" ? ` gradientTo="${gradientTo}"` : ""
+    } size="${size}"${shape !== "default" ? ` shape="${shape}"` : ""} icon="${iconKey}"${
+      iconPosition === "right" ? ` iconPosition="right"` : ""
+    } label="${label}" />`;
+  })();
 
-      {/* Controls */}
-      <div className="grid gap-4 sm:grid-cols-2">
+  const codeVariants: CodeBlockVariants = {
+    react: code,
+    js: `${htmlMarkup}\n\n<script type="module">import "lojee-ui/elements";</script>`,
+    vue: htmlMarkup,
+    angular: htmlMarkup,
+  };
+
+  return (
+    <PlaygroundLayout
+      preview={
+        <AppWindowFrame>
+          <AppWindowBody>{preview}</AppWindowBody>
+        </AppWindowFrame>
+      }
+      variants={codeVariants}
+    >
         <div className="sm:col-span-2">
-          <span className="mb-1.5 block text-xs font-medium text-slate-500">Label</span>
+          <span className="mb-1.5 block text-xs font-medium text-fg-subtle">Label</span>
           <input
             value={label}
             onChange={(e) => setLabel(e.target.value)}
-            className="w-full rounded-md border border-slate-200 px-3 py-1.5 text-sm text-slate-900 outline-none transition-colors focus:border-slate-400"
+            className="w-full rounded-md border border-border px-3 py-1.5 text-sm text-fg outline-none transition-colors focus:border-border-strong"
             placeholder="Button label"
           />
         </div>
@@ -226,7 +269,7 @@ export default function ButtonPlayground() {
 
         {(layout === "single" || layout === "icon") && (
           <div>
-            <span className="mb-1.5 block text-xs font-medium text-slate-500">Icon</span>
+            <span className="mb-1.5 block text-xs font-medium text-fg-subtle">Icon</span>
             <div className="flex flex-wrap gap-1.5">
               {ICONS.map(({ key, icon: Icon }) => (
                 <button
@@ -237,7 +280,7 @@ export default function ButtonPlayground() {
                   title={key}
                   className={cx(
                     "flex h-7 w-7 items-center justify-center rounded-md transition-colors",
-                    iconKey === key ? "bg-slate-900 text-white" : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                    iconKey === key ? "bg-slate-900 text-white" : "bg-surface-muted text-fg-muted hover:bg-border"
                   )}
                 >
                   <Icon size={14} />
@@ -255,7 +298,7 @@ export default function ButtonPlayground() {
 
         {layout === "split" && (
           <div>
-            <span className="mb-1.5 block text-xs font-medium text-slate-500">Dropdown icon</span>
+            <span className="mb-1.5 block text-xs font-medium text-fg-subtle">Dropdown icon</span>
             <div className="flex flex-wrap gap-1.5">
               {MENU_ICONS.map(({ key, icon: Icon }) => (
                 <button
@@ -266,7 +309,7 @@ export default function ButtonPlayground() {
                   title={key}
                   className={cx(
                     "flex h-7 w-7 items-center justify-center rounded-md transition-colors",
-                    menuIconKey === key ? "bg-slate-900 text-white" : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                    menuIconKey === key ? "bg-slate-900 text-white" : "bg-surface-muted text-fg-muted hover:bg-border"
                   )}
                 >
                   <Icon size={14} />
@@ -278,20 +321,20 @@ export default function ButtonPlayground() {
 
         {layout === "split" && (
           <div className="sm:col-span-2">
-            <span className="mb-1.5 block text-xs font-medium text-slate-500">Dropdown menu items</span>
+            <span className="mb-1.5 block text-xs font-medium text-fg-subtle">Dropdown menu items</span>
             {menuItems.length > 0 && (
               <div className="mb-2 flex flex-wrap gap-1.5">
                 {menuItems.map((item, i) => (
                   <span
                     key={i}
-                    className="inline-flex items-center gap-1 rounded-md bg-slate-100 py-1 pr-1 pl-2.5 text-xs font-medium text-slate-700"
+                    className="inline-flex items-center gap-1 rounded-md bg-surface-muted py-1 pr-1 pl-2.5 text-xs font-medium text-fg-muted"
                   >
                     {item.label}
                     <button
                       type="button"
                       onClick={() => removeMenuItem(i)}
                       aria-label={`Remove ${item.label}`}
-                      className="rounded p-0.5 text-slate-400 transition-colors hover:bg-slate-200 hover:text-slate-700"
+                      className="rounded p-0.5 text-fg-subtle transition-colors hover:bg-border hover:text-fg-muted"
                     >
                       <X size={12} />
                     </button>
@@ -310,7 +353,7 @@ export default function ButtonPlayground() {
                   }
                 }}
                 placeholder="New option label"
-                className="flex-1 rounded-md border border-slate-200 px-2.5 py-1.5 text-xs text-slate-900 outline-none transition-colors focus:border-slate-400"
+                className="flex-1 rounded-md border border-border px-2.5 py-1.5 text-xs text-fg outline-none transition-colors focus:border-border-strong"
               />
               <button
                 type="button"
@@ -332,9 +375,6 @@ export default function ButtonPlayground() {
         {layout === "single" && variant === "gradient" && (
           <ColorSwatches label="To color" value={gradientTo} onChange={setGradientTo} />
         )}
-      </div>
-
-      <CodeBar code={code} />
-    </div>
+    </PlaygroundLayout>
   );
 }

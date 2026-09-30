@@ -8,15 +8,91 @@ import SpinnerShowcase from './components/ui/Spinner'
 import LoaderShowcase from './components/ui/Loader'
 import DividerShowcase from './components/ui/Divider'
 import TooltipShowcase from './components/ui/Tooltip'
+import CardShowcase from './components/ui/Card'
+import ContainerShowcase from './components/ui/Container'
+import SectionShowcase from './components/ui/Section'
+import GridShowcase from './components/ui/Grid'
+import ListShowcase from './components/ui/List'
+import TableShowcase from './components/ui/Table'
+import AccordionShowcase from './components/ui/Accordion'
+import TabsShowcase from './components/ui/Tabs'
+import BreadcrumbsShowcase from './components/ui/Breadcrumbs'
+import PaginationShowcase from './components/ui/Pagination'
+import CarouselShowcase from './components/ui/Carousel'
+import InputShowcase from './components/ui/Input'
+import TextareaShowcase from './components/ui/Textarea'
+import LabelShowcase from './components/ui/Label'
+import CheckboxShowcase from './components/ui/Checkbox'
+import RadioShowcase from './components/ui/Radio'
+import SwitchShowcase from './components/ui/Switch'
+import SelectShowcase from './components/ui/Select'
+import MultiSelectShowcase from './components/ui/MultiSelect'
+import ComboboxShowcase from './components/ui/Combobox'
+import DatePickerShowcase from './components/ui/DatePicker'
+import TimePickerShowcase from './components/ui/TimePicker'
+import FileUploadShowcase from './components/ui/FileUpload'
+import SearchInputShowcase from './components/ui/SearchInput'
+import SliderShowcase from './components/ui/Slider'
+import RangeSliderShowcase from './components/ui/RangeSlider'
+import ModalShowcase from './components/ui/ModalShowcase'
+import AlertDialogShowcase from './components/ui/AlertDialog'
+import DrawerShowcase from './components/ui/Drawer'
+import SheetShowcase from './components/ui/Sheet'
+import PopoverShowcase from './components/ui/Popover'
+import DropdownMenuShowcase from './components/ui/DropdownMenu'
+import ContextMenuShowcase from './components/ui/ContextMenu'
+import CommandMenuShowcase from './components/ui/CommandMenu'
+import AlertShowcase from './components/ui/Alert'
+import ToastShowcase from './components/ui/Toast'
+import NotificationShowcase from './components/ui/Notification'
+import ProgressBarShowcase from './components/ui/ProgressBar'
+import EmptyStateShowcase from './components/ui/EmptyState'
+import ErrorStateShowcase from './components/ui/ErrorState'
+import SuccessStateShowcase from './components/ui/SuccessState'
+import LoadingStateShowcase from './components/ui/LoadingState'
+import NavbarShowcase from './components/ui/Navbar'
+import TopBarShowcase from './components/ui/TopBar'
+import SidebarShowcase from './components/ui/Sidebar'
+import HeaderShowcase from './components/ui/Header'
+import FooterShowcase from './components/ui/Footer'
+import NavigationMenuShowcase from './components/ui/NavigationMenu'
+import BottomNavigationShowcase from './components/ui/BottomNavigation'
+import StepperShowcase from './components/ui/Stepper'
+import DataGridShowcase from './components/ui/DataGrid'
+import TimelineShowcase from './components/ui/Timeline'
+import StatShowcase from './components/ui/Stat'
+import ChartShowcase from './components/ui/Chart'
+import CalendarShowcase from './components/ui/Calendar'
+import ActivityFeedShowcase from './components/ui/ActivityFeed'
+import ProfileCardShowcase from './components/ui/ProfileCard'
+import UserMenuShowcase from './components/ui/UserMenu'
+import PasswordInputShowcase from './components/ui/PasswordInput'
+import LoginFormShowcase from './components/ui/LoginForm'
+import SignupFormShowcase from './components/ui/SignupForm'
+import ProfileSettingsShowcase from './components/ui/ProfileSettings'
+import AccountSettingsShowcase from './components/ui/AccountSettings'
 
-import Sidebar from './components/layouts/Sidebar'
-import Header, { type HeaderNavKey } from './components/layouts/Header'
+import SidebarLayout from './components/layouts/Sidebar'
+import NavbarLayout, { type TopNavKey } from './components/layouts/Navbar'
 import Modal from './components/ui/Modal'
 import Playground from './components/ui/Playground'
 import { COMPONENT_MENU, DOCS_MENU } from './constant/component_menu'
 import { findMenuItem, defaultPathFor, type NavKind } from './core/routes'
 
+import AppShowcase from './components/ui/AppLayout'
+import { ThemeProvider } from './components/ui/Theme/ThemeProvider'
+import { App as AppShell, Top, Side, Main, Footer } from './components/ui/AppLayout/App'
+import type { GridLayout } from './components/ui/AppLayout/appLayout'
+import IntroductionShowcase from './components/ui/Introduction/IntroductionShowcase'
+import InstallationShowcase from './components/ui/Installation/InstallationShowcase'
+import ApiReference from './components/ui/ApiReference'
+import ThemeShowcase from './components/ui/Theme/ThemeShowcase'
+
 const SHOWCASES: Record<string, ComponentType> = {
+  Introduction: IntroductionShowcase,
+  Installation: InstallationShowcase,
+  Theming: ThemeShowcase,
+  App: AppShowcase,
   Buttons: ButtonShowcase,
   Badges: BadgeShowcase,
   Avatars: AvatarShowcase,
@@ -24,13 +100,84 @@ const SHOWCASES: Record<string, ComponentType> = {
   Spinners: SpinnerShowcase,
   Loaders: LoaderShowcase,
   Dividers: DividerShowcase,
-  Tooltips: TooltipShowcase,
+  Cards: CardShowcase,
+  Containers: ContainerShowcase,
+  Sections: SectionShowcase,
+  Grids: GridShowcase,
+  Lists: ListShowcase,
+  Tables: TableShowcase,
+  Accordions: AccordionShowcase,
+  Tabs: TabsShowcase,
+  Breadcrumbs: BreadcrumbsShowcase,
+  Pagination: PaginationShowcase,
+  Carousels: CarouselShowcase,
+  Input: InputShowcase,
+  Textarea: TextareaShowcase,
+  Label: LabelShowcase,
+  Checkbox: CheckboxShowcase,
+  'Radio Group': RadioShowcase,
+  'Switch / Toggle': SwitchShowcase,
+  Select: SelectShowcase,
+  'Multi Select': MultiSelectShowcase,
+  Combobox: ComboboxShowcase,
+  'Date Picker': DatePickerShowcase,
+  'Time Picker': TimePickerShowcase,
+  'File Upload': FileUploadShowcase,
+  'Search Input': SearchInputShowcase,
+  Slider: SliderShowcase,
+  'Range Slider': RangeSliderShowcase,
+  'Modal / Dialog': ModalShowcase,
+  Drawer: DrawerShowcase,
+  Sheet: SheetShowcase,
+  Popover: PopoverShowcase,
+  'Dropdown Menu': DropdownMenuShowcase,
+  'Context Menu': ContextMenuShowcase,
+  'Command Menu': CommandMenuShowcase,
+  'Alert Dialog': AlertDialogShowcase,
+  Tooltip: TooltipShowcase,
+  Alert: AlertShowcase,
+  Toast: ToastShowcase,
+  Notification: NotificationShowcase,
+  'Progress Bar': ProgressBarShowcase,
+  'Empty State': EmptyStateShowcase,
+  'Error State': ErrorStateShowcase,
+  'Success State': SuccessStateShowcase,
+  'Loading State': LoadingStateShowcase,
+  Navbar: NavbarShowcase,
+  'Top Bar': TopBarShowcase,
+  Sidebar: SidebarShowcase,
+  Header: HeaderShowcase,
+  Footer: FooterShowcase,
+  'Navigation Menu': NavigationMenuShowcase,
+  'Bottom Navigation': BottomNavigationShowcase,
+  Stepper: StepperShowcase,
+  'Data Grid': DataGridShowcase,
+  Timeline: TimelineShowcase,
+  'Stats / KPI': StatShowcase,
+  Charts: ChartShowcase,
+  Calendar: CalendarShowcase,
+  'Activity Feed': ActivityFeedShowcase,
+  'Profile Card': ProfileCardShowcase,
+  'User Menu': UserMenuShowcase,
+  'Password Input': PasswordInputShowcase,
+  'Login Form': LoginFormShowcase,
+  'Signup Form': SignupFormShowcase,
+  'Profile Settings': ProfileSettingsShowcase,
+  'Account Settings': AccountSettingsShowcase,
 }
+
+// The docs site is itself built from the library's App layout: sidebar docked full-height on the left.
+const APP_LAYOUT: GridLayout = [
+  ['side', 'top'],
+  ['side', 'main'],
+  ['side', 'footer'],
+]
 
 function App() {
   const { navKind: rawNavKind, item } = useParams()
   const navigate = useNavigate()
   const [playgroundOpen, setPlaygroundOpen] = useState(false)
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
 
   const navKind: NavKind = rawNavKind === 'docs' ? 'docs' : 'components'
   const menu = navKind === 'docs' ? DOCS_MENU : COMPONENT_MENU
@@ -40,7 +187,7 @@ function App() {
     return <Navigate to={defaultPathFor('components')} replace />
   }
 
-  const handleNavChange = (key: HeaderNavKey) => {
+  const handleNavChange = (key: TopNavKey) => {
     if (key === 'about') {
       navigate('/about')
       return
@@ -49,28 +196,44 @@ function App() {
   }
 
   return (
-    <>
+    <ThemeProvider>
 
-    <div className="flex h-screen">
-        <Sidebar key={navKind} nav={menu} navKind={navKind} activeLabel={found.item.label} />
-        <div className="flex flex-col flex-1 min-w-0">
-          <div className="flex-shrink-0">
-            <Header activeNav={navKind} onNavChange={handleNavChange}/>
-          </div>
-          <div className="flex-1 p-4 overflow-y-auto">
-            {(() => {
-              const ActiveShowcase = SHOWCASES[found.item.label]
-              return ActiveShowcase ? <ActiveShowcase /> : <p>This is the main content area.</p>
-            })()}
-          </div>
-        </div>
-      </div>
+      <AppShell layout={APP_LAYOUT} collapseBelow="3xl">
+        <Top>
+          <NavbarLayout activeNav={navKind} onNavChange={handleNavChange} />
+        </Top>
+        <Side>
+          <SidebarLayout
+            key={navKind}
+            nav={menu}
+            navKind={navKind}
+            activeLabel={found.item.label}
+            collapsed={sidebarCollapsed}
+            onCollapsedChange={setSidebarCollapsed}
+          />
+        </Side>
+        <Main>
+          {(() => {
+            const ActiveShowcase = SHOWCASES[found.item.label]
+            return ActiveShowcase ? (
+              <>
+                <ActiveShowcase />
+                <div className="mx-auto max-w-6xl px-6 md:px-10"><ApiReference name={found.item.label} /></div>
+              </>
+            ) : <p>This is the main content area.</p>
+          })()}
+        </Main>
+        <Footer>
+          <div className="border-t border-border bg-surface-muted px-4 py-2 text-xs text-fg-subtle">© 2026 Lojee, Inc.</div>
+        </Footer>
+      </AppShell>
 
     <Button
       type="button"
       onClick={() => setPlaygroundOpen(true)}
       className="fixed bottom-6  right-6 z-40 flex items-center gap-2  px-5 py-3 text-sm font-medium text-white shadow-lg transition-all"
       label='Playground'
+      color="accent"
       icon="play-circle"
     />
 
@@ -78,11 +241,13 @@ function App() {
       open={playgroundOpen}
       onClose={() => setPlaygroundOpen(false)}
       title={`${found.item.label} Playground`}
+      className="lg:max-w-6xl"
+      classNames={{ body: 'pb-6' }}
     >
       <Playground itemLabel={found.item.label} />
     </Modal>
 
-    </>
+    </ThemeProvider>
   )
 }
 

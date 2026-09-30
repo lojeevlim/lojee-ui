@@ -17,17 +17,17 @@ export default function IconsShowcase() {
   };
 
   return (
-    <div className="min-h-screen bg-white p-6 md:p-10">
+    <div className="min-h-screen rounded-xl bg-surface p-6 md:p-10">
       <div className="max-w-5xl mx-auto space-y-8">
         <div>
-          <h1 className="text-2xl font-semibold text-slate-900">Icons</h1>
-          <p className="text-sm text-slate-500 mt-1">
+          <h1 className="text-2xl font-semibold text-fg">Icons</h1>
+          <p className="text-sm text-fg-subtle mt-1">
             A curated subset of the{" "}
             <a
               href="https://lucide.dev/icons/"
               target="_blank"
               rel="noreferrer"
-              className="text-slate-700 underline underline-offset-2 hover:text-slate-900"
+              className="text-fg-muted underline underline-offset-2 hover:text-fg"
             >
               Lucide icon library
             </a>{" "}
@@ -38,7 +38,7 @@ export default function IconsShowcase() {
               href="https://lucide.dev/icons/"
               target="_blank"
               rel="noreferrer"
-              className="text-slate-700 underline underline-offset-2 hover:text-slate-900"
+              className="text-fg-muted underline underline-offset-2 hover:text-fg"
             >
               lucide.dev/icons
             </a>
@@ -55,10 +55,10 @@ export default function IconsShowcase() {
                 type="button"
                 onClick={() => handleCopy(name)}
                 title={name}
-                className="flex flex-col items-center gap-1.5 rounded-lg border border-slate-200 p-3 text-slate-600 transition-colors hover:border-slate-300 hover:bg-slate-50"
+                className="flex flex-col items-center gap-1.5 rounded-lg border border-border p-3 text-fg-muted transition-colors hover:border-border-strong hover:bg-surface-muted"
               >
                 <Icon name={name} size={20} />
-                <span className="w-full truncate text-[10px] text-slate-500">
+                <span className="w-full truncate text-[10px] text-fg-subtle">
                   {copied === name ? "Copied!" : name}
                 </span>
               </button>

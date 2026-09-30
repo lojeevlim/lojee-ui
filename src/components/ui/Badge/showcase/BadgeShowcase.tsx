@@ -4,11 +4,11 @@ import { SectionLabel, Row } from "../../ShowcaseHelpers";
 
 export default function BadgeShowcase() {
   return (
-    <div className="min-h-screen bg-white p-6 md:p-10">
+    <div className="min-h-screen rounded-xl bg-surface p-6 md:p-10">
       <div className="max-w-5xl mx-auto space-y-12">
         <div>
-          <h1 className="text-2xl font-semibold text-slate-900">Badge</h1>
-          <p className="text-sm text-slate-500 mt-1">
+          <h1 className="text-2xl font-semibold text-fg">Badge</h1>
+          <p className="text-sm text-fg-subtle mt-1">
             Small status/label pills — solid, outline, and soft, in every color.
           </p>
         </div>
@@ -21,9 +21,42 @@ export default function BadgeShowcase() {
             <Badge variant="soft" label="Soft" />
           </Row>
           <CodeBlock
-            code={`<Badge variant="solid" label="Solid" />
+            variants={{
+              react: `<Badge variant="solid" label="Solid" />
 <Badge variant="outline" label="Outline" />
-<Badge variant="soft" label="Soft" />`}
+<Badge variant="soft" label="Soft" />`,
+              js: `<l-Badge variant="solid" label="Solid" />
+<l-Badge variant="outline" label="Outline" />
+<l-Badge variant="soft" label="Soft" />
+
+<script type="module">
+  import "lojee-ui/elements";
+</script>`,
+              vue: `<template>
+  <l-Badge variant="solid" label="Solid" />
+  <l-Badge variant="outline" label="Outline" />
+  <l-Badge variant="soft" label="Soft" />
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+</script>`,
+              angular: `// badge-showcase.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-badge-showcase",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-Badge variant="solid" label="Solid" />
+    <l-Badge variant="outline" label="Outline" />
+    <l-Badge variant="soft" label="Soft" />
+  \`,
+})
+export class BadgeShowcaseComponent {}`,
+            }}
           />
         </section>
 
@@ -37,9 +70,23 @@ export default function BadgeShowcase() {
             <Badge color="amber" label="Amber" />
           </Row>
           <CodeBlock
-            code={`<Badge color="indigo" label="Indigo" />
+            variants={{
+              react: `<Badge color="indigo" label="Indigo" />
 <Badge color="emerald" label="Emerald" />
-<Badge color="rose" label="Rose" />`}
+<Badge color="rose" label="Rose" />`,
+              js: `<l-Badge color="indigo" label="Indigo" />
+<l-Badge color="emerald" label="Emerald" />
+<l-Badge color="rose" label="Rose" />`,
+              vue: `<template>
+  <l-Badge color="indigo" label="Indigo" />
+  <l-Badge color="emerald" label="Emerald" />
+  <l-Badge color="rose" label="Rose" />
+</template>`,
+              angular: `<!-- reuses BadgeShowcaseComponent from above -->
+<l-Badge color="indigo" label="Indigo" />
+<l-Badge color="emerald" label="Emerald" />
+<l-Badge color="rose" label="Rose" />`,
+            }}
           />
         </section>
 
@@ -51,9 +98,23 @@ export default function BadgeShowcase() {
             <Badge size="lg" label="Large" />
           </Row>
           <CodeBlock
-            code={`<Badge size="sm" label="Small" />
+            variants={{
+              react: `<Badge size="sm" label="Small" />
 <Badge size="md" label="Medium" />
-<Badge size="lg" label="Large" />`}
+<Badge size="lg" label="Large" />`,
+              js: `<l-Badge size="sm" label="Small" />
+<l-Badge size="md" label="Medium" />
+<l-Badge size="lg" label="Large" />`,
+              vue: `<template>
+  <l-Badge size="sm" label="Small" />
+  <l-Badge size="md" label="Medium" />
+  <l-Badge size="lg" label="Large" />
+</template>`,
+              angular: `<!-- reuses BadgeShowcaseComponent from above -->
+<l-Badge size="sm" label="Small" />
+<l-Badge size="md" label="Medium" />
+<l-Badge size="lg" label="Large" />`,
+            }}
           />
         </section>
 
@@ -64,7 +125,17 @@ export default function BadgeShowcase() {
             <Badge icon="circle-alert" color="amber" label="Pending" />
             <Badge icon="circle-x" color="rose" variant="outline" label="Failed" />
           </Row>
-          <CodeBlock code={`<Badge icon="check" color="emerald" label="Verified" />`} />
+          <CodeBlock
+            variants={{
+              react: `<Badge icon="check" color="emerald" label="Verified" />`,
+              js: `<l-Badge icon="check" color="emerald" label="Verified" />`,
+              vue: `<template>
+  <l-Badge icon="check" color="emerald" label="Verified" />
+</template>`,
+              angular: `<!-- reuses BadgeShowcaseComponent from above -->
+<l-Badge icon="check" color="emerald" label="Verified" />`,
+            }}
+          />
         </section>
 
         <section>
@@ -74,7 +145,17 @@ export default function BadgeShowcase() {
             <Badge dot color="amber" label="Away" />
             <Badge dot color="rose" label="Offline" />
           </Row>
-          <CodeBlock code={`<Badge dot color="emerald" label="Online" />`} />
+          <CodeBlock
+            variants={{
+              react: `<Badge dot color="emerald" label="Online" />`,
+              js: `<l-Badge dot color="emerald" label="Online" />`,
+              vue: `<template>
+  <l-Badge dot color="emerald" label="Online" />
+</template>`,
+              angular: `<!-- reuses BadgeShowcaseComponent from above -->
+<l-Badge dot color="emerald" label="Online" />`,
+            }}
+          />
         </section>
       </div>
     </div>

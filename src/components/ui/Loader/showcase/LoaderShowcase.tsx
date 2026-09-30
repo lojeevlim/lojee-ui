@@ -5,11 +5,11 @@ import { SectionLabel, Row } from "../../ShowcaseHelpers";
 
 export default function LoaderShowcase() {
   return (
-    <div className="min-h-screen bg-white p-6 md:p-10">
+    <div className="min-h-screen rounded-xl bg-surface p-6 md:p-10">
       <div className="max-w-5xl mx-auto space-y-12">
         <div>
-          <h1 className="text-2xl font-semibold text-slate-900">Loader</h1>
-          <p className="text-sm text-slate-500 mt-1">
+          <h1 className="text-2xl font-semibold text-fg">Loader</h1>
+          <p className="text-sm text-fg-subtle mt-1">
             Skeleton placeholders for content that's still loading — distinct from Spinner's
             spinning/bouncing indicators.
           </p>
@@ -20,7 +20,34 @@ export default function LoaderShowcase() {
           <div className="max-w-sm">
             <Loader shape="text" lines={3} />
           </div>
-          <CodeBlock code={`<Loader shape="text" lines={3} />`} />
+          <CodeBlock
+            variants={{
+              react: `<Loader shape="text" lines={3} />`,
+              js: `<l-Loader shape="text" lines="3" />
+
+<script type="module">
+  import "lojee-ui/elements";
+</script>`,
+              vue: `<template>
+  <l-Loader shape="text" lines="3" />
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+</script>`,
+              angular: `// loader-showcase.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-loader-showcase",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`<l-Loader shape="text" lines="3" />\`,
+})
+export class LoaderShowcaseComponent {}`,
+            }}
+          />
         </section>
 
         <section>
@@ -29,13 +56,33 @@ export default function LoaderShowcase() {
             <Loader shape="circle" width={40} />
             <Loader shape="circle" width={64} />
           </Row>
-          <CodeBlock code={`<Loader shape="circle" width={40} />`} />
+          <CodeBlock
+            variants={{
+              react: `<Loader shape="circle" width={40} />`,
+              js: `<l-Loader shape="circle" width="40" />`,
+              vue: `<template>
+  <l-Loader shape="circle" width="40" />
+</template>`,
+              angular: `<!-- reuses LoaderShowcaseComponent from above -->
+<l-Loader shape="circle" width="40" />`,
+            }}
+          />
         </section>
 
         <section>
           <SectionLabel sub="For image/card placeholders.">Rect skeleton</SectionLabel>
           <Loader shape="rect" height={120} />
-          <CodeBlock code={`<Loader shape="rect" height={120} />`} />
+          <CodeBlock
+            variants={{
+              react: `<Loader shape="rect" height={120} />`,
+              js: `<l-Loader shape="rect" height="120" />`,
+              vue: `<template>
+  <l-Loader shape="rect" height="120" />
+</template>`,
+              angular: `<!-- reuses LoaderShowcaseComponent from above -->
+<l-Loader shape="rect" height="120" />`,
+            }}
+          />
         </section>
 
         <section>
@@ -48,9 +95,23 @@ export default function LoaderShowcase() {
             <Loader shape="rect" variant="none" width={140} height={80} />
           </Row>
           <CodeBlock
-            code={`<Loader shape="rect" variant="pulse" width={140} height={80} />
+            variants={{
+              react: `<Loader shape="rect" variant="pulse" width={140} height={80} />
 <Loader shape="rect" variant="shimmer" width={140} height={80} />
-<Loader shape="rect" variant="none" width={140} height={80} />`}
+<Loader shape="rect" variant="none" width={140} height={80} />`,
+              js: `<l-Loader shape="rect" variant="pulse" width="140" height="80" />
+<l-Loader shape="rect" variant="shimmer" width="140" height="80" />
+<l-Loader shape="rect" variant="none" width="140" height="80" />`,
+              vue: `<template>
+  <l-Loader shape="rect" variant="pulse" width="140" height="80" />
+  <l-Loader shape="rect" variant="shimmer" width="140" height="80" />
+  <l-Loader shape="rect" variant="none" width="140" height="80" />
+</template>`,
+              angular: `<!-- reuses LoaderShowcaseComponent from above -->
+<l-Loader shape="rect" variant="pulse" width="140" height="80" />
+<l-Loader shape="rect" variant="shimmer" width="140" height="80" />
+<l-Loader shape="rect" variant="none" width="140" height="80" />`,
+            }}
           />
         </section>
 
@@ -61,7 +122,17 @@ export default function LoaderShowcase() {
           <div className="max-w-sm">
             <Loader shape="text" variant="wave" lines={4} />
           </div>
-          <CodeBlock code={`<Loader shape="text" variant="wave" lines={4} />`} />
+          <CodeBlock
+            variants={{
+              react: `<Loader shape="text" variant="wave" lines={4} />`,
+              js: `<l-Loader shape="text" variant="wave" lines="4" />`,
+              vue: `<template>
+  <l-Loader shape="text" variant="wave" lines="4" />
+</template>`,
+              angular: `<!-- reuses LoaderShowcaseComponent from above -->
+<l-Loader shape="text" variant="wave" lines="4" />`,
+            }}
+          />
         </section>
 
         <section>
@@ -73,10 +144,27 @@ export default function LoaderShowcase() {
             </div>
           </div>
           <CodeBlock
-            code={`<div className="flex items-center gap-3">
+            variants={{
+              react: `<div className="flex items-center gap-3">
   <Loader shape="circle" width={40} />
   <Loader shape="text" lines={2} />
-</div>`}
+</div>`,
+              js: `<div class="flex items-center gap-3">
+  <l-Loader shape="circle" width="40" />
+  <l-Loader shape="text" lines="2" />
+</div>`,
+              vue: `<template>
+  <div class="flex items-center gap-3">
+    <l-Loader shape="circle" width="40" />
+    <l-Loader shape="text" lines="2" />
+  </div>
+</template>`,
+              angular: `<!-- reuses LoaderShowcaseComponent from above -->
+<div class="flex items-center gap-3">
+  <l-Loader shape="circle" width="40" />
+  <l-Loader shape="text" lines="2" />
+</div>`,
+            }}
           />
         </section>
 
@@ -85,8 +173,8 @@ export default function LoaderShowcase() {
           <div className="flex items-center gap-3">
             <Avatar initials="JD" color="indigo" />
             <div>
-              <p className="text-sm font-medium text-slate-900">Jane Doe</p>
-              <p className="text-sm text-slate-500">jane@example.com</p>
+              <p className="text-sm font-medium text-fg">Jane Doe</p>
+              <p className="text-sm text-fg-subtle">jane@example.com</p>
             </div>
           </div>
         </section>

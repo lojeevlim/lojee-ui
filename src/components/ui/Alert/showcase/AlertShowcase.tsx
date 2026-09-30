@@ -1,0 +1,242 @@
+import { useState } from "react";
+import { Alert } from "../Alert";
+import CodeBlock from "../../CodeBlock";
+import { SectionLabel } from "../../ShowcaseHelpers";
+
+export default function AlertShowcase() {
+  const [closableVisible, setClosableVisible] = useState(true);
+
+  return (
+    <div className="min-h-screen rounded-xl bg-surface p-6 md:p-10">
+      <div className="max-w-5xl mx-auto space-y-12">
+        <div>
+          <h1 className="text-2xl font-semibold text-fg">Alert</h1>
+          <p className="text-sm text-fg-subtle mt-1">
+            An inline, non-dismissing-by-default banner message for surfacing status, feedback, or warnings inline
+            in a page.
+          </p>
+        </div>
+
+        <section>
+          <SectionLabel sub="Each variant carries its own color treatment and default icon.">Variants</SectionLabel>
+          <div className="flex flex-col gap-3">
+            <Alert variant="info" title="Heads up">
+              This is an informational message.
+            </Alert>
+            <Alert variant="success" title="Saved">
+              Your changes have been saved.
+            </Alert>
+            <Alert variant="warning" title="Careful">
+              This action may have unintended side effects.
+            </Alert>
+            <Alert variant="error" title="Something went wrong">
+              We couldn't process your request. Please try again.
+            </Alert>
+          </div>
+          <CodeBlock
+            variants={{
+              react: `<Alert variant="info" title="Heads up">This is an informational message.</Alert>
+<Alert variant="success" title="Saved">Your changes have been saved.</Alert>
+<Alert variant="warning" title="Careful">This action may have unintended side effects.</Alert>
+<Alert variant="error" title="Something went wrong">We couldn't process your request. Please try again.</Alert>`,
+              js: `<l-Alert variant="info" title="Heads up">This is an informational message.</l-Alert>
+<l-Alert variant="success" title="Saved">Your changes have been saved.</l-Alert>
+<l-Alert variant="warning" title="Careful">This action may have unintended side effects.</l-Alert>
+<l-Alert variant="error" title="Something went wrong">We couldn't process your request. Please try again.</l-Alert>
+
+<script type="module">import "lojee-ui/elements";</script>`,
+              vue: `<l-Alert variant="info" title="Heads up">This is an informational message.</l-Alert>
+<l-Alert variant="success" title="Saved">Your changes have been saved.</l-Alert>
+<l-Alert variant="warning" title="Careful">This action may have unintended side effects.</l-Alert>
+<l-Alert variant="error" title="Something went wrong">We couldn't process your request. Please try again.</l-Alert>`,
+              angular: `<l-Alert variant="info" title="Heads up">This is an informational message.</l-Alert>
+<l-Alert variant="success" title="Saved">Your changes have been saved.</l-Alert>
+<l-Alert variant="warning" title="Careful">This action may have unintended side effects.</l-Alert>
+<l-Alert variant="error" title="Something went wrong">We couldn't process your request. Please try again.</l-Alert>`,
+            }}
+          />
+        </section>
+
+        <section>
+          <SectionLabel sub="Title is optional — omit it for a compact, single-line alert.">Without a title</SectionLabel>
+          <Alert variant="info">A new version is available. Refresh to update.</Alert>
+          <CodeBlock
+            variants={{
+              react: `<Alert variant="info">A new version is available. Refresh to update.</Alert>`,
+              js: `<l-Alert variant="info">A new version is available. Refresh to update.</l-Alert>
+
+<script type="module">import "lojee-ui/elements";</script>`,
+              vue: `<l-Alert variant="info">A new version is available. Refresh to update.</l-Alert>`,
+              angular: `<l-Alert variant="info">A new version is available. Refresh to update.</l-Alert>`,
+            }}
+          />
+        </section>
+
+        <section>
+          <SectionLabel sub="Set closable and handle onClose to let the user dismiss it.">Closable</SectionLabel>
+          {closableVisible ? (
+            <Alert variant="warning" title="Unsaved changes" closable onClose={() => setClosableVisible(false)}>
+              You have unsaved changes that will be lost if you navigate away.
+            </Alert>
+          ) : (
+            <button
+              type="button"
+              onClick={() => setClosableVisible(true)}
+              className="text-sm font-medium text-fg-subtle underline underline-offset-4 hover:text-fg-muted"
+            >
+              Show alert again
+            </button>
+          )}
+          <CodeBlock
+            variants={{
+              react: `const [visible, setVisible] = useState(true);
+
+{visible && (
+  <Alert variant="warning" title="Unsaved changes" closable onClose={() => setVisible(false)}>
+    You have unsaved changes that will be lost if you navigate away.
+  </Alert>
+)}`,
+              js: `<l-Alert variant="warning" title="Unsaved changes" closable id="unsaved-alert">
+  You have unsaved changes that will be lost if you navigate away.
+</l-Alert>
+
+<script type="module">
+  import "lojee-ui/elements";
+
+  document.getElementById("unsaved-alert")
+    .addEventListener("close", (e) => { e.target.remove(); });
+</script>`,
+              vue: `<template>
+  <l-Alert
+    v-if="visible"
+    variant="warning"
+    title="Unsaved changes"
+    closable
+    @close="visible = false"
+  >
+    You have unsaved changes that will be lost if you navigate away.
+  </l-Alert>
+</template>
+
+<script setup lang="ts">
+import { ref } from "vue";
+import "lojee-ui/elements";
+
+const visible = ref(true);
+</script>`,
+              angular: `<l-Alert
+  *ngIf="visible"
+  variant="warning"
+  title="Unsaved changes"
+  closable
+  (close)="visible = false"
+>
+  You have unsaved changes that will be lost if you navigate away.
+</l-Alert>`,
+            }}
+          />
+        </section>
+
+        <section>
+          <SectionLabel sub="Override the default per-variant icon, or hide it entirely.">Custom icon</SectionLabel>
+          <div className="flex flex-col gap-3">
+            <Alert variant="info" title="New feature" icon="bell">
+              We just shipped keyboard shortcuts. Press "?" to see them.
+            </Alert>
+            <Alert variant="info" title="No icon" icon={false}>
+              This alert renders without a leading icon.
+            </Alert>
+          </div>
+          <CodeBlock
+            variants={{
+              react: `<Alert variant="info" title="New feature" icon="bell">
+  We just shipped keyboard shortcuts. Press "?" to see them.
+</Alert>
+<Alert variant="info" title="No icon" icon={false}>
+  This alert renders without a leading icon.
+</Alert>`,
+              js: `<l-Alert variant="info" title="New feature" icon="bell">
+  We just shipped keyboard shortcuts. Press "?" to see them.
+</l-Alert>
+<l-Alert variant="info" title="No icon" icon="false">
+  This alert renders without a leading icon.
+</l-Alert>
+
+<script type="module">import "lojee-ui/elements";</script>`,
+              vue: `<l-Alert variant="info" title="New feature" icon="bell">
+  We just shipped keyboard shortcuts. Press "?" to see them.
+</l-Alert>
+<l-Alert variant="info" title="No icon" :icon="false">
+  This alert renders without a leading icon.
+</l-Alert>`,
+              angular: `<l-Alert variant="info" title="New feature" icon="bell">
+  We just shipped keyboard shortcuts. Press "?" to see them.
+</l-Alert>
+<l-Alert variant="info" title="No icon" [icon]="false">
+  This alert renders without a leading icon.
+</l-Alert>`,
+            }}
+          />
+        </section>
+
+        <section>
+          <SectionLabel sub="Per-part class overrides via classNames.">Custom styling</SectionLabel>
+          <Alert
+            variant="info"
+            title="Styled alert"
+            classNames={{
+              root: "border-indigo-200 bg-indigo-50 text-indigo-900 dark:border-indigo-900 dark:bg-indigo-950/40 dark:text-indigo-200",
+              icon: "text-indigo-500",
+            }}
+          >
+            This alert's border, background, and icon pick up custom colors via classNames.
+          </Alert>
+          <CodeBlock
+            variants={{
+              react: `<Alert
+  variant="info"
+  title="Styled alert"
+  classNames={{
+    root: "border-indigo-200 bg-indigo-50 text-indigo-900 dark:border-indigo-900 dark:bg-indigo-950/40 dark:text-indigo-200",
+    icon: "text-indigo-500",
+  }}
+>
+  This alert's border, background, and icon pick up custom colors via classNames.
+</Alert>`,
+              js: `<l-Alert id="styled-alert" variant="info" heading="Styled alert">
+  This alert's border, background, and icon pick up custom colors via classNames.
+</l-Alert>
+
+<script type="module">
+  document.getElementById("styled-alert").classNames = {
+    root: "border-indigo-200 bg-indigo-50 text-indigo-900 dark:border-indigo-900 dark:bg-indigo-950/40 dark:text-indigo-200",
+    icon: "text-indigo-500",
+  };
+</script>`,
+              vue: `<template>
+  <l-Alert variant="info" heading="Styled alert" :classNames="alertClassNames">
+    This alert's border, background, and icon pick up custom colors via classNames.
+  </l-Alert>
+</template>
+
+<script setup lang="ts">
+const alertClassNames = {
+  root: "border-indigo-200 bg-indigo-50 text-indigo-900 dark:border-indigo-900 dark:bg-indigo-950/40 dark:text-indigo-200",
+  icon: "text-indigo-500",
+};
+</script>`,
+              angular: `<l-Alert variant="info" heading="Styled alert" [classNames]="alertClassNames">
+  This alert's border, background, and icon pick up custom colors via classNames.
+</l-Alert>
+
+alertClassNames = {
+  root: "border-indigo-200 bg-indigo-50 text-indigo-900 dark:border-indigo-900 dark:bg-indigo-950/40 dark:text-indigo-200",
+  icon: "text-indigo-500",
+};`,
+            }}
+          />
+        </section>
+      </div>
+    </div>
+  );
+}

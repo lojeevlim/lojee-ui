@@ -83,14 +83,63 @@ prop), each with its own `className`:
 `Icon` has no `classNames` — it renders a single element, so its existing `className`
 prop already covers full customization.
 
-## Distributing without npm
+## Theming
 
-npm publishing for this package is currently on hold, so until that's restored, use one
-of these registry-free ways to get `dist/` (built via `npm run build:pkg`) into a
-consumer project. All of them ship the exact same output that `npm publish` would
-(`package.json` already declares `"files": ["dist"]` plus the right `main`/`module`/
-`types`/`exports` fields). Consumers still need `react`, `react-dom`, and `lucide-react`
-installed as peer dependencies for the React build.
+lojee-ui ships light/dark mode and switchable brand accents. Both are plain CSS variables
+defined in `lojee-ui/theme.css`, so they also work inside the `<l-*>` Web Components.
+
+```tsx
+import { ThemeProvider, useTheme } from "lojee-ui";
+
+<ThemeProvider defaultMode="light" defaultAccent="emerald">
+  <App />
+</ThemeProvider>;
+
+const { mode, setMode, accent, setAccent } = useTheme(); // mode: "light" | "dark"
+```
+
+`ThemeProvider` persists the choice in `localStorage` and sets `data-theme` / `data-accent`
+on `<html>`. Without React, set those attributes yourself (`<html data-theme="dark"
+data-accent="teal">`); with neither set, the theme is light and the accent is indigo.
+
+- **Semantic utilities** for your own UI: `bg-surface`, `bg-surface-muted`, `bg-surface-raised`,
+  `text-fg`, `text-fg-muted`, `text-fg-subtle`, `border-border`, `border-border-strong`.
+- **`accent-*` palette** (`bg-accent-600`, `text-accent-700`, …) and `color="accent"` on any
+  component with a color prop — follows the selected accent. Explicit colors (`color="rose"`) are unaffected.
+- **Customise** by overriding the `--lojee-*` variables, e.g.
+  `[data-theme="dark"] { --lojee-surface: #000; }`.
+
+## Installation
+
+```bash
+npm install lojee-ui
+```
+
+Consumers need `react`, `react-dom`, `lucide-react`, and **`tailwindcss` (v4) installed and
+set up** as peer dependencies for the React build — nothing is bundled, and Tailwind is
+required (the components are styled with the Tailwind classes your build generates).
+Import `lojee-ui/theme.css` right after Tailwind; it carries the design tokens and the
+animation tokens, and tells Tailwind to scan the library itself, so no `@source` line is
+needed:
+
+```css
+@import "tailwindcss";
+@import "lojee-ui/theme.css";
+```
+
+For non-React consumers, the auto-generated `<l-*>` Web Components are available from
+the `lojee-ui/elements` subpath (self-contained, bundles React internally):
+
+```ts
+import "lojee-ui/elements";
+```
+
+## Alternative distribution methods
+
+Registry-free ways to get `dist/` (built via `npm run build:pkg`) into a consumer
+project — useful for local development or non-npm environments. All of them ship the
+exact same output that `npm publish` does (`package.json` already declares
+`"files": ["dist"]` plus the right `main`/`module`/`types`/`exports` fields).
 
 ### 1. Build the package
 
@@ -99,7 +148,7 @@ npm run build:pkg
 ```
 
 Produces `dist/index.js` (ESM), `dist/index.cjs` (CJS), `dist/elements.js` (Web
-Components, ESM), `dist/style.css`, and `dist/lib/index.d.ts`.
+Components, ESM), `dist/theme.css`, and `dist/lib/index.d.ts`.
 
 ### 2. Local install / linking (for active development)
 
@@ -173,8 +222,3 @@ easiest path for non-npm consumers who just want the `<l-*>` Web Components:
 
 Requires `dist/` to be committed (or attached) at that tag, same as the git-install
 caveat above.
-
----
-
-Once npm publishing access is restored, these are stopgaps — the primary distribution
-path resumes via `npm publish` (see `PLAN.md` for the full release checklist).

@@ -2,7 +2,9 @@ import type { ReactNode } from "react";
 import { cx } from "../../../core/tokens";
 
 export interface AvatarGroupProps {
+  /** The `Avatar` elements to display, overlapped in a row. */
   children: ReactNode;
+  /** Extra class names applied to the root element. */
   className?: string;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
   classNames?: {
@@ -16,7 +18,7 @@ export interface AvatarGroupProps {
 // native <slot> instead, same as ButtonGroup).
 export function AvatarGroup({ children, className, classNames }: AvatarGroupProps) {
   return (
-    <div className={cx("flex -space-x-2 [&>*]:ring-2 [&>*]:ring-white", className, classNames?.root)}>
+    <div className={cx("flex -space-x-2 [&>*]:ring-2 [&>*]:ring-surface", className, classNames?.root)}>
       <slot>{children}</slot>
     </div>
   );

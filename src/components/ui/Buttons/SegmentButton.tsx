@@ -1,12 +1,14 @@
 import type { ButtonHTMLAttributes } from "react";
-import { colorClasses, cx, nonInteractive, type ColorName } from "../../../core/tokens";
+import { colorClasses, cx, isColorName, nonInteractive, type ColorName } from "../../../core/tokens";
+import { ACTIVE_ITEM_TRANSITION, activeMarker } from "../../../core/activeVariant";
 import { getIcon } from "../../../core/icons";
 
 export interface SegmentButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   /** Icon name, e.g. "bold" — see src/core/icons.ts for the available set. */
   icon?: string;
+  /** Whether this segment is currently selected/pressed — highlights it and sets `aria-pressed` (default: false); controlled by the parent. */
   active?: boolean;
-  /** Highlight color when active — same palette as Button (default: slate). Inactive segments stay neutral. */
+  /** Highlight color when active — same palette as Button (default: accent — follows the theme). Inactive segments stay neutral. */
   color?: ColorName;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
   classNames?: {
@@ -18,7 +20,7 @@ export interface SegmentButtonProps extends ButtonHTMLAttributes<HTMLButtonEleme
 export function SegmentButton({
   icon,
   active = false,
-  color = "slate",
+  color = "accent",
   children,
   onClick,
   type = "button",
@@ -36,9 +38,11 @@ export function SegmentButton({
       type={type}
       onClick={onClick}
       aria-pressed={active}
+      {...(active && activeMarker("fill", color, isColorName(color)))}
       className={cx(
-        "inline-flex items-center gap-1.5 px-3 py-2 text-sm font-medium transition-colors",
-        active ? activeClass : "bg-white text-slate-600 hover:bg-slate-50",
+        "inline-flex items-center gap-1.5 px-3 py-2 text-sm font-medium",
+        ACTIVE_ITEM_TRANSITION,
+        active ? activeClass : "bg-surface text-fg-muted hover:bg-surface-muted",
         className,
         classNames?.root
       )}

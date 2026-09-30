@@ -1,13 +1,14 @@
 @import "tailwindcss";
 
-/* Loader's "shimmer" variant — a moving highlight sweep, as an alternative
-   to the built-in animate-pulse. Tailwind has no equivalent utility. */
-@theme {
-  --animate-shimmer: lojee-shimmer 1.6s ease-in-out infinite;
-}
+/* Animation tokens (Loader "shimmer", ProgressBar "indeterminate") plus the
+   theme tokens — semantic surface/fg/border colors, the accent palette, and the
+   light/dark + data-accent switching. Kept in theme.css so the published
+   `lojee-ui/theme.css` and this demo stylesheet stay identical. */
+@import "./theme.css";
 
-@keyframes lojee-shimmer {
-  100% {
-    transform: translateX(100%);
-  }
+/* Demo app page base — follows the active theme. */
+body {
+  /* a faint wash of the chosen accent, so switching accent tints the page too */
+  background-color: color-mix(in srgb, var(--color-accent-500) 5%, var(--lojee-surface));
+  color: var(--lojee-fg);
 }
