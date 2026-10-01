@@ -2,11 +2,13 @@ import { useState } from "react";
 import { Loader, type LoaderShape, type LoaderVariant } from "./Loader/Loader";
 import { OptionGroup, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
+import { useMotion } from "./playgroundMotion";
 
 const SHAPES: LoaderShape[] = ["text", "circle", "rect"];
 const VARIANTS: LoaderVariant[] = ["pulse", "shimmer", "wave", "none"];
 
 export default function LoaderPlayground() {
+  const motion = useMotion({ hover: false });
   const [shape, setShape] = useState<LoaderShape>("text");
   const [variant, setVariant] = useState<LoaderVariant>("pulse");
   const [lines, setLines] = useState(3);
@@ -16,12 +18,12 @@ export default function LoaderPlayground() {
       <AppWindowBody>
         {shape === "text" ? (
           <div className="w-64">
-            <Loader shape="text" variant={variant} lines={lines} />
+            <Loader key={motion.replayKey} {...motion.props} shape="text" variant={variant} lines={lines} />
           </div>
         ) : shape === "circle" ? (
-          <Loader shape="circle" variant={variant} width={56} />
+          <Loader key={motion.replayKey} {...motion.props} shape="circle" variant={variant} width={56} />
         ) : (
-          <Loader shape="rect" variant={variant} width={200} height={100} />
+          <Loader key={motion.replayKey} {...motion.props} shape="rect" variant={variant} width={200} height={100} />
         )}
       </AppWindowBody>
     </AppWindowFrame>
@@ -29,17 +31,17 @@ export default function LoaderPlayground() {
 
   const code =
     shape === "text"
-      ? `<Loader shape="text" variant="${variant}" lines={${lines}} />`
+      ? `<Loader shape="text" variant="${variant}" lines={${lines}}${motion.attrs} />`
       : shape === "circle"
-        ? `<Loader shape="circle" variant="${variant}" width={56} />`
-        : `<Loader shape="rect" variant="${variant}" width={200} height={100} />`;
+        ? `<Loader shape="circle" variant="${variant}" width={56}${motion.attrs} />`
+        : `<Loader shape="rect" variant="${variant}" width={200} height={100}${motion.attrs} />`;
 
   const htmlMarkup =
     shape === "text"
-      ? `<l-Loader shape="text" variant="${variant}" lines="${lines}" />`
+      ? `<l-Loader shape="text" variant="${variant}" lines="${lines}"${motion.attrs} />`
       : shape === "circle"
-        ? `<l-Loader shape="circle" variant="${variant}" width="56" />`
-        : `<l-Loader shape="rect" variant="${variant}" width="200" height="100" />`;
+        ? `<l-Loader shape="circle" variant="${variant}" width="56"${motion.attrs} />`
+        : `<l-Loader shape="rect" variant="${variant}" width="200" height="100"${motion.attrs} />`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,
@@ -61,6 +63,7 @@ export default function LoaderPlayground() {
           onChange={(v) => setLines(Number(v))}
         />
       )}
+      {motion.controls}
     </PlaygroundLayout>
   );
 }

@@ -4,6 +4,13 @@ import { SectionLabel } from "../../ShowcaseHelpers";
 
 const SLIDE_CLASS = "flex h-48 items-center justify-center text-sm font-medium";
 
+const TR_SLIDE_CLASS = "flex h-28 items-center justify-center text-sm font-medium";
+const TR_SLIDES = [
+  <div key="1" className={`${TR_SLIDE_CLASS} bg-indigo-100 text-indigo-700 dark:bg-indigo-950/50 dark:text-indigo-300`}>Slide 1</div>,
+  <div key="2" className={`${TR_SLIDE_CLASS} bg-emerald-100 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-300`}>Slide 2</div>,
+  <div key="3" className={`${TR_SLIDE_CLASS} bg-rose-100 text-rose-700 dark:bg-rose-950/50 dark:text-rose-300`}>Slide 3</div>,
+];
+
 export default function CarouselShowcase() {
   return (
     <div className="min-h-screen rounded-xl bg-surface p-6 md:p-10">
@@ -144,6 +151,118 @@ slides = ["Slide 1", "Slide 2"];
 
 // app.component.html
 <l-Carousel [slides]="slides" showArrows="false" />`,
+            }}
+          />
+        </section>
+
+        <section>
+          <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`) and hover effects via `hoverEffect`. They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
+          <div className="grid gap-6 sm:grid-cols-2">
+            <div className="min-w-0">
+              <Carousel slides={TR_SLIDES} transition="fade" />
+            </div>
+            <div className="min-w-0">
+              <Carousel slides={TR_SLIDES} transition="slide-up" />
+            </div>
+            <div className="min-w-0">
+              <Carousel slides={TR_SLIDES} transition="slide-right" transitionDelay={100} />
+            </div>
+            <div className="min-w-0">
+              <Carousel slides={TR_SLIDES} transition="zoom" />
+            </div>
+            <div className="min-w-0">
+              <Carousel slides={TR_SLIDES} transition="blur" />
+            </div>
+            <div className="min-w-0">
+              <Carousel slides={TR_SLIDES} transition="drop" transitionDuration={700} />
+            </div>
+            <div className="min-w-0">
+              <Carousel slides={TR_SLIDES} hoverEffect="lift" />
+            </div>
+            <div className="min-w-0">
+              <Carousel slides={TR_SLIDES} hoverEffect="glow" />
+            </div>
+            <div className="min-w-0">
+              <Carousel slides={TR_SLIDES} hoverEffect="shine" />
+            </div>
+          </div>
+          <CodeBlock
+            variants={{
+              react: `const slides = [
+  <div className="flex h-28 items-center justify-center bg-indigo-100 text-indigo-700">Slide 1</div>,
+  <div className="flex h-28 items-center justify-center bg-emerald-100 text-emerald-700">Slide 2</div>,
+  <div className="flex h-28 items-center justify-center bg-rose-100 text-rose-700">Slide 3</div>,
+];
+
+<Carousel slides={slides} transition="fade" />
+<Carousel slides={slides} transition="slide-up" />
+<Carousel slides={slides} transition="slide-right" transitionDelay={100} />
+<Carousel slides={slides} transition="zoom" />
+<Carousel slides={slides} transition="blur" />
+<Carousel slides={slides} transition="drop" transitionDuration={700} />
+
+<Carousel slides={slides} hoverEffect="lift" />
+<Carousel slides={slides} hoverEffect="glow" />
+<Carousel slides={slides} hoverEffect="shine" />`,
+              js: `<l-Carousel transition="fade"></l-Carousel>
+<l-Carousel transition="slide-up"></l-Carousel>
+<l-Carousel transition="slide-right" transitionDelay="100"></l-Carousel>
+<l-Carousel transition="zoom"></l-Carousel>
+<l-Carousel transition="blur"></l-Carousel>
+<l-Carousel transition="drop" transitionDuration="700"></l-Carousel>
+
+<l-Carousel hoverEffect="lift"></l-Carousel>
+<l-Carousel hoverEffect="glow"></l-Carousel>
+<l-Carousel hoverEffect="shine"></l-Carousel>
+
+<script type="module">
+  import "lojee-ui/elements";
+
+  const slides = ["Slide 1", "Slide 2", "Slide 3"];
+  document.querySelectorAll("l-Carousel").forEach((el) => (el.slides = slides));
+</script>`,
+              vue: `<template>
+  <l-Carousel :slides="slides" transition="fade"></l-Carousel>
+  <l-Carousel :slides="slides" transition="slide-up"></l-Carousel>
+  <l-Carousel :slides="slides" transition="slide-right" transitionDelay="100"></l-Carousel>
+  <l-Carousel :slides="slides" transition="zoom"></l-Carousel>
+  <l-Carousel :slides="slides" transition="blur"></l-Carousel>
+  <l-Carousel :slides="slides" transition="drop" transitionDuration="700"></l-Carousel>
+
+  <l-Carousel :slides="slides" hoverEffect="lift"></l-Carousel>
+  <l-Carousel :slides="slides" hoverEffect="glow"></l-Carousel>
+  <l-Carousel :slides="slides" hoverEffect="shine"></l-Carousel>
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+
+const slides = ["Slide 1", "Slide 2", "Slide 3"];
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-Carousel [slides]="slides" transition="fade"></l-Carousel>
+    <l-Carousel [slides]="slides" transition="slide-up"></l-Carousel>
+    <l-Carousel [slides]="slides" transition="slide-right" transitionDelay="100"></l-Carousel>
+    <l-Carousel [slides]="slides" transition="zoom"></l-Carousel>
+    <l-Carousel [slides]="slides" transition="blur"></l-Carousel>
+    <l-Carousel [slides]="slides" transition="drop" transitionDuration="700"></l-Carousel>
+
+    <l-Carousel [slides]="slides" hoverEffect="lift"></l-Carousel>
+    <l-Carousel [slides]="slides" hoverEffect="glow"></l-Carousel>
+    <l-Carousel [slides]="slides" hoverEffect="shine"></l-Carousel>
+  \`,
+})
+export class AppComponent {
+  slides = ["Slide 1", "Slide 2", "Slide 3"];
+}`,
             }}
           />
         </section>

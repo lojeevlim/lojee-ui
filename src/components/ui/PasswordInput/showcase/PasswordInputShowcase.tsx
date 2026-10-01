@@ -119,6 +119,97 @@ export class AppComponent {
             }}
           />
         </section>
+
+        <section>
+          <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`) and hover effects via `hoverEffect`. They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
+          <div className="grid max-w-2xl gap-3 sm:grid-cols-2">
+            <PasswordInput transition="fade" placeholder="Password" />
+            <PasswordInput transition="slide-up" placeholder="Password" />
+            <PasswordInput transition="slide-right" transitionDelay={100} placeholder="Password" />
+            <PasswordInput transition="zoom" placeholder="Password" />
+            <PasswordInput transition="flip" placeholder="Password" />
+            <PasswordInput transition="blur" placeholder="Password" />
+            <PasswordInput transition="bounce" placeholder="Password" />
+            <PasswordInput transition="drop" transitionDuration={700} placeholder="Password" />
+            <PasswordInput hoverEffect="lift" placeholder="Password" />
+            <PasswordInput hoverEffect="glow" placeholder="Password" />
+            <PasswordInput hoverEffect="ring" placeholder="Password" />
+          </div>
+          <CodeBlock
+            variants={{
+              react: `<PasswordInput transition="fade" placeholder="Password" />
+<PasswordInput transition="slide-up" placeholder="Password" />
+<PasswordInput transition="slide-right" transitionDelay={100} placeholder="Password" />
+<PasswordInput transition="zoom" placeholder="Password" />
+<PasswordInput transition="flip" placeholder="Password" />
+<PasswordInput transition="blur" placeholder="Password" />
+<PasswordInput transition="bounce" placeholder="Password" />
+<PasswordInput transition="drop" transitionDuration={700} placeholder="Password" />
+
+<PasswordInput hoverEffect="lift" placeholder="Password" />
+<PasswordInput hoverEffect="glow" placeholder="Password" />
+<PasswordInput hoverEffect="ring" placeholder="Password" />`,
+              js: `<l-PasswordInput transition="fade" placeholder="Password"></l-PasswordInput>
+<l-PasswordInput transition="slide-up" placeholder="Password"></l-PasswordInput>
+<l-PasswordInput transition="slide-right" transitionDelay="100" placeholder="Password"></l-PasswordInput>
+<l-PasswordInput transition="zoom" placeholder="Password"></l-PasswordInput>
+<l-PasswordInput transition="flip" placeholder="Password"></l-PasswordInput>
+<l-PasswordInput transition="blur" placeholder="Password"></l-PasswordInput>
+<l-PasswordInput transition="bounce" placeholder="Password"></l-PasswordInput>
+<l-PasswordInput transition="drop" transitionDuration="700" placeholder="Password"></l-PasswordInput>
+
+<l-PasswordInput hoverEffect="lift" placeholder="Password"></l-PasswordInput>
+<l-PasswordInput hoverEffect="glow" placeholder="Password"></l-PasswordInput>
+<l-PasswordInput hoverEffect="ring" placeholder="Password"></l-PasswordInput>
+
+<script type="module">
+  import "lojee-ui/elements";
+</script>`,
+              vue: `<template>
+  <l-PasswordInput transition="fade" placeholder="Password"></l-PasswordInput>
+  <l-PasswordInput transition="slide-up" placeholder="Password"></l-PasswordInput>
+  <l-PasswordInput transition="slide-right" transitionDelay="100" placeholder="Password"></l-PasswordInput>
+  <l-PasswordInput transition="zoom" placeholder="Password"></l-PasswordInput>
+  <l-PasswordInput transition="flip" placeholder="Password"></l-PasswordInput>
+  <l-PasswordInput transition="blur" placeholder="Password"></l-PasswordInput>
+  <l-PasswordInput transition="bounce" placeholder="Password"></l-PasswordInput>
+  <l-PasswordInput transition="drop" transitionDuration="700" placeholder="Password"></l-PasswordInput>
+
+  <l-PasswordInput hoverEffect="lift" placeholder="Password"></l-PasswordInput>
+  <l-PasswordInput hoverEffect="glow" placeholder="Password"></l-PasswordInput>
+  <l-PasswordInput hoverEffect="ring" placeholder="Password"></l-PasswordInput>
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-PasswordInput transition="fade" placeholder="Password"></l-PasswordInput>
+    <l-PasswordInput transition="slide-up" placeholder="Password"></l-PasswordInput>
+    <l-PasswordInput transition="slide-right" transitionDelay="100" placeholder="Password"></l-PasswordInput>
+    <l-PasswordInput transition="zoom" placeholder="Password"></l-PasswordInput>
+    <l-PasswordInput transition="flip" placeholder="Password"></l-PasswordInput>
+    <l-PasswordInput transition="blur" placeholder="Password"></l-PasswordInput>
+    <l-PasswordInput transition="bounce" placeholder="Password"></l-PasswordInput>
+    <l-PasswordInput transition="drop" transitionDuration="700" placeholder="Password"></l-PasswordInput>
+
+    <l-PasswordInput hoverEffect="lift" placeholder="Password"></l-PasswordInput>
+    <l-PasswordInput hoverEffect="glow" placeholder="Password"></l-PasswordInput>
+    <l-PasswordInput hoverEffect="ring" placeholder="Password"></l-PasswordInput>
+  \`,
+})
+export class AppComponent {}`,
+            }}
+          />
+        </section>
       </div>
     </div>
   );

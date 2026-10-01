@@ -4,11 +4,13 @@ import { RadioGroup, type RadioGroupOrientation } from "./Radio/RadioGroup";
 import type { ColorName } from "../../core/tokens";
 import { OptionGroup, ColorSwatches, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
+import { useMotion } from "./playgroundMotion";
 
 const ORIENTATIONS: RadioGroupOrientation[] = ["vertical", "horizontal"];
 const OPTIONS = ["Free", "Pro", "Enterprise"];
 
 export default function RadioPlayground() {
+  const motion = useMotion();
   const [orientation, setOrientation] = useState<RadioGroupOrientation>("vertical");
   const [color, setColor] = useState<ColorName>("accent");
   const [selected, setSelected] = useState(OPTIONS[0]);
@@ -16,7 +18,7 @@ export default function RadioPlayground() {
   const preview = (
     <AppWindowFrame>
       <AppWindowBody>
-        <RadioGroup orientation={orientation}>
+        <RadioGroup key={motion.replayKey} {...motion.props} orientation={orientation}>
           {OPTIONS.map((option) => (
             <Radio
               key={option}
@@ -32,7 +34,7 @@ export default function RadioPlayground() {
     </AppWindowFrame>
   );
 
-  const code = `<RadioGroup orientation="${orientation}">
+  const code = `<RadioGroup orientation="${orientation}"${motion.attrs}>
 ${OPTIONS.map(
   (option) => `  <Radio name="playground" color="${color}" label="${option}"${option === selected ? " defaultChecked" : ""} />`
 ).join("\n")}
@@ -42,7 +44,7 @@ ${OPTIONS.map(
   // Vue/Angular templates (plain attributes, no bindings needed for a static
   // snapshot); the "js" variant just adds the one-time module import a plain
   // HTML page needs to actually load the `<l-*>` definitions.
-  const htmlMarkup = `<l-RadioGroup orientation="${orientation}">
+  const htmlMarkup = `<l-RadioGroup orientation="${orientation}"${motion.attrs}>
 ${OPTIONS.map(
   (option) =>
     `  <l-Radio name="playground" color="${color}" label="${option}"${
@@ -62,6 +64,7 @@ ${OPTIONS.map(
     <PlaygroundLayout preview={preview} variants={codeVariants}>
       <OptionGroup label="Orientation" options={ORIENTATIONS} value={orientation} onChange={setOrientation} />
       <ColorSwatches value={color} onChange={setColor} />
+      {motion.controls}
     </PlaygroundLayout>
   );
 }

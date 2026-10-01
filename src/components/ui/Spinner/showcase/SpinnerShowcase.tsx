@@ -111,6 +111,68 @@ export class SpinnerShowcaseComponent {}`,
             }}
           />
         </section>
+
+        <section>
+          <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`). They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
+          <Row>
+            <Spinner variant="circle" transition="fade" />
+            <Spinner variant="dots" transition="zoom" />
+            <Spinner variant="ring" transition="blur" />
+            <Spinner variant="bars" transition="bounce" />
+            <Spinner variant="pulse" transition="slide-up" transitionDelay={100} />
+            <Spinner variant="circle" transition="drop" transitionDuration={700} />
+          </Row>
+          <CodeBlock
+            variants={{
+              react: `<Spinner variant="circle" transition="fade" />
+<Spinner variant="dots" transition="zoom" />
+<Spinner variant="ring" transition="blur" />
+<Spinner variant="bars" transition="bounce" />
+<Spinner variant="pulse" transition="slide-up" transitionDelay={100} />
+<Spinner variant="circle" transition="drop" transitionDuration={700} />`,
+              js: `<l-Spinner variant="circle" transition="fade"></l-Spinner>
+<l-Spinner variant="dots" transition="zoom"></l-Spinner>
+<l-Spinner variant="ring" transition="blur"></l-Spinner>
+<l-Spinner variant="bars" transition="bounce"></l-Spinner>
+<l-Spinner variant="pulse" transition="slide-up" transitionDelay="100"></l-Spinner>
+<l-Spinner variant="circle" transition="drop" transitionDuration="700"></l-Spinner>
+
+<script type="module">
+  import "lojee-ui/elements";
+</script>`,
+              vue: `<template>
+  <l-Spinner variant="circle" transition="fade"></l-Spinner>
+  <l-Spinner variant="dots" transition="zoom"></l-Spinner>
+  <l-Spinner variant="ring" transition="blur"></l-Spinner>
+  <l-Spinner variant="bars" transition="bounce"></l-Spinner>
+  <l-Spinner variant="pulse" transition="slide-up" transitionDelay="100"></l-Spinner>
+  <l-Spinner variant="circle" transition="drop" transitionDuration="700"></l-Spinner>
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-Spinner variant="circle" transition="fade"></l-Spinner>
+    <l-Spinner variant="dots" transition="zoom"></l-Spinner>
+    <l-Spinner variant="ring" transition="blur"></l-Spinner>
+    <l-Spinner variant="bars" transition="bounce"></l-Spinner>
+    <l-Spinner variant="pulse" transition="slide-up" transitionDelay="100"></l-Spinner>
+    <l-Spinner variant="circle" transition="drop" transitionDuration="700"></l-Spinner>
+  \`,
+})
+export class AppComponent {}`,
+            }}
+          />
+        </section>
       </div>
     </div>
   );

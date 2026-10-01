@@ -1,5 +1,6 @@
 import type { InputHTMLAttributes } from "react";
 import { cx } from "../../../core/tokens";
+import { motionClass, motionStyle, type TransitionVariant, type HoverEffect } from "../../../core/motion";
 import { Icon } from "../Icons/Icon";
 
 export type InputSize = "sm" | "md" | "lg";
@@ -13,6 +14,14 @@ export interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 
   leadingIcon?: string;
   /** Icon name, e.g. "eye" — see src/core/icons.ts for the available set. */
   trailingIcon?: string;
+  /** Enter transition: "fade" | "slide-up" | "slide-down" | "slide-left" | "slide-right" | "zoom" | "zoom-out" | "flip" | "blur" | "bounce" | "rotate" | "drop" | "skew" (default: none). Respects `prefers-reduced-motion`. */
+  transition?: TransitionVariant;
+  /** Enter transition duration in ms (default: 450). */
+  transitionDuration?: number;
+  /** Delay before the enter transition starts, in ms (default: 0) — handy for staggering. */
+  transitionDelay?: number;
+  /** Effect while hovering: "lift" | "scale" | "press" | "tilt" | "ring" | "glow" | "shine" (default: none). */
+  hoverEffect?: HoverEffect;
   /** Extra class name(s) applied to the root element. */
   className?: string;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
@@ -37,8 +46,13 @@ export function Input({
   invalid = false,
   leadingIcon,
   trailingIcon,
+  transition,
+  transitionDuration,
+  transitionDelay,
+  hoverEffect,
   className,
   classNames,
+  style,
   ...rest
 }: InputProps) {
   const inputClasses = cx(
@@ -49,18 +63,25 @@ export function Input({
     trailingIcon && "pr-9"
   );
 
+  const motionStyles = { ...style, ...motionStyle(transitionDuration, transitionDelay) };
+
   if (!leadingIcon && !trailingIcon) {
     return (
       <input
         aria-invalid={invalid || undefined}
-        className={cx(inputClasses, className, classNames?.root, classNames?.input)}
+        // An <input> can't host the hover "shine" streak (it needs an ::after), so that effect is skipped here.
+        className={cx(inputClasses, motionClass(transition, hoverEffect === "shine" ? undefined : hoverEffect), className, classNames?.root, classNames?.input)}
+        style={motionStyles}
         {...rest}
       />
     );
   }
 
   return (
-    <span className={cx("relative inline-flex w-full items-center", className, classNames?.root)}>
+    <span
+      className={cx("relative inline-flex w-full items-center", motionClass(transition, hoverEffect), className, classNames?.root)}
+      style={motionStyles}
+    >
       {leadingIcon && (
         <Icon
           name={leadingIcon}

@@ -3,7 +3,8 @@ export interface ApiProp { name: string; type: string; required: boolean; descri
 export interface ApiElement { tag: string; props: Record<string, string>; extraProps: { name: string; type: string; description: string }[]; events: { callback: string; event: string }[] }
 export interface ApiComponent { name: string; props: ApiProp[]; element: ApiElement | null }
 export interface ApiHook { name: string; signature: string; description: string }
-export interface ApiDoc { components: ApiComponent[]; hooks: ApiHook[]; types: Record<string, string> }
+export interface ApiDataType { name: string; via: string | null; note: string | null; props: ApiProp[] }
+export interface ApiDoc { components: ApiComponent[]; hooks: ApiHook[]; types: Record<string, string>; dataTypes: ApiDataType[] }
 
 export const API_DOCS: Record<string, ApiDoc> = {
   "App": {
@@ -97,13 +98,35 @@ export const API_DOCS: Record<string, ApiDoc> = {
       "AppTheme": "ResolvedTheme",
       "DockEdge": "\"left\" | \"right\" | \"top\" | \"bottom\"",
       "AppBreakpoint": "\"md\" | \"lg\" | \"xl\" | \"2xl\" | \"3xl\""
-    }
+    },
+    "dataTypes": []
   },
   "Buttons": {
     "components": [
       {
         "name": "Button",
         "props": [
+          {
+            "name": "animated",
+            "type": "AnimatedVariant",
+            "required": false,
+            "description": "Attention animation: \"glow\" | \"pulse\" | \"sweep\" | \"bounce\" | \"float\" | \"wiggle\" | \"border-spin\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "pulseColor",
+            "type": "ColorName | (string & {})",
+            "required": false,
+            "description": "Color of the animation (pulse ring, glow, spinning border): a `ColorName` or any CSS color (default: the component's own color).",
+            "default": null
+          },
+          {
+            "name": "pulseGradientTo",
+            "type": "ColorName | (string & {})",
+            "required": false,
+            "description": "Second color — turns the pulse ring and spinning border into a gradient from `pulseColor` to this (default: solid `pulseColor`).",
+            "default": null
+          },
           {
             "name": "variant",
             "type": "ButtonVariant",
@@ -224,6 +247,34 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           },
           {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0) — handy for staggering.",
+            "default": null
+          },
+          {
+            "name": "hoverEffect",
+            "type": "HoverEffect",
+            "required": false,
+            "description": "Effect while hovering: \"lift\" | \"scale\" | \"press\" | \"tilt\" | \"ring\" | \"glow\" | \"shine\" (default: none).",
+            "default": null
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -241,6 +292,9 @@ export const API_DOCS: Record<string, ApiDoc> = {
         "element": {
           "tag": "l-button",
           "props": {
+            "animated": "string",
+            "pulseColor": "string",
+            "pulseGradientTo": "string",
             "variant": "string",
             "color": "string",
             "gradientTo": "string",
@@ -255,7 +309,11 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "badge": "string",
             "type": "string",
             "className": "string",
-            "classNames": "json"
+            "classNames": "json",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
           },
           "extraProps": [],
           "events": []
@@ -279,6 +337,34 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": "\"default\""
           },
           {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0) — handy for staggering.",
+            "default": null
+          },
+          {
+            "name": "hoverEffect",
+            "type": "HoverEffect",
+            "required": false,
+            "description": "Effect while hovering: \"lift\" | \"scale\" | \"press\" | \"tilt\" | \"ring\" | \"glow\" | \"shine\" (default: none).",
+            "default": null
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -295,7 +381,12 @@ export const API_DOCS: Record<string, ApiDoc> = {
         ],
         "element": {
           "tag": "l-button-group",
-          "props": {},
+          "props": {
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
+          },
           "extraProps": [],
           "events": []
         }
@@ -325,6 +416,34 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": "\"accent\""
           },
           {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0) — handy for staggering.",
+            "default": null
+          },
+          {
+            "name": "hoverEffect",
+            "type": "HoverEffect",
+            "required": false,
+            "description": "Effect while hovering: \"lift\" | \"scale\" | \"press\" | \"tilt\" | \"ring\" | \"glow\" | \"shine\" (default: none).",
+            "default": null
+          },
+          {
             "name": "classNames",
             "type": "{ root?: string; icon?: string; }",
             "required": false,
@@ -336,7 +455,11 @@ export const API_DOCS: Record<string, ApiDoc> = {
           "tag": "l-segment-button",
           "props": {
             "icon": "string",
-            "active": "boolean"
+            "active": "boolean",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
           },
           "extraProps": [],
           "events": []
@@ -430,6 +553,34 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": "false"
           },
           {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition for the button group — also the enter/exit transition for the menu panel: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0) — handy for staggering.",
+            "default": null
+          },
+          {
+            "name": "hoverEffect",
+            "type": "HoverEffect",
+            "required": false,
+            "description": "Effect while hovering: \"lift\" | \"scale\" | \"press\" | \"tilt\" | \"ring\" | \"glow\" | \"shine\" (default: none).",
+            "default": null
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -455,7 +606,11 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "color": "string",
             "size": "string",
             "shape": "string",
-            "disabled": "boolean"
+            "disabled": "boolean",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
           },
           "extraProps": [],
           "events": [
@@ -517,13 +672,63 @@ export const API_DOCS: Record<string, ApiDoc> = {
       }
     ],
     "hooks": [],
-    "types": {}
+    "types": {},
+    "dataTypes": []
   },
   "Badges": {
     "components": [
       {
         "name": "Badge",
         "props": [
+          {
+            "name": "animated",
+            "type": "AnimatedVariant",
+            "required": false,
+            "description": "Attention animation: \"glow\" | \"pulse\" | \"sweep\" | \"bounce\" | \"float\" | \"wiggle\" | \"border-spin\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "pulseColor",
+            "type": "ColorName | (string & {})",
+            "required": false,
+            "description": "Color of the animation (pulse ring, glow, spinning border): a `ColorName` or any CSS color (default: the component's own color).",
+            "default": null
+          },
+          {
+            "name": "pulseGradientTo",
+            "type": "ColorName | (string & {})",
+            "required": false,
+            "description": "Second color — turns the pulse ring and spinning border into a gradient from `pulseColor` to this (default: solid `pulseColor`).",
+            "default": null
+          },
+          {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0) — handy for staggering.",
+            "default": null
+          },
+          {
+            "name": "hoverEffect",
+            "type": "HoverEffect",
+            "required": false,
+            "description": "Effect while hovering: \"lift\" | \"scale\" | \"press\" | \"tilt\" | \"ring\" | \"glow\" | \"shine\" (default: none).",
+            "default": null
+          },
           {
             "name": "variant",
             "type": "BadgeVariant",
@@ -591,12 +796,19 @@ export const API_DOCS: Record<string, ApiDoc> = {
         "element": {
           "tag": "l-badge",
           "props": {
+            "animated": "string",
+            "pulseColor": "string",
+            "pulseGradientTo": "string",
             "variant": "string",
             "color": "string",
             "size": "string",
             "icon": "string",
             "dot": "boolean",
-            "label": "string"
+            "label": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
           },
           "extraProps": [],
           "events": []
@@ -607,13 +819,63 @@ export const API_DOCS: Record<string, ApiDoc> = {
     "types": {
       "BadgeVariant": "\"solid\" | \"outline\" | \"soft\"",
       "BadgeSize": "\"sm\" | \"md\" | \"lg\""
-    }
+    },
+    "dataTypes": []
   },
   "Avatars": {
     "components": [
       {
         "name": "Avatar",
         "props": [
+          {
+            "name": "animated",
+            "type": "AnimatedVariant",
+            "required": false,
+            "description": "Attention animation: \"glow\" | \"pulse\" | \"sweep\" | \"bounce\" | \"float\" | \"wiggle\" | \"border-spin\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "pulseColor",
+            "type": "ColorName | (string & {})",
+            "required": false,
+            "description": "Color of the animation (pulse ring, glow, spinning border): a `ColorName` or any CSS color (default: the component's own color).",
+            "default": null
+          },
+          {
+            "name": "pulseGradientTo",
+            "type": "ColorName | (string & {})",
+            "required": false,
+            "description": "Second color — turns the pulse ring and spinning border into a gradient from `pulseColor` to this (default: solid `pulseColor`).",
+            "default": null
+          },
+          {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0) — handy for staggering.",
+            "default": null
+          },
+          {
+            "name": "hoverEffect",
+            "type": "HoverEffect",
+            "required": false,
+            "description": "Effect while hovering: \"lift\" | \"scale\" | \"press\" | \"tilt\" | \"ring\" | \"glow\" | \"shine\" (default: none).",
+            "default": null
+          },
           {
             "name": "src",
             "type": "string",
@@ -681,13 +943,20 @@ export const API_DOCS: Record<string, ApiDoc> = {
         "element": {
           "tag": "l-avatar",
           "props": {
+            "animated": "string",
+            "pulseColor": "string",
+            "pulseGradientTo": "string",
             "src": "string",
             "alt": "string",
             "initials": "string",
             "size": "string",
             "shape": "string",
             "status": "string",
-            "color": "string"
+            "color": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
           },
           "extraProps": [],
           "events": []
@@ -701,6 +970,27 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "type": "ReactNode",
             "required": true,
             "description": "The `Avatar` elements to display, overlapped in a row.",
+            "default": null
+          },
+          {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0) — handy for staggering.",
             "default": null
           },
           {
@@ -720,7 +1010,11 @@ export const API_DOCS: Record<string, ApiDoc> = {
         ],
         "element": {
           "tag": "l-avatar-group",
-          "props": {},
+          "props": {
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number"
+          },
           "extraProps": [],
           "events": []
         }
@@ -731,7 +1025,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
       "AvatarSize": "\"xs\" | \"sm\" | \"md\" | \"lg\" | \"xl\"",
       "AvatarShape": "\"circle\" | \"square\"",
       "AvatarStatus": "\"online\" | \"offline\" | \"busy\" | \"away\""
-    }
+    },
+    "dataTypes": []
   },
   "Icons": {
     "components": [
@@ -773,7 +1068,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
       }
     ],
     "hooks": [],
-    "types": {}
+    "types": {},
+    "dataTypes": []
   },
   "Spinners": {
     "components": [
@@ -785,21 +1081,42 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "type": "SpinnerSize",
             "required": false,
             "description": "Spinner size, from \"xs\" to \"xl\" (default: \"md\").",
-            "default": "\"md\""
+            "default": null
           },
           {
             "name": "color",
             "type": "ColorName",
             "required": false,
             "description": "Spinner color, one of the built-in ColorNames (default: \"accent\" — follows the theme accent).",
-            "default": "\"accent\""
+            "default": null
           },
           {
             "name": "variant",
             "type": "SpinnerVariant",
             "required": false,
             "description": "Animation style: \"circle\", \"dots\", \"ring\", \"bars\" or \"pulse\" (default: \"circle\").",
-            "default": "\"circle\""
+            "default": null
+          },
+          {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0) — handy for staggering.",
+            "default": null
           },
           {
             "name": "className",
@@ -829,7 +1146,10 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "size": "string",
             "color": "string",
             "variant": "string",
-            "label": "string"
+            "label": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number"
           },
           "extraProps": [],
           "events": []
@@ -840,7 +1160,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
     "types": {
       "SpinnerSize": "\"xs\" | \"sm\" | \"md\" | \"lg\" | \"xl\"",
       "SpinnerVariant": "\"circle\" | \"dots\" | \"ring\" | \"bars\" | \"pulse\""
-    }
+    },
+    "dataTypes": []
   },
   "Loaders": {
     "components": [
@@ -852,14 +1173,14 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "type": "LoaderShape",
             "required": false,
             "description": "Skeleton shape: \"text\" (stacked lines), \"circle\" or \"rect\". Defaults to \"text\".",
-            "default": "\"text\""
+            "default": null
           },
           {
             "name": "variant",
             "type": "LoaderVariant",
             "required": false,
             "description": "Animation style for the skeleton (default: \"pulse\"). \"wave\" is like \"pulse\" but staggers each line's delay so multiple lines ripple instead of fading in sync — for \"circle\"/\"rect\" (a single block) it looks the same as \"pulse\". \"none\" disables animation entirely.",
-            "default": "\"pulse\""
+            "default": null
           },
           {
             "name": "width",
@@ -880,7 +1201,28 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "type": "number",
             "required": false,
             "description": "Number of stacked lines, for \"text\" only.",
-            "default": "3"
+            "default": null
+          },
+          {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0) — handy for staggering.",
+            "default": null
           },
           {
             "name": "className",
@@ -904,7 +1246,10 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "variant": "string",
             "width": "number",
             "height": "number",
-            "lines": "number"
+            "lines": "number",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number"
           },
           "extraProps": [],
           "events": []
@@ -915,7 +1260,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
     "types": {
       "LoaderShape": "\"text\" | \"circle\" | \"rect\"",
       "LoaderVariant": "\"pulse\" | \"shimmer\" | \"wave\" | \"none\""
-    }
+    },
+    "dataTypes": []
   },
   "Dividers": {
     "components": [
@@ -949,6 +1295,27 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "required": false,
             "description": "Line color: a built-in ColorName (default: \"accent\").",
             "default": "\"accent\""
+          },
+          {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0) — handy for staggering.",
+            "default": null
           },
           {
             "name": "className",
@@ -993,7 +1360,10 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "label": "string",
             "color": "string",
             "resizable": "boolean",
-            "step": "number"
+            "step": "number",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number"
           },
           "extraProps": [],
           "events": [
@@ -1008,13 +1378,35 @@ export const API_DOCS: Record<string, ApiDoc> = {
     "hooks": [],
     "types": {
       "DividerOrientation": "\"horizontal\" | \"vertical\""
-    }
+    },
+    "dataTypes": []
   },
   "Cards": {
     "components": [
       {
         "name": "Card",
         "props": [
+          {
+            "name": "animated",
+            "type": "AnimatedVariant",
+            "required": false,
+            "description": "Attention animation: \"glow\" | \"pulse\" | \"sweep\" | \"bounce\" | \"float\" | \"wiggle\" | \"border-spin\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "pulseColor",
+            "type": "ColorName | (string & {})",
+            "required": false,
+            "description": "Color of the animation (pulse ring, glow, spinning border): a `ColorName` or any CSS color (default: the component's own color).",
+            "default": null
+          },
+          {
+            "name": "pulseGradientTo",
+            "type": "ColorName | (string & {})",
+            "required": false,
+            "description": "Second color — turns the pulse ring and spinning border into a gradient from `pulseColor` to this (default: solid `pulseColor`).",
+            "default": null
+          },
           {
             "name": "variant",
             "type": "CardVariant",
@@ -1058,6 +1450,34 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           },
           {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0) — handy for staggering a row of cards.",
+            "default": null
+          },
+          {
+            "name": "hoverEffect",
+            "type": "HoverEffect",
+            "required": false,
+            "description": "Effect while hovering: \"lift\" | \"scale\" | \"press\" | \"tilt\" | \"ring\" | \"glow\" | \"shine\" (default: none).",
+            "default": null
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -1079,7 +1499,14 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "padding": "string",
             "hoverable": "boolean",
             "title": "string",
-            "footer": "string"
+            "footer": "string",
+            "animated": "string",
+            "pulseColor": "string",
+            "pulseGradientTo": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
           },
           "extraProps": [],
           "events": []
@@ -1090,7 +1517,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
     "types": {
       "CardVariant": "\"outline\" | \"elevated\" | \"soft\" | \"ghost\"",
       "CardPadding": "\"none\" | \"sm\" | \"md\" | \"lg\""
-    }
+    },
+    "dataTypes": []
   },
   "Containers": {
     "components": [
@@ -1119,6 +1547,27 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": "true"
           },
           {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0) — handy for staggering.",
+            "default": null
+          },
+          {
             "name": "children",
             "type": "ReactNode",
             "required": false,
@@ -1145,7 +1594,10 @@ export const API_DOCS: Record<string, ApiDoc> = {
           "props": {
             "size": "string",
             "centered": "boolean",
-            "padded": "boolean"
+            "padded": "boolean",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number"
           },
           "extraProps": [],
           "events": []
@@ -1155,7 +1607,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
     "hooks": [],
     "types": {
       "ContainerSize": "\"sm\" | \"md\" | \"lg\" | \"xl\" | \"full\""
-    }
+    },
+    "dataTypes": []
   },
   "Sections": {
     "components": [
@@ -1184,6 +1637,27 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": "\"md\""
           },
           {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0) — handy for staggering.",
+            "default": null
+          },
+          {
             "name": "children",
             "type": "ReactNode",
             "required": false,
@@ -1210,7 +1684,10 @@ export const API_DOCS: Record<string, ApiDoc> = {
           "props": {
             "title": "string",
             "subtitle": "string",
-            "spacing": "string"
+            "spacing": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number"
           },
           "extraProps": [],
           "events": []
@@ -1220,7 +1697,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
     "hooks": [],
     "types": {
       "SectionSpacing": "\"sm\" | \"md\" | \"lg\""
-    }
+    },
+    "dataTypes": []
   },
   "Grids": {
     "components": [
@@ -1240,6 +1718,27 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "required": false,
             "description": "Spacing between cells: \"sm\" | \"md\" | \"lg\". Defaults to \"md\".",
             "default": "\"md\""
+          },
+          {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0) — handy for staggering.",
+            "default": null
           },
           {
             "name": "children",
@@ -1267,7 +1766,10 @@ export const API_DOCS: Record<string, ApiDoc> = {
           "tag": "l-grid",
           "props": {
             "cols": "number",
-            "gap": "string"
+            "gap": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number"
           },
           "extraProps": [],
           "events": []
@@ -1278,7 +1780,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
     "types": {
       "GridCols": "1 | 2 | 3 | 4 | 6 | 12",
       "GridGap": "\"sm\" | \"md\" | \"lg\""
-    }
+    },
+    "dataTypes": []
   },
   "Lists": {
     "components": [
@@ -1298,6 +1801,27 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "required": false,
             "description": "Row styling: \"plain\" (default) | \"divided\" (dividers between rows) | \"bordered\" (dividers plus a rounded outer border).",
             "default": "\"plain\""
+          },
+          {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0) — handy for staggering.",
+            "default": null
           },
           {
             "name": "children",
@@ -1326,7 +1850,10 @@ export const API_DOCS: Record<string, ApiDoc> = {
           "props": {
             "ordered": "boolean",
             "variant": "string",
-            "className": "string"
+            "className": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number"
           },
           "extraProps": [],
           "events": []
@@ -1364,6 +1891,27 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": "\"right\""
           },
           {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0) — handy for staggering.",
+            "default": null
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -1384,7 +1932,10 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "icon": "string",
             "tooltip": "boolean",
             "tooltipPosition": "string",
-            "classNames": "json"
+            "classNames": "json",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number"
           },
           "extraProps": [],
           "events": []
@@ -1394,7 +1945,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
     "hooks": [],
     "types": {
       "ListVariant": "\"plain\" | \"divided\" | \"bordered\""
-    }
+    },
+    "dataTypes": []
   },
   "Tables": {
     "components": [
@@ -1437,6 +1989,76 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": "false"
           },
           {
+            "name": "actions",
+            "type": "TableAction[]",
+            "required": false,
+            "description": "Row actions — adds a right-aligned final column with one small icon button per action. Data-driven, so it works from the Web Component too (use `onAction` / the `action` event).",
+            "default": null
+          },
+          {
+            "name": "actionsHeader",
+            "type": "string",
+            "required": false,
+            "description": "Header text of the actions column (default: \"Actions\").",
+            "default": "\"Actions\""
+          },
+          {
+            "name": "onAction",
+            "type": "(action: TableAction, row: T) => void",
+            "required": false,
+            "description": "Called when a row action is clicked, with the action and its row. For built-ins it runs after the change: \"delete\" gets the removed row, \"duplicate\" gets the original row, and \"edit\" fires on Save with the updated row (Cancel and starting an edit don't fire it).",
+            "default": null
+          },
+          {
+            "name": "builtInActions",
+            "type": "boolean",
+            "required": false,
+            "description": "Handle `actions` whose value is \"delete\", \"duplicate\" or \"edit\" inside the table (default: true). Set false to only receive `onAction` and manage rows yourself.",
+            "default": "true"
+          },
+          {
+            "name": "onDataChange",
+            "type": "(rows: T[]) => void",
+            "required": false,
+            "description": "Called with the updated rows after a built-in delete, duplicate or edit-save.",
+            "default": null
+          },
+          {
+            "name": "loading",
+            "type": "boolean",
+            "required": false,
+            "description": "Shows shimmering skeleton rows in place of the data while true (default: false). The header stays visible.",
+            "default": "false"
+          },
+          {
+            "name": "skeletonRows",
+            "type": "number",
+            "required": false,
+            "description": "Number of skeleton rows shown while `loading` (default: 5).",
+            "default": "5"
+          },
+          {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0) — handy for staggering.",
+            "default": null
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -1458,17 +2080,35 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "data": "json",
             "size": "string",
             "striped": "boolean",
-            "bordered": "boolean"
+            "bordered": "boolean",
+            "loading": "boolean",
+            "skeletonRows": "number",
+            "actions": "json",
+            "actionsHeader": "string",
+            "builtInActions": "boolean",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number"
           },
           "extraProps": [],
-          "events": []
+          "events": [
+            {
+              "callback": "onAction",
+              "event": "action"
+            },
+            {
+              "callback": "onDataChange",
+              "event": "datachange"
+            }
+          ]
         }
       }
     ],
     "hooks": [],
     "types": {
       "TableSize": "\"sm\" | \"md\" | \"lg\""
-    }
+    },
+    "dataTypes": []
   },
   "Accordions": {
     "components": [
@@ -1480,6 +2120,34 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "type": "ReactNode",
             "required": false,
             "description": "The `AccordionItem` elements to render, stacked in a single bordered container.",
+            "default": null
+          },
+          {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0) — handy for staggering.",
+            "default": null
+          },
+          {
+            "name": "hoverEffect",
+            "type": "HoverEffect",
+            "required": false,
+            "description": "Effect while hovering: \"lift\" | \"scale\" | \"press\" | \"tilt\" | \"ring\" | \"glow\" | \"shine\" (default: none).",
             "default": null
           },
           {
@@ -1500,7 +2168,11 @@ export const API_DOCS: Record<string, ApiDoc> = {
         "element": {
           "tag": "l-accordion",
           "props": {
-            "className": "string"
+            "className": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
           },
           "extraProps": [],
           "events": []
@@ -1545,6 +2217,27 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           },
           {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0) — handy for staggering.",
+            "default": null
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -1566,7 +2259,10 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "name": "string",
             "defaultOpen": "boolean",
             "disabled": "boolean",
-            "classNames": "json"
+            "classNames": "json",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number"
           },
           "extraProps": [],
           "events": []
@@ -1574,7 +2270,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
       }
     ],
     "hooks": [],
-    "types": {}
+    "types": {},
+    "dataTypes": []
   },
   "Tabs": {
     "components": [
@@ -1603,6 +2300,27 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": "\"accent\""
           },
           {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0) — handy for staggering.",
+            "default": null
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -1622,7 +2340,10 @@ export const API_DOCS: Record<string, ApiDoc> = {
           "props": {
             "tabs": "json",
             "defaultIndex": "number",
-            "color": "string"
+            "color": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number"
           },
           "extraProps": [],
           "events": []
@@ -1630,7 +2351,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
       }
     ],
     "hooks": [],
-    "types": {}
+    "types": {},
+    "dataTypes": []
   },
   "Breadcrumbs": {
     "components": [
@@ -1710,6 +2432,27 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": "\"text\""
           },
           {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0) — handy for staggering.",
+            "default": null
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -1728,7 +2471,10 @@ export const API_DOCS: Record<string, ApiDoc> = {
           "tag": "l-breadcrumbs",
           "props": {
             "color": "string",
-            "variant": "string"
+            "variant": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number"
           },
           "extraProps": [],
           "events": []
@@ -1738,7 +2484,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
     "hooks": [],
     "types": {
       "BreadcrumbsVariant": "ActiveVariant | \"text\""
-    }
+    },
+    "dataTypes": []
   },
   "Pagination": {
     "components": [
@@ -1781,6 +2528,27 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": "\"accent\""
           },
           {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0) — handy for staggering.",
+            "default": null
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -1801,7 +2569,10 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "page": "number",
             "totalPages": "number",
             "siblingCount": "number",
-            "color": "string"
+            "color": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number"
           },
           "extraProps": [],
           "events": [
@@ -1814,7 +2585,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
       }
     ],
     "hooks": [],
-    "types": {}
+    "types": {},
+    "dataTypes": []
   },
   "Carousels": {
     "components": [
@@ -1857,6 +2629,34 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": "true"
           },
           {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0) — handy for staggering.",
+            "default": null
+          },
+          {
+            "name": "hoverEffect",
+            "type": "HoverEffect",
+            "required": false,
+            "description": "Effect while hovering: \"lift\" | \"scale\" | \"press\" | \"tilt\" | \"ring\" | \"glow\" | \"shine\" (default: none).",
+            "default": null
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -1878,7 +2678,11 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "autoPlay": "boolean",
             "intervalMs": "number",
             "showArrows": "boolean",
-            "showDots": "boolean"
+            "showDots": "boolean",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
           },
           "extraProps": [],
           "events": []
@@ -1886,7 +2690,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
       }
     ],
     "hooks": [],
-    "types": {}
+    "types": {},
+    "dataTypes": []
   },
   "Input": {
     "components": [
@@ -1922,6 +2727,34 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           },
           {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0) — handy for staggering.",
+            "default": null
+          },
+          {
+            "name": "hoverEffect",
+            "type": "HoverEffect",
+            "required": false,
+            "description": "Effect while hovering: \"lift\" | \"scale\" | \"press\" | \"tilt\" | \"ring\" | \"glow\" | \"shine\" (default: none).",
+            "default": null
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -1948,7 +2781,11 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "size": "string",
             "invalid": "boolean",
             "leadingIcon": "string",
-            "trailingIcon": "string"
+            "trailingIcon": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
           },
           "extraProps": [
             {
@@ -1989,7 +2826,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
     "hooks": [],
     "types": {
       "InputSize": "\"sm\" | \"md\" | \"lg\""
-    }
+    },
+    "dataTypes": []
   },
   "Textarea": {
     "components": [
@@ -2009,6 +2847,34 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "required": false,
             "description": "User resize handle: \"none\", \"vertical\" or \"both\" (default: \"vertical\").",
             "default": "\"vertical\""
+          },
+          {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0) — handy for staggering.",
+            "default": null
+          },
+          {
+            "name": "hoverEffect",
+            "type": "HoverEffect",
+            "required": false,
+            "description": "Effect while hovering: \"lift\" | \"scale\" | \"press\" | \"tilt\" | \"ring\" | \"glow\" | \"shine\" (default: none).",
+            "default": null
           },
           {
             "name": "className",
@@ -2035,7 +2901,11 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "name": "string",
             "rows": "number",
             "invalid": "boolean",
-            "resize": "string"
+            "resize": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
           },
           "extraProps": [
             {
@@ -2076,7 +2946,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
     "hooks": [],
     "types": {
       "TextareaResize": "\"none\" | \"vertical\" | \"both\""
-    }
+    },
+    "dataTypes": []
   },
   "Label": {
     "components": [
@@ -2098,6 +2969,27 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           },
           {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0) — handy for staggering.",
+            "default": null
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -2116,7 +3008,10 @@ export const API_DOCS: Record<string, ApiDoc> = {
           "tag": "l-label",
           "props": {
             "htmlFor": "string",
-            "required": "boolean"
+            "required": "boolean",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number"
           },
           "extraProps": [
             {
@@ -2130,7 +3025,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
       }
     ],
     "hooks": [],
-    "types": {}
+    "types": {},
+    "dataTypes": []
   },
   "Checkbox": {
     "components": [
@@ -2150,6 +3046,34 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "required": false,
             "description": "Checked background color (default: accent — follows the theme).",
             "default": "\"accent\""
+          },
+          {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0) — handy for staggering.",
+            "default": null
+          },
+          {
+            "name": "hoverEffect",
+            "type": "HoverEffect",
+            "required": false,
+            "description": "Effect while hovering: \"lift\" | \"scale\" | \"press\" | \"tilt\" | \"ring\" | \"glow\" | \"shine\" (default: none).",
+            "default": null
           },
           {
             "name": "className",
@@ -2175,7 +3099,11 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "name": "string",
             "value": "string",
             "color": "string",
-            "label": "string"
+            "label": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
           },
           "extraProps": [
             {
@@ -2209,7 +3137,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
       }
     ],
     "hooks": [],
-    "types": {}
+    "types": {},
+    "dataTypes": []
   },
   "Radio Group": {
     "components": [
@@ -2229,6 +3158,34 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "required": false,
             "description": "Selected dot/border color (default: accent — follows the theme).",
             "default": "\"accent\""
+          },
+          {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0) — handy for staggering.",
+            "default": null
+          },
+          {
+            "name": "hoverEffect",
+            "type": "HoverEffect",
+            "required": false,
+            "description": "Effect while hovering: \"lift\" | \"scale\" | \"press\" | \"tilt\" | \"ring\" | \"glow\" | \"shine\" (default: none).",
+            "default": null
           },
           {
             "name": "className",
@@ -2254,7 +3211,11 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "name": "string",
             "value": "string",
             "color": "string",
-            "label": "string"
+            "label": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
           },
           "extraProps": [
             {
@@ -2304,6 +3265,34 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           },
           {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0) — handy for staggering.",
+            "default": null
+          },
+          {
+            "name": "hoverEffect",
+            "type": "HoverEffect",
+            "required": false,
+            "description": "Effect while hovering: \"lift\" | \"scale\" | \"press\" | \"tilt\" | \"ring\" | \"glow\" | \"shine\" (default: none).",
+            "default": null
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -2321,7 +3310,11 @@ export const API_DOCS: Record<string, ApiDoc> = {
         "element": {
           "tag": "l-radio-group",
           "props": {
-            "orientation": "string"
+            "orientation": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
           },
           "extraProps": [],
           "events": []
@@ -2331,7 +3324,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
     "hooks": [],
     "types": {
       "RadioGroupOrientation": "\"vertical\" | \"horizontal\""
-    }
+    },
+    "dataTypes": []
   },
   "Switch / Toggle": {
     "components": [
@@ -2360,6 +3354,34 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": "\"accent\""
           },
           {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0) — handy for staggering.",
+            "default": null
+          },
+          {
+            "name": "hoverEffect",
+            "type": "HoverEffect",
+            "required": false,
+            "description": "Effect while hovering: \"lift\" | \"scale\" | \"press\" | \"tilt\" | \"ring\" | \"glow\" | \"shine\" (default: none).",
+            "default": null
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -2383,7 +3405,11 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "name": "string",
             "size": "string",
             "color": "string",
-            "label": "string"
+            "label": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
           },
           "extraProps": [
             {
@@ -2414,7 +3440,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
     "hooks": [],
     "types": {
       "SwitchSize": "\"sm\" | \"md\" | \"lg\""
-    }
+    },
+    "dataTypes": []
   },
   "Select": {
     "components": [
@@ -2450,6 +3477,34 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": "false"
           },
           {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0) — handy for staggering.",
+            "default": null
+          },
+          {
+            "name": "hoverEffect",
+            "type": "HoverEffect",
+            "required": false,
+            "description": "Effect while hovering: \"lift\" | \"scale\" | \"press\" | \"tilt\" | \"ring\" | \"glow\" | \"shine\" (default: none).",
+            "default": null
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -2472,7 +3527,11 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "placeholder": "string",
             "size": "string",
             "invalid": "boolean",
-            "disabled": "boolean"
+            "disabled": "boolean",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
           },
           "extraProps": [
             {
@@ -2493,7 +3552,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
     "hooks": [],
     "types": {
       "SelectSize": "\"sm\" | \"md\" | \"lg\""
-    }
+    },
+    "dataTypes": []
   },
   "Multi Select": {
     "components": [
@@ -2536,6 +3596,34 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": "\"accent\""
           },
           {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter/exit transition for the dropdown panel: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter/exit transition duration for the dropdown panel in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the dropdown panel's enter transition starts, in ms (default: 0).",
+            "default": null
+          },
+          {
+            "name": "hoverEffect",
+            "type": "HoverEffect",
+            "required": false,
+            "description": "Effect while hovering the field: \"lift\" | \"scale\" | \"press\" | \"tilt\" | \"ring\" | \"glow\" | \"shine\" (default: none).",
+            "default": null
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -2556,7 +3644,11 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "options": "json",
             "value": "json",
             "placeholder": "string",
-            "color": "string"
+            "color": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
           },
           "extraProps": [],
           "events": [
@@ -2569,7 +3661,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
       }
     ],
     "hooks": [],
-    "types": {}
+    "types": {},
+    "dataTypes": []
   },
   "Combobox": {
     "components": [
@@ -2605,6 +3698,34 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           },
           {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter/exit transition for the dropdown panel: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter/exit transition duration for the dropdown panel in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the dropdown panel's enter transition starts, in ms (default: 0).",
+            "default": null
+          },
+          {
+            "name": "hoverEffect",
+            "type": "HoverEffect",
+            "required": false,
+            "description": "Effect while hovering the field: \"lift\" | \"scale\" | \"press\" | \"tilt\" | \"ring\" | \"glow\" | \"shine\" (default: none).",
+            "default": null
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -2624,7 +3745,11 @@ export const API_DOCS: Record<string, ApiDoc> = {
           "props": {
             "options": "json",
             "value": "string",
-            "placeholder": "string"
+            "placeholder": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
           },
           "extraProps": [],
           "events": [
@@ -2637,7 +3762,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
       }
     ],
     "hooks": [],
-    "types": {}
+    "types": {},
+    "dataTypes": []
   },
   "Date Picker": {
     "components": [
@@ -2673,6 +3799,34 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           },
           {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0) — handy for staggering.",
+            "default": null
+          },
+          {
+            "name": "hoverEffect",
+            "type": "HoverEffect",
+            "required": false,
+            "description": "Effect while hovering: \"lift\" | \"scale\" | \"press\" | \"tilt\" | \"ring\" | \"glow\" | \"shine\" (default: none).",
+            "default": null
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -2694,7 +3848,11 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "size": "string",
             "variant": "string",
             "invalid": "boolean",
-            "disabled": "boolean"
+            "disabled": "boolean",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
           },
           "extraProps": [
             {
@@ -2797,6 +3955,34 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           },
           {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0) — handy for staggering.",
+            "default": null
+          },
+          {
+            "name": "hoverEffect",
+            "type": "HoverEffect",
+            "required": false,
+            "description": "Effect while hovering: \"lift\" | \"scale\" | \"press\" | \"tilt\" | \"ring\" | \"glow\" | \"shine\" (default: none).",
+            "default": null
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -2822,7 +4008,11 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "variant": "string",
             "invalid": "boolean",
             "disabled": "boolean",
-            "presets": "json"
+            "presets": "json",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
           },
           "extraProps": [],
           "events": [
@@ -2842,7 +4032,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
     "types": {
       "DatePickerSize": "\"sm\" | \"md\" | \"lg\"",
       "DatePickerVariant": "\"outline\" | \"filled\" | \"underline\""
-    }
+    },
+    "dataTypes": []
   },
   "Time Picker": {
     "components": [
@@ -2862,6 +4053,34 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "required": false,
             "description": "Applies error styling (rose border and focus ring) to flag invalid input (default: false).",
             "default": "false"
+          },
+          {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0) — handy for staggering.",
+            "default": null
+          },
+          {
+            "name": "hoverEffect",
+            "type": "HoverEffect",
+            "required": false,
+            "description": "Effect while hovering: \"lift\" | \"scale\" | \"press\" | \"tilt\" | \"ring\" | \"glow\" | \"shine\" (default: none).",
+            "default": null
           },
           {
             "name": "className",
@@ -2884,7 +4103,11 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "value": "string",
             "size": "string",
             "invalid": "boolean",
-            "disabled": "boolean"
+            "disabled": "boolean",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
           },
           "extraProps": [
             {
@@ -2905,7 +4128,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
     "hooks": [],
     "types": {
       "TimePickerSize": "\"sm\" | \"md\" | \"lg\""
-    }
+    },
+    "dataTypes": []
   },
   "File Upload": {
     "components": [
@@ -2924,6 +4148,34 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "type": "(files: FileList | null) => void",
             "required": false,
             "description": "Fires when the user picks files (via click or drop), with the selected FileList (or null).",
+            "default": null
+          },
+          {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0) — handy for staggering.",
+            "default": null
+          },
+          {
+            "name": "hoverEffect",
+            "type": "HoverEffect",
+            "required": false,
+            "description": "Effect while hovering: \"lift\" | \"scale\" | \"press\" | \"tilt\" | \"ring\" | \"glow\" | \"shine\" (default: none).",
             "default": null
           },
           {
@@ -2947,7 +4199,11 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "label": "string",
             "accept": "string",
             "multiple": "boolean",
-            "disabled": "boolean"
+            "disabled": "boolean",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
           },
           "extraProps": [
             {
@@ -2976,7 +4232,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
       }
     ],
     "hooks": [],
-    "types": {}
+    "types": {},
+    "dataTypes": []
   },
   "Search Input": {
     "components": [
@@ -2995,6 +4252,34 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "type": "() => void",
             "required": false,
             "description": "Called when the clear (x) button is clicked — only rendered when `value` is truthy and this is provided.",
+            "default": null
+          },
+          {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0) — handy for staggering.",
+            "default": null
+          },
+          {
+            "name": "hoverEffect",
+            "type": "HoverEffect",
+            "required": false,
+            "description": "Effect while hovering: \"lift\" | \"scale\" | \"press\" | \"tilt\" | \"ring\" | \"glow\" | \"shine\" (default: none).",
             "default": null
           },
           {
@@ -3018,7 +4303,11 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "value": "string",
             "placeholder": "string",
             "size": "string",
-            "disabled": "boolean"
+            "disabled": "boolean",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
           },
           "extraProps": [
             {
@@ -3049,7 +4338,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
     "hooks": [],
     "types": {
       "SearchInputSize": "\"sm\" | \"md\" | \"lg\""
-    }
+    },
+    "dataTypes": []
   },
   "Slider": {
     "components": [
@@ -3069,6 +4359,34 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "required": false,
             "description": "Shows the current numeric value in a label beside the slider, kept in sync in both controlled and uncontrolled use (default: false).",
             "default": "false"
+          },
+          {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0) — handy for staggering.",
+            "default": null
+          },
+          {
+            "name": "hoverEffect",
+            "type": "HoverEffect",
+            "required": false,
+            "description": "Effect while hovering: \"lift\" | \"scale\" | \"press\" | \"tilt\" | \"ring\" | \"glow\" | \"shine\" (default: none).",
+            "default": null
           },
           {
             "name": "className",
@@ -3094,7 +4412,11 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "step": "number",
             "color": "string",
             "showValue": "boolean",
-            "disabled": "boolean"
+            "disabled": "boolean",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
           },
           "extraProps": [
             {
@@ -3128,7 +4450,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
       }
     ],
     "hooks": [],
-    "types": {}
+    "types": {},
+    "dataTypes": []
   },
   "Range Slider": {
     "components": [
@@ -3185,6 +4508,34 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": "false"
           },
           {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0) — handy for staggering.",
+            "default": null
+          },
+          {
+            "name": "hoverEffect",
+            "type": "HoverEffect",
+            "required": false,
+            "description": "Effect while hovering: \"lift\" | \"scale\" | \"press\" | \"tilt\" | \"ring\" | \"glow\" | \"shine\" (default: none).",
+            "default": null
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -3207,7 +4558,11 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "max": "number",
             "step": "number",
             "color": "string",
-            "showValue": "boolean"
+            "showValue": "boolean",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
           },
           "extraProps": [],
           "events": [
@@ -3220,7 +4575,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
       }
     ],
     "hooks": [],
-    "types": {}
+    "types": {},
+    "dataTypes": []
   },
   "Modal / Dialog": {
     "components": [
@@ -3256,6 +4612,34 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           },
           {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter/exit transition for the dialog: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter/exit transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0).",
+            "default": null
+          },
+          {
+            "name": "hoverEffect",
+            "type": "HoverEffect",
+            "required": false,
+            "description": "Effect while hovering the panel: \"lift\" | \"scale\" | \"press\" | \"tilt\" | \"ring\" | \"glow\" | \"shine\" (default: none).",
+            "default": null
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -3276,7 +4660,11 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "open": "boolean",
             "heading": "string",
             "className": "string",
-            "classNames": "json"
+            "classNames": "json",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
           },
           "extraProps": [
             {
@@ -3295,7 +4683,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
       }
     ],
     "hooks": [],
-    "types": {}
+    "types": {},
+    "dataTypes": []
   },
   "Drawer": {
     "components": [
@@ -3345,6 +4734,34 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           },
           {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter/exit transition for the panel — replaces the default slide: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: the built-in slide). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0).",
+            "default": null
+          },
+          {
+            "name": "hoverEffect",
+            "type": "HoverEffect",
+            "required": false,
+            "description": "Effect while hovering the panel: \"lift\" | \"scale\" | \"press\" | \"tilt\" | \"ring\" | \"glow\" | \"shine\" (default: none).",
+            "default": null
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -3365,7 +4782,11 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "open": "boolean",
             "heading": "string",
             "position": "string",
-            "size": "string"
+            "size": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
           },
           "extraProps": [
             {
@@ -3386,7 +4807,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
     "hooks": [],
     "types": {
       "DrawerPosition": "\"left\" | \"right\" | \"top\" | \"bottom\""
-    }
+    },
+    "dataTypes": []
   },
   "Sheet": {
     "components": [
@@ -3422,6 +4844,34 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           },
           {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter/exit transition for the panel — replaces the default slide-up: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: the built-in slide-up). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0).",
+            "default": null
+          },
+          {
+            "name": "hoverEffect",
+            "type": "HoverEffect",
+            "required": false,
+            "description": "Effect while hovering the panel: \"lift\" | \"scale\" | \"press\" | \"tilt\" | \"ring\" | \"glow\" | \"shine\" (default: none).",
+            "default": null
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -3440,7 +4890,11 @@ export const API_DOCS: Record<string, ApiDoc> = {
           "tag": "l-sheet",
           "props": {
             "open": "boolean",
-            "heading": "string"
+            "heading": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
           },
           "extraProps": [
             {
@@ -3459,7 +4913,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
       }
     ],
     "hooks": [],
-    "types": {}
+    "types": {},
+    "dataTypes": []
   },
   "Popover": {
     "components": [
@@ -3488,6 +4943,27 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": "\"bottom\""
           },
           {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter/exit transition for the panel: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0).",
+            "default": null
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -3506,7 +4982,10 @@ export const API_DOCS: Record<string, ApiDoc> = {
           "tag": "l-popover",
           "props": {
             "content": "string",
-            "position": "string"
+            "position": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number"
           },
           "extraProps": [],
           "events": []
@@ -3516,7 +4995,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
     "hooks": [],
     "types": {
       "PopoverPosition": "\"top\" | \"bottom\" | \"left\" | \"right\""
-    }
+    },
+    "dataTypes": []
   },
   "Dropdown Menu": {
     "components": [
@@ -3545,6 +5025,27 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           },
           {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter/exit transition for the menu: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0).",
+            "default": null
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -3562,7 +5063,10 @@ export const API_DOCS: Record<string, ApiDoc> = {
         "element": {
           "tag": "l-dropdown-menu",
           "props": {
-            "align": "string"
+            "align": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number"
           },
           "extraProps": [],
           "events": []
@@ -3636,7 +5140,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
     "hooks": [],
     "types": {
       "DropdownMenuAlign": "\"start\" | \"end\""
-    }
+    },
+    "dataTypes": []
   },
   "Context Menu": {
     "components": [
@@ -3658,6 +5163,27 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           },
           {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter/exit transition for the menu: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0).",
+            "default": null
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -3674,14 +5200,19 @@ export const API_DOCS: Record<string, ApiDoc> = {
         ],
         "element": {
           "tag": "l-context-menu",
-          "props": {},
+          "props": {
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number"
+          },
           "extraProps": [],
           "events": []
         }
       }
     ],
     "hooks": [],
-    "types": {}
+    "types": {},
+    "dataTypes": []
   },
   "Command Menu": {
     "components": [
@@ -3717,6 +5248,27 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": "\"Type a command or search…\""
           },
           {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter/exit transition for the panel: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0).",
+            "default": null
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -3736,7 +5288,10 @@ export const API_DOCS: Record<string, ApiDoc> = {
           "props": {
             "open": "boolean",
             "items": "json",
-            "placeholder": "string"
+            "placeholder": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number"
           },
           "extraProps": [],
           "events": [
@@ -3749,7 +5304,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
       }
     ],
     "hooks": [],
-    "types": {}
+    "types": {},
+    "dataTypes": []
   },
   "Alert Dialog": {
     "components": [
@@ -3813,6 +5369,34 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           },
           {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter/exit transition for the dialog: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter/exit transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0).",
+            "default": null
+          },
+          {
+            "name": "hoverEffect",
+            "type": "HoverEffect",
+            "required": false,
+            "description": "Effect while hovering the panel: \"lift\" | \"scale\" | \"press\" | \"tilt\" | \"ring\" | \"glow\" | \"shine\" (default: none).",
+            "default": null
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -3835,7 +5419,11 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "description": "string",
             "variant": "string",
             "confirmLabel": "string",
-            "cancelLabel": "string"
+            "cancelLabel": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
           },
           "extraProps": [
             {
@@ -3860,7 +5448,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
     "hooks": [],
     "types": {
       "AlertDialogVariant": "\"default\" | \"destructive\""
-    }
+    },
+    "dataTypes": []
   },
   "Tooltip": {
     "components": [
@@ -3903,6 +5492,27 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": "\"accent\""
           },
           {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter/exit transition for the bubble — replaces the default fade + scale: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: the built-in fade + scale). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter/exit transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0).",
+            "default": null
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -3923,7 +5533,10 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "content": "string",
             "position": "string",
             "delayMs": "number",
-            "color": "string"
+            "color": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number"
           },
           "extraProps": [],
           "events": []
@@ -3933,7 +5546,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
     "hooks": [],
     "types": {
       "TooltipPosition": "\"top\" | \"bottom\" | \"left\" | \"right\""
-    }
+    },
+    "dataTypes": []
   },
   "Alert": {
     "components": [
@@ -3941,10 +5555,31 @@ export const API_DOCS: Record<string, ApiDoc> = {
         "name": "Alert",
         "props": [
           {
+            "name": "animated",
+            "type": "AnimatedVariant",
+            "required": false,
+            "description": "Attention animation: \"glow\" | \"pulse\" | \"sweep\" | \"bounce\" | \"float\" | \"wiggle\" | \"border-spin\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "pulseColor",
+            "type": "ColorName | (string & {})",
+            "required": false,
+            "description": "Color of the animation (pulse ring, glow, spinning border): a `ColorName` or any CSS color (default: the component's own color).",
+            "default": null
+          },
+          {
+            "name": "pulseGradientTo",
+            "type": "ColorName | (string & {})",
+            "required": false,
+            "description": "Second color — turns the pulse ring and spinning border into a gradient from `pulseColor` to this (default: solid `pulseColor`).",
+            "default": null
+          },
+          {
             "name": "variant",
             "type": "AlertVariant",
             "required": false,
-            "description": "Visual/semantic tone (default: \"info\").",
+            "description": "Visual/semantic tone: \"info\" | \"success\" | \"warning\" | \"error\" | \"accent\" — \"accent\" follows the theme accent color (default: \"info\").",
             "default": "\"info\""
           },
           {
@@ -3983,6 +5618,34 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           },
           {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0) — handy for staggering.",
+            "default": null
+          },
+          {
+            "name": "hoverEffect",
+            "type": "HoverEffect",
+            "required": false,
+            "description": "Effect while hovering: \"lift\" | \"scale\" | \"press\" | \"tilt\" | \"ring\" | \"glow\" | \"shine\" (default: none).",
+            "default": null
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -4000,12 +5663,19 @@ export const API_DOCS: Record<string, ApiDoc> = {
         "element": {
           "tag": "l-alert",
           "props": {
+            "animated": "string",
+            "pulseColor": "string",
+            "pulseGradientTo": "string",
             "variant": "string",
             "heading": "string",
             "icon": "string",
             "closable": "boolean",
             "className": "string",
-            "classNames": "json"
+            "classNames": "json",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
           },
           "extraProps": [
             {
@@ -4025,8 +5695,9 @@ export const API_DOCS: Record<string, ApiDoc> = {
     ],
     "hooks": [],
     "types": {
-      "AlertVariant": "\"info\" | \"success\" | \"warning\" | \"error\""
-    }
+      "AlertVariant": "\"info\" | \"success\" | \"warning\" | \"error\" | \"accent\""
+    },
+    "dataTypes": []
   },
   "Toast": {
     "components": [
@@ -4090,6 +5761,34 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           },
           {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter/exit transition for the toast: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter/exit transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0).",
+            "default": null
+          },
+          {
+            "name": "hoverEffect",
+            "type": "HoverEffect",
+            "required": false,
+            "description": "Effect while hovering the toast: \"lift\" | \"scale\" | \"press\" | \"tilt\" | \"ring\" | \"glow\" | \"shine\" (default: none).",
+            "default": null
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -4112,7 +5811,11 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "heading": "string",
             "duration": "number",
             "position": "string",
-            "icon": "string"
+            "icon": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
           },
           "extraProps": [
             {
@@ -4134,7 +5837,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
     "types": {
       "ToastVariant": "\"info\" | \"success\" | \"warning\" | \"error\"",
       "ToastPosition": "| \"top-left\" | \"top-center\" | \"top-right\" | \"bottom-left\" | \"bottom-center\" | \"bottom-right\""
-    }
+    },
+    "dataTypes": []
   },
   "Notification": {
     "components": [
@@ -4191,6 +5895,34 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           },
           {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0) — handy for staggering.",
+            "default": null
+          },
+          {
+            "name": "hoverEffect",
+            "type": "HoverEffect",
+            "required": false,
+            "description": "Effect while hovering: \"lift\" | \"scale\" | \"press\" | \"tilt\" | \"ring\" | \"glow\" | \"shine\" (default: none).",
+            "default": null
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -4210,7 +5942,11 @@ export const API_DOCS: Record<string, ApiDoc> = {
           "props": {
             "icon": "string",
             "timestamp": "string",
-            "unread": "boolean"
+            "unread": "boolean",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
           },
           "extraProps": [],
           "events": [
@@ -4223,7 +5959,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
       }
     ],
     "hooks": [],
-    "types": {}
+    "types": {},
+    "dataTypes": []
   },
   "Progress Bar": {
     "components": [
@@ -4280,6 +6017,27 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": "false"
           },
           {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0) — handy for staggering.",
+            "default": null
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -4303,7 +6061,10 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "color": "string",
             "showLabel": "boolean",
             "striped": "boolean",
-            "indeterminate": "boolean"
+            "indeterminate": "boolean",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number"
           },
           "extraProps": [],
           "events": []
@@ -4313,7 +6074,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
     "hooks": [],
     "types": {
       "ProgressBarSize": "\"sm\" | \"md\" | \"lg\""
-    }
+    },
+    "dataTypes": []
   },
   "Empty State": {
     "components": [
@@ -4349,6 +6111,27 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           },
           {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0) — handy for staggering.",
+            "default": null
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -4367,7 +6150,10 @@ export const API_DOCS: Record<string, ApiDoc> = {
           "tag": "l-empty-state",
           "props": {
             "icon": "string",
-            "heading": "string"
+            "heading": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number"
           },
           "extraProps": [
             {
@@ -4381,7 +6167,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
       }
     ],
     "hooks": [],
-    "types": {}
+    "types": {},
+    "dataTypes": []
   },
   "Error State": {
     "components": [
@@ -4417,6 +6204,27 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           },
           {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0) — handy for staggering.",
+            "default": null
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -4435,7 +6243,10 @@ export const API_DOCS: Record<string, ApiDoc> = {
           "tag": "l-error-state",
           "props": {
             "icon": "string",
-            "heading": "string"
+            "heading": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number"
           },
           "extraProps": [
             {
@@ -4449,7 +6260,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
       }
     ],
     "hooks": [],
-    "types": {}
+    "types": {},
+    "dataTypes": []
   },
   "Success State": {
     "components": [
@@ -4485,6 +6297,27 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           },
           {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0) — handy for staggering.",
+            "default": null
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -4503,7 +6336,10 @@ export const API_DOCS: Record<string, ApiDoc> = {
           "tag": "l-success-state",
           "props": {
             "icon": "string",
-            "heading": "string"
+            "heading": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number"
           },
           "extraProps": [
             {
@@ -4517,7 +6353,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
       }
     ],
     "hooks": [],
-    "types": {}
+    "types": {},
+    "dataTypes": []
   },
   "Loading State": {
     "components": [
@@ -4546,6 +6383,27 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": "\"md\""
           },
           {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0) — handy for staggering.",
+            "default": null
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -4564,7 +6422,10 @@ export const API_DOCS: Record<string, ApiDoc> = {
           "tag": "l-loading-state",
           "props": {
             "heading": "string",
-            "size": "string"
+            "size": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number"
           },
           "extraProps": [
             {
@@ -4580,7 +6441,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
     "hooks": [],
     "types": {
       "LoadingStateSize": "\"sm\" | \"md\" | \"lg\""
-    }
+    },
+    "dataTypes": []
   },
   "Navbar": {
     "components": [
@@ -4665,6 +6527,34 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           },
           {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0) — handy for staggering.",
+            "default": null
+          },
+          {
+            "name": "hoverEffect",
+            "type": "HoverEffect",
+            "required": false,
+            "description": "Effect while hovering: \"lift\" | \"scale\" | \"press\" | \"tilt\" | \"ring\" | \"glow\" | \"shine\" (default: none). Applied to each link of the `items` shortcut (links composed as `children` take their own `hoverEffect`).",
+            "default": null
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -4689,7 +6579,11 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "color": "string",
             "borderWidth": "number",
             "items": "json",
-            "defaultActiveItem": "string"
+            "defaultActiveItem": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
           },
           "extraProps": [],
           "events": [
@@ -4781,6 +6675,34 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           },
           {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0) — handy for staggering.",
+            "default": null
+          },
+          {
+            "name": "hoverEffect",
+            "type": "HoverEffect",
+            "required": false,
+            "description": "Effect while hovering: \"lift\" | \"scale\" | \"press\" | \"tilt\" | \"ring\" | \"glow\" | \"shine\" (default: none).",
+            "default": null
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -4805,7 +6727,11 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "dark": "boolean",
             "vividActive": "boolean",
             "color": "string",
-            "activeStyle": "string"
+            "activeStyle": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
           },
           "extraProps": [],
           "events": []
@@ -4815,7 +6741,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
     "hooks": [],
     "types": {
       "NavbarVariant": "\"light\" | \"dark\" | \"bordered\" | \"elevated\" | \"minimal\" | \"gradient\" | \"glass\""
-    }
+    },
+    "dataTypes": []
   },
   "Top Bar": {
     "components": [
@@ -4970,6 +6897,34 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": "false"
           },
           {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0) — handy for staggering.",
+            "default": null
+          },
+          {
+            "name": "hoverEffect",
+            "type": "HoverEffect",
+            "required": false,
+            "description": "Effect while hovering: \"lift\" | \"scale\" | \"press\" | \"tilt\" | \"ring\" | \"glow\" | \"shine\" (default: none). Applied to the bar's icon buttons (menu, back, search, actions).",
+            "default": null
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -4999,7 +6954,11 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "variant": "string",
             "color": "string",
             "size": "string",
-            "sticky": "boolean"
+            "sticky": "boolean",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
           },
           "extraProps": [],
           "events": [
@@ -5031,7 +6990,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
     "types": {
       "TopBarVariant": "\"light\" | \"accent\" | \"minimal\" | \"elevated\"",
       "TopBarSize": "\"sm\" | \"md\" | \"lg\""
-    }
+    },
+    "dataTypes": []
   },
   "Flow Diagram": {
     "components": [
@@ -5462,7 +7422,694 @@ export const API_DOCS: Record<string, ApiDoc> = {
       "FlowTone": "\"default\" | \"accent\" | \"muted\"",
       "FlowDirection": "\"horizontal\" | \"vertical\"",
       "FlowCurve": "\"smooth\" | \"step\" | \"straight\""
-    }
+    },
+    "dataTypes": []
+  },
+  "Map": {
+    "components": [
+      {
+        "name": "Map",
+        "props": [
+          {
+            "name": "center",
+            "type": "LngLat",
+            "required": false,
+            "description": "Map center as `[lng, lat]` (default `[0, 20]`). Changing it moves the map; panning does not write back.",
+            "default": "[0, 20]"
+          },
+          {
+            "name": "zoom",
+            "type": "number",
+            "required": false,
+            "description": "Zoom level, 0 (world) – 22 (default 2).",
+            "default": "2"
+          },
+          {
+            "name": "pitch",
+            "type": "number",
+            "required": false,
+            "description": "Camera tilt in degrees, 0 – 85 (default 0).",
+            "default": "0"
+          },
+          {
+            "name": "bearing",
+            "type": "number",
+            "required": false,
+            "description": "Camera rotation in degrees (default 0).",
+            "default": "0"
+          },
+          {
+            "name": "mapStyle",
+            "type": "MapStyleName | (string & {})",
+            "required": false,
+            "description": "Base map: \"auto\" (default — light or dark to match the theme), \"light\", \"dark\", \"voyager\", or the URL of any MapLibre style JSON. Free CARTO basemaps are used for the named styles.",
+            "default": "\"auto\""
+          },
+          {
+            "name": "controls",
+            "type": "boolean | MapControlName[]",
+            "required": false,
+            "description": "Show map controls: `true` for zoom, compass, locate and fullscreen, or pick from \"zoom\" | \"compass\" | \"locate\" | \"fullscreen\" | \"scale\".",
+            "default": "false"
+          },
+          {
+            "name": "markers",
+            "type": "MapMarkerData[]",
+            "required": false,
+            "description": "Markers drawn from plain data (the only way to add markers from a Web Component).",
+            "default": null
+          },
+          {
+            "name": "routes",
+            "type": "MapRouteData[]",
+            "required": false,
+            "description": "Routes drawn from plain data.",
+            "default": null
+          },
+          {
+            "name": "fitBounds",
+            "type": "boolean",
+            "required": false,
+            "description": "Zoom to fit all `markers` and `routes` (with `coordinates`) once the map is ready, and whenever they change.",
+            "default": "false"
+          },
+          {
+            "name": "fitPadding",
+            "type": "number",
+            "required": false,
+            "description": "Padding in px around the fitted bounds (default 60).",
+            "default": "60"
+          },
+          {
+            "name": "interactive",
+            "type": "boolean",
+            "required": false,
+            "description": "Allow panning, zooming and rotating with the mouse / touch (default true). Read once, when the map is created.",
+            "default": "true"
+          },
+          {
+            "name": "onLoad",
+            "type": "(map: MapLibre.Map) => void",
+            "required": false,
+            "description": "Called once the map and its style have loaded, with the MapLibre map instance.",
+            "default": null
+          },
+          {
+            "name": "onMove",
+            "type": "(view: MapViewState) => void",
+            "required": false,
+            "description": "Called when the user finishes moving the map, with the new view.",
+            "default": null
+          },
+          {
+            "name": "onMapClick",
+            "type": "(position: { lng: number; lat: number }) => void",
+            "required": false,
+            "description": "Called when the map (not a marker or route) is clicked.",
+            "default": null
+          },
+          {
+            "name": "onMarkerClick",
+            "type": "(marker: MapMarkerData) => void",
+            "required": false,
+            "description": "Called when a data-driven marker is clicked.",
+            "default": null
+          },
+          {
+            "name": "onMarkerDragEnd",
+            "type": "(marker: MapMarkerData, position: { lng: number; lat: number }) => void",
+            "required": false,
+            "description": "Called with the marker and its new position when a draggable data-driven marker is dropped.",
+            "default": null
+          },
+          {
+            "name": "onRouteClick",
+            "type": "(route: MapRouteData) => void",
+            "required": false,
+            "description": "Called when a data-driven route is clicked.",
+            "default": null
+          },
+          {
+            "name": "onRouteLoad",
+            "type": "(summary: MapRouteSummary) => void",
+            "required": false,
+            "description": "Called when a data-driven route's geometry is known, with its length and (for fetched routes) travel time.",
+            "default": null
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "required": false,
+            "description": "`MapMarker`, `MapRoute`, `MapControls` or your own components that use `useMap()`.",
+            "default": null
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "required": false,
+            "description": "Extra class names applied to the root element (its default size is `h-[360px] w-full`).",
+            "default": null
+          },
+          {
+            "name": "classNames",
+            "type": "{ root?: string; map?: string }",
+            "required": false,
+            "description": "Per-part class overrides (`root`, `map`) — merged after the built-in styling.",
+            "default": null
+          }
+        ],
+        "element": {
+          "tag": "l-map",
+          "props": {
+            "center": "json",
+            "zoom": "number",
+            "pitch": "number",
+            "bearing": "number",
+            "mapStyle": "string",
+            "controls": "json",
+            "markers": "json",
+            "routes": "json",
+            "fitBounds": "boolean",
+            "fitPadding": "number",
+            "interactive": "boolean"
+          },
+          "extraProps": [],
+          "events": [
+            {
+              "callback": "onLoad",
+              "event": "load"
+            },
+            {
+              "callback": "onMove",
+              "event": "move"
+            },
+            {
+              "callback": "onMapClick",
+              "event": "mapclick"
+            },
+            {
+              "callback": "onMarkerClick",
+              "event": "markerclick"
+            },
+            {
+              "callback": "onMarkerDragEnd",
+              "event": "markerdragend"
+            },
+            {
+              "callback": "onRouteClick",
+              "event": "routeclick"
+            },
+            {
+              "callback": "onRouteLoad",
+              "event": "routeload"
+            }
+          ]
+        }
+      },
+      {
+        "name": "MapControls",
+        "props": [
+          {
+            "name": "controls",
+            "type": "MapControlName[]",
+            "required": false,
+            "description": "Which controls to show (default: zoom, compass, locate and fullscreen). Also \"scale\" for a distance scale bar.",
+            "default": "DEFAULT"
+          },
+          {
+            "name": "position",
+            "type": "MapLibre.ControlPosition",
+            "required": false,
+            "description": "Corner of the map for the button controls (default \"top-right\"). The scale bar is always bottom-left.",
+            "default": "\"top-right\""
+          }
+        ],
+        "element": null
+      }
+    ],
+    "hooks": [
+      {
+        "name": "useMap",
+        "signature": "useMap(): MapContextValue",
+        "description": "The map instance and helpers for custom children. Only valid inside `<Map>`."
+      }
+    ],
+    "types": {
+      "MapLibreModule": "typeof MapLibre",
+      "LngLat": "[number, number]",
+      "MapControlName": "\"zoom\" | \"compass\" | \"locate\" | \"fullscreen\" | \"scale\"",
+      "MapStyleName": "\"auto\" | keyof typeof MAP_STYLES"
+    },
+    "dataTypes": [
+      {
+        "name": "MapViewState",
+        "via": null,
+        "note": "Reported by `onMove` / the `move` event.",
+        "props": [
+          {
+            "name": "center",
+            "type": "LngLat",
+            "required": true,
+            "description": "",
+            "default": null
+          },
+          {
+            "name": "zoom",
+            "type": "number",
+            "required": true,
+            "description": "",
+            "default": null
+          },
+          {
+            "name": "pitch",
+            "type": "number",
+            "required": true,
+            "description": "",
+            "default": null
+          },
+          {
+            "name": "bearing",
+            "type": "number",
+            "required": true,
+            "description": "",
+            "default": null
+          }
+        ]
+      }
+    ]
+  },
+  "Map Markers": {
+    "components": [
+      {
+        "name": "MapMarker",
+        "props": [
+          {
+            "name": "lng",
+            "type": "number",
+            "required": true,
+            "description": "Longitude.",
+            "default": null
+          },
+          {
+            "name": "lat",
+            "type": "number",
+            "required": true,
+            "description": "Latitude.",
+            "default": null
+          },
+          {
+            "name": "label",
+            "type": "string",
+            "required": false,
+            "description": "Text shown beside the pin.",
+            "default": null
+          },
+          {
+            "name": "color",
+            "type": "ColorName | (string & {})",
+            "required": false,
+            "description": "Pin color: a built-in color name (default \"accent\", which follows the theme) or any CSS color.",
+            "default": "\"accent\""
+          },
+          {
+            "name": "icon",
+            "type": "string",
+            "required": false,
+            "description": "Icon name from the library's icon set, drawn inside the pin (e.g. \"home\").",
+            "default": null
+          },
+          {
+            "name": "popup",
+            "type": "ReactNode",
+            "required": false,
+            "description": "Content of a popup opened by clicking the marker — text or any React content.",
+            "default": null
+          },
+          {
+            "name": "tooltip",
+            "type": "string",
+            "required": false,
+            "description": "Short text shown in a small bubble while the pointer is over the marker.",
+            "default": null
+          },
+          {
+            "name": "draggable",
+            "type": "boolean",
+            "required": false,
+            "description": "Let the user drag the marker (default false).",
+            "default": "false"
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "required": false,
+            "description": "Replace the default pin with your own content.",
+            "default": null
+          },
+          {
+            "name": "onClick",
+            "type": "() => void",
+            "required": false,
+            "description": "Called when the marker is clicked.",
+            "default": null
+          },
+          {
+            "name": "onDragEnd",
+            "type": "(position: { lng: number; lat: number }) => void",
+            "required": false,
+            "description": "Called with the new position when a drag ends.",
+            "default": null
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "required": false,
+            "description": "Extra class names applied to the default pin.",
+            "default": null
+          }
+        ],
+        "element": null
+      }
+    ],
+    "hooks": [],
+    "types": {},
+    "dataTypes": [
+      {
+        "name": "MapMarkerData",
+        "via": "markers",
+        "note": null,
+        "props": [
+          {
+            "name": "id",
+            "type": "string",
+            "required": false,
+            "description": "Stable id, reported back by marker events. Defaults to the marker's index.",
+            "default": null
+          },
+          {
+            "name": "lng",
+            "type": "number",
+            "required": true,
+            "description": "",
+            "default": null
+          },
+          {
+            "name": "lat",
+            "type": "number",
+            "required": true,
+            "description": "",
+            "default": null
+          },
+          {
+            "name": "label",
+            "type": "string",
+            "required": false,
+            "description": "Text shown under the pin.",
+            "default": null
+          },
+          {
+            "name": "color",
+            "type": "ColorName | (string & {})",
+            "required": false,
+            "description": "Pin color: a built-in color name (including \"accent\", the default) or any CSS color.",
+            "default": null
+          },
+          {
+            "name": "popup",
+            "type": "string",
+            "required": false,
+            "description": "Text shown in a popup when the marker is clicked.",
+            "default": null
+          },
+          {
+            "name": "tooltip",
+            "type": "string",
+            "required": false,
+            "description": "Text shown in a small bubble while hovering the marker.",
+            "default": null
+          },
+          {
+            "name": "icon",
+            "type": "string",
+            "required": false,
+            "description": "Icon name from the library's icon set, drawn inside the pin (e.g. \"home\").",
+            "default": null
+          },
+          {
+            "name": "draggable",
+            "type": "boolean",
+            "required": false,
+            "description": "Let the marker be dragged to a new position.",
+            "default": null
+          }
+        ]
+      }
+    ]
+  },
+  "Map Routes": {
+    "components": [
+      {
+        "name": "MapRoute",
+        "props": [
+          {
+            "name": "coordinates",
+            "type": "LngLat[]",
+            "required": false,
+            "description": "The line to draw, as `[lng, lat]` pairs.",
+            "default": null
+          },
+          {
+            "name": "waypoints",
+            "type": "LngLat[]",
+            "required": false,
+            "description": "Instead of `coordinates`: stops to route through. The road route between them is fetched from the public OSRM demo server (falls back to straight lines if it can't be reached).",
+            "default": null
+          },
+          {
+            "name": "color",
+            "type": "ColorName | (string & {})",
+            "required": false,
+            "description": "Line color: a built-in color name (default \"accent\", which follows the theme) or any CSS color.",
+            "default": "\"accent\""
+          },
+          {
+            "name": "width",
+            "type": "number",
+            "required": false,
+            "description": "Line width in px (default 4).",
+            "default": "4"
+          },
+          {
+            "name": "opacity",
+            "type": "number",
+            "required": false,
+            "description": "Line opacity from 0 to 1 (default 0.85).",
+            "default": "0.85"
+          },
+          {
+            "name": "dashArray",
+            "type": "[number, number]",
+            "required": false,
+            "description": "Dash pattern as `[dash, gap]` in line widths, e.g. `[2, 2]`.",
+            "default": null
+          },
+          {
+            "name": "progress",
+            "type": "number",
+            "required": false,
+            "description": "0 – 1: how much of the route has been travelled — the rest is drawn faded. Replaces `dashArray`.",
+            "default": null
+          },
+          {
+            "name": "active",
+            "type": "boolean",
+            "required": false,
+            "description": "Highlights the route: it is drawn with `activeWidth` / `activeOpacity` and above the others.",
+            "default": "false"
+          },
+          {
+            "name": "activeWidth",
+            "type": "number",
+            "required": false,
+            "description": "Width while active (default: width + 2).",
+            "default": null
+          },
+          {
+            "name": "activeOpacity",
+            "type": "number",
+            "required": false,
+            "description": "Opacity while active (default 1).",
+            "default": "1"
+          },
+          {
+            "name": "animated",
+            "type": "boolean",
+            "required": false,
+            "description": "Animate the dashes along the line, like marching ants.",
+            "default": "false"
+          },
+          {
+            "name": "fit",
+            "type": "boolean",
+            "required": false,
+            "description": "Zoom the map to this route once its geometry is known.",
+            "default": "false"
+          },
+          {
+            "name": "onClick",
+            "type": "() => void",
+            "required": false,
+            "description": "Called when the route line is clicked.",
+            "default": null
+          },
+          {
+            "name": "onLoad",
+            "type": "(summary: MapRouteSummary) => void",
+            "required": false,
+            "description": "Called with the route's length (and travel time for `waypoints` routes) once its geometry is known.",
+            "default": null
+          },
+          {
+            "name": "id",
+            "type": "string",
+            "required": false,
+            "description": "Stable id, reported in `onLoad`. Defaults to a generated one.",
+            "default": null
+          }
+        ],
+        "element": null
+      }
+    ],
+    "hooks": [],
+    "types": {},
+    "dataTypes": [
+      {
+        "name": "MapRouteData",
+        "via": "routes",
+        "note": null,
+        "props": [
+          {
+            "name": "id",
+            "type": "string",
+            "required": false,
+            "description": "",
+            "default": null
+          },
+          {
+            "name": "coordinates",
+            "type": "LngLat[]",
+            "required": false,
+            "description": "The line to draw, as `[lng, lat]` pairs.",
+            "default": null
+          },
+          {
+            "name": "waypoints",
+            "type": "LngLat[]",
+            "required": false,
+            "description": "Instead of `coordinates`: stops to route through. The road route between them is fetched from the public OSRM demo server.",
+            "default": null
+          },
+          {
+            "name": "color",
+            "type": "ColorName | (string & {})",
+            "required": false,
+            "description": "",
+            "default": null
+          },
+          {
+            "name": "width",
+            "type": "number",
+            "required": false,
+            "description": "Line width in px (default 4).",
+            "default": null
+          },
+          {
+            "name": "opacity",
+            "type": "number",
+            "required": false,
+            "description": "Line opacity from 0 to 1 (default 0.85).",
+            "default": null
+          },
+          {
+            "name": "dashArray",
+            "type": "[number, number]",
+            "required": false,
+            "description": "Dash pattern as `[dash, gap]` in line widths, e.g. `[2, 2]`.",
+            "default": null
+          },
+          {
+            "name": "progress",
+            "type": "number",
+            "required": false,
+            "description": "0 – 1: how much of the route has been travelled. The rest is drawn faded.",
+            "default": null
+          },
+          {
+            "name": "active",
+            "type": "boolean",
+            "required": false,
+            "description": "Highlights the route (uses `activeWidth` / `activeOpacity`).",
+            "default": null
+          },
+          {
+            "name": "activeWidth",
+            "type": "number",
+            "required": false,
+            "description": "",
+            "default": null
+          },
+          {
+            "name": "activeOpacity",
+            "type": "number",
+            "required": false,
+            "description": "",
+            "default": null
+          },
+          {
+            "name": "animated",
+            "type": "boolean",
+            "required": false,
+            "description": "Animate the dashes along the line, like marching ants.",
+            "default": null
+          }
+        ]
+      },
+      {
+        "name": "MapRouteSummary",
+        "via": null,
+        "note": "Reported by `onLoad` / the `routeload` event.",
+        "props": [
+          {
+            "name": "id",
+            "type": "string",
+            "required": true,
+            "description": "",
+            "default": null
+          },
+          {
+            "name": "distance",
+            "type": "number",
+            "required": true,
+            "description": "Length in metres.",
+            "default": null
+          },
+          {
+            "name": "duration",
+            "type": "number",
+            "required": false,
+            "description": "Estimated travel time in seconds (only for fetched `waypoints` routes).",
+            "default": null
+          },
+          {
+            "name": "coordinates",
+            "type": "LngLat[]",
+            "required": true,
+            "description": "",
+            "default": null
+          }
+        ]
+      }
+    ]
   },
   "Sidebar": {
     "components": [
@@ -5608,6 +8255,34 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           },
           {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0) — handy for staggering.",
+            "default": null
+          },
+          {
+            "name": "hoverEffect",
+            "type": "HoverEffect",
+            "required": false,
+            "description": "Effect while hovering: \"lift\" | \"scale\" | \"press\" | \"tilt\" | \"ring\" | \"glow\" | \"shine\" (default: none). Applied to each row of the `items` shortcut (rows composed as `children` take their own `hoverEffect`).",
+            "default": null
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -5637,7 +8312,11 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "items": "json",
             "defaultActiveItem": "string",
             "borderWidth": "number",
-            "sticky": "boolean"
+            "sticky": "boolean",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
           },
           "extraProps": [],
           "events": [
@@ -5747,6 +8426,34 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           },
           {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0) — handy for staggering.",
+            "default": null
+          },
+          {
+            "name": "hoverEffect",
+            "type": "HoverEffect",
+            "required": false,
+            "description": "Effect while hovering: \"lift\" | \"scale\" | \"press\" | \"tilt\" | \"ring\" | \"glow\" | \"shine\" (default: none).",
+            "default": null
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -5772,7 +8479,11 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "dark": "boolean",
             "vividActive": "boolean",
             "color": "string",
-            "tooltipPosition": "string"
+            "tooltipPosition": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
           },
           "extraProps": [],
           "events": []
@@ -5782,7 +8493,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
     "hooks": [],
     "types": {
       "SidebarVariant": "\"light\" | \"dark\" | \"bordered\" | \"elevated\" | \"minimal\" | \"gradient\" | \"glass\""
-    }
+    },
+    "dataTypes": []
   },
   "Header": {
     "components": [
@@ -5839,6 +8551,27 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           },
           {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0) — handy for staggering.",
+            "default": null
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -5859,7 +8592,10 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "heading": "string",
             "variant": "string",
             "color": "string",
-            "borderWidth": "number"
+            "borderWidth": "number",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number"
           },
           "extraProps": [
             {
@@ -5875,7 +8611,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
     "hooks": [],
     "types": {
       "HeaderVariant": "\"light\" | \"dark\" | \"bordered\" | \"elevated\" | \"minimal\" | \"gradient\" | \"glass\""
-    }
+    },
+    "dataTypes": []
   },
   "Footer": {
     "components": [
@@ -5911,6 +8648,27 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": "\"accent\""
           },
           {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0) — handy for staggering.",
+            "default": null
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -5929,7 +8687,10 @@ export const API_DOCS: Record<string, ApiDoc> = {
           "tag": "l-footer",
           "props": {
             "variant": "string",
-            "color": "string"
+            "color": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number"
           },
           "extraProps": [],
           "events": []
@@ -5939,7 +8700,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
     "hooks": [],
     "types": {
       "FooterVariant": "\"light\" | \"dark\" | \"minimal\" | \"accent\""
-    }
+    },
+    "dataTypes": []
   },
   "Navigation Menu": {
     "components": [
@@ -5996,6 +8758,34 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           },
           {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0) — handy for staggering.",
+            "default": null
+          },
+          {
+            "name": "hoverEffect",
+            "type": "HoverEffect",
+            "required": false,
+            "description": "Effect while hovering: \"lift\" | \"scale\" | \"press\" | \"tilt\" | \"ring\" | \"glow\" | \"shine\" (default: none). Applied to each menu item.",
+            "default": null
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -6017,7 +8807,11 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "orientation": "string",
             "color": "string",
             "variant": "string",
-            "defaultActiveItem": "string"
+            "defaultActiveItem": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
           },
           "extraProps": [],
           "events": [
@@ -6036,7 +8830,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
     "hooks": [],
     "types": {
       "NavigationMenuOrientation": "\"horizontal\" | \"vertical\""
-    }
+    },
+    "dataTypes": []
   },
   "Bottom Navigation": {
     "components": [
@@ -6079,6 +8874,34 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           },
           {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0) — handy for staggering.",
+            "default": null
+          },
+          {
+            "name": "hoverEffect",
+            "type": "HoverEffect",
+            "required": false,
+            "description": "Effect while hovering: \"lift\" | \"scale\" | \"press\" | \"tilt\" | \"ring\" | \"glow\" | \"shine\" (default: none). Applied to each tab.",
+            "default": null
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -6099,7 +8922,11 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "items": "json",
             "color": "string",
             "variant": "string",
-            "defaultActiveItem": "string"
+            "defaultActiveItem": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
           },
           "extraProps": [],
           "events": [
@@ -6112,7 +8939,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
       }
     ],
     "hooks": [],
-    "types": {}
+    "types": {},
+    "dataTypes": []
   },
   "Stepper": {
     "components": [
@@ -6225,6 +9053,34 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           },
           {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0) — handy for staggering.",
+            "default": null
+          },
+          {
+            "name": "hoverEffect",
+            "type": "HoverEffect",
+            "required": false,
+            "description": "Effect while hovering: \"lift\" | \"scale\" | \"press\" | \"tilt\" | \"ring\" | \"glow\" | \"shine\" (default: none). Applied to each step circle.",
+            "default": null
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -6253,7 +9109,11 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "backLabel": "string",
             "nextLabel": "string",
             "finishLabel": "string",
-            "completedContent": "string"
+            "completedContent": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
           },
           "extraProps": [],
           "events": [
@@ -6309,7 +9169,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
     "types": {
       "StepperContent": "ReactNode | ComponentType<StepperStepContext>",
       "StepperOrientation": "\"horizontal\" | \"vertical\""
-    }
+    },
+    "dataTypes": []
   },
   "Data Grid": {
     "components": [
@@ -6373,6 +9234,48 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           },
           {
+            "name": "loading",
+            "type": "boolean",
+            "required": false,
+            "description": "Shows shimmering skeleton rows in place of the data while true (default: false). The header stays visible.",
+            "default": "false"
+          },
+          {
+            "name": "skeletonRows",
+            "type": "number",
+            "required": false,
+            "description": "Number of skeleton rows shown while `loading` (default: 5).",
+            "default": "5"
+          },
+          {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0) — handy for staggering.",
+            "default": null
+          },
+          {
+            "name": "hoverEffect",
+            "type": "HoverEffect",
+            "required": false,
+            "description": "Effect while hovering: \"lift\" | \"scale\" | \"press\" | \"tilt\" | \"ring\" | \"glow\" | \"shine\" (default: none).",
+            "default": null
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -6395,7 +9298,13 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "size": "string",
             "striped": "boolean",
             "bordered": "boolean",
-            "selectable": "boolean"
+            "selectable": "boolean",
+            "loading": "boolean",
+            "skeletonRows": "number",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
           },
           "extraProps": [],
           "events": [
@@ -6410,7 +9319,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
     "hooks": [],
     "types": {
       "DataGridSize": "\"sm\" | \"md\" | \"lg\""
-    }
+    },
+    "dataTypes": []
   },
   "Timeline": {
     "components": [
@@ -6432,6 +9342,27 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": "\"vertical\""
           },
           {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition (staggered across the items): \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0) — items enter one after another, each 60ms after the last.",
+            "default": null
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -6450,7 +9381,10 @@ export const API_DOCS: Record<string, ApiDoc> = {
           "tag": "l-timeline",
           "props": {
             "items": "json",
-            "orientation": "string"
+            "orientation": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number"
           },
           "extraProps": [],
           "events": []
@@ -6460,13 +9394,63 @@ export const API_DOCS: Record<string, ApiDoc> = {
     "hooks": [],
     "types": {
       "TimelineOrientation": "\"vertical\" | \"horizontal\""
-    }
+    },
+    "dataTypes": []
   },
   "Stats / KPI": {
     "components": [
       {
         "name": "Stat",
         "props": [
+          {
+            "name": "animated",
+            "type": "AnimatedVariant",
+            "required": false,
+            "description": "Attention animation: \"glow\" | \"pulse\" | \"sweep\" | \"bounce\" | \"float\" | \"wiggle\" | \"border-spin\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "pulseColor",
+            "type": "ColorName | (string & {})",
+            "required": false,
+            "description": "Color of the animation (pulse ring, glow, spinning border): a `ColorName` or any CSS color (default: the component's own color).",
+            "default": null
+          },
+          {
+            "name": "pulseGradientTo",
+            "type": "ColorName | (string & {})",
+            "required": false,
+            "description": "Second color — turns the pulse ring and spinning border into a gradient from `pulseColor` to this (default: solid `pulseColor`).",
+            "default": null
+          },
+          {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0) — handy for staggering.",
+            "default": null
+          },
+          {
+            "name": "hoverEffect",
+            "type": "HoverEffect",
+            "required": false,
+            "description": "Effect while hovering: \"lift\" | \"scale\" | \"press\" | \"tilt\" | \"ring\" | \"glow\" | \"shine\" (default: none).",
+            "default": null
+          },
           {
             "name": "label",
             "type": "string",
@@ -6479,6 +9463,20 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "type": "string | number",
             "required": true,
             "description": "The headline metric value, shown prominently; a number or preformatted string.",
+            "default": null
+          },
+          {
+            "name": "countUp",
+            "type": "boolean",
+            "required": false,
+            "description": "Counts the number in `value` up from 0 when the stat mounts (and when `value` changes), keeping any prefix/suffix such as \"$\" or \"%\" (default: false). Respects `prefers-reduced-motion`.",
+            "default": "false"
+          },
+          {
+            "name": "countUpDuration",
+            "type": "number",
+            "required": false,
+            "description": "Duration of the count-up in ms (default: 1200).",
             "default": null
           },
           {
@@ -6527,12 +9525,21 @@ export const API_DOCS: Record<string, ApiDoc> = {
         "element": {
           "tag": "l-stat",
           "props": {
+            "countUp": "boolean",
+            "countUpDuration": "number",
             "label": "string",
             "value": "string",
             "change": "string",
             "trend": "string",
             "icon": "string",
-            "color": "string"
+            "color": "string",
+            "animated": "string",
+            "pulseColor": "string",
+            "pulseGradientTo": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
           },
           "extraProps": [],
           "events": []
@@ -6542,7 +9549,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
     "hooks": [],
     "types": {
       "StatTrend": "\"up\" | \"down\" | \"neutral\""
-    }
+    },
+    "dataTypes": []
   },
   "Charts": {
     "components": [
@@ -6585,6 +9593,48 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": "true"
           },
           {
+            "name": "countUp",
+            "type": "boolean",
+            "required": false,
+            "description": "Grows the data in from zero when the chart mounts — bars rise, the line climbs, donut slices sweep round and the legend numbers count up (default: false). Respects `prefers-reduced-motion`.",
+            "default": "false"
+          },
+          {
+            "name": "countUpDuration",
+            "type": "number",
+            "required": false,
+            "description": "Duration of the count-up in ms (default: 1200).",
+            "default": null
+          },
+          {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0) — handy for staggering.",
+            "default": null
+          },
+          {
+            "name": "hoverEffect",
+            "type": "HoverEffect",
+            "required": false,
+            "description": "Effect while hovering: \"lift\" | \"scale\" | \"press\" | \"tilt\" | \"ring\" | \"glow\" | \"shine\" (default: none).",
+            "default": null
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -6602,11 +9652,17 @@ export const API_DOCS: Record<string, ApiDoc> = {
         "element": {
           "tag": "l-chart",
           "props": {
+            "countUp": "boolean",
+            "countUpDuration": "number",
             "data": "json",
             "type": "string",
             "height": "number",
             "color": "string",
-            "showLabels": "boolean"
+            "showLabels": "boolean",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
           },
           "extraProps": [],
           "events": []
@@ -6616,7 +9672,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
     "hooks": [],
     "types": {
       "ChartType": "\"bar\" | \"line\" | \"donut\""
-    }
+    },
+    "dataTypes": []
   },
   "Calendar": {
     "components": [
@@ -6764,6 +9821,34 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": "false"
           },
           {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0) — handy for staggering.",
+            "default": null
+          },
+          {
+            "name": "hoverEffect",
+            "type": "HoverEffect",
+            "required": false,
+            "description": "Effect while hovering: \"lift\" | \"scale\" | \"press\" | \"tilt\" | \"ring\" | \"glow\" | \"shine\" (default: none).",
+            "default": null
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -6794,7 +9879,11 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "open": "boolean",
             "footer": "boolean",
             "confirmLabel": "string",
-            "cancelLabel": "string"
+            "cancelLabel": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
           },
           "extraProps": [],
           "events": [
@@ -6830,7 +9919,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
     "types": {
       "CalendarVariant": "\"inline\" | \"modal\"",
       "CalendarSelectionMode": "\"single\" | \"range\""
-    }
+    },
+    "dataTypes": []
   },
   "Activity Feed": {
     "components": [
@@ -6852,6 +9942,27 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": "false"
           },
           {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition (staggered across the items): \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0) — items enter one after another, each 60ms after the last.",
+            "default": null
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -6870,7 +9981,10 @@ export const API_DOCS: Record<string, ApiDoc> = {
           "tag": "l-activity-feed",
           "props": {
             "items": "json",
-            "compact": "boolean"
+            "compact": "boolean",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number"
           },
           "extraProps": [],
           "events": []
@@ -6878,13 +9992,63 @@ export const API_DOCS: Record<string, ApiDoc> = {
       }
     ],
     "hooks": [],
-    "types": {}
+    "types": {},
+    "dataTypes": []
   },
   "Profile Card": {
     "components": [
       {
         "name": "ProfileCard",
         "props": [
+          {
+            "name": "animated",
+            "type": "AnimatedVariant",
+            "required": false,
+            "description": "Attention animation: \"glow\" | \"pulse\" | \"sweep\" | \"bounce\" | \"float\" | \"wiggle\" | \"border-spin\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "pulseColor",
+            "type": "ColorName | (string & {})",
+            "required": false,
+            "description": "Color of the animation (pulse ring, glow, spinning border): a `ColorName` or any CSS color (default: the component's own color).",
+            "default": null
+          },
+          {
+            "name": "pulseGradientTo",
+            "type": "ColorName | (string & {})",
+            "required": false,
+            "description": "Second color — turns the pulse ring and spinning border into a gradient from `pulseColor` to this (default: solid `pulseColor`).",
+            "default": null
+          },
+          {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0) — handy for staggering.",
+            "default": null
+          },
+          {
+            "name": "hoverEffect",
+            "type": "HoverEffect",
+            "required": false,
+            "description": "Effect while hovering: \"lift\" | \"scale\" | \"press\" | \"tilt\" | \"ring\" | \"glow\" | \"shine\" (default: none).",
+            "default": null
+          },
           {
             "name": "name",
             "type": "string",
@@ -6959,13 +10123,20 @@ export const API_DOCS: Record<string, ApiDoc> = {
         "element": {
           "tag": "l-profile-card",
           "props": {
+            "animated": "string",
+            "pulseColor": "string",
+            "pulseGradientTo": "string",
             "name": "string",
             "role": "string",
             "bio": "string",
             "avatarSrc": "string",
             "avatarInitials": "string",
             "stats": "json",
-            "color": "string"
+            "color": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
           },
           "extraProps": [],
           "events": []
@@ -6973,7 +10144,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
       }
     ],
     "hooks": [],
-    "types": {}
+    "types": {},
+    "dataTypes": []
   },
   "User Menu": {
     "components": [
@@ -7030,6 +10202,34 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": "\"end\""
           },
           {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter/exit transition for the menu panel: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0) — handy for staggering.",
+            "default": null
+          },
+          {
+            "name": "hoverEffect",
+            "type": "HoverEffect",
+            "required": false,
+            "description": "Effect while hovering: \"lift\" | \"scale\" | \"press\" | \"tilt\" | \"ring\" | \"glow\" | \"shine\" (default: none). Applied to the trigger button.",
+            "default": null
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -7052,7 +10252,11 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "avatarSrc": "string",
             "avatarInitials": "string",
             "items": "json",
-            "align": "string"
+            "align": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
           },
           "extraProps": [],
           "events": [
@@ -7065,7 +10269,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
       }
     ],
     "hooks": [],
-    "types": {}
+    "types": {},
+    "dataTypes": []
   },
   "Password Input": {
     "components": [
@@ -7087,6 +10292,34 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": "false"
           },
           {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0) — handy for staggering.",
+            "default": null
+          },
+          {
+            "name": "hoverEffect",
+            "type": "HoverEffect",
+            "required": false,
+            "description": "Effect while hovering: \"lift\" | \"scale\" | \"press\" | \"tilt\" | \"ring\" | \"glow\" | \"shine\" (default: none).",
+            "default": null
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -7106,7 +10339,11 @@ export const API_DOCS: Record<string, ApiDoc> = {
           "props": {
             "size": "string",
             "invalid": "boolean",
-            "disabled": "boolean"
+            "disabled": "boolean",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
           },
           "extraProps": [
             {
@@ -7122,7 +10359,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
     "hooks": [],
     "types": {
       "PasswordInputSize": "\"sm\" | \"md\" | \"lg\""
-    }
+    },
+    "dataTypes": []
   },
   "Login Form": {
     "components": [
@@ -7186,6 +10424,34 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           },
           {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0) — handy for staggering.",
+            "default": null
+          },
+          {
+            "name": "hoverEffect",
+            "type": "HoverEffect",
+            "required": false,
+            "description": "Effect while hovering: \"lift\" | \"scale\" | \"press\" | \"tilt\" | \"ring\" | \"glow\" | \"shine\" (default: none).",
+            "default": null
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -7207,7 +10473,11 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "description": "string",
             "submitLabel": "string",
             "showRemember": "boolean",
-            "showForgotPassword": "boolean"
+            "showForgotPassword": "boolean",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
           },
           "extraProps": [],
           "events": [
@@ -7224,7 +10494,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
       }
     ],
     "hooks": [],
-    "types": {}
+    "types": {},
+    "dataTypes": []
   },
   "Signup Form": {
     "components": [
@@ -7274,6 +10545,34 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           },
           {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0) — handy for staggering.",
+            "default": null
+          },
+          {
+            "name": "hoverEffect",
+            "type": "HoverEffect",
+            "required": false,
+            "description": "Effect while hovering: \"lift\" | \"scale\" | \"press\" | \"tilt\" | \"ring\" | \"glow\" | \"shine\" (default: none).",
+            "default": null
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -7294,7 +10593,11 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "title": "string",
             "description": "string",
             "submitLabel": "string",
-            "mismatchError": "string"
+            "mismatchError": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
           },
           "extraProps": [],
           "events": [
@@ -7307,7 +10610,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
       }
     ],
     "hooks": [],
-    "types": {}
+    "types": {},
+    "dataTypes": []
   },
   "Profile Settings": {
     "components": [
@@ -7357,6 +10661,34 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": "\"Save changes\""
           },
           {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0) — handy for staggering.",
+            "default": null
+          },
+          {
+            "name": "hoverEffect",
+            "type": "HoverEffect",
+            "required": false,
+            "description": "Effect while hovering: \"lift\" | \"scale\" | \"press\" | \"tilt\" | \"ring\" | \"glow\" | \"shine\" (default: none).",
+            "default": null
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -7377,7 +10709,11 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "defaultValues": "json",
             "avatarSrc": "string",
             "avatarInitials": "string",
-            "saveLabel": "string"
+            "saveLabel": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
           },
           "extraProps": [],
           "events": [
@@ -7394,7 +10730,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
       }
     ],
     "hooks": [],
-    "types": {}
+    "types": {},
+    "dataTypes": []
   },
   "Account Settings": {
     "components": [
@@ -7444,6 +10781,34 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           },
           {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0) — handy for staggering.",
+            "default": null
+          },
+          {
+            "name": "hoverEffect",
+            "type": "HoverEffect",
+            "required": false,
+            "description": "Effect while hovering: \"lift\" | \"scale\" | \"press\" | \"tilt\" | \"ring\" | \"glow\" | \"shine\" (default: none).",
+            "default": null
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -7462,7 +10827,11 @@ export const API_DOCS: Record<string, ApiDoc> = {
           "tag": "l-account-settings",
           "props": {
             "email": "string",
-            "notifications": "json"
+            "notifications": "json",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
           },
           "extraProps": [],
           "events": [
@@ -7487,6 +10856,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
       }
     ],
     "hooks": [],
-    "types": {}
+    "types": {},
+    "dataTypes": []
   }
 };

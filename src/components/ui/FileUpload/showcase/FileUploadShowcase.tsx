@@ -99,6 +99,97 @@ export class AppComponent {
             }}
           />
         </section>
+
+        <section>
+          <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`) and hover effects via `hoverEffect`. They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
+          <div className="grid max-w-2xl gap-3 sm:grid-cols-2">
+            <FileUpload transition="fade" />
+            <FileUpload transition="slide-up" />
+            <FileUpload transition="slide-right" transitionDelay={100} />
+            <FileUpload transition="zoom" />
+            <FileUpload transition="flip" />
+            <FileUpload transition="blur" />
+            <FileUpload transition="bounce" />
+            <FileUpload transition="drop" transitionDuration={700} />
+            <FileUpload hoverEffect="lift" />
+            <FileUpload hoverEffect="glow" />
+            <FileUpload hoverEffect="ring" />
+          </div>
+          <CodeBlock
+            variants={{
+              react: `<FileUpload transition="fade" />
+<FileUpload transition="slide-up" />
+<FileUpload transition="slide-right" transitionDelay={100} />
+<FileUpload transition="zoom" />
+<FileUpload transition="flip" />
+<FileUpload transition="blur" />
+<FileUpload transition="bounce" />
+<FileUpload transition="drop" transitionDuration={700} />
+
+<FileUpload hoverEffect="lift" />
+<FileUpload hoverEffect="glow" />
+<FileUpload hoverEffect="ring" />`,
+              js: `<l-FileUpload transition="fade"></l-FileUpload>
+<l-FileUpload transition="slide-up"></l-FileUpload>
+<l-FileUpload transition="slide-right" transitionDelay="100"></l-FileUpload>
+<l-FileUpload transition="zoom"></l-FileUpload>
+<l-FileUpload transition="flip"></l-FileUpload>
+<l-FileUpload transition="blur"></l-FileUpload>
+<l-FileUpload transition="bounce"></l-FileUpload>
+<l-FileUpload transition="drop" transitionDuration="700"></l-FileUpload>
+
+<l-FileUpload hoverEffect="lift"></l-FileUpload>
+<l-FileUpload hoverEffect="glow"></l-FileUpload>
+<l-FileUpload hoverEffect="ring"></l-FileUpload>
+
+<script type="module">
+  import "lojee-ui/elements";
+</script>`,
+              vue: `<template>
+  <l-FileUpload transition="fade"></l-FileUpload>
+  <l-FileUpload transition="slide-up"></l-FileUpload>
+  <l-FileUpload transition="slide-right" transitionDelay="100"></l-FileUpload>
+  <l-FileUpload transition="zoom"></l-FileUpload>
+  <l-FileUpload transition="flip"></l-FileUpload>
+  <l-FileUpload transition="blur"></l-FileUpload>
+  <l-FileUpload transition="bounce"></l-FileUpload>
+  <l-FileUpload transition="drop" transitionDuration="700"></l-FileUpload>
+
+  <l-FileUpload hoverEffect="lift"></l-FileUpload>
+  <l-FileUpload hoverEffect="glow"></l-FileUpload>
+  <l-FileUpload hoverEffect="ring"></l-FileUpload>
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-FileUpload transition="fade"></l-FileUpload>
+    <l-FileUpload transition="slide-up"></l-FileUpload>
+    <l-FileUpload transition="slide-right" transitionDelay="100"></l-FileUpload>
+    <l-FileUpload transition="zoom"></l-FileUpload>
+    <l-FileUpload transition="flip"></l-FileUpload>
+    <l-FileUpload transition="blur"></l-FileUpload>
+    <l-FileUpload transition="bounce"></l-FileUpload>
+    <l-FileUpload transition="drop" transitionDuration="700"></l-FileUpload>
+
+    <l-FileUpload hoverEffect="lift"></l-FileUpload>
+    <l-FileUpload hoverEffect="glow"></l-FileUpload>
+    <l-FileUpload hoverEffect="ring"></l-FileUpload>
+  \`,
+})
+export class AppComponent {}`,
+            }}
+          />
+        </section>
       </div>
     </div>
   );

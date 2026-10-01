@@ -2,10 +2,12 @@ import { useState } from "react";
 import { Textarea, type TextareaResize } from "./Textarea/Textarea";
 import { OptionGroup, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
+import { useMotion } from "./playgroundMotion";
 
 const RESIZE_OPTIONS: TextareaResize[] = ["none", "vertical", "both"];
 
 export default function TextareaPlayground() {
+  const motion = useMotion();
   const [resize, setResize] = useState<TextareaResize>("vertical");
   const [invalid, setInvalid] = useState(false);
   const [disabled, setDisabled] = useState(false);
@@ -15,13 +17,13 @@ export default function TextareaPlayground() {
     <AppWindowFrame>
       <AppWindowBody>
         <div className="max-w-sm w-full">
-          <Textarea resize={resize} invalid={invalid} disabled={disabled} placeholder={placeholder || "Write something…"} />
+          <Textarea key={motion.replayKey} {...motion.props} resize={resize} invalid={invalid} disabled={disabled} placeholder={placeholder || "Write something…"} />
         </div>
       </AppWindowBody>
     </AppWindowFrame>
   );
 
-  const code = `<Textarea resize="${resize}"${invalid ? " invalid" : ""}${disabled ? " disabled" : ""} placeholder="${
+  const code = `<Textarea resize="${resize}"${invalid ? " invalid" : ""}${disabled ? " disabled" : ""}${motion.attrs} placeholder="${
     placeholder || "Write something…"
   }" />`;
 
@@ -31,7 +33,7 @@ export default function TextareaPlayground() {
   // HTML page needs to actually load the `<l-*>` definitions.
   const htmlMarkup = `<l-Textarea resize="${resize}"${invalid ? ` invalid` : ""}${
     disabled ? ` disabled` : ""
-  } placeholder="${placeholder || "Write something…"}" />`;
+  }${motion.attrs} placeholder="${placeholder || "Write something…"}" />`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,
@@ -79,6 +81,7 @@ export default function TextareaPlayground() {
           </button>
         </div>
       </div>
+      {motion.controls}
     </PlaygroundLayout>
   );
 }

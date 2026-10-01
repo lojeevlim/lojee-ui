@@ -6,8 +6,10 @@ import { ICON_NAMES } from "../../core/icons";
 import { PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import { cx } from "./playgroundUtils";
 import type { CodeBlockVariants } from "./CodeBlock";
+import { useMotion } from "./playgroundMotion";
 
 export default function SuccessStatePlayground() {
+  const motion = useMotion({ hover: false });
   const [title, setTitle] = useState("Success!");
   const [description, setDescription] = useState("Your changes have been saved and applied.");
   const [icon, setIcon] = useState("circle-check");
@@ -19,7 +21,7 @@ export default function SuccessStatePlayground() {
   const preview = (
     <AppWindowFrame>
       <AppWindowBody className="min-h-[280px]">
-        <SuccessState title={title || "Success!"} icon={icon} action={showAction ? <Button label="Continue" /> : undefined}>
+        <SuccessState key={motion.replayKey} {...motion.props} title={title || "Success!"} icon={icon} action={showAction ? <Button label="Continue" /> : undefined}>
           {description || undefined}
         </SuccessState>
       </AppWindowBody>
@@ -34,16 +36,16 @@ export default function SuccessStatePlayground() {
   // matches the "self-closing tag when there are no children" rule applied
   // consistently across every language variant below.
   const code = hasBody
-    ? `<SuccessState${titleAttr}${iconAttr}${
+    ? `<SuccessState${titleAttr}${iconAttr}${motion.attrs}${
         showAction ? `\n  action={<Button label="Continue" onClick={handleContinue} />}` : ""
       }>${description ? `\n  ${description}\n` : "\n"}</SuccessState>`
-    : `<SuccessState${titleAttr}${iconAttr} />`;
+    : `<SuccessState${titleAttr}${iconAttr}${motion.attrs} />`;
 
   const htmlMarkup = hasBody
-    ? `<l-SuccessState${titleAttr}${iconAttr}>${description ? `\n  ${description}` : ""}${
+    ? `<l-SuccessState${titleAttr}${iconAttr}${motion.attrs}>${description ? `\n  ${description}` : ""}${
         showAction ? `\n  <l-Button slot="action" label="Continue" id="continue-btn" />` : ""
       }\n</l-SuccessState>`
-    : `<l-SuccessState${titleAttr}${iconAttr} />`;
+    : `<l-SuccessState${titleAttr}${iconAttr}${motion.attrs} />`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,
@@ -113,6 +115,7 @@ export default function SuccessStatePlayground() {
         <input type="checkbox" checked={showAction} onChange={(e) => setShowAction(e.target.checked)} />
         Show action button
       </label>
+      {motion.controls}
     </PlaygroundLayout>
   );
 }

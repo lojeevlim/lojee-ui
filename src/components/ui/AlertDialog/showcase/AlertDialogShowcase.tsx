@@ -2,9 +2,25 @@ import { useState } from "react";
 import { AlertDialog } from "../AlertDialog";
 import { Button } from "../../Buttons/Button";
 import CodeBlock from "../../CodeBlock";
-import { SectionLabel } from "../../ShowcaseHelpers";
+import { SectionLabel, Row } from "../../ShowcaseHelpers";
+import type { TransitionVariant } from "../../../../core/motion";
+
+const TR_OPTIONS: { label: string; transition: TransitionVariant; duration?: number; delay?: number }[] = [
+  { label: "Fade", transition: "fade" },
+  { label: "Slide up", transition: "slide-up" },
+  { label: "Zoom", transition: "zoom" },
+  { label: "Flip", transition: "flip" },
+  { label: "Blur", transition: "blur" },
+  { label: "Bounce", transition: "bounce" },
+  { label: "Drop (slow)", transition: "drop", duration: 700 },
+  { label: "Zoom (delayed)", transition: "zoom", delay: 200 },
+];
 
 export default function AlertDialogShowcase() {
+  const [trOpen, setTrOpen] = useState(false);
+  const [trOption, setTrOption] = useState(TR_OPTIONS[2]);
+  const trReact = `transition="${trOption.transition}"${trOption.duration ? ` transitionDuration={${trOption.duration}}` : ""}${trOption.delay ? ` transitionDelay={${trOption.delay}}` : ""}`;
+  const trHtml = `transition="${trOption.transition}"${trOption.duration ? ` transitionDuration="${trOption.duration}"` : ""}${trOption.delay ? ` transitionDelay="${trOption.delay}"` : ""}`;
   const [defaultOpen, setDefaultOpen] = useState(false);
   const [destructiveOpen, setDestructiveOpen] = useState(false);
   const [customOpen, setCustomOpen] = useState(false);
@@ -236,6 +252,99 @@ export class AlertDialogShowcaseComponent {
   (close)="open = false"
   (confirm)="handleConfirm()"
  />`,
+            }}
+          />
+        </section>
+
+        <section>
+          <SectionLabel sub="Enter/exit transitions via `transition` (with `transitionDuration` / `transitionDelay`) — pick one, then close the overlay to see it play in reverse.">Transitions</SectionLabel>
+          <Row>
+            {TR_OPTIONS.map((o) => (
+              <Button
+                key={o.label}
+                variant="outline"
+                label={o.label}
+                onClick={() => {
+                  setTrOption(o);
+                  setTrOpen(true);
+                }}
+              />
+            ))}
+          </Row>
+          <AlertDialog
+            open={trOpen}
+            onClose={() => setTrOpen(false)}
+            title="Discard changes?"
+            description="Your edits will be lost."
+            transition={trOption.transition}
+            transitionDuration={trOption.duration}
+            transitionDelay={trOption.delay}
+          />
+          <CodeBlock
+            variants={{
+              react: `const [open, setOpen] = useState(false);
+
+<Button label="Open alert dialog" onClick={() => setOpen(true)} />
+<AlertDialog
+  open={open}
+  onClose={() => setOpen(false)}
+  title="Discard changes?"
+  description="Your edits will be lost."
+  ${trReact}
+/>`,
+              js: `<l-Button label="Open alert dialog" id="open-tr-btn"></l-Button>
+<l-AlertDialog id="tr-overlay" heading="Discard changes?" description="Your edits will be lost." ${trHtml}></l-AlertDialog>
+
+<script type="module">
+  import "lojee-ui/elements";
+
+  const overlay = document.getElementById("tr-overlay");
+  overlay.addEventListener("confirm", () => { overlay.open = false; });
+  document.getElementById("open-tr-btn")
+    .addEventListener("click", () => { overlay.open = true; });
+  overlay.addEventListener("close", () => { overlay.open = false; });
+</script>`,
+              vue: `<template>
+  <l-Button label="Open alert dialog" @click="open = true"></l-Button>
+  <l-AlertDialog
+    :open="open"
+    heading="Discard changes?"
+    description="Your edits will be lost."
+    ${trHtml}
+    @close="open = false"
+    @confirm="open = false"
+  ></l-AlertDialog>
+</template>
+
+<script setup lang="ts">
+import { ref } from "vue";
+import "lojee-ui/elements";
+
+const open = ref(false);
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-Button label="Open alert dialog" (click)="open = true"></l-Button>
+    <l-AlertDialog
+      [open]="open"
+      heading="Discard changes?"
+      description="Your edits will be lost."
+      ${trHtml}
+      (close)="open = false"
+      (confirm)="open = false"
+    ></l-AlertDialog>
+  \`,
+})
+export class AppComponent {
+  open = false;
+}`,
             }}
           />
         </section>

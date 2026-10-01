@@ -109,6 +109,37 @@ data-accent="teal">`); with neither set, the theme is light and the accent is sl
 - **Customise** by overriding the `--lojee-*` variables, e.g.
   `[data-theme="dark"] { --lojee-surface: #000; }`.
 
+## Maps
+
+`Map`, `MapMarker`, `MapRoute` and `MapControls` draw interactive vector maps with [MapLibre GL](https://maplibre.org/) and free CARTO basemaps (no API key). Maps follow the light / dark theme, and MapLibre is loaded on demand — only when a map is shown.
+
+```bash
+npm install maplibre-gl      # optional peer dependency, only needed for the React maps
+```
+
+```tsx
+import { Map, MapMarker, MapRoute } from "lojee-ui";
+
+<Map center={[123.9, 10.305]} zoom={12} controls>
+  <MapMarker lng={123.9054} lat={10.2925} label="Fort San Pedro" popup="Hello" />
+  <MapRoute waypoints={[[123.9, 10.305], [123.9049, 10.3182]]} />
+</Map>
+```
+
+The Web Components bundle includes MapLibre. Markers and routes are plain data there:
+
+```html
+<l-map id="map" style="height: 360px" controls="true"></l-map>
+<script type="module">
+  import "lojee-ui/elements";
+  const map = document.getElementById("map");
+  map.center = [123.9, 10.305];
+  map.zoom = 11;
+  map.markers = [{ lng: 123.9054, lat: 10.2925, label: "Fort San Pedro", popup: "Hello" }];
+  map.routes = [{ waypoints: [[123.9, 10.305], [123.9049, 10.3182]] }];
+</script>
+```
+
 ## Installation
 
 ```bash

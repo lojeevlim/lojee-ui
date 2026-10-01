@@ -3,11 +3,15 @@ import { Badge, type BadgeVariant, type BadgeSize } from "./Badge/Badge";
 import type { ColorName } from "../../core/tokens";
 import { OptionGroup, ColorSwatches, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
+import { useAnimation } from "./playgroundAnimation";
+import { useMotion } from "./playgroundMotion";
 
 const VARIANTS: BadgeVariant[] = ["solid", "outline", "soft"];
 const SIZES: BadgeSize[] = ["sm", "md", "lg"];
 
 export default function BadgePlayground() {
+  const anim = useAnimation();
+  const motion = useMotion();
   const [variant, setVariant] = useState<BadgeVariant>("soft");
   const [color, setColor] = useState<ColorName>("accent");
   const [size, setSize] = useState<BadgeSize>("md");
@@ -18,19 +22,19 @@ export default function BadgePlayground() {
   const preview = (
     <AppWindowFrame>
       <AppWindowBody>
-        <Badge variant={variant} color={color} size={size} dot={dot} icon={icon ? "check" : undefined} label={label || "Badge"} />
+        <Badge key={motion.replayKey} {...anim.props} {...motion.props} variant={variant} color={color} size={size} dot={dot} icon={icon ? "check" : undefined} label={label || "Badge"} />
       </AppWindowBody>
     </AppWindowFrame>
   );
 
-  const code = `<Badge variant="${variant}" color="${color}" size="${size}"${dot ? " dot" : ""}${
+  const code = `<Badge variant="${variant}" color="${color}" size="${size}"${anim.attrs}${motion.attrs}${dot ? " dot" : ""}${
     icon && !dot ? ` icon="check"` : ""
   }${dot ? "" : ` label="${label || "Badge"}"`} />`;
 
   // Custom-element markup for the current configuration — plain literal
   // attributes are enough for a static snapshot; boolean props must be
   // written as explicit `="true"` since r2wc treats a bare attribute as "".
-  const htmlMarkup = `<l-Badge variant="${variant}" color="${color}" size="${size}"${
+  const htmlMarkup = `<l-Badge variant="${variant}" color="${color}" size="${size}"${anim.attrs}${motion.attrs}${
     dot ? ` dot` : ""
   }${icon && !dot ? ` icon="check"` : ""}${dot ? "" : ` label="${label || "Badge"}"`} />`;
 
@@ -86,6 +90,8 @@ export default function BadgePlayground() {
           )}
         </div>
       </div>
+      {anim.controls}
+      {motion.controls}
     </PlaygroundLayout>
   );
 }

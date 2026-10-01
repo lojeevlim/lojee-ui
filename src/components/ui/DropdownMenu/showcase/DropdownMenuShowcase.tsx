@@ -140,6 +140,196 @@ export class DropdownMenuShowcaseComponent {
             }}
           />
         </section>
+
+        <section>
+          <SectionLabel sub="Enter/exit transitions via `transition` (with `transitionDuration` / `transitionDelay`) — open and close each one to see it play both ways.">Transitions</SectionLabel>
+          <Row>
+            <DropdownMenu transition="fade" trigger={<Button variant="outline" icon="chevron-down" label="Fade" />}>
+              <DropdownMenuItem icon="pencil">Edit</DropdownMenuItem>
+              <DropdownMenuItem icon="copy">Duplicate</DropdownMenuItem>
+            </DropdownMenu>
+            <DropdownMenu transition="slide-up" trigger={<Button variant="outline" icon="chevron-down" label="Slide up" />}>
+              <DropdownMenuItem icon="pencil">Edit</DropdownMenuItem>
+              <DropdownMenuItem icon="copy">Duplicate</DropdownMenuItem>
+            </DropdownMenu>
+            <DropdownMenu transition="zoom" transitionDelay={100} trigger={<Button variant="outline" icon="chevron-down" label="Zoom" />}>
+              <DropdownMenuItem icon="pencil">Edit</DropdownMenuItem>
+              <DropdownMenuItem icon="copy">Duplicate</DropdownMenuItem>
+            </DropdownMenu>
+            <DropdownMenu transition="flip" trigger={<Button variant="outline" icon="chevron-down" label="Flip" />}>
+              <DropdownMenuItem icon="pencil">Edit</DropdownMenuItem>
+              <DropdownMenuItem icon="copy">Duplicate</DropdownMenuItem>
+            </DropdownMenu>
+            <DropdownMenu transition="blur" trigger={<Button variant="outline" icon="chevron-down" label="Blur" />}>
+              <DropdownMenuItem icon="pencil">Edit</DropdownMenuItem>
+              <DropdownMenuItem icon="copy">Duplicate</DropdownMenuItem>
+            </DropdownMenu>
+            <DropdownMenu transition="drop" transitionDuration={700} trigger={<Button variant="outline" icon="chevron-down" label="Drop" />}>
+              <DropdownMenuItem icon="pencil">Edit</DropdownMenuItem>
+              <DropdownMenuItem icon="copy">Duplicate</DropdownMenuItem>
+            </DropdownMenu>
+          </Row>
+          <CodeBlock
+            variants={{
+              react: `<DropdownMenu transition="fade" trigger={<Button variant="outline" icon="chevron-down" label="Fade" />}>
+  <DropdownMenuItem icon="pencil">Edit</DropdownMenuItem>
+  <DropdownMenuItem icon="copy">Duplicate</DropdownMenuItem>
+</DropdownMenu>
+
+<DropdownMenu transition="slide-up" trigger={<Button variant="outline" icon="chevron-down" label="Slide up" />}>
+  <DropdownMenuItem icon="pencil">Edit</DropdownMenuItem>
+  <DropdownMenuItem icon="copy">Duplicate</DropdownMenuItem>
+</DropdownMenu>
+
+<DropdownMenu transition="zoom" transitionDelay={100} trigger={<Button variant="outline" icon="chevron-down" label="Zoom" />}>
+  <DropdownMenuItem icon="pencil">Edit</DropdownMenuItem>
+  <DropdownMenuItem icon="copy">Duplicate</DropdownMenuItem>
+</DropdownMenu>
+
+<DropdownMenu transition="flip" trigger={<Button variant="outline" icon="chevron-down" label="Flip" />}>
+  <DropdownMenuItem icon="pencil">Edit</DropdownMenuItem>
+  <DropdownMenuItem icon="copy">Duplicate</DropdownMenuItem>
+</DropdownMenu>
+
+<DropdownMenu transition="blur" trigger={<Button variant="outline" icon="chevron-down" label="Blur" />}>
+  <DropdownMenuItem icon="pencil">Edit</DropdownMenuItem>
+  <DropdownMenuItem icon="copy">Duplicate</DropdownMenuItem>
+</DropdownMenu>
+
+<DropdownMenu transition="drop" transitionDuration={700} trigger={<Button variant="outline" icon="chevron-down" label="Drop" />}>
+  <DropdownMenuItem icon="pencil">Edit</DropdownMenuItem>
+  <DropdownMenuItem icon="copy">Duplicate</DropdownMenuItem>
+</DropdownMenu>`,
+              js: `<l-DropdownMenu transition="fade">
+  <l-Button slot="trigger" variant="outline" icon="chevron-down" label="Fade"></l-Button>
+  <l-DropdownMenuItem icon="pencil">Edit</l-DropdownMenuItem>
+  <l-DropdownMenuItem icon="copy">Duplicate</l-DropdownMenuItem>
+</l-DropdownMenu>
+
+<l-DropdownMenu transition="slide-up">
+  <l-Button slot="trigger" variant="outline" icon="chevron-down" label="Slide up"></l-Button>
+  <l-DropdownMenuItem icon="pencil">Edit</l-DropdownMenuItem>
+  <l-DropdownMenuItem icon="copy">Duplicate</l-DropdownMenuItem>
+</l-DropdownMenu>
+
+<l-DropdownMenu transition="zoom" transitionDelay="100">
+  <l-Button slot="trigger" variant="outline" icon="chevron-down" label="Zoom"></l-Button>
+  <l-DropdownMenuItem icon="pencil">Edit</l-DropdownMenuItem>
+  <l-DropdownMenuItem icon="copy">Duplicate</l-DropdownMenuItem>
+</l-DropdownMenu>
+
+<l-DropdownMenu transition="flip">
+  <l-Button slot="trigger" variant="outline" icon="chevron-down" label="Flip"></l-Button>
+  <l-DropdownMenuItem icon="pencil">Edit</l-DropdownMenuItem>
+  <l-DropdownMenuItem icon="copy">Duplicate</l-DropdownMenuItem>
+</l-DropdownMenu>
+
+<l-DropdownMenu transition="blur">
+  <l-Button slot="trigger" variant="outline" icon="chevron-down" label="Blur"></l-Button>
+  <l-DropdownMenuItem icon="pencil">Edit</l-DropdownMenuItem>
+  <l-DropdownMenuItem icon="copy">Duplicate</l-DropdownMenuItem>
+</l-DropdownMenu>
+
+<l-DropdownMenu transition="drop" transitionDuration="700">
+  <l-Button slot="trigger" variant="outline" icon="chevron-down" label="Drop"></l-Button>
+  <l-DropdownMenuItem icon="pencil">Edit</l-DropdownMenuItem>
+  <l-DropdownMenuItem icon="copy">Duplicate</l-DropdownMenuItem>
+</l-DropdownMenu>
+
+<script type="module">
+  import "lojee-ui/elements";
+</script>`,
+              vue: `<template>
+  <l-DropdownMenu transition="fade">
+    <l-Button slot="trigger" variant="outline" icon="chevron-down" label="Fade"></l-Button>
+    <l-DropdownMenuItem icon="pencil">Edit</l-DropdownMenuItem>
+    <l-DropdownMenuItem icon="copy">Duplicate</l-DropdownMenuItem>
+  </l-DropdownMenu>
+
+  <l-DropdownMenu transition="slide-up">
+    <l-Button slot="trigger" variant="outline" icon="chevron-down" label="Slide up"></l-Button>
+    <l-DropdownMenuItem icon="pencil">Edit</l-DropdownMenuItem>
+    <l-DropdownMenuItem icon="copy">Duplicate</l-DropdownMenuItem>
+  </l-DropdownMenu>
+
+  <l-DropdownMenu transition="zoom" transitionDelay="100">
+    <l-Button slot="trigger" variant="outline" icon="chevron-down" label="Zoom"></l-Button>
+    <l-DropdownMenuItem icon="pencil">Edit</l-DropdownMenuItem>
+    <l-DropdownMenuItem icon="copy">Duplicate</l-DropdownMenuItem>
+  </l-DropdownMenu>
+
+  <l-DropdownMenu transition="flip">
+    <l-Button slot="trigger" variant="outline" icon="chevron-down" label="Flip"></l-Button>
+    <l-DropdownMenuItem icon="pencil">Edit</l-DropdownMenuItem>
+    <l-DropdownMenuItem icon="copy">Duplicate</l-DropdownMenuItem>
+  </l-DropdownMenu>
+
+  <l-DropdownMenu transition="blur">
+    <l-Button slot="trigger" variant="outline" icon="chevron-down" label="Blur"></l-Button>
+    <l-DropdownMenuItem icon="pencil">Edit</l-DropdownMenuItem>
+    <l-DropdownMenuItem icon="copy">Duplicate</l-DropdownMenuItem>
+  </l-DropdownMenu>
+
+  <l-DropdownMenu transition="drop" transitionDuration="700">
+    <l-Button slot="trigger" variant="outline" icon="chevron-down" label="Drop"></l-Button>
+    <l-DropdownMenuItem icon="pencil">Edit</l-DropdownMenuItem>
+    <l-DropdownMenuItem icon="copy">Duplicate</l-DropdownMenuItem>
+  </l-DropdownMenu>
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-DropdownMenu transition="fade">
+      <l-Button slot="trigger" variant="outline" icon="chevron-down" label="Fade"></l-Button>
+      <l-DropdownMenuItem icon="pencil">Edit</l-DropdownMenuItem>
+      <l-DropdownMenuItem icon="copy">Duplicate</l-DropdownMenuItem>
+    </l-DropdownMenu>
+
+    <l-DropdownMenu transition="slide-up">
+      <l-Button slot="trigger" variant="outline" icon="chevron-down" label="Slide up"></l-Button>
+      <l-DropdownMenuItem icon="pencil">Edit</l-DropdownMenuItem>
+      <l-DropdownMenuItem icon="copy">Duplicate</l-DropdownMenuItem>
+    </l-DropdownMenu>
+
+    <l-DropdownMenu transition="zoom" transitionDelay="100">
+      <l-Button slot="trigger" variant="outline" icon="chevron-down" label="Zoom"></l-Button>
+      <l-DropdownMenuItem icon="pencil">Edit</l-DropdownMenuItem>
+      <l-DropdownMenuItem icon="copy">Duplicate</l-DropdownMenuItem>
+    </l-DropdownMenu>
+
+    <l-DropdownMenu transition="flip">
+      <l-Button slot="trigger" variant="outline" icon="chevron-down" label="Flip"></l-Button>
+      <l-DropdownMenuItem icon="pencil">Edit</l-DropdownMenuItem>
+      <l-DropdownMenuItem icon="copy">Duplicate</l-DropdownMenuItem>
+    </l-DropdownMenu>
+
+    <l-DropdownMenu transition="blur">
+      <l-Button slot="trigger" variant="outline" icon="chevron-down" label="Blur"></l-Button>
+      <l-DropdownMenuItem icon="pencil">Edit</l-DropdownMenuItem>
+      <l-DropdownMenuItem icon="copy">Duplicate</l-DropdownMenuItem>
+    </l-DropdownMenu>
+
+    <l-DropdownMenu transition="drop" transitionDuration="700">
+      <l-Button slot="trigger" variant="outline" icon="chevron-down" label="Drop"></l-Button>
+      <l-DropdownMenuItem icon="pencil">Edit</l-DropdownMenuItem>
+      <l-DropdownMenuItem icon="copy">Duplicate</l-DropdownMenuItem>
+    </l-DropdownMenu>
+  \`,
+})
+export class AppComponent {}`,
+            }}
+          />
+        </section>
       </div>
     </div>
   );

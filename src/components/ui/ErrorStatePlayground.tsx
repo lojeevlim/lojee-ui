@@ -6,8 +6,10 @@ import { ICON_NAMES } from "../../core/icons";
 import { PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import { cx } from "./playgroundUtils";
 import type { CodeBlockVariants } from "./CodeBlock";
+import { useMotion } from "./playgroundMotion";
 
 export default function ErrorStatePlayground() {
+  const motion = useMotion({ hover: false });
   const [title, setTitle] = useState("Something went wrong");
   const [description, setDescription] = useState("We couldn't load your data. Please try again.");
   const [icon, setIcon] = useState("circle-x");
@@ -19,7 +21,7 @@ export default function ErrorStatePlayground() {
   const preview = (
     <AppWindowFrame>
       <AppWindowBody className="min-h-[280px]">
-        <ErrorState
+        <ErrorState key={motion.replayKey} {...motion.props}
           title={title || "Something went wrong"}
           icon={icon}
           action={showAction ? <Button variant="destructive" icon="refresh-cw" label="Retry" /> : undefined}
@@ -38,18 +40,18 @@ export default function ErrorStatePlayground() {
   // matches the "self-closing tag when there are no children" rule applied
   // consistently across every language variant below.
   const code = hasBody
-    ? `<ErrorState${titleAttr}${iconAttr}${
+    ? `<ErrorState${titleAttr}${iconAttr}${motion.attrs}${
         showAction
           ? `\n  action={<Button variant="destructive" icon="refresh-cw" label="Retry" onClick={handleRetry} />}`
           : ""
       }>${description ? `\n  ${description}\n` : "\n"}</ErrorState>`
-    : `<ErrorState${titleAttr}${iconAttr} />`;
+    : `<ErrorState${titleAttr}${iconAttr}${motion.attrs} />`;
 
   const htmlMarkup = hasBody
-    ? `<l-ErrorState${titleAttr}${iconAttr}>${description ? `\n  ${description}` : ""}${
+    ? `<l-ErrorState${titleAttr}${iconAttr}${motion.attrs}>${description ? `\n  ${description}` : ""}${
         showAction ? `\n  <l-Button slot="action" variant="destructive" icon="refresh-cw" label="Retry" id="retry-btn" />` : ""
       }\n</l-ErrorState>`
-    : `<l-ErrorState${titleAttr}${iconAttr} />`;
+    : `<l-ErrorState${titleAttr}${iconAttr}${motion.attrs} />`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,
@@ -119,6 +121,7 @@ export default function ErrorStatePlayground() {
         <input type="checkbox" checked={showAction} onChange={(e) => setShowAction(e.target.checked)} />
         Show retry action
       </label>
+      {motion.controls}
     </PlaygroundLayout>
   );
 }

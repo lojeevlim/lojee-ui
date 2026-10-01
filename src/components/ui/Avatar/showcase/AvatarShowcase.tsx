@@ -1,7 +1,7 @@
 import { Avatar } from "../Avatar";
 import { AvatarGroup } from "../AvatarGroup";
 import CodeBlock from "../../CodeBlock";
-import { SectionLabel, Row } from "../../ShowcaseHelpers";
+import { SectionLabel, Row, TransitionPreview } from "../../ShowcaseHelpers";
 
 export default function AvatarShowcase() {
   return (
@@ -148,6 +148,178 @@ export class AvatarShowcaseComponent {}`,
   <l-Avatar initials="BB" color="rose" />
   <l-Avatar initials="CC" color="emerald" />
 </l-AvatarGroup>`,
+            }}
+          />
+        </section>
+
+        <section>
+          <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`) and hover effects via `hoverEffect`. Press Replay to run the enter transitions again.">Transitions</SectionLabel>
+          <TransitionPreview layout="inline">
+            <Avatar transition="fade" initials="FD" />
+            <Avatar transition="slide-up" initials="SU" />
+            <Avatar transition="slide-right" transitionDelay={100} initials="SR" />
+            <Avatar transition="zoom" initials="ZM" />
+            <Avatar transition="flip" initials="FL" />
+            <Avatar transition="blur" initials="BL" />
+            <Avatar transition="bounce" initials="BN" />
+            <Avatar transition="drop" transitionDuration={700} initials="DR" />
+            <Avatar hoverEffect="lift" initials="LI" />
+            <Avatar hoverEffect="glow" initials="GL" />
+            <Avatar hoverEffect="shine" initials="SH" />
+            <Avatar hoverEffect="tilt" initials="TI" />
+          </TransitionPreview>
+          <CodeBlock
+            variants={{
+              react: `<Avatar transition="fade" initials="FD" color="indigo" />
+<Avatar transition="slide-up" initials="SU" color="indigo" />
+<Avatar transition="slide-right" transitionDelay={100} initials="SR" color="indigo" />
+<Avatar transition="zoom" initials="ZM" color="indigo" />
+<Avatar transition="flip" initials="FL" color="indigo" />
+<Avatar transition="blur" initials="BL" color="indigo" />
+<Avatar transition="bounce" initials="BN" color="indigo" />
+<Avatar transition="drop" transitionDuration={700} initials="DR" color="indigo" />
+
+<Avatar hoverEffect="lift" initials="LI" color="violet" />
+<Avatar hoverEffect="scale" initials="SC" color="violet" />
+<Avatar hoverEffect="ring" initials="RI" color="violet" />
+<Avatar hoverEffect="glow" initials="GL" color="violet" />
+<Avatar hoverEffect="shine" initials="SH" color="violet" />`,
+              js: `<l-Avatar transition="fade" initials="FD" color="indigo"></l-Avatar>
+<l-Avatar transition="slide-up" initials="SU" color="indigo"></l-Avatar>
+<l-Avatar transition="slide-right" transitionDelay="100" initials="SR" color="indigo"></l-Avatar>
+<l-Avatar transition="zoom" initials="ZM" color="indigo"></l-Avatar>
+<l-Avatar transition="flip" initials="FL" color="indigo"></l-Avatar>
+<l-Avatar transition="blur" initials="BL" color="indigo"></l-Avatar>
+<l-Avatar transition="bounce" initials="BN" color="indigo"></l-Avatar>
+<l-Avatar transition="drop" transitionDuration="700" initials="DR" color="indigo"></l-Avatar>
+
+<l-Avatar hoverEffect="lift" initials="LI" color="violet"></l-Avatar>
+<l-Avatar hoverEffect="scale" initials="SC" color="violet"></l-Avatar>
+<l-Avatar hoverEffect="ring" initials="RI" color="violet"></l-Avatar>
+<l-Avatar hoverEffect="glow" initials="GL" color="violet"></l-Avatar>
+<l-Avatar hoverEffect="shine" initials="SH" color="violet"></l-Avatar>
+
+<script type="module">
+  import "lojee-ui/elements";
+</script>`,
+              vue: `<template>
+  <l-Avatar transition="fade" initials="FD" color="indigo"></l-Avatar>
+  <l-Avatar transition="slide-up" initials="SU" color="indigo"></l-Avatar>
+  <l-Avatar transition="slide-right" transitionDelay="100" initials="SR" color="indigo"></l-Avatar>
+  <l-Avatar transition="zoom" initials="ZM" color="indigo"></l-Avatar>
+  <l-Avatar transition="flip" initials="FL" color="indigo"></l-Avatar>
+  <l-Avatar transition="blur" initials="BL" color="indigo"></l-Avatar>
+  <l-Avatar transition="bounce" initials="BN" color="indigo"></l-Avatar>
+  <l-Avatar transition="drop" transitionDuration="700" initials="DR" color="indigo"></l-Avatar>
+
+  <l-Avatar hoverEffect="lift" initials="LI" color="violet"></l-Avatar>
+  <l-Avatar hoverEffect="scale" initials="SC" color="violet"></l-Avatar>
+  <l-Avatar hoverEffect="ring" initials="RI" color="violet"></l-Avatar>
+  <l-Avatar hoverEffect="glow" initials="GL" color="violet"></l-Avatar>
+  <l-Avatar hoverEffect="shine" initials="SH" color="violet"></l-Avatar>
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-Avatar transition="fade" initials="FD" color="indigo"></l-Avatar>
+    <l-Avatar transition="slide-up" initials="SU" color="indigo"></l-Avatar>
+    <l-Avatar transition="slide-right" transitionDelay="100" initials="SR" color="indigo"></l-Avatar>
+    <l-Avatar transition="zoom" initials="ZM" color="indigo"></l-Avatar>
+    <l-Avatar transition="flip" initials="FL" color="indigo"></l-Avatar>
+    <l-Avatar transition="blur" initials="BL" color="indigo"></l-Avatar>
+    <l-Avatar transition="bounce" initials="BN" color="indigo"></l-Avatar>
+    <l-Avatar transition="drop" transitionDuration="700" initials="DR" color="indigo"></l-Avatar>
+
+    <l-Avatar hoverEffect="lift" initials="LI" color="violet"></l-Avatar>
+    <l-Avatar hoverEffect="scale" initials="SC" color="violet"></l-Avatar>
+    <l-Avatar hoverEffect="ring" initials="RI" color="violet"></l-Avatar>
+    <l-Avatar hoverEffect="glow" initials="GL" color="violet"></l-Avatar>
+    <l-Avatar hoverEffect="shine" initials="SH" color="violet"></l-Avatar>
+  \`,
+})
+export class AppComponent {}`,
+            }}
+          />
+        </section>
+
+        <section>
+          <SectionLabel sub="Attention effects via `animated`. Pulse and border-spin take a solid `pulseColor` or a gradient with `pulseGradientTo`.">Animated</SectionLabel>
+          <Row>
+            <Avatar initials="GL" color="indigo" animated="glow" />
+            <Avatar initials="PL" color="indigo" animated="pulse" />
+            <Avatar initials="GP" color="rose" animated="pulse" pulseColor="rose" pulseGradientTo="amber" status="online" />
+            <Avatar initials="SW" color="indigo" animated="sweep" />
+            <Avatar initials="BN" color="indigo" animated="bounce" />
+            <Avatar initials="FL" color="indigo" animated="float" />
+            <Avatar initials="WG" color="indigo" animated="wiggle" />
+            <Avatar initials="BS" color="violet" animated="border-spin" pulseColor="violet" pulseGradientTo="cyan" shape="square" />
+          </Row>
+          <CodeBlock
+            variants={{
+              react: `<Avatar initials="GL" color="indigo" animated="glow" />
+<Avatar initials="PL" color="indigo" animated="pulse" />
+<Avatar initials="GP" color="rose" animated="pulse" pulseColor="rose" pulseGradientTo="amber" status="online" />
+<Avatar initials="SW" color="indigo" animated="sweep" />
+<Avatar initials="BN" color="indigo" animated="bounce" />
+<Avatar initials="FL" color="indigo" animated="float" />
+<Avatar initials="WG" color="indigo" animated="wiggle" />
+<Avatar initials="BS" color="violet" animated="border-spin" pulseColor="violet" pulseGradientTo="cyan" shape="square" />`,
+              js: `<l-Avatar initials="GL" color="indigo" animated="glow"></l-Avatar>
+<l-Avatar initials="PL" color="indigo" animated="pulse"></l-Avatar>
+<l-Avatar initials="GP" color="rose" animated="pulse" pulseColor="rose" pulseGradientTo="amber" status="online"></l-Avatar>
+<l-Avatar initials="SW" color="indigo" animated="sweep"></l-Avatar>
+<l-Avatar initials="BN" color="indigo" animated="bounce"></l-Avatar>
+<l-Avatar initials="FL" color="indigo" animated="float"></l-Avatar>
+<l-Avatar initials="WG" color="indigo" animated="wiggle"></l-Avatar>
+<l-Avatar initials="BS" color="violet" animated="border-spin" pulseColor="violet" pulseGradientTo="cyan" shape="square"></l-Avatar>
+
+<script type="module">
+  import "lojee-ui/elements";
+</script>`,
+              vue: `<template>
+  <l-Avatar initials="GL" color="indigo" animated="glow"></l-Avatar>
+  <l-Avatar initials="PL" color="indigo" animated="pulse"></l-Avatar>
+  <l-Avatar initials="GP" color="rose" animated="pulse" pulseColor="rose" pulseGradientTo="amber" status="online"></l-Avatar>
+  <l-Avatar initials="SW" color="indigo" animated="sweep"></l-Avatar>
+  <l-Avatar initials="BN" color="indigo" animated="bounce"></l-Avatar>
+  <l-Avatar initials="FL" color="indigo" animated="float"></l-Avatar>
+  <l-Avatar initials="WG" color="indigo" animated="wiggle"></l-Avatar>
+  <l-Avatar initials="BS" color="violet" animated="border-spin" pulseColor="violet" pulseGradientTo="cyan" shape="square"></l-Avatar>
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-Avatar initials="GL" color="indigo" animated="glow"></l-Avatar>
+    <l-Avatar initials="PL" color="indigo" animated="pulse"></l-Avatar>
+    <l-Avatar initials="GP" color="rose" animated="pulse" pulseColor="rose" pulseGradientTo="amber" status="online"></l-Avatar>
+    <l-Avatar initials="SW" color="indigo" animated="sweep"></l-Avatar>
+    <l-Avatar initials="BN" color="indigo" animated="bounce"></l-Avatar>
+    <l-Avatar initials="FL" color="indigo" animated="float"></l-Avatar>
+    <l-Avatar initials="WG" color="indigo" animated="wiggle"></l-Avatar>
+    <l-Avatar initials="BS" color="violet" animated="border-spin" pulseColor="violet" pulseGradientTo="cyan" shape="square"></l-Avatar>
+  \`,
+})
+export class AppComponent {}`,
             }}
           />
         </section>

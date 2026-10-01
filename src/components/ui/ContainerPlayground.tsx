@@ -2,10 +2,12 @@ import { useState } from "react";
 import { Container, type ContainerSize } from "./Container/Container";
 import { OptionGroup, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
+import { useMotion } from "./playgroundMotion";
 
 const SIZES: ContainerSize[] = ["sm", "md", "lg", "xl", "full"];
 
 export default function ContainerPlayground() {
+  const motion = useMotion({ hover: false });
   const [size, setSize] = useState<ContainerSize>("lg");
   const [centered, setCentered] = useState(true);
   const [padded, setPadded] = useState(true);
@@ -14,7 +16,7 @@ export default function ContainerPlayground() {
     <AppWindowFrame>
       <AppWindowBody className="items-stretch">
         <div className="w-full rounded-lg border border-dashed border-border">
-          <Container size={size} centered={centered} padded={padded}>
+          <Container key={motion.replayKey} {...motion.props} size={size} centered={centered} padded={padded}>
             <div className="rounded-md bg-surface-muted p-3 text-center text-xs text-fg-subtle">Sample content</div>
           </Container>
         </div>
@@ -22,7 +24,7 @@ export default function ContainerPlayground() {
     </AppWindowFrame>
   );
 
-  const code = `<Container size="${size}"${centered ? "" : " centered={false}"}${padded ? "" : " padded={false}"}>
+  const code = `<Container size="${size}"${motion.attrs}${centered ? "" : " centered={false}"}${padded ? "" : " padded={false}"}>
   Sample content
 </Container>`;
 
@@ -30,7 +32,7 @@ export default function ContainerPlayground() {
   // Vue/Angular templates (plain attributes, no bindings needed for a static
   // snapshot); the "js" variant just adds the one-time module import a plain
   // HTML page needs to actually load the `<l-*>` definitions.
-  const htmlMarkup = `<l-Container size="${size}"${centered ? "" : ` centered="false"`}${padded ? "" : ` padded="false"`}>
+  const htmlMarkup = `<l-Container size="${size}"${motion.attrs}${centered ? "" : ` centered="false"`}${padded ? "" : ` padded="false"`}>
   Sample content
 </l-Container>`;
 
@@ -70,6 +72,7 @@ export default function ContainerPlayground() {
           </button>
         </div>
       </div>
+      {motion.controls}
     </PlaygroundLayout>
   );
 }

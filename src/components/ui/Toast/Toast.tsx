@@ -3,6 +3,8 @@ import type { ReactNode } from "react";
 import { cx } from "../../../core/tokens";
 import { Icon } from "../Icons/Icon";
 import { getIcon } from "../../../core/icons";
+import { motionClass, motionState, motionStyle, DEFAULT_TRANSITION_MS, type TransitionVariant, type HoverEffect } from "../../../core/motion";
+import { usePresence } from "../../../core/usePresence";
 
 export type ToastVariant = "info" | "success" | "warning" | "error";
 export type ToastPosition =
@@ -30,6 +32,14 @@ export interface ToastProps {
   position?: ToastPosition;
   /** Icon name to override the variant's default icon, or `false` to hide the icon entirely. */
   icon?: string | false;
+  /** Enter/exit transition for the toast: "fade" | "slide-up" | "slide-down" | "slide-left" | "slide-right" | "zoom" | "zoom-out" | "flip" | "blur" | "bounce" | "rotate" | "drop" | "skew" (default: none). Respects `prefers-reduced-motion`. */
+  transition?: TransitionVariant;
+  /** Enter/exit transition duration in ms (default: 450). */
+  transitionDuration?: number;
+  /** Delay before the enter transition starts, in ms (default: 0). */
+  transitionDelay?: number;
+  /** Effect while hovering the toast: "lift" | "scale" | "press" | "tilt" | "ring" | "glow" | "shine" (default: none). */
+  hoverEffect?: HoverEffect;
   /** Extra class name(s) appended to the root element. */
   className?: string;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
@@ -81,16 +91,22 @@ export function Toast({
   duration = 4000,
   position = "bottom-right",
   icon,
+  transition,
+  transitionDuration,
+  transitionDelay,
+  hoverEffect,
   className,
   classNames,
 }: ToastProps) {
+  // With a `transition` the toast stays mounted for the exit; without one it unmounts immediately, as before.
+  const { mounted } = usePresence(open, transition ? (transitionDuration ?? DEFAULT_TRANSITION_MS) + (transitionDelay ?? 0) : 0);
   useEffect(() => {
     if (!open || !duration) return;
     const timer = setTimeout(onClose, duration);
     return () => clearTimeout(timer);
   }, [open, duration, onClose]);
 
-  if (!open) return null;
+  if (!(transition ? mounted : open)) return null;
 
   const iconName = icon === false ? undefined : icon || DEFAULT_ICON[variant];
   const hasIcon = Boolean(iconName && getIcon(iconName));
@@ -103,9 +119,12 @@ export function Toast({
         className={cx(
           "flex gap-3 rounded-lg border p-4 shadow-lg",
           VARIANT_CLASSES[variant],
+          motionClass(transition, hoverEffect),
           className,
           classNames?.root
         )}
+        style={motionStyle(transitionDuration, transitionDelay)}
+        {...motionState(open)}
       >
         {hasIcon && iconName && (
           <Icon name={iconName} size={20} className={cx("mt-0.5 shrink-0", ICON_COLOR_CLASSES[variant], classNames?.icon)} />

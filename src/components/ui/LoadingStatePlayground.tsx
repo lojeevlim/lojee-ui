@@ -2,10 +2,12 @@ import { useState } from "react";
 import { LoadingState, type LoadingStateSize } from "./LoadingState/LoadingState";
 import { OptionGroup, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
+import { useMotion } from "./playgroundMotion";
 
 const SIZES: LoadingStateSize[] = ["sm", "md", "lg"];
 
 export default function LoadingStatePlayground() {
+  const motion = useMotion({ hover: false });
   const [title, setTitle] = useState("Loading…");
   const [description, setDescription] = useState("");
   const [size, setSize] = useState<LoadingStateSize>("md");
@@ -13,7 +15,7 @@ export default function LoadingStatePlayground() {
   const preview = (
     <AppWindowFrame>
       <AppWindowBody className="min-h-[280px]">
-        <LoadingState title={title || "Loading…"} size={size}>
+        <LoadingState key={motion.replayKey} {...motion.props} title={title || "Loading…"} size={size}>
           {description || undefined}
         </LoadingState>
       </AppWindowBody>
@@ -24,16 +26,16 @@ export default function LoadingStatePlayground() {
   const sizeAttr = size !== "md" ? ` size="${size}"` : "";
   const descriptionBlock = description ? `\n  ${description}\n` : "";
 
-  const code = `<LoadingState${titleAttr}${sizeAttr}>${descriptionBlock}</LoadingState>`;
+  const code = `<LoadingState${titleAttr}${sizeAttr}${motion.attrs}>${descriptionBlock}</LoadingState>`;
 
   // A self-closing tag when there's no description to project, matching how
   // the "react" variant collapses to `<LoadingState ... />` in the same case.
   const htmlMarkup = description
-    ? `<l-LoadingState${titleAttr}${sizeAttr}>\n  ${description}\n</l-LoadingState>`
-    : `<l-LoadingState${titleAttr}${sizeAttr} />`;
+    ? `<l-LoadingState${titleAttr}${sizeAttr}${motion.attrs}>\n  ${description}\n</l-LoadingState>`
+    : `<l-LoadingState${titleAttr}${sizeAttr}${motion.attrs} />`;
 
   const codeVariants: CodeBlockVariants = {
-    react: description ? code : `<LoadingState${titleAttr}${sizeAttr} />`,
+    react: description ? code : `<LoadingState${titleAttr}${sizeAttr}${motion.attrs} />`,
     js: `${htmlMarkup}\n\n<script type="module">import "lojee-ui/elements";</script>`,
     vue: htmlMarkup,
     angular: htmlMarkup,
@@ -60,6 +62,7 @@ export default function LoadingStatePlayground() {
         />
       </div>
       <OptionGroup label="Size" options={SIZES} value={size} onChange={setSize} />
+      {motion.controls}
     </PlaygroundLayout>
   );
 }

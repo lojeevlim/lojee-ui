@@ -84,6 +84,68 @@ onSave(values) { /* values */ }`,
             }}
           />
         </section>
+
+        <section>
+          <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`) and hover effects via `hoverEffect`. They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
+          <div className="grid gap-6 sm:grid-cols-2">
+            <ProfileSettings transition="fade" avatarInitials="JD" />
+            <ProfileSettings transition="slide-up" avatarInitials="JD" />
+            <ProfileSettings transition="zoom" transitionDelay={100} avatarInitials="JD" />
+            <ProfileSettings transition="flip" transitionDuration={700} avatarInitials="JD" />
+            <ProfileSettings hoverEffect="lift" avatarInitials="JD" />
+            <ProfileSettings hoverEffect="glow" avatarInitials="JD" />
+          </div>
+          <CodeBlock
+            variants={{
+              react: `<ProfileSettings transition="fade" avatarInitials="JD" />
+<ProfileSettings transition="slide-up" avatarInitials="JD" />
+<ProfileSettings transition="zoom" transitionDelay={100} avatarInitials="JD" />
+<ProfileSettings transition="flip" transitionDuration={700} avatarInitials="JD" />
+<ProfileSettings hoverEffect="lift" avatarInitials="JD" />
+<ProfileSettings hoverEffect="glow" avatarInitials="JD" />`,
+              js: `<l-ProfileSettings transition="fade" avatarInitials="JD"></l-ProfileSettings>
+<l-ProfileSettings transition="slide-up" avatarInitials="JD"></l-ProfileSettings>
+<l-ProfileSettings transition="zoom" transitionDelay="100" avatarInitials="JD"></l-ProfileSettings>
+<l-ProfileSettings transition="flip" transitionDuration="700" avatarInitials="JD"></l-ProfileSettings>
+<l-ProfileSettings hoverEffect="lift" avatarInitials="JD"></l-ProfileSettings>
+<l-ProfileSettings hoverEffect="glow" avatarInitials="JD"></l-ProfileSettings>
+
+<script type="module">
+  import "lojee-ui/elements";
+</script>`,
+              vue: `<template>
+  <l-ProfileSettings transition="fade" avatarInitials="JD"></l-ProfileSettings>
+  <l-ProfileSettings transition="slide-up" avatarInitials="JD"></l-ProfileSettings>
+  <l-ProfileSettings transition="zoom" transitionDelay="100" avatarInitials="JD"></l-ProfileSettings>
+  <l-ProfileSettings transition="flip" transitionDuration="700" avatarInitials="JD"></l-ProfileSettings>
+  <l-ProfileSettings hoverEffect="lift" avatarInitials="JD"></l-ProfileSettings>
+  <l-ProfileSettings hoverEffect="glow" avatarInitials="JD"></l-ProfileSettings>
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-ProfileSettings transition="fade" avatarInitials="JD"></l-ProfileSettings>
+    <l-ProfileSettings transition="slide-up" avatarInitials="JD"></l-ProfileSettings>
+    <l-ProfileSettings transition="zoom" transitionDelay="100" avatarInitials="JD"></l-ProfileSettings>
+    <l-ProfileSettings transition="flip" transitionDuration="700" avatarInitials="JD"></l-ProfileSettings>
+    <l-ProfileSettings hoverEffect="lift" avatarInitials="JD"></l-ProfileSettings>
+    <l-ProfileSettings hoverEffect="glow" avatarInitials="JD"></l-ProfileSettings>
+  \`,
+})
+export class AppComponent {}`,
+            }}
+          />
+        </section>
       </div>
     </div>
   );

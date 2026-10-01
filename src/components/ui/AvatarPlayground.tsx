@@ -3,6 +3,8 @@ import { Avatar, type AvatarSize, type AvatarShape, type AvatarStatus } from "./
 import type { ColorName } from "../../core/tokens";
 import { OptionGroup, ColorSwatches, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
+import { useAnimation } from "./playgroundAnimation";
+import { useMotion } from "./playgroundMotion";
 
 const SIZES: AvatarSize[] = ["xs", "sm", "md", "lg", "xl"];
 const SHAPES: AvatarShape[] = ["circle", "square"];
@@ -12,6 +14,8 @@ type StatusOption = (typeof STATUSES)[number];
 const SAMPLE_IMAGE = "https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=128&h=128&fit=crop";
 
 export default function AvatarPlayground() {
+  const anim = useAnimation();
+  const motion = useMotion();
   const [size, setSize] = useState<AvatarSize>("md");
   const [shape, setShape] = useState<AvatarShape>("circle");
   const [status, setStatus] = useState<StatusOption>("none");
@@ -25,6 +29,9 @@ export default function AvatarPlayground() {
     <AppWindowFrame>
       <AppWindowBody>
         <Avatar
+          key={motion.replayKey}
+          {...anim.props}
+          {...motion.props}
           size={size}
           shape={shape}
           status={statusProp}
@@ -36,13 +43,13 @@ export default function AvatarPlayground() {
     </AppWindowFrame>
   );
 
-  const code = `<Avatar${useImage ? ` src="${SAMPLE_IMAGE}"` : ""} initials="${initials || "AB"}" size="${size}"${
+  const code = `<Avatar${useImage ? ` src="${SAMPLE_IMAGE}"` : ""} initials="${initials || "AB"}" size="${size}"${anim.attrs}${motion.attrs}${
     shape !== "circle" ? ` shape="${shape}"` : ""
   }${statusProp ? ` status="${statusProp}"` : ""}${useImage ? "" : ` color="${color}"`} />`;
 
   // Custom-element markup for the current configuration — no boolean props
   // on l-avatar, so plain literal attributes mirror the React code exactly.
-  const htmlMarkup = `<l-Avatar${useImage ? ` src="${SAMPLE_IMAGE}"` : ""} initials="${initials || "AB"}" size="${size}"${
+  const htmlMarkup = `<l-Avatar${useImage ? ` src="${SAMPLE_IMAGE}"` : ""} initials="${initials || "AB"}" size="${size}"${anim.attrs}${motion.attrs}${
     shape !== "circle" ? ` shape="${shape}"` : ""
   }${statusProp ? ` status="${statusProp}"` : ""}${useImage ? "" : ` color="${color}"`}></l-Avatar>`;
 
@@ -86,6 +93,8 @@ export default function AvatarPlayground() {
       </div>
 
       {!useImage && <ColorSwatches label="Fallback color" value={color} onChange={setColor} />}
+      {anim.controls}
+      {motion.controls}
     </PlaygroundLayout>
   );
 }

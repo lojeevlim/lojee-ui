@@ -17,8 +17,17 @@ import {
   type Shape,
 } from "../../../core/tokens";
 import { getIcon } from "../../../core/icons";
+import { animatedClass, animatedStyle, type AnimatedVariant } from "../../../core/animated";
+import { AnimatedOverlay } from "../../../core/AnimatedOverlay";
+import { motionClass, motionStyle, type TransitionVariant, type HoverEffect } from "../../../core/motion";
 
 export interface ButtonProps {
+  /** Attention animation: "glow" | "pulse" | "sweep" | "bounce" | "float" | "wiggle" | "border-spin" (default: none). Respects `prefers-reduced-motion`. */
+  animated?: AnimatedVariant;
+  /** Color of the animation (pulse ring, glow, spinning border): a `ColorName` or any CSS color (default: the component's own color). */
+  pulseColor?: ColorName | (string & {});
+  /** Second color — turns the pulse ring and spinning border into a gradient from `pulseColor` to this (default: solid `pulseColor`). */
+  pulseGradientTo?: ColorName | (string & {});
   /** Visual style: "solid", "outline", "ghost", "soft", "link", "dashed", "destructive", "destructive-soft", "destructive-outline", "gradient" or "glass" (default: "solid"). */
   variant?: ButtonVariant;
   /** Button color, one of the built-in `ColorName`s (default: "accent", which follows the theme accent); ignored by the destructive variants. */
@@ -53,6 +62,14 @@ export interface ButtonProps {
   "aria-haspopup"?: AriaAttributes["aria-haspopup"];
   /** Whether the disclosure this button controls is currently open (controlled by the parent). */
   "aria-expanded"?: boolean;
+  /** Enter transition: "fade" | "slide-up" | "slide-down" | "slide-left" | "slide-right" | "zoom" | "zoom-out" | "flip" | "blur" | "bounce" | "rotate" | "drop" | "skew" (default: none). Respects `prefers-reduced-motion`. */
+  transition?: TransitionVariant;
+  /** Enter transition duration in ms (default: 450). */
+  transitionDuration?: number;
+  /** Delay before the enter transition starts, in ms (default: 0) — handy for staggering. */
+  transitionDelay?: number;
+  /** Effect while hovering: "lift" | "scale" | "press" | "tilt" | "ring" | "glow" | "shine" (default: none). */
+  hoverEffect?: HoverEffect;
   /** Extra class names applied to the button element. */
   className?: string;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
@@ -83,6 +100,13 @@ export function Button({
   "aria-expanded": ariaExpanded,
   className,
   classNames,
+  animated,
+  pulseColor,
+  pulseGradientTo,
+  transition,
+  transitionDuration,
+  transitionDelay,
+  hoverEffect,
 }: ButtonProps) {
   // getIcon() always returns the same stable, module-level-imported
   // component reference for a given name, so this never actually causes a
@@ -121,11 +145,11 @@ export function Button({
       type={type}
       disabled={disabled || loading}
       onClick={onClick}
-      style={gradientStyle}
+      style={{ ...gradientStyle, ...animatedStyle(animated, color, pulseColor, pulseGradientTo), ...motionStyle(transitionDuration, transitionDelay) }}
       aria-label={iconOnly ? label : undefined}
       aria-haspopup={ariaHaspopup}
       aria-expanded={ariaExpanded}
-      className={cx(base, variantClass, sizeClass, shapeClass, badge != null && "relative", className, classNames?.root)}
+      className={cx(base, variantClass, sizeClass, shapeClass, badge != null && "relative", animatedClass(animated), motionClass(transition, hoverEffect), className, classNames?.root)}
     >
       {loading && <Loader2 size={iconSize[size]} className="animate-spin" />}
       {/* eslint-disable-next-line react-hooks/static-components -- see comment above `const Icon` */}
@@ -143,6 +167,7 @@ export function Button({
           {badge}
         </span>
       )}
+      <AnimatedOverlay variant={animated} />
     </button>
   );
 }

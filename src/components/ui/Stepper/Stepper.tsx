@@ -4,6 +4,7 @@ import { cx, isColorName, type ColorName } from "../../../core/tokens";
 import { activeAccent } from "../../../core/activeVariant";
 import { Icon } from "../Icons/Icon";
 import { Button } from "../Buttons/Button";
+import { motionClass, motionStyle, type TransitionVariant, type HoverEffect } from "../../../core/motion";
 import { StepperContext, type StepperStepContext } from "./stepperContext";
 
 export type { StepperStepContext };
@@ -81,6 +82,14 @@ export interface StepperProps {
   onStepChange?: (index: number, step: StepperStep | undefined) => void;
   /** Imperative handle — `ref.current.next()`, `.prev()`, `.goTo(2)`, `.reset()` (React 19 passes `ref` as a prop). */
   ref?: Ref<StepperHandle>;
+  /** Enter transition: "fade" | "slide-up" | "slide-down" | "slide-left" | "slide-right" | "zoom" | "zoom-out" | "flip" | "blur" | "bounce" | "rotate" | "drop" | "skew" (default: none). Respects `prefers-reduced-motion`. */
+  transition?: TransitionVariant;
+  /** Enter transition duration in ms (default: 450). */
+  transitionDuration?: number;
+  /** Delay before the enter transition starts, in ms (default: 0) — handy for staggering. */
+  transitionDelay?: number;
+  /** Effect while hovering: "lift" | "scale" | "press" | "tilt" | "ring" | "glow" | "shine" (default: none). Applied to each step circle. */
+  hoverEffect?: HoverEffect;
   /** Extra class name(s) appended to the root element. */
   className?: string;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
@@ -113,6 +122,7 @@ function StepCircle({
   onClick,
   disabled,
   label,
+  hoverEffect,
 }: {
   status: StepStatus;
   index: number;
@@ -120,22 +130,24 @@ function StepCircle({
   onClick?: () => void;
   disabled?: boolean;
   label: string;
+  hoverEffect?: HoverEffect;
 }) {
+  const hover = motionClass(undefined, hoverEffect);
   let circle: ReactNode;
   if (status === "complete") {
     circle = (
-      <div className={cx(CIRCLE_BASE, "bg-[var(--ac)] text-white", classNames?.circle, classNames?.completeCircle)}>
+      <div className={cx(CIRCLE_BASE, "bg-[var(--ac)] text-white", hover, classNames?.circle, classNames?.completeCircle)}>
         <Icon name="check" size={16} />
       </div>
     );
   } else if (status === "current") {
     circle = (
-      <div className={cx(CIRCLE_BASE, "border-2 border-[var(--ac)] text-[var(--ac)]", classNames?.circle, classNames?.currentCircle)}>
+      <div className={cx(CIRCLE_BASE, "border-2 border-[var(--ac)] text-[var(--ac)]", hover, classNames?.circle, classNames?.currentCircle)}>
         {index + 1}
       </div>
     );
   } else {
-    circle = <div className={cx(CIRCLE_BASE, "border border-border-strong text-fg-subtle", classNames?.circle)}>{index + 1}</div>;
+    circle = <div className={cx(CIRCLE_BASE, "border border-border-strong text-fg-subtle", hover, classNames?.circle)}>{index + 1}</div>;
   }
   if (!onClick) return <>{circle}</>;
   return (
@@ -168,6 +180,10 @@ export function Stepper({
   children,
   onStepChange,
   ref,
+  transition,
+  transitionDuration,
+  transitionDelay,
+  hoverEffect,
   className,
   classNames,
 }: StepperProps) {
@@ -230,6 +246,8 @@ export function Stepper({
   // Every colored part reads `--ac`, so `color` is one variable instead of a per-color class map.
   const colorStyle = { ["--ac" as string]: activeAccent(color, isColorName(color)) } as CSSProperties;
   const vertical = orientation === "vertical";
+  const motionCls = motionClass(transition);
+  const rootStyle = { ...colorStyle, ...motionStyle(transitionDuration, transitionDelay) };
   // The built-in buttons only take the named palette; a custom CSS color falls back to the accent there.
   const buttonColor: ColorName = isColorName(color) ? color : "accent";
 
@@ -240,12 +258,13 @@ export function Stepper({
       classNames={classNames}
       label={steps[i].label}
       disabled={steps[i].disabled}
+      hoverEffect={hoverEffect}
       onClick={canClick ? () => goTo(i) : undefined}
     />
   );
 
   const list = vertical ? (
-    <ol ref={rootRef} style={colorStyle} className={cx("flex flex-col", !hasContent && className, !hasContent && classNames?.root)}>
+    <ol ref={rootRef} style={hasContent ? colorStyle : rootStyle} className={cx("flex flex-col", !hasContent && motionCls, !hasContent && className, !hasContent && classNames?.root)}>
       {steps.map((s, i) => {
         const status = statusOf(i, clamped);
         const isLast = i === steps.length - 1;
@@ -266,7 +285,7 @@ export function Stepper({
       })}
     </ol>
   ) : (
-    <ol ref={rootRef} style={colorStyle} className={cx("flex items-start", !hasContent && className, !hasContent && classNames?.root)}>
+    <ol ref={rootRef} style={hasContent ? colorStyle : rootStyle} className={cx("flex items-start", !hasContent && motionCls, !hasContent && className, !hasContent && classNames?.root)}>
       {steps.map((s, i) => {
         const status = statusOf(i, clamped);
         const isLast = i === steps.length - 1;
@@ -319,7 +338,10 @@ export function Stepper({
 
   return (
     <StepperContext.Provider value={ctx(clamped)}>
-      <div className={cx(vertical ? "flex items-start gap-8" : "flex flex-col gap-6", className, classNames?.root)}>
+      <div
+        className={cx(vertical ? "flex items-start gap-8" : "flex flex-col gap-6", motionCls, className, classNames?.root)}
+        style={motionStyle(transitionDuration, transitionDelay)}
+      >
         {vertical ? <div className="shrink-0">{list}</div> : list}
         {section}
       </div>

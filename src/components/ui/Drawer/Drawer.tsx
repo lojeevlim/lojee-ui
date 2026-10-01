@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import type { ReactNode } from "react";
 import { X } from "lucide-react";
 import { cx } from "../../../core/tokens";
+import { motionClass, motionState, motionStyle, DEFAULT_TRANSITION_MS, type TransitionVariant, type HoverEffect } from "../../../core/motion";
+import { usePresence } from "../../../core/usePresence";
 
 export type DrawerPosition = "left" | "right" | "top" | "bottom";
 
@@ -18,6 +20,14 @@ export interface DrawerProps {
   children?: ReactNode;
   /** Panel width (left/right) or height (top/bottom) as a CSS size, e.g. "320px". */
   size?: string;
+  /** Enter/exit transition for the panel — replaces the default slide: "fade" | "slide-up" | "slide-down" | "slide-left" | "slide-right" | "zoom" | "zoom-out" | "flip" | "blur" | "bounce" | "rotate" | "drop" | "skew" (default: the built-in slide). Respects `prefers-reduced-motion`. */
+  transition?: TransitionVariant;
+  /** Transition duration in ms (default: 450). */
+  transitionDuration?: number;
+  /** Delay before the enter transition starts, in ms (default: 0). */
+  transitionDelay?: number;
+  /** Effect while hovering the panel: "lift" | "scale" | "press" | "tilt" | "ring" | "glow" | "shine" (default: none). */
+  hoverEffect?: HoverEffect;
   /** Extra class name(s) applied to the root element. */
   className?: string;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
@@ -54,7 +64,22 @@ const DEFAULT_SIZE: Record<DrawerPosition, string> = {
   bottom: "40vh",
 };
 
-export function Drawer({ open, onClose, position = "right", title, children, size, className, classNames }: DrawerProps) {
+export function Drawer({
+  open,
+  onClose,
+  position = "right",
+  title,
+  children,
+  size,
+  transition,
+  transitionDuration,
+  transitionDelay,
+  hoverEffect,
+  className,
+  classNames,
+}: DrawerProps) {
+  // With a `transition` the drawer stays mounted for the exit; without one it unmounts immediately, as before.
+  const { mounted } = usePresence(open, transition ? (transitionDuration ?? DEFAULT_TRANSITION_MS) + (transitionDelay ?? 0) : 0);
   const [entered, setEntered] = useState(false);
   const [prevOpen, setPrevOpen] = useState(open);
 
@@ -78,7 +103,7 @@ export function Drawer({ open, onClose, position = "right", title, children, siz
     return () => window.removeEventListener("keydown", handleKey);
   }, [open, onClose]);
 
-  if (!open) return null;
+  if (!mounted) return null;
 
   const isHorizontal = position === "left" || position === "right";
   const resolvedSize = size ?? DEFAULT_SIZE[position];
@@ -89,16 +114,25 @@ export function Drawer({ open, onClose, position = "right", title, children, siz
           Shadow DOM alongside an injected <style> tag with Tailwind's compiled
           CSS — portaling to document.body would escape that root and render
           unstyled, so the panel is just plain nested JSX like Modal. */}
-      <div className={cx("absolute inset-0 bg-black/40 backdrop-blur-sm", classNames?.overlay)} onClick={onClose} />
+      <div
+        className={cx("absolute inset-0 bg-black/40 backdrop-blur-sm", transition && "lojee-tr lojee-tr-fade", classNames?.overlay)}
+        style={motionStyle(transitionDuration)}
+        {...motionState(open)}
+        onClick={onClose}
+      />
       <div
         className={cx(
-          "fixed flex flex-col overflow-hidden bg-surface shadow-2xl ring-1 ring-black/5 transition-transform duration-300 ease-out",
+          "fixed flex flex-col overflow-hidden bg-surface shadow-2xl ring-1 ring-black/5",
+          // The default slide; a `transition` takes over instead.
+          !transition && "transition-transform duration-300 ease-out",
           POSITION_CLASSES[position],
-          entered ? "translate-x-0 translate-y-0" : CLOSED_TRANSFORM[position],
+          !transition && (entered ? "translate-x-0 translate-y-0" : CLOSED_TRANSFORM[position]),
+          motionClass(transition, hoverEffect),
           className,
           classNames?.panel
         )}
-        style={isHorizontal ? { width: resolvedSize } : { height: resolvedSize }}
+        style={{ ...(isHorizontal ? { width: resolvedSize } : { height: resolvedSize }), ...motionStyle(transitionDuration, transitionDelay) }}
+        {...motionState(open)}
       >
         <div
           className={cx("flex shrink-0 items-center justify-between border-b border-border px-6 py-4", classNames?.header)}

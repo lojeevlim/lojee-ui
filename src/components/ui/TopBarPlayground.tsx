@@ -3,6 +3,7 @@ import { TopBar, type TopBarAction, type TopBarVariant, type TopBarSize } from "
 import { OptionGroup, ColorSwatches, PlaygroundLayout, AppWindowFrame } from "./PlaygroundHelpers";
 import type { ColorName } from "../../core/tokens";
 import type { CodeBlockVariants } from "./CodeBlock";
+import { useMotion } from "./playgroundMotion";
 
 const VARIANTS: TopBarVariant[] = ["light", "elevated", "minimal", "accent"];
 const SIZES: TopBarSize[] = ["sm", "md", "lg"];
@@ -21,6 +22,7 @@ const ACTIONS_CODE = `[
 ]`;
 
 export default function TopBarPlayground() {
+  const motion = useMotion();
   const [variant, setVariant] = useState<TopBarVariant>("light");
   const [size, setSize] = useState<TopBarSize>("md");
   const [color, setColor] = useState<ColorName>("accent");
@@ -44,6 +46,8 @@ export default function TopBarPlayground() {
       {/* Docks to the top of a page; sticky sticks to this scrolling area. */}
       <div className="h-[340px] flex-1 overflow-y-auto bg-surface">
         <TopBar
+          key={motion.replayKey}
+          {...motion.props}
           variant={variant}
           size={size}
           color={color}
@@ -73,7 +77,9 @@ export default function TopBarPlayground() {
     size !== "md" ? `size="${size}"` : null,
     showSearch ? "search" : null,
     isSticky ? "sticky" : null,
-  ].filter(Boolean) as string[];
+  ]
+    .filter(Boolean)
+    .concat(motion.attrs.trim() ? motion.attrs.trim().split(/ (?=\w+=)/) : []) as string[];
 
   const reactExtra = [showMenu ? "  onMenuClick={() => setSidebarOpen(true)}" : null, showBack ? "  onBack={() => navigate(-1)}" : null, showSearch ? "  onSearch={(query) => runSearch(query)}" : null, showActions ? `  actions={${ACTIONS_CODE.replace(/\n/g, "\n  ")}}` : null]
     .filter(Boolean)
@@ -124,6 +130,7 @@ export default function TopBarPlayground() {
       <OptionGroup label="Menu button" options={TOGGLE} value={menu} onChange={setMenu} />
       <OptionGroup label="Search (built-in)" options={TOGGLE} value={search} onChange={setSearch} />
       <OptionGroup label="Sticky" options={TOGGLE} value={sticky} onChange={setSticky} />
+      {motion.controls}
     </PlaygroundLayout>
   );
 }

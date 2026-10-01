@@ -2,10 +2,14 @@ import { useState } from "react";
 import { Alert, type AlertVariant } from "./Alert/Alert";
 import { OptionGroup, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
+import { useMotion } from "./playgroundMotion";
+import { useAnimation } from "./playgroundAnimation";
 
-const VARIANTS: AlertVariant[] = ["info", "success", "warning", "error"];
+const VARIANTS: AlertVariant[] = ["info", "success", "warning", "error", "accent"];
 
 export default function AlertPlayground() {
+  const motion = useMotion();
+  const anim = useAnimation();
   const [variant, setVariant] = useState<AlertVariant>("info");
   const [title, setTitle] = useState("Heads up");
   const [description, setDescription] = useState("This is an informational message.");
@@ -16,7 +20,8 @@ export default function AlertPlayground() {
     <AppWindowFrame>
       <AppWindowBody>
         {visible ? (
-          <Alert
+          <Alert key={motion.replayKey} {...motion.props}
+            {...anim.props}
             variant={variant}
             title={title || undefined}
             closable={closable}
@@ -42,12 +47,12 @@ export default function AlertPlayground() {
   const onCloseProp = closable ? "\n  onClose={() => setVisible(false)}" : "";
 
   const code = `<Alert
-  variant="${variant}"${titleAttr}${closableAttr}${onCloseProp}
+  variant="${variant}"${anim.attrs}${motion.attrs}${titleAttr}${closableAttr}${onCloseProp}
 >
   ${description || "This is an informational message."}
 </Alert>`;
 
-  const htmlMarkup = `<l-Alert variant="${variant}"${titleAttr}${closableAttr}>
+  const htmlMarkup = `<l-Alert variant="${variant}"${anim.attrs}${motion.attrs}${titleAttr}${closableAttr}>
   ${description || "This is an informational message."}
 </l-Alert>`;
 
@@ -95,6 +100,8 @@ export default function AlertPlayground() {
           {closable ? "On" : "Off"}
         </button>
       </div>
+      {anim.controls}
+      {motion.controls}
     </PlaygroundLayout>
   );
 }

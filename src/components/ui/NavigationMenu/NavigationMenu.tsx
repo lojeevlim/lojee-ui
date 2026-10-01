@@ -4,6 +4,7 @@ import { cx, isColorName, type ColorName } from "../../../core/tokens";
 import { ACTIVE_ITEM_TRANSITION, ACTIVE_PILL_TRANSITION, activeMarker, explicitActive, type ActiveVariant } from "../../../core/activeVariant";
 import { navbarActiveFillClasses } from "../Navbar/navbarActiveStyles";
 import { Icon } from "../Icons/Icon";
+import { motionClass, motionStyle, type TransitionVariant, type HoverEffect } from "../../../core/motion";
 
 export interface NavigationMenuItem {
   label: string;
@@ -67,6 +68,14 @@ export interface NavigationMenuProps {
   onActiveItemChange?: (item: NavigationMenuItem) => void;
   /** Called whenever a (non-disabled) item is clicked, with its index and data. */
   onChange?: (index: number, item: NavigationMenuItem) => void;
+  /** Enter transition: "fade" | "slide-up" | "slide-down" | "slide-left" | "slide-right" | "zoom" | "zoom-out" | "flip" | "blur" | "bounce" | "rotate" | "drop" | "skew" (default: none). Respects `prefers-reduced-motion`. */
+  transition?: TransitionVariant;
+  /** Enter transition duration in ms (default: 450). */
+  transitionDuration?: number;
+  /** Delay before the enter transition starts, in ms (default: 0) — handy for staggering. */
+  transitionDelay?: number;
+  /** Effect while hovering: "lift" | "scale" | "press" | "tilt" | "ring" | "glow" | "shine" (default: none). Applied to each menu item. */
+  hoverEffect?: HoverEffect;
   /** Extra CSS class(es) added to the root element, merged before `classNames.root`. */
   className?: string;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
@@ -92,6 +101,10 @@ export function NavigationMenu({
   defaultActiveItem,
   onActiveItemChange,
   onChange,
+  transition,
+  transitionDuration,
+  transitionDelay,
+  hoverEffect,
   className,
   classNames,
 }: NavigationMenuProps) {
@@ -162,7 +175,10 @@ export function NavigationMenu({
   const explicit = variant ? explicitActive(variant, color, colorIsNamed, solidFill) : null;
 
   const nav = (
-    <nav className={cx(hasContent ? "shrink-0" : className, hasContent ? undefined : classNames?.root)}>
+    <nav
+      className={cx(hasContent ? "shrink-0" : className, hasContent ? undefined : classNames?.root, !hasContent && motionClass(transition))}
+      style={hasContent ? undefined : motionStyle(transitionDuration, transitionDelay)}
+    >
       <div className={ORIENTATION_CLASSES[orientation]}>
         <span
           aria-hidden="true"
@@ -188,6 +204,7 @@ export function NavigationMenu({
               ? cx("font-medium", explicit ? explicit.textClass : "text-white", classNames?.activeItem)
               : "text-fg-muted hover:text-fg",
             item.disabled && "opacity-40 pointer-events-none",
+            motionClass(undefined, hoverEffect),
             classNames?.item
           );
           const label = (
@@ -258,9 +275,11 @@ export function NavigationMenu({
     <div
       className={cx(
         orientation === "vertical" ? "flex items-start gap-6" : "flex flex-col gap-4",
+        motionClass(transition),
         className,
         classNames?.root
       )}
+      style={motionStyle(transitionDuration, transitionDelay)}
     >
       {nav}
       <div className={cx(orientation === "vertical" ? "min-w-0 flex-1" : undefined, classNames?.content)}>

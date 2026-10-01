@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
 import { cx } from "../../../core/tokens";
+import { motionClass, motionState, motionStyle, DEFAULT_TRANSITION_MS, type TransitionVariant } from "../../../core/motion";
+import { usePresence } from "../../../core/usePresence";
 
 export type PopoverPosition = "top" | "bottom" | "left" | "right";
 
@@ -11,6 +13,12 @@ export interface PopoverProps {
   children: ReactNode;
   /** Which side of the trigger the panel appears on: "top", "bottom" (default), "left" or "right". */
   position?: PopoverPosition;
+  /** Enter/exit transition for the panel: "fade" | "slide-up" | "slide-down" | "slide-left" | "slide-right" | "zoom" | "zoom-out" | "flip" | "blur" | "bounce" | "rotate" | "drop" | "skew" (default: none). Respects `prefers-reduced-motion`. */
+  transition?: TransitionVariant;
+  /** Transition duration in ms (default: 450). */
+  transitionDuration?: number;
+  /** Delay before the enter transition starts, in ms (default: 0). */
+  transitionDelay?: number;
   /** Extra CSS class(es) added to the root element, merged before `classNames.root`. */
   className?: string;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
@@ -27,8 +35,19 @@ const POSITION_CLASSES: Record<PopoverPosition, string> = {
   right: "left-full top-1/2 ml-2 -translate-y-1/2",
 };
 
-export function Popover({ content, children, position = "bottom", className, classNames }: PopoverProps) {
+export function Popover({
+  content,
+  children,
+  position = "bottom",
+  transition,
+  transitionDuration,
+  transitionDelay,
+  className,
+  classNames,
+}: PopoverProps) {
   const [open, setOpen] = useState(false);
+  // With a `transition` the panel stays mounted for the exit; without one it unmounts immediately, as before.
+  const { mounted } = usePresence(open, transition ? (transitionDuration ?? DEFAULT_TRANSITION_MS) + (transitionDelay ?? 0) : 0);
   const rootRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
@@ -53,14 +72,17 @@ export function Popover({ content, children, position = "bottom", className, cla
         <slot>{children}</slot>
       </span>
 
-      {open && (
+      {(transition ? mounted : open) && (
         <div
           role="dialog"
           className={cx(
             "absolute z-10 rounded-lg border border-border bg-surface p-4 shadow-lg",
             POSITION_CLASSES[position],
+            motionClass(transition),
             classNames?.panel
           )}
+          style={motionStyle(transitionDuration, transitionDelay)}
+          {...motionState(open)}
         >
           <slot name="content">{content}</slot>
         </div>

@@ -1,5 +1,6 @@
 import type { InputHTMLAttributes, ReactNode } from "react";
 import { cx, type ColorName } from "../../../core/tokens";
+import { motionClass, motionStyle, type TransitionVariant, type HoverEffect } from "../../../core/motion";
 
 export type SwitchSize = "sm" | "md" | "lg";
 
@@ -10,6 +11,14 @@ export interface SwitchProps extends Omit<InputHTMLAttributes<HTMLInputElement>,
   size?: SwitchSize;
   /** "On" track color (default: accent — follows the theme). */
   color?: ColorName;
+  /** Enter transition: "fade" | "slide-up" | "slide-down" | "slide-left" | "slide-right" | "zoom" | "zoom-out" | "flip" | "blur" | "bounce" | "rotate" | "drop" | "skew" (default: none). Respects `prefers-reduced-motion`. */
+  transition?: TransitionVariant;
+  /** Enter transition duration in ms (default: 450). */
+  transitionDuration?: number;
+  /** Delay before the enter transition starts, in ms (default: 0) — handy for staggering. */
+  transitionDelay?: number;
+  /** Effect while hovering: "lift" | "scale" | "press" | "tilt" | "ring" | "glow" | "shine" (default: none). */
+  hoverEffect?: HoverEffect;
   /** Extra class name(s) appended to the root element. */
   className?: string;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
@@ -65,15 +74,17 @@ const RING: Record<ColorName, string> = {
   pink: "peer-focus-visible:ring-pink-500/30",
 };
 
-export function Switch({ label, size = "md", color = "accent", className, classNames, ...rest }: SwitchProps) {
+export function Switch({ label, size = "md", color = "accent", transition, transitionDuration, transitionDelay, hoverEffect, className, classNames, ...rest }: SwitchProps) {
   return (
     <label
       className={cx(
         "inline-flex items-center gap-2 text-sm text-fg-muted",
         rest.disabled && "opacity-40 pointer-events-none",
+        motionClass(transition, hoverEffect),
         className,
         classNames?.root
       )}
+      style={motionStyle(transitionDuration, transitionDelay)}
     >
       <span className={cx("relative inline-flex shrink-0", TRACK_SIZE[size])}>
         {/* The track and thumb below are direct siblings of the input (not

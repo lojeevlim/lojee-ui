@@ -2,8 +2,10 @@ import { useState } from "react";
 import { LoginForm } from "./LoginForm/LoginForm";
 import { PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
+import { useMotion } from "./playgroundMotion";
 
 export default function LoginFormPlayground() {
+  const motion = useMotion();
   const [title, setTitle] = useState("Welcome back");
   const [description, setDescription] = useState("Log in to your account to continue.");
   const [submitLabel, setSubmitLabel] = useState("Log in");
@@ -15,6 +17,8 @@ export default function LoginFormPlayground() {
       <AppWindowBody>
         <div className="w-full max-w-sm">
           <LoginForm
+            key={motion.replayKey}
+            {...motion.props}
             title={title || "Welcome back"}
             description={description}
             submitLabel={submitLabel || "Log in"}
@@ -36,11 +40,11 @@ export default function LoginFormPlayground() {
 
   const code = `<LoginForm
   title="${titleValue}"${descriptionAttr}
-  submitLabel="${submitLabelValue}"${rememberAttrJsx}${forgotAttrJsx}
+  submitLabel="${submitLabelValue}"${rememberAttrJsx}${forgotAttrJsx}${motion.attrs}
   onSubmit={(values) => console.log(values)}
 />`;
 
-  const htmlMarkup = `<l-LoginForm title="${titleValue}"${descriptionAttr.replace("\n ", " ")} submitLabel="${submitLabelValue}"${rememberAttrHtml}${forgotAttrHtml}></l-LoginForm>`;
+  const htmlMarkup = `<l-LoginForm title="${titleValue}"${descriptionAttr.replace("\n ", " ")} submitLabel="${submitLabelValue}"${rememberAttrHtml}${forgotAttrHtml}${motion.attrs}></l-LoginForm>`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,
@@ -92,6 +96,7 @@ export default function LoginFormPlayground() {
           Forgot password
         </label>
       </div>
+      {motion.controls}
     </PlaygroundLayout>
   );
 }

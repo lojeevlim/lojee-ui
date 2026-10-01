@@ -146,6 +146,108 @@ onSelect(item) {
             }}
           />
         </section>
+
+        <section>
+          <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`) and hover effects via `hoverEffect`. They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
+          <Row>
+            <UserMenu name="Jordan Diaz" avatarInitials="JD" items={ITEMS} transition="fade" />
+            <UserMenu name="Jordan Diaz" avatarInitials="JD" items={ITEMS} transition="slide-down" />
+            <UserMenu name="Jordan Diaz" avatarInitials="JD" items={ITEMS} transition="zoom" transitionDuration={600} />
+            <UserMenu name="Jordan Diaz" avatarInitials="JD" items={ITEMS} transition="blur" />
+          </Row>
+          <Row>
+            <UserMenu name="Jordan Diaz" avatarInitials="JD" items={ITEMS} hoverEffect="lift" />
+            <UserMenu name="Jordan Diaz" avatarInitials="JD" items={ITEMS} hoverEffect="glow" />
+            <UserMenu name="Jordan Diaz" avatarInitials="JD" items={ITEMS} hoverEffect="shine" />
+          </Row>
+          <CodeBlock
+            variants={{
+              react: `const items = [
+  { label: "Profile", icon: "user" },
+  { label: "Settings", icon: "settings" },
+  { label: "Billing", icon: "tag" },
+  { label: "Log out", icon: "arrow-right", danger: true },
+];
+
+<UserMenu name="Jordan Diaz" avatarInitials="JD" items={items} transition="fade" />
+<UserMenu name="Jordan Diaz" avatarInitials="JD" items={items} transition="slide-down" />
+<UserMenu name="Jordan Diaz" avatarInitials="JD" items={items} transition="zoom" transitionDuration={600} />
+<UserMenu name="Jordan Diaz" avatarInitials="JD" items={items} transition="blur" />
+
+<UserMenu name="Jordan Diaz" avatarInitials="JD" items={items} hoverEffect="lift" />
+<UserMenu name="Jordan Diaz" avatarInitials="JD" items={items} hoverEffect="glow" />
+<UserMenu name="Jordan Diaz" avatarInitials="JD" items={items} hoverEffect="shine" />`,
+              js: `<l-UserMenu class="transition-demo" name="Jordan Diaz" avatarInitials="JD" transition="fade"></l-UserMenu>
+<l-UserMenu class="transition-demo" name="Jordan Diaz" avatarInitials="JD" transition="slide-down"></l-UserMenu>
+<l-UserMenu class="transition-demo" name="Jordan Diaz" avatarInitials="JD" transition="zoom" transitionDuration="600"></l-UserMenu>
+<l-UserMenu class="transition-demo" name="Jordan Diaz" avatarInitials="JD" transition="blur"></l-UserMenu>
+
+<l-UserMenu class="transition-demo" name="Jordan Diaz" avatarInitials="JD" hoverEffect="lift"></l-UserMenu>
+<l-UserMenu class="transition-demo" name="Jordan Diaz" avatarInitials="JD" hoverEffect="glow"></l-UserMenu>
+<l-UserMenu class="transition-demo" name="Jordan Diaz" avatarInitials="JD" hoverEffect="shine"></l-UserMenu>
+
+<script type="module">
+  import "lojee-ui/elements";
+
+  const items = [
+    { label: "Profile", icon: "user" },
+    { label: "Settings", icon: "settings" },
+    { label: "Billing", icon: "tag" },
+    { label: "Log out", icon: "arrow-right", danger: true },
+  ];
+  document.querySelectorAll(".transition-demo").forEach((el) => (el.items = items));
+</script>`,
+              vue: `<template>
+  <l-UserMenu :items="items" name="Jordan Diaz" avatarInitials="JD" transition="fade"></l-UserMenu>
+  <l-UserMenu :items="items" name="Jordan Diaz" avatarInitials="JD" transition="slide-down"></l-UserMenu>
+  <l-UserMenu :items="items" name="Jordan Diaz" avatarInitials="JD" transition="zoom" transitionDuration="600"></l-UserMenu>
+  <l-UserMenu :items="items" name="Jordan Diaz" avatarInitials="JD" transition="blur"></l-UserMenu>
+
+  <l-UserMenu :items="items" name="Jordan Diaz" avatarInitials="JD" hoverEffect="lift"></l-UserMenu>
+  <l-UserMenu :items="items" name="Jordan Diaz" avatarInitials="JD" hoverEffect="glow"></l-UserMenu>
+  <l-UserMenu :items="items" name="Jordan Diaz" avatarInitials="JD" hoverEffect="shine"></l-UserMenu>
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+
+const items = [
+  { label: "Profile", icon: "user" },
+  { label: "Settings", icon: "settings" },
+  { label: "Billing", icon: "tag" },
+  { label: "Log out", icon: "arrow-right", danger: true },
+];
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-UserMenu [items]="items" name="Jordan Diaz" avatarInitials="JD" transition="fade"></l-UserMenu>
+    <l-UserMenu [items]="items" name="Jordan Diaz" avatarInitials="JD" transition="slide-down"></l-UserMenu>
+    <l-UserMenu [items]="items" name="Jordan Diaz" avatarInitials="JD" transition="zoom" transitionDuration="600"></l-UserMenu>
+    <l-UserMenu [items]="items" name="Jordan Diaz" avatarInitials="JD" transition="blur"></l-UserMenu>
+
+    <l-UserMenu [items]="items" name="Jordan Diaz" avatarInitials="JD" hoverEffect="lift"></l-UserMenu>
+    <l-UserMenu [items]="items" name="Jordan Diaz" avatarInitials="JD" hoverEffect="glow"></l-UserMenu>
+    <l-UserMenu [items]="items" name="Jordan Diaz" avatarInitials="JD" hoverEffect="shine"></l-UserMenu>
+  \`,
+})
+export class AppComponent {
+  items = [
+    { label: "Profile", icon: "user" },
+    { label: "Settings", icon: "settings" },
+    { label: "Billing", icon: "tag" },
+    { label: "Log out", icon: "arrow-right", danger: true },
+  ];
+}`,
+            }}
+          />
+        </section>
       </div>
     </div>
   );

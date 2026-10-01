@@ -2,10 +2,12 @@ import { useState } from "react";
 import { TimePicker, type TimePickerSize } from "./TimePicker/TimePicker";
 import { OptionGroup, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
+import { useMotion } from "./playgroundMotion";
 
 const SIZES: TimePickerSize[] = ["sm", "md", "lg"];
 
 export default function TimePickerPlayground() {
+  const motion = useMotion();
   const [size, setSize] = useState<TimePickerSize>("md");
   const [invalid, setInvalid] = useState(false);
   const [disabled, setDisabled] = useState(false);
@@ -13,18 +15,18 @@ export default function TimePickerPlayground() {
   const preview = (
     <AppWindowFrame>
       <AppWindowBody>
-        <TimePicker size={size} invalid={invalid} disabled={disabled} />
+        <TimePicker key={motion.replayKey} {...motion.props} size={size} invalid={invalid} disabled={disabled} />
       </AppWindowBody>
     </AppWindowFrame>
   );
 
-  const code = `<TimePicker size="${size}"${invalid ? " invalid" : ""}${disabled ? " disabled" : ""} />`;
+  const code = `<TimePicker size="${size}"${invalid ? " invalid" : ""}${disabled ? " disabled" : ""}${motion.attrs} />`;
 
   // No json props on <TimePicker> — plain attributes only. Booleans need
   // an explicit "true" since r2wc parses a bare attribute as false.
   const htmlMarkup = `<l-TimePicker size="${size}"${invalid ? ` invalid` : ""}${
     disabled ? ` disabled` : ""
-  } />`;
+  }${motion.attrs} />`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,
@@ -62,6 +64,7 @@ export default function TimePickerPlayground() {
           </button>
         </div>
       </div>
+      {motion.controls}
     </PlaygroundLayout>
   );
 }

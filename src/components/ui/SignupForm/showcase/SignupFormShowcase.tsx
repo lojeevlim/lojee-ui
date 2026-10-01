@@ -121,6 +121,68 @@ onSubmit(values) {
             }}
           />
         </section>
+
+        <section>
+          <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`) and hover effects via `hoverEffect`. They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
+          <div className="grid gap-6 sm:grid-cols-2">
+            <SignupForm transition="fade" />
+            <SignupForm transition="slide-up" />
+            <SignupForm transition="zoom" transitionDelay={100} />
+            <SignupForm transition="flip" transitionDuration={700} />
+            <SignupForm hoverEffect="lift" />
+            <SignupForm hoverEffect="glow" />
+          </div>
+          <CodeBlock
+            variants={{
+              react: `<SignupForm transition="fade" />
+<SignupForm transition="slide-up" />
+<SignupForm transition="zoom" transitionDelay={100} />
+<SignupForm transition="flip" transitionDuration={700} />
+<SignupForm hoverEffect="lift" />
+<SignupForm hoverEffect="glow" />`,
+              js: `<l-SignupForm transition="fade"></l-SignupForm>
+<l-SignupForm transition="slide-up"></l-SignupForm>
+<l-SignupForm transition="zoom" transitionDelay="100"></l-SignupForm>
+<l-SignupForm transition="flip" transitionDuration="700"></l-SignupForm>
+<l-SignupForm hoverEffect="lift"></l-SignupForm>
+<l-SignupForm hoverEffect="glow"></l-SignupForm>
+
+<script type="module">
+  import "lojee-ui/elements";
+</script>`,
+              vue: `<template>
+  <l-SignupForm transition="fade"></l-SignupForm>
+  <l-SignupForm transition="slide-up"></l-SignupForm>
+  <l-SignupForm transition="zoom" transitionDelay="100"></l-SignupForm>
+  <l-SignupForm transition="flip" transitionDuration="700"></l-SignupForm>
+  <l-SignupForm hoverEffect="lift"></l-SignupForm>
+  <l-SignupForm hoverEffect="glow"></l-SignupForm>
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-SignupForm transition="fade"></l-SignupForm>
+    <l-SignupForm transition="slide-up"></l-SignupForm>
+    <l-SignupForm transition="zoom" transitionDelay="100"></l-SignupForm>
+    <l-SignupForm transition="flip" transitionDuration="700"></l-SignupForm>
+    <l-SignupForm hoverEffect="lift"></l-SignupForm>
+    <l-SignupForm hoverEffect="glow"></l-SignupForm>
+  \`,
+})
+export class AppComponent {}`,
+            }}
+          />
+        </section>
       </div>
     </div>
   );

@@ -2,8 +2,17 @@
 export interface ChangelogCommit { sha: string; short: string; date: string; author: string; email: string; subject: string; body: string }
 
 export const PACKAGE_VERSION = "0.1.0-alpha.1";
-export const CHANGELOG_GENERATED_AT = "2026-09-30T17:56:34.290Z";
+export const CHANGELOG_GENERATED_AT = "2026-10-01T03:08:37.123Z";
 export const CHANGELOG: ChangelogCommit[] = [
+  {
+    "sha": "aba6c37ca4048e8514bafb044c71dfe9dd5faed8",
+    "short": "aba6c37",
+    "date": "2026-10-01T01:57:21+08:00",
+    "author": "lojeevlim",
+    "email": "lojeevlim@gmail.com",
+    "subject": "Theme-aware Select options, noticeable Playground button, Tooltip restyle",
+    "body": "- Select: options use theme colors, color-scheme follows light/dark, accent for the chosen option\n- Flow Diagram playground: note that the diagram is draggable\n- Playground button: only on /components, glow pulses, light sweep and a one-time 'Try it live' hint\n- Tooltip: softer bubble with arrow, shadow and fade/scale-in; new neutral color"
+  },
   {
     "sha": "78a3e566110cfc78bec44f8903973dff7588a793",
     "short": "78a3e56",

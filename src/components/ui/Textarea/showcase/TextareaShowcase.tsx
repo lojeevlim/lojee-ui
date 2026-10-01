@@ -107,6 +107,89 @@ export class AppComponent {}`,
             }}
           />
         </section>
+
+        <section>
+          <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`) and hover effects via `hoverEffect`. They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
+          <div className="max-w-sm space-y-3">
+            <Textarea transition="fade" placeholder="Fade" />
+            <Textarea transition="slide-up" placeholder="Slide up" />
+            <Textarea transition="slide-right" transitionDelay={100} placeholder="Slide right" />
+            <Textarea transition="zoom" placeholder="Zoom" />
+            <Textarea transition="flip" placeholder="Flip" />
+            <Textarea transition="blur" placeholder="Blur" />
+          </div>
+          <div className="max-w-sm space-y-3">
+            <Textarea hoverEffect="lift" placeholder="Lift" />
+            <Textarea hoverEffect="scale" placeholder="Scale" />
+            <Textarea hoverEffect="glow" placeholder="Glow" />
+          </div>
+          <CodeBlock
+            variants={{
+              react: `<Textarea transition="fade" placeholder="Fade" />
+<Textarea transition="slide-up" placeholder="Slide up" />
+<Textarea transition="slide-right" transitionDelay={100} placeholder="Slide right" />
+<Textarea transition="zoom" placeholder="Zoom" />
+<Textarea transition="flip" placeholder="Flip" />
+<Textarea transition="blur" placeholder="Blur" />
+
+<Textarea hoverEffect="lift" placeholder="Lift" />
+<Textarea hoverEffect="scale" placeholder="Scale" />
+<Textarea hoverEffect="glow" placeholder="Glow" />`,
+              js: `<l-Textarea transition="fade" placeholder="Fade"></l-Textarea>
+<l-Textarea transition="slide-up" placeholder="Slide up"></l-Textarea>
+<l-Textarea transition="slide-right" transitionDelay="100" placeholder="Slide right"></l-Textarea>
+<l-Textarea transition="zoom" placeholder="Zoom"></l-Textarea>
+<l-Textarea transition="flip" placeholder="Flip"></l-Textarea>
+<l-Textarea transition="blur" placeholder="Blur"></l-Textarea>
+
+<l-Textarea hoverEffect="lift" placeholder="Lift"></l-Textarea>
+<l-Textarea hoverEffect="scale" placeholder="Scale"></l-Textarea>
+<l-Textarea hoverEffect="glow" placeholder="Glow"></l-Textarea>
+
+<script type="module">
+  import "lojee-ui/elements";
+</script>`,
+              vue: `<template>
+  <l-Textarea transition="fade" placeholder="Fade"></l-Textarea>
+  <l-Textarea transition="slide-up" placeholder="Slide up"></l-Textarea>
+  <l-Textarea transition="slide-right" transitionDelay="100" placeholder="Slide right"></l-Textarea>
+  <l-Textarea transition="zoom" placeholder="Zoom"></l-Textarea>
+  <l-Textarea transition="flip" placeholder="Flip"></l-Textarea>
+  <l-Textarea transition="blur" placeholder="Blur"></l-Textarea>
+
+  <l-Textarea hoverEffect="lift" placeholder="Lift"></l-Textarea>
+  <l-Textarea hoverEffect="scale" placeholder="Scale"></l-Textarea>
+  <l-Textarea hoverEffect="glow" placeholder="Glow"></l-Textarea>
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-Textarea transition="fade" placeholder="Fade"></l-Textarea>
+    <l-Textarea transition="slide-up" placeholder="Slide up"></l-Textarea>
+    <l-Textarea transition="slide-right" transitionDelay="100" placeholder="Slide right"></l-Textarea>
+    <l-Textarea transition="zoom" placeholder="Zoom"></l-Textarea>
+    <l-Textarea transition="flip" placeholder="Flip"></l-Textarea>
+    <l-Textarea transition="blur" placeholder="Blur"></l-Textarea>
+
+    <l-Textarea hoverEffect="lift" placeholder="Lift"></l-Textarea>
+    <l-Textarea hoverEffect="scale" placeholder="Scale"></l-Textarea>
+    <l-Textarea hoverEffect="glow" placeholder="Glow"></l-Textarea>
+  \`,
+})
+export class AppComponent {}`,
+            }}
+          />
+        </section>
       </div>
     </div>
   );

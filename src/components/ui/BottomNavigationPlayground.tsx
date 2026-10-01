@@ -4,6 +4,7 @@ import { OptionGroup, ColorSwatches, PlaygroundLayout, AppWindowFrame } from "./
 import type { ColorName } from "../../core/tokens";
 import type { ActiveVariant } from "../../core/activeVariant";
 import type { CodeBlockVariants } from "./CodeBlock";
+import { useMotion } from "./playgroundMotion";
 
 // "theme" = no `variant` prop: the active tab follows the theme's active-item style. "text" highlights only the icon + label.
 const VARIANTS = ["theme", "solid", "outline", "soft", "text"] as const;
@@ -16,6 +17,7 @@ const ICONS: Record<(typeof LABELS)[number], string> = {
 };
 
 export default function BottomNavigationPlayground() {
+  const motion = useMotion();
   const [color, setColor] = useState<ColorName>("accent");
   const [variant, setVariant] = useState<(typeof VARIANTS)[number]>("theme");
   const [activeLabel, setActiveLabel] = useState<(typeof LABELS)[number]>("Home");
@@ -36,6 +38,8 @@ export default function BottomNavigationPlayground() {
           Page content
         </div>
         <BottomNavigation
+          key={motion.replayKey}
+          {...motion.props}
           items={items}
           color={color}
           variant={variant === "theme" ? undefined : (variant as ActiveVariant | "text")}
@@ -52,7 +56,7 @@ export default function BottomNavigationPlayground() {
   // `items` is a "json"-typed prop with no native attribute form — it must be
   // assigned as a real DOM property (js) or bound (vue/angular) rather than
   // stringified into the tag.
-  const attrs = [color !== "accent" ? `color="${color}"` : null, variant !== "theme" ? `variant="${variant}"` : null]
+  const attrs = [color !== "accent" ? `color="${color}"` : null, variant !== "theme" ? `variant="${variant}"` : null, motion.attrs.trim() || null]
     .filter(Boolean)
     .join(" ");
   const attrStr = attrs ? ` ${attrs}` : "";
@@ -96,6 +100,7 @@ ${itemsCode}
       <OptionGroup label="Variant" options={VARIANTS} value={variant} onChange={setVariant} />
       <ColorSwatches value={color} onChange={setColor} />
       <OptionGroup label="Active tab" options={LABELS} value={activeLabel} onChange={setActiveLabel} />
+      {motion.controls}
     </PlaygroundLayout>
   );
 }

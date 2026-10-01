@@ -3,10 +3,26 @@ import { Drawer, type DrawerPosition } from "../Drawer";
 import { Button } from "../../Buttons/Button";
 import CodeBlock from "../../CodeBlock";
 import { SectionLabel, Row } from "../../ShowcaseHelpers";
+import type { TransitionVariant } from "../../../../core/motion";
 
 const POSITIONS: DrawerPosition[] = ["left", "right", "top", "bottom"];
 
+const TR_OPTIONS: { label: string; transition: TransitionVariant; duration?: number; delay?: number }[] = [
+  { label: "Fade", transition: "fade" },
+  { label: "Slide up", transition: "slide-up" },
+  { label: "Zoom", transition: "zoom" },
+  { label: "Flip", transition: "flip" },
+  { label: "Blur", transition: "blur" },
+  { label: "Bounce", transition: "bounce" },
+  { label: "Drop (slow)", transition: "drop", duration: 700 },
+  { label: "Zoom (delayed)", transition: "zoom", delay: 200 },
+];
+
 export default function DrawerShowcase() {
+  const [trOpen, setTrOpen] = useState(false);
+  const [trOption, setTrOption] = useState(TR_OPTIONS[0]);
+  const trReact = `transition="${trOption.transition}"${trOption.duration ? ` transitionDuration={${trOption.duration}}` : ""}${trOption.delay ? ` transitionDelay={${trOption.delay}}` : ""}`;
+  const trHtml = `transition="${trOption.transition}"${trOption.duration ? ` transitionDuration="${trOption.duration}"` : ""}${trOption.delay ? ` transitionDelay="${trOption.delay}"` : ""}`;
   const [position, setPosition] = useState<DrawerPosition>("right");
   const [positionOpen, setPositionOpen] = useState(false);
   const [wideOpen, setWideOpen] = useState(false);
@@ -122,6 +138,80 @@ export class DrawerShowcaseComponent {
 <l-Drawer [open]="open" position="right" size="480px" heading="Wide drawer" (close)="open = false">
   <p>This drawer is 480px wide instead of the 320px default.</p>
 </l-Drawer>`,
+            }}
+          />
+        </section>
+
+        <section>
+          <SectionLabel sub="Enter/exit transitions via `transition` (with `transitionDuration` / `transitionDelay`) — pick one, then close the overlay to see it play in reverse.">Transitions</SectionLabel>
+          <Row>
+            {TR_OPTIONS.map((o) => (
+              <Button
+                key={o.label}
+                variant="outline"
+                label={o.label}
+                onClick={() => {
+                  setTrOption(o);
+                  setTrOpen(true);
+                }}
+              />
+            ))}
+          </Row>
+          <Drawer open={trOpen} onClose={() => setTrOpen(false)} title="Transition" position="right" transition={trOption.transition} transitionDuration={trOption.duration} transitionDelay={trOption.delay}>
+            <p className="text-sm text-fg-muted">A transition replaces the drawer's default slide.</p>
+          </Drawer>
+          <CodeBlock
+            variants={{
+              react: `const [open, setOpen] = useState(false);
+
+<Button label="Open drawer" onClick={() => setOpen(true)} />
+<Drawer open={open} onClose={() => setOpen(false)} title="Transition" position="right" ${trReact}>
+  <p>A transition replaces the drawer's default slide.</p>
+</Drawer>`,
+              js: `<l-Button label="Open drawer" id="open-tr-btn"></l-Button>
+<l-Drawer id="tr-overlay" heading="Transition" position="right" ${trHtml}>
+  <p>A transition replaces the drawer's default slide.</p>
+</l-Drawer>
+
+<script type="module">
+  import "lojee-ui/elements";
+
+  const overlay = document.getElementById("tr-overlay");
+  document.getElementById("open-tr-btn")
+    .addEventListener("click", () => { overlay.open = true; });
+  overlay.addEventListener("close", () => { overlay.open = false; });
+</script>`,
+              vue: `<template>
+  <l-Button label="Open drawer" @click="open = true"></l-Button>
+  <l-Drawer :open="open" heading="Transition" position="right" ${trHtml} @close="open = false">
+    <p>A transition replaces the drawer's default slide.</p>
+  </l-Drawer>
+</template>
+
+<script setup lang="ts">
+import { ref } from "vue";
+import "lojee-ui/elements";
+
+const open = ref(false);
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-Button label="Open drawer" (click)="open = true"></l-Button>
+    <l-Drawer [open]="open" heading="Transition" position="right" ${trHtml} (close)="open = false">
+      <p>A transition replaces the drawer's default slide.</p>
+    </l-Drawer>
+  \`,
+})
+export class AppComponent {
+  open = false;
+}`,
             }}
           />
         </section>

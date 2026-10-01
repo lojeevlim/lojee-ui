@@ -3,6 +3,7 @@ import { DatePicker, type DatePickerSize, type DatePickerVariant } from "./DateP
 import { DateRangePicker } from "./DatePicker/DateRangePicker";
 import { OptionGroup, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
+import { useMotion } from "./playgroundMotion";
 
 const SIZES: DatePickerSize[] = ["sm", "md", "lg"];
 const VARIANTS: DatePickerVariant[] = ["outline", "filled", "underline"];
@@ -10,6 +11,7 @@ const LAYOUTS = ["single", "range"] as const;
 type Layout = (typeof LAYOUTS)[number];
 
 export default function DatePickerPlayground() {
+  const motion = useMotion();
   const [layout, setLayout] = useState<Layout>("single");
   const [size, setSize] = useState<DatePickerSize>("md");
   const [variant, setVariant] = useState<DatePickerVariant>("outline");
@@ -23,6 +25,8 @@ export default function DatePickerPlayground() {
       <AppWindowBody>
         {layout === "range" ? (
           <DateRangePicker
+            key={motion.replayKey}
+            {...motion.props}
             size={size}
             variant={variant}
             invalid={invalid}
@@ -33,13 +37,13 @@ export default function DatePickerPlayground() {
             onEndChange={setEnd}
           />
         ) : (
-          <DatePicker size={size} variant={variant} invalid={invalid} disabled={disabled} />
+          <DatePicker key={motion.replayKey} {...motion.props} size={size} variant={variant} invalid={invalid} disabled={disabled} />
         )}
       </AppWindowBody>
     </AppWindowFrame>
   );
 
-  const optionalAttrs = `${variant !== "outline" ? ` variant="${variant}"` : ""}${invalid ? " invalid" : ""}${disabled ? " disabled" : ""}`;
+  const optionalAttrs = `${variant !== "outline" ? ` variant="${variant}"` : ""}${invalid ? " invalid" : ""}${disabled ? " disabled" : ""}${motion.attrs}`;
 
   const code =
     layout === "range"
@@ -52,7 +56,7 @@ export default function DatePickerPlayground() {
   // parses a bare attribute (empty string) as false.
   const wcOptionalAttrs = `${variant !== "outline" ? ` variant="${variant}"` : ""}${
     invalid ? ` invalid` : ""
-  }${disabled ? ` disabled` : ""}`;
+  }${disabled ? ` disabled` : ""}${motion.attrs}`;
 
   const htmlMarkup =
     layout === "range"
@@ -97,6 +101,7 @@ export default function DatePickerPlayground() {
           </button>
         </div>
       </div>
+      {motion.controls}
     </PlaygroundLayout>
   );
 }

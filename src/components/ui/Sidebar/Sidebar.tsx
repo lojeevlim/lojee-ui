@@ -7,6 +7,7 @@ import { useTooltipPortal, tooltipPortalPositionStyle, TOOLTIP_PORTAL_Z_CLASS } 
 import { SidebarMenuItem } from "./SidebarMenuItem";
 import { sidebarActiveFillClasses } from "./sidebarActiveStyles";
 import { activeMarker } from "../../../core/activeVariant";
+import { motionClass, motionStyle, type TransitionVariant, type HoverEffect } from "../../../core/motion";
 
 // Determines which `items` row matches the current URL, for the built-in active-item detection
 // below — an exact `href` match always wins outright; otherwise the longest `href` the current path
@@ -214,6 +215,14 @@ export interface SidebarProps {
    * called for rows composed directly via `children` (only the data-driven `items` shortcut has a
    * "current item" concept). */
   onActiveItemChange?: (item: SidebarMenuItemSpec) => void;
+  /** Enter transition: "fade" | "slide-up" | "slide-down" | "slide-left" | "slide-right" | "zoom" | "zoom-out" | "flip" | "blur" | "bounce" | "rotate" | "drop" | "skew" (default: none). Respects `prefers-reduced-motion`. */
+  transition?: TransitionVariant;
+  /** Enter transition duration in ms (default: 450). */
+  transitionDuration?: number;
+  /** Delay before the enter transition starts, in ms (default: 0) — handy for staggering. */
+  transitionDelay?: number;
+  /** Effect while hovering: "lift" | "scale" | "press" | "tilt" | "ring" | "glow" | "shine" (default: none). Applied to each row of the `items` shortcut (rows composed as `children` take their own `hoverEffect`). */
+  hoverEffect?: HoverEffect;
   /** Extra class name(s) appended to the root element. */
   className?: string;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
@@ -348,6 +357,10 @@ export function Sidebar({
   collapsible = false,
   onCollapsedChange,
   onActiveItemChange,
+  transition,
+  transitionDuration,
+  transitionDelay,
+  hoverEffect,
   className,
   classNames,
 }: SidebarProps) {
@@ -509,6 +522,7 @@ export function Sidebar({
       color={color}
       dark={dark}
       vividActive={vividActive}
+      hoverEffect={hoverEffect}
       onClick={() => setSelectedLabel(item.label)}
     >
       {item.label}
@@ -767,10 +781,11 @@ export function Sidebar({
         // above instead, same fallback pattern as everywhere else `color` accepts an arbitrary value.
         isDetachedPanel && (isGlass ? glassBackdropClass : "bg-surface-muted"),
         !isDetachedPanel && VARIANT_CLASSES[variant],
+        motionClass(transition),
         className,
         classNames?.root
       )}
-      style={style}
+      style={{ ...style, ...motionStyle(transitionDuration, transitionDelay) }}
     >
       {isDetachedPanel ? (
         <div

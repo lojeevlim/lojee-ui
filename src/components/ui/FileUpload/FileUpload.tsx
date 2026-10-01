@@ -1,6 +1,7 @@
 import { useState } from "react";
 import type { InputHTMLAttributes, ReactNode } from "react";
 import { cx } from "../../../core/tokens";
+import { motionClass, motionStyle, type TransitionVariant, type HoverEffect } from "../../../core/motion";
 import { Icon } from "../Icons/Icon";
 
 export interface FileUploadProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "type" | "size"> {
@@ -8,6 +9,14 @@ export interface FileUploadProps extends Omit<InputHTMLAttributes<HTMLInputEleme
   label?: ReactNode;
   /** Fires when the user picks files (via click or drop), with the selected FileList (or null). */
   onFilesSelected?: (files: FileList | null) => void;
+  /** Enter transition: "fade" | "slide-up" | "slide-down" | "slide-left" | "slide-right" | "zoom" | "zoom-out" | "flip" | "blur" | "bounce" | "rotate" | "drop" | "skew" (default: none). Respects `prefers-reduced-motion`. */
+  transition?: TransitionVariant;
+  /** Enter transition duration in ms (default: 450). */
+  transitionDuration?: number;
+  /** Delay before the enter transition starts, in ms (default: 0) — handy for staggering. */
+  transitionDelay?: number;
+  /** Effect while hovering: "lift" | "scale" | "press" | "tilt" | "ring" | "glow" | "shine" (default: none). */
+  hoverEffect?: HoverEffect;
   /** Extra class name(s) applied to the root element. */
   className?: string;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
@@ -26,6 +35,10 @@ export function FileUpload({
   className,
   classNames,
   onChange,
+  transition,
+  transitionDuration,
+  transitionDelay,
+  hoverEffect,
   ...rest
 }: FileUploadProps) {
   const [fileNames, setFileNames] = useState<string[]>([]);
@@ -34,9 +47,11 @@ export function FileUpload({
     <label
       className={cx(
         "flex cursor-pointer flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed border-border-strong bg-surface-muted px-6 py-8 text-center transition-colors hover:border-border-strong hover:bg-surface-muted",
+        motionClass(transition, hoverEffect),
         className,
         classNames?.root
       )}
+      style={motionStyle(transitionDuration, transitionDelay)}
     >
       <input
         type="file"

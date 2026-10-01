@@ -1,4 +1,5 @@
 import { cx, type ColorName } from "../../../core/tokens";
+import { motionClass, motionStyle, type TransitionVariant } from "../../../core/motion";
 import { Avatar } from "../Avatar/Avatar";
 import { Icon } from "../Icons/Icon";
 
@@ -32,6 +33,12 @@ export interface ActivityFeedProps {
   items: ActivityItem[];
   /** Denser spacing and smaller avatars, for sidebars or narrow panels. */
   compact?: boolean;
+  /** Enter transition (staggered across the items): "fade" | "slide-up" | "slide-down" | "slide-left" | "slide-right" | "zoom" | "zoom-out" | "flip" | "blur" | "bounce" | "rotate" | "drop" | "skew" (default: none). Respects `prefers-reduced-motion`. */
+  transition?: TransitionVariant;
+  /** Enter transition duration in ms (default: 450). */
+  transitionDuration?: number;
+  /** Delay before the enter transition starts, in ms (default: 0) — items enter one after another, each 60ms after the last. */
+  transitionDelay?: number;
   /** Extra class names applied to the root element. */
   className?: string;
   /** Per-part class overrides (`root`, `item`, `avatar`, `content`, `timestamp`) — merged after the built-in styling. */
@@ -60,11 +67,16 @@ const ICON_BADGE_BG: Record<ColorName, string> = {
   pink: "bg-pink-500",
 };
 
-export function ActivityFeed({ items, compact = false, className, classNames }: ActivityFeedProps) {
+export function ActivityFeed({ items, compact = false, transition, transitionDuration, transitionDelay, className, classNames }: ActivityFeedProps) {
   return (
     <div className={cx("divide-y divide-border", className, classNames?.root)}>
       {items.map((item, i) => (
-        <div key={i} className={cx("flex items-start gap-3", compact ? "py-2" : "py-3", classNames?.item)}>
+        <div
+          key={i}
+          className={cx("flex items-start gap-3", compact ? "py-2" : "py-3", motionClass(transition), classNames?.item)}
+          // Items enter one after another: +60ms per item on top of `transitionDelay`.
+          style={transition ? motionStyle(transitionDuration, (transitionDelay ?? 0) + i * 60) : undefined}
+        >
           <span className="relative shrink-0">
             <Avatar
               initials={item.avatarInitials}

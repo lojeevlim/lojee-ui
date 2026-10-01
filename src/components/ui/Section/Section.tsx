@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { cx } from "../../../core/tokens";
+import { motionClass, motionStyle, type TransitionVariant } from "../../../core/motion";
 
 export type SectionSpacing = "sm" | "md" | "lg";
 
@@ -10,6 +11,12 @@ export interface SectionProps {
   subtitle?: ReactNode;
   /** Vertical padding of the section: "sm", "md" (default) or "lg". */
   spacing?: SectionSpacing;
+  /** Enter transition: "fade" | "slide-up" | "slide-down" | "slide-left" | "slide-right" | "zoom" | "zoom-out" | "flip" | "blur" | "bounce" | "rotate" | "drop" | "skew" (default: none). Respects `prefers-reduced-motion`. */
+  transition?: TransitionVariant;
+  /** Enter transition duration in ms (default: 450). */
+  transitionDuration?: number;
+  /** Delay before the enter transition starts, in ms (default: 0) — handy for staggering. */
+  transitionDelay?: number;
   /** The section's body content. */
   children?: ReactNode;
   /** Extra CSS class(es) added to the root element, merged before `classNames.root`. */
@@ -31,11 +38,17 @@ export function Section({
   children,
   className,
   classNames,
+  transition,
+  transitionDuration,
+  transitionDelay,
 }: SectionProps) {
   const hasHeader = title != null || subtitle != null;
 
   return (
-    <section className={cx(SPACING_CLASSES[spacing], className, classNames?.root)}>
+    <section
+      className={cx(SPACING_CLASSES[spacing], motionClass(transition), className, classNames?.root)}
+      style={motionStyle(transitionDuration, transitionDelay)}
+    >
       {hasHeader && (
         <div className={cx("mb-6", classNames?.header)}>
           {title != null && <h2 className={cx("text-xl font-semibold text-fg", classNames?.title)}>{title}</h2>}

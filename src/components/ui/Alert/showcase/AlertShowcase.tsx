@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Alert } from "../Alert";
 import CodeBlock from "../../CodeBlock";
-import { SectionLabel } from "../../ShowcaseHelpers";
+import { SectionLabel, TransitionPreview } from "../../ShowcaseHelpers";
 
 export default function AlertShowcase() {
   const [closableVisible, setClosableVisible] = useState(true);
@@ -233,6 +233,176 @@ alertClassNames = {
   root: "border-indigo-200 bg-indigo-50 text-indigo-900 dark:border-indigo-900 dark:bg-indigo-950/40 dark:text-indigo-200",
   icon: "text-indigo-500",
 };`,
+            }}
+          />
+        </section>
+
+        <section>
+          <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`) and hover effects via `hoverEffect`. Press Replay to run the enter transitions again.">Transitions</SectionLabel>
+          <TransitionPreview cols={2}>
+            <Alert variant="accent" title="Fade" transition="fade">Theme-colored alert.</Alert>
+            <Alert variant="accent" title="Slide up" transition="slide-up">Theme-colored alert.</Alert>
+            <Alert variant="accent" title="Slide right" transition="slide-right" transitionDelay={100}>Theme-colored alert.</Alert>
+            <Alert variant="accent" title="Zoom" transition="zoom">Theme-colored alert.</Alert>
+            <Alert variant="accent" title="Flip" transition="flip">Theme-colored alert.</Alert>
+            <Alert variant="accent" title="Blur" transition="blur">Theme-colored alert.</Alert>
+            <Alert variant="accent" title="Bounce" transition="bounce">Theme-colored alert.</Alert>
+            <Alert variant="accent" title="Drop" transition="drop" transitionDuration={700}>Theme-colored alert.</Alert>
+            <Alert variant="accent" title="Lift" hoverEffect="lift">Theme-colored alert.</Alert>
+            <Alert variant="accent" title="Glow" hoverEffect="glow">Theme-colored alert.</Alert>
+            <Alert variant="accent" title="Shine" hoverEffect="shine">Theme-colored alert.</Alert>
+            <Alert variant="accent" title="Tilt" hoverEffect="tilt">Theme-colored alert.</Alert>
+          </TransitionPreview>
+          <CodeBlock
+            variants={{
+              react: `<Alert variant="accent" title="Fade" transition="fade">Theme-colored alert.</Alert>
+<Alert variant="accent" title="Slide up" transition="slide-up">Theme-colored alert.</Alert>
+<Alert variant="accent" title="Slide right" transition="slide-right" transitionDelay={100}>Theme-colored alert.</Alert>
+<Alert variant="accent" title="Zoom" transition="zoom">Theme-colored alert.</Alert>
+<Alert variant="accent" title="Flip" transition="flip">Theme-colored alert.</Alert>
+<Alert variant="accent" title="Blur" transition="blur">Theme-colored alert.</Alert>
+<Alert variant="accent" title="Bounce" transition="bounce">Theme-colored alert.</Alert>
+<Alert variant="accent" title="Drop" transition="drop" transitionDuration={700}>Theme-colored alert.</Alert>
+
+<Alert variant="accent" title="Lift" hoverEffect="lift">Theme-colored alert.</Alert>
+<Alert variant="accent" title="Glow" hoverEffect="glow">Theme-colored alert.</Alert>
+<Alert variant="accent" title="Shine" hoverEffect="shine">Theme-colored alert.</Alert>
+<Alert variant="accent" title="Tilt" hoverEffect="tilt">Theme-colored alert.</Alert>`,
+              js: `<l-Alert variant="accent" heading="Fade" transition="fade">Theme-colored alert.</l-Alert>
+<l-Alert variant="accent" heading="Slide up" transition="slide-up">Theme-colored alert.</l-Alert>
+<l-Alert variant="accent" heading="Slide right" transition="slide-right" transitionDelay="100">Theme-colored alert.</l-Alert>
+<l-Alert variant="accent" heading="Zoom" transition="zoom">Theme-colored alert.</l-Alert>
+<l-Alert variant="accent" heading="Flip" transition="flip">Theme-colored alert.</l-Alert>
+<l-Alert variant="accent" heading="Blur" transition="blur">Theme-colored alert.</l-Alert>
+<l-Alert variant="accent" heading="Bounce" transition="bounce">Theme-colored alert.</l-Alert>
+<l-Alert variant="accent" heading="Drop" transition="drop" transitionDuration="700">Theme-colored alert.</l-Alert>
+
+<l-Alert variant="accent" heading="Lift" hoverEffect="lift">Theme-colored alert.</l-Alert>
+<l-Alert variant="accent" heading="Glow" hoverEffect="glow">Theme-colored alert.</l-Alert>
+<l-Alert variant="accent" heading="Shine" hoverEffect="shine">Theme-colored alert.</l-Alert>
+<l-Alert variant="accent" heading="Tilt" hoverEffect="tilt">Theme-colored alert.</l-Alert>
+
+<script type="module">
+  import "lojee-ui/elements";
+</script>`,
+              vue: `<template>
+  <l-Alert variant="accent" heading="Fade" transition="fade">Theme-colored alert.</l-Alert>
+  <l-Alert variant="accent" heading="Slide up" transition="slide-up">Theme-colored alert.</l-Alert>
+  <l-Alert variant="accent" heading="Slide right" transition="slide-right" transitionDelay="100">Theme-colored alert.</l-Alert>
+  <l-Alert variant="accent" heading="Zoom" transition="zoom">Theme-colored alert.</l-Alert>
+  <l-Alert variant="accent" heading="Flip" transition="flip">Theme-colored alert.</l-Alert>
+  <l-Alert variant="accent" heading="Blur" transition="blur">Theme-colored alert.</l-Alert>
+  <l-Alert variant="accent" heading="Bounce" transition="bounce">Theme-colored alert.</l-Alert>
+  <l-Alert variant="accent" heading="Drop" transition="drop" transitionDuration="700">Theme-colored alert.</l-Alert>
+
+  <l-Alert variant="accent" heading="Lift" hoverEffect="lift">Theme-colored alert.</l-Alert>
+  <l-Alert variant="accent" heading="Glow" hoverEffect="glow">Theme-colored alert.</l-Alert>
+  <l-Alert variant="accent" heading="Shine" hoverEffect="shine">Theme-colored alert.</l-Alert>
+  <l-Alert variant="accent" heading="Tilt" hoverEffect="tilt">Theme-colored alert.</l-Alert>
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-Alert variant="accent" heading="Fade" transition="fade">Theme-colored alert.</l-Alert>
+    <l-Alert variant="accent" heading="Slide up" transition="slide-up">Theme-colored alert.</l-Alert>
+    <l-Alert variant="accent" heading="Slide right" transition="slide-right" transitionDelay="100">Theme-colored alert.</l-Alert>
+    <l-Alert variant="accent" heading="Zoom" transition="zoom">Theme-colored alert.</l-Alert>
+    <l-Alert variant="accent" heading="Flip" transition="flip">Theme-colored alert.</l-Alert>
+    <l-Alert variant="accent" heading="Blur" transition="blur">Theme-colored alert.</l-Alert>
+    <l-Alert variant="accent" heading="Bounce" transition="bounce">Theme-colored alert.</l-Alert>
+    <l-Alert variant="accent" heading="Drop" transition="drop" transitionDuration="700">Theme-colored alert.</l-Alert>
+
+    <l-Alert variant="accent" heading="Lift" hoverEffect="lift">Theme-colored alert.</l-Alert>
+    <l-Alert variant="accent" heading="Glow" hoverEffect="glow">Theme-colored alert.</l-Alert>
+    <l-Alert variant="accent" heading="Shine" hoverEffect="shine">Theme-colored alert.</l-Alert>
+    <l-Alert variant="accent" heading="Tilt" hoverEffect="tilt">Theme-colored alert.</l-Alert>
+  \`,
+})
+export class AppComponent {}`,
+            }}
+          />
+        </section>
+
+        <section>
+          <SectionLabel sub="Attention effects via `animated`. Pulse and border-spin take a solid `pulseColor` or a gradient with `pulseGradientTo`.">Animated</SectionLabel>
+          <div className="flex flex-col gap-4">
+            <Alert variant="info" title="Glow" animated="glow">A soft breathing glow.</Alert>
+            <Alert variant="success" title="Pulse" animated="pulse">An expanding ring in the alert's own color.</Alert>
+            <Alert variant="error" title="Gradient pulse" animated="pulse" pulseColor="rose" pulseGradientTo="amber">A gradient pulse ring.</Alert>
+            <Alert variant="warning" title="Sweep" animated="sweep">A light streak gliding across.</Alert>
+            <Alert variant="info" title="Border spin" animated="border-spin" pulseColor="blue" pulseGradientTo="cyan">A rotating gradient border.</Alert>
+            <div className="flex flex-wrap gap-4">
+              <Alert variant="info" title="Bounce" animated="bounce" className="w-56">Bounce</Alert>
+              <Alert variant="success" title="Float" animated="float" className="w-56">Float</Alert>
+              <Alert variant="warning" title="Wiggle" animated="wiggle" className="w-56">Wiggle</Alert>
+            </div>
+          </div>
+          <CodeBlock
+            variants={{
+              react: `<Alert variant="info" title="Glow" animated="glow">A soft breathing glow.</Alert>
+<Alert variant="success" title="Pulse" animated="pulse">An expanding ring in the alert's own color.</Alert>
+<Alert variant="error" title="Gradient pulse" animated="pulse" pulseColor="rose" pulseGradientTo="amber">A gradient pulse ring.</Alert>
+<Alert variant="warning" title="Sweep" animated="sweep">A light streak gliding across.</Alert>
+<Alert variant="info" title="Border spin" animated="border-spin" pulseColor="blue" pulseGradientTo="cyan">A rotating gradient border.</Alert>
+<Alert variant="info" title="Bounce" animated="bounce">Bounce</Alert>
+<Alert variant="success" title="Float" animated="float">Float</Alert>
+<Alert variant="warning" title="Wiggle" animated="wiggle">Wiggle</Alert>`,
+              js: `<l-Alert variant="info" heading="Glow" animated="glow">A soft breathing glow.</l-Alert>
+<l-Alert variant="success" heading="Pulse" animated="pulse">An expanding ring in the alert's own color.</l-Alert>
+<l-Alert variant="error" heading="Gradient pulse" animated="pulse" pulseColor="rose" pulseGradientTo="amber">A gradient pulse ring.</l-Alert>
+<l-Alert variant="warning" heading="Sweep" animated="sweep">A light streak gliding across.</l-Alert>
+<l-Alert variant="info" heading="Border spin" animated="border-spin" pulseColor="blue" pulseGradientTo="cyan">A rotating gradient border.</l-Alert>
+<l-Alert variant="info" heading="Bounce" animated="bounce">Bounce</l-Alert>
+<l-Alert variant="success" heading="Float" animated="float">Float</l-Alert>
+<l-Alert variant="warning" heading="Wiggle" animated="wiggle">Wiggle</l-Alert>
+
+<script type="module">
+  import "lojee-ui/elements";
+</script>`,
+              vue: `<template>
+  <l-Alert variant="info" heading="Glow" animated="glow">A soft breathing glow.</l-Alert>
+  <l-Alert variant="success" heading="Pulse" animated="pulse">An expanding ring in the alert's own color.</l-Alert>
+  <l-Alert variant="error" heading="Gradient pulse" animated="pulse" pulseColor="rose" pulseGradientTo="amber">A gradient pulse ring.</l-Alert>
+  <l-Alert variant="warning" heading="Sweep" animated="sweep">A light streak gliding across.</l-Alert>
+  <l-Alert variant="info" heading="Border spin" animated="border-spin" pulseColor="blue" pulseGradientTo="cyan">A rotating gradient border.</l-Alert>
+  <l-Alert variant="info" heading="Bounce" animated="bounce">Bounce</l-Alert>
+  <l-Alert variant="success" heading="Float" animated="float">Float</l-Alert>
+  <l-Alert variant="warning" heading="Wiggle" animated="wiggle">Wiggle</l-Alert>
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-Alert variant="info" heading="Glow" animated="glow">A soft breathing glow.</l-Alert>
+    <l-Alert variant="success" heading="Pulse" animated="pulse">An expanding ring in the alert's own color.</l-Alert>
+    <l-Alert variant="error" heading="Gradient pulse" animated="pulse" pulseColor="rose" pulseGradientTo="amber">A gradient pulse ring.</l-Alert>
+    <l-Alert variant="warning" heading="Sweep" animated="sweep">A light streak gliding across.</l-Alert>
+    <l-Alert variant="info" heading="Border spin" animated="border-spin" pulseColor="blue" pulseGradientTo="cyan">A rotating gradient border.</l-Alert>
+    <l-Alert variant="info" heading="Bounce" animated="bounce">Bounce</l-Alert>
+    <l-Alert variant="success" heading="Float" animated="float">Float</l-Alert>
+    <l-Alert variant="warning" heading="Wiggle" animated="wiggle">Wiggle</l-Alert>
+  \`,
+})
+export class AppComponent {}`,
             }}
           />
         </section>

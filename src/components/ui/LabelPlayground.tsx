@@ -3,8 +3,10 @@ import { Label } from "./Label/Label";
 import { Input } from "./Input/Input";
 import { PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
+import { useMotion } from "./playgroundMotion";
 
 export default function LabelPlayground() {
+  const motion = useMotion({ hover: false });
   const [required, setRequired] = useState(false);
   const [text, setText] = useState("Email address");
 
@@ -12,7 +14,7 @@ export default function LabelPlayground() {
     <AppWindowFrame>
       <AppWindowBody>
         <div className="max-w-sm w-full space-y-1.5">
-          <Label htmlFor="playground-field" required={required}>
+          <Label key={motion.replayKey} {...motion.props} htmlFor="playground-field" required={required}>
             {text || "Email address"}
           </Label>
           <Input id="playground-field" placeholder="you@example.com" />
@@ -21,7 +23,7 @@ export default function LabelPlayground() {
     </AppWindowFrame>
   );
 
-  const code = `<Label htmlFor="field"${required ? " required" : ""}>${text || "Email address"}</Label>
+  const code = `<Label htmlFor="field"${required ? " required" : ""}${motion.attrs}>${text || "Email address"}</Label>
 <Input id="field" placeholder="you@example.com" />`;
 
   // Custom-element markup for the current configuration — identical across
@@ -30,7 +32,7 @@ export default function LabelPlayground() {
   // HTML page needs to actually load the `<l-*>` definitions. `l-label`'s
   // registered attribute is literally `htmlFor` (not the HTML-standard
   // `for`), predating dash-casing conventions elsewhere.
-  const htmlMarkup = `<l-Label htmlFor="field"${required ? ` required` : ""}>${
+  const htmlMarkup = `<l-Label htmlFor="field"${required ? ` required` : ""}${motion.attrs}>${
     text || "Email address"
   }</l-Label>
 <l-Input id="field" placeholder="you@example.com" />`;
@@ -69,6 +71,7 @@ export default function LabelPlayground() {
           </button>
         </div>
       </div>
+      {motion.controls}
     </PlaygroundLayout>
   );
 }

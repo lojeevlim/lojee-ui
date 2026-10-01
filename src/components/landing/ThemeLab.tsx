@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { highlightCode } from "../../core/highlightCode";
 import { ThemeProvider } from "../ui/Theme/ThemeProvider";
 import { Button } from "../ui/Buttons/Button";
 import { Badge } from "../ui/Badge/Badge";
@@ -7,15 +8,17 @@ import { ProgressBar } from "../ui/ProgressBar/ProgressBar";
 import { NavigationMenu } from "../ui/NavigationMenu/NavigationMenu";
 import { Alert } from "../ui/Alert/Alert";
 import { COLORS } from "../../core/tokens";
-import type { AccentName, ThemeMode } from "../../core/theme";
+import { useTheme, type AccentName, type ThemeMode } from "../../core/theme";
 import type { ActiveVariant } from "../../core/activeVariant";
 
 const VARIANTS: ActiveVariant[] = ["solid", "outline", "soft"];
 
 /** Interactive theming demo: an isolated ThemeProvider driven by the controls beside it. */
 export default function ThemeLab() {
-  const [mode, setMode] = useState<ThemeMode>("light");
-  const [accent, setAccent] = useState<AccentName>("violet");
+  // The preview starts from the site's own theme and accent, so it matches what the visitor already sees.
+  const site = useTheme();
+  const [mode, setMode] = useState<ThemeMode>(site.mode);
+  const [accent, setAccent] = useState<AccentName>(site.accent);
   const [variant, setVariant] = useState<ActiveVariant>("solid");
 
   return (
@@ -68,11 +71,11 @@ export default function ThemeLab() {
             ))}
           </div>
         </div>
-        <pre className="overflow-x-auto rounded-lg bg-surface-muted p-3 font-mono text-[11px] leading-relaxed text-fg-muted">{`<ThemeProvider
+        <pre className="overflow-x-auto rounded-lg bg-surface-muted p-3 font-mono text-[11px] leading-relaxed text-fg-muted"><code>{highlightCode(`<ThemeProvider
   defaultMode="${mode}"
   defaultAccent="${accent}"
   defaultActiveVariant="${variant}"
->`}</pre>
+>`)}</code></pre>
       </div>
 
       <ThemeProvider isolated mode={mode} accent={accent} activeVariant={variant}>

@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import type { KeyboardEvent } from "react";
 import { cx } from "../../../core/tokens";
 import { Icon } from "../Icons/Icon";
+import { motionClass, motionState, motionStyle, DEFAULT_TRANSITION_MS, type TransitionVariant, type HoverEffect } from "../../../core/motion";
+import { usePresence } from "../../../core/usePresence";
 
 export interface ComboboxOption {
   label: string;
@@ -17,6 +19,14 @@ export interface ComboboxProps {
   onChange?: (value: string) => void;
   /** Placeholder text shown in the input while it is empty. */
   placeholder?: string;
+  /** Enter/exit transition for the dropdown panel: "fade" | "slide-up" | "slide-down" | "slide-left" | "slide-right" | "zoom" | "zoom-out" | "flip" | "blur" | "bounce" | "rotate" | "drop" | "skew" (default: none). Respects `prefers-reduced-motion`. */
+  transition?: TransitionVariant;
+  /** Enter/exit transition duration for the dropdown panel in ms (default: 450). */
+  transitionDuration?: number;
+  /** Delay before the dropdown panel's enter transition starts, in ms (default: 0). */
+  transitionDelay?: number;
+  /** Effect while hovering the field: "lift" | "scale" | "press" | "tilt" | "ring" | "glow" | "shine" (default: none). */
+  hoverEffect?: HoverEffect;
   /** Extra class names applied to the root element. */
   className?: string;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
@@ -29,11 +39,24 @@ export interface ComboboxProps {
   };
 }
 
-export function Combobox({ options, value, onChange, placeholder, className, classNames }: ComboboxProps) {
+export function Combobox({
+  options,
+  value,
+  onChange,
+  placeholder,
+  transition,
+  transitionDuration,
+  transitionDelay,
+  hoverEffect,
+  className,
+  classNames,
+}: ComboboxProps) {
   const [inputValue, setInputValue] = useState(() => options.find((o) => o.value === value)?.label ?? "");
   const [open, setOpen] = useState(false);
   const [highlightedIndex, setHighlightedIndex] = useState(0);
   const rootRef = useRef<HTMLDivElement>(null);
+  // With a `transition` the panel stays mounted for the exit; without one it unmounts immediately, as before.
+  const { mounted } = usePresence(open, transition ? (transitionDuration ?? DEFAULT_TRANSITION_MS) + (transitionDelay ?? 0) : 0);
 
   // Re-sync the visible text from `value` whenever it changes externally,
   // without reaching for an effect (React's recommended "adjusting state
@@ -91,7 +114,7 @@ export function Combobox({ options, value, onChange, placeholder, className, cla
 
   return (
     <div ref={rootRef} className={cx("relative w-full", className, classNames?.root)}>
-      <span className="relative flex w-full items-center">
+      <span className={cx("relative flex w-full items-center rounded-md", motionClass(undefined, hoverEffect))}>
         <Icon name="search" size={16} className="pointer-events-none absolute left-3 text-fg-subtle" />
         <input
           type="text"
@@ -111,13 +134,16 @@ export function Combobox({ options, value, onChange, placeholder, className, cla
         />
       </span>
 
-      {open && (
+      {mounted && (
         <div
           role="listbox"
           className={cx(
             "absolute z-10 mt-1 w-full max-h-60 overflow-y-auto rounded-lg border border-border bg-surface py-1 shadow-lg",
+            motionClass(transition),
             classNames?.menu
           )}
+          style={motionStyle(transitionDuration, transitionDelay)}
+          {...motionState(open)}
         >
           {filtered.length === 0 && <div className="px-3 py-1.5 text-sm text-fg-subtle">No results</div>}
           {filtered.map((o, i) => (

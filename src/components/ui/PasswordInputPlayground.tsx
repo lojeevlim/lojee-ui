@@ -2,10 +2,12 @@ import { useState } from "react";
 import { PasswordInput, type PasswordInputSize } from "./PasswordInput/PasswordInput";
 import { OptionGroup, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
+import { useMotion } from "./playgroundMotion";
 
 const SIZES: PasswordInputSize[] = ["sm", "md", "lg"];
 
 export default function PasswordInputPlayground() {
+  const motion = useMotion();
   const [size, setSize] = useState<PasswordInputSize>("md");
   const [disabled, setDisabled] = useState(false);
   const [invalid, setInvalid] = useState(false);
@@ -16,6 +18,8 @@ export default function PasswordInputPlayground() {
       <AppWindowBody>
         <div className="max-w-sm w-full">
           <PasswordInput
+            key={motion.replayKey}
+            {...motion.props}
             size={size}
             disabled={disabled}
             invalid={invalid}
@@ -31,7 +35,7 @@ export default function PasswordInputPlayground() {
   const code = `const [password, setPassword] = useState("${value}");
 
 <PasswordInput
-  size="${size}"${disabled ? "\n  disabled" : ""}${invalid ? "\n  invalid" : ""}
+  size="${size}"${disabled ? "\n  disabled" : ""}${invalid ? "\n  invalid" : ""}${motion.attrs}
   value={password}
   onChange={(e) => setPassword(e.target.value)}
   placeholder="Password"
@@ -39,7 +43,7 @@ export default function PasswordInputPlayground() {
 
   const htmlMarkup = `<l-PasswordInput size="${size}"${disabled ? ` disabled` : ""}${
     invalid ? ` invalid` : ""
-  } value="${value}" placeholder="Password" />`;
+  }${motion.attrs} value="${value}" placeholder="Password" />`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,
@@ -87,6 +91,7 @@ export default function PasswordInputPlayground() {
           </button>
         </div>
       </div>
+      {motion.controls}
     </PlaygroundLayout>
   );
 }

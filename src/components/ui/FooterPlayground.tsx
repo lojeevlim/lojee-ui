@@ -3,10 +3,12 @@ import { Footer, type FooterVariant } from "./Footer/Footer";
 import { OptionGroup, ColorSwatches, PlaygroundLayout, AppWindowFrame } from "./PlaygroundHelpers";
 import type { ColorName } from "../../core/tokens";
 import type { CodeBlockVariants } from "./CodeBlock";
+import { useMotion } from "./playgroundMotion";
 
 const VARIANTS: FooterVariant[] = ["light", "dark", "minimal", "accent"];
 
 export default function FooterPlayground() {
+  const motion = useMotion({ hover: false });
   const [copyright, setCopyright] = useState("© 2026 Lojee, Inc. All rights reserved.");
   const [showColumns, setShowColumns] = useState(true);
   const [variant, setVariant] = useState<FooterVariant>("light");
@@ -61,6 +63,8 @@ export default function FooterPlayground() {
           Page content
         </div>
         <Footer
+          key={motion.replayKey}
+          {...motion.props}
           bottom={copyright ? <span className={variant === "dark" ? "text-fg-subtle" : undefined}>{copyright}</span> : undefined}
           variant={variant}
           color={color}
@@ -73,7 +77,8 @@ export default function FooterPlayground() {
 
   const bottomValue = copyright || "© 2026 Lojee, Inc. All rights reserved.";
   const variantAttr =
-    (variant !== "light" ? ` variant="${variant}"` : "") + (variant === "accent" && color !== "accent" ? ` color="${color}"` : "");
+    (variant !== "light" ? ` variant="${variant}"` : "") + (variant === "accent" && color !== "accent" ? ` color="${color}"` : "") +
+    motion.attrs;
   const columnsJsx = `
   <div>
     <h4>Product</h4>
@@ -123,6 +128,7 @@ export default function FooterPlayground() {
         <input type="checkbox" checked={showColumns} onChange={(e) => setShowColumns(e.target.checked)} />
         Show link columns
       </label>
+      {motion.controls}
     </PlaygroundLayout>
   );
 }

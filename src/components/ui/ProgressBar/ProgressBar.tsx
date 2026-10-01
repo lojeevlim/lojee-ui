@@ -1,4 +1,5 @@
 import { cx, type ColorName } from "../../../core/tokens";
+import { motionClass, motionStyle, type TransitionVariant } from "../../../core/motion";
 
 export type ProgressBarSize = "sm" | "md" | "lg";
 
@@ -17,6 +18,12 @@ export interface ProgressBarProps {
   striped?: boolean;
   /** Animated sweeping bar, ignores `value`. */
   indeterminate?: boolean;
+  /** Enter transition: "fade" | "slide-up" | "slide-down" | "slide-left" | "slide-right" | "zoom" | "zoom-out" | "flip" | "blur" | "bounce" | "rotate" | "drop" | "skew" (default: none). Respects `prefers-reduced-motion`. */
+  transition?: TransitionVariant;
+  /** Enter transition duration in ms (default: 450). */
+  transitionDuration?: number;
+  /** Delay before the enter transition starts, in ms (default: 0) — handy for staggering. */
+  transitionDelay?: number;
   /** Extra CSS class(es) added to the root element, merged before `classNames.root`. */
   className?: string;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
@@ -61,6 +68,9 @@ export function ProgressBar({
   showLabel = false,
   striped = false,
   indeterminate = false,
+  transition,
+  transitionDuration,
+  transitionDelay,
   className,
   classNames,
 }: ProgressBarProps) {
@@ -69,7 +79,7 @@ export function ProgressBar({
   const barColor = BG_COLOR[color] || BG_COLOR.slate;
 
   return (
-    <div className={cx("w-full", className, classNames?.root)}>
+    <div className={cx("w-full", motionClass(transition), className, classNames?.root)} style={motionStyle(transitionDuration, transitionDelay)}>
       <div
         role="progressbar"
         aria-valuemin={0}

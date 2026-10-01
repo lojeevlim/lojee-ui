@@ -111,6 +111,68 @@ export default function ProgressBarShowcase() {
             }}
           />
         </section>
+
+        <section>
+          <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`). They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
+          <div className="flex max-w-md flex-col gap-4">
+            <ProgressBar value={60} transition="fade" />
+            <ProgressBar value={60} transition="slide-down" />
+            <ProgressBar value={60} transition="slide-right" transitionDelay={100} />
+            <ProgressBar value={60} transition="zoom" />
+            <ProgressBar value={60} transition="blur" />
+            <ProgressBar value={60} transition="drop" transitionDuration={700} />
+          </div>
+          <CodeBlock
+            variants={{
+              react: `<ProgressBar value={60} transition="fade" />
+<ProgressBar value={60} transition="slide-down" />
+<ProgressBar value={60} transition="slide-right" transitionDelay={100} />
+<ProgressBar value={60} transition="zoom" />
+<ProgressBar value={60} transition="blur" />
+<ProgressBar value={60} transition="drop" transitionDuration={700} />`,
+              js: `<l-ProgressBar value="60" transition="fade"></l-ProgressBar>
+<l-ProgressBar value="60" transition="slide-down"></l-ProgressBar>
+<l-ProgressBar value="60" transition="slide-right" transitionDelay="100"></l-ProgressBar>
+<l-ProgressBar value="60" transition="zoom"></l-ProgressBar>
+<l-ProgressBar value="60" transition="blur"></l-ProgressBar>
+<l-ProgressBar value="60" transition="drop" transitionDuration="700"></l-ProgressBar>
+
+<script type="module">
+  import "lojee-ui/elements";
+</script>`,
+              vue: `<template>
+  <l-ProgressBar value="60" transition="fade"></l-ProgressBar>
+  <l-ProgressBar value="60" transition="slide-down"></l-ProgressBar>
+  <l-ProgressBar value="60" transition="slide-right" transitionDelay="100"></l-ProgressBar>
+  <l-ProgressBar value="60" transition="zoom"></l-ProgressBar>
+  <l-ProgressBar value="60" transition="blur"></l-ProgressBar>
+  <l-ProgressBar value="60" transition="drop" transitionDuration="700"></l-ProgressBar>
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-ProgressBar value="60" transition="fade"></l-ProgressBar>
+    <l-ProgressBar value="60" transition="slide-down"></l-ProgressBar>
+    <l-ProgressBar value="60" transition="slide-right" transitionDelay="100"></l-ProgressBar>
+    <l-ProgressBar value="60" transition="zoom"></l-ProgressBar>
+    <l-ProgressBar value="60" transition="blur"></l-ProgressBar>
+    <l-ProgressBar value="60" transition="drop" transitionDuration="700"></l-ProgressBar>
+  \`,
+})
+export class AppComponent {}`,
+            }}
+          />
+        </section>
       </div>
     </div>
   );

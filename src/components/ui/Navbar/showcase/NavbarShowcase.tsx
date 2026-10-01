@@ -16,6 +16,8 @@ const ACTIVE_LINK_ITEMS: NavbarItemSpec[] = [
 // wiring needed the way composing NavbarItem directly requires.
 const VARIANT_ITEMS: NavbarItemSpec[] = [{ label: "Home", active: true }, { label: "Products" }];
 
+const TR_ITEMS: NavbarItemSpec[] = [{ label: "Home", active: true }, { label: "Products" }];
+
 export default function NavbarShowcase() {
   const [activeLabel, setActiveLabel] = useState<string | undefined>(undefined);
 
@@ -406,6 +408,110 @@ const navbarClassNames = { root: "bg-indigo-50 dark:bg-indigo-950/40", brand: "t
 </l-Navbar>
 
 navbarClassNames = { root: "bg-indigo-50 dark:bg-indigo-950/40", brand: "text-indigo-900 dark:text-indigo-200" };`,
+            }}
+          />
+        </section>
+
+        <section>
+          <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`) and hover effects via `hoverEffect`. They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
+          <div className="space-y-3">
+            <div className="overflow-hidden rounded-lg border border-border"><Navbar brand="Fade" items={TR_ITEMS} transition="fade" /></div>
+            <div className="overflow-hidden rounded-lg border border-border"><Navbar brand="Slide down" items={TR_ITEMS} transition="slide-down" /></div>
+            <div className="overflow-hidden rounded-lg border border-border"><Navbar brand="Slide right" items={TR_ITEMS} transition="slide-right" transitionDelay={100} /></div>
+            <div className="overflow-hidden rounded-lg border border-border"><Navbar brand="Zoom" items={TR_ITEMS} transition="zoom" /></div>
+            <div className="overflow-hidden rounded-lg border border-border"><Navbar brand="Blur" items={TR_ITEMS} transition="blur" /></div>
+            <div className="overflow-hidden rounded-lg border border-border"><Navbar brand="Drop" items={TR_ITEMS} transition="drop" transitionDuration={700} /></div>
+          </div>
+          <div className="space-y-3">
+            <div className="overflow-hidden rounded-lg border border-border"><Navbar brand="Lift" items={TR_ITEMS} hoverEffect="lift" /></div>
+            <div className="overflow-hidden rounded-lg border border-border"><Navbar brand="Glow" items={TR_ITEMS} hoverEffect="glow" /></div>
+            <div className="overflow-hidden rounded-lg border border-border"><Navbar brand="Shine" items={TR_ITEMS} hoverEffect="shine" /></div>
+          </div>
+          <CodeBlock
+            variants={{
+              react: `const items = [
+  { label: "Home", active: true },
+  { label: "Products" },
+];
+
+<Navbar brand="Fade" items={items} transition="fade" />
+<Navbar brand="Slide down" items={items} transition="slide-down" />
+<Navbar brand="Slide right" items={items} transition="slide-right" transitionDelay={100} />
+<Navbar brand="Zoom" items={items} transition="zoom" />
+<Navbar brand="Blur" items={items} transition="blur" />
+<Navbar brand="Drop" items={items} transition="drop" transitionDuration={700} />
+
+<Navbar brand="Lift" items={items} hoverEffect="lift" />
+<Navbar brand="Glow" items={items} hoverEffect="glow" />
+<Navbar brand="Shine" items={items} hoverEffect="shine" />`,
+              js: `<l-Navbar class="transition-demo" brand="Fade" transition="fade"></l-Navbar>
+<l-Navbar class="transition-demo" brand="Slide down" transition="slide-down"></l-Navbar>
+<l-Navbar class="transition-demo" brand="Slide right" transition="slide-right" transitionDelay="100"></l-Navbar>
+<l-Navbar class="transition-demo" brand="Zoom" transition="zoom"></l-Navbar>
+<l-Navbar class="transition-demo" brand="Blur" transition="blur"></l-Navbar>
+<l-Navbar class="transition-demo" brand="Drop" transition="drop" transitionDuration="700"></l-Navbar>
+
+<l-Navbar class="transition-demo" brand="Lift" hoverEffect="lift"></l-Navbar>
+<l-Navbar class="transition-demo" brand="Glow" hoverEffect="glow"></l-Navbar>
+<l-Navbar class="transition-demo" brand="Shine" hoverEffect="shine"></l-Navbar>
+
+<script type="module">
+  import "lojee-ui/elements";
+
+  const items = [
+    { label: "Home", active: true },
+    { label: "Products" },
+  ];
+  document.querySelectorAll(".transition-demo").forEach((el) => (el.items = items));
+</script>`,
+              vue: `<template>
+  <l-Navbar :items="items" brand="Fade" transition="fade"></l-Navbar>
+  <l-Navbar :items="items" brand="Slide down" transition="slide-down"></l-Navbar>
+  <l-Navbar :items="items" brand="Slide right" transition="slide-right" transitionDelay="100"></l-Navbar>
+  <l-Navbar :items="items" brand="Zoom" transition="zoom"></l-Navbar>
+  <l-Navbar :items="items" brand="Blur" transition="blur"></l-Navbar>
+  <l-Navbar :items="items" brand="Drop" transition="drop" transitionDuration="700"></l-Navbar>
+
+  <l-Navbar :items="items" brand="Lift" hoverEffect="lift"></l-Navbar>
+  <l-Navbar :items="items" brand="Glow" hoverEffect="glow"></l-Navbar>
+  <l-Navbar :items="items" brand="Shine" hoverEffect="shine"></l-Navbar>
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+
+const items = [
+  { label: "Home", active: true },
+  { label: "Products" },
+];
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-Navbar [items]="items" brand="Fade" transition="fade"></l-Navbar>
+    <l-Navbar [items]="items" brand="Slide down" transition="slide-down"></l-Navbar>
+    <l-Navbar [items]="items" brand="Slide right" transition="slide-right" transitionDelay="100"></l-Navbar>
+    <l-Navbar [items]="items" brand="Zoom" transition="zoom"></l-Navbar>
+    <l-Navbar [items]="items" brand="Blur" transition="blur"></l-Navbar>
+    <l-Navbar [items]="items" brand="Drop" transition="drop" transitionDuration="700"></l-Navbar>
+
+    <l-Navbar [items]="items" brand="Lift" hoverEffect="lift"></l-Navbar>
+    <l-Navbar [items]="items" brand="Glow" hoverEffect="glow"></l-Navbar>
+    <l-Navbar [items]="items" brand="Shine" hoverEffect="shine"></l-Navbar>
+  \`,
+})
+export class AppComponent {
+  items = [
+    { label: "Home", active: true },
+    { label: "Products" },
+  ];
+}`,
             }}
           />
         </section>

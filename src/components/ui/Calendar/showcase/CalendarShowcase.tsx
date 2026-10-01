@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Calendar, type CalendarEvent } from "../Calendar";
 import CodeBlock from "../../CodeBlock";
 import { Button } from "../../Buttons/Button";
-import { SectionLabel } from "../../ShowcaseHelpers";
+import { SectionLabel, Row } from "../../ShowcaseHelpers";
 
 // Event dates are computed from today so the "With events" example always
 // shows dots in whatever month the demo happens to render in, instead of
@@ -314,6 +314,105 @@ open = false;`,
               angular: `<l-Calendar color="emerald"></l-Calendar>
 <l-Calendar color="rose"></l-Calendar>
 <l-Calendar color="amber"></l-Calendar>`,
+            }}
+          />
+        </section>
+
+        <section>
+          <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`) and hover effects via `hoverEffect`. They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
+          <Row>
+            <Calendar className="w-64" transition="fade" />
+            <Calendar className="w-64" transition="slide-up" />
+            <Calendar className="w-64" transition="slide-right" transitionDelay={100} />
+            <Calendar className="w-64" transition="zoom" />
+          </Row>
+          <Row>
+            <Calendar className="w-64" transition="flip" />
+            <Calendar className="w-64" transition="blur" />
+            <Calendar className="w-64" transition="bounce" />
+            <Calendar className="w-64" transition="drop" transitionDuration={700} />
+          </Row>
+          <Row>
+            <Calendar className="w-64" hoverEffect="lift" />
+            <Calendar className="w-64" hoverEffect="glow" />
+            <Calendar className="w-64" hoverEffect="shine" />
+          </Row>
+          <CodeBlock
+            variants={{
+              react: `<Calendar transition="fade" />
+<Calendar transition="slide-up" />
+<Calendar transition="slide-right" transitionDelay={100} />
+<Calendar transition="zoom" />
+
+<Calendar transition="flip" />
+<Calendar transition="blur" />
+<Calendar transition="bounce" />
+<Calendar transition="drop" transitionDuration={700} />
+
+<Calendar hoverEffect="lift" />
+<Calendar hoverEffect="glow" />
+<Calendar hoverEffect="shine" />`,
+              js: `<l-Calendar transition="fade"></l-Calendar>
+<l-Calendar transition="slide-up"></l-Calendar>
+<l-Calendar transition="slide-right" transitionDelay="100"></l-Calendar>
+<l-Calendar transition="zoom"></l-Calendar>
+
+<l-Calendar transition="flip"></l-Calendar>
+<l-Calendar transition="blur"></l-Calendar>
+<l-Calendar transition="bounce"></l-Calendar>
+<l-Calendar transition="drop" transitionDuration="700"></l-Calendar>
+
+<l-Calendar hoverEffect="lift"></l-Calendar>
+<l-Calendar hoverEffect="glow"></l-Calendar>
+<l-Calendar hoverEffect="shine"></l-Calendar>
+
+<script type="module">
+  import "lojee-ui/elements";
+</script>`,
+              vue: `<template>
+  <l-Calendar transition="fade"></l-Calendar>
+  <l-Calendar transition="slide-up"></l-Calendar>
+  <l-Calendar transition="slide-right" transitionDelay="100"></l-Calendar>
+  <l-Calendar transition="zoom"></l-Calendar>
+
+  <l-Calendar transition="flip"></l-Calendar>
+  <l-Calendar transition="blur"></l-Calendar>
+  <l-Calendar transition="bounce"></l-Calendar>
+  <l-Calendar transition="drop" transitionDuration="700"></l-Calendar>
+
+  <l-Calendar hoverEffect="lift"></l-Calendar>
+  <l-Calendar hoverEffect="glow"></l-Calendar>
+  <l-Calendar hoverEffect="shine"></l-Calendar>
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-Calendar transition="fade"></l-Calendar>
+    <l-Calendar transition="slide-up"></l-Calendar>
+    <l-Calendar transition="slide-right" transitionDelay="100"></l-Calendar>
+    <l-Calendar transition="zoom"></l-Calendar>
+
+    <l-Calendar transition="flip"></l-Calendar>
+    <l-Calendar transition="blur"></l-Calendar>
+    <l-Calendar transition="bounce"></l-Calendar>
+    <l-Calendar transition="drop" transitionDuration="700"></l-Calendar>
+
+    <l-Calendar hoverEffect="lift"></l-Calendar>
+    <l-Calendar hoverEffect="glow"></l-Calendar>
+    <l-Calendar hoverEffect="shine"></l-Calendar>
+  \`,
+})
+export class AppComponent {}`,
             }}
           />
         </section>

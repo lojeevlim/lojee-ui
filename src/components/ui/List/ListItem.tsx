@@ -1,6 +1,7 @@
 import { createPortal } from "react-dom";
 import type { ReactNode } from "react";
 import { cx } from "../../../core/tokens";
+import { motionClass, motionStyle, type TransitionVariant } from "../../../core/motion";
 import { getIcon } from "../../../core/icons";
 import {
   useTooltipPortal,
@@ -26,6 +27,12 @@ export interface ListItemProps {
   /** Tooltip placement when `tooltip` is set (default: "right" — the usual fly-out direction for a
    * left-docked collapsed rail). */
   tooltipPosition?: TooltipPortalPosition;
+  /** Enter transition: "fade" | "slide-up" | "slide-down" | "slide-left" | "slide-right" | "zoom" | "zoom-out" | "flip" | "blur" | "bounce" | "rotate" | "drop" | "skew" (default: none). Respects `prefers-reduced-motion`. */
+  transition?: TransitionVariant;
+  /** Enter transition duration in ms (default: 450). */
+  transitionDuration?: number;
+  /** Delay before the enter transition starts, in ms (default: 0) — handy for staggering. */
+  transitionDelay?: number;
   /** Extra class name(s) applied to the root element. */
   className?: string;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
@@ -43,6 +50,9 @@ export function ListItem({
   tooltipPosition = "right",
   className,
   classNames,
+  transition,
+  transitionDuration,
+  transitionDelay,
 }: ListItemProps) {
   // getIcon() always returns the same stable, module-level-imported
   // component reference for a given name, so this never actually causes a
@@ -57,7 +67,10 @@ export function ListItem({
   );
 
   return (
-    <li className={cx("flex items-center gap-2.5 px-3 py-2.5 text-sm text-fg-muted", className, classNames?.root)}>
+    <li
+      className={cx("flex items-center gap-2.5 px-3 py-2.5 text-sm text-fg-muted", motionClass(transition), className, classNames?.root)}
+      style={motionStyle(transitionDuration, transitionDelay)}
+    >
       {showTooltip ? (
         // Wraps just the icon here (not the <li> itself), so this row stays
         // a valid direct child of the parent <List>'s <ul>/<ol>.

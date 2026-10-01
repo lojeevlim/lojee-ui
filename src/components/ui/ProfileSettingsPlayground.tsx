@@ -2,8 +2,10 @@ import { useState } from "react";
 import { ProfileSettings } from "./ProfileSettings/ProfileSettings";
 import { PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
+import { useMotion } from "./playgroundMotion";
 
 export default function ProfileSettingsPlayground() {
+  const motion = useMotion();
   const [name, setName] = useState("Jordan Diaz");
   const [username, setUsername] = useState("jordandiaz");
   const [bio, setBio] = useState("Product designer building lojee-ui.");
@@ -14,6 +16,8 @@ export default function ProfileSettingsPlayground() {
       <AppWindowBody>
         <div className="max-w-md w-full">
           <ProfileSettings
+            key={motion.replayKey}
+            {...motion.props}
             avatarInitials="JD"
             defaultValues={{ name, username, bio }}
             saveLabel={saveLabel || "Save changes"}
@@ -26,9 +30,9 @@ export default function ProfileSettingsPlayground() {
   const defaultsCode = `{ name: "${name}", username: "${username}", bio: "${bio}" }`;
   const saveLabelAttr = saveLabel && saveLabel !== "Save changes" ? ` saveLabel="${saveLabel}"` : "";
 
-  const code = `<ProfileSettings avatarInitials="JD" defaultValues={${defaultsCode}}${saveLabelAttr} />`;
+  const code = `<ProfileSettings avatarInitials="JD" defaultValues={${defaultsCode}}${saveLabelAttr}${motion.attrs} />`;
 
-  const htmlMarkup = `<l-ProfileSettings id="profile-settings" avatarInitials="JD"${saveLabelAttr}></l-ProfileSettings>
+  const htmlMarkup = `<l-ProfileSettings id="profile-settings" avatarInitials="JD"${saveLabelAttr}${motion.attrs}></l-ProfileSettings>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -37,14 +41,14 @@ export default function ProfileSettingsPlayground() {
 </script>`;
 
   const vueMarkup = `<template>
-  <l-ProfileSettings avatarInitials="JD" :defaultValues="defaults"${saveLabelAttr} />
+  <l-ProfileSettings avatarInitials="JD" :defaultValues="defaults"${saveLabelAttr}${motion.attrs} />
 </template>
 
 <script setup lang="ts">
 const defaults = ${defaultsCode};
 </script>`;
 
-  const angularMarkup = `<l-ProfileSettings avatarInitials="JD" [defaultValues]="defaults"${saveLabelAttr}></l-ProfileSettings>
+  const angularMarkup = `<l-ProfileSettings avatarInitials="JD" [defaultValues]="defaults"${saveLabelAttr}${motion.attrs}></l-ProfileSettings>
 
 defaults = ${defaultsCode};`;
 
@@ -93,6 +97,7 @@ defaults = ${defaultsCode};`;
           placeholder="Save changes"
         />
       </div>
+      {motion.controls}
     </PlaygroundLayout>
   );
 }

@@ -108,6 +108,304 @@ export class ContextMenuShowcaseComponent {
             }}
           />
         </section>
+
+        <section>
+          <SectionLabel sub="Enter/exit transitions via `transition` (with `transitionDuration` / `transitionDelay`) — open and close each one to see it play both ways.">Transitions</SectionLabel>
+          <Row>
+            <ContextMenu transition="fade"
+              menu={
+                <>
+                  <DropdownMenuItem icon="copy">Copy</DropdownMenuItem>
+                  <DropdownMenuItem icon="pencil">Rename</DropdownMenuItem>
+                </>
+              }
+            >
+              <div className="flex h-20 w-36 items-center justify-center rounded-lg border-2 border-dashed border-border text-sm text-fg-subtle">Fade</div>
+            </ContextMenu>
+            <ContextMenu transition="slide-up"
+              menu={
+                <>
+                  <DropdownMenuItem icon="copy">Copy</DropdownMenuItem>
+                  <DropdownMenuItem icon="pencil">Rename</DropdownMenuItem>
+                </>
+              }
+            >
+              <div className="flex h-20 w-36 items-center justify-center rounded-lg border-2 border-dashed border-border text-sm text-fg-subtle">Slide up</div>
+            </ContextMenu>
+            <ContextMenu transition="zoom" transitionDelay={100}
+              menu={
+                <>
+                  <DropdownMenuItem icon="copy">Copy</DropdownMenuItem>
+                  <DropdownMenuItem icon="pencil">Rename</DropdownMenuItem>
+                </>
+              }
+            >
+              <div className="flex h-20 w-36 items-center justify-center rounded-lg border-2 border-dashed border-border text-sm text-fg-subtle">Zoom</div>
+            </ContextMenu>
+            <ContextMenu transition="flip"
+              menu={
+                <>
+                  <DropdownMenuItem icon="copy">Copy</DropdownMenuItem>
+                  <DropdownMenuItem icon="pencil">Rename</DropdownMenuItem>
+                </>
+              }
+            >
+              <div className="flex h-20 w-36 items-center justify-center rounded-lg border-2 border-dashed border-border text-sm text-fg-subtle">Flip</div>
+            </ContextMenu>
+            <ContextMenu transition="blur"
+              menu={
+                <>
+                  <DropdownMenuItem icon="copy">Copy</DropdownMenuItem>
+                  <DropdownMenuItem icon="pencil">Rename</DropdownMenuItem>
+                </>
+              }
+            >
+              <div className="flex h-20 w-36 items-center justify-center rounded-lg border-2 border-dashed border-border text-sm text-fg-subtle">Blur</div>
+            </ContextMenu>
+            <ContextMenu transition="drop" transitionDuration={700}
+              menu={
+                <>
+                  <DropdownMenuItem icon="copy">Copy</DropdownMenuItem>
+                  <DropdownMenuItem icon="pencil">Rename</DropdownMenuItem>
+                </>
+              }
+            >
+              <div className="flex h-20 w-36 items-center justify-center rounded-lg border-2 border-dashed border-border text-sm text-fg-subtle">Drop</div>
+            </ContextMenu>
+          </Row>
+          <CodeBlock
+            variants={{
+              react: `<ContextMenu transition="fade"
+  menu={
+    <>
+      <DropdownMenuItem icon="copy">Copy</DropdownMenuItem>
+      <DropdownMenuItem icon="pencil">Rename</DropdownMenuItem>
+    </>
+  }
+>
+  <div>Fade — right-click</div>
+</ContextMenu>
+
+<ContextMenu transition="slide-up"
+  menu={
+    <>
+      <DropdownMenuItem icon="copy">Copy</DropdownMenuItem>
+      <DropdownMenuItem icon="pencil">Rename</DropdownMenuItem>
+    </>
+  }
+>
+  <div>Slide up — right-click</div>
+</ContextMenu>
+
+<ContextMenu transition="zoom" transitionDelay={100}
+  menu={
+    <>
+      <DropdownMenuItem icon="copy">Copy</DropdownMenuItem>
+      <DropdownMenuItem icon="pencil">Rename</DropdownMenuItem>
+    </>
+  }
+>
+  <div>Zoom — right-click</div>
+</ContextMenu>
+
+<ContextMenu transition="flip"
+  menu={
+    <>
+      <DropdownMenuItem icon="copy">Copy</DropdownMenuItem>
+      <DropdownMenuItem icon="pencil">Rename</DropdownMenuItem>
+    </>
+  }
+>
+  <div>Flip — right-click</div>
+</ContextMenu>
+
+<ContextMenu transition="blur"
+  menu={
+    <>
+      <DropdownMenuItem icon="copy">Copy</DropdownMenuItem>
+      <DropdownMenuItem icon="pencil">Rename</DropdownMenuItem>
+    </>
+  }
+>
+  <div>Blur — right-click</div>
+</ContextMenu>
+
+<ContextMenu transition="drop" transitionDuration={700}
+  menu={
+    <>
+      <DropdownMenuItem icon="copy">Copy</DropdownMenuItem>
+      <DropdownMenuItem icon="pencil">Rename</DropdownMenuItem>
+    </>
+  }
+>
+  <div>Drop — right-click</div>
+</ContextMenu>`,
+              js: `<l-ContextMenu transition="fade">
+  <div slot="menu">
+    <l-DropdownMenuItem icon="copy">Copy</l-DropdownMenuItem>
+    <l-DropdownMenuItem icon="pencil">Rename</l-DropdownMenuItem>
+  </div>
+  <div>Fade — right-click</div>
+</l-ContextMenu>
+
+<l-ContextMenu transition="slide-up">
+  <div slot="menu">
+    <l-DropdownMenuItem icon="copy">Copy</l-DropdownMenuItem>
+    <l-DropdownMenuItem icon="pencil">Rename</l-DropdownMenuItem>
+  </div>
+  <div>Slide up — right-click</div>
+</l-ContextMenu>
+
+<l-ContextMenu transition="zoom" transitionDelay="100">
+  <div slot="menu">
+    <l-DropdownMenuItem icon="copy">Copy</l-DropdownMenuItem>
+    <l-DropdownMenuItem icon="pencil">Rename</l-DropdownMenuItem>
+  </div>
+  <div>Zoom — right-click</div>
+</l-ContextMenu>
+
+<l-ContextMenu transition="flip">
+  <div slot="menu">
+    <l-DropdownMenuItem icon="copy">Copy</l-DropdownMenuItem>
+    <l-DropdownMenuItem icon="pencil">Rename</l-DropdownMenuItem>
+  </div>
+  <div>Flip — right-click</div>
+</l-ContextMenu>
+
+<l-ContextMenu transition="blur">
+  <div slot="menu">
+    <l-DropdownMenuItem icon="copy">Copy</l-DropdownMenuItem>
+    <l-DropdownMenuItem icon="pencil">Rename</l-DropdownMenuItem>
+  </div>
+  <div>Blur — right-click</div>
+</l-ContextMenu>
+
+<l-ContextMenu transition="drop" transitionDuration="700">
+  <div slot="menu">
+    <l-DropdownMenuItem icon="copy">Copy</l-DropdownMenuItem>
+    <l-DropdownMenuItem icon="pencil">Rename</l-DropdownMenuItem>
+  </div>
+  <div>Drop — right-click</div>
+</l-ContextMenu>
+
+<script type="module">
+  import "lojee-ui/elements";
+</script>`,
+              vue: `<template>
+  <l-ContextMenu transition="fade">
+    <div slot="menu">
+      <l-DropdownMenuItem icon="copy">Copy</l-DropdownMenuItem>
+      <l-DropdownMenuItem icon="pencil">Rename</l-DropdownMenuItem>
+    </div>
+    <div>Fade — right-click</div>
+  </l-ContextMenu>
+
+  <l-ContextMenu transition="slide-up">
+    <div slot="menu">
+      <l-DropdownMenuItem icon="copy">Copy</l-DropdownMenuItem>
+      <l-DropdownMenuItem icon="pencil">Rename</l-DropdownMenuItem>
+    </div>
+    <div>Slide up — right-click</div>
+  </l-ContextMenu>
+
+  <l-ContextMenu transition="zoom" transitionDelay="100">
+    <div slot="menu">
+      <l-DropdownMenuItem icon="copy">Copy</l-DropdownMenuItem>
+      <l-DropdownMenuItem icon="pencil">Rename</l-DropdownMenuItem>
+    </div>
+    <div>Zoom — right-click</div>
+  </l-ContextMenu>
+
+  <l-ContextMenu transition="flip">
+    <div slot="menu">
+      <l-DropdownMenuItem icon="copy">Copy</l-DropdownMenuItem>
+      <l-DropdownMenuItem icon="pencil">Rename</l-DropdownMenuItem>
+    </div>
+    <div>Flip — right-click</div>
+  </l-ContextMenu>
+
+  <l-ContextMenu transition="blur">
+    <div slot="menu">
+      <l-DropdownMenuItem icon="copy">Copy</l-DropdownMenuItem>
+      <l-DropdownMenuItem icon="pencil">Rename</l-DropdownMenuItem>
+    </div>
+    <div>Blur — right-click</div>
+  </l-ContextMenu>
+
+  <l-ContextMenu transition="drop" transitionDuration="700">
+    <div slot="menu">
+      <l-DropdownMenuItem icon="copy">Copy</l-DropdownMenuItem>
+      <l-DropdownMenuItem icon="pencil">Rename</l-DropdownMenuItem>
+    </div>
+    <div>Drop — right-click</div>
+  </l-ContextMenu>
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-ContextMenu transition="fade">
+      <div slot="menu">
+        <l-DropdownMenuItem icon="copy">Copy</l-DropdownMenuItem>
+        <l-DropdownMenuItem icon="pencil">Rename</l-DropdownMenuItem>
+      </div>
+      <div>Fade — right-click</div>
+    </l-ContextMenu>
+
+    <l-ContextMenu transition="slide-up">
+      <div slot="menu">
+        <l-DropdownMenuItem icon="copy">Copy</l-DropdownMenuItem>
+        <l-DropdownMenuItem icon="pencil">Rename</l-DropdownMenuItem>
+      </div>
+      <div>Slide up — right-click</div>
+    </l-ContextMenu>
+
+    <l-ContextMenu transition="zoom" transitionDelay="100">
+      <div slot="menu">
+        <l-DropdownMenuItem icon="copy">Copy</l-DropdownMenuItem>
+        <l-DropdownMenuItem icon="pencil">Rename</l-DropdownMenuItem>
+      </div>
+      <div>Zoom — right-click</div>
+    </l-ContextMenu>
+
+    <l-ContextMenu transition="flip">
+      <div slot="menu">
+        <l-DropdownMenuItem icon="copy">Copy</l-DropdownMenuItem>
+        <l-DropdownMenuItem icon="pencil">Rename</l-DropdownMenuItem>
+      </div>
+      <div>Flip — right-click</div>
+    </l-ContextMenu>
+
+    <l-ContextMenu transition="blur">
+      <div slot="menu">
+        <l-DropdownMenuItem icon="copy">Copy</l-DropdownMenuItem>
+        <l-DropdownMenuItem icon="pencil">Rename</l-DropdownMenuItem>
+      </div>
+      <div>Blur — right-click</div>
+    </l-ContextMenu>
+
+    <l-ContextMenu transition="drop" transitionDuration="700">
+      <div slot="menu">
+        <l-DropdownMenuItem icon="copy">Copy</l-DropdownMenuItem>
+        <l-DropdownMenuItem icon="pencil">Rename</l-DropdownMenuItem>
+      </div>
+      <div>Drop — right-click</div>
+    </l-ContextMenu>
+  \`,
+})
+export class AppComponent {}`,
+            }}
+          />
+        </section>
       </div>
     </div>
   );

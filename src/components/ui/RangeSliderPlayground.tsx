@@ -3,8 +3,10 @@ import { RangeSlider } from "./RangeSlider/RangeSlider";
 import type { ColorName } from "../../core/tokens";
 import { ColorSwatches, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
+import { useMotion } from "./playgroundMotion";
 
 export default function RangeSliderPlayground() {
+  const motion = useMotion();
   const [color, setColor] = useState<ColorName>("accent");
   const [showValue, setShowValue] = useState(true);
   const [value, setValue] = useState<[number, number]>([20, 70]);
@@ -13,13 +15,13 @@ export default function RangeSliderPlayground() {
     <AppWindowFrame>
       <AppWindowBody>
         <div className="w-64">
-          <RangeSlider color={color} showValue={showValue} value={value} onChange={setValue} />
+          <RangeSlider key={motion.replayKey} {...motion.props} color={color} showValue={showValue} value={value} onChange={setValue} />
         </div>
       </AppWindowBody>
     </AppWindowFrame>
   );
 
-  const code = `<RangeSlider color="${color}"${showValue ? " showValue" : ""} value={[${value[0]}, ${value[1]}]} onChange={setValue} />`;
+  const code = `<RangeSlider color="${color}"${showValue ? " showValue" : ""}${motion.attrs} value={[${value[0]}, ${value[1]}]} onChange={setValue} />`;
 
   // `value` is registered as a "json" prop on <RangeSlider> — it's a
   // [number, number] tuple, not a single native input value, so it must be
@@ -27,7 +29,7 @@ export default function RangeSliderPlayground() {
   // stringified attribute. `showValue` needs an explicit "true" since r2wc
   // parses a bare attribute as false.
   const valueLiteral = `[${value[0]}, ${value[1]}]`;
-  const showValueAttr = showValue ? ` showValue` : "";
+  const showValueAttr = (showValue ? ` showValue` : "") + motion.attrs;
 
   const codeVariants: CodeBlockVariants = {
     react: code,
@@ -69,6 +71,7 @@ value = ${valueLiteral};`,
           </button>
         </div>
       </div>
+      {motion.controls}
     </PlaygroundLayout>
   );
 }

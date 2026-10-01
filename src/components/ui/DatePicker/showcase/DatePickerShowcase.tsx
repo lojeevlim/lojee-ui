@@ -335,6 +335,97 @@ presets = [
             }}
           />
         </section>
+
+        <section>
+          <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`) and hover effects via `hoverEffect`. They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
+          <div className="grid max-w-2xl gap-3 sm:grid-cols-2">
+            <DatePicker transition="fade" />
+            <DatePicker transition="slide-up" />
+            <DatePicker transition="slide-right" transitionDelay={100} />
+            <DatePicker transition="zoom" />
+            <DatePicker transition="flip" />
+            <DatePicker transition="blur" />
+            <DatePicker transition="bounce" />
+            <DatePicker transition="drop" transitionDuration={700} />
+            <DatePicker hoverEffect="lift" />
+            <DatePicker hoverEffect="glow" />
+            <DatePicker hoverEffect="ring" />
+          </div>
+          <CodeBlock
+            variants={{
+              react: `<DatePicker transition="fade" />
+<DatePicker transition="slide-up" />
+<DatePicker transition="slide-right" transitionDelay={100} />
+<DatePicker transition="zoom" />
+<DatePicker transition="flip" />
+<DatePicker transition="blur" />
+<DatePicker transition="bounce" />
+<DatePicker transition="drop" transitionDuration={700} />
+
+<DatePicker hoverEffect="lift" />
+<DatePicker hoverEffect="glow" />
+<DatePicker hoverEffect="ring" />`,
+              js: `<l-DatePicker transition="fade"></l-DatePicker>
+<l-DatePicker transition="slide-up"></l-DatePicker>
+<l-DatePicker transition="slide-right" transitionDelay="100"></l-DatePicker>
+<l-DatePicker transition="zoom"></l-DatePicker>
+<l-DatePicker transition="flip"></l-DatePicker>
+<l-DatePicker transition="blur"></l-DatePicker>
+<l-DatePicker transition="bounce"></l-DatePicker>
+<l-DatePicker transition="drop" transitionDuration="700"></l-DatePicker>
+
+<l-DatePicker hoverEffect="lift"></l-DatePicker>
+<l-DatePicker hoverEffect="glow"></l-DatePicker>
+<l-DatePicker hoverEffect="ring"></l-DatePicker>
+
+<script type="module">
+  import "lojee-ui/elements";
+</script>`,
+              vue: `<template>
+  <l-DatePicker transition="fade"></l-DatePicker>
+  <l-DatePicker transition="slide-up"></l-DatePicker>
+  <l-DatePicker transition="slide-right" transitionDelay="100"></l-DatePicker>
+  <l-DatePicker transition="zoom"></l-DatePicker>
+  <l-DatePicker transition="flip"></l-DatePicker>
+  <l-DatePicker transition="blur"></l-DatePicker>
+  <l-DatePicker transition="bounce"></l-DatePicker>
+  <l-DatePicker transition="drop" transitionDuration="700"></l-DatePicker>
+
+  <l-DatePicker hoverEffect="lift"></l-DatePicker>
+  <l-DatePicker hoverEffect="glow"></l-DatePicker>
+  <l-DatePicker hoverEffect="ring"></l-DatePicker>
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-DatePicker transition="fade"></l-DatePicker>
+    <l-DatePicker transition="slide-up"></l-DatePicker>
+    <l-DatePicker transition="slide-right" transitionDelay="100"></l-DatePicker>
+    <l-DatePicker transition="zoom"></l-DatePicker>
+    <l-DatePicker transition="flip"></l-DatePicker>
+    <l-DatePicker transition="blur"></l-DatePicker>
+    <l-DatePicker transition="bounce"></l-DatePicker>
+    <l-DatePicker transition="drop" transitionDuration="700"></l-DatePicker>
+
+    <l-DatePicker hoverEffect="lift"></l-DatePicker>
+    <l-DatePicker hoverEffect="glow"></l-DatePicker>
+    <l-DatePicker hoverEffect="ring"></l-DatePicker>
+  \`,
+})
+export class AppComponent {}`,
+            }}
+          />
+        </section>
       </div>
     </div>
   );

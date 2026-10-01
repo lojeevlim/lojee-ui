@@ -1,5 +1,6 @@
 import type { CSSProperties } from "react";
 import { cx } from "../../../core/tokens";
+import { motionClass, motionStyle, type TransitionVariant } from "../../../core/motion";
 
 export type LoaderShape = "text" | "circle" | "rect";
 export type LoaderVariant = "pulse" | "shimmer" | "wave" | "none";
@@ -20,6 +21,12 @@ export interface LoaderProps {
   height?: number;
   /** Number of stacked lines, for "text" only. */
   lines?: number;
+  /** Enter transition: "fade" | "slide-up" | "slide-down" | "slide-left" | "slide-right" | "zoom" | "zoom-out" | "flip" | "blur" | "bounce" | "rotate" | "drop" | "skew" (default: none). Respects `prefers-reduced-motion`. */
+  transition?: TransitionVariant;
+  /** Enter transition duration in ms (default: 450). */
+  transitionDuration?: number;
+  /** Delay before the enter transition starts, in ms (default: 0) — handy for staggering. */
+  transitionDelay?: number;
   /** Extra class name(s) applied to the root element. */
   className?: string;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
@@ -65,7 +72,20 @@ function Skeleton({
   );
 }
 
-export function Loader({
+type LoaderBaseProps = Omit<LoaderProps, "transition" | "transitionDuration" | "transitionDelay">;
+
+// The skeleton's own root can carry a pulse animation, which a transition class on the same element would
+// override — so a `transition` wraps the loader instead.
+export function Loader({ transition, transitionDuration, transitionDelay, ...rest }: LoaderProps) {
+  if (!transition) return <LoaderBase {...rest} />;
+  return (
+    <div className={motionClass(transition)} style={motionStyle(transitionDuration, transitionDelay)}>
+      <LoaderBase {...rest} />
+    </div>
+  );
+}
+
+function LoaderBase({
   shape = "text",
   variant = "pulse",
   width,
@@ -73,7 +93,7 @@ export function Loader({
   lines = 3,
   className,
   classNames,
-}: LoaderProps) {
+}: LoaderBaseProps) {
   if (shape === "circle") {
     const size = width ?? 40;
     return (

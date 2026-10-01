@@ -2,6 +2,12 @@ import { Tabs } from "../Tabs";
 import CodeBlock from "../../CodeBlock";
 import { SectionLabel } from "../../ShowcaseHelpers";
 
+const TR_TABS = [
+  { label: "Overview", content: <p className="text-sm text-fg-muted">A quick summary of the project.</p> },
+  { label: "Activity", content: <p className="text-sm text-fg-muted">Recent activity shows up here.</p> },
+  { label: "Settings", content: <p className="text-sm text-fg-muted">Adjust your preferences.</p> },
+];
+
 export default function TabsShowcase() {
   return (
     <div className="min-h-screen rounded-xl bg-surface p-6 md:p-10">
@@ -176,6 +182,105 @@ tabs = [
 
 // app.component.html
 <l-Tabs [tabs]="tabs" color="indigo" defaultIndex="1" />`,
+            }}
+          />
+        </section>
+
+        <section>
+          <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`). They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
+          <div className="grid gap-6 sm:grid-cols-2">
+            <div className="min-w-0">
+              <Tabs tabs={TR_TABS} transition="fade" />
+            </div>
+            <div className="min-w-0">
+              <Tabs tabs={TR_TABS} transition="slide-up" />
+            </div>
+            <div className="min-w-0">
+              <Tabs tabs={TR_TABS} transition="slide-right" transitionDelay={100} />
+            </div>
+            <div className="min-w-0">
+              <Tabs tabs={TR_TABS} transition="zoom" />
+            </div>
+            <div className="min-w-0">
+              <Tabs tabs={TR_TABS} transition="blur" />
+            </div>
+            <div className="min-w-0">
+              <Tabs tabs={TR_TABS} transition="drop" transitionDuration={700} />
+            </div>
+          </div>
+          <CodeBlock
+            variants={{
+              react: `const tabs = [
+  { label: "Overview", content: <p>A quick summary of the project.</p> },
+  { label: "Activity", content: <p>Recent activity shows up here.</p> },
+  { label: "Settings", content: <p>Adjust your preferences.</p> },
+];
+
+<Tabs tabs={tabs} transition="fade" />
+<Tabs tabs={tabs} transition="slide-up" />
+<Tabs tabs={tabs} transition="slide-right" transitionDelay={100} />
+<Tabs tabs={tabs} transition="zoom" />
+<Tabs tabs={tabs} transition="blur" />
+<Tabs tabs={tabs} transition="drop" transitionDuration={700} />`,
+              js: `<l-Tabs transition="fade"></l-Tabs>
+<l-Tabs transition="slide-up"></l-Tabs>
+<l-Tabs transition="slide-right" transitionDelay="100"></l-Tabs>
+<l-Tabs transition="zoom"></l-Tabs>
+<l-Tabs transition="blur"></l-Tabs>
+<l-Tabs transition="drop" transitionDuration="700"></l-Tabs>
+
+<script type="module">
+  import "lojee-ui/elements";
+
+  const tabs = [
+  { label: "Overview", content: "A quick summary of the project." },
+  { label: "Activity", content: "Recent activity shows up here." },
+  { label: "Settings", content: "Adjust your preferences." },
+];
+  document.querySelectorAll("l-Tabs").forEach((el) => (el.tabs = tabs));
+</script>`,
+              vue: `<template>
+  <l-Tabs :tabs="tabs" transition="fade"></l-Tabs>
+  <l-Tabs :tabs="tabs" transition="slide-up"></l-Tabs>
+  <l-Tabs :tabs="tabs" transition="slide-right" transitionDelay="100"></l-Tabs>
+  <l-Tabs :tabs="tabs" transition="zoom"></l-Tabs>
+  <l-Tabs :tabs="tabs" transition="blur"></l-Tabs>
+  <l-Tabs :tabs="tabs" transition="drop" transitionDuration="700"></l-Tabs>
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+
+const tabs = [
+  { label: "Overview", content: "A quick summary of the project." },
+  { label: "Activity", content: "Recent activity shows up here." },
+  { label: "Settings", content: "Adjust your preferences." },
+];
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-Tabs [tabs]="tabs" transition="fade"></l-Tabs>
+    <l-Tabs [tabs]="tabs" transition="slide-up"></l-Tabs>
+    <l-Tabs [tabs]="tabs" transition="slide-right" transitionDelay="100"></l-Tabs>
+    <l-Tabs [tabs]="tabs" transition="zoom"></l-Tabs>
+    <l-Tabs [tabs]="tabs" transition="blur"></l-Tabs>
+    <l-Tabs [tabs]="tabs" transition="drop" transitionDuration="700"></l-Tabs>
+  \`,
+})
+export class AppComponent {
+  tabs = [
+    { label: "Overview", content: "A quick summary of the project." },
+    { label: "Activity", content: "Recent activity shows up here." },
+    { label: "Settings", content: "Adjust your preferences." },
+  ];
+}`,
             }}
           />
         </section>

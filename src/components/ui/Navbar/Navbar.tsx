@@ -2,8 +2,10 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import type { CSSProperties, ReactNode } from "react";
 import { cx, isColorName, type ColorName } from "../../../core/tokens";
 import { NavbarItem } from "./NavbarItem";
+import { Tooltip } from "../Tooltip/Tooltip";
 import { navbarActiveFillClasses } from "./navbarActiveStyles";
 import { activeMarker } from "../../../core/activeVariant";
+import { motionClass, motionStyle, type TransitionVariant, type HoverEffect } from "../../../core/motion";
 
 // Determines which `items` row matches the current URL — identical logic to Sidebar's own
 // `findActiveLabel` (see Sidebar.tsx for the full reasoning), kept as its own copy rather than a
@@ -53,6 +55,8 @@ export interface NavbarItemSpec {
    * changing" behavior as Sidebar's identical `SidebarMenuItemSpec.active` (see there for the full
    * reasoning). For `disabled` per link, compose `<NavbarItem>` directly instead. */
   active?: boolean;
+  /** Shows a tooltip under the link on hover/focus (useful when the label is visually hidden, e.g. an icon-only link on phones). */
+  tooltip?: string;
 }
 
 export interface NavbarProps {
@@ -117,6 +121,14 @@ export interface NavbarProps {
    * other variant's border (where it has one at all) is a fixed-width neutral divider, not an
    * adjustable, colored one. */
   borderWidth?: number;
+  /** Enter transition: "fade" | "slide-up" | "slide-down" | "slide-left" | "slide-right" | "zoom" | "zoom-out" | "flip" | "blur" | "bounce" | "rotate" | "drop" | "skew" (default: none). Respects `prefers-reduced-motion`. */
+  transition?: TransitionVariant;
+  /** Enter transition duration in ms (default: 450). */
+  transitionDuration?: number;
+  /** Delay before the enter transition starts, in ms (default: 0) — handy for staggering. */
+  transitionDelay?: number;
+  /** Effect while hovering: "lift" | "scale" | "press" | "tilt" | "ring" | "glow" | "shine" (default: none). Applied to each link of the `items` shortcut (links composed as `children` take their own `hoverEffect`). */
+  hoverEffect?: HoverEffect;
   /** Extra CSS class(es) added to the root element, merged before `classNames.root`. */
   className?: string;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
@@ -220,6 +232,10 @@ export function Navbar({
   variant = "light",
   color = "accent",
   borderWidth,
+  transition,
+  transitionDuration,
+  transitionDelay,
+  hoverEffect,
   className,
   classNames,
 }: NavbarProps) {
@@ -294,7 +310,8 @@ export function Navbar({
   const itemRows =
     items &&
     items.length > 0 &&
-    items.map((item, index) => (
+    items.map((item, index) => {
+      const link = (
       <NavbarItem
         key={`${item.label}-${index}`}
         ref={(el) => {
@@ -311,11 +328,20 @@ export function Navbar({
         color={color}
         dark={dark}
         vividActive={vividActive}
+        hoverEffect={hoverEffect}
         onClick={() => setSelectedLabel(item.label)}
       >
         {item.label}
       </NavbarItem>
-    ));
+      );
+      return item.tooltip ? (
+        <Tooltip key={`${item.label}-${index}`} content={item.tooltip} position="bottom" color="neutral" className="flex" classNames={{ bubble: "sm:hidden" }}>
+          {link}
+        </Tooltip>
+      ) : (
+        link
+      );
+    });
   // Only "bordered" ties its border to `color`/`borderWidth` — "elevated" has no border at all
   // (shadow-only), "glass" deliberately stays colorless (a real frosted-glass look has no tint), and
   // every other variant's border is a fixed-width neutral divider, not an adjustable, colored one.
@@ -352,10 +378,11 @@ export function Navbar({
         isDetachedPanel && borderedAccentClass,
         showDivider && cx("border-b", dividerClass),
         !isDetachedPanel && (sticky ? "sticky top-0 z-40" : undefined),
+        motionClass(transition),
         className,
         classNames?.root
       )}
-      style={isDetachedPanel ? borderedAccentStyle : style}
+      style={{ ...(isDetachedPanel ? borderedAccentStyle : style), ...motionStyle(transitionDuration, transitionDelay) }}
     >
       <div className="flex min-w-0 items-center gap-6">
         {/* Unconditional, unlike a `brand != null &&` guard — that would skip rendering this `<slot>`

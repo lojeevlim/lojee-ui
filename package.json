@@ -41,7 +41,8 @@
     "lucide-react": "^1.47.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "tailwindcss": "^4.3.3"
+    "tailwindcss": "^4.3.3",
+    "maplibre-gl": ">=5.0.0"
   },
   "scripts": {
     "dev": "vite",
@@ -72,6 +73,7 @@
     "eslint-plugin-react-refresh": "^0.5.6",
     "globals": "^17.12.0",
     "lucide-react": "^1.47.0",
+    "maplibre-gl": "^6.11.2",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
     "react-router-dom": "^7.18.3",
@@ -79,5 +81,10 @@
     "typescript": "~6.0.2",
     "typescript-eslint": "^8.69.0",
     "vite": "^8.3.0"
+  },
+  "peerDependenciesMeta": {
+    "maplibre-gl": {
+      "optional": true
+    }
   }
 }

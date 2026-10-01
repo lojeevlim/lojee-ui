@@ -3,6 +3,8 @@ import type { MouseEventHandler, ReactNode } from "react";
 import type { ColorVariant, ColorName, Shape, Size } from "../../../core/tokens";
 import { cx, shapeClasses } from "../../../core/tokens";
 import { Button } from "./Button";
+import { motionClass, motionState, motionStyle, DEFAULT_TRANSITION_MS, type TransitionVariant, type HoverEffect } from "../../../core/motion";
+import { usePresence } from "../../../core/usePresence";
 
 export interface SplitButtonProps {
   /** Icon name, e.g. "check" — see src/core/icons.ts for the available set. */
@@ -39,6 +41,14 @@ export interface SplitButtonProps {
   shape?: Shape;
   /** Disables both the main button and the chevron trigger (default: false). */
   disabled?: boolean;
+  /** Enter transition for the button group — also the enter/exit transition for the menu panel: "fade" | "slide-up" | "slide-down" | "slide-left" | "slide-right" | "zoom" | "zoom-out" | "flip" | "blur" | "bounce" | "rotate" | "drop" | "skew" (default: none). Respects `prefers-reduced-motion`. */
+  transition?: TransitionVariant;
+  /** Enter transition duration in ms (default: 450). */
+  transitionDuration?: number;
+  /** Delay before the enter transition starts, in ms (default: 0) — handy for staggering. */
+  transitionDelay?: number;
+  /** Effect while hovering: "lift" | "scale" | "press" | "tilt" | "ring" | "glow" | "shine" (default: none). */
+  hoverEffect?: HoverEffect;
   /** Extra class names applied to the button group element. */
   className?: string;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
@@ -66,10 +76,16 @@ export function SplitButton({
   disabled = false,
   className,
   classNames,
+  transition,
+  transitionDuration,
+  transitionDelay,
+  hoverEffect,
 }: SplitButtonProps) {
   const [open, setOpen] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
   const hasMenu = children != null;
+  // With a `transition` the menu stays mounted for the exit; without one it unmounts immediately, as before.
+  const { mounted: menuMounted } = usePresence(open, transition ? (transitionDuration ?? DEFAULT_TRANSITION_MS) : 0);
 
   useEffect(() => {
     if (!open) return;
@@ -93,9 +109,11 @@ export function SplitButton({
         className={cx(
           "inline-flex rounded-lg shadow-sm overflow-hidden",
           shapeClasses[shape],
+          motionClass(transition, hoverEffect),
           className,
           classNames?.root
         )}
+        style={motionStyle(transitionDuration, transitionDelay)}
       >
         <Button
           variant={variant}
@@ -132,7 +150,7 @@ export function SplitButton({
         />
       </div>
 
-      {open && hasMenu && (
+      {menuMounted && hasMenu && (
         <div
           role="menu"
           aria-label={menuLabel ?? `${label} options`}
@@ -144,8 +162,11 @@ export function SplitButton({
           onClick={() => setOpen(false)}
           className={cx(
             "absolute right-0 z-10 mt-1.5 min-w-[10rem] overflow-hidden rounded-lg border border-border bg-surface py-1 shadow-lg",
+            motionClass(transition),
             classNames?.menu
           )}
+          style={motionStyle(transitionDuration)}
+          {...motionState(open)}
         >
           <slot>{children}</slot>
         </div>

@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { DataGrid, type DataGridColumn } from "../DataGrid";
 import { Badge } from "../../Badge/Badge";
 import CodeBlock from "../../CodeBlock";
-import { SectionLabel } from "../../ShowcaseHelpers";
+import { SectionLabel, Row } from "../../ShowcaseHelpers";
 
 interface Project {
   name: string;
@@ -48,6 +48,17 @@ const SORTABLE_COLUMNS: DataGridColumn<Project>[] = [
 ];
 
 export default function DataGridShowcase() {
+  const [loading, setLoading] = useState(true);
+  // Simulated 2s fetch — starts loading on mount, and again on each click.
+  const [fetchId, setFetchId] = useState(0);
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 2000);
+    return () => clearTimeout(timer);
+  }, [fetchId]);
+  const reload = () => {
+    setLoading(true);
+    setFetchId((n) => n + 1);
+  };
   const [selectedCount, setSelectedCount] = useState(0);
 
   return (
@@ -279,6 +290,189 @@ selected = [];`,
               angular: `<!-- reuses the AppComponent from above -->
 <l-DataGrid [columns]="columns" [data]="projects" size="sm" bordered />
 <l-DataGrid [columns]="columns" [data]="projects" size="lg" bordered />`,
+            }}
+          />
+        </section>
+
+        <section>
+          <SectionLabel sub="`loading` swaps the rows for shimmering skeleton bars while the header stays put; `skeletonRows` sets how many (default 5). Sets `aria-busy` on the table.">Loading</SectionLabel>
+          <button
+            type="button"
+            onClick={reload}
+            className="rounded-md bg-fg px-3 py-1.5 text-xs font-medium text-surface transition-colors hover:opacity-90"
+          >
+            {loading ? "Loading..." : "Reload data"}
+          </button>
+          <div className="mt-3">
+            <DataGrid columns={BASIC_COLUMNS} data={PROJECTS} loading={loading} skeletonRows={4} bordered />
+          </div>
+          <CodeBlock
+            variants={{
+              react: `const [loading, setLoading] = useState(true);
+
+<DataGrid columns={columns} data={rows} loading={loading} skeletonRows={4} bordered />
+
+// e.g. setLoading(true); await fetchRows(); setLoading(false);`,
+              js: `<l-DataGrid id="loading-grid" loading skeletonRows="4" bordered></l-DataGrid>
+
+<script type="module">
+  const el = document.getElementById("loading-grid");
+  el.columns = columns;
+  el.data = [];
+
+  // Flip loading off once the data arrives.
+  const rows = await fetchRows();
+  el.data = rows;
+  el.loading = false;
+</script>`,
+              vue: `<template>
+  <l-DataGrid :columns="columns" :data="rows" :loading="loading" skeletonRows="4" bordered />
+</template>
+
+<script setup lang="ts">
+import { ref } from "vue";
+const loading = ref(true);
+const rows = ref([]);
+</script>`,
+              angular: `<l-DataGrid [columns]="columns" [data]="rows" [loading]="loading" skeletonRows="4" bordered></l-DataGrid>
+
+loading = true;
+rows = [];`,
+            }}
+          />
+        </section>
+
+        <section>
+          <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`) and hover effects via `hoverEffect`. They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
+          <Row>
+            <DataGrid columns={BASIC_COLUMNS} data={PROJECTS.slice(0, 2)} bordered transition="fade" />
+            <DataGrid columns={BASIC_COLUMNS} data={PROJECTS.slice(0, 2)} bordered transition="slide-up" />
+            <DataGrid columns={BASIC_COLUMNS} data={PROJECTS.slice(0, 2)} bordered transition="slide-right" transitionDelay={100} />
+            <DataGrid columns={BASIC_COLUMNS} data={PROJECTS.slice(0, 2)} bordered transition="zoom" />
+          </Row>
+          <Row>
+            <DataGrid columns={BASIC_COLUMNS} data={PROJECTS.slice(0, 2)} bordered transition="flip" />
+            <DataGrid columns={BASIC_COLUMNS} data={PROJECTS.slice(0, 2)} bordered transition="blur" />
+            <DataGrid columns={BASIC_COLUMNS} data={PROJECTS.slice(0, 2)} bordered transition="bounce" />
+            <DataGrid columns={BASIC_COLUMNS} data={PROJECTS.slice(0, 2)} bordered transition="drop" transitionDuration={700} />
+          </Row>
+          <Row>
+            <DataGrid columns={BASIC_COLUMNS} data={PROJECTS.slice(0, 2)} bordered hoverEffect="lift" />
+            <DataGrid columns={BASIC_COLUMNS} data={PROJECTS.slice(0, 2)} bordered hoverEffect="glow" />
+            <DataGrid columns={BASIC_COLUMNS} data={PROJECTS.slice(0, 2)} bordered hoverEffect="shine" />
+          </Row>
+          <CodeBlock
+            variants={{
+              react: `<DataGrid columns={columns} data={projects} bordered transition="fade" />
+<DataGrid columns={columns} data={projects} bordered transition="slide-up" />
+<DataGrid columns={columns} data={projects} bordered transition="slide-right" transitionDelay={100} />
+<DataGrid columns={columns} data={projects} bordered transition="zoom" />
+
+<DataGrid columns={columns} data={projects} bordered transition="flip" />
+<DataGrid columns={columns} data={projects} bordered transition="blur" />
+<DataGrid columns={columns} data={projects} bordered transition="bounce" />
+<DataGrid columns={columns} data={projects} bordered transition="drop" transitionDuration={700} />
+
+<DataGrid columns={columns} data={projects} bordered hoverEffect="lift" />
+<DataGrid columns={columns} data={projects} bordered hoverEffect="glow" />
+<DataGrid columns={columns} data={projects} bordered hoverEffect="shine" />`,
+              js: `<l-DataGrid bordered transition="fade"></l-DataGrid>
+<l-DataGrid bordered transition="slide-up"></l-DataGrid>
+<l-DataGrid bordered transition="slide-right" transitionDelay="100"></l-DataGrid>
+<l-DataGrid bordered transition="zoom"></l-DataGrid>
+
+<l-DataGrid bordered transition="flip"></l-DataGrid>
+<l-DataGrid bordered transition="blur"></l-DataGrid>
+<l-DataGrid bordered transition="bounce"></l-DataGrid>
+<l-DataGrid bordered transition="drop" transitionDuration="700"></l-DataGrid>
+
+<l-DataGrid bordered hoverEffect="lift"></l-DataGrid>
+<l-DataGrid bordered hoverEffect="glow"></l-DataGrid>
+<l-DataGrid bordered hoverEffect="shine"></l-DataGrid>
+
+<script type="module">
+  import "lojee-ui/elements";
+
+  const columns = [
+    { key: "name", header: "Name" },
+    { key: "owner", header: "Owner" },
+    { key: "tasks", header: "Tasks", align: "right" },
+  ];
+  const projects = [
+    { name: "Website Redesign", owner: "Ava Chen", tasks: 12 },
+    { name: "Mobile App", owner: "Marcus Lee", tasks: 7 },
+  ];
+
+  document.querySelectorAll("l-DataGrid").forEach((grid) => {
+    grid.columns = columns;
+    grid.data = projects;
+  });
+</script>`,
+              vue: `<template>
+  <l-DataGrid :columns="columns" :data="projects" bordered transition="fade"></l-DataGrid>
+  <l-DataGrid :columns="columns" :data="projects" bordered transition="slide-up"></l-DataGrid>
+  <l-DataGrid :columns="columns" :data="projects" bordered transition="slide-right" transitionDelay="100"></l-DataGrid>
+  <l-DataGrid :columns="columns" :data="projects" bordered transition="zoom"></l-DataGrid>
+
+  <l-DataGrid :columns="columns" :data="projects" bordered transition="flip"></l-DataGrid>
+  <l-DataGrid :columns="columns" :data="projects" bordered transition="blur"></l-DataGrid>
+  <l-DataGrid :columns="columns" :data="projects" bordered transition="bounce"></l-DataGrid>
+  <l-DataGrid :columns="columns" :data="projects" bordered transition="drop" transitionDuration="700"></l-DataGrid>
+
+  <l-DataGrid :columns="columns" :data="projects" bordered hoverEffect="lift"></l-DataGrid>
+  <l-DataGrid :columns="columns" :data="projects" bordered hoverEffect="glow"></l-DataGrid>
+  <l-DataGrid :columns="columns" :data="projects" bordered hoverEffect="shine"></l-DataGrid>
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+const columns = [
+  { key: "name", header: "Name" },
+  { key: "owner", header: "Owner" },
+  { key: "tasks", header: "Tasks", align: "right" },
+];
+
+const projects = [
+  { name: "Website Redesign", owner: "Ava Chen", tasks: 12 },
+  { name: "Mobile App", owner: "Marcus Lee", tasks: 7 },
+];
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-DataGrid [columns]="columns" [data]="projects" bordered transition="fade"></l-DataGrid>
+    <l-DataGrid [columns]="columns" [data]="projects" bordered transition="slide-up"></l-DataGrid>
+    <l-DataGrid [columns]="columns" [data]="projects" bordered transition="slide-right" transitionDelay="100"></l-DataGrid>
+    <l-DataGrid [columns]="columns" [data]="projects" bordered transition="zoom"></l-DataGrid>
+
+    <l-DataGrid [columns]="columns" [data]="projects" bordered transition="flip"></l-DataGrid>
+    <l-DataGrid [columns]="columns" [data]="projects" bordered transition="blur"></l-DataGrid>
+    <l-DataGrid [columns]="columns" [data]="projects" bordered transition="bounce"></l-DataGrid>
+    <l-DataGrid [columns]="columns" [data]="projects" bordered transition="drop" transitionDuration="700"></l-DataGrid>
+
+    <l-DataGrid [columns]="columns" [data]="projects" bordered hoverEffect="lift"></l-DataGrid>
+    <l-DataGrid [columns]="columns" [data]="projects" bordered hoverEffect="glow"></l-DataGrid>
+    <l-DataGrid [columns]="columns" [data]="projects" bordered hoverEffect="shine"></l-DataGrid>
+  \`,
+})
+export class AppComponent {
+  columns = [
+    { key: "name", header: "Name" },
+    { key: "owner", header: "Owner" },
+    { key: "tasks", header: "Tasks", align: "right" },
+  ];
+
+  projects = [
+    { name: "Website Redesign", owner: "Ava Chen", tasks: 12 },
+    { name: "Mobile App", owner: "Marcus Lee", tasks: 7 },
+  ];
+}`,
             }}
           />
         </section>
