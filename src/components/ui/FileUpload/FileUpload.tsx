@@ -46,7 +46,7 @@ export function FileUpload({
   return (
     <label
       className={cx(
-        "flex cursor-pointer flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed border-border-strong bg-surface-muted px-6 py-8 text-center transition-colors hover:border-border-strong hover:bg-surface-muted",
+        "relative flex min-w-0 cursor-pointer flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed border-border-strong bg-surface-muted px-6 py-8 text-center transition-colors hover:border-border-strong hover:bg-surface-muted",
         motionClass(transition, hoverEffect),
         className,
         classNames?.root
@@ -70,9 +70,9 @@ export function FileUpload({
       {fileNames.length > 0 && (
         <div className={cx("mt-1 w-full space-y-1", classNames?.fileList)}>
           {fileNames.map((name, i) => (
-            <div key={`${name}-${i}`} className="flex items-center justify-center gap-1.5 text-xs text-fg-muted">
-              <Icon name="file" size={12} />
-              {name}
+            <div key={`${name}-${i}`} className="flex min-w-0 items-center justify-center gap-1.5 text-xs text-fg-muted">
+              <Icon name="file" size={12} className="shrink-0" />
+              <span className="min-w-0 truncate">{name}</span>
             </div>
           ))}
         </div>

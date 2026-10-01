@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { Sidebar, type SidebarMenuItemSpec } from "../Sidebar";
+import { Sidebar, type SidebarMenuItemSpec, type SidebarProps } from "../Sidebar";
 import CodeBlock from "../../CodeBlock";
-import { SectionLabel } from "../../ShowcaseHelpers";
+import { SectionLabel, TransitionPreview } from "../../ShowcaseHelpers";
 
 // Reused across the "Variants"/"Colors"/"Collapsible" sections below — items generated from these
 // automatically pick up whatever `color`/`variant`/`collapsed` the parent Sidebar itself gets.
@@ -10,6 +10,38 @@ const VARIANT_ITEMS: SidebarMenuItemSpec[] = [
   { label: "Projects", icon: "folder" },
   { label: "Team", icon: "users" },
   { label: "Settings", icon: "settings" },
+];
+
+// Each example starts collapsed so hovering a row shows its tooltip right away; `collapsed` is
+// controlled here only to fix that state (no toggle, no header) — tooltips use the theme accent
+// unless an example sets its own `tooltipColor`.
+function CollapsedSidebar(props: Partial<SidebarProps>) {
+  const collapsed = true;
+  return (
+    <div className="h-64 w-fit overflow-hidden rounded-lg border border-border">
+      <Sidebar
+        collapsed={collapsed}
+        items={[
+          { label: "Dashboard", icon: "home" },
+          { label: "Projects", icon: "folder" },
+          { label: "Team", icon: "users" },
+        ]}
+        {...props}
+      />
+    </div>
+  );
+}
+
+const TOOLTIP_EXAMPLES: { label: string; props: Partial<SidebarProps> }[] = [
+  { label: "Default (bounce)", props: {} },
+  { label: "zoom", props: { tooltipTransition: "zoom" } },
+  { label: "fade", props: { tooltipTransition: "fade" } },
+  { label: "slide-left · 700ms", props: { tooltipTransition: "slide-left", tooltipTransitionDuration: 700 } },
+  { label: "flip", props: { tooltipTransition: "flip" } },
+  { label: "blur", props: { tooltipTransition: "blur" } },
+  { label: "rotate", props: { tooltipTransition: "rotate" } },
+  { label: "drop · 900ms", props: { tooltipTransition: "drop", tooltipTransitionDuration: 900 } },
+  { label: "skew", props: { tooltipTransition: "skew" } },
 ];
 
 export default function SidebarShowcase() {
@@ -398,10 +430,10 @@ export class AppComponent {
               <Sidebar variant="minimal" height="100%" className="h-full" header="Lojee Inc" items={VARIANT_ITEMS} />
             </div>
             <div className="h-72 overflow-hidden rounded-lg">
-              <Sidebar variant="gradient" color="indigo" header="Lojee Inc" footer="Jordan Diaz" items={VARIANT_ITEMS} />
+              <Sidebar variant="gradient" header="Lojee Inc" footer="Jordan Diaz" items={VARIANT_ITEMS} />
             </div>
             <div className="h-72 overflow-hidden rounded-lg border border-border">
-              <Sidebar variant="glass" color="indigo" height="100%" className="h-full" header="Lojee Inc" footer="Jordan Diaz" items={VARIANT_ITEMS} />
+              <Sidebar variant="glass" height="100%" className="h-full" header="Lojee Inc" footer="Jordan Diaz" items={VARIANT_ITEMS} />
             </div>
           </div>
           <CodeBlock
@@ -587,6 +619,33 @@ export class AppComponent {
         </section>
 
         <section>
+          <SectionLabel sub="Each example starts collapsed — hover the icons (or the toggle). `tooltipTransition` picks the enter/exit effect (default: bounce), `tooltipTransitionDuration` its length in ms, and `tooltipColor` the bubble color — all built in, nothing to wire per row.">
+            Tooltip effects
+          </SectionLabel>
+          <div className="flex flex-wrap gap-6">
+            {TOOLTIP_EXAMPLES.map((ex) => (
+              <figure key={ex.label} className="m-0 w-24">
+                <CollapsedSidebar {...ex.props} />
+                <figcaption className="mt-1.5 text-xs font-medium text-fg-subtle">{ex.label}</figcaption>
+              </figure>
+            ))}
+          </div>
+          <CodeBlock
+            variants={{
+              react: `<Sidebar
+  collapsible
+  tooltipTransition="slide-left"
+  tooltipTransitionDuration={700}
+  items={items}
+/>`,
+              js: `<l-Sidebar collapsible="true" tooltipTransition="slide-left" tooltipTransitionDuration="700"></l-Sidebar>`,
+              vue: `<l-Sidebar :collapsible="true" tooltipTransition="slide-left" :tooltipTransitionDuration="700" :items="items" />`,
+              angular: `<l-Sidebar [collapsible]="true" tooltipTransition="slide-left" [tooltipTransitionDuration]="700" [items]="items" />`,
+            }}
+          />
+        </section>
+
+        <section>
           <SectionLabel sub="Set `collapsible` to show a built-in toggle button — Sidebar tracks its own collapsed state internally, so this works with no other props. header/headerIcon and each generated item already animate for the collapse/expand transition, nothing extra to wire up.">
             Collapsible
           </SectionLabel>
@@ -661,20 +720,15 @@ export class AppComponent {
         </section>
 
         <section>
-          <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`) and hover effects via `hoverEffect`. They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`). They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
+          <TransitionPreview cols={3}>
             <div className="h-64 overflow-hidden rounded-lg border border-border"><Sidebar items={VARIANT_ITEMS} transition="fade" /></div>
             <div className="h-64 overflow-hidden rounded-lg border border-border"><Sidebar items={VARIANT_ITEMS} transition="slide-right" /></div>
             <div className="h-64 overflow-hidden rounded-lg border border-border"><Sidebar items={VARIANT_ITEMS} transition="zoom" /></div>
             <div className="h-64 overflow-hidden rounded-lg border border-border"><Sidebar items={VARIANT_ITEMS} transition="blur" /></div>
             <div className="h-64 overflow-hidden rounded-lg border border-border"><Sidebar items={VARIANT_ITEMS} transition="bounce" transitionDelay={100} /></div>
             <div className="h-64 overflow-hidden rounded-lg border border-border"><Sidebar items={VARIANT_ITEMS} transition="drop" transitionDuration={700} /></div>
-          </div>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            <div className="h-64 overflow-hidden rounded-lg border border-border"><Sidebar items={VARIANT_ITEMS} hoverEffect="lift" /></div>
-            <div className="h-64 overflow-hidden rounded-lg border border-border"><Sidebar items={VARIANT_ITEMS} hoverEffect="glow" /></div>
-            <div className="h-64 overflow-hidden rounded-lg border border-border"><Sidebar items={VARIANT_ITEMS} hoverEffect="shine" /></div>
-          </div>
+          </TransitionPreview>
           <CodeBlock
             variants={{
               react: `const items = [
@@ -689,11 +743,7 @@ export class AppComponent {
 <Sidebar items={items} transition="zoom" />
 <Sidebar items={items} transition="blur" />
 <Sidebar items={items} transition="bounce" transitionDelay={100} />
-<Sidebar items={items} transition="drop" transitionDuration={700} />
-
-<Sidebar items={items} hoverEffect="lift" />
-<Sidebar items={items} hoverEffect="glow" />
-<Sidebar items={items} hoverEffect="shine" />`,
+<Sidebar items={items} transition="drop" transitionDuration={700} />`,
               js: `<l-Sidebar class="transition-demo" transition="fade"></l-Sidebar>
 <l-Sidebar class="transition-demo" transition="slide-right"></l-Sidebar>
 <l-Sidebar class="transition-demo" transition="zoom"></l-Sidebar>
@@ -701,9 +751,6 @@ export class AppComponent {
 <l-Sidebar class="transition-demo" transition="bounce" transitionDelay="100"></l-Sidebar>
 <l-Sidebar class="transition-demo" transition="drop" transitionDuration="700"></l-Sidebar>
 
-<l-Sidebar class="transition-demo" hoverEffect="lift"></l-Sidebar>
-<l-Sidebar class="transition-demo" hoverEffect="glow"></l-Sidebar>
-<l-Sidebar class="transition-demo" hoverEffect="shine"></l-Sidebar>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -724,9 +771,6 @@ export class AppComponent {
   <l-Sidebar :items="items" transition="bounce" transitionDelay="100"></l-Sidebar>
   <l-Sidebar :items="items" transition="drop" transitionDuration="700"></l-Sidebar>
 
-  <l-Sidebar :items="items" hoverEffect="lift"></l-Sidebar>
-  <l-Sidebar :items="items" hoverEffect="glow"></l-Sidebar>
-  <l-Sidebar :items="items" hoverEffect="shine"></l-Sidebar>
 </template>
 
 <script setup lang="ts">
@@ -755,9 +799,6 @@ import "lojee-ui/elements";
     <l-Sidebar [items]="items" transition="bounce" transitionDelay="100"></l-Sidebar>
     <l-Sidebar [items]="items" transition="drop" transitionDuration="700"></l-Sidebar>
 
-    <l-Sidebar [items]="items" hoverEffect="lift"></l-Sidebar>
-    <l-Sidebar [items]="items" hoverEffect="glow"></l-Sidebar>
-    <l-Sidebar [items]="items" hoverEffect="shine"></l-Sidebar>
   \`,
 })
 export class AppComponent {

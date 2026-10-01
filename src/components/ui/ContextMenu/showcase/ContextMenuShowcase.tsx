@@ -1,7 +1,7 @@
 import { ContextMenu } from "../ContextMenu";
 import { DropdownMenuItem } from "../../DropdownMenu/DropdownMenuItem";
 import CodeBlock from "../../CodeBlock";
-import { SectionLabel, Row } from "../../ShowcaseHelpers";
+import { SectionLabel, Row, TransitionPreview } from "../../ShowcaseHelpers";
 
 export default function ContextMenuShowcase() {
   return (
@@ -111,7 +111,7 @@ export class ContextMenuShowcaseComponent {
 
         <section>
           <SectionLabel sub="Enter/exit transitions via `transition` (with `transitionDuration` / `transitionDelay`) — open and close each one to see it play both ways.">Transitions</SectionLabel>
-          <Row>
+          <TransitionPreview layout="inline">
             <ContextMenu transition="fade"
               menu={
                 <>
@@ -172,7 +172,7 @@ export class ContextMenuShowcaseComponent {
             >
               <div className="flex h-20 w-36 items-center justify-center rounded-lg border-2 border-dashed border-border text-sm text-fg-subtle">Drop</div>
             </ContextMenu>
-          </Row>
+          </TransitionPreview>
           <CodeBlock
             variants={{
               react: `<ContextMenu transition="fade"

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { ProfileSettings, type ProfileSettingsValues } from "../ProfileSettings";
 import CodeBlock from "../../CodeBlock";
-import { SectionLabel } from "../../ShowcaseHelpers";
+import { SectionLabel, TransitionPreview } from "../../ShowcaseHelpers";
 
 export default function ProfileSettingsShowcase() {
   const [saved, setSaved] = useState<ProfileSettingsValues | null>(null);
@@ -87,11 +87,13 @@ onSave(values) { /* values */ }`,
 
         <section>
           <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`) and hover effects via `hoverEffect`. They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
-          <div className="grid gap-6 sm:grid-cols-2">
+          <TransitionPreview cols={2}>
             <ProfileSettings transition="fade" avatarInitials="JD" />
             <ProfileSettings transition="slide-up" avatarInitials="JD" />
             <ProfileSettings transition="zoom" transitionDelay={100} avatarInitials="JD" />
             <ProfileSettings transition="flip" transitionDuration={700} avatarInitials="JD" />
+          </TransitionPreview>
+          <div className="grid gap-6 sm:grid-cols-2">
             <ProfileSettings hoverEffect="lift" avatarInitials="JD" />
             <ProfileSettings hoverEffect="glow" avatarInitials="JD" />
           </div>

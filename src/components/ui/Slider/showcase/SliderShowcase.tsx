@@ -1,6 +1,6 @@
 import { Slider } from "../Slider";
 import CodeBlock from "../../CodeBlock";
-import { SectionLabel, Row } from "../../ShowcaseHelpers";
+import { SectionLabel, Row, TransitionPreview } from "../../ShowcaseHelpers";
 
 export default function SliderShowcase() {
   return (
@@ -126,14 +126,14 @@ export class AppComponent {}
 
         <section>
           <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`) and hover effects via `hoverEffect`. They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
-          <div className="max-w-sm space-y-3">
+          <div className="max-w-sm"><TransitionPreview cols={1}>
             <Slider transition="fade" defaultValue={40} />
             <Slider transition="slide-up" defaultValue={40} />
             <Slider transition="slide-right" transitionDelay={100} defaultValue={40} />
             <Slider transition="zoom" defaultValue={40} />
             <Slider transition="flip" defaultValue={40} />
             <Slider transition="blur" defaultValue={40} />
-          </div>
+          </TransitionPreview></div>
           <div className="max-w-sm space-y-3">
             <Slider hoverEffect="lift" defaultValue={40} />
             <Slider hoverEffect="scale" defaultValue={40} />

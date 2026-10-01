@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Combobox, type ComboboxOption } from "../Combobox";
 import CodeBlock from "../../CodeBlock";
-import { SectionLabel } from "../../ShowcaseHelpers";
+import { SectionLabel, TransitionPreview } from "../../ShowcaseHelpers";
 
 const CITY_OPTIONS: ComboboxOption[] = [
   { label: "Tokyo", value: "tokyo" },
@@ -139,19 +139,17 @@ export class AppComponent {
 
         <section>
           <SectionLabel sub="Dropdown panel transitions via `transition` (with `transitionDuration` / `transitionDelay`) and hover effects on the field via `hoverEffect`. Open the dropdown to see the panel animate in and out.">Transitions</SectionLabel>
-          <div className="grid gap-4 pb-64 sm:grid-cols-2 lg:grid-cols-3">
+          <TransitionPreview cols={3}>
             <Combobox options={CITY_OPTIONS} value={tr} onChange={setTr} placeholder="Search a city..." transition="fade" />
             <Combobox options={CITY_OPTIONS} value={tr} onChange={setTr} placeholder="Search a city..." transition="slide-up" />
             <Combobox options={CITY_OPTIONS} value={tr} onChange={setTr} placeholder="Search a city..." transition="zoom" />
             <Combobox options={CITY_OPTIONS} value={tr} onChange={setTr} placeholder="Search a city..." transition="flip" />
             <Combobox options={CITY_OPTIONS} value={tr} onChange={setTr} placeholder="Search a city..." transition="slide-right" transitionDelay={100} />
             <Combobox options={CITY_OPTIONS} value={tr} onChange={setTr} placeholder="Search a city..." transition="bounce" transitionDuration={700} />
-          </div>
-          <div className="grid gap-4 sm:grid-cols-3">
             <Combobox options={CITY_OPTIONS} value={tr} onChange={setTr} placeholder="Search a city..." hoverEffect="lift" />
             <Combobox options={CITY_OPTIONS} value={tr} onChange={setTr} placeholder="Search a city..." hoverEffect="glow" />
             <Combobox options={CITY_OPTIONS} value={tr} onChange={setTr} placeholder="Search a city..." hoverEffect="ring" />
-          </div>
+          </TransitionPreview>
           <CodeBlock
             variants={{
               react: `const [value, setValue] = useState<string | undefined>("manila");

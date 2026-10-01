@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { MultiSelect, type MultiSelectOption } from "../MultiSelect";
 import CodeBlock from "../../CodeBlock";
-import { SectionLabel, Row } from "../../ShowcaseHelpers";
+import { SectionLabel, Row, TransitionPreview } from "../../ShowcaseHelpers";
 
 const FRUIT_OPTIONS: MultiSelectOption[] = [
   { label: "Apple", value: "apple" },
@@ -106,10 +106,13 @@ export class AppComponent {
         </section>
 
         <section>
-          <SectionLabel sub="Chip and selected-option accent color follows `color`.">Colors</SectionLabel>
+          <SectionLabel sub="Chips, checks, the selected-option highlight and the focus ring follow `color` — a named color or any CSS color string (default: the theme accent).">Colors</SectionLabel>
           <Row>
             <div className="max-w-sm w-full">
               <MultiSelect options={FRUIT_OPTIONS} value={colored} onChange={setColored} color="violet" />
+            </div>
+            <div className="max-w-sm w-full">
+              <MultiSelect options={FRUIT_OPTIONS} value={colored} onChange={setColored} color="#e11d48" />
             </div>
           </Row>
           <CodeBlock
@@ -163,19 +166,17 @@ export class AppComponent {
 
         <section>
           <SectionLabel sub="Dropdown panel transitions via `transition` (with `transitionDuration` / `transitionDelay`) and hover effects on the field via `hoverEffect`. Open the dropdown to see the panel animate in and out.">Transitions</SectionLabel>
-          <div className="grid gap-4 pb-64 sm:grid-cols-2 lg:grid-cols-3">
+          <TransitionPreview cols={3}>
             <MultiSelect options={FRUIT_OPTIONS} value={tr} onChange={setTr} placeholder="Select fruits..." transition="fade" />
             <MultiSelect options={FRUIT_OPTIONS} value={tr} onChange={setTr} placeholder="Select fruits..." transition="slide-up" />
             <MultiSelect options={FRUIT_OPTIONS} value={tr} onChange={setTr} placeholder="Select fruits..." transition="zoom" />
             <MultiSelect options={FRUIT_OPTIONS} value={tr} onChange={setTr} placeholder="Select fruits..." transition="flip" />
             <MultiSelect options={FRUIT_OPTIONS} value={tr} onChange={setTr} placeholder="Select fruits..." transition="slide-right" transitionDelay={100} />
             <MultiSelect options={FRUIT_OPTIONS} value={tr} onChange={setTr} placeholder="Select fruits..." transition="bounce" transitionDuration={700} />
-          </div>
-          <div className="grid gap-4 sm:grid-cols-3">
             <MultiSelect options={FRUIT_OPTIONS} value={tr} onChange={setTr} placeholder="Select fruits..." hoverEffect="lift" />
             <MultiSelect options={FRUIT_OPTIONS} value={tr} onChange={setTr} placeholder="Select fruits..." hoverEffect="glow" />
             <MultiSelect options={FRUIT_OPTIONS} value={tr} onChange={setTr} placeholder="Select fruits..." hoverEffect="ring" />
-          </div>
+          </TransitionPreview>
           <CodeBlock
             variants={{
               react: `const [value, setValue] = useState<string[]>(["banana"]);

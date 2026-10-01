@@ -40,7 +40,7 @@ export interface HeaderProps {
    *   contrast left to reveal its rounded corners or shadow. All three are self-contained — an inset
    *   backdrop is included automatically (padding + `bg-surface-muted`, or `color` for "glass") so the card
    *   always reads correctly (rounded corners, blur) with no wrapper markup needed on your end.
-   * - "dark" — slate-900 background, title/description switch to white/white-ish.
+   * - "dark" — a deep shade of the theme accent (accent-950), title/description switch to white/white-ish.
    * - "minimal" — no background/border at all, blends fully into the page (unlike "light", which keeps
    *   a white background and bottom divider).
    * - "gradient" — a left-to-right gradient built from `color` (600 → 700).
@@ -76,7 +76,7 @@ export interface HeaderProps {
 
 const VARIANT_CLASSES: Record<HeaderVariant, string> = {
   light: "bg-surface border-b border-border",
-  dark: "bg-slate-900 border-b border-slate-800",
+  dark: "bg-accent-950 border-b border-accent-900",
   // "bordered", "elevated", and "glass" all float as a detached card (see `isDetachedPanel`) rather
   // than sitting flush in the page's own content flow — kept as separate `variant` names since each
   // still has its own distinct look (colored border / shadow-only / frosted-transparent) on top of

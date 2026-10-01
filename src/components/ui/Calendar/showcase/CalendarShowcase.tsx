@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Calendar, type CalendarEvent } from "../Calendar";
 import CodeBlock from "../../CodeBlock";
 import { Button } from "../../Buttons/Button";
-import { SectionLabel, Row } from "../../ShowcaseHelpers";
+import { SectionLabel, Row, TransitionPreview } from "../../ShowcaseHelpers";
 
 // Event dates are computed from today so the "With events" example always
 // shows dots in whatever month the demo happens to render in, instead of
@@ -320,18 +320,16 @@ open = false;`,
 
         <section>
           <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`) and hover effects via `hoverEffect`. They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
-          <Row>
+          <TransitionPreview layout="inline">
             <Calendar className="w-64" transition="fade" />
             <Calendar className="w-64" transition="slide-up" />
             <Calendar className="w-64" transition="slide-right" transitionDelay={100} />
             <Calendar className="w-64" transition="zoom" />
-          </Row>
-          <Row>
             <Calendar className="w-64" transition="flip" />
             <Calendar className="w-64" transition="blur" />
             <Calendar className="w-64" transition="bounce" />
             <Calendar className="w-64" transition="drop" transitionDuration={700} />
-          </Row>
+          </TransitionPreview>
           <Row>
             <Calendar className="w-64" hoverEffect="lift" />
             <Calendar className="w-64" hoverEffect="glow" />

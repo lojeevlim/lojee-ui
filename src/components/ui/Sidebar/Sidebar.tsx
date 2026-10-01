@@ -1,13 +1,12 @@
 import { Children, isValidElement, useEffect, useLayoutEffect, useRef, useState } from "react";
-import type { CSSProperties, ReactNode } from "react";
+import type { CSSProperties, ReactNode, UIEvent } from "react";
 import { cx, isColorName, type ColorName } from "../../../core/tokens";
 import { Icon } from "../Icons/Icon";
-import { createPortal } from "react-dom";
-import { useTooltipPortal, tooltipPortalPositionStyle, TOOLTIP_PORTAL_Z_CLASS } from "../../../core/tooltipPortal";
+import { Tooltip } from "../Tooltip/Tooltip";
 import { SidebarMenuItem } from "./SidebarMenuItem";
 import { sidebarActiveFillClasses } from "./sidebarActiveStyles";
 import { activeMarker } from "../../../core/activeVariant";
-import { motionClass, motionStyle, type TransitionVariant, type HoverEffect } from "../../../core/motion";
+import { motionClass, motionStyle, type TransitionVariant } from "../../../core/motion";
 
 // Determines which `items` row matches the current URL, for the built-in active-item detection
 // below — an exact `href` match always wins outright; otherwise the longest `href` the current path
@@ -221,8 +220,12 @@ export interface SidebarProps {
   transitionDuration?: number;
   /** Delay before the enter transition starts, in ms (default: 0) — handy for staggering. */
   transitionDelay?: number;
-  /** Effect while hovering: "lift" | "scale" | "press" | "tilt" | "ring" | "glow" | "shine" (default: none). Applied to each row of the `items` shortcut (rows composed as `children` take their own `hoverEffect`). */
-  hoverEffect?: HoverEffect;
+  /** Enter/exit transition of the tooltips shown in the collapsed rail and on the collapse button: "fade" | "slide-up" | "slide-down" | "slide-left" | "slide-right" | "zoom" | "zoom-out" | "flip" | "blur" | "bounce" | "rotate" | "drop" | "skew" (default: "bounce"). */
+  tooltipTransition?: TransitionVariant;
+  /** Enter/exit duration in ms of those same tooltips (default: 450). */
+  tooltipTransitionDuration?: number;
+  /** Color of those same tooltips — a ColorName, or "neutral" for the theme-inverted bubble (default: "accent"). */
+  tooltipColor?: ColorName | "neutral";
   /** Extra class name(s) appended to the root element. */
   className?: string;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
@@ -242,7 +245,7 @@ const VARIANT_CLASSES: Record<SidebarVariant, string> = {
   // both plain, colorless spans that rely on inheriting this) read as one consistent surface instead of
   // the header falling back to the browser's default (near-black, invisible against `bg-slate-900`) text
   // color. "gradient"/"glass" don't need this — they already carry their own `text-white` below.
-  dark: "bg-slate-900 border-r border-slate-800 text-white/70",
+  dark: "bg-accent-950 border-r border-accent-900 text-white/70",
   // "bordered", "elevated", and "glass" all float as a detached card (see `isDetachedPanel`) rather
   // than docking to a screen edge — kept as separate `variant` names since each still has its own
   // distinct panel look (colored border / shadow-only / frosted-transparent) on top of that shared
@@ -273,7 +276,7 @@ const VARIANT_CLASSES: Record<SidebarVariant, string> = {
 
 const VARIANT_DIVIDER_CLASSES: Record<SidebarVariant, string> = {
   light: "border-border",
-  dark: "border-slate-800",
+  dark: "border-accent-900",
   bordered: "border-border",
   elevated: "border-border",
   minimal: "border-border",
@@ -321,24 +324,60 @@ const GLASS_BACKDROP: Record<ColorName, string> = {
   pink: "bg-pink-500",
 };
 
+// Built-in scrollbar for the nav list, shipped with the component (rendered as a <style> next to the
+// panel) so it works the same in React, inside a Web Component's shadow root, and without theme.css.
+// "Hairline" look: a 2px hairline track with a slim round-ended accent thumb on it, inset 44px top and
+// bottom. The thumb widens from 4px to 8px when the pointer is on it and deepens on grab. It auto-hides:
+// invisible at rest, fading in only while the list is scrolled (`data-scrolling`, set by the body's
+// onScroll and cleared after a short idle) or while the pointer is on the scrollbar itself (so it can be
+// grabbed) — and is drawn only while the list overflows. The thumb's length is set by the browser (it
+// scales with how much content overflows), so it is a capsule rather than a fixed dot. The 10px track is
+// always reserved (`scrollbar-gutter: stable`, with the body's right padding dropped to match) so rows
+// never shift. Firefox gets the standard thin scrollbar.
+const SIDEBAR_SCROLLBAR_CSS = `
+.lojee-sidebar-scroll { scrollbar-gutter: stable; }
+@supports selector(::-webkit-scrollbar) {
+  .lojee-sidebar-scroll::-webkit-scrollbar { width: 10px; }
+  .lojee-sidebar-scroll::-webkit-scrollbar-track {
+    margin: 44px 0;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 2px 100%;
+    transition: background-color 0.3s ease;
+  }
+  .lojee-sidebar-scroll::-webkit-scrollbar-thumb {
+    border: 3px solid transparent;
+    border-radius: 999px;
+    background-clip: padding-box;
+    background-color: transparent;
+    min-height: 20px;
+    transition: background-color 0.3s ease;
+  }
+  .lojee-sidebar-scroll[data-scrolling]::-webkit-scrollbar-track,
+  .lojee-sidebar-scroll::-webkit-scrollbar-track:hover {
+    background-image: linear-gradient(color-mix(in srgb, currentColor 16%, transparent), color-mix(in srgb, currentColor 16%, transparent));
+  }
+  .lojee-sidebar-scroll[data-scrolling]::-webkit-scrollbar-thumb {
+    background-color: var(--color-accent-500);
+  }
+  .lojee-sidebar-scroll::-webkit-scrollbar-thumb:hover {
+    border-width: 1px;
+    background-color: var(--color-accent-500);
+  }
+  .lojee-sidebar-scroll::-webkit-scrollbar-thumb:active {
+    border-width: 1px;
+    background-color: var(--color-accent-600);
+  }
+}
+@supports not selector(::-webkit-scrollbar) {
+  .lojee-sidebar-scroll { scrollbar-width: thin; scrollbar-color: transparent transparent; transition: scrollbar-color 0.3s ease; }
+  .lojee-sidebar-scroll[data-scrolling] { scrollbar-color: var(--color-accent-500) transparent; }
+}
+`;
+
 const TOGGLE_BUTTON_CLASSES =
   "flex h-8 w-8 shrink-0 items-center justify-center rounded-md border transition-colors";
-
-const TOGGLE_HOVER_TEXT: Record<ColorName, string> = {
-  slate: "hover:text-fg",
-  gray: "hover:text-fg",
-  indigo: "hover:text-indigo-600",
-  accent: "hover:text-accent-600",
-  violet: "hover:text-violet-600",
-  blue: "hover:text-blue-600",
-  cyan: "hover:text-cyan-600",
-  emerald: "hover:text-emerald-600",
-  teal: "hover:text-teal-600",
-  amber: "hover:text-amber-600",
-  orange: "hover:text-orange-600",
-  rose: "hover:text-rose-600",
-  pink: "hover:text-pink-600",
-};
 
 export function Sidebar({
   children,
@@ -360,7 +399,9 @@ export function Sidebar({
   transition,
   transitionDuration,
   transitionDelay,
-  hoverEffect,
+  tooltipTransition = "bounce",
+  tooltipTransitionDuration,
+  tooltipColor = "accent",
   className,
   classNames,
 }: SidebarProps) {
@@ -371,9 +412,6 @@ export function Sidebar({
   const [uncontrolledCollapsed, setUncontrolledCollapsed] = useState(false);
   const isCollapsedControlled = collapsedProp !== undefined;
   const collapsed = isCollapsedControlled ? collapsedProp : uncontrolledCollapsed;
-  // The toggle's tooltip portals out of the sidebar (same as the menu items' own) — an inline CSS tooltip is
-  // clipped by the scrollable/overflow-hidden ancestors around a docked sidebar and sinks under the main content.
-  const { ref: toggleRef, state: toggleTip, show: showToggleTip, hide: hideToggleTip } = useTooltipPortal<HTMLButtonElement>();
   const toggleLabel = collapsed ? "Expand sidebar" : "Collapse sidebar";
 
   const toggleCollapsed = () => {
@@ -402,7 +440,7 @@ export function Sidebar({
     headerContent = (
       <span className="flex min-w-0 items-center gap-2.5">
         {headerIcon && <Icon name={headerIcon} size={18} className="shrink-0" />}
-        {header != null && <span className="truncate">{header}</span>}
+        {header != null && !collapsed && <span className="truncate">{header}</span>}
       </span>
     );
   }
@@ -469,6 +507,15 @@ export function Sidebar({
   // `itemNodesRef` holds each rendered row's real DOM node (keyed by label) purely so this effect can
   // measure it; `navRef` is the positioned ancestor those measurements are made relative to.
   const navRef = useRef<HTMLElement>(null);
+  // Auto-hiding scrollbar: flag the body as scrolling, clear it after a short idle (see SIDEBAR_SCROLLBAR_CSS).
+  const scrollIdleRef = useRef<number>(0);
+  useEffect(() => () => window.clearTimeout(scrollIdleRef.current), []);
+  const handleBodyScroll = (e: UIEvent<HTMLDivElement>) => {
+    const el = e.currentTarget;
+    el.setAttribute("data-scrolling", "");
+    window.clearTimeout(scrollIdleRef.current);
+    scrollIdleRef.current = window.setTimeout(() => el.removeAttribute("data-scrolling"), 900);
+  };
   const itemNodesRef = useRef<Record<string, HTMLElement | null>>({});
   const [pillRect, setPillRect] = useState<{ top: number; height: number } | null>(null);
   // A row inside a currently-closed category never has a real visible position to pin the pill to —
@@ -522,14 +569,16 @@ export function Sidebar({
       color={color}
       dark={dark}
       vividActive={vividActive}
-      hoverEffect={hoverEffect}
+      tooltipTransition={tooltipTransition}
+      tooltipTransitionDuration={tooltipTransitionDuration}
+      tooltipColor={tooltipColor}
       onClick={() => setSelectedLabel(item.label)}
     >
       {item.label}
     </SidebarMenuItem>
   );
   const itemRows = items && items.length > 0 && (
-    <nav ref={navRef} className="relative space-y-0.5">
+    <nav ref={navRef} className="relative space-y-1.5">
       {pillRect && (
         <div
           aria-hidden
@@ -565,7 +614,7 @@ export function Sidebar({
               aria-expanded={isOpen}
               className={cx(
                 "flex w-full items-center justify-between gap-1 px-3 pb-1 pt-3 text-xs font-medium tracking-wide transition-colors",
-                dark ? "text-white/50 hover:text-white/80" : "text-fg-subtle hover:text-fg-muted",
+                dark ? "text-white/50" : "text-fg-subtle",
                 collapsed && "sr-only"
               )}
             >
@@ -636,7 +685,6 @@ export function Sidebar({
     // TOGGLE_HOVER_TEXT below via a real Tailwind class instead, since that
     // also covers browsers/situations where arbitrary CSS custom properties
     // in a Tailwind arbitrary-value selector might not be desired.
-    ...(!colorIsNamed && { "--sidebar-toggle-hover": color }),
   } as CSSProperties;
   const toggleClasses = cx(
     TOGGLE_BUTTON_CLASSES,
@@ -644,8 +692,7 @@ export function Sidebar({
     // instead of a fixed neutral gray that used to look mismatched against white-ish nav item text on
     // "dark"/"gradient"/"glass".
     dark ? "text-white/70" : "text-fg-muted",
-    VARIANT_DIVIDER_CLASSES[variant],
-    colorIsNamed ? TOGGLE_HOVER_TEXT[color] : "hover:text-[var(--sidebar-toggle-hover)]"
+    VARIANT_DIVIDER_CLASSES[variant]
   );
   // The built-in toggle takes over the header row's only slot while
   // collapsed (there's no room for it alongside the header content in a
@@ -657,6 +704,7 @@ export function Sidebar({
 
   const panelContent = (
     <>
+      <style>{SIDEBAR_SCROLLBAR_CSS}</style>
       {(collapsible || headerContent != null) && (
         <div
           className={cx(
@@ -698,33 +746,16 @@ export function Sidebar({
           )}
           {collapsible && (
             <>
-              <button
-                ref={toggleRef}
-                type="button"
-                onClick={toggleCollapsed}
-                onMouseEnter={showToggleTip}
-                onMouseLeave={hideToggleTip}
-                onFocus={showToggleTip}
-                onBlur={hideToggleTip}
-                aria-label={toggleLabel}
-                className={cx(toggleClasses, classNames?.toggle)}
-              >
-                <Icon name="panel-left" size={16} />
-              </button>
-              {toggleTip &&
-                createPortal(
-                  <span
-                    role="tooltip"
-                    style={{ position: "fixed", ...tooltipPortalPositionStyle(toggleTip.rect, "right") }}
-                    className={cx(
-                      "pointer-events-none whitespace-nowrap rounded-md bg-accent-600 px-2 py-1 text-xs font-medium text-white shadow-lg",
-                      TOOLTIP_PORTAL_Z_CLASS
-                    )}
-                  >
-                    {toggleLabel}
-                  </span>,
-                  toggleTip.root
-                )}
+              <Tooltip content={toggleLabel} position="right" transition={tooltipTransition} transitionDuration={tooltipTransitionDuration} color={tooltipColor} portal>
+                <button
+                  type="button"
+                  onClick={toggleCollapsed}
+                  aria-label={toggleLabel}
+                  className={cx(toggleClasses, classNames?.toggle)}
+                >
+                  <Icon name="panel-left" size={16} />
+                </button>
+              </Tooltip>
             </>
           )}
         </div>
@@ -738,7 +769,7 @@ export function Sidebar({
           (ListItem's tooltip portals itself out of this container instead
           of relying on CSS overflow to escape it), so scrolling no longer
           has to be sacrificed for it. */}
-      <div className={cx("flex-1 overflow-y-auto p-2", classNames?.body)}>
+      <div onScroll={handleBodyScroll} className={cx("lojee-sidebar-scroll flex-1 overflow-y-auto py-2 pl-2 pr-0", classNames?.body)}>
         <slot>
           {itemRows}
           {bodyChildren}

@@ -1,7 +1,7 @@
 import { Label } from "../Label";
 import { Input } from "../../Input/Input";
 import CodeBlock from "../../CodeBlock";
-import { SectionLabel, Row } from "../../ShowcaseHelpers";
+import { SectionLabel, TransitionPreview } from "../../ShowcaseHelpers";
 
 export default function LabelShowcase() {
   return (
@@ -81,7 +81,7 @@ export class AppComponent {}`,
 
         <section>
           <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`). They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
-          <Row>
+          <TransitionPreview layout="inline">
             <Label transition="fade">Fade</Label>
             <Label transition="slide-up">Slide up</Label>
             <Label transition="slide-right" transitionDelay={100}>Slide right</Label>
@@ -90,7 +90,7 @@ export class AppComponent {}`,
             <Label transition="blur">Blur</Label>
             <Label transition="bounce">Bounce</Label>
             <Label transition="drop" transitionDuration={700}>Drop</Label>
-          </Row>
+          </TransitionPreview>
           <CodeBlock
             variants={{
               react: `<Label transition="fade">Fade</Label>

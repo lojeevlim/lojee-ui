@@ -181,19 +181,18 @@ export default function MapMarkerShowcase() {
             ))}
           </Map>
           <CodeBlock
-            variants={{
-              react: `<Map center={[123.895, 10.318]} zoom={12}>
-  {stops.map((s, i) => (
+            variants={mapCode({
+              // Web Components take data, not children: a numbered label stands in for the custom badge.
+              props: [{ name: "center", value: "[123.895, 10.318]", kind: "json" }, zoom(12), markersProp(CEBU_STOPS.map((s, i) => ({ lng: s.coord[0], lat: s.coord[1], label: String(i + 1), popup: s.name })))],
+              reactProps: [{ name: "center", value: "[123.895, 10.318]", kind: "json" }, zoom(12)],
+              reactChildren: `  {stops.map((s, i) => (
     <MapMarker key={s.name} lng={s.lng} lat={s.lat} popup={s.name}>
       <span className="flex h-8 w-8 items-center justify-center rounded-full bg-accent-600 text-white">
         {i + 1}
       </span>
     </MapMarker>
-  ))}
-</Map>
-
-// Web Components: markers are plain data, so use label / icon / color instead of custom content.`,
-            }}
+  ))}`,
+            })}
           />
         </section>
 

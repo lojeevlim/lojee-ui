@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Pagination } from "../Pagination";
 import CodeBlock from "../../CodeBlock";
-import { SectionLabel, Row } from "../../ShowcaseHelpers";
+import { SectionLabel, TransitionPreview } from "../../ShowcaseHelpers";
 
 export default function PaginationShowcase() {
   const [trPage, setTrPage] = useState(1);
@@ -158,14 +158,14 @@ const page = ref(3);
 
         <section>
           <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`). They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
-          <Row>
+          <TransitionPreview layout="inline">
             <Pagination page={trPage} totalPages={5} onPageChange={setTrPage} transition="fade" />
             <Pagination page={trPage} totalPages={5} onPageChange={setTrPage} transition="slide-up" />
             <Pagination page={trPage} totalPages={5} onPageChange={setTrPage} transition="slide-right" transitionDelay={100} />
             <Pagination page={trPage} totalPages={5} onPageChange={setTrPage} transition="zoom" />
             <Pagination page={trPage} totalPages={5} onPageChange={setTrPage} transition="blur" />
             <Pagination page={trPage} totalPages={5} onPageChange={setTrPage} transition="drop" transitionDuration={700} />
-          </Row>
+          </TransitionPreview>
           <CodeBlock
             variants={{
               react: `const [page, setPage] = useState(1);

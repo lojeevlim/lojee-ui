@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Input } from "../Input";
 import CodeBlock from "../../CodeBlock";
-import { SectionLabel } from "../../ShowcaseHelpers";
+import { SectionLabel, TransitionPreview } from "../../ShowcaseHelpers";
 
 export default function InputShowcase() {
   const [email, setEmail] = useState("");
@@ -201,7 +201,7 @@ onEmailInput(e: Event) {
 
         <section>
           <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`) and hover effects via `hoverEffect`. They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
-          <div className="max-w-sm space-y-3">
+          <div className="max-w-sm"><TransitionPreview cols={1}>
             <Input transition="fade" placeholder="Fade" />
             <Input transition="slide-up" placeholder="Slide up" />
             <Input transition="slide-right" transitionDelay={100} placeholder="Slide right" />
@@ -210,7 +210,7 @@ onEmailInput(e: Event) {
             <Input transition="blur" placeholder="Blur" />
             <Input transition="bounce" placeholder="Bounce" />
             <Input transition="drop" transitionDuration={700} placeholder="Drop" />
-          </div>
+          </TransitionPreview></div>
           <div className="max-w-sm space-y-3">
             <Input hoverEffect="lift" placeholder="Lift" />
             <Input hoverEffect="scale" placeholder="Scale" />

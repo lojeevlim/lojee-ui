@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { AppWindowFrame, ColorSwatches, OptionGroup, PlaygroundLayout } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
-import type { AccentName } from "../../core/theme";
+import { useTheme, type AccentName } from "../../core/theme";
 import { ACTIVE_VARIANTS, type ActiveVariant } from "../../core/activeVariant";
 import type { ColorName } from "../../core/tokens";
 import { ThemeProvider } from "./Theme/ThemeProvider";
 import AppLayoutDemo from "./AppLayout/AppLayoutDemo";
 import LayoutEditor from "./AppLayout/LayoutEditor";
+import { appCodeVariants } from "./AppLayout/appCode";
 import {
   APP_THEME_OPTIONS,
   DEFAULT_LAYOUT,
@@ -22,8 +23,15 @@ const VIEWPORT_WIDTH: Record<Viewport, string> = { desktop: "100%", mobile: "320
 const sameLayout = (a: GridLayout, b: GridLayout) => JSON.stringify(a) === JSON.stringify(b);
 
 export default function AppLayoutPlayground() {
+  const { accent: siteAccent } = useTheme();
   const [theme, setTheme] = useState<AppTheme>("light");
-  const [accent, setAccent] = useState<AccentName>("indigo");
+  const [accent, setAccent] = useState<AccentName>(siteAccent);
+  // Follow the site accent when it changes (the swatches can still override it).
+  const [prevSiteAccent, setPrevSiteAccent] = useState(siteAccent);
+  if (prevSiteAccent !== siteAccent) {
+    setPrevSiteAccent(siteAccent);
+    setAccent(siteAccent);
+  }
   const [activeVariant, setActiveVariant] = useState<ActiveVariant>("solid");
   const [viewport, setViewport] = useState<Viewport>("desktop");
   const [layout, setLayout] = useState<GridLayout>(DEFAULT_LAYOUT);
@@ -58,7 +66,7 @@ export default function AppLayoutPlayground() {
   </App>
 </ThemeProvider>`;
 
-  const codeVariants: CodeBlockVariants = { react: code };
+  const codeVariants: CodeBlockVariants = appCodeVariants(code, { layout, mode: theme, accent, activeVariant });
 
   return (
     <PlaygroundLayout preview={

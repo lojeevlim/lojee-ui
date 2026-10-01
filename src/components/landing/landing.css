@@ -48,6 +48,33 @@
   animation: lp-shimmer 7s ease-in-out infinite;
 }
 
+/* Soft accent aurora behind the hero visual. */
+.lp-aurora {
+  background:
+    radial-gradient(circle at 20% 25%, color-mix(in srgb, var(--color-accent-400) 38%, transparent), transparent 55%),
+    radial-gradient(circle at 80% 70%, color-mix(in srgb, var(--color-accent-600) 30%, transparent), transparent 55%);
+  filter: blur(36px);
+  animation: lp-aurora 14s ease-in-out infinite alternate;
+}
+@keyframes lp-aurora { from { transform: translate3d(-2%, -2%, 0) scale(1); } to { transform: translate3d(3%, 2%, 0) scale(1.08); } }
+
+/* Premium hero: top light beam and a slowly rotating accent edge on the glass stage. */
+.lp-beam {
+  background: conic-gradient(from 180deg at 50% 0%, transparent 35%, color-mix(in srgb, var(--color-accent-400) 55%, transparent) 50%, transparent 65%);
+  filter: blur(28px);
+  mask-image: linear-gradient(to bottom, #000, transparent 90%);
+  -webkit-mask-image: linear-gradient(to bottom, #000, transparent 90%);
+  animation: lp-beam 6s ease-in-out infinite alternate;
+}
+@property --lp-angle { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+.lp-border-glow {
+  background: conic-gradient(from var(--lp-angle), color-mix(in srgb, var(--color-border-strong) 70%, transparent) 0%, var(--color-accent-500) 12%, color-mix(in srgb, var(--color-border-strong) 70%, transparent) 30%, color-mix(in srgb, var(--color-border-strong) 70%, transparent) 62%, var(--color-accent-400) 76%, color-mix(in srgb, var(--color-border-strong) 70%, transparent) 92%);
+  animation: lp-spin 8s linear infinite;
+  box-shadow: 0 40px 100px -30px color-mix(in srgb, var(--color-accent-500) 45%, transparent);
+}
+@keyframes lp-spin { to { --lp-angle: 360deg; } }
+@keyframes lp-beam { from { opacity: 0.55; transform: translateX(-50%) scaleX(0.9); } to { opacity: 1; transform: translateX(-50%) scaleX(1.1); } }
+
 .lp-float-a { animation: lp-float 6s ease-in-out infinite; }
 .lp-float-b { animation: lp-float 7.5s ease-in-out -2s infinite; }
 .lp-float-c { animation: lp-float 5.5s ease-in-out -3.5s infinite; }
@@ -84,7 +111,7 @@
 @keyframes lp-enter { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
 
 @media (prefers-reduced-motion: reduce) {
-  .lp-shimmer-text, .lp-float-a, .lp-float-b, .lp-float-c, .lp-dash, .lp-ping, .lp-marquee, .lp-marquee-rev, .lp-enter { animation: none; }
+  .lp-shimmer-text, .lp-aurora, .lp-beam, .lp-border-glow, .lp-float-a, .lp-float-b, .lp-float-c, .lp-dash, .lp-ping, .lp-marquee, .lp-marquee-rev, .lp-enter { animation: none; }
   .lp-draw { animation: none; stroke-dashoffset: 0; }
   [data-reveal] { opacity: 1; transform: none; transition: none; }
 }

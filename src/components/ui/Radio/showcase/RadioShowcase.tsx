@@ -1,7 +1,7 @@
 import { Radio } from "../Radio";
 import { RadioGroup } from "../RadioGroup";
 import CodeBlock from "../../CodeBlock";
-import { SectionLabel, Row } from "../../ShowcaseHelpers";
+import { SectionLabel, Row, TransitionPreview } from "../../ShowcaseHelpers";
 
 export default function RadioShowcase() {
   return (
@@ -132,7 +132,7 @@ export class AppComponent {}`,
 
         <section>
           <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`) and hover effects via `hoverEffect`. They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
-          <Row>
+          <TransitionPreview layout="inline">
             <Radio transition="fade" label="Fade" />
             <Radio transition="slide-up" label="Slide up" />
             <Radio transition="slide-right" transitionDelay={100} label="Slide right" />
@@ -141,17 +141,16 @@ export class AppComponent {}`,
             <Radio transition="blur" label="Blur" />
             <Radio transition="bounce" label="Bounce" />
             <Radio transition="drop" transitionDuration={700} label="Drop" />
-          </Row>
-          <RadioGroup transition="slide-up" hoverEffect="lift">
+          
+          <RadioGroup transition="slide-up" hoverEffect="lift" className="w-fit rounded-lg p-2">
             <Radio name="tr-plan" label="Free" defaultChecked />
             <Radio name="tr-plan" label="Pro" />
           </RadioGroup>
-          <Row>
-            <Radio hoverEffect="lift" label="Lift" />
-            <Radio hoverEffect="scale" label="Scale" />
-            <Radio hoverEffect="glow" label="Glow" />
-            <Radio hoverEffect="shine" label="Shine" />
-          </Row>
+            <Radio className="rounded-md px-2 py-1" hoverEffect="lift" label="Lift" />
+            <Radio className="rounded-md px-2 py-1" hoverEffect="scale" label="Scale" />
+            <Radio className="rounded-md px-2 py-1" hoverEffect="glow" label="Glow" />
+            <Radio className="rounded-md px-2 py-1" hoverEffect="shine" label="Shine" />
+          </TransitionPreview>
           <CodeBlock
             variants={{
               react: `<Radio transition="fade" label="Fade" />

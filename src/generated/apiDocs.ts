@@ -3452,7 +3452,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "name": "options",
             "type": "SelectOption[]",
             "required": true,
-            "description": "The choices to render as `<option>`s; each has a `label`, a `value` and an optional `disabled` flag.",
+            "description": "The choices shown in the list (and mirrored as `<option>`s of a hidden native `<select>` for forms); each has a `label`, a `value` and an optional `disabled` flag.",
             "default": null
           },
           {
@@ -3480,21 +3480,21 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "name": "transition",
             "type": "TransitionVariant",
             "required": false,
-            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "description": "Enter/exit transition for the dropdown list: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
             "default": null
           },
           {
             "name": "transitionDuration",
             "type": "number",
             "required": false,
-            "description": "Enter transition duration in ms (default: 450).",
+            "description": "Enter/exit transition duration for the list in ms (default: 450).",
             "default": null
           },
           {
             "name": "transitionDelay",
             "type": "number",
             "required": false,
-            "description": "Delay before the enter transition starts, in ms (default: 0) — handy for staggering.",
+            "description": "Delay before the list's enter transition starts, in ms (default: 0) — handy for staggering.",
             "default": null
           },
           {
@@ -3513,7 +3513,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
           },
           {
             "name": "classNames",
-            "type": "{ root?: string; select?: string; icon?: string }",
+            "type": "{ root?: string; select?: string; icon?: string; menu?: string; option?: string }",
             "required": false,
             "description": "Per-part class overrides — merged after (and win over) the built-in styling.",
             "default": null
@@ -3590,9 +3590,9 @@ export const API_DOCS: Record<string, ApiDoc> = {
           },
           {
             "name": "color",
-            "type": "ColorName",
+            "type": "ColorName | (string & {})",
             "required": false,
-            "description": "Chip background / selected-option accent color (default: accent — follows the theme).",
+            "description": "Color of the selected chips, checks, selected-option highlight and focus ring: a named color or any CSS color string such as \"#7c3aed\" (default: \"accent\" — follows the theme accent).",
             "default": "\"accent\""
           },
           {
@@ -5513,6 +5513,13 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           },
           {
+            "name": "portal",
+            "type": "boolean",
+            "required": false,
+            "description": "Render the bubble through a portal (a fixed-position layer outside the trigger's ancestors), so it is never clipped by a scrolling or `overflow: hidden` parent — e.g. inside a collapsed sidebar (default: false).",
+            "default": "false"
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -6509,7 +6516,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "name": "variant",
             "type": "NavbarVariant",
             "required": false,
-            "description": "Visual theme (default: \"light\"): - \"bordered\"/\"elevated\"/\"glass\" all float as a detached card instead of docking full-width to the page — kept as separate names since each still has its own distinct bar look on top of that shared shape: \"bordered\" has a thick `color`-tinted border, shadow, and rounded corners (see `color`/`borderWidth`); \"elevated\" has that same shadow and rounded corners but no border — depth from the shadow alone, Material-bar style; \"glass\" is a faint, colorless `bg-white/10` tint plus `backdrop-blur-2xl` — a real frosted-glass look, not a solid tinted bar. `color` tints \"glass\"'s backdrop (the padded space around the bar) instead of the bar itself, since `backdrop-blur` can only ever blur what's behind it *within this same component* — its own backdrop, never your page — so a fully colorless bar would camouflage against a backdrop of the same color, with no contrast left to reveal its rounded corners or shadow. All three are self-contained — an inset backdrop is included automatically (padding + `bg-surface-muted`, or `color` for \"glass\") so the bar always reads correctly (rounded corners, blur) with no wrapper markup needed on your end. - \"dark\" — slate-900 background, brand text (and, by inheritance, any plain text/links) switches to white. - \"minimal\" — no background/border at all, blends into the page. - \"gradient\" — a left-to-right gradient built from `color` (600 → 700).",
+            "description": "Visual theme (default: \"light\"): - \"bordered\"/\"elevated\"/\"glass\" all float as a detached card instead of docking full-width to the page — kept as separate names since each still has its own distinct bar look on top of that shared shape: \"bordered\" has a thick `color`-tinted border, shadow, and rounded corners (see `color`/`borderWidth`); \"elevated\" has that same shadow and rounded corners but no border — depth from the shadow alone, Material-bar style; \"glass\" is a faint, colorless `bg-white/10` tint plus `backdrop-blur-2xl` — a real frosted-glass look, not a solid tinted bar. `color` tints \"glass\"'s backdrop (the padded space around the bar) instead of the bar itself, since `backdrop-blur` can only ever blur what's behind it *within this same component* — its own backdrop, never your page — so a fully colorless bar would camouflage against a backdrop of the same color, with no contrast left to reveal its rounded corners or shadow. All three are self-contained — an inset backdrop is included automatically (padding + `bg-surface-muted`, or `color` for \"glass\") so the bar always reads correctly (rounded corners, blur) with no wrapper markup needed on your end. - \"dark\" — a deep shade of the theme accent (accent-950), brand text (and, by inheritance, any plain text/links) switches to white. - \"minimal\" — no background/border at all, blends into the page. - \"gradient\" — a left-to-right gradient built from `color` (600 → 700).",
             "default": "\"light\""
           },
           {
@@ -7462,14 +7469,14 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "name": "mapStyle",
             "type": "MapStyleName | (string & {})",
             "required": false,
-            "description": "Base map: \"auto\" (default — light or dark to match the theme), \"light\", \"dark\", \"voyager\", or the URL of any MapLibre style JSON. Free CARTO basemaps are used for the named styles.",
+            "description": "Base map: \"auto\" (default — light or dark to match the theme), \"light\", \"dark\", \"voyager\", \"light-minimal\", \"dark-minimal\" (no labels), \"osm\", \"satellite\", or the URL of any MapLibre style JSON. Named styles need no API key.",
             "default": "\"auto\""
           },
           {
             "name": "controls",
             "type": "boolean | MapControlName[]",
             "required": false,
-            "description": "Show map controls: `true` for zoom, compass, locate and fullscreen, or pick from \"zoom\" | \"compass\" | \"locate\" | \"fullscreen\" | \"scale\".",
+            "description": "Show map controls: `true` for zoom, compass, locate and fullscreen, or pick from \"zoom\" | \"compass\" | \"locate\" | \"fullscreen\" | \"scale\" | \"style\" (a base-map switcher).",
             "default": "false"
           },
           {
@@ -7512,6 +7519,13 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "type": "(map: MapLibre.Map) => void",
             "required": false,
             "description": "Called once the map and its style have loaded, with the MapLibre map instance.",
+            "default": null
+          },
+          {
+            "name": "onStyleChange",
+            "type": "(style: MapStyleName) => void",
+            "required": false,
+            "description": "Called when the user picks a base map with the \"style\" control.",
             "default": null
           },
           {
@@ -7600,6 +7614,10 @@ export const API_DOCS: Record<string, ApiDoc> = {
               "event": "load"
             },
             {
+              "callback": "onStyleChange",
+              "event": "stylechange"
+            },
+            {
               "callback": "onMove",
               "event": "move"
             },
@@ -7645,6 +7663,33 @@ export const API_DOCS: Record<string, ApiDoc> = {
           }
         ],
         "element": null
+      },
+      {
+        "name": "",
+        "props": [
+          {
+            "name": "value",
+            "type": "MapStyleName | (string & {})",
+            "required": true,
+            "description": "",
+            "default": null
+          },
+          {
+            "name": "dark",
+            "type": "boolean",
+            "required": true,
+            "description": "",
+            "default": null
+          },
+          {
+            "name": "onChange",
+            "type": "(style: MapStyleName) => void",
+            "required": true,
+            "description": "",
+            "default": null
+          }
+        ],
+        "element": null
       }
     ],
     "hooks": [
@@ -7657,8 +7702,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
     "types": {
       "MapLibreModule": "typeof MapLibre",
       "LngLat": "[number, number]",
-      "MapControlName": "\"zoom\" | \"compass\" | \"locate\" | \"fullscreen\" | \"scale\"",
-      "MapStyleName": "\"auto\" | keyof typeof MAP_STYLES"
+      "MapControlName": "\"zoom\" | \"compass\" | \"locate\" | \"fullscreen\" | \"scale\" | \"style\"",
+      "MapStyleName": "(typeof MAP_STYLE_NAMES)[number]"
     },
     "dataTypes": [
       {
@@ -7945,7 +7990,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "name": "animated",
             "type": "boolean",
             "required": false,
-            "description": "Animate the dashes along the line, like marching ants.",
+            "description": "Animate the dashes along the line, like marching ants. With `progress`, a light dashed line flows over the travelled part.",
             "default": "false"
           },
           {
@@ -8276,11 +8321,11 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           },
           {
-            "name": "hoverEffect",
-            "type": "HoverEffect",
+            "name": "tooltipTransition",
+            "type": "TransitionVariant",
             "required": false,
-            "description": "Effect while hovering: \"lift\" | \"scale\" | \"press\" | \"tilt\" | \"ring\" | \"glow\" | \"shine\" (default: none). Applied to each row of the `items` shortcut (rows composed as `children` take their own `hoverEffect`).",
-            "default": null
+            "description": "Enter/exit transition of the tooltips shown in the collapsed rail and on the collapse button: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: \"bounce\").",
+            "default": "\"bounce\""
           },
           {
             "name": "className",
@@ -8316,7 +8361,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "transition": "string",
             "transitionDuration": "number",
             "transitionDelay": "number",
-            "hoverEffect": "string"
+            "tooltipTransition": "string"
           },
           "extraProps": [],
           "events": [
@@ -8447,10 +8492,10 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           },
           {
-            "name": "hoverEffect",
-            "type": "HoverEffect",
+            "name": "tooltipTransition",
+            "type": "TransitionVariant",
             "required": false,
-            "description": "Effect while hovering: \"lift\" | \"scale\" | \"press\" | \"tilt\" | \"ring\" | \"glow\" | \"shine\" (default: none).",
+            "description": "Enter/exit transition of the tooltip shown while `collapsed` (default: \"bounce\").",
             "default": null
           },
           {
@@ -8483,7 +8528,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "transition": "string",
             "transitionDuration": "number",
             "transitionDelay": "number",
-            "hoverEffect": "string"
+            "tooltipTransition": "string"
           },
           "extraProps": [],
           "events": []
@@ -8533,7 +8578,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "name": "variant",
             "type": "HeaderVariant",
             "required": false,
-            "description": "Visual theme (default: \"light\"), identical set to Sidebar/Navbar: - \"bordered\"/\"elevated\"/\"glass\" all float as a detached card instead of sitting flush in the page's content flow — kept as separate names since each still has its own distinct look on top of that shared shape: \"bordered\" has a thick `color`-tinted border, shadow, and rounded corners (see `color`/`borderWidth`); \"elevated\" has that same shadow and rounded corners but no border — depth from the shadow alone, Material-card style; \"glass\" is a faint, colorless `bg-white/10` tint plus `backdrop-blur-2xl` — a real frosted-glass look, not a solid tinted panel. `color` tints \"glass\"'s backdrop (the padded space around the card) instead of the card itself, since `backdrop-blur` can only ever blur what's behind it *within this same component* — its own backdrop, never your page — so a fully colorless card would camouflage against a backdrop of the same color, with no contrast left to reveal its rounded corners or shadow. All three are self-contained — an inset backdrop is included automatically (padding + `bg-surface-muted`, or `color` for \"glass\") so the card always reads correctly (rounded corners, blur) with no wrapper markup needed on your end. - \"dark\" — slate-900 background, title/description switch to white/white-ish. - \"minimal\" — no background/border at all, blends fully into the page (unlike \"light\", which keeps a white background and bottom divider). - \"gradient\" — a left-to-right gradient built from `color` (600 → 700).",
+            "description": "Visual theme (default: \"light\"), identical set to Sidebar/Navbar: - \"bordered\"/\"elevated\"/\"glass\" all float as a detached card instead of sitting flush in the page's content flow — kept as separate names since each still has its own distinct look on top of that shared shape: \"bordered\" has a thick `color`-tinted border, shadow, and rounded corners (see `color`/`borderWidth`); \"elevated\" has that same shadow and rounded corners but no border — depth from the shadow alone, Material-card style; \"glass\" is a faint, colorless `bg-white/10` tint plus `backdrop-blur-2xl` — a real frosted-glass look, not a solid tinted panel. `color` tints \"glass\"'s backdrop (the padded space around the card) instead of the card itself, since `backdrop-blur` can only ever blur what's behind it *within this same component* — its own backdrop, never your page — so a fully colorless card would camouflage against a backdrop of the same color, with no contrast left to reveal its rounded corners or shadow. All three are self-contained — an inset backdrop is included automatically (padding + `bg-surface-muted`, or `color` for \"glass\") so the card always reads correctly (rounded corners, blur) with no wrapper markup needed on your end. - \"dark\" — a deep shade of the theme accent (accent-950), title/description switch to white/white-ish. - \"minimal\" — no background/border at all, blends fully into the page (unlike \"light\", which keeps a white background and bottom divider). - \"gradient\" — a left-to-right gradient built from `color` (600 → 700).",
             "default": "\"light\""
           },
           {

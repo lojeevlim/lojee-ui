@@ -1,6 +1,6 @@
 import { LoadingState } from "../LoadingState";
 import CodeBlock from "../../CodeBlock";
-import { SectionLabel, Row } from "../../ShowcaseHelpers";
+import { SectionLabel, Row, TransitionPreview } from "../../ShowcaseHelpers";
 
 export default function LoadingStateShowcase() {
   return (
@@ -74,7 +74,7 @@ export default function LoadingStateShowcase() {
 
         <section>
           <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`). They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
-          <Row>
+          <TransitionPreview layout="inline">
             <LoadingState title="Fade" transition="fade" className="w-56" />
             <LoadingState title="Slide up" transition="slide-up" className="w-56" />
             <LoadingState title="Slide right" transition="slide-right" transitionDelay={100} className="w-56" />
@@ -83,7 +83,7 @@ export default function LoadingStateShowcase() {
             <LoadingState title="Blur" transition="blur" className="w-56" />
             <LoadingState title="Bounce" transition="bounce" className="w-56" />
             <LoadingState title="Drop" transition="drop" transitionDuration={700} className="w-56" />
-          </Row>
+          </TransitionPreview>
           <CodeBlock
             variants={{
               react: `<LoadingState title="Fade" transition="fade" />

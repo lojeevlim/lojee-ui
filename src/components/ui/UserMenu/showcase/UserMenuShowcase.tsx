@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { UserMenu, type UserMenuItem } from "../UserMenu";
 import CodeBlock from "../../CodeBlock";
-import { SectionLabel, Row } from "../../ShowcaseHelpers";
+import { SectionLabel, Row, TransitionPreview } from "../../ShowcaseHelpers";
 
 const ITEMS: UserMenuItem[] = [
   { label: "Profile", icon: "user" },
@@ -149,12 +149,12 @@ onSelect(item) {
 
         <section>
           <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`) and hover effects via `hoverEffect`. They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
-          <Row>
+          <TransitionPreview layout="inline">
             <UserMenu name="Jordan Diaz" avatarInitials="JD" items={ITEMS} transition="fade" />
             <UserMenu name="Jordan Diaz" avatarInitials="JD" items={ITEMS} transition="slide-down" />
             <UserMenu name="Jordan Diaz" avatarInitials="JD" items={ITEMS} transition="zoom" transitionDuration={600} />
             <UserMenu name="Jordan Diaz" avatarInitials="JD" items={ITEMS} transition="blur" />
-          </Row>
+          </TransitionPreview>
           <Row>
             <UserMenu name="Jordan Diaz" avatarInitials="JD" items={ITEMS} hoverEffect="lift" />
             <UserMenu name="Jordan Diaz" avatarInitials="JD" items={ITEMS} hoverEffect="glow" />

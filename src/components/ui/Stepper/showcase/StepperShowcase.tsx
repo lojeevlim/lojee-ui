@@ -4,7 +4,7 @@ import { StepperItem } from "../StepperItem";
 import { useStepper } from "../stepperContext";
 import { Button } from "../../Buttons/Button";
 import CodeBlock from "../../CodeBlock";
-import { SectionLabel } from "../../ShowcaseHelpers";
+import { SectionLabel, TransitionPreview } from "../../ShowcaseHelpers";
 
 const STEPS_CODE = `[{ label: "Cart" }, { label: "Shipping" }, { label: "Payment" }, { label: "Confirm" }]`;
 
@@ -649,14 +649,14 @@ steps = [
 
         <section>
           <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`) and hover effects via `hoverEffect`. They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
-          <div className="space-y-6">
+          <TransitionPreview cols={1}>
             <Stepper steps={TR_STEPS} currentStep={1} transition="fade" />
             <Stepper steps={TR_STEPS} currentStep={1} transition="slide-down" />
             <Stepper steps={TR_STEPS} currentStep={1} transition="slide-right" transitionDelay={100} />
             <Stepper steps={TR_STEPS} currentStep={1} transition="zoom" />
             <Stepper steps={TR_STEPS} currentStep={1} transition="blur" />
             <Stepper steps={TR_STEPS} currentStep={1} transition="drop" transitionDuration={700} />
-          </div>
+          </TransitionPreview>
           <div className="space-y-6">
             <Stepper steps={TR_STEPS} currentStep={1} hoverEffect="scale" />
             <Stepper steps={TR_STEPS} currentStep={1} hoverEffect="ring" />

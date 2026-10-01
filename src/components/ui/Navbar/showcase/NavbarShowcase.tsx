@@ -3,7 +3,7 @@ import { Navbar, type NavbarItemSpec } from "../Navbar";
 import { Button } from "../../Buttons/Button";
 import { Avatar } from "../../Avatar/Avatar";
 import CodeBlock from "../../CodeBlock";
-import { SectionLabel } from "../../ShowcaseHelpers";
+import { SectionLabel, TransitionPreview } from "../../ShowcaseHelpers";
 
 const BASIC_ITEMS: NavbarItemSpec[] = [{ label: "Home", active: true }, { label: "Products" }, { label: "Pricing" }];
 const ACTIVE_LINK_ITEMS: NavbarItemSpec[] = [
@@ -246,39 +246,36 @@ onActiveItemChange(item: unknown) {
           </SectionLabel>
           <div className="grid gap-4">
             <div className="overflow-hidden rounded-lg border border-border">
-              <Navbar brand="Lojee" color="indigo" items={VARIANT_ITEMS} actions={<Avatar initials="JD" size="sm" />} />
+              <Navbar brand="Lojee" items={VARIANT_ITEMS} actions={<Avatar initials="JD" size="sm" />} />
             </div>
             <div className="overflow-hidden rounded-lg border border-slate-800">
               <Navbar
                 variant="dark"
-                color="indigo"
                 brand={<span className="text-white">Lojee</span>}
                 items={VARIANT_ITEMS}
                 actions={<Avatar initials="JD" size="sm" />}
               />
             </div>
             <div className="rounded-lg bg-surface-muted p-4">
-              <Navbar variant="bordered" color="indigo" brand="Lojee" items={VARIANT_ITEMS} actions={<Avatar initials="JD" size="sm" />} />
+              <Navbar variant="bordered" brand="Lojee" items={VARIANT_ITEMS} actions={<Avatar initials="JD" size="sm" />} />
             </div>
             <div className="rounded-lg bg-surface-muted p-4">
-              <Navbar variant="elevated" color="indigo" brand="Lojee" items={VARIANT_ITEMS} actions={<Avatar initials="JD" size="sm" />} />
+              <Navbar variant="elevated" brand="Lojee" items={VARIANT_ITEMS} actions={<Avatar initials="JD" size="sm" />} />
             </div>
             <div className="rounded-lg border border-dashed border-border-strong bg-surface p-4">
-              <Navbar variant="minimal" color="indigo" brand="Lojee" items={VARIANT_ITEMS} actions={<Avatar initials="JD" size="sm" />} />
+              <Navbar variant="minimal" brand="Lojee" items={VARIANT_ITEMS} actions={<Avatar initials="JD" size="sm" />} />
             </div>
             <div className="overflow-hidden rounded-lg">
               <Navbar
                 variant="gradient"
-                color="indigo"
                 brand={<span className="text-white">Lojee</span>}
                 items={VARIANT_ITEMS}
                 actions={<Avatar initials="JD" size="sm" />}
               />
             </div>
-            <div className="overflow-hidden rounded-lg border border-border bg-indigo-100 p-4">
+            <div className="overflow-hidden rounded-lg border border-border bg-accent-100 p-4">
               <Navbar
                 variant="glass"
-                color="indigo"
                 brand={<span className="text-white">Lojee</span>}
                 items={VARIANT_ITEMS}
                 actions={<Avatar initials="JD" size="sm" />}
@@ -289,7 +286,6 @@ onActiveItemChange(item: unknown) {
             variants={{
               react: `<Navbar
   variant="dark"
-  color="indigo"
   brand={<span className="text-white">Lojee</span>}
   items={[
     { label: "Home", active: true },
@@ -306,7 +302,7 @@ onActiveItemChange(item: unknown) {
       needs something with real color/texture behind it to read.
     variant="minimal"  — no background/border at all, blends into the page.
     variant="gradient" — a left-to-right gradient built from \`color\` (600 → 700). */}`,
-              js: `<l-Navbar id="variants-navbar" variant="dark" color="indigo"></l-Navbar>
+              js: `<l-Navbar id="variants-navbar" variant="dark"></l-Navbar>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -324,7 +320,7 @@ onActiveItemChange(item: unknown) {
   <!-- l-Navbar is a native custom element, not a Vue component — Vue's own #slotName shorthand only
        resolves for actual Vue components, so a real light-DOM slot="brand" projects here instead
        (or just the plain brand="Lojee" attribute works fine too, when no custom styling is needed). -->
-  <l-Navbar variant="dark" color="indigo" :items="items">
+  <l-Navbar variant="dark" :items="items">
     <div slot="brand"><span class="text-white">Lojee</span></div>
   </l-Navbar>
 
@@ -342,7 +338,7 @@ const items = [
 </script>`,
               angular: `<!-- "bordered"/"elevated"/"glass" — detached-panel looks; their backdrop is built in, no extra
      markup needed. "minimal" — no background/border at all, blends into the page. -->
-<l-Navbar variant="dark" color="indigo" [items]="items">
+<l-Navbar variant="dark" [items]="items">
   <div slot="brand"><span class="text-white">Lojee</span></div>
 </l-Navbar>
 
@@ -414,14 +410,14 @@ navbarClassNames = { root: "bg-indigo-50 dark:bg-indigo-950/40", brand: "text-in
 
         <section>
           <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`) and hover effects via `hoverEffect`. They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
-          <div className="space-y-3">
+          <TransitionPreview cols={1}>
             <div className="overflow-hidden rounded-lg border border-border"><Navbar brand="Fade" items={TR_ITEMS} transition="fade" /></div>
             <div className="overflow-hidden rounded-lg border border-border"><Navbar brand="Slide down" items={TR_ITEMS} transition="slide-down" /></div>
             <div className="overflow-hidden rounded-lg border border-border"><Navbar brand="Slide right" items={TR_ITEMS} transition="slide-right" transitionDelay={100} /></div>
             <div className="overflow-hidden rounded-lg border border-border"><Navbar brand="Zoom" items={TR_ITEMS} transition="zoom" /></div>
             <div className="overflow-hidden rounded-lg border border-border"><Navbar brand="Blur" items={TR_ITEMS} transition="blur" /></div>
             <div className="overflow-hidden rounded-lg border border-border"><Navbar brand="Drop" items={TR_ITEMS} transition="drop" transitionDuration={700} /></div>
-          </div>
+          </TransitionPreview>
           <div className="space-y-3">
             <div className="overflow-hidden rounded-lg border border-border"><Navbar brand="Lift" items={TR_ITEMS} hoverEffect="lift" /></div>
             <div className="overflow-hidden rounded-lg border border-border"><Navbar brand="Glow" items={TR_ITEMS} hoverEffect="glow" /></div>
