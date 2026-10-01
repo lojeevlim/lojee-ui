@@ -58,11 +58,12 @@ export default function AppLayoutPlayground() {
       <Button color="accent" label="Solid" />
       <Button color="accent" variant="outline" label="Outline" />
       <Button color="accent" variant="soft" label="Soft" />
+      <Button variant="solid" color="accent" size="lg" animated="sweep" icon="plus" label="Click me" />
     </Main>
 
-    <Footer>
-      <FooterContent />
-    </Footer>
+    <Foot>
+      <Footer bottom="© 2026 Lojee, Inc. All rights reserved." variant="minimal" />
+    </Foot>
   </App>
 </ThemeProvider>`;
 

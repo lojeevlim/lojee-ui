@@ -38,8 +38,8 @@ export default function MapMarkerPlayground() {
 
   const preview = (
     <AppWindowFrame>
-      <AppWindowBody className="min-h-[360px] !p-3">
-        <Map center={[123.895, 10.318]} zoom={12} fitBounds={Number(count) > 1} markers={markers} className="h-[340px]" />
+      <AppWindowBody className="min-h-[360px] !items-stretch !p-3">
+        <Map center={[123.895, 10.318]} zoom={12} fitBounds={Number(count) > 1} markers={markers} className="!h-auto min-h-[340px] flex-1" />
       </AppWindowBody>
     </AppWindowFrame>
   );

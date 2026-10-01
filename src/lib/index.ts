@@ -291,15 +291,16 @@ export type {
 } from "../components/ui/Map/mapTypes";
 export type { MapStyleName } from "../components/ui/Map/mapUtils";
 
-// App Layout — themeable grid shell. Section components are aliased to avoid clashing with Footer above.
+// App Layout — themeable grid shell. Section components are aliased with an App prefix.
 export {
   App,
   Top as AppTop,
   Side as AppSide,
   Main as AppMain,
-  Footer as AppFooter,
+  Foot as AppFoot,
   SideToggle as AppSideToggle,
   type AppProps,
+  type MainProps as AppMainProps,
 } from "../components/ui/AppLayout/App";
 export { useAppLayout } from "../components/ui/AppLayout/appLayoutContext";
 export type { AppBreakpoint } from "../components/ui/AppLayout/breakpoints";
@@ -308,5 +309,6 @@ export type { AppSection, AppTheme, GridLayout } from "../components/ui/AppLayou
 
 // Theming — light/dark mode + brand accent. Pair with `@import "lojee-ui/theme.css"`.
 export { ThemeProvider, type ThemeProviderProps } from "../components/ui/Theme/ThemeProvider";
+export { ThemeSwitcher, type ThemeSwitcherProps } from "../components/ui/ThemeSwitcher/ThemeSwitcher";
 export { useTheme, applyTheme, THEME_MODES, DEFAULT_ACCENT } from "../core/theme";
 export type { ThemeMode, ResolvedTheme, AccentName, ThemeContextValue } from "../core/theme";

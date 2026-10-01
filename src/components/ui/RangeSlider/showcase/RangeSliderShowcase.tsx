@@ -15,8 +15,8 @@ export default function RangeSliderShowcase() {
   const [priceRange, setPriceRange] = useState<[number, number]>([200, 750]);
 
   return (
-    <div className="min-h-screen rounded-xl bg-surface p-6 md:p-10">
-      <div className="max-w-5xl mx-auto space-y-12">
+    <div>
+      <div className="space-y-12">
         <div>
           <h1 className="text-2xl font-semibold text-fg">RangeSlider</h1>
           <p className="text-sm text-fg-subtle mt-1">

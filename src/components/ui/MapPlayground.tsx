@@ -23,8 +23,8 @@ export default function MapPlayground() {
 
   const preview = (
     <AppWindowFrame>
-      <AppWindowBody className="min-h-[360px] !p-3">
-        <Map center={city.center} zoom={zoom} pitch={pitch} bearing={bearing} mapStyle={style} controls={controls.length ? controls : false} interactive={interactive} className="h-[340px]" />
+      <AppWindowBody className="min-h-[360px] !items-stretch !p-3">
+        <Map center={city.center} zoom={zoom} pitch={pitch} bearing={bearing} mapStyle={style} controls={controls.length ? controls : false} interactive={interactive} className="!h-auto min-h-[340px] flex-1" />
       </AppWindowBody>
     </AppWindowFrame>
   );

@@ -51,7 +51,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "name": "children",
             "type": "ReactNode",
             "required": false,
-            "description": "`<Top>`, `<Side>`, `<Main>` and `<Footer>` — in any order.",
+            "description": "`<Top>`, `<Side>`, `<Main>` and `<Foot>` — in any order.",
             "default": null
           },
           {
@@ -62,7 +62,18 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-app",
+          "props": {
+            "theme": "string",
+            "accent": "string",
+            "activeVariant": "string",
+            "layout": "json",
+            "collapseBelow": "string"
+          },
+          "extraProps": [],
+          "events": []
+        }
       },
       {
         "name": "Section",
@@ -98,6 +109,150 @@ export const API_DOCS: Record<string, ApiDoc> = {
       "AppTheme": "ResolvedTheme",
       "DockEdge": "\"left\" | \"right\" | \"top\" | \"bottom\"",
       "AppBreakpoint": "\"md\" | \"lg\" | \"xl\" | \"2xl\" | \"3xl\""
+    },
+    "dataTypes": []
+  },
+  "Main": {
+    "components": [
+      {
+        "name": "Main",
+        "props": [
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "required": false,
+            "description": "",
+            "default": null
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "required": false,
+            "description": "Extra class names for the panel, e.g. `p-0` or `rounded-none` to override a default.",
+            "default": null
+          },
+          {
+            "name": "padding",
+            "type": "MainPadding",
+            "required": false,
+            "description": "Space between the panel's edge and its content, on all four sides: \"none\" | \"sm\" (24px) | \"md\" (32px) | \"lg\" (48px) | \"xl\" (80px) (default: \"md\").",
+            "default": "\"md\""
+          }
+        ],
+        "element": null
+      }
+    ],
+    "hooks": [],
+    "types": {
+      "MainPadding": "\"none\" | \"sm\" | \"md\" | \"lg\" | \"xl\""
+    },
+    "dataTypes": []
+  },
+  "Theme Switcher": {
+    "components": [
+      {
+        "name": "ThemeSwitcher",
+        "props": [
+          {
+            "name": "mode",
+            "type": "ThemeMode",
+            "required": false,
+            "description": "Current mode — omit to use the surrounding `ThemeProvider`.",
+            "default": null
+          },
+          {
+            "name": "accent",
+            "type": "AccentName",
+            "required": false,
+            "description": "Current accent — omit to use the surrounding `ThemeProvider`.",
+            "default": null
+          },
+          {
+            "name": "activeVariant",
+            "type": "ActiveVariant",
+            "required": false,
+            "description": "Current active-item style — omit to use the surrounding `ThemeProvider`.",
+            "default": null
+          },
+          {
+            "name": "onModeChange",
+            "type": "(mode: ThemeMode) => void",
+            "required": false,
+            "description": "Called when light/dark is picked (default: the `ThemeProvider`'s `setMode`).",
+            "default": null
+          },
+          {
+            "name": "onAccentChange",
+            "type": "(accent: AccentName) => void",
+            "required": false,
+            "description": "Called when an accent is picked (default: the `ThemeProvider`'s `setAccent`).",
+            "default": null
+          },
+          {
+            "name": "onActiveVariantChange",
+            "type": "(variant: ActiveVariant) => void",
+            "required": false,
+            "description": "Called when an active-item style is picked (default: the `ThemeProvider`'s `setActiveVariant`).",
+            "default": null
+          },
+          {
+            "name": "align",
+            "type": "ThemeSwitcherAlign",
+            "required": false,
+            "description": "Where the dropdown (which always opens below the button) lines up with the button: \"start\" (left edges together), \"center\", or \"end\" (right edges together). \"left\" / \"right\" also work, as start / end. Default: \"end\".",
+            "default": "\"end\""
+          },
+          {
+            "name": "showActiveItems",
+            "type": "boolean",
+            "required": false,
+            "description": "Show the \"Active items\" section (default: true).",
+            "default": "true"
+          },
+          {
+            "name": "showAccent",
+            "type": "boolean",
+            "required": false,
+            "description": "Show the \"Accent\" section (default: true).",
+            "default": "true"
+          },
+          {
+            "name": "open",
+            "type": "boolean",
+            "required": false,
+            "description": "Controlled open state of the menu — omit to let the button open and close it. Handy to keep the menu showing in docs or screenshots.",
+            "default": null
+          },
+          {
+            "name": "onOpenChange",
+            "type": "(open: boolean) => void",
+            "required": false,
+            "description": "Called when the menu asks to open or close (the button, a click outside, Escape).",
+            "default": null
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "required": false,
+            "description": "Extra class name(s) appended to the root element.",
+            "default": null
+          }
+        ],
+        "element": {
+          "tag": "l-theme-switcher",
+          "props": {
+            "align": "string",
+            "showActiveItems": "boolean",
+            "showAccent": "boolean"
+          },
+          "extraProps": [],
+          "events": []
+        }
+      }
+    ],
+    "hooks": [],
+    "types": {
+      "ThemeSwitcherAlign": "\"start\" | \"center\" | \"end\" | \"left\" | \"right\""
     },
     "dataTypes": []
   },
@@ -8328,6 +8483,20 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": "\"bounce\""
           },
           {
+            "name": "tooltipTransitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter/exit duration in ms of those same tooltips (default: 450).",
+            "default": null
+          },
+          {
+            "name": "tooltipColor",
+            "type": "ColorName | \"neutral\"",
+            "required": false,
+            "description": "Color of those same tooltips — a ColorName, or \"neutral\" for the theme-inverted bubble (default: \"accent\").",
+            "default": "\"accent\""
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -8361,7 +8530,9 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "transition": "string",
             "transitionDuration": "number",
             "transitionDelay": "number",
-            "tooltipTransition": "string"
+            "tooltipTransition": "string",
+            "tooltipTransitionDuration": "number",
+            "tooltipColor": "string"
           },
           "extraProps": [],
           "events": [
@@ -8499,6 +8670,20 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           },
           {
+            "name": "tooltipTransitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter/exit duration of the collapsed-state tooltip in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "tooltipColor",
+            "type": "ColorName | \"neutral\"",
+            "required": false,
+            "description": "Collapsed-state tooltip color — a ColorName, or \"neutral\" for the theme-inverted bubble (default: \"accent\").",
+            "default": null
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -8528,7 +8713,9 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "transition": "string",
             "transitionDuration": "number",
             "transitionDelay": "number",
-            "tooltipTransition": "string"
+            "tooltipTransition": "string",
+            "tooltipTransitionDuration": "number",
+            "tooltipColor": "string"
           },
           "extraProps": [],
           "events": []
@@ -8731,6 +8918,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
         "element": {
           "tag": "l-footer",
           "props": {
+            "bottom": "string",
             "variant": "string",
             "color": "string",
             "transition": "string",

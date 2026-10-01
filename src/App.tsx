@@ -84,6 +84,8 @@ import { COMPONENT_MENU, DOCS_MENU } from './constant/component_menu'
 import { findMenuItem, defaultPathFor, type NavKind } from './core/routes'
 
 import AppShowcase from './components/ui/AppLayout'
+import MainShowcase from './components/ui/Main'
+import ThemeSwitcherShowcase from './components/ui/ThemeSwitcher'
 import { ThemeProvider } from './components/ui/Theme/ThemeProvider'
 import { App as AppShell, Top, Side, Main } from './components/ui/AppLayout/App'
 import type { GridLayout } from './components/ui/AppLayout/appLayout'
@@ -99,6 +101,8 @@ const SHOWCASES: Record<string, ComponentType> = {
   Theming: ThemeShowcase,
   Changelog: ChangelogShowcase,
   App: AppShowcase,
+  Main: MainShowcase,
+  'Theme Switcher': ThemeSwitcherShowcase,
   Buttons: ButtonShowcase,
   Badges: BadgeShowcase,
   Avatars: AvatarShowcase,
@@ -239,13 +243,13 @@ function App() {
             onCollapsedChange={setSidebarCollapsed}
           />
         </Side>
-        <Main className="p-3 pb-20 md:p-4 md:pb-4">
+        <Main padding="lg">
           {(() => {
             const ActiveShowcase = SHOWCASES[found.item.label]
             return ActiveShowcase ? (
               <div ref={contentRef}>
                 <ActiveShowcase />
-                <div className="mx-auto max-w-6xl px-6 md:px-10"><ApiReference name={found.item.label} /></div>
+                <div><ApiReference name={found.item.label} /></div>
               </div>
             ) : <p>This is the main content area.</p>
           })()}

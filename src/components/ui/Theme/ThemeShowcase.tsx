@@ -49,7 +49,7 @@ function ThemeToggle() {
   );
 }`;
 
-const SCOPED = `import { ThemeProvider, App, AppTop, AppSide, AppMain, AppFooter } from "lojee-ui";
+const SCOPED = `import { ThemeProvider, App, AppTop, AppSide, AppMain, AppFoot, Footer } from "lojee-ui";
 
 // The App follows the ThemeProvider around it...
 <ThemeProvider defaultMode="dark">
@@ -57,7 +57,7 @@ const SCOPED = `import { ThemeProvider, App, AppTop, AppSide, AppMain, AppFooter
     <AppTop>...</AppTop>
     <AppSide>...</AppSide>
     <AppMain>...</AppMain>
-    <AppFooter>...</AppFooter>
+    <AppFoot><Footer /></AppFoot>
   </App>
 </ThemeProvider>
 
@@ -393,7 +393,7 @@ export default function ThemeShowcase() {
   const [segment, setSegment] = useState("Week");
 
   return (
-    <div className="mx-auto max-w-3xl space-y-12">
+    <div className="space-y-12">
       <header>
         <h1 className="text-2xl font-semibold text-fg">Theming</h1>
         <p className="mt-1 text-sm text-fg-subtle">

@@ -66,8 +66,6 @@ export default function SidebarLayout({
       color="accent"
       height="100%"
       width={inDrawer ? DRAWER_WIDTH_PX : WIDTH_PX}
-      // Same fixed height as the top Navbar (h-16), so the sidebar header and the navbar line up across the top.
-      classNames={{ header: "h-16 py-0" }}
       collapsed={collapsedNow}
       collapsible={collapsible}
       onCollapsedChange={onCollapsedChange}

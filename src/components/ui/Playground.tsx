@@ -59,6 +59,8 @@ import SidebarPlayground from "./SidebarPlayground";
 import HeaderPlayground from "./HeaderPlayground";
 import FooterPlayground from "./FooterPlayground";
 import AppLayoutPlayground from "./AppLayoutPlayground";
+import MainPlayground from "./MainPlayground";
+import ThemeSwitcherPlayground from "./ThemeSwitcherPlayground";
 import NavigationMenuPlayground from "./NavigationMenuPlayground";
 import BottomNavigationPlayground from "./BottomNavigationPlayground";
 import StepperPlayground from "./StepperPlayground";
@@ -141,6 +143,8 @@ const PLAYGROUNDS: Record<string, ComponentType> = {
   Header: HeaderPlayground,
   Footer: FooterPlayground,
   App: AppLayoutPlayground,
+  Main: MainPlayground,
+  "Theme Switcher": ThemeSwitcherPlayground,
   "Navigation Menu": NavigationMenuPlayground,
   "Bottom Navigation": BottomNavigationPlayground,
   Stepper: StepperPlayground,

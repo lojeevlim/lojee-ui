@@ -65,7 +65,7 @@ export function Footer({ children, bottom, variant = "light", color = "accent", 
         ...(variant === "accent" && ({ ["--ac" as string]: activeAccent(color, isColorName(color)) } as CSSProperties)),
         ...motionStyle(transitionDuration, transitionDelay),
       }}
-      className={cx("px-6 py-10", VARIANT_BG[variant], motionClass(transition), className, classNames?.root)}
+      className={cx("px-8 py-10", VARIANT_BG[variant], motionClass(transition), className, classNames?.root)}
     >
       {children != null && (
         <div className={cx("grid grid-cols-2 gap-8 sm:grid-cols-4", classNames?.content)}>

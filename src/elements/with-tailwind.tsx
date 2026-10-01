@@ -1,5 +1,9 @@
 import { useEffect, useState, type ComponentType } from "react";
 import tailwindCss from "./tailwind-css";
+import { setTooltipPortalCss } from "../core/tooltipPortal";
+
+// Tooltips drawn through a portal live in a shared body-level layer (see core/tooltipPortal.ts); give it the stylesheet.
+setTooltipPortalCss(tailwindCss);
 
 /**
  * Wraps a React component with a `<style>` tag carrying the compiled

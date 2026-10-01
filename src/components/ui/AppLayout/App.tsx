@@ -21,7 +21,7 @@ export interface AppProps {
   /** Container width below which the grid gives way to a single column with `<Side>` in an off-canvas
    * drawer (default: "md" = 28rem; "3xl" = 48rem). Measured on the App itself, not the viewport. */
   collapseBelow?: AppBreakpoint;
-  /** `<Top>`, `<Side>`, `<Main>` and `<Footer>` — in any order. */
+  /** `<Top>`, `<Side>`, `<Main>` and `<Foot>` — in any order. */
   children?: ReactNode;
   /** Extra class names for the root element, e.g. `h-full` to size the App to its parent instead of the viewport. */
   className?: string;
@@ -126,13 +126,10 @@ export function Side({ children, className }: SectionProps) {
   );
 }
 
-export function Main({ children, className }: SectionProps) {
-  const { breakpoint } = useAppLayout();
-  // Default padding; a `className` padding (e.g. `p-0`) overrides it.
-  return <main className={cx("p-3 md:p-4", APP_BREAKPOINTS[breakpoint].main, className)}>{children}</main>;
-}
+export { Main, type MainProps, type MainPadding } from "../Main/Main";
 
-export function Footer({ children, className }: SectionProps) {
+/** The bottom section. Put the library's `<Footer>` (or anything else) inside it. */
+export function Foot({ children, className }: SectionProps) {
   const { breakpoint } = useAppLayout();
   return <footer className={cx(APP_BREAKPOINTS[breakpoint].footer, className)}>{children}</footer>;
 }
