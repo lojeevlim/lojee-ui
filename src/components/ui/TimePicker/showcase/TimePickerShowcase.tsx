@@ -1,6 +1,6 @@
 import { TimePicker } from "../TimePicker";
 import CodeBlock from "../../CodeBlock";
-import { SectionLabel } from "../../ShowcaseHelpers";
+import { SectionLabel, TransitionPreview } from "../../ShowcaseHelpers";
 
 export default function TimePickerShowcase() {
   return (
@@ -108,7 +108,7 @@ export class AppComponent {}
 
         <section>
           <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`) and hover effects via `hoverEffect`. They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
-          <div className="grid max-w-2xl gap-3 sm:grid-cols-2">
+          <div className="max-w-2xl"><TransitionPreview cols={2}>
             <TimePicker transition="fade" />
             <TimePicker transition="slide-up" />
             <TimePicker transition="slide-right" transitionDelay={100} />
@@ -120,7 +120,7 @@ export class AppComponent {}
             <TimePicker hoverEffect="lift" />
             <TimePicker hoverEffect="glow" />
             <TimePicker hoverEffect="ring" />
-          </div>
+          </TransitionPreview></div>
           <CodeBlock
             variants={{
               react: `<TimePicker transition="fade" />

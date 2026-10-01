@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from "react";
-import { cx, type ColorName } from "../../../core/tokens";
+import type { CSSProperties } from "react";
+import { cx, isColorName, type ColorName } from "../../../core/tokens";
 import { Icon } from "../Icons/Icon";
 import { motionClass, motionState, motionStyle, DEFAULT_TRANSITION_MS, type TransitionVariant, type HoverEffect } from "../../../core/motion";
+import { activeAccent } from "../../../core/activeVariant";
 import { usePresence } from "../../../core/usePresence";
 
 export interface MultiSelectOption {
@@ -19,8 +21,8 @@ export interface MultiSelectProps {
   onChange?: (value: string[]) => void;
   /** Shown in the trigger when `value` is empty. */
   placeholder?: string;
-  /** Chip background / selected-option accent color (default: accent — follows the theme). */
-  color?: ColorName;
+  /** Color of the selected chips, checks, selected-option highlight and focus ring: a named color or any CSS color string such as "#7c3aed" (default: "accent" — follows the theme accent). */
+  color?: ColorName | (string & {});
   /** Enter/exit transition for the dropdown panel: "fade" | "slide-up" | "slide-down" | "slide-left" | "slide-right" | "zoom" | "zoom-out" | "flip" | "blur" | "bounce" | "rotate" | "drop" | "skew" (default: none). Respects `prefers-reduced-motion`. */
   transition?: TransitionVariant;
   /** Enter/exit transition duration for the dropdown panel in ms (default: 450). */
@@ -41,36 +43,15 @@ export interface MultiSelectProps {
   };
 }
 
-const CHIP_CLASSES: Record<ColorName, string> = {
-  slate: "bg-surface-muted text-fg-muted",
-  gray: "bg-surface-muted text-fg-muted",
-  indigo: "bg-indigo-100 text-indigo-700 dark:bg-indigo-500/20 dark:text-indigo-300",
-  accent: "bg-accent-100 text-accent-700 dark:bg-accent-500/20 dark:text-accent-300",
-  violet: "bg-violet-100 text-violet-700 dark:bg-violet-500/20 dark:text-violet-300",
-  blue: "bg-blue-100 text-blue-700 dark:bg-blue-500/20 dark:text-blue-300",
-  cyan: "bg-cyan-100 text-cyan-700 dark:bg-cyan-500/20 dark:text-cyan-300",
-  emerald: "bg-emerald-100 text-emerald-700 dark:bg-emerald-500/20 dark:text-emerald-300",
-  teal: "bg-teal-100 text-teal-700 dark:bg-teal-500/20 dark:text-teal-300",
-  amber: "bg-amber-100 text-amber-700 dark:bg-amber-500/20 dark:text-amber-300",
-  orange: "bg-orange-100 text-orange-700 dark:bg-orange-500/20 dark:text-orange-300",
-  rose: "bg-rose-100 text-rose-700 dark:bg-rose-500/20 dark:text-rose-300",
-  pink: "bg-pink-100 text-pink-700 dark:bg-pink-500/20 dark:text-pink-300",
+// Every color-dependent part reads `--ac` (set on the root from `color`): a named color's 600 shade, or the custom
+// CSS color as-is. Tints are mixed in the browser, so any CSS color works and light / dark both stay readable.
+const CHIP_STYLE: CSSProperties = {
+  backgroundColor: "color-mix(in srgb, var(--ac) 16%, transparent)",
+  color: "color-mix(in srgb, var(--ac) 72%, var(--lojee-fg))",
 };
-
-const OPTION_ACCENT_CLASSES: Record<ColorName, string> = {
-  slate: "text-fg",
-  gray: "text-fg-muted",
-  indigo: "text-indigo-700 dark:text-indigo-300",
-  accent: "text-accent-700 dark:text-accent-300",
-  violet: "text-violet-700 dark:text-violet-300",
-  blue: "text-blue-700 dark:text-blue-300",
-  cyan: "text-cyan-700 dark:text-cyan-300",
-  emerald: "text-emerald-700 dark:text-emerald-300",
-  teal: "text-teal-700 dark:text-teal-300",
-  amber: "text-amber-700 dark:text-amber-300",
-  orange: "text-orange-700 dark:text-orange-300",
-  rose: "text-rose-700 dark:text-rose-300",
-  pink: "text-pink-700 dark:text-pink-300",
+const OPTION_SELECTED_STYLE: CSSProperties = {
+  backgroundColor: "color-mix(in srgb, var(--ac) 10%, transparent)",
+  color: "color-mix(in srgb, var(--ac) 72%, var(--lojee-fg))",
 };
 
 export function MultiSelect({
@@ -118,7 +99,11 @@ export function MultiSelect({
   const selectedOptions = options.filter((o) => value.includes(o.value));
 
   return (
-    <div ref={rootRef} className={cx("relative w-full", className, classNames?.root)}>
+    <div
+      ref={rootRef}
+      className={cx("relative w-full", className, classNames?.root)}
+      style={{ ["--ac" as string]: activeAccent(color, isColorName(color)) } as CSSProperties}
+    >
       {/* A <div role="button"> rather than a real <button> — it contains the
           chips' own remove <button>s, and interactive elements can't nest. */}
       <div
@@ -134,7 +119,7 @@ export function MultiSelect({
         aria-haspopup="listbox"
         aria-expanded={open}
         className={cx(
-          "flex min-h-10 w-full cursor-pointer flex-wrap items-center gap-1.5 rounded-md border border-border-strong px-2 py-1.5 text-left outline-none transition-colors focus:border-fg-subtle focus:ring-2 focus:ring-fg-subtle/20",
+          "flex min-h-10 w-full cursor-pointer flex-wrap items-center gap-1.5 rounded-md border border-border-strong px-2 py-1.5 text-left outline-none transition-colors focus:border-[var(--ac)] focus:ring-2 focus:ring-[color-mix(in_srgb,var(--ac)_28%,transparent)]",
           motionClass(undefined, hoverEffect),
           classNames?.trigger
         )}
@@ -143,7 +128,8 @@ export function MultiSelect({
         {selectedOptions.map((o) => (
           <span
             key={o.value}
-            className={cx("inline-flex items-center gap-1 rounded px-1.5 py-0.5 text-xs", CHIP_CLASSES[color], classNames?.tag)}
+            className={cx("inline-flex items-center gap-1 rounded px-1.5 py-0.5 text-xs", classNames?.tag)}
+            style={CHIP_STYLE}
           >
             {o.label}
             <button
@@ -186,9 +172,9 @@ export function MultiSelect({
                 onClick={() => toggle(o.value)}
                 className={cx(
                   "flex w-full items-center gap-2 px-3 py-1.5 text-left text-sm text-fg-muted hover:bg-surface-muted disabled:cursor-not-allowed disabled:opacity-40",
-                  selected && OPTION_ACCENT_CLASSES[color],
                   classNames?.option
                 )}
+                style={selected ? OPTION_SELECTED_STYLE : undefined}
               >
                 <span className="flex h-4 w-4 shrink-0 items-center justify-center">
                   {selected && <Icon name="check" size={14} />}

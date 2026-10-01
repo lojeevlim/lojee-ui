@@ -1,6 +1,6 @@
 import { FileUpload } from "../FileUpload";
 import CodeBlock from "../../CodeBlock";
-import { SectionLabel } from "../../ShowcaseHelpers";
+import { SectionLabel, TransitionPreview } from "../../ShowcaseHelpers";
 
 export default function FileUploadShowcase() {
   return (
@@ -102,7 +102,7 @@ export class AppComponent {
 
         <section>
           <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`) and hover effects via `hoverEffect`. They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
-          <div className="grid max-w-2xl gap-3 sm:grid-cols-2">
+          <div className="max-w-2xl"><TransitionPreview cols={2}>
             <FileUpload transition="fade" />
             <FileUpload transition="slide-up" />
             <FileUpload transition="slide-right" transitionDelay={100} />
@@ -114,7 +114,7 @@ export class AppComponent {
             <FileUpload hoverEffect="lift" />
             <FileUpload hoverEffect="glow" />
             <FileUpload hoverEffect="ring" />
-          </div>
+          </TransitionPreview></div>
           <CodeBlock
             variants={{
               react: `<FileUpload transition="fade" />

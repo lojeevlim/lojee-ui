@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { PasswordInput } from "../PasswordInput";
 import CodeBlock from "../../CodeBlock";
-import { SectionLabel } from "../../ShowcaseHelpers";
+import { SectionLabel, TransitionPreview } from "../../ShowcaseHelpers";
 
 export default function PasswordInputShowcase() {
   const [password, setPassword] = useState("hunter2");
@@ -122,7 +122,8 @@ export class AppComponent {
 
         <section>
           <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`) and hover effects via `hoverEffect`. They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
-          <div className="grid max-w-2xl gap-3 sm:grid-cols-2">
+          <div className="max-w-2xl">
+            <TransitionPreview cols={2}>
             <PasswordInput transition="fade" placeholder="Password" />
             <PasswordInput transition="slide-up" placeholder="Password" />
             <PasswordInput transition="slide-right" transitionDelay={100} placeholder="Password" />
@@ -131,6 +132,9 @@ export class AppComponent {
             <PasswordInput transition="blur" placeholder="Password" />
             <PasswordInput transition="bounce" placeholder="Password" />
             <PasswordInput transition="drop" transitionDuration={700} placeholder="Password" />
+            </TransitionPreview>
+          </div>
+          <div className="grid max-w-2xl gap-3 sm:grid-cols-2">
             <PasswordInput hoverEffect="lift" placeholder="Password" />
             <PasswordInput hoverEffect="glow" placeholder="Password" />
             <PasswordInput hoverEffect="ring" placeholder="Password" />

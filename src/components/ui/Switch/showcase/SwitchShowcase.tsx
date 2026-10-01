@@ -1,6 +1,6 @@
 import { Switch } from "../Switch";
 import CodeBlock from "../../CodeBlock";
-import { SectionLabel, Row } from "../../ShowcaseHelpers";
+import { SectionLabel, Row, TransitionPreview } from "../../ShowcaseHelpers";
 
 export default function SwitchShowcase() {
   return (
@@ -154,7 +154,7 @@ export class AppComponent {}`,
 
         <section>
           <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`) and hover effects via `hoverEffect`. They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
-          <Row>
+          <TransitionPreview layout="inline">
             <Switch transition="fade" label="Fade" defaultChecked />
             <Switch transition="slide-up" label="Slide up" defaultChecked />
             <Switch transition="slide-right" transitionDelay={100} label="Slide right" defaultChecked />
@@ -163,13 +163,12 @@ export class AppComponent {}`,
             <Switch transition="blur" label="Blur" defaultChecked />
             <Switch transition="bounce" label="Bounce" defaultChecked />
             <Switch transition="drop" transitionDuration={700} label="Drop" defaultChecked />
-          </Row>
-          <Row>
-            <Switch hoverEffect="lift" label="Lift" />
-            <Switch hoverEffect="scale" label="Scale" />
-            <Switch hoverEffect="glow" label="Glow" />
-            <Switch hoverEffect="shine" label="Shine" />
-          </Row>
+          
+            <Switch className="rounded-md px-2 py-1" hoverEffect="lift" label="Lift" />
+            <Switch className="rounded-md px-2 py-1" hoverEffect="scale" label="Scale" />
+            <Switch className="rounded-md px-2 py-1" hoverEffect="glow" label="Glow" />
+            <Switch className="rounded-md px-2 py-1" hoverEffect="shine" label="Shine" />
+          </TransitionPreview>
           <CodeBlock
             variants={{
               react: `<Switch transition="fade" label="Fade" defaultChecked />

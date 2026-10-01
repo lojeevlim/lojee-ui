@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { RangeSlider, type RangeSliderProps } from "../RangeSlider";
 import CodeBlock from "../../CodeBlock";
-import { SectionLabel } from "../../ShowcaseHelpers";
+import { SectionLabel, TransitionPreview } from "../../ShowcaseHelpers";
 
 // Uncontrolled stand-in for the Transitions examples, which only need a slider that moves.
 function DemoRange(props: Omit<RangeSliderProps, "value" | "onChange">) {
@@ -160,14 +160,14 @@ export class AppComponent {
 
         <section>
           <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`) and hover effects via `hoverEffect`. They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
-          <div className="max-w-sm space-y-4">
+          <div className="max-w-sm"><TransitionPreview cols={1}>
             <DemoRange transition="fade" />
             <DemoRange transition="slide-up" />
             <DemoRange transition="slide-right" transitionDelay={100} />
             <DemoRange transition="zoom" />
             <DemoRange transition="flip" />
             <DemoRange transition="blur" />
-          </div>
+          </TransitionPreview></div>
           <div className="max-w-sm space-y-4">
             <DemoRange hoverEffect="lift" />
             <DemoRange hoverEffect="scale" />

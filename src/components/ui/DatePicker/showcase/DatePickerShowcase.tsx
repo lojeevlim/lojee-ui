@@ -2,7 +2,7 @@ import { useState } from "react";
 import { DatePicker } from "../DatePicker";
 import { DateRangePicker } from "../DateRangePicker";
 import CodeBlock from "../../CodeBlock";
-import { SectionLabel } from "../../ShowcaseHelpers";
+import { SectionLabel, TransitionPreview } from "../../ShowcaseHelpers";
 
 export default function DatePickerShowcase() {
   const [clearableValue, setClearableValue] = useState("2026-06-15");
@@ -338,7 +338,7 @@ presets = [
 
         <section>
           <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`) and hover effects via `hoverEffect`. They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
-          <div className="grid max-w-2xl gap-3 sm:grid-cols-2">
+          <div className="max-w-2xl"><TransitionPreview cols={2}>
             <DatePicker transition="fade" />
             <DatePicker transition="slide-up" />
             <DatePicker transition="slide-right" transitionDelay={100} />
@@ -350,7 +350,7 @@ presets = [
             <DatePicker hoverEffect="lift" />
             <DatePicker hoverEffect="glow" />
             <DatePicker hoverEffect="ring" />
-          </div>
+          </TransitionPreview></div>
           <CodeBlock
             variants={{
               react: `<DatePicker transition="fade" />
