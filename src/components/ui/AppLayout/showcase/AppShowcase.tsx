@@ -1,11 +1,12 @@
 import { useState } from "react";
 import CodeBlock from "../../CodeBlock";
 import { COLORS } from "../../../../core/tokens";
-import { THEME_MODES, type AccentName, type ThemeMode } from "../../../../core/theme";
+import { THEME_MODES, useTheme, type AccentName, type ThemeMode } from "../../../../core/theme";
 import { ACTIVE_VARIANTS, type ActiveVariant } from "../../../../core/activeVariant";
 import { ThemeProvider } from "../../Theme/ThemeProvider";
 import { SectionLabel } from "../../ShowcaseHelpers";
 import AppLayoutDemo from "../AppLayoutDemo";
+import { appCodeVariants } from "../appCode";
 import { gridTemplateAreas, type GridLayout } from "../appLayout";
 
 const SIDE_FIRST: GridLayout = [
@@ -15,8 +16,15 @@ const SIDE_FIRST: GridLayout = [
 ];
 
 export default function AppShowcase() {
+  const { accent: siteAccent } = useTheme();
   const [mode, setMode] = useState<ThemeMode>("light");
-  const [accent, setAccent] = useState<AccentName>("indigo");
+  const [accent, setAccent] = useState<AccentName>(siteAccent);
+  // Follow the site accent when it changes (the swatches below can still override it).
+  const [prevSiteAccent, setPrevSiteAccent] = useState(siteAccent);
+  if (prevSiteAccent !== siteAccent) {
+    setPrevSiteAccent(siteAccent);
+    setAccent(siteAccent);
+  }
   const [activeVariant, setActiveVariant] = useState<ActiveVariant>("solid");
 
   return (
@@ -79,8 +87,8 @@ export default function AppShowcase() {
             </ThemeProvider>
           </div>
           <CodeBlock
-            variants={{
-              react: `<ThemeProvider defaultMode="${mode}" defaultAccent="${accent}"${activeVariant === "solid" ? "" : ` defaultActiveVariant="${activeVariant}"`}>
+            variants={appCodeVariants(
+              `<ThemeProvider defaultMode="${mode}" defaultAccent="${accent}"${activeVariant === "solid" ? "" : ` defaultActiveVariant="${activeVariant}"`}>
   <App>
     <Top><Navbar brand={<SideToggle />} items={[{ label: "Overview" }]} /></Top>
     <Side><Sidebar items={[{ label: "Dashboard", icon: "home" }]} /></Side>
@@ -92,7 +100,8 @@ export default function AppShowcase() {
     <Footer><FooterContent /></Footer>
   </App>
 </ThemeProvider>`,
-            }}
+              { mode, accent, activeVariant }
+            )}
           />
         </section>
 
@@ -115,7 +124,8 @@ export default function AppShowcase() {
             </div>
           </div>
           <CodeBlock
-            code={`// Wrap your app once — every App (and every component inside) follows it.
+            variants={appCodeVariants(
+              `// Wrap your app once — every App (and every component inside) follows it.
 <ThemeProvider defaultMode="dark" defaultAccent="emerald">
   <App>
     <Top><Navbar brand={<SideToggle />} items={[{ label: "Overview" }]} /></Top>
@@ -126,7 +136,9 @@ export default function AppShowcase() {
 </ThemeProvider>
 
 // Or pin one App to a theme, regardless of the provider:
-<App theme="dark" accent="rose">...</App>`}
+<App theme="dark" accent="rose">...</App>`,
+              { mode: "dark", accent: "emerald" }
+            )}
           />
         </section>
 
@@ -136,7 +148,8 @@ export default function AppShowcase() {
             <AppLayoutDemo theme="light" layout={SIDE_FIRST} />
           </div>
           <CodeBlock
-            code={`<App
+            variants={appCodeVariants(
+              `<App
   layout={[
     ["side", "top"],
     ["side", "main"],
@@ -146,7 +159,9 @@ export default function AppShowcase() {
   ...
 </App>
 
-/* generated: grid-template-areas: ${gridTemplateAreas(SIDE_FIRST)} */`}
+/* generated: grid-template-areas: ${gridTemplateAreas(SIDE_FIRST)} */`,
+              { layout: SIDE_FIRST }
+            )}
           />
         </section>
 
@@ -156,7 +171,8 @@ export default function AppShowcase() {
             <AppLayoutDemo theme="light" height={480} />
           </div>
           <CodeBlock
-            code={`<App collapseBelow="md">
+            variants={appCodeVariants(
+              `<App collapseBelow="md">
   <Top>
     <Navbar brand={<SideToggle />} />
   </Top>
@@ -164,7 +180,9 @@ export default function AppShowcase() {
     <Sidebar />
   </Side>
   ...
-</App>`}
+</App>`,
+              { collapseBelow: "28rem" }
+            )}
           />
         </section>
       </div>

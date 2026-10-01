@@ -12,8 +12,6 @@ export interface SidebarProps {
   nav?: Menu[];
   navKind: NavKind;
   activeLabel?: string;
-  userName?: string;
-  userEmail?: string;
   collapsible?: boolean;
   /** Controlled collapsed state — driven from outside (see App.tsx) so the toggle button
    * (rendered beside the brand name, via `ui/Sidebar`'s own `collapsible` toggle) can report
@@ -52,8 +50,6 @@ export default function SidebarLayout({
   nav = COMPONENT_MENU,
   navKind,
   activeLabel,
-  userName = "Lojee Lim",
-  userEmail = "Lojee.lim.io",
   collapsible: collapsibleProp = true,
   collapsed = false,
   onCollapsedChange,
@@ -75,7 +71,6 @@ export default function SidebarLayout({
       collapsed={collapsedNow}
       collapsible={collapsible}
       onCollapsedChange={onCollapsedChange}
-      footer={`${userName} · ${userEmail}`}
       items={buildNavItems(nav, activeLabel)}
       onActiveItemChange={(item: SidebarMenuItemSpec) => {
         navigate(pathFor(navKind, item.label));
@@ -84,13 +79,12 @@ export default function SidebarLayout({
     >
       {inDrawer && (
         <SidebarHeader>
-          <div className="flex w-full items-center justify-between">
-            <span className="text-sm font-semibold text-fg">Navigation</span>
+          <div className="flex w-full items-center justify-end">
             <button
               type="button"
               onClick={() => setSideOpen(false)}
               aria-label="Close navigation"
-              className="rounded-md p-1.5 text-fg-muted transition-colors hover:bg-surface-muted hover:text-fg"
+              className="rounded-md p-1.5 text-fg-muted"
             >
               <X size={18} />
             </button>

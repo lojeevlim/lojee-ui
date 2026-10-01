@@ -947,7 +947,9 @@ customElements.define(
       transition: "string",
       transitionDuration: "number",
       transitionDelay: "number",
-      hoverEffect: "string",
+      tooltipTransition: "string",
+      tooltipTransitionDuration: "number",
+      tooltipColor: "string",
     },
     events: {
       onCollapsedChange: {}, // dispatches "collapsedchange", detail = the requested boolean
@@ -978,7 +980,9 @@ customElements.define(
       transition: "string",
       transitionDuration: "number",
       transitionDelay: "number",
-      hoverEffect: "string",
+      tooltipTransition: "string",
+      tooltipTransitionDuration: "number",
+      tooltipColor: "string",
     },
   })
 );
@@ -1354,6 +1358,7 @@ customElements.define(
     },
     events: {
       onLoad: {}, // dispatches "load"
+      onStyleChange: {}, // dispatches "stylechange", detail = the chosen base-map name
       onMove: {}, // dispatches "move", detail = { center, zoom, pitch, bearing }
       onMapClick: {}, // dispatches "mapclick", detail = { lng, lat }
       onMarkerClick: {}, // dispatches "markerclick", detail = the marker
