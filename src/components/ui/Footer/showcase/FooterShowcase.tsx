@@ -21,8 +21,8 @@ function LinkColumn({ heading, links, dark, accent }: { heading: string; links: 
 
 export default function FooterShowcase() {
   return (
-    <div className="min-h-screen rounded-xl bg-surface p-6 md:p-10">
-      <div className="max-w-5xl mx-auto space-y-12">
+    <div>
+      <div className="space-y-12">
         <div>
           <h1 className="text-2xl font-semibold text-fg">Footer</h1>
           <p className="text-sm text-fg-subtle mt-1">A site-wide bottom footer with link columns and a copyright bar.</p>
@@ -187,7 +187,7 @@ export default function FooterShowcase() {
               vue: `<template>
   <l-Footer variant="dark">
     <!-- link columns -->
-    <template #bottom><span class="text-slate-400">© 2026 Lojee, Inc.</span></template>
+    <div slot="bottom"><span class="text-slate-400">© 2026 Lojee, Inc.</span></div>
   </l-Footer>
 </template>`,
               angular: `<l-Footer variant="dark">
@@ -243,15 +243,13 @@ export default function FooterShowcase() {
 <script type="module">import "lojee-ui/elements";</script>`,
               vue: `<template>
   <l-Footer>
-    <template #bottom>
-      <div class="flex flex-wrap items-center justify-between gap-3">
-        <span>© 2026 Lojee, Inc. All rights reserved.</span>
-        <div class="flex items-center gap-4">
-          <a href="#">Privacy</a>
-          <a href="#">Terms</a>
-        </div>
+    <div slot="bottom" class="flex flex-wrap items-center justify-between gap-3">
+      <span>© 2026 Lojee, Inc. All rights reserved.</span>
+      <div class="flex items-center gap-4">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
       </div>
-    </template>
+    </div>
   </l-Footer>
 </template>`,
               angular: `<l-Footer>

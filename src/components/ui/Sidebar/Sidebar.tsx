@@ -708,7 +708,8 @@ export function Sidebar({
       {(collapsible || headerContent != null) && (
         <div
           className={cx(
-            "flex shrink-0 items-center border-b p-3 transition-[gap] duration-300 ease-[cubic-bezier(.4,0,.2,1)]",
+            // h-16 = the Navbar's height, so a Sidebar header and a Navbar line up across the top of an app without any overrides.
+            "flex h-16 shrink-0 items-center border-b px-3 transition-[gap] duration-300 ease-[cubic-bezier(.4,0,.2,1)]",
             hideHeaderContent ? "gap-0" : "gap-2",
             VARIANT_DIVIDER_CLASSES[variant],
             // Expanded, no header content at all (no `header`/`headerIcon`, no composed
