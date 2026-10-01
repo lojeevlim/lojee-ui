@@ -1,6 +1,6 @@
 import { Footer } from "../Footer";
 import CodeBlock from "../../CodeBlock";
-import { SectionLabel } from "../../ShowcaseHelpers";
+import { SectionLabel, TransitionPreview } from "../../ShowcaseHelpers";
 
 function LinkColumn({ heading, links, dark, accent }: { heading: string; links: string[]; dark?: boolean; accent?: boolean }) {
   return (
@@ -269,14 +269,14 @@ export default function FooterShowcase() {
 
         <section>
           <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`). They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
-          <div className="grid gap-4 sm:grid-cols-2">
+          <TransitionPreview cols={2}>
             <Footer bottom="Fade" transition="fade" />
             <Footer bottom="Slide down" transition="slide-down" />
             <Footer bottom="Slide right" transition="slide-right" transitionDelay={100} />
             <Footer bottom="Zoom" transition="zoom" />
             <Footer bottom="Blur" transition="blur" />
             <Footer bottom="Drop" transition="drop" transitionDuration={700} />
-          </div>
+          </TransitionPreview>
           <CodeBlock
             variants={{
               react: `<Footer bottom="Fade" transition="fade" />

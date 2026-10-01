@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { NavigationMenu } from "../NavigationMenu";
 import CodeBlock from "../../CodeBlock";
-import { SectionLabel, Row } from "../../ShowcaseHelpers";
+import { SectionLabel, Row, TransitionPreview } from "../../ShowcaseHelpers";
 
 const NAV_ITEMS = [
   { label: "Home", href: "#", active: true },
@@ -490,14 +490,14 @@ items = [
 
         <section>
           <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`) and hover effects via `hoverEffect`. They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
-          <Row>
+          <TransitionPreview cols={3}>
             <NavigationMenu items={NAV_ITEMS} transition="fade" />
             <NavigationMenu items={NAV_ITEMS} transition="slide-down" />
             <NavigationMenu items={NAV_ITEMS} transition="slide-right" transitionDelay={100} />
             <NavigationMenu items={NAV_ITEMS} transition="zoom" />
             <NavigationMenu items={NAV_ITEMS} transition="blur" />
             <NavigationMenu items={NAV_ITEMS} transition="drop" transitionDuration={700} />
-          </Row>
+          </TransitionPreview>
           <Row>
             <NavigationMenu items={NAV_ITEMS} hoverEffect="lift" />
             <NavigationMenu items={NAV_ITEMS} hoverEffect="glow" />

@@ -1,6 +1,6 @@
 import { Tabs } from "../Tabs";
 import CodeBlock from "../../CodeBlock";
-import { SectionLabel } from "../../ShowcaseHelpers";
+import { SectionLabel, TransitionPreview } from "../../ShowcaseHelpers";
 
 const TR_TABS = [
   { label: "Overview", content: <p className="text-sm text-fg-muted">A quick summary of the project.</p> },
@@ -188,7 +188,7 @@ tabs = [
 
         <section>
           <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`). They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
-          <div className="grid gap-6 sm:grid-cols-2">
+          <TransitionPreview cols={2}>
             <div className="min-w-0">
               <Tabs tabs={TR_TABS} transition="fade" />
             </div>
@@ -207,7 +207,7 @@ tabs = [
             <div className="min-w-0">
               <Tabs tabs={TR_TABS} transition="drop" transitionDuration={700} />
             </div>
-          </div>
+          </TransitionPreview>
           <CodeBlock
             variants={{
               react: `const tabs = [

@@ -103,7 +103,7 @@ export interface NavbarProps {
    *   contrast left to reveal its rounded corners or shadow. All three are self-contained — an inset
    *   backdrop is included automatically (padding + `bg-surface-muted`, or `color` for "glass") so the bar
    *   always reads correctly (rounded corners, blur) with no wrapper markup needed on your end.
-   * - "dark" — slate-900 background, brand text (and, by inheritance, any plain text/links) switches to
+   * - "dark" — a deep shade of the theme accent (accent-950), brand text (and, by inheritance, any plain text/links) switches to
    *   white.
    * - "minimal" — no background/border at all, blends into the page.
    * - "gradient" — a left-to-right gradient built from `color` (600 → 700).
@@ -145,7 +145,7 @@ const VARIANT_CLASSES: Record<NavbarVariant, string> = {
   // `text-white/70` mirrors Sidebar's own fix for the exact same gap — a plain-text brand/link with no
   // explicit color of its own otherwise falls back to the browser's default (near-black, invisible
   // against `bg-slate-900`) text color instead of inheriting something sane.
-  dark: "bg-slate-900 text-white/70",
+  dark: "bg-accent-950 text-white/70",
   // "bordered", "elevated", and "glass" all float as a detached card (see `isDetachedPanel`) rather
   // than docking full-width — kept as separate `variant` names since each still has its own distinct
   // look (colored border / shadow-only / frosted-transparent) on top of that shared shape. "elevated"
@@ -166,7 +166,7 @@ const VARIANT_CLASSES: Record<NavbarVariant, string> = {
 // and "minimal" in the `variant` JSDoc above) — the other four don't need an entry here at all.
 const VARIANT_DIVIDER_CLASSES: Partial<Record<NavbarVariant, string>> = {
   light: "border-border",
-  dark: "border-slate-800",
+  dark: "border-accent-900",
   gradient: "border-white/15",
 };
 

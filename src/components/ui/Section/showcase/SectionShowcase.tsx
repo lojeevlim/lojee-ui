@@ -1,6 +1,6 @@
 import { Section } from "../Section";
 import CodeBlock from "../../CodeBlock";
-import { SectionLabel } from "../../ShowcaseHelpers";
+import { SectionLabel, TransitionPreview } from "../../ShowcaseHelpers";
 
 export default function SectionShowcase() {
   return (
@@ -92,12 +92,12 @@ export class AppComponent {}`,
 
         <section>
           <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`). They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
-          <div className="space-y-3">
+          <TransitionPreview cols={1}>
             <Section spacing="sm" transition="fade"><div className="rounded-md bg-surface-muted p-3 text-center text-xs text-fg-subtle">fade</div></Section>
             <Section spacing="sm" transition="slide-up" title="Slide up"><div className="rounded-md bg-surface-muted p-3 text-center text-xs text-fg-subtle">slide-up</div></Section>
             <Section spacing="sm" transition="zoom" transitionDelay={100}><div className="rounded-md bg-surface-muted p-3 text-center text-xs text-fg-subtle">zoom</div></Section>
             <Section spacing="sm" transition="blur" transitionDuration={700}><div className="rounded-md bg-surface-muted p-3 text-center text-xs text-fg-subtle">blur</div></Section>
-          </div>
+          </TransitionPreview>
           <CodeBlock
             variants={{
               react: `<Section spacing="sm" transition="fade">...</Section>

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { BottomNavigation } from "../BottomNavigation";
 import CodeBlock from "../../CodeBlock";
-import { SectionLabel } from "../../ShowcaseHelpers";
+import { SectionLabel, TransitionPreview } from "../../ShowcaseHelpers";
 
 const TAB_ITEMS = [
   { icon: "home", label: "Home", active: true },
@@ -322,14 +322,14 @@ items = [
 
         <section>
           <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`) and hover effects via `hoverEffect`. They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
-          <div className="grid gap-4 sm:grid-cols-2">
+          <TransitionPreview cols={2}>
             <div className="overflow-hidden rounded-lg border border-border"><BottomNavigation items={TAB_ITEMS} transition="fade" /></div>
             <div className="overflow-hidden rounded-lg border border-border"><BottomNavigation items={TAB_ITEMS} transition="slide-down" /></div>
             <div className="overflow-hidden rounded-lg border border-border"><BottomNavigation items={TAB_ITEMS} transition="slide-right" transitionDelay={100} /></div>
             <div className="overflow-hidden rounded-lg border border-border"><BottomNavigation items={TAB_ITEMS} transition="zoom" /></div>
             <div className="overflow-hidden rounded-lg border border-border"><BottomNavigation items={TAB_ITEMS} transition="blur" /></div>
             <div className="overflow-hidden rounded-lg border border-border"><BottomNavigation items={TAB_ITEMS} transition="drop" transitionDuration={700} /></div>
-          </div>
+          </TransitionPreview>
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="overflow-hidden rounded-lg border border-border"><BottomNavigation items={TAB_ITEMS} hoverEffect="lift" /></div>
             <div className="overflow-hidden rounded-lg border border-border"><BottomNavigation items={TAB_ITEMS} hoverEffect="glow" /></div>
