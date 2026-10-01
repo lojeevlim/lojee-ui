@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { cx, type ColorName } from "../../../core/tokens";
+import { motionClass, motionStyle, type TransitionVariant } from "../../../core/motion";
 import { Icon } from "../Icons/Icon";
 
 export interface TimelineItem {
@@ -25,6 +26,12 @@ export interface TimelineProps {
   /** "vertical" (default) stacks items top-to-bottom; "horizontal" is a compact
    * left-to-right variant — dot + label only, no description. */
   orientation?: TimelineOrientation;
+  /** Enter transition (staggered across the items): "fade" | "slide-up" | "slide-down" | "slide-left" | "slide-right" | "zoom" | "zoom-out" | "flip" | "blur" | "bounce" | "rotate" | "drop" | "skew" (default: none). Respects `prefers-reduced-motion`. */
+  transition?: TransitionVariant;
+  /** Enter transition duration in ms (default: 450). */
+  transitionDuration?: number;
+  /** Delay before the enter transition starts, in ms (default: 0) — items enter one after another, each 60ms after the last. */
+  transitionDelay?: number;
   /** Extra class name(s) appended to the root element. */
   className?: string;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
@@ -81,14 +88,18 @@ function Marker({ item, classNames }: { item: TimelineItem; classNames?: Timelin
   return <div className={cx("h-2.5 w-2.5 shrink-0 rounded-full", MARKER_DOT[color], classNames?.marker)} />;
 }
 
-export function Timeline({ items, orientation = "vertical", className, classNames }: TimelineProps) {
+const STAGGER_MS = 60;
+
+export function Timeline({ items, orientation = "vertical", transition, transitionDuration, transitionDelay, className, classNames }: TimelineProps) {
+  // Items enter one after another: the delay grows by STAGGER_MS per item on top of `transitionDelay`.
+  const itemMotion = (i: number) => motionStyle(transitionDuration, (transitionDelay ?? 0) + i * STAGGER_MS);
   if (orientation === "horizontal") {
     return (
       <ol className={cx("flex items-start", className, classNames?.root)}>
         {items.map((item, i) => {
           const isLast = i === items.length - 1;
           return (
-            <li key={i} className={cx("flex items-center", !isLast && "flex-1", classNames?.item)}>
+            <li key={i} className={cx("flex items-center", !isLast && "flex-1", motionClass(transition), classNames?.item)} style={transition ? itemMotion(i) : undefined}>
               <div className="flex flex-col items-center gap-2">
                 <Marker item={item} classNames={classNames} />
                 <div className={cx("max-w-[8rem] text-center", classNames?.content)}>
@@ -109,7 +120,7 @@ export function Timeline({ items, orientation = "vertical", className, className
       {items.map((item, i) => {
         const isLast = i === items.length - 1;
         return (
-          <li key={i} className={cx("flex gap-3", classNames?.item)}>
+          <li key={i} className={cx("flex gap-3", motionClass(transition), classNames?.item)} style={transition ? itemMotion(i) : undefined}>
             <div className="flex flex-col items-center">
               <Marker item={item} classNames={classNames} />
               {!isLast && <div className={cx("my-1 w-0.5 flex-1 bg-border", classNames?.line)} />}

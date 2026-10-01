@@ -3,6 +3,7 @@ import type { CSSProperties, ReactNode } from "react";
 import { cx, isColorName, type ColorName } from "../../../core/tokens";
 import { activeAccent } from "../../../core/activeVariant";
 import { Icon } from "../Icons/Icon";
+import { motionClass, motionStyle, type TransitionVariant, type HoverEffect } from "../../../core/motion";
 
 export interface TopBarAction {
   /** Icon name, e.g. "bell" — see src/core/icons.ts for the available set. */
@@ -75,6 +76,14 @@ export interface TopBarProps {
   size?: TopBarSize;
   /** Sticks to the top of its scroll container (default: false). */
   sticky?: boolean;
+  /** Enter transition: "fade" | "slide-up" | "slide-down" | "slide-left" | "slide-right" | "zoom" | "zoom-out" | "flip" | "blur" | "bounce" | "rotate" | "drop" | "skew" (default: none). Respects `prefers-reduced-motion`. */
+  transition?: TransitionVariant;
+  /** Enter transition duration in ms (default: 450). */
+  transitionDuration?: number;
+  /** Delay before the enter transition starts, in ms (default: 0) — handy for staggering. */
+  transitionDelay?: number;
+  /** Effect while hovering: "lift" | "scale" | "press" | "tilt" | "ring" | "glow" | "shine" (default: none). Applied to the bar's icon buttons (menu, back, search, actions). */
+  hoverEffect?: HoverEffect;
   /** Extra class name(s) appended to the root element. */
   className?: string;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
@@ -140,12 +149,16 @@ export function TopBar({
   color = "accent",
   size = "md",
   sticky = false,
+  transition,
+  transitionDuration,
+  transitionDelay,
+  hoverEffect,
   className,
   classNames,
 }: TopBarProps) {
   const style =
     variant === "accent" ? ({ ["--ac" as string]: activeAccent(color, isColorName(color)) } as CSSProperties) : undefined;
-  const buttonClass = cx(ICON_BUTTON, BUTTON_CLASSES[variant], classNames?.action);
+  const buttonClass = cx(ICON_BUTTON, BUTTON_CLASSES[variant], motionClass(undefined, hoverEffect), classNames?.action);
 
   // Built-in search field: opens in place of the center content.
   const [searchOpen, setSearchOpen] = useState(false);
@@ -160,12 +173,13 @@ export function TopBar({
 
   return (
     <header
-      style={style}
+      style={{ ...style, ...motionStyle(transitionDuration, transitionDelay) }}
       className={cx(
         "flex w-full items-center gap-3",
         SIZE_CLASSES[size],
         VARIANT_CLASSES[variant],
         sticky && "sticky top-0 z-40",
+        motionClass(transition),
         className,
         classNames?.root
       )}

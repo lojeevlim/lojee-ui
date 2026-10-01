@@ -3,8 +3,10 @@ import Modal from "./Modal";
 import { Button } from "./Buttons/Button";
 import { PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
+import { useMotion } from "./playgroundMotion";
 
 export default function ModalPlayground() {
+  const motion = useMotion();
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState("Modal title");
 
@@ -12,14 +14,14 @@ export default function ModalPlayground() {
     <AppWindowFrame>
       <AppWindowBody>
         <Button label="Open modal" onClick={() => setOpen(true)} />
-        <Modal open={open} onClose={() => setOpen(false)} title={title || "Modal title"}>
+        <Modal {...motion.props} open={open} onClose={() => setOpen(false)} title={title || "Modal title"}>
           <p className="text-sm text-fg-muted">This is the modal body content.</p>
         </Modal>
       </AppWindowBody>
     </AppWindowFrame>
   );
 
-  const code = `<Modal open={open} onClose={() => setOpen(false)} title="${title || "Modal title"}">
+  const code = `<Modal open={open} onClose={() => setOpen(false)} title="${title || "Modal title"}"${motion.attrs}>
   <p>This is the modal body content.</p>
 </Modal>`;
 
@@ -28,7 +30,7 @@ export default function ModalPlayground() {
   // attribute, matching ModalShowcase.tsx's pattern; every other prop
   // (heading here) stays a plain snapshot attribute.
   const htmlMarkup = `<l-Button label="Open modal" id="open-modal-btn" />
-<l-Modal id="modal" heading="${title || "Modal title"}">
+<l-Modal id="modal" heading="${title || "Modal title"}"${motion.attrs}>
   <p>This is the modal body content.</p>
 </l-Modal>`;
 
@@ -46,7 +48,7 @@ export default function ModalPlayground() {
 </script>`,
     vue: `<template>
   <l-Button label="Open modal" @click="open = true" />
-  <l-Modal :open="open" heading="${title || "Modal title"}" @close="open = false">
+  <l-Modal :open="open" heading="${title || "Modal title"}"${motion.attrs} @close="open = false">
     <p>This is the modal body content.</p>
   </l-Modal>
 </template>
@@ -59,7 +61,7 @@ const open = ref(false);
 </script>`,
     angular: `<!-- app.component.html -->
 <l-Button label="Open modal" (click)="open = true" />
-<l-Modal [open]="open" heading="${title || "Modal title"}" (close)="open = false">
+<l-Modal [open]="open" heading="${title || "Modal title"}"${motion.attrs} (close)="open = false">
   <p>This is the modal body content.</p>
 </l-Modal>`,
   };
@@ -75,6 +77,7 @@ const open = ref(false);
           placeholder="Modal title"
         />
       </div>
+      {motion.controls}
     </PlaygroundLayout>
   );
 }

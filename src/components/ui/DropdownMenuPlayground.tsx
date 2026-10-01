@@ -4,10 +4,12 @@ import { DropdownMenuItem } from "./DropdownMenu/DropdownMenuItem";
 import { Button } from "./Buttons/Button";
 import { OptionGroup, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
+import { useMotion } from "./playgroundMotion";
 
 const ALIGNS: DropdownMenuAlign[] = ["start", "end"];
 
 export default function DropdownMenuPlayground() {
+  const motion = useMotion({ hover: false });
   const [align, setAlign] = useState<DropdownMenuAlign>("start");
 
   // `overflow-visible`: the menu panel is absolutely positioned relative to
@@ -16,7 +18,7 @@ export default function DropdownMenuPlayground() {
   const preview = (
     <AppWindowFrame className="overflow-visible">
       <AppWindowBody>
-        <DropdownMenu align={align} trigger={<Button icon="chevron-down" label="Options" />}>
+        <DropdownMenu {...motion.props} align={align} trigger={<Button icon="chevron-down" label="Options" />}>
           <DropdownMenuItem icon="pencil">Edit</DropdownMenuItem>
           <DropdownMenuItem icon="copy">Duplicate</DropdownMenuItem>
           <DropdownMenuItem icon="trash-2" danger>
@@ -27,7 +29,7 @@ export default function DropdownMenuPlayground() {
     </AppWindowFrame>
   );
 
-  const code = `<DropdownMenu align="${align}" trigger={<Button icon="chevron-down" label="Options" />}>
+  const code = `<DropdownMenu align="${align}"${motion.attrs} trigger={<Button icon="chevron-down" label="Options" />}>
   <DropdownMenuItem icon="pencil">Edit</DropdownMenuItem>
   <DropdownMenuItem icon="copy">Duplicate</DropdownMenuItem>
   <DropdownMenuItem icon="trash-2" danger>Delete</DropdownMenuItem>
@@ -38,7 +40,7 @@ export default function DropdownMenuPlayground() {
   // trigger goes in the named `slot="trigger"`; menu items default-slot.
   // `danger` is boolean, so it needs the explicit "true" string (r2wc parses
   // a bare attribute as false).
-  const htmlMarkup = `<l-DropdownMenu align="${align}">
+  const htmlMarkup = `<l-DropdownMenu align="${align}"${motion.attrs}>
   <l-Button slot="trigger" icon="chevron-down" label="Options" />
   <l-DropdownMenuItem icon="pencil">Edit</l-DropdownMenuItem>
   <l-DropdownMenuItem icon="copy">Duplicate</l-DropdownMenuItem>
@@ -55,6 +57,7 @@ export default function DropdownMenuPlayground() {
   return (
     <PlaygroundLayout preview={preview} variants={codeVariants}>
       <OptionGroup label="Align" options={ALIGNS} value={align} onChange={setAlign} />
+      {motion.controls}
     </PlaygroundLayout>
   );
 }

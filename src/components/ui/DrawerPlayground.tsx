@@ -3,10 +3,12 @@ import { Drawer, type DrawerPosition } from "./Drawer/Drawer";
 import { Button } from "./Buttons/Button";
 import { OptionGroup, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
+import { useMotion } from "./playgroundMotion";
 
 const POSITIONS: DrawerPosition[] = ["left", "right", "top", "bottom"];
 
 export default function DrawerPlayground() {
+  const motion = useMotion();
   const [open, setOpen] = useState(false);
   const [position, setPosition] = useState<DrawerPosition>("right");
   const [title, setTitle] = useState("Drawer title");
@@ -15,14 +17,14 @@ export default function DrawerPlayground() {
     <AppWindowFrame>
       <AppWindowBody>
         <Button label="Open drawer" onClick={() => setOpen(true)} />
-        <Drawer open={open} onClose={() => setOpen(false)} position={position} title={title || "Drawer title"}>
+        <Drawer open={open} onClose={() => setOpen(false)} position={position} title={title || "Drawer title"} {...motion.props}>
           <p className="text-sm text-fg-muted">This is the drawer body content.</p>
         </Drawer>
       </AppWindowBody>
     </AppWindowFrame>
   );
 
-  const code = `<Drawer open={open} onClose={() => setOpen(false)} position="${position}" title="${title || "Drawer title"}">
+  const code = `<Drawer open={open} onClose={() => setOpen(false)} position="${position}" title="${title || "Drawer title"}"${motion.attrs}>
   <p>This is the drawer body content.</p>
 </Drawer>`;
 
@@ -30,7 +32,7 @@ export default function DrawerPlayground() {
   // trigger click (matches ModalShowcase.tsx's pattern) rather than a baked
   // literal; `position`/`heading` stay plain snapshot attributes.
   const htmlMarkup = `<l-Button label="Open drawer" id="open-drawer-btn" />
-<l-Drawer id="drawer" position="${position}" heading="${title || "Drawer title"}">
+<l-Drawer id="drawer" position="${position}" heading="${title || "Drawer title"}"${motion.attrs}>
   <p>This is the drawer body content.</p>
 </l-Drawer>`;
 
@@ -48,7 +50,7 @@ export default function DrawerPlayground() {
 </script>`,
     vue: `<template>
   <l-Button label="Open drawer" @click="open = true" />
-  <l-Drawer :open="open" position="${position}" heading="${title || "Drawer title"}" @close="open = false">
+  <l-Drawer :open="open" position="${position}" heading="${title || "Drawer title"}"${motion.attrs} @close="open = false">
     <p>This is the drawer body content.</p>
   </l-Drawer>
 </template>
@@ -61,7 +63,7 @@ const open = ref(false);
 </script>`,
     angular: `<!-- app.component.html -->
 <l-Button label="Open drawer" (click)="open = true" />
-<l-Drawer [open]="open" position="${position}" heading="${title || "Drawer title"}" (close)="open = false">
+<l-Drawer [open]="open" position="${position}" heading="${title || "Drawer title"}"${motion.attrs} (close)="open = false">
   <p>This is the drawer body content.</p>
 </l-Drawer>`,
   };
@@ -78,6 +80,7 @@ const open = ref(false);
         />
       </div>
       <OptionGroup label="Position" options={POSITIONS} value={position} onChange={setPosition} />
+      {motion.controls}
     </PlaygroundLayout>
   );
 }

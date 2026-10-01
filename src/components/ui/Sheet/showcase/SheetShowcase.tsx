@@ -3,8 +3,24 @@ import { Sheet } from "../Sheet";
 import { Button } from "../../Buttons/Button";
 import CodeBlock from "../../CodeBlock";
 import { SectionLabel, Row } from "../../ShowcaseHelpers";
+import type { TransitionVariant } from "../../../../core/motion";
+
+const TR_OPTIONS: { label: string; transition: TransitionVariant; duration?: number; delay?: number }[] = [
+  { label: "Fade", transition: "fade" },
+  { label: "Slide up", transition: "slide-up" },
+  { label: "Zoom", transition: "zoom" },
+  { label: "Flip", transition: "flip" },
+  { label: "Blur", transition: "blur" },
+  { label: "Bounce", transition: "bounce" },
+  { label: "Drop (slow)", transition: "drop", duration: 700 },
+  { label: "Zoom (delayed)", transition: "zoom", delay: 200 },
+];
 
 export default function SheetShowcase() {
+  const [trOpen, setTrOpen] = useState(false);
+  const [trOption, setTrOption] = useState(TR_OPTIONS[2]);
+  const trReact = `transition="${trOption.transition}"${trOption.duration ? ` transitionDuration={${trOption.duration}}` : ""}${trOption.delay ? ` transitionDelay={${trOption.delay}}` : ""}`;
+  const trHtml = `transition="${trOption.transition}"${trOption.duration ? ` transitionDuration="${trOption.duration}"` : ""}${trOption.delay ? ` transitionDelay="${trOption.delay}"` : ""}`;
   const [basicOpen, setBasicOpen] = useState(false);
   const [longOpen, setLongOpen] = useState(false);
 
@@ -126,6 +142,80 @@ export class SheetShowcaseComponent {
     <p *ngFor="let item of items">{{ item.text }}</p>
   </div>
 </l-Sheet>`,
+            }}
+          />
+        </section>
+
+        <section>
+          <SectionLabel sub="Enter/exit transitions via `transition` (with `transitionDuration` / `transitionDelay`) — pick one, then close the overlay to see it play in reverse.">Transitions</SectionLabel>
+          <Row>
+            {TR_OPTIONS.map((o) => (
+              <Button
+                key={o.label}
+                variant="outline"
+                label={o.label}
+                onClick={() => {
+                  setTrOption(o);
+                  setTrOpen(true);
+                }}
+              />
+            ))}
+          </Row>
+          <Sheet open={trOpen} onClose={() => setTrOpen(false)} title="Transition" transition={trOption.transition} transitionDuration={trOption.duration} transitionDelay={trOption.delay}>
+            <p className="text-sm text-fg-muted">A transition replaces the sheet's default slide-up.</p>
+          </Sheet>
+          <CodeBlock
+            variants={{
+              react: `const [open, setOpen] = useState(false);
+
+<Button label="Open sheet" onClick={() => setOpen(true)} />
+<Sheet open={open} onClose={() => setOpen(false)} title="Transition" ${trReact}>
+  <p>A transition replaces the sheet's default slide-up.</p>
+</Sheet>`,
+              js: `<l-Button label="Open sheet" id="open-tr-btn"></l-Button>
+<l-Sheet id="tr-overlay" heading="Transition" ${trHtml}>
+  <p>A transition replaces the sheet's default slide-up.</p>
+</l-Sheet>
+
+<script type="module">
+  import "lojee-ui/elements";
+
+  const overlay = document.getElementById("tr-overlay");
+  document.getElementById("open-tr-btn")
+    .addEventListener("click", () => { overlay.open = true; });
+  overlay.addEventListener("close", () => { overlay.open = false; });
+</script>`,
+              vue: `<template>
+  <l-Button label="Open sheet" @click="open = true"></l-Button>
+  <l-Sheet :open="open" heading="Transition" ${trHtml} @close="open = false">
+    <p>A transition replaces the sheet's default slide-up.</p>
+  </l-Sheet>
+</template>
+
+<script setup lang="ts">
+import { ref } from "vue";
+import "lojee-ui/elements";
+
+const open = ref(false);
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-Button label="Open sheet" (click)="open = true"></l-Button>
+    <l-Sheet [open]="open" heading="Transition" ${trHtml} (close)="open = false">
+      <p>A transition replaces the sheet's default slide-up.</p>
+    </l-Sheet>
+  \`,
+})
+export class AppComponent {
+  open = false;
+}`,
             }}
           />
         </section>

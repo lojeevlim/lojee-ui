@@ -16,6 +16,8 @@ import {
 import { withTailwind, withHostBlock } from "./with-tailwind";
 import { StepperItemElement } from "./stepper-item";
 import { TopBarElement } from "./top-bar-element";
+import { TableElement } from "./table-element";
+import { MapElement } from "./map-element";
 import { Badge } from "../components/ui/Badge/Badge";
 import { Avatar } from "../components/ui/Avatar/Avatar";
 import { AvatarGroup } from "../components/ui/Avatar/AvatarGroup";
@@ -34,7 +36,6 @@ import { Breadcrumbs } from "../components/ui/Breadcrumbs/Breadcrumbs";
 import { BreadcrumbItem } from "../components/ui/Breadcrumbs/BreadcrumbItem";
 import { Accordion } from "../components/ui/Accordion/Accordion";
 import { AccordionItem } from "../components/ui/Accordion/AccordionItem";
-import { Table } from "../components/ui/Table/Table";
 import { Pagination } from "../components/ui/Pagination/Pagination";
 import { Tabs } from "../components/ui/Tabs/Tabs";
 import { Carousel } from "../components/ui/Carousel/Carousel";
@@ -95,6 +96,9 @@ customElements.define(
   r2wc(withTailwind(Button), {
     shadow: "open",
     props: {
+      animated: "string",
+      pulseColor: "string",
+      pulseGradientTo: "string",
       variant: "string",
       color: "string",
       gradientTo: "string",
@@ -110,6 +114,10 @@ customElements.define(
       type: "string",
       className: "string",
       classNames: "json",
+      transition: "string",
+      transitionDuration: "number",
+      transitionDelay: "number",
+      hoverEffect: "string",
     },
   })
 );
@@ -128,6 +136,10 @@ customElements.define(
       size: "string",
       shape: "string",
       disabled: "boolean",
+      transition: "string",
+      transitionDuration: "number",
+      transitionDelay: "number",
+      hoverEffect: "string",
     },
     events: { onMenuClick: {} }, // dispatches "menuclick"
   })
@@ -150,7 +162,7 @@ customElements.define(
 
 customElements.define(
   "l-button-group",
-  r2wc(withTailwind(ButtonGroup), { shadow: "open", props: {} })
+  r2wc(withTailwind(ButtonGroup), { shadow: "open", props: { transition: "string", transitionDuration: "number", transitionDelay: "number", hoverEffect: "string" } })
 );
 
 customElements.define(
@@ -160,6 +172,10 @@ customElements.define(
     props: {
       icon: "string",
       active: "boolean",
+      transition: "string",
+      transitionDuration: "number",
+      transitionDelay: "number",
+      hoverEffect: "string",
     },
   })
 );
@@ -168,7 +184,16 @@ customElements.define(
   "l-modal",
   r2wc(withTailwind(ModalElement), {
     shadow: "open",
-    props: { open: "boolean", heading: "string", className: "string", classNames: "json" },
+    props: {
+      open: "boolean",
+      heading: "string",
+      className: "string",
+      classNames: "json",
+      transition: "string",
+      transitionDuration: "number",
+      transitionDelay: "number",
+      hoverEffect: "string",
+    },
     events: { onClose: {} }, // dispatches "close"
   })
 );
@@ -178,12 +203,19 @@ customElements.define(
   r2wc(withTailwind(Badge), {
     shadow: "open",
     props: {
+      animated: "string",
+      pulseColor: "string",
+      pulseGradientTo: "string",
       variant: "string",
       color: "string",
       size: "string",
       icon: "string",
       dot: "boolean",
       label: "string",
+      transition: "string",
+      transitionDuration: "number",
+      transitionDelay: "number",
+      hoverEffect: "string",
     },
   })
 );
@@ -193,6 +225,9 @@ customElements.define(
   r2wc(withTailwind(Avatar), {
     shadow: "open",
     props: {
+      animated: "string",
+      pulseColor: "string",
+      pulseGradientTo: "string",
       src: "string",
       alt: "string",
       initials: "string",
@@ -200,13 +235,17 @@ customElements.define(
       shape: "string",
       status: "string",
       color: "string",
+      transition: "string",
+      transitionDuration: "number",
+      transitionDelay: "number",
+      hoverEffect: "string",
     },
   })
 );
 
 customElements.define(
   "l-avatar-group",
-  r2wc(withTailwind(AvatarGroup), { shadow: "open", props: {} })
+  r2wc(withTailwind(AvatarGroup), { shadow: "open", props: { transition: "string", transitionDuration: "number", transitionDelay: "number" } })
 );
 
 customElements.define(
@@ -221,7 +260,7 @@ customElements.define(
   "l-spinner",
   r2wc(withTailwind(Spinner), {
     shadow: "open",
-    props: { size: "string", color: "string", variant: "string", label: "string" },
+    props: { size: "string", color: "string", variant: "string", label: "string", transition: "string", transitionDuration: "number", transitionDelay: "number" },
   })
 );
 
@@ -229,7 +268,7 @@ customElements.define(
   "l-loader",
   r2wc(withTailwind(Loader), {
     shadow: "open",
-    props: { shape: "string", variant: "string", width: "number", height: "number", lines: "number" },
+    props: { shape: "string", variant: "string", width: "number", height: "number", lines: "number", transition: "string", transitionDuration: "number", transitionDelay: "number" },
   })
 );
 
@@ -237,7 +276,7 @@ customElements.define(
   "l-divider",
   r2wc(withTailwind(Divider), {
     shadow: "open",
-    props: { orientation: "string", label: "string", color: "string", resizable: "boolean", step: "number" },
+    props: { orientation: "string", label: "string", color: "string", resizable: "boolean", step: "number", transition: "string", transitionDuration: "number", transitionDelay: "number" },
     events: { onResize: {} }, // dispatches "resize", detail = delta px
   })
 );
@@ -246,7 +285,7 @@ customElements.define(
   "l-tooltip",
   r2wc(withTailwind(Tooltip), {
     shadow: "open",
-    props: { content: "string", position: "string", delayMs: "number", color: "string" },
+    props: { content: "string", position: "string", delayMs: "number", color: "string", transition: "string", transitionDuration: "number", transitionDelay: "number" },
   })
 );
 
@@ -254,7 +293,7 @@ customElements.define(
   "l-card",
   r2wc(withTailwind(Card), {
     shadow: "open",
-    props: { variant: "string", padding: "string", hoverable: "boolean", title: "string", footer: "string" },
+    props: { variant: "string", padding: "string", hoverable: "boolean", title: "string", footer: "string", animated: "string", pulseColor: "string", pulseGradientTo: "string", transition: "string", transitionDuration: "number", transitionDelay: "number", hoverEffect: "string" },
   })
 );
 
@@ -262,7 +301,7 @@ customElements.define(
   "l-container",
   r2wc(withTailwind(Container), {
     shadow: "open",
-    props: { size: "string", centered: "boolean", padded: "boolean" },
+    props: { size: "string", centered: "boolean", padded: "boolean", transition: "string", transitionDuration: "number", transitionDelay: "number" },
   })
 );
 
@@ -270,7 +309,7 @@ customElements.define(
   "l-section",
   r2wc(withTailwind(Section), {
     shadow: "open",
-    props: { title: "string", subtitle: "string", spacing: "string" },
+    props: { title: "string", subtitle: "string", spacing: "string", transition: "string", transitionDuration: "number", transitionDelay: "number" },
   })
 );
 
@@ -278,7 +317,7 @@ customElements.define(
   "l-grid",
   r2wc(withTailwind(Grid), {
     shadow: "open",
-    props: { cols: "number", gap: "string" },
+    props: { cols: "number", gap: "string", transition: "string", transitionDuration: "number", transitionDelay: "number" },
   })
 );
 
@@ -286,7 +325,7 @@ customElements.define(
   "l-list",
   r2wc(withTailwind(List), {
     shadow: "open",
-    props: { ordered: "boolean", variant: "string", className: "string" },
+    props: { ordered: "boolean", variant: "string", className: "string", transition: "string", transitionDuration: "number", transitionDelay: "number" },
   })
 );
 
@@ -296,13 +335,13 @@ customElements.define(
   "l-list-item",
   r2wc(withTailwind(ListItem), {
     shadow: "open",
-    props: { icon: "string", tooltip: "boolean", tooltipPosition: "string", classNames: "json" },
+    props: { icon: "string", tooltip: "boolean", tooltipPosition: "string", classNames: "json", transition: "string", transitionDuration: "number", transitionDelay: "number" },
   })
 );
 
 customElements.define(
   "l-breadcrumbs",
-  r2wc(withTailwind(Breadcrumbs), { shadow: "open", props: { color: "string", variant: "string" } })
+  r2wc(withTailwind(Breadcrumbs), { shadow: "open", props: { color: "string", variant: "string", transition: "string", transitionDuration: "number", transitionDelay: "number" } })
 );
 
 customElements.define(
@@ -315,7 +354,7 @@ customElements.define(
 
 customElements.define(
   "l-accordion",
-  r2wc(withTailwind(Accordion), { shadow: "open", props: { className: "string" } })
+  r2wc(withTailwind(Accordion), { shadow: "open", props: { className: "string", transition: "string", transitionDuration: "number", transitionDelay: "number", hoverEffect: "string" } })
 );
 
 // Same-`name` <l-accordion-item> siblings become mutually exclusive via the
@@ -331,6 +370,9 @@ customElements.define(
       defaultOpen: "boolean",
       disabled: "boolean",
       classNames: "json",
+      transition: "string",
+      transitionDuration: "number",
+      transitionDelay: "number",
     },
   })
 );
@@ -340,9 +382,24 @@ customElements.define(
 // objects/functions instead of attributes for the `render` callback to work).
 customElements.define(
   "l-table",
-  r2wc(withTailwind(Table), {
+  r2wc(withTailwind(TableElement), {
     shadow: "open",
-    props: { columns: "json", data: "json", size: "string", striped: "boolean", bordered: "boolean" },
+    props: {
+      columns: "json",
+      data: "json",
+      size: "string",
+      striped: "boolean",
+      bordered: "boolean",
+      loading: "boolean",
+      skeletonRows: "number",
+      actions: "json",
+      actionsHeader: "string",
+      builtInActions: "boolean",
+      transition: "string",
+      transitionDuration: "number",
+      transitionDelay: "number",
+    },
+    events: { onAction: {}, onDataChange: {} }, // dispatch "action" (detail = { action, row }) and "datachange" (detail = the rows)
   })
 );
 
@@ -350,7 +407,7 @@ customElements.define(
   "l-pagination",
   r2wc(withTailwind(Pagination), {
     shadow: "open",
-    props: { page: "number", totalPages: "number", siblingCount: "number", color: "string" },
+    props: { page: "number", totalPages: "number", siblingCount: "number", color: "string", transition: "string", transitionDuration: "number", transitionDelay: "number" },
     events: { onPageChange: {} }, // dispatches "pagechange", detail = new page number
   })
 );
@@ -361,7 +418,7 @@ customElements.define(
   "l-tabs",
   r2wc(withTailwind(Tabs), {
     shadow: "open",
-    props: { tabs: "json", defaultIndex: "number", color: "string" },
+    props: { tabs: "json", defaultIndex: "number", color: "string", transition: "string", transitionDuration: "number", transitionDelay: "number" },
   })
 );
 
@@ -369,7 +426,7 @@ customElements.define(
   "l-carousel",
   r2wc(withTailwind(Carousel), {
     shadow: "open",
-    props: { slides: "json", autoPlay: "boolean", intervalMs: "number", showArrows: "boolean", showDots: "boolean" },
+    props: { slides: "json", autoPlay: "boolean", intervalMs: "number", showArrows: "boolean", showDots: "boolean", transition: "string", transitionDuration: "number", transitionDelay: "number", hoverEffect: "string" },
   })
 );
 
@@ -388,6 +445,10 @@ customElements.define(
       invalid: "boolean",
       leadingIcon: "string",
       trailingIcon: "string",
+      transition: "string",
+      transitionDuration: "number",
+      transitionDelay: "number",
+      hoverEffect: "string",
     },
   })
 );
@@ -405,6 +466,10 @@ customElements.define(
       rows: "number",
       invalid: "boolean",
       resize: "string",
+      transition: "string",
+      transitionDuration: "number",
+      transitionDelay: "number",
+      hoverEffect: "string",
     },
   })
 );
@@ -413,7 +478,7 @@ customElements.define(
   "l-label",
   r2wc(withTailwind(Label), {
     shadow: "open",
-    props: { htmlFor: "string", required: "boolean" },
+    props: { htmlFor: "string", required: "boolean", transition: "string", transitionDuration: "number", transitionDelay: "number" },
   })
 );
 
@@ -421,7 +486,7 @@ customElements.define(
   "l-search-input",
   r2wc(withTailwind(SearchInput), {
     shadow: "open",
-    props: { value: "string", placeholder: "string", size: "string", disabled: "boolean" },
+    props: { value: "string", placeholder: "string", size: "string", disabled: "boolean", transition: "string", transitionDuration: "number", transitionDelay: "number", hoverEffect: "string" },
     events: { onClear: {} }, // dispatches "clear" — no native DOM equivalent for the clear button
   })
 );
@@ -438,6 +503,10 @@ customElements.define(
       value: "string",
       color: "string",
       label: "string",
+      transition: "string",
+      transitionDuration: "number",
+      transitionDelay: "number",
+      hoverEffect: "string",
     },
   })
 );
@@ -454,6 +523,10 @@ customElements.define(
       value: "string",
       color: "string",
       label: "string",
+      transition: "string",
+      transitionDuration: "number",
+      transitionDelay: "number",
+      hoverEffect: "string",
     },
   })
 );
@@ -464,7 +537,7 @@ customElements.define(
   "l-radio-group",
   r2wc(withTailwind(RadioGroup), {
     shadow: "open",
-    props: { orientation: "string" },
+    props: { orientation: "string", transition: "string", transitionDuration: "number", transitionDelay: "number", hoverEffect: "string" },
   })
 );
 
@@ -480,6 +553,10 @@ customElements.define(
       size: "string",
       color: "string",
       label: "string",
+      transition: "string",
+      transitionDuration: "number",
+      transitionDelay: "number",
+      hoverEffect: "string",
     },
   })
 );
@@ -495,6 +572,10 @@ customElements.define(
       size: "string",
       invalid: "boolean",
       disabled: "boolean",
+      transition: "string",
+      transitionDuration: "number",
+      transitionDelay: "number",
+      hoverEffect: "string",
     },
   })
 );
@@ -503,7 +584,7 @@ customElements.define(
   "l-date-picker",
   r2wc(withTailwind(DatePicker), {
     shadow: "open",
-    props: { value: "string", size: "string", variant: "string", invalid: "boolean", disabled: "boolean" },
+    props: { value: "string", size: "string", variant: "string", invalid: "boolean", disabled: "boolean", transition: "string", transitionDuration: "number", transitionDelay: "number", hoverEffect: "string" },
     events: { onClear: {} }, // dispatches "clear" — no native DOM equivalent for the clear button
   })
 );
@@ -525,6 +606,10 @@ customElements.define(
       invalid: "boolean",
       disabled: "boolean",
       presets: "json",
+      transition: "string",
+      transitionDuration: "number",
+      transitionDelay: "number",
+      hoverEffect: "string",
     },
     events: { onStartChange: {}, onEndChange: {} }, // dispatch "startchange"/"endchange", detail = the new date string
   })
@@ -534,7 +619,7 @@ customElements.define(
   "l-time-picker",
   r2wc(withTailwind(TimePicker), {
     shadow: "open",
-    props: { value: "string", size: "string", invalid: "boolean", disabled: "boolean" },
+    props: { value: "string", size: "string", invalid: "boolean", disabled: "boolean", transition: "string", transitionDuration: "number", transitionDelay: "number", hoverEffect: "string" },
   })
 );
 
@@ -550,6 +635,10 @@ customElements.define(
       color: "string",
       showValue: "boolean",
       disabled: "boolean",
+      transition: "string",
+      transitionDuration: "number",
+      transitionDelay: "number",
+      hoverEffect: "string",
     },
   })
 );
@@ -569,6 +658,10 @@ customElements.define(
       step: "number",
       color: "string",
       showValue: "boolean",
+      transition: "string",
+      transitionDuration: "number",
+      transitionDelay: "number",
+      hoverEffect: "string",
     },
     events: { onChange: {} }, // dispatches "change", detail = [number, number]
   })
@@ -581,7 +674,7 @@ customElements.define(
   "l-multi-select",
   r2wc(withTailwind(MultiSelect), {
     shadow: "open",
-    props: { options: "json", value: "json", placeholder: "string", color: "string" },
+    props: { options: "json", value: "json", placeholder: "string", color: "string", transition: "string", transitionDuration: "number", transitionDelay: "number", hoverEffect: "string" },
     events: { onChange: {} }, // dispatches "change", detail = string[]
   })
 );
@@ -590,7 +683,7 @@ customElements.define(
   "l-combobox",
   r2wc(withTailwind(Combobox), {
     shadow: "open",
-    props: { options: "json", value: "string", placeholder: "string" },
+    props: { options: "json", value: "string", placeholder: "string", transition: "string", transitionDuration: "number", transitionDelay: "number", hoverEffect: "string" },
     events: { onChange: {} }, // dispatches "change", detail = the selected value
   })
 );
@@ -599,7 +692,7 @@ customElements.define(
   "l-file-upload",
   r2wc(withTailwind(FileUpload), {
     shadow: "open",
-    props: { label: "string", accept: "string", multiple: "boolean", disabled: "boolean" },
+    props: { label: "string", accept: "string", multiple: "boolean", disabled: "boolean", transition: "string", transitionDuration: "number", transitionDelay: "number", hoverEffect: "string" },
     events: { onFilesSelected: {} }, // dispatches "filesselected", detail = FileList | null
   })
 );
@@ -608,7 +701,7 @@ customElements.define(
   "l-alert-dialog",
   r2wc(withTailwind(AlertDialogElement), {
     shadow: "open",
-    props: { open: "boolean", heading: "string", description: "string", variant: "string", confirmLabel: "string", cancelLabel: "string" },
+    props: { open: "boolean", heading: "string", description: "string", variant: "string", confirmLabel: "string", cancelLabel: "string", transition: "string", transitionDuration: "number", transitionDelay: "number", hoverEffect: "string" },
     events: { onClose: {}, onConfirm: {} }, // dispatch "close"/"confirm"
   })
 );
@@ -617,7 +710,7 @@ customElements.define(
   "l-drawer",
   r2wc(withTailwind(DrawerElement), {
     shadow: "open",
-    props: { open: "boolean", heading: "string", position: "string", size: "string" },
+    props: { open: "boolean", heading: "string", position: "string", size: "string", transition: "string", transitionDuration: "number", transitionDelay: "number", hoverEffect: "string" },
     events: { onClose: {} }, // dispatches "close"
   })
 );
@@ -626,7 +719,7 @@ customElements.define(
   "l-sheet",
   r2wc(withTailwind(SheetElement), {
     shadow: "open",
-    props: { open: "boolean", heading: "string" },
+    props: { open: "boolean", heading: "string", transition: "string", transitionDuration: "number", transitionDelay: "number", hoverEffect: "string" },
     events: { onClose: {} }, // dispatches "close"
   })
 );
@@ -635,7 +728,7 @@ customElements.define(
   "l-popover",
   r2wc(withTailwind(Popover), {
     shadow: "open",
-    props: { content: "string", position: "string" },
+    props: { content: "string", position: "string", transition: "string", transitionDuration: "number", transitionDelay: "number" },
   })
 );
 
@@ -643,7 +736,7 @@ customElements.define(
   "l-dropdown-menu",
   r2wc(withTailwind(DropdownMenu), {
     shadow: "open",
-    props: { align: "string" },
+    props: { align: "string", transition: "string", transitionDuration: "number", transitionDelay: "number" },
   })
 );
 
@@ -662,7 +755,7 @@ customElements.define(
 
 customElements.define(
   "l-context-menu",
-  r2wc(withTailwind(ContextMenu), { shadow: "open", props: {} })
+  r2wc(withTailwind(ContextMenu), { shadow: "open", props: { transition: "string", transitionDuration: "number", transitionDelay: "number" } })
 );
 
 // `items` is plain data — set the `items` DOM property directly with a real
@@ -671,7 +764,7 @@ customElements.define(
   "l-command-menu",
   r2wc(withTailwind(CommandMenu), {
     shadow: "open",
-    props: { open: "boolean", items: "json", placeholder: "string" },
+    props: { open: "boolean", items: "json", placeholder: "string", transition: "string", transitionDuration: "number", transitionDelay: "number" },
     events: { onClose: {} }, // dispatches "close"
   })
 );
@@ -681,12 +774,19 @@ customElements.define(
   r2wc(withTailwind(AlertElement), {
     shadow: "open",
     props: {
+      animated: "string",
+      pulseColor: "string",
+      pulseGradientTo: "string",
       variant: "string",
       heading: "string",
       icon: "string",
       closable: "boolean",
       className: "string",
       classNames: "json",
+      transition: "string",
+      transitionDuration: "number",
+      transitionDelay: "number",
+      hoverEffect: "string",
     },
     events: { onClose: {} }, // dispatches "close"
   })
@@ -703,6 +803,10 @@ customElements.define(
       duration: "number",
       position: "string",
       icon: "string",
+      transition: "string",
+      transitionDuration: "number",
+      transitionDelay: "number",
+      hoverEffect: "string",
     },
     events: { onClose: {} }, // dispatches "close"
   })
@@ -712,7 +816,7 @@ customElements.define(
   "l-notification",
   r2wc(withTailwind(Notification), {
     shadow: "open",
-    props: { icon: "string", timestamp: "string", unread: "boolean" },
+    props: { icon: "string", timestamp: "string", unread: "boolean", transition: "string", transitionDuration: "number", transitionDelay: "number", hoverEffect: "string" },
     events: { onDismiss: {} }, // dispatches "dismiss" — no native DOM equivalent
   })
 );
@@ -729,6 +833,9 @@ customElements.define(
       showLabel: "boolean",
       striped: "boolean",
       indeterminate: "boolean",
+      transition: "string",
+      transitionDuration: "number",
+      transitionDelay: "number",
     },
   })
 );
@@ -737,7 +844,7 @@ customElements.define(
   "l-empty-state",
   r2wc(withTailwind(EmptyStateElement), {
     shadow: "open",
-    props: { icon: "string", heading: "string" },
+    props: { icon: "string", heading: "string", transition: "string", transitionDuration: "number", transitionDelay: "number" },
   })
 );
 
@@ -745,7 +852,7 @@ customElements.define(
   "l-error-state",
   r2wc(withTailwind(ErrorStateElement), {
     shadow: "open",
-    props: { icon: "string", heading: "string" },
+    props: { icon: "string", heading: "string", transition: "string", transitionDuration: "number", transitionDelay: "number" },
   })
 );
 
@@ -753,7 +860,7 @@ customElements.define(
   "l-success-state",
   r2wc(withTailwind(SuccessStateElement), {
     shadow: "open",
-    props: { icon: "string", heading: "string" },
+    props: { icon: "string", heading: "string", transition: "string", transitionDuration: "number", transitionDelay: "number" },
   })
 );
 
@@ -761,7 +868,7 @@ customElements.define(
   "l-loading-state",
   r2wc(withTailwind(LoadingStateElement), {
     shadow: "open",
-    props: { heading: "string", size: "string" },
+    props: { heading: "string", size: "string", transition: "string", transitionDuration: "number", transitionDelay: "number" },
   })
 );
 
@@ -783,6 +890,10 @@ customElements.define(
       borderWidth: "number",
       items: "json",
       defaultActiveItem: "string",
+      transition: "string",
+      transitionDuration: "number",
+      transitionDelay: "number",
+      hoverEffect: "string",
     },
     events: {
       onActiveItemChange: {}, // dispatches "activeitemchange", detail = the active item object
@@ -807,6 +918,10 @@ customElements.define(
       vividActive: "boolean",
       color: "string",
       activeStyle: "string",
+      transition: "string",
+      transitionDuration: "number",
+      transitionDelay: "number",
+      hoverEffect: "string",
     },
   })
 );
@@ -829,6 +944,10 @@ customElements.define(
       defaultActiveItem: "string",
       borderWidth: "number",
       sticky: "boolean",
+      transition: "string",
+      transitionDuration: "number",
+      transitionDelay: "number",
+      hoverEffect: "string",
     },
     events: {
       onCollapsedChange: {}, // dispatches "collapsedchange", detail = the requested boolean
@@ -856,6 +975,10 @@ customElements.define(
       vividActive: "boolean",
       color: "string",
       tooltipPosition: "string",
+      transition: "string",
+      transitionDuration: "number",
+      transitionDelay: "number",
+      hoverEffect: "string",
     },
   })
 );
@@ -864,13 +987,13 @@ customElements.define(
   "l-header",
   r2wc(withHostBlock(withTailwind(HeaderElement)), {
     shadow: "open",
-    props: { heading: "string", variant: "string", color: "string", borderWidth: "number" },
+    props: { heading: "string", variant: "string", color: "string", borderWidth: "number", transition: "string", transitionDuration: "number", transitionDelay: "number" },
   })
 );
 
 customElements.define(
   "l-footer",
-  r2wc(withTailwind(Footer), { shadow: "open", props: { variant: "string", color: "string" } })
+  r2wc(withTailwind(Footer), { shadow: "open", props: { variant: "string", color: "string", transition: "string", transitionDuration: "number", transitionDelay: "number" } })
 );
 
 // `items` is plain data (label/href/icon/active/disabled) — set the `items`
@@ -879,7 +1002,7 @@ customElements.define(
   "l-navigation-menu",
   r2wc(withTailwind(NavigationMenu), {
     shadow: "open",
-    props: { items: "json", orientation: "string", color: "string", variant: "string", defaultActiveItem: "string" },
+    props: { items: "json", orientation: "string", color: "string", variant: "string", defaultActiveItem: "string", transition: "string", transitionDuration: "number", transitionDelay: "number", hoverEffect: "string" },
     events: {
       onChange: {}, // dispatches "change", detail = the clicked item's index
       onActiveItemChange: {}, // dispatches "activeitemchange", detail = the active item object
@@ -891,7 +1014,7 @@ customElements.define(
   "l-bottom-navigation",
   r2wc(withTailwind(BottomNavigation), {
     shadow: "open",
-    props: { items: "json", color: "string", variant: "string", defaultActiveItem: "string" },
+    props: { items: "json", color: "string", variant: "string", defaultActiveItem: "string", transition: "string", transitionDuration: "number", transitionDelay: "number", hoverEffect: "string" },
     events: { onActiveItemChange: {} }, // dispatches "activeitemchange", detail = the active item object
   })
 );
@@ -913,6 +1036,10 @@ customElements.define(
       nextLabel: "string",
       finishLabel: "string",
       completedContent: "string",
+      transition: "string",
+      transitionDuration: "number",
+      transitionDelay: "number",
+      hoverEffect: "string",
     },
     events: { onStepChange: {} }, // dispatches "stepchange", detail = the new step index
   })
@@ -938,6 +1065,10 @@ customElements.define(
       color: "string",
       size: "string",
       sticky: "boolean",
+      transition: "string",
+      transitionDuration: "number",
+      transitionDelay: "number",
+      hoverEffect: "string",
     },
     events: {
       onBack: {}, // dispatches "back"
@@ -967,6 +1098,12 @@ customElements.define(
       striped: "boolean",
       bordered: "boolean",
       selectable: "boolean",
+      loading: "boolean",
+      skeletonRows: "number",
+      transition: "string",
+      transitionDuration: "number",
+      transitionDelay: "number",
+      hoverEffect: "string",
     },
     events: { onSelectionChange: {} },
   })
@@ -976,7 +1113,7 @@ customElements.define(
   "l-timeline",
   r2wc(withTailwind(Timeline), {
     shadow: "open",
-    props: { items: "json", orientation: "string" },
+    props: { items: "json", orientation: "string", transition: "string", transitionDuration: "number", transitionDelay: "number" },
   })
 );
 
@@ -984,7 +1121,23 @@ customElements.define(
   "l-stat",
   r2wc(withTailwind(Stat), {
     shadow: "open",
-    props: { label: "string", value: "string", change: "string", trend: "string", icon: "string", color: "string" },
+    props: {
+      countUp: "boolean",
+      countUpDuration: "number",
+      label: "string",
+      value: "string",
+      change: "string",
+      trend: "string",
+      icon: "string",
+      color: "string",
+      animated: "string",
+      pulseColor: "string",
+      pulseGradientTo: "string",
+      transition: "string",
+      transitionDuration: "number",
+      transitionDelay: "number",
+      hoverEffect: "string",
+    },
   })
 );
 
@@ -992,7 +1145,7 @@ customElements.define(
   "l-chart",
   r2wc(withTailwind(Chart), {
     shadow: "open",
-    props: { data: "json", type: "string", height: "number", color: "string", showLabels: "boolean" },
+    props: { countUp: "boolean", countUpDuration: "number", data: "json", type: "string", height: "number", color: "string", showLabels: "boolean", transition: "string", transitionDuration: "number", transitionDelay: "number", hoverEffect: "string" },
   })
 );
 
@@ -1059,6 +1212,10 @@ customElements.define(
       footer: "boolean",
       confirmLabel: "string",
       cancelLabel: "string",
+      transition: "string",
+      transitionDuration: "number",
+      transitionDelay: "number",
+      hoverEffect: "string",
     },
     events: {
       onSelect: {}, // dispatches "select"
@@ -1075,7 +1232,7 @@ customElements.define(
   "l-activity-feed",
   r2wc(withTailwind(ActivityFeed), {
     shadow: "open",
-    props: { items: "json", compact: "boolean" },
+    props: { items: "json", compact: "boolean", transition: "string", transitionDuration: "number", transitionDelay: "number" },
   })
 );
 
@@ -1084,6 +1241,9 @@ customElements.define(
   r2wc(withTailwind(ProfileCard), {
     shadow: "open",
     props: {
+      animated: "string",
+      pulseColor: "string",
+      pulseGradientTo: "string",
       name: "string",
       role: "string",
       bio: "string",
@@ -1091,6 +1251,10 @@ customElements.define(
       avatarInitials: "string",
       stats: "json",
       color: "string",
+      transition: "string",
+      transitionDuration: "number",
+      transitionDelay: "number",
+      hoverEffect: "string",
     },
   })
 );
@@ -1106,6 +1270,10 @@ customElements.define(
       avatarInitials: "string",
       items: "json",
       align: "string",
+      transition: "string",
+      transitionDuration: "number",
+      transitionDelay: "number",
+      hoverEffect: "string",
     },
     events: { onItemSelect: {} },
   })
@@ -1115,7 +1283,7 @@ customElements.define(
   "l-password-input",
   r2wc(withTailwind(PasswordInput), {
     shadow: "open",
-    props: { size: "string", invalid: "boolean", disabled: "boolean" },
+    props: { size: "string", invalid: "boolean", disabled: "boolean", transition: "string", transitionDuration: "number", transitionDelay: "number", hoverEffect: "string" },
   })
 );
 
@@ -1129,6 +1297,10 @@ customElements.define(
       submitLabel: "string",
       showRemember: "boolean",
       showForgotPassword: "boolean",
+      transition: "string",
+      transitionDuration: "number",
+      transitionDelay: "number",
+      hoverEffect: "string",
     },
     events: { onSubmit: {}, onForgotPassword: {} },
   })
@@ -1138,7 +1310,7 @@ customElements.define(
   "l-signup-form",
   r2wc(withTailwind(SignupForm), {
     shadow: "open",
-    props: { title: "string", description: "string", submitLabel: "string", mismatchError: "string" },
+    props: { title: "string", description: "string", submitLabel: "string", mismatchError: "string", transition: "string", transitionDuration: "number", transitionDelay: "number", hoverEffect: "string" },
     events: { onSubmit: {} },
   })
 );
@@ -1147,7 +1319,7 @@ customElements.define(
   "l-profile-settings",
   r2wc(withTailwind(ProfileSettings), {
     shadow: "open",
-    props: { defaultValues: "json", avatarSrc: "string", avatarInitials: "string", saveLabel: "string" },
+    props: { defaultValues: "json", avatarSrc: "string", avatarInitials: "string", saveLabel: "string", transition: "string", transitionDuration: "number", transitionDelay: "number", hoverEffect: "string" },
     events: { onSave: {}, onAvatarChange: {} },
   })
 );
@@ -1156,7 +1328,38 @@ customElements.define(
   "l-account-settings",
   r2wc(withTailwind(AccountSettings), {
     shadow: "open",
-    props: { email: "string", notifications: "json" },
+    props: { email: "string", notifications: "json", transition: "string", transitionDuration: "number", transitionDelay: "number", hoverEffect: "string" },
     events: { onEmailChange: {}, onPasswordChange: {}, onNotificationsChange: {}, onDeleteAccount: {} },
+  })
+);
+
+// A MapLibre map. Markers and routes are plain data (`markers`, `routes` — set them as DOM properties with real arrays);
+// the element fills its host, so give `<l-map>` a height with CSS. MapLibre loads on demand the first time a map shows.
+customElements.define(
+  "l-map",
+  r2wc(withHostBlock(withTailwind(MapElement)), {
+    shadow: "open",
+    props: {
+      center: "json",
+      zoom: "number",
+      pitch: "number",
+      bearing: "number",
+      mapStyle: "string",
+      controls: "json",
+      markers: "json",
+      routes: "json",
+      fitBounds: "boolean",
+      fitPadding: "number",
+      interactive: "boolean",
+    },
+    events: {
+      onLoad: {}, // dispatches "load"
+      onMove: {}, // dispatches "move", detail = { center, zoom, pitch, bearing }
+      onMapClick: {}, // dispatches "mapclick", detail = { lng, lat }
+      onMarkerClick: {}, // dispatches "markerclick", detail = the marker
+      onMarkerDragEnd: {}, // dispatches "markerdragend", detail = the marker with its new lng / lat
+      onRouteClick: {}, // dispatches "routeclick", detail = the route
+      onRouteLoad: {}, // dispatches "routeload", detail = { id, distance, duration, coordinates }
+    },
   })
 );

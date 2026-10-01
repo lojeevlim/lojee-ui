@@ -3,6 +3,7 @@ import { cx, isColorName, type ColorName } from "../../../core/tokens";
 import { ACTIVE_ITEM_TRANSITION, ACTIVE_PILL_TRANSITION, activeAccent, activeMarker, explicitActive, type ActiveVariant } from "../../../core/activeVariant";
 import { navbarActiveFillClasses } from "../Navbar/navbarActiveStyles";
 import { Icon } from "../Icons/Icon";
+import { motionClass, motionStyle, type TransitionVariant, type HoverEffect } from "../../../core/motion";
 
 export interface BottomNavigationItem {
   icon: string;
@@ -54,6 +55,14 @@ export interface BottomNavigationProps {
   /** Called with the full item whenever the active tab changes — a click, a URL match on
    * mount/back-forward navigation, or an item's `active` field changing to point elsewhere. */
   onActiveItemChange?: (item: BottomNavigationItem) => void;
+  /** Enter transition: "fade" | "slide-up" | "slide-down" | "slide-left" | "slide-right" | "zoom" | "zoom-out" | "flip" | "blur" | "bounce" | "rotate" | "drop" | "skew" (default: none). Respects `prefers-reduced-motion`. */
+  transition?: TransitionVariant;
+  /** Enter transition duration in ms (default: 450). */
+  transitionDuration?: number;
+  /** Delay before the enter transition starts, in ms (default: 0) — handy for staggering. */
+  transitionDelay?: number;
+  /** Effect while hovering: "lift" | "scale" | "press" | "tilt" | "ring" | "glow" | "shine" (default: none). Applied to each tab. */
+  hoverEffect?: HoverEffect;
   /** Extra class names applied to the root bar. */
   className?: string;
   /** Per-part class overrides (`root`, `item`, `activeItem`, `icon`, `label`, `badge`) — merged after the built-in styling. */
@@ -73,6 +82,10 @@ export function BottomNavigation({
   variant,
   defaultActiveItem,
   onActiveItemChange,
+  transition,
+  transitionDuration,
+  transitionDelay,
+  hoverEffect,
   className,
   classNames,
 }: BottomNavigationProps) {
@@ -144,7 +157,8 @@ export function BottomNavigation({
   return (
     <div
       ref={barRef}
-      className={cx("relative flex items-center justify-around gap-1 border-t border-border bg-surface px-2 py-2", className, classNames?.root)}
+      className={cx("relative flex items-center justify-around gap-1 border-t border-border bg-surface px-2 py-2", motionClass(transition), className, classNames?.root)}
+      style={motionStyle(transitionDuration, transitionDelay)}
     >
       {pill && variant !== "text" && (
         <span
@@ -163,6 +177,7 @@ export function BottomNavigation({
           active
             ? cx(explicit ? explicit.textClass : "text-white", classNames?.activeItem)
             : "text-fg-subtle hover:text-fg-muted",
+          motionClass(undefined, hoverEffect),
           classNames?.item
         );
         // The pill above carries the fill; the tab itself only switches its text color. theme.css redraws both for

@@ -1,4 +1,4 @@
-import { useEffect, useState, type ComponentType } from 'react'
+import { useEffect, useRef, useState, type ComponentType } from 'react'
 import { useParams, useNavigate, Navigate } from 'react-router-dom'
 import ButtonShowcase, { Button } from './components/ui/Buttons'
 import BadgeShowcase from './components/ui/Badge'
@@ -53,6 +53,9 @@ import LoadingStateShowcase from './components/ui/LoadingState'
 import NavbarShowcase from './components/ui/Navbar'
 import TopBarShowcase from './components/ui/TopBar'
 import FlowDiagramShowcase from './components/ui/FlowDiagram'
+import MapShowcase from './components/ui/Map'
+import MapMarkerShowcase from './components/ui/MapMarker'
+import MapRouteShowcase from './components/ui/MapRoute'
 import SidebarShowcase from './components/ui/Sidebar'
 import HeaderShowcase from './components/ui/Header'
 import FooterShowcase from './components/ui/Footer'
@@ -149,6 +152,9 @@ const SHOWCASES: Record<string, ComponentType> = {
   Navbar: NavbarShowcase,
   'Top Bar': TopBarShowcase,
   'Flow Diagram': FlowDiagramShowcase,
+  Map: MapShowcase,
+  'Map Markers': MapMarkerShowcase,
+  'Map Routes': MapRouteShowcase,
   Sidebar: SidebarShowcase,
   Header: HeaderShowcase,
   Footer: FooterShowcase,
@@ -193,6 +199,13 @@ function App() {
     }
   }, [])
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
+  const contentRef = useRef<HTMLDivElement>(null)
+
+  // <Main> is the scroll container, so glide it back to the top whenever the page changes.
+  useEffect(() => {
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    contentRef.current?.closest('main')?.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' })
+  }, [rawNavKind, item])
 
   const navKind: NavKind = rawNavKind === 'docs' ? 'docs' : 'components'
   const menu = navKind === 'docs' ? DOCS_MENU : COMPONENT_MENU
@@ -231,10 +244,10 @@ function App() {
           {(() => {
             const ActiveShowcase = SHOWCASES[found.item.label]
             return ActiveShowcase ? (
-              <>
+              <div ref={contentRef}>
                 <ActiveShowcase />
                 <div className="mx-auto max-w-6xl px-6 md:px-10"><ApiReference name={found.item.label} /></div>
-              </>
+              </div>
             ) : <p>This is the main content area.</p>
           })()}
         </Main>

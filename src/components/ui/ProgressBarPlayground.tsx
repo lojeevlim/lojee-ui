@@ -3,10 +3,12 @@ import { ProgressBar, type ProgressBarSize } from "./ProgressBar/ProgressBar";
 import type { ColorName } from "../../core/tokens";
 import { OptionGroup, ColorSwatches, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
+import { useMotion } from "./playgroundMotion";
 
 const SIZES: ProgressBarSize[] = ["sm", "md", "lg"];
 
 export default function ProgressBarPlayground() {
+  const motion = useMotion({ hover: false });
   const [value, setValue] = useState(60);
   const [size, setSize] = useState<ProgressBarSize>("md");
   const [color, setColor] = useState<ColorName>("accent");
@@ -19,6 +21,8 @@ export default function ProgressBarPlayground() {
       <AppWindowBody>
         <div className="w-full max-w-sm">
           <ProgressBar
+            key={motion.replayKey}
+            {...motion.props}
             value={value}
             size={size}
             color={color}
@@ -39,8 +43,8 @@ export default function ProgressBarPlayground() {
   const valueAttrHtml = indeterminate ? "" : ` value="${value}"`;
   const indeterminateAttr = indeterminate ? " indeterminate" : "";
 
-  const code = `<ProgressBar${valueAttr}${sizeAttr}${colorAttr}${stripedAttr}${indeterminateAttr}${showLabelAttr} />`;
-  const htmlMarkup = `<l-ProgressBar${valueAttrHtml}${sizeAttr}${colorAttr}${stripedAttr}${indeterminateAttr}${showLabelAttr} />`;
+  const code = `<ProgressBar${valueAttr}${sizeAttr}${colorAttr}${stripedAttr}${indeterminateAttr}${showLabelAttr}${motion.attrs} />`;
+  const htmlMarkup = `<l-ProgressBar${valueAttrHtml}${sizeAttr}${colorAttr}${stripedAttr}${indeterminateAttr}${showLabelAttr}${motion.attrs} />`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,
@@ -104,6 +108,7 @@ export default function ProgressBarPlayground() {
           {showLabel ? "On" : "Off"}
         </button>
       </div>
+      {motion.controls}
     </PlaygroundLayout>
   );
 }

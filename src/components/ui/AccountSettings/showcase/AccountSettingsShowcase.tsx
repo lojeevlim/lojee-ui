@@ -118,6 +118,68 @@ onDeleteAccount() { /* confirm + delete */ }`,
             button.
           </p>
         </section>
+
+        <section>
+          <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`) and hover effects via `hoverEffect`. They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
+          <div className="grid gap-6 sm:grid-cols-2">
+            <AccountSettings transition="fade" />
+            <AccountSettings transition="slide-up" />
+            <AccountSettings transition="zoom" transitionDelay={100} />
+            <AccountSettings transition="flip" transitionDuration={700} />
+            <AccountSettings hoverEffect="lift" />
+            <AccountSettings hoverEffect="glow" />
+          </div>
+          <CodeBlock
+            variants={{
+              react: `<AccountSettings transition="fade" />
+<AccountSettings transition="slide-up" />
+<AccountSettings transition="zoom" transitionDelay={100} />
+<AccountSettings transition="flip" transitionDuration={700} />
+<AccountSettings hoverEffect="lift" />
+<AccountSettings hoverEffect="glow" />`,
+              js: `<l-AccountSettings transition="fade"></l-AccountSettings>
+<l-AccountSettings transition="slide-up"></l-AccountSettings>
+<l-AccountSettings transition="zoom" transitionDelay="100"></l-AccountSettings>
+<l-AccountSettings transition="flip" transitionDuration="700"></l-AccountSettings>
+<l-AccountSettings hoverEffect="lift"></l-AccountSettings>
+<l-AccountSettings hoverEffect="glow"></l-AccountSettings>
+
+<script type="module">
+  import "lojee-ui/elements";
+</script>`,
+              vue: `<template>
+  <l-AccountSettings transition="fade"></l-AccountSettings>
+  <l-AccountSettings transition="slide-up"></l-AccountSettings>
+  <l-AccountSettings transition="zoom" transitionDelay="100"></l-AccountSettings>
+  <l-AccountSettings transition="flip" transitionDuration="700"></l-AccountSettings>
+  <l-AccountSettings hoverEffect="lift"></l-AccountSettings>
+  <l-AccountSettings hoverEffect="glow"></l-AccountSettings>
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-AccountSettings transition="fade"></l-AccountSettings>
+    <l-AccountSettings transition="slide-up"></l-AccountSettings>
+    <l-AccountSettings transition="zoom" transitionDelay="100"></l-AccountSettings>
+    <l-AccountSettings transition="flip" transitionDuration="700"></l-AccountSettings>
+    <l-AccountSettings hoverEffect="lift"></l-AccountSettings>
+    <l-AccountSettings hoverEffect="glow"></l-AccountSettings>
+  \`,
+})
+export class AppComponent {}`,
+            }}
+          />
+        </section>
       </div>
     </div>
   );

@@ -3,6 +3,7 @@ import { Sidebar, type SidebarVariant } from "./Sidebar/Sidebar";
 import { OptionGroup, ColorSwatches, PlaygroundLayout, AppWindowFrame } from "./PlaygroundHelpers";
 import { isColorName, COLOR_HEX } from "../../core/tokens";
 import type { CodeBlockVariants } from "./CodeBlock";
+import { useMotion } from "./playgroundMotion";
 
 const VARIANTS: SidebarVariant[] = ["light", "dark", "bordered", "elevated", "minimal", "gradient", "glass"];
 
@@ -35,6 +36,7 @@ const NAV_ITEMS = [
 const DEFAULT_ACTIVE_OPTIONS = ["none", ...NAV_ITEMS.map((item) => item.label)];
 
 export default function SidebarPlayground() {
+  const motion = useMotion();
   const [header, setHeader] = useState("Lojee Inc");
   const [width, setWidth] = useState(256);
   const [collapsed, setCollapsed] = useState(false);
@@ -59,7 +61,8 @@ export default function SidebarPlayground() {
       <div className="flex" style={{ height: 425 }}>
         <div className={DOCK_CELL_CLASSES[variant]}>
           <Sidebar
-            key={defaultActiveItemValue}
+            key={`${defaultActiveItemValue}-${motion.replayKey}`}
+            {...motion.props}
             width={width}
             // Without this, every variant defaults to height="100vh" and just gets clipped by
             // AppWindowFrame's overflow-hidden down to this frame's 425px — invisible for the
@@ -108,9 +111,11 @@ export default function SidebarPlayground() {
   const defaultActiveItemAttrHtml = defaultActiveItemValue ? ` default-active-item="${defaultActiveItemValue}"` : "";
   // Only meaningful for "bordered" — no point showing it in the sample for any other variant.
   const borderWidthAttrJsx = showBorderWidthControl && borderWidth !== 2 ? ` borderWidth={${borderWidth}}` : "";
+  // Same attribute names in React and the custom elements.
+  const motionAttrs = motion.attrs;
   const borderWidthAttrHtml = showBorderWidthControl && borderWidth !== 2 ? ` border-width="${borderWidth}"` : "";
 
-  const code = `<Sidebar${widthAttrJsx}${collapsedAttr}${variantAttr}${colorAttr}${collapsibleAttr}${defaultActiveItemAttrJsx}${borderWidthAttrJsx}
+  const code = `<Sidebar${widthAttrJsx}${collapsedAttr}${variantAttr}${colorAttr}${collapsibleAttr}${defaultActiveItemAttrJsx}${borderWidthAttrJsx}${motionAttrs}
   onCollapsedChange={setCollapsed}
   onActiveItemChange={(item) => console.log(item)}
   header="${headerText}"
@@ -121,7 +126,7 @@ export default function SidebarPlayground() {
 
   const codeVariants: CodeBlockVariants = {
     react: code,
-    js: `<l-Sidebar id="app-sidebar"${widthAttrHtml}${collapsedAttrHtml}${variantAttr}${colorAttr}${collapsibleAttrHtml}${defaultActiveItemAttrHtml}${borderWidthAttrHtml} header="${headerText}" header-icon="zap" footer="Jordan Diaz"></l-Sidebar>
+    js: `<l-Sidebar id="app-sidebar"${widthAttrHtml}${collapsedAttrHtml}${variantAttr}${colorAttr}${collapsibleAttrHtml}${defaultActiveItemAttrHtml}${borderWidthAttrHtml}${motionAttrs} header="${headerText}" header-icon="zap" footer="Jordan Diaz"></l-Sidebar>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -131,7 +136,7 @@ export default function SidebarPlayground() {
   sidebar.addEventListener("activeitemchange", (e) => console.log(e.detail));
 </script>`,
     vue: `<template>
-  <l-Sidebar${widthAttrHtml}${collapsedAttrVue}${variantAttr}${colorAttr}${collapsibleAttrVue}${defaultActiveItemAttrHtml}${borderWidthAttrHtml} header="${headerText}" header-icon="zap" footer="Jordan Diaz" :items="items" @activeitemchange="(e) => console.log(e.detail)" />
+  <l-Sidebar${widthAttrHtml}${collapsedAttrVue}${variantAttr}${colorAttr}${collapsibleAttrVue}${defaultActiveItemAttrHtml}${borderWidthAttrHtml}${motionAttrs} header="${headerText}" header-icon="zap" footer="Jordan Diaz" :items="items" @activeitemchange="(e) => console.log(e.detail)" />
 </template>
 
 <script setup lang="ts">
@@ -147,7 +152,7 @@ import "lojee-ui/elements";
   selector: "app-root",
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  template: \`<l-Sidebar${widthAttrHtml}${collapsedAttrAngular}${variantAttr}${colorAttr}${collapsibleAttrAngular}${defaultActiveItemAttrHtml}${borderWidthAttrHtml} header="${headerText}" header-icon="zap" footer="Jordan Diaz" [items]="items" (activeitemchange)="onActiveItemChange($event.detail)" />\`,
+  template: \`<l-Sidebar${widthAttrHtml}${collapsedAttrAngular}${variantAttr}${colorAttr}${collapsibleAttrAngular}${defaultActiveItemAttrHtml}${borderWidthAttrHtml}${motionAttrs} header="${headerText}" header-icon="zap" footer="Jordan Diaz" [items]="items" (activeitemchange)="onActiveItemChange($event.detail)" />\`,
 })
 export class AppComponent {
   items = ${itemsLiteral};
@@ -255,6 +260,7 @@ export class AppComponent {
           Active: <span className="text-fg-muted">{activeLabel ?? "none yet — click a row"}</span>
         </span>
       </div>
+      {motion.controls}
     </PlaygroundLayout>
   );
 }

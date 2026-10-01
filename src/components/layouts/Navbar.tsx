@@ -31,7 +31,7 @@ export default function NavbarLayout({ activeNav = "components", onNavChange, sh
   // destroying and recreating the pill's own DOM node before its CSS transition ever got a frame to
   // animate — the click always looked instant, never sliding, no matter how slow the transition was.
   const navigate = useNavigate();
-  const navItems: NavbarItemSpec[] = NAV_LABELS.map((label) => ({ label, icon: NAV_ICONS[label], active: label === KEY_TO_LABEL[activeNav] }));
+  const navItems: NavbarItemSpec[] = NAV_LABELS.map((label) => ({ label, icon: NAV_ICONS[label], tooltip: label, active: label === KEY_TO_LABEL[activeNav] }));
 
   return (
     <UINavbar
@@ -39,7 +39,7 @@ export default function NavbarLayout({ activeNav = "components", onNavChange, sh
       brand={
         <>
           {showSideToggle && <SideToggle />}
-          <button type="button" onClick={() => navigate("/")} aria-label="lojeeUI home" className="rounded-md px-1 py-1 transition-opacity hover:opacity-80">
+          <button type="button" onClick={() => navigate("/")} aria-label="lojeeUI home" className="rounded-md px-1 py-1 transition-opacity hover:opacity-80 max-sm:hidden">
             <Logo size={28} className="text-[15px] max-sm:[&>span]:hidden" />
           </button>
         </>
@@ -51,14 +51,14 @@ export default function NavbarLayout({ activeNav = "components", onNavChange, sh
       }}
       // `bordered` (default true) already gives "light" its own `border-b border-border` divider —
       // just widening the built-in `py-3` to match the old Header's `py-4` here.
-      // Below `sm` each link becomes a stacked icon with a small label underneath; from `sm` up the
+      // Below `sm` each link is icon-only (its label stays as screen-reader text); from `sm` up the
       // icon is hidden and the links are text-only as before. On phones the equal-width columns give way to
-      // content-sized ones (a long label like "Components" would otherwise widen every column).
+      // content-sized ones.
       classNames={{
-        root: "h-16 px-2 py-0 sm:px-6",
-        actions: "max-sm:gap-1.5",
+        root: "h-16 gap-1 px-2 py-0 sm:gap-4 sm:px-6 max-sm:[&>div:first-child]:gap-0 max-sm:[&>div:first-child]:min-w-0",
+        actions: "max-sm:gap-1",
         links:
-          "max-sm:auto-cols-auto max-sm:gap-0 max-sm:[&_a]:flex-col max-sm:[&_button]:flex-col max-sm:[&_a]:gap-1 max-sm:[&_button]:gap-1 max-sm:[&_a]:px-1.5 max-sm:[&_button]:px-1.5 max-sm:[&_a>span]:text-[10px] max-sm:[&_button>span]:text-[10px] max-sm:[&_a>span]:tracking-tight max-sm:[&_button>span]:tracking-tight max-sm:[&_a>span]:leading-none max-sm:[&_button>span]:leading-none sm:[&_svg]:hidden",
+          "auto-cols-auto gap-1 max-sm:gap-0 max-sm:[&_a]:px-2.5 max-sm:[&_button]:px-2.5 max-sm:[&_a>span]:sr-only max-sm:[&_button>span]:sr-only sm:[&_svg]:hidden",
       }}
       actions={
         <>

@@ -104,6 +104,138 @@ export class AppComponent {}`,
             }}
           />
         </section>
+
+        <section>
+          <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`). They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
+          <div className="space-y-6">
+            <Grid cols={3} transition="fade">
+              <div className="rounded-md bg-surface-muted p-4 text-center text-xs text-fg-subtle">Item 1</div>
+              <div className="rounded-md bg-surface-muted p-4 text-center text-xs text-fg-subtle">Item 2</div>
+              <div className="rounded-md bg-surface-muted p-4 text-center text-xs text-fg-subtle">Item 3</div>
+            </Grid>
+            <Grid cols={3} transition="slide-up">
+              <div className="rounded-md bg-surface-muted p-4 text-center text-xs text-fg-subtle">Item 1</div>
+              <div className="rounded-md bg-surface-muted p-4 text-center text-xs text-fg-subtle">Item 2</div>
+              <div className="rounded-md bg-surface-muted p-4 text-center text-xs text-fg-subtle">Item 3</div>
+            </Grid>
+            <Grid cols={3} transition="zoom" transitionDelay={100}>
+              <div className="rounded-md bg-surface-muted p-4 text-center text-xs text-fg-subtle">Item 1</div>
+              <div className="rounded-md bg-surface-muted p-4 text-center text-xs text-fg-subtle">Item 2</div>
+              <div className="rounded-md bg-surface-muted p-4 text-center text-xs text-fg-subtle">Item 3</div>
+            </Grid>
+            <Grid cols={3} transition="blur" transitionDuration={700}>
+              <div className="rounded-md bg-surface-muted p-4 text-center text-xs text-fg-subtle">Item 1</div>
+              <div className="rounded-md bg-surface-muted p-4 text-center text-xs text-fg-subtle">Item 2</div>
+              <div className="rounded-md bg-surface-muted p-4 text-center text-xs text-fg-subtle">Item 3</div>
+            </Grid>
+          </div>
+          <CodeBlock
+            variants={{
+              react: `<Grid cols={3} transition="fade">
+  <div>Item 1</div>
+  <div>Item 2</div>
+  <div>Item 3</div>
+</Grid>
+<Grid cols={3} transition="slide-up">
+  <div>Item 1</div>
+  <div>Item 2</div>
+  <div>Item 3</div>
+</Grid>
+<Grid cols={3} transition="zoom" transitionDelay={100}>
+  <div>Item 1</div>
+  <div>Item 2</div>
+  <div>Item 3</div>
+</Grid>
+<Grid cols={3} transition="blur" transitionDuration={700}>
+  <div>Item 1</div>
+  <div>Item 2</div>
+  <div>Item 3</div>
+</Grid>`,
+              js: `<l-Grid cols="3" transition="fade">
+  <div>Item 1</div>
+  <div>Item 2</div>
+  <div>Item 3</div>
+</l-Grid>
+<l-Grid cols="3" transition="slide-up">
+  <div>Item 1</div>
+  <div>Item 2</div>
+  <div>Item 3</div>
+</l-Grid>
+<l-Grid cols="3" transition="zoom" transitionDelay="100">
+  <div>Item 1</div>
+  <div>Item 2</div>
+  <div>Item 3</div>
+</l-Grid>
+<l-Grid cols="3" transition="blur" transitionDuration="700">
+  <div>Item 1</div>
+  <div>Item 2</div>
+  <div>Item 3</div>
+</l-Grid>
+
+<script type="module">
+  import "lojee-ui/elements";
+</script>`,
+              vue: `<template>
+  <l-Grid cols="3" transition="fade">
+    <div>Item 1</div>
+    <div>Item 2</div>
+    <div>Item 3</div>
+  </l-Grid>
+  <l-Grid cols="3" transition="slide-up">
+    <div>Item 1</div>
+    <div>Item 2</div>
+    <div>Item 3</div>
+  </l-Grid>
+  <l-Grid cols="3" transition="zoom" transitionDelay="100">
+    <div>Item 1</div>
+    <div>Item 2</div>
+    <div>Item 3</div>
+  </l-Grid>
+  <l-Grid cols="3" transition="blur" transitionDuration="700">
+    <div>Item 1</div>
+    <div>Item 2</div>
+    <div>Item 3</div>
+  </l-Grid>
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-Grid cols="3" transition="fade">
+      <div>Item 1</div>
+      <div>Item 2</div>
+      <div>Item 3</div>
+    </l-Grid>
+    <l-Grid cols="3" transition="slide-up">
+      <div>Item 1</div>
+      <div>Item 2</div>
+      <div>Item 3</div>
+    </l-Grid>
+    <l-Grid cols="3" transition="zoom" transitionDelay="100">
+      <div>Item 1</div>
+      <div>Item 2</div>
+      <div>Item 3</div>
+    </l-Grid>
+    <l-Grid cols="3" transition="blur" transitionDuration="700">
+      <div>Item 1</div>
+      <div>Item 2</div>
+      <div>Item 3</div>
+    </l-Grid>
+  \`,
+})
+export class AppComponent {}`,
+            }}
+          />
+        </section>
       </div>
     </div>
   );

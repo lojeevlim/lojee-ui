@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { cx, type ColorName } from "../../../core/tokens";
 import { Icon } from "../Icons/Icon";
 import { Button } from "../Buttons/Button";
+import { motionClass, motionStyle, type TransitionVariant, type HoverEffect } from "../../../core/motion";
 
 export interface CalendarEvent {
   /** ISO date string "YYYY-MM-DD". */
@@ -89,6 +90,14 @@ export interface CalendarProps {
   cancelLabel?: string;
   /** Built-in footer for the inline layout: the selected date, plus "Today" and "Clear" buttons. Always shown in "modal". */
   footer?: boolean;
+  /** Enter transition: "fade" | "slide-up" | "slide-down" | "slide-left" | "slide-right" | "zoom" | "zoom-out" | "flip" | "blur" | "bounce" | "rotate" | "drop" | "skew" (default: none). Respects `prefers-reduced-motion`. */
+  transition?: TransitionVariant;
+  /** Enter transition duration in ms (default: 450). */
+  transitionDuration?: number;
+  /** Delay before the enter transition starts, in ms (default: 0) — handy for staggering. */
+  transitionDelay?: number;
+  /** Effect while hovering: "lift" | "scale" | "press" | "tilt" | "ring" | "glow" | "shine" (default: none). */
+  hoverEffect?: HoverEffect;
   /** Extra class names applied to the root element. */
   className?: string;
   /** Per-part class overrides (`root`, `header`, `weekday`, `day`, `selectedDay`) — merged after the built-in styling. */
@@ -251,6 +260,10 @@ export function Calendar({
   footer = false,
   className,
   classNames,
+  transition,
+  transitionDuration,
+  transitionDelay,
+  hoverEffect,
 }: CalendarProps) {
   const monthControlled = month !== undefined && onMonthChange !== undefined;
   const [internalMonth, setInternalMonth] = useState(() => parseYearMonth(month));
@@ -427,7 +440,10 @@ export function Calendar({
 
   if (variant !== "modal") {
     return (
-      <div className={cx("w-full max-w-xs select-none text-fg", className, classNames?.root)}>
+      <div
+        className={cx("w-full max-w-xs select-none text-fg", motionClass(transition, hoverEffect), className, classNames?.root)}
+        style={motionStyle(transitionDuration, transitionDelay)}
+      >
         {body}
         {footer && footerBar}
       </div>
@@ -441,9 +457,11 @@ export function Calendar({
       aria-label={title}
       className={cx(
         "relative w-full max-w-xs select-none overflow-hidden rounded-2xl bg-surface text-fg shadow-2xl ring-1 ring-black/5",
+        motionClass(transition, hoverEffect),
         className,
         classNames?.root
       )}
+      style={motionStyle(transitionDuration, transitionDelay)}
     >
       <div className="border-b border-border bg-accent-500/10 px-5 py-4">
         <p className="text-xs font-medium uppercase tracking-wide text-fg-subtle">{title}</p>

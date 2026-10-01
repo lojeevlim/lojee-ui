@@ -3,6 +3,7 @@ import { Calendar, type CalendarEvent } from "./Calendar/Calendar";
 import { ColorSwatches, OptionGroup, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import { type ColorName } from "../../core/tokens";
 import type { CodeBlockVariants } from "./CodeBlock";
+import { useMotion } from "./playgroundMotion";
 
 function sampleEvents(): CalendarEvent[] {
   const now = new Date();
@@ -30,6 +31,7 @@ export default function CalendarPlayground() {
   const [variant, setVariant] = useState<(typeof VARIANTS)[number]>("inline");
   const [footer, setFooter] = useState(false);
   const [mode, setMode] = useState<(typeof MODES)[number]>("single");
+  const motion = useMotion();
   const range = mode === "range";
   const inline = variant === "inline";
 
@@ -37,6 +39,8 @@ export default function CalendarPlayground() {
     <AppWindowFrame>
       <AppWindowBody className="min-h-[360px]">
         <Calendar
+          key={motion.replayKey}
+          {...motion.props}
           color={color}
           variant={variant}
           footer={inline && footer}
@@ -49,8 +53,8 @@ export default function CalendarPlayground() {
   );
 
   // "accent" and "inline" are the defaults, so they are only written out when changed.
-  const reactAttrs = `${range ? ' selectionMode="range"' : ""}${color !== "accent" ? ` color="${color}"` : ""}${variant === "modal" ? ' variant="modal"' : ""}${inline && footer ? " footer" : ""}`;
-  const colorAttr = `${range ? ' selection-mode="range"' : ""}${color !== "accent" ? ` color="${color}"` : ""}${variant === "modal" ? ' variant="modal"' : ""}${inline && footer ? ' footer="true"' : ""}`;
+  const reactAttrs = `${range ? ' selectionMode="range"' : ""}${color !== "accent" ? ` color="${color}"` : ""}${variant === "modal" ? ' variant="modal"' : ""}${inline && footer ? " footer" : ""}${motion.attrs}`;
+  const colorAttr = `${range ? ' selection-mode="range"' : ""}${color !== "accent" ? ` color="${color}"` : ""}${variant === "modal" ? ' variant="modal"' : ""}${inline && footer ? ' footer="true"' : ""}${motion.attrs}`;
   const eventsAttrJsx = showEvents ? `\n  events={[\n${SAMPLE_EVENTS_CODE}\n  ]}` : "";
 
   const code = `<Calendar${reactAttrs}${eventsAttrJsx}
@@ -116,6 +120,7 @@ ${SAMPLE_EVENTS_CODE}
           Footer (selected date, Today, Clear)
         </label>
       )}
+      {motion.controls}
     </PlaygroundLayout>
   );
 }

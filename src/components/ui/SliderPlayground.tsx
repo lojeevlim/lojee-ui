@@ -3,8 +3,10 @@ import { Slider } from "./Slider/Slider";
 import type { ColorName } from "../../core/tokens";
 import { ColorSwatches, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
+import { useMotion } from "./playgroundMotion";
 
 export default function SliderPlayground() {
+  const motion = useMotion();
   const [color, setColor] = useState<ColorName>("accent");
   const [showValue, setShowValue] = useState(true);
   const [value, setValue] = useState(50);
@@ -13,13 +15,13 @@ export default function SliderPlayground() {
     <AppWindowFrame>
       <AppWindowBody>
         <div className="w-64">
-          <Slider color={color} showValue={showValue} value={value} onChange={(e) => setValue(Number(e.target.value))} />
+          <Slider key={motion.replayKey} {...motion.props} color={color} showValue={showValue} value={value} onChange={(e) => setValue(Number(e.target.value))} />
         </div>
       </AppWindowBody>
     </AppWindowFrame>
   );
 
-  const code = `<Slider color="${color}"${showValue ? " showValue" : ""} value={${value}} onChange={(e) => setValue(Number(e.target.value))} />`;
+  const code = `<Slider color="${color}"${showValue ? " showValue" : ""}${motion.attrs} value={${value}} onChange={(e) => setValue(Number(e.target.value))} />`;
 
   // `value` on <Slider> is a plain string/number prop (not an array like
   // RangeSlider's), and there are no min/max/step controls here, so
@@ -27,7 +29,7 @@ export default function SliderPlayground() {
   // since r2wc parses a bare attribute as false.
   const htmlMarkup = `<l-Slider color="${color}"${
     showValue ? ` showValue` : ""
-  } value="${value}" />`;
+  }${motion.attrs} value="${value}" />`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,
@@ -55,6 +57,7 @@ export default function SliderPlayground() {
           </button>
         </div>
       </div>
+      {motion.controls}
     </PlaygroundLayout>
   );
 }

@@ -16,6 +16,8 @@ import {
 import { OptionGroup, ColorSwatches, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import { cx } from "./playgroundUtils";
 import type { CodeBlockVariants } from "./CodeBlock";
+import { useAnimation } from "./playgroundAnimation";
+import { useMotion } from "./playgroundMotion";
 
 const VARIANTS: ButtonVariant[] = ["solid", "outline", "ghost", "soft", "link", "dashed", "gradient", "glass"];
 const SIZES: Size[] = ["xs", "sm", "md", "lg", "xl", "full"];
@@ -65,6 +67,8 @@ const INITIAL_MENU_ITEMS: MenuItemDraft[] = [
 ];
 
 export default function ButtonPlayground() {
+  const anim = useAnimation();
+  const motion = useMotion();
   const [variant, setVariant] = useState<ButtonVariant>("solid");
   const [color, setColor] = useState<ColorName>("accent");
   const [gradientTo, setGradientTo] = useState<ColorName>("violet");
@@ -93,6 +97,9 @@ export default function ButtonPlayground() {
     if (layout === "icon") {
       return (
         <Button
+          key={motion.replayKey}
+          {...anim.props}
+          {...motion.props}
           variant={variant}
           color={color}
           size={size}
@@ -105,7 +112,7 @@ export default function ButtonPlayground() {
     }
     if (layout === "group") {
       return (
-        <ButtonGroup shape={shape}>
+        <ButtonGroup key={motion.replayKey} {...motion.props} shape={shape}>
           <SegmentButton active color={color}>
             {label || "One"}
           </SegmentButton>
@@ -117,6 +124,8 @@ export default function ButtonPlayground() {
     if (layout === "split") {
       return (
         <SplitButton
+          key={motion.replayKey}
+          {...motion.props}
           icon="check"
           label={label || "Approve"}
           color={color}
@@ -136,6 +145,9 @@ export default function ButtonPlayground() {
     }
     return (
       <Button
+        key={motion.replayKey}
+        {...anim.props}
+        {...motion.props}
         variant={variant}
         color={color}
         gradientTo={variant === "gradient" ? gradientTo : undefined}
@@ -150,14 +162,14 @@ export default function ButtonPlayground() {
 
   const code = (() => {
     if (layout === "icon") {
-      return `<Button icon="${iconKey}" iconOnly variant="${variant}" color="${color}" size="${size}"${
+      return `<Button icon="${iconKey}" iconOnly variant="${variant}" color="${color}" size="${size}"${anim.attrs}${motion.attrs}${
         shape !== "default" ? ` shape="${shape}"` : ""
       } label="${label || "Icon button"}" />`;
     }
     if (layout === "group") {
       const shapeAttr = shape !== "default" ? ` shape="${shape}"` : "";
       const colorAttr = color !== "accent" ? ` color="${color}"` : "";
-      return `<ButtonGroup${shapeAttr}>\n  <SegmentButton active${colorAttr}>${label || "One"}</SegmentButton>\n  <SegmentButton${colorAttr}>Two</SegmentButton>\n  <SegmentButton${colorAttr}>Three</SegmentButton>\n</ButtonGroup>`;
+      return `<ButtonGroup${shapeAttr}${motion.attrs}>\n  <SegmentButton active${colorAttr}>${label || "One"}</SegmentButton>\n  <SegmentButton${colorAttr}>Two</SegmentButton>\n  <SegmentButton${colorAttr}>Three</SegmentButton>\n</ButtonGroup>`;
     }
     if (layout === "split") {
       const shapeAttr = shape !== "default" ? ` shape="${shape}"` : "";
@@ -169,13 +181,13 @@ export default function ButtonPlayground() {
             return `  <SplitButtonMenuItem${iconAttr} onClick={() => {}}>${item.label}</SplitButtonMenuItem>`;
           })
           .join("\n");
-        return `<SplitButton\n  icon="check"\n  label="${label || "Approve"}"\n  color="${color}"\n  size="${size}"${shapeAttr}${menuIconAttr}\n>\n${itemsCode}\n</SplitButton>`;
+        return `<SplitButton\n  icon="check"\n  label="${label || "Approve"}"\n  color="${color}"\n  size="${size}"${shapeAttr}${menuIconAttr}${motion.attrs}\n>\n${itemsCode}\n</SplitButton>`;
       }
-      return `<SplitButton icon="check" label="${label || "Approve"}" color="${color}" size="${size}"${shapeAttr}${menuIconAttr} />`;
+      return `<SplitButton icon="check" label="${label || "Approve"}" color="${color}" size="${size}"${shapeAttr}${menuIconAttr}${motion.attrs} />`;
     }
     return `<Button variant="${variant}" color="${color}"${
       variant === "gradient" ? ` gradientTo="${gradientTo}"` : ""
-    } size="${size}"${shape !== "default" ? ` shape="${shape}"` : ""} icon="${iconKey}"${
+    } size="${size}"${anim.attrs}${motion.attrs}${shape !== "default" ? ` shape="${shape}"` : ""} icon="${iconKey}"${
       iconPosition === "right" ? ` iconPosition="right"` : ""
     } label="${label}" />`;
   })();
@@ -187,12 +199,12 @@ export default function ButtonPlayground() {
   const htmlMarkup = (() => {
     if (layout === "icon") {
       const shapeAttr = shape !== "default" ? ` shape="${shape}"` : "";
-      return `<l-Button icon="${iconKey}" iconOnly variant="${variant}" color="${color}" size="${size}"${shapeAttr} label="${label || "Icon button"}" />`;
+      return `<l-Button icon="${iconKey}" iconOnly variant="${variant}" color="${color}" size="${size}"${anim.attrs}${motion.attrs}${shapeAttr} label="${label || "Icon button"}" />`;
     }
     if (layout === "group") {
       const shapeAttr = shape !== "default" ? ` shape="${shape}"` : "";
       const colorAttr = color !== "accent" ? ` color="${color}"` : "";
-      return `<l-ButtonGroup${shapeAttr}>\n  <l-SegmentButton active${colorAttr}>${label || "One"}</l-SegmentButton>\n  <l-SegmentButton${colorAttr}>Two</l-SegmentButton>\n  <l-SegmentButton${colorAttr}>Three</l-SegmentButton>\n</l-ButtonGroup>`;
+      return `<l-ButtonGroup${shapeAttr}${motion.attrs}>\n  <l-SegmentButton active${colorAttr}>${label || "One"}</l-SegmentButton>\n  <l-SegmentButton${colorAttr}>Two</l-SegmentButton>\n  <l-SegmentButton${colorAttr}>Three</l-SegmentButton>\n</l-ButtonGroup>`;
     }
     if (layout === "split") {
       const shapeAttr = shape !== "default" ? ` shape="${shape}"` : "";
@@ -204,13 +216,13 @@ export default function ButtonPlayground() {
             return `  <l-SplitButtonMenuItem${iconAttr}>${item.label}</l-SplitButtonMenuItem>`;
           })
           .join("\n");
-        return `<l-SplitButton\n  icon="check"\n  label="${label || "Approve"}"\n  color="${color}"\n  size="${size}"${shapeAttr}${menuIconAttr}\n>\n${itemsCode}\n</l-SplitButton>`;
+        return `<l-SplitButton\n  icon="check"\n  label="${label || "Approve"}"\n  color="${color}"\n  size="${size}"${shapeAttr}${menuIconAttr}${motion.attrs}\n>\n${itemsCode}\n</l-SplitButton>`;
       }
-      return `<l-SplitButton icon="check" label="${label || "Approve"}" color="${color}" size="${size}"${shapeAttr}${menuIconAttr} />`;
+      return `<l-SplitButton icon="check" label="${label || "Approve"}" color="${color}" size="${size}"${shapeAttr}${menuIconAttr}${motion.attrs} />`;
     }
     return `<l-Button variant="${variant}" color="${color}"${
       variant === "gradient" ? ` gradientTo="${gradientTo}"` : ""
-    } size="${size}"${shape !== "default" ? ` shape="${shape}"` : ""} icon="${iconKey}"${
+    } size="${size}"${anim.attrs}${motion.attrs}${shape !== "default" ? ` shape="${shape}"` : ""} icon="${iconKey}"${
       iconPosition === "right" ? ` iconPosition="right"` : ""
     } label="${label}" />`;
   })();
@@ -375,6 +387,9 @@ export default function ButtonPlayground() {
         {layout === "single" && variant === "gradient" && (
           <ColorSwatches label="To color" value={gradientTo} onChange={setGradientTo} />
         )}
+
+        {(layout === "single" || layout === "icon") && anim.controls}
+        {motion.controls}
     </PlaygroundLayout>
   );
 }

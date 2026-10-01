@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Select, type SelectSize } from "./Select/Select";
 import { OptionGroup, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
+import { useMotion } from "./playgroundMotion";
 
 const SIZES: SelectSize[] = ["sm", "md", "lg"];
 
@@ -22,6 +23,7 @@ const OPTIONS_SNIPPET = `const options = [
 ];`;
 
 export default function SelectPlayground() {
+  const motion = useMotion();
   const [size, setSize] = useState<SelectSize>("md");
   const [invalid, setInvalid] = useState(false);
   const [disabled, setDisabled] = useState(false);
@@ -30,14 +32,14 @@ export default function SelectPlayground() {
   const preview = (
     <AppWindowFrame>
       <AppWindowBody>
-        <Select options={OPTIONS} size={size} invalid={invalid} disabled={disabled} placeholder={placeholder || undefined} />
+        <Select key={motion.replayKey} {...motion.props} options={OPTIONS} size={size} invalid={invalid} disabled={disabled} placeholder={placeholder || undefined} />
       </AppWindowBody>
     </AppWindowFrame>
   );
 
   const code = `<Select
   options={options}
-  size="${size}"${invalid ? "\n  invalid" : ""}${disabled ? "\n  disabled" : ""}${
+  size="${size}"${motion.attrs}${invalid ? "\n  invalid" : ""}${disabled ? "\n  disabled" : ""}${
     placeholder ? `\n  placeholder="${placeholder}"` : ""
   }
 />`;
@@ -47,7 +49,7 @@ export default function SelectPlayground() {
   // one exception — it's JSON-typed on `<Select>`, so it's assigned via a
   // real DOM property (js) or a `:options`/`[options]` binding (vue/angular)
   // against the same fixed constant, never as a stringified attribute.
-  const selectAttrs = `size="${size}"${invalid ? ` invalid` : ""}${disabled ? ` disabled` : ""}${
+  const selectAttrs = `size="${size}"${motion.attrs}${invalid ? ` invalid` : ""}${disabled ? ` disabled` : ""}${
     placeholder ? ` placeholder="${placeholder}"` : ""
   }`;
 
@@ -89,6 +91,7 @@ export class ExampleComponent {
       </div>
 
       <OptionGroup label="Size" options={SIZES} value={size} onChange={setSize} />
+      {motion.controls}
 
       <div>
         <span className="mb-1.5 block text-xs font-medium text-fg-subtle">Options</span>

@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { cx } from "../../../core/tokens";
 import { Icon } from "../Icons/Icon";
 import { StatusLayout } from "../internal/StatusLayout";
+import type { TransitionVariant } from "../../../core/motion";
 
 export interface ErrorStateProps {
   /** Icon name — see src/core/icons.ts for the available set (default: "circle-x"). */
@@ -12,6 +13,12 @@ export interface ErrorStateProps {
   children?: ReactNode;
   /** e.g. a "Retry" <Button>, rendered below the description. */
   action?: ReactNode;
+  /** Enter transition: "fade" | "slide-up" | "slide-down" | "slide-left" | "slide-right" | "zoom" | "zoom-out" | "flip" | "blur" | "bounce" | "rotate" | "drop" | "skew" (default: none). Respects `prefers-reduced-motion`. */
+  transition?: TransitionVariant;
+  /** Enter transition duration in ms (default: 450). */
+  transitionDuration?: number;
+  /** Delay before the enter transition starts, in ms (default: 0) — handy for staggering. */
+  transitionDelay?: number;
   /** Extra class name(s) applied to the root element. */
   className?: string;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
@@ -29,6 +36,9 @@ export function ErrorState({
   title = "Something went wrong",
   children,
   action,
+  transition,
+  transitionDuration,
+  transitionDelay,
   className,
   classNames,
 }: ErrorStateProps) {
@@ -47,6 +57,9 @@ export function ErrorState({
       title={title}
       description={children}
       action={action}
+      transition={transition}
+      transitionDuration={transitionDuration}
+      transitionDelay={transitionDelay}
       className={className}
       classNames={classNames}
     />

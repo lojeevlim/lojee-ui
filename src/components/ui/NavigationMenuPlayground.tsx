@@ -4,6 +4,7 @@ import { OptionGroup, ColorSwatches, PlaygroundLayout, AppWindowFrame } from "./
 import type { ColorName } from "../../core/tokens";
 import type { ActiveVariant } from "../../core/activeVariant";
 import type { CodeBlockVariants } from "./CodeBlock";
+import { useMotion } from "./playgroundMotion";
 
 const ORIENTATIONS: NavigationMenuOrientation[] = ["horizontal", "vertical"];
 
@@ -12,6 +13,7 @@ const VARIANTS = ["theme", "solid", "outline", "soft"] as const;
 const LABELS = ["Home", "Products", "Pricing", "About", "Contact"] as const;
 
 export default function NavigationMenuPlayground() {
+  const motion = useMotion();
   const [orientation, setOrientation] = useState<NavigationMenuOrientation>("horizontal");
   const [color, setColor] = useState<ColorName>("accent");
   const [variant, setVariant] = useState<(typeof VARIANTS)[number]>("theme");
@@ -28,6 +30,8 @@ export default function NavigationMenuPlayground() {
   // content in the remaining space.
   const menu = (
     <NavigationMenu
+      key={motion.replayKey}
+      {...motion.props}
       items={items}
       orientation={orientation}
       color={color}
@@ -71,7 +75,7 @@ export default function NavigationMenuPlayground() {
     variant !== "theme" ? `variant="${variant}"` : null,
   ]
     .filter(Boolean)
-    .join(" ");
+    .join(" ") + motion.attrs;
 
   const codeVariants: CodeBlockVariants = {
     react: `<NavigationMenu
@@ -126,6 +130,7 @@ onChange(e: CustomEvent) {
       <OptionGroup label="Variant" options={VARIANTS} value={variant} onChange={setVariant} />
       <ColorSwatches value={color} onChange={setColor} />
       <OptionGroup label="Active item" options={LABELS} value={activeLabel} onChange={setActiveLabel} />
+      {motion.controls}
     </PlaygroundLayout>
   );
 }

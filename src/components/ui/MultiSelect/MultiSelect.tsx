@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { cx, type ColorName } from "../../../core/tokens";
 import { Icon } from "../Icons/Icon";
+import { motionClass, motionState, motionStyle, DEFAULT_TRANSITION_MS, type TransitionVariant, type HoverEffect } from "../../../core/motion";
+import { usePresence } from "../../../core/usePresence";
 
 export interface MultiSelectOption {
   label: string;
@@ -19,6 +21,14 @@ export interface MultiSelectProps {
   placeholder?: string;
   /** Chip background / selected-option accent color (default: accent — follows the theme). */
   color?: ColorName;
+  /** Enter/exit transition for the dropdown panel: "fade" | "slide-up" | "slide-down" | "slide-left" | "slide-right" | "zoom" | "zoom-out" | "flip" | "blur" | "bounce" | "rotate" | "drop" | "skew" (default: none). Respects `prefers-reduced-motion`. */
+  transition?: TransitionVariant;
+  /** Enter/exit transition duration for the dropdown panel in ms (default: 450). */
+  transitionDuration?: number;
+  /** Delay before the dropdown panel's enter transition starts, in ms (default: 0). */
+  transitionDelay?: number;
+  /** Effect while hovering the field: "lift" | "scale" | "press" | "tilt" | "ring" | "glow" | "shine" (default: none). */
+  hoverEffect?: HoverEffect;
   /** Extra CSS class(es) added to the root element, merged before `classNames.root`. */
   className?: string;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
@@ -69,11 +79,17 @@ export function MultiSelect({
   onChange,
   placeholder = "Select...",
   color = "accent",
+  transition,
+  transitionDuration,
+  transitionDelay,
+  hoverEffect,
   className,
   classNames,
 }: MultiSelectProps) {
   const [open, setOpen] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
+  // With a `transition` the panel stays mounted for the exit; without one it unmounts immediately, as before.
+  const { mounted } = usePresence(open, transition ? (transitionDuration ?? DEFAULT_TRANSITION_MS) + (transitionDelay ?? 0) : 0);
 
   useEffect(() => {
     if (!open) return;
@@ -119,6 +135,7 @@ export function MultiSelect({
         aria-expanded={open}
         className={cx(
           "flex min-h-10 w-full cursor-pointer flex-wrap items-center gap-1.5 rounded-md border border-border-strong px-2 py-1.5 text-left outline-none transition-colors focus:border-fg-subtle focus:ring-2 focus:ring-fg-subtle/20",
+          motionClass(undefined, hoverEffect),
           classNames?.trigger
         )}
       >
@@ -145,14 +162,17 @@ export function MultiSelect({
         <Icon name="chevron-down" size={16} className="ml-auto shrink-0 text-fg-subtle" />
       </div>
 
-      {open && (
+      {mounted && (
         <div
           role="listbox"
           aria-multiselectable="true"
           className={cx(
             "absolute z-10 mt-1 w-full max-h-60 overflow-y-auto rounded-lg border border-border bg-surface py-1 shadow-lg",
+            motionClass(transition),
             classNames?.menu
           )}
+          style={motionStyle(transitionDuration, transitionDelay)}
+          {...motionState(open)}
         >
           {options.map((o) => {
             const selected = value.includes(o.value);

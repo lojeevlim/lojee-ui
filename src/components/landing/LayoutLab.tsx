@@ -1,3 +1,4 @@
+import { highlightCode } from "../../core/highlightCode";
 import { useState } from "react";
 
 type Area = "top" | "side" | "main" | "footer";
@@ -88,16 +89,14 @@ export default function LayoutLab() {
             </button>
           ))}
         </div>
-        <pre className="overflow-x-auto rounded-xl border border-border bg-surface-muted p-4 font-mono text-[12px] leading-relaxed text-fg">
-{`<App layout={[
+        <pre className="overflow-x-auto rounded-xl border border-border bg-surface-muted p-4 font-mono text-[12px] leading-relaxed text-fg"><code>{highlightCode(`<App layout={[
 ${p.matrix.map((row) => `  [${row.map((c) => `"${c}"`).join(", ")}],`).join("\n")}
 ]}>
   <Top>…</Top>
   <Side>…</Side>
   <Main>…</Main>
   <Footer>…</Footer>
-</App>`}
-        </pre>
+</App>`)}</code></pre>
         <p className="text-xs text-fg-subtle">A layout is just a matrix of region names. Below a breakpoint the side region collapses into a drawer automatically.</p>
       </div>
     </div>

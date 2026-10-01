@@ -660,6 +660,118 @@ export class AppComponent {
           />
         </section>
 
+        <section>
+          <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`) and hover effects via `hoverEffect`. They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="h-64 overflow-hidden rounded-lg border border-border"><Sidebar items={VARIANT_ITEMS} transition="fade" /></div>
+            <div className="h-64 overflow-hidden rounded-lg border border-border"><Sidebar items={VARIANT_ITEMS} transition="slide-right" /></div>
+            <div className="h-64 overflow-hidden rounded-lg border border-border"><Sidebar items={VARIANT_ITEMS} transition="zoom" /></div>
+            <div className="h-64 overflow-hidden rounded-lg border border-border"><Sidebar items={VARIANT_ITEMS} transition="blur" /></div>
+            <div className="h-64 overflow-hidden rounded-lg border border-border"><Sidebar items={VARIANT_ITEMS} transition="bounce" transitionDelay={100} /></div>
+            <div className="h-64 overflow-hidden rounded-lg border border-border"><Sidebar items={VARIANT_ITEMS} transition="drop" transitionDuration={700} /></div>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="h-64 overflow-hidden rounded-lg border border-border"><Sidebar items={VARIANT_ITEMS} hoverEffect="lift" /></div>
+            <div className="h-64 overflow-hidden rounded-lg border border-border"><Sidebar items={VARIANT_ITEMS} hoverEffect="glow" /></div>
+            <div className="h-64 overflow-hidden rounded-lg border border-border"><Sidebar items={VARIANT_ITEMS} hoverEffect="shine" /></div>
+          </div>
+          <CodeBlock
+            variants={{
+              react: `const items = [
+  { label: "Dashboard", icon: "home", active: true },
+  { label: "Projects", icon: "folder" },
+  { label: "Team", icon: "users" },
+  { label: "Settings", icon: "settings" },
+];
+
+<Sidebar items={items} transition="fade" />
+<Sidebar items={items} transition="slide-right" />
+<Sidebar items={items} transition="zoom" />
+<Sidebar items={items} transition="blur" />
+<Sidebar items={items} transition="bounce" transitionDelay={100} />
+<Sidebar items={items} transition="drop" transitionDuration={700} />
+
+<Sidebar items={items} hoverEffect="lift" />
+<Sidebar items={items} hoverEffect="glow" />
+<Sidebar items={items} hoverEffect="shine" />`,
+              js: `<l-Sidebar class="transition-demo" transition="fade"></l-Sidebar>
+<l-Sidebar class="transition-demo" transition="slide-right"></l-Sidebar>
+<l-Sidebar class="transition-demo" transition="zoom"></l-Sidebar>
+<l-Sidebar class="transition-demo" transition="blur"></l-Sidebar>
+<l-Sidebar class="transition-demo" transition="bounce" transitionDelay="100"></l-Sidebar>
+<l-Sidebar class="transition-demo" transition="drop" transitionDuration="700"></l-Sidebar>
+
+<l-Sidebar class="transition-demo" hoverEffect="lift"></l-Sidebar>
+<l-Sidebar class="transition-demo" hoverEffect="glow"></l-Sidebar>
+<l-Sidebar class="transition-demo" hoverEffect="shine"></l-Sidebar>
+
+<script type="module">
+  import "lojee-ui/elements";
+
+  const items = [
+    { label: "Dashboard", icon: "home", active: true },
+    { label: "Projects", icon: "folder" },
+    { label: "Team", icon: "users" },
+    { label: "Settings", icon: "settings" },
+  ];
+  document.querySelectorAll(".transition-demo").forEach((el) => (el.items = items));
+</script>`,
+              vue: `<template>
+  <l-Sidebar :items="items" transition="fade"></l-Sidebar>
+  <l-Sidebar :items="items" transition="slide-right"></l-Sidebar>
+  <l-Sidebar :items="items" transition="zoom"></l-Sidebar>
+  <l-Sidebar :items="items" transition="blur"></l-Sidebar>
+  <l-Sidebar :items="items" transition="bounce" transitionDelay="100"></l-Sidebar>
+  <l-Sidebar :items="items" transition="drop" transitionDuration="700"></l-Sidebar>
+
+  <l-Sidebar :items="items" hoverEffect="lift"></l-Sidebar>
+  <l-Sidebar :items="items" hoverEffect="glow"></l-Sidebar>
+  <l-Sidebar :items="items" hoverEffect="shine"></l-Sidebar>
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+
+const items = [
+  { label: "Dashboard", icon: "home", active: true },
+  { label: "Projects", icon: "folder" },
+  { label: "Team", icon: "users" },
+  { label: "Settings", icon: "settings" },
+];
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-Sidebar [items]="items" transition="fade"></l-Sidebar>
+    <l-Sidebar [items]="items" transition="slide-right"></l-Sidebar>
+    <l-Sidebar [items]="items" transition="zoom"></l-Sidebar>
+    <l-Sidebar [items]="items" transition="blur"></l-Sidebar>
+    <l-Sidebar [items]="items" transition="bounce" transitionDelay="100"></l-Sidebar>
+    <l-Sidebar [items]="items" transition="drop" transitionDuration="700"></l-Sidebar>
+
+    <l-Sidebar [items]="items" hoverEffect="lift"></l-Sidebar>
+    <l-Sidebar [items]="items" hoverEffect="glow"></l-Sidebar>
+    <l-Sidebar [items]="items" hoverEffect="shine"></l-Sidebar>
+  \`,
+})
+export class AppComponent {
+  items = [
+    { label: "Dashboard", icon: "home", active: true },
+    { label: "Projects", icon: "folder" },
+    { label: "Team", icon: "users" },
+    { label: "Settings", icon: "settings" },
+  ];
+}`,
+            }}
+          />
+        </section>
+
       </div>
     </div>
   );

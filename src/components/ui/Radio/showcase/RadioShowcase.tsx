@@ -129,6 +129,128 @@ export class AppComponent {}`,
             }}
           />
         </section>
+
+        <section>
+          <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`) and hover effects via `hoverEffect`. They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
+          <Row>
+            <Radio transition="fade" label="Fade" />
+            <Radio transition="slide-up" label="Slide up" />
+            <Radio transition="slide-right" transitionDelay={100} label="Slide right" />
+            <Radio transition="zoom" label="Zoom" />
+            <Radio transition="flip" label="Flip" />
+            <Radio transition="blur" label="Blur" />
+            <Radio transition="bounce" label="Bounce" />
+            <Radio transition="drop" transitionDuration={700} label="Drop" />
+          </Row>
+          <RadioGroup transition="slide-up" hoverEffect="lift">
+            <Radio name="tr-plan" label="Free" defaultChecked />
+            <Radio name="tr-plan" label="Pro" />
+          </RadioGroup>
+          <Row>
+            <Radio hoverEffect="lift" label="Lift" />
+            <Radio hoverEffect="scale" label="Scale" />
+            <Radio hoverEffect="glow" label="Glow" />
+            <Radio hoverEffect="shine" label="Shine" />
+          </Row>
+          <CodeBlock
+            variants={{
+              react: `<Radio transition="fade" label="Fade" />
+<Radio transition="slide-up" label="Slide up" />
+<Radio transition="slide-right" transitionDelay={100} label="Slide right" />
+<Radio transition="zoom" label="Zoom" />
+<Radio transition="flip" label="Flip" />
+<Radio transition="blur" label="Blur" />
+<Radio transition="bounce" label="Bounce" />
+<Radio transition="drop" transitionDuration={700} label="Drop" />
+
+<RadioGroup transition="slide-up" hoverEffect="lift">
+  <Radio name="tr-plan" label="Free" defaultChecked />
+  <Radio name="tr-plan" label="Pro" />
+</RadioGroup>
+
+<Radio hoverEffect="lift" label="Lift" />
+<Radio hoverEffect="scale" label="Scale" />
+<Radio hoverEffect="glow" label="Glow" />
+<Radio hoverEffect="shine" label="Shine" />`,
+              js: `<l-Radio transition="fade" label="Fade"></l-Radio>
+<l-Radio transition="slide-up" label="Slide up"></l-Radio>
+<l-Radio transition="slide-right" transitionDelay="100" label="Slide right"></l-Radio>
+<l-Radio transition="zoom" label="Zoom"></l-Radio>
+<l-Radio transition="flip" label="Flip"></l-Radio>
+<l-Radio transition="blur" label="Blur"></l-Radio>
+<l-Radio transition="bounce" label="Bounce"></l-Radio>
+<l-Radio transition="drop" transitionDuration="700" label="Drop"></l-Radio>
+
+<l-RadioGroup transition="slide-up" hoverEffect="lift">
+  <l-Radio name="tr-plan" label="Free" defaultChecked></l-Radio>
+  <l-Radio name="tr-plan" label="Pro"></l-Radio>
+</l-RadioGroup>
+
+<l-Radio hoverEffect="lift" label="Lift"></l-Radio>
+<l-Radio hoverEffect="scale" label="Scale"></l-Radio>
+<l-Radio hoverEffect="glow" label="Glow"></l-Radio>
+<l-Radio hoverEffect="shine" label="Shine"></l-Radio>
+
+<script type="module">
+  import "lojee-ui/elements";
+</script>`,
+              vue: `<template>
+  <l-Radio transition="fade" label="Fade"></l-Radio>
+  <l-Radio transition="slide-up" label="Slide up"></l-Radio>
+  <l-Radio transition="slide-right" transitionDelay="100" label="Slide right"></l-Radio>
+  <l-Radio transition="zoom" label="Zoom"></l-Radio>
+  <l-Radio transition="flip" label="Flip"></l-Radio>
+  <l-Radio transition="blur" label="Blur"></l-Radio>
+  <l-Radio transition="bounce" label="Bounce"></l-Radio>
+  <l-Radio transition="drop" transitionDuration="700" label="Drop"></l-Radio>
+
+  <l-RadioGroup transition="slide-up" hoverEffect="lift">
+    <l-Radio name="tr-plan" label="Free" defaultChecked></l-Radio>
+    <l-Radio name="tr-plan" label="Pro"></l-Radio>
+  </l-RadioGroup>
+
+  <l-Radio hoverEffect="lift" label="Lift"></l-Radio>
+  <l-Radio hoverEffect="scale" label="Scale"></l-Radio>
+  <l-Radio hoverEffect="glow" label="Glow"></l-Radio>
+  <l-Radio hoverEffect="shine" label="Shine"></l-Radio>
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-Radio transition="fade" label="Fade"></l-Radio>
+    <l-Radio transition="slide-up" label="Slide up"></l-Radio>
+    <l-Radio transition="slide-right" transitionDelay="100" label="Slide right"></l-Radio>
+    <l-Radio transition="zoom" label="Zoom"></l-Radio>
+    <l-Radio transition="flip" label="Flip"></l-Radio>
+    <l-Radio transition="blur" label="Blur"></l-Radio>
+    <l-Radio transition="bounce" label="Bounce"></l-Radio>
+    <l-Radio transition="drop" transitionDuration="700" label="Drop"></l-Radio>
+
+    <l-RadioGroup transition="slide-up" hoverEffect="lift">
+      <l-Radio name="tr-plan" label="Free" defaultChecked></l-Radio>
+      <l-Radio name="tr-plan" label="Pro"></l-Radio>
+    </l-RadioGroup>
+
+    <l-Radio hoverEffect="lift" label="Lift"></l-Radio>
+    <l-Radio hoverEffect="scale" label="Scale"></l-Radio>
+    <l-Radio hoverEffect="glow" label="Glow"></l-Radio>
+    <l-Radio hoverEffect="shine" label="Shine"></l-Radio>
+  \`,
+})
+export class AppComponent {}`,
+            }}
+          />
+        </section>
       </div>
     </div>
   );

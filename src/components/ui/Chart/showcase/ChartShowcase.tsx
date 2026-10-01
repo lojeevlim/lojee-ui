@@ -1,6 +1,6 @@
 import { Chart } from "../Chart";
 import CodeBlock from "../../CodeBlock";
-import { SectionLabel } from "../../ShowcaseHelpers";
+import { SectionLabel, Row, TransitionPreview } from "../../ShowcaseHelpers";
 
 const REVENUE_DATA = [
   { label: "Jan", value: 32 },
@@ -29,6 +29,13 @@ const TRAFFIC_CODE = `  { label: "Direct", value: 42, color: "indigo" },
   { label: "Search", value: 28, color: "emerald" },
   { label: "Social", value: 18, color: "amber" },
   { label: "Referral", value: 12, color: "rose" },`;
+
+const TRANSITION_DATA = [
+  { label: "Mon", value: 24 },
+  { label: "Tue", value: 33 },
+  { label: "Wed", value: 28 },
+  { label: "Thu", value: 41 },
+];
 
 export default function ChartShowcase() {
   return (
@@ -194,6 +201,191 @@ ${TRAFFIC_CODE}
   <l-Chart :data="data" type="bar" color="rose" />
 </template>`,
               angular: `<l-Chart [data]="data" type="bar" color="rose" />`,
+            }}
+          />
+        </section>
+
+        <section>
+          <SectionLabel sub="`countUp` grows the data in from zero when the chart mounts — bars rise, the line climbs, donut slices sweep round and the legend numbers count up. Tune it with `countUpDuration` (ms). Press Replay to run it again.">Count up</SectionLabel>
+          <TransitionPreview cols={3}>
+            <Chart countUp data={REVENUE_DATA} />
+            <Chart type="line" color="emerald" countUp data={REVENUE_DATA} />
+            <Chart type="donut" countUp countUpDuration={2000} data={TRAFFIC_DATA} height={140} />
+          </TransitionPreview>
+          <CodeBlock
+            variants={{
+              react: `<Chart countUp data={revenue} />
+<Chart type="line" color="emerald" countUp data={revenue} />
+<Chart type="donut" countUp countUpDuration={2000} data={traffic} />`,
+              js: `<l-Chart id="chart-bar" countUp="true"></l-Chart>
+<l-Chart id="chart-line" type="line" color="emerald" countUp="true"></l-Chart>
+<l-Chart id="chart-donut" type="donut" countUp="true" countUpDuration="2000"></l-Chart>
+
+<script type="module">
+  import "lojee-ui/elements";
+
+  document.getElementById("chart-bar").data = [
+${REVENUE_CODE}
+  ];
+  document.getElementById("chart-line").data = [
+${REVENUE_CODE}
+  ];
+  document.getElementById("chart-donut").data = [
+${TRAFFIC_CODE}
+  ];
+</script>`,
+              vue: `<template>
+  <l-Chart :data="revenue" countUp="true"></l-Chart>
+  <l-Chart type="line" :data="revenue" color="emerald" countUp="true"></l-Chart>
+  <l-Chart type="donut" :data="traffic" countUp="true" countUpDuration="2000"></l-Chart>
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+
+const revenue = [
+${REVENUE_CODE}
+];
+const traffic = [
+${TRAFFIC_CODE}
+];
+</script>`,
+              angular: `<l-Chart [data]="revenue" countUp="true"></l-Chart>
+<l-Chart [data]="revenue" type="line" color="emerald" countUp="true"></l-Chart>
+<l-Chart [data]="traffic" type="donut" countUp="true" countUpDuration="2000"></l-Chart>
+
+revenue = [
+${REVENUE_CODE}
+];
+traffic = [
+${TRAFFIC_CODE}
+];`,
+            }}
+          />
+        </section>
+
+        <section>
+          <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`) and hover effects via `hoverEffect`. They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
+          <Row>
+            <div className="w-56"><Chart type="bar" data={TRANSITION_DATA} height={120} transition="fade" /></div>
+            <div className="w-56"><Chart type="line" data={TRANSITION_DATA} height={120} transition="slide-up" /></div>
+            <div className="w-56"><Chart type="donut" data={TRANSITION_DATA} height={120} transition="slide-right" transitionDelay={100} /></div>
+            <div className="w-56"><Chart type="bar" data={TRANSITION_DATA} height={120} transition="zoom" /></div>
+          </Row>
+          <Row>
+            <div className="w-56"><Chart type="line" data={TRANSITION_DATA} height={120} transition="flip" /></div>
+            <div className="w-56"><Chart type="donut" data={TRANSITION_DATA} height={120} transition="blur" /></div>
+            <div className="w-56"><Chart type="bar" data={TRANSITION_DATA} height={120} transition="bounce" /></div>
+            <div className="w-56"><Chart type="line" data={TRANSITION_DATA} height={120} transition="drop" transitionDuration={700} /></div>
+          </Row>
+          <Row>
+            <div className="w-56"><Chart type="donut" data={TRANSITION_DATA} height={120} hoverEffect="lift" /></div>
+            <div className="w-56"><Chart type="bar" data={TRANSITION_DATA} height={120} hoverEffect="glow" /></div>
+            <div className="w-56"><Chart type="line" data={TRANSITION_DATA} height={120} hoverEffect="shine" /></div>
+            <div className="w-56"><Chart type="donut" data={TRANSITION_DATA} height={120} hoverEffect="tilt" /></div>
+          </Row>
+          <CodeBlock
+            variants={{
+              react: `<Chart type="bar" data={data} transition="fade" />
+<Chart type="bar" data={data} transition="slide-up" />
+<Chart type="bar" data={data} transition="slide-right" transitionDelay={100} />
+<Chart type="bar" data={data} transition="zoom" />
+
+<Chart type="bar" data={data} transition="flip" />
+<Chart type="bar" data={data} transition="blur" />
+<Chart type="bar" data={data} transition="bounce" />
+<Chart type="bar" data={data} transition="drop" transitionDuration={700} />
+
+<Chart type="bar" data={data} hoverEffect="lift" />
+<Chart type="bar" data={data} hoverEffect="glow" />
+<Chart type="bar" data={data} hoverEffect="shine" />
+<Chart type="bar" data={data} hoverEffect="tilt" />`,
+              js: `<l-Chart type="bar" transition="fade"></l-Chart>
+<l-Chart type="bar" transition="slide-up"></l-Chart>
+<l-Chart type="bar" transition="slide-right" transitionDelay="100"></l-Chart>
+<l-Chart type="bar" transition="zoom"></l-Chart>
+
+<l-Chart type="bar" transition="flip"></l-Chart>
+<l-Chart type="bar" transition="blur"></l-Chart>
+<l-Chart type="bar" transition="bounce"></l-Chart>
+<l-Chart type="bar" transition="drop" transitionDuration="700"></l-Chart>
+
+<l-Chart type="bar" hoverEffect="lift"></l-Chart>
+<l-Chart type="bar" hoverEffect="glow"></l-Chart>
+<l-Chart type="bar" hoverEffect="shine"></l-Chart>
+<l-Chart type="bar" hoverEffect="tilt"></l-Chart>
+
+<script type="module">
+  import "lojee-ui/elements";
+
+  document.querySelectorAll("l-Chart").forEach((chart) => {
+    chart.data = [
+      { label: "Mon", value: 24 },
+      { label: "Tue", value: 33 },
+      { label: "Wed", value: 28 },
+      { label: "Thu", value: 41 },
+    ];
+  });
+</script>`,
+              vue: `<template>
+  <l-Chart :data="data" type="bar" transition="fade"></l-Chart>
+  <l-Chart :data="data" type="bar" transition="slide-up"></l-Chart>
+  <l-Chart :data="data" type="bar" transition="slide-right" transitionDelay="100"></l-Chart>
+  <l-Chart :data="data" type="bar" transition="zoom"></l-Chart>
+
+  <l-Chart :data="data" type="bar" transition="flip"></l-Chart>
+  <l-Chart :data="data" type="bar" transition="blur"></l-Chart>
+  <l-Chart :data="data" type="bar" transition="bounce"></l-Chart>
+  <l-Chart :data="data" type="bar" transition="drop" transitionDuration="700"></l-Chart>
+
+  <l-Chart :data="data" type="bar" hoverEffect="lift"></l-Chart>
+  <l-Chart :data="data" type="bar" hoverEffect="glow"></l-Chart>
+  <l-Chart :data="data" type="bar" hoverEffect="shine"></l-Chart>
+  <l-Chart :data="data" type="bar" hoverEffect="tilt"></l-Chart>
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+const data = [
+  { label: "Mon", value: 24 },
+  { label: "Tue", value: 33 },
+  { label: "Wed", value: 28 },
+  { label: "Thu", value: 41 },
+];
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-Chart [data]="data" type="bar" transition="fade"></l-Chart>
+    <l-Chart [data]="data" type="bar" transition="slide-up"></l-Chart>
+    <l-Chart [data]="data" type="bar" transition="slide-right" transitionDelay="100"></l-Chart>
+    <l-Chart [data]="data" type="bar" transition="zoom"></l-Chart>
+
+    <l-Chart [data]="data" type="bar" transition="flip"></l-Chart>
+    <l-Chart [data]="data" type="bar" transition="blur"></l-Chart>
+    <l-Chart [data]="data" type="bar" transition="bounce"></l-Chart>
+    <l-Chart [data]="data" type="bar" transition="drop" transitionDuration="700"></l-Chart>
+
+    <l-Chart [data]="data" type="bar" hoverEffect="lift"></l-Chart>
+    <l-Chart [data]="data" type="bar" hoverEffect="glow"></l-Chart>
+    <l-Chart [data]="data" type="bar" hoverEffect="shine"></l-Chart>
+    <l-Chart [data]="data" type="bar" hoverEffect="tilt"></l-Chart>
+  \`,
+})
+export class AppComponent {
+  data = [
+    { label: "Mon", value: 24 },
+    { label: "Tue", value: 33 },
+    { label: "Wed", value: 28 },
+    { label: "Thu", value: 41 },
+  ];
+}`,
             }}
           />
         </section>

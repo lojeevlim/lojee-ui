@@ -2,8 +2,10 @@ import { useState } from "react";
 import { FileUpload } from "./FileUpload/FileUpload";
 import { PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
+import { useMotion } from "./playgroundMotion";
 
 export default function FileUploadPlayground() {
+  const motion = useMotion();
   const [label, setLabel] = useState("Click to upload or drag and drop");
   const [multiple, setMultiple] = useState(false);
   const [lastFiles, setLastFiles] = useState<string[]>([]);
@@ -13,6 +15,8 @@ export default function FileUploadPlayground() {
       <AppWindowBody>
         <div className="w-full max-w-sm">
           <FileUpload
+            key={motion.replayKey}
+            {...motion.props}
             label={label || undefined}
             multiple={multiple}
             onFilesSelected={(files) => setLastFiles(files ? Array.from(files).map((f) => f.name) : [])}
@@ -23,7 +27,7 @@ export default function FileUploadPlayground() {
   );
 
   const code = `<FileUpload
-  label="${label || "Click to upload or drag and drop"}"${multiple ? "\n  multiple" : ""}
+  label="${label || "Click to upload or drag and drop"}"${multiple ? "\n  multiple" : ""}${motion.attrs}
   onFilesSelected={(files) => console.log(files)}
 />`;
 
@@ -32,7 +36,7 @@ export default function FileUploadPlayground() {
   // "true" since r2wc parses a bare attribute as false.
   const htmlMarkup = `<l-FileUpload label="${label || "Click to upload or drag and drop"}"${
     multiple ? ` multiple` : ""
-  } />`;
+  }${motion.attrs} />`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,
@@ -80,6 +84,7 @@ export default function FileUploadPlayground() {
           ))}
         </div>
       </div>
+      {motion.controls}
     </PlaygroundLayout>
   );
 }

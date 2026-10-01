@@ -4,10 +4,12 @@ import { Button } from "./Buttons/Button";
 import { OptionGroup, ColorSwatches, PlaygroundLayout, AppWindowFrame } from "./PlaygroundHelpers";
 import { isColorName, COLOR_HEX } from "../../core/tokens";
 import type { CodeBlockVariants } from "./CodeBlock";
+import { useMotion } from "./playgroundMotion";
 
 const VARIANTS: HeaderVariant[] = ["light", "dark", "bordered", "elevated", "minimal", "gradient", "glass"];
 
 export default function HeaderPlayground() {
+  const motion = useMotion({ hover: false });
   const [title, setTitle] = useState("Team settings");
   const [description, setDescription] = useState("Manage members, roles, and billing for your workspace.");
   const [showActions, setShowActions] = useState(true);
@@ -39,6 +41,8 @@ export default function HeaderPlayground() {
       <div className="overflow-y-auto bg-surface p-6" style={{ height: 280 }}>
         <div className={previewWrapperClass}>
           <Header
+            key={motion.replayKey}
+            {...motion.props}
             title={titleValue}
             description={description || undefined}
             variant={variant}
@@ -67,10 +71,12 @@ export default function HeaderPlayground() {
   // Only meaningful for "bordered" — no point showing it in the sample for any other variant.
   const borderWidthAttrJsx = showBorderWidthControl && borderWidth !== 2 ? `\n  borderWidth={${borderWidth}}` : "";
   const borderWidthAttrHtml = showBorderWidthControl && borderWidth !== 2 ? `\n  border-width="${borderWidth}"` : "";
+  // Each motion attribute on its own line, like the others here.
+  const motionAttr = motion.attrs.replace(/ (?=\w+=)/g, "\n  ");
   const variantAttrHtml = variant !== "light" ? `\n  variant="${variant}"` : "";
 
   const code = `<Header
-  title="${titleValue}"${descriptionAttr}${variantAttr}${colorAttr}${borderWidthAttrJsx}${
+  title="${titleValue}"${descriptionAttr}${variantAttr}${colorAttr}${borderWidthAttrJsx}${motionAttr}${
     showActions
       ? `
   actions={
@@ -88,13 +94,13 @@ export default function HeaderPlayground() {
   // treatment ModalShowcase.tsx/AlertDialogShowcase.tsx give their `title`
   // prop. `actions` is projected as light-DOM content via slot="actions".
   const htmlMarkup = showActions
-    ? `<l-Header heading="${titleValue}"${descriptionAttr}${variantAttrHtml}${colorAttr}${borderWidthAttrHtml}>
+    ? `<l-Header heading="${titleValue}"${descriptionAttr}${variantAttrHtml}${colorAttr}${borderWidthAttrHtml}${motionAttr}>
   <div slot="actions">
     <l-Button variant="outline" label="Import" />
     <l-Button label="New project" />
   </div>
 </l-Header>`
-    : `<l-Header heading="${titleValue}"${descriptionAttr}${variantAttrHtml}${colorAttr}${borderWidthAttrHtml} />`;
+    : `<l-Header heading="${titleValue}"${descriptionAttr}${variantAttrHtml}${colorAttr}${borderWidthAttrHtml}${motionAttr} />`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,
@@ -178,6 +184,7 @@ export default function HeaderPlayground() {
         <input type="checkbox" checked={showActions} onChange={(e) => setShowActions(e.target.checked)} />
         Show actions
       </label>
+      {motion.controls}
     </PlaygroundLayout>
   );
 }

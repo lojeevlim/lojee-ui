@@ -1,5 +1,6 @@
 import { Loader2 } from "lucide-react";
 import { cx, type ColorName } from "../../../core/tokens";
+import { motionClass, motionStyle, type TransitionVariant } from "../../../core/motion";
 
 export type SpinnerSize = "xs" | "sm" | "md" | "lg" | "xl";
 export type SpinnerVariant = "circle" | "dots" | "ring" | "bars" | "pulse";
@@ -11,6 +12,12 @@ export interface SpinnerProps {
   color?: ColorName;
   /** Animation style: "circle", "dots", "ring", "bars" or "pulse" (default: "circle"). */
   variant?: SpinnerVariant;
+  /** Enter transition: "fade" | "slide-up" | "slide-down" | "slide-left" | "slide-right" | "zoom" | "zoom-out" | "flip" | "blur" | "bounce" | "rotate" | "drop" | "skew" (default: none). Respects `prefers-reduced-motion`. */
+  transition?: TransitionVariant;
+  /** Enter transition duration in ms (default: 450). */
+  transitionDuration?: number;
+  /** Delay before the enter transition starts, in ms (default: 0) — handy for staggering. */
+  transitionDelay?: number;
   /** Extra class name(s) appended to the root element. */
   className?: string;
   /** Accessible label for screen readers (spinners carry no visible text). */
@@ -110,7 +117,20 @@ const RING_TOP_COLOR: Record<ColorName, string> = {
   pink: "border-t-pink-600",
 };
 
-export function Spinner({ size = "md", color = "accent", variant = "circle", className, classNames, label }: SpinnerProps) {
+type SpinnerBaseProps = Omit<SpinnerProps, "transition" | "transitionDuration" | "transitionDelay">;
+
+// The ring/circle variants animate their own root (`animate-spin`), which a transition class on the same
+// element would override — so a `transition` wraps the spinner instead.
+export function Spinner({ transition, transitionDuration, transitionDelay, ...rest }: SpinnerProps) {
+  if (!transition) return <SpinnerBase {...rest} />;
+  return (
+    <span className={cx("inline-flex", motionClass(transition))} style={motionStyle(transitionDuration, transitionDelay)}>
+      <SpinnerBase {...rest} />
+    </span>
+  );
+}
+
+function SpinnerBase({ size = "md", color = "accent", variant = "circle", className, classNames, label }: SpinnerBaseProps) {
   if (variant === "dots") {
     return (
       <span

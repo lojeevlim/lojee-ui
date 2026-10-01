@@ -96,6 +96,58 @@ export class AppComponent {}`,
             }}
           />
         </section>
+
+        <section>
+          <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`). They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
+          <div className="space-y-3">
+            <Container transition="fade"><div className="rounded-md bg-surface-muted p-3 text-center text-xs text-fg-subtle">fade</div></Container>
+            <Container transition="slide-up"><div className="rounded-md bg-surface-muted p-3 text-center text-xs text-fg-subtle">slide-up</div></Container>
+            <Container transition="zoom" transitionDelay={100}><div className="rounded-md bg-surface-muted p-3 text-center text-xs text-fg-subtle">zoom</div></Container>
+            <Container transition="blur" transitionDuration={700}><div className="rounded-md bg-surface-muted p-3 text-center text-xs text-fg-subtle">blur</div></Container>
+          </div>
+          <CodeBlock
+            variants={{
+              react: `<Container transition="fade">...</Container>
+<Container transition="slide-up">...</Container>
+<Container transition="zoom" transitionDelay={100}>...</Container>
+<Container transition="blur" transitionDuration={700}>...</Container>`,
+              js: `<l-Container transition="fade">...</l-Container>
+<l-Container transition="slide-up">...</l-Container>
+<l-Container transition="zoom" transitionDelay="100">...</l-Container>
+<l-Container transition="blur" transitionDuration="700">...</l-Container>
+
+<script type="module">
+  import "lojee-ui/elements";
+</script>`,
+              vue: `<template>
+  <l-Container transition="fade">...</l-Container>
+  <l-Container transition="slide-up">...</l-Container>
+  <l-Container transition="zoom" transitionDelay="100">...</l-Container>
+  <l-Container transition="blur" transitionDuration="700">...</l-Container>
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-Container transition="fade">...</l-Container>
+    <l-Container transition="slide-up">...</l-Container>
+    <l-Container transition="zoom" transitionDelay="100">...</l-Container>
+    <l-Container transition="blur" transitionDuration="700">...</l-Container>
+  \`,
+})
+export class AppComponent {}`,
+            }}
+          />
+        </section>
       </div>
     </div>
   );

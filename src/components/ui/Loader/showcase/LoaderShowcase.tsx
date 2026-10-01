@@ -178,6 +178,68 @@ export class LoaderShowcaseComponent {}`,
             </div>
           </div>
         </section>
+
+        <section>
+          <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`). They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
+          <Row>
+            <Loader shape="rect" width={96} height={48} transition="fade" />
+            <Loader shape="rect" width={96} height={48} transition="slide-down" />
+            <Loader shape="rect" width={96} height={48} transition="slide-right" transitionDelay={100} />
+            <Loader shape="rect" width={96} height={48} transition="zoom" />
+            <Loader shape="rect" width={96} height={48} transition="blur" />
+            <Loader shape="rect" width={96} height={48} transition="drop" transitionDuration={700} />
+          </Row>
+          <CodeBlock
+            variants={{
+              react: `<Loader shape="rect" width={96} height={48} transition="fade" />
+<Loader shape="rect" width={96} height={48} transition="slide-down" />
+<Loader shape="rect" width={96} height={48} transition="slide-right" transitionDelay={100} />
+<Loader shape="rect" width={96} height={48} transition="zoom" />
+<Loader shape="rect" width={96} height={48} transition="blur" />
+<Loader shape="rect" width={96} height={48} transition="drop" transitionDuration={700} />`,
+              js: `<l-Loader shape="rect" width="96" height="48" transition="fade"></l-Loader>
+<l-Loader shape="rect" width="96" height="48" transition="slide-down"></l-Loader>
+<l-Loader shape="rect" width="96" height="48" transition="slide-right" transitionDelay="100"></l-Loader>
+<l-Loader shape="rect" width="96" height="48" transition="zoom"></l-Loader>
+<l-Loader shape="rect" width="96" height="48" transition="blur"></l-Loader>
+<l-Loader shape="rect" width="96" height="48" transition="drop" transitionDuration="700"></l-Loader>
+
+<script type="module">
+  import "lojee-ui/elements";
+</script>`,
+              vue: `<template>
+  <l-Loader shape="rect" width="96" height="48" transition="fade"></l-Loader>
+  <l-Loader shape="rect" width="96" height="48" transition="slide-down"></l-Loader>
+  <l-Loader shape="rect" width="96" height="48" transition="slide-right" transitionDelay="100"></l-Loader>
+  <l-Loader shape="rect" width="96" height="48" transition="zoom"></l-Loader>
+  <l-Loader shape="rect" width="96" height="48" transition="blur"></l-Loader>
+  <l-Loader shape="rect" width="96" height="48" transition="drop" transitionDuration="700"></l-Loader>
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-Loader shape="rect" width="96" height="48" transition="fade"></l-Loader>
+    <l-Loader shape="rect" width="96" height="48" transition="slide-down"></l-Loader>
+    <l-Loader shape="rect" width="96" height="48" transition="slide-right" transitionDelay="100"></l-Loader>
+    <l-Loader shape="rect" width="96" height="48" transition="zoom"></l-Loader>
+    <l-Loader shape="rect" width="96" height="48" transition="blur"></l-Loader>
+    <l-Loader shape="rect" width="96" height="48" transition="drop" transitionDuration="700"></l-Loader>
+  \`,
+})
+export class AppComponent {}`,
+            }}
+          />
+        </section>
       </div>
     </div>
   );

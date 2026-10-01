@@ -3,10 +3,12 @@ import { AlertDialog, type AlertDialogVariant } from "./AlertDialog/AlertDialog"
 import { Button } from "./Buttons/Button";
 import { OptionGroup, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
+import { useMotion } from "./playgroundMotion";
 
 const VARIANTS: AlertDialogVariant[] = ["default", "destructive"];
 
 export default function AlertDialogPlayground() {
+  const motion = useMotion();
   const [open, setOpen] = useState(false);
   const [variant, setVariant] = useState<AlertDialogVariant>("default");
   const [title, setTitle] = useState("Are you sure?");
@@ -17,6 +19,7 @@ export default function AlertDialogPlayground() {
       <AppWindowBody>
         <Button label="Open alert dialog" onClick={() => setOpen(true)} />
         <AlertDialog
+          {...motion.props}
           open={open}
           onClose={() => setOpen(false)}
           variant={variant}
@@ -32,7 +35,7 @@ export default function AlertDialogPlayground() {
   open={open}
   onClose={() => setOpen(false)}
   variant="${variant}"
-  title="${title || "Are you sure?"}"${description ? `\n  description="${description}"` : ""}
+  title="${title || "Are you sure?"}"${description ? `\n  description="${description}"` : ""}${motion.attrs}
   onConfirm={() => { /* ... */ }}
 />`;
 
@@ -43,7 +46,7 @@ export default function AlertDialogPlayground() {
   // omitted entirely when empty, same as the react code above.
   const descriptionAttr = description ? ` description="${description}"` : "";
   const htmlMarkup = `<l-Button label="Open alert dialog" id="open-alert-btn" />
-<l-AlertDialog id="alert-dialog" variant="${variant}" heading="${title || "Are you sure?"}"${descriptionAttr} />`;
+<l-AlertDialog id="alert-dialog" variant="${variant}" heading="${title || "Are you sure?"}"${descriptionAttr}${motion.attrs} />`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,
@@ -63,7 +66,7 @@ export default function AlertDialogPlayground() {
   <l-AlertDialog
     :open="open"
     variant="${variant}"
-    heading="${title || "Are you sure?"}"${description ? `\n    description="${description}"` : ""}
+    heading="${title || "Are you sure?"}"${description ? `\n    description="${description}"` : ""}${motion.attrs}
     @close="open = false"
     @confirm="open = false"
   />
@@ -80,7 +83,7 @@ const open = ref(false);
 <l-AlertDialog
   [open]="open"
   variant="${variant}"
-  heading="${title || "Are you sure?"}"${description ? `\n  description="${description}"` : ""}
+  heading="${title || "Are you sure?"}"${description ? `\n  description="${description}"` : ""}${motion.attrs}
   (close)="open = false"
   (confirm)="open = false"
  />`,
@@ -107,6 +110,7 @@ const open = ref(false);
         />
       </div>
       <OptionGroup label="Variant" options={VARIANTS} value={variant} onChange={setVariant} />
+      {motion.controls}
     </PlaygroundLayout>
   );
 }

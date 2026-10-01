@@ -1,4 +1,5 @@
 import { cx, type ColorName } from "../../../core/tokens";
+import { motionClass, motionStyle, type TransitionVariant, type HoverEffect } from "../../../core/motion";
 
 export interface RangeSliderProps {
   /** Lowest selectable value (default: 0). */
@@ -15,6 +16,14 @@ export interface RangeSliderProps {
   color?: ColorName;
   /** Shows the current "low – high" text below the slider (default: false). */
   showValue?: boolean;
+  /** Enter transition: "fade" | "slide-up" | "slide-down" | "slide-left" | "slide-right" | "zoom" | "zoom-out" | "flip" | "blur" | "bounce" | "rotate" | "drop" | "skew" (default: none). Respects `prefers-reduced-motion`. */
+  transition?: TransitionVariant;
+  /** Enter transition duration in ms (default: 450). */
+  transitionDuration?: number;
+  /** Delay before the enter transition starts, in ms (default: 0) — handy for staggering. */
+  transitionDelay?: number;
+  /** Effect while hovering: "lift" | "scale" | "press" | "tilt" | "ring" | "glow" | "shine" (default: none). */
+  hoverEffect?: HoverEffect;
   /** Extra CSS class(es) added to the root element, merged before `classNames.root`. */
   className?: string;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
@@ -64,6 +73,10 @@ export function RangeSlider({
   onChange,
   color = "accent",
   showValue = false,
+  transition,
+  transitionDuration,
+  transitionDelay,
+  hoverEffect,
   className,
   classNames,
 }: RangeSliderProps) {
@@ -72,7 +85,10 @@ export function RangeSlider({
   const rightPct = 100 - ((high - min) / (max - min)) * 100;
 
   return (
-    <div className={cx("w-full", className, classNames?.root)}>
+    <div
+      className={cx("w-full", motionClass(transition, hoverEffect), className, classNames?.root)}
+      style={motionStyle(transitionDuration, transitionDelay)}
+    >
       <div className="relative h-4 flex items-center">
         <div className={cx("absolute h-1.5 w-full rounded-full bg-border", classNames?.track)} />
         <div

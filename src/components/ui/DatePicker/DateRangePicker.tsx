@@ -1,4 +1,5 @@
 import { cx } from "../../../core/tokens";
+import { motionClass, motionStyle, type TransitionVariant, type HoverEffect } from "../../../core/motion";
 import { Icon } from "../Icons/Icon";
 import type { DatePickerSize, DatePickerVariant } from "./DatePicker";
 
@@ -31,6 +32,14 @@ export interface DateRangePickerProps {
   disabled?: boolean;
   /** Quick-select buttons rendered below the inputs (e.g. "Last 7 days"). */
   presets?: DateRangePreset[];
+  /** Enter transition: "fade" | "slide-up" | "slide-down" | "slide-left" | "slide-right" | "zoom" | "zoom-out" | "flip" | "blur" | "bounce" | "rotate" | "drop" | "skew" (default: none). Respects `prefers-reduced-motion`. */
+  transition?: TransitionVariant;
+  /** Enter transition duration in ms (default: 450). */
+  transitionDuration?: number;
+  /** Delay before the enter transition starts, in ms (default: 0) — handy for staggering. */
+  transitionDelay?: number;
+  /** Effect while hovering: "lift" | "scale" | "press" | "tilt" | "ring" | "glow" | "shine" (default: none). */
+  hoverEffect?: HoverEffect;
   /** Extra class name(s) applied to the root element. */
   className?: string;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
@@ -79,6 +88,10 @@ export function DateRangePicker({
   presets,
   className,
   classNames,
+  transition,
+  transitionDuration,
+  transitionDelay,
+  hoverEffect,
 }: DateRangePickerProps) {
   return (
     <div className="w-full">
@@ -89,9 +102,11 @@ export function DateRangePicker({
           VARIANT_CLASSES[variant],
           invalid && INVALID_CLASSES,
           disabled && "cursor-not-allowed opacity-50",
+          motionClass(transition, hoverEffect),
           className,
           classNames?.root
         )}
+        style={motionStyle(transitionDuration, transitionDelay)}
       >
         <Icon
           name="calendar"

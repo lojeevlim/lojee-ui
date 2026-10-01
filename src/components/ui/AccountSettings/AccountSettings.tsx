@@ -1,6 +1,7 @@
 import { useState } from "react";
 import type { FormEvent, ReactNode } from "react";
 import { cx } from "../../../core/tokens";
+import { motionClass, motionStyle, type TransitionVariant, type HoverEffect } from "../../../core/motion";
 import { Label } from "../Label/Label";
 import { Input } from "../Input/Input";
 import { PasswordInput } from "../PasswordInput/PasswordInput";
@@ -31,6 +32,14 @@ export interface AccountSettingsProps {
   onNotificationsChange?: (notifications: NotificationPreference[]) => void;
   /** Called when the Delete account button in the danger zone is clicked; no confirmation is shown by the component itself. */
   onDeleteAccount?: () => void;
+  /** Enter transition: "fade" | "slide-up" | "slide-down" | "slide-left" | "slide-right" | "zoom" | "zoom-out" | "flip" | "blur" | "bounce" | "rotate" | "drop" | "skew" (default: none). Respects `prefers-reduced-motion`. */
+  transition?: TransitionVariant;
+  /** Enter transition duration in ms (default: 450). */
+  transitionDuration?: number;
+  /** Delay before the enter transition starts, in ms (default: 0) — handy for staggering. */
+  transitionDelay?: number;
+  /** Effect while hovering: "lift" | "scale" | "press" | "tilt" | "ring" | "glow" | "shine" (default: none). */
+  hoverEffect?: HoverEffect;
   /** Extra class names applied to the root element. */
   className?: string;
   /** Per-part class overrides (`root`, `section` — applied to every section card) — merged after the built-in styling. */
@@ -68,6 +77,10 @@ export function AccountSettings({
   onDeleteAccount,
   className,
   classNames,
+  transition,
+  transitionDuration,
+  transitionDelay,
+  hoverEffect,
 }: AccountSettingsProps) {
   const [emailValue, setEmailValue] = useState(email);
   const [currentPassword, setCurrentPassword] = useState("");
@@ -90,7 +103,10 @@ export function AccountSettings({
   };
 
   return (
-    <div className={cx("flex w-full flex-col gap-6", className, classNames?.root)}>
+    <div
+      className={cx("flex w-full flex-col gap-6", motionClass(transition, hoverEffect), className, classNames?.root)}
+      style={motionStyle(transitionDuration, transitionDelay)}
+    >
       <SectionCard title="Email address" description="The email used to sign in and receive notifications." className={classNames?.section}>
         <form onSubmit={handleEmailSubmit} className="flex flex-col gap-3 sm:flex-row sm:items-end">
           <div className="flex-1">

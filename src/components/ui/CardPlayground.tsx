@@ -2,11 +2,15 @@ import { useState } from "react";
 import { Card, type CardVariant, type CardPadding } from "./Card/Card";
 import { OptionGroup, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
+import { useAnimation } from "./playgroundAnimation";
+import { useMotion } from "./playgroundMotion";
 
 const VARIANTS: CardVariant[] = ["outline", "elevated", "soft", "ghost"];
 const PADDINGS: CardPadding[] = ["none", "sm", "md", "lg"];
 
 export default function CardPlayground() {
+  const anim = useAnimation();
+  const motion = useMotion();
   const [variant, setVariant] = useState<CardVariant>("outline");
   const [padding, setPadding] = useState<CardPadding>("md");
   const [hoverable, setHoverable] = useState(false);
@@ -17,6 +21,9 @@ export default function CardPlayground() {
     <AppWindowFrame>
       <AppWindowBody>
         <Card
+          key={motion.replayKey}
+          {...anim.props}
+          {...motion.props}
           variant={variant}
           padding={padding}
           hoverable={hoverable}
@@ -30,7 +37,7 @@ export default function CardPlayground() {
     </AppWindowFrame>
   );
 
-  const code = `<Card variant="${variant}" padding="${padding}"${hoverable ? " hoverable" : ""}${
+  const code = `<Card variant="${variant}" padding="${padding}"${anim.attrs}${motion.attrs}${hoverable ? " hoverable" : ""}${
     withTitle ? ` title="Card title"` : ""
   }${withFooter ? ` footer={<span>Footer content</span>}` : ""}>
   Sample content
@@ -38,7 +45,7 @@ export default function CardPlayground() {
 
   // Custom-element markup for the current configuration — l-card's `footer`
   // prop is a plain string (unlike React's JSX footer node above).
-  const htmlMarkup = `<l-Card variant="${variant}" padding="${padding}"${hoverable ? ` hoverable` : ""}${
+  const htmlMarkup = `<l-Card variant="${variant}" padding="${padding}"${anim.attrs}${motion.attrs}${hoverable ? ` hoverable` : ""}${
     withTitle ? ` title="Card title"` : ""
   }${withFooter ? ` footer="Footer content"` : ""}>
   Sample content
@@ -91,6 +98,8 @@ export default function CardPlayground() {
           </button>
         </div>
       </div>
+      {anim.controls}
+      {motion.controls}
     </PlaygroundLayout>
   );
 }

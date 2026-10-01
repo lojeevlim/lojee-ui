@@ -89,11 +89,6 @@ export const COMPONENT_MENU: Menu[]  = [
             },
 
             {
-                icon: "table",
-                label: "Tables",
-            },
-
-            {
                 icon: "square-chevron-down",
                 label: "Accordions",
             },
@@ -372,6 +367,11 @@ export const COMPONENT_MENU: Menu[]  = [
         items: [
 
             {
+                icon: "table",
+                label: "Tables",
+            },
+
+            {
                 icon: "table-2",
                 label: "Data Grid",
             },
@@ -412,6 +412,29 @@ export const COMPONENT_MENU: Menu[]  = [
             {
                 icon: "git-branch",
                 label: "Flow Diagram",
+            },
+
+        ],
+    },
+
+    {
+        section: "Maps",
+
+        items: [
+
+            {
+                icon: "map",
+                label: "Map",
+            },
+
+            {
+                icon: "map-pin",
+                label: "Map Markers",
+            },
+
+            {
+                icon: "route",
+                label: "Map Routes",
             },
 
         ],

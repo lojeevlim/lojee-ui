@@ -2,6 +2,7 @@ import { cx } from "../../../core/tokens";
 import { Avatar } from "../Avatar/Avatar";
 import { DropdownMenu, type DropdownMenuAlign } from "../DropdownMenu/DropdownMenu";
 import { DropdownMenuItem } from "../DropdownMenu/DropdownMenuItem";
+import { motionClass, type TransitionVariant, type HoverEffect } from "../../../core/motion";
 
 export interface UserMenuItem {
   label: string;
@@ -27,6 +28,14 @@ export interface UserMenuProps {
   /** Which edge of the trigger the panel hugs (default "end" — a user menu is
    * almost always top-right, so its panel should hug the right edge). */
   align?: DropdownMenuAlign;
+  /** Enter/exit transition for the menu panel: "fade" | "slide-up" | "slide-down" | "slide-left" | "slide-right" | "zoom" | "zoom-out" | "flip" | "blur" | "bounce" | "rotate" | "drop" | "skew" (default: none). Respects `prefers-reduced-motion`. */
+  transition?: TransitionVariant;
+  /** Enter transition duration in ms (default: 450). */
+  transitionDuration?: number;
+  /** Delay before the enter transition starts, in ms (default: 0) — handy for staggering. */
+  transitionDelay?: number;
+  /** Effect while hovering: "lift" | "scale" | "press" | "tilt" | "ring" | "glow" | "shine" (default: none). Applied to the trigger button. */
+  hoverEffect?: HoverEffect;
   /** Extra class name(s) appended to the root element. */
   className?: string;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
@@ -48,12 +57,19 @@ export function UserMenu({
   items,
   onItemSelect,
   align = "end",
+  transition,
+  transitionDuration,
+  transitionDelay,
+  hoverEffect,
   className,
   classNames,
 }: UserMenuProps) {
   return (
     <DropdownMenu
       align={align}
+      transition={transition}
+      transitionDuration={transitionDuration}
+      transitionDelay={transitionDelay}
       className={cx(className, classNames?.root)}
       classNames={{ menu: cx("min-w-[14rem] py-0", classNames?.menu) }}
       trigger={
@@ -61,6 +77,7 @@ export function UserMenu({
           type="button"
           className={cx(
             "flex items-center gap-2 rounded-md px-1.5 py-1 text-left transition-colors hover:bg-surface-muted",
+            motionClass(undefined, hoverEffect),
             classNames?.trigger
           )}
         >

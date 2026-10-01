@@ -2,6 +2,7 @@ import { useState } from "react";
 import { AccountSettings, type NotificationPreference } from "./AccountSettings/AccountSettings";
 import { PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
+import { useMotion } from "./playgroundMotion";
 
 const SAMPLE_NOTIFICATIONS: NotificationPreference[] = [
   { key: "product", label: "Product updates", description: "New features and improvements.", enabled: true },
@@ -10,6 +11,7 @@ const SAMPLE_NOTIFICATIONS: NotificationPreference[] = [
 ];
 
 export default function AccountSettingsPlayground() {
+  const motion = useMotion();
   const [email, setEmail] = useState("jordan@lojee.io");
   const [notifications, setNotifications] = useState(SAMPLE_NOTIFICATIONS);
 
@@ -17,7 +19,7 @@ export default function AccountSettingsPlayground() {
     <AppWindowFrame>
       <AppWindowBody>
         <div className="w-full max-w-md">
-          <AccountSettings email={email} notifications={notifications} onNotificationsChange={setNotifications} />
+          <AccountSettings key={motion.replayKey} {...motion.props} email={email} notifications={notifications} onNotificationsChange={setNotifications} />
         </div>
       </AppWindowBody>
     </AppWindowFrame>
@@ -32,12 +34,12 @@ export default function AccountSettingsPlayground() {
   const code = `const [notifications, setNotifications] = useState(${notificationsCode});
 
 <AccountSettings
-  email="${email}"
+  email="${email}"${motion.attrs}
   notifications={notifications}
   onNotificationsChange={setNotifications}
 />`;
 
-  const htmlMarkup = `<l-AccountSettings id="account-settings" email="${email}"></l-AccountSettings>
+  const htmlMarkup = `<l-AccountSettings id="account-settings" email="${email}"${motion.attrs}></l-AccountSettings>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -46,7 +48,7 @@ export default function AccountSettingsPlayground() {
 </script>`;
 
   const vueMarkup = `<template>
-  <l-AccountSettings email="${email}" :notifications="notifications" @notificationsChange="notifications = $event" />
+  <l-AccountSettings email="${email}"${motion.attrs} :notifications="notifications" @notificationsChange="notifications = $event" />
 </template>
 
 <script setup lang="ts">
@@ -54,7 +56,7 @@ import { ref } from "vue";
 const notifications = ref(${notificationsCode});
 </script>`;
 
-  const angularMarkup = `<l-AccountSettings email="${email}" [notifications]="notifications" (notificationsChange)="notifications = $event"></l-AccountSettings>
+  const angularMarkup = `<l-AccountSettings email="${email}"${motion.attrs} [notifications]="notifications" (notificationsChange)="notifications = $event"></l-AccountSettings>
 
 notifications = ${notificationsCode};`;
 
@@ -76,6 +78,7 @@ notifications = ${notificationsCode};`;
           placeholder="jordan@lojee.io"
         />
       </div>
+      {motion.controls}
     </PlaygroundLayout>
   );
 }

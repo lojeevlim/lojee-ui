@@ -3,8 +3,10 @@ import { Sheet } from "./Sheet/Sheet";
 import { Button } from "./Buttons/Button";
 import { PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
+import { useMotion } from "./playgroundMotion";
 
 export default function SheetPlayground() {
+  const motion = useMotion();
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState("Sheet title");
 
@@ -12,14 +14,14 @@ export default function SheetPlayground() {
     <AppWindowFrame>
       <AppWindowBody>
         <Button label="Open sheet" onClick={() => setOpen(true)} />
-        <Sheet open={open} onClose={() => setOpen(false)} title={title || "Sheet title"}>
+        <Sheet {...motion.props} open={open} onClose={() => setOpen(false)} title={title || "Sheet title"}>
           <p className="text-sm text-fg-muted">This is the sheet body content.</p>
         </Sheet>
       </AppWindowBody>
     </AppWindowFrame>
   );
 
-  const code = `<Sheet open={open} onClose={() => setOpen(false)} title="${title || "Sheet title"}">
+  const code = `<Sheet open={open} onClose={() => setOpen(false)} title="${title || "Sheet title"}"${motion.attrs}>
   <p>This is the sheet body content.</p>
 </Sheet>`;
 
@@ -27,7 +29,7 @@ export default function SheetPlayground() {
   // trigger click (matches ModalShowcase.tsx's pattern) rather than a baked
   // literal; `heading` stays a plain snapshot attribute.
   const htmlMarkup = `<l-Button label="Open sheet" id="open-sheet-btn" />
-<l-Sheet id="sheet" heading="${title || "Sheet title"}">
+<l-Sheet id="sheet" heading="${title || "Sheet title"}"${motion.attrs}>
   <p>This is the sheet body content.</p>
 </l-Sheet>`;
 
@@ -45,7 +47,7 @@ export default function SheetPlayground() {
 </script>`,
     vue: `<template>
   <l-Button label="Open sheet" @click="open = true" />
-  <l-Sheet :open="open" heading="${title || "Sheet title"}" @close="open = false">
+  <l-Sheet :open="open" heading="${title || "Sheet title"}"${motion.attrs} @close="open = false">
     <p>This is the sheet body content.</p>
   </l-Sheet>
 </template>
@@ -58,7 +60,7 @@ const open = ref(false);
 </script>`,
     angular: `<!-- app.component.html -->
 <l-Button label="Open sheet" (click)="open = true" />
-<l-Sheet [open]="open" heading="${title || "Sheet title"}" (close)="open = false">
+<l-Sheet [open]="open" heading="${title || "Sheet title"}"${motion.attrs} (close)="open = false">
   <p>This is the sheet body content.</p>
 </l-Sheet>`,
   };
@@ -74,6 +76,7 @@ const open = ref(false);
           placeholder="Sheet title"
         />
       </div>
+      {motion.controls}
     </PlaygroundLayout>
   );
 }

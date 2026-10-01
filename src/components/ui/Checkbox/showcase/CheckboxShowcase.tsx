@@ -123,6 +123,104 @@ export class AppComponent {}`,
             }}
           />
         </section>
+
+        <section>
+          <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`) and hover effects via `hoverEffect`. They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
+          <Row>
+            <Checkbox transition="fade" label="Fade" defaultChecked />
+            <Checkbox transition="slide-up" label="Slide up" defaultChecked />
+            <Checkbox transition="slide-right" transitionDelay={100} label="Slide right" defaultChecked />
+            <Checkbox transition="zoom" label="Zoom" defaultChecked />
+            <Checkbox transition="flip" label="Flip" defaultChecked />
+            <Checkbox transition="blur" label="Blur" defaultChecked />
+            <Checkbox transition="bounce" label="Bounce" defaultChecked />
+            <Checkbox transition="drop" transitionDuration={700} label="Drop" defaultChecked />
+          </Row>
+          <Row>
+            <Checkbox hoverEffect="lift" label="Lift" />
+            <Checkbox hoverEffect="scale" label="Scale" />
+            <Checkbox hoverEffect="glow" label="Glow" />
+            <Checkbox hoverEffect="shine" label="Shine" />
+          </Row>
+          <CodeBlock
+            variants={{
+              react: `<Checkbox transition="fade" label="Fade" defaultChecked />
+<Checkbox transition="slide-up" label="Slide up" defaultChecked />
+<Checkbox transition="slide-right" transitionDelay={100} label="Slide right" defaultChecked />
+<Checkbox transition="zoom" label="Zoom" defaultChecked />
+<Checkbox transition="flip" label="Flip" defaultChecked />
+<Checkbox transition="blur" label="Blur" defaultChecked />
+<Checkbox transition="bounce" label="Bounce" defaultChecked />
+<Checkbox transition="drop" transitionDuration={700} label="Drop" defaultChecked />
+
+<Checkbox hoverEffect="lift" label="Lift" />
+<Checkbox hoverEffect="scale" label="Scale" />
+<Checkbox hoverEffect="glow" label="Glow" />
+<Checkbox hoverEffect="shine" label="Shine" />`,
+              js: `<l-Checkbox transition="fade" label="Fade" defaultChecked></l-Checkbox>
+<l-Checkbox transition="slide-up" label="Slide up" defaultChecked></l-Checkbox>
+<l-Checkbox transition="slide-right" transitionDelay="100" label="Slide right" defaultChecked></l-Checkbox>
+<l-Checkbox transition="zoom" label="Zoom" defaultChecked></l-Checkbox>
+<l-Checkbox transition="flip" label="Flip" defaultChecked></l-Checkbox>
+<l-Checkbox transition="blur" label="Blur" defaultChecked></l-Checkbox>
+<l-Checkbox transition="bounce" label="Bounce" defaultChecked></l-Checkbox>
+<l-Checkbox transition="drop" transitionDuration="700" label="Drop" defaultChecked></l-Checkbox>
+
+<l-Checkbox hoverEffect="lift" label="Lift"></l-Checkbox>
+<l-Checkbox hoverEffect="scale" label="Scale"></l-Checkbox>
+<l-Checkbox hoverEffect="glow" label="Glow"></l-Checkbox>
+<l-Checkbox hoverEffect="shine" label="Shine"></l-Checkbox>
+
+<script type="module">
+  import "lojee-ui/elements";
+</script>`,
+              vue: `<template>
+  <l-Checkbox transition="fade" label="Fade" defaultChecked></l-Checkbox>
+  <l-Checkbox transition="slide-up" label="Slide up" defaultChecked></l-Checkbox>
+  <l-Checkbox transition="slide-right" transitionDelay="100" label="Slide right" defaultChecked></l-Checkbox>
+  <l-Checkbox transition="zoom" label="Zoom" defaultChecked></l-Checkbox>
+  <l-Checkbox transition="flip" label="Flip" defaultChecked></l-Checkbox>
+  <l-Checkbox transition="blur" label="Blur" defaultChecked></l-Checkbox>
+  <l-Checkbox transition="bounce" label="Bounce" defaultChecked></l-Checkbox>
+  <l-Checkbox transition="drop" transitionDuration="700" label="Drop" defaultChecked></l-Checkbox>
+
+  <l-Checkbox hoverEffect="lift" label="Lift"></l-Checkbox>
+  <l-Checkbox hoverEffect="scale" label="Scale"></l-Checkbox>
+  <l-Checkbox hoverEffect="glow" label="Glow"></l-Checkbox>
+  <l-Checkbox hoverEffect="shine" label="Shine"></l-Checkbox>
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-Checkbox transition="fade" label="Fade" defaultChecked></l-Checkbox>
+    <l-Checkbox transition="slide-up" label="Slide up" defaultChecked></l-Checkbox>
+    <l-Checkbox transition="slide-right" transitionDelay="100" label="Slide right" defaultChecked></l-Checkbox>
+    <l-Checkbox transition="zoom" label="Zoom" defaultChecked></l-Checkbox>
+    <l-Checkbox transition="flip" label="Flip" defaultChecked></l-Checkbox>
+    <l-Checkbox transition="blur" label="Blur" defaultChecked></l-Checkbox>
+    <l-Checkbox transition="bounce" label="Bounce" defaultChecked></l-Checkbox>
+    <l-Checkbox transition="drop" transitionDuration="700" label="Drop" defaultChecked></l-Checkbox>
+
+    <l-Checkbox hoverEffect="lift" label="Lift"></l-Checkbox>
+    <l-Checkbox hoverEffect="scale" label="Scale"></l-Checkbox>
+    <l-Checkbox hoverEffect="glow" label="Glow"></l-Checkbox>
+    <l-Checkbox hoverEffect="shine" label="Shine"></l-Checkbox>
+  \`,
+})
+export class AppComponent {}`,
+            }}
+          />
+        </section>
       </div>
     </div>
   );

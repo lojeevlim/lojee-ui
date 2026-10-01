@@ -1,7 +1,7 @@
 import { Label } from "../Label";
 import { Input } from "../../Input/Input";
 import CodeBlock from "../../CodeBlock";
-import { SectionLabel } from "../../ShowcaseHelpers";
+import { SectionLabel, Row } from "../../ShowcaseHelpers";
 
 export default function LabelShowcase() {
   return (
@@ -75,6 +75,78 @@ export class AppComponent {}`,
               angular: `<!-- app.component.html — same AppComponent as above -->
 <l-Label htmlFor="name" required>Full name</l-Label>
 <l-Input id="name" placeholder="Jane Doe" />`,
+            }}
+          />
+        </section>
+
+        <section>
+          <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`). They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
+          <Row>
+            <Label transition="fade">Fade</Label>
+            <Label transition="slide-up">Slide up</Label>
+            <Label transition="slide-right" transitionDelay={100}>Slide right</Label>
+            <Label transition="zoom">Zoom</Label>
+            <Label transition="flip">Flip</Label>
+            <Label transition="blur">Blur</Label>
+            <Label transition="bounce">Bounce</Label>
+            <Label transition="drop" transitionDuration={700}>Drop</Label>
+          </Row>
+          <CodeBlock
+            variants={{
+              react: `<Label transition="fade">Fade</Label>
+<Label transition="slide-up">Slide up</Label>
+<Label transition="slide-right" transitionDelay={100}>Slide right</Label>
+<Label transition="zoom">Zoom</Label>
+<Label transition="flip">Flip</Label>
+<Label transition="blur">Blur</Label>
+<Label transition="bounce">Bounce</Label>
+<Label transition="drop" transitionDuration={700}>Drop</Label>`,
+              js: `<l-Label transition="fade">Fade</l-Label>
+<l-Label transition="slide-up">Slide up</l-Label>
+<l-Label transition="slide-right" transitionDelay="100">Slide right</l-Label>
+<l-Label transition="zoom">Zoom</l-Label>
+<l-Label transition="flip">Flip</l-Label>
+<l-Label transition="blur">Blur</l-Label>
+<l-Label transition="bounce">Bounce</l-Label>
+<l-Label transition="drop" transitionDuration="700">Drop</l-Label>
+
+<script type="module">
+  import "lojee-ui/elements";
+</script>`,
+              vue: `<template>
+  <l-Label transition="fade">Fade</l-Label>
+  <l-Label transition="slide-up">Slide up</l-Label>
+  <l-Label transition="slide-right" transitionDelay="100">Slide right</l-Label>
+  <l-Label transition="zoom">Zoom</l-Label>
+  <l-Label transition="flip">Flip</l-Label>
+  <l-Label transition="blur">Blur</l-Label>
+  <l-Label transition="bounce">Bounce</l-Label>
+  <l-Label transition="drop" transitionDuration="700">Drop</l-Label>
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-Label transition="fade">Fade</l-Label>
+    <l-Label transition="slide-up">Slide up</l-Label>
+    <l-Label transition="slide-right" transitionDelay="100">Slide right</l-Label>
+    <l-Label transition="zoom">Zoom</l-Label>
+    <l-Label transition="flip">Flip</l-Label>
+    <l-Label transition="blur">Blur</l-Label>
+    <l-Label transition="bounce">Bounce</l-Label>
+    <l-Label transition="drop" transitionDuration="700">Drop</l-Label>
+  \`,
+})
+export class AppComponent {}`,
             }}
           />
         </section>

@@ -1,5 +1,6 @@
 import type { CSSProperties, ReactNode } from "react";
 import { cx, isColorName, type ColorName } from "../../../core/tokens";
+import { motionClass, motionStyle, type TransitionVariant } from "../../../core/motion";
 
 // Darkens a "#rrggbb" hex color for the second stop of a custom gradient — same role Tailwind's
 // 600→700 step plays for a named ColorName. Mirrors Sidebar's/Navbar's own `darkenHex` — kept as its
@@ -55,6 +56,12 @@ export interface HeaderProps {
   color?: ColorName | (string & {});
   /** "bordered"'s own border thickness in px (default: 2). Has no effect on any other variant. */
   borderWidth?: number;
+  /** Enter transition: "fade" | "slide-up" | "slide-down" | "slide-left" | "slide-right" | "zoom" | "zoom-out" | "flip" | "blur" | "bounce" | "rotate" | "drop" | "skew" (default: none). Respects `prefers-reduced-motion`. */
+  transition?: TransitionVariant;
+  /** Enter transition duration in ms (default: 450). */
+  transitionDuration?: number;
+  /** Delay before the enter transition starts, in ms (default: 0) — handy for staggering. */
+  transitionDelay?: number;
   /** Extra class name(s) applied to the root element. */
   className?: string;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
@@ -152,6 +159,9 @@ export function Header({
   variant = "light",
   color = "accent",
   borderWidth,
+  transition,
+  transitionDuration,
+  transitionDelay,
   className,
   classNames,
 }: HeaderProps) {
@@ -226,10 +236,11 @@ export function Header({
         isDetachedPanel ? "p-4" : hasFilledDockedBackground ? "px-6 py-4" : "pb-6",
         VARIANT_CLASSES[variant],
         isDetachedPanel && borderedAccentClass,
+        motionClass(transition),
         className,
         classNames?.root
       )}
-      style={isDetachedPanel ? borderedAccentStyle : style}
+      style={{ ...(isDetachedPanel ? borderedAccentStyle : style), ...motionStyle(transitionDuration, transitionDelay) }}
     >
       {panelContent}
     </div>

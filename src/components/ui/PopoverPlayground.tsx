@@ -3,10 +3,12 @@ import { Popover, type PopoverPosition } from "./Popover/Popover";
 import { Button } from "./Buttons/Button";
 import { OptionGroup, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
+import { useMotion } from "./playgroundMotion";
 
 const POSITIONS: PopoverPosition[] = ["top", "bottom", "left", "right"];
 
 export default function PopoverPlayground() {
+  const motion = useMotion({ hover: false });
   const [position, setPosition] = useState<PopoverPosition>("bottom");
 
   // `overflow-visible`: the panel is absolutely positioned relative to its
@@ -15,21 +17,21 @@ export default function PopoverPlayground() {
   const preview = (
     <AppWindowFrame className="overflow-visible">
       <AppWindowBody>
-        <Popover position={position} content="Popover content">
+        <Popover {...motion.props} position={position} content="Popover content">
           <Button label="Click me" />
         </Popover>
       </AppWindowBody>
     </AppWindowFrame>
   );
 
-  const code = `<Popover position="${position}" content="Popover content">
+  const code = `<Popover position="${position}"${motion.attrs} content="Popover content">
   <Button label="Click me" />
 </Popover>`;
 
   // `l-popover` has no `open` prop and no events — it's fully self-contained,
   // opening on click of its trigger child internally — so this is a plain
   // snapshot with no controlled-visibility wiring needed.
-  const htmlMarkup = `<l-Popover position="${position}" content="Popover content">
+  const htmlMarkup = `<l-Popover position="${position}"${motion.attrs} content="Popover content">
   <l-Button label="Click me" />
 </l-Popover>`;
 
@@ -43,6 +45,7 @@ export default function PopoverPlayground() {
   return (
     <PlaygroundLayout preview={preview} variants={codeVariants}>
       <OptionGroup label="Position" options={POSITIONS} value={position} onChange={setPosition} />
+      {motion.controls}
     </PlaygroundLayout>
   );
 }

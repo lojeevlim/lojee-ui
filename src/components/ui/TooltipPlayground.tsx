@@ -4,11 +4,13 @@ import { Button } from "./Buttons/Button";
 import type { ColorName } from "../../core/tokens";
 import { OptionGroup, ColorSwatches, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
+import { useMotion } from "./playgroundMotion";
 
 const POSITIONS: TooltipPosition[] = ["top", "bottom", "left", "right"];
 const DELAYS = [0, 150, 300, 500] as const;
 
 export default function TooltipPlayground() {
+  const motion = useMotion({ hover: false });
   const [position, setPosition] = useState<TooltipPosition>("top");
   const [color, setColor] = useState<ColorName>("accent");
   const [delayMs, setDelayMs] = useState<(typeof DELAYS)[number]>(150);
@@ -19,7 +21,7 @@ export default function TooltipPlayground() {
     // frame's rounded corners instead of getting clipped by them.
     <AppWindowFrame className="overflow-visible">
       <AppWindowBody>
-        <Tooltip content={content || "Tooltip text"} position={position} color={color} delayMs={delayMs}>
+        <Tooltip {...motion.props} content={content || "Tooltip text"} position={position} color={color} delayMs={delayMs}>
           <Button variant="outline" label="Hover me" />
         </Tooltip>
       </AppWindowBody>
@@ -28,7 +30,7 @@ export default function TooltipPlayground() {
 
   const code = `<Tooltip content="${content || "Tooltip text"}" position="${position}"${
     color !== "accent" ? ` color="${color}"` : ""
-  }${delayMs !== 150 ? ` delayMs={${delayMs}}` : ""}>
+  }${delayMs !== 150 ? ` delayMs={${delayMs}}` : ""}${motion.attrs}>
   <Button variant="outline" label="Hover me" />
 </Tooltip>`;
 
@@ -37,7 +39,7 @@ export default function TooltipPlayground() {
   // child, mirroring how the React code nests <Button> inside <Tooltip>.
   const htmlMarkup = `<l-Tooltip content="${content || "Tooltip text"}" position="${position}"${
     color !== "accent" ? ` color="${color}"` : ""
-  }${delayMs !== 150 ? ` delayMs="${delayMs}"` : ""}>
+  }${delayMs !== 150 ? ` delayMs="${delayMs}"` : ""}${motion.attrs}>
   <l-Button variant="outline" label="Hover me" />
 </l-Tooltip>`;
 
@@ -69,6 +71,7 @@ export default function TooltipPlayground() {
         render={(o) => (o === "0" ? "No delay" : `${o}ms`)}
       />
       <ColorSwatches value={color} onChange={setColor} />
+      {motion.controls}
     </PlaygroundLayout>
   );
 }

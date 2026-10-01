@@ -1,6 +1,7 @@
 import type { CSSProperties, ReactNode } from "react";
 import { cx, isColorName, type ColorName } from "../../../core/tokens";
 import { activeAccent } from "../../../core/activeVariant";
+import { motionClass, motionStyle, type TransitionVariant } from "../../../core/motion";
 
 export type FooterVariant = "light" | "dark" | "minimal" | "accent";
 
@@ -20,6 +21,12 @@ export interface FooterProps {
   /** Background color for `variant="accent"` (default: "accent", which follows the theme's accent color) — one of
    * the built-in ColorNames, or any other CSS color value. Ignored by the other variants. */
   color?: ColorName | (string & {});
+  /** Enter transition: "fade" | "slide-up" | "slide-down" | "slide-left" | "slide-right" | "zoom" | "zoom-out" | "flip" | "blur" | "bounce" | "rotate" | "drop" | "skew" (default: none). Respects `prefers-reduced-motion`. */
+  transition?: TransitionVariant;
+  /** Enter transition duration in ms (default: 450). */
+  transitionDuration?: number;
+  /** Delay before the enter transition starts, in ms (default: 0) — handy for staggering. */
+  transitionDelay?: number;
   /** Extra class name(s) applied to the root element. */
   className?: string;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
@@ -51,11 +58,14 @@ const VARIANT_BOTTOM_TEXT: Record<FooterVariant, string> = {
   accent: "text-white/70",
 };
 
-export function Footer({ children, bottom, variant = "light", color = "accent", className, classNames }: FooterProps) {
+export function Footer({ children, bottom, variant = "light", color = "accent", transition, transitionDuration, transitionDelay, className, classNames }: FooterProps) {
   return (
     <footer
-      style={variant === "accent" ? ({ ["--ac" as string]: activeAccent(color, isColorName(color)) } as CSSProperties) : undefined}
-      className={cx("px-6 py-10", VARIANT_BG[variant], className, classNames?.root)}
+      style={{
+        ...(variant === "accent" && ({ ["--ac" as string]: activeAccent(color, isColorName(color)) } as CSSProperties)),
+        ...motionStyle(transitionDuration, transitionDelay),
+      }}
+      className={cx("px-6 py-10", VARIANT_BG[variant], motionClass(transition), className, classNames?.root)}
     >
       {children != null && (
         <div className={cx("grid grid-cols-2 gap-8 sm:grid-cols-4", classNames?.content)}>

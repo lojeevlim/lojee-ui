@@ -1,12 +1,21 @@
 import type { ReactNode } from "react";
-import { cx } from "../../../core/tokens";
+import { cx, type ColorName } from "../../../core/tokens";
 import { Icon } from "../Icons/Icon";
 import { getIcon } from "../../../core/icons";
+import { animatedClass, animatedStyle, type AnimatedVariant } from "../../../core/animated";
+import { AnimatedOverlay } from "../../../core/AnimatedOverlay";
+import { motionClass, motionStyle, type TransitionVariant, type HoverEffect } from "../../../core/motion";
 
-export type AlertVariant = "info" | "success" | "warning" | "error";
+export type AlertVariant = "info" | "success" | "warning" | "error" | "accent";
 
 export interface AlertProps {
-  /** Visual/semantic tone (default: "info"). */
+  /** Attention animation: "glow" | "pulse" | "sweep" | "bounce" | "float" | "wiggle" | "border-spin" (default: none). Respects `prefers-reduced-motion`. */
+  animated?: AnimatedVariant;
+  /** Color of the animation (pulse ring, glow, spinning border): a `ColorName` or any CSS color (default: the component's own color). */
+  pulseColor?: ColorName | (string & {});
+  /** Second color — turns the pulse ring and spinning border into a gradient from `pulseColor` to this (default: solid `pulseColor`). */
+  pulseGradientTo?: ColorName | (string & {});
+  /** Visual/semantic tone: "info" | "success" | "warning" | "error" | "accent" — "accent" follows the theme accent color (default: "info"). */
   variant?: AlertVariant;
   /** Optional bold heading shown above the description. */
   title?: ReactNode;
@@ -18,6 +27,14 @@ export interface AlertProps {
   closable?: boolean;
   /** Called with no arguments when the dismiss button is clicked. */
   onClose?: () => void;
+  /** Enter transition: "fade" | "slide-up" | "slide-down" | "slide-left" | "slide-right" | "zoom" | "zoom-out" | "flip" | "blur" | "bounce" | "rotate" | "drop" | "skew" (default: none). Respects `prefers-reduced-motion`. */
+  transition?: TransitionVariant;
+  /** Enter transition duration in ms (default: 450). */
+  transitionDuration?: number;
+  /** Delay before the enter transition starts, in ms (default: 0) — handy for staggering. */
+  transitionDelay?: number;
+  /** Effect while hovering: "lift" | "scale" | "press" | "tilt" | "ring" | "glow" | "shine" (default: none). */
+  hoverEffect?: HoverEffect;
   /** Extra class names applied to the root element. */
   className?: string;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
@@ -35,6 +52,7 @@ const DEFAULT_ICON: Record<AlertVariant, string> = {
   success: "circle-check",
   warning: "triangle-alert",
   error: "circle-x",
+  accent: "info",
 };
 
 const VARIANT_CLASSES: Record<AlertVariant, string> = {
@@ -42,13 +60,18 @@ const VARIANT_CLASSES: Record<AlertVariant, string> = {
   success: "border-emerald-200 bg-emerald-50 text-emerald-800 dark:border-emerald-900 dark:bg-emerald-950/40 dark:text-emerald-200",
   warning: "border-amber-200 bg-amber-50 text-amber-800 dark:border-amber-900 dark:bg-amber-950/40 dark:text-amber-200",
   error: "border-rose-200 bg-rose-50 text-rose-800 dark:border-rose-900 dark:bg-rose-950/40 dark:text-rose-200",
+  accent: "border-accent-200 bg-accent-50 text-accent-800 dark:border-accent-900 dark:bg-accent-950/40 dark:text-accent-200",
 };
+
+// Default animation color per tone.
+const VARIANT_ANIM_COLOR: Record<AlertVariant, string> = { info: "blue", success: "emerald", warning: "amber", error: "rose", accent: "accent" };
 
 const ICON_COLOR_CLASSES: Record<AlertVariant, string> = {
   info: "text-blue-500",
   success: "text-emerald-500",
   warning: "text-amber-500",
   error: "text-rose-500",
+  accent: "text-accent-500",
 };
 
 export function Alert({
@@ -60,6 +83,13 @@ export function Alert({
   onClose,
   className,
   classNames,
+  animated,
+  pulseColor,
+  pulseGradientTo,
+  transition,
+  transitionDuration,
+  transitionDelay,
+  hoverEffect,
 }: AlertProps) {
   const iconName = icon === false ? undefined : icon || DEFAULT_ICON[variant];
   // getIcon() always returns the same stable, module-level-imported
@@ -75,9 +105,12 @@ export function Alert({
       className={cx(
         "flex gap-3 rounded-lg border p-4",
         VARIANT_CLASSES[variant],
+        animatedClass(animated),
+        motionClass(transition, hoverEffect),
         className,
         classNames?.root
       )}
+      style={{ ...animatedStyle(animated, VARIANT_ANIM_COLOR[variant], pulseColor, pulseGradientTo), ...motionStyle(transitionDuration, transitionDelay) }}
     >
       {hasIcon && iconName && (
         <Icon name={iconName} size={20} className={cx("mt-0.5 shrink-0", ICON_COLOR_CLASSES[variant], classNames?.icon)} />
@@ -105,6 +138,7 @@ export function Alert({
           <Icon name="x" size={16} />
         </button>
       )}
+      <AnimatedOverlay variant={animated} />
     </div>
   );
 }

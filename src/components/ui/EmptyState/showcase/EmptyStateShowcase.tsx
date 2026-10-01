@@ -1,7 +1,7 @@
 import { EmptyState } from "../EmptyState";
 import { Button } from "../../Buttons/Button";
 import CodeBlock from "../../CodeBlock";
-import { SectionLabel } from "../../ShowcaseHelpers";
+import { SectionLabel, Row } from "../../ShowcaseHelpers";
 
 export default function EmptyStateShowcase() {
   return (
@@ -115,6 +115,78 @@ const handleAdd = () => {
   Get started by creating your first item.
   <l-Button slot="action" label="Add item" (click)="handleAdd()" />
 </l-EmptyState>`,
+            }}
+          />
+        </section>
+
+        <section>
+          <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`). They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
+          <Row>
+            <EmptyState title="Fade" transition="fade" className="w-56" />
+            <EmptyState title="Slide up" transition="slide-up" className="w-56" />
+            <EmptyState title="Slide right" transition="slide-right" transitionDelay={100} className="w-56" />
+            <EmptyState title="Zoom" transition="zoom" className="w-56" />
+            <EmptyState title="Flip" transition="flip" className="w-56" />
+            <EmptyState title="Blur" transition="blur" className="w-56" />
+            <EmptyState title="Bounce" transition="bounce" className="w-56" />
+            <EmptyState title="Drop" transition="drop" transitionDuration={700} className="w-56" />
+          </Row>
+          <CodeBlock
+            variants={{
+              react: `<EmptyState title="Fade" transition="fade" />
+<EmptyState title="Slide up" transition="slide-up" />
+<EmptyState title="Slide right" transition="slide-right" transitionDelay={100} />
+<EmptyState title="Zoom" transition="zoom" />
+<EmptyState title="Flip" transition="flip" />
+<EmptyState title="Blur" transition="blur" />
+<EmptyState title="Bounce" transition="bounce" />
+<EmptyState title="Drop" transition="drop" transitionDuration={700} />`,
+              js: `<l-EmptyState title="Fade" transition="fade"></l-EmptyState>
+<l-EmptyState title="Slide up" transition="slide-up"></l-EmptyState>
+<l-EmptyState title="Slide right" transition="slide-right" transitionDelay="100"></l-EmptyState>
+<l-EmptyState title="Zoom" transition="zoom"></l-EmptyState>
+<l-EmptyState title="Flip" transition="flip"></l-EmptyState>
+<l-EmptyState title="Blur" transition="blur"></l-EmptyState>
+<l-EmptyState title="Bounce" transition="bounce"></l-EmptyState>
+<l-EmptyState title="Drop" transition="drop" transitionDuration="700"></l-EmptyState>
+
+<script type="module">
+  import "lojee-ui/elements";
+</script>`,
+              vue: `<template>
+  <l-EmptyState title="Fade" transition="fade"></l-EmptyState>
+  <l-EmptyState title="Slide up" transition="slide-up"></l-EmptyState>
+  <l-EmptyState title="Slide right" transition="slide-right" transitionDelay="100"></l-EmptyState>
+  <l-EmptyState title="Zoom" transition="zoom"></l-EmptyState>
+  <l-EmptyState title="Flip" transition="flip"></l-EmptyState>
+  <l-EmptyState title="Blur" transition="blur"></l-EmptyState>
+  <l-EmptyState title="Bounce" transition="bounce"></l-EmptyState>
+  <l-EmptyState title="Drop" transition="drop" transitionDuration="700"></l-EmptyState>
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-EmptyState title="Fade" transition="fade"></l-EmptyState>
+    <l-EmptyState title="Slide up" transition="slide-up"></l-EmptyState>
+    <l-EmptyState title="Slide right" transition="slide-right" transitionDelay="100"></l-EmptyState>
+    <l-EmptyState title="Zoom" transition="zoom"></l-EmptyState>
+    <l-EmptyState title="Flip" transition="flip"></l-EmptyState>
+    <l-EmptyState title="Blur" transition="blur"></l-EmptyState>
+    <l-EmptyState title="Bounce" transition="bounce"></l-EmptyState>
+    <l-EmptyState title="Drop" transition="drop" transitionDuration="700"></l-EmptyState>
+  \`,
+})
+export class AppComponent {}`,
             }}
           />
         </section>

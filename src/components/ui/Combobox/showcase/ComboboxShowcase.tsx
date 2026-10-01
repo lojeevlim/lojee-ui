@@ -17,6 +17,7 @@ const CITY_OPTIONS: ComboboxOption[] = [
 export default function ComboboxShowcase() {
   const [city, setCity] = useState<string | undefined>("manila");
   const [empty, setEmpty] = useState<string | undefined>(undefined);
+  const [tr, setTr] = useState<string | undefined>("manila");
 
   return (
     <div className="min-h-screen rounded-xl bg-surface p-6 md:p-10">
@@ -132,6 +133,127 @@ export class AppComponent {
 </template>`,
               angular: `<!-- app.component.html — same AppComponent class as above, value left undefined -->
 <l-Combobox [options]="options" placeholder="Search a city..." (change)="value = $event.detail" />`,
+            }}
+          />
+        </section>
+
+        <section>
+          <SectionLabel sub="Dropdown panel transitions via `transition` (with `transitionDuration` / `transitionDelay`) and hover effects on the field via `hoverEffect`. Open the dropdown to see the panel animate in and out.">Transitions</SectionLabel>
+          <div className="grid gap-4 pb-64 sm:grid-cols-2 lg:grid-cols-3">
+            <Combobox options={CITY_OPTIONS} value={tr} onChange={setTr} placeholder="Search a city..." transition="fade" />
+            <Combobox options={CITY_OPTIONS} value={tr} onChange={setTr} placeholder="Search a city..." transition="slide-up" />
+            <Combobox options={CITY_OPTIONS} value={tr} onChange={setTr} placeholder="Search a city..." transition="zoom" />
+            <Combobox options={CITY_OPTIONS} value={tr} onChange={setTr} placeholder="Search a city..." transition="flip" />
+            <Combobox options={CITY_OPTIONS} value={tr} onChange={setTr} placeholder="Search a city..." transition="slide-right" transitionDelay={100} />
+            <Combobox options={CITY_OPTIONS} value={tr} onChange={setTr} placeholder="Search a city..." transition="bounce" transitionDuration={700} />
+          </div>
+          <div className="grid gap-4 sm:grid-cols-3">
+            <Combobox options={CITY_OPTIONS} value={tr} onChange={setTr} placeholder="Search a city..." hoverEffect="lift" />
+            <Combobox options={CITY_OPTIONS} value={tr} onChange={setTr} placeholder="Search a city..." hoverEffect="glow" />
+            <Combobox options={CITY_OPTIONS} value={tr} onChange={setTr} placeholder="Search a city..." hoverEffect="ring" />
+          </div>
+          <CodeBlock
+            variants={{
+              react: `const [value, setValue] = useState<string | undefined>("manila");
+
+<Combobox options={options} value={value} onChange={setValue} placeholder="Search a city..." transition="fade" />
+<Combobox options={options} value={value} onChange={setValue} placeholder="Search a city..." transition="slide-up" />
+<Combobox options={options} value={value} onChange={setValue} placeholder="Search a city..." transition="zoom" />
+<Combobox options={options} value={value} onChange={setValue} placeholder="Search a city..." transition="flip" />
+<Combobox options={options} value={value} onChange={setValue} placeholder="Search a city..." transition="slide-right" transitionDelay={100} />
+<Combobox options={options} value={value} onChange={setValue} placeholder="Search a city..." transition="bounce" transitionDuration={700} />
+<Combobox options={options} value={value} onChange={setValue} placeholder="Search a city..." hoverEffect="lift" />
+<Combobox options={options} value={value} onChange={setValue} placeholder="Search a city..." hoverEffect="glow" />
+<Combobox options={options} value={value} onChange={setValue} placeholder="Search a city..." hoverEffect="ring" />`,
+              js: `<l-Combobox placeholder="Search a city..." transition="fade"></l-Combobox>
+<l-Combobox placeholder="Search a city..." transition="slide-up"></l-Combobox>
+<l-Combobox placeholder="Search a city..." transition="zoom"></l-Combobox>
+<l-Combobox placeholder="Search a city..." transition="flip"></l-Combobox>
+<l-Combobox placeholder="Search a city..." transition="slide-right" transitionDelay="100"></l-Combobox>
+<l-Combobox placeholder="Search a city..." transition="bounce" transitionDuration="700"></l-Combobox>
+<l-Combobox placeholder="Search a city..." hoverEffect="lift"></l-Combobox>
+<l-Combobox placeholder="Search a city..." hoverEffect="glow"></l-Combobox>
+<l-Combobox placeholder="Search a city..." hoverEffect="ring"></l-Combobox>
+
+<script type="module">
+  import "lojee-ui/elements";
+
+  const options = [
+    { label: "Tokyo", value: "tokyo" },
+    { label: "Manila", value: "manila" },
+    { label: "Singapore", value: "singapore" },
+    { label: "Bangkok", value: "bangkok" },
+    { label: "Seoul", value: "seoul" },
+    { label: "Jakarta", value: "jakarta" },
+    { label: "Kuala Lumpur", value: "kuala-lumpur" },
+    { label: "Hong Kong", value: "hong-kong" },
+  ];
+
+  document.querySelectorAll("l-Combobox").forEach((el) => {
+    el.options = options;
+  el.value = "manila";
+  });
+</script>`,
+              vue: `<template>
+  <l-Combobox :options="options" :value="value" placeholder="Search a city..." transition="fade"></l-Combobox>
+  <l-Combobox :options="options" :value="value" placeholder="Search a city..." transition="slide-up"></l-Combobox>
+  <l-Combobox :options="options" :value="value" placeholder="Search a city..." transition="zoom"></l-Combobox>
+  <l-Combobox :options="options" :value="value" placeholder="Search a city..." transition="flip"></l-Combobox>
+  <l-Combobox :options="options" :value="value" placeholder="Search a city..." transition="slide-right" transitionDelay="100"></l-Combobox>
+  <l-Combobox :options="options" :value="value" placeholder="Search a city..." transition="bounce" transitionDuration="700"></l-Combobox>
+  <l-Combobox :options="options" :value="value" placeholder="Search a city..." hoverEffect="lift"></l-Combobox>
+  <l-Combobox :options="options" :value="value" placeholder="Search a city..." hoverEffect="glow"></l-Combobox>
+  <l-Combobox :options="options" :value="value" placeholder="Search a city..." hoverEffect="ring"></l-Combobox>
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+
+const options = [
+  { label: "Tokyo", value: "tokyo" },
+  { label: "Manila", value: "manila" },
+  { label: "Singapore", value: "singapore" },
+  { label: "Bangkok", value: "bangkok" },
+  { label: "Seoul", value: "seoul" },
+  { label: "Jakarta", value: "jakarta" },
+  { label: "Kuala Lumpur", value: "kuala-lumpur" },
+  { label: "Hong Kong", value: "hong-kong" },
+];
+const value = "manila";
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-Combobox [options]="options" [value]="value" placeholder="Search a city..." transition="fade"></l-Combobox>
+    <l-Combobox [options]="options" [value]="value" placeholder="Search a city..." transition="slide-up"></l-Combobox>
+    <l-Combobox [options]="options" [value]="value" placeholder="Search a city..." transition="zoom"></l-Combobox>
+    <l-Combobox [options]="options" [value]="value" placeholder="Search a city..." transition="flip"></l-Combobox>
+    <l-Combobox [options]="options" [value]="value" placeholder="Search a city..." transition="slide-right" transitionDelay="100"></l-Combobox>
+    <l-Combobox [options]="options" [value]="value" placeholder="Search a city..." transition="bounce" transitionDuration="700"></l-Combobox>
+    <l-Combobox [options]="options" [value]="value" placeholder="Search a city..." hoverEffect="lift"></l-Combobox>
+    <l-Combobox [options]="options" [value]="value" placeholder="Search a city..." hoverEffect="glow"></l-Combobox>
+    <l-Combobox [options]="options" [value]="value" placeholder="Search a city..." hoverEffect="ring"></l-Combobox>
+  \`,
+})
+export class AppComponent {
+  options = [
+    { label: "Tokyo", value: "tokyo" },
+    { label: "Manila", value: "manila" },
+    { label: "Singapore", value: "singapore" },
+    { label: "Bangkok", value: "bangkok" },
+    { label: "Seoul", value: "seoul" },
+    { label: "Jakarta", value: "jakarta" },
+    { label: "Kuala Lumpur", value: "kuala-lumpur" },
+    { label: "Hong Kong", value: "hong-kong" },
+  ];
+  value = "manila";
+}`,
             }}
           />
         </section>

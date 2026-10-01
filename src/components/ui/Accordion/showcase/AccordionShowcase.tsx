@@ -1,7 +1,7 @@
 import { Accordion } from "../Accordion";
 import { AccordionItem } from "../AccordionItem";
 import CodeBlock from "../../CodeBlock";
-import { SectionLabel, Row } from "../../ShowcaseHelpers";
+import { SectionLabel, Row, TransitionPreview } from "../../ShowcaseHelpers";
 
 export default function AccordionShowcase() {
   return (
@@ -288,6 +288,243 @@ const itemClassNames = { trigger: "text-indigo-900 dark:text-indigo-200", icon: 
 </l-Accordion>
 
 itemClassNames = { trigger: "text-indigo-900 dark:text-indigo-200", icon: "text-indigo-400", panel: "text-indigo-700 dark:text-indigo-300" };`,
+            }}
+          />
+        </section>
+
+        <section>
+          <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`) and hover effects via `hoverEffect`. Items can also enter one after another with their own `transitionDelay`. Press Replay to run the enter transitions again.">Transitions</SectionLabel>
+          <TransitionPreview cols={2}>
+            <Accordion transition="fade">
+              <AccordionItem title="Fade" defaultOpen>Panel content.</AccordionItem>
+              <AccordionItem title="Another item">More panel content.</AccordionItem>
+            </Accordion>
+            <Accordion transition="slide-up">
+              <AccordionItem title="Slide up" defaultOpen>Panel content.</AccordionItem>
+              <AccordionItem title="Another item">More panel content.</AccordionItem>
+            </Accordion>
+            <Accordion transition="slide-right" transitionDelay={100}>
+              <AccordionItem title="Slide right" defaultOpen>Panel content.</AccordionItem>
+              <AccordionItem title="Another item">More panel content.</AccordionItem>
+            </Accordion>
+            <Accordion transition="zoom">
+              <AccordionItem title="Zoom" defaultOpen>Panel content.</AccordionItem>
+              <AccordionItem title="Another item">More panel content.</AccordionItem>
+            </Accordion>
+            <Accordion transition="blur">
+              <AccordionItem title="Blur" defaultOpen>Panel content.</AccordionItem>
+              <AccordionItem title="Another item">More panel content.</AccordionItem>
+            </Accordion>
+            <Accordion transition="drop" transitionDuration={700}>
+              <AccordionItem title="Drop" defaultOpen>Panel content.</AccordionItem>
+              <AccordionItem title="Another item">More panel content.</AccordionItem>
+            </Accordion>
+            <Accordion>
+              <AccordionItem title="First" transition="slide-up" defaultOpen>Panel content.</AccordionItem>
+              <AccordionItem title="Second" transition="slide-up" transitionDelay={100}>Panel content.</AccordionItem>
+              <AccordionItem title="Third" transition="slide-up" transitionDelay={200}>Panel content.</AccordionItem>
+            </Accordion>
+            <Accordion hoverEffect="lift">
+              <AccordionItem title="Lift" defaultOpen>Panel content.</AccordionItem>
+              <AccordionItem title="Another item">More panel content.</AccordionItem>
+            </Accordion>
+            <Accordion hoverEffect="glow">
+              <AccordionItem title="Glow" defaultOpen>Panel content.</AccordionItem>
+              <AccordionItem title="Another item">More panel content.</AccordionItem>
+            </Accordion>
+            <Accordion hoverEffect="shine">
+              <AccordionItem title="Shine" defaultOpen>Panel content.</AccordionItem>
+              <AccordionItem title="Another item">More panel content.</AccordionItem>
+            </Accordion>
+          </TransitionPreview>
+          <CodeBlock
+            variants={{
+              react: `<Accordion transition="fade">
+  <AccordionItem title="Fade">Panel content.</AccordionItem>
+</Accordion>
+
+<Accordion transition="slide-up">
+  <AccordionItem title="Slide up">Panel content.</AccordionItem>
+</Accordion>
+
+<Accordion transition="slide-right" transitionDelay={100}>
+  <AccordionItem title="Slide right">Panel content.</AccordionItem>
+</Accordion>
+
+<Accordion transition="zoom">
+  <AccordionItem title="Zoom">Panel content.</AccordionItem>
+</Accordion>
+
+<Accordion transition="blur">
+  <AccordionItem title="Blur">Panel content.</AccordionItem>
+</Accordion>
+
+<Accordion transition="drop" transitionDuration={700}>
+  <AccordionItem title="Drop">Panel content.</AccordionItem>
+</Accordion>
+
+<Accordion>
+  <AccordionItem title="First" transition="slide-up">Panel content.</AccordionItem>
+  <AccordionItem title="Second" transition="slide-up" transitionDelay={100}>Panel content.</AccordionItem>
+  <AccordionItem title="Third" transition="slide-up" transitionDelay={200}>Panel content.</AccordionItem>
+</Accordion>
+
+<Accordion hoverEffect="lift">
+  <AccordionItem title="Lift">Panel content.</AccordionItem>
+</Accordion>
+
+<Accordion hoverEffect="glow">
+  <AccordionItem title="Glow">Panel content.</AccordionItem>
+</Accordion>
+
+<Accordion hoverEffect="shine">
+  <AccordionItem title="Shine">Panel content.</AccordionItem>
+</Accordion>`,
+              js: `<l-Accordion transition="fade">
+  <l-AccordionItem title="Fade">Panel content.</l-AccordionItem>
+</l-Accordion>
+
+<l-Accordion transition="slide-up">
+  <l-AccordionItem title="Slide up">Panel content.</l-AccordionItem>
+</l-Accordion>
+
+<l-Accordion transition="slide-right" transitionDelay="100">
+  <l-AccordionItem title="Slide right">Panel content.</l-AccordionItem>
+</l-Accordion>
+
+<l-Accordion transition="zoom">
+  <l-AccordionItem title="Zoom">Panel content.</l-AccordionItem>
+</l-Accordion>
+
+<l-Accordion transition="blur">
+  <l-AccordionItem title="Blur">Panel content.</l-AccordionItem>
+</l-Accordion>
+
+<l-Accordion transition="drop" transitionDuration="700">
+  <l-AccordionItem title="Drop">Panel content.</l-AccordionItem>
+</l-Accordion>
+
+<l-Accordion>
+  <l-AccordionItem title="First" transition="slide-up">Panel content.</l-AccordionItem>
+  <l-AccordionItem title="Second" transition="slide-up" transitionDelay="100">Panel content.</l-AccordionItem>
+  <l-AccordionItem title="Third" transition="slide-up" transitionDelay="200">Panel content.</l-AccordionItem>
+</l-Accordion>
+
+<l-Accordion hoverEffect="lift">
+  <l-AccordionItem title="Lift">Panel content.</l-AccordionItem>
+</l-Accordion>
+
+<l-Accordion hoverEffect="glow">
+  <l-AccordionItem title="Glow">Panel content.</l-AccordionItem>
+</l-Accordion>
+
+<l-Accordion hoverEffect="shine">
+  <l-AccordionItem title="Shine">Panel content.</l-AccordionItem>
+</l-Accordion>
+
+<script type="module">
+  import "lojee-ui/elements";
+</script>`,
+              vue: `<template>
+  <l-Accordion transition="fade">
+    <l-AccordionItem title="Fade">Panel content.</l-AccordionItem>
+  </l-Accordion>
+
+  <l-Accordion transition="slide-up">
+    <l-AccordionItem title="Slide up">Panel content.</l-AccordionItem>
+  </l-Accordion>
+
+  <l-Accordion transition="slide-right" transitionDelay="100">
+    <l-AccordionItem title="Slide right">Panel content.</l-AccordionItem>
+  </l-Accordion>
+
+  <l-Accordion transition="zoom">
+    <l-AccordionItem title="Zoom">Panel content.</l-AccordionItem>
+  </l-Accordion>
+
+  <l-Accordion transition="blur">
+    <l-AccordionItem title="Blur">Panel content.</l-AccordionItem>
+  </l-Accordion>
+
+  <l-Accordion transition="drop" transitionDuration="700">
+    <l-AccordionItem title="Drop">Panel content.</l-AccordionItem>
+  </l-Accordion>
+
+  <l-Accordion>
+    <l-AccordionItem title="First" transition="slide-up">Panel content.</l-AccordionItem>
+    <l-AccordionItem title="Second" transition="slide-up" transitionDelay="100">Panel content.</l-AccordionItem>
+    <l-AccordionItem title="Third" transition="slide-up" transitionDelay="200">Panel content.</l-AccordionItem>
+  </l-Accordion>
+
+  <l-Accordion hoverEffect="lift">
+    <l-AccordionItem title="Lift">Panel content.</l-AccordionItem>
+  </l-Accordion>
+
+  <l-Accordion hoverEffect="glow">
+    <l-AccordionItem title="Glow">Panel content.</l-AccordionItem>
+  </l-Accordion>
+
+  <l-Accordion hoverEffect="shine">
+    <l-AccordionItem title="Shine">Panel content.</l-AccordionItem>
+  </l-Accordion>
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-Accordion transition="fade">
+      <l-AccordionItem title="Fade">Panel content.</l-AccordionItem>
+    </l-Accordion>
+
+    <l-Accordion transition="slide-up">
+      <l-AccordionItem title="Slide up">Panel content.</l-AccordionItem>
+    </l-Accordion>
+
+    <l-Accordion transition="slide-right" transitionDelay="100">
+      <l-AccordionItem title="Slide right">Panel content.</l-AccordionItem>
+    </l-Accordion>
+
+    <l-Accordion transition="zoom">
+      <l-AccordionItem title="Zoom">Panel content.</l-AccordionItem>
+    </l-Accordion>
+
+    <l-Accordion transition="blur">
+      <l-AccordionItem title="Blur">Panel content.</l-AccordionItem>
+    </l-Accordion>
+
+    <l-Accordion transition="drop" transitionDuration="700">
+      <l-AccordionItem title="Drop">Panel content.</l-AccordionItem>
+    </l-Accordion>
+
+    <l-Accordion>
+      <l-AccordionItem title="First" transition="slide-up">Panel content.</l-AccordionItem>
+      <l-AccordionItem title="Second" transition="slide-up" transitionDelay="100">Panel content.</l-AccordionItem>
+      <l-AccordionItem title="Third" transition="slide-up" transitionDelay="200">Panel content.</l-AccordionItem>
+    </l-Accordion>
+
+    <l-Accordion hoverEffect="lift">
+      <l-AccordionItem title="Lift">Panel content.</l-AccordionItem>
+    </l-Accordion>
+
+    <l-Accordion hoverEffect="glow">
+      <l-AccordionItem title="Glow">Panel content.</l-AccordionItem>
+    </l-Accordion>
+
+    <l-Accordion hoverEffect="shine">
+      <l-AccordionItem title="Shine">Panel content.</l-AccordionItem>
+    </l-Accordion>
+  \`,
+})
+export class AppComponent {}`,
             }}
           />
         </section>

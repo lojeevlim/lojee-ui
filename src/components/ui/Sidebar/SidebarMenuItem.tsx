@@ -5,6 +5,7 @@ import { cx, isColorName, type ColorName } from "../../../core/tokens";
 import { getIcon } from "../../../core/icons";
 import { sidebarActiveFillClasses } from "./sidebarActiveStyles";
 import { activeMarker } from "../../../core/activeVariant";
+import { motionClass, motionStyle, type TransitionVariant, type HoverEffect } from "../../../core/motion";
 import {
   useTooltipPortal,
   tooltipPortalPositionStyle,
@@ -117,6 +118,14 @@ export interface SidebarMenuItemProps {
    * unassigned/whitespace light-DOM text nodes (see Navbar's identical `NavbarItem.slotName` for the
    * full reasoning). Has no effect on anything other than which `<slot>` this label lives in. */
   slotName?: string;
+  /** Enter transition: "fade" | "slide-up" | "slide-down" | "slide-left" | "slide-right" | "zoom" | "zoom-out" | "flip" | "blur" | "bounce" | "rotate" | "drop" | "skew" (default: none). Respects `prefers-reduced-motion`. */
+  transition?: TransitionVariant;
+  /** Enter transition duration in ms (default: 450). */
+  transitionDuration?: number;
+  /** Delay before the enter transition starts, in ms (default: 0) — handy for staggering. */
+  transitionDelay?: number;
+  /** Effect while hovering: "lift" | "scale" | "press" | "tilt" | "ring" | "glow" | "shine" (default: none). */
+  hoverEffect?: HoverEffect;
   /** Extra class name(s) appended to the root element. */
   className?: string;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
@@ -144,6 +153,10 @@ export const SidebarMenuItem = forwardRef<HTMLAnchorElement | HTMLButtonElement,
       color = "accent",
       activeStyle = "fill",
       slotName,
+      transition,
+      transitionDuration,
+      transitionDelay,
+      hoverEffect,
       className,
       classNames,
     },
@@ -165,6 +178,7 @@ export const SidebarMenuItem = forwardRef<HTMLAnchorElement | HTMLButtonElement,
       collapsed ? "w-full justify-center px-1 py-2" : "w-full gap-2.5 px-3 py-2.5",
       disabled && "pointer-events-none opacity-50",
       active ? activeClass : idleClass,
+      motionClass(transition, hoverEffect),
       className,
       classNames?.root
     );
@@ -172,7 +186,9 @@ export const SidebarMenuItem = forwardRef<HTMLAnchorElement | HTMLButtonElement,
       active && activeStyle === "fill" && !colorIsNamed ? { backgroundColor: dark ? undefined : color } : undefined;
 
     // Marks the active row so theme.css can redraw it for the outline / soft active-item variants.
-    const rowProps = active ? activeMarker(activeStyle === "fill" ? "fill" : "text", color, colorIsNamed, dark, rowStyle) : { style: rowStyle };
+    const baseRowProps = active ? activeMarker(activeStyle === "fill" ? "fill" : "text", color, colorIsNamed, dark, rowStyle) : { style: rowStyle };
+    const mStyle = motionStyle(transitionDuration, transitionDelay);
+    const rowProps = mStyle ? { ...baseRowProps, style: { ...baseRowProps.style, ...mStyle } } : baseRowProps;
 
     const iconEl = Icon && (
       // eslint-disable-next-line react-hooks/static-components -- getIcon() always returns the same stable component reference for a given name

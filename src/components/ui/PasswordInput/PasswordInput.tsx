@@ -1,6 +1,7 @@
 import { useState } from "react";
 import type { InputHTMLAttributes } from "react";
 import { cx } from "../../../core/tokens";
+import { motionClass, motionStyle, type TransitionVariant, type HoverEffect } from "../../../core/motion";
 import { Icon } from "../Icons/Icon";
 
 export type PasswordInputSize = "sm" | "md" | "lg";
@@ -10,6 +11,14 @@ export interface PasswordInputProps extends Omit<InputHTMLAttributes<HTMLInputEl
   size?: PasswordInputSize;
   /** Marks the field as invalid — rose border/focus ring and `aria-invalid` (default: false). */
   invalid?: boolean;
+  /** Enter transition: "fade" | "slide-up" | "slide-down" | "slide-left" | "slide-right" | "zoom" | "zoom-out" | "flip" | "blur" | "bounce" | "rotate" | "drop" | "skew" (default: none). Respects `prefers-reduced-motion`. */
+  transition?: TransitionVariant;
+  /** Enter transition duration in ms (default: 450). */
+  transitionDuration?: number;
+  /** Delay before the enter transition starts, in ms (default: 0) — handy for staggering. */
+  transitionDelay?: number;
+  /** Effect while hovering: "lift" | "scale" | "press" | "tilt" | "ring" | "glow" | "shine" (default: none). */
+  hoverEffect?: HoverEffect;
   /** Extra CSS class(es) added to the root element, merged before `classNames.root`. */
   className?: string;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
@@ -33,11 +42,11 @@ const INVALID_CLASSES = "border-rose-400 focus:border-rose-500 focus:ring-rose-5
 // decorative (`pointer-events-none`), but this needs a real clickable
 // toggle, so it's its own component with the same visual base as
 // Input/SearchInput/DatePicker rather than a variant of Input.
-export function PasswordInput({ size = "md", invalid = false, className, classNames, ...rest }: PasswordInputProps) {
+export function PasswordInput({ size = "md", invalid = false, className, classNames, transition, transitionDuration, transitionDelay, hoverEffect, ...rest }: PasswordInputProps) {
   const [visible, setVisible] = useState(false);
 
   return (
-    <span className={cx("relative inline-flex w-full items-center", className, classNames?.root)}>
+    <span className={cx("relative inline-flex w-full items-center", motionClass(transition, hoverEffect), className, classNames?.root)} style={motionStyle(transitionDuration, transitionDelay)}>
       <input
         type={visible ? "text" : "password"}
         aria-invalid={invalid || undefined}

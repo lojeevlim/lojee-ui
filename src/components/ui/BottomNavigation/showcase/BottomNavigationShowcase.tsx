@@ -319,6 +319,118 @@ items = [
             }}
           />
         </section>
+
+        <section>
+          <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`) and hover effects via `hoverEffect`. They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div className="overflow-hidden rounded-lg border border-border"><BottomNavigation items={TAB_ITEMS} transition="fade" /></div>
+            <div className="overflow-hidden rounded-lg border border-border"><BottomNavigation items={TAB_ITEMS} transition="slide-down" /></div>
+            <div className="overflow-hidden rounded-lg border border-border"><BottomNavigation items={TAB_ITEMS} transition="slide-right" transitionDelay={100} /></div>
+            <div className="overflow-hidden rounded-lg border border-border"><BottomNavigation items={TAB_ITEMS} transition="zoom" /></div>
+            <div className="overflow-hidden rounded-lg border border-border"><BottomNavigation items={TAB_ITEMS} transition="blur" /></div>
+            <div className="overflow-hidden rounded-lg border border-border"><BottomNavigation items={TAB_ITEMS} transition="drop" transitionDuration={700} /></div>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div className="overflow-hidden rounded-lg border border-border"><BottomNavigation items={TAB_ITEMS} hoverEffect="lift" /></div>
+            <div className="overflow-hidden rounded-lg border border-border"><BottomNavigation items={TAB_ITEMS} hoverEffect="glow" /></div>
+            <div className="overflow-hidden rounded-lg border border-border"><BottomNavigation items={TAB_ITEMS} hoverEffect="shine" /></div>
+          </div>
+          <CodeBlock
+            variants={{
+              react: `const items = [
+  { icon: "home", label: "Home", active: true },
+  { icon: "search", label: "Search" },
+  { icon: "heart", label: "Saved" },
+  { icon: "user", label: "Profile" },
+];
+
+<BottomNavigation items={items} transition="fade" />
+<BottomNavigation items={items} transition="slide-down" />
+<BottomNavigation items={items} transition="slide-right" transitionDelay={100} />
+<BottomNavigation items={items} transition="zoom" />
+<BottomNavigation items={items} transition="blur" />
+<BottomNavigation items={items} transition="drop" transitionDuration={700} />
+
+<BottomNavigation items={items} hoverEffect="lift" />
+<BottomNavigation items={items} hoverEffect="glow" />
+<BottomNavigation items={items} hoverEffect="shine" />`,
+              js: `<l-BottomNavigation class="transition-demo" transition="fade"></l-BottomNavigation>
+<l-BottomNavigation class="transition-demo" transition="slide-down"></l-BottomNavigation>
+<l-BottomNavigation class="transition-demo" transition="slide-right" transitionDelay="100"></l-BottomNavigation>
+<l-BottomNavigation class="transition-demo" transition="zoom"></l-BottomNavigation>
+<l-BottomNavigation class="transition-demo" transition="blur"></l-BottomNavigation>
+<l-BottomNavigation class="transition-demo" transition="drop" transitionDuration="700"></l-BottomNavigation>
+
+<l-BottomNavigation class="transition-demo" hoverEffect="lift"></l-BottomNavigation>
+<l-BottomNavigation class="transition-demo" hoverEffect="glow"></l-BottomNavigation>
+<l-BottomNavigation class="transition-demo" hoverEffect="shine"></l-BottomNavigation>
+
+<script type="module">
+  import "lojee-ui/elements";
+
+  const items = [
+    { icon: "home", label: "Home", active: true },
+    { icon: "search", label: "Search" },
+    { icon: "heart", label: "Saved" },
+    { icon: "user", label: "Profile" },
+  ];
+  document.querySelectorAll(".transition-demo").forEach((el) => (el.items = items));
+</script>`,
+              vue: `<template>
+  <l-BottomNavigation :items="items" transition="fade"></l-BottomNavigation>
+  <l-BottomNavigation :items="items" transition="slide-down"></l-BottomNavigation>
+  <l-BottomNavigation :items="items" transition="slide-right" transitionDelay="100"></l-BottomNavigation>
+  <l-BottomNavigation :items="items" transition="zoom"></l-BottomNavigation>
+  <l-BottomNavigation :items="items" transition="blur"></l-BottomNavigation>
+  <l-BottomNavigation :items="items" transition="drop" transitionDuration="700"></l-BottomNavigation>
+
+  <l-BottomNavigation :items="items" hoverEffect="lift"></l-BottomNavigation>
+  <l-BottomNavigation :items="items" hoverEffect="glow"></l-BottomNavigation>
+  <l-BottomNavigation :items="items" hoverEffect="shine"></l-BottomNavigation>
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+
+const items = [
+  { icon: "home", label: "Home", active: true },
+  { icon: "search", label: "Search" },
+  { icon: "heart", label: "Saved" },
+  { icon: "user", label: "Profile" },
+];
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-BottomNavigation [items]="items" transition="fade"></l-BottomNavigation>
+    <l-BottomNavigation [items]="items" transition="slide-down"></l-BottomNavigation>
+    <l-BottomNavigation [items]="items" transition="slide-right" transitionDelay="100"></l-BottomNavigation>
+    <l-BottomNavigation [items]="items" transition="zoom"></l-BottomNavigation>
+    <l-BottomNavigation [items]="items" transition="blur"></l-BottomNavigation>
+    <l-BottomNavigation [items]="items" transition="drop" transitionDuration="700"></l-BottomNavigation>
+
+    <l-BottomNavigation [items]="items" hoverEffect="lift"></l-BottomNavigation>
+    <l-BottomNavigation [items]="items" hoverEffect="glow"></l-BottomNavigation>
+    <l-BottomNavigation [items]="items" hoverEffect="shine"></l-BottomNavigation>
+  \`,
+})
+export class AppComponent {
+  items = [
+    { icon: "home", label: "Home", active: true },
+    { icon: "search", label: "Search" },
+    { icon: "heart", label: "Saved" },
+    { icon: "user", label: "Profile" },
+  ];
+}`,
+            }}
+          />
+        </section>
       </div>
     </div>
   );

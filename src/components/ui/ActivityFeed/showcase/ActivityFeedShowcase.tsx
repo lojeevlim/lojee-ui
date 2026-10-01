@@ -1,6 +1,6 @@
 import { ActivityFeed } from "../ActivityFeed";
 import CodeBlock from "../../CodeBlock";
-import { SectionLabel } from "../../ShowcaseHelpers";
+import { SectionLabel, TransitionPreview } from "../../ShowcaseHelpers";
 
 const BASIC_ITEMS = [
   { actor: "Jordan Diaz", avatarInitials: "JD", action: "commented on", target: "Q3 Report", timestamp: "2h ago" },
@@ -74,6 +74,12 @@ const ICON_ITEMS_CODE = `  { actor: "Jordan Diaz", avatarInitials: "JD", action:
   { actor: "Priya Nair", avatarInitials: "PN", action: "assigned Jordan Diaz to", target: "the Landing Page Redesign", timestamp: "6h ago", icon: "tag", color: "amber" },
   { actor: "Alex Chen", avatarInitials: "AC", action: "joined the team", timestamp: "1d ago", icon: "user", color: "slate" },
   { actor: "Jordan Diaz", avatarInitials: "JD", action: "uploaded a file to", target: "Brand Assets", timestamp: "1d ago", icon: "upload", color: "blue" },`;
+
+const TR_ITEMS = [
+  { actor: "Jordan Diaz", avatarInitials: "JD", action: "commented on", target: "Q3 Report", timestamp: "2h ago" },
+  { actor: "Alex Chen", avatarInitials: "AC", action: "closed", target: "Bug #482", timestamp: "4h ago" },
+  { actor: "Priya Nair", avatarInitials: "PN", action: "joined the team", timestamp: "6h ago" },
+];
 
 export default function ActivityFeedShowcase() {
   return (
@@ -216,6 +222,83 @@ ${ICON_ITEMS_CODE}
 
 // app.component.html
 <l-ActivityFeed [items]="items" compact />`,
+            }}
+          />
+        </section>
+
+        <section>
+          <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`) and hover effects via `hoverEffect`. Press Replay to run the enter transitions again.">Transitions</SectionLabel>
+          <TransitionPreview cols={2}>
+            <ActivityFeed items={TR_ITEMS} transition="fade" />
+            <ActivityFeed items={TR_ITEMS} transition="slide-up" />
+            <ActivityFeed items={TR_ITEMS} transition="slide-right" transitionDelay={100} />
+            <ActivityFeed items={TR_ITEMS} transition="zoom" />
+          </TransitionPreview>
+          <CodeBlock
+            variants={{
+              react: `const items = [
+  { actor: "Jordan Diaz", avatarInitials: "JD", action: "commented on", target: "Q3 Report", timestamp: "2h ago" },
+  { actor: "Alex Chen", avatarInitials: "AC", action: "closed", target: "Bug #482", timestamp: "4h ago" },
+  { actor: "Priya Nair", avatarInitials: "PN", action: "joined the team", timestamp: "6h ago" },
+];
+
+<ActivityFeed items={items} transition="fade" />
+<ActivityFeed items={items} transition="slide-up" />
+<ActivityFeed items={items} transition="slide-right" transitionDelay={100} />
+<ActivityFeed items={items} transition="drop" transitionDuration={700} />`,
+              js: `<l-ActivityFeed transition="fade"></l-ActivityFeed>
+<l-ActivityFeed transition="slide-up"></l-ActivityFeed>
+<l-ActivityFeed transition="slide-right" transitionDelay="100"></l-ActivityFeed>
+<l-ActivityFeed transition="drop" transitionDuration="700"></l-ActivityFeed>
+
+<script type="module">
+  import "lojee-ui/elements";
+
+  const items = [
+  { actor: "Jordan Diaz", avatarInitials: "JD", action: "commented on", target: "Q3 Report", timestamp: "2h ago" },
+  { actor: "Alex Chen", avatarInitials: "AC", action: "closed", target: "Bug #482", timestamp: "4h ago" },
+  { actor: "Priya Nair", avatarInitials: "PN", action: "joined the team", timestamp: "6h ago" },
+];
+  document.querySelectorAll("l-ActivityFeed").forEach((el) => (el.items = items));
+</script>`,
+              vue: `<template>
+  <l-ActivityFeed :items="items" transition="fade"></l-ActivityFeed>
+  <l-ActivityFeed :items="items" transition="slide-up"></l-ActivityFeed>
+  <l-ActivityFeed :items="items" transition="slide-right" transitionDelay="100"></l-ActivityFeed>
+  <l-ActivityFeed :items="items" transition="drop" transitionDuration="700"></l-ActivityFeed>
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+
+const items = [
+  { actor: "Jordan Diaz", avatarInitials: "JD", action: "commented on", target: "Q3 Report", timestamp: "2h ago" },
+  { actor: "Alex Chen", avatarInitials: "AC", action: "closed", target: "Bug #482", timestamp: "4h ago" },
+  { actor: "Priya Nair", avatarInitials: "PN", action: "joined the team", timestamp: "6h ago" },
+];
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-ActivityFeed [items]="items" transition="fade"></l-ActivityFeed>
+    <l-ActivityFeed [items]="items" transition="slide-up"></l-ActivityFeed>
+    <l-ActivityFeed [items]="items" transition="slide-right" transitionDelay="100"></l-ActivityFeed>
+    <l-ActivityFeed [items]="items" transition="drop" transitionDuration="700"></l-ActivityFeed>
+  \`,
+})
+export class AppComponent {
+  items = [
+    { actor: "Jordan Diaz", avatarInitials: "JD", action: "commented on", target: "Q3 Report", timestamp: "2h ago" },
+    { actor: "Alex Chen", avatarInitials: "AC", action: "closed", target: "Bug #482", timestamp: "4h ago" },
+    { actor: "Priya Nair", avatarInitials: "PN", action: "joined the team", timestamp: "6h ago" },
+  ];
+}`,
             }}
           />
         </section>

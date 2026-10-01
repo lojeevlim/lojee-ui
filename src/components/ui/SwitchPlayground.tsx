@@ -3,10 +3,12 @@ import { Switch, type SwitchSize } from "./Switch/Switch";
 import type { ColorName } from "../../core/tokens";
 import { OptionGroup, ColorSwatches, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
+import { useMotion } from "./playgroundMotion";
 
 const SIZES: SwitchSize[] = ["sm", "md", "lg"];
 
 export default function SwitchPlayground() {
+  const motion = useMotion();
   const [checked, setChecked] = useState(true);
   const [size, setSize] = useState<SwitchSize>("md");
   const [color, setColor] = useState<ColorName>("accent");
@@ -17,6 +19,8 @@ export default function SwitchPlayground() {
     <AppWindowFrame>
       <AppWindowBody>
         <Switch
+          key={motion.replayKey}
+          {...motion.props}
           checked={checked}
           onChange={(e) => setChecked(e.target.checked)}
           size={size}
@@ -30,7 +34,7 @@ export default function SwitchPlayground() {
 
   const code = `<Switch size="${size}" color="${color}"${checked ? " defaultChecked" : ""}${disabled ? " disabled" : ""}${
     label ? ` label="${label}"` : ""
-  } />`;
+  }${motion.attrs} />`;
 
   // Custom-element markup for the current configuration — identical across
   // Vue/Angular templates (plain attributes, no bindings needed for a static
@@ -38,7 +42,7 @@ export default function SwitchPlayground() {
   // HTML page needs to actually load the `<l-*>` definitions.
   const htmlMarkup = `<l-Switch size="${size}" color="${color}"${
     checked ? ` defaultChecked` : ""
-  }${disabled ? ` disabled` : ""}${label ? ` label="${label}"` : ""} />`;
+  }${disabled ? ` disabled` : ""}${label ? ` label="${label}"` : ""}${motion.attrs} />`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,
@@ -87,6 +91,7 @@ export default function SwitchPlayground() {
           </button>
         </div>
       </div>
+      {motion.controls}
     </PlaygroundLayout>
   );
 }

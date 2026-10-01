@@ -6,8 +6,10 @@ import { ICON_NAMES } from "../../core/icons";
 import { PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import { cx } from "./playgroundUtils";
 import type { CodeBlockVariants } from "./CodeBlock";
+import { useMotion } from "./playgroundMotion";
 
 export default function EmptyStatePlayground() {
+  const motion = useMotion({ hover: false });
   const [title, setTitle] = useState("No items yet");
   const [description, setDescription] = useState("Get started by creating your first item.");
   const [icon, setIcon] = useState("folder");
@@ -19,7 +21,7 @@ export default function EmptyStatePlayground() {
   const preview = (
     <AppWindowFrame>
       <AppWindowBody className="min-h-[280px]">
-        <EmptyState title={title || "No items yet"} icon={icon} action={showAction ? <Button label="Add item" /> : undefined}>
+        <EmptyState key={motion.replayKey} {...motion.props} title={title || "No items yet"} icon={icon} action={showAction ? <Button label="Add item" /> : undefined}>
           {description || undefined}
         </EmptyState>
       </AppWindowBody>
@@ -34,16 +36,16 @@ export default function EmptyStatePlayground() {
   // matches the "self-closing tag when there are no children" rule applied
   // consistently across every language variant below.
   const code = hasBody
-    ? `<EmptyState ${titleAttr}${iconAttr}${
+    ? `<EmptyState ${titleAttr}${iconAttr}${motion.attrs}${
         showAction ? `\n  action={<Button label="Add item" onClick={handleAdd} />}` : ""
       }>${description ? `\n  ${description}\n` : "\n"}</EmptyState>`
-    : `<EmptyState ${titleAttr}${iconAttr} />`;
+    : `<EmptyState ${titleAttr}${iconAttr}${motion.attrs} />`;
 
   const htmlMarkup = hasBody
-    ? `<l-EmptyState ${titleAttr}${iconAttr}>${description ? `\n  ${description}` : ""}${
+    ? `<l-EmptyState ${titleAttr}${iconAttr}${motion.attrs}>${description ? `\n  ${description}` : ""}${
         showAction ? `\n  <l-Button slot="action" label="Add item" id="add-item-btn" />` : ""
       }\n</l-EmptyState>`
-    : `<l-EmptyState ${titleAttr}${iconAttr} />`;
+    : `<l-EmptyState ${titleAttr}${iconAttr}${motion.attrs} />`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,
@@ -113,6 +115,7 @@ export default function EmptyStatePlayground() {
         <input type="checkbox" checked={showAction} onChange={(e) => setShowAction(e.target.checked)} />
         Show action button
       </label>
+      {motion.controls}
     </PlaygroundLayout>
   );
 }

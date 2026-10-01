@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Combobox, type ComboboxOption } from "./Combobox/Combobox";
 import { PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
+import { useMotion } from "./playgroundMotion";
 
 const OPTIONS: ComboboxOption[] = [
   { label: "Tokyo", value: "tokyo" },
@@ -15,6 +16,7 @@ const OPTIONS: ComboboxOption[] = [
 ];
 
 export default function ComboboxPlayground() {
+  const motion = useMotion();
   const [value, setValue] = useState<string | undefined>("manila");
   const [placeholder, setPlaceholder] = useState("Search a city...");
 
@@ -25,7 +27,7 @@ export default function ComboboxPlayground() {
     <AppWindowFrame className="overflow-visible">
       <AppWindowBody>
         <div className="w-full max-w-xs">
-          <Combobox options={OPTIONS} value={value} onChange={setValue} placeholder={placeholder} />
+          <Combobox {...motion.props} options={OPTIONS} value={value} onChange={setValue} placeholder={placeholder} />
         </div>
       </AppWindowBody>
     </AppWindowFrame>
@@ -35,7 +37,7 @@ export default function ComboboxPlayground() {
   options={options}
   value={${value ? `"${value}"` : "undefined"}}
   onChange={setValue}
-  placeholder="${placeholder}"
+  placeholder="${placeholder}"${motion.attrs}
 />`;
 
   // `options` is a registered "json" prop on <Combobox> — assign it as a
@@ -47,7 +49,7 @@ export default function ComboboxPlayground() {
 
   const codeVariants: CodeBlockVariants = {
     react: code,
-    js: `<l-Combobox id="city-combobox" placeholder="${placeholder}"${valueAttr} />
+    js: `<l-Combobox id="city-combobox" placeholder="${placeholder}"${valueAttr}${motion.attrs} />
 
 <script type="module">
   import "lojee-ui/elements";
@@ -57,13 +59,13 @@ export default function ComboboxPlayground() {
   document.querySelector("#city-combobox").options = options;
 </script>`,
     vue: `<template>
-  <l-Combobox :options="options" placeholder="${placeholder}"${valueAttr} />
+  <l-Combobox :options="options" placeholder="${placeholder}"${valueAttr}${motion.attrs} />
 </template>
 
 <script setup lang="ts">
 const options = ${optionsLiteral};
 </script>`,
-    angular: `<l-Combobox [options]="options" placeholder="${placeholder}"${valueAttr} />
+    angular: `<l-Combobox [options]="options" placeholder="${placeholder}"${valueAttr}${motion.attrs} />
 
 options = ${optionsLiteral};`,
   };
@@ -79,6 +81,8 @@ options = ${optionsLiteral};`,
           placeholder="Placeholder text"
         />
       </div>
+
+      {motion.controls}
 
       <div>
         <span className="mb-1.5 block text-xs font-medium text-fg-subtle">Selected value</span>

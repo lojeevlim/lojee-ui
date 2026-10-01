@@ -105,6 +105,97 @@ export class AppComponent {}
             }}
           />
         </section>
+
+        <section>
+          <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`) and hover effects via `hoverEffect`. They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
+          <div className="grid max-w-2xl gap-3 sm:grid-cols-2">
+            <TimePicker transition="fade" />
+            <TimePicker transition="slide-up" />
+            <TimePicker transition="slide-right" transitionDelay={100} />
+            <TimePicker transition="zoom" />
+            <TimePicker transition="flip" />
+            <TimePicker transition="blur" />
+            <TimePicker transition="bounce" />
+            <TimePicker transition="drop" transitionDuration={700} />
+            <TimePicker hoverEffect="lift" />
+            <TimePicker hoverEffect="glow" />
+            <TimePicker hoverEffect="ring" />
+          </div>
+          <CodeBlock
+            variants={{
+              react: `<TimePicker transition="fade" />
+<TimePicker transition="slide-up" />
+<TimePicker transition="slide-right" transitionDelay={100} />
+<TimePicker transition="zoom" />
+<TimePicker transition="flip" />
+<TimePicker transition="blur" />
+<TimePicker transition="bounce" />
+<TimePicker transition="drop" transitionDuration={700} />
+
+<TimePicker hoverEffect="lift" />
+<TimePicker hoverEffect="glow" />
+<TimePicker hoverEffect="ring" />`,
+              js: `<l-TimePicker transition="fade"></l-TimePicker>
+<l-TimePicker transition="slide-up"></l-TimePicker>
+<l-TimePicker transition="slide-right" transitionDelay="100"></l-TimePicker>
+<l-TimePicker transition="zoom"></l-TimePicker>
+<l-TimePicker transition="flip"></l-TimePicker>
+<l-TimePicker transition="blur"></l-TimePicker>
+<l-TimePicker transition="bounce"></l-TimePicker>
+<l-TimePicker transition="drop" transitionDuration="700"></l-TimePicker>
+
+<l-TimePicker hoverEffect="lift"></l-TimePicker>
+<l-TimePicker hoverEffect="glow"></l-TimePicker>
+<l-TimePicker hoverEffect="ring"></l-TimePicker>
+
+<script type="module">
+  import "lojee-ui/elements";
+</script>`,
+              vue: `<template>
+  <l-TimePicker transition="fade"></l-TimePicker>
+  <l-TimePicker transition="slide-up"></l-TimePicker>
+  <l-TimePicker transition="slide-right" transitionDelay="100"></l-TimePicker>
+  <l-TimePicker transition="zoom"></l-TimePicker>
+  <l-TimePicker transition="flip"></l-TimePicker>
+  <l-TimePicker transition="blur"></l-TimePicker>
+  <l-TimePicker transition="bounce"></l-TimePicker>
+  <l-TimePicker transition="drop" transitionDuration="700"></l-TimePicker>
+
+  <l-TimePicker hoverEffect="lift"></l-TimePicker>
+  <l-TimePicker hoverEffect="glow"></l-TimePicker>
+  <l-TimePicker hoverEffect="ring"></l-TimePicker>
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-TimePicker transition="fade"></l-TimePicker>
+    <l-TimePicker transition="slide-up"></l-TimePicker>
+    <l-TimePicker transition="slide-right" transitionDelay="100"></l-TimePicker>
+    <l-TimePicker transition="zoom"></l-TimePicker>
+    <l-TimePicker transition="flip"></l-TimePicker>
+    <l-TimePicker transition="blur"></l-TimePicker>
+    <l-TimePicker transition="bounce"></l-TimePicker>
+    <l-TimePicker transition="drop" transitionDuration="700"></l-TimePicker>
+
+    <l-TimePicker hoverEffect="lift"></l-TimePicker>
+    <l-TimePicker hoverEffect="glow"></l-TimePicker>
+    <l-TimePicker hoverEffect="ring"></l-TimePicker>
+  \`,
+})
+export class AppComponent {}`,
+            }}
+          />
+        </section>
       </div>
     </div>
   );

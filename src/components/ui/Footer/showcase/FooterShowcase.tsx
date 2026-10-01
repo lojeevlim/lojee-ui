@@ -266,6 +266,68 @@ export default function FooterShowcase() {
             }}
           />
         </section>
+
+        <section>
+          <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`). They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <Footer bottom="Fade" transition="fade" />
+            <Footer bottom="Slide down" transition="slide-down" />
+            <Footer bottom="Slide right" transition="slide-right" transitionDelay={100} />
+            <Footer bottom="Zoom" transition="zoom" />
+            <Footer bottom="Blur" transition="blur" />
+            <Footer bottom="Drop" transition="drop" transitionDuration={700} />
+          </div>
+          <CodeBlock
+            variants={{
+              react: `<Footer bottom="Fade" transition="fade" />
+<Footer bottom="Slide down" transition="slide-down" />
+<Footer bottom="Slide right" transition="slide-right" transitionDelay={100} />
+<Footer bottom="Zoom" transition="zoom" />
+<Footer bottom="Blur" transition="blur" />
+<Footer bottom="Drop" transition="drop" transitionDuration={700} />`,
+              js: `<l-Footer bottom="Fade" transition="fade"></l-Footer>
+<l-Footer bottom="Slide down" transition="slide-down"></l-Footer>
+<l-Footer bottom="Slide right" transition="slide-right" transitionDelay="100"></l-Footer>
+<l-Footer bottom="Zoom" transition="zoom"></l-Footer>
+<l-Footer bottom="Blur" transition="blur"></l-Footer>
+<l-Footer bottom="Drop" transition="drop" transitionDuration="700"></l-Footer>
+
+<script type="module">
+  import "lojee-ui/elements";
+</script>`,
+              vue: `<template>
+  <l-Footer bottom="Fade" transition="fade"></l-Footer>
+  <l-Footer bottom="Slide down" transition="slide-down"></l-Footer>
+  <l-Footer bottom="Slide right" transition="slide-right" transitionDelay="100"></l-Footer>
+  <l-Footer bottom="Zoom" transition="zoom"></l-Footer>
+  <l-Footer bottom="Blur" transition="blur"></l-Footer>
+  <l-Footer bottom="Drop" transition="drop" transitionDuration="700"></l-Footer>
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-Footer bottom="Fade" transition="fade"></l-Footer>
+    <l-Footer bottom="Slide down" transition="slide-down"></l-Footer>
+    <l-Footer bottom="Slide right" transition="slide-right" transitionDelay="100"></l-Footer>
+    <l-Footer bottom="Zoom" transition="zoom"></l-Footer>
+    <l-Footer bottom="Blur" transition="blur"></l-Footer>
+    <l-Footer bottom="Drop" transition="drop" transitionDuration="700"></l-Footer>
+  \`,
+})
+export class AppComponent {}`,
+            }}
+          />
+        </section>
       </div>
     </div>
   );

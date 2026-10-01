@@ -1,5 +1,6 @@
 import type { CSSProperties, ReactNode } from "react";
 import { cx, isColorName, type ColorName } from "../../../core/tokens";
+import { motionClass, motionStyle, type TransitionVariant } from "../../../core/motion";
 import { activeAccent, type ActiveVariant } from "../../../core/activeVariant";
 
 export type BreadcrumbsVariant = ActiveVariant | "text";
@@ -13,6 +14,12 @@ export interface BreadcrumbsProps {
   /** How the current item is drawn (default: "text"): "text" highlights only its text, "solid" / "outline" /
    * "soft" put it in a filled, outlined or tinted pill — the same looks as active items elsewhere. */
   variant?: BreadcrumbsVariant;
+  /** Enter transition: "fade" | "slide-up" | "slide-down" | "slide-left" | "slide-right" | "zoom" | "zoom-out" | "flip" | "blur" | "bounce" | "rotate" | "drop" | "skew" (default: none). Respects `prefers-reduced-motion`. */
+  transition?: TransitionVariant;
+  /** Enter transition duration in ms (default: 450). */
+  transitionDuration?: number;
+  /** Delay before the enter transition starts, in ms (default: 0) — handy for staggering. */
+  transitionDelay?: number;
   /** Extra class names applied to the list element. */
   className?: string;
   /** Per-part class overrides (`root`) — merged after the built-in styling. */
@@ -49,9 +56,9 @@ function crumbVars(color: string, variant: BreadcrumbsVariant): CSSProperties {
   return vars as CSSProperties;
 }
 
-export function Breadcrumbs({ children, color = "accent", variant = "text", className, classNames }: BreadcrumbsProps) {
+export function Breadcrumbs({ children, color = "accent", variant = "text", transition, transitionDuration, transitionDelay, className, classNames }: BreadcrumbsProps) {
   return (
-    <nav aria-label="Breadcrumb">
+    <nav aria-label="Breadcrumb" className={motionClass(transition)} style={motionStyle(transitionDuration, transitionDelay)}>
       <ol style={crumbVars(color, variant)} className={cx("flex flex-wrap items-center gap-1.5", className, classNames?.root)}>
         <slot>{children}</slot>
       </ol>

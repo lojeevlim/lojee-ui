@@ -124,6 +124,68 @@ onSubmit(values) {
             }}
           />
         </section>
+
+        <section>
+          <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`) and hover effects via `hoverEffect`. They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
+          <div className="grid gap-6 sm:grid-cols-2">
+            <LoginForm transition="fade" />
+            <LoginForm transition="slide-up" />
+            <LoginForm transition="zoom" transitionDelay={100} />
+            <LoginForm transition="flip" transitionDuration={700} />
+            <LoginForm hoverEffect="lift" />
+            <LoginForm hoverEffect="glow" />
+          </div>
+          <CodeBlock
+            variants={{
+              react: `<LoginForm transition="fade" />
+<LoginForm transition="slide-up" />
+<LoginForm transition="zoom" transitionDelay={100} />
+<LoginForm transition="flip" transitionDuration={700} />
+<LoginForm hoverEffect="lift" />
+<LoginForm hoverEffect="glow" />`,
+              js: `<l-LoginForm transition="fade"></l-LoginForm>
+<l-LoginForm transition="slide-up"></l-LoginForm>
+<l-LoginForm transition="zoom" transitionDelay="100"></l-LoginForm>
+<l-LoginForm transition="flip" transitionDuration="700"></l-LoginForm>
+<l-LoginForm hoverEffect="lift"></l-LoginForm>
+<l-LoginForm hoverEffect="glow"></l-LoginForm>
+
+<script type="module">
+  import "lojee-ui/elements";
+</script>`,
+              vue: `<template>
+  <l-LoginForm transition="fade"></l-LoginForm>
+  <l-LoginForm transition="slide-up"></l-LoginForm>
+  <l-LoginForm transition="zoom" transitionDelay="100"></l-LoginForm>
+  <l-LoginForm transition="flip" transitionDuration="700"></l-LoginForm>
+  <l-LoginForm hoverEffect="lift"></l-LoginForm>
+  <l-LoginForm hoverEffect="glow"></l-LoginForm>
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-LoginForm transition="fade"></l-LoginForm>
+    <l-LoginForm transition="slide-up"></l-LoginForm>
+    <l-LoginForm transition="zoom" transitionDelay="100"></l-LoginForm>
+    <l-LoginForm transition="flip" transitionDuration="700"></l-LoginForm>
+    <l-LoginForm hoverEffect="lift"></l-LoginForm>
+    <l-LoginForm hoverEffect="glow"></l-LoginForm>
+  \`,
+})
+export class AppComponent {}`,
+            }}
+          />
+        </section>
       </div>
     </div>
   );

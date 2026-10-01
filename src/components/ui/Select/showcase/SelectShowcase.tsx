@@ -155,6 +155,110 @@ export class AppComponent {
             }}
           />
         </section>
+
+        <section>
+          <SectionLabel sub="Dropdown panel transitions via `transition` (with `transitionDuration` / `transitionDelay`) and hover effects on the field via `hoverEffect`. Open the dropdown to see the panel animate in and out.">Transitions</SectionLabel>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <Select options={FRUITS} placeholder="Choose a fruit" transition="fade" />
+            <Select options={FRUITS} placeholder="Choose a fruit" transition="slide-up" />
+            <Select options={FRUITS} placeholder="Choose a fruit" transition="zoom" />
+            <Select options={FRUITS} placeholder="Choose a fruit" transition="flip" />
+            <Select options={FRUITS} placeholder="Choose a fruit" transition="slide-right" transitionDelay={100} />
+            <Select options={FRUITS} placeholder="Choose a fruit" transition="bounce" transitionDuration={700} />
+          </div>
+          <div className="grid gap-4 sm:grid-cols-3">
+            <Select options={FRUITS} placeholder="Choose a fruit" hoverEffect="lift" />
+            <Select options={FRUITS} placeholder="Choose a fruit" hoverEffect="glow" />
+            <Select options={FRUITS} placeholder="Choose a fruit" hoverEffect="ring" />
+          </div>
+          <CodeBlock
+            variants={{
+              react: `<Select options={options} placeholder="Choose a fruit" transition="fade" />
+<Select options={options} placeholder="Choose a fruit" transition="slide-up" />
+<Select options={options} placeholder="Choose a fruit" transition="zoom" />
+<Select options={options} placeholder="Choose a fruit" transition="flip" />
+<Select options={options} placeholder="Choose a fruit" transition="slide-right" transitionDelay={100} />
+<Select options={options} placeholder="Choose a fruit" transition="bounce" transitionDuration={700} />
+<Select options={options} placeholder="Choose a fruit" hoverEffect="lift" />
+<Select options={options} placeholder="Choose a fruit" hoverEffect="glow" />
+<Select options={options} placeholder="Choose a fruit" hoverEffect="ring" />`,
+              js: `<l-Select placeholder="Choose a fruit" transition="fade"></l-Select>
+<l-Select placeholder="Choose a fruit" transition="slide-up"></l-Select>
+<l-Select placeholder="Choose a fruit" transition="zoom"></l-Select>
+<l-Select placeholder="Choose a fruit" transition="flip"></l-Select>
+<l-Select placeholder="Choose a fruit" transition="slide-right" transitionDelay="100"></l-Select>
+<l-Select placeholder="Choose a fruit" transition="bounce" transitionDuration="700"></l-Select>
+<l-Select placeholder="Choose a fruit" hoverEffect="lift"></l-Select>
+<l-Select placeholder="Choose a fruit" hoverEffect="glow"></l-Select>
+<l-Select placeholder="Choose a fruit" hoverEffect="ring"></l-Select>
+
+<script type="module">
+  import "lojee-ui/elements";
+
+  const options = [
+    { label: "Apple", value: "apple" },
+    { label: "Banana", value: "banana" },
+    { label: "Cherry", value: "cherry", disabled: true },
+    { label: "Durian", value: "durian" },
+  ];
+
+  document.querySelectorAll("l-Select").forEach((el) => {
+    el.options = options;
+  });
+</script>`,
+              vue: `<template>
+  <l-Select :options="options" placeholder="Choose a fruit" transition="fade"></l-Select>
+  <l-Select :options="options" placeholder="Choose a fruit" transition="slide-up"></l-Select>
+  <l-Select :options="options" placeholder="Choose a fruit" transition="zoom"></l-Select>
+  <l-Select :options="options" placeholder="Choose a fruit" transition="flip"></l-Select>
+  <l-Select :options="options" placeholder="Choose a fruit" transition="slide-right" transitionDelay="100"></l-Select>
+  <l-Select :options="options" placeholder="Choose a fruit" transition="bounce" transitionDuration="700"></l-Select>
+  <l-Select :options="options" placeholder="Choose a fruit" hoverEffect="lift"></l-Select>
+  <l-Select :options="options" placeholder="Choose a fruit" hoverEffect="glow"></l-Select>
+  <l-Select :options="options" placeholder="Choose a fruit" hoverEffect="ring"></l-Select>
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+
+const options = [
+  { label: "Apple", value: "apple" },
+  { label: "Banana", value: "banana" },
+  { label: "Cherry", value: "cherry", disabled: true },
+  { label: "Durian", value: "durian" },
+];
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-Select [options]="options" placeholder="Choose a fruit" transition="fade"></l-Select>
+    <l-Select [options]="options" placeholder="Choose a fruit" transition="slide-up"></l-Select>
+    <l-Select [options]="options" placeholder="Choose a fruit" transition="zoom"></l-Select>
+    <l-Select [options]="options" placeholder="Choose a fruit" transition="flip"></l-Select>
+    <l-Select [options]="options" placeholder="Choose a fruit" transition="slide-right" transitionDelay="100"></l-Select>
+    <l-Select [options]="options" placeholder="Choose a fruit" transition="bounce" transitionDuration="700"></l-Select>
+    <l-Select [options]="options" placeholder="Choose a fruit" hoverEffect="lift"></l-Select>
+    <l-Select [options]="options" placeholder="Choose a fruit" hoverEffect="glow"></l-Select>
+    <l-Select [options]="options" placeholder="Choose a fruit" hoverEffect="ring"></l-Select>
+  \`,
+})
+export class AppComponent {
+  options = [
+    { label: "Apple", value: "apple" },
+    { label: "Banana", value: "banana" },
+    { label: "Cherry", value: "cherry", disabled: true },
+    { label: "Durian", value: "durian" },
+  ];
+}`,
+            }}
+          />
+        </section>
       </div>
     </div>
   );

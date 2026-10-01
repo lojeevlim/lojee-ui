@@ -1,13 +1,35 @@
 import { cx, type ColorName } from "../../../core/tokens";
 import { Icon } from "../Icons/Icon";
+import { useCountUp } from "../../../core/useCountUp";
+import { animatedClass, animatedStyle, type AnimatedVariant } from "../../../core/animated";
+import { AnimatedOverlay } from "../../../core/AnimatedOverlay";
+import { motionClass, motionStyle, type TransitionVariant, type HoverEffect } from "../../../core/motion";
 
 export type StatTrend = "up" | "down" | "neutral";
 
 export interface StatProps {
+  /** Attention animation: "glow" | "pulse" | "sweep" | "bounce" | "float" | "wiggle" | "border-spin" (default: none). Respects `prefers-reduced-motion`. */
+  animated?: AnimatedVariant;
+  /** Color of the animation (pulse ring, glow, spinning border): a `ColorName` or any CSS color (default: the component's own color). */
+  pulseColor?: ColorName | (string & {});
+  /** Second color — turns the pulse ring and spinning border into a gradient from `pulseColor` to this (default: solid `pulseColor`). */
+  pulseGradientTo?: ColorName | (string & {});
+  /** Enter transition: "fade" | "slide-up" | "slide-down" | "slide-left" | "slide-right" | "zoom" | "zoom-out" | "flip" | "blur" | "bounce" | "rotate" | "drop" | "skew" (default: none). Respects `prefers-reduced-motion`. */
+  transition?: TransitionVariant;
+  /** Enter transition duration in ms (default: 450). */
+  transitionDuration?: number;
+  /** Delay before the enter transition starts, in ms (default: 0) — handy for staggering. */
+  transitionDelay?: number;
+  /** Effect while hovering: "lift" | "scale" | "press" | "tilt" | "ring" | "glow" | "shine" (default: none). */
+  hoverEffect?: HoverEffect;
   /** Caption describing the metric, e.g. "Total revenue". */
   label: string;
   /** The headline metric value, shown prominently; a number or preformatted string. */
   value: string | number;
+  /** Counts the number in `value` up from 0 when the stat mounts (and when `value` changes), keeping any prefix/suffix such as "$" or "%" (default: false). Respects `prefers-reduced-motion`. */
+  countUp?: boolean;
+  /** Duration of the count-up in ms (default: 1200). */
+  countUpDuration?: number;
   /** Trend text, e.g. "12.5%" — shown next to an up/down arrow icon when `trend` isn't "neutral". */
   change?: string;
   /** Default: "neutral" (no arrow/color, just plain `change` text if given). */
@@ -51,9 +73,14 @@ const TREND_CLASSES: Record<StatTrend, string> = {
   neutral: "text-fg-subtle",
 };
 
-export function Stat({ label, value, change, trend = "neutral", icon, color = "accent", className, classNames }: StatProps) {
+export function Stat({ label, value, countUp = false, countUpDuration, change, trend = "neutral", icon, color = "accent", className, classNames, animated, pulseColor, pulseGradientTo, transition, transitionDuration, transitionDelay, hoverEffect }: StatProps) {
+  const displayValue = useCountUp(value, countUp, countUpDuration);
+
   return (
-    <div className={cx("rounded-xl border border-border bg-surface p-5", className, classNames?.root)}>
+    <div
+      className={cx("rounded-xl border border-border bg-surface p-5", animatedClass(animated), motionClass(transition, hoverEffect), className, classNames?.root)}
+      style={{ ...animatedStyle(animated, color, pulseColor, pulseGradientTo), ...motionStyle(transitionDuration, transitionDelay) }}
+    >
       {icon && (
         <div
           className={cx(
@@ -66,13 +93,14 @@ export function Stat({ label, value, change, trend = "neutral", icon, color = "a
         </div>
       )}
       <p className={cx("text-sm text-fg-subtle", classNames?.label)}>{label}</p>
-      <p className={cx("mt-1 text-2xl font-semibold text-fg", classNames?.value)}>{value}</p>
+      <p className={cx("mt-1 text-2xl font-semibold text-fg", countUp && "tabular-nums", classNames?.value)}>{displayValue}</p>
       {change && (
         <div className={cx("mt-2 flex items-center gap-1 text-sm font-medium", TREND_CLASSES[trend], classNames?.change)}>
           {trend !== "neutral" && <Icon name={trend === "up" ? "arrow-up" : "arrow-down"} size={14} />}
           <span>{change}</span>
         </div>
       )}
+      <AnimatedOverlay variant={animated} />
     </div>
   );
 }

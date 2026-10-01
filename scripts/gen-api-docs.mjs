@@ -111,6 +111,32 @@ const nameMatches = (e, name) => e.comp === name || e.comp.replace(/Element$|Ada
 const HTML_ATTR_NOTE = "Standard HTML attribute, passed straight to the underlying control.";
 const EXTRA_NOTE = { heading: "Text shown as the title. Named `heading` here because `title` is a native HTMLElement attribute." };
 
+// Plain-data shapes that are documented on a page even though they are not `*Props` (e.g. the objects you pass in `markers`).
+const DATA_TYPES = {
+  Map: [{ name: "MapViewState", file: "Map/mapTypes.ts", note: "Reported by `onMove` / the `move` event." }],
+  "Map Markers": [{ name: "MapMarkerData", file: "Map/mapTypes.ts", via: "markers" }],
+  "Map Routes": [
+    { name: "MapRouteData", file: "Map/mapTypes.ts", via: "routes" },
+    { name: "MapRouteSummary", file: "Map/mapTypes.ts", note: "Reported by `onLoad` / the `routeload` event." },
+  ],
+};
+function parseDataInterface(file, name) {
+  const abs = path.join(root, "src/components/ui", file);
+  const sf = ts.createSourceFile(abs, fs.readFileSync(abs, "utf8"), ts.ScriptTarget.Latest, true, ts.ScriptKind.TS);
+  let out = [];
+  sf.forEachChild((node) => {
+    if (ts.isInterfaceDeclaration(node) && node.name.text === name)
+      out = node.members.filter(ts.isPropertySignature).map((p) => ({
+        name: p.name.getText(sf),
+        type: clean(p.type?.getText(sf) ?? "unknown"),
+        required: !p.questionToken,
+        description: clean(jsdoc(p)),
+        default: null,
+      }));
+  });
+  return out;
+}
+
 const docs = {};
 for (const { label, comp } of entries) {
   const dir = importDirs[comp];
@@ -129,7 +155,13 @@ for (const { label, comp } of entries) {
       components.push({ name, props: props.map((pr) => ({ ...pr, default: defaults[pr.name] ?? null })), element: null });
     }
   }
-  if (components.length || hooks.length) docs[label] = { components, hooks, types };
+  if (components.length || hooks.length)
+    docs[label] = {
+      components,
+      hooks,
+      types,
+      dataTypes: (DATA_TYPES[label] ?? []).map((d) => ({ name: d.name, via: d.via ?? null, note: d.note ?? null, props: parseDataInterface(d.file, d.name) })),
+    };
 }
 
 // Attach each element to the ONE component that best matches it (same name, most overlapping props).
@@ -159,7 +191,8 @@ export interface ApiProp { name: string; type: string; required: boolean; descri
 export interface ApiElement { tag: string; props: Record<string, string>; extraProps: { name: string; type: string; description: string }[]; events: { callback: string; event: string }[] }
 export interface ApiComponent { name: string; props: ApiProp[]; element: ApiElement | null }
 export interface ApiHook { name: string; signature: string; description: string }
-export interface ApiDoc { components: ApiComponent[]; hooks: ApiHook[]; types: Record<string, string> }
+export interface ApiDataType { name: string; via: string | null; note: string | null; props: ApiProp[] }
+export interface ApiDoc { components: ApiComponent[]; hooks: ApiHook[]; types: Record<string, string>; dataTypes: ApiDataType[] }
 
 export const API_DOCS: Record<string, ApiDoc> = ${JSON.stringify(docs, null, 2)};
 `;

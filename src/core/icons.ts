@@ -58,6 +58,7 @@ import {
   Tag,
   Upload,
   Zap,
+  Sparkles,
   ArrowLeft,
   ArrowUp,
   ArrowDown,
@@ -118,6 +119,15 @@ import {
   BookOpen,
   Palette,
   LayoutDashboard,
+  Map as MapIcon,
+  Route,
+  Navigation,
+  Flag,
+  Car,
+  Globe,
+  Store,
+  Building2,
+  Locate,
 } from "lucide-react";
 
 // The canonical icon-name registry for the whole library. Icons are
@@ -125,6 +135,15 @@ import {
 // attribute boundary — same string works whether a component is used as
 // plain React or wrapped as a Web Component (see src/elements).
 export const ICONS: Record<string, LucideIcon> = {
+  "map": MapIcon,
+  "route": Route,
+  "navigation": Navigation,
+  "flag": Flag,
+  "car": Car,
+  "globe": Globe,
+  "store": Store,
+  "building-2": Building2,
+  "locate": Locate,
   plus: Plus,
   download: Download,
   "arrow-right": ArrowRight,
@@ -190,6 +209,7 @@ export const ICONS: Record<string, LucideIcon> = {
   tag: Tag,
   upload: Upload,
   zap: Zap,
+  sparkles: Sparkles,
   x: X,
   minus: Minus,
   "loader-2": Loader2,

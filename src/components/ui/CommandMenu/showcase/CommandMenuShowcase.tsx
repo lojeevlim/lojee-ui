@@ -3,8 +3,24 @@ import { CommandMenu, type CommandMenuItem } from "../CommandMenu";
 import { Button } from "../../Buttons/Button";
 import CodeBlock from "../../CodeBlock";
 import { SectionLabel, Row } from "../../ShowcaseHelpers";
+import type { TransitionVariant } from "../../../../core/motion";
+
+const TR_OPTIONS: { label: string; transition: TransitionVariant; duration?: number; delay?: number }[] = [
+  { label: "Fade", transition: "fade" },
+  { label: "Slide up", transition: "slide-up" },
+  { label: "Zoom", transition: "zoom" },
+  { label: "Flip", transition: "flip" },
+  { label: "Blur", transition: "blur" },
+  { label: "Bounce", transition: "bounce" },
+  { label: "Drop (slow)", transition: "drop", duration: 700 },
+  { label: "Zoom (delayed)", transition: "zoom", delay: 200 },
+];
 
 export default function CommandMenuShowcase() {
+  const [trOpen, setTrOpen] = useState(false);
+  const [trOption, setTrOption] = useState(TR_OPTIONS[2]);
+  const trReact = `transition="${trOption.transition}"${trOption.duration ? ` transitionDuration={${trOption.duration}}` : ""}${trOption.delay ? ` transitionDelay={${trOption.delay}}` : ""}`;
+  const trHtml = `transition="${trOption.transition}"${trOption.duration ? ` transitionDuration="${trOption.duration}"` : ""}${trOption.delay ? ` transitionDelay="${trOption.delay}"` : ""}`;
   const [open, setOpen] = useState(false);
   const [lastSelected, setLastSelected] = useState("None yet");
 
@@ -131,6 +147,97 @@ export class CommandMenuShowcaseComponent {
     { label: "Open settings", icon: "settings", shortcut: "⌘,", onSelect: () => {} },
     { label: "Star this repo", icon: "star", onSelect: () => {} },
     { label: "Delete workspace", icon: "trash-2", disabled: true, onSelect: () => {} },
+  ];
+}`,
+            }}
+          />
+        </section>
+
+        <section>
+          <SectionLabel sub="Enter/exit transitions via `transition` (with `transitionDuration` / `transitionDelay`) — pick one, then close the overlay to see it play in reverse.">Transitions</SectionLabel>
+          <Row>
+            {TR_OPTIONS.map((o) => (
+              <Button
+                key={o.label}
+                variant="outline"
+                label={o.label}
+                onClick={() => {
+                  setTrOption(o);
+                  setTrOpen(true);
+                }}
+              />
+            ))}
+          </Row>
+          <CommandMenu
+            open={trOpen}
+            onClose={() => setTrOpen(false)}
+            items={items}
+            transition={trOption.transition}
+            transitionDuration={trOption.duration}
+            transitionDelay={trOption.delay}
+          />
+          <CodeBlock
+            variants={{
+              react: `const [open, setOpen] = useState(false);
+const items: CommandMenuItem[] = [
+  { label: "New file", icon: "file", shortcut: "⌘N" },
+  { label: "Create project", icon: "plus", shortcut: "⌘P" },
+  { label: "Open settings", icon: "settings", shortcut: "⌘," }
+];
+
+<Button label="Open command menu" onClick={() => setOpen(true)} />
+<CommandMenu open={open} onClose={() => setOpen(false)} items={items} ${trReact} />`,
+              js: `<l-Button label="Open command menu" id="open-tr-btn"></l-Button>
+<l-CommandMenu id="tr-overlay" ${trHtml}></l-CommandMenu>
+
+<script type="module">
+  import "lojee-ui/elements";
+
+  const overlay = document.getElementById("tr-overlay");
+  overlay.items = [
+    { label: "New file", icon: "file", shortcut: "⌘N" },
+    { label: "Create project", icon: "plus", shortcut: "⌘P" },
+    { label: "Open settings", icon: "settings", shortcut: "⌘," }
+  ];
+  document.getElementById("open-tr-btn")
+    .addEventListener("click", () => { overlay.open = true; });
+  overlay.addEventListener("close", () => { overlay.open = false; });
+</script>`,
+              vue: `<template>
+  <l-Button label="Open command menu" @click="open = true"></l-Button>
+  <l-CommandMenu :open="open" :items="items" ${trHtml} @close="open = false"></l-CommandMenu>
+</template>
+
+<script setup lang="ts">
+import { ref } from "vue";
+import "lojee-ui/elements";
+
+const open = ref(false);
+const items = ref([
+  { label: "New file", icon: "file", shortcut: "⌘N" },
+  { label: "Create project", icon: "plus", shortcut: "⌘P" },
+  { label: "Open settings", icon: "settings", shortcut: "⌘," }
+]);
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-Button label="Open command menu" (click)="open = true"></l-Button>
+    <l-CommandMenu [open]="open" [items]="items" ${trHtml} (close)="open = false"></l-CommandMenu>
+  \`,
+})
+export class AppComponent {
+  open = false;
+  items = [
+    { label: "New file", icon: "file", shortcut: "⌘N" },
+    { label: "Create project", icon: "plus", shortcut: "⌘P" },
+    { label: "Open settings", icon: "settings", shortcut: "⌘," }
   ];
 }`,
             }}

@@ -2,18 +2,20 @@ import { useState } from "react";
 import { Grid, type GridCols, type GridGap } from "./Grid/Grid";
 import { OptionGroup, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
+import { useMotion } from "./playgroundMotion";
 
 const COLS: GridCols[] = [1, 2, 3, 4, 6, 12];
 const GAPS: GridGap[] = ["sm", "md", "lg"];
 
 export default function GridPlayground() {
+  const motion = useMotion({ hover: false });
   const [cols, setCols] = useState<GridCols>(3);
   const [gap, setGap] = useState<GridGap>("md");
 
   const preview = (
     <AppWindowFrame>
       <AppWindowBody className="items-stretch">
-        <Grid cols={cols} gap={gap} className="w-full">
+        <Grid key={motion.replayKey} {...motion.props} cols={cols} gap={gap} className="w-full">
           {Array.from({ length: 6 }, (_, i) => (
             <div key={i} className="rounded-md bg-surface-muted p-4 text-center text-xs text-fg-subtle">
               Item {i + 1}
@@ -24,7 +26,7 @@ export default function GridPlayground() {
     </AppWindowFrame>
   );
 
-  const code = `<Grid cols={${cols}} gap="${gap}">
+  const code = `<Grid cols={${cols}} gap="${gap}"${motion.attrs}>
   <div>Item 1</div>
   <div>Item 2</div>
   ...
@@ -34,7 +36,7 @@ export default function GridPlayground() {
   // Vue/Angular templates (plain attributes, no bindings needed for a static
   // snapshot); the "js" variant just adds the one-time module import a plain
   // HTML page needs to actually load the `<l-*>` definitions.
-  const htmlMarkup = `<l-Grid cols="${cols}" gap="${gap}">
+  const htmlMarkup = `<l-Grid cols="${cols}" gap="${gap}"${motion.attrs}>
   <div>Item 1</div>
   <div>Item 2</div>
   ...
@@ -56,6 +58,7 @@ export default function GridPlayground() {
         onChange={(v) => setCols(Number(v) as GridCols)}
       />
       <OptionGroup label="Gap" options={GAPS} value={gap} onChange={setGap} />
+      {motion.controls}
     </PlaygroundLayout>
   );
 }

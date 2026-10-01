@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Timeline, type TimelineItem, type TimelineOrientation } from "./Timeline/Timeline";
 import { OptionGroup, PlaygroundLayout, AppWindowFrame } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
+import { useMotion } from "./playgroundMotion";
 
 const ORIENTATIONS: TimelineOrientation[] = ["vertical", "horizontal"];
 
@@ -18,17 +19,18 @@ const SAMPLE_ITEMS_CODE = `  { title: "Order placed", timestamp: "Jan 4, 9:02 AM
   { title: "Delivered", icon: "circle-dot", color: "slate" },`;
 
 export default function TimelinePlayground() {
+  const motion = useMotion({ hover: false });
   const [orientation, setOrientation] = useState<TimelineOrientation>("vertical");
 
   const preview = (
     <AppWindowFrame>
       {orientation === "vertical" ? (
         <div className="flex justify-center bg-surface p-10" style={{ minHeight: 260 }}>
-          <Timeline items={SAMPLE_ITEMS} orientation={orientation} />
+          <Timeline key={motion.replayKey} {...motion.props} items={SAMPLE_ITEMS} orientation={orientation} />
         </div>
       ) : (
         <div className="flex items-center bg-surface p-10" style={{ minHeight: 200 }}>
-          <Timeline items={SAMPLE_ITEMS} orientation={orientation} className="w-full" />
+          <Timeline key={motion.replayKey} {...motion.props} items={SAMPLE_ITEMS} orientation={orientation} className="w-full" />
         </div>
       )}
     </AppWindowFrame>
@@ -38,14 +40,15 @@ export default function TimelinePlayground() {
   // assigned as a real DOM property (js) or bound (vue/angular) rather than
   // stringified into the tag.
   const orientationAttr = orientation !== "vertical" ? ` orientation="${orientation}"` : "";
+  const attrStr = orientationAttr + motion.attrs;
 
   const codeVariants: CodeBlockVariants = {
-    react: `<Timeline${orientationAttr}
+    react: `<Timeline${attrStr}
   items={[
 ${SAMPLE_ITEMS_CODE}
   ]}
 />`,
-    js: `<l-Timeline id="timeline-demo"${orientationAttr}></l-Timeline>
+    js: `<l-Timeline id="timeline-demo"${attrStr}></l-Timeline>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -55,7 +58,7 @@ ${SAMPLE_ITEMS_CODE}
   ];
 </script>`,
     vue: `<template>
-  <l-Timeline :items="items"${orientationAttr} />
+  <l-Timeline :items="items"${attrStr} />
 </template>
 
 <script setup lang="ts">
@@ -63,7 +66,7 @@ const items = [
 ${SAMPLE_ITEMS_CODE}
 ];
 </script>`,
-    angular: `<l-Timeline [items]="items"${orientationAttr} />
+    angular: `<l-Timeline [items]="items"${attrStr} />
 
 items = [
 ${SAMPLE_ITEMS_CODE}
@@ -73,6 +76,7 @@ ${SAMPLE_ITEMS_CODE}
   return (
     <PlaygroundLayout preview={preview} variants={codeVariants}>
       <OptionGroup label="Orientation" options={ORIENTATIONS} value={orientation} onChange={setOrientation} />
+      {motion.controls}
     </PlaygroundLayout>
   );
 }

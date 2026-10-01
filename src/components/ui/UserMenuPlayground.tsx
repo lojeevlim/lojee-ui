@@ -2,6 +2,7 @@ import { useState } from "react";
 import { UserMenu, type UserMenuItem, type UserMenuProps } from "./UserMenu/UserMenu";
 import { OptionGroup, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
+import { useMotion } from "./playgroundMotion";
 
 const ALIGNS: NonNullable<UserMenuProps["align"]>[] = ["start", "end"];
 
@@ -13,6 +14,7 @@ const ITEMS: UserMenuItem[] = [
 ];
 
 export default function UserMenuPlayground() {
+  const motion = useMotion();
   const [name, setName] = useState("Jordan Diaz");
   const [email, setEmail] = useState("jordan@lojee.io");
   const [align, setAlign] = useState<NonNullable<UserMenuProps["align"]>>("end");
@@ -23,14 +25,14 @@ export default function UserMenuPlayground() {
   const preview = (
     <AppWindowFrame className="overflow-visible">
       <AppWindowBody>
-        <UserMenu name={name || "Jordan Diaz"} email={email || undefined} avatarInitials="JD" items={ITEMS} align={align} />
+        <UserMenu key={motion.replayKey} {...motion.props} name={name || "Jordan Diaz"} email={email || undefined} avatarInitials="JD" items={ITEMS} align={align} />
       </AppWindowBody>
     </AppWindowFrame>
   );
 
   const nameValue = name || "Jordan Diaz";
   const emailAttrJsx = email ? `\n  email="${email}"` : "";
-  const alignAttr = align !== "end" ? ` align="${align}"` : "";
+  const alignAttr = (align !== "end" ? ` align="${align}"` : "") + motion.attrs;
 
   const code = `<UserMenu
   name="${nameValue}"${emailAttrJsx}
@@ -105,6 +107,7 @@ ${itemsCode}
         />
       </div>
       <OptionGroup label="Align" options={ALIGNS} value={align} onChange={setAlign} />
+      {motion.controls}
     </PlaygroundLayout>
   );
 }

@@ -192,6 +192,82 @@ const leftWidth = ref(180);
             }}
           />
         </section>
+
+        <section>
+          <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`). They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
+          <div className="space-y-4">
+            <Divider label="fade" transition="fade" />
+            <Divider label="slide-up" transition="slide-up" />
+            <Divider label="slide-right" transition="slide-right" transitionDelay={100} />
+            <Divider label="zoom" transition="zoom" />
+            <Divider label="flip" transition="flip" />
+            <Divider label="blur" transition="blur" />
+            <Divider label="bounce" transition="bounce" />
+            <Divider label="drop" transition="drop" transitionDuration={700} />
+          </div>
+          <CodeBlock
+            variants={{
+              react: `<Divider label="fade" transition="fade" />
+<Divider label="slide-up" transition="slide-up" />
+<Divider label="slide-right" transition="slide-right" transitionDelay={100} />
+<Divider label="zoom" transition="zoom" />
+
+<Divider label="flip" transition="flip" />
+<Divider label="blur" transition="blur" />
+<Divider label="bounce" transition="bounce" />
+<Divider label="drop" transition="drop" transitionDuration={700} />`,
+              js: `<l-Divider label="fade" transition="fade"></l-Divider>
+<l-Divider label="slide-up" transition="slide-up"></l-Divider>
+<l-Divider label="slide-right" transition="slide-right" transitionDelay="100"></l-Divider>
+<l-Divider label="zoom" transition="zoom"></l-Divider>
+
+<l-Divider label="flip" transition="flip"></l-Divider>
+<l-Divider label="blur" transition="blur"></l-Divider>
+<l-Divider label="bounce" transition="bounce"></l-Divider>
+<l-Divider label="drop" transition="drop" transitionDuration="700"></l-Divider>
+
+<script type="module">
+  import "lojee-ui/elements";
+</script>`,
+              vue: `<template>
+  <l-Divider label="fade" transition="fade"></l-Divider>
+  <l-Divider label="slide-up" transition="slide-up"></l-Divider>
+  <l-Divider label="slide-right" transition="slide-right" transitionDelay="100"></l-Divider>
+  <l-Divider label="zoom" transition="zoom"></l-Divider>
+
+  <l-Divider label="flip" transition="flip"></l-Divider>
+  <l-Divider label="blur" transition="blur"></l-Divider>
+  <l-Divider label="bounce" transition="bounce"></l-Divider>
+  <l-Divider label="drop" transition="drop" transitionDuration="700"></l-Divider>
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-Divider label="fade" transition="fade"></l-Divider>
+    <l-Divider label="slide-up" transition="slide-up"></l-Divider>
+    <l-Divider label="slide-right" transition="slide-right" transitionDelay="100"></l-Divider>
+    <l-Divider label="zoom" transition="zoom"></l-Divider>
+
+    <l-Divider label="flip" transition="flip"></l-Divider>
+    <l-Divider label="blur" transition="blur"></l-Divider>
+    <l-Divider label="bounce" transition="bounce"></l-Divider>
+    <l-Divider label="drop" transition="drop" transitionDuration="700"></l-Divider>
+  \`,
+})
+export class AppComponent {}`,
+            }}
+          />
+        </section>
       </div>
     </div>
   );

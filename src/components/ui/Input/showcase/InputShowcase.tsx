@@ -198,6 +198,109 @@ onEmailInput(e: Event) {
             }}
           />
         </section>
+
+        <section>
+          <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`) and hover effects via `hoverEffect`. They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
+          <div className="max-w-sm space-y-3">
+            <Input transition="fade" placeholder="Fade" />
+            <Input transition="slide-up" placeholder="Slide up" />
+            <Input transition="slide-right" transitionDelay={100} placeholder="Slide right" />
+            <Input transition="zoom" placeholder="Zoom" />
+            <Input transition="flip" placeholder="Flip" />
+            <Input transition="blur" placeholder="Blur" />
+            <Input transition="bounce" placeholder="Bounce" />
+            <Input transition="drop" transitionDuration={700} placeholder="Drop" />
+          </div>
+          <div className="max-w-sm space-y-3">
+            <Input hoverEffect="lift" placeholder="Lift" />
+            <Input hoverEffect="scale" placeholder="Scale" />
+            <Input hoverEffect="glow" placeholder="Glow" />
+            <Input hoverEffect="ring" placeholder="Ring" />
+            <Input hoverEffect="shine" leadingIcon="search" placeholder="Shine (needs an icon)" />
+          </div>
+          <CodeBlock
+            variants={{
+              react: `<Input transition="fade" placeholder="Fade" />
+<Input transition="slide-up" placeholder="Slide up" />
+<Input transition="slide-right" transitionDelay={100} placeholder="Slide right" />
+<Input transition="zoom" placeholder="Zoom" />
+<Input transition="flip" placeholder="Flip" />
+<Input transition="blur" placeholder="Blur" />
+<Input transition="bounce" placeholder="Bounce" />
+<Input transition="drop" transitionDuration={700} placeholder="Drop" />
+
+<Input hoverEffect="lift" placeholder="Lift" />
+<Input hoverEffect="scale" placeholder="Scale" />
+<Input hoverEffect="glow" placeholder="Glow" />
+<Input hoverEffect="ring" placeholder="Ring" />
+<Input hoverEffect="shine" leadingIcon="search" placeholder="Shine (needs an icon)" />`,
+              js: `<l-Input transition="fade" placeholder="Fade"></l-Input>
+<l-Input transition="slide-up" placeholder="Slide up"></l-Input>
+<l-Input transition="slide-right" transitionDelay="100" placeholder="Slide right"></l-Input>
+<l-Input transition="zoom" placeholder="Zoom"></l-Input>
+<l-Input transition="flip" placeholder="Flip"></l-Input>
+<l-Input transition="blur" placeholder="Blur"></l-Input>
+<l-Input transition="bounce" placeholder="Bounce"></l-Input>
+<l-Input transition="drop" transitionDuration="700" placeholder="Drop"></l-Input>
+
+<l-Input hoverEffect="lift" placeholder="Lift"></l-Input>
+<l-Input hoverEffect="scale" placeholder="Scale"></l-Input>
+<l-Input hoverEffect="glow" placeholder="Glow"></l-Input>
+<l-Input hoverEffect="ring" placeholder="Ring"></l-Input>
+<l-Input hoverEffect="shine" leadingIcon="search" placeholder="Shine (needs an icon)"></l-Input>
+
+<script type="module">
+  import "lojee-ui/elements";
+</script>`,
+              vue: `<template>
+  <l-Input transition="fade" placeholder="Fade"></l-Input>
+  <l-Input transition="slide-up" placeholder="Slide up"></l-Input>
+  <l-Input transition="slide-right" transitionDelay="100" placeholder="Slide right"></l-Input>
+  <l-Input transition="zoom" placeholder="Zoom"></l-Input>
+  <l-Input transition="flip" placeholder="Flip"></l-Input>
+  <l-Input transition="blur" placeholder="Blur"></l-Input>
+  <l-Input transition="bounce" placeholder="Bounce"></l-Input>
+  <l-Input transition="drop" transitionDuration="700" placeholder="Drop"></l-Input>
+
+  <l-Input hoverEffect="lift" placeholder="Lift"></l-Input>
+  <l-Input hoverEffect="scale" placeholder="Scale"></l-Input>
+  <l-Input hoverEffect="glow" placeholder="Glow"></l-Input>
+  <l-Input hoverEffect="ring" placeholder="Ring"></l-Input>
+  <l-Input hoverEffect="shine" leadingIcon="search" placeholder="Shine (needs an icon)"></l-Input>
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-Input transition="fade" placeholder="Fade"></l-Input>
+    <l-Input transition="slide-up" placeholder="Slide up"></l-Input>
+    <l-Input transition="slide-right" transitionDelay="100" placeholder="Slide right"></l-Input>
+    <l-Input transition="zoom" placeholder="Zoom"></l-Input>
+    <l-Input transition="flip" placeholder="Flip"></l-Input>
+    <l-Input transition="blur" placeholder="Blur"></l-Input>
+    <l-Input transition="bounce" placeholder="Bounce"></l-Input>
+    <l-Input transition="drop" transitionDuration="700" placeholder="Drop"></l-Input>
+
+    <l-Input hoverEffect="lift" placeholder="Lift"></l-Input>
+    <l-Input hoverEffect="scale" placeholder="Scale"></l-Input>
+    <l-Input hoverEffect="glow" placeholder="Glow"></l-Input>
+    <l-Input hoverEffect="ring" placeholder="Ring"></l-Input>
+    <l-Input hoverEffect="shine" leadingIcon="search" placeholder="Shine (needs an icon)"></l-Input>
+  \`,
+})
+export class AppComponent {}`,
+            }}
+          />
+        </section>
       </div>
     </div>
   );

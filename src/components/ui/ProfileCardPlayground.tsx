@@ -4,8 +4,12 @@ import { Button } from "./Buttons/Button";
 import type { ColorName } from "../../core/tokens";
 import { ColorSwatches, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
+import { useAnimation } from "./playgroundAnimation";
+import { useMotion } from "./playgroundMotion";
 
 export default function ProfileCardPlayground() {
+  const anim = useAnimation();
+  const motion = useMotion();
   const [name, setName] = useState("Priya Nair");
   const [role, setRole] = useState("Product Designer at Lojee");
   const [bio, setBio] = useState("Building accessible, joyful interfaces.");
@@ -28,6 +32,9 @@ export default function ProfileCardPlayground() {
       <AppWindowBody>
         <div className="max-w-sm w-full">
           <ProfileCard
+            key={motion.replayKey}
+            {...anim.props}
+            {...motion.props}
             name={nameValue}
             role={roleValue}
             bio={bioValue}
@@ -55,7 +62,7 @@ export default function ProfileCardPlayground() {
 
   const roleAttr = roleValue ? ` role="${roleValue}"` : "";
   const bioAttr = bioValue ? ` bio="${bioValue}"` : "";
-  const colorAttr = color !== "accent" ? ` color="${color}"` : "";
+  const colorAttr = (color !== "accent" ? ` color="${color}"` : "") + anim.attrs + motion.attrs;
   const statsBlock = showStats
     ? `\n  stats={[\n    { label: "Followers", value: "2,481" },\n    { label: "Following", value: "312" },\n    { label: "Posts", value: "48" },\n  ]}`
     : "";
@@ -156,6 +163,8 @@ const stats = [
           Show actions
         </label>
       </div>
+      {anim.controls}
+      {motion.controls}
     </PlaygroundLayout>
   );
 }
