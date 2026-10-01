@@ -5,8 +5,8 @@ import { SectionLabel, Row } from "../../ShowcaseHelpers";
 
 export default function ListShowcase() {
   return (
-    <div className="min-h-screen rounded-xl bg-surface p-6 md:p-10">
-      <div className="max-w-5xl mx-auto space-y-12">
+    <div>
+      <div className="space-y-12">
         <div>
           <h1 className="text-2xl font-semibold text-fg">List</h1>
           <p className="text-sm text-fg-subtle mt-1">A simple ordered or unordered list, with optional dividers, borders, and item icons.</p>

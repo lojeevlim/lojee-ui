@@ -109,8 +109,8 @@ function PlanningDemo() {
 export default function MapRouteShowcase() {
   const loopRoutes: MapRouteData[] = [{ coordinates: CEBU_LOOP, color: "accent", width: 5 }];
   return (
-    <div className="min-h-screen rounded-xl bg-surface p-6 md:p-10">
-      <div className="mx-auto max-w-5xl space-y-14">
+    <div>
+      <div className="space-y-14">
         <header>
           <h1 className="text-2xl font-semibold text-fg">Map Routes</h1>
           <p className="mt-1 text-sm text-fg-subtle">
@@ -168,7 +168,7 @@ export default function MapRouteShowcase() {
           <ProgressDemo />
           <CodeBlock
             variants={mapCode({
-              props: [center, zoom(12.4), { name: "routes", value: `[{ coordinates: stops, progress: 0.35, width: 5 }]`, kind: "json" }],
+              props: [center, zoom(12.4), { name: "routes", value: `[{ coordinates: ${coordsCode(STOPS)}, progress: 0.35, width: 5 }]`, kind: "json" }],
               reactProps: [center, zoom(12.4)],
               reactChildren: `  <MapRoute coordinates={stops} progress={progress} width={5} />\n  <MapMarker lng={here[0]} lat={here[1]} icon="car" />`,
               extraJs: "  // update progress later:  map.routes = [{ ...map.routes[0], progress: 0.6 }];",
