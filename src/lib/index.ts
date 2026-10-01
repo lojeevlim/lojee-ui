@@ -9,6 +9,7 @@
 // type-checkers at a dist/index.css that doesn't exist. The Vite build
 // entry (entry.ts, next to this file) adds that import instead.
 
+export { ANIMATED_VARIANTS, type AnimatedVariant } from "../core/animated";
 export { Button, type ButtonProps } from "../components/ui/Buttons/Button";
 export { SplitButton, type SplitButtonProps } from "../components/ui/Buttons/SplitButton";
 export {
@@ -55,6 +56,7 @@ export {
   type TableProps,
   type TableColumn,
   type TableSize,
+  type TableAction,
 } from "../components/ui/Table/Table";
 export { Pagination, type PaginationProps } from "../components/ui/Pagination/Pagination";
 export { Tabs, type TabsProps, type TabItem } from "../components/ui/Tabs/Tabs";
@@ -272,6 +274,22 @@ export {
   type FlowDirection,
   type FlowCurve,
 } from "../components/ui/FlowDiagram/FlowDiagram";
+
+export { Map, type MapProps } from "../components/ui/Map/Map";
+export { MapControls, type MapControlsProps } from "../components/ui/Map/MapControls";
+export { MapMarker, type MapMarkerProps } from "../components/ui/MapMarker/MapMarker";
+export { MapRoute, type MapRouteProps } from "../components/ui/MapRoute/MapRoute";
+export { useMap, type MapContextValue } from "../components/ui/Map/mapContext";
+export { fetchRoutes, type RouteResult } from "../components/ui/Map/routing";
+export type {
+  LngLat,
+  MapMarkerData,
+  MapRouteData,
+  MapRouteSummary,
+  MapViewState,
+  MapControlName,
+} from "../components/ui/Map/mapTypes";
+export type { MapStyleName } from "../components/ui/Map/mapUtils";
 
 // App Layout — themeable grid shell. Section components are aliased to avoid clashing with Footer above.
 export {

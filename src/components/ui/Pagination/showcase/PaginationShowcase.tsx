@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { Pagination } from "../Pagination";
 import CodeBlock from "../../CodeBlock";
-import { SectionLabel } from "../../ShowcaseHelpers";
+import { SectionLabel, Row } from "../../ShowcaseHelpers";
 
 export default function PaginationShowcase() {
+  const [trPage, setTrPage] = useState(1);
   const [basicPage, setBasicPage] = useState(1);
   const [longPage, setLongPage] = useState(6);
   const [widePage, setWidePage] = useState(6);
@@ -151,6 +152,75 @@ const page = ref(3);
 </script>`,
               angular: `<!-- reuses the AppComponent class from above (with \`page\` initialized accordingly) -->
 <l-Pagination [page]="page" totalPages="10" color="indigo" (pagechange)="page = $event.detail" />`,
+            }}
+          />
+        </section>
+
+        <section>
+          <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`). They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
+          <Row>
+            <Pagination page={trPage} totalPages={5} onPageChange={setTrPage} transition="fade" />
+            <Pagination page={trPage} totalPages={5} onPageChange={setTrPage} transition="slide-up" />
+            <Pagination page={trPage} totalPages={5} onPageChange={setTrPage} transition="slide-right" transitionDelay={100} />
+            <Pagination page={trPage} totalPages={5} onPageChange={setTrPage} transition="zoom" />
+            <Pagination page={trPage} totalPages={5} onPageChange={setTrPage} transition="blur" />
+            <Pagination page={trPage} totalPages={5} onPageChange={setTrPage} transition="drop" transitionDuration={700} />
+          </Row>
+          <CodeBlock
+            variants={{
+              react: `const [page, setPage] = useState(1);
+
+<Pagination page={page} totalPages={5} onPageChange={setPage} transition="fade" />
+<Pagination page={page} totalPages={5} onPageChange={setPage} transition="slide-up" />
+<Pagination page={page} totalPages={5} onPageChange={setPage} transition="slide-right" transitionDelay={100} />
+<Pagination page={page} totalPages={5} onPageChange={setPage} transition="zoom" />
+<Pagination page={page} totalPages={5} onPageChange={setPage} transition="blur" />
+<Pagination page={page} totalPages={5} onPageChange={setPage} transition="drop" transitionDuration={700} />`,
+              js: `<l-Pagination page="1" totalPages="5" transition="fade"></l-Pagination>
+<l-Pagination page="1" totalPages="5" transition="slide-up"></l-Pagination>
+<l-Pagination page="1" totalPages="5" transition="slide-right" transitionDelay="100"></l-Pagination>
+<l-Pagination page="1" totalPages="5" transition="zoom"></l-Pagination>
+<l-Pagination page="1" totalPages="5" transition="blur"></l-Pagination>
+<l-Pagination page="1" totalPages="5" transition="drop" transitionDuration="700"></l-Pagination>
+
+<script type="module">
+  import "lojee-ui/elements";
+</script>`,
+              vue: `<template>
+  <l-Pagination :page="page" @pagechange="page = $event.detail" totalPages="5" transition="fade"></l-Pagination>
+  <l-Pagination :page="page" @pagechange="page = $event.detail" totalPages="5" transition="slide-up"></l-Pagination>
+  <l-Pagination :page="page" @pagechange="page = $event.detail" totalPages="5" transition="slide-right" transitionDelay="100"></l-Pagination>
+  <l-Pagination :page="page" @pagechange="page = $event.detail" totalPages="5" transition="zoom"></l-Pagination>
+  <l-Pagination :page="page" @pagechange="page = $event.detail" totalPages="5" transition="blur"></l-Pagination>
+  <l-Pagination :page="page" @pagechange="page = $event.detail" totalPages="5" transition="drop" transitionDuration="700"></l-Pagination>
+</template>
+
+<script setup lang="ts">
+import { ref } from "vue";
+import "lojee-ui/elements";
+
+const page = ref(1);
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-Pagination [page]="page" (pagechange)="page = $event.detail" totalPages="5" transition="fade"></l-Pagination>
+    <l-Pagination [page]="page" (pagechange)="page = $event.detail" totalPages="5" transition="slide-up"></l-Pagination>
+    <l-Pagination [page]="page" (pagechange)="page = $event.detail" totalPages="5" transition="slide-right" transitionDelay="100"></l-Pagination>
+    <l-Pagination [page]="page" (pagechange)="page = $event.detail" totalPages="5" transition="zoom"></l-Pagination>
+    <l-Pagination [page]="page" (pagechange)="page = $event.detail" totalPages="5" transition="blur"></l-Pagination>
+    <l-Pagination [page]="page" (pagechange)="page = $event.detail" totalPages="5" transition="drop" transitionDuration="700"></l-Pagination>
+  \`,
+})
+export class AppComponent {
+  page = 1;
+}`,
             }}
           />
         </section>

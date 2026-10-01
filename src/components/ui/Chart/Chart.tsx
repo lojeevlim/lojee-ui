@@ -1,4 +1,6 @@
 import { cx, COLOR_HEX, type ColorName } from "../../../core/tokens";
+import { useProgress } from "../../../core/useCountUp";
+import { motionClass, motionStyle, type TransitionVariant, type HoverEffect } from "../../../core/motion";
 
 export type ChartType = "bar" | "line" | "donut";
 
@@ -25,6 +27,18 @@ export interface ChartProps {
   color?: ColorName;
   /** Shows each point's label under the plot (bar/line) or as a legend (donut). */
   showLabels?: boolean;
+  /** Grows the data in from zero when the chart mounts — bars rise, the line climbs, donut slices sweep round and the legend numbers count up (default: false). Respects `prefers-reduced-motion`. */
+  countUp?: boolean;
+  /** Duration of the count-up in ms (default: 1200). */
+  countUpDuration?: number;
+  /** Enter transition: "fade" | "slide-up" | "slide-down" | "slide-left" | "slide-right" | "zoom" | "zoom-out" | "flip" | "blur" | "bounce" | "rotate" | "drop" | "skew" (default: none). Respects `prefers-reduced-motion`. */
+  transition?: TransitionVariant;
+  /** Enter transition duration in ms (default: 450). */
+  transitionDuration?: number;
+  /** Delay before the enter transition starts, in ms (default: 0) — handy for staggering. */
+  transitionDelay?: number;
+  /** Effect while hovering: "lift" | "scale" | "press" | "tilt" | "ring" | "glow" | "shine" (default: none). */
+  hoverEffect?: HoverEffect;
   /** Extra class names applied to the root element. */
   className?: string;
   /** Per-part class overrides (`root`, `svg`, `label`) — merged after the built-in styling. */
@@ -55,7 +69,7 @@ function LabelRow({ data, className }: { data: ChartDataPoint[]; className?: str
 // "accent" follows the theme's brand color (CSS var) instead of a fixed hex.
 const hex = (c: ColorName) => (c === "accent" ? "var(--lojee-accent-600)" : COLOR_HEX[c]);
 
-function BarChart({ data, color, height, svgClassName }: { data: ChartDataPoint[]; color: ColorName; height: number; svgClassName?: string }) {
+function BarChart({ data, color, height, svgClassName, progress }: { data: ChartDataPoint[]; color: ColorName; height: number; svgClassName?: string; progress: number }) {
   const max = Math.max(...data.map((d) => d.value), 1);
   const gap = VIEW_W / data.length / 4;
   const barWidth = VIEW_W / data.length - gap;
@@ -70,7 +84,7 @@ function BarChart({ data, color, height, svgClassName }: { data: ChartDataPoint[
       aria-label="Bar chart"
     >
       {data.map((point, i) => {
-        const barHeight = (point.value / max) * (VIEW_H - TOP_PADDING);
+        const barHeight = (point.value / max) * (VIEW_H - TOP_PADDING) * progress;
         const x = i * (barWidth + gap) + gap / 2;
         const y = VIEW_H - barHeight;
         return (
@@ -91,13 +105,13 @@ function BarChart({ data, color, height, svgClassName }: { data: ChartDataPoint[
 // stretches that clipped sliver into a thin shard instead of a clean circle.
 const LINE_PADDING_X = 8;
 
-function LineChart({ data, color, height, svgClassName }: { data: ChartDataPoint[]; color: ColorName; height: number; svgClassName?: string }) {
+function LineChart({ data, color, height, svgClassName, progress }: { data: ChartDataPoint[]; color: ColorName; height: number; svgClassName?: string; progress: number }) {
   const max = Math.max(...data.map((d) => d.value), 1);
   const plotWidth = VIEW_W - LINE_PADDING_X * 2;
   const stepX = data.length > 1 ? plotWidth / (data.length - 1) : 0;
   const points = data.map((point, i) => {
     const x = data.length > 1 ? LINE_PADDING_X + i * stepX : VIEW_W / 2;
-    const y = VIEW_H - (point.value / max) * (VIEW_H - TOP_PADDING);
+    const y = VIEW_H - (point.value / max) * (VIEW_H - TOP_PADDING) * progress;
     return { x, y, point };
   });
   const strokeColor = hex(color);
@@ -142,6 +156,7 @@ function DonutChart({
   showLabels,
   svgClassName,
   labelClassName,
+  progress,
 }: {
   data: ChartDataPoint[];
   color: ColorName;
@@ -149,6 +164,7 @@ function DonutChart({
   showLabels: boolean;
   svgClassName?: string;
   labelClassName?: string;
+  progress: number;
 }) {
   const total = data.reduce((sum, d) => sum + d.value, 0) || 1;
   // Precompute each segment's cumulative starting offset into a plain array
@@ -158,7 +174,11 @@ function DonutChart({
   let cumulativeShare = 0;
   for (const point of data) {
     const share = point.value / total;
-    segments.push({ point, segmentLength: share * DONUT_CIRCUMFERENCE, offset: -cumulativeShare * DONUT_CIRCUMFERENCE });
+    // Slices sweep clockwise: each shows only the part of its arc the overall sweep (`progress` of the full ring) has reached.
+    const start = cumulativeShare * DONUT_CIRCUMFERENCE;
+    const full = share * DONUT_CIRCUMFERENCE;
+    const visible = Math.max(0, Math.min(full, progress * DONUT_CIRCUMFERENCE - start));
+    segments.push({ point, segmentLength: visible, offset: -start });
     cumulativeShare += share;
   }
 
@@ -191,7 +211,7 @@ function DonutChart({
             <li key={i} className="flex items-center gap-2 text-fg-muted">
               <span className="h-2.5 w-2.5 shrink-0 rounded-full" style={{ backgroundColor: hex(point.color ?? color) }} />
               <span className="font-medium text-fg">{point.label}</span>
-              <span className="text-fg-subtle">{point.value}</span>
+              <span className="tabular-nums text-fg-subtle">{Math.round(point.value * progress)}</span>
             </li>
           ))}
         </ul>
@@ -200,13 +220,18 @@ function DonutChart({
   );
 }
 
-export function Chart({ type = "bar", data, height = 200, color = "accent", showLabels = true, className, classNames }: ChartProps) {
+export function Chart({ type = "bar", data, height = 200, color = "accent", showLabels = true, countUp = false, countUpDuration, className, classNames, transition, transitionDuration, transitionDelay, hoverEffect }: ChartProps) {
+  const progress = useProgress(countUp, countUpDuration);
+
   return (
-    <div className={cx("w-full", className, classNames?.root)}>
-      {type === "bar" && <BarChart data={data} color={color} height={height} svgClassName={classNames?.svg} />}
-      {type === "line" && <LineChart data={data} color={color} height={height} svgClassName={classNames?.svg} />}
+    <div
+      className={cx("w-full", motionClass(transition, hoverEffect), className, classNames?.root)}
+      style={motionStyle(transitionDuration, transitionDelay)}
+    >
+      {type === "bar" && <BarChart data={data} color={color} height={height} svgClassName={classNames?.svg} progress={progress} />}
+      {type === "line" && <LineChart data={data} color={color} height={height} svgClassName={classNames?.svg} progress={progress} />}
       {type === "donut" && (
-        <DonutChart data={data} color={color} height={height} showLabels={showLabels} svgClassName={classNames?.svg} labelClassName={classNames?.label} />
+        <DonutChart data={data} color={color} height={height} showLabels={showLabels} svgClassName={classNames?.svg} labelClassName={classNames?.label} progress={progress} />
       )}
       {showLabels && type !== "donut" && <LabelRow data={data} className={classNames?.label} />}
     </div>

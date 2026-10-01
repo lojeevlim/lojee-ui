@@ -125,6 +125,97 @@ export class AppComponent {
             }}
           />
         </section>
+
+        <section>
+          <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`) and hover effects via `hoverEffect`. They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
+          <div className="grid max-w-2xl gap-3 sm:grid-cols-2">
+            <SearchInput transition="fade" placeholder="Search…" />
+            <SearchInput transition="slide-up" placeholder="Search…" />
+            <SearchInput transition="slide-right" transitionDelay={100} placeholder="Search…" />
+            <SearchInput transition="zoom" placeholder="Search…" />
+            <SearchInput transition="flip" placeholder="Search…" />
+            <SearchInput transition="blur" placeholder="Search…" />
+            <SearchInput transition="bounce" placeholder="Search…" />
+            <SearchInput transition="drop" transitionDuration={700} placeholder="Search…" />
+            <SearchInput hoverEffect="lift" placeholder="Search…" />
+            <SearchInput hoverEffect="glow" placeholder="Search…" />
+            <SearchInput hoverEffect="ring" placeholder="Search…" />
+          </div>
+          <CodeBlock
+            variants={{
+              react: `<SearchInput transition="fade" placeholder="Search…" />
+<SearchInput transition="slide-up" placeholder="Search…" />
+<SearchInput transition="slide-right" transitionDelay={100} placeholder="Search…" />
+<SearchInput transition="zoom" placeholder="Search…" />
+<SearchInput transition="flip" placeholder="Search…" />
+<SearchInput transition="blur" placeholder="Search…" />
+<SearchInput transition="bounce" placeholder="Search…" />
+<SearchInput transition="drop" transitionDuration={700} placeholder="Search…" />
+
+<SearchInput hoverEffect="lift" placeholder="Search…" />
+<SearchInput hoverEffect="glow" placeholder="Search…" />
+<SearchInput hoverEffect="ring" placeholder="Search…" />`,
+              js: `<l-SearchInput transition="fade" placeholder="Search…"></l-SearchInput>
+<l-SearchInput transition="slide-up" placeholder="Search…"></l-SearchInput>
+<l-SearchInput transition="slide-right" transitionDelay="100" placeholder="Search…"></l-SearchInput>
+<l-SearchInput transition="zoom" placeholder="Search…"></l-SearchInput>
+<l-SearchInput transition="flip" placeholder="Search…"></l-SearchInput>
+<l-SearchInput transition="blur" placeholder="Search…"></l-SearchInput>
+<l-SearchInput transition="bounce" placeholder="Search…"></l-SearchInput>
+<l-SearchInput transition="drop" transitionDuration="700" placeholder="Search…"></l-SearchInput>
+
+<l-SearchInput hoverEffect="lift" placeholder="Search…"></l-SearchInput>
+<l-SearchInput hoverEffect="glow" placeholder="Search…"></l-SearchInput>
+<l-SearchInput hoverEffect="ring" placeholder="Search…"></l-SearchInput>
+
+<script type="module">
+  import "lojee-ui/elements";
+</script>`,
+              vue: `<template>
+  <l-SearchInput transition="fade" placeholder="Search…"></l-SearchInput>
+  <l-SearchInput transition="slide-up" placeholder="Search…"></l-SearchInput>
+  <l-SearchInput transition="slide-right" transitionDelay="100" placeholder="Search…"></l-SearchInput>
+  <l-SearchInput transition="zoom" placeholder="Search…"></l-SearchInput>
+  <l-SearchInput transition="flip" placeholder="Search…"></l-SearchInput>
+  <l-SearchInput transition="blur" placeholder="Search…"></l-SearchInput>
+  <l-SearchInput transition="bounce" placeholder="Search…"></l-SearchInput>
+  <l-SearchInput transition="drop" transitionDuration="700" placeholder="Search…"></l-SearchInput>
+
+  <l-SearchInput hoverEffect="lift" placeholder="Search…"></l-SearchInput>
+  <l-SearchInput hoverEffect="glow" placeholder="Search…"></l-SearchInput>
+  <l-SearchInput hoverEffect="ring" placeholder="Search…"></l-SearchInput>
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-SearchInput transition="fade" placeholder="Search…"></l-SearchInput>
+    <l-SearchInput transition="slide-up" placeholder="Search…"></l-SearchInput>
+    <l-SearchInput transition="slide-right" transitionDelay="100" placeholder="Search…"></l-SearchInput>
+    <l-SearchInput transition="zoom" placeholder="Search…"></l-SearchInput>
+    <l-SearchInput transition="flip" placeholder="Search…"></l-SearchInput>
+    <l-SearchInput transition="blur" placeholder="Search…"></l-SearchInput>
+    <l-SearchInput transition="bounce" placeholder="Search…"></l-SearchInput>
+    <l-SearchInput transition="drop" transitionDuration="700" placeholder="Search…"></l-SearchInput>
+
+    <l-SearchInput hoverEffect="lift" placeholder="Search…"></l-SearchInput>
+    <l-SearchInput hoverEffect="glow" placeholder="Search…"></l-SearchInput>
+    <l-SearchInput hoverEffect="ring" placeholder="Search…"></l-SearchInput>
+  \`,
+})
+export class AppComponent {}`,
+            }}
+          />
+        </section>
       </div>
     </div>
   );

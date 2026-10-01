@@ -2,10 +2,12 @@ import { useState } from "react";
 import { Section, type SectionSpacing } from "./Section/Section";
 import { OptionGroup, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
+import { useMotion } from "./playgroundMotion";
 
 const SPACINGS: SectionSpacing[] = ["sm", "md", "lg"];
 
 export default function SectionPlayground() {
+  const motion = useMotion({ hover: false });
   const [spacing, setSpacing] = useState<SectionSpacing>("md");
   const [withTitle, setWithTitle] = useState(true);
   const [withSubtitle, setWithSubtitle] = useState(true);
@@ -15,6 +17,8 @@ export default function SectionPlayground() {
       <AppWindowBody className="items-stretch">
         <div className="w-full rounded-lg border border-dashed border-border">
           <Section
+            key={motion.replayKey}
+            {...motion.props}
             spacing={spacing}
             title={withTitle ? "Section title" : undefined}
             subtitle={withSubtitle ? "A short supporting description." : undefined}
@@ -27,7 +31,7 @@ export default function SectionPlayground() {
     </AppWindowFrame>
   );
 
-  const code = `<Section spacing="${spacing}"${withTitle ? ` title="Section title"` : ""}${
+  const code = `<Section spacing="${spacing}"${motion.attrs}${withTitle ? ` title="Section title"` : ""}${
     withSubtitle ? ` subtitle="A short supporting description."` : ""
   }>
   Sample content
@@ -37,7 +41,7 @@ export default function SectionPlayground() {
   // Vue/Angular templates (plain attributes, no bindings needed for a static
   // snapshot); the "js" variant just adds the one-time module import a plain
   // HTML page needs to actually load the `<l-*>` definitions.
-  const htmlMarkup = `<l-Section spacing="${spacing}"${withTitle ? ` title="Section title"` : ""}${
+  const htmlMarkup = `<l-Section spacing="${spacing}"${motion.attrs}${withTitle ? ` title="Section title"` : ""}${
     withSubtitle ? ` subtitle="A short supporting description."` : ""
   }>
   Sample content
@@ -79,6 +83,7 @@ export default function SectionPlayground() {
           </button>
         </div>
       </div>
+      {motion.controls}
     </PlaygroundLayout>
   );
 }

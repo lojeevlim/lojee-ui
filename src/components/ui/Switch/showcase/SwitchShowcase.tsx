@@ -151,6 +151,104 @@ export class AppComponent {}`,
             }}
           />
         </section>
+
+        <section>
+          <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`) and hover effects via `hoverEffect`. They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
+          <Row>
+            <Switch transition="fade" label="Fade" defaultChecked />
+            <Switch transition="slide-up" label="Slide up" defaultChecked />
+            <Switch transition="slide-right" transitionDelay={100} label="Slide right" defaultChecked />
+            <Switch transition="zoom" label="Zoom" defaultChecked />
+            <Switch transition="flip" label="Flip" defaultChecked />
+            <Switch transition="blur" label="Blur" defaultChecked />
+            <Switch transition="bounce" label="Bounce" defaultChecked />
+            <Switch transition="drop" transitionDuration={700} label="Drop" defaultChecked />
+          </Row>
+          <Row>
+            <Switch hoverEffect="lift" label="Lift" />
+            <Switch hoverEffect="scale" label="Scale" />
+            <Switch hoverEffect="glow" label="Glow" />
+            <Switch hoverEffect="shine" label="Shine" />
+          </Row>
+          <CodeBlock
+            variants={{
+              react: `<Switch transition="fade" label="Fade" defaultChecked />
+<Switch transition="slide-up" label="Slide up" defaultChecked />
+<Switch transition="slide-right" transitionDelay={100} label="Slide right" defaultChecked />
+<Switch transition="zoom" label="Zoom" defaultChecked />
+<Switch transition="flip" label="Flip" defaultChecked />
+<Switch transition="blur" label="Blur" defaultChecked />
+<Switch transition="bounce" label="Bounce" defaultChecked />
+<Switch transition="drop" transitionDuration={700} label="Drop" defaultChecked />
+
+<Switch hoverEffect="lift" label="Lift" />
+<Switch hoverEffect="scale" label="Scale" />
+<Switch hoverEffect="glow" label="Glow" />
+<Switch hoverEffect="shine" label="Shine" />`,
+              js: `<l-Switch transition="fade" label="Fade" defaultChecked></l-Switch>
+<l-Switch transition="slide-up" label="Slide up" defaultChecked></l-Switch>
+<l-Switch transition="slide-right" transitionDelay="100" label="Slide right" defaultChecked></l-Switch>
+<l-Switch transition="zoom" label="Zoom" defaultChecked></l-Switch>
+<l-Switch transition="flip" label="Flip" defaultChecked></l-Switch>
+<l-Switch transition="blur" label="Blur" defaultChecked></l-Switch>
+<l-Switch transition="bounce" label="Bounce" defaultChecked></l-Switch>
+<l-Switch transition="drop" transitionDuration="700" label="Drop" defaultChecked></l-Switch>
+
+<l-Switch hoverEffect="lift" label="Lift"></l-Switch>
+<l-Switch hoverEffect="scale" label="Scale"></l-Switch>
+<l-Switch hoverEffect="glow" label="Glow"></l-Switch>
+<l-Switch hoverEffect="shine" label="Shine"></l-Switch>
+
+<script type="module">
+  import "lojee-ui/elements";
+</script>`,
+              vue: `<template>
+  <l-Switch transition="fade" label="Fade" defaultChecked></l-Switch>
+  <l-Switch transition="slide-up" label="Slide up" defaultChecked></l-Switch>
+  <l-Switch transition="slide-right" transitionDelay="100" label="Slide right" defaultChecked></l-Switch>
+  <l-Switch transition="zoom" label="Zoom" defaultChecked></l-Switch>
+  <l-Switch transition="flip" label="Flip" defaultChecked></l-Switch>
+  <l-Switch transition="blur" label="Blur" defaultChecked></l-Switch>
+  <l-Switch transition="bounce" label="Bounce" defaultChecked></l-Switch>
+  <l-Switch transition="drop" transitionDuration="700" label="Drop" defaultChecked></l-Switch>
+
+  <l-Switch hoverEffect="lift" label="Lift"></l-Switch>
+  <l-Switch hoverEffect="scale" label="Scale"></l-Switch>
+  <l-Switch hoverEffect="glow" label="Glow"></l-Switch>
+  <l-Switch hoverEffect="shine" label="Shine"></l-Switch>
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-Switch transition="fade" label="Fade" defaultChecked></l-Switch>
+    <l-Switch transition="slide-up" label="Slide up" defaultChecked></l-Switch>
+    <l-Switch transition="slide-right" transitionDelay="100" label="Slide right" defaultChecked></l-Switch>
+    <l-Switch transition="zoom" label="Zoom" defaultChecked></l-Switch>
+    <l-Switch transition="flip" label="Flip" defaultChecked></l-Switch>
+    <l-Switch transition="blur" label="Blur" defaultChecked></l-Switch>
+    <l-Switch transition="bounce" label="Bounce" defaultChecked></l-Switch>
+    <l-Switch transition="drop" transitionDuration="700" label="Drop" defaultChecked></l-Switch>
+
+    <l-Switch hoverEffect="lift" label="Lift"></l-Switch>
+    <l-Switch hoverEffect="scale" label="Scale"></l-Switch>
+    <l-Switch hoverEffect="glow" label="Glow"></l-Switch>
+    <l-Switch hoverEffect="shine" label="Shine"></l-Switch>
+  \`,
+})
+export class AppComponent {}`,
+            }}
+          />
+        </section>
       </div>
     </div>
   );

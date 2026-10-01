@@ -3,6 +3,9 @@ import { DataGrid, type DataGridColumn, type DataGridSize } from "./DataGrid/Dat
 import { Badge } from "./Badge/Badge";
 import { OptionGroup, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
+import { useMotion } from "./playgroundMotion";
+
+const ROW_COUNTS = ["3", "5", "8"] as const;
 
 const SIZES: DataGridSize[] = ["sm", "md", "lg"];
 
@@ -31,7 +34,10 @@ export default function DataGridPlayground() {
   const [bordered, setBordered] = useState(true);
   const [sortable, setSortable] = useState(false);
   const [selectable, setSelectable] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [skeletonRows, setSkeletonRows] = useState<(typeof ROW_COUNTS)[number]>("5");
   const [selectedCount, setSelectedCount] = useState(0);
+  const motion = useMotion();
 
   const columns: DataGridColumn<Project>[] = [
     { key: "name", header: "Name", sortable },
@@ -49,12 +55,16 @@ export default function DataGridPlayground() {
       <AppWindowBody className="items-stretch">
         <div>
           <DataGrid
+            key={motion.replayKey}
+            {...motion.props}
             columns={columns}
             data={DATA}
             size={size}
             striped={striped}
             bordered={bordered}
             selectable={selectable}
+            loading={loading}
+            skeletonRows={Number(skeletonRows)}
             onSelectionChange={(rows) => setSelectedCount(rows.length)}
           />
           {selectable && <p className="mt-2 text-sm text-fg-subtle">{selectedCount} selected</p>}
@@ -82,14 +92,14 @@ export default function DataGridPlayground() {
     { key: "tasks", header: "Tasks", align: "right"${sortableAttr} },
   ]`;
 
-  const attrs = `size="${size}"${striped ? " striped" : ""}${bordered ? " bordered" : ""}${selectable ? " selectable" : ""}`;
+  const attrs = `size="${size}"${striped ? " striped" : ""}${bordered ? " bordered" : ""}${selectable ? " selectable" : ""}${loading ? ` loading skeletonRows="${skeletonRows}"` : ""}${motion.attrs}`;
 
   const code = `const columns = ${columnsCode};
 
 <DataGrid
   columns={columns}
   data={projects}
-  size="${size}"${striped ? "\n  striped" : ""}${bordered ? "\n  bordered" : ""}${
+  size="${size}"${motion.attrs}${striped ? "\n  striped" : ""}${bordered ? "\n  bordered" : ""}${loading ? `\n  loading\n  skeletonRows={${skeletonRows}}` : ""}${
     selectable ? "\n  selectable\n  onSelectionChange={setSelected}" : ""
   }
 />`;
@@ -141,6 +151,7 @@ ${jsData.trim()}`,
             { label: "Bordered", value: bordered, set: setBordered },
             { label: "Sortable", value: sortable, set: setSortable },
             { label: "Selectable", value: selectable, set: setSelectable },
+            { label: "Loading skeleton", value: loading, set: setLoading },
           ].map((opt) => (
             <button
               key={opt.label}
@@ -156,6 +167,9 @@ ${jsData.trim()}`,
           ))}
         </div>
       </div>
+
+      {loading && <OptionGroup label="Skeleton rows" options={ROW_COUNTS} value={skeletonRows} onChange={setSkeletonRows} />}
+      {motion.controls}
     </PlaygroundLayout>
   );
 }

@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import type { KeyboardEvent } from "react";
 import { cx } from "../../../core/tokens";
 import { Icon } from "../Icons/Icon";
+import { motionClass, motionState, motionStyle, DEFAULT_TRANSITION_MS, type TransitionVariant } from "../../../core/motion";
+import { usePresence } from "../../../core/usePresence";
 
 export interface CommandMenuItem {
   label: string;
@@ -27,6 +29,12 @@ export interface CommandMenuProps {
   items: CommandMenuItem[];
   /** Placeholder text of the search input (default: "Type a command or search…"). */
   placeholder?: string;
+  /** Enter/exit transition for the panel: "fade" | "slide-up" | "slide-down" | "slide-left" | "slide-right" | "zoom" | "zoom-out" | "flip" | "blur" | "bounce" | "rotate" | "drop" | "skew" (default: none). Respects `prefers-reduced-motion`. */
+  transition?: TransitionVariant;
+  /** Transition duration in ms (default: 450). */
+  transitionDuration?: number;
+  /** Delay before the enter transition starts, in ms (default: 0). */
+  transitionDelay?: number;
   /** Extra class names applied to the root overlay element. */
   className?: string;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
@@ -48,9 +56,14 @@ export function CommandMenu({
   onClose,
   items,
   placeholder = "Type a command or search…",
+  transition,
+  transitionDuration,
+  transitionDelay,
   className,
   classNames,
 }: CommandMenuProps) {
+  // With a `transition` the palette stays mounted for the exit; without one it unmounts immediately, as before.
+  const { mounted } = usePresence(open, transition ? (transitionDuration ?? DEFAULT_TRANSITION_MS) + (transitionDelay ?? 0) : 0);
   const [query, setQuery] = useState("");
   const [highlightedIndex, setHighlightedIndex] = useState(0);
 
@@ -76,7 +89,7 @@ export function CommandMenu({
     return () => window.removeEventListener("keydown", handleKey);
   }, [open, onClose]);
 
-  if (!open) return null;
+  if (!(transition ? mounted : open)) return null;
 
   const q = query.trim().toLowerCase();
   const filtered = q
@@ -114,12 +127,20 @@ export function CommandMenu({
       role="dialog"
       aria-modal="true"
     >
-      <div className={cx("absolute inset-0 bg-black/40 backdrop-blur-sm", classNames?.overlay)} onClick={onClose} />
+      <div
+        className={cx("absolute inset-0 bg-black/40 backdrop-blur-sm", transition && "lojee-tr lojee-tr-fade", classNames?.overlay)}
+        style={motionStyle(transitionDuration)}
+        {...motionState(open)}
+        onClick={onClose}
+      />
       <div
         className={cx(
           "relative w-full max-w-lg overflow-hidden rounded-xl bg-surface shadow-2xl ring-1 ring-black/5",
+          motionClass(transition),
           classNames?.panel
         )}
+        style={motionStyle(transitionDuration, transitionDelay)}
+        {...motionState(open)}
       >
         <span className="relative flex w-full items-center border-b border-border px-4 py-3">
           <Icon name="search" size={16} className={cx("pointer-events-none mr-2 shrink-0 text-fg-subtle", classNames?.icon)} />

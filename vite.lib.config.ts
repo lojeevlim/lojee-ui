@@ -15,6 +15,14 @@ import { resolve } from "node:path";
 export default defineConfig({
   publicDir: false,
   plugins: [react()],
+  // Asset URLs inside the shipped JS (MapLibre's worker) must resolve next to the file that references them, not
+  // against the consuming site's root — so they are built with `new URL(..., import.meta.url)`.
+  experimental: {
+    renderBuiltUrl(filename, { hostType }) {
+      return hostType === "js" ? { runtime: `new URL(${JSON.stringify(filename)}, import.meta.url).href` } : { relative: true };
+    },
+  },
+
   build: {
     outDir: "dist",
     emptyOutDir: false,
@@ -24,7 +32,7 @@ export default defineConfig({
       fileName: (format) => `index.${format === "es" ? "js" : "cjs"}`,
     },
     rollupOptions: {
-      external: ["react", "react-dom", "react/jsx-runtime", "lucide-react"],
+      external: ["react", "react-dom", "react/jsx-runtime", "lucide-react", "maplibre-gl"],
     },
   },
 });

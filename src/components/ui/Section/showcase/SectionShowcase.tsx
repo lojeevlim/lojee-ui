@@ -89,6 +89,58 @@ export class AppComponent {}`,
             }}
           />
         </section>
+
+        <section>
+          <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`). They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
+          <div className="space-y-3">
+            <Section spacing="sm" transition="fade"><div className="rounded-md bg-surface-muted p-3 text-center text-xs text-fg-subtle">fade</div></Section>
+            <Section spacing="sm" transition="slide-up" title="Slide up"><div className="rounded-md bg-surface-muted p-3 text-center text-xs text-fg-subtle">slide-up</div></Section>
+            <Section spacing="sm" transition="zoom" transitionDelay={100}><div className="rounded-md bg-surface-muted p-3 text-center text-xs text-fg-subtle">zoom</div></Section>
+            <Section spacing="sm" transition="blur" transitionDuration={700}><div className="rounded-md bg-surface-muted p-3 text-center text-xs text-fg-subtle">blur</div></Section>
+          </div>
+          <CodeBlock
+            variants={{
+              react: `<Section spacing="sm" transition="fade">...</Section>
+<Section spacing="sm" transition="slide-up" title="Slide up">...</Section>
+<Section spacing="sm" transition="zoom" transitionDelay={100}>...</Section>
+<Section spacing="sm" transition="blur" transitionDuration={700}>...</Section>`,
+              js: `<l-Section spacing="sm" transition="fade">...</l-Section>
+<l-Section spacing="sm" transition="slide-up" title="Slide up">...</l-Section>
+<l-Section spacing="sm" transition="zoom" transitionDelay="100">...</l-Section>
+<l-Section spacing="sm" transition="blur" transitionDuration="700">...</l-Section>
+
+<script type="module">
+  import "lojee-ui/elements";
+</script>`,
+              vue: `<template>
+  <l-Section spacing="sm" transition="fade">...</l-Section>
+  <l-Section spacing="sm" transition="slide-up" title="Slide up">...</l-Section>
+  <l-Section spacing="sm" transition="zoom" transitionDelay="100">...</l-Section>
+  <l-Section spacing="sm" transition="blur" transitionDuration="700">...</l-Section>
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-Section spacing="sm" transition="fade">...</l-Section>
+    <l-Section spacing="sm" transition="slide-up" title="Slide up">...</l-Section>
+    <l-Section spacing="sm" transition="zoom" transitionDelay="100">...</l-Section>
+    <l-Section spacing="sm" transition="blur" transitionDuration="700">...</l-Section>
+  \`,
+})
+export class AppComponent {}`,
+            }}
+          />
+        </section>
       </div>
     </div>
   );

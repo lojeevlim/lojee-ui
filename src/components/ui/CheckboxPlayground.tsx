@@ -3,8 +3,10 @@ import { Checkbox } from "./Checkbox/Checkbox";
 import type { ColorName } from "../../core/tokens";
 import { ColorSwatches, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
+import { useMotion } from "./playgroundMotion";
 
 export default function CheckboxPlayground() {
+  const motion = useMotion();
   const [checked, setChecked] = useState(true);
   const [color, setColor] = useState<ColorName>("accent");
   const [disabled, setDisabled] = useState(false);
@@ -14,6 +16,8 @@ export default function CheckboxPlayground() {
     <AppWindowFrame>
       <AppWindowBody>
         <Checkbox
+          key={motion.replayKey}
+          {...motion.props}
           checked={checked}
           onChange={(e) => setChecked(e.target.checked)}
           color={color}
@@ -26,7 +30,7 @@ export default function CheckboxPlayground() {
 
   const code = `<Checkbox color="${color}"${checked ? " defaultChecked" : ""}${disabled ? " disabled" : ""}${
     label ? ` label="${label}"` : ""
-  } />`;
+  }${motion.attrs} />`;
 
   // Custom-element markup for the current configuration — identical across
   // Vue/Angular templates (plain attributes, no bindings needed for a static
@@ -34,7 +38,7 @@ export default function CheckboxPlayground() {
   // HTML page needs to actually load the `<l-*>` definitions.
   const htmlMarkup = `<l-Checkbox color="${color}"${checked ? ` defaultChecked` : ""}${
     disabled ? ` disabled` : ""
-  }${label ? ` label="${label}"` : ""} />`;
+  }${label ? ` label="${label}"` : ""}${motion.attrs} />`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,
@@ -82,6 +86,7 @@ export default function CheckboxPlayground() {
           </button>
         </div>
       </div>
+      {motion.controls}
     </PlaygroundLayout>
   );
 }

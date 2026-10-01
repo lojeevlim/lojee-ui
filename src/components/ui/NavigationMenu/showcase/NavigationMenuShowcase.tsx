@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { NavigationMenu } from "../NavigationMenu";
 import CodeBlock from "../../CodeBlock";
-import { SectionLabel } from "../../ShowcaseHelpers";
+import { SectionLabel, Row } from "../../ShowcaseHelpers";
 
 const NAV_ITEMS = [
   { label: "Home", href: "#", active: true },
@@ -484,6 +484,114 @@ items = [
 
 // app.component.html
 <l-NavigationMenu [items]="items" />`,
+            }}
+          />
+        </section>
+
+        <section>
+          <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`) and hover effects via `hoverEffect`. They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
+          <Row>
+            <NavigationMenu items={NAV_ITEMS} transition="fade" />
+            <NavigationMenu items={NAV_ITEMS} transition="slide-down" />
+            <NavigationMenu items={NAV_ITEMS} transition="slide-right" transitionDelay={100} />
+            <NavigationMenu items={NAV_ITEMS} transition="zoom" />
+            <NavigationMenu items={NAV_ITEMS} transition="blur" />
+            <NavigationMenu items={NAV_ITEMS} transition="drop" transitionDuration={700} />
+          </Row>
+          <Row>
+            <NavigationMenu items={NAV_ITEMS} hoverEffect="lift" />
+            <NavigationMenu items={NAV_ITEMS} hoverEffect="glow" />
+            <NavigationMenu items={NAV_ITEMS} hoverEffect="shine" />
+          </Row>
+          <CodeBlock
+            variants={{
+              react: `const items = [
+  { label: "Home", href: "#", active: true },
+  { label: "Products", href: "#" },
+  { label: "Pricing", href: "#" },
+];
+
+<NavigationMenu items={items} transition="fade" />
+<NavigationMenu items={items} transition="slide-down" />
+<NavigationMenu items={items} transition="slide-right" transitionDelay={100} />
+<NavigationMenu items={items} transition="zoom" />
+<NavigationMenu items={items} transition="blur" />
+<NavigationMenu items={items} transition="drop" transitionDuration={700} />
+
+<NavigationMenu items={items} hoverEffect="lift" />
+<NavigationMenu items={items} hoverEffect="glow" />
+<NavigationMenu items={items} hoverEffect="shine" />`,
+              js: `<l-NavigationMenu class="transition-demo" transition="fade"></l-NavigationMenu>
+<l-NavigationMenu class="transition-demo" transition="slide-down"></l-NavigationMenu>
+<l-NavigationMenu class="transition-demo" transition="slide-right" transitionDelay="100"></l-NavigationMenu>
+<l-NavigationMenu class="transition-demo" transition="zoom"></l-NavigationMenu>
+<l-NavigationMenu class="transition-demo" transition="blur"></l-NavigationMenu>
+<l-NavigationMenu class="transition-demo" transition="drop" transitionDuration="700"></l-NavigationMenu>
+
+<l-NavigationMenu class="transition-demo" hoverEffect="lift"></l-NavigationMenu>
+<l-NavigationMenu class="transition-demo" hoverEffect="glow"></l-NavigationMenu>
+<l-NavigationMenu class="transition-demo" hoverEffect="shine"></l-NavigationMenu>
+
+<script type="module">
+  import "lojee-ui/elements";
+
+  const items = [
+    { label: "Home", href: "#", active: true },
+    { label: "Products", href: "#" },
+    { label: "Pricing", href: "#" },
+  ];
+  document.querySelectorAll(".transition-demo").forEach((el) => (el.items = items));
+</script>`,
+              vue: `<template>
+  <l-NavigationMenu :items="items" transition="fade"></l-NavigationMenu>
+  <l-NavigationMenu :items="items" transition="slide-down"></l-NavigationMenu>
+  <l-NavigationMenu :items="items" transition="slide-right" transitionDelay="100"></l-NavigationMenu>
+  <l-NavigationMenu :items="items" transition="zoom"></l-NavigationMenu>
+  <l-NavigationMenu :items="items" transition="blur"></l-NavigationMenu>
+  <l-NavigationMenu :items="items" transition="drop" transitionDuration="700"></l-NavigationMenu>
+
+  <l-NavigationMenu :items="items" hoverEffect="lift"></l-NavigationMenu>
+  <l-NavigationMenu :items="items" hoverEffect="glow"></l-NavigationMenu>
+  <l-NavigationMenu :items="items" hoverEffect="shine"></l-NavigationMenu>
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+
+const items = [
+  { label: "Home", href: "#", active: true },
+  { label: "Products", href: "#" },
+  { label: "Pricing", href: "#" },
+];
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-NavigationMenu [items]="items" transition="fade"></l-NavigationMenu>
+    <l-NavigationMenu [items]="items" transition="slide-down"></l-NavigationMenu>
+    <l-NavigationMenu [items]="items" transition="slide-right" transitionDelay="100"></l-NavigationMenu>
+    <l-NavigationMenu [items]="items" transition="zoom"></l-NavigationMenu>
+    <l-NavigationMenu [items]="items" transition="blur"></l-NavigationMenu>
+    <l-NavigationMenu [items]="items" transition="drop" transitionDuration="700"></l-NavigationMenu>
+
+    <l-NavigationMenu [items]="items" hoverEffect="lift"></l-NavigationMenu>
+    <l-NavigationMenu [items]="items" hoverEffect="glow"></l-NavigationMenu>
+    <l-NavigationMenu [items]="items" hoverEffect="shine"></l-NavigationMenu>
+  \`,
+})
+export class AppComponent {
+  items = [
+    { label: "Home", href: "#", active: true },
+    { label: "Products", href: "#" },
+    { label: "Pricing", href: "#" },
+  ];
+}`,
             }}
           />
         </section>

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Carousel } from "./Carousel/Carousel";
 import { PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
+import { useMotion } from "./playgroundMotion";
 
 const SLIDE_CLASS = "flex h-40 w-full items-center justify-center text-sm font-medium";
 
@@ -24,6 +25,7 @@ const SAMPLE_SLIDES_CODE = `[
   ]`;
 
 export default function CarouselPlayground() {
+  const motion = useMotion();
   const [autoPlay, setAutoPlay] = useState(false);
   const [showArrows, setShowArrows] = useState(true);
   const [showDots, setShowDots] = useState(true);
@@ -31,7 +33,7 @@ export default function CarouselPlayground() {
   const preview = (
     <AppWindowFrame>
       <AppWindowBody>
-        <Carousel slides={SAMPLE_SLIDES} autoPlay={autoPlay} showArrows={showArrows} showDots={showDots} />
+        <Carousel key={motion.replayKey} {...motion.props} slides={SAMPLE_SLIDES} autoPlay={autoPlay} showArrows={showArrows} showDots={showDots} />
       </AppWindowBody>
     </AppWindowFrame>
   );
@@ -39,7 +41,7 @@ export default function CarouselPlayground() {
   const code = `<Carousel
   slides={${SAMPLE_SLIDES_CODE}}${autoPlay ? "\n  autoPlay" : ""}${!showArrows ? "\n  showArrows={false}" : ""}${
     !showDots ? "\n  showDots={false}" : ""
-  }
+  }${motion.attrs}
 />`;
 
   // `slides` is a "json"-typed prop with no native attribute form — it must
@@ -50,7 +52,7 @@ export default function CarouselPlayground() {
   // is reproduced instead.
   const attrs = `${autoPlay ? ` autoPlay` : ""}${!showArrows ? ` showArrows="false"` : ""}${
     !showDots ? ` showDots="false"` : ""
-  }`;
+  }${motion.attrs}`;
 
   const slidesData = `["Slide 1", "Slide 2", "Slide 3"]`;
 
@@ -115,6 +117,7 @@ slides = ${slidesData};`,
           </button>
         </div>
       </div>
+      {motion.controls}
     </PlaygroundLayout>
   );
 }

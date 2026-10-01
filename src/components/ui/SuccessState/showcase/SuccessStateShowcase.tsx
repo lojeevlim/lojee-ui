@@ -1,7 +1,7 @@
 import { SuccessState } from "../SuccessState";
 import { Button } from "../../Buttons/Button";
 import CodeBlock from "../../CodeBlock";
-import { SectionLabel } from "../../ShowcaseHelpers";
+import { SectionLabel, Row } from "../../ShowcaseHelpers";
 
 export default function SuccessStateShowcase() {
   return (
@@ -108,6 +108,78 @@ const handleViewDetails = () => {
 <script type="module">import "lojee-ui/elements";</script>`,
               vue: `<l-SuccessState title="Changes saved">\n  Your changes have been saved and applied.\n</l-SuccessState>`,
               angular: `<l-SuccessState title="Changes saved">\n  Your changes have been saved and applied.\n</l-SuccessState>`,
+            }}
+          />
+        </section>
+
+        <section>
+          <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`). They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
+          <Row>
+            <SuccessState title="Fade" transition="fade" className="w-56" />
+            <SuccessState title="Slide up" transition="slide-up" className="w-56" />
+            <SuccessState title="Slide right" transition="slide-right" transitionDelay={100} className="w-56" />
+            <SuccessState title="Zoom" transition="zoom" className="w-56" />
+            <SuccessState title="Flip" transition="flip" className="w-56" />
+            <SuccessState title="Blur" transition="blur" className="w-56" />
+            <SuccessState title="Bounce" transition="bounce" className="w-56" />
+            <SuccessState title="Drop" transition="drop" transitionDuration={700} className="w-56" />
+          </Row>
+          <CodeBlock
+            variants={{
+              react: `<SuccessState title="Fade" transition="fade" />
+<SuccessState title="Slide up" transition="slide-up" />
+<SuccessState title="Slide right" transition="slide-right" transitionDelay={100} />
+<SuccessState title="Zoom" transition="zoom" />
+<SuccessState title="Flip" transition="flip" />
+<SuccessState title="Blur" transition="blur" />
+<SuccessState title="Bounce" transition="bounce" />
+<SuccessState title="Drop" transition="drop" transitionDuration={700} />`,
+              js: `<l-SuccessState title="Fade" transition="fade"></l-SuccessState>
+<l-SuccessState title="Slide up" transition="slide-up"></l-SuccessState>
+<l-SuccessState title="Slide right" transition="slide-right" transitionDelay="100"></l-SuccessState>
+<l-SuccessState title="Zoom" transition="zoom"></l-SuccessState>
+<l-SuccessState title="Flip" transition="flip"></l-SuccessState>
+<l-SuccessState title="Blur" transition="blur"></l-SuccessState>
+<l-SuccessState title="Bounce" transition="bounce"></l-SuccessState>
+<l-SuccessState title="Drop" transition="drop" transitionDuration="700"></l-SuccessState>
+
+<script type="module">
+  import "lojee-ui/elements";
+</script>`,
+              vue: `<template>
+  <l-SuccessState title="Fade" transition="fade"></l-SuccessState>
+  <l-SuccessState title="Slide up" transition="slide-up"></l-SuccessState>
+  <l-SuccessState title="Slide right" transition="slide-right" transitionDelay="100"></l-SuccessState>
+  <l-SuccessState title="Zoom" transition="zoom"></l-SuccessState>
+  <l-SuccessState title="Flip" transition="flip"></l-SuccessState>
+  <l-SuccessState title="Blur" transition="blur"></l-SuccessState>
+  <l-SuccessState title="Bounce" transition="bounce"></l-SuccessState>
+  <l-SuccessState title="Drop" transition="drop" transitionDuration="700"></l-SuccessState>
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-SuccessState title="Fade" transition="fade"></l-SuccessState>
+    <l-SuccessState title="Slide up" transition="slide-up"></l-SuccessState>
+    <l-SuccessState title="Slide right" transition="slide-right" transitionDelay="100"></l-SuccessState>
+    <l-SuccessState title="Zoom" transition="zoom"></l-SuccessState>
+    <l-SuccessState title="Flip" transition="flip"></l-SuccessState>
+    <l-SuccessState title="Blur" transition="blur"></l-SuccessState>
+    <l-SuccessState title="Bounce" transition="bounce"></l-SuccessState>
+    <l-SuccessState title="Drop" transition="drop" transitionDuration="700"></l-SuccessState>
+  \`,
+})
+export class AppComponent {}`,
             }}
           />
         </section>

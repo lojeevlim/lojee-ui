@@ -1,11 +1,28 @@
 import { useState } from "react";
 import { colorClasses, cx, type ColorName } from "../../../core/tokens";
+import { animatedClass, animatedStyle, type AnimatedVariant } from "../../../core/animated";
+import { AnimatedOverlay } from "../../../core/AnimatedOverlay";
+import { motionClass, motionStyle, type TransitionVariant, type HoverEffect } from "../../../core/motion";
 
 export type AvatarSize = "xs" | "sm" | "md" | "lg" | "xl";
 export type AvatarShape = "circle" | "square";
 export type AvatarStatus = "online" | "offline" | "busy" | "away";
 
 export interface AvatarProps {
+  /** Attention animation: "glow" | "pulse" | "sweep" | "bounce" | "float" | "wiggle" | "border-spin" (default: none). Respects `prefers-reduced-motion`. */
+  animated?: AnimatedVariant;
+  /** Color of the animation (pulse ring, glow, spinning border): a `ColorName` or any CSS color (default: the component's own color). */
+  pulseColor?: ColorName | (string & {});
+  /** Second color — turns the pulse ring and spinning border into a gradient from `pulseColor` to this (default: solid `pulseColor`). */
+  pulseGradientTo?: ColorName | (string & {});
+  /** Enter transition: "fade" | "slide-up" | "slide-down" | "slide-left" | "slide-right" | "zoom" | "zoom-out" | "flip" | "blur" | "bounce" | "rotate" | "drop" | "skew" (default: none). Respects `prefers-reduced-motion`. */
+  transition?: TransitionVariant;
+  /** Enter transition duration in ms (default: 450). */
+  transitionDuration?: number;
+  /** Delay before the enter transition starts, in ms (default: 0) — handy for staggering. */
+  transitionDelay?: number;
+  /** Effect while hovering: "lift" | "scale" | "press" | "tilt" | "ring" | "glow" | "shine" (default: none). */
+  hoverEffect?: HoverEffect;
   /** Image URL; falls back to `initials` when omitted or if the image fails to load. */
   src?: string;
   /** Alternative text for the image (default: ""). */
@@ -66,6 +83,13 @@ export function Avatar({
   color = "accent",
   className,
   classNames,
+  animated,
+  pulseColor,
+  pulseGradientTo,
+  transition,
+  transitionDuration,
+  transitionDelay,
+  hoverEffect,
 }: AvatarProps) {
   const [imageFailed, setImageFailed] = useState(false);
   const px = SIZE_PX[size];
@@ -74,8 +98,15 @@ export function Avatar({
 
   return (
     <span
-      className={cx("relative inline-flex shrink-0 items-center justify-center", className, classNames?.root)}
-      style={{ width: px, height: px }}
+      className={cx(
+        "relative inline-flex shrink-0 items-center justify-center",
+        (animated || hoverEffect) && shapeClass,
+        animatedClass(animated),
+        motionClass(transition, hoverEffect),
+        className,
+        classNames?.root
+      )}
+      style={{ width: px, height: px, ...animatedStyle(animated, color, pulseColor, pulseGradientTo), ...motionStyle(transitionDuration, transitionDelay) }}
     >
       {/* Clips the image/fallback to the avatar's shape — kept off the root
           span so the status dot below (a sibling, not a child of this) isn't
@@ -112,6 +143,7 @@ export function Avatar({
           aria-label={status}
         />
       )}
+      <AnimatedOverlay variant={animated} />
     </span>
   );
 }

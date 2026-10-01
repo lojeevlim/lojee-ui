@@ -2,6 +2,7 @@ import { useLayoutEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
 import type { CSSProperties } from "react";
 import { cx, isColorName, type ColorName } from "../../../core/tokens";
+import { motionClass, motionStyle, type TransitionVariant } from "../../../core/motion";
 import { ACTIVE_ITEM_TRANSITION, ACTIVE_PILL_TRANSITION, activeAccent } from "../../../core/activeVariant";
 
 export interface TabItem {
@@ -22,6 +23,12 @@ export interface TabsProps {
   defaultIndex?: number;
   /** Accent color of the active tab (default: "accent" — follows the theme accent). */
   color?: ColorName;
+  /** Enter transition: "fade" | "slide-up" | "slide-down" | "slide-left" | "slide-right" | "zoom" | "zoom-out" | "flip" | "blur" | "bounce" | "rotate" | "drop" | "skew" (default: none). Respects `prefers-reduced-motion`. */
+  transition?: TransitionVariant;
+  /** Enter transition duration in ms (default: 450). */
+  transitionDuration?: number;
+  /** Delay before the enter transition starts, in ms (default: 0) — handy for staggering. */
+  transitionDelay?: number;
   /** Extra class name(s) appended to the root element. */
   className?: string;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
@@ -50,7 +57,7 @@ const ACTIVE_COLOR: Record<ColorName, string> = {
   pink: "border-pink-600 text-pink-600 dark:border-pink-400 dark:text-pink-400",
 };
 
-export function Tabs({ tabs, defaultIndex = 0, color = "accent", className, classNames }: TabsProps) {
+export function Tabs({ tabs, defaultIndex = 0, color = "accent", transition, transitionDuration, transitionDelay, className, classNames }: TabsProps) {
   const [activeIndex, setActiveIndex] = useState(defaultIndex);
   const active = tabs[activeIndex];
 
@@ -74,7 +81,7 @@ export function Tabs({ tabs, defaultIndex = 0, color = "accent", className, clas
     .join(" ");
 
   return (
-    <div className={cx(className, classNames?.root)}>
+    <div className={cx(motionClass(transition), className, classNames?.root)} style={motionStyle(transitionDuration, transitionDelay)}>
       <div role="tablist" className={cx("relative flex gap-1 border-b border-border", classNames?.list)}>
         {bar && (
           <span

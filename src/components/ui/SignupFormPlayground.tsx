@@ -2,8 +2,10 @@ import { useState } from "react";
 import { SignupForm } from "./SignupForm/SignupForm";
 import { PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
+import { useMotion } from "./playgroundMotion";
 
 export default function SignupFormPlayground() {
+  const motion = useMotion();
   const [title, setTitle] = useState("Create your account");
   const [description, setDescription] = useState("Start your free trial — no credit card required.");
   const [submitLabel, setSubmitLabel] = useState("Create account");
@@ -13,6 +15,8 @@ export default function SignupFormPlayground() {
       <AppWindowBody>
         <div className="w-full max-w-sm">
           <SignupForm
+            key={motion.replayKey}
+            {...motion.props}
             title={title || "Create your account"}
             description={description}
             submitLabel={submitLabel || "Create account"}
@@ -28,14 +32,14 @@ export default function SignupFormPlayground() {
 
   const code = `<SignupForm
   title="${titleValue}"${descriptionAttr}
-  submitLabel="${submitLabelValue}"
+  submitLabel="${submitLabelValue}"${motion.attrs}
   onSubmit={(values) => console.log(values)}
 />`;
 
   const htmlMarkup = `<l-SignupForm title="${titleValue}"${descriptionAttr.replace(
     "\n ",
     " "
-  )} submitLabel="${submitLabelValue}"></l-SignupForm>`;
+  )} submitLabel="${submitLabelValue}"${motion.attrs}></l-SignupForm>`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,
@@ -73,6 +77,7 @@ export default function SignupFormPlayground() {
           placeholder="Create account"
         />
       </div>
+      {motion.controls}
     </PlaygroundLayout>
   );
 }

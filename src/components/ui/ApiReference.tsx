@@ -155,7 +155,15 @@ export default function ApiReference({ name }: { name: string }) {
           <div key={c.name} className="space-y-3">
             <h3 className="font-mono text-base font-semibold text-fg">{heading}</h3>
             {!isReact && !c.element && (
-              <p className="text-sm text-fg-subtle">Not registered as a Web Component — it is only available in React.</p>
+              <p className="text-sm text-fg-subtle">
+                {doc.dataTypes.some((d) => d.via) ? (
+                  <>
+                    Not a separate element — in Vue, Angular and plain JS use the <code className="font-mono text-fg">{doc.dataTypes.find((d) => d.via)?.via}</code> property of <code className="font-mono text-fg">&lt;l-map&gt;</code>; the data shape is below.
+                  </>
+                ) : (
+                  "Not registered as a Web Component — it is only available in React."
+                )}
+              </p>
             )}
             {props.length > 0 && <Table rows={props} kind="prop" withDefault={isReact || props.some((p) => p.default)} />}
             {events.length > 0 && (
@@ -179,6 +187,21 @@ export default function ApiReference({ name }: { name: string }) {
           </div>
         );
       })}
+
+      {doc.dataTypes.map((d) => (
+        <div key={d.name} className="space-y-3">
+          <h3 className="font-mono text-base font-semibold text-fg">{d.name}</h3>
+          <p className="text-sm text-fg-subtle">
+            {d.via ? (
+              <>
+                The shape of each item in the <code className="font-mono text-fg">{d.via}</code> {isReact ? "prop of <Map>" : "property of <l-map>"}.{" "}
+              </>
+            ) : null}
+            {d.note}
+          </p>
+          <Table rows={d.props.map((p) => ({ key: p.name, name: p.name, type: p.type, default: null, description: p.description, required: p.required }))} kind="prop" withDefault={false} />
+        </div>
+      ))}
 
       {isReact && doc.hooks.length > 0 && (
         <div className="space-y-3">

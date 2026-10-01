@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import type { ReactNode } from "react";
 import { cx } from "../../../core/tokens";
+import { motionClass, motionStyle, type TransitionVariant, type HoverEffect } from "../../../core/motion";
 import { Icon } from "../Icons/Icon";
 
 // Same reasoning as Tabs: a r2wc-wrapped Web Component can't inspect or
@@ -18,6 +19,14 @@ export interface CarouselProps {
   showArrows?: boolean;
   /** Shows the clickable dot indicators when there is more than one slide (default: true). */
   showDots?: boolean;
+  /** Enter transition: "fade" | "slide-up" | "slide-down" | "slide-left" | "slide-right" | "zoom" | "zoom-out" | "flip" | "blur" | "bounce" | "rotate" | "drop" | "skew" (default: none). Respects `prefers-reduced-motion`. */
+  transition?: TransitionVariant;
+  /** Enter transition duration in ms (default: 450). */
+  transitionDuration?: number;
+  /** Delay before the enter transition starts, in ms (default: 0) — handy for staggering. */
+  transitionDelay?: number;
+  /** Effect while hovering: "lift" | "scale" | "press" | "tilt" | "ring" | "glow" | "shine" (default: none). */
+  hoverEffect?: HoverEffect;
   /** Extra class names applied to the root element. */
   className?: string;
   /** Per-part class overrides (`root`, `track`, `slide`, `arrow`, `dot`, `activeDot`) — merged after the built-in styling. */
@@ -37,6 +46,10 @@ export function Carousel({
   intervalMs = 4000,
   showArrows = true,
   showDots = true,
+  transition,
+  transitionDuration,
+  transitionDelay,
+  hoverEffect,
   className,
   classNames,
 }: CarouselProps) {
@@ -53,7 +66,10 @@ export function Carousel({
   const goTo = (i: number) => setActiveIndex((i + slides.length) % slides.length);
 
   return (
-    <div className={cx("relative overflow-hidden rounded-xl", className, classNames?.root)}>
+    <div
+      className={cx("relative overflow-hidden rounded-xl", motionClass(transition, hoverEffect), className, classNames?.root)}
+      style={motionStyle(transitionDuration, transitionDelay)}
+    >
       <div
         className={cx("flex transition-transform duration-300 ease-out", classNames?.track)}
         style={{ transform: `translateX(-${activeIndex * 100}%)` }}

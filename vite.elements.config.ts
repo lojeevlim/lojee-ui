@@ -12,6 +12,14 @@ import { resolve } from "node:path";
 export default defineConfig({
   publicDir: false,
   plugins: [react(), tailwindcss()],
+  // Asset URLs inside the shipped JS (MapLibre's worker) must resolve next to the file that references them, not
+  // against the consuming site's root — so they are built with `new URL(..., import.meta.url)`.
+  experimental: {
+    renderBuiltUrl(filename, { hostType }) {
+      return hostType === "js" ? { runtime: `new URL(${JSON.stringify(filename)}, import.meta.url).href` } : { relative: true };
+    },
+  },
+
   // React (bundled in here, unlike the peer-dep lib build) checks
   // `process.env.NODE_ENV` internally. This entry ships as a plain
   // `<script type="module">` for non-bundled consumers, so there's no

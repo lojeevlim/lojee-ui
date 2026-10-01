@@ -2,12 +2,15 @@ import { ContextMenu } from "./ContextMenu/ContextMenu";
 import { DropdownMenuItem } from "./DropdownMenu/DropdownMenuItem";
 import { PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
+import { useMotion } from "./playgroundMotion";
 
 export default function ContextMenuPlayground() {
+  const motion = useMotion({ hover: false });
   const preview = (
     <AppWindowFrame>
       <AppWindowBody>
         <ContextMenu
+          {...motion.props}
           menu={
             <>
               <DropdownMenuItem icon="copy">Copy</DropdownMenuItem>
@@ -26,7 +29,7 @@ export default function ContextMenuPlayground() {
     </AppWindowFrame>
   );
 
-  const code = `<ContextMenu
+  const code = `<ContextMenu${motion.attrs}
   menu={
     <>
       <DropdownMenuItem icon="copy">Copy</DropdownMenuItem>
@@ -43,7 +46,7 @@ export default function ContextMenuPlayground() {
   // named `slot="menu"` wrapping the `<DropdownMenuItem>` children; the
   // target area is the default slot. `danger` needs the explicit "true"
   // string since a bare boolean attribute parses to false.
-  const htmlMarkup = `<l-ContextMenu>
+  const htmlMarkup = `<l-ContextMenu${motion.attrs}>
   <div slot="menu">
     <l-DropdownMenuItem icon="copy">Copy</l-DropdownMenuItem>
     <l-DropdownMenuItem icon="pencil">Rename</l-DropdownMenuItem>
@@ -64,6 +67,7 @@ export default function ContextMenuPlayground() {
       <p className="text-sm text-fg-subtle sm:col-span-2">
         No configurable options — right-click the box above to see the menu.
       </p>
+      {motion.controls}
     </PlaygroundLayout>
   );
 }

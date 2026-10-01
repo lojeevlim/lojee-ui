@@ -6,6 +6,9 @@ import HeroSchematic from "./HeroSchematic";
 import FrameworkFlow from "./FrameworkFlow";
 import ThemeLab from "./ThemeLab";
 import LayoutLab from "./LayoutLab";
+import MotionLab from "./MotionLab";
+import DataLab from "./DataLab";
+import MapLab from "./MapLab";
 import Marquee from "./Marquee";
 import { spotlight, useCountUp, useInView } from "./hooks";
 import Logo from "../layouts/Logo";
@@ -17,16 +20,20 @@ import { COMPONENT_MENU } from "../../constant/component_menu";
 import { pathFor } from "../../core/routes";
 import { REPO_URL } from "../../core/repo";
 import { COLORS } from "../../core/tokens";
+import { ANIMATED_VARIANTS } from "../../core/animated";
+import { TRANSITIONS } from "../../core/motion";
 
-const INSTALL = "npm install lojee-ui lucide-react";
+const INSTALL = "npm install lojee-ui";
 
 const FEATURES: { icon: string; title: string; body: string; span?: string }[] = [
   { icon: "box", title: "Typed React components", body: "Accessible, controlled-or-uncontrolled components from buttons to data grids — every prop documented and typed.", span: "lg:col-span-2" },
   { icon: "shapes", title: "Web Components built in", body: "Every component ships as an l-* custom element for Vue, Angular and plain JS." },
   { icon: "palette", title: "Themes by design", body: "Light, dark and twelve accents through CSS variables — even inside shadow roots." },
+  { icon: "sparkles", title: "Motion built in", body: "Enter and exit transitions, hover effects and attention animations — pulse, glow, sweep, border-spin — on one prop, with solid or gradient colors.", span: "lg:col-span-2" },
+  { icon: "table-2", title: "Data that feels alive", body: "Skeleton loading, charts and stats that count up from zero, and tables with built-in edit, duplicate and delete." },
+  { icon: "map", title: "Maps, markers and routes", body: "MapLibre-powered maps with draggable markers and turn-by-turn routes, loaded only when shown." },
   { icon: "layout-dashboard", title: "App layout system", body: "Top, side, main and footer on a container-query grid that collapses to a drawer.", span: "lg:col-span-2" },
   { icon: "zap", title: "Tailwind v4 native", body: "One @import. No config, no compiled stylesheet, nothing to fight." },
-  { icon: "sliders-horizontal", title: "Batteries included", body: "Selection, search, steppers and pickers manage their own state — and stay controllable." },
 ];
 
 function Stat({ target, suffix = "", label, active }: { target: number; suffix?: string; label: string; active: boolean }) {
@@ -123,15 +130,15 @@ export default function LandingPage() {
         <div className="mx-auto grid max-w-6xl items-center gap-12 px-5 pb-20 pt-10 lg:grid-cols-[1fr_1.05fr] lg:pb-28 lg:pt-16">
           <div>
             <div className="lp-enter inline-flex items-center gap-2 rounded-full border border-border bg-surface/80 py-1 pl-1 pr-3 text-xs text-fg-muted backdrop-blur" style={{ ["--d" as string]: "0ms" }}>
-              <Badge variant="solid" label="New" />
-              Web Components, themes and app layouts
+              <Badge variant="solid" label="New" animated="pulse" />
+              Motion, maps, skeleton loading and table actions
             </div>
             <h1 className="lp-enter mt-5 text-4xl font-semibold leading-[1.05] tracking-tight md:text-6xl" style={{ ["--d" as string]: "100ms" }}>
               Interfaces that fit <span className="lp-shimmer-text">every framework</span>
             </h1>
             <p className="lp-enter mt-5 max-w-xl text-lg leading-relaxed text-fg-muted" style={{ ["--d" as string]: "200ms" }}>
               {total}+ themeable components for React — also shipped as Web Components for Vue, Angular and plain JavaScript. Styled with Tailwind CSS v4. Built to be
-              dropped in and tuned with a few props.
+              dropped in and tuned with a few props — now with motion, maps and live data built in.
             </p>
             <div className="lp-enter mt-8 flex flex-wrap items-center gap-3" style={{ ["--d" as string]: "300ms" }}>
               <Button icon="arrow-right" iconPosition="right" label="Get started" onClick={start} />
@@ -169,9 +176,9 @@ export default function LandingPage() {
       <section className="mx-auto max-w-6xl px-5 py-16">
         <div ref={statsRef} className="grid grid-cols-2 gap-8 md:grid-cols-4">
           <Stat active={statsSeen} target={total} suffix="+" label="Components" />
-          <Stat active={statsSeen} target={groups.length} label="Categories" />
+          <Stat active={statsSeen} target={TRANSITIONS.length} label="Enter transitions" />
+          <Stat active={statsSeen} target={ANIMATED_VARIANTS.length} label="Attention effects" />
           <Stat active={statsSeen} target={COLORS.length} label="Accent colors" />
-          <Stat active={statsSeen} target={4} label="Frameworks" />
         </div>
       </section>
 
@@ -193,6 +200,18 @@ export default function LandingPage() {
             </Reveal>
           ))}
         </div>
+      </Section>
+
+      <Section eyebrow="Motion" title="Bring every component to life" body="Pick an enter transition, an attention effect and a hover effect — pulses and borders can be a solid color or a gradient. It all respects reduced-motion.">
+        <MotionLab />
+      </Section>
+
+      <Section eyebrow="Data" title="Tables that load, edit and react" body="Charts and stats count up from zero, tables show shimmering skeleton rows while data loads, and users can edit, duplicate or delete rows with no extra code.">
+        <DataLab />
+      </Section>
+
+      <Section eyebrow="Maps" title="Interactive maps, markers and routes" body="A MapLibre vector map with free basemaps — no API key. It follows your light and dark theme, loads only when shown, and composes with draggable markers, popups and animated routes.">
+        <MapLab />
       </Section>
 
       <Section eyebrow="Theming" title="Make it yours in one click" body="Mode, accent and the active-item style are plain CSS variables. Try it — this preview is a real, isolated ThemeProvider.">

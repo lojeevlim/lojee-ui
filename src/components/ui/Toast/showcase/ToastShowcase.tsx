@@ -2,7 +2,8 @@ import { useState } from "react";
 import { Toast, type ToastVariant, type ToastPosition } from "../Toast";
 import { Button } from "../../Buttons/Button";
 import CodeBlock from "../../CodeBlock";
-import { SectionLabel } from "../../ShowcaseHelpers";
+import { SectionLabel, Row } from "../../ShowcaseHelpers";
+import type { TransitionVariant } from "../../../../core/motion";
 
 const VARIANTS: { variant: ToastVariant; label: string }[] = [
   { variant: "info", label: "Info" },
@@ -20,7 +21,22 @@ const POSITIONS: ToastPosition[] = [
   "bottom-right",
 ];
 
+const TR_OPTIONS: { label: string; transition: TransitionVariant; duration?: number; delay?: number }[] = [
+  { label: "Fade", transition: "fade" },
+  { label: "Slide up", transition: "slide-up" },
+  { label: "Zoom", transition: "zoom" },
+  { label: "Flip", transition: "flip" },
+  { label: "Blur", transition: "blur" },
+  { label: "Bounce", transition: "bounce" },
+  { label: "Drop (slow)", transition: "drop", duration: 700 },
+  { label: "Zoom (delayed)", transition: "zoom", delay: 200 },
+];
+
 export default function ToastShowcase() {
+  const [trOpen, setTrOpen] = useState(false);
+  const [trOption, setTrOption] = useState(TR_OPTIONS[2]);
+  const trReact = `transition="${trOption.transition}"${trOption.duration ? ` transitionDuration={${trOption.duration}}` : ""}${trOption.delay ? ` transitionDelay={${trOption.delay}}` : ""}`;
+  const trHtml = `transition="${trOption.transition}"${trOption.duration ? ` transitionDuration="${trOption.duration}"` : ""}${trOption.delay ? ` transitionDelay="${trOption.delay}"` : ""}`;
   const [variantOpen, setVariantOpen] = useState(false);
   const [activeVariant, setActiveVariant] = useState<ToastVariant>("info");
 
@@ -189,6 +205,88 @@ const open = ref(false);
               angular: `<l-Toast [open]="open" variant="warning" title="Action required" [duration]="0" (close)="open = false">
   This toast stays open until you dismiss it.
 </l-Toast>`,
+            }}
+          />
+        </section>
+
+        <section>
+          <SectionLabel sub="Enter/exit transitions via `transition` (with `transitionDuration` / `transitionDelay`) — pick one, then close the overlay to see it play in reverse.">Transitions</SectionLabel>
+          <Row>
+            {TR_OPTIONS.map((o) => (
+              <Button
+                key={o.label}
+                variant="outline"
+                label={o.label}
+                onClick={() => {
+                  setTrOption(o);
+                  setTrOpen(true);
+                }}
+              />
+            ))}
+          </Row>
+          <Toast
+            open={trOpen}
+            onClose={() => setTrOpen(false)}
+            variant="success"
+            title="Saved"
+            transition={trOption.transition}
+            transitionDuration={trOption.duration}
+            transitionDelay={trOption.delay}
+          >
+            Your changes have been saved.
+          </Toast>
+          <CodeBlock
+            variants={{
+              react: `const [open, setOpen] = useState(false);
+
+<Button label="Show toast" onClick={() => setOpen(true)} />
+<Toast open={open} onClose={() => setOpen(false)} variant="success" title="Saved" ${trReact}>
+  Your changes have been saved.
+</Toast>`,
+              js: `<l-Button label="Show toast" id="open-tr-btn"></l-Button>
+<l-Toast id="tr-overlay" variant="success" title="Saved" ${trHtml}>
+  Your changes have been saved.
+</l-Toast>
+
+<script type="module">
+  import "lojee-ui/elements";
+
+  const overlay = document.getElementById("tr-overlay");
+  document.getElementById("open-tr-btn")
+    .addEventListener("click", () => { overlay.open = true; });
+  overlay.addEventListener("close", () => { overlay.open = false; });
+</script>`,
+              vue: `<template>
+  <l-Button label="Show toast" @click="open = true"></l-Button>
+  <l-Toast :open="open" variant="success" title="Saved" ${trHtml} @close="open = false">
+    Your changes have been saved.
+  </l-Toast>
+</template>
+
+<script setup lang="ts">
+import { ref } from "vue";
+import "lojee-ui/elements";
+
+const open = ref(false);
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-Button label="Show toast" (click)="open = true"></l-Button>
+    <l-Toast [open]="open" variant="success" title="Saved" ${trHtml} (close)="open = false">
+      Your changes have been saved.
+    </l-Toast>
+  \`,
+})
+export class AppComponent {
+  open = false;
+}`,
             }}
           />
         </section>

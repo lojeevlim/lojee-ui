@@ -3,22 +3,33 @@ import { Stat, type StatTrend } from "./Stat/Stat";
 import type { ColorName } from "../../core/tokens";
 import { OptionGroup, ColorSwatches, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
+import { useAnimation } from "./playgroundAnimation";
+import { useMotion } from "./playgroundMotion";
 
 const TRENDS: StatTrend[] = ["neutral", "up", "down"];
 
 export default function StatPlayground() {
+  const anim = useAnimation();
+  const motion = useMotion();
   const [label, setLabel] = useState("Revenue");
   const [value, setValue] = useState("$48,290");
   const [change, setChange] = useState("12.5%");
   const [trend, setTrend] = useState<StatTrend>("up");
   const [color, setColor] = useState<ColorName>("accent");
   const [icon, setIcon] = useState(true);
+  const [countUp, setCountUp] = useState(false);
+  // Bumped to remount the preview so the count-up can be replayed on demand.
+  const [countKey, setCountKey] = useState(0);
 
   const preview = (
     <AppWindowFrame>
       <AppWindowBody>
         <div className="w-64">
           <Stat
+            key={`${motion.replayKey}-${countKey}`}
+            countUp={countUp}
+            {...anim.props}
+            {...motion.props}
             label={label || "Revenue"}
             value={value || "$48,290"}
             change={change || undefined}
@@ -36,7 +47,7 @@ export default function StatPlayground() {
   const changeAttr = change ? ` change="${change}"` : "";
   const trendAttr = change && trend !== "neutral" ? ` trend="${trend}"` : "";
   const iconAttr = icon ? ` icon="zap"` : "";
-  const colorAttr = icon && color !== "accent" ? ` color="${color}"` : "";
+  const colorAttr = (icon && color !== "accent" ? ` color="${color}"` : "") + (countUp ? " countUp" : "") + anim.attrs + motion.attrs;
 
   const code = `<Stat label="${labelValue}" value="${valueValue}"${changeAttr}${trendAttr}${iconAttr}${colorAttr} />`;
 
@@ -88,6 +99,30 @@ export default function StatPlayground() {
         <input type="checkbox" checked={icon} onChange={(e) => setIcon(e.target.checked)} />
         Show icon
       </label>
+      <div className="flex items-center gap-3">
+        <label className="flex items-center gap-2 text-xs font-medium text-fg-subtle">
+          <input
+            type="checkbox"
+            checked={countUp}
+            onChange={(e) => {
+              setCountUp(e.target.checked);
+              setCountKey((n) => n + 1);
+            }}
+          />
+          Count up
+        </label>
+        {countUp && (
+          <button
+            type="button"
+            onClick={() => setCountKey((n) => n + 1)}
+            className="rounded-md bg-surface-muted px-2.5 py-1 text-xs font-medium text-fg-muted hover:bg-border"
+          >
+            Replay
+          </button>
+        )}
+      </div>
+      {anim.controls}
+      {motion.controls}
     </PlaygroundLayout>
   );
 }

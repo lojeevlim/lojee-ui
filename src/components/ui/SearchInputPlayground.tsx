@@ -2,10 +2,12 @@ import { useState } from "react";
 import { SearchInput, type SearchInputSize } from "./SearchInput/SearchInput";
 import { OptionGroup, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
+import { useMotion } from "./playgroundMotion";
 
 const SIZES: SearchInputSize[] = ["sm", "md", "lg"];
 
 export default function SearchInputPlayground() {
+  const motion = useMotion();
   const [size, setSize] = useState<SearchInputSize>("md");
   const [disabled, setDisabled] = useState(false);
   const [value, setValue] = useState("lojee-ui");
@@ -15,6 +17,8 @@ export default function SearchInputPlayground() {
       <AppWindowBody>
         <div className="max-w-sm w-full">
           <SearchInput
+            key={motion.replayKey}
+            {...motion.props}
             size={size}
             disabled={disabled}
             value={value}
@@ -30,7 +34,7 @@ export default function SearchInputPlayground() {
   const code = `const [value, setValue] = useState("${value}");
 
 <SearchInput
-  size="${size}"${disabled ? "\n  disabled" : ""}
+  size="${size}"${disabled ? "\n  disabled" : ""}${motion.attrs}
   value={value}
   onChange={(e) => setValue(e.target.value)}
   onClear={() => setValue("")}
@@ -43,7 +47,7 @@ export default function SearchInputPlayground() {
   // HTML page needs to actually load the `<l-*>` definitions.
   const htmlMarkup = `<l-SearchInput size="${size}"${
     disabled ? ` disabled` : ""
-  } value="${value}" placeholder="Search…" />`;
+  }${motion.attrs} value="${value}" placeholder="Search…" />`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,
@@ -81,6 +85,7 @@ export default function SearchInputPlayground() {
           </button>
         </div>
       </div>
+      {motion.controls}
     </PlaygroundLayout>
   );
 }

@@ -23,17 +23,17 @@ export default function CodeFrameworkSwitcher() {
   }, [open]);
 
   return (
-    <div ref={rootRef} className="relative hidden sm:block">
+    <div ref={rootRef} className="relative">
       <button
         type="button"
         aria-haspopup="menu"
         aria-expanded={open}
         aria-label="Code example language"
         onClick={() => setOpen((v) => !v)}
-        className="flex items-center gap-2 rounded-md border border-border bg-surface px-2.5 py-2 text-sm text-fg-muted transition-colors hover:bg-surface-muted focus:outline-none focus:ring-2 focus:ring-fg/10"
+        className="flex items-center gap-1.5 rounded-md border border-border bg-surface px-2 py-2 text-sm sm:gap-2 sm:px-2.5 text-fg-muted transition-colors hover:bg-surface-muted focus:outline-none focus:ring-2 focus:ring-fg/10"
       >
         <Code2 size={16} className="text-accent-600 dark:text-accent-400" />
-        <span>{CODE_FRAMEWORK_LABEL[framework]}</span>
+        <span className="max-sm:hidden">{CODE_FRAMEWORK_LABEL[framework]}</span>
         <ChevronDown size={14} className={`transition-transform ${open ? "rotate-180" : ""}`} />
       </button>
 

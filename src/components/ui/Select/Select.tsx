@@ -1,6 +1,7 @@
 import type { SelectHTMLAttributes } from "react";
 import { cx } from "../../../core/tokens";
 import { Icon } from "../Icons/Icon";
+import { motionClass, motionStyle, type TransitionVariant, type HoverEffect } from "../../../core/motion";
 
 export interface SelectOption {
   label: string;
@@ -19,6 +20,14 @@ export interface SelectProps extends Omit<SelectHTMLAttributes<HTMLSelectElement
   size?: SelectSize;
   /** Marks the field as invalid with a rose border/focus ring (default: false). */
   invalid?: boolean;
+  /** Enter transition: "fade" | "slide-up" | "slide-down" | "slide-left" | "slide-right" | "zoom" | "zoom-out" | "flip" | "blur" | "bounce" | "rotate" | "drop" | "skew" (default: none). Respects `prefers-reduced-motion`. */
+  transition?: TransitionVariant;
+  /** Enter transition duration in ms (default: 450). */
+  transitionDuration?: number;
+  /** Delay before the enter transition starts, in ms (default: 0) — handy for staggering. */
+  transitionDelay?: number;
+  /** Effect while hovering: "lift" | "scale" | "press" | "tilt" | "ring" | "glow" | "shine" (default: none). */
+  hoverEffect?: HoverEffect;
   /** Extra CSS class(es) added to the root element, merged before `classNames.root`. */
   className?: string;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
@@ -50,12 +59,19 @@ export function Select({
   placeholder,
   size = "md",
   invalid = false,
+  transition,
+  transitionDuration,
+  transitionDelay,
+  hoverEffect,
   className,
   classNames,
   ...rest
 }: SelectProps) {
   return (
-    <span className={cx("relative inline-flex w-full items-center", className, classNames?.root)}>
+    <span
+      className={cx("relative inline-flex w-full items-center", motionClass(transition, hoverEffect), className, classNames?.root)}
+      style={motionStyle(transitionDuration, transitionDelay)}
+    >
       <select
         className={cx(BASE_CLASSES, SCHEME_CLASSES, SIZE_CLASSES[size], invalid && INVALID_CLASSES, classNames?.select)}
         defaultValue={placeholder ? "" : undefined}

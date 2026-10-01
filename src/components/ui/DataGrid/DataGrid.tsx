@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import type { ReactNode } from "react";
 import { cx } from "../../../core/tokens";
+import { motionClass, motionStyle, type TransitionVariant, type HoverEffect } from "../../../core/motion";
 import { Icon } from "../Icons/Icon";
 import { Checkbox } from "../Checkbox/Checkbox";
 
@@ -45,6 +46,18 @@ export interface DataGridProps<T> {
   getRowId?: (row: T, index: number) => string | number;
   /** Fires whenever the selection changes (when `selectable`), with the array of currently selected rows in display (sorted) order. */
   onSelectionChange?: (selectedRows: T[]) => void;
+  /** Shows shimmering skeleton rows in place of the data while true (default: false). The header stays visible. */
+  loading?: boolean;
+  /** Number of skeleton rows shown while `loading` (default: 5). */
+  skeletonRows?: number;
+  /** Enter transition: "fade" | "slide-up" | "slide-down" | "slide-left" | "slide-right" | "zoom" | "zoom-out" | "flip" | "blur" | "bounce" | "rotate" | "drop" | "skew" (default: none). Respects `prefers-reduced-motion`. */
+  transition?: TransitionVariant;
+  /** Enter transition duration in ms (default: 450). */
+  transitionDuration?: number;
+  /** Delay before the enter transition starts, in ms (default: 0) — handy for staggering. */
+  transitionDelay?: number;
+  /** Effect while hovering: "lift" | "scale" | "press" | "tilt" | "ring" | "glow" | "shine" (default: none). */
+  hoverEffect?: HoverEffect;
   /** Extra class name(s) applied to the root element. */
   className?: string;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
@@ -75,6 +88,24 @@ const ALIGN_CLASSES: Record<"left" | "center" | "right", string> = {
   right: "text-right",
 };
 
+// Bar widths vary by column and row so the skeleton doesn't read as a grid of identical blocks.
+const SKELETON_WIDTHS = ["w-3/4", "w-1/2", "w-2/3", "w-5/6", "w-2/5"];
+
+const ALIGN_JUSTIFY: Record<"left" | "center" | "right", string> = {
+  left: "justify-start",
+  center: "justify-center",
+  right: "justify-end",
+};
+
+// The sweep overlay is absolutely positioned inside the bar, so the bar needs `relative overflow-hidden`.
+function SkeletonBar({ widthClass }: { widthClass: string }) {
+  return (
+    <span className={cx("relative block h-4 overflow-hidden rounded bg-surface-muted", widthClass)}>
+      <span className="absolute inset-0 -translate-x-full animate-shimmer bg-gradient-to-r from-transparent via-white/60 to-transparent motion-reduce:animate-none dark:via-white/10" />
+    </span>
+  );
+}
+
 export function DataGrid<T>({
   columns,
   data,
@@ -84,8 +115,14 @@ export function DataGrid<T>({
   selectable = false,
   getRowId,
   onSelectionChange,
+  loading = false,
+  skeletonRows = 5,
   className,
   classNames,
+  transition,
+  transitionDuration,
+  transitionDelay,
+  hoverEffect,
 }: DataGridProps<T>) {
   const paddingClass = PADDING_CLASSES[size];
   const textClass = TEXT_CLASSES[size];
@@ -143,8 +180,11 @@ export function DataGrid<T>({
   };
 
   return (
-    <div className={cx("overflow-x-auto", className, classNames?.root)}>
-      <table className={cx("w-full", bordered && "border border-border")}>
+    <div
+      className={cx("overflow-x-auto", motionClass(transition, hoverEffect), className, classNames?.root)}
+      style={motionStyle(transitionDuration, transitionDelay)}
+    >
+      <table className={cx("w-full", bordered && "border border-border")} aria-busy={loading || undefined}>
         <thead>
           <tr className={cx(bordered && "divide-x divide-border")}>
             {selectable && (
@@ -197,7 +237,26 @@ export function DataGrid<T>({
         <tbody
           className={cx(bordered && "divide-y divide-border", striped && "[&>tr:nth-child(even)]:bg-surface-muted")}
         >
-          {sortedData.map((row, rowIndex) => {
+          {loading &&
+            Array.from({ length: Math.max(0, skeletonRows) }, (_, rowIndex) => (
+              <tr key={`skeleton-${rowIndex}`} className={cx(bordered && "divide-x divide-border", classNames?.row)}>
+                {selectable && (
+                  <td className={cx("w-10", paddingClass)}>
+                    <div className="flex justify-center">
+                      <SkeletonBar widthClass="w-4" />
+                    </div>
+                  </td>
+                )}
+                {columns.map((column, colIndex) => (
+                  <td key={column.key} className={cx(paddingClass, textClass, classNames?.cell)}>
+                    <div className={cx("flex", ALIGN_JUSTIFY[column.align ?? "left"])}>
+                      <SkeletonBar widthClass={SKELETON_WIDTHS[(rowIndex + colIndex * 2) % SKELETON_WIDTHS.length]} />
+                    </div>
+                  </td>
+                ))}
+              </tr>
+            ))}
+          {!loading && sortedData.map((row, rowIndex) => {
             const id = rowId(row, rowIndex);
             const isSelected = selected.has(id);
             return (

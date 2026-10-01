@@ -2,8 +2,10 @@ import { useState } from "react";
 import { Notification } from "./Notification/Notification";
 import { PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
+import { useMotion } from "./playgroundMotion";
 
 export default function NotificationPlayground() {
+  const motion = useMotion();
   const [title, setTitle] = useState("New comment");
   const [description, setDescription] = useState("Alex left a comment on your document.");
   const [timestamp, setTimestamp] = useState("2m ago");
@@ -15,7 +17,7 @@ export default function NotificationPlayground() {
     <AppWindowFrame>
       <AppWindowBody>
         {visible ? (
-          <Notification
+          <Notification key={motion.replayKey} {...motion.props}
             title={title || "New comment"}
             timestamp={timestamp || undefined}
             unread={unread}
@@ -38,7 +40,7 @@ export default function NotificationPlayground() {
 
   const titleAttr = ` title="${title || "New comment"}"`;
   const timestampAttr = timestamp ? ` timestamp="${timestamp}"` : "";
-  const unreadAttr = unread ? " unread" : "";
+  const unreadAttr = (unread ? " unread" : "") + motion.attrs;
   const body = description || "Alex left a comment on your document.";
 
   const code = `<Notification${titleAttr}${timestampAttr}${unreadAttr}${dismissible ? "\n  onDismiss={() => setVisible(false)}" : ""}>
@@ -112,6 +114,7 @@ export default function NotificationPlayground() {
           {dismissible ? "On" : "Off"}
         </button>
       </div>
+      {motion.controls}
     </PlaygroundLayout>
   );
 }

@@ -1,7 +1,7 @@
 import { ErrorState } from "../ErrorState";
 import { Button } from "../../Buttons/Button";
 import CodeBlock from "../../CodeBlock";
-import { SectionLabel } from "../../ShowcaseHelpers";
+import { SectionLabel, Row } from "../../ShowcaseHelpers";
 
 export default function ErrorStateShowcase() {
   return (
@@ -113,6 +113,78 @@ const handleRetry = () => {
 <script type="module">import "lojee-ui/elements";</script>`,
               vue: `<l-ErrorState title="Connection lost" icon="triangle-alert">\n  Check your internet connection and try again.\n</l-ErrorState>`,
               angular: `<l-ErrorState title="Connection lost" icon="triangle-alert">\n  Check your internet connection and try again.\n</l-ErrorState>`,
+            }}
+          />
+        </section>
+
+        <section>
+          <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`). They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
+          <Row>
+            <ErrorState title="Fade" transition="fade" className="w-56" />
+            <ErrorState title="Slide up" transition="slide-up" className="w-56" />
+            <ErrorState title="Slide right" transition="slide-right" transitionDelay={100} className="w-56" />
+            <ErrorState title="Zoom" transition="zoom" className="w-56" />
+            <ErrorState title="Flip" transition="flip" className="w-56" />
+            <ErrorState title="Blur" transition="blur" className="w-56" />
+            <ErrorState title="Bounce" transition="bounce" className="w-56" />
+            <ErrorState title="Drop" transition="drop" transitionDuration={700} className="w-56" />
+          </Row>
+          <CodeBlock
+            variants={{
+              react: `<ErrorState title="Fade" transition="fade" />
+<ErrorState title="Slide up" transition="slide-up" />
+<ErrorState title="Slide right" transition="slide-right" transitionDelay={100} />
+<ErrorState title="Zoom" transition="zoom" />
+<ErrorState title="Flip" transition="flip" />
+<ErrorState title="Blur" transition="blur" />
+<ErrorState title="Bounce" transition="bounce" />
+<ErrorState title="Drop" transition="drop" transitionDuration={700} />`,
+              js: `<l-ErrorState title="Fade" transition="fade"></l-ErrorState>
+<l-ErrorState title="Slide up" transition="slide-up"></l-ErrorState>
+<l-ErrorState title="Slide right" transition="slide-right" transitionDelay="100"></l-ErrorState>
+<l-ErrorState title="Zoom" transition="zoom"></l-ErrorState>
+<l-ErrorState title="Flip" transition="flip"></l-ErrorState>
+<l-ErrorState title="Blur" transition="blur"></l-ErrorState>
+<l-ErrorState title="Bounce" transition="bounce"></l-ErrorState>
+<l-ErrorState title="Drop" transition="drop" transitionDuration="700"></l-ErrorState>
+
+<script type="module">
+  import "lojee-ui/elements";
+</script>`,
+              vue: `<template>
+  <l-ErrorState title="Fade" transition="fade"></l-ErrorState>
+  <l-ErrorState title="Slide up" transition="slide-up"></l-ErrorState>
+  <l-ErrorState title="Slide right" transition="slide-right" transitionDelay="100"></l-ErrorState>
+  <l-ErrorState title="Zoom" transition="zoom"></l-ErrorState>
+  <l-ErrorState title="Flip" transition="flip"></l-ErrorState>
+  <l-ErrorState title="Blur" transition="blur"></l-ErrorState>
+  <l-ErrorState title="Bounce" transition="bounce"></l-ErrorState>
+  <l-ErrorState title="Drop" transition="drop" transitionDuration="700"></l-ErrorState>
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-ErrorState title="Fade" transition="fade"></l-ErrorState>
+    <l-ErrorState title="Slide up" transition="slide-up"></l-ErrorState>
+    <l-ErrorState title="Slide right" transition="slide-right" transitionDelay="100"></l-ErrorState>
+    <l-ErrorState title="Zoom" transition="zoom"></l-ErrorState>
+    <l-ErrorState title="Flip" transition="flip"></l-ErrorState>
+    <l-ErrorState title="Blur" transition="blur"></l-ErrorState>
+    <l-ErrorState title="Bounce" transition="bounce"></l-ErrorState>
+    <l-ErrorState title="Drop" transition="drop" transitionDuration="700"></l-ErrorState>
+  \`,
+})
+export class AppComponent {}`,
             }}
           />
         </section>

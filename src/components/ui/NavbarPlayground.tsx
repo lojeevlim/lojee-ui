@@ -4,6 +4,7 @@ import { Avatar } from "./Avatar/Avatar";
 import { OptionGroup, ColorSwatches, PlaygroundLayout, AppWindowFrame } from "./PlaygroundHelpers";
 import { cx, isColorName, COLOR_HEX } from "../../core/tokens";
 import type { CodeBlockVariants } from "./CodeBlock";
+import { useMotion } from "./playgroundMotion";
 
 const VARIANTS: NavbarVariant[] = ["light", "dark", "bordered", "elevated", "minimal", "gradient", "glass"];
 
@@ -16,6 +17,7 @@ const NAV_ITEMS = [{ label: "Home" }, { label: "Products" }];
 const DEFAULT_ACTIVE_OPTIONS = ["none", ...NAV_ITEMS.map((item) => item.label)];
 
 export default function NavbarPlayground() {
+  const motion = useMotion();
   const [brand, setBrand] = useState("Lojee");
   const [sticky, setSticky] = useState(false);
   const [bordered, setBordered] = useState(true);
@@ -40,7 +42,8 @@ export default function NavbarPlayground() {
     // change (via `key`) so picking a different one is actually visible here, same as a fresh page
     // load would show; it wouldn't otherwise re-apply on top of whatever's already selected.
     <Navbar
-      key={defaultActiveItemValue}
+      key={`${defaultActiveItemValue}-${motion.replayKey}`}
+      {...motion.props}
       brand={brand ? <span className={onDark ? "text-white" : undefined}>{brand}</span> : undefined}
       sticky={sticky}
       bordered={bordered}
@@ -91,9 +94,11 @@ export default function NavbarPlayground() {
   const borderWidthAttrHtml = showBorderWidthControl && borderWidth !== 2 ? ` border-width="${borderWidth}"` : "";
   const itemsLiteral = `[\n${NAV_ITEMS.map((item) => `    { label: "${item.label}" },`).join("\n")}\n  ]`;
   const defaultActiveItemAttrJsx = defaultActiveItemValue ? ` defaultActiveItem="${defaultActiveItemValue}"` : "";
+  // Same attribute names in React and the custom elements, so they ride along on the last attribute of each.
+  const motionAttrs = motion.attrs;
   const defaultActiveItemAttrHtml = defaultActiveItemValue ? ` default-active-item="${defaultActiveItemValue}"` : "";
 
-  const code = `<Navbar${brandAttr}${stickyAttr}${borderedAttrJsx}${variantAttr}${colorAttr}${borderWidthAttrJsx}${defaultActiveItemAttrJsx}
+  const code = `<Navbar${brandAttr}${stickyAttr}${borderedAttrJsx}${variantAttr}${colorAttr}${borderWidthAttrJsx}${defaultActiveItemAttrJsx}${motionAttrs}
   onActiveItemChange={(item) => console.log(item)}
   items={${itemsLiteral}}
   actions={<Avatar initials="JD" size="sm" />}
@@ -108,7 +113,7 @@ export default function NavbarPlayground() {
   // through a plain HTML attribute string.
   const codeVariants: CodeBlockVariants = {
     react: code,
-    js: `<l-Navbar id="app-navbar"${brandAttr}${stickyAttr}${borderedAttrHtml}${variantAttr}${colorAttr}${borderWidthAttrHtml}${defaultActiveItemAttrHtml}>
+    js: `<l-Navbar id="app-navbar"${brandAttr}${stickyAttr}${borderedAttrHtml}${variantAttr}${colorAttr}${borderWidthAttrHtml}${defaultActiveItemAttrHtml}${motionAttrs}>
   <div slot="actions">
     <l-Avatar initials="JD" size="sm" />
   </div>
@@ -125,7 +130,7 @@ export default function NavbarPlayground() {
   <!-- l-Navbar is a native custom element, not a Vue component — Vue's own #slotName shorthand only
        resolves for actual Vue components, so a real light-DOM slot="actions" is what projects here,
        same plain attribute vanilla JS/Angular use below. -->
-  <l-Navbar${brandAttr}${stickyAttr}${borderedAttrHtml}${variantAttr}${colorAttr}${borderWidthAttrHtml}${defaultActiveItemAttrHtml} :items="items" @activeitemchange="(e) => console.log(e.detail)">
+  <l-Navbar${brandAttr}${stickyAttr}${borderedAttrHtml}${variantAttr}${colorAttr}${borderWidthAttrHtml}${defaultActiveItemAttrHtml}${motionAttrs} :items="items" @activeitemchange="(e) => console.log(e.detail)">
     <div slot="actions">
       <l-Avatar initials="JD" size="sm" />
     </div>
@@ -145,7 +150,7 @@ import "lojee-ui/elements";
   selector: "app-root",
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  template: \`<l-Navbar${brandAttr}${stickyAttr}${borderedAttrHtml}${variantAttr}${colorAttr}${borderWidthAttrHtml}${defaultActiveItemAttrHtml} [items]="items" (activeitemchange)="onActiveItemChange($event.detail)">
+  template: \`<l-Navbar${brandAttr}${stickyAttr}${borderedAttrHtml}${variantAttr}${colorAttr}${borderWidthAttrHtml}${defaultActiveItemAttrHtml}${motionAttrs} [items]="items" (activeitemchange)="onActiveItemChange($event.detail)">
     <div slot="actions">
       <l-Avatar initials="JD" size="sm" />
     </div>
@@ -247,6 +252,7 @@ export class AppComponent {
           </p>
         )}
       </div>
+      {motion.controls}
     </PlaygroundLayout>
   );
 }

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import type { ReactNode, FormEvent } from "react";
 import { cx } from "../../../core/tokens";
+import { motionClass, motionStyle, type TransitionVariant, type HoverEffect } from "../../../core/motion";
 import { Label } from "../Label/Label";
 import { Input } from "../Input/Input";
 import { PasswordInput } from "../PasswordInput/PasswordInput";
@@ -30,6 +31,14 @@ export interface SignupFormProps {
   /** Rich content below the form, e.g. a "Already have an account? Log in" link — this component has
    * no opinion about routing/links, the consumer supplies it. */
   footer?: ReactNode;
+  /** Enter transition: "fade" | "slide-up" | "slide-down" | "slide-left" | "slide-right" | "zoom" | "zoom-out" | "flip" | "blur" | "bounce" | "rotate" | "drop" | "skew" (default: none). Respects `prefers-reduced-motion`. */
+  transition?: TransitionVariant;
+  /** Enter transition duration in ms (default: 450). */
+  transitionDuration?: number;
+  /** Delay before the enter transition starts, in ms (default: 0) — handy for staggering. */
+  transitionDelay?: number;
+  /** Effect while hovering: "lift" | "scale" | "press" | "tilt" | "ring" | "glow" | "shine" (default: none). */
+  hoverEffect?: HoverEffect;
   /** Extra class name(s) appended to the root element. */
   className?: string;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
@@ -48,6 +57,10 @@ export function SignupForm({
   footer,
   className,
   classNames,
+  transition,
+  transitionDuration,
+  transitionDelay,
+  hoverEffect,
 }: SignupFormProps) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -69,7 +82,8 @@ export function SignupForm({
   return (
     <form
       onSubmit={handleSubmit}
-      className={cx("flex w-full flex-col gap-5", className, classNames?.root)}
+      className={cx("flex w-full flex-col gap-5", motionClass(transition, hoverEffect), className, classNames?.root)}
+      style={motionStyle(transitionDuration, transitionDelay)}
     >
       <div className={classNames?.header}>
         <h2 className="text-xl font-semibold text-fg">

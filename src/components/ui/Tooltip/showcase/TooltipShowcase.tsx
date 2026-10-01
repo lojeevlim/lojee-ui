@@ -167,6 +167,186 @@ export class TooltipShowcaseComponent {}`,
             }}
           />
         </section>
+
+        <section>
+          <SectionLabel sub="Enter/exit transitions via `transition` (with `transitionDuration` / `transitionDelay`) — hover or focus a button to see the bubble animate in and out.">Transitions</SectionLabel>
+          <Row>
+            <Tooltip transition="fade" content="Tooltip text">
+              <Button variant="outline" label="Fade" />
+            </Tooltip>
+            <Tooltip transition="slide-up" content="Tooltip text">
+              <Button variant="outline" label="Slide up" />
+            </Tooltip>
+            <Tooltip transition="slide-right" transitionDelay={100} content="Tooltip text">
+              <Button variant="outline" label="Slide right" />
+            </Tooltip>
+            <Tooltip transition="zoom" content="Tooltip text">
+              <Button variant="outline" label="Zoom" />
+            </Tooltip>
+            <Tooltip transition="flip" content="Tooltip text">
+              <Button variant="outline" label="Flip" />
+            </Tooltip>
+            <Tooltip transition="blur" content="Tooltip text">
+              <Button variant="outline" label="Blur" />
+            </Tooltip>
+            <Tooltip transition="bounce" content="Tooltip text">
+              <Button variant="outline" label="Bounce" />
+            </Tooltip>
+            <Tooltip transition="drop" transitionDuration={700} content="Tooltip text">
+              <Button variant="outline" label="Drop" />
+            </Tooltip>
+          </Row>
+          <CodeBlock
+            variants={{
+              react: `<Tooltip transition="fade" content="Tooltip text">
+  <Button variant="outline" label="Fade" />
+</Tooltip>
+
+<Tooltip transition="slide-up" content="Tooltip text">
+  <Button variant="outline" label="Slide up" />
+</Tooltip>
+
+<Tooltip transition="slide-right" transitionDelay={100} content="Tooltip text">
+  <Button variant="outline" label="Slide right" />
+</Tooltip>
+
+<Tooltip transition="zoom" content="Tooltip text">
+  <Button variant="outline" label="Zoom" />
+</Tooltip>
+
+<Tooltip transition="flip" content="Tooltip text">
+  <Button variant="outline" label="Flip" />
+</Tooltip>
+
+<Tooltip transition="blur" content="Tooltip text">
+  <Button variant="outline" label="Blur" />
+</Tooltip>
+
+<Tooltip transition="bounce" content="Tooltip text">
+  <Button variant="outline" label="Bounce" />
+</Tooltip>
+
+<Tooltip transition="drop" transitionDuration={700} content="Tooltip text">
+  <Button variant="outline" label="Drop" />
+</Tooltip>`,
+              js: `<l-Tooltip transition="fade" content="Tooltip text">
+  <l-Button variant="outline" label="Fade"></l-Button>
+</l-Tooltip>
+
+<l-Tooltip transition="slide-up" content="Tooltip text">
+  <l-Button variant="outline" label="Slide up"></l-Button>
+</l-Tooltip>
+
+<l-Tooltip transition="slide-right" transitionDelay="100" content="Tooltip text">
+  <l-Button variant="outline" label="Slide right"></l-Button>
+</l-Tooltip>
+
+<l-Tooltip transition="zoom" content="Tooltip text">
+  <l-Button variant="outline" label="Zoom"></l-Button>
+</l-Tooltip>
+
+<l-Tooltip transition="flip" content="Tooltip text">
+  <l-Button variant="outline" label="Flip"></l-Button>
+</l-Tooltip>
+
+<l-Tooltip transition="blur" content="Tooltip text">
+  <l-Button variant="outline" label="Blur"></l-Button>
+</l-Tooltip>
+
+<l-Tooltip transition="bounce" content="Tooltip text">
+  <l-Button variant="outline" label="Bounce"></l-Button>
+</l-Tooltip>
+
+<l-Tooltip transition="drop" transitionDuration="700" content="Tooltip text">
+  <l-Button variant="outline" label="Drop"></l-Button>
+</l-Tooltip>
+
+<script type="module">
+  import "lojee-ui/elements";
+</script>`,
+              vue: `<template>
+  <l-Tooltip transition="fade" content="Tooltip text">
+    <l-Button variant="outline" label="Fade"></l-Button>
+  </l-Tooltip>
+
+  <l-Tooltip transition="slide-up" content="Tooltip text">
+    <l-Button variant="outline" label="Slide up"></l-Button>
+  </l-Tooltip>
+
+  <l-Tooltip transition="slide-right" transitionDelay="100" content="Tooltip text">
+    <l-Button variant="outline" label="Slide right"></l-Button>
+  </l-Tooltip>
+
+  <l-Tooltip transition="zoom" content="Tooltip text">
+    <l-Button variant="outline" label="Zoom"></l-Button>
+  </l-Tooltip>
+
+  <l-Tooltip transition="flip" content="Tooltip text">
+    <l-Button variant="outline" label="Flip"></l-Button>
+  </l-Tooltip>
+
+  <l-Tooltip transition="blur" content="Tooltip text">
+    <l-Button variant="outline" label="Blur"></l-Button>
+  </l-Tooltip>
+
+  <l-Tooltip transition="bounce" content="Tooltip text">
+    <l-Button variant="outline" label="Bounce"></l-Button>
+  </l-Tooltip>
+
+  <l-Tooltip transition="drop" transitionDuration="700" content="Tooltip text">
+    <l-Button variant="outline" label="Drop"></l-Button>
+  </l-Tooltip>
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-Tooltip transition="fade" content="Tooltip text">
+      <l-Button variant="outline" label="Fade"></l-Button>
+    </l-Tooltip>
+
+    <l-Tooltip transition="slide-up" content="Tooltip text">
+      <l-Button variant="outline" label="Slide up"></l-Button>
+    </l-Tooltip>
+
+    <l-Tooltip transition="slide-right" transitionDelay="100" content="Tooltip text">
+      <l-Button variant="outline" label="Slide right"></l-Button>
+    </l-Tooltip>
+
+    <l-Tooltip transition="zoom" content="Tooltip text">
+      <l-Button variant="outline" label="Zoom"></l-Button>
+    </l-Tooltip>
+
+    <l-Tooltip transition="flip" content="Tooltip text">
+      <l-Button variant="outline" label="Flip"></l-Button>
+    </l-Tooltip>
+
+    <l-Tooltip transition="blur" content="Tooltip text">
+      <l-Button variant="outline" label="Blur"></l-Button>
+    </l-Tooltip>
+
+    <l-Tooltip transition="bounce" content="Tooltip text">
+      <l-Button variant="outline" label="Bounce"></l-Button>
+    </l-Tooltip>
+
+    <l-Tooltip transition="drop" transitionDuration="700" content="Tooltip text">
+      <l-Button variant="outline" label="Drop"></l-Button>
+    </l-Tooltip>
+  \`,
+})
+export class AppComponent {}`,
+            }}
+          />
+        </section>
       </div>
     </div>
   );

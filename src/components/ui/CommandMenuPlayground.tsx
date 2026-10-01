@@ -3,6 +3,7 @@ import { CommandMenu, type CommandMenuItem } from "./CommandMenu";
 import { Button } from "./Buttons/Button";
 import { PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
+import { useMotion } from "./playgroundMotion";
 
 const ITEMS: CommandMenuItem[] = [
   { label: "New file", icon: "file", shortcut: "⌘N" },
@@ -14,6 +15,7 @@ const ITEMS: CommandMenuItem[] = [
 ];
 
 export default function CommandMenuPlayground() {
+  const motion = useMotion({ hover: false });
   const [open, setOpen] = useState(false);
   const [lastSelected, setLastSelected] = useState("None yet");
 
@@ -30,7 +32,7 @@ export default function CommandMenuPlayground() {
           <p className="text-sm text-fg-muted">
             Last selected: <span className="font-medium text-fg">{lastSelected}</span>
           </p>
-          <CommandMenu open={open} onClose={() => setOpen(false)} items={items} />
+          <CommandMenu {...motion.props} open={open} onClose={() => setOpen(false)} items={items} />
         </div>
       </AppWindowBody>
     </AppWindowFrame>
@@ -45,7 +47,7 @@ export default function CommandMenuPlayground() {
   { label: "Open settings", icon: "settings", shortcut: "⌘,", onSelect: () => {} },
 ];
 
-<CommandMenu open={open} onClose={() => setOpen(false)} items={items} />`;
+<CommandMenu open={open} onClose={() => setOpen(false)} items={items}${motion.attrs} />`;
 
   // `items` is JSON-typed and, per the react code above, its `onSelect`
   // callbacks are just placeholder no-ops for display purposes — dropped
@@ -59,7 +61,7 @@ export default function CommandMenuPlayground() {
   ).join(",\n");
 
   const htmlMarkup = `<l-Button label="Open command menu" id="open-command-btn" />
-<l-CommandMenu id="command-menu" />`;
+<l-CommandMenu id="command-menu"${motion.attrs} />`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,
@@ -78,7 +80,7 @@ ${itemsSnippet}
 </script>`,
     vue: `<template>
   <l-Button label="Open command menu" @click="open = true" />
-  <l-CommandMenu :open="open" :items="items" @close="open = false" />
+  <l-CommandMenu :open="open" :items="items"${motion.attrs} @close="open = false" />
 </template>
 
 <script setup lang="ts">
@@ -92,7 +94,7 @@ ${itemsSnippet}
 </script>`,
     angular: `<!-- app.component.html -->
 <l-Button label="Open command menu" (click)="open = true" />
-<l-CommandMenu [open]="open" [items]="items" (close)="open = false" />
+<l-CommandMenu [open]="open" [items]="items"${motion.attrs} (close)="open = false" />
 
 <!-- app.component.ts -->
 items = [
@@ -105,6 +107,7 @@ ${itemsSnippet}
       <div className="sm:col-span-2 text-sm text-fg-subtle">
         Try typing to filter, ArrowUp/ArrowDown to navigate, Enter to select, and Escape to close.
       </div>
+      {motion.controls}
     </PlaygroundLayout>
   );
 }

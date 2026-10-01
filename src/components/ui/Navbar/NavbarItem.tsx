@@ -4,6 +4,7 @@ import { cx, isColorName, type ColorName } from "../../../core/tokens";
 import { getIcon } from "../../../core/icons";
 import { navbarActiveFillClasses } from "./navbarActiveStyles";
 import { activeMarker } from "../../../core/activeVariant";
+import { motionClass, motionStyle, type TransitionVariant, type HoverEffect } from "../../../core/motion";
 
 export interface NavbarItemProps {
   /** Icon name, e.g. "home" — see src/core/icons.ts for the available set. */
@@ -45,6 +46,14 @@ export interface NavbarItemProps {
    * text nodes (see this component's own `content` for the full reasoning). Has no effect on anything
    * other than which `<slot>` this label's fallback content lives in. */
   slotName?: string;
+  /** Enter transition: "fade" | "slide-up" | "slide-down" | "slide-left" | "slide-right" | "zoom" | "zoom-out" | "flip" | "blur" | "bounce" | "rotate" | "drop" | "skew" (default: none). Respects `prefers-reduced-motion`. */
+  transition?: TransitionVariant;
+  /** Enter transition duration in ms (default: 450). */
+  transitionDuration?: number;
+  /** Delay before the enter transition starts, in ms (default: 0) — handy for staggering. */
+  transitionDelay?: number;
+  /** Effect while hovering: "lift" | "scale" | "press" | "tilt" | "ring" | "glow" | "shine" (default: none). */
+  hoverEffect?: HoverEffect;
   /** Extra CSS class(es) added to the item's root element, merged before `classNames.root`. */
   className?: string;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
@@ -68,6 +77,10 @@ export const NavbarItem = forwardRef<HTMLAnchorElement | HTMLButtonElement, Navb
     color = "accent",
     activeStyle = "fill",
     slotName,
+    transition,
+    transitionDuration,
+    transitionDelay,
+    hoverEffect,
     className,
     classNames,
   },
@@ -102,6 +115,7 @@ export const NavbarItem = forwardRef<HTMLAnchorElement | HTMLButtonElement, Navb
     "relative inline-flex items-center justify-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium transition-[color,background-color,box-shadow] duration-200 ease-[cubic-bezier(.4,0,.2,1)]",
     disabled && "pointer-events-none opacity-50",
     active ? activeClass : idleClass,
+    motionClass(transition, hoverEffect),
     className,
     classNames?.root
   );
@@ -109,7 +123,9 @@ export const NavbarItem = forwardRef<HTMLAnchorElement | HTMLButtonElement, Navb
     active && activeStyle === "fill" && !colorIsNamed ? { backgroundColor: dark ? undefined : color } : undefined;
 
   // Marks the active item so theme.css can redraw it for the outline / soft active-item variants.
-  const itemProps = active ? activeMarker(activeStyle === "fill" ? "fill" : "text", color, colorIsNamed, dark, itemStyle) : { style: itemStyle };
+  const baseItemProps = active ? activeMarker(activeStyle === "fill" ? "fill" : "text", color, colorIsNamed, dark, itemStyle) : { style: itemStyle };
+  const mStyle = motionStyle(transitionDuration, transitionDelay);
+  const itemProps = mStyle ? { ...baseItemProps, style: { ...baseItemProps.style, ...mStyle } } : baseItemProps;
 
   const content = (
     <>

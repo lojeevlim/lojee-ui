@@ -1,5 +1,8 @@
+import { useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
 import { colorClasses, cx, nonInteractive, type ColorName } from "../../../core/tokens";
+import { motionClass, motionState, motionStyle, DEFAULT_TRANSITION_MS, type TransitionVariant } from "../../../core/motion";
+import { usePresence } from "../../../core/usePresence";
 
 export type TooltipPosition = "top" | "bottom" | "left" | "right";
 
@@ -14,6 +17,12 @@ export interface TooltipProps {
   delayMs?: number;
   /** Bubble background/text color — same palette as Button (default: "accent", which follows the theme's accent color), or "neutral" for the theme-inverted bubble (dark in light mode, light in dark mode). */
   color?: ColorName | "neutral";
+  /** Enter/exit transition for the bubble — replaces the default fade + scale: "fade" | "slide-up" | "slide-down" | "slide-left" | "slide-right" | "zoom" | "zoom-out" | "flip" | "blur" | "bounce" | "rotate" | "drop" | "skew" (default: the built-in fade + scale). Respects `prefers-reduced-motion`. */
+  transition?: TransitionVariant;
+  /** Enter/exit transition duration in ms (default: 450). */
+  transitionDuration?: number;
+  /** Delay before the enter transition starts, in ms (default: 0). */
+  transitionDelay?: number;
   /** Extra class name(s) appended to the root element. */
   className?: string;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
@@ -68,28 +77,56 @@ export function Tooltip({
   position = "top",
   delayMs = 150,
   color = "accent",
+  transition,
+  transitionDuration,
+  transitionDelay,
   className,
   classNames,
 }: TooltipProps) {
   const bubbleColor = color === "neutral" ? "bg-fg text-surface" : nonInteractive((colorClasses[color] || colorClasses.slate).solid);
 
+  // With a `transition` the bubble is shown by JS state (hover/focus, after `delayMs`) and mounted only while
+  // visible, so its exit can play. Without one, it's the pure-CSS group-hover bubble below, as before.
+  const [shown, setShown] = useState(false);
+  const timer = useRef<ReturnType<typeof setTimeout>>(undefined);
+  const { mounted } = usePresence(shown, (transitionDuration ?? DEFAULT_TRANSITION_MS) + (transitionDelay ?? 0));
+  const show = () => {
+    clearTimeout(timer.current);
+    timer.current = setTimeout(() => setShown(true), delayMs);
+  };
+  const hide = () => {
+    clearTimeout(timer.current);
+    setShown(false);
+  };
+  useEffect(() => () => clearTimeout(timer.current), []);
+
   return (
-    <span className={cx("group relative inline-block", className, classNames?.root)}>
+    <span
+      className={cx("group relative inline-block", className, classNames?.root)}
+      {...(transition && { onMouseEnter: show, onMouseLeave: hide, onFocus: show, onBlur: hide })}
+    >
       <slot>{children}</slot>
+      {(!transition || mounted) && (
       <span
         role="tooltip"
         className={cx(
           // Soft bubble: rounded, medium-weight text, a real shadow, and a small fade + scale-in (also on keyboard focus).
-          "pointer-events-none absolute z-50 whitespace-nowrap rounded-lg px-3 py-1.5 text-xs font-medium opacity-0 shadow-lg scale-95 transition-[opacity,scale] duration-200 group-hover:scale-100 group-hover:opacity-100 group-focus-within:scale-100 group-focus-within:opacity-100",
+          "pointer-events-none absolute z-50 whitespace-nowrap rounded-lg px-3 py-1.5 text-xs font-medium shadow-lg",
+          !transition &&
+            "opacity-0 scale-95 transition-[opacity,scale] duration-200 group-hover:scale-100 group-hover:opacity-100 group-focus-within:scale-100 group-focus-within:opacity-100",
           bubbleColor,
-          closestDelayClass(delayMs),
+          !transition && closestDelayClass(delayMs),
           POSITION_CLASSES[position],
+          motionClass(transition),
           classNames?.bubble
         )}
+        style={motionStyle(transitionDuration, transitionDelay)}
+        {...(transition && motionState(shown))}
       >
         {content}
         <span aria-hidden="true" className={cx("absolute h-2 w-2 rotate-45 bg-inherit", ARROW_CLASSES[position])} />
       </span>
+      )}
     </span>
   );
 }

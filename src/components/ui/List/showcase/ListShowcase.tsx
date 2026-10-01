@@ -283,6 +283,138 @@ likedClassNames = { icon: "text-rose-500" };`,
             }}
           />
         </section>
+
+        <section>
+          <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`). They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
+          <Row>
+            <List variant="bordered" transition="fade">
+              <ListItem>Overview</ListItem>
+              <ListItem>Settings</ListItem>
+              <ListItem>Billing</ListItem>
+            </List>
+            <List variant="bordered" transition="slide-up">
+              <ListItem>Overview</ListItem>
+              <ListItem>Settings</ListItem>
+              <ListItem>Billing</ListItem>
+            </List>
+            <List variant="bordered" transition="slide-right" transitionDelay={100}>
+              <ListItem>Overview</ListItem>
+              <ListItem>Settings</ListItem>
+              <ListItem>Billing</ListItem>
+            </List>
+            <List variant="bordered" transition="drop" transitionDuration={700}>
+              <ListItem>Overview</ListItem>
+              <ListItem>Settings</ListItem>
+              <ListItem>Billing</ListItem>
+            </List>
+          </Row>
+          <CodeBlock
+            variants={{
+              react: `<List variant="bordered" transition="fade">
+  <ListItem>Overview</ListItem>
+  <ListItem>Settings</ListItem>
+  <ListItem>Billing</ListItem>
+</List>
+<List variant="bordered" transition="slide-up">
+  <ListItem>Overview</ListItem>
+  <ListItem>Settings</ListItem>
+  <ListItem>Billing</ListItem>
+</List>
+<List variant="bordered" transition="slide-right" transitionDelay={100}>
+  <ListItem>Overview</ListItem>
+  <ListItem>Settings</ListItem>
+  <ListItem>Billing</ListItem>
+</List>
+<List variant="bordered" transition="drop" transitionDuration={700}>
+  <ListItem>Overview</ListItem>
+  <ListItem>Settings</ListItem>
+  <ListItem>Billing</ListItem>
+</List>`,
+              js: `<l-List variant="bordered" transition="fade">
+  <l-ListItem>Overview</l-ListItem>
+  <l-ListItem>Settings</l-ListItem>
+  <l-ListItem>Billing</l-ListItem>
+</l-List>
+<l-List variant="bordered" transition="slide-up">
+  <l-ListItem>Overview</l-ListItem>
+  <l-ListItem>Settings</l-ListItem>
+  <l-ListItem>Billing</l-ListItem>
+</l-List>
+<l-List variant="bordered" transition="slide-right" transitionDelay="100">
+  <l-ListItem>Overview</l-ListItem>
+  <l-ListItem>Settings</l-ListItem>
+  <l-ListItem>Billing</l-ListItem>
+</l-List>
+<l-List variant="bordered" transition="drop" transitionDuration="700">
+  <l-ListItem>Overview</l-ListItem>
+  <l-ListItem>Settings</l-ListItem>
+  <l-ListItem>Billing</l-ListItem>
+</l-List>
+
+<script type="module">
+  import "lojee-ui/elements";
+</script>`,
+              vue: `<template>
+  <l-List variant="bordered" transition="fade">
+    <l-ListItem>Overview</l-ListItem>
+    <l-ListItem>Settings</l-ListItem>
+    <l-ListItem>Billing</l-ListItem>
+  </l-List>
+  <l-List variant="bordered" transition="slide-up">
+    <l-ListItem>Overview</l-ListItem>
+    <l-ListItem>Settings</l-ListItem>
+    <l-ListItem>Billing</l-ListItem>
+  </l-List>
+  <l-List variant="bordered" transition="slide-right" transitionDelay="100">
+    <l-ListItem>Overview</l-ListItem>
+    <l-ListItem>Settings</l-ListItem>
+    <l-ListItem>Billing</l-ListItem>
+  </l-List>
+  <l-List variant="bordered" transition="drop" transitionDuration="700">
+    <l-ListItem>Overview</l-ListItem>
+    <l-ListItem>Settings</l-ListItem>
+    <l-ListItem>Billing</l-ListItem>
+  </l-List>
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-List variant="bordered" transition="fade">
+      <l-ListItem>Overview</l-ListItem>
+      <l-ListItem>Settings</l-ListItem>
+      <l-ListItem>Billing</l-ListItem>
+    </l-List>
+    <l-List variant="bordered" transition="slide-up">
+      <l-ListItem>Overview</l-ListItem>
+      <l-ListItem>Settings</l-ListItem>
+      <l-ListItem>Billing</l-ListItem>
+    </l-List>
+    <l-List variant="bordered" transition="slide-right" transitionDelay="100">
+      <l-ListItem>Overview</l-ListItem>
+      <l-ListItem>Settings</l-ListItem>
+      <l-ListItem>Billing</l-ListItem>
+    </l-List>
+    <l-List variant="bordered" transition="drop" transitionDuration="700">
+      <l-ListItem>Overview</l-ListItem>
+      <l-ListItem>Settings</l-ListItem>
+      <l-ListItem>Billing</l-ListItem>
+    </l-List>
+  \`,
+})
+export class AppComponent {}`,
+            }}
+          />
+        </section>
       </div>
     </div>
   );

@@ -7,6 +7,7 @@
 // 4 "*State" components imports it.
 import type { ReactNode } from "react";
 import { cx } from "../../../core/tokens";
+import { motionClass, motionStyle, type TransitionVariant } from "../../../core/motion";
 
 export interface StatusLayoutClassNames {
   root?: string;
@@ -24,20 +25,38 @@ export interface StatusLayoutProps {
   description?: ReactNode;
   /** Element rendered below the description, e.g. a button; omitted when not provided. */
   action?: ReactNode;
+  /** Enter transition (see core/motion). */
+  transition?: TransitionVariant;
+  /** Enter transition duration in ms. */
+  transitionDuration?: number;
+  /** Enter transition delay in ms. */
+  transitionDelay?: number;
   /** Extra class name(s) appended to the root element. */
   className?: string;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
   classNames?: StatusLayoutClassNames;
 }
 
-export function StatusLayout({ icon, title, description, action, className, classNames }: StatusLayoutProps) {
+export function StatusLayout({
+  icon,
+  title,
+  description,
+  action,
+  transition,
+  transitionDuration,
+  transitionDelay,
+  className,
+  classNames,
+}: StatusLayoutProps) {
   return (
     <div
       className={cx(
         "flex flex-col items-center justify-center gap-0.5 rounded-xl p-10 text-center",
+        motionClass(transition),
         className,
         classNames?.root
       )}
+      style={motionStyle(transitionDuration, transitionDelay)}
     >
       {icon}
       <h3 className={cx("mt-4 text-base font-semibold text-fg", classNames?.title)}>

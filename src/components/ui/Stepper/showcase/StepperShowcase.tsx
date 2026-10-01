@@ -109,6 +109,8 @@ const ReviewItem = () => <ReviewStep {...useStepper()} />;
 
 const SLOT_STEPS_CODE = `[{ label: "Account" }, { label: "Plan" }, { label: "Review" }]`;
 
+const TR_STEPS = [{ label: "Cart" }, { label: "Shipping" }, { label: "Payment" }];
+
 export default function StepperShowcase() {
   const ref = useRef<StepperHandle>(null);
   const [changed, setChanged] = useState("Cart");
@@ -641,6 +643,98 @@ steps = [
 
 // app.component.html
 <l-Stepper [steps]="steps" current-step="4" />`,
+            }}
+          />
+        </section>
+
+        <section>
+          <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`) and hover effects via `hoverEffect`. They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
+          <div className="space-y-6">
+            <Stepper steps={TR_STEPS} currentStep={1} transition="fade" />
+            <Stepper steps={TR_STEPS} currentStep={1} transition="slide-down" />
+            <Stepper steps={TR_STEPS} currentStep={1} transition="slide-right" transitionDelay={100} />
+            <Stepper steps={TR_STEPS} currentStep={1} transition="zoom" />
+            <Stepper steps={TR_STEPS} currentStep={1} transition="blur" />
+            <Stepper steps={TR_STEPS} currentStep={1} transition="drop" transitionDuration={700} />
+          </div>
+          <div className="space-y-6">
+            <Stepper steps={TR_STEPS} currentStep={1} hoverEffect="scale" />
+            <Stepper steps={TR_STEPS} currentStep={1} hoverEffect="ring" />
+            <Stepper steps={TR_STEPS} currentStep={1} hoverEffect="glow" />
+          </div>
+          <CodeBlock
+            variants={{
+              react: `const steps = [{ label: "Cart" }, { label: "Shipping" }, { label: "Payment" }];
+
+<Stepper steps={steps} currentStep={1} transition="fade" />
+<Stepper steps={steps} currentStep={1} transition="slide-down" />
+<Stepper steps={steps} currentStep={1} transition="slide-right" transitionDelay={100} />
+<Stepper steps={steps} currentStep={1} transition="zoom" />
+<Stepper steps={steps} currentStep={1} transition="blur" />
+<Stepper steps={steps} currentStep={1} transition="drop" transitionDuration={700} />
+
+<Stepper steps={steps} currentStep={1} hoverEffect="scale" />
+<Stepper steps={steps} currentStep={1} hoverEffect="ring" />
+<Stepper steps={steps} currentStep={1} hoverEffect="glow" />`,
+              js: `<l-Stepper class="transition-demo" current-step="1" transition="fade"></l-Stepper>
+<l-Stepper class="transition-demo" current-step="1" transition="slide-down"></l-Stepper>
+<l-Stepper class="transition-demo" current-step="1" transition="slide-right" transitionDelay="100"></l-Stepper>
+<l-Stepper class="transition-demo" current-step="1" transition="zoom"></l-Stepper>
+<l-Stepper class="transition-demo" current-step="1" transition="blur"></l-Stepper>
+<l-Stepper class="transition-demo" current-step="1" transition="drop" transitionDuration="700"></l-Stepper>
+
+<l-Stepper class="transition-demo" current-step="1" hoverEffect="scale"></l-Stepper>
+<l-Stepper class="transition-demo" current-step="1" hoverEffect="ring"></l-Stepper>
+<l-Stepper class="transition-demo" current-step="1" hoverEffect="glow"></l-Stepper>
+
+<script type="module">
+  import "lojee-ui/elements";
+
+  const steps = [{ label: "Cart" }, { label: "Shipping" }, { label: "Payment" }];
+  document.querySelectorAll(".transition-demo").forEach((el) => (el.steps = steps));
+</script>`,
+              vue: `<template>
+  <l-Stepper :steps="steps" current-step="1" transition="fade"></l-Stepper>
+  <l-Stepper :steps="steps" current-step="1" transition="slide-down"></l-Stepper>
+  <l-Stepper :steps="steps" current-step="1" transition="slide-right" transitionDelay="100"></l-Stepper>
+  <l-Stepper :steps="steps" current-step="1" transition="zoom"></l-Stepper>
+  <l-Stepper :steps="steps" current-step="1" transition="blur"></l-Stepper>
+  <l-Stepper :steps="steps" current-step="1" transition="drop" transitionDuration="700"></l-Stepper>
+
+  <l-Stepper :steps="steps" current-step="1" hoverEffect="scale"></l-Stepper>
+  <l-Stepper :steps="steps" current-step="1" hoverEffect="ring"></l-Stepper>
+  <l-Stepper :steps="steps" current-step="1" hoverEffect="glow"></l-Stepper>
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+
+const steps = [{ label: "Cart" }, { label: "Shipping" }, { label: "Payment" }];
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-Stepper [steps]="steps" current-step="1" transition="fade"></l-Stepper>
+    <l-Stepper [steps]="steps" current-step="1" transition="slide-down"></l-Stepper>
+    <l-Stepper [steps]="steps" current-step="1" transition="slide-right" transitionDelay="100"></l-Stepper>
+    <l-Stepper [steps]="steps" current-step="1" transition="zoom"></l-Stepper>
+    <l-Stepper [steps]="steps" current-step="1" transition="blur"></l-Stepper>
+    <l-Stepper [steps]="steps" current-step="1" transition="drop" transitionDuration="700"></l-Stepper>
+
+    <l-Stepper [steps]="steps" current-step="1" hoverEffect="scale"></l-Stepper>
+    <l-Stepper [steps]="steps" current-step="1" hoverEffect="ring"></l-Stepper>
+    <l-Stepper [steps]="steps" current-step="1" hoverEffect="glow"></l-Stepper>
+  \`,
+})
+export class AppComponent {
+  steps = [{ label: "Cart" }, { label: "Shipping" }, { label: "Payment" }];
+}`,
             }}
           />
         </section>

@@ -1,11 +1,20 @@
 import type { InputHTMLAttributes, ReactNode } from "react";
 import { cx, type ColorName } from "../../../core/tokens";
+import { motionClass, motionStyle, type TransitionVariant, type HoverEffect } from "../../../core/motion";
 
 export interface RadioProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "size" | "type"> {
   /** Text or node rendered beside the radio; omit for a bare radio. */
   label?: ReactNode;
   /** Selected dot/border color (default: accent — follows the theme). */
   color?: ColorName;
+  /** Enter transition: "fade" | "slide-up" | "slide-down" | "slide-left" | "slide-right" | "zoom" | "zoom-out" | "flip" | "blur" | "bounce" | "rotate" | "drop" | "skew" (default: none). Respects `prefers-reduced-motion`. */
+  transition?: TransitionVariant;
+  /** Enter transition duration in ms (default: 450). */
+  transitionDuration?: number;
+  /** Delay before the enter transition starts, in ms (default: 0) — handy for staggering. */
+  transitionDelay?: number;
+  /** Effect while hovering: "lift" | "scale" | "press" | "tilt" | "ring" | "glow" | "shine" (default: none). */
+  hoverEffect?: HoverEffect;
   /** Extra CSS class(es) added to the wrapping `<label>`, merged before `classNames.root`. */
   className?: string;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
@@ -48,15 +57,17 @@ const FILL: Record<ColorName, string> = {
   pink: "bg-pink-600",
 };
 
-export function Radio({ label, color = "accent", className, classNames, ...rest }: RadioProps) {
+export function Radio({ label, color = "accent", transition, transitionDuration, transitionDelay, hoverEffect, className, classNames, ...rest }: RadioProps) {
   return (
     <label
       className={cx(
         "inline-flex items-center gap-2 text-sm text-fg-muted",
         rest.disabled && "opacity-40 pointer-events-none",
+        motionClass(transition, hoverEffect),
         className,
         classNames?.root
       )}
+      style={motionStyle(transitionDuration, transitionDelay)}
     >
       <span className="relative inline-flex h-4 w-4 shrink-0">
         {/* Native radios sharing the same `name` (passed via ...rest, part of

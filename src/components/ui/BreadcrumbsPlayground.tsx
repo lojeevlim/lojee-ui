@@ -4,10 +4,12 @@ import { BreadcrumbItem } from "./Breadcrumbs/BreadcrumbItem";
 import { OptionGroup, ColorSwatches, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { ColorName } from "../../core/tokens";
 import type { CodeBlockVariants } from "./CodeBlock";
+import { useMotion } from "./playgroundMotion";
 
 const VARIANTS = ["text", "solid", "outline", "soft"] as const;
 
 export default function BreadcrumbsPlayground() {
+  const motion = useMotion({ hover: false });
   const [lastIcon, setLastIcon] = useState(false);
   const [color, setColor] = useState<ColorName>("accent");
   const [variant, setVariant] = useState<(typeof VARIANTS)[number]>("text");
@@ -16,12 +18,12 @@ export default function BreadcrumbsPlayground() {
   const attrs = [color !== "accent" ? `color="${color}"` : null, variant !== "text" ? `variant="${variant}"` : null]
     .filter(Boolean)
     .join(" ");
-  const attrStr = attrs ? ` ${attrs}` : "";
+  const attrStr = (attrs ? ` ${attrs}` : "") + motion.attrs;
 
   const preview = (
     <AppWindowFrame>
       <AppWindowBody>
-        <Breadcrumbs color={color} variant={variant}>
+        <Breadcrumbs key={motion.replayKey} {...motion.props} color={color} variant={variant}>
           <BreadcrumbItem href="/">Home</BreadcrumbItem>
           <BreadcrumbItem href="/projects">Projects</BreadcrumbItem>
           <BreadcrumbItem icon={lastIcon ? "circle-user" : undefined}>Profile</BreadcrumbItem>
@@ -72,6 +74,7 @@ export default function BreadcrumbsPlayground() {
           </button>
         </div>
       </div>
+      {motion.controls}
     </PlaygroundLayout>
   );
 }

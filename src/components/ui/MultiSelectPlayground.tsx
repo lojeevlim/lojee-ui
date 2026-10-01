@@ -3,6 +3,7 @@ import { MultiSelect, type MultiSelectOption } from "./MultiSelect/MultiSelect";
 import type { ColorName } from "../../core/tokens";
 import { ColorSwatches, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
+import { useMotion } from "./playgroundMotion";
 
 const OPTIONS: MultiSelectOption[] = [
   { label: "Apple", value: "apple" },
@@ -14,6 +15,7 @@ const OPTIONS: MultiSelectOption[] = [
 ];
 
 export default function MultiSelectPlayground() {
+  const motion = useMotion();
   const [value, setValue] = useState<string[]>(["banana"]);
   const [color, setColor] = useState<ColorName>("accent");
   const [placeholder, setPlaceholder] = useState("Select fruits...");
@@ -25,7 +27,7 @@ export default function MultiSelectPlayground() {
     <AppWindowFrame className="overflow-visible">
       <AppWindowBody>
         <div className="w-full max-w-xs">
-          <MultiSelect options={OPTIONS} value={value} onChange={setValue} color={color} placeholder={placeholder} />
+          <MultiSelect {...motion.props} options={OPTIONS} value={value} onChange={setValue} color={color} placeholder={placeholder} />
         </div>
       </AppWindowBody>
     </AppWindowFrame>
@@ -35,7 +37,7 @@ export default function MultiSelectPlayground() {
   options={options}
   value={${JSON.stringify(value)}}
   onChange={setValue}
-  color="${color}"
+  color="${color}"${motion.attrs}
   placeholder="${placeholder}"
 />`;
 
@@ -48,7 +50,7 @@ export default function MultiSelectPlayground() {
 
   const codeVariants: CodeBlockVariants = {
     react: code,
-    js: `<l-MultiSelect id="multi-select" placeholder="${placeholder}" color="${color}" />
+    js: `<l-MultiSelect id="multi-select" placeholder="${placeholder}" color="${color}"${motion.attrs} />
 
 <script type="module">
   import "lojee-ui/elements";
@@ -61,14 +63,14 @@ export default function MultiSelectPlayground() {
   el.value = value;
 </script>`,
     vue: `<template>
-  <l-MultiSelect :options="options" :value="value" placeholder="${placeholder}" color="${color}" />
+  <l-MultiSelect :options="options" :value="value" placeholder="${placeholder}" color="${color}"${motion.attrs} />
 </template>
 
 <script setup lang="ts">
 const options = ${optionsLiteral};
 const value = ${valueLiteral};
 </script>`,
-    angular: `<l-MultiSelect [options]="options" [value]="value" placeholder="${placeholder}" color="${color}" />
+    angular: `<l-MultiSelect [options]="options" [value]="value" placeholder="${placeholder}" color="${color}"${motion.attrs} />
 
 options = ${optionsLiteral};
 value = ${valueLiteral};`,
@@ -87,6 +89,7 @@ value = ${valueLiteral};`,
       </div>
 
       <ColorSwatches value={color} onChange={setColor} />
+      {motion.controls}
 
       <div>
         <span className="mb-1.5 block text-xs font-medium text-fg-subtle">Selected</span>

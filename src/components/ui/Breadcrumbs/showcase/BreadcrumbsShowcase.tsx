@@ -270,6 +270,208 @@ separatorClassNames = { separator: "text-indigo-300" };`,
             }}
           />
         </section>
+
+        <section>
+          <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`). They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
+          <Row>
+            <Breadcrumbs transition="fade">
+              <BreadcrumbItem href="/">Home</BreadcrumbItem>
+              <BreadcrumbItem href="/docs">Docs</BreadcrumbItem>
+              <BreadcrumbItem>Fade</BreadcrumbItem>
+            </Breadcrumbs>
+            <Breadcrumbs transition="slide-up">
+              <BreadcrumbItem href="/">Home</BreadcrumbItem>
+              <BreadcrumbItem href="/docs">Docs</BreadcrumbItem>
+              <BreadcrumbItem>Slide up</BreadcrumbItem>
+            </Breadcrumbs>
+            <Breadcrumbs transition="slide-right" transitionDelay={100}>
+              <BreadcrumbItem href="/">Home</BreadcrumbItem>
+              <BreadcrumbItem href="/docs">Docs</BreadcrumbItem>
+              <BreadcrumbItem>Slide right</BreadcrumbItem>
+            </Breadcrumbs>
+            <Breadcrumbs transition="zoom">
+              <BreadcrumbItem href="/">Home</BreadcrumbItem>
+              <BreadcrumbItem href="/docs">Docs</BreadcrumbItem>
+              <BreadcrumbItem>Zoom</BreadcrumbItem>
+            </Breadcrumbs>
+            <Breadcrumbs transition="blur">
+              <BreadcrumbItem href="/">Home</BreadcrumbItem>
+              <BreadcrumbItem href="/docs">Docs</BreadcrumbItem>
+              <BreadcrumbItem>Blur</BreadcrumbItem>
+            </Breadcrumbs>
+            <Breadcrumbs transition="drop" transitionDuration={700}>
+              <BreadcrumbItem href="/">Home</BreadcrumbItem>
+              <BreadcrumbItem href="/docs">Docs</BreadcrumbItem>
+              <BreadcrumbItem>Drop</BreadcrumbItem>
+            </Breadcrumbs>
+          </Row>
+          <CodeBlock
+            variants={{
+              react: `<Breadcrumbs transition="fade">
+  <BreadcrumbItem href="/">Home</BreadcrumbItem>
+  <BreadcrumbItem href="/docs">Docs</BreadcrumbItem>
+  <BreadcrumbItem>Fade</BreadcrumbItem>
+</Breadcrumbs>
+
+<Breadcrumbs transition="slide-up">
+  <BreadcrumbItem href="/">Home</BreadcrumbItem>
+  <BreadcrumbItem href="/docs">Docs</BreadcrumbItem>
+  <BreadcrumbItem>Slide up</BreadcrumbItem>
+</Breadcrumbs>
+
+<Breadcrumbs transition="slide-right" transitionDelay={100}>
+  <BreadcrumbItem href="/">Home</BreadcrumbItem>
+  <BreadcrumbItem href="/docs">Docs</BreadcrumbItem>
+  <BreadcrumbItem>Slide right</BreadcrumbItem>
+</Breadcrumbs>
+
+<Breadcrumbs transition="zoom">
+  <BreadcrumbItem href="/">Home</BreadcrumbItem>
+  <BreadcrumbItem href="/docs">Docs</BreadcrumbItem>
+  <BreadcrumbItem>Zoom</BreadcrumbItem>
+</Breadcrumbs>
+
+<Breadcrumbs transition="blur">
+  <BreadcrumbItem href="/">Home</BreadcrumbItem>
+  <BreadcrumbItem href="/docs">Docs</BreadcrumbItem>
+  <BreadcrumbItem>Blur</BreadcrumbItem>
+</Breadcrumbs>
+
+<Breadcrumbs transition="drop" transitionDuration={700}>
+  <BreadcrumbItem href="/">Home</BreadcrumbItem>
+  <BreadcrumbItem href="/docs">Docs</BreadcrumbItem>
+  <BreadcrumbItem>Drop</BreadcrumbItem>
+</Breadcrumbs>`,
+              js: `<l-Breadcrumbs transition="fade">
+  <l-BreadcrumbItem href="/">Home</l-BreadcrumbItem>
+  <l-BreadcrumbItem href="/docs">Docs</l-BreadcrumbItem>
+  <l-BreadcrumbItem>Fade</l-BreadcrumbItem>
+</l-Breadcrumbs>
+
+<l-Breadcrumbs transition="slide-up">
+  <l-BreadcrumbItem href="/">Home</l-BreadcrumbItem>
+  <l-BreadcrumbItem href="/docs">Docs</l-BreadcrumbItem>
+  <l-BreadcrumbItem>Slide up</l-BreadcrumbItem>
+</l-Breadcrumbs>
+
+<l-Breadcrumbs transition="slide-right" transitionDelay="100">
+  <l-BreadcrumbItem href="/">Home</l-BreadcrumbItem>
+  <l-BreadcrumbItem href="/docs">Docs</l-BreadcrumbItem>
+  <l-BreadcrumbItem>Slide right</l-BreadcrumbItem>
+</l-Breadcrumbs>
+
+<l-Breadcrumbs transition="zoom">
+  <l-BreadcrumbItem href="/">Home</l-BreadcrumbItem>
+  <l-BreadcrumbItem href="/docs">Docs</l-BreadcrumbItem>
+  <l-BreadcrumbItem>Zoom</l-BreadcrumbItem>
+</l-Breadcrumbs>
+
+<l-Breadcrumbs transition="blur">
+  <l-BreadcrumbItem href="/">Home</l-BreadcrumbItem>
+  <l-BreadcrumbItem href="/docs">Docs</l-BreadcrumbItem>
+  <l-BreadcrumbItem>Blur</l-BreadcrumbItem>
+</l-Breadcrumbs>
+
+<l-Breadcrumbs transition="drop" transitionDuration="700">
+  <l-BreadcrumbItem href="/">Home</l-BreadcrumbItem>
+  <l-BreadcrumbItem href="/docs">Docs</l-BreadcrumbItem>
+  <l-BreadcrumbItem>Drop</l-BreadcrumbItem>
+</l-Breadcrumbs>
+
+<script type="module">
+  import "lojee-ui/elements";
+</script>`,
+              vue: `<template>
+  <l-Breadcrumbs transition="fade">
+    <l-BreadcrumbItem href="/">Home</l-BreadcrumbItem>
+    <l-BreadcrumbItem href="/docs">Docs</l-BreadcrumbItem>
+    <l-BreadcrumbItem>Fade</l-BreadcrumbItem>
+  </l-Breadcrumbs>
+
+  <l-Breadcrumbs transition="slide-up">
+    <l-BreadcrumbItem href="/">Home</l-BreadcrumbItem>
+    <l-BreadcrumbItem href="/docs">Docs</l-BreadcrumbItem>
+    <l-BreadcrumbItem>Slide up</l-BreadcrumbItem>
+  </l-Breadcrumbs>
+
+  <l-Breadcrumbs transition="slide-right" transitionDelay="100">
+    <l-BreadcrumbItem href="/">Home</l-BreadcrumbItem>
+    <l-BreadcrumbItem href="/docs">Docs</l-BreadcrumbItem>
+    <l-BreadcrumbItem>Slide right</l-BreadcrumbItem>
+  </l-Breadcrumbs>
+
+  <l-Breadcrumbs transition="zoom">
+    <l-BreadcrumbItem href="/">Home</l-BreadcrumbItem>
+    <l-BreadcrumbItem href="/docs">Docs</l-BreadcrumbItem>
+    <l-BreadcrumbItem>Zoom</l-BreadcrumbItem>
+  </l-Breadcrumbs>
+
+  <l-Breadcrumbs transition="blur">
+    <l-BreadcrumbItem href="/">Home</l-BreadcrumbItem>
+    <l-BreadcrumbItem href="/docs">Docs</l-BreadcrumbItem>
+    <l-BreadcrumbItem>Blur</l-BreadcrumbItem>
+  </l-Breadcrumbs>
+
+  <l-Breadcrumbs transition="drop" transitionDuration="700">
+    <l-BreadcrumbItem href="/">Home</l-BreadcrumbItem>
+    <l-BreadcrumbItem href="/docs">Docs</l-BreadcrumbItem>
+    <l-BreadcrumbItem>Drop</l-BreadcrumbItem>
+  </l-Breadcrumbs>
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-Breadcrumbs transition="fade">
+      <l-BreadcrumbItem href="/">Home</l-BreadcrumbItem>
+      <l-BreadcrumbItem href="/docs">Docs</l-BreadcrumbItem>
+      <l-BreadcrumbItem>Fade</l-BreadcrumbItem>
+    </l-Breadcrumbs>
+
+    <l-Breadcrumbs transition="slide-up">
+      <l-BreadcrumbItem href="/">Home</l-BreadcrumbItem>
+      <l-BreadcrumbItem href="/docs">Docs</l-BreadcrumbItem>
+      <l-BreadcrumbItem>Slide up</l-BreadcrumbItem>
+    </l-Breadcrumbs>
+
+    <l-Breadcrumbs transition="slide-right" transitionDelay="100">
+      <l-BreadcrumbItem href="/">Home</l-BreadcrumbItem>
+      <l-BreadcrumbItem href="/docs">Docs</l-BreadcrumbItem>
+      <l-BreadcrumbItem>Slide right</l-BreadcrumbItem>
+    </l-Breadcrumbs>
+
+    <l-Breadcrumbs transition="zoom">
+      <l-BreadcrumbItem href="/">Home</l-BreadcrumbItem>
+      <l-BreadcrumbItem href="/docs">Docs</l-BreadcrumbItem>
+      <l-BreadcrumbItem>Zoom</l-BreadcrumbItem>
+    </l-Breadcrumbs>
+
+    <l-Breadcrumbs transition="blur">
+      <l-BreadcrumbItem href="/">Home</l-BreadcrumbItem>
+      <l-BreadcrumbItem href="/docs">Docs</l-BreadcrumbItem>
+      <l-BreadcrumbItem>Blur</l-BreadcrumbItem>
+    </l-Breadcrumbs>
+
+    <l-Breadcrumbs transition="drop" transitionDuration="700">
+      <l-BreadcrumbItem href="/">Home</l-BreadcrumbItem>
+      <l-BreadcrumbItem href="/docs">Docs</l-BreadcrumbItem>
+      <l-BreadcrumbItem>Drop</l-BreadcrumbItem>
+    </l-Breadcrumbs>
+  \`,
+})
+export class AppComponent {}`,
+            }}
+          />
+        </section>
       </div>
     </div>
   );

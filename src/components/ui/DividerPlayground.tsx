@@ -3,6 +3,7 @@ import { Divider, type DividerOrientation } from "./Divider/Divider";
 import type { ColorName } from "../../core/tokens";
 import { OptionGroup, ColorSwatches, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
+import { useMotion } from "./playgroundMotion";
 
 const ORIENTATIONS: DividerOrientation[] = ["horizontal", "vertical"];
 
@@ -11,6 +12,7 @@ export default function DividerPlayground() {
   const [label, setLabel] = useState("");
   const [color, setColor] = useState<ColorName>("accent");
   const [resizable, setResizable] = useState(false);
+  const motion = useMotion({ hover: false });
 
   const isVertical = orientation === "vertical";
 
@@ -20,12 +22,12 @@ export default function DividerPlayground() {
         {isVertical ? (
           <div className="flex h-24 items-center gap-3">
             <div className="text-xs text-fg-subtle">Left</div>
-            <Divider orientation="vertical" color={color} resizable={resizable} />
+            <Divider key={motion.replayKey} {...motion.props} orientation="vertical" color={color} resizable={resizable} />
             <div className="text-xs text-fg-subtle">Right</div>
           </div>
         ) : (
           <div className="w-64">
-            <Divider color={color} label={label || undefined} resizable={resizable} />
+            <Divider key={motion.replayKey} {...motion.props} color={color} label={label || undefined} resizable={resizable} />
           </div>
         )}
       </AppWindowBody>
@@ -40,7 +42,7 @@ export default function DividerPlayground() {
   ]
     .filter(Boolean)
     .join(" ");
-  const code = attrs ? `<Divider ${attrs} />` : `<Divider />`;
+  const code = attrs || motion.attrs ? `<Divider${attrs ? ` ${attrs}` : ""}${motion.attrs} />` : `<Divider />`;
 
   // Custom-element markup for the current configuration — `resizable` is a
   // boolean prop, so it must be written as an explicit `="true"` (a bare
@@ -53,7 +55,7 @@ export default function DividerPlayground() {
   ]
     .filter(Boolean)
     .join(" ");
-  const htmlMarkup = htmlAttrs ? `<l-Divider ${htmlAttrs} />` : `<l-Divider />`;
+  const htmlMarkup = htmlAttrs || motion.attrs ? `<l-Divider${htmlAttrs ? ` ${htmlAttrs}` : ""}${motion.attrs} />` : `<l-Divider />`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,
@@ -94,6 +96,8 @@ export default function DividerPlayground() {
           </button>
         </div>
       </div>
+
+      {motion.controls}
     </PlaygroundLayout>
   );
 }

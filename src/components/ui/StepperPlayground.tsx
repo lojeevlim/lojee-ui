@@ -4,6 +4,7 @@ import { StepperItem } from "./Stepper/StepperItem";
 import { OptionGroup, ColorSwatches, PlaygroundLayout, AppWindowFrame } from "./PlaygroundHelpers";
 import type { ColorName } from "../../core/tokens";
 import type { CodeBlockVariants } from "./CodeBlock";
+import { useMotion } from "./playgroundMotion";
 
 const ORIENTATIONS: StepperOrientation[] = ["horizontal", "vertical"];
 const STEP_INDICES = ["0", "1", "2", "3"] as const;
@@ -45,6 +46,7 @@ const SLOTS_CODE = `  <l-stepper-item step="0">Review the items in your cart.</l
   <l-stepper-item step="complete">All done.</l-stepper-item>`;
 
 export default function StepperPlayground() {
+  const motion = useMotion();
   const [orientation, setOrientation] = useState<StepperOrientation>("horizontal");
   const [color, setColor] = useState<ColorName>("accent");
   const [currentStep, setCurrentStep] = useState<(typeof STEP_INDICES)[number]>("1");
@@ -58,6 +60,8 @@ export default function StepperPlayground() {
   // "Current step" control below stays in sync when you click through the preview.
   const stepper = (
     <Stepper
+      key={motion.replayKey}
+      {...motion.props}
       steps={mode === "content" ? CONTENT_STEPS : PLAIN_STEPS}
       currentStep={Number(currentStep)}
       orientation={orientation}
@@ -88,6 +92,8 @@ export default function StepperPlayground() {
   // "accent" is the default (follows the theme), so `color` is only written out when changed.
   const colorProp = color !== "accent" ? `  color="${color}"\n` : "";
   const reactProps = `  currentStep={${currentStep}}\n  orientation="${orientation}"\n${colorProp}${navigation ? "  navigation\n" : ""}${
+    motion.attrs.trim() ? motion.attrs.trim().split(/ (?=\w+=)/).map((a) => `  ${a}\n`).join("") : ""
+  }${
     reports ? "  onStepChange={(index, step) => console.log(index, step?.label)}\n" : ""
   }`;
 
@@ -142,6 +148,7 @@ ${
     `orientation="${orientation}"`,
     color !== "accent" ? `color="${color}"` : null,
     navigation ? 'navigation="true"' : null,
+    motion.attrs.trim() || null,
   ]
     .filter(Boolean)
     .join(" ");
@@ -187,6 +194,7 @@ ${stepsCode}
       <OptionGroup label="Step sections" options={SECTION_MODES} value={mode} onChange={setMode} />
       <OptionGroup label="Navigation buttons" options={TOGGLE} value={nav} onChange={setNav} />
       <OptionGroup label="Current step" options={STEP_INDICES} value={currentStep} onChange={setCurrentStep} />
+      {motion.controls}
     </PlaygroundLayout>
   );
 }

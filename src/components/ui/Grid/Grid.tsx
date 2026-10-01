@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { cx } from "../../../core/tokens";
+import { motionClass, motionStyle, type TransitionVariant } from "../../../core/motion";
 
 export type GridCols = 1 | 2 | 3 | 4 | 6 | 12;
 export type GridGap = "sm" | "md" | "lg";
@@ -9,6 +10,12 @@ export interface GridProps {
   cols?: GridCols;
   /** Spacing between cells: "sm" | "md" | "lg". Defaults to "md". */
   gap?: GridGap;
+  /** Enter transition: "fade" | "slide-up" | "slide-down" | "slide-left" | "slide-right" | "zoom" | "zoom-out" | "flip" | "blur" | "bounce" | "rotate" | "drop" | "skew" (default: none). Respects `prefers-reduced-motion`. */
+  transition?: TransitionVariant;
+  /** Enter transition duration in ms (default: 450). */
+  transitionDuration?: number;
+  /** Delay before the enter transition starts, in ms (default: 0) — handy for staggering. */
+  transitionDelay?: number;
   /** Grid cells. */
   children?: ReactNode;
   /** Extra class name(s) applied to the root element. */
@@ -32,9 +39,12 @@ const GAP_CLASSES: Record<GridGap, string> = {
   lg: "gap-6",
 };
 
-export function Grid({ cols = 3, gap = "md", children, className, classNames }: GridProps) {
+export function Grid({ cols = 3, gap = "md", children, className, classNames, transition, transitionDuration, transitionDelay }: GridProps) {
   return (
-    <div className={cx("grid", COLS_CLASSES[cols], GAP_CLASSES[gap], className, classNames?.root)}>
+    <div
+      className={cx("grid", COLS_CLASSES[cols], GAP_CLASSES[gap], motionClass(transition), className, classNames?.root)}
+      style={motionStyle(transitionDuration, transitionDelay)}
+    >
       <slot>{children}</slot>
     </div>
   );

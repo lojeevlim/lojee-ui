@@ -269,6 +269,68 @@ import "lojee-ui/elements";
             }}
           />
         </section>
+
+        <section>
+          <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`). They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
+          <div className="space-y-3">
+            <Header title="Fade" description="Enter transition" transition="fade" />
+            <Header title="Slide down" description="Enter transition" transition="slide-down" />
+            <Header title="Slide right" description="Enter transition" transition="slide-right" transitionDelay={100} />
+            <Header title="Zoom" description="Enter transition" transition="zoom" />
+            <Header title="Blur" description="Enter transition" transition="blur" />
+            <Header title="Drop" description="Enter transition" transition="drop" transitionDuration={700} />
+          </div>
+          <CodeBlock
+            variants={{
+              react: `<Header title="Fade" description="Enter transition" transition="fade" />
+<Header title="Slide down" description="Enter transition" transition="slide-down" />
+<Header title="Slide right" description="Enter transition" transition="slide-right" transitionDelay={100} />
+<Header title="Zoom" description="Enter transition" transition="zoom" />
+<Header title="Blur" description="Enter transition" transition="blur" />
+<Header title="Drop" description="Enter transition" transition="drop" transitionDuration={700} />`,
+              js: `<l-Header heading="Fade" description="Enter transition" transition="fade"></l-Header>
+<l-Header heading="Slide down" description="Enter transition" transition="slide-down"></l-Header>
+<l-Header heading="Slide right" description="Enter transition" transition="slide-right" transitionDelay="100"></l-Header>
+<l-Header heading="Zoom" description="Enter transition" transition="zoom"></l-Header>
+<l-Header heading="Blur" description="Enter transition" transition="blur"></l-Header>
+<l-Header heading="Drop" description="Enter transition" transition="drop" transitionDuration="700"></l-Header>
+
+<script type="module">
+  import "lojee-ui/elements";
+</script>`,
+              vue: `<template>
+  <l-Header heading="Fade" description="Enter transition" transition="fade"></l-Header>
+  <l-Header heading="Slide down" description="Enter transition" transition="slide-down"></l-Header>
+  <l-Header heading="Slide right" description="Enter transition" transition="slide-right" transitionDelay="100"></l-Header>
+  <l-Header heading="Zoom" description="Enter transition" transition="zoom"></l-Header>
+  <l-Header heading="Blur" description="Enter transition" transition="blur"></l-Header>
+  <l-Header heading="Drop" description="Enter transition" transition="drop" transitionDuration="700"></l-Header>
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-Header heading="Fade" description="Enter transition" transition="fade"></l-Header>
+    <l-Header heading="Slide down" description="Enter transition" transition="slide-down"></l-Header>
+    <l-Header heading="Slide right" description="Enter transition" transition="slide-right" transitionDelay="100"></l-Header>
+    <l-Header heading="Zoom" description="Enter transition" transition="zoom"></l-Header>
+    <l-Header heading="Blur" description="Enter transition" transition="blur"></l-Header>
+    <l-Header heading="Drop" description="Enter transition" transition="drop" transitionDuration="700"></l-Header>
+  \`,
+})
+export class AppComponent {}`,
+            }}
+          />
+        </section>
       </div>
     </div>
   );

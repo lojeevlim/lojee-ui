@@ -52,6 +52,9 @@ import LoadingStatePlayground from "./LoadingStatePlayground";
 import NavbarPlayground from "./NavbarPlayground";
 import TopBarPlayground from "./TopBarPlayground";
 import FlowDiagramPlayground from "./FlowDiagramPlayground";
+import MapPlayground from "./MapPlayground";
+import MapMarkerPlayground from "./MapMarkerPlayground";
+import MapRoutePlayground from "./MapRoutePlayground";
 import SidebarPlayground from "./SidebarPlayground";
 import HeaderPlayground from "./HeaderPlayground";
 import FooterPlayground from "./FooterPlayground";
@@ -131,6 +134,9 @@ const PLAYGROUNDS: Record<string, ComponentType> = {
   Navbar: NavbarPlayground,
   "Top Bar": TopBarPlayground,
   "Flow Diagram": FlowDiagramPlayground,
+  Map: MapPlayground,
+  "Map Markers": MapMarkerPlayground,
+  "Map Routes": MapRoutePlayground,
   Sidebar: SidebarPlayground,
   Header: HeaderPlayground,
   Footer: FooterPlayground,

@@ -1,6 +1,7 @@
 import { useLayoutEffect, useRef, useState } from "react";
 import { colorClasses, cx, isColorName, nonInteractive, type ColorName } from "../../../core/tokens";
 import { ACTIVE_ITEM_TRANSITION, ACTIVE_PILL_TRANSITION, activeMarker } from "../../../core/activeVariant";
+import { motionClass, motionStyle, type TransitionVariant } from "../../../core/motion";
 import { Icon } from "../Icons/Icon";
 
 // Controlled like Divider's resizable/onResize: Pagination owns no page
@@ -20,6 +21,12 @@ export interface PaginationProps {
   siblingCount?: number;
   /** Color of the active page indicator (default: "accent" — follows the theme accent). */
   color?: ColorName;
+  /** Enter transition: "fade" | "slide-up" | "slide-down" | "slide-left" | "slide-right" | "zoom" | "zoom-out" | "flip" | "blur" | "bounce" | "rotate" | "drop" | "skew" (default: none). Respects `prefers-reduced-motion`. */
+  transition?: TransitionVariant;
+  /** Enter transition duration in ms (default: 450). */
+  transitionDuration?: number;
+  /** Delay before the enter transition starts, in ms (default: 0) — handy for staggering. */
+  transitionDelay?: number;
   /** Extra CSS class(es) added to the root element, merged before `classNames.root`. */
   className?: string;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
@@ -57,7 +64,7 @@ const ITEM_BASE_CLASSES = cx("flex h-8 w-8 items-center justify-center rounded-m
 const INACTIVE_CLASSES = "text-fg-muted hover:bg-surface-muted";
 const NAV_BUTTON_CLASSES = "disabled:opacity-40 disabled:pointer-events-none";
 
-export function Pagination({ page, totalPages, onPageChange, siblingCount = 1, color = "accent", className, classNames }: PaginationProps) {
+export function Pagination({ page, totalPages, onPageChange, siblingCount = 1, color = "accent", transition, transitionDuration, transitionDelay, className, classNames }: PaginationProps) {
   const items = getPageItems(page, totalPages, siblingCount);
   const activeClasses = nonInteractive(colorClasses[color]?.solid ?? colorClasses.slate.solid);
   const colorIsNamed = isColorName(color);
@@ -72,7 +79,7 @@ export function Pagination({ page, totalPages, onPageChange, siblingCount = 1, c
   }, [page, totalPages, siblingCount]);
 
   return (
-    <nav aria-label="Pagination" className={cx(className, classNames?.root)}>
+    <nav aria-label="Pagination" className={cx(motionClass(transition), className, classNames?.root)} style={motionStyle(transitionDuration, transitionDelay)}>
       <ul className="relative flex items-center gap-1">
         {pill && (
           <li

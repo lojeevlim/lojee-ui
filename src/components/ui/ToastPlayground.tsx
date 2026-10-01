@@ -3,6 +3,7 @@ import { Toast, type ToastVariant, type ToastPosition } from "./Toast/Toast";
 import { Button } from "./Buttons/Button";
 import { OptionGroup, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
+import { useMotion } from "./playgroundMotion";
 
 const VARIANTS: ToastVariant[] = ["info", "success", "warning", "error"];
 const POSITIONS: ToastPosition[] = [
@@ -15,6 +16,7 @@ const POSITIONS: ToastPosition[] = [
 ];
 
 export default function ToastPlayground() {
+  const motion = useMotion();
   const [open, setOpen] = useState(false);
   const [variant, setVariant] = useState<ToastVariant>("info");
   const [position, setPosition] = useState<ToastPosition>("bottom-right");
@@ -27,6 +29,7 @@ export default function ToastPlayground() {
       <AppWindowBody>
         <Button label="Show toast" onClick={() => setOpen(true)} />
         <Toast
+          {...motion.props}
           open={open}
           onClose={() => setOpen(false)}
           variant={variant}
@@ -49,10 +52,10 @@ export default function ToastPlayground() {
   open={open}
   onClose={() => setOpen(false)}
   variant="${variant}"
-  position="${position}"${titleAttr}${durationAttr}
+  position="${position}"${titleAttr}${durationAttr}${motion.attrs}
 >${body}</Toast>`;
 
-  const htmlMarkup = `<l-Toast id="toast" variant="${variant}" position="${position}"${titleAttr}${durationAttrHtml}>${body}</l-Toast>`;
+  const htmlMarkup = `<l-Toast id="toast" variant="${variant}" position="${position}"${titleAttr}${durationAttrHtml}${motion.attrs}>${body}</l-Toast>`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,
@@ -72,7 +75,7 @@ ${htmlMarkup}
   <l-Toast
     :open="open"
     variant="${variant}"
-    position="${position}"${titleAttr}${duration !== 4000 ? `\n    :duration="${duration}"` : ""}
+    position="${position}"${titleAttr}${duration !== 4000 ? `\n    :duration="${duration}"` : ""}${motion.attrs}
     @close="open = false"
   >${body}</l-Toast>
 </template>
@@ -88,7 +91,7 @@ const open = ref(false);
 <l-Toast
   [open]="open"
   variant="${variant}"
-  position="${position}"${titleAttr}${duration !== 4000 ? `\n  [duration]="${duration}"` : ""}
+  position="${position}"${titleAttr}${duration !== 4000 ? `\n  [duration]="${duration}"` : ""}${motion.attrs}
   (close)="open = false"
 >${body}</l-Toast>`,
   };
@@ -128,6 +131,7 @@ const open = ref(false);
           className="w-full rounded-md border border-border px-3 py-1.5 text-sm text-fg outline-none transition-colors focus:border-border-strong"
         />
       </div>
+      {motion.controls}
     </PlaygroundLayout>
   );
 }

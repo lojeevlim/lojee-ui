@@ -2,12 +2,14 @@ import { useState } from "react";
 import { Input, type InputSize } from "./Input/Input";
 import { OptionGroup, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
+import { useMotion } from "./playgroundMotion";
 
 const SIZES: InputSize[] = ["sm", "md", "lg"];
 const ICONS = ["none", "mail", "search", "user"] as const;
 type IconOption = (typeof ICONS)[number];
 
 export default function InputPlayground() {
+  const motion = useMotion();
   const [size, setSize] = useState<InputSize>("md");
   const [invalid, setInvalid] = useState(false);
   const [disabled, setDisabled] = useState(false);
@@ -19,6 +21,8 @@ export default function InputPlayground() {
       <AppWindowBody>
         <div className="max-w-sm w-full">
           <Input
+            key={motion.replayKey}
+            {...motion.props}
             size={size}
             invalid={invalid}
             disabled={disabled}
@@ -32,7 +36,7 @@ export default function InputPlayground() {
 
   const code = `<Input size="${size}"${invalid ? " invalid" : ""}${disabled ? " disabled" : ""}${
     leadingIcon !== "none" ? ` leadingIcon="${leadingIcon}"` : ""
-  } placeholder="${placeholder || "Type something…"}" />`;
+  }${motion.attrs} placeholder="${placeholder || "Type something…"}" />`;
 
   // Custom-element markup for the current configuration — identical across
   // Vue/Angular templates (plain attributes, no bindings needed for a static
@@ -40,7 +44,7 @@ export default function InputPlayground() {
   // HTML page needs to actually load the `<l-*>` definitions.
   const htmlMarkup = `<l-Input size="${size}"${invalid ? ` invalid` : ""}${disabled ? ` disabled` : ""}${
     leadingIcon !== "none" ? ` leadingIcon="${leadingIcon}"` : ""
-  } placeholder="${placeholder || "Type something…"}" />`;
+  }${motion.attrs} placeholder="${placeholder || "Type something…"}" />`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,
@@ -89,6 +93,7 @@ export default function InputPlayground() {
           </button>
         </div>
       </div>
+      {motion.controls}
     </PlaygroundLayout>
   );
 }

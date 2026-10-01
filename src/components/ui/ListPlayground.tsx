@@ -3,10 +3,12 @@ import { List, type ListVariant } from "./List/List";
 import { ListItem } from "./List/ListItem";
 import { OptionGroup, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
+import { useMotion } from "./playgroundMotion";
 
 const VARIANTS: ListVariant[] = ["plain", "divided", "bordered"];
 
 export default function ListPlayground() {
+  const motion = useMotion({ hover: false });
   const [variant, setVariant] = useState<ListVariant>("divided");
   const [ordered, setOrdered] = useState(false);
 
@@ -14,7 +16,7 @@ export default function ListPlayground() {
     <AppWindowFrame>
       <AppWindowBody>
         <div className="w-72">
-          <List variant={variant} ordered={ordered}>
+          <List key={motion.replayKey} {...motion.props} variant={variant} ordered={ordered}>
             <ListItem icon="file">Project brief.pdf</ListItem>
             <ListItem icon="image">Cover photo.png</ListItem>
             <ListItem icon="folder">Archive</ListItem>
@@ -24,7 +26,7 @@ export default function ListPlayground() {
     </AppWindowFrame>
   );
 
-  const code = `<List variant="${variant}"${ordered ? " ordered" : ""}>
+  const code = `<List variant="${variant}"${motion.attrs}${ordered ? " ordered" : ""}>
   <ListItem icon="file">Project brief.pdf</ListItem>
   <ListItem icon="image">Cover photo.png</ListItem>
   <ListItem icon="folder">Archive</ListItem>
@@ -36,7 +38,7 @@ export default function ListPlayground() {
   // HTML page needs to actually load the `<l-*>` definitions. Note the
   // explicit `ordered="true"` — r2wc's boolean parser needs a non-empty
   // value, so a bare attribute would silently parse to false.
-  const htmlMarkup = `<l-List variant="${variant}"${ordered ? ` ordered` : ""}>
+  const htmlMarkup = `<l-List variant="${variant}"${motion.attrs}${ordered ? ` ordered` : ""}>
   <l-ListItem icon="file">Project brief.pdf</l-ListItem>
   <l-ListItem icon="image">Cover photo.png</l-ListItem>
   <l-ListItem icon="folder">Archive</l-ListItem>
@@ -68,6 +70,7 @@ export default function ListPlayground() {
           </button>
         </div>
       </div>
+      {motion.controls}
     </PlaygroundLayout>
   );
 }

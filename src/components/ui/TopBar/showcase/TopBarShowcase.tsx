@@ -315,6 +315,114 @@ onAction(e: CustomEvent) {
             }}
           />
         </section>
+
+        <section>
+          <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`) and hover effects via `hoverEffect`. They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
+          <div className="space-y-3">
+            <div className="overflow-hidden rounded-lg border border-border"><TopBar title="Fade" actions={ACTIONS} transition="fade" /></div>
+            <div className="overflow-hidden rounded-lg border border-border"><TopBar title="Slide down" actions={ACTIONS} transition="slide-down" /></div>
+            <div className="overflow-hidden rounded-lg border border-border"><TopBar title="Slide right" actions={ACTIONS} transition="slide-right" transitionDelay={100} /></div>
+            <div className="overflow-hidden rounded-lg border border-border"><TopBar title="Zoom" actions={ACTIONS} transition="zoom" /></div>
+            <div className="overflow-hidden rounded-lg border border-border"><TopBar title="Blur" actions={ACTIONS} transition="blur" /></div>
+            <div className="overflow-hidden rounded-lg border border-border"><TopBar title="Drop" actions={ACTIONS} transition="drop" transitionDuration={700} /></div>
+          </div>
+          <div className="space-y-3">
+            <div className="overflow-hidden rounded-lg border border-border"><TopBar title="Scale" actions={ACTIONS} hoverEffect="scale" /></div>
+            <div className="overflow-hidden rounded-lg border border-border"><TopBar title="Ring" actions={ACTIONS} hoverEffect="ring" /></div>
+            <div className="overflow-hidden rounded-lg border border-border"><TopBar title="Glow" actions={ACTIONS} hoverEffect="glow" /></div>
+          </div>
+          <CodeBlock
+            variants={{
+              react: `const actions = [
+  { icon: "search", label: "Search" },
+  { icon: "bell", label: "Notifications", badge: "3" },
+  { icon: "settings", label: "Settings" },
+];
+
+<TopBar title="Fade" actions={actions} transition="fade" />
+<TopBar title="Slide down" actions={actions} transition="slide-down" />
+<TopBar title="Slide right" actions={actions} transition="slide-right" transitionDelay={100} />
+<TopBar title="Zoom" actions={actions} transition="zoom" />
+<TopBar title="Blur" actions={actions} transition="blur" />
+<TopBar title="Drop" actions={actions} transition="drop" transitionDuration={700} />
+
+<TopBar title="Scale" actions={actions} hoverEffect="scale" />
+<TopBar title="Ring" actions={actions} hoverEffect="ring" />
+<TopBar title="Glow" actions={actions} hoverEffect="glow" />`,
+              js: `<l-top-bar class="transition-demo" title="Fade" transition="fade"></l-top-bar>
+<l-top-bar class="transition-demo" title="Slide down" transition="slide-down"></l-top-bar>
+<l-top-bar class="transition-demo" title="Slide right" transition="slide-right" transitionDelay="100"></l-top-bar>
+<l-top-bar class="transition-demo" title="Zoom" transition="zoom"></l-top-bar>
+<l-top-bar class="transition-demo" title="Blur" transition="blur"></l-top-bar>
+<l-top-bar class="transition-demo" title="Drop" transition="drop" transitionDuration="700"></l-top-bar>
+
+<l-top-bar class="transition-demo" title="Scale" hoverEffect="scale"></l-top-bar>
+<l-top-bar class="transition-demo" title="Ring" hoverEffect="ring"></l-top-bar>
+<l-top-bar class="transition-demo" title="Glow" hoverEffect="glow"></l-top-bar>
+
+<script type="module">
+  import "lojee-ui/elements";
+
+  const actions = [
+    { icon: "search", label: "Search" },
+    { icon: "bell", label: "Notifications", badge: "3" },
+    { icon: "settings", label: "Settings" },
+  ];
+  document.querySelectorAll(".transition-demo").forEach((el) => (el.actions = actions));
+</script>`,
+              vue: `<template>
+  <l-top-bar :actions="actions" title="Fade" transition="fade"></l-top-bar>
+  <l-top-bar :actions="actions" title="Slide down" transition="slide-down"></l-top-bar>
+  <l-top-bar :actions="actions" title="Slide right" transition="slide-right" transitionDelay="100"></l-top-bar>
+  <l-top-bar :actions="actions" title="Zoom" transition="zoom"></l-top-bar>
+  <l-top-bar :actions="actions" title="Blur" transition="blur"></l-top-bar>
+  <l-top-bar :actions="actions" title="Drop" transition="drop" transitionDuration="700"></l-top-bar>
+
+  <l-top-bar :actions="actions" title="Scale" hoverEffect="scale"></l-top-bar>
+  <l-top-bar :actions="actions" title="Ring" hoverEffect="ring"></l-top-bar>
+  <l-top-bar :actions="actions" title="Glow" hoverEffect="glow"></l-top-bar>
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+
+const actions = [
+  { icon: "search", label: "Search" },
+  { icon: "bell", label: "Notifications", badge: "3" },
+  { icon: "settings", label: "Settings" },
+];
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-top-bar [actions]="actions" title="Fade" transition="fade"></l-top-bar>
+    <l-top-bar [actions]="actions" title="Slide down" transition="slide-down"></l-top-bar>
+    <l-top-bar [actions]="actions" title="Slide right" transition="slide-right" transitionDelay="100"></l-top-bar>
+    <l-top-bar [actions]="actions" title="Zoom" transition="zoom"></l-top-bar>
+    <l-top-bar [actions]="actions" title="Blur" transition="blur"></l-top-bar>
+    <l-top-bar [actions]="actions" title="Drop" transition="drop" transitionDuration="700"></l-top-bar>
+
+    <l-top-bar [actions]="actions" title="Scale" hoverEffect="scale"></l-top-bar>
+    <l-top-bar [actions]="actions" title="Ring" hoverEffect="ring"></l-top-bar>
+    <l-top-bar [actions]="actions" title="Glow" hoverEffect="glow"></l-top-bar>
+  \`,
+})
+export class AppComponent {
+  actions = [
+    { icon: "search", label: "Search" },
+    { icon: "bell", label: "Notifications", badge: "3" },
+    { icon: "settings", label: "Settings" },
+  ];
+}`,
+            }}
+          />
+        </section>
       </div>
     </div>
   );

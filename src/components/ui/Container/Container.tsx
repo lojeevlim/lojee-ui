@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { cx } from "../../../core/tokens";
+import { motionClass, motionStyle, type TransitionVariant } from "../../../core/motion";
 
 export type ContainerSize = "sm" | "md" | "lg" | "xl" | "full";
 
@@ -10,6 +11,12 @@ export interface ContainerProps {
   centered?: boolean;
   /** Adds horizontal padding (px-4) inside the container (default: true). */
   padded?: boolean;
+  /** Enter transition: "fade" | "slide-up" | "slide-down" | "slide-left" | "slide-right" | "zoom" | "zoom-out" | "flip" | "blur" | "bounce" | "rotate" | "drop" | "skew" (default: none). Respects `prefers-reduced-motion`. */
+  transition?: TransitionVariant;
+  /** Enter transition duration in ms (default: 450). */
+  transitionDuration?: number;
+  /** Delay before the enter transition starts, in ms (default: 0) — handy for staggering. */
+  transitionDelay?: number;
   /** Content rendered inside the container. */
   children?: ReactNode;
   /** Extra class name(s) applied to the root element. */
@@ -33,6 +40,9 @@ export function Container({
   children,
   className,
   classNames,
+  transition,
+  transitionDuration,
+  transitionDelay,
 }: ContainerProps) {
   return (
     <div
@@ -41,9 +51,11 @@ export function Container({
         SIZE_CLASSES[size],
         centered && "mx-auto",
         padded && "px-4",
+        motionClass(transition),
         className,
         classNames?.root
       )}
+      style={motionStyle(transitionDuration, transitionDelay)}
     >
       <slot>{children}</slot>
     </div>

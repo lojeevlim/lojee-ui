@@ -1,11 +1,20 @@
 import { useState, type ChangeEvent, type InputHTMLAttributes } from "react";
 import { cx, type ColorName } from "../../../core/tokens";
+import { motionClass, motionStyle, type TransitionVariant, type HoverEffect } from "../../../core/motion";
 
 export interface SliderProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "type"> {
   /** Color of the slider thumb (default: "accent" — follows the theme accent). */
   color?: ColorName;
   /** Shows the current numeric value in a label beside the slider, kept in sync in both controlled and uncontrolled use (default: false). */
   showValue?: boolean;
+  /** Enter transition: "fade" | "slide-up" | "slide-down" | "slide-left" | "slide-right" | "zoom" | "zoom-out" | "flip" | "blur" | "bounce" | "rotate" | "drop" | "skew" (default: none). Respects `prefers-reduced-motion`. */
+  transition?: TransitionVariant;
+  /** Enter transition duration in ms (default: 450). */
+  transitionDuration?: number;
+  /** Delay before the enter transition starts, in ms (default: 0) — handy for staggering. */
+  transitionDelay?: number;
+  /** Effect while hovering: "lift" | "scale" | "press" | "tilt" | "ring" | "glow" | "shine" (default: none). */
+  hoverEffect?: HoverEffect;
   /** Extra class name(s) appended to the root element. */
   className?: string;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
@@ -34,6 +43,10 @@ const BASE_CLASSES =
 export function Slider({
   color = "accent",
   showValue = false,
+  transition,
+  transitionDuration,
+  transitionDelay,
+  hoverEffect,
   className,
   classNames,
   value,
@@ -67,12 +80,19 @@ export function Slider({
     />
   );
 
+  const rootMotion = motionClass(transition, hoverEffect);
+  const rootStyle = motionStyle(transitionDuration, transitionDelay);
+
   if (!showValue) {
-    return <span className={cx("inline-flex w-full items-center", className, classNames?.root)}>{input}</span>;
+    return (
+      <span className={cx("inline-flex w-full items-center", rootMotion, className, classNames?.root)} style={rootStyle}>
+        {input}
+      </span>
+    );
   }
 
   return (
-    <div className={cx("flex items-center gap-3", className, classNames?.root)}>
+    <div className={cx("flex items-center gap-3", rootMotion, className, classNames?.root)} style={rootStyle}>
       {input}
       <span className={cx("text-sm tabular-nums text-fg-muted", classNames?.value)}>{currentValue}</span>
     </div>

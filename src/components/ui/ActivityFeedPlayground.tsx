@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ActivityFeed, type ActivityItem } from "./ActivityFeed/ActivityFeed";
 import { PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
+import { useMotion } from "./playgroundMotion";
 
 type BaseItem = Omit<ActivityItem, "icon" | "color">;
 
@@ -18,6 +19,7 @@ const ICON_BY_INDEX: Record<number, { icon: string; color: ActivityItem["color"]
 };
 
 export default function ActivityFeedPlayground() {
+  const motion = useMotion({ hover: false });
   const [compact, setCompact] = useState(false);
   const [showIcons, setShowIcons] = useState(true);
 
@@ -27,7 +29,7 @@ export default function ActivityFeedPlayground() {
     <AppWindowFrame>
       <AppWindowBody>
         <div className="w-full max-w-sm rounded-lg border border-border p-2">
-          <ActivityFeed items={items} compact={compact} />
+          <ActivityFeed key={motion.replayKey} {...motion.props} items={items} compact={compact} />
         </div>
       </AppWindowBody>
     </AppWindowFrame>
@@ -53,7 +55,7 @@ export default function ActivityFeedPlayground() {
     })
     .join("\n");
 
-  const compactAttr = compact ? " compact" : "";
+  const compactAttr = (compact ? " compact" : "") + motion.attrs;
 
   const codeVariants: CodeBlockVariants = {
     react: `<ActivityFeed${compactAttr}
@@ -96,6 +98,7 @@ ${itemsCode}
         <input type="checkbox" checked={showIcons} onChange={(e) => setShowIcons(e.target.checked)} />
         Show icon badges
       </label>
+      {motion.controls}
     </PlaygroundLayout>
   );
 }

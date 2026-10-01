@@ -3,11 +3,13 @@ import { Accordion } from "./Accordion/Accordion";
 import { AccordionItem } from "./Accordion/AccordionItem";
 import { OptionGroup, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
+import { useMotion } from "./playgroundMotion";
 
 type Mode = "grouped" | "independent";
 const MODES: Mode[] = ["grouped", "independent"];
 
 export default function AccordionPlayground() {
+  const motion = useMotion();
   const [mode, setMode] = useState<Mode>("grouped");
   const name = mode === "grouped" ? "playground" : undefined;
 
@@ -15,7 +17,7 @@ export default function AccordionPlayground() {
     <AppWindowFrame>
       <AppWindowBody>
         <div className="w-full max-w-md">
-          <Accordion>
+          <Accordion key={motion.replayKey} {...motion.props}>
             <AccordionItem name={name} title="Section one" defaultOpen>
               Content for section one.
             </AccordionItem>
@@ -31,7 +33,7 @@ export default function AccordionPlayground() {
     </AppWindowFrame>
   );
 
-  const code = `<Accordion>
+  const code = `<Accordion${motion.attrs}>
   <AccordionItem${name ? ` name="${name}"` : ""} title="Section one" defaultOpen>
     Content for section one.
   </AccordionItem>
@@ -51,7 +53,7 @@ export default function AccordionPlayground() {
   // value, so a bare attribute would silently parse to false. Same-`name`
   // <AccordionItem> siblings stay mutually exclusive via the native
   // <details name> behavior, so this works identically in plain HTML too.
-  const htmlMarkup = `<l-Accordion>
+  const htmlMarkup = `<l-Accordion${motion.attrs}>
   <l-AccordionItem${name ? ` name="${name}"` : ""} title="Section one" defaultOpen>
     Content for section one.
   </l-AccordionItem>
@@ -73,6 +75,7 @@ export default function AccordionPlayground() {
   return (
     <PlaygroundLayout preview={preview} variants={codeVariants}>
       <OptionGroup label="Mode" options={MODES} value={mode} onChange={setMode} />
+      {motion.controls}
     </PlaygroundLayout>
   );
 }

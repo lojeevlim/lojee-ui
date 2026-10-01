@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Notification } from "../Notification";
 import { Button } from "../../Buttons/Button";
 import CodeBlock from "../../CodeBlock";
-import { SectionLabel } from "../../ShowcaseHelpers";
+import { SectionLabel, TransitionPreview } from "../../ShowcaseHelpers";
 
 export default function NotificationShowcase() {
   const [dismissibleVisible, setDismissibleVisible] = useState(true);
@@ -199,6 +199,102 @@ const visible = ref(true);
               angular: `<l-Notification *ngIf="visible" title="Storage almost full" (dismiss)="visible = false">
   You're using 92% of your available storage.
 </l-Notification>`,
+            }}
+          />
+        </section>
+
+        <section>
+          <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`) and hover effects via `hoverEffect`. Press Replay to run the enter transitions again.">Transitions</SectionLabel>
+          <TransitionPreview cols={2}>
+            <Notification title="Fade" transition="fade">New activity</Notification>
+            <Notification title="Slide up" transition="slide-up">New activity</Notification>
+            <Notification title="Slide right" transition="slide-right" transitionDelay={100}>New activity</Notification>
+            <Notification title="Zoom" transition="zoom">New activity</Notification>
+            <Notification title="Flip" transition="flip">New activity</Notification>
+            <Notification title="Blur" transition="blur">New activity</Notification>
+            <Notification title="Bounce" transition="bounce">New activity</Notification>
+            <Notification title="Drop" transition="drop" transitionDuration={700}>New activity</Notification>
+            <Notification title="Lift" hoverEffect="lift">New activity</Notification>
+            <Notification title="Glow" hoverEffect="glow">New activity</Notification>
+            <Notification title="Shine" hoverEffect="shine">New activity</Notification>
+            <Notification title="Tilt" hoverEffect="tilt">New activity</Notification>
+          </TransitionPreview>
+          <CodeBlock
+            variants={{
+              react: `<Notification title="Fade" transition="fade">New activity</Notification>
+<Notification title="Slide up" transition="slide-up">New activity</Notification>
+<Notification title="Slide right" transition="slide-right" transitionDelay={100}>New activity</Notification>
+<Notification title="Zoom" transition="zoom">New activity</Notification>
+<Notification title="Flip" transition="flip">New activity</Notification>
+<Notification title="Blur" transition="blur">New activity</Notification>
+<Notification title="Bounce" transition="bounce">New activity</Notification>
+<Notification title="Drop" transition="drop" transitionDuration={700}>New activity</Notification>
+
+<Notification title="Lift" hoverEffect="lift">New activity</Notification>
+<Notification title="Glow" hoverEffect="glow">New activity</Notification>
+<Notification title="Shine" hoverEffect="shine">New activity</Notification>
+<Notification title="Tilt" hoverEffect="tilt">New activity</Notification>`,
+              js: `<l-Notification title="Fade" transition="fade">New activity</l-Notification>
+<l-Notification title="Slide up" transition="slide-up">New activity</l-Notification>
+<l-Notification title="Slide right" transition="slide-right" transitionDelay="100">New activity</l-Notification>
+<l-Notification title="Zoom" transition="zoom">New activity</l-Notification>
+<l-Notification title="Flip" transition="flip">New activity</l-Notification>
+<l-Notification title="Blur" transition="blur">New activity</l-Notification>
+<l-Notification title="Bounce" transition="bounce">New activity</l-Notification>
+<l-Notification title="Drop" transition="drop" transitionDuration="700">New activity</l-Notification>
+
+<l-Notification title="Lift" hoverEffect="lift">New activity</l-Notification>
+<l-Notification title="Glow" hoverEffect="glow">New activity</l-Notification>
+<l-Notification title="Shine" hoverEffect="shine">New activity</l-Notification>
+<l-Notification title="Tilt" hoverEffect="tilt">New activity</l-Notification>
+
+<script type="module">
+  import "lojee-ui/elements";
+</script>`,
+              vue: `<template>
+  <l-Notification title="Fade" transition="fade">New activity</l-Notification>
+  <l-Notification title="Slide up" transition="slide-up">New activity</l-Notification>
+  <l-Notification title="Slide right" transition="slide-right" transitionDelay="100">New activity</l-Notification>
+  <l-Notification title="Zoom" transition="zoom">New activity</l-Notification>
+  <l-Notification title="Flip" transition="flip">New activity</l-Notification>
+  <l-Notification title="Blur" transition="blur">New activity</l-Notification>
+  <l-Notification title="Bounce" transition="bounce">New activity</l-Notification>
+  <l-Notification title="Drop" transition="drop" transitionDuration="700">New activity</l-Notification>
+
+  <l-Notification title="Lift" hoverEffect="lift">New activity</l-Notification>
+  <l-Notification title="Glow" hoverEffect="glow">New activity</l-Notification>
+  <l-Notification title="Shine" hoverEffect="shine">New activity</l-Notification>
+  <l-Notification title="Tilt" hoverEffect="tilt">New activity</l-Notification>
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-Notification title="Fade" transition="fade">New activity</l-Notification>
+    <l-Notification title="Slide up" transition="slide-up">New activity</l-Notification>
+    <l-Notification title="Slide right" transition="slide-right" transitionDelay="100">New activity</l-Notification>
+    <l-Notification title="Zoom" transition="zoom">New activity</l-Notification>
+    <l-Notification title="Flip" transition="flip">New activity</l-Notification>
+    <l-Notification title="Blur" transition="blur">New activity</l-Notification>
+    <l-Notification title="Bounce" transition="bounce">New activity</l-Notification>
+    <l-Notification title="Drop" transition="drop" transitionDuration="700">New activity</l-Notification>
+
+    <l-Notification title="Lift" hoverEffect="lift">New activity</l-Notification>
+    <l-Notification title="Glow" hoverEffect="glow">New activity</l-Notification>
+    <l-Notification title="Shine" hoverEffect="shine">New activity</l-Notification>
+    <l-Notification title="Tilt" hoverEffect="tilt">New activity</l-Notification>
+  \`,
+})
+export class AppComponent {}`,
             }}
           />
         </section>

@@ -2,6 +2,12 @@ import { Timeline } from "../Timeline";
 import CodeBlock from "../../CodeBlock";
 import { SectionLabel } from "../../ShowcaseHelpers";
 
+const TR_ITEMS = [
+  { title: "Order placed", timestamp: "Jan 4, 9:02 AM" },
+  { title: "Shipped", description: "Package handed to carrier.", timestamp: "Jan 5, 2:30 PM" },
+  { title: "Delivered", timestamp: "Jan 6, 1:47 PM" },
+];
+
 export default function TimelineShowcase() {
   return (
     <div className="min-h-screen rounded-xl bg-surface p-6 md:p-10">
@@ -212,6 +218,83 @@ items = [
 
 // app.component.html
 <l-Timeline [items]="items" orientation="horizontal" />`,
+            }}
+          />
+        </section>
+
+        <section>
+          <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`). Items enter one after another, 60ms apart. They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
+          <div className="grid gap-6 sm:grid-cols-2">
+            <Timeline items={TR_ITEMS} transition="fade" />
+            <Timeline items={TR_ITEMS} transition="slide-up" />
+            <Timeline items={TR_ITEMS} transition="slide-right" transitionDelay={100} />
+            <Timeline items={TR_ITEMS} transition="drop" transitionDuration={700} />
+          </div>
+          <CodeBlock
+            variants={{
+              react: `const items = [
+  { title: "Order placed", timestamp: "Jan 4, 9:02 AM" },
+  { title: "Shipped", description: "Package handed to carrier.", timestamp: "Jan 5, 2:30 PM" },
+  { title: "Delivered", timestamp: "Jan 6, 1:47 PM" },
+];
+
+<Timeline items={items} transition="fade" />
+<Timeline items={items} transition="slide-up" />
+<Timeline items={items} transition="slide-right" transitionDelay={100} />
+<Timeline items={items} transition="drop" transitionDuration={700} />`,
+              js: `<l-Timeline transition="fade"></l-Timeline>
+<l-Timeline transition="slide-up"></l-Timeline>
+<l-Timeline transition="slide-right" transitionDelay="100"></l-Timeline>
+<l-Timeline transition="drop" transitionDuration="700"></l-Timeline>
+
+<script type="module">
+  import "lojee-ui/elements";
+
+  const items = [
+  { title: "Order placed", timestamp: "Jan 4, 9:02 AM" },
+  { title: "Shipped", description: "Package handed to carrier.", timestamp: "Jan 5, 2:30 PM" },
+  { title: "Delivered", timestamp: "Jan 6, 1:47 PM" },
+];
+  document.querySelectorAll("l-Timeline").forEach((el) => (el.items = items));
+</script>`,
+              vue: `<template>
+  <l-Timeline :items="items" transition="fade"></l-Timeline>
+  <l-Timeline :items="items" transition="slide-up"></l-Timeline>
+  <l-Timeline :items="items" transition="slide-right" transitionDelay="100"></l-Timeline>
+  <l-Timeline :items="items" transition="drop" transitionDuration="700"></l-Timeline>
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+
+const items = [
+  { title: "Order placed", timestamp: "Jan 4, 9:02 AM" },
+  { title: "Shipped", description: "Package handed to carrier.", timestamp: "Jan 5, 2:30 PM" },
+  { title: "Delivered", timestamp: "Jan 6, 1:47 PM" },
+];
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-Timeline [items]="items" transition="fade"></l-Timeline>
+    <l-Timeline [items]="items" transition="slide-up"></l-Timeline>
+    <l-Timeline [items]="items" transition="slide-right" transitionDelay="100"></l-Timeline>
+    <l-Timeline [items]="items" transition="drop" transitionDuration="700"></l-Timeline>
+  \`,
+})
+export class AppComponent {
+  items = [
+    { title: "Order placed", timestamp: "Jan 4, 9:02 AM" },
+    { title: "Shipped", description: "Package handed to carrier.", timestamp: "Jan 5, 2:30 PM" },
+    { title: "Delivered", timestamp: "Jan 6, 1:47 PM" },
+  ];
+}`,
             }}
           />
         </section>

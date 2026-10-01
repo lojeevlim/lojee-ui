@@ -123,6 +123,89 @@ export class AppComponent {}
             }}
           />
         </section>
+
+        <section>
+          <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`) and hover effects via `hoverEffect`. They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
+          <div className="max-w-sm space-y-3">
+            <Slider transition="fade" defaultValue={40} />
+            <Slider transition="slide-up" defaultValue={40} />
+            <Slider transition="slide-right" transitionDelay={100} defaultValue={40} />
+            <Slider transition="zoom" defaultValue={40} />
+            <Slider transition="flip" defaultValue={40} />
+            <Slider transition="blur" defaultValue={40} />
+          </div>
+          <div className="max-w-sm space-y-3">
+            <Slider hoverEffect="lift" defaultValue={40} />
+            <Slider hoverEffect="scale" defaultValue={40} />
+            <Slider hoverEffect="glow" defaultValue={40} />
+          </div>
+          <CodeBlock
+            variants={{
+              react: `<Slider transition="fade" defaultValue={40} />
+<Slider transition="slide-up" defaultValue={40} />
+<Slider transition="slide-right" transitionDelay={100} defaultValue={40} />
+<Slider transition="zoom" defaultValue={40} />
+<Slider transition="flip" defaultValue={40} />
+<Slider transition="blur" defaultValue={40} />
+
+<Slider hoverEffect="lift" defaultValue={40} />
+<Slider hoverEffect="scale" defaultValue={40} />
+<Slider hoverEffect="glow" defaultValue={40} />`,
+              js: `<l-Slider transition="fade" value="40"></l-Slider>
+<l-Slider transition="slide-up" value="40"></l-Slider>
+<l-Slider transition="slide-right" transitionDelay="100" value="40"></l-Slider>
+<l-Slider transition="zoom" value="40"></l-Slider>
+<l-Slider transition="flip" value="40"></l-Slider>
+<l-Slider transition="blur" value="40"></l-Slider>
+
+<l-Slider hoverEffect="lift" value="40"></l-Slider>
+<l-Slider hoverEffect="scale" value="40"></l-Slider>
+<l-Slider hoverEffect="glow" value="40"></l-Slider>
+
+<script type="module">
+  import "lojee-ui/elements";
+</script>`,
+              vue: `<template>
+  <l-Slider transition="fade" value="40"></l-Slider>
+  <l-Slider transition="slide-up" value="40"></l-Slider>
+  <l-Slider transition="slide-right" transitionDelay="100" value="40"></l-Slider>
+  <l-Slider transition="zoom" value="40"></l-Slider>
+  <l-Slider transition="flip" value="40"></l-Slider>
+  <l-Slider transition="blur" value="40"></l-Slider>
+
+  <l-Slider hoverEffect="lift" value="40"></l-Slider>
+  <l-Slider hoverEffect="scale" value="40"></l-Slider>
+  <l-Slider hoverEffect="glow" value="40"></l-Slider>
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-Slider transition="fade" value="40"></l-Slider>
+    <l-Slider transition="slide-up" value="40"></l-Slider>
+    <l-Slider transition="slide-right" transitionDelay="100" value="40"></l-Slider>
+    <l-Slider transition="zoom" value="40"></l-Slider>
+    <l-Slider transition="flip" value="40"></l-Slider>
+    <l-Slider transition="blur" value="40"></l-Slider>
+
+    <l-Slider hoverEffect="lift" value="40"></l-Slider>
+    <l-Slider hoverEffect="scale" value="40"></l-Slider>
+    <l-Slider hoverEffect="glow" value="40"></l-Slider>
+  \`,
+})
+export class AppComponent {}`,
+            }}
+          />
+        </section>
       </div>
     </div>
   );

@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import type { KeyboardEvent, PointerEvent, ReactNode } from "react";
 import { cx, type ColorName } from "../../../core/tokens";
+import { motionClass, motionStyle, type TransitionVariant } from "../../../core/motion";
 
 export type DividerOrientation = "horizontal" | "vertical";
 
@@ -13,6 +14,12 @@ export interface DividerProps {
   children?: ReactNode;
   /** Line color: a built-in ColorName (default: "accent"). */
   color?: ColorName;
+  /** Enter transition: "fade" | "slide-up" | "slide-down" | "slide-left" | "slide-right" | "zoom" | "zoom-out" | "flip" | "blur" | "bounce" | "rotate" | "drop" | "skew" (default: none). Respects `prefers-reduced-motion`. */
+  transition?: TransitionVariant;
+  /** Enter transition duration in ms (default: 450). */
+  transitionDuration?: number;
+  /** Delay before the enter transition starts, in ms (default: 0) — handy for staggering. */
+  transitionDelay?: number;
   /** Extra class name(s) applied to the root element. */
   className?: string;
   /**
@@ -59,6 +66,9 @@ export function Divider({
   children,
   color = "accent",
   className,
+  transition,
+  transitionDuration,
+  transitionDelay,
   resizable = false,
   onResize,
   step = 10,
@@ -67,6 +77,8 @@ export function Divider({
   const borderClass = BORDER_COLOR[color] || BORDER_COLOR.slate;
   const content = children ?? label;
   const isVertical = orientation === "vertical";
+  const tr = motionClass(transition);
+  const trStyle = motionStyle(transitionDuration, transitionDelay);
   const dragOrigin = useRef<{ x: number; y: number } | null>(null);
 
   const handlePointerDown = (e: PointerEvent<HTMLSpanElement>) => {
@@ -121,9 +133,11 @@ export function Divider({
         className={cx(
           "group inline-flex h-full shrink-0 items-stretch justify-center",
           resizable ? "w-3 cursor-col-resize touch-none select-none" : "w-px",
+          tr,
           className,
           classNames?.root
         )}
+        style={trStyle}
         {...dragHandleProps}
       >
         <span
@@ -145,9 +159,11 @@ export function Divider({
         aria-orientation="horizontal"
         className={cx(
           "group flex h-3 w-full cursor-row-resize touch-none select-none items-center",
+          tr,
           className,
           classNames?.root
         )}
+        style={trStyle}
         {...dragHandleProps}
       >
         <span
@@ -163,11 +179,11 @@ export function Divider({
   }
 
   if (content == null) {
-    return <hr role="separator" className={cx("border-t", borderClass, className, classNames?.root)} />;
+    return <hr role="separator" className={cx("border-t", borderClass, tr, className, classNames?.root)} style={trStyle} />;
   }
 
   return (
-    <div role="separator" className={cx("flex items-center gap-3 text-xs font-medium text-fg-subtle", className, classNames?.root)}>
+    <div role="separator" className={cx("flex items-center gap-3 text-xs font-medium text-fg-subtle", tr, className, classNames?.root)} style={trStyle}>
       <span className={cx("h-px flex-1 border-t", borderClass, classNames?.line)} />
       <slot>
         <span className={classNames?.label}>{content}</span>

@@ -1,5 +1,6 @@
 import type { InputHTMLAttributes, ReactNode } from "react";
 import { cx, type ColorName } from "../../../core/tokens";
+import { motionClass, motionStyle, type TransitionVariant, type HoverEffect } from "../../../core/motion";
 import { getIcon } from "../../../core/icons";
 
 export interface CheckboxProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "size" | "type"> {
@@ -7,6 +8,14 @@ export interface CheckboxProps extends Omit<InputHTMLAttributes<HTMLInputElement
   label?: ReactNode;
   /** Checked background color (default: accent — follows the theme). */
   color?: ColorName;
+  /** Enter transition: "fade" | "slide-up" | "slide-down" | "slide-left" | "slide-right" | "zoom" | "zoom-out" | "flip" | "blur" | "bounce" | "rotate" | "drop" | "skew" (default: none). Respects `prefers-reduced-motion`. */
+  transition?: TransitionVariant;
+  /** Enter transition duration in ms (default: 450). */
+  transitionDuration?: number;
+  /** Delay before the enter transition starts, in ms (default: 0) — handy for staggering. */
+  transitionDelay?: number;
+  /** Effect while hovering: "lift" | "scale" | "press" | "tilt" | "ring" | "glow" | "shine" (default: none). */
+  hoverEffect?: HoverEffect;
   /** Extra class names applied to the root `<label>` element. */
   className?: string;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
@@ -33,7 +42,7 @@ const CHECKED_BG: Record<ColorName, string> = {
   pink: "peer-checked:bg-pink-600",
 };
 
-export function Checkbox({ label, color = "accent", className, classNames, ...rest }: CheckboxProps) {
+export function Checkbox({ label, color = "accent", transition, transitionDuration, transitionDelay, hoverEffect, className, classNames, ...rest }: CheckboxProps) {
   // getIcon() always returns the same stable, module-level-imported
   // component reference for a given name, so this never actually causes a
   // remount — the lint rule can't verify that statically, hence the disable.
@@ -43,9 +52,11 @@ export function Checkbox({ label, color = "accent", className, classNames, ...re
       className={cx(
         "inline-flex items-center gap-2 text-sm text-fg-muted",
         rest.disabled && "opacity-40 pointer-events-none",
+        motionClass(transition, hoverEffect),
         className,
         classNames?.root
       )}
+      style={motionStyle(transitionDuration, transitionDelay)}
     >
       <span className="relative inline-flex h-4 w-4 shrink-0">
         {/* The box and icon below are direct siblings of the input (not
