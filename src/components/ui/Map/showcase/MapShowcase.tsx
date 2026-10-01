@@ -7,6 +7,7 @@ import { SectionLabel } from "../../ShowcaseHelpers";
 import { CITIES, CEBU } from "../samples";
 import { mapCode } from "./mapCode";
 import type { MapViewState } from "../mapTypes";
+import { MAP_STYLE_NAMES } from "../mapUtils";
 
 function CameraDemo() {
   const [city, setCity] = useState(CITIES[0]);
@@ -62,7 +63,7 @@ export default function MapShowcase() {
         </section>
 
         <section>
-          <SectionLabel sub={'controls={true} adds zoom, compass, locate-me and fullscreen. Pass a list to choose — "zoom" | "compass" | "locate" | "fullscreen" | "scale".'}>Controls</SectionLabel>
+          <SectionLabel sub={'controls={true} adds zoom, compass, locate-me and fullscreen. Pass a list to choose — "zoom" | "compass" | "locate" | "fullscreen" | "scale" | "style".'}>Controls</SectionLabel>
           <div className="grid gap-4 md:grid-cols-2">
             <Map center={CEBU} zoom={11} controls className="h-72" />
             <Map center={CEBU} zoom={11} controls={["zoom", "scale"]} className="h-72" />
@@ -79,16 +80,19 @@ export default function MapShowcase() {
         </section>
 
         <section>
-          <SectionLabel sub={'mapStyle="auto" (default) follows the page theme — switch light / dark in the header and watch it change. Or pin one: "light", "dark", "voyager", or the URL of any MapLibre style.'}>Themes and styles</SectionLabel>
+          <SectionLabel sub={'mapStyle="auto" (default) follows the page theme — switch light / dark in the header and watch it change. Or pin one: "light", "dark", "voyager", "light-minimal", "dark-minimal", "osm", "satellite", or the URL of any MapLibre style. Add "style" to controls for a built-in picker.'}>Themes and styles</SectionLabel>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {(["auto", "light", "dark", "voyager"] as const).map((s) => (
+            {MAP_STYLE_NAMES.map((s) => (
               <div key={s}>
                 <p className="mb-1 font-mono text-[11px] uppercase tracking-wide text-fg-subtle">{s}</p>
                 <Map center={CEBU} zoom={12} mapStyle={s} className="h-44" />
               </div>
             ))}
           </div>
-          <CodeBlock variants={mapCode({ props: [{ name: "center", value: "[123.9, 10.305]", kind: "json" }, { name: "zoom", value: "12", kind: "number" }, { name: "mapStyle", value: "voyager", kind: "string" }] })} />
+          <div className="mt-4">
+            <Map center={CEBU} zoom={12} controls={["zoom", "style"]} markers={[{ lng: CEBU[0], lat: CEBU[1], label: "Cebu City" }]} className="h-72" />
+          </div>
+          <CodeBlock variants={mapCode({ props: [{ name: "center", value: "[123.9, 10.305]", kind: "json" }, { name: "zoom", value: "12", kind: "number" }, { name: "mapStyle", value: '"voyager"', kind: "string" }, { name: "controls", value: '["zoom", "style"]', kind: "json" }] })} />
         </section>
 
         <section>

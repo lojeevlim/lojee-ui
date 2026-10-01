@@ -1,6 +1,6 @@
 import { Checkbox } from "../Checkbox";
 import CodeBlock from "../../CodeBlock";
-import { SectionLabel, Row } from "../../ShowcaseHelpers";
+import { SectionLabel, Row, TransitionPreview } from "../../ShowcaseHelpers";
 
 export default function CheckboxShowcase() {
   return (
@@ -126,7 +126,7 @@ export class AppComponent {}`,
 
         <section>
           <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`) and hover effects via `hoverEffect`. They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
-          <Row>
+          <TransitionPreview layout="inline">
             <Checkbox transition="fade" label="Fade" defaultChecked />
             <Checkbox transition="slide-up" label="Slide up" defaultChecked />
             <Checkbox transition="slide-right" transitionDelay={100} label="Slide right" defaultChecked />
@@ -135,13 +135,12 @@ export class AppComponent {}`,
             <Checkbox transition="blur" label="Blur" defaultChecked />
             <Checkbox transition="bounce" label="Bounce" defaultChecked />
             <Checkbox transition="drop" transitionDuration={700} label="Drop" defaultChecked />
-          </Row>
-          <Row>
-            <Checkbox hoverEffect="lift" label="Lift" />
-            <Checkbox hoverEffect="scale" label="Scale" />
-            <Checkbox hoverEffect="glow" label="Glow" />
-            <Checkbox hoverEffect="shine" label="Shine" />
-          </Row>
+          
+            <Checkbox className="rounded-md px-2 py-1" hoverEffect="lift" label="Lift" />
+            <Checkbox className="rounded-md px-2 py-1" hoverEffect="scale" label="Scale" />
+            <Checkbox className="rounded-md px-2 py-1" hoverEffect="glow" label="Glow" />
+            <Checkbox className="rounded-md px-2 py-1" hoverEffect="shine" label="Shine" />
+          </TransitionPreview>
           <CodeBlock
             variants={{
               react: `<Checkbox transition="fade" label="Fade" defaultChecked />

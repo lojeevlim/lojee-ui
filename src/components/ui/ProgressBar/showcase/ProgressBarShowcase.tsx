@@ -1,6 +1,6 @@
 import { ProgressBar } from "../ProgressBar";
 import CodeBlock from "../../CodeBlock";
-import { SectionLabel } from "../../ShowcaseHelpers";
+import { SectionLabel, TransitionPreview } from "../../ShowcaseHelpers";
 
 export default function ProgressBarShowcase() {
   return (
@@ -114,14 +114,14 @@ export default function ProgressBarShowcase() {
 
         <section>
           <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`). They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
-          <div className="flex max-w-md flex-col gap-4">
+          <div className="max-w-md"><TransitionPreview cols={1}>
             <ProgressBar value={60} transition="fade" />
             <ProgressBar value={60} transition="slide-down" />
             <ProgressBar value={60} transition="slide-right" transitionDelay={100} />
             <ProgressBar value={60} transition="zoom" />
             <ProgressBar value={60} transition="blur" />
             <ProgressBar value={60} transition="drop" transitionDuration={700} />
-          </div>
+          </TransitionPreview></div>
           <CodeBlock
             variants={{
               react: `<ProgressBar value={60} transition="fade" />

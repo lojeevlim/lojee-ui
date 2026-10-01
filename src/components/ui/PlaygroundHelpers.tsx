@@ -3,7 +3,7 @@
 // Playground button, one per component in App.tsx's SHOWCASES map.
 import { useState } from "react";
 import type { ReactNode } from "react";
-import { Check, Copy } from "lucide-react";
+import { Check, ChevronDown, Copy } from "lucide-react";
 import { COLORS, type ColorName } from "../../core/tokens";
 import { useTheme } from "../../core/theme";
 import { cx, swatchClasses } from "./playgroundUtils";
@@ -91,6 +91,8 @@ export function ColorSwatches({
 // Preference order when the globally-selected framework has no example yet.
 const FALLBACK_ORDER: CodeFramework[] = ["react", "js", "vue", "angular"];
 
+const MINIMIZE_MIN_LINES = 8;
+
 // The pinned "generated code + copy button" strip at the bottom of every
 // playground modal. Like CodeBlock (showcase pages), it re-generates from the
 // current control state on every render, but per the globally-selected
@@ -98,12 +100,17 @@ const FALLBACK_ORDER: CodeFramework[] = ["react", "js", "vue", "angular"];
 export function CodeBar({ code, variants }: { code?: string; variants?: CodeBlockVariants }) {
   const { framework } = useCodeFramework();
   const [copied, setCopied] = useState(false);
+  // Minimized: just the snippet's first line beside the Copy button, so the controls above get the room.
+  const [minimized, setMinimized] = useState(false);
 
   const allVariants: CodeBlockVariants = code !== undefined ? { react: code, ...variants } : { ...variants };
   const activeFramework =
     allVariants[framework] !== undefined ? framework : FALLBACK_ORDER.find((f) => allVariants[f] !== undefined);
   const activeCode = activeFramework ? allVariants[activeFramework] : undefined;
   const isFallback = activeFramework !== undefined && activeFramework !== framework;
+  // Only snippets taller than this get the minimize toggle; short ones have nothing worth hiding.
+  const isLong = (activeCode?.split("\n").length ?? 0) > MINIMIZE_MIN_LINES;
+  const showMinimized = isLong && minimized;
 
   const handleCopy = async () => {
     if (!activeCode) return;
@@ -123,23 +130,37 @@ export function CodeBar({ code, variants }: { code?: string; variants?: CodeBloc
           No {CODE_FRAMEWORK_LABEL[framework]} example yet for this one — showing {CODE_FRAMEWORK_LABEL[activeFramework!]}.
         </p>
       )}
-      <div className="relative rounded-lg border border-dashed border-border-strong bg-surface-muted p-4 pr-24">
+      <div className={cx("relative rounded-lg border border-dashed border-border-strong bg-surface-muted pr-40", showMinimized ? "px-4 py-2.5" : "p-4")}>
         {/* Capped so a long snippet (e.g. a Sidebar with header/footer
             children) scrolls internally instead of growing the modal
             past the viewport — the Copy button stays pinned via the
             parent's `relative` positioning regardless of scroll position. */}
-        <pre className="max-h-80 overflow-x-auto overflow-y-auto text-xs leading-relaxed text-fg">
+        <pre className={cx("overflow-x-auto text-xs leading-relaxed text-fg", showMinimized ? "max-h-[1.4em] overflow-y-hidden" : "max-h-80 overflow-y-auto")}>
           <code>{activeCode ? highlightCode(activeCode) : null}</code>
         </pre>
         {activeCode && (
-          <button
-            type="button"
-            onClick={handleCopy}
-            className="absolute right-3 top-3 inline-flex items-center gap-1.5 rounded-md bg-fg/10 px-2.5 py-1.5 text-xs font-medium text-fg transition-colors hover:bg-fg/20"
-          >
-            {copied ? <Check size={14} /> : <Copy size={14} />}
-            {copied ? "Copied" : "Copy"}
-          </button>
+          <div className={cx("absolute right-3 flex items-center gap-1.5", showMinimized ? "top-1/2 -translate-y-1/2" : "top-3")}>
+            {isLong && (
+            <button
+              type="button"
+              onClick={() => setMinimized((v) => !v)}
+              aria-expanded={!minimized}
+              aria-label={minimized ? "Expand code" : "Minimize code"}
+              title={minimized ? "Expand code" : "Minimize code"}
+              className="inline-flex items-center rounded-md bg-fg/10 p-1.5 text-fg transition-colors hover:bg-fg/20"
+            >
+              <ChevronDown size={14} className={minimized ? "rotate-180" : ""} />
+            </button>
+            )}
+            <button
+              type="button"
+              onClick={handleCopy}
+              className="inline-flex items-center gap-1.5 rounded-md bg-fg/10 px-2.5 py-1.5 text-xs font-medium text-fg transition-colors hover:bg-fg/20"
+            >
+              {copied ? <Check size={14} /> : <Copy size={14} />}
+              {copied ? "Copied" : "Copy"}
+            </button>
+          </div>
         )}
       </div>
     </div>

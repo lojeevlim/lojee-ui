@@ -2,14 +2,13 @@ import { useEffect, useState, type PointerEvent, type ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
 import "./landing.css";
 import Reveal from "./Reveal";
-import HeroSchematic from "./HeroSchematic";
+import HeroPremium from "./HeroPremium";
+import MapLab from "./MapLab";
 import FrameworkFlow from "./FrameworkFlow";
 import ThemeLab from "./ThemeLab";
 import LayoutLab from "./LayoutLab";
 import MotionLab from "./MotionLab";
 import DataLab from "./DataLab";
-import MapLab from "./MapLab";
-import Marquee from "./Marquee";
 import { spotlight, useCountUp, useInView } from "./hooks";
 import Logo from "../layouts/Logo";
 import ThemeSwitcher from "../layouts/ThemeSwitcher";
@@ -127,49 +126,43 @@ export default function LandingPage() {
       <section onPointerMove={onHeroMove} className="relative isolate">
         <div className="lp-grid pointer-events-none absolute inset-0 -z-10" />
         <div className="lp-glow pointer-events-none absolute inset-0 -z-10" />
-        <div className="mx-auto grid max-w-6xl items-center gap-12 px-5 pb-20 pt-10 lg:grid-cols-[1fr_1.05fr] lg:pb-28 lg:pt-16">
-          <div>
-            <div className="lp-enter inline-flex items-center gap-2 rounded-full border border-border bg-surface/80 py-1 pl-1 pr-3 text-xs text-fg-muted backdrop-blur" style={{ ["--d" as string]: "0ms" }}>
-              <Badge variant="solid" label="New" animated="pulse" />
-              Motion, maps, skeleton loading and table actions
-            </div>
-            <h1 className="lp-enter mt-5 text-4xl font-semibold leading-[1.05] tracking-tight md:text-6xl" style={{ ["--d" as string]: "100ms" }}>
-              Interfaces that fit <span className="lp-shimmer-text">every framework</span>
-            </h1>
-            <p className="lp-enter mt-5 max-w-xl text-lg leading-relaxed text-fg-muted" style={{ ["--d" as string]: "200ms" }}>
-              {total}+ themeable components for React — also shipped as Web Components for Vue, Angular and plain JavaScript. Styled with Tailwind CSS v4. Built to be
-              dropped in and tuned with a few props — now with motion, maps and live data built in.
-            </p>
-            <div className="lp-enter mt-8 flex flex-wrap items-center gap-3" style={{ ["--d" as string]: "300ms" }}>
-              <Button icon="arrow-right" iconPosition="right" label="Get started" onClick={start} />
-              <Button variant="outline" label="Browse components" onClick={() => navigate(pathFor("components", groups[0].items![0].label))} />
-            </div>
-            <button
-              type="button"
-              onClick={copy}
-              className="lp-enter group mt-6 flex w-full max-w-md items-center justify-between gap-3 rounded-xl border border-border bg-surface-muted px-4 py-3 text-left font-mono text-sm text-fg transition-colors hover:border-accent-500"
-              style={{ ["--d" as string]: "400ms" }}
-              aria-label="Copy install command"
-            >
-              <span>
-                <span className="mr-2 text-fg-subtle">$</span>
-                {INSTALL}
-              </span>
-              <span className={`flex items-center gap-1 text-xs transition-colors ${copied ? "text-emerald-600" : "text-fg-subtle group-hover:text-fg"}`}>
-                <Icon name={copied ? "check" : "copy"} size={14} />
-                {copied ? "Copied" : "Copy"}
-              </span>
-            </button>
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-32 bg-gradient-to-t from-surface to-transparent" />
+        <div className="mx-auto max-w-6xl px-5 pt-14 text-center lg:pt-24">
+          <div className="lp-enter inline-flex items-center gap-2 rounded-full border border-border bg-surface/70 py-1 pl-1 pr-3 text-xs text-fg-muted shadow-sm backdrop-blur" style={{ ["--d" as string]: "0ms" }}>
+            <Badge variant="solid" label="New" animated="pulse" />
+            Motion, maps, skeleton loading and table actions
+            <Icon name="arrow-right" size={12} />
           </div>
-          <div className="lp-enter" style={{ ["--d" as string]: "250ms" }}>
-            <HeroSchematic />
+          <h1 className="lp-enter mx-auto mt-7 max-w-4xl text-5xl font-semibold leading-[1.02] tracking-tight md:text-7xl lg:text-[5.25rem]" style={{ ["--d" as string]: "100ms" }}>
+            Interfaces that fit <span className="lp-shimmer-text">every framework</span>.
+          </h1>
+          <p className="lp-enter mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-fg-muted md:text-xl" style={{ ["--d" as string]: "200ms" }}>
+            {total}+ themeable components for React, shipped as Web Components for Vue, Angular and plain JavaScript — with motion, maps and live data built in.
+          </p>
+          <div className="lp-enter mt-9 flex flex-wrap items-center justify-center gap-3" style={{ ["--d" as string]: "300ms" }}>
+            <Button size="lg" icon="arrow-right" iconPosition="right" label="Get started" onClick={start} />
+            <Button size="lg" variant="outline" label="Browse components" onClick={() => navigate(pathFor("components", groups[0].items![0].label))} />
           </div>
+          <button
+            type="button"
+            onClick={copy}
+            className="lp-enter group mx-auto mt-6 flex items-center gap-3 rounded-full border border-border bg-surface/70 py-2 pl-5 pr-4 font-mono text-sm text-fg backdrop-blur transition-colors hover:border-accent-500"
+            style={{ ["--d" as string]: "400ms" }}
+            aria-label="Copy install command"
+          >
+            <span>
+              <span className="mr-2 text-fg-subtle">$</span>
+              {INSTALL}
+            </span>
+            <span className={`flex items-center gap-1 text-xs transition-colors ${copied ? "text-emerald-600" : "text-fg-subtle group-hover:text-fg"}`}>
+              <Icon name={copied ? "check" : "copy"} size={14} />
+              {copied ? "Copied" : "Copy"}
+            </span>
+          </button>
         </div>
-      </section>
-
-      {/* Component marquee */}
-      <section className="border-y border-border bg-surface-muted/50 py-8">
-        <Marquee />
+        <div className="lp-enter pb-20 lg:pb-28" style={{ ["--d" as string]: "500ms" }}>
+          <HeroPremium />
+        </div>
       </section>
 
       {/* Stats */}

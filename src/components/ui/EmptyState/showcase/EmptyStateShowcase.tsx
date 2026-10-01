@@ -1,7 +1,7 @@
 import { EmptyState } from "../EmptyState";
 import { Button } from "../../Buttons/Button";
 import CodeBlock from "../../CodeBlock";
-import { SectionLabel, Row } from "../../ShowcaseHelpers";
+import { SectionLabel, TransitionPreview } from "../../ShowcaseHelpers";
 
 export default function EmptyStateShowcase() {
   return (
@@ -121,7 +121,7 @@ const handleAdd = () => {
 
         <section>
           <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`). They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
-          <Row>
+          <TransitionPreview layout="inline">
             <EmptyState title="Fade" transition="fade" className="w-56" />
             <EmptyState title="Slide up" transition="slide-up" className="w-56" />
             <EmptyState title="Slide right" transition="slide-right" transitionDelay={100} className="w-56" />
@@ -130,7 +130,7 @@ const handleAdd = () => {
             <EmptyState title="Blur" transition="blur" className="w-56" />
             <EmptyState title="Bounce" transition="bounce" className="w-56" />
             <EmptyState title="Drop" transition="drop" transitionDuration={700} className="w-56" />
-          </Row>
+          </TransitionPreview>
           <CodeBlock
             variants={{
               react: `<EmptyState title="Fade" transition="fade" />

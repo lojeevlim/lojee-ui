@@ -3,7 +3,7 @@ import { Button } from "../../Buttons/Button";
 import { Breadcrumbs } from "../../Breadcrumbs/Breadcrumbs";
 import { BreadcrumbItem } from "../../Breadcrumbs/BreadcrumbItem";
 import CodeBlock from "../../CodeBlock";
-import { SectionLabel } from "../../ShowcaseHelpers";
+import { SectionLabel, TransitionPreview } from "../../ShowcaseHelpers";
 
 export default function HeaderShowcase() {
   return (
@@ -137,17 +137,15 @@ export default function HeaderShowcase() {
             <div className="overflow-hidden rounded-lg">
               <Header
                 variant="gradient"
-                color="indigo"
                 title="Team settings"
                 description="Manage members, roles, and billing for your workspace."
                 actions={<Button variant="outline" label="New project" className="border-white/30 text-white hover:bg-surface/10" />}
                 classNames={{ root: "px-4" }}
               />
             </div>
-            <div className="overflow-hidden rounded-lg border border-border bg-indigo-100 p-4">
+            <div className="overflow-hidden rounded-lg border border-border bg-accent-100 p-4">
               <Header
                 variant="glass"
-                color="indigo"
                 title="Team settings"
                 description="Manage members, roles, and billing for your workspace."
                 actions={<Button variant="outline" label="New project" className="border-white/30 text-white hover:bg-surface/10" />}
@@ -272,14 +270,14 @@ import "lojee-ui/elements";
 
         <section>
           <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`). They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
-          <div className="space-y-3">
+          <TransitionPreview cols={1}>
             <Header title="Fade" description="Enter transition" transition="fade" />
             <Header title="Slide down" description="Enter transition" transition="slide-down" />
             <Header title="Slide right" description="Enter transition" transition="slide-right" transitionDelay={100} />
             <Header title="Zoom" description="Enter transition" transition="zoom" />
             <Header title="Blur" description="Enter transition" transition="blur" />
             <Header title="Drop" description="Enter transition" transition="drop" transitionDuration={700} />
-          </div>
+          </TransitionPreview>
           <CodeBlock
             variants={{
               react: `<Header title="Fade" description="Enter transition" transition="fade" />

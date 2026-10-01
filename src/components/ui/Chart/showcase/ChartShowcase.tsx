@@ -266,18 +266,16 @@ ${TRAFFIC_CODE}
 
         <section>
           <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`) and hover effects via `hoverEffect`. They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
-          <Row>
+          <TransitionPreview layout="inline">
             <div className="w-56"><Chart type="bar" data={TRANSITION_DATA} height={120} transition="fade" /></div>
             <div className="w-56"><Chart type="line" data={TRANSITION_DATA} height={120} transition="slide-up" /></div>
             <div className="w-56"><Chart type="donut" data={TRANSITION_DATA} height={120} transition="slide-right" transitionDelay={100} /></div>
             <div className="w-56"><Chart type="bar" data={TRANSITION_DATA} height={120} transition="zoom" /></div>
-          </Row>
-          <Row>
             <div className="w-56"><Chart type="line" data={TRANSITION_DATA} height={120} transition="flip" /></div>
             <div className="w-56"><Chart type="donut" data={TRANSITION_DATA} height={120} transition="blur" /></div>
             <div className="w-56"><Chart type="bar" data={TRANSITION_DATA} height={120} transition="bounce" /></div>
             <div className="w-56"><Chart type="line" data={TRANSITION_DATA} height={120} transition="drop" transitionDuration={700} /></div>
-          </Row>
+          </TransitionPreview>
           <Row>
             <div className="w-56"><Chart type="donut" data={TRANSITION_DATA} height={120} hoverEffect="lift" /></div>
             <div className="w-56"><Chart type="bar" data={TRANSITION_DATA} height={120} hoverEffect="glow" /></div>

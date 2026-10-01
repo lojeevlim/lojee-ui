@@ -1,17 +1,12 @@
-import { createPortal } from "react-dom";
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react";
 import type { CSSProperties, ReactNode, Ref } from "react";
 import { cx, isColorName, type ColorName } from "../../../core/tokens";
 import { getIcon } from "../../../core/icons";
 import { sidebarActiveFillClasses } from "./sidebarActiveStyles";
 import { activeMarker } from "../../../core/activeVariant";
-import { motionClass, motionStyle, type TransitionVariant, type HoverEffect } from "../../../core/motion";
-import {
-  useTooltipPortal,
-  tooltipPortalPositionStyle,
-  TOOLTIP_PORTAL_Z_CLASS,
-  type TooltipPortalPosition,
-} from "../../../core/tooltipPortal";
+import { motionClass, motionStyle, type TransitionVariant } from "../../../core/motion";
+import type { TooltipPortalPosition } from "../../../core/tooltipPortal";
+import { Tooltip } from "../Tooltip/Tooltip";
 
 // When `collapsed` isn't passed explicitly, mirror the nearest ancestor <l-sidebar>'s own
 // `collapsed` attribute instead of requiring every single item to be wired up individually. This
@@ -124,8 +119,12 @@ export interface SidebarMenuItemProps {
   transitionDuration?: number;
   /** Delay before the enter transition starts, in ms (default: 0) — handy for staggering. */
   transitionDelay?: number;
-  /** Effect while hovering: "lift" | "scale" | "press" | "tilt" | "ring" | "glow" | "shine" (default: none). */
-  hoverEffect?: HoverEffect;
+  /** Enter/exit transition of the tooltip shown while `collapsed` (default: "bounce"). */
+  tooltipTransition?: TransitionVariant;
+  /** Enter/exit duration of the collapsed-state tooltip in ms (default: 450). */
+  tooltipTransitionDuration?: number;
+  /** Collapsed-state tooltip color — a ColorName, or "neutral" for the theme-inverted bubble (default: "accent"). */
+  tooltipColor?: ColorName | "neutral";
   /** Extra class name(s) appended to the root element. */
   className?: string;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
@@ -156,7 +155,9 @@ export const SidebarMenuItem = forwardRef<HTMLAnchorElement | HTMLButtonElement,
       transition,
       transitionDuration,
       transitionDelay,
-      hoverEffect,
+      tooltipTransition = "bounce",
+      tooltipTransitionDuration,
+      tooltipColor,
       className,
       classNames,
     },
@@ -165,20 +166,19 @@ export const SidebarMenuItem = forwardRef<HTMLAnchorElement | HTMLButtonElement,
     const Icon = getIcon(icon);
     const colorIsNamed = isColorName(color);
     const { collapsed, rootRef } = useAncestorCollapsed(collapsedProp, forwardedRef);
-    const { ref: triggerRef, state: tooltipState, show, hide } = useTooltipPortal<HTMLAnchorElement>();
 
     const activeClass = cx(
       "font-medium text-white",
       activeStyle === "fill" && sidebarActiveFillClasses(color, dark, vividActive)
     );
-    const idleClass = dark ? "text-white/70 hover:bg-white/5 hover:text-white" : "text-fg-muted hover:bg-surface-muted hover:text-fg";
+    const idleClass = dark ? "text-white/70" : "text-fg-muted";
 
     const rowClasses = cx(
       "relative flex items-center rounded-lg text-sm transition-[color,background-color,box-shadow] duration-200 ease-[cubic-bezier(.4,0,.2,1)]",
-      collapsed ? "w-full justify-center px-1 py-2" : "w-full gap-2.5 px-3 py-2.5",
+      collapsed ? "w-full justify-center px-1 py-2.5" : "w-full gap-2.5 px-3 py-3",
       disabled && "pointer-events-none opacity-50",
       active ? activeClass : idleClass,
-      motionClass(transition, hoverEffect),
+      motionClass(transition),
       className,
       classNames?.root
     );
@@ -195,38 +195,24 @@ export const SidebarMenuItem = forwardRef<HTMLAnchorElement | HTMLButtonElement,
       <Icon size={18} className={cx("shrink-0", classNames?.icon)} />
     );
 
-    const content = collapsed ? (
-      <span
-        ref={triggerRef}
-        className="flex w-full min-w-0 flex-col items-center gap-1"
-        onMouseEnter={show}
-        onMouseLeave={hide}
-        onFocus={show}
-        onBlur={hide}
-      >
+    const collapsedContent = (
+      <span className="flex w-full min-w-0 flex-col items-center gap-1">
         {iconEl}
-        {/* A small label under the icon, so the rail is still readable at a glance (the tooltip below
-            stays for names too long to fit). */}
+        {/* A small label under the icon, so the rail is still readable at a glance (the tooltip stays for names
+            too long to fit). */}
         <span className={cx("block w-full truncate text-center text-[10px] leading-none tracking-tight", classNames?.label)}>
           <slot name={slotName}>{children}</slot>
         </span>
-        {tooltipState &&
-          children != null &&
-          createPortal(
-            <span
-              role="tooltip"
-              style={{ position: "fixed", ...tooltipPortalPositionStyle(tooltipState.rect, tooltipPosition) }}
-              className={cx(
-                "pointer-events-none whitespace-nowrap rounded-md bg-accent-600 px-2 py-1 text-xs font-medium text-white shadow-lg",
-                TOOLTIP_PORTAL_Z_CLASS,
-                classNames?.tooltip
-              )}
-            >
-              {children}
-            </span>,
-            tooltipState.root
-          )}
       </span>
+    );
+    const content = collapsed ? (
+      children != null ? (
+        <Tooltip content={children} position={tooltipPosition} transition={tooltipTransition} transitionDuration={tooltipTransitionDuration} color={tooltipColor} portal className="flex w-full" classNames={{ bubble: classNames?.tooltip }}>
+          {collapsedContent}
+        </Tooltip>
+      ) : (
+        collapsedContent
+      )
     ) : (
       <>
         {iconEl}

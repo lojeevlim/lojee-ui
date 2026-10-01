@@ -4,10 +4,10 @@ import { OptionGroup, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./
 import { mapCode, type CodeProp } from "./Map/showcase/mapCode";
 import { CITIES } from "./Map/samples";
 import type { MapControlName } from "./Map/mapTypes";
-import type { MapStyleName } from "./Map/mapUtils";
+import { MAP_STYLE_NAMES, type MapStyleName } from "./Map/mapUtils";
 
-const STYLES: MapStyleName[] = ["auto", "light", "dark", "voyager"];
-const CONTROLS: MapControlName[] = ["zoom", "compass", "locate", "fullscreen", "scale"];
+const STYLES = MAP_STYLE_NAMES;
+const CONTROLS: MapControlName[] = ["zoom", "compass", "locate", "fullscreen", "scale", "style"];
 
 export default function MapPlayground() {
   const [cityName, setCityName] = useState(CITIES[0].name);
@@ -34,7 +34,7 @@ export default function MapPlayground() {
     { name: "zoom", value: String(zoom), kind: "number" },
     ...(pitch ? [{ name: "pitch", value: String(pitch), kind: "number" as const }] : []),
     ...(bearing ? [{ name: "bearing", value: String(bearing), kind: "number" as const }] : []),
-    ...(style !== "auto" ? [{ name: "mapStyle", value: style === "light" || style === "dark" || style === "voyager" ? `"${style}"` : style, kind: "string" as const }] : []),
+    ...(style !== "auto" ? [{ name: "mapStyle", value: `"${style}"`, kind: "string" as const }] : []),
     ...(controls.length ? [{ name: "controls", value: JSON.stringify(controls), kind: "json" as const }] : []),
     ...(!interactive ? [{ name: "interactive", value: "false", kind: "boolean" as const }] : []),
   ];

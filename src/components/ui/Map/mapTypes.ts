@@ -64,5 +64,5 @@ export interface MapViewState {
   bearing: number;
 }
 
-export type MapControlName = "zoom" | "compass" | "locate" | "fullscreen" | "scale";
-export const ALL_CONTROLS: MapControlName[] = ["zoom", "compass", "locate", "fullscreen", "scale"];
+export type MapControlName = "zoom" | "compass" | "locate" | "fullscreen" | "scale" | "style";
+export const ALL_CONTROLS: MapControlName[] = ["zoom", "compass", "locate", "fullscreen", "scale", "style"];

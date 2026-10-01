@@ -1,19 +1,37 @@
 import { isColorName } from "../../../core/tokens";
 import maplibreCss from "maplibre-gl/dist/maplibre-gl.css?inline";
+import type { StyleSpecification } from "maplibre-gl";
 import type { LngLat } from "./mapTypes";
 
 // ---- base styles (free CARTO basemaps, no API key) ---------------------------------------------------------------
-export const MAP_STYLES = {
+const rasterStyle = (tiles: string[], attribution: string, tileSize = 256): StyleSpecification => ({
+  version: 8,
+  sources: { base: { type: "raster", tiles, tileSize, attribution, maxzoom: 19 } },
+  layers: [{ id: "base", type: "raster", source: "base" }],
+});
+
+export const MAP_STYLES: Record<string, string | StyleSpecification> = {
   light: "https://basemaps.cartocdn.com/gl/positron-gl-style/style.json",
   dark: "https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json",
   voyager: "https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json",
-} as const;
+  "light-minimal": "https://basemaps.cartocdn.com/gl/positron-nolabels-gl-style/style.json",
+  "dark-minimal": "https://basemaps.cartocdn.com/gl/dark-matter-nolabels-gl-style/style.json",
+  osm: rasterStyle(["https://tile.openstreetmap.org/{z}/{x}/{y}.png"], "© OpenStreetMap contributors"),
+  satellite: rasterStyle(
+    ["https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"],
+    "Imagery © Esri, Maxar, Earthstar Geographics"
+  ),
+};
 
-export type MapStyleName = "auto" | keyof typeof MAP_STYLES;
+/** Named base maps, in the order the style switcher lists them. */
+export const MAP_STYLE_NAMES = ["auto", "light", "dark", "voyager", "light-minimal", "dark-minimal", "osm", "satellite"] as const;
 
-export function resolveStyleUrl(style: MapStyleName | (string & {}), themeIsDark: boolean): string {
-  if (style === "auto") return themeIsDark ? MAP_STYLES.dark : MAP_STYLES.light;
-  return style in MAP_STYLES ? MAP_STYLES[style as keyof typeof MAP_STYLES] : style;
+export type MapStyleName = (typeof MAP_STYLE_NAMES)[number];
+
+/** Resolves a style name (or style JSON URL) to something `map.setStyle` accepts, plus a stable key for change detection. */
+export function resolveStyle(style: MapStyleName | (string & {}), themeIsDark: boolean): { key: string; style: string | StyleSpecification } {
+  const name = style === "auto" ? (themeIsDark ? "dark" : "light") : style;
+  return { key: name, style: name in MAP_STYLES ? MAP_STYLES[name] : name };
 }
 
 /** The nearest `data-theme` above an element — also looks out of a shadow root to the host. */

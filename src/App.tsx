@@ -85,7 +85,7 @@ import { findMenuItem, defaultPathFor, type NavKind } from './core/routes'
 
 import AppShowcase from './components/ui/AppLayout'
 import { ThemeProvider } from './components/ui/Theme/ThemeProvider'
-import { App as AppShell, Top, Side, Main, Footer } from './components/ui/AppLayout/App'
+import { App as AppShell, Top, Side, Main } from './components/ui/AppLayout/App'
 import type { GridLayout } from './components/ui/AppLayout/appLayout'
 import ChangelogShowcase from './components/ui/Changelog/ChangelogShowcase'
 import IntroductionShowcase from './components/ui/Introduction/IntroductionShowcase'
@@ -180,7 +180,6 @@ const SHOWCASES: Record<string, ComponentType> = {
 const APP_LAYOUT: GridLayout = [
   ['side', 'top'],
   ['side', 'main'],
-  ['side', 'footer'],
 ]
 
 function App() {
@@ -251,9 +250,6 @@ function App() {
             ) : <p>This is the main content area.</p>
           })()}
         </Main>
-        <Footer>
-          <div className="border-t border-border bg-surface-muted px-4 py-2 text-xs text-fg-subtle">© 2026 Lojee, Inc.</div>
-        </Footer>
       </AppShell>
 
     {/* Playgrounds only exist for components — the docs pages (Introduction, Installation, …) have none. */}

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Sidebar, type SidebarVariant } from "./Sidebar/Sidebar";
 import { OptionGroup, ColorSwatches, PlaygroundLayout, AppWindowFrame } from "./PlaygroundHelpers";
 import { isColorName, COLOR_HEX } from "../../core/tokens";
+import { TRANSITIONS, type TransitionVariant } from "../../core/motion";
 import type { CodeBlockVariants } from "./CodeBlock";
 import { useMotion } from "./playgroundMotion";
 
@@ -33,10 +34,17 @@ const NAV_ITEMS = [
   { icon: "settings", label: "Settings" },
 ];
 
+const TOOLTIP_COLORS = ["accent", "neutral", "emerald", "rose", "amber", "indigo"] as const;
+type TooltipColor = (typeof TOOLTIP_COLORS)[number];
+
 const DEFAULT_ACTIVE_OPTIONS = ["none", ...NAV_ITEMS.map((item) => item.label)];
 
 export default function SidebarPlayground() {
-  const motion = useMotion();
+  // Hover effect doesn't apply to a sidebar — its tooltip effects (below) take that slot instead.
+  const motion = useMotion({ hover: false });
+  const [tooltipTransition, setTooltipTransition] = useState<TransitionVariant>("bounce");
+  const [tooltipDuration, setTooltipDuration] = useState(450);
+  const [tooltipColor, setTooltipColor] = useState<TooltipColor>("accent");
   const [header, setHeader] = useState("Lojee Inc");
   const [width, setWidth] = useState(256);
   const [collapsed, setCollapsed] = useState(false);
@@ -81,6 +89,9 @@ export default function SidebarPlayground() {
             footer="Jordan Diaz"
             defaultActiveItem={defaultActiveItemValue}
             borderWidth={borderWidth}
+            tooltipTransition={tooltipTransition}
+            tooltipTransitionDuration={tooltipDuration}
+            tooltipColor={tooltipColor}
             items={NAV_ITEMS}
           />
         </div>
@@ -113,9 +124,14 @@ export default function SidebarPlayground() {
   const borderWidthAttrJsx = showBorderWidthControl && borderWidth !== 2 ? ` borderWidth={${borderWidth}}` : "";
   // Same attribute names in React and the custom elements.
   const motionAttrs = motion.attrs;
+  const tooltipAttrs =
+    (tooltipTransition !== "bounce" ? ` tooltipTransition="${tooltipTransition}"` : "") +
+    (tooltipDuration !== 450 ? ` tooltipTransitionDuration="${tooltipDuration}"` : "") +
+    (tooltipColor !== "accent" ? ` tooltipColor="${tooltipColor}"` : "");
+  const tooltipAttrsJsx = tooltipAttrs.replace(/(tooltipTransitionDuration)="(\d+)"/, "$1={$2}");
   const borderWidthAttrHtml = showBorderWidthControl && borderWidth !== 2 ? ` border-width="${borderWidth}"` : "";
 
-  const code = `<Sidebar${widthAttrJsx}${collapsedAttr}${variantAttr}${colorAttr}${collapsibleAttr}${defaultActiveItemAttrJsx}${borderWidthAttrJsx}${motionAttrs}
+  const code = `<Sidebar${widthAttrJsx}${collapsedAttr}${variantAttr}${colorAttr}${collapsibleAttr}${defaultActiveItemAttrJsx}${borderWidthAttrJsx}${motionAttrs}${tooltipAttrsJsx}
   onCollapsedChange={setCollapsed}
   onActiveItemChange={(item) => console.log(item)}
   header="${headerText}"
@@ -126,7 +142,7 @@ export default function SidebarPlayground() {
 
   const codeVariants: CodeBlockVariants = {
     react: code,
-    js: `<l-Sidebar id="app-sidebar"${widthAttrHtml}${collapsedAttrHtml}${variantAttr}${colorAttr}${collapsibleAttrHtml}${defaultActiveItemAttrHtml}${borderWidthAttrHtml}${motionAttrs} header="${headerText}" header-icon="zap" footer="Jordan Diaz"></l-Sidebar>
+    js: `<l-Sidebar id="app-sidebar"${widthAttrHtml}${collapsedAttrHtml}${variantAttr}${colorAttr}${collapsibleAttrHtml}${defaultActiveItemAttrHtml}${borderWidthAttrHtml}${motionAttrs}${tooltipAttrs} header="${headerText}" header-icon="zap" footer="Jordan Diaz"></l-Sidebar>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -136,7 +152,7 @@ export default function SidebarPlayground() {
   sidebar.addEventListener("activeitemchange", (e) => console.log(e.detail));
 </script>`,
     vue: `<template>
-  <l-Sidebar${widthAttrHtml}${collapsedAttrVue}${variantAttr}${colorAttr}${collapsibleAttrVue}${defaultActiveItemAttrHtml}${borderWidthAttrHtml}${motionAttrs} header="${headerText}" header-icon="zap" footer="Jordan Diaz" :items="items" @activeitemchange="(e) => console.log(e.detail)" />
+  <l-Sidebar${widthAttrHtml}${collapsedAttrVue}${variantAttr}${colorAttr}${collapsibleAttrVue}${defaultActiveItemAttrHtml}${borderWidthAttrHtml}${motionAttrs}${tooltipAttrs} header="${headerText}" header-icon="zap" footer="Jordan Diaz" :items="items" @activeitemchange="(e) => console.log(e.detail)" />
 </template>
 
 <script setup lang="ts">
@@ -152,7 +168,7 @@ import "lojee-ui/elements";
   selector: "app-root",
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  template: \`<l-Sidebar${widthAttrHtml}${collapsedAttrAngular}${variantAttr}${colorAttr}${collapsibleAttrAngular}${defaultActiveItemAttrHtml}${borderWidthAttrHtml}${motionAttrs} header="${headerText}" header-icon="zap" footer="Jordan Diaz" [items]="items" (activeitemchange)="onActiveItemChange($event.detail)" />\`,
+  template: \`<l-Sidebar${widthAttrHtml}${collapsedAttrAngular}${variantAttr}${colorAttr}${collapsibleAttrAngular}${defaultActiveItemAttrHtml}${borderWidthAttrHtml}${motionAttrs}${tooltipAttrs} header="${headerText}" header-icon="zap" footer="Jordan Diaz" [items]="items" (activeitemchange)="onActiveItemChange($event.detail)" />\`,
 })
 export class AppComponent {
   items = ${itemsLiteral};
@@ -261,6 +277,16 @@ export class AppComponent {
         </span>
       </div>
       {motion.controls}
+      {/* Tooltips appear on the collapse toggle and on every nav row while the rail is collapsed. */}
+      <OptionGroup label="Tooltip transition" options={TRANSITIONS} value={tooltipTransition} onChange={setTooltipTransition} />
+      <OptionGroup label="Tooltip color" options={TOOLTIP_COLORS} value={tooltipColor} onChange={setTooltipColor} />
+      <div className="sm:col-span-2 flex flex-wrap items-center gap-x-6 gap-y-2">
+        <label className="flex items-center gap-2 text-xs font-medium text-fg-subtle">
+          Tooltip duration {tooltipDuration}ms
+          <input type="range" className="accent-accent-500" min={100} max={1500} step={50} value={tooltipDuration} onChange={(e) => setTooltipDuration(Number(e.target.value))} />
+        </label>
+        <span className="text-xs text-fg-subtle">Hover the toggle, or collapse the sidebar and hover a row.</span>
+      </div>
     </PlaygroundLayout>
   );
 }

@@ -104,7 +104,7 @@ export function AccountSettings({
 
   return (
     <div
-      className={cx("flex w-full flex-col gap-6", motionClass(transition, hoverEffect), className, classNames?.root)}
+      className={cx("flex w-full flex-col gap-6 rounded-xl", motionClass(transition, hoverEffect), className, classNames?.root)}
       style={motionStyle(transitionDuration, transitionDelay)}
     >
       <SectionCard title="Email address" description="The email used to sign in and receive notifications." className={classNames?.section}>

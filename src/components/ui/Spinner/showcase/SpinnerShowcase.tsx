@@ -1,6 +1,6 @@
 import { Spinner } from "../Spinner";
 import CodeBlock from "../../CodeBlock";
-import { SectionLabel, Row } from "../../ShowcaseHelpers";
+import { SectionLabel, Row, TransitionPreview } from "../../ShowcaseHelpers";
 
 export default function SpinnerShowcase() {
   return (
@@ -114,14 +114,14 @@ export class SpinnerShowcaseComponent {}`,
 
         <section>
           <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`). They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
-          <Row>
+          <TransitionPreview layout="inline">
             <Spinner variant="circle" transition="fade" />
             <Spinner variant="dots" transition="zoom" />
             <Spinner variant="ring" transition="blur" />
             <Spinner variant="bars" transition="bounce" />
             <Spinner variant="pulse" transition="slide-up" transitionDelay={100} />
             <Spinner variant="circle" transition="drop" transitionDuration={700} />
-          </Row>
+          </TransitionPreview>
           <CodeBlock
             variants={{
               react: `<Spinner variant="circle" transition="fade" />

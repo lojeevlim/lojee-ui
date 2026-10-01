@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Table, type TableAction, type TableColumn } from "../Table";
 import { Badge } from "../../Badge/Badge";
 import CodeBlock from "../../CodeBlock";
-import { SectionLabel } from "../../ShowcaseHelpers";
+import { SectionLabel, TransitionPreview } from "../../ShowcaseHelpers";
 
 interface Person {
   name: string;
@@ -439,12 +439,12 @@ onDataChange(e) {
 
         <section>
           <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`). They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
-          <div className="space-y-4">
+          <TransitionPreview cols={1}>
             <Table columns={BASIC_COLUMNS} data={PEOPLE} transition="fade" />
             <Table columns={BASIC_COLUMNS} data={PEOPLE} transition="slide-up" />
             <Table columns={BASIC_COLUMNS} data={PEOPLE} transition="zoom" transitionDelay={100} />
             <Table columns={BASIC_COLUMNS} data={PEOPLE} transition="blur" transitionDuration={700} />
-          </div>
+          </TransitionPreview>
           <CodeBlock
             variants={{
               react: `const columns = [

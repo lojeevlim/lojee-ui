@@ -1,6 +1,6 @@
 import { Textarea } from "../Textarea";
 import CodeBlock from "../../CodeBlock";
-import { SectionLabel, Row } from "../../ShowcaseHelpers";
+import { SectionLabel, Row, TransitionPreview } from "../../ShowcaseHelpers";
 
 export default function TextareaShowcase() {
   return (
@@ -110,14 +110,14 @@ export class AppComponent {}`,
 
         <section>
           <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`) and hover effects via `hoverEffect`. They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
-          <div className="max-w-sm space-y-3">
+          <div className="max-w-sm"><TransitionPreview cols={1}>
             <Textarea transition="fade" placeholder="Fade" />
             <Textarea transition="slide-up" placeholder="Slide up" />
             <Textarea transition="slide-right" transitionDelay={100} placeholder="Slide right" />
             <Textarea transition="zoom" placeholder="Zoom" />
             <Textarea transition="flip" placeholder="Flip" />
             <Textarea transition="blur" placeholder="Blur" />
-          </div>
+          </TransitionPreview></div>
           <div className="max-w-sm space-y-3">
             <Textarea hoverEffect="lift" placeholder="Lift" />
             <Textarea hoverEffect="scale" placeholder="Scale" />

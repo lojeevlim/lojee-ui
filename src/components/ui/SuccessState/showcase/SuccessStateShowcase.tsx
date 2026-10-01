@@ -1,7 +1,7 @@
 import { SuccessState } from "../SuccessState";
 import { Button } from "../../Buttons/Button";
 import CodeBlock from "../../CodeBlock";
-import { SectionLabel, Row } from "../../ShowcaseHelpers";
+import { SectionLabel, TransitionPreview } from "../../ShowcaseHelpers";
 
 export default function SuccessStateShowcase() {
   return (
@@ -114,7 +114,7 @@ const handleViewDetails = () => {
 
         <section>
           <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`). They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
-          <Row>
+          <TransitionPreview layout="inline">
             <SuccessState title="Fade" transition="fade" className="w-56" />
             <SuccessState title="Slide up" transition="slide-up" className="w-56" />
             <SuccessState title="Slide right" transition="slide-right" transitionDelay={100} className="w-56" />
@@ -123,7 +123,7 @@ const handleViewDetails = () => {
             <SuccessState title="Blur" transition="blur" className="w-56" />
             <SuccessState title="Bounce" transition="bounce" className="w-56" />
             <SuccessState title="Drop" transition="drop" transitionDuration={700} className="w-56" />
-          </Row>
+          </TransitionPreview>
           <CodeBlock
             variants={{
               react: `<SuccessState title="Fade" transition="fade" />

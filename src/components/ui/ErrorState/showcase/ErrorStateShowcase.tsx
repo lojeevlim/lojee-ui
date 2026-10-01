@@ -1,7 +1,7 @@
 import { ErrorState } from "../ErrorState";
 import { Button } from "../../Buttons/Button";
 import CodeBlock from "../../CodeBlock";
-import { SectionLabel, Row } from "../../ShowcaseHelpers";
+import { SectionLabel, TransitionPreview } from "../../ShowcaseHelpers";
 
 export default function ErrorStateShowcase() {
   return (
@@ -119,7 +119,7 @@ const handleRetry = () => {
 
         <section>
           <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`). They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
-          <Row>
+          <TransitionPreview layout="inline">
             <ErrorState title="Fade" transition="fade" className="w-56" />
             <ErrorState title="Slide up" transition="slide-up" className="w-56" />
             <ErrorState title="Slide right" transition="slide-right" transitionDelay={100} className="w-56" />
@@ -128,7 +128,7 @@ const handleRetry = () => {
             <ErrorState title="Blur" transition="blur" className="w-56" />
             <ErrorState title="Bounce" transition="bounce" className="w-56" />
             <ErrorState title="Drop" transition="drop" transitionDuration={700} className="w-56" />
-          </Row>
+          </TransitionPreview>
           <CodeBlock
             variants={{
               react: `<ErrorState title="Fade" transition="fade" />

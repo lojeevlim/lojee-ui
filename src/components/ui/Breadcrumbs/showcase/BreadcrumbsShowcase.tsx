@@ -1,7 +1,7 @@
 import { Breadcrumbs } from "../Breadcrumbs";
 import { BreadcrumbItem } from "../BreadcrumbItem";
 import CodeBlock from "../../CodeBlock";
-import { SectionLabel, Row } from "../../ShowcaseHelpers";
+import { SectionLabel, Row, TransitionPreview } from "../../ShowcaseHelpers";
 
 const crumbCode = (attr: string) => ({
   react: `<Breadcrumbs ${attr}>
@@ -273,7 +273,7 @@ separatorClassNames = { separator: "text-indigo-300" };`,
 
         <section>
           <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`). They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
-          <Row>
+          <TransitionPreview layout="inline">
             <Breadcrumbs transition="fade">
               <BreadcrumbItem href="/">Home</BreadcrumbItem>
               <BreadcrumbItem href="/docs">Docs</BreadcrumbItem>
@@ -304,7 +304,7 @@ separatorClassNames = { separator: "text-indigo-300" };`,
               <BreadcrumbItem href="/docs">Docs</BreadcrumbItem>
               <BreadcrumbItem>Drop</BreadcrumbItem>
             </Breadcrumbs>
-          </Row>
+          </TransitionPreview>
           <CodeBlock
             variants={{
               react: `<Breadcrumbs transition="fade">

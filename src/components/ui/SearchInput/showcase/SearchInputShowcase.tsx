@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { SearchInput } from "../SearchInput";
 import CodeBlock from "../../CodeBlock";
-import { SectionLabel } from "../../ShowcaseHelpers";
+import { SectionLabel, TransitionPreview } from "../../ShowcaseHelpers";
 
 export default function SearchInputShowcase() {
   const [query, setQuery] = useState("lojee-ui");
@@ -128,7 +128,7 @@ export class AppComponent {
 
         <section>
           <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`) and hover effects via `hoverEffect`. They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
-          <div className="grid max-w-2xl gap-3 sm:grid-cols-2">
+          <div className="max-w-2xl"><TransitionPreview cols={2}>
             <SearchInput transition="fade" placeholder="Search…" />
             <SearchInput transition="slide-up" placeholder="Search…" />
             <SearchInput transition="slide-right" transitionDelay={100} placeholder="Search…" />
@@ -140,7 +140,7 @@ export class AppComponent {
             <SearchInput hoverEffect="lift" placeholder="Search…" />
             <SearchInput hoverEffect="glow" placeholder="Search…" />
             <SearchInput hoverEffect="ring" placeholder="Search…" />
-          </div>
+          </TransitionPreview></div>
           <CodeBlock
             variants={{
               react: `<SearchInput transition="fade" placeholder="Search…" />

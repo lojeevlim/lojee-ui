@@ -1,6 +1,6 @@
 import { Select } from "../Select";
 import CodeBlock from "../../CodeBlock";
-import { SectionLabel, Row } from "../../ShowcaseHelpers";
+import { SectionLabel, Row, TransitionPreview } from "../../ShowcaseHelpers";
 
 const FRUITS = [
   { label: "Apple", value: "apple" },
@@ -158,19 +158,17 @@ export class AppComponent {
 
         <section>
           <SectionLabel sub="Dropdown panel transitions via `transition` (with `transitionDuration` / `transitionDelay`) and hover effects on the field via `hoverEffect`. Open the dropdown to see the panel animate in and out.">Transitions</SectionLabel>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <TransitionPreview cols={3}>
             <Select options={FRUITS} placeholder="Choose a fruit" transition="fade" />
             <Select options={FRUITS} placeholder="Choose a fruit" transition="slide-up" />
             <Select options={FRUITS} placeholder="Choose a fruit" transition="zoom" />
             <Select options={FRUITS} placeholder="Choose a fruit" transition="flip" />
             <Select options={FRUITS} placeholder="Choose a fruit" transition="slide-right" transitionDelay={100} />
             <Select options={FRUITS} placeholder="Choose a fruit" transition="bounce" transitionDuration={700} />
-          </div>
-          <div className="grid gap-4 sm:grid-cols-3">
             <Select options={FRUITS} placeholder="Choose a fruit" hoverEffect="lift" />
             <Select options={FRUITS} placeholder="Choose a fruit" hoverEffect="glow" />
             <Select options={FRUITS} placeholder="Choose a fruit" hoverEffect="ring" />
-          </div>
+          </TransitionPreview>
           <CodeBlock
             variants={{
               react: `<Select options={options} placeholder="Choose a fruit" transition="fade" />
