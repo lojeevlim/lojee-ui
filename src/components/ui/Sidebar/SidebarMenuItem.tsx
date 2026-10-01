@@ -69,8 +69,8 @@ export interface SidebarMenuItemProps {
   children?: ReactNode;
   /** Renders as a link when set; otherwise a `<button type="button">`. */
   href?: string;
-  /** Called with no arguments when the row is clicked (not called while `disabled`). */
-  onClick?: () => void;
+  /** Called when the row is clicked, with the click event (not called while `disabled`). */
+  onClick?: (event: React.MouseEvent<HTMLElement>) => void;
   /** Highlights this row as the current page/section (default: false). */
   active?: boolean;
   /** Disables the row so it can't be clicked or focused and renders dimmed (default: false). */

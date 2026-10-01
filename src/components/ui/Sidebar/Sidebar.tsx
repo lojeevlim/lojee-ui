@@ -9,17 +9,50 @@ import { activeMarker } from "../../../core/activeVariant";
 import { motionClass, motionStyle, type TransitionVariant } from "../../../core/motion";
 
 // Determines which `items` row matches the current URL, for the built-in active-item detection
-// below — an exact `href` match always wins outright; otherwise the longest `href` the current path
+// below — an exact `path` match always wins outright; otherwise the longest `path` the current path
 // starts with wins, so a nested route (e.g. "/settings/billing") still highlights its parent nav row
 // ("/settings") rather than none at all. "/" is excluded from prefix matching since every path starts
-// with it — it can only win via an exact match.
+// with it — it can only win via an exact match. (`href` is read as a deprecated alias of `path`.)
+const rowPath = (item: SidebarMenuItemSpec) => item.path ?? item.href;
+
+// Single-page navigation for a row with a `path`: the row is still a real link (so "open in new tab" and the
+// status-bar URL work), but a plain click is intercepted so the browser doesn't reload the page. The caller's
+// `onNavigate` does the routing when given; otherwise the URL is changed with the History API and a `popstate`
+// event is fired so routers listening to the history (React Router, etc.) re-read the location.
+function navigateInApp(
+  event: { preventDefault: () => void; defaultPrevented: boolean; button: number; metaKey: boolean; ctrlKey: boolean; shiftKey: boolean; altKey: boolean },
+  path: string,
+  item: SidebarMenuItemSpec,
+  onNavigate?: (path: string, item: SidebarMenuItemSpec) => void
+) {
+  if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+  let url: URL;
+  try {
+    url = new URL(path, window.location.href);
+  } catch {
+    return;
+  }
+  if (url.origin !== window.location.origin) return; // another site: let the browser follow the link
+  event.preventDefault();
+  if (onNavigate) {
+    onNavigate(path, item);
+    return;
+  }
+  const target = url.pathname + url.search + url.hash;
+  if (target !== window.location.pathname + window.location.search + window.location.hash) {
+    window.history.pushState({}, "", target);
+    window.dispatchEvent(new PopStateEvent("popstate"));
+  }
+}
+
 function findActiveLabel(items: SidebarMenuItemSpec[], pathname: string): string | undefined {
   let bestMatch: SidebarMenuItemSpec | undefined;
   for (const item of items) {
-    if (!item.href) continue;
-    if (item.href === pathname) return item.label;
-    if (item.href !== "/" && pathname.startsWith(item.href)) {
-      if (!bestMatch || item.href.length > bestMatch.href!.length) bestMatch = item;
+    const path = rowPath(item);
+    if (!path) continue;
+    if (path === pathname) return item.label;
+    if (path !== "/" && pathname.startsWith(path)) {
+      if (!bestMatch || path.length > rowPath(bestMatch)!.length) bestMatch = item;
     }
   }
   return bestMatch?.label;
@@ -79,14 +112,17 @@ export interface SidebarMenuItemSpec {
   label: string;
   /** Icon name, e.g. "home" — see src/core/icons.ts for the available set. */
   icon?: string;
-  /** Renders the row as a link when set (otherwise a `<button type="button">` with no click
-   * behavior of its own). */
+  /** The route this row stands for, e.g. "/settings". It is matched against the current URL to decide the
+   * active row, and the row is rendered as a link to it (otherwise a `<button type="button">` with no click
+   * behavior of its own). A nested URL ("/settings/billing") still activates the "/settings" row. */
+  path?: string;
+  /** @deprecated Use `path`. Still read as a fallback when `path` is not set. */
   href?: string;
   /** Highlights this row as the current page/section — tinted with the parent Sidebar's own `color`.
-   * `Sidebar` always manages the actual selection itself: clicking any row (with or without `href`)
-   * updates it immediately, and a row's `href` is matched against the current URL on load/back-forward
+   * `Sidebar` always manages the actual selection itself: clicking any row (with or without `path`)
+   * updates it immediately, and a row's `path` is matched against the current URL on load/back-forward
    * -navigation — no router wiring needed for the common case. Setting `active: true` on a row is a
-   * *default*, not a lock: it seeds the initial selection (useful with no matching `href`), and if you
+   * *default*, not a lock: it seeds the initial selection (useful with no matching `path`), and if you
    * keep recomputing it from your own external state (e.g. a router's current route, recalculated on
    * every render like the demo app's own nav), it keeps winning on every change too — but a one-time
    * `active: true` that never changes again won't keep overriding later clicks. For `disabled` per
@@ -124,7 +160,7 @@ export interface SidebarProps {
    * `active` row, and toggles independently after that (not a controlled prop; local UI state, like
    * the built-in collapse toggle's hover state). Rendered above any `children`, automatically
    * matched to this Sidebar's own `collapsed`/`color`/`variant`. Which row is active is also
-   * self-determined by default (see `SidebarMenuItemSpec.active`) — each row's `href` is matched
+   * self-determined by default (see `SidebarMenuItemSpec.active`) — each row's `path` is matched
    * against the current URL, no router wiring needed. */
   items?: (SidebarMenuItemSpec | SidebarMenuCategorySpec)[];
   /** Label of the `items` row that should start active, as a lighter-weight alternative to adding
@@ -132,7 +168,7 @@ export interface SidebarProps {
    * place with a different default, or built from data you don't want to mutate). Purely an initial
    * default — after the first render it behaves exactly like a click already happened, i.e. plain
    * self-managed selection from then on. A row's own `active` field (if any row sets it) and a
-   * matching `href` against the current URL both take priority over this when present. Has no effect
+   * matching `path` against the current URL both take priority over this when present. Has no effect
    * on rows composed directly via `children`. */
   defaultActiveItem?: string;
   /** Pixel width when expanded (default: 256). */
@@ -214,6 +250,12 @@ export interface SidebarProps {
    * called for rows composed directly via `children` (only the data-driven `items` shortcut has a
    * "current item" concept). */
   onActiveItemChange?: (item: SidebarMenuItemSpec) => void;
+  /** Called with a row's `path` when it is clicked, so your router can navigate without a page reload
+   * (e.g. React Router's `navigate`). Without it, `Sidebar` changes the URL itself with `history.pushState`
+   * and fires a `popstate` event, which routers that watch the history pick up — still no reload. Modified
+   * clicks (Ctrl/Cmd/Shift, middle button) and paths on another origin keep the browser's normal link
+   * behaviour. */
+  onNavigate?: (path: string, item: SidebarMenuItemSpec) => void;
   /** Enter transition: "fade" | "slide-up" | "slide-down" | "slide-left" | "slide-right" | "zoom" | "zoom-out" | "flip" | "blur" | "bounce" | "rotate" | "drop" | "skew" (default: none). Respects `prefers-reduced-motion`. */
   transition?: TransitionVariant;
   /** Enter transition duration in ms (default: 450). */
@@ -396,6 +438,7 @@ export function Sidebar({
   collapsible = false,
   onCollapsedChange,
   onActiveItemChange,
+  onNavigate,
   transition,
   transitionDuration,
   transitionDelay,
@@ -460,7 +503,7 @@ export function Sidebar({
   // *changes* to point at a different row (e.g. a router recomputing `active` on every render as the
   // route changes, exactly like the demo app's own nav) — but a `active: true` that's simply been set
   // once and never changes again doesn't keep re-asserting itself, so clicking around still works.
-  // `findActiveLabel` additionally matches each row's `href` against the current URL on mount and on
+  // `findActiveLabel` additionally matches each row's `path` against the current URL on mount and on
   // browser back/forward, taking priority as the more specific signal when both are present.
   const flatItems = items?.flatMap((entry) => ("category" in entry ? entry.items : [entry])) ?? [];
   const explicitActiveLabel = flatItems.find((item) => item.active)?.label;
@@ -558,7 +601,7 @@ export function Sidebar({
         itemNodesRef.current[item.label] = el;
       }}
       icon={item.icon}
-      href={item.href}
+      href={rowPath(item)}
       active={selectedLabel === item.label}
       activeStyle="text"
       // A unique value per row — see SidebarMenuItem's own `slotName` doc for why: every generated
@@ -572,7 +615,11 @@ export function Sidebar({
       tooltipTransition={tooltipTransition}
       tooltipTransitionDuration={tooltipTransitionDuration}
       tooltipColor={tooltipColor}
-      onClick={() => setSelectedLabel(item.label)}
+      onClick={(event) => {
+        setSelectedLabel(item.label);
+        const path = rowPath(item);
+        if (path) navigateInApp(event, path, item, onNavigate);
+      }}
     >
       {item.label}
     </SidebarMenuItem>
