@@ -52,8 +52,10 @@ ${reactChildren ? `>\n${reactChildren}\n</Map>` : "/>"}`;
 
   const style = `style="height: ${height}px"`;
   const scalarHtml = scalar.map(attr).join(" ");
-  const jsonVue = json.map((p) => `:${p.name}="${p.value.replace(/\n\s*/g, " ")}"`).join(" ");
-  const jsonAngular = json.map((p) => `[${p.name}]="${p.value.replace(/\n\s*/g, " ")}"`).join(" ");
+  // Vue/Angular bindings sit inside a double-quoted attribute, so string literals inside them must use single quotes.
+  const bindingValue = (v: string) => v.replace(/\n\s*/g, " ").replace(/'/g, "\\'").replace(/"/g, "'");
+  const jsonVue = json.map((p) => `:${p.name}="${bindingValue(p.value)}"`).join(" ");
+  const jsonAngular = json.map((p) => `[${p.name}]="${bindingValue(p.value)}"`).join(" ");
   const evVue = events.map(([e]) => `@${e}="(e: CustomEvent) => onEvent(e.detail)"`).join(" ");
   const evAngular = events.map(([e]) => `(${e})="onEvent($event.detail)"`).join(" ");
 
