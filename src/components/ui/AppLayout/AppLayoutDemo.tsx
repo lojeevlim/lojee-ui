@@ -1,9 +1,9 @@
 // Demo-only sample content for the App Layout playground and showcase — the real <App>, <Top>, <Side>,
-// <Main> and <Footer> composed with existing Navbar / Sidebar / Footer components (no separate mock).
+// <Main> and <Foot> composed with existing Navbar / Sidebar / Footer components (no separate mock).
 import { Button } from "../Buttons/Button";
 import { Navbar } from "../Navbar/Navbar";
 import { Sidebar } from "../Sidebar/Sidebar";
-import { App, Top, Side, Main, Footer, SideToggle } from "./App";
+import { App, Top, Side, Main, Foot, SideToggle } from "./App";
 import type { AccentName } from "../../../core/theme";
 import type { AppTheme, GridLayout } from "./appLayout";
 
@@ -33,7 +33,7 @@ export default function AppLayoutDemo({ theme, accent, layout, height = 360, bar
           />
         </Side>
         <Main>
-          <div className="space-y-2 p-4">
+          <div className="space-y-2">
             <h3 className="text-sm font-semibold text-fg">Dashboard</h3>
             <p className="text-xs text-fg-muted">Main content scrolls on its own inside the grid.</p>
             <div className="flex flex-wrap gap-2">
@@ -50,9 +50,9 @@ export default function AppLayoutDemo({ theme, accent, layout, height = 360, bar
             </div>
           </div>
         </Main>
-        <Footer>
-          <div className="border-t border-border bg-surface-muted px-4 py-1.5 text-[11px] text-fg-subtle">© 2026 Lojee, Inc.</div>
-        </Footer>
+        <Foot>
+          <div className="border-t border-border bg-surface-muted px-8 py-1.5 text-[11px] text-fg-subtle">© 2026 Lojee, Inc.</div>
+        </Foot>
       </App>
     </div>
   );

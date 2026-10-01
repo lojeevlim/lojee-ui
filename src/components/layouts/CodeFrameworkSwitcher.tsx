@@ -11,7 +11,9 @@ export default function CodeFrameworkSwitcher() {
   useEffect(() => {
     if (!open) return;
     const onPointer = (e: PointerEvent) => {
-      if (!rootRef.current?.contains(e.target as Node)) setOpen(false);
+      // composedPath, not contains(e.target): from a document listener a click inside a web component's shadow root is
+      // retargeted to the host element, which would look like an outside click.
+      if (!e.composedPath().includes(rootRef.current as EventTarget)) setOpen(false);
     };
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
     document.addEventListener("pointerdown", onPointer);

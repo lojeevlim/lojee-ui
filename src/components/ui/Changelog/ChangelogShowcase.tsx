@@ -136,7 +136,7 @@ export default function ChangelogShowcase() {
   const days = new Set(entries.map((e) => dayKey(e.date))).size;
 
   return (
-    <div className="mx-auto max-w-3xl space-y-8">
+    <div className="space-y-8">
       <header className="space-y-3">
         <div className="flex flex-wrap items-center gap-2">
           <h1 className="text-2xl font-semibold text-fg">Changelog</h1>

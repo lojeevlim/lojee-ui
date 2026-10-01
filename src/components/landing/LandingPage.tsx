@@ -11,7 +11,7 @@ import MotionLab from "./MotionLab";
 import DataLab from "./DataLab";
 import { spotlight, useCountUp, useInView } from "./hooks";
 import Logo from "../layouts/Logo";
-import ThemeSwitcher from "../layouts/ThemeSwitcher";
+import { ThemeSwitcher } from "../ui/ThemeSwitcher/ThemeSwitcher";
 import { Button } from "../ui/Buttons/Button";
 import { Badge } from "../ui/Badge/Badge";
 import { Icon } from "../ui/Icons/Icon";

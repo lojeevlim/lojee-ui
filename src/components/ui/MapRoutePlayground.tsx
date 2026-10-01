@@ -28,19 +28,20 @@ export default function MapRoutePlayground() {
     ...(line === "animated" && !progressOn ? { animated: true } : {}),
     ...(progressOn ? { progress } : {}),
   };
+  // Start and end markers, for both route kinds (a drawn line's are its first and last points).
+  const start = road ? CITY_HALL : CEBU_LOOP[0];
+  const end = road ? AIRPORT : CEBU_LOOP[CEBU_LOOP.length - 1];
+  const startLabel = road ? "Cebu City Hall" : "Start";
+  const endLabel = road ? "Mactan Airport" : "End";
   const center = road ? [123.94, 10.31] : [123.895, 10.31];
   const zoom = road ? 11.5 : 12.8;
 
   const preview = (
     <AppWindowFrame>
-      <AppWindowBody className="min-h-[360px] !p-3">
-        <Map key={source} center={[center[0], center[1]]} zoom={zoom} routes={[route]} fitBounds className="h-[340px]">
-          {road && (
-            <>
-              <MapMarker lng={CITY_HALL[0]} lat={CITY_HALL[1]} label="Cebu City Hall" color="emerald" />
-              <MapMarker lng={AIRPORT[0]} lat={AIRPORT[1]} label="Mactan Airport" color="rose" />
-            </>
-          )}
+      <AppWindowBody className="min-h-[360px] !items-stretch !p-3">
+        <Map key={source} center={[center[0], center[1]]} zoom={zoom} routes={[route]} fitBounds className="!h-auto min-h-[340px] flex-1">
+          <MapMarker lng={start[0]} lat={start[1]} label={startLabel} color="emerald" />
+          <MapMarker lng={end[0]} lat={end[1]} label={endLabel} color="rose" />
         </Map>
       </AppWindowBody>
     </AppWindowFrame>
@@ -57,12 +58,17 @@ export default function MapRoutePlayground() {
     road && "fit",
   ].filter(Boolean).join("\n    ");
 
-  const dataRoute = json({ ...route, ...(route.coordinates ? { coordinates: "LOOP" } : {}) }).replace('"LOOP"', "loop");
+  const dataRoute = json({ ...route, ...(route.coordinates ? { coordinates: "LOOP" } : {}) }).replace('"LOOP"', `[${CEBU_LOOP.map((c) => `[${c.join(", ")}]`).join(", ")}]`);
   const props: CodeProp[] = [
     { name: "center", value: `[${center.join(", ")}]`, kind: "json" },
     { name: "zoom", value: String(zoom), kind: "number" },
     { name: "fitBounds", value: "true", kind: "boolean" },
     { name: "routes", value: `[${dataRoute}]`, kind: "json" },
+    {
+      name: "markers",
+      value: `[{ lng: ${start[0]}, lat: ${start[1]}, label: "${startLabel}", color: "emerald" }, { lng: ${end[0]}, lat: ${end[1]}, label: "${endLabel}", color: "rose" }]`,
+      kind: "json",
+    },
   ];
 
   return (
@@ -70,8 +76,8 @@ export default function MapRoutePlayground() {
       preview={preview}
       variants={mapCode({
         props,
-        reactProps: props.filter((p) => p.name !== "routes" && p.name !== "fitBounds"),
-        reactChildren: `  <MapRoute\n    ${attrs}\n  />`,
+        reactProps: props.filter((p) => p.name !== "routes" && p.name !== "fitBounds" && p.name !== "markers"),
+        reactChildren: `  <MapRoute\n    ${attrs}\n  />\n  <MapMarker lng={${start[0]}} lat={${start[1]}} label="${startLabel}" color="emerald" />\n  <MapMarker lng={${end[0]}} lat={${end[1]}} label="${endLabel}" color="rose" />`,
       })}
     >
       <OptionGroup label="Route" options={SOURCES} value={source} onChange={setSource} />

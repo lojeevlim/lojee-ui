@@ -373,7 +373,7 @@ export function Navbar({
   const bar = (
     <nav
       className={cx(
-        "flex items-center justify-between gap-4 px-6 py-3",
+        "flex h-16 items-center justify-between gap-4 px-8",
         VARIANT_CLASSES[variant],
         isDetachedPanel && borderedAccentClass,
         showDivider && cx("border-b", dividerClass),

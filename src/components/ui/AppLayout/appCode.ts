@@ -1,90 +1,91 @@
 import type { CodeBlockVariants } from "../CodeBlock";
-import { DEFAULT_LAYOUT, gridTemplateAreas, gridTemplateColumns, gridTemplateRows, type GridLayout } from "./appLayout";
+import { DEFAULT_LAYOUT, type GridLayout } from "./appLayout";
 
 interface AppCodeOptions {
   layout?: GridLayout;
-  /** Pin a theme on the shell via `data-theme` / `data-accent` / `data-active-variant`. */
+  /** Theme given to the `ThemeProvider` the example is wrapped in (`default-mode` / `default-accent` / `default-active-variant`). */
   mode?: string;
   accent?: string;
   activeVariant?: string;
-  /** Stack into one column below this width (CSS media query), like React's `collapseBelow`. */
+  /** Stack into one column below this container width, like React's `collapseBelow` ("md" is the default). */
   collapseBelow?: string;
 }
 
 const ITEMS = `[{ label: "Dashboard", icon: "home" }]`;
+const sameLayout = (a: GridLayout, b: GridLayout) => JSON.stringify(a) === JSON.stringify(b);
+// Inside a double-quoted Vue / Angular binding, string literals take single quotes.
+const bound = (v: string) => v.replace(/'/g, "\\'").replace(/"/g, "'");
 
 /**
- * `<App>` is a React layout component with no Web Component of its own, so the plain JS / Vue / Angular
- * versions build the same shell with a CSS grid (same areas/rows/columns the React component generates)
- * and drop the registered elements — `<l-navbar>`, `<l-sidebar>`, `<l-footer>` — into it.
+ * The plain JS / Vue / Angular versions of an `<App>` example. They mirror the React structure one to one:
+ * `<l-Theme-Provider>` wraps `<l-App>`, which holds `<l-Top>` (the Navbar, with `<l-Side-Toggle>` as its brand),
+ * `<l-Side>` (the Sidebar), `<l-Main>` and `<l-Foot>` (the Footer) — the same Top / Side / Main / Foot as React.
  */
 export function appCodeVariants(react: string, opts: AppCodeOptions = {}): CodeBlockVariants {
   const layout = opts.layout ?? DEFAULT_LAYOUT;
-  const attrs = [
-    opts.mode && `data-theme="${opts.mode}"`,
-    opts.accent && `data-accent="${opts.accent}"`,
-    opts.activeVariant && opts.activeVariant !== "solid" && `data-active-variant="${opts.activeVariant}"`,
+  const customLayout = !sameLayout(layout, DEFAULT_LAYOUT);
+  const layoutLiteral = `[\n${layout.map((row) => `    [${row.map((s) => `"${s}"`).join(", ")}],`).join("\n")}\n  ]`;
+  const layoutFlat = JSON.stringify(layout).replace(/,/g, ", ");
+
+  const providerAttrs = [
+    `default-mode="${opts.mode ?? "light"}"`,
+    opts.accent && `default-accent="${opts.accent}"`,
+    opts.activeVariant && opts.activeVariant !== "solid" && `default-active-variant="${opts.activeVariant}"`,
   ]
     .filter(Boolean)
     .join(" ");
-  const attrText = attrs ? ` ${attrs}` : "";
+  const appAttrs = opts.collapseBelow ? ` collapse-below="${opts.collapseBelow}"` : "";
 
-  const media = opts.collapseBelow
-    ? `\n@media (max-width: ${opts.collapseBelow}) {\n  .app { grid-template-areas: "top" "main" "footer"; grid-template-columns: 1fr; grid-template-rows: auto 1fr auto; }\n  .app > aside { display: none; } /* open it as a drawer from your own toggle */\n}`
-    : "";
-  const css = `.app {
-  display: grid;
-  min-height: 100vh;
-  grid-template-areas: ${gridTemplateAreas(layout)};
-  grid-template-columns: ${gridTemplateColumns(layout)};
-  grid-template-rows: ${gridTemplateRows(layout)};
-}
-.app > header { grid-area: top; }
-.app > aside  { grid-area: side; }
-.app > main   { grid-area: main; }
-.app > footer { grid-area: footer; }${media}`;
-
-  const markup = (items: string, indent = "") =>
+  // The four sections, one block each; `itemsAttr` adds the framework-specific `items` binding / id.
+  const sections = (navAttr: string, sideAttr: string, indent: string) =>
     [
-      `<div class="app"${attrText}>`,
-      `  <header><l-navbar${items === "plain" ? ' id="nav"' : ""}></l-navbar></header>`,
-      `  <aside><l-sidebar${items === "plain" ? ' id="side"' : ""} height="100%"${items === "vue" ? ' :items="items"' : items === "angular" ? ' [items]="items"' : ""}></l-sidebar></aside>`,
-      `  <main><l-button color="accent" label="Solid"></l-button></main>`,
-      `  <footer><l-footer></l-footer></footer>`,
-      `</div>`,
+      `<l-Top>`,
+      `  <l-Navbar${navAttr}><l-Side-Toggle slot="brand"></l-Side-Toggle></l-Navbar>`,
+      `</l-Top>`,
+      `<l-Side>`,
+      `  <l-Sidebar${sideAttr}></l-Sidebar>`,
+      `</l-Side>`,
+      `<l-Main>`,
+      `  <l-Button color="accent" label="Solid"></l-Button>`,
+      `  <l-Button color="accent" variant="outline" label="Outline"></l-Button>`,
+      `  <l-Button color="accent" variant="soft" label="Soft"></l-Button>`,
+      `  <l-Button variant="solid" color="accent" size="lg" animated="sweep" icon="plus" label="Click me"></l-Button>`,
+      `</l-Main>`,
+      `<l-Foot>`,
+      `  <l-Footer bottom="© 2026 Lojee, Inc. All rights reserved." variant="minimal"></l-Footer>`,
+      `</l-Foot>`,
     ]
       .map((l) => indent + l)
       .join("\n");
 
-  const note = `<!-- No <l-app> element: build the shell with CSS grid and drop the web components in. -->`;
-
   return {
     react,
-    js: `${note}
-${markup("plain")}
-
-<style>
-${css}
-</style>
+    js: `<l-Theme-Provider ${providerAttrs}>
+  <l-App id="app"${appAttrs}>
+${sections(' id="nav"', ' id="side"', "    ")}
+  </l-App>
+</l-Theme-Provider>
 
 <script type="module">
   import "lojee-ui/elements";
-  document.getElementById("side").items = ${ITEMS};
+${customLayout ? `\n  document.getElementById("app").layout = ${layoutLiteral};` : ""}
+  const items = ${ITEMS};
+  document.getElementById("nav").items = items;
+  document.getElementById("side").items = items;
 </script>`,
     vue: `<template>
-  ${note}
-${markup("vue", "  ")}
+  <l-Theme-Provider ${providerAttrs}>
+    <l-App${appAttrs}${customLayout ? ` :layout="${bound(layoutFlat)}"` : ""}>
+${sections(' :items="items"', ' :items="items"', "      ")}
+    </l-App>
+  </l-Theme-Provider>
 </template>
 
 <script setup lang="ts">
 import "lojee-ui/elements";
 
 const items = ${ITEMS};
-</script>
-
-<style scoped>
-${css}
-</style>`,
+</script>`,
     angular: `// app.component.ts
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import "lojee-ui/elements";
@@ -94,11 +95,12 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-${markup("angular", "    ")}
+    <l-Theme-Provider ${providerAttrs}>
+      <l-App${appAttrs}${customLayout ? ` [layout]="${bound(layoutFlat)}"` : ""}>
+${sections(' [items]="items"', ' [items]="items"', "        ")}
+      </l-App>
+    </l-Theme-Provider>
   \`,
-  styles: [\`
-${css.replace(/^/gm, "    ")}
-  \`],
 })
 export class AppComponent {
   items = ${ITEMS};

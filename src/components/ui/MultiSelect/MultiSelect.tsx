@@ -75,7 +75,9 @@ export function MultiSelect({
   useEffect(() => {
     if (!open) return;
     const handlePointerDown = (e: MouseEvent) => {
-      if (rootRef.current && !rootRef.current.contains(e.target as Node)) setOpen(false);
+      // composedPath, not contains(e.target): from a document listener a click inside a web component's shadow root is
+      // retargeted to the host element, which would look like an outside click.
+      if (rootRef.current && !e.composedPath().includes(rootRef.current)) setOpen(false);
     };
     const handleKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") setOpen(false);

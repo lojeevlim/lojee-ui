@@ -8,8 +8,8 @@ export default function NotificationShowcase() {
   const [dismissibleVisible, setDismissibleVisible] = useState(true);
 
   return (
-    <div className="min-h-screen rounded-xl bg-surface p-6 md:p-10">
-      <div className="max-w-5xl mx-auto space-y-12">
+    <div>
+      <div className="space-y-12">
         <div>
           <h1 className="text-2xl font-semibold text-fg">Notification</h1>
           <p className="text-sm text-fg-subtle mt-1">

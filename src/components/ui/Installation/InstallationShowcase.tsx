@@ -223,7 +223,7 @@ const same = (code: string): CodeBlockVariants => ({ react: code, js: code, vue:
 
 export default function InstallationShowcase() {
   return (
-    <div className="mx-auto max-w-3xl space-y-12">
+    <div className="space-y-12">
       <header>
         <h1 className="text-2xl font-semibold text-fg">Installation</h1>
         <p className="mt-1 text-sm text-fg-subtle">

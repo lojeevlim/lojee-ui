@@ -18,6 +18,10 @@ import { StepperItemElement } from "./stepper-item";
 import { TopBarElement } from "./top-bar-element";
 import { TableElement } from "./table-element";
 import { MapElement } from "./map-element";
+import { defineAppSections } from "./app-sections";
+import { withSlots } from "./with-slots";
+import { ThemeSwitcher } from "../components/ui/ThemeSwitcher/ThemeSwitcher";
+import { AppElement, SideToggleElement, ThemeProviderElement } from "./app-element";
 import { Badge } from "../components/ui/Badge/Badge";
 import { Avatar } from "../components/ui/Avatar/Avatar";
 import { AvatarGroup } from "../components/ui/Avatar/AvatarGroup";
@@ -67,7 +71,6 @@ import { Navbar } from "../components/ui/Navbar/Navbar";
 import { NavbarItem } from "../components/ui/Navbar/NavbarItem";
 import { Sidebar } from "../components/ui/Sidebar/Sidebar";
 import { SidebarMenuItem } from "../components/ui/Sidebar/SidebarMenuItem";
-import { Footer } from "../components/ui/Footer/Footer";
 import { NavigationMenu } from "../components/ui/NavigationMenu/NavigationMenu";
 import { BottomNavigation } from "../components/ui/BottomNavigation/BottomNavigation";
 import { Stepper } from "../components/ui/Stepper/Stepper";
@@ -75,6 +78,7 @@ import { DataGrid } from "../components/ui/DataGrid/DataGrid";
 import { Timeline } from "../components/ui/Timeline/Timeline";
 import { Stat } from "../components/ui/Stat/Stat";
 import { Chart } from "../components/ui/Chart/Chart";
+import { Footer } from "../components/ui/Footer/Footer";
 import { Calendar } from "../components/ui/Calendar/Calendar";
 import { FlowDiagram } from "../components/ui/FlowDiagram/FlowDiagram";
 import { ActivityFeed } from "../components/ui/ActivityFeed/ActivityFeed";
@@ -291,7 +295,7 @@ customElements.define(
 
 customElements.define(
   "l-card",
-  r2wc(withTailwind(Card), {
+  r2wc(withTailwind(withSlots(Card, { footer: "footer", children: "" })), {
     shadow: "open",
     props: { variant: "string", padding: "string", hoverable: "boolean", title: "string", footer: "string", animated: "string", pulseColor: "string", pulseGradientTo: "string", transition: "string", transitionDuration: "number", transitionDelay: "number", hoverEffect: "string" },
   })
@@ -699,7 +703,7 @@ customElements.define(
 
 customElements.define(
   "l-alert-dialog",
-  r2wc(withTailwind(AlertDialogElement), {
+  r2wc(withTailwind(withSlots(AlertDialogElement, { description: "" })), {
     shadow: "open",
     props: { open: "boolean", heading: "string", description: "string", variant: "string", confirmLabel: "string", cancelLabel: "string", transition: "string", transitionDuration: "number", transitionDelay: "number", hoverEffect: "string" },
     events: { onClose: {}, onConfirm: {} }, // dispatch "close"/"confirm"
@@ -771,7 +775,7 @@ customElements.define(
 
 customElements.define(
   "l-alert",
-  r2wc(withTailwind(AlertElement), {
+  r2wc(withTailwind(withSlots(AlertElement, { children: "" })), {
     shadow: "open",
     props: {
       animated: "string",
@@ -794,7 +798,7 @@ customElements.define(
 
 customElements.define(
   "l-toast",
-  r2wc(withTailwind(ToastElement), {
+  r2wc(withTailwind(withSlots(ToastElement, { children: "" })), {
     shadow: "open",
     props: {
       open: "boolean",
@@ -814,7 +818,7 @@ customElements.define(
 
 customElements.define(
   "l-notification",
-  r2wc(withTailwind(Notification), {
+  r2wc(withTailwind(withSlots(Notification, { children: "", actions: "actions" })), {
     shadow: "open",
     props: { icon: "string", timestamp: "string", unread: "boolean", transition: "string", transitionDuration: "number", transitionDelay: "number", hoverEffect: "string" },
     events: { onDismiss: {} }, // dispatches "dismiss" — no native DOM equivalent
@@ -842,7 +846,7 @@ customElements.define(
 
 customElements.define(
   "l-empty-state",
-  r2wc(withTailwind(EmptyStateElement), {
+  r2wc(withTailwind(withSlots(EmptyStateElement, { description: "", action: "action" })), {
     shadow: "open",
     props: { icon: "string", heading: "string", transition: "string", transitionDuration: "number", transitionDelay: "number" },
   })
@@ -850,7 +854,7 @@ customElements.define(
 
 customElements.define(
   "l-error-state",
-  r2wc(withTailwind(ErrorStateElement), {
+  r2wc(withTailwind(withSlots(ErrorStateElement, { description: "", action: "action" })), {
     shadow: "open",
     props: { icon: "string", heading: "string", transition: "string", transitionDuration: "number", transitionDelay: "number" },
   })
@@ -858,7 +862,7 @@ customElements.define(
 
 customElements.define(
   "l-success-state",
-  r2wc(withTailwind(SuccessStateElement), {
+  r2wc(withTailwind(withSlots(SuccessStateElement, { description: "", action: "action" })), {
     shadow: "open",
     props: { icon: "string", heading: "string", transition: "string", transitionDuration: "number", transitionDelay: "number" },
   })
@@ -866,7 +870,7 @@ customElements.define(
 
 customElements.define(
   "l-loading-state",
-  r2wc(withTailwind(LoadingStateElement), {
+  r2wc(withTailwind(withSlots(LoadingStateElement, { description: "", action: "action" })), {
     shadow: "open",
     props: { heading: "string", size: "string", transition: "string", transitionDuration: "number", transitionDelay: "number" },
   })
@@ -989,7 +993,7 @@ customElements.define(
 
 customElements.define(
   "l-header",
-  r2wc(withHostBlock(withTailwind(HeaderElement)), {
+  r2wc(withHostBlock(withTailwind(withSlots(HeaderElement, { breadcrumbs: "breadcrumbs", description: "description", actions: "actions" }))), {
     shadow: "open",
     props: { heading: "string", variant: "string", color: "string", borderWidth: "number", transition: "string", transitionDuration: "number", transitionDelay: "number" },
   })
@@ -997,7 +1001,7 @@ customElements.define(
 
 customElements.define(
   "l-footer",
-  r2wc(withTailwind(Footer), { shadow: "open", props: { variant: "string", color: "string", transition: "string", transitionDuration: "number", transitionDelay: "number" } })
+  r2wc(withHostBlock(withTailwind(withSlots(Footer, { children: "", bottom: "bottom" }))), { shadow: "open", props: { bottom: "string", variant: "string", color: "string", transition: "string", transitionDuration: "number", transitionDelay: "number" } })
 );
 
 // `items` is plain data (label/href/icon/active/disabled) — set the `items`
@@ -1242,7 +1246,7 @@ customElements.define(
 
 customElements.define(
   "l-profile-card",
-  r2wc(withTailwind(ProfileCard), {
+  r2wc(withTailwind(withSlots(ProfileCard, { actions: "actions" })), {
     shadow: "open",
     props: {
       animated: "string",
@@ -1293,7 +1297,7 @@ customElements.define(
 
 customElements.define(
   "l-login-form",
-  r2wc(withTailwind(LoginForm), {
+  r2wc(withTailwind(withSlots(LoginForm, { footer: "footer" })), {
     shadow: "open",
     props: {
       title: "string",
@@ -1312,7 +1316,7 @@ customElements.define(
 
 customElements.define(
   "l-signup-form",
-  r2wc(withTailwind(SignupForm), {
+  r2wc(withTailwind(withSlots(SignupForm, { footer: "footer" })), {
     shadow: "open",
     props: { title: "string", description: "string", submitLabel: "string", mismatchError: "string", transition: "string", transitionDuration: "number", transitionDelay: "number", hoverEffect: "string" },
     events: { onSubmit: {} },
@@ -1368,3 +1372,40 @@ customElements.define(
     },
   })
 );
+
+// App shell: <l-app> containing <l-top>, <l-side>, <l-main> and <l-foot>. Put <l-side-toggle> in the navbar's `brand`
+// slot for the mobile drawer button. Without `theme` / `accent` / `active-variant` it follows the page's theme.
+customElements.define(
+  "l-app",
+  r2wc(withHostBlock(withTailwind(AppElement)), {
+    shadow: "open",
+    props: { theme: "string", accent: "string", activeVariant: "string", layout: "json", collapseBelow: "string" },
+  })
+);
+
+// Theme menu (light/dark, accent, active-item style) — changes the page theme on <html> by itself, no provider needed.
+customElements.define(
+  "l-theme-switcher",
+  r2wc(withTailwind(ThemeSwitcher), { shadow: "open", props: { align: "string", showActiveItems: "boolean", showAccent: "boolean" } })
+);
+
+customElements.define("l-side-toggle", r2wc(withTailwind(SideToggleElement), { shadow: "open", props: { label: "string" } }));
+
+// Theme provider: sets data-theme / data-accent on <html> (or only on its own subtree with `isolated`).
+customElements.define(
+  "l-theme-provider",
+  r2wc(withHostBlock(withTailwind(ThemeProviderElement)), {
+    shadow: "open",
+    props: {
+      defaultMode: "string",
+      defaultAccent: "string",
+      defaultActiveVariant: "string",
+      isolated: "boolean",
+      mode: "string",
+      accent: "string",
+      activeVariant: "string",
+    },
+  })
+);
+
+defineAppSections();

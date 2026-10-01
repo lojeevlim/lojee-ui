@@ -39,6 +39,9 @@ export function applyTheme(
   root.setAttribute("data-active-variant", activeVariant);
 }
 
+/** localStorage keys `ThemeProvider` persists the user's choices under (shared so `<l-theme-switcher>` stays in step). */
+export const THEME_STORAGE_KEYS = { mode: "lojee-ui:theme", accent: "lojee-ui:accent", activeVariant: "lojee-ui:active-variant" } as const;
+
 export interface ThemeContextValue {
   mode: ThemeMode;
   accent: AccentName;
@@ -57,6 +60,9 @@ export const ThemeContext = createContext<ThemeContextValue>({
   setAccent: () => {},
   setActiveVariant: () => {},
 });
+
+/** True below a `ThemeProvider`. Lets a component (the theme switcher) tell "no provider" from "provider with defaults". */
+export const ThemeProviderPresentContext = createContext(false);
 
 export function useTheme(): ThemeContextValue {
   return useContext(ThemeContext);

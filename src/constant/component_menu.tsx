@@ -345,6 +345,11 @@ export const COMPONENT_MENU: Menu[]  = [
                 label: "Pagination",
             },
 
+            {
+                icon: "layout-dashboard",
+                label: "Main",
+            },
+
         ],
     },
 
@@ -356,6 +361,11 @@ export const COMPONENT_MENU: Menu[]  = [
             {
                 icon: "layout-dashboard",
                 label: "App",
+            },
+
+            {
+                icon: "palette",
+                label: "Theme Switcher",
             },
 
         ],
