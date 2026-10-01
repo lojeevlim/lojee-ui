@@ -2,8 +2,17 @@
 export interface ChangelogCommit { sha: string; short: string; date: string; author: string; email: string; subject: string; body: string }
 
 export const PACKAGE_VERSION = "0.1.0-alpha.1";
-export const CHANGELOG_GENERATED_AT = "2026-10-01T03:08:37.123Z";
+export const CHANGELOG_GENERATED_AT = "2026-10-01T12:58:59.380Z";
 export const CHANGELOG: ChangelogCommit[] = [
+  {
+    "sha": "ed2fb88727b7a91ada1b66439531ee7de687dcf5",
+    "short": "ed2fb88",
+    "date": "2026-10-01T15:18:58+08:00",
+    "author": "lojeevlim",
+    "email": "lojeevlim@gmail.com",
+    "subject": "Add motion effects, maps, skeleton loading and a refreshed landing page",
+    "body": "- Add `animated` attention effects (glow, pulse, sweep, bounce, float, wiggle,\nborder-spin) with pulseColor / pulseGradientTo to Button, Badge, Avatar,\nCard, Alert, Stat and ProfileCard\n- Add enter/exit `transition` (13 variants), `transitionDuration`,\n`transitionDelay` and `hoverEffect` across components, with playground\ncontrols, showcase sections (React/JS/Vue/Angular) and web-component props\n- Stat and Chart `countUp` (grow from 0 to value)\n- Table/DataGrid skeleton `loading`; Table row `actions` with built-in\nedit/duplicate/delete and `action` / `datachange` events\n- Alert `accent` variant; move Table to Data & Visualization\n- Landing page: Motion, Data and Maps labs, highlighted code samples,\nupdated features and stats\n- Navbar spacing and icon-only mobile links with tooltips"
+  },
   {
     "sha": "aba6c37ca4048e8514bafb044c71dfe9dd5faed8",
     "short": "aba6c37",
