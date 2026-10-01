@@ -3,6 +3,8 @@ import {
   ThemeContext,
   DEFAULT_ACCENT,
   applyTheme,
+  THEME_STORAGE_KEYS,
+  ThemeProviderPresentContext,
   isAccentName,
   isThemeMode,
   type AccentName,
@@ -10,9 +12,9 @@ import {
 } from "../../../core/theme";
 import { DEFAULT_ACTIVE_VARIANT, isActiveVariant, type ActiveVariant } from "../../../core/activeVariant";
 
-const MODE_KEY = "lojee-ui:theme";
-const ACCENT_KEY = "lojee-ui:accent";
-const ACTIVE_KEY = "lojee-ui:active-variant";
+const MODE_KEY = THEME_STORAGE_KEYS.mode;
+const ACCENT_KEY = THEME_STORAGE_KEYS.accent;
+const ACTIVE_KEY = THEME_STORAGE_KEYS.activeVariant;
 
 function readStored<T>(key: string, guard: (v: unknown) => v is T, fallback: T): T {
   try {
@@ -101,6 +103,7 @@ export function ThemeProvider({
   );
 
   return (
+    <ThemeProviderPresentContext.Provider value>
     <ThemeContext.Provider value={{ mode, accent, activeVariant, setMode, setAccent, setActiveVariant }}>
       {isolated ? (
         // `display: contents` keeps the wrapper out of layout while still scoping the theme attributes.
@@ -111,6 +114,7 @@ export function ThemeProvider({
         children
       )}
     </ThemeContext.Provider>
+    </ThemeProviderPresentContext.Provider>
   );
 }
 
