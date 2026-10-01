@@ -8374,14 +8374,14 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "name": "items",
             "type": "(SidebarMenuItemSpec | SidebarMenuCategorySpec)[]",
             "required": false,
-            "description": "A simple, data-driven nav list — a lighter-weight alternative to composing `<SidebarMenuItem>`s directly when every row is just a label + icon with no per-item onClick/disabled state (compose `<SidebarMenuItem>` yourself for that instead). Mix in `{ category, items }` entries for labeled, collapsible section groups — each one defaults open if it's the first group or contains an `active` row, and toggles independently after that (not a controlled prop; local UI state, like the built-in collapse toggle's hover state). Rendered above any `children`, automatically matched to this Sidebar's own `collapsed`/`color`/`variant`. Which row is active is also self-determined by default (see `SidebarMenuItemSpec.active`) — each row's `href` is matched against the current URL, no router wiring needed.",
+            "description": "A simple, data-driven nav list — a lighter-weight alternative to composing `<SidebarMenuItem>`s directly when every row is just a label + icon with no per-item onClick/disabled state (compose `<SidebarMenuItem>` yourself for that instead). Mix in `{ category, items }` entries for labeled, collapsible section groups — each one defaults open if it's the first group or contains an `active` row, and toggles independently after that (not a controlled prop; local UI state, like the built-in collapse toggle's hover state). Rendered above any `children`, automatically matched to this Sidebar's own `collapsed`/`color`/`variant`. Which row is active is also self-determined by default (see `SidebarMenuItemSpec.active`) — each row's `path` is matched against the current URL, no router wiring needed.",
             "default": null
           },
           {
             "name": "defaultActiveItem",
             "type": "string",
             "required": false,
-            "description": "Label of the `items` row that should start active, as a lighter-weight alternative to adding `active: true` to the row itself (handy when the same `items` list is reused in more than one place with a different default, or built from data you don't want to mutate). Purely an initial default — after the first render it behaves exactly like a click already happened, i.e. plain self-managed selection from then on. A row's own `active` field (if any row sets it) and a matching `href` against the current URL both take priority over this when present. Has no effect on rows composed directly via `children`.",
+            "description": "Label of the `items` row that should start active, as a lighter-weight alternative to adding `active: true` to the row itself (handy when the same `items` list is reused in more than one place with a different default, or built from data you don't want to mutate). Purely an initial default — after the first render it behaves exactly like a click already happened, i.e. plain self-managed selection from then on. A row's own `active` field (if any row sets it) and a matching `path` against the current URL both take priority over this when present. Has no effect on rows composed directly via `children`.",
             "default": null
           },
           {
@@ -8452,6 +8452,13 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "type": "(item: SidebarMenuItemSpec) => void",
             "required": false,
             "description": "Called with the full `items` row object whenever the active row changes — a click, a URL match on mount/back-forward-navigation, or a row's `active` field changing to point elsewhere (see `SidebarMenuItemSpec.active`). Use this to read which item is active without tracking it yourself, e.g. to drive your own router's navigation or to sync active state elsewhere in your app. Not called for rows composed directly via `children` (only the data-driven `items` shortcut has a \"current item\" concept).",
+            "default": null
+          },
+          {
+            "name": "onNavigate",
+            "type": "(path: string, item: SidebarMenuItemSpec) => void",
+            "required": false,
+            "description": "Called with a row's `path` when it is clicked, so your router can navigate without a page reload (e.g. React Router's `navigate`). Without it, `Sidebar` changes the URL itself with `history.pushState` and fires a `popstate` event, which routers that watch the history pick up — still no reload. Modified clicks (Ctrl/Cmd/Shift, middle button) and paths on another origin keep the browser's normal link behaviour.",
             "default": null
           },
           {
@@ -8573,9 +8580,9 @@ export const API_DOCS: Record<string, ApiDoc> = {
           },
           {
             "name": "onClick",
-            "type": "() => void",
+            "type": "(event: React.MouseEvent<HTMLElement>) => void",
             "required": false,
-            "description": "Called with no arguments when the row is clicked (not called while `disabled`).",
+            "description": "Called when the row is clicked, with the click event (not called while `disabled`).",
             "default": null
           },
           {

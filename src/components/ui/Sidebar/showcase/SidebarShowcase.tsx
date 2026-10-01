@@ -58,7 +58,7 @@ export default function SidebarShowcase() {
         </div>
 
         <section>
-          <SectionLabel sub="items is the data-driven shortcut for a simple nav list — label + icon rows with no active/href/onClick/disabled state (compose SidebarMenuItem directly instead when you need that).">
+          <SectionLabel sub="items is the data-driven shortcut for a simple nav list — label + icon rows with no active/path/onClick/disabled state (compose SidebarMenuItem directly instead when you need that).">
             Basic
           </SectionLabel>
           <div className="h-80 overflow-hidden rounded-lg border border-border">
@@ -123,7 +123,7 @@ export class AppComponent {
         </section>
 
         <section>
-          <SectionLabel sub="Leave `active` unset on every row (the common case) and Sidebar determines and manages it itself: a row's href is matched against the current URL on load/back-forward-navigation, and clicking any row updates it immediately — no router wiring or state needed. defaultActiveItem seeds which row starts active (Dashboard here) without touching the items themselves — purely an initial default, so clicking around afterward still works normally. onActiveItemChange reports the full item object whenever the active row changes, e.g. to sync it elsewhere.">
+          <SectionLabel sub="Leave `active` unset on every row (the common case) and Sidebar determines and manages it itself: a row's path is matched against the current URL on load/back-forward-navigation, and clicking any row updates it immediately — no router wiring or state needed. Clicking a row with a path changes the URL without reloading the page (history.pushState); pass onNavigate to hand the path to your own router instead. defaultActiveItem seeds which row starts active (Dashboard here) without touching the items themselves — purely an initial default, so clicking around afterward still works normally. onActiveItemChange reports the full item object whenever the active row changes, e.g. to sync it elsewhere.">
             Active item
           </SectionLabel>
           <div className="h-80 overflow-hidden rounded-lg border border-border">
@@ -131,10 +131,10 @@ export class AppComponent {
               defaultActiveItem="Dashboard"
               onActiveItemChange={(item) => setActiveLabel(item.label)}
               items={[
-                { label: "Dashboard", icon: "home", href: "/dashboard" },
-                { label: "Projects", icon: "folder", href: "/projects" },
-                { label: "Team", icon: "users", href: "/team" },
-                { label: "Settings", icon: "settings", href: "/settings" },
+                { label: "Dashboard", icon: "home", path: "/dashboard" },
+                { label: "Projects", icon: "folder", path: "/projects" },
+                { label: "Team", icon: "users", path: "/team" },
+                { label: "Settings", icon: "settings", path: "/settings" },
               ]}
             />
           </div>
@@ -147,10 +147,10 @@ export class AppComponent {
   defaultActiveItem="Dashboard"
   onActiveItemChange={(item) => console.log(item)}
   items={[
-    { label: "Dashboard", icon: "home", href: "/dashboard" },
-    { label: "Projects", icon: "folder", href: "/projects" },
-    { label: "Team", icon: "users", href: "/team" },
-    { label: "Settings", icon: "settings", href: "/settings" },
+    { label: "Dashboard", icon: "home", path: "/dashboard" },
+    { label: "Projects", icon: "folder", path: "/projects" },
+    { label: "Team", icon: "users", path: "/team" },
+    { label: "Settings", icon: "settings", path: "/settings" },
   ]}
 />`,
               js: `<l-Sidebar id="active-item-sidebar" default-active-item="Dashboard"></l-Sidebar>
@@ -160,10 +160,10 @@ export class AppComponent {
 
   const sidebar = document.getElementById("active-item-sidebar");
   sidebar.items = [
-    { label: "Dashboard", icon: "home", href: "/dashboard" },
-    { label: "Projects", icon: "folder", href: "/projects" },
-    { label: "Team", icon: "users", href: "/team" },
-    { label: "Settings", icon: "settings", href: "/settings" },
+    { label: "Dashboard", icon: "home", path: "/dashboard" },
+    { label: "Projects", icon: "folder", path: "/projects" },
+    { label: "Team", icon: "users", path: "/team" },
+    { label: "Settings", icon: "settings", path: "/settings" },
   ];
   sidebar.addEventListener("activeitemchange", (e) => console.log(e.detail));
 </script>`,
@@ -175,10 +175,10 @@ export class AppComponent {
 import "lojee-ui/elements";
 
 const items = [
-  { label: "Dashboard", icon: "home", href: "/dashboard" },
-  { label: "Projects", icon: "folder", href: "/projects" },
-  { label: "Team", icon: "users", href: "/team" },
-  { label: "Settings", icon: "settings", href: "/settings" },
+  { label: "Dashboard", icon: "home", path: "/dashboard" },
+  { label: "Projects", icon: "folder", path: "/projects" },
+  { label: "Team", icon: "users", path: "/team" },
+  { label: "Settings", icon: "settings", path: "/settings" },
 ];
 </script>`,
               angular: `// app.component.ts
@@ -193,10 +193,10 @@ import "lojee-ui/elements";
 })
 export class AppComponent {
   items = [
-    { label: "Dashboard", icon: "home", href: "/dashboard" },
-    { label: "Projects", icon: "folder", href: "/projects" },
-    { label: "Team", icon: "users", href: "/team" },
-    { label: "Settings", icon: "settings", href: "/settings" },
+    { label: "Dashboard", icon: "home", path: "/dashboard" },
+    { label: "Projects", icon: "folder", path: "/projects" },
+    { label: "Team", icon: "users", path: "/team" },
+    { label: "Settings", icon: "settings", path: "/settings" },
   ];
   onActiveItemChange(item: unknown) {
     console.log(item);

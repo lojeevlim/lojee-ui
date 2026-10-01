@@ -25,7 +25,7 @@ export interface SidebarProps {
 // collapse/expand both come from `items`' own category support. A label cross-listed under more
 // than one section (see routes.ts) still shows once per section here, same as the original.
 //
-// No `href` on any row (unlike the DOM-standard-links approach this used before) — same trade-off
+// No `path` on any row (unlike the DOM-standard-links approach this used before) — same trade-off
 // `layouts/Navbar.tsx` already makes for its own nav items: real `<a>`s need a click interceptor to
 // turn their default full-page navigation into a client-side route change, and that `preventDefault()`
 // + `navigate()` pair fires synchronously inside the click handler, before the browser's ever painted
