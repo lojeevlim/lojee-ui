@@ -28,12 +28,12 @@ export default function AppShowcase() {
   const [activeVariant, setActiveVariant] = useState<ActiveVariant>("solid");
 
   return (
-    <div className="min-h-screen rounded-xl bg-surface p-6 md:p-10">
-      <div className="mx-auto max-w-5xl space-y-12">
+    <div>
+      <div className="space-y-12">
         <div>
           <h1 className="text-2xl font-semibold text-fg">App</h1>
           <p className="mt-1 text-sm text-fg-subtle">
-            A themeable app shell: compose <code>Top</code>, <code>Side</code>, <code>Main</code> and <code>Footer</code>, and the CSS Grid
+            A themeable app shell: compose <code>Top</code>, <code>Side</code>, <code>Main</code> and <code>Foot</code> (holding a <code>Footer</code>), and the CSS Grid
             is generated from a layout matrix. Open the Playground to rearrange sections by drag and drop.
           </p>
         </div>
@@ -96,8 +96,9 @@ export default function AppShowcase() {
       <Button color="accent" label="Solid" />
       <Button color="accent" variant="outline" label="Outline" />
       <Button color="accent" variant="soft" label="Soft" />
+      <Button variant="solid" color="accent" size="lg" animated="sweep" icon="plus" label="Click me" />
     </Main>
-    <Footer><FooterContent /></Footer>
+    <Foot><Footer bottom="© 2026 Lojee, Inc. All rights reserved." variant="minimal" /></Foot>
   </App>
 </ThemeProvider>`,
               { mode, accent, activeVariant }
@@ -131,7 +132,7 @@ export default function AppShowcase() {
     <Top><Navbar brand={<SideToggle />} items={[{ label: "Overview" }]} /></Top>
     <Side><Sidebar items={[{ label: "Dashboard", icon: "home" }]} /></Side>
     <Main><Dashboard /></Main>
-    <Footer><FooterContent /></Footer>
+    <Foot><Footer bottom="© 2026 Lojee, Inc. All rights reserved." variant="minimal" /></Foot>
   </App>
 </ThemeProvider>
 
