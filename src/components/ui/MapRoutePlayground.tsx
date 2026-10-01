@@ -33,8 +33,8 @@ export default function MapRoutePlayground() {
 
   const preview = (
     <AppWindowFrame>
-      <AppWindowBody className="min-h-[360px] !p-3">
-        <Map key={source} center={[center[0], center[1]]} zoom={zoom} routes={[route]} fitBounds className="h-[340px]">
+      <AppWindowBody className="min-h-[360px] !items-stretch !p-3">
+        <Map key={source} center={[center[0], center[1]]} zoom={zoom} routes={[route]} fitBounds className="!h-auto min-h-[340px] flex-1">
           {road && (
             <>
               <MapMarker lng={CITY_HALL[0]} lat={CITY_HALL[1]} label="Cebu City Hall" color="emerald" />
