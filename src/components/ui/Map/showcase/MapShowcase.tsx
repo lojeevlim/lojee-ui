@@ -43,8 +43,8 @@ function EventsDemo() {
 
 export default function MapShowcase() {
   return (
-    <div className="min-h-screen rounded-xl bg-surface p-6 md:p-10">
-      <div className="mx-auto max-w-5xl space-y-14">
+    <div>
+      <div className="space-y-14">
         <header>
           <h1 className="text-2xl font-semibold text-fg">Map</h1>
           <p className="mt-1 text-sm text-fg-subtle">
