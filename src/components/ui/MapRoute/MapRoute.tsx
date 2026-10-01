@@ -3,7 +3,7 @@ import type * as MapLibre from "maplibre-gl";
 import type { ColorName } from "../../../core/tokens";
 import { useMap } from "../Map/mapContext";
 import type { LngLat, MapRouteSummary } from "../Map/mapTypes";
-import { lineLength, resolveColor, withAlpha } from "../Map/mapUtils";
+import { distanceMeters, lineLength, pointAlong, resolveColor, withAlpha } from "../Map/mapUtils";
 import { fetchRoutes } from "../Map/routing";
 
 export interface MapRouteProps {
@@ -27,7 +27,7 @@ export interface MapRouteProps {
   activeWidth?: number;
   /** Opacity while active (default 1). */
   activeOpacity?: number;
-  /** Animate the dashes along the line, like marching ants. */
+  /** Animate the dashes along the line, like marching ants. With `progress`, a light dashed line flows over the travelled part. */
   animated?: boolean;
   /** Zoom the map to this route once its geometry is known. */
   fit?: boolean;
@@ -44,6 +44,23 @@ const DASH_FRAMES: number[][] = [
   [0, 4, 3], [0.5, 4, 2.5], [1, 4, 2], [1.5, 4, 1.5], [2, 4, 1], [2.5, 4, 0.5], [3, 4, 0],
   [0, 0.5, 3, 3.5], [0, 1, 3, 3], [0, 1.5, 3, 2.5], [0, 2, 3, 2], [0, 2.5, 3, 1.5], [0, 3, 3, 1], [0, 3.5, 3, 0.5],
 ];
+
+/** The first `fraction` (0 – 1) of a line, measured by distance. */
+function sliceLine(coords: LngLat[], fraction: number): LngLat[] {
+  const target = lineLength(coords) * Math.min(1, Math.max(0, fraction));
+  const out: LngLat[] = [coords[0]];
+  let walked = 0;
+  for (let i = 1; i < coords.length; i++) {
+    const seg = distanceMeters(coords[i - 1], coords[i]);
+    if (walked + seg >= target) {
+      out.push(pointAlong(coords, fraction));
+      return out;
+    }
+    walked += seg;
+    out.push(coords[i]);
+  }
+  return out;
+}
 
 /** A line on the map — from coordinates, or fetched from OSRM between waypoints. Render it inside `<Map>`. */
 export function MapRoute({
@@ -141,13 +158,28 @@ export function MapRoute({
     map.on("mouseleave", hitId, leave);
 
     let raf = 0;
-    if (animated && typeof progress !== "number" && !window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
+    // A gradient line (`progress`) can't be dashed, so the flow is a thin light dashed line drawn over the travelled part.
+    const flowId = `${layerBase}-flow`;
+    const flowSrc = `${layerBase}-flow-src`;
+    const hasProgress = typeof progress === "number";
+    let flowAdded = false;
+    if (animated && hasProgress && progress > 0.001) {
+      try {
+        map.addSource(flowSrc, { type: "geojson", data: { type: "Feature", properties: {}, geometry: { type: "LineString", coordinates: sliceLine(coords, progress) } } });
+        map.addLayer({ id: flowId, type: "line", source: flowSrc, layout: { "line-cap": "butt", "line-join": "round" }, paint: { "line-color": "#ffffff", "line-width": Math.max(2, w * 0.45), "line-opacity": 0.85 * o } }, hitId);
+        flowAdded = true;
+      } catch {
+        /* ignore — the route is still drawn */
+      }
+    }
+    if (animated && (!hasProgress || flowAdded) && !window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
+      const target = hasProgress ? flowId : lineId;
       let step = -1;
       const tick = (t: number) => {
         const next = Math.floor((t / 60) % DASH_FRAMES.length);
-        if (next !== step && map.getLayer(lineId)) {
+        if (next !== step && map.getLayer(target)) {
           step = next;
-          map.setPaintProperty(lineId, "line-dasharray", DASH_FRAMES[next]);
+          map.setPaintProperty(target, "line-dasharray", DASH_FRAMES[next]);
         }
         raf = requestAnimationFrame(tick);
       };
@@ -160,8 +192,8 @@ export function MapRoute({
         map.off("click", hitId, click);
         map.off("mouseenter", hitId, enter);
         map.off("mouseleave", hitId, leave);
-        for (const l of [hitId, lineId, casingId]) if (map.getLayer(l)) map.removeLayer(l);
-        if (map.getSource(sourceId)) map.removeSource(sourceId);
+        for (const l of [hitId, flowId, lineId, casingId]) if (map.getLayer(l)) map.removeLayer(l);
+        for (const src of [flowSrc, sourceId]) if (map.getSource(src)) map.removeSource(src);
       } catch {
         /* style was replaced — its layers are already gone */
       }

@@ -7,7 +7,8 @@ import { MapContext, type MapLibreModule } from "./mapContext";
 import { MapControls } from "./MapControls";
 import { MapMarker } from "../MapMarker/MapMarker";
 import { MapRoute } from "../MapRoute/MapRoute";
-import { ensureMapCss, isDarkAround, resolveStyleUrl, type MapStyleName } from "./mapUtils";
+import { ensureMapCss, isDarkAround, resolveStyle, type MapStyleName } from "./mapUtils";
+import { MapStyleSwitcher } from "./MapStyleSwitcher";
 import type { LngLat, MapControlName, MapMarkerData, MapRouteData, MapRouteSummary, MapViewState } from "./mapTypes";
 
 export interface MapProps {
@@ -19,9 +20,9 @@ export interface MapProps {
   pitch?: number;
   /** Camera rotation in degrees (default 0). */
   bearing?: number;
-  /** Base map: "auto" (default — light or dark to match the theme), "light", "dark", "voyager", or the URL of any MapLibre style JSON. Free CARTO basemaps are used for the named styles. */
+  /** Base map: "auto" (default — light or dark to match the theme), "light", "dark", "voyager", "light-minimal", "dark-minimal" (no labels), "osm", "satellite", or the URL of any MapLibre style JSON. Named styles need no API key. */
   mapStyle?: MapStyleName | (string & {});
-  /** Show map controls: `true` for zoom, compass, locate and fullscreen, or pick from "zoom" | "compass" | "locate" | "fullscreen" | "scale". */
+  /** Show map controls: `true` for zoom, compass, locate and fullscreen, or pick from "zoom" | "compass" | "locate" | "fullscreen" | "scale" | "style" (a base-map switcher). */
   controls?: boolean | MapControlName[];
   /** Markers drawn from plain data (the only way to add markers from a Web Component). */
   markers?: MapMarkerData[];
@@ -35,6 +36,8 @@ export interface MapProps {
   interactive?: boolean;
   /** Called once the map and its style have loaded, with the MapLibre map instance. */
   onLoad?: (map: MapLibre.Map) => void;
+  /** Called when the user picks a base map with the "style" control. */
+  onStyleChange?: (style: MapStyleName) => void;
   /** Called when the user finishes moving the map, with the new view. */
   onMove?: (view: MapViewState) => void;
   /** Called when the map (not a marker or route) is clicked. */
@@ -71,6 +74,7 @@ export function Map({
   fitPadding = 60,
   interactive = true,
   onLoad,
+  onStyleChange,
   onMove,
   onMapClick,
   onMarkerClick,
@@ -94,6 +98,13 @@ export function Map({
     handlers.current = { onLoad, onMove, onMapClick };
   });
   const appliedStyle = useRef("");
+  // The base map is seeded from `mapStyle`; the "style" control can change it, and a new `mapStyle` prop wins again.
+  const [activeStyle, setActiveStyle] = useState<MapStyleName | (string & {})>(mapStyle);
+  const [prevStyleProp, setPrevStyleProp] = useState(mapStyle);
+  if (prevStyleProp !== mapStyle) {
+    setPrevStyleProp(mapStyle);
+    setActiveStyle(mapStyle);
+  }
 
   // Create the map (MapLibre is loaded on demand, so apps that never show a map never download it).
   useEffect(() => {
@@ -108,11 +119,11 @@ export function Map({
         if (maplibre.getWorkerUrl() !== workerUrl) maplibre.setWorkerUrl(workerUrl);
         const isDark = isDarkAround(el);
         const i = initial.current;
-        const url = resolveStyleUrl(i.mapStyle, isDark);
-        appliedStyle.current = url;
+        const resolved = resolveStyle(i.mapStyle, isDark);
+        appliedStyle.current = resolved.key;
         map = new maplibre.Map({
           container: el,
-          style: url,
+          style: resolved.style,
           center: i.center,
           zoom: i.zoom,
           pitch: i.pitch,
@@ -157,11 +168,11 @@ export function Map({
 
   useEffect(() => {
     if (!instance) return;
-    const url = resolveStyleUrl(mapStyle, dark);
-    if (url === appliedStyle.current) return;
-    appliedStyle.current = url;
-    instance.map.setStyle(url);
-  }, [instance, mapStyle, dark]);
+    const resolved = resolveStyle(activeStyle, dark);
+    if (resolved.key === appliedStyle.current) return;
+    appliedStyle.current = resolved.key;
+    instance.map.setStyle(resolved.style);
+  }, [instance, activeStyle, dark]);
 
   // Move the camera when the view props change.
   const centerKey = `${center[0]},${center[1]}`;
@@ -197,6 +208,7 @@ export function Map({
     [instance, styleVersion]
   );
   const controlList = controls === true ? CONTROLS_DEFAULT : controls || null;
+  const showStyleSwitcher = !!controlList?.includes("style");
 
   return (
     <div className={cx("relative h-[360px] w-full overflow-hidden rounded-xl border border-border bg-surface-muted", className, classNames?.root)}>
@@ -210,6 +222,16 @@ export function Map({
       {instance && (
         <MapContext.Provider value={ctx}>
           {controlList && <MapControls controls={controlList} />}
+          {showStyleSwitcher && (
+            <MapStyleSwitcher
+              value={activeStyle}
+              dark={dark}
+              onChange={(next) => {
+                setActiveStyle(next);
+                onStyleChange?.(next);
+              }}
+            />
+          )}
           {markers?.map((m, i) => {
             const mid = m.id ?? String(i);
             return (
