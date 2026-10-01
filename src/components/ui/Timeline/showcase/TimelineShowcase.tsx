@@ -1,6 +1,6 @@
 import { Timeline } from "../Timeline";
 import CodeBlock from "../../CodeBlock";
-import { SectionLabel } from "../../ShowcaseHelpers";
+import { SectionLabel, TransitionPreview } from "../../ShowcaseHelpers";
 
 const TR_ITEMS = [
   { title: "Order placed", timestamp: "Jan 4, 9:02 AM" },
@@ -224,12 +224,12 @@ items = [
 
         <section>
           <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`). Items enter one after another, 60ms apart. They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
-          <div className="grid gap-6 sm:grid-cols-2">
+          <TransitionPreview cols={2}>
             <Timeline items={TR_ITEMS} transition="fade" />
             <Timeline items={TR_ITEMS} transition="slide-up" />
             <Timeline items={TR_ITEMS} transition="slide-right" transitionDelay={100} />
             <Timeline items={TR_ITEMS} transition="drop" transitionDuration={700} />
-          </div>
+          </TransitionPreview>
           <CodeBlock
             variants={{
               react: `const items = [

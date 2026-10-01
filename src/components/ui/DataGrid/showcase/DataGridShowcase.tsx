@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { DataGrid, type DataGridColumn } from "../DataGrid";
 import { Badge } from "../../Badge/Badge";
 import CodeBlock from "../../CodeBlock";
-import { SectionLabel, Row } from "../../ShowcaseHelpers";
+import { SectionLabel, Row, TransitionPreview } from "../../ShowcaseHelpers";
 
 interface Project {
   name: string;
@@ -344,18 +344,16 @@ rows = [];`,
 
         <section>
           <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`) and hover effects via `hoverEffect`. They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
-          <Row>
+          <TransitionPreview cols={4}>
             <DataGrid columns={BASIC_COLUMNS} data={PROJECTS.slice(0, 2)} bordered transition="fade" />
             <DataGrid columns={BASIC_COLUMNS} data={PROJECTS.slice(0, 2)} bordered transition="slide-up" />
             <DataGrid columns={BASIC_COLUMNS} data={PROJECTS.slice(0, 2)} bordered transition="slide-right" transitionDelay={100} />
             <DataGrid columns={BASIC_COLUMNS} data={PROJECTS.slice(0, 2)} bordered transition="zoom" />
-          </Row>
-          <Row>
             <DataGrid columns={BASIC_COLUMNS} data={PROJECTS.slice(0, 2)} bordered transition="flip" />
             <DataGrid columns={BASIC_COLUMNS} data={PROJECTS.slice(0, 2)} bordered transition="blur" />
             <DataGrid columns={BASIC_COLUMNS} data={PROJECTS.slice(0, 2)} bordered transition="bounce" />
             <DataGrid columns={BASIC_COLUMNS} data={PROJECTS.slice(0, 2)} bordered transition="drop" transitionDuration={700} />
-          </Row>
+          </TransitionPreview>
           <Row>
             <DataGrid columns={BASIC_COLUMNS} data={PROJECTS.slice(0, 2)} bordered hoverEffect="lift" />
             <DataGrid columns={BASIC_COLUMNS} data={PROJECTS.slice(0, 2)} bordered hoverEffect="glow" />

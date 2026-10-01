@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { LoginForm, type LoginFormValues } from "../LoginForm";
 import CodeBlock from "../../CodeBlock";
-import { SectionLabel } from "../../ShowcaseHelpers";
+import { SectionLabel, TransitionPreview } from "../../ShowcaseHelpers";
 
 export default function LoginFormShowcase() {
   const [submitted, setSubmitted] = useState<LoginFormValues | null>(null);
@@ -127,11 +127,13 @@ onSubmit(values) {
 
         <section>
           <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`) and hover effects via `hoverEffect`. They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
-          <div className="grid gap-6 sm:grid-cols-2">
+          <TransitionPreview cols={2}>
             <LoginForm transition="fade" />
             <LoginForm transition="slide-up" />
             <LoginForm transition="zoom" transitionDelay={100} />
             <LoginForm transition="flip" transitionDuration={700} />
+          </TransitionPreview>
+          <div className="grid gap-6 sm:grid-cols-2">
             <LoginForm hoverEffect="lift" />
             <LoginForm hoverEffect="glow" />
           </div>

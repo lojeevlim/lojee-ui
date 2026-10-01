@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import type { ReactNode } from "react";
 import { colorClasses, cx, nonInteractive, type ColorName } from "../../../core/tokens";
 import { motionClass, motionState, motionStyle, DEFAULT_TRANSITION_MS, type TransitionVariant } from "../../../core/motion";
 import { usePresence } from "../../../core/usePresence";
+import { TOOLTIP_PORTAL_Z_CLASS, tooltipPortalPositionStyle, useTooltipPortal } from "../../../core/tooltipPortal";
 
 export type TooltipPosition = "top" | "bottom" | "left" | "right";
 
@@ -23,6 +25,8 @@ export interface TooltipProps {
   transitionDuration?: number;
   /** Delay before the enter transition starts, in ms (default: 0). */
   transitionDelay?: number;
+  /** Render the bubble through a portal (a fixed-position layer outside the trigger's ancestors), so it is never clipped by a scrolling or `overflow: hidden` parent — e.g. inside a collapsed sidebar (default: false). */
+  portal?: boolean;
   /** Extra class name(s) appended to the root element. */
   className?: string;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
@@ -80,6 +84,7 @@ export function Tooltip({
   transition,
   transitionDuration,
   transitionDelay,
+  portal = false,
   className,
   classNames,
 }: TooltipProps) {
@@ -99,6 +104,54 @@ export function Tooltip({
     setShown(false);
   };
   useEffect(() => () => clearTimeout(timer.current), []);
+
+  // Portal mode: the trigger is measured on hover and the bubble is drawn in a fixed layer; the transition runs on an
+  // inner element so its transform never fights the positioning transform.
+  const { ref: triggerRef, state: portalState, show: showPortal, hide: hidePortal } = useTooltipPortal<HTMLSpanElement>();
+  const portalOpen = portal && portalState !== null;
+  const portalPresence = usePresence(portalOpen, (transitionDuration ?? DEFAULT_TRANSITION_MS) + (transitionDelay ?? 0));
+  const [lastPortal, setLastPortal] = useState(portalState);
+  if (portalState && portalState !== lastPortal) setLastPortal(portalState);
+
+  if (portal) {
+    const frozen = portalState ?? lastPortal;
+    return (
+      <span
+        ref={triggerRef}
+        className={cx("relative inline-block", className, classNames?.root)}
+        onMouseEnter={showPortal}
+        onMouseLeave={hidePortal}
+        onFocus={showPortal}
+        onBlur={hidePortal}
+      >
+        <slot>{children}</slot>
+        {frozen &&
+          portalPresence.mounted &&
+          createPortal(
+            <span
+              className={cx("pointer-events-none fixed", TOOLTIP_PORTAL_Z_CLASS)}
+              style={tooltipPortalPositionStyle(frozen.rect, position)}
+            >
+              <span
+                role="tooltip"
+                className={cx(
+                  "relative block whitespace-nowrap rounded-lg px-3 py-1.5 text-xs font-medium shadow-lg",
+                  bubbleColor,
+                  motionClass(transition),
+                  classNames?.bubble
+                )}
+                style={motionStyle(transitionDuration, transitionDelay)}
+                {...(transition && motionState(portalOpen))}
+              >
+                {content}
+                <span aria-hidden="true" className={cx("absolute h-2 w-2 rotate-45 bg-inherit", ARROW_CLASSES[position])} />
+              </span>
+            </span>,
+            frozen.root
+          )}
+      </span>
+    );
+  }
 
   return (
     <span

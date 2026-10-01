@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { AccountSettings, type NotificationPreference } from "../AccountSettings";
 import CodeBlock from "../../CodeBlock";
-import { SectionLabel } from "../../ShowcaseHelpers";
+import { SectionLabel, TransitionPreview } from "../../ShowcaseHelpers";
 
 const SAMPLE_NOTIFICATIONS: NotificationPreference[] = [
   { key: "product", label: "Product updates", description: "New features and improvements.", enabled: true },
@@ -121,11 +121,13 @@ onDeleteAccount() { /* confirm + delete */ }`,
 
         <section>
           <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`) and hover effects via `hoverEffect`. They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
-          <div className="grid gap-6 sm:grid-cols-2">
+          <TransitionPreview cols={2}>
             <AccountSettings transition="fade" />
             <AccountSettings transition="slide-up" />
             <AccountSettings transition="zoom" transitionDelay={100} />
             <AccountSettings transition="flip" transitionDuration={700} />
+          </TransitionPreview>
+          <div className="grid gap-6 sm:grid-cols-2">
             <AccountSettings hoverEffect="lift" />
             <AccountSettings hoverEffect="glow" />
           </div>

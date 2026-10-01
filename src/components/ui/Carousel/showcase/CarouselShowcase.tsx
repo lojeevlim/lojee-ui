@@ -1,6 +1,6 @@
 import { Carousel } from "../Carousel";
 import CodeBlock from "../../CodeBlock";
-import { SectionLabel } from "../../ShowcaseHelpers";
+import { SectionLabel, TransitionPreview } from "../../ShowcaseHelpers";
 
 const SLIDE_CLASS = "flex h-48 items-center justify-center text-sm font-medium";
 
@@ -157,7 +157,7 @@ slides = ["Slide 1", "Slide 2"];
 
         <section>
           <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`) and hover effects via `hoverEffect`. They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
-          <div className="grid gap-6 sm:grid-cols-2">
+          <TransitionPreview cols={2}>
             <div className="min-w-0">
               <Carousel slides={TR_SLIDES} transition="fade" />
             </div>
@@ -185,7 +185,7 @@ slides = ["Slide 1", "Slide 2"];
             <div className="min-w-0">
               <Carousel slides={TR_SLIDES} hoverEffect="shine" />
             </div>
-          </div>
+          </TransitionPreview>
           <CodeBlock
             variants={{
               react: `const slides = [
