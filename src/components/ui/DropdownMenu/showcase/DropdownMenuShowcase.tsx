@@ -38,7 +38,7 @@ export default function DropdownMenuShowcase() {
   <DropdownMenuItem icon="trash-2" danger onClick={() => remove()}>Delete</DropdownMenuItem>
 </DropdownMenu>`,
               js: `<l-DropdownMenu id="actions-menu">
-  <l-Button slot="trigger" variant="outline" icon="more-horizontal" iconOnly label="Actions" />
+  <l-Button slot="trigger" variant="outline" icon="more-horizontal" iconOnly label="Actions"></l-Button>
   <l-DropdownMenuItem icon="pencil" id="edit-item">Edit</l-DropdownMenuItem>
   <l-DropdownMenuItem icon="copy" id="duplicate-item">Duplicate</l-DropdownMenuItem>
   <l-DropdownMenuItem icon="trash-2" danger id="delete-item">Delete</l-DropdownMenuItem>
@@ -112,7 +112,7 @@ export class DropdownMenuShowcaseComponent {
   <DropdownMenuItem disabled>Archived</DropdownMenuItem>
 </DropdownMenu>`,
               js: `<l-DropdownMenu align="end">
-  <l-Button slot="trigger" icon="chevron-down" label="Options" />
+  <l-Button slot="trigger" icon="chevron-down" label="Options"></l-Button>
   <l-DropdownMenuItem icon="settings" id="settings-item">Settings</l-DropdownMenuItem>
   <l-DropdownMenuItem icon="share-2" id="share-item">Share</l-DropdownMenuItem>
   <l-DropdownMenuItem disabled>Archived</l-DropdownMenuItem>

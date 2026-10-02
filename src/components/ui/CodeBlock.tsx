@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Copy, Check, ChevronDown } from "lucide-react";
 import { highlightCode } from "../../core/highlightCode";
+import { closeCustomElements } from "../../core/htmlCode";
 import { CODE_FRAMEWORK_LABEL, useCodeFramework, type CodeFramework } from "../../core/codeFramework";
 
 export type CodeBlockVariants = Partial<Record<CodeFramework, string>>;
@@ -24,7 +25,9 @@ export default function CodeBlock({ code, variants }: CodeBlockProps) {
 
   const activeFramework =
     allVariants[framework] !== undefined ? framework : FALLBACK_ORDER.find((f) => allVariants[f] !== undefined);
-  const activeCode = activeFramework ? allVariants[activeFramework] : undefined;
+  const rawCode = activeFramework ? allVariants[activeFramework] : undefined;
+  // The plain-HTML tab never shows self-closed custom elements (invalid HTML) — see core/htmlCode.ts.
+  const activeCode = rawCode !== undefined && activeFramework === "js" ? closeCustomElements(rawCode) : rawCode;
   const isFallback = activeFramework !== undefined && activeFramework !== framework;
 
   const handleCopy = async () => {

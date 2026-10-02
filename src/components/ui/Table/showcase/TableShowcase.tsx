@@ -81,7 +81,7 @@ export default function TableShowcase() {
 ];
 
 <Table columns={columns} data={people} />`,
-              js: `<l-Table id="basic-table" />
+              js: `<l-Table id="basic-table"></l-Table>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -153,7 +153,7 @@ export class AppComponent {
           <CodeBlock
             variants={{
               react: `<Table columns={columns} data={people} striped />`,
-              js: `<l-Table id="striped-table" striped />
+              js: `<l-Table id="striped-table" striped></l-Table>
 
 <script type="module">
   const table = document.getElementById("striped-table");
@@ -175,7 +175,7 @@ export class AppComponent {
           <CodeBlock
             variants={{
               react: `<Table columns={columns} data={people} bordered />`,
-              js: `<l-Table id="bordered-table" bordered />
+              js: `<l-Table id="bordered-table" bordered></l-Table>
 
 <script type="module">
   const table = document.getElementById("bordered-table");
@@ -201,8 +201,8 @@ export class AppComponent {
             variants={{
               react: `<Table columns={columns} data={people} size="sm" bordered />
 <Table columns={columns} data={people} size="lg" bordered />`,
-              js: `<l-Table id="table-sm" size="sm" bordered />
-<l-Table id="table-lg" size="lg" bordered />
+              js: `<l-Table id="table-sm" size="sm" bordered></l-Table>
+<l-Table id="table-lg" size="lg" bordered></l-Table>
 
 <script type="module">
   document.getElementById("table-sm").columns = columns;

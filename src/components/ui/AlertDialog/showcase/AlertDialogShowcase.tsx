@@ -57,12 +57,11 @@ export default function AlertDialogShowcase() {
   description="Your changes will be applied immediately."
   onConfirm={() => { /* persist */ }}
 />`,
-              js: `<l-Button label="Open confirmation" id="open-confirm-btn" />
+              js: `<l-Button label="Open confirmation" id="open-confirm-btn"></l-Button>
 <l-AlertDialog
   id="save-dialog"
   heading="Save changes?"
-  description="Your changes will be applied immediately."
- />
+  description="Your changes will be applied immediately."></l-AlertDialog>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -156,8 +155,7 @@ export class AlertDialogShowcaseComponent {
   variant="destructive"
   heading="Delete item?"
   description="This will permanently remove the item. This action cannot be undone."
-  confirmLabel="Delete"
- />
+  confirmLabel="Delete"></l-AlertDialog>
 
 <script type="module">
   const dialog = document.getElementById("delete-dialog");
@@ -220,8 +218,7 @@ export class AlertDialogShowcaseComponent {
   heading="Leave without saving?"
   description="You have unsaved changes that will be lost."
   confirmLabel="Leave"
-  cancelLabel="Stay"
- />
+  cancelLabel="Stay"></l-AlertDialog>
 
 <script type="module">
   const dialog = document.getElementById("leave-dialog");

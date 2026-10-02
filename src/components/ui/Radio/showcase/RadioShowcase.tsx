@@ -29,9 +29,9 @@ export default function RadioShowcase() {
   <Radio name="plan" label="Enterprise" />
 </RadioGroup>`,
               js: `<l-RadioGroup>
-  <l-Radio name="plan" label="Free" defaultChecked />
-  <l-Radio name="plan" label="Pro" />
-  <l-Radio name="plan" label="Enterprise" />
+  <l-Radio name="plan" label="Free" defaultChecked></l-Radio>
+  <l-Radio name="plan" label="Pro"></l-Radio>
+  <l-Radio name="plan" label="Enterprise"></l-Radio>
 </l-RadioGroup>
 
 <script type="module">
@@ -84,9 +84,9 @@ export class AppComponent {}`,
   <Radio name="size" label="Large" />
 </RadioGroup>`,
               js: `<l-RadioGroup orientation="horizontal">
-  <l-Radio name="size" label="Small" defaultChecked />
-  <l-Radio name="size" label="Medium" />
-  <l-Radio name="size" label="Large" />
+  <l-Radio name="size" label="Small" defaultChecked></l-Radio>
+  <l-Radio name="size" label="Medium"></l-Radio>
+  <l-Radio name="size" label="Large"></l-Radio>
 </l-RadioGroup>`,
               vue: `<template>
   <l-RadioGroup orientation="horizontal">
@@ -117,8 +117,8 @@ export class AppComponent {}`,
             variants={{
               react: `<Radio name="color-indigo" color="indigo" label="Indigo" defaultChecked />
 <Radio name="color-emerald" color="emerald" label="Emerald" defaultChecked />`,
-              js: `<l-Radio name="color-indigo" color="indigo" label="Indigo" defaultChecked />
-<l-Radio name="color-emerald" color="emerald" label="Emerald" defaultChecked />`,
+              js: `<l-Radio name="color-indigo" color="indigo" label="Indigo" defaultChecked></l-Radio>
+<l-Radio name="color-emerald" color="emerald" label="Emerald" defaultChecked></l-Radio>`,
               vue: `<template>
   <l-Radio name="color-indigo" color="indigo" label="Indigo" defaultChecked />
   <l-Radio name="color-emerald" color="emerald" label="Emerald" defaultChecked />

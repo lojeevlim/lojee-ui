@@ -26,7 +26,7 @@ export default function AvatarShowcase() {
           <CodeBlock
             variants={{
               react: `<Avatar size="md" initials="AB" color="indigo" />`,
-              js: `<l-Avatar size="md" initials="AB" color="indigo" />
+              js: `<l-Avatar size="md" initials="AB" color="indigo"></l-Avatar>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -63,7 +63,7 @@ export class AvatarShowcaseComponent {}`,
           <CodeBlock
             variants={{
               react: `<Avatar src="/me.jpg" initials="LL" alt="Lojee Lim" />`,
-              js: `<l-Avatar src="/me.jpg" initials="LL" alt="Lojee Lim" />`,
+              js: `<l-Avatar src="/me.jpg" initials="LL" alt="Lojee Lim"></l-Avatar>`,
               vue: `<template>
   <l-Avatar src="/me.jpg" initials="LL" alt="Lojee Lim" />
 </template>`,
@@ -84,7 +84,7 @@ export class AvatarShowcaseComponent {}`,
           <CodeBlock
             variants={{
               react: `<Avatar initials="ON" status="online" />`,
-              js: `<l-Avatar initials="ON" status="online" />`,
+              js: `<l-Avatar initials="ON" status="online"></l-Avatar>`,
               vue: `<template>
   <l-Avatar initials="ON" status="online" />
 </template>`,
@@ -103,7 +103,7 @@ export class AvatarShowcaseComponent {}`,
           <CodeBlock
             variants={{
               react: `<Avatar initials="SQ" shape="square" />`,
-              js: `<l-Avatar initials="SQ" shape="square" />`,
+              js: `<l-Avatar initials="SQ" shape="square"></l-Avatar>`,
               vue: `<template>
   <l-Avatar initials="SQ" shape="square" />
 </template>`,
@@ -131,9 +131,9 @@ export class AvatarShowcaseComponent {}`,
   <Avatar initials="CC" color="emerald" />
 </AvatarGroup>`,
               js: `<l-AvatarGroup>
-  <l-Avatar initials="AA" color="indigo" />
-  <l-Avatar initials="BB" color="rose" />
-  <l-Avatar initials="CC" color="emerald" />
+  <l-Avatar initials="AA" color="indigo"></l-Avatar>
+  <l-Avatar initials="BB" color="rose"></l-Avatar>
+  <l-Avatar initials="CC" color="emerald"></l-Avatar>
 </l-AvatarGroup>`,
               vue: `<template>
   <l-AvatarGroup>

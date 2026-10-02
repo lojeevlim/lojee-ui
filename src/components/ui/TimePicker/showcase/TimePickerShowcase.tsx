@@ -21,7 +21,7 @@ export default function TimePickerShowcase() {
           <CodeBlock
             variants={{
               react: `<TimePicker />`,
-              js: `<l-TimePicker />
+              js: `<l-TimePicker ></l-TimePicker>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -60,7 +60,7 @@ export class AppComponent {}
           <CodeBlock
             variants={{
               react: `<TimePicker size="sm" />`,
-              js: `<l-TimePicker size="sm" />`,
+              js: `<l-TimePicker size="sm"></l-TimePicker>`,
               vue: `<template>
   <l-TimePicker size="sm" />
 </template>`,
@@ -78,7 +78,7 @@ export class AppComponent {}
           <CodeBlock
             variants={{
               react: `<TimePicker invalid />`,
-              js: `<l-TimePicker invalid />`,
+              js: `<l-TimePicker invalid></l-TimePicker>`,
               vue: `<template>
   <l-TimePicker invalid />
 </template>`,
@@ -96,7 +96,7 @@ export class AppComponent {}
           <CodeBlock
             variants={{
               react: `<TimePicker disabled />`,
-              js: `<l-TimePicker disabled />`,
+              js: `<l-TimePicker disabled></l-TimePicker>`,
               vue: `<template>
   <l-TimePicker disabled />
 </template>`,

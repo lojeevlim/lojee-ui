@@ -81,7 +81,7 @@ export default function CommandMenuShowcase() {
 
 <CommandMenu open={open} onClose={() => setOpen(false)} items={items} />`,
               js: `<button id="open-command-menu-btn">Search commands…</button>
-<l-CommandMenu id="cmd-menu" />
+<l-CommandMenu id="cmd-menu"></l-CommandMenu>
 
 <script type="module">
   import "lojee-ui/elements";

@@ -22,7 +22,7 @@ export default function HeaderShowcase() {
           <CodeBlock
             variants={{
               react: `<Header title="Team settings" description="Manage members, roles, and billing for your workspace." />`,
-              js: `<l-Header heading="Team settings" description="Manage members, roles, and billing for your workspace." />
+              js: `<l-Header heading="Team settings" description="Manage members, roles, and billing for your workspace."></l-Header>
 
 <script type="module">import "lojee-ui/elements";</script>`,
               vue: `<l-Header heading="Team settings" description="Manage members, roles, and billing for your workspace." />`,
@@ -57,18 +57,18 @@ export default function HeaderShowcase() {
 />`,
               js: `<l-Header heading="Projects" description="All projects across your workspace.">
   <div slot="actions">
-    <l-Button variant="outline" label="Import" />
-    <l-Button label="New project" />
+    <l-Button variant="outline" label="Import"></l-Button>
+    <l-Button label="New project"></l-Button>
   </div>
 </l-Header>
 
 <script type="module">import "lojee-ui/elements";</script>`,
               vue: `<template>
   <l-Header heading="Projects" description="All projects across your workspace.">
-    <template #actions>
+    <div slot="actions">
       <l-Button variant="outline" label="Import" />
       <l-Button label="New project" />
-    </template>
+    </div>
   </l-Header>
 </template>`,
               angular: `<l-Header heading="Projects" description="All projects across your workspace.">
@@ -172,7 +172,7 @@ export default function HeaderShowcase() {
     variant="gradient" — a left-to-right gradient built from \`color\` (600 → 700). */}`,
               js: `<l-Header heading="Team settings" description="Manage members, roles, and billing for your workspace." variant="dark">
   <div slot="actions">
-    <l-Button label="New project" />
+    <l-Button label="New project"></l-Button>
   </div>
 </l-Header>
 
@@ -182,9 +182,9 @@ export default function HeaderShowcase() {
      markup needed. "minimal" — no background/border at all, blends into the page. -->`,
               vue: `<template>
   <l-Header heading="Team settings" description="Manage members, roles, and billing for your workspace." variant="dark">
-    <template #actions>
+    <div slot="actions">
       <l-Button label="New project" />
-    </template>
+    </div>
   </l-Header>
 
   <!-- "bordered"/"elevated"/"glass" — detached-panel looks; their backdrop is built in, no extra
@@ -246,13 +246,13 @@ import "lojee-ui/elements";
 <script type="module">import "lojee-ui/elements";</script>`,
               vue: `<template>
   <l-Header heading="Lojee Website Redesign" description="Created by Jordan Diaz on Sep 12.">
-    <template #breadcrumbs>
+    <div slot="breadcrumbs">
       <l-Breadcrumbs>
         <l-BreadcrumbItem href="#" icon="home">Home</l-BreadcrumbItem>
         <l-BreadcrumbItem href="#">Projects</l-BreadcrumbItem>
         <l-BreadcrumbItem>Lojee Website Redesign</l-BreadcrumbItem>
       </l-Breadcrumbs>
-    </template>
+    </div>
   </l-Header>
 </template>`,
               angular: `<l-Header heading="Lojee Website Redesign" description="Created by Jordan Diaz on Sep 12.">

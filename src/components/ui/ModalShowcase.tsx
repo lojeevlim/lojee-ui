@@ -49,7 +49,7 @@ export default function ModalShowcase() {
 <Modal open={open} onClose={() => setOpen(false)} title="Basic modal">
   <p>This is a basic modal with some simple content.</p>
 </Modal>`,
-              js: `<l-Button label="Open modal" id="open-modal-btn" />
+              js: `<l-Button label="Open modal" id="open-modal-btn"></l-Button>
 <l-Modal id="basic-modal" heading="Basic modal">
   <p>This is a basic modal with some simple content.</p>
 </l-Modal>
@@ -161,7 +161,7 @@ const open = ref(false);
 >
   <p>This modal's header and body pick up custom colors via classNames.</p>
 </Modal>`,
-              js: `<l-Button label="Open styled modal" id="open-styled-modal-btn" />
+              js: `<l-Button label="Open styled modal" id="open-styled-modal-btn"></l-Button>
 <l-Modal id="styled-modal" heading="Styled modal">
   <p>This modal's header and body pick up custom colors via classNames.</p>
 </l-Modal>

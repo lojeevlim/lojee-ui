@@ -19,7 +19,7 @@ export default function LoadingStateShowcase() {
           <CodeBlock
             variants={{
               react: `<LoadingState />`,
-              js: `<l-LoadingState />
+              js: `<l-LoadingState ></l-LoadingState>
 
 <script type="module">import "lojee-ui/elements";</script>`,
               vue: `<l-LoadingState />`,
@@ -57,9 +57,9 @@ export default function LoadingStateShowcase() {
               react: `<LoadingState size="sm" title="Loading" />
 <LoadingState size="md" title="Loading" />
 <LoadingState size="lg" title="Loading" />`,
-              js: `<l-LoadingState size="sm" title="Loading" />
-<l-LoadingState size="md" title="Loading" />
-<l-LoadingState size="lg" title="Loading" />
+              js: `<l-LoadingState size="sm" title="Loading"></l-LoadingState>
+<l-LoadingState size="md" title="Loading"></l-LoadingState>
+<l-LoadingState size="lg" title="Loading"></l-LoadingState>
 
 <script type="module">import "lojee-ui/elements";</script>`,
               vue: `<l-LoadingState size="sm" title="Loading" />

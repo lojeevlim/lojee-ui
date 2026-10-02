@@ -20,7 +20,7 @@ const ITEMS_CODE = `[
 // Same snippet in every language, with one extra attribute on the bar.
 const barCode = (id: string, attr: string) => ({
   react: `<BottomNavigation\n  ${attr}\n  items={${ITEMS_CODE.replace(/\n/g, "\n  ")}}\n/>`,
-  js: `<l-BottomNavigation id="${id}" ${attr} />
+  js: `<l-BottomNavigation id="${id}" ${attr}></l-BottomNavigation>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -86,7 +86,7 @@ export default function BottomNavigationShowcase() {
     { icon: "user", label: "Profile" },
   ]}
 />`,
-              js: `<l-BottomNavigation id="bottom-nav-basic" />
+              js: `<l-BottomNavigation id="bottom-nav-basic"></l-BottomNavigation>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -284,7 +284,7 @@ items = [
     { icon: "user", label: "Profile" },
   ]}
 />`,
-              js: `<l-BottomNavigation id="bottom-nav-badge" />
+              js: `<l-BottomNavigation id="bottom-nav-badge"></l-BottomNavigation>
 
 <script type="module">
   document.getElementById("bottom-nav-badge").items = [

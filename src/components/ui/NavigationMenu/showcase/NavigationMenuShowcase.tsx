@@ -23,7 +23,7 @@ const menuCode = (id: string, attr: string) => ({
   ${attr}
   items={${ITEMS_CODE.replace(/\n/g, "\n  ")}}
 />`,
-  js: `<l-NavigationMenu id="${id}" ${attr} />
+  js: `<l-NavigationMenu id="${id}" ${attr}></l-NavigationMenu>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -79,7 +79,7 @@ export default function NavigationMenuShowcase() {
     { label: "Contact", href: "#" },
   ]}
 />`,
-              js: `<l-NavigationMenu id="nav-menu-basic" />
+              js: `<l-NavigationMenu id="nav-menu-basic"></l-NavigationMenu>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -185,7 +185,7 @@ export class AppComponent {
     { label: "Settings", href: "#" },
   ]}
 />`,
-              js: `<l-NavigationMenu id="nav-menu-vertical" orientation="vertical" />
+              js: `<l-NavigationMenu id="nav-menu-vertical" orientation="vertical"></l-NavigationMenu>
 
 <script type="module">
   document.getElementById("nav-menu-vertical").items = [
@@ -241,7 +241,7 @@ items = [
     { label: "Profile", href: "#", icon: "user" },
   ]}
 />`,
-              js: `<l-NavigationMenu id="nav-menu-icons" />
+              js: `<l-NavigationMenu id="nav-menu-icons"></l-NavigationMenu>
 
 <script type="module">
   document.getElementById("nav-menu-icons").items = [
@@ -303,7 +303,7 @@ items = [
 
 {/* No state needed to highlight the clicked item — and an item's href is also matched
     against the current URL on load and on back/forward. */}`,
-              js: `<l-NavigationMenu id="nav-menu-callback" />
+              js: `<l-NavigationMenu id="nav-menu-callback"></l-NavigationMenu>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -452,7 +452,7 @@ items = [
     { label: "Settings", href: "#" },
   ]}
 />`,
-              js: `<l-NavigationMenu id="nav-menu-disabled" />
+              js: `<l-NavigationMenu id="nav-menu-disabled"></l-NavigationMenu>
 
 <script type="module">
   document.getElementById("nav-menu-disabled").items = [

@@ -10,7 +10,7 @@ const STEPS_CODE = `[{ label: "Cart" }, { label: "Shipping" }, { label: "Payment
 
 const colorCode = (attr: string) => ({
   react: `<Stepper ${attr} currentStep={2} steps={${STEPS_CODE}} />`,
-  js: `<l-Stepper id="stepper-color" ${attr} current-step="2" />
+  js: `<l-Stepper id="stepper-color" ${attr} current-step="2"></l-Stepper>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -140,7 +140,7 @@ export default function StepperShowcase() {
     { label: "Confirm" },
   ]}
 />`,
-              js: `<l-Stepper id="stepper-basic" current-step="2" />
+              js: `<l-Stepper id="stepper-basic" current-step="2"></l-Stepper>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -224,7 +224,7 @@ export class AppComponent {
 
 {/* navigation shows the built-in Back / Next buttons (Finish on the last step).
     Step circles are clickable by default when a step has content — clickable={false} turns that off. */}`,
-              js: `<l-Stepper id="stepper-sections" default-step="1" navigation="true" />
+              js: `<l-Stepper id="stepper-sections" default-step="1" navigation="true"></l-Stepper>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -293,7 +293,7 @@ function ReviewStep({ goTo }: StepperStepContext) { /* ... */ }
     { label: "Review", content: ReviewStep },
   ]}
 />`,
-              js: `<!-- Web Components: <l-stepper-item step="n"> is the counterpart of React's <StepperItem step={n}> -->
+              js: `<!-- <l-stepper-item step="n"> holds the content shown on step n; step="complete" holds the final screen -->
 <l-stepper id="stepper-slots" navigation="true">
   <l-stepper-item step="0"><my-account-form></my-account-form></l-stepper-item>
   <l-stepper-item step="1"><my-plan-picker></my-plan-picker></l-stepper-item>
@@ -307,7 +307,7 @@ function ReviewStep({ goTo }: StepperStepContext) { /* ... */ }
   document.getElementById("stepper-slots").steps = ${SLOT_STEPS_CODE};
 </script>`,
               vue: `<template>
-  <!-- <l-stepper-item step="n"> is the counterpart of <StepperItem step={n}>; any Vue component can go inside -->
+  <!-- <l-stepper-item step="n"> holds the content shown on step n; any Vue component can go inside -->
   <l-stepper :steps="steps" navigation="true">
     <l-stepper-item step="0"><AccountForm /></l-stepper-item>
     <l-stepper-item step="1"><PlanPicker /></l-stepper-item>
@@ -323,7 +323,7 @@ import PlanPicker from "./PlanPicker.vue";
 
 const steps = ${SLOT_STEPS_CODE};
 </script>`,
-              angular: `<!-- <l-stepper-item step="n"> is the counterpart of <StepperItem step={n}>; any Angular component can go inside -->
+              angular: `<!-- <l-stepper-item step="n"> holds the content shown on step n; any Angular component can go inside -->
 <l-stepper [steps]="steps" navigation="true">
   <l-stepper-item step="0"><app-account-form /></l-stepper-item>
   <l-stepper-item step="1"><app-plan-picker /></l-stepper-item>
@@ -375,7 +375,7 @@ function AccountForm() {
   <StepperItem step={2}><Review /></StepperItem>
   <StepperItem step="complete">All done.</StepperItem>  {/* shown after Finish */}
 </Stepper>`,
-              js: `<!-- Web Components: <l-stepper-item step="n"> is the counterpart of <StepperItem step={n}> -->
+              js: `<!-- <l-stepper-item step="n"> holds the content shown on step n; step="complete" holds the final screen -->
 <l-stepper navigation="true">
   <l-stepper-item step="0"><my-account-form></my-account-form></l-stepper-item>
   <l-stepper-item step="1"><my-plan-picker></my-plan-picker></l-stepper-item>
@@ -383,7 +383,7 @@ function AccountForm() {
   <l-stepper-item step="complete">All done.</l-stepper-item>
 </l-stepper>`,
               vue: `<template>
-  <!-- <l-stepper-item step="N"> is the Web Component equivalent of <StepperItem step={N}> -->
+  <!-- <l-stepper-item step="N"> holds the content shown on step N; step="complete" holds the final screen -->
   <l-stepper :steps="steps" navigation="true">
     <l-stepper-item step="0"><AccountForm /></l-stepper-item>
     <l-stepper-item step="1"><PlanPicker /></l-stepper-item>
@@ -391,7 +391,7 @@ function AccountForm() {
     <l-stepper-item step="complete">All done.</l-stepper-item>
   </l-stepper>
 </template>`,
-              angular: `<!-- <l-stepper-item step="N"> is the Web Component equivalent of <StepperItem step={N}> -->
+              angular: `<!-- <l-stepper-item step="N"> holds the content shown on step N; step="complete" holds the final screen -->
 <l-stepper [steps]="steps" navigation="true">
   <l-stepper-item step="0"><app-account-form /></l-stepper-item>
   <l-stepper-item step="1"><app-plan-picker /></l-stepper-item>
@@ -499,7 +499,7 @@ steps = [{ label: "Cart" }, { label: "Shipping" }, { label: "Payment" }];`,
     { label: "Review", description: "Confirm your details" },
   ]}
 />`,
-              js: `<l-Stepper id="stepper-desc" current-step="1" />
+              js: `<l-Stepper id="stepper-desc" current-step="1"></l-Stepper>
 
 <script type="module">
   document.getElementById("stepper-desc").steps = [
@@ -558,7 +558,7 @@ steps = [
     { label: "Delivered" },
   ]}
 />`,
-              js: `<l-Stepper id="stepper-vertical" orientation="vertical" current-step="1" />
+              js: `<l-Stepper id="stepper-vertical" orientation="vertical" current-step="1"></l-Stepper>
 
 <script type="module">
   document.getElementById("stepper-vertical").steps = [
@@ -611,7 +611,7 @@ steps = [
     { label: "Confirm" },
   ]}
 />`,
-              js: `<l-Stepper id="stepper-complete" current-step="4" />
+              js: `<l-Stepper id="stepper-complete" current-step="4"></l-Stepper>
 
 <script type="module">
   document.getElementById("stepper-complete").steps = [

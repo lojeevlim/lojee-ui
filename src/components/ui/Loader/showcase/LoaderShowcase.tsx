@@ -23,7 +23,7 @@ export default function LoaderShowcase() {
           <CodeBlock
             variants={{
               react: `<Loader shape="text" lines={3} />`,
-              js: `<l-Loader shape="text" lines="3" />
+              js: `<l-Loader shape="text" lines="3"></l-Loader>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -59,7 +59,7 @@ export class LoaderShowcaseComponent {}`,
           <CodeBlock
             variants={{
               react: `<Loader shape="circle" width={40} />`,
-              js: `<l-Loader shape="circle" width="40" />`,
+              js: `<l-Loader shape="circle" width="40"></l-Loader>`,
               vue: `<template>
   <l-Loader shape="circle" width="40" />
 </template>`,
@@ -75,7 +75,7 @@ export class LoaderShowcaseComponent {}`,
           <CodeBlock
             variants={{
               react: `<Loader shape="rect" height={120} />`,
-              js: `<l-Loader shape="rect" height="120" />`,
+              js: `<l-Loader shape="rect" height="120"></l-Loader>`,
               vue: `<template>
   <l-Loader shape="rect" height="120" />
 </template>`,
@@ -99,9 +99,9 @@ export class LoaderShowcaseComponent {}`,
               react: `<Loader shape="rect" variant="pulse" width={140} height={80} />
 <Loader shape="rect" variant="shimmer" width={140} height={80} />
 <Loader shape="rect" variant="none" width={140} height={80} />`,
-              js: `<l-Loader shape="rect" variant="pulse" width="140" height="80" />
-<l-Loader shape="rect" variant="shimmer" width="140" height="80" />
-<l-Loader shape="rect" variant="none" width="140" height="80" />`,
+              js: `<l-Loader shape="rect" variant="pulse" width="140" height="80"></l-Loader>
+<l-Loader shape="rect" variant="shimmer" width="140" height="80"></l-Loader>
+<l-Loader shape="rect" variant="none" width="140" height="80"></l-Loader>`,
               vue: `<template>
   <l-Loader shape="rect" variant="pulse" width="140" height="80" />
   <l-Loader shape="rect" variant="shimmer" width="140" height="80" />
@@ -125,7 +125,7 @@ export class LoaderShowcaseComponent {}`,
           <CodeBlock
             variants={{
               react: `<Loader shape="text" variant="wave" lines={4} />`,
-              js: `<l-Loader shape="text" variant="wave" lines="4" />`,
+              js: `<l-Loader shape="text" variant="wave" lines="4"></l-Loader>`,
               vue: `<template>
   <l-Loader shape="text" variant="wave" lines="4" />
 </template>`,
@@ -150,8 +150,8 @@ export class LoaderShowcaseComponent {}`,
   <Loader shape="text" lines={2} />
 </div>`,
               js: `<div class="flex items-center gap-3">
-  <l-Loader shape="circle" width="40" />
-  <l-Loader shape="text" lines="2" />
+  <l-Loader shape="circle" width="40"></l-Loader>
+  <l-Loader shape="text" lines="2"></l-Loader>
 </div>`,
               vue: `<template>
   <div class="flex items-center gap-3">

@@ -35,7 +35,7 @@ export default function TabsShowcase() {
     { label: "Settings", content: <p>Adjust your preferences.</p> },
   ]}
 />`,
-              js: `<l-Tabs id="basic-tabs" />
+              js: `<l-Tabs id="basic-tabs"></l-Tabs>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -98,7 +98,7 @@ export class AppComponent {
     { label: "Review", content: <p>Review and confirm.</p> },
   ]}
 />`,
-              js: `<l-Tabs id="disabled-tabs" />
+              js: `<l-Tabs id="disabled-tabs"></l-Tabs>
 
 <script type="module">
   document.getElementById("disabled-tabs").tabs = [
@@ -153,7 +153,7 @@ tabs = [
     { label: "Shipping", content: <p>Shipping and returns.</p> },
   ]}
 />`,
-              js: `<l-Tabs id="color-tabs" color="indigo" defaultIndex="1" />
+              js: `<l-Tabs id="color-tabs" color="indigo" defaultIndex="1"></l-Tabs>
 
 <script type="module">
   document.getElementById("color-tabs").tabs = [

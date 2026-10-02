@@ -34,7 +34,7 @@ export default function SearchInputShowcase() {
   onClear={() => setQuery("")}
   placeholder="Search…"
 />`,
-              js: `<l-SearchInput id="search" placeholder="Search…" />
+              js: `<l-SearchInput id="search" placeholder="Search…"></l-SearchInput>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -95,9 +95,9 @@ export class AppComponent {
               react: `<SearchInput size="sm" placeholder="Small" />
 <SearchInput size="md" placeholder="Medium" />
 <SearchInput size="lg" placeholder="Large" />`,
-              js: `<l-SearchInput size="sm" placeholder="Small" />
-<l-SearchInput size="md" placeholder="Medium" />
-<l-SearchInput size="lg" placeholder="Large" />`,
+              js: `<l-SearchInput size="sm" placeholder="Small"></l-SearchInput>
+<l-SearchInput size="md" placeholder="Medium"></l-SearchInput>
+<l-SearchInput size="lg" placeholder="Large"></l-SearchInput>`,
               vue: `<template>
   <l-SearchInput size="sm" placeholder="Small" />
   <l-SearchInput size="md" placeholder="Medium" />
@@ -119,7 +119,7 @@ export class AppComponent {
           <CodeBlock
             variants={{
               react: `<SearchInput disabled placeholder="Disabled" />`,
-              js: `<l-SearchInput disabled placeholder="Disabled" />`,
+              js: `<l-SearchInput disabled placeholder="Disabled"></l-SearchInput>`,
               vue: `<l-SearchInput disabled placeholder="Disabled" />`,
               angular: `<l-SearchInput disabled placeholder="Disabled" />`,
             }}

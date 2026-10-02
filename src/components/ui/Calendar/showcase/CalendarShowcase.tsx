@@ -56,7 +56,7 @@ export default function CalendarShowcase() {
           <CodeBlock
             variants={{
               react: `<Calendar />`,
-              js: `<l-Calendar />
+              js: `<l-Calendar ></l-Calendar>
 
 <script type="module">import "lojee-ui/elements";</script>`,
               vue: `<template>
@@ -82,7 +82,7 @@ export default function CalendarShowcase() {
     { date: "2026-06-20", label: "Planning", color: "amber" },
   ]}
 />`,
-              js: `<l-Calendar id="calendar-events" />
+              js: `<l-Calendar id="calendar-events"></l-Calendar>
 
 <script type="module">
   import "lojee-ui/elements";

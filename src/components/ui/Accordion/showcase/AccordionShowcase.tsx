@@ -257,7 +257,7 @@ export class AppComponent {}`,
     Every slot can be restyled independently via classNames.
   </AccordionItem>
 </Accordion>`,
-              js: `<l-Accordion className="border-indigo-200 divide-indigo-200 dark:border-indigo-900 dark:divide-indigo-900">
+              js: `<l-Accordion class="border-indigo-200 divide-indigo-200 dark:border-indigo-900 dark:divide-indigo-900">
   <l-AccordionItem id="custom-colors-item" title="Custom colors" defaultOpen>
     Every slot can be restyled independently via classNames.
   </l-AccordionItem>
@@ -271,7 +271,7 @@ export class AppComponent {}`,
   };
 </script>`,
               vue: `<template>
-  <l-Accordion className="border-indigo-200 divide-indigo-200 dark:border-indigo-900 dark:divide-indigo-900">
+  <l-Accordion class="border-indigo-200 divide-indigo-200 dark:border-indigo-900 dark:divide-indigo-900">
     <l-AccordionItem title="Custom colors" defaultOpen :classNames="itemClassNames">
       Every slot can be restyled independently via classNames.
     </l-AccordionItem>
@@ -281,7 +281,7 @@ export class AppComponent {}`,
 <script setup lang="ts">
 const itemClassNames = { trigger: "text-indigo-900 dark:text-indigo-200", icon: "text-indigo-400", panel: "text-indigo-700 dark:text-indigo-300" };
 </script>`,
-              angular: `<l-Accordion className="border-indigo-200 divide-indigo-200 dark:border-indigo-900 dark:divide-indigo-900">
+              angular: `<l-Accordion class="border-indigo-200 divide-indigo-200 dark:border-indigo-900 dark:divide-indigo-900">
   <l-AccordionItem title="Custom colors" defaultOpen [classNames]="itemClassNames">
     Every slot can be restyled independently via classNames.
   </l-AccordionItem>

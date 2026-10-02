@@ -134,10 +134,10 @@ export default function NotificationShowcase() {
 <script type="module">import "lojee-ui/elements";</script>`,
               vue: `<l-Notification title="Team invite" timestamp="10m ago" unread>
   Priya invited you to join the "Design" team.
-  <template #actions>
+  <div slot="actions">
     <l-Button size="sm" label="Accept" />
     <l-Button size="sm" variant="outline" label="Decline" />
-  </template>
+  </div>
 </l-Notification>`,
               angular: `<l-Notification title="Team invite" timestamp="10m ago" unread>
   Priya invited you to join the "Design" team.

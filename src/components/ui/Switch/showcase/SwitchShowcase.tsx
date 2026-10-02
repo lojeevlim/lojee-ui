@@ -23,8 +23,8 @@ export default function SwitchShowcase() {
             variants={{
               react: `<Switch />
 <Switch defaultChecked />`,
-              js: `<l-Switch />
-<l-Switch defaultChecked />
+              js: `<l-Switch ></l-Switch>
+<l-Switch defaultChecked></l-Switch>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -67,9 +67,9 @@ export class AppComponent {}`,
               react: `<Switch size="sm" defaultChecked />
 <Switch size="md" defaultChecked />
 <Switch size="lg" defaultChecked />`,
-              js: `<l-Switch size="sm" defaultChecked />
-<l-Switch size="md" defaultChecked />
-<l-Switch size="lg" defaultChecked />`,
+              js: `<l-Switch size="sm" defaultChecked></l-Switch>
+<l-Switch size="md" defaultChecked></l-Switch>
+<l-Switch size="lg" defaultChecked></l-Switch>`,
               vue: `<template>
   <l-Switch size="sm" defaultChecked />
   <l-Switch size="md" defaultChecked />
@@ -97,9 +97,9 @@ export class AppComponent {}`,
               react: `<Switch color="indigo" defaultChecked />
 <Switch color="emerald" defaultChecked />
 <Switch color="rose" defaultChecked />`,
-              js: `<l-Switch color="indigo" defaultChecked />
-<l-Switch color="emerald" defaultChecked />
-<l-Switch color="rose" defaultChecked />`,
+              js: `<l-Switch color="indigo" defaultChecked></l-Switch>
+<l-Switch color="emerald" defaultChecked></l-Switch>
+<l-Switch color="rose" defaultChecked></l-Switch>`,
               vue: `<template>
   <l-Switch color="indigo" defaultChecked />
   <l-Switch color="emerald" defaultChecked />
@@ -123,8 +123,8 @@ export class AppComponent {}`,
             variants={{
               react: `<Switch disabled />
 <Switch disabled defaultChecked />`,
-              js: `<l-Switch disabled />
-<l-Switch disabled defaultChecked />`,
+              js: `<l-Switch disabled></l-Switch>
+<l-Switch disabled defaultChecked></l-Switch>`,
               vue: `<template>
   <l-Switch disabled />
   <l-Switch disabled defaultChecked />
@@ -145,7 +145,7 @@ export class AppComponent {}`,
           <CodeBlock
             variants={{
               react: `<Switch label="Enable notifications" />`,
-              js: `<l-Switch label="Enable notifications" />`,
+              js: `<l-Switch label="Enable notifications"></l-Switch>`,
               vue: `<l-Switch label="Enable notifications" />`,
               angular: `<l-Switch label="Enable notifications" />`,
             }}

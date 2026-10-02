@@ -93,9 +93,9 @@ onSubmit(values) {
 <script type="module">import "lojee-ui/elements";</script>`,
               vue: `<template>
   <l-SignupForm>
-    <template #footer>
+    <div slot="footer">
       <p>Already have an account? <a href="/login">Log in</a></p>
-    </template>
+    </div>
   </l-SignupForm>
 </template>`,
               angular: `<l-SignupForm>

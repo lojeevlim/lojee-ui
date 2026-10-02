@@ -15,7 +15,7 @@ export function SplitButtonSection() {
       <CodeBlock
         variants={{
           react: `<SplitButton icon="check" label="Approve" />`,
-          js: `<l-SplitButton icon="check" label="Approve" />
+          js: `<l-SplitButton icon="check" label="Approve"></l-SplitButton>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -57,10 +57,10 @@ export class SplitButtonShowcaseComponent {}`,
 <SplitButton icon="check" label="Approve" shape="pill" />
 <SplitButton icon="check" label="Approve" shape="square" />
 <SplitButton icon="download" label="Export" menuIcon="more-vertical" />`,
-            js: `<l-SplitButton icon="check" label="Approve" shape="default" />
-<l-SplitButton icon="check" label="Approve" shape="pill" />
-<l-SplitButton icon="check" label="Approve" shape="square" />
-<l-SplitButton icon="download" label="Export" menuIcon="more-vertical" />`,
+            js: `<l-SplitButton icon="check" label="Approve" shape="default"></l-SplitButton>
+<l-SplitButton icon="check" label="Approve" shape="pill"></l-SplitButton>
+<l-SplitButton icon="check" label="Approve" shape="square"></l-SplitButton>
+<l-SplitButton icon="download" label="Export" menuIcon="more-vertical"></l-SplitButton>`,
             vue: `<template>
   <l-SplitButton icon="check" label="Approve" shape="default" />
   <l-SplitButton icon="check" label="Approve" shape="pill" />
