@@ -104,7 +104,7 @@ export default function ActivityFeedShowcase() {
 ${BASIC_ITEMS_CODE}
   ]}
 />`,
-              js: `<l-ActivityFeed id="activity-feed-basic" />
+              js: `<l-ActivityFeed id="activity-feed-basic"></l-ActivityFeed>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -157,7 +157,7 @@ ${BASIC_ITEMS_CODE}
 ${ICON_ITEMS_CODE}
   ]}
 />`,
-              js: `<l-ActivityFeed id="activity-feed-icons" />
+              js: `<l-ActivityFeed id="activity-feed-icons"></l-ActivityFeed>
 
 <script type="module">
   document.getElementById("activity-feed-icons").items = [

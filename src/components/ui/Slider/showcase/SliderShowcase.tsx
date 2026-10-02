@@ -19,7 +19,7 @@ export default function SliderShowcase() {
           <CodeBlock
             variants={{
               react: `<Slider defaultValue={40} />`,
-              js: `<l-Slider value="40" />
+              js: `<l-Slider value="40"></l-Slider>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -56,7 +56,7 @@ export class AppComponent {}
           <CodeBlock
             variants={{
               react: `<Slider defaultValue={65} showValue />`,
-              js: `<l-Slider value="65" showValue />`,
+              js: `<l-Slider value="65" showValue></l-Slider>`,
               vue: `<template>
   <l-Slider value="65" showValue />
 </template>`,
@@ -76,7 +76,7 @@ export class AppComponent {}
           <CodeBlock
             variants={{
               react: `<Slider defaultValue={30} color="indigo" showValue />`,
-              js: `<l-Slider value="30" color="indigo" showValue />`,
+              js: `<l-Slider value="30" color="indigo" showValue></l-Slider>`,
               vue: `<template>
   <l-Slider value="30" color="indigo" showValue />
 </template>`,
@@ -96,7 +96,7 @@ export class AppComponent {}
           <CodeBlock
             variants={{
               react: `<Slider min={0} max={10} step={1} defaultValue={5} showValue />`,
-              js: `<l-Slider min="0" max="10" step="1" value="5" showValue />`,
+              js: `<l-Slider min="0" max="10" step="1" value="5" showValue></l-Slider>`,
               vue: `<template>
   <l-Slider min="0" max="10" step="1" value="5" showValue />
 </template>`,
@@ -114,7 +114,7 @@ export class AppComponent {}
           <CodeBlock
             variants={{
               react: `<Slider defaultValue={40} disabled />`,
-              js: `<l-Slider value="40" disabled />`,
+              js: `<l-Slider value="40" disabled></l-Slider>`,
               vue: `<template>
   <l-Slider value="40" disabled />
 </template>`,

@@ -24,7 +24,7 @@ export default function PasswordInputShowcase() {
               react: `const [password, setPassword] = useState("");
 
 <PasswordInput value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" />`,
-              js: `<l-PasswordInput id="password" placeholder="Password" />
+              js: `<l-PasswordInput id="password" placeholder="Password"></l-PasswordInput>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -74,9 +74,9 @@ export class AppComponent {
               react: `<PasswordInput size="sm" placeholder="Small" />
 <PasswordInput size="md" placeholder="Medium" />
 <PasswordInput size="lg" placeholder="Large" />`,
-              js: `<l-PasswordInput size="sm" placeholder="Small" />
-<l-PasswordInput size="md" placeholder="Medium" />
-<l-PasswordInput size="lg" placeholder="Large" />`,
+              js: `<l-PasswordInput size="sm" placeholder="Small"></l-PasswordInput>
+<l-PasswordInput size="md" placeholder="Medium"></l-PasswordInput>
+<l-PasswordInput size="lg" placeholder="Large"></l-PasswordInput>`,
               vue: `<template>
   <l-PasswordInput size="sm" placeholder="Small" />
   <l-PasswordInput size="md" placeholder="Medium" />
@@ -98,7 +98,7 @@ export class AppComponent {
           <CodeBlock
             variants={{
               react: `<PasswordInput invalid defaultValue="short" placeholder="Password" />`,
-              js: `<l-PasswordInput invalid placeholder="Password" />`,
+              js: `<l-PasswordInput invalid placeholder="Password"></l-PasswordInput>`,
               vue: `<l-PasswordInput invalid placeholder="Password" />`,
               angular: `<l-PasswordInput invalid placeholder="Password" />`,
             }}
@@ -113,7 +113,7 @@ export class AppComponent {
           <CodeBlock
             variants={{
               react: `<PasswordInput disabled placeholder="Disabled" />`,
-              js: `<l-PasswordInput disabled placeholder="Disabled" />`,
+              js: `<l-PasswordInput disabled placeholder="Disabled"></l-PasswordInput>`,
               vue: `<l-PasswordInput disabled placeholder="Disabled" />`,
               angular: `<l-PasswordInput disabled placeholder="Disabled" />`,
             }}

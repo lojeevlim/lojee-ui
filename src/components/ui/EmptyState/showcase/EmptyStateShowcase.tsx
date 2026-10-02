@@ -21,7 +21,7 @@ export default function EmptyStateShowcase() {
           <CodeBlock
             variants={{
               react: `<EmptyState title="No items yet" />`,
-              js: `<l-EmptyState title="No items yet" />
+              js: `<l-EmptyState title="No items yet"></l-EmptyState>
 
 <script type="module">import "lojee-ui/elements";</script>`,
               vue: `<l-EmptyState title="No items yet" />`,
@@ -86,7 +86,7 @@ export default function EmptyStateShowcase() {
 </EmptyState>`,
               js: `<l-EmptyState title="No items yet" icon="folder">
   Get started by creating your first item.
-  <l-Button slot="action" label="Add item" id="add-item-btn" />
+  <l-Button slot="action" label="Add item" id="add-item-btn"></l-Button>
 </l-EmptyState>
 
 <script type="module">

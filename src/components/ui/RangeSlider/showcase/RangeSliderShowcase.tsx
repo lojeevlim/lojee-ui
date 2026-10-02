@@ -34,7 +34,7 @@ export default function RangeSliderShowcase() {
               react: `const [value, setValue] = useState<[number, number]>([20, 70]);
 
 <RangeSlider value={value} onChange={setValue} />`,
-              js: `<l-RangeSlider id="range" />
+              js: `<l-RangeSlider id="range"></l-RangeSlider>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -82,7 +82,7 @@ export class AppComponent {
           <CodeBlock
             variants={{
               react: `<RangeSlider value={value} onChange={setValue} color="indigo" showValue />`,
-              js: `<l-RangeSlider id="range-colored" color="indigo" showValue />
+              js: `<l-RangeSlider id="range-colored" color="indigo" showValue></l-RangeSlider>
 
 <script type="module">
   const rangeColored = document.getElementById("range-colored");
@@ -124,7 +124,7 @@ export class AppComponent {
   color="emerald"
   showValue
 />`,
-              js: `<l-RangeSlider id="price-range" min="0" max="1000" step="10" color="emerald" showValue />
+              js: `<l-RangeSlider id="price-range" min="0" max="1000" step="10" color="emerald" showValue></l-RangeSlider>
 
 <script type="module">
   const priceRange = document.getElementById("price-range");

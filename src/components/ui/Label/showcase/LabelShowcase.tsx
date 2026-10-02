@@ -23,7 +23,7 @@ export default function LabelShowcase() {
               react: `<Label htmlFor="email">Email address</Label>
 <Input id="email" placeholder="you@example.com" />`,
               js: `<l-Label htmlFor="email">Email address</l-Label>
-<l-Input id="email" placeholder="you@example.com" />
+<l-Input id="email" placeholder="you@example.com"></l-Input>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -67,7 +67,7 @@ export class AppComponent {}`,
               react: `<Label htmlFor="name" required>Full name</Label>
 <Input id="name" placeholder="Jane Doe" />`,
               js: `<l-Label htmlFor="name" required>Full name</l-Label>
-<l-Input id="name" placeholder="Jane Doe" />`,
+<l-Input id="name" placeholder="Jane Doe"></l-Input>`,
               vue: `<template>
   <l-Label htmlFor="name" required>Full name</l-Label>
   <l-Input id="name" placeholder="Jane Doe" />

@@ -21,7 +21,7 @@ export default function SuccessStateShowcase() {
           <CodeBlock
             variants={{
               react: `<SuccessState />`,
-              js: `<l-SuccessState />
+              js: `<l-SuccessState ></l-SuccessState>
 
 <script type="module">import "lojee-ui/elements";</script>`,
               vue: `<l-SuccessState />`,
@@ -62,7 +62,7 @@ export default function SuccessStateShowcase() {
 </SuccessState>`,
               js: `<l-SuccessState title="You're all set">
   Your account has been created successfully.
-  <l-Button slot="action" label="View details" id="view-details-btn" />
+  <l-Button slot="action" label="View details" id="view-details-btn"></l-Button>
 </l-SuccessState>
 
 <script type="module">

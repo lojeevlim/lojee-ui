@@ -253,7 +253,7 @@ export class AppComponent {}`,
   <ListItem icon="star" classNames={{ icon: "text-amber-500" }}>Featured item</ListItem>
   <ListItem icon="heart" classNames={{ icon: "text-rose-500" }}>Liked item</ListItem>
 </List>`,
-              js: `<l-List variant="bordered" className="shadow-sm">
+              js: `<l-List variant="bordered" class="shadow-sm">
   <l-ListItem id="featured-item" icon="star">Featured item</l-ListItem>
   <l-ListItem id="liked-item" icon="heart">Liked item</l-ListItem>
 </l-List>
@@ -263,7 +263,7 @@ export class AppComponent {}`,
   document.getElementById("liked-item").classNames = { icon: "text-rose-500" };
 </script>`,
               vue: `<template>
-  <l-List variant="bordered" className="shadow-sm">
+  <l-List variant="bordered" class="shadow-sm">
     <l-ListItem icon="star" :classNames="featuredClassNames">Featured item</l-ListItem>
     <l-ListItem icon="heart" :classNames="likedClassNames">Liked item</l-ListItem>
   </l-List>
@@ -273,7 +273,7 @@ export class AppComponent {}`,
 const featuredClassNames = { icon: "text-amber-500" };
 const likedClassNames = { icon: "text-rose-500" };
 </script>`,
-              angular: `<l-List variant="bordered" className="shadow-sm">
+              angular: `<l-List variant="bordered" class="shadow-sm">
   <l-ListItem icon="star" [classNames]="featuredClassNames">Featured item</l-ListItem>
   <l-ListItem icon="heart" [classNames]="likedClassNames">Liked item</l-ListItem>
 </l-List>

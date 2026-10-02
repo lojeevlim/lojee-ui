@@ -39,7 +39,7 @@ export default function ComboboxShowcase() {
               react: `const [value, setValue] = useState<string | undefined>("manila");
 
 <Combobox options={options} value={value} onChange={setValue} placeholder="Search a city..." />`,
-              js: `<l-Combobox id="city-combobox" placeholder="Search a city..." />
+              js: `<l-Combobox id="city-combobox" placeholder="Search a city..."></l-Combobox>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -119,7 +119,7 @@ export class AppComponent {
           <CodeBlock
             variants={{
               react: `<Combobox options={options} value={undefined} onChange={setValue} placeholder="Search a city..." />`,
-              js: `<l-Combobox id="city-combobox-empty" placeholder="Search a city..." />
+              js: `<l-Combobox id="city-combobox-empty" placeholder="Search a city..."></l-Combobox>
 
 <script type="module">
   const combobox = document.getElementById("city-combobox-empty");

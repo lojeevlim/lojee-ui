@@ -21,7 +21,7 @@ export default function ErrorStateShowcase() {
           <CodeBlock
             variants={{
               react: `<ErrorState />`,
-              js: `<l-ErrorState />
+              js: `<l-ErrorState ></l-ErrorState>
 
 <script type="module">import "lojee-ui/elements";</script>`,
               vue: `<l-ErrorState />`,
@@ -63,7 +63,7 @@ export default function ErrorStateShowcase() {
 </ErrorState>`,
               js: `<l-ErrorState>
   We couldn't load your data. Please try again.
-  <l-Button slot="action" variant="destructive" icon="refresh-cw" label="Retry" id="retry-btn" />
+  <l-Button slot="action" variant="destructive" icon="refresh-cw" label="Retry" id="retry-btn"></l-Button>
 </l-ErrorState>
 
 <script type="module">

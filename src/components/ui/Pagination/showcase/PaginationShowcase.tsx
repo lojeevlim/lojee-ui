@@ -26,7 +26,7 @@ export default function PaginationShowcase() {
               react: `const [page, setPage] = useState(1);
 
 <Pagination page={page} totalPages={5} onPageChange={setPage} />`,
-              js: `<l-Pagination id="basic-pagination" totalPages="5" />
+              js: `<l-Pagination id="basic-pagination" totalPages="5"></l-Pagination>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -72,7 +72,7 @@ export class AppComponent {
               react: `const [page, setPage] = useState(6);
 
 <Pagination page={page} totalPages={20} onPageChange={setPage} />`,
-              js: `<l-Pagination id="long-pagination" totalPages="20" />
+              js: `<l-Pagination id="long-pagination" totalPages="20"></l-Pagination>
 
 <script type="module">
   const pagination = document.getElementById("long-pagination");
@@ -102,7 +102,7 @@ const page = ref(6);
           <CodeBlock
             variants={{
               react: `<Pagination page={page} totalPages={20} siblingCount={2} onPageChange={setPage} />`,
-              js: `<l-Pagination id="wide-pagination" totalPages="20" siblingCount="2" />
+              js: `<l-Pagination id="wide-pagination" totalPages="20" siblingCount="2"></l-Pagination>
 
 <script type="module">
   const pagination = document.getElementById("wide-pagination");
@@ -132,7 +132,7 @@ const page = ref(6);
           <CodeBlock
             variants={{
               react: `<Pagination page={page} totalPages={10} color="indigo" onPageChange={setPage} />`,
-              js: `<l-Pagination id="color-pagination" totalPages="10" color="indigo" />
+              js: `<l-Pagination id="color-pagination" totalPages="10" color="indigo"></l-Pagination>
 
 <script type="module">
   const pagination = document.getElementById("color-pagination");

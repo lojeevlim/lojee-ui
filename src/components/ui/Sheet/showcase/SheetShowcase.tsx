@@ -47,7 +47,7 @@ export default function SheetShowcase() {
 <Sheet open={open} onClose={() => setOpen(false)} title="Sheet title">
   <p>This is a basic bottom sheet.</p>
 </Sheet>`,
-              js: `<l-Button label="Open sheet" id="open-sheet-btn" />
+              js: `<l-Button label="Open sheet" id="open-sheet-btn"></l-Button>
 <l-Sheet id="basic-sheet" heading="Sheet title">
   <p>This is a basic bottom sheet.</p>
 </l-Sheet>

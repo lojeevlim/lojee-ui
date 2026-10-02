@@ -21,7 +21,7 @@ export default function FileUploadShowcase() {
           <CodeBlock
             variants={{
               react: `<FileUpload onFilesSelected={(files) => console.log(files)} />`,
-              js: `<l-FileUpload id="file-upload" />
+              js: `<l-FileUpload id="file-upload"></l-FileUpload>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -75,7 +75,7 @@ export class AppComponent {
   multiple
   onFilesSelected={(files) => console.log(files)}
 />`,
-              js: `<l-FileUpload id="photo-upload" label="Upload product photos" accept="image/*" multiple />
+              js: `<l-FileUpload id="photo-upload" label="Upload product photos" accept="image/*" multiple></l-FileUpload>
 
 <script type="module">
   document.getElementById("photo-upload")

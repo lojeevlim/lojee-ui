@@ -42,9 +42,9 @@ export function ButtonGroupSection() {
   <SegmentButton icon="align-right" active={align === "right"} onClick={() => setAlign("right")} />
 </ButtonGroup>`,
           js: `<l-ButtonGroup>
-  <l-SegmentButton icon="align-left" id="align-left" />
-  <l-SegmentButton icon="align-center" id="align-center" />
-  <l-SegmentButton icon="align-right" id="align-right" />
+  <l-SegmentButton icon="align-left" id="align-left"></l-SegmentButton>
+  <l-SegmentButton icon="align-center" id="align-center"></l-SegmentButton>
+  <l-SegmentButton icon="align-right" id="align-right"></l-SegmentButton>
 </l-ButtonGroup>
 
 <script type="module">

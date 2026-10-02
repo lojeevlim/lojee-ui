@@ -61,7 +61,7 @@ export default function ChartShowcase() {
 ${REVENUE_CODE}
   ]}
 />`,
-              js: `<l-Chart id="chart-bar" type="bar" />
+              js: `<l-Chart id="chart-bar" type="bar"></l-Chart>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -102,7 +102,7 @@ ${REVENUE_CODE}
 ${REVENUE_CODE}
   ]}
 />`,
-              js: `<l-Chart id="chart-line" type="line" color="emerald" />
+              js: `<l-Chart id="chart-line" type="line" color="emerald"></l-Chart>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -142,7 +142,7 @@ ${REVENUE_CODE}
 ${TRAFFIC_CODE}
   ]}
 />`,
-              js: `<l-Chart id="chart-donut" type="donut" />
+              js: `<l-Chart id="chart-donut" type="donut"></l-Chart>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -191,7 +191,7 @@ ${TRAFFIC_CODE}
 
 {/* Any of the 12 palette colors work: slate, gray, indigo, violet, blue,
     cyan, emerald, teal, amber, orange, rose, pink. */}`,
-              js: `<l-Chart id="chart-color" type="bar" color="rose" />
+              js: `<l-Chart id="chart-color" type="bar" color="rose"></l-Chart>
 
 <script type="module">
   import "lojee-ui/elements";

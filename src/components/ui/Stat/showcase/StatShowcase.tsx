@@ -83,10 +83,10 @@ export class AppComponent {}`,
   <Stat label="Churn Rate" value="1.08%" />
 </Grid>`,
               js: `<l-Grid cols="4" gap="md">
-  <l-Stat label="Revenue" value="$48,290" />
-  <l-Stat label="Active Users" value="12,483" />
-  <l-Stat label="Conversion Rate" value="3.42%" />
-  <l-Stat label="Churn Rate" value="1.08%" />
+  <l-Stat label="Revenue" value="$48,290"></l-Stat>
+  <l-Stat label="Active Users" value="12,483"></l-Stat>
+  <l-Stat label="Conversion Rate" value="3.42%"></l-Stat>
+  <l-Stat label="Churn Rate" value="1.08%"></l-Stat>
 </l-Grid>
 
 <script type="module">import "lojee-ui/elements";</script>`,
@@ -122,8 +122,8 @@ export class AppComponent {}`,
             variants={{
               react: `<Stat label="Revenue" value="$48,290" change="12.5%" trend="up" />
 <Stat label="Churn Rate" value="1.08%" change="0.3%" trend="down" />`,
-              js: `<l-Stat label="Revenue" value="$48,290" change="12.5%" trend="up" />
-<l-Stat label="Churn Rate" value="1.08%" change="0.3%" trend="down" />
+              js: `<l-Stat label="Revenue" value="$48,290" change="12.5%" trend="up"></l-Stat>
+<l-Stat label="Churn Rate" value="1.08%" change="0.3%" trend="down"></l-Stat>
 
 <script type="module">import "lojee-ui/elements";</script>`,
               vue: `<template>
@@ -154,7 +154,7 @@ export class AppComponent {}`,
   icon="zap"
   color="indigo"
 />`,
-              js: `<l-Stat label="Revenue" value="$48,290" change="12.5%" trend="up" icon="zap" color="indigo" />
+              js: `<l-Stat label="Revenue" value="$48,290" change="12.5%" trend="up" icon="zap" color="indigo"></l-Stat>
 
 <script type="module">import "lojee-ui/elements";</script>`,
               vue: `<template>
@@ -178,7 +178,7 @@ export class AppComponent {}`,
           <CodeBlock
             variants={{
               react: `<Stat label="Violet" value="256" icon="zap" color="violet" />`,
-              js: `<l-Stat label="Violet" value="256" icon="zap" color="violet" />`,
+              js: `<l-Stat label="Violet" value="256" icon="zap" color="violet"></l-Stat>`,
               vue: `<template>
   <l-Stat label="Violet" value="256" icon="zap" color="violet" />
 </template>`,

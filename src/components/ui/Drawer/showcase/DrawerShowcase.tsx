@@ -60,7 +60,7 @@ export default function DrawerShowcase() {
 <Drawer open={open} onClose={() => setOpen(false)} position="${position}" title="${position} drawer">
   <p>This drawer slid in from the ${position} edge.</p>
 </Drawer>`,
-              js: `<l-Button label="Open ${position} drawer" id="open-drawer-btn" />
+              js: `<l-Button label="Open ${position} drawer" id="open-drawer-btn"></l-Button>
 <l-Drawer id="edge-drawer" position="${position}" heading="${position} drawer">
   <p>This drawer slid in from the ${position} edge.</p>
 </l-Drawer>

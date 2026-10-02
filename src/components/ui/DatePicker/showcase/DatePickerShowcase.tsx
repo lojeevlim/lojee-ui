@@ -30,7 +30,7 @@ export default function DatePickerShowcase() {
           <CodeBlock
             variants={{
               react: `<DatePicker />`,
-              js: `<l-DatePicker />
+              js: `<l-DatePicker ></l-DatePicker>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -71,9 +71,9 @@ export class AppComponent {}
               react: `<DatePicker variant="outline" />
 <DatePicker variant="filled" />
 <DatePicker variant="underline" />`,
-              js: `<l-DatePicker variant="outline" />
-<l-DatePicker variant="filled" />
-<l-DatePicker variant="underline" />`,
+              js: `<l-DatePicker variant="outline"></l-DatePicker>
+<l-DatePicker variant="filled"></l-DatePicker>
+<l-DatePicker variant="underline"></l-DatePicker>`,
               vue: `<template>
   <l-DatePicker variant="outline" />
   <l-DatePicker variant="filled" />
@@ -97,7 +97,7 @@ export class AppComponent {}
           <CodeBlock
             variants={{
               react: `<DatePicker size="sm" />`,
-              js: `<l-DatePicker size="sm" />`,
+              js: `<l-DatePicker size="sm"></l-DatePicker>`,
               vue: `<template>
   <l-DatePicker size="sm" />
 </template>`,
@@ -117,7 +117,7 @@ export class AppComponent {}
               react: `const [value, setValue] = useState("2026-06-15");
 
 <DatePicker value={value} onChange={(e) => setValue(e.target.value)} onClear={() => setValue("")} />`,
-              js: `<l-DatePicker id="date-field" />
+              js: `<l-DatePicker id="date-field"></l-DatePicker>
 
 <script type="module">
   const picker = document.getElementById("date-field");
@@ -155,7 +155,7 @@ value = "2026-06-15";
           <CodeBlock
             variants={{
               react: `<DatePicker invalid />`,
-              js: `<l-DatePicker invalid />`,
+              js: `<l-DatePicker invalid></l-DatePicker>`,
               vue: `<template>
   <l-DatePicker invalid />
 </template>`,
@@ -173,7 +173,7 @@ value = "2026-06-15";
           <CodeBlock
             variants={{
               react: `<DatePicker disabled />`,
-              js: `<l-DatePicker disabled />`,
+              js: `<l-DatePicker disabled></l-DatePicker>`,
               vue: `<template>
   <l-DatePicker disabled />
 </template>`,
@@ -201,7 +201,7 @@ value = "2026-06-15";
 const [end, setEnd] = useState("2026-06-14");
 
 <DateRangePicker startValue={start} endValue={end} onStartChange={setStart} onEndChange={setEnd} />`,
-              js: `<l-DateRangePicker id="range-picker" />
+              js: `<l-DateRangePicker id="range-picker"></l-DateRangePicker>
 
 <script type="module">
   const range = document.getElementById("range-picker");
@@ -274,7 +274,7 @@ end = "2026-06-14";
     { label: "This month", range: ["2026-06-01", "2026-06-30"] },
   ]}
 />`,
-              js: `<l-DateRangePicker id="preset-range-picker" variant="filled" />
+              js: `<l-DateRangePicker id="preset-range-picker" variant="filled"></l-DateRangePicker>
 
 <script type="module">
   const rangeWithPresets = document.getElementById("preset-range-picker");
