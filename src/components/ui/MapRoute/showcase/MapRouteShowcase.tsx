@@ -4,12 +4,13 @@ import { MapMarker } from "../../MapMarker/MapMarker";
 import { MapRoute } from "../MapRoute";
 import CodeBlock from "../../CodeBlock";
 import { Badge } from "../../Badge/Badge";
+import { Button } from "../../Buttons/Button";
 import { SectionLabel } from "../../ShowcaseHelpers";
 import { mapCode } from "../../Map/showcase/mapCode";
 import { fetchRoutes, type RouteResult } from "../../Map/routing";
 import { CITY_HALL, CEBU_LOOP, CEBU_STOPS, AIRPORT } from "../../Map/samples";
 import { formatDistance, formatDuration, pointAlong } from "../../Map/mapUtils";
-import type { LngLat, MapRouteData, MapRouteSummary } from "../../Map/mapTypes";
+import type { LngLat, MapRouteData, MapRouteSummary, RouteAnimation } from "../../Map/mapTypes";
 
 const json = (v: unknown) => JSON.stringify(v).replace(/"(\w+)":/g, "$1:").replace(/,/g, ", ");
 const coordsCode = (c: LngLat[]) => `[\n${c.map((p) => `    [${p[0]}, ${p[1]}]`).join(",\n")},\n  ]`;
@@ -31,6 +32,65 @@ function ProgressDemo() {
       <div className="flex items-center gap-3">
         <input type="range" min={0} max={1} step={0.01} value={progress} onChange={(e) => setProgress(Number(e.target.value))} className="w-full max-w-sm accent-[var(--color-accent-600)]" aria-label="Route progress" />
         <Badge variant="soft" label={`${Math.round(progress * 100)}% travelled`} />
+      </div>
+    </div>
+  );
+}
+
+/** Drives a 0 – 1 progress value from its current position to the end over ~9s; time-based, so it is smooth on any screen. */
+function useTrack(initial: number) {
+  const [progress, setProgress] = useState(initial);
+  const [tracking, setTracking] = useState(false);
+  useEffect(() => {
+    if (!tracking) return;
+    const from = progress >= 1 ? 0 : progress;
+    const start = performance.now();
+    const duration = 9000 * (1 - from);
+    let raf = 0;
+    let lastPush = 0;
+    const tick = (now: number) => {
+      const t = Math.min(1, (now - start) / duration);
+      if (now - lastPush > 60 || t >= 1) {
+        lastPush = now;
+        setProgress(from + (1 - from) * t);
+      }
+      if (t >= 1) setTracking(false);
+      else raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tracking]);
+  return { progress, tracking, toggle: () => setTracking((t) => !t) };
+}
+
+/** All animation variants on small maps, driven by one Track button that moves every route from start to end. */
+function AnimationsDemo() {
+  const { progress, tracking, toggle } = useTrack(0);
+  const [started, setStarted] = useState(false);
+  return (
+    <div className="space-y-3">
+      <div className="flex items-center gap-3">
+        <Button
+          size="sm"
+          label={tracking ? "Stop" : "Track"}
+          icon={tracking ? "square" : "map-pin"}
+          onClick={() => {
+            setStarted(true);
+            toggle();
+          }}
+        />
+        {started && <Badge variant="soft" label={`${Math.round(progress * 100)}% travelled`} />}
+      </div>
+      <div className="grid gap-4 md:grid-cols-3">
+        {(["flow", "draw", "pulse", "trail", "glow", "shimmer"] as const).map((name: RouteAnimation) => (
+          <div key={name}>
+            <p className="mb-1 font-mono text-[11px] uppercase tracking-wide text-fg-subtle">{name}</p>
+            <Map center={[123.895, 10.31]} zoom={12.8} className="h-56">
+              <MapRoute coordinates={CEBU_LOOP} fit width={5} animated={name} progress={started ? progress : undefined} />
+            </Map>
+          </div>
+        ))}
       </div>
     </div>
   );
@@ -144,7 +204,6 @@ export default function MapRouteShowcase() {
             {[
               { name: "solid", props: { color: "violet" as const, width: 5 } },
               { name: "dashed", props: { color: "emerald" as const, width: 4, dashArray: [2, 2] as [number, number] } },
-              { name: "animated", props: { color: "rose" as const, width: 4, animated: true } },
             ].map((v) => (
               <div key={v.name}>
                 <p className="mb-1 font-mono text-[11px] uppercase tracking-wide text-fg-subtle">{v.name}</p>
@@ -154,11 +213,21 @@ export default function MapRouteShowcase() {
               </div>
             ))}
           </div>
+          <SectionLabel sub={'animated takes "flow", "draw", "pulse", "trail", "glow" or "shimmer"; animationSpeed and animationDirection tune the motion. Press Track to drive every route from start to end — with progress set, only the travelled part animates, and the line eases to each new value so it stays smooth.'}>Animations</SectionLabel>
+          <AnimationsDemo />
           <CodeBlock
             variants={mapCode({
-              props: [{ name: "center", value: "[123.895, 10.31]", kind: "json" }, zoom(12.8), { name: "routes", value: `[{ coordinates: ${coordsCode(CEBU_LOOP)}, color: "rose", width: 4, animated: true }]`, kind: "json" }],
+              props: [center, zoom(12.4), { name: "routes", value: `[{ coordinates: ${coordsCode(STOPS)}, animated: "pulse", progress: 0.2, width: 5 }]`, kind: "json" }],
+              reactProps: [center, zoom(12.4)],
+              reactChildren: `  <MapRoute coordinates={stops} animated="pulse" progress={progress} width={5} />`,
+              extraJs: "  // Track: ease progress from 0 to 1 over a few seconds:  map.routes = [{ ...map.routes[0], progress: 0.6 }];",
+            })}
+          />
+          <CodeBlock
+            variants={mapCode({
+              props: [{ name: "center", value: "[123.895, 10.31]", kind: "json" }, zoom(12.8), { name: "routes", value: `[{ coordinates: ${coordsCode(CEBU_LOOP)}, color: "rose", width: 4, animated: "pulse" }]`, kind: "json" }],
               reactProps: [{ name: "center", value: "[123.895, 10.31]", kind: "json" }, zoom(12.8)],
-              reactChildren: `  <MapRoute coordinates={loop} color="rose" width={4} animated />\n  <MapRoute coordinates={loop} color="emerald" dashArray={[2, 2]} />`,
+              reactChildren: `  <MapRoute coordinates={loop} color="rose" width={4} animated="pulse" animationSpeed={1.5} />\n  <MapRoute coordinates={loop} color="emerald" dashArray={[2, 2]} />`,
             })}
           />
         </section>
