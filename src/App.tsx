@@ -85,6 +85,15 @@ import { findMenuItem, defaultPathFor, type NavKind } from './core/routes'
 
 import AppShowcase from './components/ui/AppLayout'
 import MainShowcase from './components/ui/Main'
+import ImageShowcase from './components/ui/Image'
+import VideoShowcase from './components/ui/Video'
+import SkeletonShowcase from './components/ui/Skeleton'
+import TagInputShowcase from './components/ui/TagInput'
+import NumberInputShowcase from './components/ui/NumberInput'
+import OtpInputShowcase from './components/ui/OtpInput'
+import RatingShowcase from './components/ui/Rating'
+import ColorPickerShowcase from './components/ui/ColorPicker'
+import CodeSnippetShowcase from './components/ui/CodeSnippet'
 import ThemeSwitcherShowcase from './components/ui/ThemeSwitcher'
 import { ThemeProvider } from './components/ui/Theme/ThemeProvider'
 import { App as AppShell, Top, Side, Main } from './components/ui/AppLayout/App'
@@ -102,6 +111,15 @@ const SHOWCASES: Record<string, ComponentType> = {
   Changelog: ChangelogShowcase,
   App: AppShowcase,
   Main: MainShowcase,
+  Images: ImageShowcase,
+  Videos: VideoShowcase,
+  Skeletons: SkeletonShowcase,
+  'Tag Input': TagInputShowcase,
+  'Number Input': NumberInputShowcase,
+  'OTP Input': OtpInputShowcase,
+  Rating: RatingShowcase,
+  'Color Picker': ColorPickerShowcase,
+  'Code Snippet': CodeSnippetShowcase,
   'Theme Switcher': ThemeSwitcherShowcase,
   Buttons: ButtonShowcase,
   Badges: BadgeShowcase,

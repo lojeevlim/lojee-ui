@@ -148,6 +148,1202 @@ export const API_DOCS: Record<string, ApiDoc> = {
     },
     "dataTypes": []
   },
+  "Images": {
+    "components": [
+      {
+        "name": "Image",
+        "props": [
+          {
+            "name": "src",
+            "type": "string",
+            "required": false,
+            "description": "Image URL (or data URI). While it loads a soft shimmer is shown; if it fails, `fallback` is shown instead.",
+            "default": null
+          },
+          {
+            "name": "alt",
+            "type": "string",
+            "required": false,
+            "description": "Alternative text for screen readers (default: \"\"). Describe the picture, or leave empty for a purely decorative one.",
+            "default": "\"\""
+          },
+          {
+            "name": "width",
+            "type": "string | number",
+            "required": false,
+            "description": "Width of the frame: any CSS length or a number of px (default: fills its container).",
+            "default": null
+          },
+          {
+            "name": "height",
+            "type": "string | number",
+            "required": false,
+            "description": "Height of the frame: any CSS length or a number of px (default: from `ratio`, otherwise the image's own).",
+            "default": null
+          },
+          {
+            "name": "ratio",
+            "type": "ImageRatio",
+            "required": false,
+            "description": "Fixed shape of the frame: \"auto\" (the image's own proportions, default), \"1/1\", \"4/3\", \"3/2\", \"16/9\" or \"21/9\". The image is fitted into it with `fit`.",
+            "default": "\"auto\""
+          },
+          {
+            "name": "fit",
+            "type": "ImageFit",
+            "required": false,
+            "description": "How the picture fills the frame: \"cover\" (crop to fill, default), \"contain\" (show all, letterboxed), \"fill\" (stretch) or \"none\".",
+            "default": "\"cover\""
+          },
+          {
+            "name": "rounded",
+            "type": "ImageRadius",
+            "required": false,
+            "description": "Corner rounding: \"none\" | \"sm\" | \"md\" | \"lg\" | \"xl\" | \"full\" (default: \"lg\").",
+            "default": "\"lg\""
+          },
+          {
+            "name": "loading",
+            "type": "\"lazy\" | \"eager\"",
+            "required": false,
+            "description": "\"lazy\" (default) loads the image only when it nears the viewport; \"eager\" loads it immediately — use eager for images above the fold.",
+            "default": "\"lazy\""
+          },
+          {
+            "name": "borderless",
+            "type": "boolean",
+            "required": false,
+            "description": "Hides the border drawn around the frame (default: false).",
+            "default": "false"
+          },
+          {
+            "name": "caption",
+            "type": "string",
+            "required": false,
+            "description": "Short text shown under the image (default: none).",
+            "default": null
+          },
+          {
+            "name": "fallback",
+            "type": "ReactNode",
+            "required": false,
+            "description": "Content shown in place of the image when it can't be loaded or has no `src` (default: a neutral \"image unavailable\" placeholder).",
+            "default": null
+          },
+          {
+            "name": "onLoad",
+            "type": "() => void",
+            "required": false,
+            "description": "Called once the image has loaded.",
+            "default": null
+          },
+          {
+            "name": "onError",
+            "type": "() => void",
+            "required": false,
+            "description": "Called when the image fails to load.",
+            "default": null
+          },
+          {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0) — handy for staggering.",
+            "default": null
+          },
+          {
+            "name": "hoverEffect",
+            "type": "HoverEffect",
+            "required": false,
+            "description": "Effect while hovering: \"lift\" | \"scale\" | \"press\" | \"tilt\" | \"ring\" | \"glow\" | \"shine\" (default: none).",
+            "default": null
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "required": false,
+            "description": "Extra class name(s) appended to the root element.",
+            "default": null
+          },
+          {
+            "name": "classNames",
+            "type": "{ root?: string; frame?: string; image?: string; caption?: string; }",
+            "required": false,
+            "description": "Per-part class overrides — merged after (and win over) the built-in styling.",
+            "default": null
+          }
+        ],
+        "element": {
+          "tag": "l-image",
+          "props": {
+            "src": "string",
+            "alt": "string",
+            "width": "string",
+            "height": "string",
+            "ratio": "string",
+            "fit": "string",
+            "rounded": "string",
+            "loading": "string",
+            "borderless": "boolean",
+            "caption": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
+          },
+          "extraProps": [],
+          "events": [
+            {
+              "callback": "onLoad",
+              "event": "load"
+            },
+            {
+              "callback": "onError",
+              "event": "error"
+            }
+          ]
+        }
+      }
+    ],
+    "hooks": [],
+    "types": {
+      "ImageFit": "\"cover\" | \"contain\" | \"fill\" | \"none\"",
+      "ImageRadius": "\"none\" | \"sm\" | \"md\" | \"lg\" | \"xl\" | \"full\"",
+      "ImageRatio": "\"auto\" | \"1/1\" | \"4/3\" | \"3/2\" | \"16/9\" | \"21/9\""
+    },
+    "dataTypes": []
+  },
+  "Videos": {
+    "components": [
+      {
+        "name": "Video",
+        "props": [
+          {
+            "name": "src",
+            "type": "string",
+            "required": false,
+            "description": "A video file URL (mp4, webm, ogg…), or a YouTube / Vimeo page URL — those are recognised and embedded in a player automatically.",
+            "default": null
+          },
+          {
+            "name": "sources",
+            "type": "VideoSource[]",
+            "required": false,
+            "description": "Several formats of the same video; the browser plays the first one it supports. Used instead of `src` for files.",
+            "default": null
+          },
+          {
+            "name": "poster",
+            "type": "string",
+            "required": false,
+            "description": "Image shown before playback starts (files only).",
+            "default": null
+          },
+          {
+            "name": "label",
+            "type": "string",
+            "required": false,
+            "description": "Short description of the video, used as its accessible name (default: \"Video\").",
+            "default": "\"Video\""
+          },
+          {
+            "name": "controls",
+            "type": "boolean",
+            "required": false,
+            "description": "Shows the player's play / seek / volume controls (default: true).",
+            "default": "true"
+          },
+          {
+            "name": "autoPlay",
+            "type": "boolean",
+            "required": false,
+            "description": "Starts playing as soon as it can. Browsers only allow this for a muted video, so `muted` is switched on with it (default: false).",
+            "default": "false"
+          },
+          {
+            "name": "muted",
+            "type": "boolean",
+            "required": false,
+            "description": "Starts muted (default: false).",
+            "default": "false"
+          },
+          {
+            "name": "loop",
+            "type": "boolean",
+            "required": false,
+            "description": "Restarts when it reaches the end (default: false).",
+            "default": "false"
+          },
+          {
+            "name": "playsInline",
+            "type": "boolean",
+            "required": false,
+            "description": "Plays inline on phones instead of jumping to full screen (default: true).",
+            "default": "true"
+          },
+          {
+            "name": "preload",
+            "type": "\"none\" | \"metadata\" | \"auto\"",
+            "required": false,
+            "description": "How much to download up front: \"none\", \"metadata\" (default) or \"auto\".",
+            "default": "\"metadata\""
+          },
+          {
+            "name": "ratio",
+            "type": "VideoRatio",
+            "required": false,
+            "description": "Fixed shape of the frame: \"16/9\" (default), \"auto\" (the video's own proportions), \"1/1\", \"4/3\" or \"21/9\".",
+            "default": "\"16/9\""
+          },
+          {
+            "name": "fit",
+            "type": "VideoFit",
+            "required": false,
+            "description": "How the video fills the frame: \"contain\" (show all, default), \"cover\" (crop to fill) or \"fill\" (stretch). Files only.",
+            "default": "\"contain\""
+          },
+          {
+            "name": "rounded",
+            "type": "VideoRadius",
+            "required": false,
+            "description": "Corner rounding: \"none\" | \"sm\" | \"md\" | \"lg\" | \"xl\" (default: \"lg\").",
+            "default": "\"lg\""
+          },
+          {
+            "name": "caption",
+            "type": "string",
+            "required": false,
+            "description": "Short text shown under the video (default: none).",
+            "default": null
+          },
+          {
+            "name": "fallback",
+            "type": "ReactNode",
+            "required": false,
+            "description": "Content shown when the video can't be loaded (default: a neutral \"video unavailable\" placeholder).",
+            "default": null
+          },
+          {
+            "name": "onPlay",
+            "type": "() => void",
+            "required": false,
+            "description": "Called when playback starts or resumes (files only).",
+            "default": null
+          },
+          {
+            "name": "onPause",
+            "type": "() => void",
+            "required": false,
+            "description": "Called when playback is paused (files only).",
+            "default": null
+          },
+          {
+            "name": "onEnded",
+            "type": "() => void",
+            "required": false,
+            "description": "Called when the video reaches the end (files only).",
+            "default": null
+          },
+          {
+            "name": "onLoad",
+            "type": "(duration: number) => void",
+            "required": false,
+            "description": "Called once the video's length is known, with its duration in seconds (files only).",
+            "default": null
+          },
+          {
+            "name": "onError",
+            "type": "() => void",
+            "required": false,
+            "description": "Called when the video can't be loaded or played (files only).",
+            "default": null
+          },
+          {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0) — handy for staggering.",
+            "default": null
+          },
+          {
+            "name": "hoverEffect",
+            "type": "HoverEffect",
+            "required": false,
+            "description": "Effect while hovering: \"lift\" | \"scale\" | \"press\" | \"tilt\" | \"ring\" | \"glow\" | \"shine\" (default: none).",
+            "default": null
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "required": false,
+            "description": "Extra class name(s) appended to the root element.",
+            "default": null
+          },
+          {
+            "name": "classNames",
+            "type": "{ root?: string; frame?: string; video?: string; caption?: string; }",
+            "required": false,
+            "description": "Per-part class overrides — merged after (and win over) the built-in styling.",
+            "default": null
+          }
+        ],
+        "element": {
+          "tag": "l-video",
+          "props": {
+            "src": "string",
+            "sources": "json",
+            "poster": "string",
+            "label": "string",
+            "controls": "boolean",
+            "autoPlay": "boolean",
+            "muted": "boolean",
+            "loop": "boolean",
+            "playsInline": "boolean",
+            "preload": "string",
+            "ratio": "string",
+            "fit": "string",
+            "rounded": "string",
+            "caption": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
+          },
+          "extraProps": [],
+          "events": [
+            {
+              "callback": "onPlay",
+              "event": "play"
+            },
+            {
+              "callback": "onPause",
+              "event": "pause"
+            },
+            {
+              "callback": "onEnded",
+              "event": "ended"
+            },
+            {
+              "callback": "onLoad",
+              "event": "load"
+            },
+            {
+              "callback": "onError",
+              "event": "error"
+            }
+          ]
+        }
+      }
+    ],
+    "hooks": [],
+    "types": {
+      "VideoFit": "\"cover\" | \"contain\" | \"fill\"",
+      "VideoRadius": "\"none\" | \"sm\" | \"md\" | \"lg\" | \"xl\"",
+      "VideoRatio": "\"auto\" | \"1/1\" | \"4/3\" | \"16/9\" | \"21/9\""
+    },
+    "dataTypes": []
+  },
+  "Skeletons": {
+    "components": [
+      {
+        "name": "Skeleton",
+        "props": [
+          {
+            "name": "variant",
+            "type": "SkeletonVariant",
+            "required": false,
+            "description": "Shape: \"text\" (a line of text, default), \"rect\" (a block) or \"circle\" (an avatar).",
+            "default": "\"text\""
+          },
+          {
+            "name": "width",
+            "type": "string | number",
+            "required": false,
+            "description": "Width: any CSS length or a number of px (default: fills its container; a circle uses `size`).",
+            "default": null
+          },
+          {
+            "name": "height",
+            "type": "string | number",
+            "required": false,
+            "description": "Height: any CSS length or a number of px (default: one text line for \"text\", 80px for \"rect\").",
+            "default": null
+          },
+          {
+            "name": "size",
+            "type": "number",
+            "required": false,
+            "description": "Diameter of a \"circle\" in px (default: 40).",
+            "default": "40"
+          },
+          {
+            "name": "lines",
+            "type": "number",
+            "required": false,
+            "description": "For \"text\": how many lines to draw. The last one is shorter, like real text (default: 1).",
+            "default": "1"
+          },
+          {
+            "name": "animation",
+            "type": "SkeletonAnimation",
+            "required": false,
+            "description": "How it shows that something is loading: \"pulse\" (default), \"shimmer\" (a light sweep) or \"none\". Respects `prefers-reduced-motion`.",
+            "default": "\"pulse\""
+          },
+          {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0).",
+            "default": null
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "required": false,
+            "description": "Extra class name(s) appended to the root element.",
+            "default": null
+          },
+          {
+            "name": "classNames",
+            "type": "{ root?: string; line?: string }",
+            "required": false,
+            "description": "Per-part class overrides — merged after (and win over) the built-in styling.",
+            "default": null
+          }
+        ],
+        "element": {
+          "tag": "l-skeleton",
+          "props": {
+            "variant": "string",
+            "width": "string",
+            "height": "string",
+            "size": "number",
+            "lines": "number",
+            "animation": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number"
+          },
+          "extraProps": [],
+          "events": []
+        }
+      }
+    ],
+    "hooks": [],
+    "types": {
+      "SkeletonVariant": "\"text\" | \"rect\" | \"circle\"",
+      "SkeletonAnimation": "\"pulse\" | \"shimmer\" | \"none\""
+    },
+    "dataTypes": []
+  },
+  "Tag Input": {
+    "components": [
+      {
+        "name": "TagInput",
+        "props": [
+          {
+            "name": "value",
+            "type": "string[]",
+            "required": false,
+            "description": "The current tags. Also settable from outside; the input keeps its own list otherwise, so it works with nothing wired up.",
+            "default": null
+          },
+          {
+            "name": "placeholder",
+            "type": "string",
+            "required": false,
+            "description": "Placeholder shown while there are no tags and nothing is typed (default: \"Add a tag…\").",
+            "default": "\"Add a tag…\""
+          },
+          {
+            "name": "maxTags",
+            "type": "number",
+            "required": false,
+            "description": "Most tags allowed; once reached, typing is disabled (default: no limit).",
+            "default": null
+          },
+          {
+            "name": "allowDuplicates",
+            "type": "boolean",
+            "required": false,
+            "description": "Allow the same tag twice (default: false — a repeat is ignored).",
+            "default": "false"
+          },
+          {
+            "name": "color",
+            "type": "ColorName",
+            "required": false,
+            "description": "Tag color: a built-in ColorName (default: \"accent\").",
+            "default": "\"accent\""
+          },
+          {
+            "name": "invalid",
+            "type": "boolean",
+            "required": false,
+            "description": "Red border for error states (default: false).",
+            "default": "false"
+          },
+          {
+            "name": "disabled",
+            "type": "boolean",
+            "required": false,
+            "description": "Disables the input and the remove buttons (default: false).",
+            "default": "false"
+          },
+          {
+            "name": "onChange",
+            "type": "(tags: string[]) => void",
+            "required": false,
+            "description": "Called with the full list of tags whenever a tag is added or removed.",
+            "default": null
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "required": false,
+            "description": "Extra class name(s) appended to the root element.",
+            "default": null
+          },
+          {
+            "name": "classNames",
+            "type": "{ root?: string; tag?: string; input?: string }",
+            "required": false,
+            "description": "Per-part class overrides — merged after (and win over) the built-in styling.",
+            "default": null
+          }
+        ],
+        "element": {
+          "tag": "l-tag-input",
+          "props": {
+            "value": "json",
+            "placeholder": "string",
+            "maxTags": "number",
+            "allowDuplicates": "boolean",
+            "color": "string",
+            "invalid": "boolean",
+            "disabled": "boolean"
+          },
+          "extraProps": [],
+          "events": [
+            {
+              "callback": "onChange",
+              "event": "change"
+            }
+          ]
+        }
+      }
+    ],
+    "hooks": [],
+    "types": {},
+    "dataTypes": []
+  },
+  "Number Input": {
+    "components": [
+      {
+        "name": "NumberInput",
+        "props": [
+          {
+            "name": "value",
+            "type": "number",
+            "required": false,
+            "description": "The current number (omit for empty). Also settable from outside; the input keeps its own value otherwise.",
+            "default": null
+          },
+          {
+            "name": "min",
+            "type": "number",
+            "required": false,
+            "description": "Smallest allowed value (default: no minimum).",
+            "default": null
+          },
+          {
+            "name": "max",
+            "type": "number",
+            "required": false,
+            "description": "Largest allowed value (default: no maximum).",
+            "default": null
+          },
+          {
+            "name": "step",
+            "type": "number",
+            "required": false,
+            "description": "How much the + / − buttons and the arrow keys change the value (default: 1).",
+            "default": "1"
+          },
+          {
+            "name": "precision",
+            "type": "number",
+            "required": false,
+            "description": "Decimal places to round to and show, e.g. 2 for prices (default: whatever you type).",
+            "default": null
+          },
+          {
+            "name": "placeholder",
+            "type": "string",
+            "required": false,
+            "description": "Placeholder shown while empty.",
+            "default": null
+          },
+          {
+            "name": "size",
+            "type": "NumberInputSize",
+            "required": false,
+            "description": "Control height and text size: \"sm\" | \"md\" | \"lg\" (default: \"md\").",
+            "default": "\"md\""
+          },
+          {
+            "name": "invalid",
+            "type": "boolean",
+            "required": false,
+            "description": "Red border for error states (default: false).",
+            "default": "false"
+          },
+          {
+            "name": "disabled",
+            "type": "boolean",
+            "required": false,
+            "description": "Disables the field and its buttons (default: false).",
+            "default": "false"
+          },
+          {
+            "name": "onChange",
+            "type": "(value: number | undefined) => void",
+            "required": false,
+            "description": "Called with the new number (or undefined when the field is cleared) whenever it changes.",
+            "default": null
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "required": false,
+            "description": "Extra class name(s) appended to the root element.",
+            "default": null
+          },
+          {
+            "name": "classNames",
+            "type": "{ root?: string; input?: string; button?: string }",
+            "required": false,
+            "description": "Per-part class overrides — merged after (and win over) the built-in styling.",
+            "default": null
+          }
+        ],
+        "element": {
+          "tag": "l-number-input",
+          "props": {
+            "value": "number",
+            "min": "number",
+            "max": "number",
+            "step": "number",
+            "precision": "number",
+            "placeholder": "string",
+            "size": "string",
+            "invalid": "boolean",
+            "disabled": "boolean"
+          },
+          "extraProps": [],
+          "events": [
+            {
+              "callback": "onChange",
+              "event": "change"
+            }
+          ]
+        }
+      }
+    ],
+    "hooks": [],
+    "types": {
+      "NumberInputSize": "\"sm\" | \"md\" | \"lg\""
+    },
+    "dataTypes": []
+  },
+  "OTP Input": {
+    "components": [
+      {
+        "name": "OtpInput",
+        "props": [
+          {
+            "name": "length",
+            "type": "number",
+            "required": false,
+            "description": "How many boxes (default: 6).",
+            "default": "6"
+          },
+          {
+            "name": "value",
+            "type": "string",
+            "required": false,
+            "description": "The code typed so far. Also settable from outside; the input keeps its own value otherwise.",
+            "default": null
+          },
+          {
+            "name": "type",
+            "type": "OtpInputType",
+            "required": false,
+            "description": "What may be typed: \"numeric\" (digits only, default) or \"alphanumeric\" (letters and digits).",
+            "default": "\"numeric\""
+          },
+          {
+            "name": "mask",
+            "type": "boolean",
+            "required": false,
+            "description": "Shows dots instead of the characters, like a password (default: false).",
+            "default": "false"
+          },
+          {
+            "name": "autoFocus",
+            "type": "boolean",
+            "required": false,
+            "description": "Focuses the first box on mount (default: false).",
+            "default": "false"
+          },
+          {
+            "name": "size",
+            "type": "OtpInputSize",
+            "required": false,
+            "description": "Box size: \"sm\" | \"md\" | \"lg\" (default: \"md\").",
+            "default": "\"md\""
+          },
+          {
+            "name": "invalid",
+            "type": "boolean",
+            "required": false,
+            "description": "Red borders for error states (default: false).",
+            "default": "false"
+          },
+          {
+            "name": "disabled",
+            "type": "boolean",
+            "required": false,
+            "description": "Disables every box (default: false).",
+            "default": "false"
+          },
+          {
+            "name": "onChange",
+            "type": "(value: string) => void",
+            "required": false,
+            "description": "Called with the code so far whenever a character is typed, pasted or deleted.",
+            "default": null
+          },
+          {
+            "name": "onComplete",
+            "type": "(value: string) => void",
+            "required": false,
+            "description": "Called once with the full code when every box is filled.",
+            "default": null
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "required": false,
+            "description": "Extra class name(s) appended to the root element.",
+            "default": null
+          },
+          {
+            "name": "classNames",
+            "type": "{ root?: string; box?: string }",
+            "required": false,
+            "description": "Per-part class overrides — merged after (and win over) the built-in styling.",
+            "default": null
+          }
+        ],
+        "element": {
+          "tag": "l-otp-input",
+          "props": {
+            "length": "number",
+            "value": "string",
+            "type": "string",
+            "mask": "boolean",
+            "autoFocus": "boolean",
+            "size": "string",
+            "invalid": "boolean",
+            "disabled": "boolean"
+          },
+          "extraProps": [],
+          "events": [
+            {
+              "callback": "onChange",
+              "event": "change"
+            },
+            {
+              "callback": "onComplete",
+              "event": "complete"
+            }
+          ]
+        }
+      }
+    ],
+    "hooks": [],
+    "types": {
+      "OtpInputSize": "\"sm\" | \"md\" | \"lg\"",
+      "OtpInputType": "\"numeric\" | \"alphanumeric\""
+    },
+    "dataTypes": []
+  },
+  "Rating": {
+    "components": [
+      {
+        "name": "Rating",
+        "props": [
+          {
+            "name": "value",
+            "type": "number",
+            "required": false,
+            "description": "The current rating, 0 to `max`. Also settable from outside; the component keeps its own value otherwise.",
+            "default": null
+          },
+          {
+            "name": "max",
+            "type": "number",
+            "required": false,
+            "description": "Number of stars (default: 5).",
+            "default": "5"
+          },
+          {
+            "name": "allowHalf",
+            "type": "boolean",
+            "required": false,
+            "description": "Lets a rating be given in half steps, e.g. 3.5 (default: false).",
+            "default": "false"
+          },
+          {
+            "name": "readOnly",
+            "type": "boolean",
+            "required": false,
+            "description": "Shows the rating without letting it be changed (default: false).",
+            "default": "false"
+          },
+          {
+            "name": "size",
+            "type": "RatingSize",
+            "required": false,
+            "description": "Star size: \"sm\" | \"md\" | \"lg\" (default: \"md\").",
+            "default": "\"md\""
+          },
+          {
+            "name": "label",
+            "type": "string",
+            "required": false,
+            "description": "Accessible name for the group (default: \"Rating\").",
+            "default": "\"Rating\""
+          },
+          {
+            "name": "onChange",
+            "type": "(value: number) => void",
+            "required": false,
+            "description": "Called with the new rating when a star is chosen. Choosing the current rating again clears it to 0.",
+            "default": null
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "required": false,
+            "description": "Extra class name(s) appended to the root element.",
+            "default": null
+          },
+          {
+            "name": "classNames",
+            "type": "{ root?: string; star?: string }",
+            "required": false,
+            "description": "Per-part class overrides — merged after (and win over) the built-in styling.",
+            "default": null
+          }
+        ],
+        "element": {
+          "tag": "l-rating",
+          "props": {
+            "value": "number",
+            "max": "number",
+            "allowHalf": "boolean",
+            "readOnly": "boolean",
+            "size": "string",
+            "label": "string"
+          },
+          "extraProps": [],
+          "events": [
+            {
+              "callback": "onChange",
+              "event": "change"
+            }
+          ]
+        }
+      }
+    ],
+    "hooks": [],
+    "types": {
+      "RatingSize": "\"sm\" | \"md\" | \"lg\""
+    },
+    "dataTypes": []
+  },
+  "Color Picker": {
+    "components": [
+      {
+        "name": "ColorPicker",
+        "props": [
+          {
+            "name": "value",
+            "type": "string",
+            "required": false,
+            "description": "The current color as \"#rrggbb\". Also settable from outside; the picker keeps its own value otherwise.",
+            "default": null
+          },
+          {
+            "name": "presets",
+            "type": "string[]",
+            "required": false,
+            "description": "Ready-made colors shown as swatches below the picker (default: a neutral-to-vivid set).",
+            "default": "DEFAULT_PRESETS"
+          },
+          {
+            "name": "showInput",
+            "type": "boolean",
+            "required": false,
+            "description": "Shows a text field for typing a hex code (default: true).",
+            "default": "true"
+          },
+          {
+            "name": "disabled",
+            "type": "boolean",
+            "required": false,
+            "description": "Disables the picker (default: false).",
+            "default": "false"
+          },
+          {
+            "name": "onChange",
+            "type": "(color: string) => void",
+            "required": false,
+            "description": "Called with the new \"#rrggbb\" color whenever it changes.",
+            "default": null
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "required": false,
+            "description": "Extra class name(s) appended to the root element.",
+            "default": null
+          },
+          {
+            "name": "classNames",
+            "type": "{ root?: string; swatch?: string; input?: string }",
+            "required": false,
+            "description": "Per-part class overrides — merged after (and win over) the built-in styling.",
+            "default": null
+          }
+        ],
+        "element": {
+          "tag": "l-color-picker",
+          "props": {
+            "value": "string",
+            "presets": "json",
+            "showInput": "boolean",
+            "disabled": "boolean"
+          },
+          "extraProps": [],
+          "events": [
+            {
+              "callback": "onChange",
+              "event": "change"
+            }
+          ]
+        }
+      }
+    ],
+    "hooks": [],
+    "types": {},
+    "dataTypes": []
+  },
+  "Code Snippet": {
+    "components": [
+      {
+        "name": "CodeSnippet",
+        "props": [
+          {
+            "name": "code",
+            "type": "string",
+            "required": true,
+            "description": "The code to show.",
+            "default": null
+          },
+          {
+            "name": "language",
+            "type": "string",
+            "required": false,
+            "description": "Name of the language, shown in the header (e.g. \"tsx\", \"bash\"). Colouring covers JSX / TypeScript / HTML / CSS-style code.",
+            "default": null
+          },
+          {
+            "name": "title",
+            "type": "string",
+            "required": false,
+            "description": "Short title shown in the header, e.g. a file name.",
+            "default": null
+          },
+          {
+            "name": "lineNumbers",
+            "type": "boolean",
+            "required": false,
+            "description": "Shows line numbers (default: false).",
+            "default": "false"
+          },
+          {
+            "name": "copyable",
+            "type": "boolean",
+            "required": false,
+            "description": "Shows the copy button (default: true).",
+            "default": "true"
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "required": false,
+            "description": "Extra class name(s) appended to the root element.",
+            "default": null
+          },
+          {
+            "name": "classNames",
+            "type": "{ root?: string; header?: string; code?: string }",
+            "required": false,
+            "description": "Per-part class overrides — merged after (and win over) the built-in styling.",
+            "default": null
+          }
+        ],
+        "element": {
+          "tag": "l-code-snippet",
+          "props": {
+            "code": "string",
+            "language": "string",
+            "heading": "string",
+            "lineNumbers": "boolean",
+            "copyable": "boolean"
+          },
+          "extraProps": [
+            {
+              "name": "heading",
+              "type": "string",
+              "description": "Text shown as the title. Named `heading` here because `title` is a native HTMLElement attribute."
+            }
+          ],
+          "events": []
+        }
+      },
+      {
+        "name": "CopyButton",
+        "props": [
+          {
+            "name": "text",
+            "type": "string",
+            "required": true,
+            "description": "The text put on the clipboard.",
+            "default": null
+          },
+          {
+            "name": "label",
+            "type": "string",
+            "required": false,
+            "description": "Button label (default: \"Copy\"). Hidden when `iconOnly` is on.",
+            "default": "\"Copy\""
+          },
+          {
+            "name": "copiedLabel",
+            "type": "string",
+            "required": false,
+            "description": "Label shown for a moment after copying (default: \"Copied\").",
+            "default": "\"Copied\""
+          },
+          {
+            "name": "iconOnly",
+            "type": "boolean",
+            "required": false,
+            "description": "Shows just the icon (default: false).",
+            "default": "false"
+          },
+          {
+            "name": "resetAfter",
+            "type": "number",
+            "required": false,
+            "description": "How long the \"copied\" state shows, in ms (default: 1500).",
+            "default": "1500"
+          },
+          {
+            "name": "onCopy",
+            "type": "(text: string) => void",
+            "required": false,
+            "description": "Called after the text was copied.",
+            "default": null
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "required": false,
+            "description": "Extra class name(s) appended to the root element.",
+            "default": null
+          }
+        ],
+        "element": {
+          "tag": "l-copy-button",
+          "props": {
+            "text": "string",
+            "label": "string",
+            "copiedLabel": "string",
+            "iconOnly": "boolean",
+            "resetAfter": "number"
+          },
+          "extraProps": [],
+          "events": [
+            {
+              "callback": "onCopy",
+              "event": "copy"
+            }
+          ]
+        }
+      }
+    ],
+    "hooks": [],
+    "types": {},
+    "dataTypes": []
+  },
   "Theme Switcher": {
     "components": [
       {
@@ -291,9 +1487,9 @@ export const API_DOCS: Record<string, ApiDoc> = {
           },
           {
             "name": "color",
-            "type": "ColorName",
+            "type": "ColorName | (string & {})",
             "required": false,
-            "description": "Button color, one of the built-in `ColorName`s (default: \"accent\", which follows the theme accent); ignored by the destructive variants.",
+            "description": "Button color: a built-in `ColorName` (default: \"accent\", which follows the theme accent) or any CSS color such as \"#8b5cf6\"; ignored by the destructive variants.",
             "default": "\"accent\""
           },
           {
@@ -564,8 +1760,15 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": "false"
           },
           {
+            "name": "onClick",
+            "type": "MouseEventHandler<HTMLButtonElement>",
+            "required": false,
+            "description": "Called with the click event when the segment is clicked.",
+            "default": null
+          },
+          {
             "name": "color",
-            "type": "ColorName",
+            "type": "ColorName | (string & {})",
             "required": false,
             "description": "Highlight color when active — same palette as Button (default: accent — follows the theme). Inactive segments stay neutral.",
             "default": "\"accent\""
@@ -681,9 +1884,9 @@ export const API_DOCS: Record<string, ApiDoc> = {
           },
           {
             "name": "color",
-            "type": "ColorName",
+            "type": "ColorName | (string & {})",
             "required": false,
-            "description": "Button color, one of the built-in `ColorName`s (default: \"accent\", which follows the theme accent).",
+            "description": "Button color: a built-in `ColorName` (default: \"accent\", which follows the theme accent) or any CSS color such as \"#8b5cf6\".",
             "default": "\"accent\""
           },
           {
@@ -1483,7 +2686,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "name": "resizable",
             "type": "boolean",
             "required": false,
-            "description": "Turns the divider into a draggable resize handle (mouse/touch drag, or arrow keys when focused). It reports movement via `onResize` — it does NOT own any size state itself, so the consumer decides how to apply the delta (e.g. to a panel's width/height), same as a headless split-pane handle.",
+            "description": "Turns the divider into a draggable resize handle (mouse/touch drag, or arrow keys when focused), with a small grip pill in the middle of the line to show it can be dragged. It reports movement via `onResize` — it does NOT own any size state itself, so the consumer decides how to apply the delta (e.g. to a panel's width/height), same as a headless split-pane handle.",
             "default": "false"
           },
           {
@@ -1502,7 +2705,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
           },
           {
             "name": "classNames",
-            "type": "{ root?: string; line?: string; label?: string; }",
+            "type": "{ root?: string; line?: string; label?: string; handle?: string; }",
             "required": false,
             "description": "Per-part class overrides — merged after (and win over) the built-in styling.",
             "default": null
@@ -5633,6 +6836,13 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": "\"top\""
           },
           {
+            "name": "size",
+            "type": "\"xs\" | \"sm\" | \"md\" | \"lg\" | \"xl\"",
+            "required": false,
+            "description": "Bubble size: \"xs\" (tiny, 10px text), \"sm\" (compact, 11px), \"md\" (default, 12px), \"lg\" (roomier, 14px) or \"xl\" (large, 16px).",
+            "default": "\"md\""
+          },
+          {
             "name": "delayMs",
             "type": "number",
             "required": false,
@@ -5675,6 +6885,13 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": "false"
           },
           {
+            "name": "open",
+            "type": "boolean",
+            "required": false,
+            "description": "Keep the bubble showing (\"active\") whether or not the trigger is hovered or focused — for a hint that should be visible right away. Not supported together with `portal` (default: false).",
+            "default": "false"
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -5694,8 +6911,10 @@ export const API_DOCS: Record<string, ApiDoc> = {
           "props": {
             "content": "string",
             "position": "string",
+            "size": "string",
             "delayMs": "number",
             "color": "string",
+            "open": "boolean",
             "transition": "string",
             "transitionDuration": "number",
             "transitionDelay": "number"
