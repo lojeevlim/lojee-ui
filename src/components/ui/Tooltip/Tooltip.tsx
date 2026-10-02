@@ -15,6 +15,8 @@ export interface TooltipProps {
   children: ReactNode;
   /** Which side of the trigger the bubble appears on: "top", "bottom", "left" or "right" (default: "top"). */
   position?: TooltipPosition;
+  /** Bubble size: "xs" (tiny, 10px text), "sm" (compact, 11px), "md" (default, 12px), "lg" (roomier, 14px) or "xl" (large, 16px). */
+  size?: "xs" | "sm" | "md" | "lg" | "xl";
   /** Show delay in ms, snapped to the nearest Tailwind `delay-*` utility. */
   delayMs?: number;
   /** Bubble background/text color — same palette as Button (default: "accent", which follows the theme's accent color), or "neutral" for the theme-inverted bubble (dark in light mode, light in dark mode). */
@@ -27,6 +29,8 @@ export interface TooltipProps {
   transitionDelay?: number;
   /** Render the bubble through a portal (a fixed-position layer outside the trigger's ancestors), so it is never clipped by a scrolling or `overflow: hidden` parent — e.g. inside a collapsed sidebar (default: false). */
   portal?: boolean;
+  /** Keep the bubble showing ("active") whether or not the trigger is hovered or focused — for a hint that should be visible right away. Not supported together with `portal` (default: false). */
+  open?: boolean;
   /** Extra class name(s) appended to the root element. */
   className?: string;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
@@ -73,18 +77,29 @@ function closestDelayClass(ms: number): string {
   return DELAY_CLASSES[closest];
 }
 
+// Literal class strings so Tailwind can see them.
+const SIZE_CLASSES = {
+  xs: "px-1.5 py-0.5 text-[10px]",
+  sm: "px-2 py-1 text-[11px]",
+  md: "px-3 py-1.5 text-xs",
+  lg: "px-4 py-2 text-sm",
+  xl: "px-5 py-2.5 text-base",
+};
+
 // Pure CSS show/hide (group-hover) — no useState, no positioning library.
 // Fixed-offset placement only (no collision detection/auto-flip).
 export function Tooltip({
   content,
   children,
   position = "top",
+  size = "md",
   delayMs = 150,
   color = "accent",
   transition,
   transitionDuration,
   transitionDelay,
   portal = false,
+  open = false,
   className,
   classNames,
 }: TooltipProps) {
@@ -94,7 +109,8 @@ export function Tooltip({
   // visible, so its exit can play. Without one, it's the pure-CSS group-hover bubble below, as before.
   const [shown, setShown] = useState(false);
   const timer = useRef<ReturnType<typeof setTimeout>>(undefined);
-  const { mounted } = usePresence(shown, (transitionDuration ?? DEFAULT_TRANSITION_MS) + (transitionDelay ?? 0));
+  const visible = shown || open;
+  const { mounted } = usePresence(visible, (transitionDuration ?? DEFAULT_TRANSITION_MS) + (transitionDelay ?? 0));
   const show = () => {
     clearTimeout(timer.current);
     timer.current = setTimeout(() => setShown(true), delayMs);
@@ -135,7 +151,8 @@ export function Tooltip({
               <span
                 role="tooltip"
                 className={cx(
-                  "relative block whitespace-nowrap rounded-lg px-3 py-1.5 text-xs font-medium shadow-lg",
+                  "relative block whitespace-nowrap rounded-lg font-medium shadow-lg",
+                  SIZE_CLASSES[size] ?? SIZE_CLASSES.md,
                   bubbleColor,
                   motionClass(transition),
                   classNames?.bubble
@@ -164,9 +181,12 @@ export function Tooltip({
         role="tooltip"
         className={cx(
           // Soft bubble: rounded, medium-weight text, a real shadow, and a small fade + scale-in (also on keyboard focus).
-          "pointer-events-none absolute z-50 whitespace-nowrap rounded-lg px-3 py-1.5 text-xs font-medium shadow-lg",
+          "pointer-events-none absolute z-50 whitespace-nowrap rounded-lg font-medium shadow-lg",
+          SIZE_CLASSES[size] ?? SIZE_CLASSES.md,
           !transition &&
-            "opacity-0 scale-95 transition-[opacity,scale] duration-200 group-hover:scale-100 group-hover:opacity-100 group-focus-within:scale-100 group-focus-within:opacity-100",
+            (open
+              ? "scale-100 opacity-100"
+              : "opacity-0 scale-95 transition-[opacity,scale] duration-200 group-hover:scale-100 group-hover:opacity-100 group-focus-within:scale-100 group-focus-within:opacity-100"),
           bubbleColor,
           !transition && closestDelayClass(delayMs),
           POSITION_CLASSES[position],
@@ -174,7 +194,7 @@ export function Tooltip({
           classNames?.bubble
         )}
         style={motionStyle(transitionDuration, transitionDelay)}
-        {...(transition && motionState(shown))}
+        {...(transition && motionState(visible))}
       >
         {content}
         <span aria-hidden="true" className={cx("absolute h-2 w-2 rotate-45 bg-inherit", ARROW_CLASSES[position])} />
