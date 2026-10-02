@@ -43,9 +43,16 @@ export interface MapRouteData {
   active?: boolean;
   activeWidth?: number;
   activeOpacity?: number;
-  /** Animate the dashes along the line, like marching ants. */
-  animated?: boolean;
+  /** Animate the line: `true` / `"flow"` for marching dashes, or `"draw"`, `"pulse"`, `"trail"`, `"glow"`, `"shimmer"`. */
+  animated?: boolean | RouteAnimation;
+  /** Animation speed multiplier (default 1). */
+  animationSpeed?: number;
+  /** Direction the animation travels (default "forward"). */
+  animationDirection?: "forward" | "reverse";
 }
+
+/** Animated route styles. */
+export type RouteAnimation = "flow" | "draw" | "pulse" | "trail" | "glow" | "shimmer";
 
 /** What a route reports once its geometry is known. */
 export interface MapRouteSummary {

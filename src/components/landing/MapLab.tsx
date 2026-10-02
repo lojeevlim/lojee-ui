@@ -20,18 +20,26 @@ export default function MapLab() {
   const { mode, setMode } = useTheme();
   // "Track" drives the route from the start to the end, like following a vehicle.
   const [tracking, setTracking] = useState(false);
+  // Time-based, so it moves at a steady pace on any screen; the route eases to each value, so it never steps.
   useEffect(() => {
     if (!tracking) return;
-    const id = setInterval(() => {
-      setProgress((p) => {
-        if (p >= 1) {
-          setTracking(false);
-          return 1;
-        }
-        return Math.min(1, p + 0.01);
-      });
-    }, 80);
-    return () => clearInterval(id);
+    const from = progress >= 1 ? 0 : progress;
+    const start = performance.now();
+    const duration = 9000 * (1 - from);
+    let raf = 0;
+    let lastPush = 0;
+    const tick = (now: number) => {
+      const t = Math.min(1, (now - start) / duration);
+      if (now - lastPush > 60 || t >= 1) {
+        lastPush = now;
+        setProgress(from + (1 - from) * t);
+      }
+      if (t >= 1) setTracking(false);
+      else raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tracking]);
   const [pt, setPt] = useState({ x: 0, y: 0 });
   const onMove = (e: PointerEvent<HTMLDivElement>) => {

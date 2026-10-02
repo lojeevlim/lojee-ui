@@ -83,6 +83,31 @@ export function withAlpha(rgb: string, alpha: number): string {
   return m ? `rgba(${m[1]}, ${m[2]}, ${m[3]}, ${alpha})` : rgb;
 }
 
+/** Mix an `rgb()` color toward white (`amount` > 0) or black (`amount` < 0). */
+export function shade(rgb: string, amount: number): string {
+  const m = rgb.match(/rgba?\((\d+)[ ,]+(\d+)[ ,]+(\d+)/);
+  if (!m) return rgb;
+  const t = amount >= 0 ? 255 : 0;
+  const k = Math.abs(amount);
+  const c = [m[1], m[2], m[3]].map((v) => Math.round(Number(v) + (t - Number(v)) * k));
+  return `rgb(${c[0]}, ${c[1]}, ${c[2]})`;
+}
+
+/** Perceived brightness (0 – 255) of an `rgb()` color. */
+export function luminance(rgb: string): number {
+  const m = rgb.match(/rgba?\((\d+)[ ,]+(\d+)[ ,]+(\d+)/);
+  return m ? 0.299 * Number(m[1]) + 0.587 * Number(m[2]) + 0.114 * Number(m[3]) : 128;
+}
+
+// ---- easing ------------------------------------------------------------------------------------------------------
+export const clamp01 = (n: number) => Math.min(1, Math.max(0, n));
+export const smoothstep = (a: number, b: number, x: number) => {
+  const t = clamp01((x - a) / (b - a || 1));
+  return t * t * (3 - 2 * t);
+};
+export const easeInOutCubic = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+export const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
+
 // ---- geometry ----------------------------------------------------------------------------------------------------
 export function distanceMeters(a: LngLat, b: LngLat): number {
   const R = 6371000;
