@@ -1,7 +1,7 @@
 import { useState } from "react";
+import { PREVIEW_PAGE_BG } from "./playgroundUtils";
 import { Footer, type FooterVariant } from "./Footer/Footer";
 import { OptionGroup, ColorSwatches, PlaygroundLayout, AppWindowFrame } from "./PlaygroundHelpers";
-import type { ColorName } from "../../core/tokens";
 import type { CodeBlockVariants } from "./CodeBlock";
 import { useMotion } from "./playgroundMotion";
 
@@ -11,13 +11,13 @@ export default function FooterPlayground() {
   const motion = useMotion({ hover: false });
   const [copyright, setCopyright] = useState("© 2026 Lojee, Inc. All rights reserved.");
   const [variant, setVariant] = useState<FooterVariant>("light");
-  const [color, setColor] = useState<ColorName>("accent");
+  const [color, setColor] = useState<string>("accent");
   // Footer docks to the bottom of a page — shown with a little page content
   // above it so it reads as sitting at the bottom of a real page.
   const preview = (
     <AppWindowFrame>
       {/* Fills the (full-height) preview window with the footer pinned to its bottom edge. */}
-      <div className="flex min-h-[320px] flex-1 flex-col justify-between bg-surface">
+      <div className={`flex min-h-[320px] flex-1 flex-col justify-between ${PREVIEW_PAGE_BG}`}>
         <div className="m-6 mb-0 flex flex-1 items-center justify-center rounded-xl border border-dashed border-border text-sm text-fg-subtle">
           Page content
         </div>
@@ -58,7 +58,7 @@ export default function FooterPlayground() {
         />
       </div>
       <OptionGroup label="Variant" options={VARIANTS} value={variant} onChange={setVariant} />
-      {variant === "accent" && <ColorSwatches label="Color" value={color} onChange={setColor} />}
+      {variant === "accent" && <ColorSwatches label="Color" value={color} onChange={setColor} custom />}
       {motion.controls}
     </PlaygroundLayout>
   );

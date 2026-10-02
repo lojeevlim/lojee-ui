@@ -1,7 +1,7 @@
 import { useState } from "react";
+import { PREVIEW_PAGE_BG } from "./playgroundUtils";
 import { NavigationMenu, type NavigationMenuItem, type NavigationMenuOrientation } from "./NavigationMenu/NavigationMenu";
 import { OptionGroup, ColorSwatches, PlaygroundLayout, AppWindowFrame } from "./PlaygroundHelpers";
-import type { ColorName } from "../../core/tokens";
 import type { ActiveVariant } from "../../core/activeVariant";
 import type { CodeBlockVariants } from "./CodeBlock";
 import { useMotion } from "./playgroundMotion";
@@ -15,7 +15,7 @@ const LABELS = ["Home", "Products", "Pricing", "About", "Contact"] as const;
 export default function NavigationMenuPlayground() {
   const motion = useMotion();
   const [orientation, setOrientation] = useState<NavigationMenuOrientation>("horizontal");
-  const [color, setColor] = useState<ColorName>("accent");
+  const [color, setColor] = useState<string>("accent");
   const [variant, setVariant] = useState<(typeof VARIANTS)[number]>("theme");
   const [activeLabel, setActiveLabel] = useState<(typeof LABELS)[number]>("Home");
 
@@ -49,12 +49,12 @@ export default function NavigationMenuPlayground() {
   const preview = (
     <AppWindowFrame>
       {orientation === "horizontal" ? (
-        <div className="bg-surface" style={{ height: 220 }}>
+        <div className={`min-h-[220px] flex-1 ${PREVIEW_PAGE_BG}`}>
           <div className="border-b border-border px-4 py-3">{menu}</div>
           <div className="p-6">{pageFiller}</div>
         </div>
       ) : (
-        <div className="flex bg-surface" style={{ height: 260 }}>
+        <div className={`flex min-h-[260px] flex-1 ${PREVIEW_PAGE_BG}`}>
           <div className="w-48 shrink-0 border-r border-border p-4">{menu}</div>
           <div className="flex-1 p-6">{pageFiller}</div>
         </div>
@@ -85,7 +85,7 @@ ${itemsCode}
   ]}
   onActiveItemChange={(item) => setActiveLabel(item.label)}
 />`,
-    js: `<l-NavigationMenu id="nav-menu-demo" ${attrs} />
+    js: `<l-NavigationMenu id="nav-menu-demo" ${attrs}></l-NavigationMenu>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -128,7 +128,7 @@ onChange(e: CustomEvent) {
     <PlaygroundLayout preview={preview} variants={codeVariants}>
       <OptionGroup label="Orientation" options={ORIENTATIONS} value={orientation} onChange={setOrientation} />
       <OptionGroup label="Variant" options={VARIANTS} value={variant} onChange={setVariant} />
-      <ColorSwatches value={color} onChange={setColor} />
+      <ColorSwatches value={color} onChange={setColor} custom />
       <OptionGroup label="Active item" options={LABELS} value={activeLabel} onChange={setActiveLabel} />
       {motion.controls}
     </PlaygroundLayout>

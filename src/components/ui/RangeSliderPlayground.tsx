@@ -33,7 +33,7 @@ export default function RangeSliderPlayground() {
 
   const codeVariants: CodeBlockVariants = {
     react: code,
-    js: `<l-RangeSlider id="range-slider" color="${color}"${showValueAttr} />
+    js: `<l-RangeSlider id="range-slider" color="${color}"${showValueAttr}></l-RangeSlider>
 
 <script type="module">
   import "lojee-ui/elements";

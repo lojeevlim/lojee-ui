@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { MultiSelect, type MultiSelectOption } from "./MultiSelect/MultiSelect";
-import type { ColorName } from "../../core/tokens";
 import { ColorSwatches, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
 import { useMotion } from "./playgroundMotion";
@@ -17,7 +16,7 @@ const OPTIONS: MultiSelectOption[] = [
 export default function MultiSelectPlayground() {
   const motion = useMotion();
   const [value, setValue] = useState<string[]>(["banana"]);
-  const [color, setColor] = useState<ColorName>("accent");
+  const [color, setColor] = useState<string>("accent");
   const [placeholder, setPlaceholder] = useState("Select fruits...");
 
   // `overflow-visible`: the options panel is an absolutely-positioned div
@@ -50,7 +49,7 @@ export default function MultiSelectPlayground() {
 
   const codeVariants: CodeBlockVariants = {
     react: code,
-    js: `<l-MultiSelect id="multi-select" placeholder="${placeholder}" color="${color}"${motion.attrs} />
+    js: `<l-MultiSelect id="multi-select" placeholder="${placeholder}" color="${color}"${motion.attrs}></l-MultiSelect>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -88,7 +87,7 @@ value = ${valueLiteral};`,
         />
       </div>
 
-      <ColorSwatches value={color} onChange={setColor} />
+      <ColorSwatches value={color} onChange={setColor} custom />
       {motion.controls}
 
       <div>

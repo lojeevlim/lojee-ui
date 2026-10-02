@@ -73,7 +73,7 @@ export default function ProfileCardPlayground() {
   const code = `<ProfileCard name="${nameValue}"${roleAttr}${bioAttr}${colorAttr}${statsBlock}${actionsBlockJsx} />`;
 
   const actionsSlotHtml = showActions
-    ? `\n  <div slot="actions" class="flex items-center gap-2 w-full">\n    <l-Button label="Follow" className="flex-1" />\n    <l-Button variant="outline" label="Message" className="flex-1" />\n  </div>`
+    ? `\n  <div slot="actions" class="flex items-center gap-2 w-full">\n    <l-Button label="Follow" class="flex-1"></l-Button>\n    <l-Button variant="outline" label="Message" class="flex-1"></l-Button>\n  </div>`
     : "";
   const htmlOpenTag = `<l-ProfileCard${showStats ? ` id="profile-card"` : ""} name="${nameValue}"${roleAttr}${bioAttr}${colorAttr}>`;
   const htmlMarkup = actionsSlotHtml || showStats ? `${htmlOpenTag}${actionsSlotHtml}\n</l-ProfileCard>` : `<l-ProfileCard name="${nameValue}"${roleAttr}${bioAttr}${colorAttr} />`;
@@ -93,7 +93,7 @@ export default function ProfileCardPlayground() {
     ? `<template>
   <l-ProfileCard name="${nameValue}"${roleAttr}${bioAttr}${colorAttr} :stats="stats">${
         showActions
-          ? `\n    <template #actions>\n      <l-Button label="Follow" className="flex-1" />\n      <l-Button variant="outline" label="Message" className="flex-1" />\n    </template>\n  `
+          ? `\n    <div slot="actions" class="flex items-center gap-2 w-full">\n      <l-Button label="Follow" class="flex-1"></l-Button>\n      <l-Button variant="outline" label="Message" class="flex-1"></l-Button>\n    </div>\n  `
           : ""
       }</l-ProfileCard>
 </template>

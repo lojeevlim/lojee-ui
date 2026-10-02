@@ -1,8 +1,9 @@
 import { useState } from "react";
+import { PREVIEW_PAGE_BG } from "./playgroundUtils";
 import { Navbar, type NavbarVariant } from "./Navbar/Navbar";
 import { Avatar } from "./Avatar/Avatar";
 import { OptionGroup, ColorSwatches, PlaygroundLayout, AppWindowFrame } from "./PlaygroundHelpers";
-import { cx, isColorName, COLOR_HEX } from "../../core/tokens";
+import { cx } from "../../core/tokens";
 import type { CodeBlockVariants } from "./CodeBlock";
 import { useMotion } from "./playgroundMotion";
 
@@ -67,10 +68,10 @@ export default function NavbarPlayground() {
           there's nowhere left to stick to. A div wrapping just the navbar (even an unstyled one) gives
           it a parent whose height exactly equals the navbar's own height, with zero room below it — so
           `sticky` broke immediately on any scroll at all, no matter how small. The navbar is a direct
-          child of this scroll container instead, sharing its full `h-56` height as its containing block
+          child of this scroll container instead, sharing its full height (it fills the window, at least `min-h-56`) as its containing block
           so sticky has real room to work — "minimal"'s own visibility tint (see `isMinimal` above)
           lives on this same container rather than a separate wrapper div, for the same reason. */}
-      <div className={cx("h-56 overflow-y-auto", isMinimal ? "bg-surface-muted p-3" : "bg-surface")}>
+      <div className={cx("min-h-56 flex-1 overflow-y-auto", isMinimal ? `${PREVIEW_PAGE_BG} p-3` : PREVIEW_PAGE_BG)}>
         {navbar}
         <div className={cx("space-y-3", !isMinimal && "p-4")}>
           {Array.from({ length: 8 }).map((_, i) => (
@@ -115,7 +116,7 @@ export default function NavbarPlayground() {
     react: code,
     js: `<l-Navbar id="app-navbar"${brandAttr}${stickyAttr}${borderedAttrHtml}${variantAttr}${colorAttr}${borderWidthAttrHtml}${defaultActiveItemAttrHtml}${motionAttrs}>
   <div slot="actions">
-    <l-Avatar initials="JD" size="sm" />
+    <l-Avatar initials="JD" size="sm"></l-Avatar>
   </div>
 </l-Navbar>
 
@@ -198,40 +199,7 @@ export class AppComponent {
         value={defaultActiveItem}
         onChange={setDefaultActiveItem}
       />
-      <ColorSwatches
-        // Only ever reflects a *named* selection back onto the fixed swatch
-        // row — a custom color from the wheel below naturally shows none of
-        // them as selected, which is the correct state (it isn't one of them).
-        value={isColorName(color) ? color : "accent"}
-        onChange={setColor}
-        actions={
-          <label
-            className="flex cursor-pointer items-center gap-1.5 rounded-md px-1.5 py-0.5 text-xs font-medium text-fg-subtle transition-colors hover:bg-surface-muted hover:text-fg-muted"
-            title="Pick a custom color — not limited to the swatches above"
-          >
-            {/* A real color wheel: whatever hue the user picks is used
-                exactly as-is (no snapping to the nearest built-in swatch),
-                since `Navbar`'s `color` prop accepts any CSS color value,
-                not just a ColorName. The input itself is invisible and
-                overlaid on a swatch showing the current color, since native
-                color inputs can't otherwise be restyled to match the
-                swatches above it. */}
-            <span
-              className="relative flex h-4 w-4 shrink-0 items-center justify-center rounded-full ring-1 ring-inset ring-black/10"
-              style={{ backgroundColor: isColorName(color) ? COLOR_HEX[color] : color }}
-            >
-              <input
-                type="color"
-                value={isColorName(color) ? COLOR_HEX[color] : color}
-                onChange={(e) => setColor(e.target.value)}
-                aria-label="Pick a custom color"
-                className="absolute inset-0 h-full w-full cursor-pointer opacity-0"
-              />
-            </span>
-            Custom
-          </label>
-        }
-      />
+      <ColorSwatches value={color} onChange={setColor} custom />
       {/* Beside (not below) the color swatches above — a normal, un-col-spanned grid cell, same
           reasoning as OptionGroup/ColorSwatches themselves, so the two share one row instead of this
           stacking as its own full-width row underneath. */}
