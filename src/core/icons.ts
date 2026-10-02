@@ -123,6 +123,7 @@ import {
   BookOpen,
   Palette,
   LayoutDashboard,
+  LayoutGrid,
   Map as MapIcon,
   Route,
   Navigation,
@@ -269,6 +270,7 @@ export const ICONS: Record<string, LucideIcon> = {
   "book-open": BookOpen,
   palette: Palette,
   "layout-dashboard": LayoutDashboard,
+  "layout-grid": LayoutGrid,
 };
 
 export const ICON_NAMES = Object.keys(ICONS).sort();

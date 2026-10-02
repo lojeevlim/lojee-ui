@@ -3,7 +3,7 @@ export interface ApiProp { name: string; type: string; required: boolean; descri
 export interface ApiElement { tag: string; props: Record<string, string>; extraProps: { name: string; type: string; description: string }[]; events: { callback: string; event: string }[] }
 export interface ApiComponent { name: string; props: ApiProp[]; element: ApiElement | null }
 export interface ApiHook { name: string; signature: string; description: string }
-export interface ApiDataType { name: string; via: string | null; note: string | null; props: ApiProp[] }
+export interface ApiDataType { name: string; via: string | null; note: string | null; example: string | null; props: ApiProp[] }
 export interface ApiDoc { components: ApiComponent[]; hooks: ApiHook[]; types: Record<string, string>; dataTypes: ApiDataType[] }
 
 export const API_DOCS: Record<string, ApiDoc> = {
@@ -3315,7 +3315,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "name": "columns",
             "type": "TableColumn<T>[]",
             "required": true,
-            "description": "Column definitions — each has a `key` (field read from the row), a `header`, an optional `render(row)` for custom cell content, and optional `align`.",
+            "description": "Column definitions — each has a `key` (the field read from each row) and a `header`, plus optional `type` (built-in cells: user, payment, badges, progress), `render(row)` (any component, React only), `align`, `sortable` and `width`. See TableColumn below for every option and the value each `type` expects.",
             "default": null
           },
           {
@@ -3326,11 +3326,95 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           },
           {
+            "name": "variant",
+            "type": "TableVariant",
+            "required": false,
+            "description": "Look: \"default\", \"lined\" (roomy rows with thin dividers and a plain header — good for people, payments and progress), or \"card\" (rounded, raised container) (default: \"default\").",
+            "default": "\"default\""
+          },
+          {
             "name": "size",
             "type": "TableSize",
             "required": false,
             "description": "Cell padding/text size: \"sm\", \"md\" or \"lg\" (default: \"md\").",
             "default": "\"md\""
+          },
+          {
+            "name": "selectable",
+            "type": "boolean",
+            "required": false,
+            "description": "Adds a checkbox column at the start so several rows can be selected, with a select-all checkbox in the header (default: false).",
+            "default": "false"
+          },
+          {
+            "name": "selected",
+            "type": "TableRowKey[]",
+            "required": false,
+            "description": "The selected rows, as their keys (see `rowKey`). Also settable from outside; the table keeps its own selection otherwise.",
+            "default": null
+          },
+          {
+            "name": "rowKey",
+            "type": "string",
+            "required": false,
+            "description": "Field that uniquely identifies a row, used for `selected` (default: the row's position).",
+            "default": null
+          },
+          {
+            "name": "onSelectionChange",
+            "type": "(keys: TableRowKey[], rows: T[]) => void",
+            "required": false,
+            "description": "Called with the selected keys and rows whenever the selection changes.",
+            "default": null
+          },
+          {
+            "name": "onSortChange",
+            "type": "(sort: TableSort | null) => void",
+            "required": false,
+            "description": "Called when a sortable column header is clicked, with the new sort (or null when sorting is cleared).",
+            "default": null
+          },
+          {
+            "name": "responsive",
+            "type": "TableResponsive",
+            "required": false,
+            "description": "How the table adapts when it gets narrower than about 36rem (measured on the table itself, not the screen, so it also works inside a sidebar or modal): \"stack\" (default) turns every row into a card with each cell labelled by its column header, automatically; \"scroll\" keeps the columns and scrolls sideways instead.",
+            "default": "\"stack\""
+          },
+          {
+            "name": "view",
+            "type": "TableView",
+            "required": false,
+            "description": "Shows the rows as a \"table\" (default) or as a \"grid\" of cards — one card per row, built from the same columns. Also settable from outside; the table keeps its own view otherwise.",
+            "default": null
+          },
+          {
+            "name": "viewToggle",
+            "type": "boolean",
+            "required": false,
+            "description": "Adds a table / grid switch above the rows so people can change the view themselves (default: false). In the grid view the same bar offers a \"Sort by\" menu for sortable columns.",
+            "default": "false"
+          },
+          {
+            "name": "onViewChange",
+            "type": "(view: TableView) => void",
+            "required": false,
+            "description": "Called with \"table\" or \"grid\" when the view is switched.",
+            "default": null
+          },
+          {
+            "name": "hoverable",
+            "type": "boolean",
+            "required": false,
+            "description": "Highlights the row under the pointer (default: true).",
+            "default": "true"
+          },
+          {
+            "name": "emptyMessage",
+            "type": "string",
+            "required": false,
+            "description": "Text shown when there are no rows (default: \"No results\").",
+            "default": "\"No results\""
           },
           {
             "name": "striped",
@@ -3352,6 +3436,13 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "required": false,
             "description": "Row actions — adds a right-aligned final column with one small icon button per action. Data-driven, so it works from the Web Component too (use `onAction` / the `action` event).",
             "default": null
+          },
+          {
+            "name": "actionsVariant",
+            "type": "TableActionsVariant",
+            "required": false,
+            "description": "\"buttons\" | \"menu\" — show each action as an icon button (default), or fold them into one three-dot button that opens a dropdown menu.",
+            "default": "\"buttons\""
           },
           {
             "name": "actionsHeader",
@@ -3436,13 +3527,23 @@ export const API_DOCS: Record<string, ApiDoc> = {
           "props": {
             "columns": "json",
             "data": "json",
+            "variant": "string",
+            "responsive": "string",
+            "view": "string",
+            "viewToggle": "boolean",
             "size": "string",
+            "selectable": "boolean",
+            "selected": "json",
+            "rowKey": "string",
+            "hoverable": "boolean",
+            "emptyMessage": "string",
             "striped": "boolean",
             "bordered": "boolean",
             "loading": "boolean",
             "skeletonRows": "number",
             "actions": "json",
             "actionsHeader": "string",
+            "actionsVariant": "string",
             "builtInActions": "boolean",
             "transition": "string",
             "transitionDuration": "number",
@@ -3457,6 +3558,18 @@ export const API_DOCS: Record<string, ApiDoc> = {
             {
               "callback": "onDataChange",
               "event": "datachange"
+            },
+            {
+              "callback": "onSelectionChange",
+              "event": "selectionchange"
+            },
+            {
+              "callback": "onSortChange",
+              "event": "sortchange"
+            },
+            {
+              "callback": "onViewChange",
+              "event": "viewchange"
             }
           ]
         }
@@ -3464,9 +3577,373 @@ export const API_DOCS: Record<string, ApiDoc> = {
     ],
     "hooks": [],
     "types": {
+      "TableCellType": "\"text\" | \"user\" | \"badges\" | \"progress\" | \"payment\" | \"status\" | \"rating\" | \"image\" | \"link\" | \"avatars\" | \"currency\" | \"date\"",
+      "TableDateCell": "string | number | Date",
+      "TableVariant": "\"default\" | \"lined\" | \"card\"",
+      "TableResponsive": "\"scroll\" | \"stack\"",
+      "TableView": "\"table\" | \"grid\"",
+      "TableActionsVariant": "\"buttons\" | \"menu\"",
+      "TableRowKey": "string | number",
       "TableSize": "\"sm\" | \"md\" | \"lg\""
     },
-    "dataTypes": []
+    "dataTypes": [
+      {
+        "name": "TableColumn",
+        "via": "columns",
+        "note": "One entry per column. `key` picks the field to read from each row; `type` chooses how that value is drawn (or give `render` in React to draw it yourself).",
+        "example": "const columns = [\n  { key: \"name\", header: \"Name\", sortable: true },                       // plain text, click the header to sort\n  { key: \"user\", header: \"Full Name\", type: \"user\" },                      // avatar + name + handle\n  { key: \"payment\", header: \"Payment\", type: \"payment\", width: \"22%\" },    // card logo + masked number\n  { key: \"tags\", header: \"Category\", type: \"badges\" },                     // coloured tags\n  { key: \"clicks\", header: \"Clicks\", type: \"progress\", align: \"right\" },   // a bar with its percentage\n];",
+        "props": [
+          {
+            "name": "key",
+            "type": "string",
+            "required": true,
+            "description": "Name of the field this column reads from each row, e.g. \"email\". It is also what sorting and inline editing use.",
+            "default": null
+          },
+          {
+            "name": "header",
+            "type": "ReactNode",
+            "required": true,
+            "description": "Text (or any React node) shown in the header cell.",
+            "default": null
+          },
+          {
+            "name": "render",
+            "type": "(row: T) => ReactNode",
+            "required": false,
+            "description": "Draws the cell yourself: gets the whole row and returns any React node — an Avatar, a Badge, a Button… React only (a Web Component can't take a function; use `type` there). When set it wins over `type`, and the cell isn't editable inline.",
+            "default": null
+          },
+          {
+            "name": "align",
+            "type": "\"left\" | \"center\" | \"right\"",
+            "required": false,
+            "description": "Text alignment of the header and the cells: \"left\" (default), \"center\" or \"right\".",
+            "default": null
+          },
+          {
+            "name": "type",
+            "type": "TableCellType",
+            "required": false,
+            "description": "How the cell value is drawn, with no code: \"text\" (default), \"user\", \"badges\", \"progress\", \"payment\", \"status\", \"rating\", \"image\", \"link\", \"avatars\", \"currency\" or \"date\". Each type reads a specific shape of value from the row — see TableUserCell, TableBadgeCell, TableProgressCell, TablePaymentCell, TableStatusCell, TableRatingCell, TableImageCell, TableLinkCell, TableAvatarsCell, TableCurrencyCell and TableDateCell. Works in React and in the Web Component.",
+            "default": null
+          },
+          {
+            "name": "sortable",
+            "type": "boolean",
+            "required": false,
+            "description": "Shows sort arrows in the header and sorts by this column when clicked: ascending, then descending, then cleared (default: false). Numbers sort as numbers and text sorts naturally; a user sorts by name, a payment by its last digits and a badge list by its first label.",
+            "default": null
+          },
+          {
+            "name": "width",
+            "type": "string",
+            "required": false,
+            "description": "Column width, any CSS length, e.g. \"28%\" or \"12rem\" (default: sized by its content).",
+            "default": null
+          }
+        ]
+      },
+      {
+        "name": "TableUserCell",
+        "via": null,
+        "note": "Value for a column with `type: \"user\"`: an avatar with a name and, underneath, a handle. The avatar falls back to the initials of the name.",
+        "example": "{ key: \"user\", header: \"Full Name\", type: \"user\" }\n\n// in the row:\nuser: { name: \"Alice Smith\", handle: \"@alicesmith\", avatar: \"/avatars/alice.jpg\" }",
+        "props": [
+          {
+            "name": "name",
+            "type": "string",
+            "required": true,
+            "description": "The person's name, shown in bold. Initials are made from it when there is no `avatar`.",
+            "default": null
+          },
+          {
+            "name": "handle",
+            "type": "string",
+            "required": false,
+            "description": "A second line under the name, e.g. \"@alicesmith\" or an email address.",
+            "default": null
+          },
+          {
+            "name": "avatar",
+            "type": "string",
+            "required": false,
+            "description": "Image URL of the avatar. When omitted (or it fails to load) the initials are shown instead.",
+            "default": null
+          }
+        ]
+      },
+      {
+        "name": "TablePaymentCell",
+        "via": null,
+        "note": "Value for a column with `type: \"payment\"`: the card brand's logo and the masked number. Visa and Mastercard keep their official colours; everything else follows the theme.",
+        "example": "{ key: \"payment\", header: \"Payment Methods\", type: \"payment\" }\n\n// in the row:\npayment: { brand: \"mastercard\", last4: \"1499\", note: \"Primary card\" }   // → [logo] Ends in ****-**99  ⓘ",
+        "props": [
+          {
+            "name": "brand",
+            "type": "string",
+            "required": true,
+            "description": "\"visa\" or \"mastercard\" draw the brand logo; any other text shows its first letters in a small chip.",
+            "default": null
+          },
+          {
+            "name": "last4",
+            "type": "string | number",
+            "required": true,
+            "description": "The last digits of the card number. Only the last two are shown, as \"Ends in ****-**18\".",
+            "default": null
+          },
+          {
+            "name": "note",
+            "type": "string",
+            "required": false,
+            "description": "Optional extra detail, such as \"Primary card\". When set an info icon appears whose tooltip shows it.",
+            "default": null
+          }
+        ]
+      },
+      {
+        "name": "TableBadgeCell",
+        "via": null,
+        "note": "One tag in a column with `type: \"badges\"`. The cell value is an array of these, or of plain strings (which are coloured automatically).",
+        "example": "{ key: \"tags\", header: \"Category\", type: \"badges\" }\n\n// in the row — plain strings:\ntags: [\"Arts\", \"Business\", \"Travel\"]\n\n// or with your own colours:\ntags: [{ label: \"Books\", color: \"indigo\" }, { label: \"Computers\", color: \"violet\" }]",
+        "props": [
+          {
+            "name": "label",
+            "type": "string",
+            "required": true,
+            "description": "The tag text.",
+            "default": null
+          },
+          {
+            "name": "color",
+            "type": "ColorName",
+            "required": false,
+            "description": "Tag colour: one of the built-in colour names (\"indigo\", \"amber\", \"rose\", \"emerald\", \"violet\", \"cyan\", …). When omitted the table cycles through a set so neighbouring tags differ.",
+            "default": null
+          }
+        ]
+      },
+      {
+        "name": "TableProgressCell",
+        "via": null,
+        "note": "Value for a column with `type: \"progress\"`: a bar filled to a percentage, in the theme accent. The cell value can be this object or just the number.",
+        "example": "{ key: \"clicks\", header: \"Clickthrough Percentage\", type: \"progress\", sortable: true }\n\n// in the row — either form works:\nclicks: 64\nclicks: { value: 64 }",
+        "props": [
+          {
+            "name": "value",
+            "type": "number",
+            "required": true,
+            "description": "How far along, from 0 to 100. Values outside the range are clamped. The bar's fill follows the theme accent and the percentage is written beside it.",
+            "default": null
+          }
+        ]
+      },
+      {
+        "name": "TableStatusCell",
+        "via": null,
+        "note": "Value for a column with `type: \"status\"`: a coloured pill. Give just the text and the colour is chosen from the words (paid, active, done → green; pending, invited, draft → amber; failed, overdue, suspended → red), or set `color` yourself.",
+        "example": "{ key: \"status\", header: \"Status\", type: \"status\" }\n\n// in the row:\nstatus: \"Paid\"\nstatus: { label: \"Needs review\", color: \"violet\" }",
+        "props": [
+          {
+            "name": "label",
+            "type": "string",
+            "required": true,
+            "description": "The status text, e.g. \"Paid\" or \"Pending\".",
+            "default": null
+          },
+          {
+            "name": "color",
+            "type": "ColorName",
+            "required": false,
+            "description": "Pill colour (a built-in colour name). When omitted it is chosen from the text: words like active, paid, done or online are green; pending, invited or draft amber; failed, suspended, overdue or offline red; anything else follows the theme accent.",
+            "default": null
+          }
+        ]
+      },
+      {
+        "name": "TableRatingCell",
+        "via": null,
+        "note": "Value for a column with `type: \"rating\"`: read-only stars. The cell value can be this object or just the number; half values draw half a star.",
+        "example": "{ key: \"rating\", header: \"Rating\", type: \"rating\", sortable: true }\n\n// in the row:\nrating: 4.5\nrating: { value: 7, max: 10 }",
+        "props": [
+          {
+            "name": "value",
+            "type": "number",
+            "required": true,
+            "description": "The rating, from 0 up to `max`. Half values (4.5) draw half a star.",
+            "default": null
+          },
+          {
+            "name": "max",
+            "type": "number",
+            "required": false,
+            "description": "How many stars there are (default: 5).",
+            "default": null
+          }
+        ]
+      },
+      {
+        "name": "TableImageCell",
+        "via": null,
+        "note": "Value for a column with `type: \"image\"`: a rounded thumbnail with a title and a subtitle underneath — good for products, files and articles.",
+        "example": "{ key: \"product\", header: \"Product\", type: \"image\" }\n\n// in the row:\nproduct: { src: \"/products/lamp.jpg\", title: \"Desk lamp\", subtitle: \"SKU 20418\" }",
+        "props": [
+          {
+            "name": "src",
+            "type": "string",
+            "required": false,
+            "description": "Image URL of the thumbnail. If it can't be loaded a neutral placeholder is shown.",
+            "default": null
+          },
+          {
+            "name": "title",
+            "type": "string",
+            "required": true,
+            "description": "The main line, in bold. Also used as the image's alt text.",
+            "default": null
+          },
+          {
+            "name": "subtitle",
+            "type": "string",
+            "required": false,
+            "description": "A second, smaller line, e.g. a SKU or a category.",
+            "default": null
+          }
+        ]
+      },
+      {
+        "name": "TableLinkCell",
+        "via": null,
+        "note": "Value for a column with `type: \"link\"`: a text link in the theme accent. The cell value can be this object or just the URL.",
+        "example": "{ key: \"invoice\", header: \"Invoice\", type: \"link\" }\n\n// in the row:\ninvoice: \"https://example.com/invoices/2041\"\ninvoice: { href: \"https://example.com/invoices/2041\", label: \"INV-2041\", external: true }",
+        "props": [
+          {
+            "name": "href",
+            "type": "string",
+            "required": true,
+            "description": "Where it goes.",
+            "default": null
+          },
+          {
+            "name": "label",
+            "type": "string",
+            "required": false,
+            "description": "The link text (default: the URL).",
+            "default": null
+          },
+          {
+            "name": "external",
+            "type": "boolean",
+            "required": false,
+            "description": "Opens in a new tab (default: false).",
+            "default": null
+          }
+        ]
+      },
+      {
+        "name": "TableAvatarsCell",
+        "via": null,
+        "note": "One person in a column with `type: \"avatars\"`. The cell value is an array of these (or of plain names), drawn as overlapping avatars; after the first five a \"+N\" chip counts the rest. Sorting uses the number of people.",
+        "example": "{ key: \"team\", header: \"Team\", type: \"avatars\" }\n\n// in the row:\nteam: [{ name: \"Ava Chen\" }, { name: \"Marcus Lee\", avatar: \"/avatars/marcus.jpg\" }, \"Priya Nair\"]",
+        "props": [
+          {
+            "name": "name",
+            "type": "string",
+            "required": true,
+            "description": "The person's name: initials are made from it, and it is the avatar's tooltip.",
+            "default": null
+          },
+          {
+            "name": "avatar",
+            "type": "string",
+            "required": false,
+            "description": "Image URL. When omitted the initials are shown.",
+            "default": null
+          }
+        ]
+      },
+      {
+        "name": "TableCurrencyCell",
+        "via": null,
+        "note": "Value for a column with `type: \"currency\"`: a formatted amount with aligned digits. The cell value can be this object or just a number, which is shown in US dollars.",
+        "example": "{ key: \"total\", header: \"Total\", type: \"currency\", align: \"right\", sortable: true }\n\n// in the row:\ntotal: 1249.5                                  // → $1,249.50\ntotal: { value: 1249.5, currency: \"EUR\" }      // → €1,249.50",
+        "props": [
+          {
+            "name": "value",
+            "type": "number",
+            "required": true,
+            "description": "The amount.",
+            "default": null
+          },
+          {
+            "name": "currency",
+            "type": "string",
+            "required": false,
+            "description": "ISO 4217 code such as \"USD\", \"EUR\" or \"PHP\" (default: \"USD\").",
+            "default": null
+          }
+        ]
+      },
+      {
+        "name": "TableAction",
+        "via": "actions",
+        "note": "One icon button in the row-actions column. Actions whose `value` is \"edit\", \"duplicate\" or \"delete\" work out of the box.",
+        "example": null,
+        "props": [
+          {
+            "name": "label",
+            "type": "string",
+            "required": true,
+            "description": "Visible name — used as the button's tooltip and accessible label.",
+            "default": null
+          },
+          {
+            "name": "icon",
+            "type": "string",
+            "required": false,
+            "description": "Icon name, e.g. \"pencil\" — see src/core/icons.ts for the available set.",
+            "default": null
+          },
+          {
+            "name": "value",
+            "type": "string",
+            "required": false,
+            "description": "Optional identifier passed back with the action (defaults to the label when you need one).",
+            "default": null
+          },
+          {
+            "name": "color",
+            "type": "\"default\" | \"danger\"",
+            "required": false,
+            "description": "\"default\" or \"danger\" (destructive color) (default: \"default\").",
+            "default": null
+          }
+        ]
+      },
+      {
+        "name": "TableSort",
+        "via": null,
+        "note": "Reported by `onSortChange` / the `sortchange` event; null when sorting is cleared.",
+        "example": null,
+        "props": [
+          {
+            "name": "key",
+            "type": "string",
+            "required": true,
+            "description": "",
+            "default": null
+          },
+          {
+            "name": "direction",
+            "type": "\"asc\" | \"desc\"",
+            "required": true,
+            "description": "",
+            "default": null
+          }
+        ]
+      }
+    ]
   },
   "Accordions": {
     "components": [
@@ -9076,6 +9553,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
     "types": {
       "MapLibreModule": "typeof MapLibre",
       "LngLat": "[number, number]",
+      "RouteAnimation": "\"flow\" | \"draw\" | \"pulse\" | \"trail\" | \"glow\" | \"shimmer\"",
       "MapControlName": "\"zoom\" | \"compass\" | \"locate\" | \"fullscreen\" | \"scale\" | \"style\"",
       "MapStyleName": "(typeof MAP_STYLE_NAMES)[number]"
     },
@@ -9084,6 +9562,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
         "name": "MapViewState",
         "via": null,
         "note": "Reported by `onMove` / the `move` event.",
+        "example": null,
         "props": [
           {
             "name": "center",
@@ -9217,6 +9696,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
         "name": "MapMarkerData",
         "via": "markers",
         "note": null,
+        "example": null,
         "props": [
           {
             "name": "id",
@@ -9362,10 +9842,24 @@ export const API_DOCS: Record<string, ApiDoc> = {
           },
           {
             "name": "animated",
-            "type": "boolean",
+            "type": "boolean | RouteAnimation",
             "required": false,
-            "description": "Animate the dashes along the line, like marching ants. With `progress`, a light dashed line flows over the travelled part.",
+            "description": "Animate the line: `true` / `\"flow\"` for marching dashes, or `\"draw\"` (draws on), `\"pulse\"` (a light comet), `\"trail\"` (a tracer over a ghost line), `\"glow\"` (breathing halo) or `\"shimmer\"` (a soft sheen). With `progress`, the animation plays over the travelled part only.",
             "default": "false"
+          },
+          {
+            "name": "animationSpeed",
+            "type": "number",
+            "required": false,
+            "description": "Animation speed multiplier (default 1).",
+            "default": "1"
+          },
+          {
+            "name": "animationDirection",
+            "type": "\"forward\" | \"reverse\"",
+            "required": false,
+            "description": "Direction the animation travels (default \"forward\").",
+            "default": "\"forward\""
           },
           {
             "name": "fit",
@@ -9406,6 +9900,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
         "name": "MapRouteData",
         "via": "routes",
         "note": null,
+        "example": null,
         "props": [
           {
             "name": "id",
@@ -9486,9 +9981,23 @@ export const API_DOCS: Record<string, ApiDoc> = {
           },
           {
             "name": "animated",
-            "type": "boolean",
+            "type": "boolean | RouteAnimation",
             "required": false,
-            "description": "Animate the dashes along the line, like marching ants.",
+            "description": "Animate the line: `true` / `\"flow\"` for marching dashes, or `\"draw\"`, `\"pulse\"`, `\"trail\"`, `\"glow\"`, `\"shimmer\"`.",
+            "default": null
+          },
+          {
+            "name": "animationSpeed",
+            "type": "number",
+            "required": false,
+            "description": "Animation speed multiplier (default 1).",
+            "default": null
+          },
+          {
+            "name": "animationDirection",
+            "type": "\"forward\" | \"reverse\"",
+            "required": false,
+            "description": "Direction the animation travels (default \"forward\").",
             "default": null
           }
         ]
@@ -9497,6 +10006,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
         "name": "MapRouteSummary",
         "via": null,
         "note": "Reported by `onLoad` / the `routeload` event.",
+        "example": null,
         "props": [
           {
             "name": "id",
@@ -10631,156 +11141,6 @@ export const API_DOCS: Record<string, ApiDoc> = {
     },
     "dataTypes": []
   },
-  "Data Grid": {
-    "components": [
-      {
-        "name": "DataGrid",
-        "props": [
-          {
-            "name": "columns",
-            "type": "DataGridColumn<T>[]",
-            "required": true,
-            "description": "Column definitions, in display order.",
-            "default": null
-          },
-          {
-            "name": "data",
-            "type": "T[]",
-            "required": true,
-            "description": "Row objects to render, one table row each.",
-            "default": null
-          },
-          {
-            "name": "size",
-            "type": "DataGridSize",
-            "required": false,
-            "description": "Cell padding/text size: \"sm\" | \"md\" | \"lg\". Defaults to \"md\".",
-            "default": "\"md\""
-          },
-          {
-            "name": "striped",
-            "type": "boolean",
-            "required": false,
-            "description": "Shades every other body row (default: false).",
-            "default": "false"
-          },
-          {
-            "name": "bordered",
-            "type": "boolean",
-            "required": false,
-            "description": "Draws an outer border and dividers between rows and cells (default: false).",
-            "default": "false"
-          },
-          {
-            "name": "selectable",
-            "type": "boolean",
-            "required": false,
-            "description": "Adds a checkbox column — select-all in the header, per-row in the body.",
-            "default": "false"
-          },
-          {
-            "name": "getRowId",
-            "type": "(row: T, index: number) => string | number",
-            "required": false,
-            "description": "Row identity for selection tracking — defaults to the row's array index.",
-            "default": null
-          },
-          {
-            "name": "onSelectionChange",
-            "type": "(selectedRows: T[]) => void",
-            "required": false,
-            "description": "Fires whenever the selection changes (when `selectable`), with the array of currently selected rows in display (sorted) order.",
-            "default": null
-          },
-          {
-            "name": "loading",
-            "type": "boolean",
-            "required": false,
-            "description": "Shows shimmering skeleton rows in place of the data while true (default: false). The header stays visible.",
-            "default": "false"
-          },
-          {
-            "name": "skeletonRows",
-            "type": "number",
-            "required": false,
-            "description": "Number of skeleton rows shown while `loading` (default: 5).",
-            "default": "5"
-          },
-          {
-            "name": "transition",
-            "type": "TransitionVariant",
-            "required": false,
-            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
-            "default": null
-          },
-          {
-            "name": "transitionDuration",
-            "type": "number",
-            "required": false,
-            "description": "Enter transition duration in ms (default: 450).",
-            "default": null
-          },
-          {
-            "name": "transitionDelay",
-            "type": "number",
-            "required": false,
-            "description": "Delay before the enter transition starts, in ms (default: 0) — handy for staggering.",
-            "default": null
-          },
-          {
-            "name": "hoverEffect",
-            "type": "HoverEffect",
-            "required": false,
-            "description": "Effect while hovering: \"lift\" | \"scale\" | \"press\" | \"tilt\" | \"ring\" | \"glow\" | \"shine\" (default: none).",
-            "default": null
-          },
-          {
-            "name": "className",
-            "type": "string",
-            "required": false,
-            "description": "Extra class name(s) applied to the root element.",
-            "default": null
-          },
-          {
-            "name": "classNames",
-            "type": "{ root?: string; header?: string; row?: string; cell?: string; checkbox?: string; }",
-            "required": false,
-            "description": "Per-part class overrides — merged after (and win over) the built-in styling.",
-            "default": null
-          }
-        ],
-        "element": {
-          "tag": "l-data-grid",
-          "props": {
-            "columns": "json",
-            "data": "json",
-            "size": "string",
-            "striped": "boolean",
-            "bordered": "boolean",
-            "selectable": "boolean",
-            "loading": "boolean",
-            "skeletonRows": "number",
-            "transition": "string",
-            "transitionDuration": "number",
-            "transitionDelay": "number",
-            "hoverEffect": "string"
-          },
-          "extraProps": [],
-          "events": [
-            {
-              "callback": "onSelectionChange",
-              "event": "selectionchange"
-            }
-          ]
-        }
-      }
-    ],
-    "hooks": [],
-    "types": {
-      "DataGridSize": "\"sm\" | \"md\" | \"lg\""
-    },
-    "dataTypes": []
-  },
   "Timeline": {
     "components": [
       {
@@ -11045,6 +11405,13 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": "\"accent\""
           },
           {
+            "name": "variant",
+            "type": "ChartVariant",
+            "required": false,
+            "description": "\"default\" | \"values\" — \"values\" prints each data value on the chart: above every bar and line point, and with its share plus the total for a donut (default: \"default\").",
+            "default": "\"default\""
+          },
+          {
             "name": "showLabels",
             "type": "boolean",
             "required": false,
@@ -11055,8 +11422,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "name": "countUp",
             "type": "boolean",
             "required": false,
-            "description": "Grows the data in from zero when the chart mounts — bars rise, the line climbs, donut slices sweep round and the legend numbers count up (default: false). Respects `prefers-reduced-motion`.",
-            "default": "false"
+            "description": "Grows the data in from zero when the chart mounts — bars rise, the line climbs, donut slices sweep round and the legend numbers count up (default: true — set false for a static chart). Respects `prefers-reduced-motion`.",
+            "default": "true"
           },
           {
             "name": "countUpDuration",
@@ -11115,6 +11482,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "countUpDuration": "number",
             "data": "json",
             "type": "string",
+            "variant": "string",
             "height": "number",
             "color": "string",
             "showLabels": "boolean",
@@ -11130,7 +11498,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
     ],
     "hooks": [],
     "types": {
-      "ChartType": "\"bar\" | \"line\" | \"donut\""
+      "ChartType": "\"bar\" | \"line\" | \"donut\"",
+      "ChartVariant": "\"default\" | \"values\""
     },
     "dataTypes": []
   },
@@ -11441,6 +11810,310 @@ export const API_DOCS: Record<string, ApiDoc> = {
           "props": {
             "items": "json",
             "compact": "boolean",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number"
+          },
+          "extraProps": [],
+          "events": []
+        }
+      }
+    ],
+    "hooks": [],
+    "types": {},
+    "dataTypes": []
+  },
+  "Grid View": {
+    "components": [
+      {
+        "name": "GridView",
+        "props": [
+          {
+            "name": "items",
+            "type": "GridViewItem[]",
+            "required": true,
+            "description": "The cards.",
+            "default": null
+          },
+          {
+            "name": "view",
+            "type": "GridViewMode",
+            "required": false,
+            "description": "How the items are laid out: \"grid\" (cards, default) or \"list\" (rows). Also follows changes from outside.",
+            "default": null
+          },
+          {
+            "name": "variant",
+            "type": "GridViewVariant",
+            "required": false,
+            "description": "\"default\" | \"draggable\" — \"draggable\" adds a grip to each card so the order can be changed by drag and drop (default: \"default\"). Reordering pauses while a search or sort is active.",
+            "default": "\"default\""
+          },
+          {
+            "name": "viewToggle",
+            "type": "boolean",
+            "required": false,
+            "description": "Shows the grid / list switch in the toolbar (default: true).",
+            "default": "true"
+          },
+          {
+            "name": "searchable",
+            "type": "boolean",
+            "required": false,
+            "description": "Shows the search box (default: true). Matches the title, subtitle, tag and every value.",
+            "default": "true"
+          },
+          {
+            "name": "searchPlaceholder",
+            "type": "string",
+            "required": false,
+            "description": "Placeholder of the search box (default: \"Search\").",
+            "default": "\"Search\""
+          },
+          {
+            "name": "sortOptions",
+            "type": "GridViewSortOption[]",
+            "required": false,
+            "description": "Adds a \"Sort by\" menu with these options.",
+            "default": null
+          },
+          {
+            "name": "actions",
+            "type": "GridViewAction[]",
+            "required": false,
+            "description": "Per-card menu (the three dots). Choosing an entry calls `onAction`.",
+            "default": null
+          },
+          {
+            "name": "createLabel",
+            "type": "string",
+            "required": false,
+            "description": "Text of the primary button at the end of the toolbar. Leave empty to hide the button.",
+            "default": null
+          },
+          {
+            "name": "minItemWidth",
+            "type": "number",
+            "required": false,
+            "description": "Smallest width of a card in grid view, in px (default: 270). More columns appear as the space allows.",
+            "default": "270"
+          },
+          {
+            "name": "loading",
+            "type": "boolean",
+            "required": false,
+            "description": "Shows shimmering placeholder cards while true (default: false).",
+            "default": "false"
+          },
+          {
+            "name": "skeletonCount",
+            "type": "number",
+            "required": false,
+            "description": "Number of placeholder cards while `loading` (default: 6).",
+            "default": "6"
+          },
+          {
+            "name": "emptyMessage",
+            "type": "string",
+            "required": false,
+            "description": "Text shown when nothing matches (default: \"Nothing to show\").",
+            "default": "\"Nothing to show\""
+          },
+          {
+            "name": "onViewChange",
+            "type": "(view: GridViewMode) => void",
+            "required": false,
+            "description": "Called with \"grid\" or \"list\" when the view is switched.",
+            "default": null
+          },
+          {
+            "name": "onReorder",
+            "type": "(items: GridViewItem[]) => void",
+            "required": false,
+            "description": "Called with the items in their new order after a drag and drop (or an arrow-key move) in the \"draggable\" variant.",
+            "default": null
+          },
+          {
+            "name": "onItemClick",
+            "type": "(item: GridViewItem) => void",
+            "required": false,
+            "description": "Called with the card when it is clicked.",
+            "default": null
+          },
+          {
+            "name": "onAction",
+            "type": "(detail: { action: GridViewAction; item: GridViewItem }) => void",
+            "required": false,
+            "description": "Called with `{ action, item }` when a card-menu entry is chosen.",
+            "default": null
+          },
+          {
+            "name": "onCreate",
+            "type": "() => void",
+            "required": false,
+            "description": "Called when the primary button is clicked.",
+            "default": null
+          },
+          {
+            "name": "onSearchChange",
+            "type": "(query: string) => void",
+            "required": false,
+            "description": "Called with the text whenever the search box changes.",
+            "default": null
+          },
+          {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0).",
+            "default": null
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "required": false,
+            "description": "Extra class name(s) applied to the root element.",
+            "default": null
+          },
+          {
+            "name": "classNames",
+            "type": "{ root?: string; toolbar?: string; card?: string; title?: string }",
+            "required": false,
+            "description": "Per-part class overrides — merged after (and win over) the built-in styling.",
+            "default": null
+          }
+        ],
+        "element": {
+          "tag": "l-grid-view",
+          "props": {
+            "items": "json",
+            "view": "string",
+            "variant": "string",
+            "viewToggle": "boolean",
+            "searchable": "boolean",
+            "searchPlaceholder": "string",
+            "sortOptions": "json",
+            "actions": "json",
+            "createLabel": "string",
+            "minItemWidth": "number",
+            "loading": "boolean",
+            "skeletonCount": "number",
+            "emptyMessage": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number"
+          },
+          "extraProps": [],
+          "events": [
+            {
+              "callback": "onViewChange",
+              "event": "viewchange"
+            },
+            {
+              "callback": "onReorder",
+              "event": "reorder"
+            },
+            {
+              "callback": "onItemClick",
+              "event": "itemclick"
+            },
+            {
+              "callback": "onAction",
+              "event": "action"
+            },
+            {
+              "callback": "onCreate",
+              "event": "create"
+            },
+            {
+              "callback": "onSearchChange",
+              "event": "searchchange"
+            }
+          ]
+        }
+      }
+    ],
+    "hooks": [],
+    "types": {
+      "GridViewMode": "\"grid\" | \"list\"",
+      "GridViewVariant": "\"default\" | \"draggable\""
+    },
+    "dataTypes": []
+  },
+  "Details List": {
+    "components": [
+      {
+        "name": "DetailsList",
+        "props": [
+          {
+            "name": "items",
+            "type": "DetailsListItem[]",
+            "required": true,
+            "description": "The rows, in display order.",
+            "default": null
+          },
+          {
+            "name": "exclusive",
+            "type": "boolean",
+            "required": false,
+            "description": "Lets only one row stay open at a time (default: false).",
+            "default": "false"
+          },
+          {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0).",
+            "default": null
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "required": false,
+            "description": "Extra class name(s) applied to the root element.",
+            "default": null
+          },
+          {
+            "name": "classNames",
+            "type": "{ root?: string; item?: string; summary?: string; body?: string }",
+            "required": false,
+            "description": "Per-part class overrides — merged after (and win over) the built-in styling.",
+            "default": null
+          }
+        ],
+        "element": {
+          "tag": "l-details-list",
+          "props": {
+            "items": "json",
+            "exclusive": "boolean",
             "transition": "string",
             "transitionDuration": "number",
             "transitionDelay": "number"

@@ -3,6 +3,8 @@ import { useProgress } from "../../../core/useCountUp";
 import { motionClass, motionStyle, type TransitionVariant, type HoverEffect } from "../../../core/motion";
 
 export type ChartType = "bar" | "line" | "donut";
+/** "default" draws the shapes only; "values" also prints each data value on the chart (above every bar and point, and in the donut legend and centre). */
+export type ChartVariant = "default" | "values";
 
 export interface ChartDataPoint {
   label: string;
@@ -25,9 +27,11 @@ export interface ChartProps {
   height?: number;
   /** Default color for points that don't set their own `color`. */
   color?: ColorName;
+  /** "default" | "values" — "values" prints each data value on the chart: above every bar and line point, and with its share plus the total for a donut (default: "default"). */
+  variant?: ChartVariant;
   /** Shows each point's label under the plot (bar/line) or as a legend (donut). */
   showLabels?: boolean;
-  /** Grows the data in from zero when the chart mounts — bars rise, the line climbs, donut slices sweep round and the legend numbers count up (default: false). Respects `prefers-reduced-motion`. */
+  /** Grows the data in from zero when the chart mounts — bars rise, the line climbs, donut slices sweep round and the legend numbers count up (default: true — set false for a static chart). Respects `prefers-reduced-motion`. */
   countUp?: boolean;
   /** Duration of the count-up in ms (default: 1200). */
   countUpDuration?: number;
@@ -69,12 +73,25 @@ function LabelRow({ data, className }: { data: ChartDataPoint[]; className?: str
 // "accent" follows the theme's brand color (CSS var) instead of a fixed hex.
 const hex = (c: ColorName) => (c === "accent" ? "var(--lojee-accent-600)" : COLOR_HEX[c]);
 
-function BarChart({ data, color, height, svgClassName, progress }: { data: ChartDataPoint[]; color: ColorName; height: number; svgClassName?: string; progress: number }) {
+// Value tags are HTML laid over the SVG (the SVG is stretched with preserveAspectRatio="none", which would distort text).
+function ValueTag({ x, y, value, progress }: { x: number; y: number; value: number; progress: number }) {
+  return (
+    <span
+      className="pointer-events-none absolute -translate-x-1/2 -translate-y-full pb-1 text-xs font-semibold tabular-nums text-fg"
+      style={{ left: `${(x / VIEW_W) * 100}%`, top: `${(y / VIEW_H) * 100}%` }}
+    >
+      {Math.round(value * progress)}
+    </span>
+  );
+}
+
+function BarChart({ data, color, height, svgClassName, progress, showValues }: { data: ChartDataPoint[]; color: ColorName; height: number; svgClassName?: string; progress: number; showValues: boolean }) {
   const max = Math.max(...data.map((d) => d.value), 1);
   const gap = VIEW_W / data.length / 4;
   const barWidth = VIEW_W / data.length - gap;
 
   return (
+    <div className="relative">
     <svg
       viewBox={`0 0 ${VIEW_W} ${VIEW_H}`}
       preserveAspectRatio="none"
@@ -96,6 +113,12 @@ function BarChart({ data, color, height, svgClassName, progress }: { data: Chart
         );
       })}
     </svg>
+    {showValues &&
+      data.map((point, i) => {
+        const barHeight = (point.value / max) * (VIEW_H - TOP_PADDING) * progress;
+        return <ValueTag key={i} x={i * (barWidth + gap) + gap / 2 + barWidth / 2} y={VIEW_H - barHeight} value={point.value} progress={progress} />;
+      })}
+    </div>
   );
 }
 
@@ -105,7 +128,7 @@ function BarChart({ data, color, height, svgClassName, progress }: { data: Chart
 // stretches that clipped sliver into a thin shard instead of a clean circle.
 const LINE_PADDING_X = 8;
 
-function LineChart({ data, color, height, svgClassName, progress }: { data: ChartDataPoint[]; color: ColorName; height: number; svgClassName?: string; progress: number }) {
+function LineChart({ data, color, height, svgClassName, progress, showValues }: { data: ChartDataPoint[]; color: ColorName; height: number; svgClassName?: string; progress: number; showValues: boolean }) {
   const max = Math.max(...data.map((d) => d.value), 1);
   const plotWidth = VIEW_W - LINE_PADDING_X * 2;
   const stepX = data.length > 1 ? plotWidth / (data.length - 1) : 0;
@@ -117,6 +140,7 @@ function LineChart({ data, color, height, svgClassName, progress }: { data: Char
   const strokeColor = hex(color);
 
   return (
+    <div className="relative">
     <svg
       viewBox={`0 0 ${VIEW_W} ${VIEW_H}`}
       preserveAspectRatio="none"
@@ -141,6 +165,8 @@ function LineChart({ data, color, height, svgClassName, progress }: { data: Char
         </circle>
       ))}
     </svg>
+    {showValues && points.map(({ x, y, point }, i) => <ValueTag key={i} x={x} y={y - 6} value={point.value} progress={progress} />)}
+    </div>
   );
 }
 
@@ -157,6 +183,7 @@ function DonutChart({
   svgClassName,
   labelClassName,
   progress,
+  showValues,
 }: {
   data: ChartDataPoint[];
   color: ColorName;
@@ -165,6 +192,7 @@ function DonutChart({
   svgClassName?: string;
   labelClassName?: string;
   progress: number;
+  showValues: boolean;
 }) {
   const total = data.reduce((sum, d) => sum + d.value, 0) || 1;
   // Precompute each segment's cumulative starting offset into a plain array
@@ -184,6 +212,7 @@ function DonutChart({
 
   return (
     <div className="flex w-full flex-wrap items-center justify-center gap-6" style={{ minHeight: height }}>
+      <div className="relative shrink-0" style={{ height, width: height }}>
       <svg viewBox={`0 0 ${DONUT_SIZE} ${DONUT_SIZE}`} className={cx("shrink-0", svgClassName)} style={{ height, width: height }} role="img" aria-label="Donut chart">
         <g transform={`rotate(-90 ${DONUT_SIZE / 2} ${DONUT_SIZE / 2})`}>
           {segments.map(({ point, segmentLength, offset }, i) => (
@@ -205,13 +234,21 @@ function DonutChart({
           ))}
         </g>
       </svg>
+      {showValues && (
+        <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center">
+          <span className="text-2xl font-semibold tabular-nums text-fg">{Math.round(total * progress)}</span>
+          <span className="text-xs text-fg-subtle">Total</span>
+        </div>
+      )}
+      </div>
       {showLabels && (
         <ul className={cx("space-y-1.5 text-sm", labelClassName)}>
           {data.map((point, i) => (
             <li key={i} className="flex items-center gap-2 text-fg-muted">
               <span className="h-2.5 w-2.5 shrink-0 rounded-full" style={{ backgroundColor: hex(point.color ?? color) }} />
               <span className="font-medium text-fg">{point.label}</span>
-              <span className="tabular-nums text-fg-subtle">{Math.round(point.value * progress)}</span>
+              <span className={cx("tabular-nums", showValues ? "font-semibold text-fg" : "text-fg-subtle")}>{Math.round(point.value * progress)}</span>
+              {showValues && <span className="tabular-nums text-xs text-fg-subtle">{Math.round((point.value / total) * 100)}%</span>}
             </li>
           ))}
         </ul>
@@ -220,18 +257,19 @@ function DonutChart({
   );
 }
 
-export function Chart({ type = "bar", data, height = 200, color = "accent", showLabels = true, countUp = false, countUpDuration, className, classNames, transition, transitionDuration, transitionDelay, hoverEffect }: ChartProps) {
+export function Chart({ type = "bar", variant = "default", data, height = 200, color = "accent", showLabels = true, countUp = true, countUpDuration, className, classNames, transition, transitionDuration, transitionDelay, hoverEffect }: ChartProps) {
   const progress = useProgress(countUp, countUpDuration);
+  const showValues = variant === "values";
 
   return (
     <div
       className={cx("w-full", motionClass(transition, hoverEffect), className, classNames?.root)}
       style={motionStyle(transitionDuration, transitionDelay)}
     >
-      {type === "bar" && <BarChart data={data} color={color} height={height} svgClassName={classNames?.svg} progress={progress} />}
-      {type === "line" && <LineChart data={data} color={color} height={height} svgClassName={classNames?.svg} progress={progress} />}
+      {type === "bar" && <BarChart data={data} color={color} height={height} svgClassName={classNames?.svg} progress={progress} showValues={showValues} />}
+      {type === "line" && <LineChart data={data} color={color} height={height} svgClassName={classNames?.svg} progress={progress} showValues={showValues} />}
       {type === "donut" && (
-        <DonutChart data={data} color={color} height={height} showLabels={showLabels} svgClassName={classNames?.svg} labelClassName={classNames?.label} progress={progress} />
+        <DonutChart data={data} color={color} height={height} showLabels={showLabels} svgClassName={classNames?.svg} labelClassName={classNames?.label} progress={progress} showValues={showValues} />
       )}
       {showLabels && type !== "donut" && <LabelRow data={data} className={classNames?.label} />}
     </div>

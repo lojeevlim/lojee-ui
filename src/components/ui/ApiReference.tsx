@@ -2,6 +2,8 @@
 // Data comes from src/generated/apiDocs.ts (built from the real TS interfaces and src/elements/register.tsx by
 // scripts/gen-api-docs.mjs). It follows the header's language selector: React shows the component's props and
 // callbacks; Plain JS/TS, Vue and Angular show the `l-*` Web Component's attributes, properties and events.
+import { DetailsList, type DetailsListItem } from "./DetailsList/DetailsList";
+import TableCellGuide from "./Table/TableCellGuide";
 import { API_DOCS, type ApiComponent, type ApiDoc, type ApiProp } from "../../generated/apiDocs";
 import { highlightCode } from "../../core/highlightCode";
 import { CODE_FRAMEWORK_LABEL, useCodeFramework, type CodeFramework } from "../../core/codeFramework";
@@ -261,93 +263,85 @@ function EventDetails({ framework, c, doc }: { framework: CodeFramework; c: ApiC
   const isReact = framework === "react";
   const items = eventItems(framework, c);
   if (items.length === 0) return null;
-  return (
-    <div className="space-y-2">
-      <div className="divide-y divide-border rounded-xl border border-border">
-        {items.map(({ cb, callback, event, native }) => {
-          const params = cb ? callbackParams(cb.type) : [];
-          const first = params[0];
-          const fields = native || (first && /MouseEvent/.test(first.type)) ? MOUSE_EVENT_FIELDS : first ? payloadFields(first.type, doc) : null;
-          const example = eventExample(framework, c, callback, event, cb, native);
-          return (
-            <details key={callback} open className="group px-3 py-2">
-              <summary className="flex cursor-pointer list-none items-center gap-2 text-sm">
-                <span className="text-fg-subtle transition-transform group-open:rotate-90">▸</span>
-                <code className="font-mono text-[13px] text-fg">{isReact ? callback : eventName(framework, event)}</code>
-                <span className="truncate text-fg-subtle">{native ? domDescription(cb?.description) : cb?.description}</span>
-              </summary>
-              <div className="mt-3 space-y-3 pl-5">
-                <div className="text-sm text-fg-muted">
-                  <span className="font-medium text-fg">Payload </span>
-                  {isReact ? (
-                    params.length === 0 ? (
-                      "none — the callback is called with no arguments."
-                    ) : (
-                      <>
-                        {params.map((p, i) => (
-                          <span key={p.name}>
-                            <code className="font-mono text-xs text-fg">{p.name}</code>: <code className="font-mono text-xs text-accent-600 dark:text-accent-400">{p.type}</code>
-                            {i < params.length - 1 ? ", " : ""}
-                          </span>
-                        ))}
-                        .
-                      </>
-                    )
-                  ) : native ? (
-                    <>
-                      the native <code className="font-mono text-xs text-accent-600 dark:text-accent-400">MouseEvent</code> itself — a plain DOM event that bubbles out of the inner button, so there is no{" "}
-                      <code className="font-mono text-xs text-fg">event.detail</code>.
-                    </>
-                  ) : first ? (
-                    <>
-                      <code className="font-mono text-xs text-fg">event.detail</code>: <code className="font-mono text-xs text-accent-600 dark:text-accent-400">{first.type}</code>
-                      {params.length > 1 && <> — only the first argument of the React callback is delivered.</>}
-                    </>
-                  ) : (
-                    <>none — <code className="font-mono text-xs text-fg">event.detail</code> is undefined.</>
-                  )}
-                </div>
-                {fields && (
-                  <div className="overflow-x-auto rounded-lg border border-border">
-                    <table className="w-full min-w-[420px] text-left text-xs">
-                      <thead className="bg-surface-muted text-[11px] uppercase tracking-wide text-fg-subtle">
-                        <tr>
-                          <th className="px-2.5 py-1.5 font-medium">Field</th>
-                          <th className="px-2.5 py-1.5 font-medium">Type</th>
-                          <th className="px-2.5 py-1.5 font-medium">Description</th>
-                        </tr>
-                      </thead>
-                      <tbody className="divide-y divide-border">
-                        {fields.map((f) => (
-                          <tr key={f.name} className="align-top">
-                            <td className="whitespace-nowrap px-2.5 py-1.5 font-mono text-fg">{f.name}</td>
-                            <td className="px-2.5 py-1.5 font-mono text-accent-600 dark:text-accent-400">{f.type}</td>
-                            <td className="px-2.5 py-1.5 text-fg-muted">{f.description || "—"}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                )}
-                <div>
-                  <span className="mb-1 block text-xs font-medium text-fg-subtle">Example</span>
-                  <pre className="overflow-x-auto rounded-lg border border-dashed border-border-strong bg-surface-muted p-3 text-xs leading-relaxed text-fg">
-                    <code>{highlightCode(example)}</code>
-                  </pre>
-                </div>
-              </div>
-            </details>
-          );
-        })}
-      </div>
-    </div>
-  );
+  const listItems: DetailsListItem[] = items.map(({ cb, callback, event, native }) => {
+    const params = cb ? callbackParams(cb.type) : [];
+    const first = params[0];
+    const fields = native || (first && /MouseEvent/.test(first.type)) ? MOUSE_EVENT_FIELDS : first ? payloadFields(first.type, doc) : null;
+    const example = eventExample(framework, c, callback, event, cb, native);
+    return {
+      title: isReact ? callback : eventName(framework, event),
+      description: native ? domDescription(cb?.description) : cb?.description,
+      content: (
+              <div className="space-y-3">
+          <div className="text-sm text-fg-muted">
+            <span className="font-medium text-fg">Payload </span>
+            {isReact ? (
+              params.length === 0 ? (
+                "none — the callback is called with no arguments."
+              ) : (
+                <>
+                  {params.map((p, i) => (
+                    <span key={p.name}>
+                      <code className="font-mono text-xs text-fg">{p.name}</code>: <code className="font-mono text-xs text-accent-600 dark:text-accent-400">{p.type}</code>
+                      {i < params.length - 1 ? ", " : ""}
+                    </span>
+                  ))}
+                  .
+                </>
+              )
+            ) : native ? (
+              <>
+                the native <code className="font-mono text-xs text-accent-600 dark:text-accent-400">MouseEvent</code> itself — a plain DOM event that bubbles out of the inner button, so there is no{" "}
+                <code className="font-mono text-xs text-fg">event.detail</code>.
+              </>
+            ) : first ? (
+              <>
+                <code className="font-mono text-xs text-fg">event.detail</code>: <code className="font-mono text-xs text-accent-600 dark:text-accent-400">{first.type}</code>
+                {params.length > 1 && <> — only the first argument of the React callback is delivered.</>}
+              </>
+            ) : (
+              <>none — <code className="font-mono text-xs text-fg">event.detail</code> is undefined.</>
+            )}
+          </div>
+          {fields && (
+            <div className="overflow-x-auto rounded-lg border border-border">
+              <table className="w-full min-w-[420px] text-left text-xs">
+                <thead className="bg-surface-muted text-[11px] uppercase tracking-wide text-fg-subtle">
+                  <tr>
+                    <th className="px-2.5 py-1.5 font-medium">Field</th>
+                    <th className="px-2.5 py-1.5 font-medium">Type</th>
+                    <th className="px-2.5 py-1.5 font-medium">Description</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-border">
+                  {fields.map((f) => (
+                    <tr key={f.name} className="align-top">
+                      <td className="whitespace-nowrap px-2.5 py-1.5 font-mono text-fg">{f.name}</td>
+                      <td className="px-2.5 py-1.5 font-mono text-accent-600 dark:text-accent-400">{f.type}</td>
+                      <td className="px-2.5 py-1.5 text-fg-muted">{f.description || "—"}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+          <div>
+            <span className="mb-1 block text-xs font-medium text-fg-subtle">Example</span>
+            <pre className="overflow-x-auto rounded-lg border border-dashed border-border-strong bg-surface-muted p-3 text-xs leading-relaxed text-fg">
+              <code>{highlightCode(example)}</code>
+            </pre>
+          </div>
+        </div>
+      ),
+    };
+  });
+  return <DetailsList items={listItems} />;
 }
 
 const USAGE: Record<Exclude<CodeFramework, "react">, string> = {
-  js: 'Attributes are kebab-case strings; objects and arrays (json) are assigned as properties (el.items = […]). Listen with el.addEventListener("event", (e) => e.detail).',
-  vue: "Scalars are plain kebab-case attributes; objects and arrays use a :binding. Listen with @event — the payload is $event.detail. Requires the l-* tags to be treated as custom elements (isCustomElement).",
-  angular: "Scalars are plain kebab-case attributes; objects and arrays use a [property] binding. Listen with (event) — the payload is $event.detail. Add CUSTOM_ELEMENTS_SCHEMA to the module or component.",
+  js: 'Attributes are kebab-case strings; a boolean can be written bare (<l-table loading>) or as ="true" / ="false"; objects and arrays (json) are assigned as properties (el.items = […]). Listen with el.addEventListener("event", (e) => e.detail).',
+  vue: "Scalars are plain kebab-case attributes (a boolean can be written bare, e.g. loading); objects and arrays use a :binding. Listen with @event — the payload is $event.detail. Requires the l-* tags to be treated as custom elements (isCustomElement).",
+  angular: "Scalars are plain kebab-case attributes (a boolean can be written bare, e.g. loading); objects and arrays use a [property] binding. Listen with (event) — the payload is $event.detail. Add CUSTOM_ELEMENTS_SCHEMA to the module or component.",
 };
 
 export default function ApiReference({ name }: { name: string }) {
@@ -433,20 +427,31 @@ export default function ApiReference({ name }: { name: string }) {
         </div>
       )}
 
-      {doc.dataTypes.map((d) => (
-        <div key={d.name} className="space-y-3">
-          <h3 className="font-mono text-base font-semibold text-fg">{d.name}</h3>
-          <p className="text-sm text-fg-subtle">
-            {d.via ? (
-              <>
-                The shape of each item in the <code className="font-mono text-fg">{d.via}</code> {isReact ? "prop of <Map>" : "property of <l-map>"}.{" "}
-              </>
-            ) : null}
-            {d.note}
-          </p>
-          <Table rows={d.props.map((p) => ({ key: p.name, name: p.name, type: p.type, default: null, description: p.description, required: p.required }))} kind="prop" withDefault={false} />
-        </div>
-      ))}
+      {name === "Tables" && <TableCellGuide />}
+
+      {doc.dataTypes.map((d) => {
+        const owner = doc.components[0];
+        const ownerLabel = isReact ? `<${owner?.name ?? "component"}>` : `<${owner?.element?.tag ?? "element"}>`;
+        return (
+          <div key={d.name} className="space-y-3">
+            <h3 className="font-mono text-base font-semibold text-fg">{d.name}</h3>
+            <p className="text-sm text-fg-subtle">
+              {d.via ? (
+                <>
+                  The shape of each item in the <code className="font-mono text-fg">{d.via}</code> {isReact ? "prop" : "property"} of <code className="font-mono text-fg">{ownerLabel}</code>.{" "}
+                </>
+              ) : null}
+              {d.note}
+            </p>
+            <Table rows={d.props.map((p) => ({ key: p.name, name: p.name, type: p.type, default: null, description: p.description, required: p.required }))} kind="prop" withDefault={false} />
+            {d.example && (
+              <pre className="overflow-x-auto rounded-lg border border-dashed border-border-strong bg-surface-muted p-3 text-xs leading-relaxed text-fg">
+                <code>{highlightCode(d.example)}</code>
+              </pre>
+            )}
+          </div>
+        );
+      })}
 
       {isReact && doc.hooks.length > 0 && (
         <div className="space-y-3">

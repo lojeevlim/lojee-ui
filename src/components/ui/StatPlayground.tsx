@@ -55,7 +55,7 @@ export default function StatPlayground() {
   // above except for the tag name, since Vue/Angular/plain HTML can only
   // ever consume the real `<l-Stat>` custom element, never the bare
   // PascalCase tag React uses.
-  const htmlMarkup = `<l-Stat label="${labelValue}" value="${valueValue}"${changeAttr}${trendAttr}${iconAttr}${colorAttr} />`;
+  const htmlMarkup = `<l-Stat label="${labelValue}" value="${valueValue}"${changeAttr}${trendAttr}${iconAttr}${colorAttr.replace(" countUp", " count-up")} />`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,

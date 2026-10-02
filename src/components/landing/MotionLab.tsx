@@ -1,4 +1,3 @@
-import { highlightCode } from "../../core/highlightCode";
 import { useState } from "react";
 import { Button } from "../ui/Buttons/Button";
 import { Badge } from "../ui/Badge/Badge";
@@ -6,9 +5,47 @@ import { Avatar } from "../ui/Avatar/Avatar";
 import { Card } from "../ui/Card/Card";
 import { Stat } from "../ui/Stat/Stat";
 import { Alert } from "../ui/Alert/Alert";
+import { Table, type TableColumn } from "../ui/Table/Table";
+import { Chart } from "../ui/Chart/Chart";
+import { Timeline } from "../ui/Timeline/Timeline";
+import { GridView } from "../ui/GridView/GridView";
+import { DetailsList } from "../ui/DetailsList/DetailsList";
+import { ProgressBar } from "../ui/ProgressBar/ProgressBar";
 import { ANIMATED_VARIANTS, type AnimatedVariant } from "../../core/animated";
 import { TRANSITIONS, HOVER_EFFECTS, type TransitionVariant, type HoverEffect } from "../../core/motion";
 import type { ColorName } from "../../core/tokens";
+
+const TABLE_COLUMNS: TableColumn<Record<string, unknown>>[] = [
+  { key: "user", header: "Member", type: "user" },
+  { key: "plan", header: "Plan", type: "status" },
+  { key: "usage", header: "Usage", type: "progress" },
+];
+const TABLE_DATA = [
+  { user: { name: "Noah Kim", handle: "@noahkim" }, plan: "Active", usage: 72 },
+  { user: { name: "Mia Costa", handle: "@miacosta" }, plan: "Pending", usage: 31 },
+  { user: { name: "Omar Haddad", handle: "@omarh" }, plan: "Active", usage: 90 },
+];
+const CHART_DATA = [
+  { label: "Mon", value: 32 },
+  { label: "Tue", value: 48 },
+  { label: "Wed", value: 41 },
+  { label: "Thu", value: 67 },
+  { label: "Fri", value: 58 },
+];
+const TIMELINE_ITEMS = [
+  { title: "Design approved", timestamp: "9:00", icon: "check", color: "emerald" as ColorName },
+  { title: "Build started", timestamp: "11:30", icon: "zap" },
+  { title: "Released", timestamp: "16:45", icon: "rocket", color: "violet" as ColorName },
+];
+const GRID_ITEMS = [
+  { id: 1, title: "Brown's Bathroom Remodel", tag: "Accepted", stats: [{ label: "Balance Due", value: "$12,099" }, { label: "Value", value: "$18,099" }] },
+  { id: 2, title: "Faruk's Bathroom Remodel", tag: "Pending", stats: [{ label: "Balance Due", value: "$9,450" }, { label: "Value", value: "$21,300" }] },
+  { id: 3, title: "Yeasin's Bathroom Rework", tag: "Overdue", stats: [{ label: "Balance Due", value: "$15,600" }, { label: "Value", value: "$15,600" }] },
+];
+const DETAILS = [
+  { title: "@selectionchange", description: "Called when the selection changes.", body: "event.detail carries the selected keys and rows." },
+  { title: "@sortchange", description: "Called when a header is clicked." },
+];
 
 const PULSE_COLORS: ColorName[] = ["accent", "violet", "rose", "amber", "emerald", "blue"];
 
@@ -47,10 +84,6 @@ export default function MotionLab() {
   const motion = { transition, transitionDelay: 0 };
   const anim = { animated, pulseColor, pulseGradientTo };
 
-  const code = `<Button${animated ? ` animated="${animated}"` : ""}${animated && pulseColor !== "accent" ? ` pulseColor="${pulseColor}"` : ""}${pulseGradientTo ? ` pulseGradientTo="${pulseGradientTo}"` : ""} label="Deploy" />
-<Card transition="${transition}"${hoverEffect ? ` hoverEffect="${hoverEffect}"` : ""}>…</Card>
-<Stat label="Revenue" value="$48,290" countUp />`;
-
   return (
     <div className="grid grid-cols-1 gap-6 lg:grid-cols-[300px_minmax(0,1fr)]">
       <div className="space-y-5 rounded-2xl border border-border bg-surface p-5">
@@ -87,7 +120,6 @@ export default function MotionLab() {
         <button type="button" onClick={() => setRun((n) => n + 1)} className="w-full rounded-lg border border-border bg-surface-muted py-2 text-sm font-medium text-fg transition-colors hover:border-accent-500">
           Replay transition
         </button>
-        <pre className="overflow-x-auto rounded-lg bg-surface-muted p-3 font-mono text-[11px] leading-relaxed text-fg-muted"><code>{highlightCode(code)}</code></pre>
       </div>
 
       <div className="rounded-2xl border border-border bg-surface p-5 shadow-sm md:p-6">
@@ -100,12 +132,32 @@ export default function MotionLab() {
               <Button size="sm" label="Deploy" {...anim} />
             </div>
           </Card>
-          <div className="space-y-5">
-            <Stat label="Revenue" value="$48,290" change="12.5%" trend="up" icon="zap" countUp hoverEffect={hoverEffect} {...motion} transitionDelay={120} />
-            <Alert variant="accent" title="Theme-aware" hoverEffect={hoverEffect} {...motion} transitionDelay={240}>
+          <Card title="Progress" hoverEffect={hoverEffect} {...motion} transitionDelay={60}>
+            <div className="space-y-4">
+              <div><p className="mb-1 text-xs font-medium text-fg-muted">Storage</p><ProgressBar value={72} /></div>
+              <div><p className="mb-1 text-xs font-medium text-fg-muted">Bandwidth</p><ProgressBar value={38} color="violet" /></div>
+              <div><p className="mb-1 text-xs font-medium text-fg-muted">Uptime</p><ProgressBar value={91} color="emerald" /></div>
+            </div>
+          </Card>
+          <Stat label="Revenue" value="$48,290" change="12.5%" trend="up" icon="zap" countUp hoverEffect={hoverEffect} {...motion} transitionDelay={120} />
+          <div className="self-start">
+            <Alert variant="accent" title="Theme-aware" hoverEffect={hoverEffect} {...motion} transitionDelay={180}>
               Alerts, badges and stats follow the accent you pick.
             </Alert>
           </div>
+          <div className="sm:col-span-2">
+            <Table variant="lined" columns={TABLE_COLUMNS} data={TABLE_DATA} {...motion} transitionDelay={160} />
+          </div>
+          <Card title="Chart" hoverEffect={hoverEffect} {...motion} transitionDelay={80}>
+            <Chart type="bar" data={CHART_DATA} height={150} showLabels />
+          </Card>
+          <Card title="Timeline" hoverEffect={hoverEffect} {...motion} transitionDelay={160}>
+            <Timeline items={TIMELINE_ITEMS} />
+          </Card>
+          <div className="sm:col-span-2">
+            <GridView items={GRID_ITEMS} searchable={false} viewToggle={false} {...motion} transitionDelay={200} />
+          </div>
+          <div className="sm:col-span-2"><DetailsList items={DETAILS} {...motion} transitionDelay={240} /></div>
         </div>
       </div>
     </div>

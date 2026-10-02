@@ -1,5 +1,9 @@
 import { useEffect, useRef, useState, type CSSProperties, type PointerEvent, type ReactNode } from "react";
-import { spotlight } from "./hooks";
+import { HeroCard as Card } from "./HeroCard";
+import { BASIC_REELS } from "./heroCardsBasic";
+import { FORMS_REELS } from "./heroCardsForms";
+import { FEEDBACK_REELS } from "./heroCardsFeedback";
+import { DATA_REELS } from "./heroCardsData";
 import { Alert } from "../ui/Alert/Alert";
 import { Avatar } from "../ui/Avatar/Avatar";
 import { Badge } from "../ui/Badge/Badge";
@@ -29,19 +33,6 @@ const CHART = [
   { label: "Fri", value: 63 },
 ];
 
-/** One captioned, live component inside the hero reel. */
-function Card({ name, children, w = "w-64" }: { name: string; children: ReactNode; w?: string }) {
-  return (
-    <div
-      onPointerMove={spotlight}
-      className={`lp-spot ${w} shrink-0 rounded-2xl border border-border bg-surface/90 p-4 shadow-lg shadow-black/5 backdrop-blur transition-all duration-300 hover:-translate-y-1.5 hover:scale-[1.03] hover:border-accent-500 hover:shadow-xl hover:shadow-accent-500/20`}
-    >
-      <p className="relative mb-3 font-mono text-[10px] uppercase tracking-wider text-fg-subtle">{name}</p>
-      <div className="relative">{children}</div>
-    </div>
-  );
-}
-
 function ThemeSwitch() {
   const { mode, setMode } = useTheme();
   return <Switch size="sm" label={mode === "dark" ? "Dark mode" : "Light mode"} checked={mode === "dark"} onChange={(e) => setMode(e.target.checked ? "dark" : "light")} />;
@@ -58,7 +49,13 @@ function Deploying() {
 
 function Pager() {
   const [page, setPage] = useState(3);
-  return <Pagination page={page} totalPages={8} onPageChange={setPage} />;
+  const [compact, setCompact] = useState(2);
+  return (
+    <div className="space-y-3">
+      <Pagination page={page} totalPages={8} siblingCount={0} onPageChange={setPage} />
+      <Pagination page={compact} totalPages={5} siblingCount={0} color="violet" onPageChange={setCompact} />
+    </div>
+  );
 }
 
 const ROW_1: ReactNode[] = [
@@ -77,7 +74,7 @@ const ROW_2: ReactNode[] = [
   <Card key="select" name="Select"><Select placeholder="Pick a framework" options={[{ label: "React", value: "react" }, { label: "Vue", value: "vue" }, { label: "Angular", value: "angular" }]} /></Card>,
   <Card key="tabs" name="Tabs" w="w-72"><Tabs tabs={[{ label: "Install", content: <p className="pt-2 text-xs text-fg-muted">npm install lojee-ui</p> }, { label: "Style", content: <p className="pt-2 text-xs text-fg-muted">Light, dark, 12 accents.</p> }, { label: "Ship", content: <p className="pt-2 text-xs text-fg-muted">Web Components too.</p> }]} /></Card>,
   <Card key="slider" name="Slider"><Slider defaultValue={60} showValue /></Card>,
-  <Card key="pagination" name="Pagination" w="w-72"><Pager /></Card>,
+  <Card key="pagination" name="Pagination" w="w-96"><Pager /></Card>,
   <Card key="textarea" name="Textarea"><Textarea rows={2} placeholder="Write a message…" /></Card>,
 ];
 
@@ -190,6 +187,10 @@ function Reel({ items, dir, speed, style }: { items: ReactNode[]; dir: 1 | -1; s
   );
 }
 
+// Every card, dealt out across the three reels in turn so each row mixes small and large components.
+const ALL_CARDS: ReactNode[] = [...ROW_1, ...ROW_2, ...ROW_3, ...BASIC_REELS.flat(), ...FORMS_REELS.flat(), ...FEEDBACK_REELS.flat(), ...DATA_REELS.flat()];
+const REELS: ReactNode[][] = [0, 1, 2].map((r) => ALL_CARDS.filter((_, i) => i % 3 === r));
+
 /** Premium hero stage: three reels of live, interactive components gliding left, under a light beam. */
 export default function HeroPremium() {
   const [pt, setPt] = useState({ x: 0, y: 0 });
@@ -203,9 +204,9 @@ export default function HeroPremium() {
     <div className="relative mt-16 text-left" onPointerMove={onMove} onPointerLeave={() => setPt({ x: 0, y: 0 })}>
       <div className="lp-beam pointer-events-none absolute -top-24 left-1/2 -z-10 h-72 w-[70%] -translate-x-1/2" aria-hidden="true" />
       <div className="space-y-2">
-        <Reel items={ROW_1} dir={-1} speed={0.03} style={drift(-10)} />
-        <Reel items={ROW_2} dir={1} speed={0.024} style={drift(6)} />
-        <Reel items={ROW_3} dir={-1} speed={0.027} style={drift(-16)} />
+        <Reel items={REELS[0]} dir={-1} speed={0.045} style={drift(-10)} />
+        <Reel items={REELS[1]} dir={1} speed={0.036} style={drift(6)} />
+        <Reel items={REELS[2]} dir={-1} speed={0.04} style={drift(-16)} />
       </div>
     </div>
   );
