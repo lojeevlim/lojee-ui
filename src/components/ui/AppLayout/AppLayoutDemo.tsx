@@ -5,12 +5,29 @@ import { Navbar } from "../Navbar/Navbar";
 import { Sidebar } from "../Sidebar/Sidebar";
 import { App, Top, Side, Main, Foot, SideToggle } from "./App";
 import type { AccentName } from "../../../core/theme";
-import type { AppTheme, GridLayout } from "./appLayout";
+import type { AppSection, AppTheme, GridLayout } from "./appLayout";
 
-export default function AppLayoutDemo({ theme, accent, layout, height = 360, bare = false }: { theme?: AppTheme; accent?: AccentName; layout?: GridLayout; height?: number | string; bare?: boolean }) {
+export default function AppLayoutDemo({
+  theme,
+  accent,
+  layout,
+  height = 360,
+  bare = false,
+  hidden = [],
+}: {
+  theme?: AppTheme;
+  accent?: AccentName;
+  layout?: GridLayout;
+  height?: number | string;
+  bare?: boolean;
+  /** Sections to leave out of the shell (the layout passed in should already have their cells removed). */
+  hidden?: AppSection[];
+}) {
+  const shows = (s: AppSection) => !hidden.includes(s);
   return (
     <div className={bare ? "w-full overflow-hidden" : "w-full overflow-hidden rounded-lg border border-border"} style={{ height }}>
       <App className="h-full" theme={theme} accent={accent} layout={layout}>
+        {shows("top") && (
         <Top>
           <Navbar color="accent" brand={
               <>
@@ -19,6 +36,8 @@ export default function AppLayoutDemo({ theme, accent, layout, height = 360, bar
               </>
             } items={[{ label: "Overview", active: true }, { label: "Reports" }]} />
         </Top>
+        )}
+        {shows("side") && (
         <Side>
           <Sidebar
             color="accent"
@@ -32,6 +51,7 @@ export default function AppLayoutDemo({ theme, accent, layout, height = 360, bar
             ]}
           />
         </Side>
+        )}
         <Main>
           <div className="space-y-2">
             <h3 className="text-sm font-semibold text-fg">Dashboard</h3>
@@ -50,9 +70,11 @@ export default function AppLayoutDemo({ theme, accent, layout, height = 360, bar
             </div>
           </div>
         </Main>
+        {shows("footer") && (
         <Foot>
           <div className="border-t border-border bg-surface-muted px-8 py-1.5 text-[11px] text-fg-subtle">© 2026 Lojee, Inc.</div>
         </Foot>
+        )}
       </App>
     </div>
   );

@@ -143,3 +143,50 @@ function collapse(layout: GridLayout): GridLayout {
     lines.filter((line, i) => i === 0 || line.join() !== lines[i - 1].join());
   return transpose(dedupe(transpose(dedupe(layout))));
 }
+
+/** Every non-empty region is one filled rectangle (what `grid-template-areas` needs). */
+function regionsAreRectangles(layout: GridLayout): boolean {
+  const names = new Set(layout.flat());
+  return [...names].every((name) => {
+    const cells: [number, number][] = [];
+    layout.forEach((row, r) => row.forEach((s, c) => s === name && cells.push([r, c])));
+    const rs = cells.map(([r]) => r);
+    const cs = cells.map(([, c]) => c);
+    return (Math.max(...rs) - Math.min(...rs) + 1) * (Math.max(...cs) - Math.min(...cs) + 1) === cells.length;
+  });
+}
+
+/** The default arrangement for just the sections that are shown: top bar, then (side +) main, then footer. */
+function canonicalLayout(hidden: AppSection[]): GridLayout {
+  const has = (s: AppSection) => !hidden.includes(s);
+  const cols = has("side") ? 2 : 1;
+  const rows: GridLayout = [];
+  if (has("top")) rows.push(Array(cols).fill("top"));
+  rows.push(has("side") ? ["side", "main"] : ["main"]);
+  if (has("footer")) rows.push(Array(cols).fill("footer"));
+  return rows;
+}
+
+/**
+ * The layout with some sections taken out (`main` can't be removed). A section that fills whole rows or columns
+ * simply loses them; otherwise its cells go to `main`. Rows and columns that become identical neighbours are merged,
+ * and if the result isn't a valid arrangement the default one for the remaining sections is used instead.
+ */
+export function withoutSections(layout: GridLayout, hidden: AppSection[]): GridLayout {
+  const removed = hidden.filter((s) => s !== "main");
+  if (removed.length === 0) return layout;
+  let out = layout.map((row) => [...row]);
+  for (const x of removed) {
+    const fullRows = out.map((row, i) => (row.every((s) => s === x) ? i : -1)).filter((i) => i >= 0);
+    const fullCols = (out[0] ?? []).map((_, c) => (out.every((row) => row[c] === x) ? c : -1)).filter((c) => c >= 0);
+    if (fullRows.length) out = out.filter((_, i) => !fullRows.includes(i));
+    else if (fullCols.length) out = out.map((row) => row.filter((_, c) => !fullCols.includes(c)));
+    else out = out.map((row) => row.map((s) => (s === x ? "main" : s)));
+  }
+  // Merge identical neighbouring rows, then columns.
+  out = out.filter((row, i) => i === 0 || row.join() !== out[i - 1].join());
+  const colsOf = (g: GridLayout) => (g[0] ?? []).map((_, c) => g.map((row) => row[c]));
+  const keep = colsOf(out).map((col, c, all) => c === 0 || col.join() !== all[c - 1].join());
+  out = out.map((row) => row.filter((_, c) => keep[c]));
+  return out.length && out[0].length && regionsAreRectangles(out) ? out : canonicalLayout(removed);
+}

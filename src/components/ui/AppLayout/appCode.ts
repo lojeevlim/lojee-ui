@@ -1,5 +1,5 @@
 import type { CodeBlockVariants } from "../CodeBlock";
-import { DEFAULT_LAYOUT, type GridLayout } from "./appLayout";
+import { DEFAULT_LAYOUT, type AppSection, type GridLayout } from "./appLayout";
 
 interface AppCodeOptions {
   layout?: GridLayout;
@@ -7,6 +7,8 @@ interface AppCodeOptions {
   mode?: string;
   accent?: string;
   activeVariant?: string;
+  /** Sections left out of the example (their markup is omitted). */
+  hidden?: AppSection[];
   /** Stack into one column below this container width, like React's `collapseBelow` ("md" is the default). */
   collapseBelow?: string;
 }
@@ -37,26 +39,23 @@ export function appCodeVariants(react: string, opts: AppCodeOptions = {}): CodeB
   const appAttrs = opts.collapseBelow ? ` collapse-below="${opts.collapseBelow}"` : "";
 
   // The four sections, one block each; `itemsAttr` adds the framework-specific `items` binding / id.
+  const has = (section: AppSection) => !(opts.hidden ?? []).includes(section);
   const sections = (navAttr: string, sideAttr: string, indent: string) =>
     [
-      `<l-Top>`,
-      `  <l-Navbar${navAttr}><l-Side-Toggle slot="brand"></l-Side-Toggle></l-Navbar>`,
-      `</l-Top>`,
-      `<l-Side>`,
-      `  <l-Sidebar${sideAttr}></l-Sidebar>`,
-      `</l-Side>`,
+      ...(has("top") ? [`<l-Top>`, `  <l-Navbar${navAttr}><l-Side-Toggle slot="brand"></l-Side-Toggle></l-Navbar>`, `</l-Top>`] : []),
+      ...(has("side") ? [`<l-Side>`, `  <l-Sidebar${sideAttr}></l-Sidebar>`, `</l-Side>`] : []),
       `<l-Main>`,
       `  <l-Button color="accent" label="Solid"></l-Button>`,
       `  <l-Button color="accent" variant="outline" label="Outline"></l-Button>`,
       `  <l-Button color="accent" variant="soft" label="Soft"></l-Button>`,
       `  <l-Button variant="solid" color="accent" size="lg" animated="sweep" icon="plus" label="Click me"></l-Button>`,
       `</l-Main>`,
-      `<l-Foot>`,
-      `  <l-Footer bottom="© 2026 Lojee, Inc. All rights reserved." variant="minimal"></l-Footer>`,
-      `</l-Foot>`,
+      ...(has("footer") ? [`<l-Foot>`, `  <l-Footer bottom="© 2026 Lojee, Inc. All rights reserved." variant="minimal"></l-Footer>`, `</l-Foot>`] : []),
     ]
       .map((l) => indent + l)
       .join("\n");
+  const needsItems = has("top") || has("side");
+  const itemLines = [has("top") ? `  document.getElementById("nav").items = items;` : "", has("side") ? `  document.getElementById("side").items = items;` : ""].filter(Boolean).join("\n");
 
   return {
     react,
@@ -69,9 +68,7 @@ ${sections(' id="nav"', ' id="side"', "    ")}
 <script type="module">
   import "lojee-ui/elements";
 ${customLayout ? `\n  document.getElementById("app").layout = ${layoutLiteral};` : ""}
-  const items = ${ITEMS};
-  document.getElementById("nav").items = items;
-  document.getElementById("side").items = items;
+${needsItems ? `  const items = ${ITEMS};\n${itemLines}` : ""}
 </script>`,
     vue: `<template>
   <l-Theme-Provider ${providerAttrs}>
@@ -83,9 +80,7 @@ ${sections(' :items="items"', ' :items="items"', "      ")}
 
 <script setup lang="ts">
 import "lojee-ui/elements";
-
-const items = ${ITEMS};
-</script>`,
+${needsItems ? `\nconst items = ${ITEMS};\n` : ""}</script>`,
     angular: `// app.component.ts
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import "lojee-ui/elements";
@@ -102,8 +97,7 @@ ${sections(' [items]="items"', ' [items]="items"', "        ")}
     </l-Theme-Provider>
   \`,
 })
-export class AppComponent {
-  items = ${ITEMS};
+export class AppComponent {${needsItems ? `\n  items = ${ITEMS};` : ""}
 }`,
   };
 }
