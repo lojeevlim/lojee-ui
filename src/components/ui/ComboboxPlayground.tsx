@@ -49,7 +49,7 @@ export default function ComboboxPlayground() {
 
   const codeVariants: CodeBlockVariants = {
     react: code,
-    js: `<l-Combobox id="city-combobox" placeholder="${placeholder}"${valueAttr}${motion.attrs} />
+    js: `<l-Combobox id="city-combobox" placeholder="${placeholder}"${valueAttr}${motion.attrs}></l-Combobox>
 
 <script type="module">
   import "lojee-ui/elements";

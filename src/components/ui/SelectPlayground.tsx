@@ -57,7 +57,7 @@ export default function SelectPlayground() {
     react: code,
     js: `${OPTIONS_SNIPPET}
 
-<l-Select ${selectAttrs} />
+<l-Select ${selectAttrs}></l-Select>
 
 <script type="module">
   import "lojee-ui/elements";

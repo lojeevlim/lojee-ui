@@ -3,7 +3,6 @@ import { FlowDiagram, type FlowCurve, type FlowVariant } from "./FlowDiagram/Flo
 import { SAMPLE_NAMES, sampleByName } from "./FlowDiagram/samples";
 import { Icon } from "./Icons/Icon";
 import { ColorSwatches, OptionGroup, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
-import type { ColorName } from "../../core/tokens";
 import type { CodeBlockVariants } from "./CodeBlock";
 
 const VARIANTS: FlowVariant[] = ["schematic", "blueprint", "minimal", "solid", "outline", "glow"];
@@ -24,7 +23,7 @@ export default function FlowDiagramPlayground() {
   const [variant, setVariant] = useState<FlowVariant>("schematic");
   const [curve, setCurve] = useState<FlowCurve>("smooth");
   const [direction, setDirection] = useState<(typeof DIRECTIONS)[number]>("auto");
-  const [color, setColor] = useState<ColorName>("accent");
+  const [color, setColor] = useState<string>("accent");
   const [speed, setSpeed] = useState<(typeof SPEEDS)[number]>("normal");
   const [packets, setPackets] = useState(true);
   const [animated, setAnimated] = useState(true);
@@ -151,7 +150,7 @@ edges = ${s.edgesCode};`,
       <OptionGroup label="Variant" options={VARIANTS} value={variant} onChange={setVariant} />
       <OptionGroup label="Wires" options={CURVES} value={curve} onChange={setCurve} />
       <OptionGroup label="Direction" options={DIRECTIONS} value={direction} onChange={setDirection} />
-      <ColorSwatches value={color} onChange={setColor} />
+      <ColorSwatches value={color} onChange={setColor} custom />
       <OptionGroup label="Packet speed" options={SPEEDS} value={speed} onChange={setSpeed} />
       <Check label="Packets" checked={packets} onChange={setPackets} />
       <Check label="Animated wires" checked={animated} onChange={setAnimated} />

@@ -58,7 +58,7 @@ export default function CarouselPlayground() {
 
   const codeVariants: CodeBlockVariants = {
     react: code,
-    js: `<l-Carousel id="carousel-demo"${attrs} />
+    js: `<l-Carousel id="carousel-demo"${attrs}></l-Carousel>
 
 <script type="module">
   import "lojee-ui/elements";

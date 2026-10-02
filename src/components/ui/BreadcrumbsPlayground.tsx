@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Breadcrumbs } from "./Breadcrumbs/Breadcrumbs";
 import { BreadcrumbItem } from "./Breadcrumbs/BreadcrumbItem";
 import { OptionGroup, ColorSwatches, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
-import type { ColorName } from "../../core/tokens";
 import type { CodeBlockVariants } from "./CodeBlock";
 import { useMotion } from "./playgroundMotion";
 
@@ -11,7 +10,7 @@ const VARIANTS = ["text", "solid", "outline", "soft"] as const;
 export default function BreadcrumbsPlayground() {
   const motion = useMotion({ hover: false });
   const [lastIcon, setLastIcon] = useState(false);
-  const [color, setColor] = useState<ColorName>("accent");
+  const [color, setColor] = useState<string>("accent");
   const [variant, setVariant] = useState<(typeof VARIANTS)[number]>("text");
 
   // "accent" / "text" are the defaults, so they are only written out when changed.
@@ -58,7 +57,7 @@ export default function BreadcrumbsPlayground() {
   return (
     <PlaygroundLayout preview={preview} variants={codeVariants}>
       <OptionGroup label="Variant" options={VARIANTS} value={variant} onChange={setVariant} />
-      <ColorSwatches value={color} onChange={setColor} />
+      <ColorSwatches value={color} onChange={setColor} custom />
       <div>
         <span className="mb-1.5 block text-xs font-medium text-fg-subtle">Options</span>
         <div className="flex flex-wrap gap-1.5">

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { PREVIEW_PAGE_BG } from "./playgroundUtils";
 import { AppWindowFrame, OptionGroup, PlaygroundLayout } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
 import { ThemeSwitcher } from "./ThemeSwitcher/ThemeSwitcher";
@@ -17,7 +18,7 @@ export default function ThemeSwitcherPlayground() {
   const preview = (
     <AppWindowFrame className="overflow-auto">
       {/* The button stays put near the top of the window; only the dropdown moves with `align`. */}
-      <div className="flex min-h-[460px] min-w-[480px] flex-1 items-start justify-center bg-surface px-6 pb-6 pt-8">
+      <div className={`flex min-h-[460px] min-w-[480px] flex-1 items-start justify-center ${PREVIEW_PAGE_BG} px-6 pb-6 pt-8`}>
         <ThemeSwitcher align={align} showActiveItems={activeItems === "on"} showAccent={accent === "on"} open={pinned === "on" ? true : undefined} />
       </div>
     </AppWindowFrame>

@@ -1,7 +1,7 @@
 import { useState } from "react";
+import { PREVIEW_PAGE_BG } from "./playgroundUtils";
 import { Sidebar, type SidebarVariant } from "./Sidebar/Sidebar";
 import { OptionGroup, ColorSwatches, PlaygroundLayout, AppWindowFrame } from "./PlaygroundHelpers";
-import { isColorName, COLOR_HEX } from "../../core/tokens";
 import { TRANSITIONS, type TransitionVariant } from "../../core/motion";
 import type { CodeBlockVariants } from "./CodeBlock";
 import { useMotion } from "./playgroundMotion";
@@ -13,13 +13,13 @@ const VARIANTS: SidebarVariant[] = ["light", "dark", "bordered", "elevated", "mi
 // (it's meant to blend into the page) — this wrapper is purely so its boundary is visible in the
 // playground UI, not something a real usage needs to replicate.
 const DOCK_CELL_CLASSES: Record<SidebarVariant, string> = {
-  light: "",
-  dark: "",
-  bordered: "",
-  elevated: "",
-  gradient: "",
-  glass: "",
-  minimal: "flex bg-surface-muted p-3",
+  light: "flex",
+  dark: "flex",
+  bordered: "flex",
+  elevated: "flex",
+  gradient: "flex",
+  glass: "flex",
+  minimal: `flex ${PREVIEW_PAGE_BG} p-3`,
 };
 
 // `items` instead of composed SidebarMenuItems — dark/color/collapsed theming and the
@@ -66,18 +66,18 @@ export default function SidebarPlayground() {
     // core/tooltipPortal.ts) instead of relying on CSS overflow to escape
     // it, so the frame can keep its rounded corners clipped unconditionally.
     <AppWindowFrame>
-      <div className="flex" style={{ height: 425 }}>
+      <div className="flex h-full flex-1">
         <div className={DOCK_CELL_CLASSES[variant]}>
           <Sidebar
             key={`${defaultActiveItemValue}-${motion.replayKey}`}
             {...motion.props}
             width={width}
-            // Without this, every variant defaults to height="100vh" and just gets clipped by
-            // AppWindowFrame's overflow-hidden down to this frame's 425px — invisible for the
-            // edge-docking variants (nothing structural near their bottom edge to cut off), but
-            // "bordered"/"elevated"/"minimal" have a bottom edge (rounded corners, in-box padding)
-            // that needs to actually fit within 425px, not just be sliced off mid-shape.
-            height="100%"
+            // Fills the preview window's full height: the dock cell is a flex box and the sidebar stretches inside it
+            // (`self-stretch` with `height="auto"`), which works however tall the window ends up — a percentage height
+            // would need every ancestor to have an explicit height. "bordered"/"elevated"/"minimal" keep their bottom
+            // edge (rounded corners, in-box padding) inside the window instead of being sliced off.
+            height="auto"
+            className="self-stretch"
             collapsed={collapsed}
             variant={variant}
             color={color}
@@ -95,7 +95,7 @@ export default function SidebarPlayground() {
             items={NAV_ITEMS}
           />
         </div>
-        <div className="flex-1 overflow-y-auto bg-surface-muted" />
+        <div className={`flex-1 overflow-y-auto ${PREVIEW_PAGE_BG}`} />
       </div>
     </AppWindowFrame>
   );
@@ -227,40 +227,7 @@ export class AppComponent {
         value={defaultActiveItem}
         onChange={setDefaultActiveItem}
       />
-      <ColorSwatches
-        // Only ever reflects a *named* selection back onto the fixed swatch
-        // row — a custom color from the wheel below naturally shows none of
-        // them as selected, which is the correct state (it isn't one of them).
-        value={isColorName(color) ? color : "accent"}
-        onChange={setColor}
-        actions={
-          <label
-            className="flex cursor-pointer items-center gap-1.5 rounded-md px-1.5 py-0.5 text-xs font-medium text-fg-subtle transition-colors hover:bg-surface-muted hover:text-fg-muted"
-            title="Pick a custom color — not limited to the swatches above"
-          >
-            {/* A real color wheel: whatever hue the user picks is used
-                exactly as-is (no snapping to the nearest built-in swatch),
-                since `Sidebar`'s `color` prop now accepts any CSS color
-                value, not just a ColorName. The input itself is invisible
-                and overlaid on a swatch showing the current color, since
-                native color inputs can't otherwise be restyled to match the
-                swatches above it. */}
-            <span
-              className="relative flex h-4 w-4 shrink-0 items-center justify-center rounded-full ring-1 ring-inset ring-black/10"
-              style={{ backgroundColor: isColorName(color) ? COLOR_HEX[color] : color }}
-            >
-              <input
-                type="color"
-                value={isColorName(color) ? COLOR_HEX[color] : color}
-                onChange={(e) => setColor(e.target.value)}
-                aria-label="Pick a custom color"
-                className="absolute inset-0 h-full w-full cursor-pointer opacity-0"
-              />
-            </span>
-            Custom
-          </label>
-        }
-      />
+      <ColorSwatches value={color} onChange={setColor} custom />
       <div className="flex items-center gap-4 sm:col-span-2">
         <label className="flex items-center gap-2 text-xs font-medium text-fg-subtle">
           <input type="checkbox" checked={collapsible} onChange={(e) => setCollapsible(e.target.checked)} />

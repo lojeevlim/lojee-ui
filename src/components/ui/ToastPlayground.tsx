@@ -59,7 +59,7 @@ export default function ToastPlayground() {
 
   const codeVariants: CodeBlockVariants = {
     react: code,
-    js: `<l-Button label="Show toast" id="show-toast-btn" />
+    js: `<l-Button label="Show toast" id="show-toast-btn"></l-Button>
 ${htmlMarkup}
 
 <script type="module">

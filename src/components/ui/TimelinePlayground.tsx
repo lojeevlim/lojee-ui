@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { PREVIEW_PAGE_BG } from "./playgroundUtils";
 import { Timeline, type TimelineItem, type TimelineOrientation } from "./Timeline/Timeline";
 import { OptionGroup, PlaygroundLayout, AppWindowFrame } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
@@ -25,11 +26,11 @@ export default function TimelinePlayground() {
   const preview = (
     <AppWindowFrame>
       {orientation === "vertical" ? (
-        <div className="flex justify-center bg-surface p-10" style={{ minHeight: 260 }}>
+        <div className={`flex flex-1 justify-center ${PREVIEW_PAGE_BG} p-10`} style={{ minHeight: 260 }}>
           <Timeline key={motion.replayKey} {...motion.props} items={SAMPLE_ITEMS} orientation={orientation} />
         </div>
       ) : (
-        <div className="flex items-center bg-surface p-10" style={{ minHeight: 200 }}>
+        <div className={`flex flex-1 items-center ${PREVIEW_PAGE_BG} p-10`} style={{ minHeight: 200 }}>
           <Timeline key={motion.replayKey} {...motion.props} items={SAMPLE_ITEMS} orientation={orientation} className="w-full" />
         </div>
       )}

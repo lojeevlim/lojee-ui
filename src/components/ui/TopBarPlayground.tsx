@@ -1,7 +1,7 @@
 import { useState } from "react";
+import { PREVIEW_PAGE_BG } from "./playgroundUtils";
 import { TopBar, type TopBarAction, type TopBarVariant, type TopBarSize } from "./TopBar/TopBar";
 import { OptionGroup, ColorSwatches, PlaygroundLayout, AppWindowFrame } from "./PlaygroundHelpers";
-import type { ColorName } from "../../core/tokens";
 import type { CodeBlockVariants } from "./CodeBlock";
 import { useMotion } from "./playgroundMotion";
 
@@ -25,7 +25,7 @@ export default function TopBarPlayground() {
   const motion = useMotion();
   const [variant, setVariant] = useState<TopBarVariant>("light");
   const [size, setSize] = useState<TopBarSize>("md");
-  const [color, setColor] = useState<ColorName>("accent");
+  const [color, setColor] = useState<string>("accent");
   const [title, setTitle] = useState("Dashboard");
   const [subtitle, setSubtitle] = useState<(typeof TOGGLE)[number]>("on");
   const [back, setBack] = useState<(typeof TOGGLE)[number]>("off");
@@ -44,7 +44,7 @@ export default function TopBarPlayground() {
   const preview = (
     <AppWindowFrame>
       {/* Docks to the top of a page; sticky sticks to this scrolling area. */}
-      <div className="h-[340px] flex-1 overflow-y-auto bg-surface">
+      <div className={`h-[340px] flex-1 overflow-y-auto ${PREVIEW_PAGE_BG}`}>
         <TopBar
           key={motion.replayKey}
           {...motion.props}
@@ -122,7 +122,7 @@ export default function TopBarPlayground() {
         />
       </div>
       <OptionGroup label="Variant" options={VARIANTS} value={variant} onChange={setVariant} />
-      {variant === "accent" && <ColorSwatches label="Color" value={color} onChange={setColor} />}
+      {variant === "accent" && <ColorSwatches label="Color" value={color} onChange={setColor} custom />}
       <OptionGroup label="Size" options={SIZES} value={size} onChange={setSize} />
       <OptionGroup label="Subtitle" options={TOGGLE} value={subtitle} onChange={setSubtitle} />
       <OptionGroup label="Back button" options={TOGGLE} value={back} onChange={setBack} />

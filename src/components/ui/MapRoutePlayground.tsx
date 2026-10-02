@@ -4,7 +4,6 @@ import { MapMarker } from "./MapMarker/MapMarker";
 import { OptionGroup, ColorSwatches, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import { mapCode, type CodeProp } from "./Map/showcase/mapCode";
 import { CITY_HALL, CEBU_LOOP, AIRPORT } from "./Map/samples";
-import type { ColorName } from "../../core/tokens";
 import type { MapRouteData } from "./Map/mapTypes";
 
 const SOURCES = ["Drawn line", "Road (OSRM)"] as const;
@@ -13,7 +12,7 @@ const WIDTHS = ["3", "5", "8"] as const;
 
 export default function MapRoutePlayground() {
   const [source, setSource] = useState<(typeof SOURCES)[number]>("Drawn line");
-  const [color, setColor] = useState<ColorName>("accent");
+  const [color, setColor] = useState<string>("accent");
   const [line, setLine] = useState<(typeof LINES)[number]>("solid");
   const [width, setWidth] = useState<(typeof WIDTHS)[number]>("5");
   const [progressOn, setProgressOn] = useState(false);
@@ -82,7 +81,7 @@ export default function MapRoutePlayground() {
     >
       <OptionGroup label="Route" options={SOURCES} value={source} onChange={setSource} />
       <OptionGroup label="Line" options={LINES} value={line} onChange={setLine} />
-      <ColorSwatches value={color} onChange={setColor} />
+      <ColorSwatches value={color} onChange={setColor} custom />
       <OptionGroup label="Width" options={WIDTHS} value={width} onChange={setWidth} />
       <div className="sm:col-span-2">
         <label className="flex items-center gap-2 text-xs font-medium text-fg-subtle">
