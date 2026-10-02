@@ -98,6 +98,21 @@ export const COMPONENT_MENU: Menu[]  = [
                 label: "Carousels",
             },
 
+            {
+                icon: "image",
+                label: "Images",
+            },
+
+            {
+                icon: "video",
+                label: "Videos",
+            },
+
+            {
+                icon: "code",
+                label: "Code Snippet",
+            },
+
         ],
     },
 
@@ -180,6 +195,32 @@ export const COMPONENT_MENU: Menu[]  = [
                 icon: "sliders-vertical",
                 label: "Range Slider",
             },
+
+            {
+                icon: "tag",
+                label: "Tag Input",
+            },
+
+            {
+                icon: "hash",
+                label: "Number Input",
+            },
+
+            {
+                icon: "shield-check",
+                label: "OTP Input",
+            },
+
+            {
+                icon: "star",
+                label: "Rating",
+            },
+
+            {
+                icon: "palette",
+                label: "Color Picker",
+            },
+
 
         ],
     },
@@ -280,6 +321,11 @@ export const COMPONENT_MENU: Menu[]  = [
             {
                 icon: "loader",
                 label: "Loading State",
+            },
+
+            {
+                icon: "loader",
+                label: "Skeletons",
             },
 
         ],

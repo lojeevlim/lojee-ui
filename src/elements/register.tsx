@@ -24,6 +24,16 @@ import { ThemeSwitcher } from "../components/ui/ThemeSwitcher/ThemeSwitcher";
 import { AppElement, SideToggleElement, ThemeProviderElement } from "./app-element";
 import { Badge } from "../components/ui/Badge/Badge";
 import { Avatar } from "../components/ui/Avatar/Avatar";
+import { Image } from "../components/ui/Image/Image";
+import { Video } from "../components/ui/Video/Video";
+import { Skeleton } from "../components/ui/Skeleton/Skeleton";
+import { TagInput } from "../components/ui/TagInput/TagInput";
+import { NumberInput } from "../components/ui/NumberInput/NumberInput";
+import { OtpInput } from "../components/ui/OtpInput/OtpInput";
+import { Rating } from "../components/ui/Rating/Rating";
+import { ColorPicker } from "../components/ui/ColorPicker/ColorPicker";
+import { CopyButton } from "../components/ui/CodeSnippet/CopyButton";
+import { CodeSnippetElement } from "./code-snippet-element";
 import { AvatarGroup } from "../components/ui/Avatar/AvatarGroup";
 import { Icon } from "../components/ui/Icons/Icon";
 import { Spinner } from "../components/ui/Spinner/Spinner";
@@ -289,7 +299,7 @@ customElements.define(
   "l-tooltip",
   r2wc(withTailwind(Tooltip), {
     shadow: "open",
-    props: { content: "string", position: "string", delayMs: "number", color: "string", transition: "string", transitionDuration: "number", transitionDelay: "number" },
+    props: { content: "string", position: "string", size: "string", delayMs: "number", color: "string", open: "boolean", transition: "string", transitionDuration: "number", transitionDelay: "number" },
   })
 );
 
@@ -1409,3 +1419,142 @@ customElements.define(
 );
 
 defineAppSections();
+
+// Media. `fallback` is a slot: `<span slot="fallback">…</span>` replaces the placeholder shown when loading fails.
+customElements.define(
+  "l-image",
+  r2wc(withHostBlock(withTailwind(withSlots(Image, { fallback: "fallback" }))), {
+    shadow: "open",
+    props: {
+      src: "string",
+      alt: "string",
+      width: "string",
+      height: "string",
+      ratio: "string",
+      fit: "string",
+      rounded: "string",
+      loading: "string",
+      borderless: "boolean",
+      caption: "string",
+      transition: "string",
+      transitionDuration: "number",
+      transitionDelay: "number",
+      hoverEffect: "string",
+    },
+    events: {
+      onLoad: {}, // dispatches "load"
+      onError: {}, // dispatches "error"
+    },
+  })
+);
+
+customElements.define(
+  "l-video",
+  r2wc(withHostBlock(withTailwind(withSlots(Video, { fallback: "fallback" }))), {
+    shadow: "open",
+    props: {
+      src: "string",
+      sources: "json",
+      poster: "string",
+      label: "string",
+      controls: "boolean",
+      autoPlay: "boolean",
+      muted: "boolean",
+      loop: "boolean",
+      playsInline: "boolean",
+      preload: "string",
+      ratio: "string",
+      fit: "string",
+      rounded: "string",
+      caption: "string",
+      transition: "string",
+      transitionDuration: "number",
+      transitionDelay: "number",
+      hoverEffect: "string",
+    },
+    events: {
+      onPlay: {}, // dispatches "play"
+      onPause: {}, // dispatches "pause"
+      onEnded: {}, // dispatches "ended"
+      onLoad: {}, // dispatches "load", detail = duration in seconds
+      onError: {}, // dispatches "error"
+    },
+  })
+);
+
+// Loading placeholder.
+customElements.define(
+  "l-skeleton",
+  r2wc(withHostBlock(withTailwind(Skeleton)), {
+    shadow: "open",
+    props: { variant: "string", width: "string", height: "string", size: "number", lines: "number", animation: "string", transition: "string", transitionDuration: "number", transitionDelay: "number" },
+  })
+);
+
+// Inputs. Each keeps its own value (so it works with nothing wired up) and also follows the `value` attribute / property;
+// `change` carries the new value in `event.detail`.
+customElements.define(
+  "l-tag-input",
+  r2wc(withHostBlock(withTailwind(TagInput)), {
+    shadow: "open",
+    props: { value: "json", placeholder: "string", maxTags: "number", allowDuplicates: "boolean", color: "string", invalid: "boolean", disabled: "boolean" },
+    events: { onChange: {} }, // dispatches "change", detail = string[]
+  })
+);
+
+customElements.define(
+  "l-number-input",
+  r2wc(withHostBlock(withTailwind(NumberInput)), {
+    shadow: "open",
+    props: { value: "number", min: "number", max: "number", step: "number", precision: "number", placeholder: "string", size: "string", invalid: "boolean", disabled: "boolean" },
+    events: { onChange: {} }, // dispatches "change", detail = number | undefined
+  })
+);
+
+customElements.define(
+  "l-otp-input",
+  r2wc(withHostBlock(withTailwind(OtpInput)), {
+    shadow: "open",
+    props: { length: "number", value: "string", type: "string", mask: "boolean", autoFocus: "boolean", size: "string", invalid: "boolean", disabled: "boolean" },
+    events: {
+      onChange: {}, // dispatches "change", detail = the code so far
+      onComplete: {}, // dispatches "complete", detail = the full code
+    },
+  })
+);
+
+customElements.define(
+  "l-rating",
+  r2wc(withHostBlock(withTailwind(Rating)), {
+    shadow: "open",
+    props: { value: "number", max: "number", allowHalf: "boolean", readOnly: "boolean", size: "string", label: "string" },
+    events: { onChange: {} }, // dispatches "change", detail = number
+  })
+);
+
+customElements.define(
+  "l-color-picker",
+  r2wc(withHostBlock(withTailwind(ColorPicker)), {
+    shadow: "open",
+    props: { value: "string", presets: "json", showInput: "boolean", disabled: "boolean" },
+    events: { onChange: {} }, // dispatches "change", detail = "#rrggbb"
+  })
+);
+
+// Code.
+customElements.define(
+  "l-copy-button",
+  r2wc(withTailwind(CopyButton), {
+    shadow: "open",
+    props: { text: "string", label: "string", copiedLabel: "string", iconOnly: "boolean", resetAfter: "number" },
+    events: { onCopy: {} }, // dispatches "copy", detail = the copied text
+  })
+);
+
+customElements.define(
+  "l-code-snippet",
+  r2wc(withHostBlock(withTailwind(CodeSnippetElement)), {
+    shadow: "open",
+    props: { code: "string", language: "string", heading: "string", lineNumbers: "boolean", copyable: "boolean" },
+  })
+);
