@@ -1,7 +1,7 @@
 import { useState } from "react";
+import { PREVIEW_PAGE_BG } from "./playgroundUtils";
 import { BottomNavigation, type BottomNavigationItem } from "./BottomNavigation/BottomNavigation";
 import { OptionGroup, ColorSwatches, PlaygroundLayout, AppWindowFrame } from "./PlaygroundHelpers";
-import type { ColorName } from "../../core/tokens";
 import type { ActiveVariant } from "../../core/activeVariant";
 import type { CodeBlockVariants } from "./CodeBlock";
 import { useMotion } from "./playgroundMotion";
@@ -18,7 +18,7 @@ const ICONS: Record<(typeof LABELS)[number], string> = {
 
 export default function BottomNavigationPlayground() {
   const motion = useMotion();
-  const [color, setColor] = useState<ColorName>("accent");
+  const [color, setColor] = useState<string>("accent");
   const [variant, setVariant] = useState<(typeof VARIANTS)[number]>("theme");
   const [activeLabel, setActiveLabel] = useState<(typeof LABELS)[number]>("Home");
 
@@ -33,7 +33,7 @@ export default function BottomNavigationPlayground() {
   const preview = (
     <AppWindowFrame className="mx-auto max-w-xs">
       {/* Fills the (full-height) preview window with the bar pinned to its bottom edge, like a phone screen. */}
-      <div className="flex min-h-[280px] flex-1 flex-col justify-between bg-surface">
+      <div className={`flex min-h-[280px] flex-1 flex-col justify-between ${PREVIEW_PAGE_BG}`}>
         <div className="m-4 flex flex-1 items-center justify-center rounded-xl border border-dashed border-border text-sm text-border-strong">
           Page content
         </div>
@@ -67,7 +67,7 @@ export default function BottomNavigationPlayground() {
 ${itemsCode}
   ]}
 />`,
-    js: `<l-BottomNavigation id="bottom-nav-demo"${attrStr} />
+    js: `<l-BottomNavigation id="bottom-nav-demo"${attrStr}></l-BottomNavigation>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -98,7 +98,7 @@ ${itemsCode}
   return (
     <PlaygroundLayout preview={preview} variants={codeVariants}>
       <OptionGroup label="Variant" options={VARIANTS} value={variant} onChange={setVariant} />
-      <ColorSwatches value={color} onChange={setColor} />
+      <ColorSwatches value={color} onChange={setColor} custom />
       <OptionGroup label="Active tab" options={LABELS} value={activeLabel} onChange={setActiveLabel} />
       {motion.controls}
     </PlaygroundLayout>

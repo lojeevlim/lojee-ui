@@ -1,8 +1,8 @@
 import { useState } from "react";
+import { PREVIEW_PAGE_BG } from "./playgroundUtils";
 import { Stepper, type StepperStep, type StepperOrientation } from "./Stepper/Stepper";
 import { StepperItem } from "./Stepper/StepperItem";
 import { OptionGroup, ColorSwatches, PlaygroundLayout, AppWindowFrame } from "./PlaygroundHelpers";
-import type { ColorName } from "../../core/tokens";
 import type { CodeBlockVariants } from "./CodeBlock";
 import { useMotion } from "./playgroundMotion";
 
@@ -48,7 +48,7 @@ const SLOTS_CODE = `  <l-stepper-item step="0">Review the items in your cart.</l
 export default function StepperPlayground() {
   const motion = useMotion();
   const [orientation, setOrientation] = useState<StepperOrientation>("horizontal");
-  const [color, setColor] = useState<ColorName>("accent");
+  const [color, setColor] = useState<string>("accent");
   const [currentStep, setCurrentStep] = useState<(typeof STEP_INDICES)[number]>("1");
   const [mode, setMode] = useState<SectionMode>("items");
   const [nav, setNav] = useState<(typeof TOGGLE)[number]>("on");
@@ -84,7 +84,7 @@ export default function StepperPlayground() {
 
   const preview = (
     <AppWindowFrame>
-      <div className="min-h-[300px] flex-1 bg-surface p-6">{stepper}</div>
+      <div className={`min-h-[300px] flex-1 ${PREVIEW_PAGE_BG} p-6`}>{stepper}</div>
     </AppWindowFrame>
   );
 
@@ -190,7 +190,7 @@ ${stepsCode}
   return (
     <PlaygroundLayout preview={preview} variants={codeVariants}>
       <OptionGroup label="Orientation" options={ORIENTATIONS} value={orientation} onChange={setOrientation} />
-      <ColorSwatches value={color} onChange={setColor} />
+      <ColorSwatches value={color} onChange={setColor} custom />
       <OptionGroup label="Step sections" options={SECTION_MODES} value={mode} onChange={setMode} />
       <OptionGroup label="Navigation buttons" options={TOGGLE} value={nav} onChange={setNav} />
       <OptionGroup label="Current step" options={STEP_INDICES} value={currentStep} onChange={setCurrentStep} />

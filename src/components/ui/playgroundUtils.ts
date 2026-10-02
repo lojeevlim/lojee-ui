@@ -22,3 +22,6 @@ export const swatchClasses: Record<ColorName, string> = {
   rose: "bg-rose-500",
   pink: "bg-pink-500",
 };
+
+/** Background of the "page" a docked component sits on inside a playground's preview window: the theme surface with a hint of the accent, so it follows the accent and light/dark mode and the component itself stands out against it. */
+export const PREVIEW_PAGE_BG = "bg-[color-mix(in_srgb,var(--color-accent-500)_6%,var(--color-surface))]";

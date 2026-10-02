@@ -3,7 +3,6 @@ import { Map } from "./Map/Map";
 import { OptionGroup, ColorSwatches, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import { mapCode, type CodeProp } from "./Map/showcase/mapCode";
 import { CEBU_STOPS } from "./Map/samples";
-import type { ColorName } from "../../core/tokens";
 import type { MapMarkerData } from "./Map/mapTypes";
 
 const ICONS = ["none", "home", "star", "heart", "flag", "store", "building-2"] as const;
@@ -18,7 +17,7 @@ const Check = ({ label, checked, onChange }: { label: string; checked: boolean; 
 
 export default function MapMarkerPlayground() {
   const [count, setCount] = useState<(typeof COUNTS)[number]>("3");
-  const [color, setColor] = useState<ColorName>("accent");
+  const [color, setColor] = useState<string>("accent");
   const [icon, setIcon] = useState<(typeof ICONS)[number]>("none");
   const [label, setLabel] = useState(true);
   const [popup, setPopup] = useState(true);
@@ -66,7 +65,7 @@ export default function MapMarkerPlayground() {
     >
       <OptionGroup label="Markers" options={COUNTS} value={count} onChange={setCount} />
       <OptionGroup label="Icon" options={ICONS} value={icon} onChange={setIcon} />
-      <ColorSwatches value={color} onChange={setColor} />
+      <ColorSwatches value={color} onChange={setColor} custom />
       <div className="space-y-2">
         <Check label="Label" checked={label} onChange={setLabel} />
         <Check label="Popup (click)" checked={popup} onChange={setPopup} />

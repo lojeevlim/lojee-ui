@@ -1,8 +1,8 @@
 import { useState } from "react";
+import { PREVIEW_PAGE_BG } from "./playgroundUtils";
 import { Header, type HeaderVariant } from "./Header/Header";
 import { Button } from "./Buttons/Button";
 import { OptionGroup, ColorSwatches, PlaygroundLayout, AppWindowFrame } from "./PlaygroundHelpers";
-import { isColorName, COLOR_HEX } from "../../core/tokens";
 import type { CodeBlockVariants } from "./CodeBlock";
 import { useMotion } from "./playgroundMotion";
 
@@ -38,28 +38,33 @@ export default function HeaderPlayground() {
   // real page instead of floating on its own.
   const preview = (
     <AppWindowFrame>
-      <div className="overflow-y-auto bg-surface p-6" style={{ height: 280 }}>
-        <div className={previewWrapperClass}>
-          <Header
-            key={motion.replayKey}
-            {...motion.props}
-            title={titleValue}
-            description={description || undefined}
-            variant={variant}
-            color={color}
-            borderWidth={borderWidth}
-            actions={
-              showActions ? (
-                <>
-                  <Button variant="outline" label="Import" className={importButtonClass} />
-                  <Button label="New project" />
-                </>
-              ) : undefined
-            }
-          />
+      <div className="flex min-h-[280px] flex-1 flex-col overflow-y-auto">
+        {/* The header sits at the top on the plain page surface, with the rest of the page (tinted by the theme) below it. */}
+        <div className="bg-surface px-6 pt-5">
+          <div className={previewWrapperClass}>
+            <Header
+              key={motion.replayKey}
+              {...motion.props}
+              title={titleValue}
+              description={description || undefined}
+              variant={variant}
+              color={color}
+              borderWidth={borderWidth}
+              actions={
+                showActions ? (
+                  <>
+                    <Button variant="outline" label="Import" className={importButtonClass} />
+                    <Button label="New project" />
+                  </>
+                ) : undefined
+              }
+            />
+          </div>
         </div>
-        <div className="mt-6 flex h-28 items-center justify-center rounded-xl border border-dashed border-border text-sm text-fg-subtle">
-          Page content
+        <div className={`flex-1 ${PREVIEW_PAGE_BG} p-6`}>
+          <div className="flex h-full min-h-28 items-center justify-center rounded-xl border border-dashed border-border text-sm text-fg-subtle">
+            Page content
+          </div>
         </div>
       </div>
     </AppWindowFrame>
@@ -146,40 +151,7 @@ export default function HeaderPlayground() {
           />
         </div>
       )}
-      <ColorSwatches
-        // Only ever reflects a *named* selection back onto the fixed swatch
-        // row — a custom color from the wheel below naturally shows none of
-        // them as selected, which is the correct state (it isn't one of them).
-        value={isColorName(color) ? color : "accent"}
-        onChange={setColor}
-        actions={
-          <label
-            className="flex cursor-pointer items-center gap-1.5 rounded-md px-1.5 py-0.5 text-xs font-medium text-fg-subtle transition-colors hover:bg-surface-muted hover:text-fg-muted"
-            title="Pick a custom color — not limited to the swatches above"
-          >
-            {/* A real color wheel: whatever hue the user picks is used
-                exactly as-is (no snapping to the nearest built-in swatch),
-                since `Header`'s `color` prop accepts any CSS color value,
-                not just a ColorName. The input itself is invisible and
-                overlaid on a swatch showing the current color, since native
-                color inputs can't otherwise be restyled to match the
-                swatches above it. */}
-            <span
-              className="relative flex h-4 w-4 shrink-0 items-center justify-center rounded-full ring-1 ring-inset ring-black/10"
-              style={{ backgroundColor: isColorName(color) ? COLOR_HEX[color] : color }}
-            >
-              <input
-                type="color"
-                value={isColorName(color) ? COLOR_HEX[color] : color}
-                onChange={(e) => setColor(e.target.value)}
-                aria-label="Pick a custom color"
-                className="absolute inset-0 h-full w-full cursor-pointer opacity-0"
-              />
-            </span>
-            Custom
-          </label>
-        }
-      />
+      <ColorSwatches value={color} onChange={setColor} custom />
       <label className="flex items-center gap-2 text-xs font-medium text-fg-subtle">
         <input type="checkbox" checked={showActions} onChange={(e) => setShowActions(e.target.checked)} />
         Show actions

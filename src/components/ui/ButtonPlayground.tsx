@@ -70,7 +70,7 @@ export default function ButtonPlayground() {
   const anim = useAnimation();
   const motion = useMotion();
   const [variant, setVariant] = useState<ButtonVariant>("solid");
-  const [color, setColor] = useState<ColorName>("accent");
+  const [color, setColor] = useState<string>("accent");
   const [gradientTo, setGradientTo] = useState<ColorName>("violet");
   const [size, setSize] = useState<Size>("lg");
   const [shape, setShape] = useState<Shape>("default");
@@ -382,6 +382,7 @@ export default function ButtonPlayground() {
           label={layout === "single" && variant === "gradient" ? "From color" : "Color"}
           value={color}
           onChange={setColor}
+          custom
         />
 
         {layout === "single" && variant === "gradient" && (

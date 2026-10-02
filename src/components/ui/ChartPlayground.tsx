@@ -51,7 +51,7 @@ export default function ChartPlayground() {
 ${SAMPLE_DATA_CODE}
   ]}
 />`,
-    js: `<l-Chart id="chart-demo"${typeAttr}${colorAttr}${showLabelsAttrHtml}${countUpAttr}${motion.attrs} />
+    js: `<l-Chart id="chart-demo"${typeAttr}${colorAttr}${showLabelsAttrHtml}${countUpAttr}${motion.attrs}></l-Chart>
 
 <script type="module">
   import "lojee-ui/elements";

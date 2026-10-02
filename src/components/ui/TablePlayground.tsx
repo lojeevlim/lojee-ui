@@ -90,7 +90,7 @@ export default function TablePlayground() {
 
   const codeVariants: CodeBlockVariants = {
     react: code,
-    js: `<l-Table id="people-table" ${attrs} />
+    js: `<l-Table id="people-table" ${attrs}></l-Table>
 
 <script type="module">
   import "lojee-ui/elements";

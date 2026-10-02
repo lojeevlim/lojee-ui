@@ -51,7 +51,7 @@ export default function TabsPlayground() {
 
   const codeVariants: CodeBlockVariants = {
     react: code,
-    js: `<l-Tabs id="tabs-demo" ${attrs} />
+    js: `<l-Tabs id="tabs-demo" ${attrs}></l-Tabs>
 
 <script type="module">
   import "lojee-ui/elements";
