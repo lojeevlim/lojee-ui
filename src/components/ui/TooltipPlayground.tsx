@@ -8,6 +8,8 @@ import { useMotion } from "./playgroundMotion";
 
 const POSITIONS: TooltipPosition[] = ["top", "bottom", "left", "right"];
 const DELAYS = [0, 150, 300, 500] as const;
+const TOGGLE = ["off", "on"] as const;
+const SIZES = ["xs", "sm", "md", "lg", "xl"] as const;
 
 export default function TooltipPlayground() {
   const motion = useMotion({ hover: false });
@@ -15,13 +17,16 @@ export default function TooltipPlayground() {
   const [color, setColor] = useState<ColorName>("accent");
   const [delayMs, setDelayMs] = useState<(typeof DELAYS)[number]>(150);
   const [content, setContent] = useState("Tooltip text");
+  const [size, setSize] = useState<(typeof SIZES)[number]>("md");
+  // "Active" keeps the bubble showing without hovering, so every setting is visible right away.
+  const [active, setActive] = useState<(typeof TOGGLE)[number]>("off");
 
   const preview = (
     // `overflow-visible` — the tooltip bubble needs to escape the window
     // frame's rounded corners instead of getting clipped by them.
     <AppWindowFrame className="overflow-visible">
       <AppWindowBody>
-        <Tooltip {...motion.props} content={content || "Tooltip text"} position={position} color={color} delayMs={delayMs}>
+        <Tooltip {...motion.props} content={content || "Tooltip text"} position={position} size={size} color={color} delayMs={delayMs} open={active === "on"}>
           <Button variant="outline" label="Hover me" />
         </Tooltip>
       </AppWindowBody>
@@ -30,7 +35,7 @@ export default function TooltipPlayground() {
 
   const code = `<Tooltip content="${content || "Tooltip text"}" position="${position}"${
     color !== "accent" ? ` color="${color}"` : ""
-  }${delayMs !== 150 ? ` delayMs={${delayMs}}` : ""}${motion.attrs}>
+  }${size !== "md" ? ` size="${size}"` : ""}${delayMs !== 150 ? ` delayMs={${delayMs}}` : ""}${active === "on" ? " open" : ""}${motion.attrs}>
   <Button variant="outline" label="Hover me" />
 </Tooltip>`;
 
@@ -39,7 +44,7 @@ export default function TooltipPlayground() {
   // child, mirroring how the React code nests <Button> inside <Tooltip>.
   const htmlMarkup = `<l-Tooltip content="${content || "Tooltip text"}" position="${position}"${
     color !== "accent" ? ` color="${color}"` : ""
-  }${delayMs !== 150 ? ` delayMs="${delayMs}"` : ""}${motion.attrs}>
+  }${size !== "md" ? ` size="${size}"` : ""}${delayMs !== 150 ? ` delayMs="${delayMs}"` : ""}${active === "on" ? ' open="true"' : ""}${motion.attrs}>
   <l-Button variant="outline" label="Hover me" />
 </l-Tooltip>`;
 
@@ -63,6 +68,7 @@ export default function TooltipPlayground() {
       </div>
 
       <OptionGroup label="Position" options={POSITIONS} value={position} onChange={setPosition} />
+      <OptionGroup label="Size" options={SIZES} value={size} onChange={setSize} />
       <OptionGroup
         label="Delay"
         options={DELAYS.map(String)}
@@ -70,6 +76,7 @@ export default function TooltipPlayground() {
         onChange={(v) => setDelayMs(Number(v) as (typeof DELAYS)[number])}
         render={(o) => (o === "0" ? "No delay" : `${o}ms`)}
       />
+      <OptionGroup label="Active (always visible)" options={TOGGLE} value={active} onChange={setActive} />
       <ColorSwatches value={color} onChange={setColor} />
       {motion.controls}
     </PlaygroundLayout>
