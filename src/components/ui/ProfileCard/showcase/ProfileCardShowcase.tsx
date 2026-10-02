@@ -36,8 +36,7 @@ export default function ProfileCardShowcase() {
   name="Priya Nair"
   role="Product Designer at Lojee"
   bio="Building accessible, joyful interfaces. Previously at Figma and Notion."
-  avatarInitials="PN"
-/>
+  avatarInitials="PN"></l-ProfileCard>
 
 <script type="module">import "lojee-ui/elements";</script>`,
               vue: `<template>
@@ -149,24 +148,24 @@ stats = [
 />`,
               js: `<l-ProfileCard name="Priya Nair" role="Product Designer at Lojee" avatarInitials="PN">
   <div slot="actions" class="flex items-center gap-2 w-full">
-    <l-Button label="Follow" className="flex-1" />
-    <l-Button variant="outline" label="Message" className="flex-1" />
+    <l-Button label="Follow" class="flex-1"></l-Button>
+    <l-Button variant="outline" label="Message" class="flex-1"></l-Button>
   </div>
 </l-ProfileCard>
 
 <script type="module">import "lojee-ui/elements";</script>`,
               vue: `<template>
   <l-ProfileCard name="Priya Nair" role="Product Designer at Lojee" avatarInitials="PN">
-    <template #actions>
-      <l-Button label="Follow" className="flex-1" />
-      <l-Button variant="outline" label="Message" className="flex-1" />
-    </template>
+    <div slot="actions">
+      <l-Button label="Follow" class="flex-1" />
+      <l-Button variant="outline" label="Message" class="flex-1" />
+    </div>
   </l-ProfileCard>
 </template>`,
               angular: `<l-ProfileCard name="Priya Nair" role="Product Designer at Lojee" avatarInitials="PN">
   <div slot="actions" class="flex items-center gap-2 w-full">
-    <l-Button label="Follow" className="flex-1" />
-    <l-Button variant="outline" label="Message" className="flex-1" />
+    <l-Button label="Follow" class="flex-1" />
+    <l-Button variant="outline" label="Message" class="flex-1" />
   </div>
 </l-ProfileCard>`,
             }}
@@ -185,9 +184,9 @@ stats = [
               react: `<ProfileCard name="Priya Nair" role="Design" avatarInitials="PN" color="indigo" />
 <ProfileCard name="Alex Chen" role="Engineering" avatarInitials="AC" color="emerald" />
 <ProfileCard name="Marcus Lee" role="Marketing" avatarInitials="ML" color="rose" />`,
-              js: `<l-ProfileCard name="Priya Nair" role="Design" avatarInitials="PN" color="indigo" />
-<l-ProfileCard name="Alex Chen" role="Engineering" avatarInitials="AC" color="emerald" />
-<l-ProfileCard name="Marcus Lee" role="Marketing" avatarInitials="ML" color="rose" />
+              js: `<l-ProfileCard name="Priya Nair" role="Design" avatarInitials="PN" color="indigo"></l-ProfileCard>
+<l-ProfileCard name="Alex Chen" role="Engineering" avatarInitials="AC" color="emerald"></l-ProfileCard>
+<l-ProfileCard name="Marcus Lee" role="Marketing" avatarInitials="ML" color="rose"></l-ProfileCard>
 
 <script type="module">import "lojee-ui/elements";</script>`,
               vue: `<template>

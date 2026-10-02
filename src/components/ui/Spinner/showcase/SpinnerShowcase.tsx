@@ -25,7 +25,7 @@ export default function SpinnerShowcase() {
           <CodeBlock
             variants={{
               react: `<Spinner size="md" />`,
-              js: `<l-Spinner size="md" />
+              js: `<l-Spinner size="md"></l-Spinner>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -64,7 +64,7 @@ export class SpinnerShowcaseComponent {}`,
           <CodeBlock
             variants={{
               react: `<Spinner color="indigo" />`,
-              js: `<l-Spinner color="indigo" />`,
+              js: `<l-Spinner color="indigo"></l-Spinner>`,
               vue: `<template>
   <l-Spinner color="indigo" />
 </template>`,
@@ -90,11 +90,11 @@ export class SpinnerShowcaseComponent {}`,
 <Spinner variant="ring" color="indigo" />
 <Spinner variant="bars" color="indigo" />
 <Spinner variant="pulse" color="indigo" />`,
-              js: `<l-Spinner variant="circle" color="indigo" />
-<l-Spinner variant="dots" color="indigo" />
-<l-Spinner variant="ring" color="indigo" />
-<l-Spinner variant="bars" color="indigo" />
-<l-Spinner variant="pulse" color="indigo" />`,
+              js: `<l-Spinner variant="circle" color="indigo"></l-Spinner>
+<l-Spinner variant="dots" color="indigo"></l-Spinner>
+<l-Spinner variant="ring" color="indigo"></l-Spinner>
+<l-Spinner variant="bars" color="indigo"></l-Spinner>
+<l-Spinner variant="pulse" color="indigo"></l-Spinner>`,
               vue: `<template>
   <l-Spinner variant="circle" color="indigo" />
   <l-Spinner variant="dots" color="indigo" />

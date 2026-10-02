@@ -25,9 +25,9 @@ export default function BadgeShowcase() {
               react: `<Badge variant="solid" label="Solid" />
 <Badge variant="outline" label="Outline" />
 <Badge variant="soft" label="Soft" />`,
-              js: `<l-Badge variant="solid" label="Solid" />
-<l-Badge variant="outline" label="Outline" />
-<l-Badge variant="soft" label="Soft" />
+              js: `<l-Badge variant="solid" label="Solid"></l-Badge>
+<l-Badge variant="outline" label="Outline"></l-Badge>
+<l-Badge variant="soft" label="Soft"></l-Badge>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -74,9 +74,9 @@ export class BadgeShowcaseComponent {}`,
               react: `<Badge color="indigo" label="Indigo" />
 <Badge color="emerald" label="Emerald" />
 <Badge color="rose" label="Rose" />`,
-              js: `<l-Badge color="indigo" label="Indigo" />
-<l-Badge color="emerald" label="Emerald" />
-<l-Badge color="rose" label="Rose" />`,
+              js: `<l-Badge color="indigo" label="Indigo"></l-Badge>
+<l-Badge color="emerald" label="Emerald"></l-Badge>
+<l-Badge color="rose" label="Rose"></l-Badge>`,
               vue: `<template>
   <l-Badge color="indigo" label="Indigo" />
   <l-Badge color="emerald" label="Emerald" />
@@ -102,9 +102,9 @@ export class BadgeShowcaseComponent {}`,
               react: `<Badge size="sm" label="Small" />
 <Badge size="md" label="Medium" />
 <Badge size="lg" label="Large" />`,
-              js: `<l-Badge size="sm" label="Small" />
-<l-Badge size="md" label="Medium" />
-<l-Badge size="lg" label="Large" />`,
+              js: `<l-Badge size="sm" label="Small"></l-Badge>
+<l-Badge size="md" label="Medium"></l-Badge>
+<l-Badge size="lg" label="Large"></l-Badge>`,
               vue: `<template>
   <l-Badge size="sm" label="Small" />
   <l-Badge size="md" label="Medium" />
@@ -128,7 +128,7 @@ export class BadgeShowcaseComponent {}`,
           <CodeBlock
             variants={{
               react: `<Badge icon="check" color="emerald" label="Verified" />`,
-              js: `<l-Badge icon="check" color="emerald" label="Verified" />`,
+              js: `<l-Badge icon="check" color="emerald" label="Verified"></l-Badge>`,
               vue: `<template>
   <l-Badge icon="check" color="emerald" label="Verified" />
 </template>`,
@@ -148,7 +148,7 @@ export class BadgeShowcaseComponent {}`,
           <CodeBlock
             variants={{
               react: `<Badge dot color="emerald" label="Online" />`,
-              js: `<l-Badge dot color="emerald" label="Online" />`,
+              js: `<l-Badge dot color="emerald" label="Online"></l-Badge>`,
               vue: `<template>
   <l-Badge dot color="emerald" label="Online" />
 </template>`,

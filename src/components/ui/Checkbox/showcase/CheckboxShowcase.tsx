@@ -23,8 +23,8 @@ export default function CheckboxShowcase() {
             variants={{
               react: `<Checkbox />
 <Checkbox defaultChecked />`,
-              js: `<l-Checkbox />
-<l-Checkbox defaultChecked />
+              js: `<l-Checkbox ></l-Checkbox>
+<l-Checkbox defaultChecked></l-Checkbox>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -69,9 +69,9 @@ export class AppComponent {}`,
               react: `<Checkbox color="indigo" defaultChecked />
 <Checkbox color="emerald" defaultChecked />
 <Checkbox color="rose" defaultChecked />`,
-              js: `<l-Checkbox color="indigo" defaultChecked />
-<l-Checkbox color="emerald" defaultChecked />
-<l-Checkbox color="rose" defaultChecked />`,
+              js: `<l-Checkbox color="indigo" defaultChecked></l-Checkbox>
+<l-Checkbox color="emerald" defaultChecked></l-Checkbox>
+<l-Checkbox color="rose" defaultChecked></l-Checkbox>`,
               vue: `<template>
   <l-Checkbox color="indigo" defaultChecked />
   <l-Checkbox color="emerald" defaultChecked />
@@ -95,8 +95,8 @@ export class AppComponent {}`,
             variants={{
               react: `<Checkbox disabled />
 <Checkbox disabled defaultChecked />`,
-              js: `<l-Checkbox disabled />
-<l-Checkbox disabled defaultChecked />`,
+              js: `<l-Checkbox disabled></l-Checkbox>
+<l-Checkbox disabled defaultChecked></l-Checkbox>`,
               vue: `<template>
   <l-Checkbox disabled />
   <l-Checkbox disabled defaultChecked />
@@ -117,7 +117,7 @@ export class AppComponent {}`,
           <CodeBlock
             variants={{
               react: `<Checkbox label="Accept terms and conditions" />`,
-              js: `<l-Checkbox label="Accept terms and conditions" />`,
+              js: `<l-Checkbox label="Accept terms and conditions"></l-Checkbox>`,
               vue: `<l-Checkbox label="Accept terms and conditions" />`,
               angular: `<l-Checkbox label="Accept terms and conditions" />`,
             }}

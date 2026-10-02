@@ -19,7 +19,7 @@ export default function TextareaShowcase() {
           <CodeBlock
             variants={{
               react: `<Textarea placeholder="Write something…" />`,
-              js: `<l-Textarea placeholder="Write something…" />
+              js: `<l-Textarea placeholder="Write something…"></l-Textarea>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -62,9 +62,9 @@ export class AppComponent {}`,
               react: `<Textarea resize="none" placeholder="resize: none" />
 <Textarea resize="vertical" placeholder="resize: vertical" />
 <Textarea resize="both" placeholder="resize: both" />`,
-              js: `<l-Textarea resize="none" placeholder="resize: none" />
-<l-Textarea resize="vertical" placeholder="resize: vertical" />
-<l-Textarea resize="both" placeholder="resize: both" />`,
+              js: `<l-Textarea resize="none" placeholder="resize: none"></l-Textarea>
+<l-Textarea resize="vertical" placeholder="resize: vertical"></l-Textarea>
+<l-Textarea resize="both" placeholder="resize: both"></l-Textarea>`,
               vue: `<template>
   <l-Textarea resize="none" placeholder="resize: none" />
   <l-Textarea resize="vertical" placeholder="resize: vertical" />
@@ -86,7 +86,7 @@ export class AppComponent {}`,
           <CodeBlock
             variants={{
               react: `<Textarea invalid defaultValue="Too short" />`,
-              js: `<l-Textarea invalid value="Too short" />`,
+              js: `<l-Textarea invalid value="Too short"></l-Textarea>`,
               vue: `<l-Textarea invalid value="Too short" />`,
               angular: `<l-Textarea invalid value="Too short" />`,
             }}
@@ -101,7 +101,7 @@ export class AppComponent {}`,
           <CodeBlock
             variants={{
               react: `<Textarea disabled placeholder="Disabled" />`,
-              js: `<l-Textarea disabled placeholder="Disabled" />`,
+              js: `<l-Textarea disabled placeholder="Disabled"></l-Textarea>`,
               vue: `<l-Textarea disabled placeholder="Disabled" />`,
               angular: `<l-Textarea disabled placeholder="Disabled" />`,
             }}

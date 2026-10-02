@@ -39,7 +39,7 @@ export default function MultiSelectShowcase() {
               react: `const [value, setValue] = useState<string[]>(["banana"]);
 
 <MultiSelect options={options} value={value} onChange={setValue} placeholder="Select fruits..." />`,
-              js: `<l-MultiSelect id="fruit-select" placeholder="Select fruits..." />
+              js: `<l-MultiSelect id="fruit-select" placeholder="Select fruits..."></l-MultiSelect>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -118,7 +118,7 @@ export class AppComponent {
           <CodeBlock
             variants={{
               react: `<MultiSelect options={options} value={value} onChange={setValue} color="violet" />`,
-              js: `<l-MultiSelect id="colored-select" color="violet" />
+              js: `<l-MultiSelect id="colored-select" color="violet"></l-MultiSelect>
 
 <script type="module">
   const select = document.getElementById("colored-select");
@@ -145,7 +145,7 @@ export class AppComponent {
           <CodeBlock
             variants={{
               react: `<MultiSelect options={options} value={[]} onChange={setValue} placeholder="Nothing selected yet" />`,
-              js: `<l-MultiSelect id="empty-select" placeholder="Nothing selected yet" />
+              js: `<l-MultiSelect id="empty-select" placeholder="Nothing selected yet"></l-MultiSelect>
 
 <script type="module">
   const select = document.getElementById("empty-select");

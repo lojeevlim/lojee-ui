@@ -38,7 +38,7 @@ export default function CarouselShowcase() {
     <div className="flex h-48 items-center justify-center bg-rose-100 text-rose-700 dark:bg-rose-950/50 dark:text-rose-300">Slide 3</div>,
   ]}
 />`,
-              js: `<l-Carousel id="basic-carousel" />
+              js: `<l-Carousel id="basic-carousel"></l-Carousel>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -95,7 +95,7 @@ export class AppComponent {
     <div className="flex h-48 items-center justify-center bg-orange-100 text-orange-700 dark:bg-orange-950/50 dark:text-orange-300">Slide 4</div>,
   ]}
 />`,
-              js: `<l-Carousel id="autoplay-carousel" autoPlay intervalMs="2500" />
+              js: `<l-Carousel id="autoplay-carousel" autoPlay intervalMs="2500"></l-Carousel>
 
 <script type="module">
   document.getElementById("autoplay-carousel").slides = ["Slide 1", "Slide 2", "Slide 3", "Slide 4"];
@@ -134,7 +134,7 @@ slides = ["Slide 1", "Slide 2", "Slide 3", "Slide 4"];
     <div className="flex h-48 items-center justify-center bg-pink-100 text-pink-700 dark:bg-pink-950/50 dark:text-pink-300">Slide 2</div>,
   ]}
 />`,
-              js: `<l-Carousel id="dots-carousel" showArrows="false" />
+              js: `<l-Carousel id="dots-carousel" showArrows="false"></l-Carousel>
 
 <script type="module">
   document.getElementById("dots-carousel").slides = ["Slide 1", "Slide 2"];

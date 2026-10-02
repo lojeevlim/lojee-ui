@@ -90,7 +90,7 @@ export default function ToastShowcase() {
 <Toast open={open} onClose={() => setOpen(false)} variant="success" title="Success">
   This is a success toast notification.
 </Toast>`,
-              js: `<l-Button label="Success" id="open-toast-btn" />
+              js: `<l-Button label="Success" id="open-toast-btn"></l-Button>
 <l-Toast id="success-toast" variant="success" title="Success">
   This is a success toast notification.
 </l-Toast>

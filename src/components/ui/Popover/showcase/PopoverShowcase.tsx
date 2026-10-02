@@ -37,7 +37,7 @@ export default function PopoverShowcase() {
   <Button variant="outline" label="Top" />
 </Popover>`,
               js: `<l-Popover content="Popover on top" position="top">
-  <l-Button variant="outline" label="Top" />
+  <l-Button variant="outline" label="Top"></l-Button>
 </l-Popover>
 
 <script type="module">
@@ -77,7 +77,7 @@ export class PopoverShowcaseComponent {}`,
           </SectionLabel>
           <Row>
             <Popover
-              position="bottom"
+              position="right"
               content={
                 <div className="w-56">
                   <p className="text-sm font-semibold text-fg">Invite a teammate</p>
@@ -97,7 +97,7 @@ export class PopoverShowcaseComponent {}`,
           <CodeBlock
             variants={{
               react: `<Popover
-  position="bottom"
+  position="right"
   content={
     <div className="w-56">
       <p className="text-sm font-semibold text-fg">Invite a teammate</p>
@@ -109,17 +109,17 @@ export class PopoverShowcaseComponent {}`,
 >
   <Button icon="plus" label="Invite" />
 </Popover>`,
-              js: `<l-Popover position="bottom">
-  <l-Button icon="plus" label="Invite" />
-  <div slot="content" className="w-56">
-    <p className="text-sm font-semibold text-fg">Invite a teammate</p>
-    <p className="mt-1 text-xs text-fg-subtle">They'll get an email invite to join this workspace.</p>
+              js: `<l-Popover position="right">
+  <l-Button icon="plus" label="Invite"></l-Button>
+  <div slot="content" class="w-56">
+    <p class="text-sm font-semibold text-fg">Invite a teammate</p>
+    <p class="mt-1 text-xs text-fg-subtle">They'll get an email invite to join this workspace.</p>
     <input type="email" placeholder="name@company.com" />
-    <l-Button className="mt-3 w-full" size="sm" label="Send invite" />
+    <l-Button class="mt-3 w-full" size="sm" label="Send invite"></l-Button>
   </div>
 </l-Popover>`,
               vue: `<template>
-  <l-Popover position="bottom">
+  <l-Popover position="right">
     <l-Button icon="plus" label="Invite" />
     <div slot="content" class="w-56">
       <p class="text-sm font-semibold text-fg">Invite a teammate</p>
@@ -129,7 +129,7 @@ export class PopoverShowcaseComponent {}`,
     </div>
   </l-Popover>
 </template>`,
-              angular: `<l-Popover position="bottom">
+              angular: `<l-Popover position="right">
   <l-Button icon="plus" label="Invite" />
   <div slot="content" class="w-56">
     <p class="text-sm font-semibold text-fg">Invite a teammate</p>
