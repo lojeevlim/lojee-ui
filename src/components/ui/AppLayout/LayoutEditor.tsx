@@ -25,7 +25,7 @@ const TINT: Record<AppSection, string> = {
 
 const LABEL: Record<AppSection, string> = { top: "Top", side: "Side", main: "Main", footer: "Footer" };
 
-export default function LayoutEditor({ layout, onChange }: { layout: GridLayout; onChange: (next: GridLayout) => void }) {
+export default function LayoutEditor({ layout, onChange, hidden = [] }: { layout: GridLayout; onChange: (next: GridLayout) => void; hidden?: AppSection[] }) {
   const [dragging, setDragging] = useState<AppSection | null>(null);
   const [over, setOver] = useState<string | null>(null);
 
@@ -89,9 +89,9 @@ export default function LayoutEditor({ layout, onChange }: { layout: GridLayout;
                   over === key && dragging !== section
                     ? "border-accent-500 bg-accent-500/30 text-fg"
                     : TINT[section]
-                } ${dragging === section ? "opacity-50" : ""}`}
+                } ${dragging === section ? "opacity-50" : ""} ${hidden.includes(section) ? "border-dashed opacity-40" : ""}`}
               >
-                {LABEL[section]}
+                {LABEL[section]}{hidden.includes(section) ? " (removed)" : ""}
               </div>
             );
           })
