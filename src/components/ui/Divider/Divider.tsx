@@ -24,7 +24,7 @@ export interface DividerProps {
   className?: string;
   /**
    * Turns the divider into a draggable resize handle (mouse/touch drag, or
-   * arrow keys when focused). It reports movement via `onResize` — it does
+   * arrow keys when focused), with a small grip pill in the middle of the line to show it can be dragged. It reports movement via `onResize` — it does
    * NOT own any size state itself, so the consumer decides how to apply the
    * delta (e.g. to a panel's width/height), same as a headless split-pane
    * handle.
@@ -41,6 +41,8 @@ export interface DividerProps {
     line?: string;
     /** The centered label/content, when present. */
     label?: string;
+    /** The grab handle in the middle of a `resizable` divider. */
+    handle?: string;
   };
 }
 
@@ -59,6 +61,37 @@ const BORDER_COLOR: Record<ColorName, string> = {
   rose: "border-rose-200 dark:border-rose-800",
   pink: "border-pink-200 dark:border-pink-800",
 };
+
+// The grip in the middle of a resizable divider: a small pill with two rows (or columns) of dots, so it is obvious
+// the line can be dragged. Purely visual — the whole divider is the drag target.
+function GripHandle({ vertical, className }: { vertical: boolean; className?: string }) {
+  return (
+    <span
+      aria-hidden
+      className={cx(
+        // A soft top-lit gradient pill: hairline border, a fine drop shadow and an inner highlight so it reads as a raised grip.
+        "pointer-events-none absolute left-1/2 top-1/2 z-10 flex -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-gradient-to-b from-surface to-surface-muted",
+        "shadow-[0_1px_2px_rgb(0_0_0/0.08),inset_0_1px_0_rgb(255_255_255/0.75)] dark:shadow-[0_1px_2px_rgb(0_0_0/0.4),inset_0_1px_0_rgb(255_255_255/0.08)]",
+        "transition-[scale,box-shadow,border-color,background-color] duration-200 ease-out",
+        // Hover: a touch larger with an accent-tinted edge. Drag / keyboard focus: fills with the accent and glows.
+        "group-hover:scale-105 group-hover:border-accent-300 group-hover:shadow-[0_2px_8px_rgb(0_0_0/0.14),inset_0_1px_0_rgb(255_255_255/0.75)]",
+        "group-active:scale-110 group-active:border-accent-600 group-active:from-accent-500 group-active:to-accent-600 group-active:shadow-[0_0_0_4px_color-mix(in_srgb,var(--color-accent-500)_25%,transparent)]",
+        "group-focus-visible:border-accent-600 group-focus-visible:shadow-[0_0_0_4px_color-mix(in_srgb,var(--color-accent-500)_25%,transparent)]",
+        vertical ? "h-10 w-4" : "h-4 w-10",
+        className
+      )}
+    >
+      <span className={cx("grid gap-[3px]", vertical ? "grid-cols-2" : "grid-flow-col grid-rows-2")}>
+        {Array.from({ length: 6 }, (_, i) => (
+          <span
+            key={i}
+            className="size-[3px] rounded-full bg-fg-subtle/70 transition-colors duration-200 group-hover:bg-accent-500 group-active:bg-white group-focus-visible:bg-accent-500"
+          />
+        ))}
+      </span>
+    </span>
+  );
+}
 
 export function Divider({
   orientation = "horizontal",
@@ -131,8 +164,8 @@ export function Divider({
         role="separator"
         aria-orientation="vertical"
         className={cx(
-          "group inline-flex h-full shrink-0 items-stretch justify-center",
-          resizable ? "w-3 cursor-col-resize touch-none select-none" : "w-px",
+          "group relative inline-flex h-full shrink-0 items-stretch justify-center",
+          resizable ? "w-4 cursor-col-resize touch-none select-none" : "w-px",
           tr,
           className,
           classNames?.root
@@ -148,6 +181,7 @@ export function Divider({
             classNames?.line
           )}
         />
+        {resizable && <GripHandle vertical className={classNames?.handle} />}
       </span>
     );
   }
@@ -158,7 +192,7 @@ export function Divider({
         role="separator"
         aria-orientation="horizontal"
         className={cx(
-          "group flex h-3 w-full cursor-row-resize touch-none select-none items-center",
+          "group relative flex h-4 w-full cursor-row-resize touch-none select-none items-center",
           tr,
           className,
           classNames?.root
@@ -174,6 +208,7 @@ export function Divider({
             classNames?.line
           )}
         />
+        <GripHandle vertical={false} className={classNames?.handle} />
       </span>
     );
   }

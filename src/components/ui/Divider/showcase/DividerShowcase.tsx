@@ -24,7 +24,7 @@ export default function DividerShowcase() {
           <CodeBlock
             variants={{
               react: `<Divider />`,
-              js: `<l-Divider />
+              js: `<l-Divider ></l-Divider>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -57,7 +57,7 @@ export class DividerShowcaseComponent {}`,
           <CodeBlock
             variants={{
               react: `<Divider label="OR" />`,
-              js: `<l-Divider label="OR" />`,
+              js: `<l-Divider label="OR"></l-Divider>`,
               vue: `<template>
   <l-Divider label="OR" />
 </template>`,
@@ -77,7 +77,7 @@ export class DividerShowcaseComponent {}`,
           <CodeBlock
             variants={{
               react: `<Divider orientation="vertical" />`,
-              js: `<l-Divider orientation="vertical" />`,
+              js: `<l-Divider orientation="vertical"></l-Divider>`,
               vue: `<template>
   <l-Divider orientation="vertical" />
 </template>`,
@@ -96,7 +96,7 @@ export class DividerShowcaseComponent {}`,
           <CodeBlock
             variants={{
               react: `<Divider color="indigo" label="Indigo" />`,
-              js: `<l-Divider color="indigo" label="Indigo" />`,
+              js: `<l-Divider color="indigo" label="Indigo"></l-Divider>`,
               vue: `<template>
   <l-Divider color="indigo" label="Indigo" />
 </template>`,
@@ -149,7 +149,7 @@ export class DividerShowcaseComponent {}`,
 </div>`,
               js: `<div class="flex">
   <div id="left-panel" style="width: 180px">...</div>
-  <l-Divider id="resize-divider" orientation="vertical" resizable />
+  <l-Divider id="resize-divider" orientation="vertical" resizable></l-Divider>
   <div class="flex-1">...</div>
 </div>
 
