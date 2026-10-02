@@ -9,6 +9,8 @@ import {
   iconOnlySizeClasses,
   iconSize,
   cx,
+  isColorName,
+  customButtonStyle,
   shapeClasses,
   BASE_BUTTON_CLASSES,
   type ColorName,
@@ -30,8 +32,8 @@ export interface ButtonProps {
   pulseGradientTo?: ColorName | (string & {});
   /** Visual style: "solid", "outline", "ghost", "soft", "link", "dashed", "destructive", "destructive-soft", "destructive-outline", "gradient" or "glass" (default: "solid"). */
   variant?: ButtonVariant;
-  /** Button color, one of the built-in `ColorName`s (default: "accent", which follows the theme accent); ignored by the destructive variants. */
-  color?: ColorName;
+  /** Button color: a built-in `ColorName` (default: "accent", which follows the theme accent) or any CSS color such as "#8b5cf6"; ignored by the destructive variants. */
+  color?: ColorName | (string & {});
   /** Second color for the gradient variant (defaults to a matching preset partner). */
   gradientTo?: ColorName;
   /** "xs" | "sm" | "md" | "lg" | "xl" | "full" (full width) (default: "md"). */
@@ -116,23 +118,30 @@ export function Button({
 
   let variantClass;
   let gradientStyle: CSSProperties | undefined;
-  if (variant === "destructive") {
+  const custom = !isColorName(color) && !variant.startsWith("destructive");
+  if (custom) {
+    // Any CSS color: a few inline variables plus literal classes (see customButtonStyle).
+    const c = customButtonStyle(variant, color);
+    variantClass = variant === "gradient" ? cx(GRADIENT_CLASSES, c.className) : c.className;
+    gradientStyle = c.style;
+  } else if (variant === "destructive") {
     variantClass = destructiveClasses.solid;
   } else if (variant === "destructive-soft") {
     variantClass = destructiveClasses.soft;
   } else if (variant === "destructive-outline") {
     variantClass = destructiveClasses.outline;
   } else if (variant === "gradient") {
-    const toColor = gradientTo ?? defaultGradientPartner[color] ?? "violet";
+    const named = color as ColorName;
+    const toColor = gradientTo ?? defaultGradientPartner[named] ?? "violet";
     variantClass = GRADIENT_CLASSES;
     gradientStyle = {
-      backgroundImage: `linear-gradient(to right, var(--color-${color}-600), var(--color-${toColor}-600))`,
+      backgroundImage: `linear-gradient(to right, var(--color-${named}-600), var(--color-${toColor}-600))`,
     };
   } else if (variant === "glass") {
-    const colorSet = colorClasses[color] || colorClasses.slate;
+    const colorSet = colorClasses[color as ColorName] || colorClasses.slate;
     variantClass = cx(colorSet.soft, "backdrop-blur-md border border-white/60 dark:border-white/10 shadow-sm");
   } else {
-    const colorSet = colorClasses[color] || colorClasses.slate;
+    const colorSet = colorClasses[color as ColorName] || colorClasses.slate;
     variantClass = colorSet[variant] || colorSet.solid;
   }
 
