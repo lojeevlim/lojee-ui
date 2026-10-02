@@ -1,4 +1,4 @@
-import r2wc from "@r2wc/react-to-web-component";
+import { r2wc } from "./define-element";
 import { Button, SplitButton, SplitButtonMenuItem, ButtonGroup, SegmentButton } from "../components/ui/Buttons";
 import {
   ModalElement,
@@ -84,7 +84,6 @@ import { SidebarMenuItem } from "../components/ui/Sidebar/SidebarMenuItem";
 import { NavigationMenu } from "../components/ui/NavigationMenu/NavigationMenu";
 import { BottomNavigation } from "../components/ui/BottomNavigation/BottomNavigation";
 import { Stepper } from "../components/ui/Stepper/Stepper";
-import { DataGrid } from "../components/ui/DataGrid/DataGrid";
 import { Timeline } from "../components/ui/Timeline/Timeline";
 import { Stat } from "../components/ui/Stat/Stat";
 import { Chart } from "../components/ui/Chart/Chart";
@@ -92,6 +91,8 @@ import { Footer } from "../components/ui/Footer/Footer";
 import { Calendar } from "../components/ui/Calendar/Calendar";
 import { FlowDiagram } from "../components/ui/FlowDiagram/FlowDiagram";
 import { ActivityFeed } from "../components/ui/ActivityFeed/ActivityFeed";
+import { GridView } from "../components/ui/GridView/GridView";
+import { DetailsList } from "../components/ui/DetailsList/DetailsList";
 import { ProfileCard } from "../components/ui/ProfileCard/ProfileCard";
 import { UserMenu } from "../components/ui/UserMenu/UserMenu";
 import { PasswordInput } from "../components/ui/PasswordInput/PasswordInput";
@@ -401,19 +402,35 @@ customElements.define(
     props: {
       columns: "json",
       data: "json",
+      variant: "string",
+      responsive: "string",
+      view: "string",
+      viewToggle: "boolean",
       size: "string",
+      selectable: "boolean",
+      selected: "json",
+      rowKey: "string",
+      hoverable: "boolean",
+      emptyMessage: "string",
       striped: "boolean",
       bordered: "boolean",
       loading: "boolean",
       skeletonRows: "number",
       actions: "json",
       actionsHeader: "string",
+      actionsVariant: "string",
       builtInActions: "boolean",
       transition: "string",
       transitionDuration: "number",
       transitionDelay: "number",
     },
-    events: { onAction: {}, onDataChange: {} }, // dispatch "action" (detail = { action, row }) and "datachange" (detail = the rows)
+    events: {
+      onAction: {}, // dispatches "action", detail = { action, row }
+      onDataChange: {}, // dispatches "datachange", detail = the rows
+      onSelectionChange: {}, // dispatches "selectionchange", detail = { keys, rows }
+      onSortChange: {}, // dispatches "sortchange", detail = { key, direction } or null when cleared
+      onViewChange: {}, // dispatches "viewchange", detail = "table" | "grid"
+    },
   })
 );
 
@@ -1106,28 +1123,6 @@ customElements.define(
 );
 
 customElements.define(
-  "l-data-grid",
-  r2wc(withTailwind(DataGrid), {
-    shadow: "open",
-    props: {
-      columns: "json",
-      data: "json",
-      size: "string",
-      striped: "boolean",
-      bordered: "boolean",
-      selectable: "boolean",
-      loading: "boolean",
-      skeletonRows: "number",
-      transition: "string",
-      transitionDuration: "number",
-      transitionDelay: "number",
-      hoverEffect: "string",
-    },
-    events: { onSelectionChange: {} },
-  })
-);
-
-customElements.define(
   "l-timeline",
   r2wc(withTailwind(Timeline), {
     shadow: "open",
@@ -1163,7 +1158,7 @@ customElements.define(
   "l-chart",
   r2wc(withTailwind(Chart), {
     shadow: "open",
-    props: { countUp: "boolean", countUpDuration: "number", data: "json", type: "string", height: "number", color: "string", showLabels: "boolean", transition: "string", transitionDuration: "number", transitionDelay: "number", hoverEffect: "string" },
+    props: { countUp: "boolean", countUpDuration: "number", data: "json", type: "string", variant: "string", height: "number", color: "string", showLabels: "boolean", transition: "string", transitionDuration: "number", transitionDelay: "number", hoverEffect: "string" },
   })
 );
 
@@ -1242,6 +1237,47 @@ customElements.define(
       onConfirm: {}, // dispatches "confirm", detail = the selected date (range mode: undefined — use the last "rangeselect")
       onCancel: {}, // dispatches "cancel"
       onClose: {}, // dispatches "close"
+    },
+  })
+);
+
+customElements.define(
+  "l-details-list",
+  r2wc(withTailwind(DetailsList), {
+    shadow: "open",
+    props: { items: "json", exclusive: "boolean", transition: "string", transitionDuration: "number", transitionDelay: "number" },
+  })
+);
+
+customElements.define(
+  "l-grid-view",
+  r2wc(withTailwind(GridView), {
+    shadow: "open",
+    props: {
+      items: "json",
+      view: "string",
+      variant: "string",
+      viewToggle: "boolean",
+      searchable: "boolean",
+      searchPlaceholder: "string",
+      sortOptions: "json",
+      actions: "json",
+      createLabel: "string",
+      minItemWidth: "number",
+      loading: "boolean",
+      skeletonCount: "number",
+      emptyMessage: "string",
+      transition: "string",
+      transitionDuration: "number",
+      transitionDelay: "number",
+    },
+    events: {
+      onViewChange: {}, // dispatches "viewchange", detail = "grid" | "list"
+      onReorder: {}, // dispatches "reorder", detail = the items in their new order
+      onItemClick: {}, // dispatches "itemclick", detail = the item
+      onAction: {}, // dispatches "action", detail = { action, item }
+      onCreate: {}, // dispatches "create"
+      onSearchChange: {}, // dispatches "searchchange", detail = the text
     },
   })
 );

@@ -428,8 +428,8 @@ export const COMPONENT_MENU: Menu[]  = [
             },
 
             {
-                icon: "table-2",
-                label: "Data Grid",
+                icon: "layout-grid",
+                label: "Grid View",
             },
 
             {
@@ -455,6 +455,11 @@ export const COMPONENT_MENU: Menu[]  = [
             {
                 icon: "activity",
                 label: "Activity Feed",
+            },
+
+            {
+                icon: "list-ordered",
+                label: "Details List",
             },
 
         ],

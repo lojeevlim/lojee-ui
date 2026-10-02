@@ -206,20 +206,20 @@ ${TRAFFIC_CODE}
         </section>
 
         <section>
-          <SectionLabel sub="`countUp` grows the data in from zero when the chart mounts — bars rise, the line climbs, donut slices sweep round and the legend numbers count up. Tune it with `countUpDuration` (ms). Press Replay to run it again.">Count up</SectionLabel>
+          <SectionLabel sub={'`variant="values"` prints each data value on the chart: above every bar and line point, and — for a donut — each slice\'s value and share in the legend with the total in the centre. The numbers count up along with the shapes.'}>Show values</SectionLabel>
           <TransitionPreview cols={3}>
-            <Chart countUp data={REVENUE_DATA} />
-            <Chart type="line" color="emerald" countUp data={REVENUE_DATA} />
-            <Chart type="donut" countUp countUpDuration={2000} data={TRAFFIC_DATA} height={140} />
+            <Chart variant="values" data={REVENUE_DATA} />
+            <Chart variant="values" type="line" color="emerald" data={REVENUE_DATA} />
+            <Chart variant="values" type="donut" data={TRAFFIC_DATA} height={140} />
           </TransitionPreview>
           <CodeBlock
             variants={{
-              react: `<Chart countUp data={revenue} />
-<Chart type="line" color="emerald" countUp data={revenue} />
-<Chart type="donut" countUp countUpDuration={2000} data={traffic} />`,
-              js: `<l-Chart id="chart-bar" countUp="true"></l-Chart>
-<l-Chart id="chart-line" type="line" color="emerald" countUp="true"></l-Chart>
-<l-Chart id="chart-donut" type="donut" countUp="true" countUpDuration="2000"></l-Chart>
+              react: `<Chart variant="values" data={revenue} />
+<Chart variant="values" type="line" color="emerald" data={revenue} />
+<Chart variant="values" type="donut" data={traffic} />`,
+              js: `<l-Chart id="chart-bar" variant="values"></l-Chart>
+<l-Chart id="chart-line" type="line" color="emerald" variant="values"></l-Chart>
+<l-Chart id="chart-donut" type="donut" variant="values"></l-Chart>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -235,9 +235,9 @@ ${TRAFFIC_CODE}
   ];
 </script>`,
               vue: `<template>
-  <l-Chart :data="revenue" countUp="true"></l-Chart>
-  <l-Chart type="line" :data="revenue" color="emerald" countUp="true"></l-Chart>
-  <l-Chart type="donut" :data="traffic" countUp="true" countUpDuration="2000"></l-Chart>
+  <l-Chart :data="revenue" variant="values"></l-Chart>
+  <l-Chart type="line" :data="revenue" color="emerald" variant="values"></l-Chart>
+  <l-Chart type="donut" :data="traffic" variant="values"></l-Chart>
 </template>
 
 <script setup lang="ts">
@@ -250,9 +250,74 @@ const traffic = [
 ${TRAFFIC_CODE}
 ];
 </script>`,
-              angular: `<l-Chart [data]="revenue" countUp="true"></l-Chart>
-<l-Chart [data]="revenue" type="line" color="emerald" countUp="true"></l-Chart>
-<l-Chart [data]="traffic" type="donut" countUp="true" countUpDuration="2000"></l-Chart>
+              angular: `<l-Chart [data]="revenue" variant="values"></l-Chart>
+<l-Chart [data]="revenue" type="line" color="emerald" variant="values"></l-Chart>
+<l-Chart [data]="traffic" type="donut" variant="values"></l-Chart>
+
+// component class
+revenue = [
+${REVENUE_CODE}
+];
+traffic = [
+${TRAFFIC_CODE}
+];`,
+            }}
+          />
+        </section>
+
+        <section>
+          <SectionLabel sub="Charts animate in by default, like the Stat: the data grows in from zero when the chart mounts — bars rise, the line climbs, donut slices sweep round and the legend numbers count up. Tune it with `countUpDuration` (ms), or pass `countUp={false}` for a static chart. Press Replay to run it again.">Count up</SectionLabel>
+          <TransitionPreview cols={3}>
+            <Chart data={REVENUE_DATA} />
+            <Chart type="line" color="emerald" data={REVENUE_DATA} />
+            <Chart type="donut" countUpDuration={2000} data={TRAFFIC_DATA} height={140} />
+          </TransitionPreview>
+          <CodeBlock
+            variants={{
+              react: `<Chart data={revenue} />
+<Chart type="line" color="emerald" data={revenue} />
+<Chart type="donut" countUpDuration={2000} data={traffic} />
+
+{/* Turn it off */}
+<Chart countUp={false} data={revenue} />`,
+              js: `<l-Chart id="chart-bar"></l-Chart>
+<l-Chart id="chart-line" type="line" color="emerald"></l-Chart>
+<l-Chart id="chart-donut" type="donut" count-up-duration="2000"></l-Chart>
+<!-- Turn it off -->
+<l-Chart id="chart-static" count-up="false"></l-Chart>
+
+<script type="module">
+  import "lojee-ui/elements";
+
+  document.getElementById("chart-bar").data = [
+${REVENUE_CODE}
+  ];
+  document.getElementById("chart-line").data = [
+${REVENUE_CODE}
+  ];
+  document.getElementById("chart-donut").data = [
+${TRAFFIC_CODE}
+  ];
+</script>`,
+              vue: `<template>
+  <l-Chart :data="revenue"></l-Chart>
+  <l-Chart type="line" :data="revenue" color="emerald"></l-Chart>
+  <l-Chart type="donut" :data="traffic" count-up-duration="2000"></l-Chart>
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+
+const revenue = [
+${REVENUE_CODE}
+];
+const traffic = [
+${TRAFFIC_CODE}
+];
+</script>`,
+              angular: `<l-Chart [data]="revenue"></l-Chart>
+<l-Chart [data]="revenue" type="line" color="emerald"></l-Chart>
+<l-Chart [data]="traffic" type="donut" count-up-duration="2000"></l-Chart>
 
 revenue = [
 ${REVENUE_CODE}
