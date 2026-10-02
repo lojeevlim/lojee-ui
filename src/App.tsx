@@ -62,12 +62,13 @@ import FooterShowcase from './components/ui/Footer'
 import NavigationMenuShowcase from './components/ui/NavigationMenu'
 import BottomNavigationShowcase from './components/ui/BottomNavigation'
 import StepperShowcase from './components/ui/Stepper'
-import DataGridShowcase from './components/ui/DataGrid'
 import TimelineShowcase from './components/ui/Timeline'
 import StatShowcase from './components/ui/Stat'
 import ChartShowcase from './components/ui/Chart'
 import CalendarShowcase from './components/ui/Calendar'
 import ActivityFeedShowcase from './components/ui/ActivityFeed'
+import GridViewShowcase from './components/ui/GridView'
+import DetailsListShowcase from './components/ui/DetailsList'
 import ProfileCardShowcase from './components/ui/ProfileCard'
 import UserMenuShowcase from './components/ui/UserMenu'
 import PasswordInputShowcase from './components/ui/PasswordInput'
@@ -183,12 +184,13 @@ const SHOWCASES: Record<string, ComponentType> = {
   'Navigation Menu': NavigationMenuShowcase,
   'Bottom Navigation': BottomNavigationShowcase,
   Stepper: StepperShowcase,
-  'Data Grid': DataGridShowcase,
   Timeline: TimelineShowcase,
   'Stats / KPI': StatShowcase,
   Charts: ChartShowcase,
   Calendar: CalendarShowcase,
   'Activity Feed': ActivityFeedShowcase,
+  'Grid View': GridViewShowcase,
+  'Details List': DetailsListShowcase,
   'Profile Card': ProfileCardShowcase,
   'User Menu': UserMenuShowcase,
   'Password Input': PasswordInputShowcase,

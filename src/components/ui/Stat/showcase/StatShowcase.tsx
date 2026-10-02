@@ -28,19 +28,19 @@ export default function StatShowcase() {
 <Stat label="Active Users" value="12,483" icon="users" countUp />
 <Stat label="Conversion Rate" value="3.42%" icon="activity" countUp countUpDuration={2000} />
 <Stat label="Uptime" value="99.9%" icon="clock" countUp />`,
-              js: `<l-Stat label="Revenue" value="$48,290" icon="zap" countUp="true"></l-Stat>
-<l-Stat label="Active Users" value="12,483" icon="users" countUp="true"></l-Stat>
-<l-Stat label="Conversion Rate" value="3.42%" icon="activity" countUp="true" countUpDuration="2000"></l-Stat>
-<l-Stat label="Uptime" value="99.9%" icon="clock" countUp="true"></l-Stat>
+              js: `<l-Stat label="Revenue" value="$48,290" icon="zap" count-up></l-Stat>
+<l-Stat label="Active Users" value="12,483" icon="users" count-up></l-Stat>
+<l-Stat label="Conversion Rate" value="3.42%" icon="activity" count-up count-up-duration="2000"></l-Stat>
+<l-Stat label="Uptime" value="99.9%" icon="clock" count-up></l-Stat>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-Stat label="Revenue" value="$48,290" icon="zap" countUp="true"></l-Stat>
-  <l-Stat label="Active Users" value="12,483" icon="users" countUp="true"></l-Stat>
-  <l-Stat label="Conversion Rate" value="3.42%" icon="activity" countUp="true" countUpDuration="2000"></l-Stat>
-  <l-Stat label="Uptime" value="99.9%" icon="clock" countUp="true"></l-Stat>
+  <l-Stat label="Revenue" value="$48,290" icon="zap" count-up></l-Stat>
+  <l-Stat label="Active Users" value="12,483" icon="users" count-up></l-Stat>
+  <l-Stat label="Conversion Rate" value="3.42%" icon="activity" count-up count-up-duration="2000"></l-Stat>
+  <l-Stat label="Uptime" value="99.9%" icon="clock" count-up></l-Stat>
 </template>
 
 <script setup lang="ts">
@@ -55,10 +55,10 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Stat label="Revenue" value="$48,290" icon="zap" countUp="true"></l-Stat>
-    <l-Stat label="Active Users" value="12,483" icon="users" countUp="true"></l-Stat>
-    <l-Stat label="Conversion Rate" value="3.42%" icon="activity" countUp="true" countUpDuration="2000"></l-Stat>
-    <l-Stat label="Uptime" value="99.9%" icon="clock" countUp="true"></l-Stat>
+    <l-Stat label="Revenue" value="$48,290" icon="zap" count-up></l-Stat>
+    <l-Stat label="Active Users" value="12,483" icon="users" count-up></l-Stat>
+    <l-Stat label="Conversion Rate" value="3.42%" icon="activity" count-up count-up-duration="2000"></l-Stat>
+    <l-Stat label="Uptime" value="99.9%" icon="clock" count-up></l-Stat>
   \`,
 })
 export class AppComponent {}`,

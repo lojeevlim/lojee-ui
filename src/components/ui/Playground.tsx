@@ -73,12 +73,13 @@ import CodeSnippetPlayground from "./CodeSnippetPlayground";
 import NavigationMenuPlayground from "./NavigationMenuPlayground";
 import BottomNavigationPlayground from "./BottomNavigationPlayground";
 import StepperPlayground from "./StepperPlayground";
-import DataGridPlayground from "./DataGridPlayground";
 import TimelinePlayground from "./TimelinePlayground";
 import StatPlayground from "./StatPlayground";
 import ChartPlayground from "./ChartPlayground";
 import CalendarPlayground from "./CalendarPlayground";
 import ActivityFeedPlayground from "./ActivityFeedPlayground";
+import GridViewPlayground from "./GridViewPlayground";
+import DetailsListPlayground from "./DetailsListPlayground";
 import ProfileCardPlayground from "./ProfileCardPlayground";
 import UserMenuPlayground from "./UserMenuPlayground";
 import PasswordInputPlayground from "./PasswordInputPlayground";
@@ -166,12 +167,13 @@ const PLAYGROUNDS: Record<string, ComponentType> = {
   "Navigation Menu": NavigationMenuPlayground,
   "Bottom Navigation": BottomNavigationPlayground,
   Stepper: StepperPlayground,
-  "Data Grid": DataGridPlayground,
   Timeline: TimelinePlayground,
   "Stats / KPI": StatPlayground,
   Charts: ChartPlayground,
   Calendar: CalendarPlayground,
   "Activity Feed": ActivityFeedPlayground,
+  "Grid View": GridViewPlayground,
+  "Details List": DetailsListPlayground,
   "Profile Card": ProfileCardPlayground,
   "User Menu": UserMenuPlayground,
   "Password Input": PasswordInputPlayground,

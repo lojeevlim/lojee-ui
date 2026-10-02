@@ -57,6 +57,24 @@ export {
   type TableColumn,
   type TableSize,
   type TableAction,
+  type TableVariant,
+  type TableResponsive,
+  type TableView,
+  type TableActionsVariant,
+  type TableCellType,
+  type TableSort,
+  type TableRowKey,
+  type TableUserCell,
+  type TablePaymentCell,
+  type TableBadgeCell,
+  type TableProgressCell,
+  type TableStatusCell,
+  type TableRatingCell,
+  type TableImageCell,
+  type TableLinkCell,
+  type TableAvatarsCell,
+  type TableCurrencyCell,
+  type TableDateCell,
 } from "../components/ui/Table/Table";
 export { Pagination, type PaginationProps } from "../components/ui/Pagination/Pagination";
 export { Tabs, type TabsProps, type TabItem } from "../components/ui/Tabs/Tabs";
@@ -200,25 +218,36 @@ export { StepperItem, type StepperItemProps } from "../components/ui/Stepper/Ste
 export { useStepper } from "../components/ui/Stepper/stepperContext";
 
 export {
-  DataGrid,
-  type DataGridProps,
-  type DataGridColumn,
-  type DataGridSize,
-} from "../components/ui/DataGrid/DataGrid";
-export {
   Timeline,
   type TimelineProps,
   type TimelineItem,
   type TimelineOrientation,
 } from "../components/ui/Timeline/Timeline";
 export { Stat, type StatProps, type StatTrend } from "../components/ui/Stat/Stat";
-export { Chart, type ChartProps, type ChartType, type ChartDataPoint } from "../components/ui/Chart/Chart";
+export { Chart, type ChartProps, type ChartType, type ChartVariant, type ChartDataPoint } from "../components/ui/Chart/Chart";
 export { Calendar, type CalendarProps, type CalendarEvent, type CalendarRange, type CalendarSelectionMode } from "../components/ui/Calendar/Calendar";
 export {
   ActivityFeed,
   type ActivityFeedProps,
   type ActivityItem,
 } from "../components/ui/ActivityFeed/ActivityFeed";
+export {
+  GridView,
+  type GridViewProps,
+  type GridViewItem,
+  type GridViewValue,
+  type GridViewTag,
+  type GridViewAction,
+  type GridViewSortOption,
+  type GridViewMode,
+  type GridViewVariant,
+} from "../components/ui/GridView/GridView";
+export {
+  DetailsList,
+  type DetailsListProps,
+  type DetailsListItem,
+  type DetailsListField,
+} from "../components/ui/DetailsList/DetailsList";
 
 export {
   ProfileCard,
@@ -286,6 +315,7 @@ export type {
   MapMarkerData,
   MapRouteData,
   MapRouteSummary,
+  RouteAnimation,
   MapViewState,
   MapControlName,
 } from "../components/ui/Map/mapTypes";
@@ -315,7 +345,6 @@ export type { ThemeMode, ResolvedTheme, AccentName, ThemeContextValue } from "..
 
 // Media
 export { Image, type ImageProps, type ImageFit, type ImageRadius, type ImageRatio } from "../components/ui/Image/Image";
-  RouteAnimation,
 export { Video, type VideoProps, type VideoSource, type VideoFit, type VideoRadius, type VideoRatio } from "../components/ui/Video/Video";
 export { embedUrl } from "../components/ui/Video/embedUrl";
 

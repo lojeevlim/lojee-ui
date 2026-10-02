@@ -1,12 +1,19 @@
-import { Table, type TableAction, type TableProps } from "../components/ui/Table/Table";
+import { Table, type TableAction, type TableProps, type TableRowKey } from "../components/ui/Table/Table";
 
-// A custom event carries a single `detail`, but Table's `onAction` takes (action, row) — so the element
-// bundles both into one object: `event.detail` is `{ action, row }`.
+// A custom event carries a single `detail`, but Table's callbacks take several arguments — so the element bundles
+// them into one object: `action` is `{ action, row }` and `selectionchange` is `{ keys, rows }`.
 type RowData = Record<string, unknown>;
-type TableElementProps = Omit<TableProps<RowData>, "onAction"> & {
+type TableElementProps = Omit<TableProps<RowData>, "onAction" | "onSelectionChange"> & {
   onAction?: (detail: { action: TableAction; row: RowData }) => void;
+  onSelectionChange?: (detail: { keys: TableRowKey[]; rows: RowData[] }) => void;
 };
 
-export function TableElement({ onAction, ...rest }: TableElementProps) {
-  return <Table<RowData> {...rest} onAction={onAction && ((action, row) => onAction({ action, row }))} />;
+export function TableElement({ onAction, onSelectionChange, ...rest }: TableElementProps) {
+  return (
+    <Table<RowData>
+      {...rest}
+      onAction={onAction && ((action, row) => onAction({ action, row }))}
+      onSelectionChange={onSelectionChange && ((keys, rows) => onSelectionChange({ keys, rows }))}
+    />
+  );
 }

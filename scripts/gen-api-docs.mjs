@@ -119,10 +119,131 @@ const DATA_TYPES = {
     { name: "MapRouteData", file: "Map/mapTypes.ts", via: "routes" },
     { name: "MapRouteSummary", file: "Map/mapTypes.ts", note: "Reported by `onLoad` / the `routeload` event." },
   ],
+  // The column definitions and the value each built-in column `type` reads from a row. `example` is shown as code under the fields.
+  Tables: [
+    {
+      name: "TableColumn",
+      file: "Table/Table.tsx",
+      via: "columns",
+      note: "One entry per column. `key` picks the field to read from each row; `type` chooses how that value is drawn (or give `render` in React to draw it yourself).",
+      example: `const columns = [
+  { key: "name", header: "Name", sortable: true },                       // plain text, click the header to sort
+  { key: "user", header: "Full Name", type: "user" },                      // avatar + name + handle
+  { key: "payment", header: "Payment", type: "payment", width: "22%" },    // card logo + masked number
+  { key: "tags", header: "Category", type: "badges" },                     // coloured tags
+  { key: "clicks", header: "Clicks", type: "progress", align: "right" },   // a bar with its percentage
+];`,
+    },
+    {
+      name: "TableUserCell",
+      file: "Table/Table.tsx",
+      note: "Value for a column with `type: \"user\"`: an avatar with a name and, underneath, a handle. The avatar falls back to the initials of the name.",
+      example: `{ key: "user", header: "Full Name", type: "user" }
+
+// in the row:
+user: { name: "Alice Smith", handle: "@alicesmith", avatar: "/avatars/alice.jpg" }`,
+    },
+    {
+      name: "TablePaymentCell",
+      file: "Table/Table.tsx",
+      note: "Value for a column with `type: \"payment\"`: the card brand's logo and the masked number. Visa and Mastercard keep their official colours; everything else follows the theme.",
+      example: `{ key: "payment", header: "Payment Methods", type: "payment" }
+
+// in the row:
+payment: { brand: "mastercard", last4: "1499", note: "Primary card" }   // → [logo] Ends in ****-**99  ⓘ`,
+    },
+    {
+      name: "TableBadgeCell",
+      file: "Table/Table.tsx",
+      note: "One tag in a column with `type: \"badges\"`. The cell value is an array of these, or of plain strings (which are coloured automatically).",
+      example: `{ key: "tags", header: "Category", type: "badges" }
+
+// in the row — plain strings:
+tags: ["Arts", "Business", "Travel"]
+
+// or with your own colours:
+tags: [{ label: "Books", color: "indigo" }, { label: "Computers", color: "violet" }]`,
+    },
+    {
+      name: "TableProgressCell",
+      file: "Table/Table.tsx",
+      note: "Value for a column with `type: \"progress\"`: a bar filled to a percentage, in the theme accent. The cell value can be this object or just the number.",
+      example: `{ key: "clicks", header: "Clickthrough Percentage", type: "progress", sortable: true }
+
+// in the row — either form works:
+clicks: 64
+clicks: { value: 64 }`,
+    },
+    {
+      name: "TableStatusCell",
+      file: "Table/Table.tsx",
+      note: "Value for a column with `type: \"status\"`: a coloured pill. Give just the text and the colour is chosen from the words (paid, active, done → green; pending, invited, draft → amber; failed, overdue, suspended → red), or set `color` yourself.",
+      example: `{ key: "status", header: "Status", type: "status" }
+
+// in the row:
+status: "Paid"
+status: { label: "Needs review", color: "violet" }`,
+    },
+    {
+      name: "TableRatingCell",
+      file: "Table/Table.tsx",
+      note: "Value for a column with `type: \"rating\"`: read-only stars. The cell value can be this object or just the number; half values draw half a star.",
+      example: `{ key: "rating", header: "Rating", type: "rating", sortable: true }
+
+// in the row:
+rating: 4.5
+rating: { value: 7, max: 10 }`,
+    },
+    {
+      name: "TableImageCell",
+      file: "Table/Table.tsx",
+      note: "Value for a column with `type: \"image\"`: a rounded thumbnail with a title and a subtitle underneath — good for products, files and articles.",
+      example: `{ key: "product", header: "Product", type: "image" }
+
+// in the row:
+product: { src: "/products/lamp.jpg", title: "Desk lamp", subtitle: "SKU 20418" }`,
+    },
+    {
+      name: "TableLinkCell",
+      file: "Table/Table.tsx",
+      note: "Value for a column with `type: \"link\"`: a text link in the theme accent. The cell value can be this object or just the URL.",
+      example: `{ key: "invoice", header: "Invoice", type: "link" }
+
+// in the row:
+invoice: "https://example.com/invoices/2041"
+invoice: { href: "https://example.com/invoices/2041", label: "INV-2041", external: true }`,
+    },
+    {
+      name: "TableAvatarsCell",
+      file: "Table/Table.tsx",
+      note: "One person in a column with `type: \"avatars\"`. The cell value is an array of these (or of plain names), drawn as overlapping avatars; after the first five a \"+N\" chip counts the rest. Sorting uses the number of people.",
+      example: `{ key: "team", header: "Team", type: "avatars" }
+
+// in the row:
+team: [{ name: "Ava Chen" }, { name: "Marcus Lee", avatar: "/avatars/marcus.jpg" }, "Priya Nair"]`,
+    },
+    {
+      name: "TableCurrencyCell",
+      file: "Table/Table.tsx",
+      note: "Value for a column with `type: \"currency\"`: a formatted amount with aligned digits. The cell value can be this object or just a number, which is shown in US dollars.",
+      example: `{ key: "total", header: "Total", type: "currency", align: "right", sortable: true }
+
+// in the row:
+total: 1249.5                                  // → $1,249.50
+total: { value: 1249.5, currency: "EUR" }      // → €1,249.50`,
+    },
+    {
+      name: "TableAction",
+      file: "Table/Table.tsx",
+      via: "actions",
+      note: "One icon button in the row-actions column. Actions whose `value` is \"edit\", \"duplicate\" or \"delete\" work out of the box.",
+    },
+    { name: "TableSort", file: "Table/Table.tsx", note: "Reported by `onSortChange` / the `sortchange` event; null when sorting is cleared." },
+  ],
 };
 function parseDataInterface(file, name) {
   const abs = path.join(root, "src/components/ui", file);
-  const sf = ts.createSourceFile(abs, fs.readFileSync(abs, "utf8"), ts.ScriptTarget.Latest, true, ts.ScriptKind.TS);
+  const sf = ts.createSourceFile(abs, fs.readFileSync(abs, "utf8"), ts.ScriptTarget.Latest, true, abs.endsWith("x") ? ts.ScriptKind.TSX : ts.ScriptKind.TS);
   let out = [];
   sf.forEachChild((node) => {
     if (ts.isInterfaceDeclaration(node) && node.name.text === name)
@@ -160,7 +281,7 @@ for (const { label, comp } of entries) {
       components,
       hooks,
       types,
-      dataTypes: (DATA_TYPES[label] ?? []).map((d) => ({ name: d.name, via: d.via ?? null, note: d.note ?? null, props: parseDataInterface(d.file, d.name) })),
+      dataTypes: (DATA_TYPES[label] ?? []).map((d) => ({ name: d.name, via: d.via ?? null, note: d.note ?? null, example: d.example ?? null, props: parseDataInterface(d.file, d.name) })),
     };
 }
 
@@ -191,7 +312,7 @@ export interface ApiProp { name: string; type: string; required: boolean; descri
 export interface ApiElement { tag: string; props: Record<string, string>; extraProps: { name: string; type: string; description: string }[]; events: { callback: string; event: string }[] }
 export interface ApiComponent { name: string; props: ApiProp[]; element: ApiElement | null }
 export interface ApiHook { name: string; signature: string; description: string }
-export interface ApiDataType { name: string; via: string | null; note: string | null; props: ApiProp[] }
+export interface ApiDataType { name: string; via: string | null; note: string | null; example: string | null; props: ApiProp[] }
 export interface ApiDoc { components: ApiComponent[]; hooks: ApiHook[]; types: Record<string, string>; dataTypes: ApiDataType[] }
 
 export const API_DOCS: Record<string, ApiDoc> = ${JSON.stringify(docs, null, 2)};
