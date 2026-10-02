@@ -61,6 +61,15 @@ import FooterPlayground from "./FooterPlayground";
 import AppLayoutPlayground from "./AppLayoutPlayground";
 import MainPlayground from "./MainPlayground";
 import ThemeSwitcherPlayground from "./ThemeSwitcherPlayground";
+import ImagePlayground from "./ImagePlayground";
+import VideoPlayground from "./VideoPlayground";
+import SkeletonPlayground from "./SkeletonPlayground";
+import TagInputPlayground from "./TagInputPlayground";
+import NumberInputPlayground from "./NumberInputPlayground";
+import OtpInputPlayground from "./OtpInputPlayground";
+import RatingPlayground from "./RatingPlayground";
+import ColorPickerPlayground from "./ColorPickerPlayground";
+import CodeSnippetPlayground from "./CodeSnippetPlayground";
 import NavigationMenuPlayground from "./NavigationMenuPlayground";
 import BottomNavigationPlayground from "./BottomNavigationPlayground";
 import StepperPlayground from "./StepperPlayground";
@@ -144,6 +153,15 @@ const PLAYGROUNDS: Record<string, ComponentType> = {
   Footer: FooterPlayground,
   App: AppLayoutPlayground,
   Main: MainPlayground,
+  Images: ImagePlayground,
+  Videos: VideoPlayground,
+  Skeletons: SkeletonPlayground,
+  "Tag Input": TagInputPlayground,
+  "Number Input": NumberInputPlayground,
+  "OTP Input": OtpInputPlayground,
+  Rating: RatingPlayground,
+  "Color Picker": ColorPickerPlayground,
+  "Code Snippet": CodeSnippetPlayground,
   "Theme Switcher": ThemeSwitcherPlayground,
   "Navigation Menu": NavigationMenuPlayground,
   "Bottom Navigation": BottomNavigationPlayground,

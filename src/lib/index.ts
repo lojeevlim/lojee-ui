@@ -312,3 +312,18 @@ export { ThemeProvider, type ThemeProviderProps } from "../components/ui/Theme/T
 export { ThemeSwitcher, type ThemeSwitcherProps } from "../components/ui/ThemeSwitcher/ThemeSwitcher";
 export { useTheme, applyTheme, THEME_MODES, DEFAULT_ACCENT } from "../core/theme";
 export type { ThemeMode, ResolvedTheme, AccentName, ThemeContextValue } from "../core/theme";
+
+// Media
+export { Image, type ImageProps, type ImageFit, type ImageRadius, type ImageRatio } from "../components/ui/Image/Image";
+export { Video, type VideoProps, type VideoSource, type VideoFit, type VideoRadius, type VideoRatio } from "../components/ui/Video/Video";
+export { embedUrl } from "../components/ui/Video/embedUrl";
+
+// Loading, inputs and code
+export { Skeleton, type SkeletonProps, type SkeletonVariant, type SkeletonAnimation } from "../components/ui/Skeleton/Skeleton";
+export { TagInput, type TagInputProps } from "../components/ui/TagInput/TagInput";
+export { NumberInput, type NumberInputProps, type NumberInputSize } from "../components/ui/NumberInput/NumberInput";
+export { OtpInput, type OtpInputProps, type OtpInputSize, type OtpInputType } from "../components/ui/OtpInput/OtpInput";
+export { Rating, type RatingProps, type RatingSize } from "../components/ui/Rating/Rating";
+export { ColorPicker, type ColorPickerProps } from "../components/ui/ColorPicker/ColorPicker";
+export { CodeSnippet, type CodeSnippetProps } from "../components/ui/CodeSnippet/CodeSnippet";
+export { CopyButton, type CopyButtonProps } from "../components/ui/CodeSnippet/CopyButton";
