@@ -3,6 +3,7 @@
 // no React, no Lit — so both surfaces render pixel-identical output from
 // one source of truth.
 
+import type { CSSProperties } from "react";
 import { twMerge } from "tailwind-merge";
 
 export const COLORS = [
@@ -240,4 +241,43 @@ const NAMED_COLOR_SET = new Set<string>([...COLORS.map((c) => c.base), "accent"]
 // literal value directly".
 export function isColorName(value: string): value is ColorName {
   return NAMED_COLOR_SET.has(value);
+}
+
+// ---------------------------------------------------------------------------
+// Custom (non-built-in) button colors
+// ---------------------------------------------------------------------------
+
+/** Readable text color (white or near-black) for a "#rgb" / "#rrggbb" background; white for anything it can't parse. */
+function contrastText(color: string): string {
+  const m = /^#([0-9a-f]{3}|[0-9a-f]{6})$/i.exec(color.trim());
+  if (!m) return "#ffffff";
+  const hex = m[1].length === 3 ? [...m[1]].map((c) => c + c).join("") : m[1];
+  const [r, g, b] = [0, 2, 4].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255).map((v) => (v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4));
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b > 0.5 ? "#0f172a" : "#ffffff";
+}
+
+// Literal class strings (Tailwind only sees complete literals) driven by two CSS variables set inline: --btn-c, the color,
+// and --btn-fg, the readable text color on a solid fill of it.
+const CUSTOM_BUTTON_CLASSES: Record<string, string> = {
+  solid: "bg-[var(--btn-c)] text-[var(--btn-fg)] hover:brightness-110 active:brightness-95 focus-visible:ring-[var(--btn-c)]",
+  outline:
+    "border border-[var(--btn-c)] text-[var(--btn-c)] hover:bg-[color-mix(in_srgb,var(--btn-c)_10%,transparent)] active:bg-[color-mix(in_srgb,var(--btn-c)_20%,transparent)] focus-visible:ring-[var(--btn-c)]",
+  ghost:
+    "text-[var(--btn-c)] hover:bg-[color-mix(in_srgb,var(--btn-c)_10%,transparent)] active:bg-[color-mix(in_srgb,var(--btn-c)_20%,transparent)] focus-visible:ring-[var(--btn-c)]",
+  soft:
+    "bg-[color-mix(in_srgb,var(--btn-c)_14%,transparent)] text-[var(--btn-c)] hover:bg-[color-mix(in_srgb,var(--btn-c)_22%,transparent)] active:bg-[color-mix(in_srgb,var(--btn-c)_30%,transparent)] focus-visible:ring-[var(--btn-c)]",
+  link: "text-[var(--btn-c)] underline underline-offset-4 hover:opacity-80 focus-visible:ring-[var(--btn-c)]",
+  dashed:
+    "border border-dashed border-[var(--btn-c)] text-[var(--btn-c)] hover:bg-[color-mix(in_srgb,var(--btn-c)_10%,transparent)] active:bg-[color-mix(in_srgb,var(--btn-c)_20%,transparent)] focus-visible:ring-[var(--btn-c)]",
+  glass:
+    "bg-[color-mix(in_srgb,var(--btn-c)_14%,transparent)] text-[var(--btn-c)] backdrop-blur-md border border-white/60 dark:border-white/10 shadow-sm focus-visible:ring-[var(--btn-c)]",
+  gradient: "text-[var(--btn-fg)] hover:brightness-110 active:brightness-95 focus-visible:ring-[var(--btn-c)]",
+};
+
+/** Classes and inline style for a Button in any CSS `color` (a hex from a color picker, an rgb()/hsl() value …) instead of a built-in name. */
+export function customButtonStyle(variant: string, color: string): { className: string; style: CSSProperties } {
+  const fg = contrastText(color);
+  const style: Record<string, string> = { "--btn-c": color, "--btn-fg": fg };
+  if (variant === "gradient") style.backgroundImage = `linear-gradient(to right, ${color}, color-mix(in srgb, ${color} 60%, black))`;
+  return { className: CUSTOM_BUTTON_CLASSES[variant] ?? CUSTOM_BUTTON_CLASSES.solid, style: style as CSSProperties };
 }
