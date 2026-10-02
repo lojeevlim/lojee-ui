@@ -28,8 +28,8 @@ export interface SplitButtonProps {
   children?: ReactNode;
   /** Visual style shared by both halves: "solid", "outline", "ghost", "soft", "link" or "dashed" (default: "solid"). */
   variant?: ColorVariant;
-  /** Button color, one of the built-in `ColorName`s (default: "accent", which follows the theme accent). */
-  color?: ColorName;
+  /** Button color: a built-in `ColorName` (default: "accent", which follows the theme accent) or any CSS color such as "#8b5cf6". */
+  color?: ColorName | (string & {});
   /** "xs" | "sm" | "md" | "lg" | "xl" | "full" (default: "md"). */
   size?: Size;
   /**

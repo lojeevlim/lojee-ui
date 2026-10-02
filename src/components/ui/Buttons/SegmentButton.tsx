@@ -1,4 +1,4 @@
-import type { ButtonHTMLAttributes } from "react";
+import type { ButtonHTMLAttributes, MouseEventHandler } from "react";
 import { colorClasses, cx, isColorName, nonInteractive, type ColorName } from "../../../core/tokens";
 import { ACTIVE_ITEM_TRANSITION, activeMarker } from "../../../core/activeVariant";
 import { getIcon } from "../../../core/icons";
@@ -9,8 +9,10 @@ export interface SegmentButtonProps extends ButtonHTMLAttributes<HTMLButtonEleme
   icon?: string;
   /** Whether this segment is currently selected/pressed — highlights it and sets `aria-pressed` (default: false); controlled by the parent. */
   active?: boolean;
+  /** Called with the click event when the segment is clicked. */
+  onClick?: MouseEventHandler<HTMLButtonElement>;
   /** Highlight color when active — same palette as Button (default: accent — follows the theme). Inactive segments stay neutral. */
-  color?: ColorName;
+  color?: ColorName | (string & {});
   /** Enter transition: "fade" | "slide-up" | "slide-down" | "slide-left" | "slide-right" | "zoom" | "zoom-out" | "flip" | "blur" | "bounce" | "rotate" | "drop" | "skew" (default: none). Respects `prefers-reduced-motion`. */
   transition?: TransitionVariant;
   /** Enter transition duration in ms (default: 450). */
@@ -46,13 +48,14 @@ export function SegmentButton({
   // component reference for a given name, so this never actually causes a
   // remount — the lint rule can't verify that statically, hence the disable.
   const Icon = getIcon(icon);
-  const activeClass = nonInteractive((colorClasses[color] || colorClasses.slate).solid);
+  const named = isColorName(color);
+  const activeClass = named ? nonInteractive((colorClasses[color] || colorClasses.slate).solid) : "text-white";
   return (
     <button
       type={type}
       onClick={onClick}
       aria-pressed={active}
-      {...(active && activeMarker("fill", color, isColorName(color)))}
+      {...(active && activeMarker("fill", color, named))}
       className={cx(
         "inline-flex items-center gap-1.5 px-3 py-2 text-sm font-medium",
         ACTIVE_ITEM_TRANSITION,
@@ -61,7 +64,7 @@ export function SegmentButton({
         className,
         classNames?.root
       )}
-      style={{ ...style, ...motionStyle(transitionDuration, transitionDelay) }}
+      style={{ ...(active && !named ? { backgroundColor: color } : {}), ...style, ...motionStyle(transitionDuration, transitionDelay) }}
       {...rest}
     >
       {/* eslint-disable-next-line react-hooks/static-components -- see comment above `const Icon` */}
