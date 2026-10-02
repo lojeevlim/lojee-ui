@@ -1,44 +1,29 @@
-import { highlightCode } from "../../core/highlightCode";
 import { useEffect, useRef, useState } from "react";
 import { Table, type TableColumn, type TableAction } from "../ui/Table/Table";
-import { Badge } from "../ui/Badge/Badge";
 import { Button } from "../ui/Buttons/Button";
 import { Switch } from "../ui/Switch/Switch";
-import { Chart } from "../ui/Chart/Chart";
-import { Stat } from "../ui/Stat/Stat";
 
-interface Invoice {
+interface Account {
   id: string;
-  customer: string;
-  amount: number;
-  status: "Paid" | "Pending" | "Overdue";
+  user: { name: string; handle: string };
+  payment: { brand: "visa" | "mastercard"; last4: string; note?: string };
+  categories: (string | { label: string; color?: string })[];
+  status: string;
+  usage: number;
 }
 
-const INVOICES: Invoice[] = [
-  { id: "INV-1042", customer: "Acme Corp", amount: 4800, status: "Paid" },
-  { id: "INV-1043", customer: "Globex", amount: 1250, status: "Pending" },
-  { id: "INV-1044", customer: "Initech", amount: 920, status: "Overdue" },
-  { id: "INV-1045", customer: "Umbrella", amount: 3100, status: "Paid" },
+const ACCOUNTS: Account[] = [
+  { id: "alice", user: { name: "Alice Smith", handle: "@alicesmith" }, payment: { brand: "visa", last4: "18" }, categories: ["Arts", "Business", "Travel"], status: "Active", usage: 72 },
+  { id: "bob", user: { name: "Bob Johnson", handle: "@bobjohnson" }, payment: { brand: "mastercard", last4: "99", note: "Primary card" }, categories: [{ label: "Books", color: "indigo" }, { label: "Computers", color: "violet" }], status: "Pending", usage: 31 },
+  { id: "clara", user: { name: "Clara Garcia", handle: "@claragarcia" }, payment: { brand: "mastercard", last4: "14" }, categories: [{ label: "Kitchen", color: "amber" }, { label: "Books", color: "cyan" }], status: "Active", usage: 85 },
+  { id: "dan", user: { name: "Dan Ostrow", handle: "@danostrow" }, payment: { brand: "visa", last4: "07" }, categories: ["Sports", "Travel"], status: "Overdue", usage: 54 },
 ];
 
-const REVENUE = [
-  { label: "Jan", value: 32 },
-  { label: "Feb", value: 41 },
-  { label: "Mar", value: 38 },
-  { label: "Apr", value: 52 },
-  { label: "May", value: 47 },
-  { label: "Jun", value: 61 },
-];
-
-const COLUMNS: TableColumn<Invoice>[] = [
-  { key: "id", header: "Invoice" },
-  { key: "customer", header: "Customer" },
-  { key: "amount", header: "Amount", align: "right", render: (r) => `$${r.amount.toLocaleString()}` },
-  {
-    key: "status",
-    header: "Status",
-    render: (r) => <Badge variant="soft" color={r.status === "Paid" ? "emerald" : r.status === "Pending" ? "amber" : "rose"} label={r.status} />,
-  },
+const COLUMNS: TableColumn<Account>[] = [
+  { key: "user", header: "Customer", type: "user", sortable: true },
+  { key: "payment", header: "Payment method", type: "payment" },
+  { key: "categories", header: "Category", type: "badges" },
+  { key: "usage", header: "Usage", type: "progress", sortable: true },
 ];
 
 const ACTIONS: TableAction[] = [
@@ -52,6 +37,8 @@ export default function DataLab() {
   const [loading, setLoading] = useState(true);
   const [actions, setActions] = useState(true);
   const [last, setLast] = useState("Try the row actions");
+  const [selectable, setSelectable] = useState(true);
+  const [viewToggle, setViewToggle] = useState(true);
   const [version, setVersion] = useState(0);
   const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
@@ -77,35 +64,32 @@ export default function DataLab() {
           <div className="space-y-3">
             <Switch label="Loading skeleton" checked={loading} onChange={(e) => setLoading(e.target.checked)} />
             <Switch label="Row actions" checked={actions} onChange={(e) => setActions(e.target.checked)} />
+            <Switch label="Selectable rows" checked={selectable} onChange={(e) => setSelectable(e.target.checked)} />
+            <Switch label="Grid / table toggle" checked={viewToggle} onChange={(e) => setViewToggle(e.target.checked)} />
           </div>
         </div>
         <Button variant="outline" icon="refresh-cw" label="Reload data" onClick={reload} />
-        <pre className="overflow-x-auto rounded-lg bg-surface-muted p-3 font-mono text-[11px] leading-relaxed text-fg-muted"><code>{highlightCode(`<Table
-  columns={columns}
-  data={invoices}${loading ? "\n  loading" : ""}${actions ? `\n  actions={[\n    { label: "Edit", value: "edit" },\n    { label: "Duplicate", value: "duplicate" },\n    { label: "Delete", value: "delete" },\n  ]}` : ""}
-/>`)}</code></pre>
       </div>
 
       <div className="rounded-2xl border border-border bg-surface p-5 shadow-sm md:p-6">
-        <div key={`kpi-${version}`} className="mb-6 grid gap-4 sm:grid-cols-[1fr_minmax(0,1.4fr)]">
-          <Stat label="Revenue" value="$48,290" change="12.5%" trend="up" icon="zap" countUp />
-          <div className="rounded-xl border border-border p-3">
-            <Chart countUp data={REVENUE} height={110} />
-          </div>
-        </div>
         <div className="mb-4 flex items-center justify-between gap-3">
-          <p className="text-sm font-semibold text-fg">Invoices</p>
+          <p className="text-sm font-semibold text-fg">Customers</p>
           <p className="text-xs text-fg-subtle" aria-live="polite">{last}</p>
         </div>
-        <Table<Invoice>
+        <Table<Account>
           key={version}
+          variant="lined"
+          size="sm"
           columns={COLUMNS}
-          data={INVOICES}
+          data={ACCOUNTS}
+          rowKey="id"
+          selectable={selectable}
+          viewToggle={viewToggle}
           loading={loading}
           skeletonRows={4}
-          bordered
           actions={actions ? ACTIONS : undefined}
-          onAction={(a, row) => setLast(`${a.label}: ${row.id}`)}
+          onAction={(a, row) => setLast(`${a.label}: ${row.user.name}`)}
+          onSelectionChange={(keys) => setLast(`${keys.length} selected`)}
           transition="slide-up"
         />
       </div>

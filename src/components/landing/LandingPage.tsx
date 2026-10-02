@@ -199,7 +199,7 @@ export default function LandingPage() {
         <MotionLab />
       </Section>
 
-      <Section eyebrow="Data" title="Tables that load, edit and react" body="Charts and stats count up from zero, tables show shimmering skeleton rows while data loads, and users can edit, duplicate or delete rows with no extra code.">
+      <Section eyebrow="Data" title="Tables that load, edit and react" body="Tables show shimmering skeleton rows while data loads, switch between a table and a card grid, and let users select, edit, duplicate or delete rows with no extra code.">
         <DataLab />
       </Section>
 
