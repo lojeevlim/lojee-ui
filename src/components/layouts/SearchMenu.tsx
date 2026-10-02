@@ -56,7 +56,7 @@ export default function SearchMenu() {
         <span className="hidden sm:inline">Search</span>
         <kbd className="hidden rounded border border-border bg-surface-muted px-1.5 py-0.5 font-sans text-[10px] text-fg-subtle md:inline">⌘K</kbd>
       </button>
-      <CommandMenu open={open} onClose={() => setOpen(false)} items={items} placeholder="Search components, docs and pages…" />
+      <CommandMenu open={open} onClose={() => setOpen(false)} items={items} transition="fade" placeholder="Search components, docs and pages…" />
     </>
   );
 }
