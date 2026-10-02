@@ -267,6 +267,8 @@ export function Map({
                 activeWidth={r.activeWidth}
                 activeOpacity={r.activeOpacity}
                 animated={r.animated}
+                animationSpeed={r.animationSpeed}
+                animationDirection={r.animationDirection}
                 fit={fitBounds && !!r.waypoints}
                 onClick={() => onRouteClick?.({ ...r, id: rid })}
                 onLoad={onRouteLoad}

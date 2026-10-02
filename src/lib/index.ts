@@ -315,6 +315,7 @@ export type { ThemeMode, ResolvedTheme, AccentName, ThemeContextValue } from "..
 
 // Media
 export { Image, type ImageProps, type ImageFit, type ImageRadius, type ImageRatio } from "../components/ui/Image/Image";
+  RouteAnimation,
 export { Video, type VideoProps, type VideoSource, type VideoFit, type VideoRadius, type VideoRatio } from "../components/ui/Video/Video";
 export { embedUrl } from "../components/ui/Video/embedUrl";
 
