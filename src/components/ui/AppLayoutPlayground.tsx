@@ -12,6 +12,7 @@ import { appCodeVariants } from "./AppLayout/appCode";
 import {
   APP_THEME_OPTIONS,
   DEFAULT_LAYOUT,
+  LAYOUT_PRESETS,
   withoutSections,
   type AppSection,
   type AppTheme,
@@ -151,7 +152,7 @@ ${parts}  </App>
           </div>
         </div>
         <div className="mb-1.5 flex items-center justify-between">
-          <span className="text-xs font-medium text-fg-subtle">Layout — drag a section onto a cell to grow it there, or onto an edge to dock it</span>
+          <span className="text-xs font-medium text-fg-subtle">Layout — pick a preset</span>
           <button
             type="button"
             disabled={isDefault}
@@ -159,14 +160,29 @@ ${parts}  </App>
               setLayout(DEFAULT_LAYOUT);
               setHidden([]);
             }}
-            className="text-xs text-fg-muted underline underline-offset-2 hover:text-fg disabled:opacity-40 disabled:no-underline"
+            className="rounded-lg border border-border px-3 py-1 text-xs font-medium text-fg-muted transition-all duration-200 hover:-translate-y-0.5 hover:bg-surface-muted disabled:pointer-events-none disabled:opacity-40"
           >
             Reset
           </button>
         </div>
-        <div className="rounded-lg border border-border bg-surface-muted">
-          <LayoutEditor layout={layout} onChange={setLayout} hidden={hidden} />
+        <div className="grid grid-cols-2 gap-2 pb-3 sm:grid-cols-4">
+          {LAYOUT_PRESETS.map((pr) => {
+            const active = sameLayout(layout, pr.layout);
+            return (
+              <button
+                key={pr.name}
+                type="button"
+                onClick={() => setLayout(pr.layout)}
+                className={`rounded-lg border px-3 py-2 text-left text-sm font-medium transition-all duration-200 ${
+                  active ? "border-accent-600 bg-accent-600 text-white shadow-md" : "border-border text-fg-muted hover:-translate-y-0.5 hover:bg-surface-muted"
+                }`}
+              >
+                {pr.name}
+              </button>
+            );
+          })}
         </div>
+        <LayoutEditor layout={layout} hidden={hidden} />
       </div>
     </PlaygroundLayout>
   );

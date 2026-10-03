@@ -190,3 +190,11 @@ export function withoutSections(layout: GridLayout, hidden: AppSection[]): GridL
   out = out.map((row) => row.filter((_, c) => keep[c]));
   return out.length && out[0].length && regionsAreRectangles(out) ? out : canonicalLayout(removed);
 }
+
+/** Ready-made layouts offered as one-click presets next to the drag editor. */
+export const LAYOUT_PRESETS: { name: string; layout: GridLayout }[] = [
+  { name: "Sidebar first", layout: [["side", "top"], ["side", "main"], ["side", "footer"]] },
+  { name: "Top bar first", layout: [["top", "top"], ["side", "main"], ["side", "footer"]] },
+  { name: "Classic", layout: [["top", "top"], ["side", "main"], ["footer", "footer"]] },
+  { name: "Right rail", layout: [["top", "side"], ["main", "side"], ["footer", "side"]] },
+];

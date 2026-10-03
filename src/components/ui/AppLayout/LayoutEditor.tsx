@@ -1,101 +1,73 @@
-// Demo-only (playground) drag-and-drop editor for an <App> layout. Not part of the shipped library.
-import { useState } from "react";
-import {
-  claimCell,
-  dockSection,
-  type AppSection,
-  type DockEdge,
-  type GridLayout,
-} from "./appLayout";
+// Demo-only (playground) schematic of an <App> layout. Not part of the shipped library.
+// Drawn like the landing page's layout schematic: each region is one box that glides to its new place.
+import type { AppSection, GridLayout } from "./appLayout";
 
-const EDGES: { edge: DockEdge; label: string; cls: string }[] = [
-  { edge: "top", label: "Dock top", cls: "left-6 right-6 top-0 h-5" },
-  { edge: "bottom", label: "Dock bottom", cls: "bottom-0 left-6 right-6 h-5" },
-  { edge: "left", label: "Dock left", cls: "bottom-6 left-0 top-6 w-5" },
-  { edge: "right", label: "Dock right", cls: "bottom-6 right-0 top-6 w-5" },
-];
-
-// Cells of one section share a tint, so a section spanning several cells reads as one region.
-const TINT: Record<AppSection, string> = {
-  top: "border-accent-300 bg-accent-500/15 text-accent-800 dark:border-accent-700 dark:text-accent-200",
-  side: "border-border-strong bg-surface text-fg-muted",
-  main: "border-border bg-surface-muted text-fg-muted",
-  footer: "border-accent-300 bg-accent-500/5 text-accent-800 dark:border-accent-700 dark:text-accent-200",
+const AREA_STYLE: Record<AppSection, string> = {
+  top: "border-accent-500/50 bg-accent-500/15 text-accent-700 dark:text-accent-300",
+  side: "border-accent-600/60 bg-accent-600 text-white",
+  main: "border-border-strong bg-surface text-fg",
+  footer: "border-accent-500/40 bg-accent-500/10 text-accent-700 dark:text-accent-300",
 };
 
 const LABEL: Record<AppSection, string> = { top: "Top", side: "Side", main: "Main", footer: "Footer" };
+const SECTIONS: AppSection[] = ["top", "side", "main", "footer"];
+const GAP = 8; // px between regions
+// Like the real grid, the track holding Main flexes and the others stay slim.
+const MAIN_WEIGHT = [3.4, 4.8] as const; // [column, row]
 
-export default function LayoutEditor({ layout, onChange, hidden = [] }: { layout: GridLayout; onChange: (next: GridLayout) => void; hidden?: AppSection[] }) {
-  const [dragging, setDragging] = useState<AppSection | null>(null);
-  const [over, setOver] = useState<string | null>(null);
+const GRID_BG = {
+  backgroundImage:
+    "linear-gradient(to right, color-mix(in srgb, var(--color-fg) 6%, transparent) 1px, transparent 1px), linear-gradient(to bottom, color-mix(in srgb, var(--color-fg) 6%, transparent) 1px, transparent 1px)",
+  backgroundSize: "14px 14px",
+};
 
-  const end = () => {
-    setDragging(null);
-    setOver(null);
+/** Start / size of tracks `from`..`to` (inclusive) as a calc() over the stage, so left / top / width / height can animate. */
+function span(weights: number[], from: number, to: number) {
+  const total = weights.reduce((a, b) => a + b, 0);
+  const before = weights.slice(0, from).reduce((a, b) => a + b, 0);
+  const inside = weights.slice(from, to + 1).reduce((a, b) => a + b, 0);
+  const free = `(100% - ${(weights.length - 1) * GAP}px)`;
+  return {
+    start: `calc(${free} * ${before / total} + ${from * GAP}px)`,
+    size: `calc(${free} * ${inside / total} + ${(to - from) * GAP}px)`,
   };
-  const allow = (key: string) => (e: React.DragEvent) => {
-    if (!dragging) return;
-    e.preventDefault();
-    setOver(key);
-  };
+}
+
+export default function LayoutEditor({ layout, hidden = [] }: { layout: GridLayout; hidden?: AppSection[] }) {
+  const cols = layout[0].length;
+  const colW = Array.from({ length: cols }, (_, c) => (layout.some((row) => row[c] === "main") ? MAIN_WEIGHT[0] : 1));
+  const rowW = layout.map((row) => (row.includes("main") ? MAIN_WEIGHT[1] : 1));
 
   return (
-    <div className="relative select-none p-6">
-      {EDGES.map(({ edge, label, cls }) => (
-        <div
-          key={edge}
-          onDragOver={allow(edge)}
-          onDragLeave={() => setOver(null)}
-          onDrop={(e) => {
-            e.preventDefault();
-            if (dragging) onChange(dockSection(layout, dragging, edge));
-            end();
-          }}
-          title={label}
-          aria-label={label}
-          className={`absolute rounded transition-colors ${cls} ${
-            dragging ? (over === edge ? "bg-accent-500/40" : "bg-accent-500/10") : "bg-transparent"
-          }`}
-        />
-      ))}
-      <div
-        className="grid gap-1"
-        style={{
-          gridTemplateColumns: `repeat(${layout[0].length}, minmax(0, 1fr))`,
-          gridTemplateRows: `repeat(${layout.length}, minmax(2.25rem, 1fr))`,
-        }}
-      >
-        {layout.map((row, r) =>
-          row.map((section, c) => {
-            const key = `${r}-${c}`;
-            return (
-              <div
-                key={key}
-                draggable
-                onDragStart={(e) => {
-                  e.dataTransfer.setData("text/plain", section);
-                  e.dataTransfer.effectAllowed = "move";
-                  setDragging(section);
-                }}
-                onDragEnd={end}
-                onDragOver={allow(key)}
-                onDragLeave={() => setOver(null)}
-                onDrop={(e) => {
-                  e.preventDefault();
-                  if (dragging) onChange(claimCell(layout, dragging, r, c));
-                  end();
-                }}
-                className={`flex cursor-grab items-center justify-center rounded-md border text-xs font-medium transition-colors active:cursor-grabbing ${
-                  over === key && dragging !== section
-                    ? "border-accent-500 bg-accent-500/30 text-fg"
-                    : TINT[section]
-                } ${dragging === section ? "opacity-50" : ""} ${hidden.includes(section) ? "border-dashed opacity-40" : ""}`}
-              >
-                {LABEL[section]}{hidden.includes(section) ? " (removed)" : ""}
+    <div className="relative aspect-[16/10] w-full max-w-xl overflow-hidden rounded-2xl border border-border bg-surface-muted p-4" style={GRID_BG}>
+      <div className="relative h-full w-full">
+        {SECTIONS.map((section) => {
+          const cells = layout.flatMap((row, r) => row.map((s, c) => (s === section ? [r, c] : null)).filter((x): x is number[] => !!x));
+          if (!cells.length) return null;
+          const rs = cells.map((x) => x[0]);
+          const cs = cells.map((x) => x[1]);
+          const y = span(rowW, Math.min(...rs), Math.max(...rs));
+          const x = span(colW, Math.min(...cs), Math.max(...cs));
+          const removed = hidden.includes(section);
+          return (
+            <div
+              key={section}
+              className={`absolute flex items-center justify-center overflow-hidden rounded-lg border-2 text-xs font-semibold shadow-sm transition-all duration-700 ease-[cubic-bezier(0.2,0.7,0.2,1)] ${AREA_STYLE[section]} ${removed ? "border-dashed opacity-40" : ""}`}
+              style={{ left: x.start, top: y.start, width: x.size, height: y.size }}
+            >
+              <div className="flex w-full flex-col items-center gap-1.5 px-2">
+                <span className="font-mono">{`<${LABEL[section]} />`}{removed ? " (removed)" : ""}</span>
+                {section === "main" && (
+                  <div className="w-full space-y-1.5 opacity-70">
+                    <span className="block h-1.5 w-3/4 rounded-full bg-fg-subtle/40" />
+                    <span className="block h-1.5 w-1/2 rounded-full bg-fg-subtle/40" />
+                    <span className="block h-1.5 w-2/3 rounded-full bg-fg-subtle/40" />
+                  </div>
+                )}
               </div>
-            );
-          })
-        )}
+            </div>
+          );
+        })}
       </div>
     </div>
   );
