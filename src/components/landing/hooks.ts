@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, type PointerEvent, type RefObject } from "react";
 
 /** True once the element has scrolled into view (and stays true). */
-export function useInView<T extends Element>(threshold = 0.2): [RefObject<T | null>, boolean] {
+export function useInView<T extends Element>(threshold = 0.2, rootMargin = "0px 0px -8% 0px"): [RefObject<T | null>, boolean] {
   const ref = useRef<T | null>(null);
   const [seen, setSeen] = useState(false);
   useEffect(() => {
@@ -18,11 +18,11 @@ export function useInView<T extends Element>(threshold = 0.2): [RefObject<T | nu
           io.disconnect();
         }
       },
-      { threshold }
+      { threshold, rootMargin }
     );
     io.observe(el);
     return () => io.disconnect();
-  }, [seen, threshold]);
+  }, [seen, threshold, rootMargin]);
   return [ref, seen];
 }
 
@@ -48,9 +48,23 @@ export function useCountUp(target: number, active: boolean, duration = 1400): nu
   return value;
 }
 
-/** onPointerMove handler that writes the pointer position (px) into --x / --y on the element — used for card spotlights. */
+/** onPointerMove handler that writes the pointer position (px) into --x / --y on the element — used for card spotlights. Batched to one write per frame. */
 export function spotlight(e: PointerEvent<HTMLElement>) {
-  const r = e.currentTarget.getBoundingClientRect();
-  e.currentTarget.style.setProperty("--x", `${e.clientX - r.left}px`);
-  e.currentTarget.style.setProperty("--y", `${e.clientY - r.top}px`);
+  const el = e.currentTarget;
+  const cx = e.clientX;
+  const cy = e.clientY;
+  if (pending.has(el)) {
+    pending.set(el, [cx, cy]);
+    return;
+  }
+  pending.set(el, [cx, cy]);
+  requestAnimationFrame(() => {
+    const p = pending.get(el);
+    pending.delete(el);
+    if (!p) return;
+    const r = el.getBoundingClientRect();
+    el.style.setProperty("--x", `${p[0] - r.left}px`);
+    el.style.setProperty("--y", `${p[1] - r.top}px`);
+  });
 }
+const pending = new Map<HTMLElement, [number, number]>();

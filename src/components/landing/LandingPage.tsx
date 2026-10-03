@@ -1,14 +1,15 @@
-import { useEffect, useState, type PointerEvent, type ReactNode } from "react";
+import { lazy, Suspense, useEffect, useState, type PointerEvent, type ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
 import "./landing.css";
 import Reveal from "./Reveal";
-import HeroPremium from "./HeroPremium";
-import MapLab from "./MapLab";
-import FrameworkFlow from "./FrameworkFlow";
-import ThemeLab from "./ThemeLab";
-import LayoutLab from "./LayoutLab";
-import MotionLab from "./MotionLab";
-import DataLab from "./DataLab";
+import LazyOnView from "./LazyOnView";
+
+
+
+
+
+
+
 import { spotlight, useCountUp, useInView } from "./hooks";
 import Logo from "../layouts/Logo";
 import { ThemeSwitcher } from "../ui/ThemeSwitcher/ThemeSwitcher";
@@ -21,6 +22,14 @@ import { REPO_URL } from "../../core/repo";
 import { COLORS } from "../../core/tokens";
 import { ANIMATED_VARIANTS } from "../../core/animated";
 import { TRANSITIONS } from "../../core/motion";
+
+const HeroPremium = lazy(() => import("./HeroPremium"));
+const MapLab = lazy(() => import("./MapLab"));
+const FrameworkFlow = lazy(() => import("./FrameworkFlow"));
+const ThemeLab = lazy(() => import("./ThemeLab"));
+const LayoutLab = lazy(() => import("./LayoutLab"));
+const MotionLab = lazy(() => import("./MotionLab"));
+const DataLab = lazy(() => import("./DataLab"));
 
 const INSTALL = "npm install lojee-ui";
 
@@ -38,12 +47,13 @@ const FEATURES: { icon: string; title: string; body: string; span?: string }[] =
 function Stat({ target, suffix = "", label, active }: { target: number; suffix?: string; label: string; active: boolean }) {
   const n = useCountUp(target, active);
   return (
-    <div className="text-center">
-      <p className="text-4xl font-semibold tabular-nums tracking-tight text-fg md:text-5xl">
+    <div onPointerMove={spotlight} className="lp-spot group relative px-6 py-8 text-center transition-colors duration-300 md:py-10">
+      <p className="bg-gradient-to-b from-fg to-fg/55 bg-clip-text text-4xl font-semibold tabular-nums tracking-tight text-transparent md:text-5xl">
         {n}
-        {suffix}
+        {suffix && <span className="text-accent-500">{suffix}</span>}
       </p>
-      <p className="mt-1 text-sm text-fg-subtle">{label}</p>
+      <span className="mx-auto mt-3 block h-px w-8 bg-gradient-to-r from-transparent via-accent-500 to-transparent transition-all duration-500 group-hover:w-16" aria-hidden="true" />
+      <p className="mt-3 font-mono text-[11px] uppercase tracking-[0.2em] text-fg-subtle">{label}</p>
     </div>
   );
 }
@@ -61,22 +71,52 @@ function Section({ eyebrow, title, body, children }: { eyebrow: string; title: s
   );
 }
 
-export default function LandingPage() {
+function Nav({ groups, onStart }: { groups: typeof COMPONENT_MENU; onStart: () => void }) {
   const navigate = useNavigate();
   const [scrolled, setScrolled] = useState(false);
-  const [copied, setCopied] = useState(false);
-  const [statsRef, statsSeen] = useInView<HTMLDivElement>(0.4);
-
-  const groups = COMPONENT_MENU.filter((g) => g.items?.length);
-  const total = new Set(groups.flatMap((g) => g.items!.map((i) => i.label))).size;
-  const start = () => navigate(pathFor("docs", "Installation"));
-
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+  const reduce = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  return (
+      <header className={`sticky top-0 z-50 border-b transition-colors duration-300 ${scrolled ? "border-border bg-surface/95" : "border-transparent bg-transparent"}`}>
+        <div className="mx-auto flex h-16 max-w-6xl items-center gap-3 px-5">
+          <button type="button" onClick={() => window.scrollTo({ top: 0, behavior: reduce() ? "auto" : "smooth" })} className="group" aria-label="lojeeUI — back to top">
+            <Logo className="[&_svg]:transition-transform [&_svg]:duration-300 group-hover:[&_svg]:rotate-6 group-hover:[&_svg]:scale-105" />
+          </button>
+          <nav className="ml-6 hidden items-center gap-1 md:flex">
+            {[
+              ["Docs", pathFor("docs", "Introduction")],
+              ["Components", pathFor("components", groups[0].items![0].label)],
+              ["Changelog", pathFor("docs", "Changelog")],
+              ["About", "/about"],
+            ].map(([label, to]) => (
+              <button key={label} type="button" onClick={() => navigate(to)} className="rounded-md px-3 py-1.5 text-sm text-fg-muted transition-colors hover:bg-surface-muted hover:text-fg">
+                {label}
+              </button>
+            ))}
+          </nav>
+          <div className="ml-auto flex items-center gap-2">
+            <ThemeSwitcher />
+            <Button variant="ghost" size="sm" icon="git-branch" label="GitHub" onClick={() => window.open(REPO_URL, "_blank", "noopener")} />
+            <Button size="sm" label="Get started" onClick={onStart} />
+          </div>
+        </div>
+      </header>
+  );
+}
+
+export default function LandingPage() {
+  const navigate = useNavigate();
+  const [copied, setCopied] = useState(false);
+  const [statsRef, statsSeen] = useInView<HTMLDivElement>(0.4);
+
+  const groups = COMPONENT_MENU.filter((g) => g.items?.length);
+  const total = new Set(groups.flatMap((g) => g.items!.map((i) => i.label))).size;
+  const start = () => navigate(pathFor("docs", "Installation"));
 
   const copy = async () => {
     try {
@@ -96,31 +136,7 @@ export default function LandingPage() {
 
   return (
     <div className="min-h-screen overflow-x-clip bg-surface text-fg">
-      {/* Nav */}
-      <header className={`sticky top-0 z-50 border-b transition-all duration-300 ${scrolled ? "border-border bg-surface/80 backdrop-blur-lg" : "border-transparent bg-transparent"}`}>
-        <div className="mx-auto flex h-16 max-w-6xl items-center gap-3 px-5">
-          <button type="button" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="group" aria-label="lojeeUI — back to top">
-            <Logo className="[&_svg]:transition-transform [&_svg]:duration-300 group-hover:[&_svg]:rotate-6 group-hover:[&_svg]:scale-105" />
-          </button>
-          <nav className="ml-6 hidden items-center gap-1 md:flex">
-            {[
-              ["Docs", pathFor("docs", "Introduction")],
-              ["Components", pathFor("components", groups[0].items![0].label)],
-              ["Changelog", pathFor("docs", "Changelog")],
-              ["About", "/about"],
-            ].map(([label, to]) => (
-              <button key={label} type="button" onClick={() => navigate(to)} className="rounded-md px-3 py-1.5 text-sm text-fg-muted transition-colors hover:bg-surface-muted hover:text-fg">
-                {label}
-              </button>
-            ))}
-          </nav>
-          <div className="ml-auto flex items-center gap-2">
-            <ThemeSwitcher />
-            <Button variant="ghost" size="sm" icon="git-branch" label="GitHub" onClick={() => window.open(REPO_URL, "_blank", "noopener")} />
-            <Button size="sm" label="Get started" onClick={start} />
-          </div>
-        </div>
-      </header>
+      <Nav groups={groups} onStart={start} />
 
       {/* Hero */}
       <section onPointerMove={onHeroMove} className="relative isolate">
@@ -128,7 +144,7 @@ export default function LandingPage() {
         <div className="lp-glow pointer-events-none absolute inset-0 -z-10" />
         <div className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-32 bg-gradient-to-t from-surface to-transparent" />
         <div className="mx-auto max-w-6xl px-5 pt-14 text-center lg:pt-24">
-          <div className="lp-enter inline-flex items-center gap-2 rounded-full border border-border bg-surface/70 py-1 pl-1 pr-3 text-xs text-fg-muted shadow-sm backdrop-blur" style={{ ["--d" as string]: "0ms" }}>
+          <div className="lp-enter inline-flex items-center gap-2 rounded-full border border-border bg-surface/70 py-1 pl-1 pr-3 text-xs text-fg-muted shadow-sm" style={{ ["--d" as string]: "0ms" }}>
             <Badge variant="solid" label="New" animated="pulse" />
             Motion, maps, skeleton loading and table actions
             <Icon name="arrow-right" size={12} />
@@ -146,7 +162,7 @@ export default function LandingPage() {
           <button
             type="button"
             onClick={copy}
-            className="lp-enter group mx-auto mt-6 flex items-center gap-3 rounded-full border border-border bg-surface/70 py-2 pl-5 pr-4 font-mono text-sm text-fg backdrop-blur transition-colors hover:border-accent-500"
+            className="lp-enter group mx-auto mt-6 flex items-center gap-3 rounded-full border border-border bg-surface/70 py-2 pl-5 pr-4 font-mono text-sm text-fg transition-colors hover:border-accent-500"
             style={{ ["--d" as string]: "400ms" }}
             aria-label="Copy install command"
           >
@@ -161,13 +177,14 @@ export default function LandingPage() {
           </button>
         </div>
         <div className="lp-enter pb-20 lg:pb-28" style={{ ["--d" as string]: "500ms" }}>
-          <HeroPremium />
+          <Suspense fallback={<div className="mt-16 min-h-[30rem]" />}><HeroPremium /></Suspense>
         </div>
       </section>
 
       {/* Stats */}
       <section className="mx-auto max-w-6xl px-5 py-16">
-        <div ref={statsRef} className="grid grid-cols-2 gap-8 md:grid-cols-4">
+        <div ref={statsRef} className="relative overflow-hidden rounded-3xl border border-border bg-surface/60 shadow-xl shadow-black/5 [&>div]:border-border max-md:[&>div:nth-child(odd)]:border-r max-md:[&>div:nth-child(-n+2)]:border-b md:grid-cols-4 md:[&>div:not(:last-child)]:border-r grid grid-cols-2">
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent-500/70 to-transparent" aria-hidden="true" />
           <Stat active={statsSeen} target={total} suffix="+" label="Components" />
           <Stat active={statsSeen} target={TRANSITIONS.length} label="Enter transitions" />
           <Stat active={statsSeen} target={ANIMATED_VARIANTS.length} label="Attention effects" />
@@ -176,7 +193,7 @@ export default function LandingPage() {
       </section>
 
       <Section eyebrow="Write once" title="One component library, every framework" body="Components are authored in React, wrapped with r2wc into Shadow-DOM custom elements, and consumed anywhere. Hover the diagram to follow a packet.">
-        <FrameworkFlow />
+        <LazyOnView minHeight={420}><FrameworkFlow /></LazyOnView>
       </Section>
 
       <Section eyebrow="Everything included" title="Built for real applications">
@@ -196,27 +213,27 @@ export default function LandingPage() {
       </Section>
 
       <Section eyebrow="Motion" title="Bring every component to life" body="Pick an enter transition, an attention effect and a hover effect — pulses and borders can be a solid color or a gradient. It all respects reduced-motion.">
-        <MotionLab />
+        <LazyOnView minHeight={640}><MotionLab /></LazyOnView>
       </Section>
 
       <Section eyebrow="Data" title="Tables that load, edit and react" body="Tables show shimmering skeleton rows while data loads, switch between a table and a card grid, and let users select, edit, duplicate or delete rows with no extra code.">
-        <DataLab />
+        <LazyOnView minHeight={640}><DataLab /></LazyOnView>
       </Section>
 
       <Section eyebrow="Maps" title="Interactive maps, markers and routes" body="A MapLibre vector map with free basemaps — no API key. It follows your light and dark theme, loads only when shown, and composes with draggable markers, popups and animated routes.">
-        <MapLab />
+        <LazyOnView minHeight={640}><MapLab /></LazyOnView>
       </Section>
 
       <Section eyebrow="Theming" title="Make it yours in one click" body="Mode, accent and the active-item style are plain CSS variables. Try it — this preview is a real, isolated ThemeProvider.">
-        <ThemeLab />
+        <LazyOnView minHeight={520}><ThemeLab /></LazyOnView>
       </Section>
 
       <Section eyebrow="App layout" title="Arrange a whole app with a matrix" body="Describe the layout as rows and columns of region names. The grid, the responsive drawer and the transitions come for free.">
-        <LayoutLab />
+        <LazyOnView minHeight={520}><LayoutLab /></LazyOnView>
       </Section>
 
       {/* CTA */}
-      <section className="mx-auto max-w-6xl px-5 pb-20">
+      <section className="lp-defer mx-auto max-w-6xl px-5 pb-20">
         <Reveal>
           <div className="relative overflow-hidden rounded-3xl bg-accent-600 px-6 py-14 text-center text-white md:px-12">
             <div className="lp-grid-fine absolute inset-0 opacity-20 [mask-image:radial-gradient(ellipse_at_center,#000,transparent_75%)]" />

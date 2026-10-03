@@ -212,12 +212,12 @@ const REEL_TABLES: ReactNode[] = [
   </HeroCard>,
   <HeroCard key="stat-trend" name="Stat · trends">
     <div className="space-y-3">
-      <Stat label="Revenue" value={48200} countUp change="12.4%" trend="up" icon="zap" />
+      <Stat label="Revenue" value={48200} change="12.4%" trend="up" icon="zap" />
       <Stat label="Churn" value="2.1%" change="0.4%" trend="down" color="rose" />
     </div>
   </HeroCard>,
   <HeroCard key="chart-values" name="Chart · values" w="w-72">
-    <Chart type="bar" variant="values" data={WEEK} height={110} />
+    <Chart countUp={false} type="bar" variant="values" data={WEEK} height={110} />
   </HeroCard>,
   <HeroCard key="table-card" name="Table · card · menu actions" w="w-[26rem]">
     <Table<Customer> variant="card" size="sm" columns={COLS_USER} data={CUSTOMERS.slice(0, 3)} rowKey="id" actions={ROW_ACTIONS} actionsVariant="menu" />
@@ -229,7 +229,7 @@ const REEL_TABLES: ReactNode[] = [
     <Table<Invoice> variant="lined" size="sm" columns={COLS_INVOICE} data={INVOICES} rowKey="id" />
   </HeroCard>,
   <HeroCard key="chart-donut" name="Chart · donut" w="w-72">
-    <Chart type="donut" data={SPLIT} height={110} />
+    <Chart countUp={false} type="donut" data={SPLIT} height={110} />
   </HeroCard>,
   <HeroCard key="table-grid" name="Table · view grid" w="w-[28rem]">
     <Frame>
@@ -246,8 +246,8 @@ const REEL_COLLECTIONS: ReactNode[] = [
   </HeroCard>,
   <HeroCard key="stat-colors" name="Stat · colors">
     <div className="space-y-3">
-      <Stat label="Active users" value={3820} countUp change="8.1%" trend="up" color="emerald" icon="user" />
-      <Stat label="Open tickets" value={46} countUp change="3" trend="neutral" color="amber" icon="bell" />
+      <Stat label="Active users" value={3820} change="8.1%" trend="up" color="emerald" icon="user" />
+      <Stat label="Open tickets" value={46} change="3" trend="neutral" color="amber" icon="bell" />
     </div>
   </HeroCard>,
   <HeroCard key="grid-list" name="GridView · list" w="w-[28rem]">
@@ -256,7 +256,7 @@ const REEL_COLLECTIONS: ReactNode[] = [
     </Frame>
   </HeroCard>,
   <HeroCard key="chart-line" name="Chart · line" w="w-72">
-    <Chart type="line" data={WEEK} height={110} color="violet" />
+    <Chart countUp={false} type="line" data={WEEK} height={110} color="violet" />
   </HeroCard>,
   <HeroCard key="grid-drag" name="GridView · draggable" w="w-[28rem]">
     <Frame>
@@ -293,7 +293,7 @@ const REEL_CALENDAR: ReactNode[] = [
     <FlowDiagram nodes={PIPE_NODES} edges={PIPE_EDGES} direction="horizontal" nodeWidth={96} nodeHeight={44} gap={28} variant="outline" packets arrows />
   </HeroCard>,
   <HeroCard key="stat-plain" name="Stat">
-    <Stat label="Weekly installs" value={12400} countUp change="18.2%" trend="up" color="violet" icon="zap" />
+    <Stat label="Weekly installs" value={12400} change="18.2%" trend="up" color="violet" icon="zap" />
   </HeroCard>,
   <HeroCard key="calendar-range" name="Calendar · range" w="w-80">
     <RangeCalendarCard />
@@ -327,7 +327,7 @@ const REEL_FORMS: ReactNode[] = [
     </Frame>
   </HeroCard>,
   <HeroCard key="stat-icon" name="Stat · icon">
-    <Stat label="Deploys today" value={27} countUp change="5" trend="up" color="cyan" icon="box" />
+    <Stat label="Deploys today" value={27} change="5" trend="up" color="cyan" icon="box" />
   </HeroCard>,
   <HeroCard key="signup" name="SignupForm" w="w-[26rem]">
     <Frame>
@@ -340,7 +340,7 @@ const REEL_FORMS: ReactNode[] = [
     </Frame>
   </HeroCard>,
   <HeroCard key="chart-bar" name="Chart · bar" w="w-72">
-    <Chart type="bar" data={WEEK} height={110} color="emerald" />
+    <Chart countUp={false} type="bar" data={WEEK} height={110} color="emerald" />
   </HeroCard>,
   <HeroCard key="account" name="AccountSettings" w="w-[26rem]">
     <NotificationsCard />

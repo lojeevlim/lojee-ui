@@ -26,8 +26,9 @@ function Fit({ children }: { children: ReactNode }) {
       const byHeight = need > have ? have / need : 1;
       const byWidth = i.scrollWidth > b.clientWidth + 1 ? b.clientWidth / i.scrollWidth : 1;
       setScale(Math.max(MIN_SCALE, Math.min(byHeight, byWidth)));
+      ro.disconnect();
     };
-    const ro = new ResizeObserver(measure);
+    const ro: ResizeObserver = new ResizeObserver(measure);
     ro.observe(i);
     return () => ro.disconnect();
   }, []);
@@ -47,7 +48,7 @@ export function HeroCard({ name, children, w = "w-64" }: { name: string; childre
     <div
       onPointerMove={spotlight}
       data-hero-card={name}
-      className={`lp-spot ${WIDTHS.has(w) ? w : "w-80"} flex h-52 shrink-0 flex-col rounded-2xl border border-border bg-surface/90 p-4 shadow-lg shadow-black/5 backdrop-blur transition-all duration-300 hover:-translate-y-1.5 hover:scale-[1.03] hover:border-accent-500 hover:shadow-xl hover:shadow-accent-500/20`}
+      className={`lp-spot ${WIDTHS.has(w) ? w : "w-80"} flex h-52 shrink-0 flex-col rounded-2xl border border-border bg-surface p-4 shadow-lg shadow-black/5 transition-[transform,border-color,box-shadow] duration-300 hover:-translate-y-1.5 hover:scale-[1.03] hover:border-accent-500 hover:shadow-xl hover:shadow-accent-500/20`}
     >
       <p className="relative mb-3 shrink-0 font-mono text-[10px] uppercase tracking-wider text-fg-subtle">{name}</p>
       <div className="relative min-h-0 flex-1">

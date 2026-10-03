@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type CSSProperties, type PointerEvent, type ReactNode } from "react";
+import { memo, useEffect, useRef, useState, type CSSProperties, type PointerEvent, type ReactNode } from "react";
 import { HeroCard as Card } from "./HeroCard";
 import { BASIC_REELS } from "./heroCardsBasic";
 import { FORMS_REELS } from "./heroCardsForms";
@@ -63,8 +63,8 @@ const ROW_1: ReactNode[] = [
   <Card key="badge" name="Badge"><div className="flex flex-wrap gap-2"><Badge variant="soft" color="emerald" label="Live" animated="pulse" /><Badge variant="solid" label="New" /><Badge variant="outline" label="Beta" /></div></Card>,
   <Card key="switch" name="Switch"><ThemeSwitch /></Card>,
   <Card key="progress" name="ProgressBar"><Deploying /></Card>,
-  <Card key="stat" name="Stat"><Stat label="Weekly installs" value={12400} countUp change="18.2%" trend="up" /></Card>,
-  <Card key="chart" name="Chart" w="w-72"><Chart type="bar" data={CHART} height={90} /></Card>,
+  <Card key="stat" name="Stat"><Stat label="Weekly installs" value={12400} change="18.2%" trend="up" /></Card>,
+  <Card key="chart" name="Chart" w="w-72"><Chart countUp={false} type="bar" data={CHART} height={90} /></Card>,
   <Card key="alert" name="Alert" w="w-72"><Alert variant="success" title="Deployed" closable={false}>Build #248 is live.</Alert></Card>,
 ];
 
@@ -84,8 +84,8 @@ const ROW_3: ReactNode[] = [
   <Card key="radio" name="Radio"><div className="space-y-2"><Radio name="hero-r" defaultChecked label="Monthly" /><Radio name="hero-r" label="Yearly" /></div></Card>,
   <Card key="spinner" name="Spinner"><div className="flex items-center gap-3"><Spinner /><Spinner variant="dots" /><Spinner variant="ring" /></div></Card>,
   <Card key="notification" name="Notification" w="w-80"><Notification icon="bell" title="New comment" timestamp="2m ago" unread>Anna replied to your thread.</Notification></Card>,
-  <Card key="chart-line" name="Chart · line" w="w-72"><Chart type="line" data={CHART} height={90} /></Card>,
-  <Card key="chart-donut" name="Chart · donut"><Chart type="donut" data={CHART} height={90} /></Card>,
+  <Card key="chart-line" name="Chart · line" w="w-72"><Chart countUp={false} type="line" data={CHART} height={90} /></Card>,
+  <Card key="chart-donut" name="Chart · donut"><Chart countUp={false} type="donut" data={CHART} height={90} /></Card>,
 ];
 
 const INTERACTIVE = "input,textarea,select,button,a,label,[role='slider'],[role='tab'],[contenteditable]";
@@ -94,34 +94,57 @@ const INTERACTIVE = "input,textarea,select,button,a,label,[role='slider'],[role=
  * One reel of cards. It glides on its own (`dir` -1 = left, 1 = right), pauses while the pointer is over it, and can be
  * dragged left / right with the mouse or a finger — releasing keeps a little momentum before it settles back into gliding.
  */
-function Reel({ items, dir, speed, style }: { items: ReactNode[]; dir: 1 | -1; speed: number; style?: CSSProperties }) {
+const Reel = memo(function Reel({ items, dir, speed, style }: { items: ReactNode[]; dir: 1 | -1; speed: number; style?: CSSProperties }) {
   const track = useRef<HTMLDivElement>(null);
   const st = useRef({ x: 0, vel: 0, hover: false, drag: false, moved: false, startX: 0, startPos: 0, lastX: 0, lastT: 0, id: -1 });
   const [grabbing, setGrabbing] = useState(false);
 
+  const root = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
+    const el = track.current;
+    const wrap = root.current;
+    if (!el || !wrap) return;
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     let raf = 0;
     let last = performance.now();
+    let half = 0;
+    let visible = true;
+    const measure = () => (half = el.scrollWidth / 2);
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
     const tick = (now: number) => {
-      const el = track.current;
       const t = st.current;
       const dt = Math.min(64, now - last);
       last = now;
-      if (el) {
+      const moving = !t.drag && (Math.abs(t.vel) > 0.0005 || (!t.hover && !reduce));
+      if (t.drag || moving) {
         if (!t.drag) {
           t.x += t.vel * dt;
-          t.vel *= Math.pow(0.94, dt / 16);
+          t.vel = Math.abs(t.vel) < 0.0005 ? 0 : t.vel * Math.pow(0.94, dt / 16);
           if (!t.hover && !reduce) t.x += dir * speed * dt;
         }
-        const half = el.scrollWidth / 2;
         if (half > 0) t.x = ((t.x % half) - half) % half; // keep it in (-half, 0] so the doubled list loops seamlessly
         el.style.transform = `translate3d(${t.x}px,0,0)`;
       }
-      raf = requestAnimationFrame(tick);
+      raf = visible ? requestAnimationFrame(tick) : 0;
     };
+    // Only run the frame loop while the reel is on screen.
+    const io = new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      if (visible && !raf) {
+        last = performance.now();
+        raf = requestAnimationFrame(tick);
+      }
+    });
+    io.observe(wrap);
     raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
+    return () => {
+      cancelAnimationFrame(raf);
+      io.disconnect();
+      ro.disconnect();
+    };
   }, [dir, speed]);
 
   const onDown = (e: PointerEvent<HTMLDivElement>) => {
@@ -148,7 +171,8 @@ function Reel({ items, dir, speed, style }: { items: ReactNode[]; dir: 1 | -1; s
     t.x = t.startPos + (e.clientX - t.startX);
     const now = performance.now();
     const dt = Math.max(1, now - t.lastT);
-    t.vel = (e.clientX - t.lastX) / dt;
+    // Smooth the release velocity over several samples so one jittery event can't fling the reel.
+    t.vel = t.vel * 0.6 + ((e.clientX - t.lastX) / dt) * 0.4;
     t.lastX = e.clientX;
     t.lastT = now;
   };
@@ -156,17 +180,23 @@ function Reel({ items, dir, speed, style }: { items: ReactNode[]; dir: 1 | -1; s
     const t = st.current;
     if (!t.drag) return;
     t.drag = false;
+    // Held still before letting go: no momentum. Otherwise cap it so a flick stays controlled.
+    t.vel = performance.now() - t.lastT > 80 ? 0 : Math.max(-2.5, Math.min(2.5, t.vel));
+    if (t.id >= 0 && root.current?.hasPointerCapture(t.id)) root.current.releasePointerCapture(t.id);
     setGrabbing(false);
   };
 
   return (
     <div
+      ref={root}
       className={`overflow-hidden py-3 [mask-image:linear-gradient(to_right,transparent,#000_8%,#000_92%,transparent)] [touch-action:pan-y] ${grabbing ? "cursor-grabbing" : "cursor-grab"}`}
       style={style}
       onPointerDown={onDown}
       onPointerMove={onMove}
       onPointerUp={onUp}
       onPointerCancel={onUp}
+      onLostPointerCapture={onUp}
+      onDragStart={(e) => e.preventDefault()}
       onPointerEnter={(e) => e.pointerType === "mouse" && (st.current.hover = true)}
       onPointerLeave={() => (st.current.hover = false)}
       onClickCapture={(e) => {
@@ -177,7 +207,7 @@ function Reel({ items, dir, speed, style }: { items: ReactNode[]; dir: 1 | -1; s
       }}
     >
       {/* Doubled so wrapping at half the width loops seamlessly. */}
-      <div ref={track} className="flex w-max gap-4 will-change-transform select-none">
+      <div ref={track} className={`flex w-max gap-4 will-change-transform select-none ${grabbing ? "pointer-events-none" : ""}`}>
         {items}
         {items.map((c, i) => (
           <div key={`dup-${i}`} aria-hidden="true" className="contents">{c}</div>
@@ -185,28 +215,44 @@ function Reel({ items, dir, speed, style }: { items: ReactNode[]; dir: 1 | -1; s
       </div>
     </div>
   );
-}
+});
 
-// Every card, dealt out across the three reels in turn so each row mixes small and large components.
+// Every card, dealt out across the two reels in turn so each row mixes small and large components.
 const ALL_CARDS: ReactNode[] = [...ROW_1, ...ROW_2, ...ROW_3, ...BASIC_REELS.flat(), ...FORMS_REELS.flat(), ...FEEDBACK_REELS.flat(), ...DATA_REELS.flat()];
-const REELS: ReactNode[][] = [0, 1, 2].map((r) => ALL_CARDS.filter((_, i) => i % 3 === r));
+const REELS: ReactNode[][] = [0, 1].map((r) => ALL_CARDS.filter((_, i) => i % 2 === r));
 
-/** Premium hero stage: three reels of live, interactive components gliding left, under a light beam. */
+// Each reel drifts a little with the cursor, at its own depth (--px / --py are set on the stage without re-rendering).
+const drift = (d: number): CSSProperties => ({ transform: `translate3d(calc(var(--px, 0) * ${d}px), calc(var(--py, 0) * ${d * 0.6}px), 0)`, transition: "transform 0.4s ease-out" });
+const DRIFT_A = drift(-10);
+const DRIFT_B = drift(6);
+
+/** Premium hero stage: two reels of live, interactive components gliding left, under a light beam. */
 export default function HeroPremium() {
-  const [pt, setPt] = useState({ x: 0, y: 0 });
+  const stage = useRef<HTMLDivElement>(null);
+  const frame = useRef(0);
   const onMove = (e: PointerEvent<HTMLDivElement>) => {
-    const r = e.currentTarget.getBoundingClientRect();
-    setPt({ x: ((e.clientX - r.left) / r.width - 0.5) * 2, y: ((e.clientY - r.top) / r.height - 0.5) * 2 });
+    const el = stage.current;
+    if (!el) return;
+    const cx = e.clientX;
+    const cy = e.clientY;
+    cancelAnimationFrame(frame.current);
+    frame.current = requestAnimationFrame(() => {
+      const r = el.getBoundingClientRect();
+      el.style.setProperty("--px", String(((cx - r.left) / r.width - 0.5) * 2));
+      el.style.setProperty("--py", String(((cy - r.top) / r.height - 0.5) * 2));
+    });
   };
-  // Each reel drifts a little with the cursor, at its own depth.
-  const drift = (d: number): CSSProperties => ({ transform: `translate3d(${pt.x * d}px, ${pt.y * d * 0.6}px, 0)`, transition: "transform 0.4s ease-out" });
+  const onLeave = () => {
+    cancelAnimationFrame(frame.current);
+    stage.current?.style.setProperty("--px", "0");
+    stage.current?.style.setProperty("--py", "0");
+  };
   return (
-    <div className="relative mt-16 text-left" onPointerMove={onMove} onPointerLeave={() => setPt({ x: 0, y: 0 })}>
+    <div ref={stage} className="relative mt-16 text-left" onPointerMove={onMove} onPointerLeave={onLeave}>
       <div className="lp-beam pointer-events-none absolute -top-24 left-1/2 -z-10 h-72 w-[70%] -translate-x-1/2" aria-hidden="true" />
       <div className="space-y-2">
-        <Reel items={REELS[0]} dir={-1} speed={0.045} style={drift(-10)} />
-        <Reel items={REELS[1]} dir={1} speed={0.036} style={drift(6)} />
-        <Reel items={REELS[2]} dir={-1} speed={0.04} style={drift(-16)} />
+        <Reel items={REELS[0]} dir={-1} speed={0.045} style={DRIFT_A} />
+        <Reel items={REELS[1]} dir={1} speed={0.036} style={DRIFT_B} />
       </div>
     </div>
   );

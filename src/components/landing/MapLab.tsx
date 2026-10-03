@@ -1,5 +1,5 @@
 import { highlightCode } from "../../core/highlightCode";
-import { useEffect, useState, type CSSProperties, type PointerEvent } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type PointerEvent } from "react";
 import { Badge } from "../ui/Badge/Badge";
 import { Button } from "../ui/Buttons/Button";
 import { Switch } from "../ui/Switch/Switch";
@@ -41,12 +41,27 @@ export default function MapLab() {
     return () => cancelAnimationFrame(raf);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tracking]);
-  const [pt, setPt] = useState({ x: 0, y: 0 });
+  // Pointer parallax is written to CSS variables so moving the mouse never re-renders the map.
+  const stage = useRef<HTMLDivElement>(null);
+  const frame = useRef(0);
   const onMove = (e: PointerEvent<HTMLDivElement>) => {
-    const r = e.currentTarget.getBoundingClientRect();
-    setPt({ x: ((e.clientX - r.left) / r.width - 0.5) * 2, y: ((e.clientY - r.top) / r.height - 0.5) * 2 });
+    const el = stage.current;
+    if (!el) return;
+    const cx = e.clientX;
+    const cy = e.clientY;
+    cancelAnimationFrame(frame.current);
+    frame.current = requestAnimationFrame(() => {
+      const r = el.getBoundingClientRect();
+      el.style.setProperty("--px", String(((cx - r.left) / r.width - 0.5) * 2));
+      el.style.setProperty("--py", String(((cy - r.top) / r.height - 0.5) * 2));
+    });
   };
-  const layer = (d: number): CSSProperties => ({ transform: `translate3d(${pt.x * d}px, ${pt.y * d}px, 0)` });
+  const onLeave = () => {
+    cancelAnimationFrame(frame.current);
+    stage.current?.style.setProperty("--px", "0");
+    stage.current?.style.setProperty("--py", "0");
+  };
+  const layer = (d: number): CSSProperties => ({ transform: `translate3d(calc(var(--px, 0) * ${d}px), calc(var(--py, 0) * ${d}px), 0)` });
 
   return (
     <div className="grid grid-cols-1 gap-6 lg:grid-cols-[300px_minmax(0,1fr)]">
@@ -94,10 +109,10 @@ export default function MapLab() {
 </Map>`)}</code></pre>
       </div>
 
-      <div className="relative flex select-none flex-col py-6 sm:py-8 lg:py-0" onPointerMove={onMove} onPointerLeave={() => setPt({ x: 0, y: 0 })}>
+      <div ref={stage} className="relative flex select-none flex-col py-6 sm:py-8 lg:py-0" onPointerMove={onMove} onPointerLeave={onLeave}>
         <div className="lp-aurora pointer-events-none absolute -inset-6 -z-10" aria-hidden="true" />
         <div className="lp-float-a flex flex-1 flex-col lg:absolute lg:inset-0" style={layer(8)}>
-          <div className="flex flex-1 flex-col overflow-hidden rounded-2xl border border-border bg-surface/80 shadow-2xl shadow-accent-900/10 ring-1 ring-black/5 backdrop-blur">
+          <div className="flex flex-1 flex-col overflow-hidden rounded-2xl border border-border bg-surface/80 shadow-2xl shadow-accent-900/10 ring-1 ring-black/5">
             <div className="flex items-center gap-1.5 border-b border-border bg-surface-muted/80 px-3 py-2">
               <span className="h-2.5 w-2.5 rounded-full bg-rose-400" />
               <span className="h-2.5 w-2.5 rounded-full bg-amber-400" />
@@ -118,7 +133,7 @@ export default function MapLab() {
         </div>
 
         <div className="lp-float-b pointer-events-none absolute -left-3 bottom-2 w-[48%] max-sm:hidden sm:-left-6 sm:bottom-4" style={layer(20)}>
-          <div className="pointer-events-auto space-y-2.5 rounded-xl border border-border bg-surface/95 p-3.5 shadow-xl shadow-black/10 backdrop-blur">
+          <div className="pointer-events-auto space-y-2.5 rounded-xl border border-border bg-surface/95 p-3.5 shadow-xl shadow-black/10">
             <div className="flex items-center justify-between">
               <Badge variant="soft" color="emerald" label="On route" />
               <span className="text-[11px] text-fg-subtle">{Math.round(progress * 100)}%</span>
@@ -143,7 +158,7 @@ export default function MapLab() {
         </div>
 
         <div className="lp-float-c pointer-events-none absolute -right-2 top-[58%] w-[30%] max-sm:hidden sm:-right-5" style={layer(14)}>
-          <div className="rounded-xl border border-border bg-surface/95 p-3 shadow-xl shadow-black/10 backdrop-blur">
+          <div className="rounded-xl border border-border bg-surface/95 p-3 shadow-xl shadow-black/10">
             <p className="text-[10px] uppercase tracking-wide text-fg-subtle">Weekly installs</p>
             <p className="text-lg font-semibold text-fg">12.4k</p>
             <svg viewBox="0 0 100 32" className="mt-1 h-8 w-full" fill="none" aria-hidden="true">

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { highlightCode } from "../../core/highlightCode";
 import { Icon } from "../ui/Icons/Icon";
 import { FlowDiagram } from "../ui/FlowDiagram/FlowDiagram";
@@ -39,16 +39,27 @@ import "lojee-ui/elements";
 /** Schematic: one React component → Web Component → every framework, with packets flowing along the wires. */
 export default function FrameworkFlow() {
   const [fw, setFw] = useState<Fw>("react");
+  // Flowing packets run in SMIL on the main thread, so only animate while the diagram is on screen.
+  const boxRef = useRef<HTMLDivElement>(null);
+  const [onScreen, setOnScreen] = useState(false);
+  useEffect(() => {
+    const el = boxRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(([e]) => setOnScreen(e.isIntersecting));
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
 
   return (
     <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)]">
-      <div className="lp-grid-fine overflow-hidden rounded-2xl border border-border bg-surface p-3">
+      <div ref={boxRef} className="lp-grid-fine overflow-hidden rounded-2xl border border-border bg-surface p-3">
         <FlowDiagram
           nodes={FRAMEWORK_FLOW.nodes}
           edges={FRAMEWORK_FLOW.edges}
           captionTop={FRAMEWORK_FLOW.captionTop}
           captionBottom={FRAMEWORK_FLOW.captionBottom}
           direction="auto"
+          animated={onScreen}
           activeNode={fw}
           onNodeClick={(n) => isFw(n.id) && setFw(n.id)}
           onNodeHover={(n) => n && isFw(n.id) && setFw(n.id)}
