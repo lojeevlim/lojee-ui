@@ -21,9 +21,16 @@ export const API_DOCS: Record<string, ApiDoc> = {
           },
           {
             "name": "accent",
-            "type": "AccentName",
+            "type": "Accent",
             "required": false,
-            "description": "Brand accent (a built-in color name). Omit to follow the surrounding `ThemeProvider`.",
+            "description": "Brand accent — a built-in color name or a custom hex color. Omit to follow the surrounding `ThemeProvider`.",
+            "default": null
+          },
+          {
+            "name": "design",
+            "type": "DesignName",
+            "required": false,
+            "description": "Design language of this App: \"bento\" (default) or \"clay\" (Claymorphism). Omit to follow the surrounding `ThemeProvider`.",
             "default": null
           },
           {
@@ -67,6 +74,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
           "props": {
             "theme": "string",
             "accent": "string",
+            "design": "string",
             "activeVariant": "string",
             "layout": "json",
             "collapseBelow": "string"
@@ -1358,9 +1366,9 @@ export const API_DOCS: Record<string, ApiDoc> = {
           },
           {
             "name": "accent",
-            "type": "AccentName",
+            "type": "Accent",
             "required": false,
-            "description": "Current accent — omit to use the surrounding `ThemeProvider`.",
+            "description": "Current accent — a built-in name or a custom hex color. Omit to use the surrounding `ThemeProvider`.",
             "default": null
           },
           {
@@ -1368,6 +1376,13 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "type": "ActiveVariant",
             "required": false,
             "description": "Current active-item style — omit to use the surrounding `ThemeProvider`.",
+            "default": null
+          },
+          {
+            "name": "design",
+            "type": "DesignName",
+            "required": false,
+            "description": "Current design language — \"bento\" or \"clay\". Omit to use the surrounding `ThemeProvider`.",
             "default": null
           },
           {
@@ -1379,7 +1394,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
           },
           {
             "name": "onAccentChange",
-            "type": "(accent: AccentName) => void",
+            "type": "(accent: Accent) => void",
             "required": false,
             "description": "Called when an accent is picked (default: the `ThemeProvider`'s `setAccent`).",
             "default": null
@@ -1392,11 +1407,25 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           },
           {
+            "name": "onDesignChange",
+            "type": "(design: DesignName) => void",
+            "required": false,
+            "description": "Called when a design is picked (default: the `ThemeProvider`'s `setDesign`).",
+            "default": null
+          },
+          {
             "name": "align",
             "type": "ThemeSwitcherAlign",
             "required": false,
             "description": "Where the dropdown (which always opens below the button) lines up with the button: \"start\" (left edges together), \"center\", or \"end\" (right edges together). \"left\" / \"right\" also work, as start / end. Default: \"end\".",
             "default": "\"end\""
+          },
+          {
+            "name": "showDesign",
+            "type": "boolean",
+            "required": false,
+            "description": "Show the \"Design\" section — Bento UI or Claymorphism (default: true).",
+            "default": "true"
           },
           {
             "name": "showActiveItems",
@@ -1409,8 +1438,22 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "name": "showAccent",
             "type": "boolean",
             "required": false,
-            "description": "Show the \"Accent\" section (default: true).",
+            "description": "Show the \"Accent\" section — the built-in colors plus a \"Custom\" row that opens a color picker for any color (default: true).",
             "default": "true"
+          },
+          {
+            "name": "showCustom",
+            "type": "boolean",
+            "required": false,
+            "description": "Show the \"Custom\" row in the Accent section — a color picker for any accent color (default: true).",
+            "default": "true"
+          },
+          {
+            "name": "customAccentLabel",
+            "type": "string",
+            "required": false,
+            "description": "Text of the custom-accent row (default: \"Custom\").",
+            "default": "\"Custom\""
           },
           {
             "name": "open",
@@ -1427,6 +1470,34 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           },
           {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter / exit transition of the dropdown: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0).",
+            "default": null
+          },
+          {
+            "name": "hoverEffect",
+            "type": "HoverEffect",
+            "required": false,
+            "description": "Effect while hovering the button: \"lift\" | \"scale\" | \"press\" | \"tilt\" | \"ring\" | \"glow\" | \"shine\" (default: none).",
+            "default": null
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -1438,8 +1509,15 @@ export const API_DOCS: Record<string, ApiDoc> = {
           "tag": "l-theme-switcher",
           "props": {
             "align": "string",
+            "showDesign": "boolean",
             "showActiveItems": "boolean",
-            "showAccent": "boolean"
+            "showAccent": "boolean",
+            "showCustom": "boolean",
+            "customAccentLabel": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
           },
           "extraProps": [],
           "events": []
@@ -1494,10 +1572,17 @@ export const API_DOCS: Record<string, ApiDoc> = {
           },
           {
             "name": "gradientTo",
-            "type": "ColorName",
+            "type": "ColorName | (string & {})",
             "required": false,
-            "description": "Second color for the gradient variant (defaults to a matching preset partner).",
+            "description": "Second color for the gradient variant: a `ColorName` or any CSS color such as \"#ec4899\" (defaults to a matching preset partner).",
             "default": null
+          },
+          {
+            "name": "gradientDirection",
+            "type": "GradientDirection",
+            "required": false,
+            "description": "Direction of the gradient variant: \"to-right\" | \"to-left\" | \"to-bottom\" | \"to-top\" | \"to-br\" | \"to-bl\" | \"to-tr\" | \"to-tl\" (default: \"to-right\").",
+            "default": "\"to-right\""
           },
           {
             "name": "size",
@@ -1649,6 +1734,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "variant": "string",
             "color": "string",
             "gradientTo": "string",
+            "gradientDirection": "string",
             "size": "string",
             "shape": "string",
             "disabled": "boolean",
@@ -1686,6 +1772,13 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "required": false,
             "description": "Corner treatment for the whole group (default keeps the built-in rounded-lg look). Individual segments stay square themselves — the group's outer container does the rounding, via `overflow-hidden`.",
             "default": "\"default\""
+          },
+          {
+            "name": "onItemClick",
+            "type": "(item: ButtonGroupItemClick) => void",
+            "required": false,
+            "description": "Called when one of the group's buttons is clicked, with its `index` and `label` — one handler for the whole group instead of one per button. Not called for a disabled button.",
+            "default": null
           },
           {
             "name": "transition",
@@ -1732,12 +1825,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
         ],
         "element": {
           "tag": "l-button-group",
-          "props": {
-            "transition": "string",
-            "transitionDuration": "number",
-            "transitionDelay": "number",
-            "hoverEffect": "string"
-          },
+          "props": {},
           "extraProps": [],
           "events": []
         }
@@ -3161,6 +3249,13 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": "\"plain\""
           },
           {
+            "name": "header",
+            "type": "ReactNode",
+            "required": false,
+            "description": "Content of a gray header bar above the rows (a title, a count, a button …) — no column labels. When set, the list is drawn as one rounded, bordered card with the header on top.",
+            "default": null
+          },
+          {
             "name": "transition",
             "type": "TransitionVariant",
             "required": false,
@@ -3197,7 +3292,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
           },
           {
             "name": "classNames",
-            "type": "{ root?: string; }",
+            "type": "{ root?: string; header?: string; list?: string; }",
             "required": false,
             "description": "Per-part class overrides — merged after (and win over) the built-in styling.",
             "default": null
@@ -5305,6 +5400,13 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": "\"md\""
           },
           {
+            "name": "icon",
+            "type": "string",
+            "required": false,
+            "description": "Icon name shown at the start of the field, e.g. \"code\" — see src/core/icons.ts for the available set (default: none).",
+            "default": null
+          },
+          {
             "name": "invalid",
             "type": "boolean",
             "required": false,
@@ -5348,7 +5450,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
           },
           {
             "name": "classNames",
-            "type": "{ root?: string; select?: string; icon?: string; menu?: string; option?: string }",
+            "type": "{ root?: string; select?: string; icon?: string; leadingIcon?: string; menu?: string; option?: string }",
             "required": false,
             "description": "Per-part class overrides — merged after (and win over) the built-in styling.",
             "default": null
@@ -5360,6 +5462,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "options": "json",
             "value": "string",
             "placeholder": "string",
+            "icon": "string",
             "size": "string",
             "invalid": "boolean",
             "disabled": "boolean",
@@ -6185,7 +6288,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "name": "color",
             "type": "ColorName",
             "required": false,
-            "description": "Color of the slider thumb (default: \"accent\" — follows the theme accent).",
+            "description": "Color of the filled part of the track (default: \"accent\" — follows the theme accent).",
             "default": "\"accent\""
           },
           {
@@ -6220,7 +6323,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "name": "hoverEffect",
             "type": "HoverEffect",
             "required": false,
-            "description": "Effect while hovering: \"lift\" | \"scale\" | \"press\" | \"tilt\" | \"ring\" | \"glow\" | \"shine\" (default: none).",
+            "description": "Effect while hovering the thumb (the sliding button — never the whole slider): \"lift\" | \"scale\" | \"press\" | \"tilt\" | \"ring\" | \"glow\" | \"shine\" (default: none).",
             "default": null
           },
           {
@@ -6332,7 +6435,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "name": "color",
             "type": "ColorName",
             "required": false,
-            "description": "Color of the filled range and thumbs (default: \"accent\" — follows the theme accent).",
+            "description": "Color of the filled range between the thumbs (default: \"accent\" — follows the theme accent).",
             "default": "\"accent\""
           },
           {
@@ -6367,7 +6470,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "name": "hoverEffect",
             "type": "HoverEffect",
             "required": false,
-            "description": "Effect while hovering: \"lift\" | \"scale\" | \"press\" | \"tilt\" | \"ring\" | \"glow\" | \"shine\" (default: none).",
+            "description": "Effect while hovering a thumb (the sliding buttons — never the whole slider): \"lift\" | \"scale\" | \"press\" | \"tilt\" | \"ring\" | \"glow\" | \"shine\" (default: none).",
             "default": null
           },
           {
@@ -7848,9 +7951,9 @@ export const API_DOCS: Record<string, ApiDoc> = {
           },
           {
             "name": "color",
-            "type": "ColorName",
+            "type": "ColorName | (string & {})",
             "required": false,
-            "description": "default \"accent\" — follows the theme accent",
+            "description": "A built-in ColorName or any CSS color such as \"#8b5cf6\" (default: \"accent\" — follows the theme accent).",
             "default": "\"accent\""
           },
           {
@@ -8360,22 +8463,36 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "name": "bordered",
             "type": "boolean",
             "required": false,
-            "description": "Bottom border (default: true) — only meaningful for \"light\"/\"dark\"/\"gradient\". Has no effect on \"minimal\" (never shows a border, by design — the whole point of that one) or on the detached-panel variants \"bordered\"/\"elevated\"/\"glass\", each of which controls its own border entirely through `variant` itself (see below), not this toggle.",
+            "description": "Bottom border (default: true) — only meaningful for \"light\"/\"dark\"/\"gradient\". Has no effect on \"minimal\" (never shows a border, by design — the whole point of that one) or on the detached-panel variants \"bordered\"/\"elevated\", each of which controls its own border entirely through `variant` itself (see below), not this toggle.",
             "default": "true"
           },
           {
             "name": "variant",
             "type": "NavbarVariant",
             "required": false,
-            "description": "Visual theme (default: \"light\"): - \"bordered\"/\"elevated\"/\"glass\" all float as a detached card instead of docking full-width to the page — kept as separate names since each still has its own distinct bar look on top of that shared shape: \"bordered\" has a thick `color`-tinted border, shadow, and rounded corners (see `color`/`borderWidth`); \"elevated\" has that same shadow and rounded corners but no border — depth from the shadow alone, Material-bar style; \"glass\" is a faint, colorless `bg-white/10` tint plus `backdrop-blur-2xl` — a real frosted-glass look, not a solid tinted bar. `color` tints \"glass\"'s backdrop (the padded space around the bar) instead of the bar itself, since `backdrop-blur` can only ever blur what's behind it *within this same component* — its own backdrop, never your page — so a fully colorless bar would camouflage against a backdrop of the same color, with no contrast left to reveal its rounded corners or shadow. All three are self-contained — an inset backdrop is included automatically (padding + `bg-surface-muted`, or `color` for \"glass\") so the bar always reads correctly (rounded corners, blur) with no wrapper markup needed on your end. - \"dark\" — a deep shade of the theme accent (accent-950), brand text (and, by inheritance, any plain text/links) switches to white. - \"minimal\" — no background/border at all, blends into the page. - \"gradient\" — a left-to-right gradient built from `color` (600 → 700).",
+            "description": "Visual theme (default: \"light\"): - \"bordered\"/\"elevated\" both float as a detached card instead of docking full-width to the page — kept as separate names since each still has its own distinct bar look on top of that shared shape: \"bordered\" has a thick `color`-tinted border, shadow, and rounded corners (see `color`/`borderWidth`); \"elevated\" has that same shadow and rounded corners but no border — depth from the shadow alone, Material-bar style. Both are self-contained — an inset backdrop is included automatically (padding + a light tint of the theme accent) so the bar always reads correctly (rounded corners) with no wrapper markup needed on your end. - \"dark\" — a deep shade of the theme accent (accent-950), brand text (and, by inheritance, any plain text/links) switches to white. - \"minimal\" — no background/border at all, blends into the page. - \"gradient\" — a left-to-right gradient built from `color` (600 → 700).",
             "default": "\"light\""
           },
           {
             "name": "color",
             "type": "ColorName | (string & {})",
             "required": false,
-            "description": "Accent color (default: \"accent\" — follows the theme accent) — one of the built-in ColorNames, or any other CSS color value (e.g. \"#7c3aed\" from a color-wheel picker) for a fully custom accent, unconstrained by the fixed palette. For \"gradient\" it's the gradient itself (600→700-equivalent; a custom hex gets a programmatically darkened second stop); for \"bordered\" it tints the bar's own border (has no effect on \"elevated\", which has no border to tint); for \"glass\" — which has no background color of its own — it tints the backdrop around the bar instead, since that's the only part of it that can carry a color at all. Has no effect on \"light\"/\"dark\"/\"minimal\".",
+            "description": "Accent color (default: \"accent\" — follows the theme accent) — one of the built-in ColorNames, or any other CSS color value (e.g. \"#7c3aed\" from a color-wheel picker) for a fully custom accent, unconstrained by the fixed palette. For \"gradient\" it's the gradient itself (600→700-equivalent; a custom hex gets a programmatically darkened second stop); for \"bordered\" it tints the bar's own border (has no effect on \"elevated\", which has no border to tint). Has no effect on \"light\"/\"dark\"/\"minimal\".",
             "default": "\"accent\""
+          },
+          {
+            "name": "gradientTo",
+            "type": "ColorName | (string & {})",
+            "required": false,
+            "description": "Second color of the \"gradient\" variant: a `ColorName` or any CSS color such as \"#ec4899\" (default: a darker shade of `color`).",
+            "default": null
+          },
+          {
+            "name": "gradientDirection",
+            "type": "GradientDirection",
+            "required": false,
+            "description": "Direction of the \"gradient\" variant: \"to-right\" | \"to-left\" | \"to-bottom\" | \"to-top\" | \"to-br\" | \"to-bl\" | \"to-tr\" | \"to-tl\" (default: \"to-right\").",
+            "default": "\"to-right\""
           },
           {
             "name": "borderWidth",
@@ -8435,6 +8552,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "bordered": "boolean",
             "variant": "string",
             "color": "string",
+            "gradientTo": "string",
+            "gradientDirection": "string",
             "borderWidth": "number",
             "items": "json",
             "defaultActiveItem": "string",
@@ -8501,14 +8620,14 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "name": "dark",
             "type": "boolean",
             "required": false,
-            "description": "Use the translucent active/hover treatment made for dark surfaces (default: false) — pass `true` alongside a Navbar `variant=\"dark\"/\"gradient\"/\"glass\"`.",
+            "description": "Use the translucent active/hover treatment made for dark surfaces (default: false) — pass `true` alongside a Navbar `variant=\"dark\"/\"gradient\"`.",
             "default": null
           },
           {
             "name": "vividActive",
             "type": "boolean",
             "required": false,
-            "description": "Strengthens the active link's background/ring beyond `dark`'s usual subtle overlay (default: false) — pass `true` alongside a Navbar `variant=\"gradient\"/\"glass\"` specifically (not \"dark\"), since those sit on a translucent or already-colorful surface where the normal overlay is much easier to lose than it is against \"dark\"'s plain, solid fill. Has no effect when `dark` is false.",
+            "description": "Strengthens the active link's background/ring beyond `dark`'s usual subtle overlay (default: false) — pass `true` alongside a Navbar `variant=\"gradient\"` specifically (not \"dark\"), since those sit on a translucent or already-colorful surface where the normal overlay is much easier to lose than it is against \"dark\"'s plain, solid fill. Has no effect when `dark` is false.",
             "default": null
           },
           {
@@ -8598,7 +8717,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
     ],
     "hooks": [],
     "types": {
-      "NavbarVariant": "\"light\" | \"dark\" | \"bordered\" | \"elevated\" | \"minimal\" | \"gradient\" | \"glass\""
+      "NavbarVariant": "\"light\" | \"dark\" | \"bordered\" | \"elevated\" | \"minimal\" | \"gradient\""
     },
     "dataTypes": []
   },
@@ -10145,15 +10264,29 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "name": "variant",
             "type": "SidebarVariant",
             "required": false,
-            "description": "Visual theme (default: \"light\"): - \"bordered\"/\"elevated\"/\"glass\" all float as a detached card instead of docking to a screen edge — kept as separate names since each still has its own distinct panel look on top of that shared shape: \"bordered\" has a thick `color`-tinted border, shadow, and rounded corners (see `color`/`borderWidth`); \"elevated\" has that same shadow and rounded corners but no border — depth from the shadow alone, Material-card style; \"glass\" is a faint, colorless `bg-white/10` tint plus `backdrop-blur-2xl` — a real frosted-glass look, not a solid tinted panel. `color` tints \"glass\"'s backdrop (the padded space around the panel) instead of the panel itself, since `backdrop-blur` can only ever blur what's behind it *within this same component* — its own backdrop, never your page — so a fully colorless panel would camouflage against a backdrop of the same color, with no contrast left to reveal its rounded corners or shadow. All three are self-contained — an inset backdrop is included automatically (padding + `bg-surface-muted`, or `color` for \"glass\") so the panel always reads correctly (rounded corners, blur) with no wrapper markup needed on your end. - \"minimal\" — no background/border at all, blends into the page (no backdrop added, by design — that's the whole point of this one). - \"gradient\" — a top-to-bottom gradient built from `color` (600 → 700).",
+            "description": "Visual theme (default: \"light\"): - \"bordered\"/\"elevated\" both float as a detached card instead of docking to a screen edge — kept as separate names since each still has its own distinct panel look on top of that shared shape: \"bordered\" has a thick `color`-tinted border, shadow, and rounded corners (see `color`/`borderWidth`); \"elevated\" has that same shadow and rounded corners but no border — depth from the shadow alone, Material-card style. Both are self-contained — an inset backdrop is included automatically (padding + a light tint of the theme accent) so the panel always reads correctly (rounded corners) with no wrapper markup needed on your end. - \"minimal\" — no background/border at all, blends into the page (no backdrop added, by design — that's the whole point of this one). - \"gradient\" — a top-to-bottom gradient built from `color` (600 → 700).",
             "default": "\"light\""
           },
           {
             "name": "color",
             "type": "ColorName | (string & {})",
             "required": false,
-            "description": "Accent color (default: \"accent\" — follows the theme accent) — one of the built-in ColorNames, or any other CSS color value (e.g. \"#7c3aed\" from a color-wheel picker) for a fully custom accent, unconstrained by the fixed palette. For \"gradient\" it's the gradient itself (600→700-equivalent; a custom hex gets a programmatically darkened second stop); for \"bordered\" it tints the panel's own border (has no effect on \"elevated\", which has no border to tint); for \"glass\" — which has no background color of its own — it tints the backdrop around the panel instead, since that's the only part of it that can carry a color at all; it always also tints the built-in toggle button's hover state — pair it with the same value on your own active nav-item styling for a coordinated look.",
+            "description": "Accent color (default: \"accent\" — follows the theme accent) — one of the built-in ColorNames, or any other CSS color value (e.g. \"#7c3aed\" from a color-wheel picker) for a fully custom accent, unconstrained by the fixed palette. For \"gradient\" it's the gradient itself (600→700-equivalent; a custom hex gets a programmatically darkened second stop); for \"bordered\" it tints the panel's own border (has no effect on \"elevated\", which has no border to tint); it always also tints the built-in toggle button's hover state — pair it with the same value on your own active nav-item styling for a coordinated look.",
             "default": "\"accent\""
+          },
+          {
+            "name": "gradientTo",
+            "type": "ColorName | (string & {})",
+            "required": false,
+            "description": "Second color of the \"gradient\" variant: a `ColorName` or any CSS color such as \"#ec4899\" (default: a darker shade of `color`).",
+            "default": null
+          },
+          {
+            "name": "gradientDirection",
+            "type": "GradientDirection",
+            "required": false,
+            "description": "Direction of the \"gradient\" variant: \"to-right\" | \"to-left\" | \"to-bottom\" | \"to-top\" | \"to-br\" | \"to-bl\" | \"to-tr\" | \"to-tl\" (default: \"to-bottom\").",
+            "default": "\"to-bottom\""
           },
           {
             "name": "borderWidth",
@@ -10255,6 +10388,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "collapsed": "boolean",
             "variant": "string",
             "color": "string",
+            "gradientTo": "string",
+            "gradientDirection": "string",
             "collapsible": "boolean",
             "header": "string",
             "headerIcon": "string",
@@ -10346,14 +10481,14 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "name": "dark",
             "type": "boolean",
             "required": false,
-            "description": "Use the translucent active/hover treatment made for dark surfaces (default: false) — pass `true` alongside a Sidebar `variant=\"dark\"/\"gradient\"/\"glass\"`.",
+            "description": "Use the translucent active/hover treatment made for dark surfaces (default: false) — pass `true` alongside a Sidebar `variant=\"dark\"/\"gradient\"`.",
             "default": null
           },
           {
             "name": "vividActive",
             "type": "boolean",
             "required": false,
-            "description": "Strengthens the active row's background/ring beyond `dark`'s usual subtle overlay (default: false) — pass `true` alongside a Sidebar `variant=\"gradient\"/\"glass\"` specifically (not \"dark\"), since those sit on a translucent or already-colorful surface where the normal overlay is much easier to lose than it is against \"dark\"'s plain, solid fill. Has no effect when `dark` is false.",
+            "description": "Strengthens the active row's background/ring beyond `dark`'s usual subtle overlay (default: false) — pass `true` alongside a Sidebar `variant=\"gradient\"` specifically (not \"dark\"), since those sit on a translucent or already-colorful surface where the normal overlay is much easier to lose than it is against \"dark\"'s plain, solid fill. Has no effect when `dark` is false.",
             "default": null
           },
           {
@@ -10460,7 +10595,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
     ],
     "hooks": [],
     "types": {
-      "SidebarVariant": "\"light\" | \"dark\" | \"bordered\" | \"elevated\" | \"minimal\" | \"gradient\" | \"glass\""
+      "SidebarVariant": "\"light\" | \"dark\" | \"bordered\" | \"elevated\" | \"minimal\" | \"gradient\""
     },
     "dataTypes": []
   },
@@ -10501,15 +10636,29 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "name": "variant",
             "type": "HeaderVariant",
             "required": false,
-            "description": "Visual theme (default: \"light\"), identical set to Sidebar/Navbar: - \"bordered\"/\"elevated\"/\"glass\" all float as a detached card instead of sitting flush in the page's content flow — kept as separate names since each still has its own distinct look on top of that shared shape: \"bordered\" has a thick `color`-tinted border, shadow, and rounded corners (see `color`/`borderWidth`); \"elevated\" has that same shadow and rounded corners but no border — depth from the shadow alone, Material-card style; \"glass\" is a faint, colorless `bg-white/10` tint plus `backdrop-blur-2xl` — a real frosted-glass look, not a solid tinted panel. `color` tints \"glass\"'s backdrop (the padded space around the card) instead of the card itself, since `backdrop-blur` can only ever blur what's behind it *within this same component* — its own backdrop, never your page — so a fully colorless card would camouflage against a backdrop of the same color, with no contrast left to reveal its rounded corners or shadow. All three are self-contained — an inset backdrop is included automatically (padding + `bg-surface-muted`, or `color` for \"glass\") so the card always reads correctly (rounded corners, blur) with no wrapper markup needed on your end. - \"dark\" — a deep shade of the theme accent (accent-950), title/description switch to white/white-ish. - \"minimal\" — no background/border at all, blends fully into the page (unlike \"light\", which keeps a white background and bottom divider). - \"gradient\" — a left-to-right gradient built from `color` (600 → 700).",
+            "description": "Visual theme (default: \"light\"), identical set to Sidebar/Navbar: - \"bordered\"/\"elevated\" both float as a detached card instead of sitting flush in the page's content flow — kept as separate names since each still has its own distinct look on top of that shared shape: \"bordered\" has a thick `color`-tinted border, shadow, and rounded corners (see `color`/`borderWidth`); \"elevated\" has that same shadow and rounded corners but no border — depth from the shadow alone, Material-card style. Both are self-contained — an inset backdrop is included automatically (padding + `bg-surface-muted`) so the card always reads correctly (rounded corners) with no wrapper markup needed on your end. - \"dark\" — a deep shade of the theme accent (accent-950), title/description switch to white/white-ish. - \"minimal\" — no background/border at all, blends fully into the page (unlike \"light\", which keeps a white background and bottom divider). - \"gradient\" — a left-to-right gradient built from `color` (600 → 700).",
             "default": "\"light\""
           },
           {
             "name": "color",
             "type": "ColorName | (string & {})",
             "required": false,
-            "description": "Accent color (default: \"accent\" — follows the theme accent) — one of the built-in ColorNames, or any other CSS color value (e.g. \"#7c3aed\" from a color-wheel picker) for a fully custom accent, unconstrained by the fixed palette. For \"gradient\" it's the gradient itself (600→700-equivalent; a custom hex gets a programmatically darkened second stop); for \"bordered\" it tints the card's own border (has no effect on \"elevated\", which has no border to tint); for \"glass\" — which has no background color of its own — it tints the backdrop around the card instead, since that's the only part of it that can carry a color at all. Has no effect on \"light\"/\"dark\"/\"minimal\".",
+            "description": "Accent color (default: \"accent\" — follows the theme accent) — one of the built-in ColorNames, or any other CSS color value (e.g. \"#7c3aed\" from a color-wheel picker) for a fully custom accent, unconstrained by the fixed palette. For \"gradient\" it's the gradient itself (600→700-equivalent; a custom hex gets a programmatically darkened second stop); for \"bordered\" it tints the card's own border (has no effect on \"elevated\", which has no border to tint). Has no effect on \"light\"/\"dark\"/\"minimal\".",
             "default": "\"accent\""
+          },
+          {
+            "name": "gradientTo",
+            "type": "ColorName | (string & {})",
+            "required": false,
+            "description": "Second color of the \"gradient\" variant: a `ColorName` or any CSS color such as \"#ec4899\" (default: a darker shade of `color`).",
+            "default": null
+          },
+          {
+            "name": "gradientDirection",
+            "type": "GradientDirection",
+            "required": false,
+            "description": "Direction of the \"gradient\" variant: \"to-right\" | \"to-left\" | \"to-bottom\" | \"to-top\" | \"to-br\" | \"to-bl\" | \"to-tr\" | \"to-tl\" (default: \"to-right\").",
+            "default": "\"to-right\""
           },
           {
             "name": "borderWidth",
@@ -10560,6 +10709,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "heading": "string",
             "variant": "string",
             "color": "string",
+            "gradientTo": "string",
+            "gradientDirection": "string",
             "borderWidth": "number",
             "transition": "string",
             "transitionDuration": "number",
@@ -10578,7 +10729,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
     ],
     "hooks": [],
     "types": {
-      "HeaderVariant": "\"light\" | \"dark\" | \"bordered\" | \"elevated\" | \"minimal\" | \"gradient\" | \"glass\""
+      "HeaderVariant": "\"light\" | \"dark\" | \"bordered\" | \"elevated\" | \"minimal\" | \"gradient\""
     },
     "dataTypes": []
   },
@@ -12863,6 +13014,667 @@ export const API_DOCS: Record<string, ApiDoc> = {
     ],
     "hooks": [],
     "types": {},
+    "dataTypes": []
+  },
+  "Plan & Billing": {
+    "components": [
+      {
+        "name": "PlanBilling",
+        "props": [
+          {
+            "name": "planName",
+            "type": "string",
+            "required": true,
+            "description": "Name of the current plan, e.g. \"Pro\".",
+            "default": null
+          },
+          {
+            "name": "price",
+            "type": "number | string",
+            "required": true,
+            "description": "Price per period — a number or a ready-made string such as \"Free\".",
+            "default": null
+          },
+          {
+            "name": "currency",
+            "type": "string",
+            "required": false,
+            "description": "Currency of a numeric price: a symbol shown before it (\"$\", \"€\", \"₱\" …) or a 3-letter code such as \"EUR\" or \"PHP\", which is formatted for you (default: \"$\").",
+            "default": "\"$\""
+          },
+          {
+            "name": "interval",
+            "type": "\"month\" | \"year\"",
+            "required": false,
+            "description": "Billing period: \"month\" or \"year\" (default: \"month\").",
+            "default": "\"month\""
+          },
+          {
+            "name": "description",
+            "type": "string",
+            "required": false,
+            "description": "One line under the plan name.",
+            "default": null
+          },
+          {
+            "name": "status",
+            "type": "PlanStatus",
+            "required": false,
+            "description": "State of the subscription: \"active\", \"trial\", \"past-due\" or \"canceled\" (default: \"active\").",
+            "default": "\"active\""
+          },
+          {
+            "name": "features",
+            "type": "string[]",
+            "required": false,
+            "description": "What the plan includes, shown as a checked list.",
+            "default": null
+          },
+          {
+            "name": "usage",
+            "type": "PlanUsage[]",
+            "required": false,
+            "description": "Usage meters against the plan's limits — drawn in `color`, so they follow the theme accent.",
+            "default": null
+          },
+          {
+            "name": "nextBillingDate",
+            "type": "string",
+            "required": false,
+            "description": "Date of the next charge, e.g. \"Nov 3, 2026\".",
+            "default": null
+          },
+          {
+            "name": "paymentMethod",
+            "type": "PlanPaymentMethod",
+            "required": false,
+            "description": "The card on file.",
+            "default": null
+          },
+          {
+            "name": "color",
+            "type": "ColorName | (string & {})",
+            "required": false,
+            "description": "Accent of the meters and the action button: a built-in ColorName or any CSS color such as \"#8b5cf6\" (default: \"accent\" — follows the theme accent).",
+            "default": "\"accent\""
+          },
+          {
+            "name": "actionLabel",
+            "type": "string",
+            "required": false,
+            "description": "Label of the action button (default: \"Select Plan\").",
+            "default": "\"Select Plan\""
+          },
+          {
+            "name": "onAction",
+            "type": "() => void",
+            "required": false,
+            "description": "Called when the action button is pressed; the button is hidden when omitted.",
+            "default": null
+          },
+          {
+            "name": "onCancel",
+            "type": "() => void",
+            "required": false,
+            "description": "Called when the cancel icon in the top-right corner is pressed; the icon is hidden when omitted (cancelling stays optional).",
+            "default": null
+          },
+          {
+            "name": "cancelLabel",
+            "type": "string",
+            "required": false,
+            "description": "Tooltip and accessible label of the cancel icon (default: \"Cancel plan\").",
+            "default": "\"Cancel plan\""
+          },
+          {
+            "name": "cancelIcon",
+            "type": "string",
+            "required": false,
+            "description": "Icon of the cancel button, e.g. \"circle-x\" or \"trash-2\" — see src/core/icons.ts for the available set (default: \"circle-x\").",
+            "default": "\"circle-x\""
+          },
+          {
+            "name": "hoverEffect",
+            "type": "HoverEffect",
+            "required": false,
+            "description": "Effect while hovering the card: \"lift\" | \"scale\" | \"press\" | \"tilt\" | \"ring\" | \"glow\" | \"shine\" (default: none).",
+            "default": null
+          },
+          {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0).",
+            "default": null
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "required": false,
+            "description": "Extra class name(s) applied to the root element.",
+            "default": null
+          },
+          {
+            "name": "classNames",
+            "type": "{ root?: string; header?: string; price?: string; features?: string; usage?: string; details?: string; actions?: string; cancel?: string; }",
+            "required": false,
+            "description": "Per-part class overrides — merged after (and win over) the built-in styling.",
+            "default": null
+          }
+        ],
+        "element": {
+          "tag": "l-plan-billing",
+          "props": {
+            "planName": "string",
+            "price": "string",
+            "currency": "string",
+            "interval": "string",
+            "description": "string",
+            "status": "string",
+            "features": "json",
+            "usage": "json",
+            "nextBillingDate": "string",
+            "paymentMethod": "json",
+            "color": "string",
+            "actionLabel": "string",
+            "cancelLabel": "string",
+            "cancelIcon": "string",
+            "hoverEffect": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number"
+          },
+          "extraProps": [],
+          "events": [
+            {
+              "callback": "onAction",
+              "event": "action"
+            },
+            {
+              "callback": "onCancel",
+              "event": "cancel"
+            }
+          ]
+        }
+      }
+    ],
+    "hooks": [],
+    "types": {
+      "PlanStatus": "\"active\" | \"trial\" | \"past-due\" | \"canceled\""
+    },
+    "dataTypes": []
+  },
+  "Iframe": {
+    "components": [
+      {
+        "name": "Iframe",
+        "props": [
+          {
+            "name": "src",
+            "type": "string",
+            "required": true,
+            "description": "Address of the page to embed.",
+            "default": null
+          },
+          {
+            "name": "title",
+            "type": "string",
+            "required": true,
+            "description": "Accessible name of the frame — describe what is embedded.",
+            "default": null
+          },
+          {
+            "name": "height",
+            "type": "number | string",
+            "required": false,
+            "description": "Height in px or any CSS length (default: 360). Ignored when `ratio` is not \"auto\".",
+            "default": "360"
+          },
+          {
+            "name": "ratio",
+            "type": "IframeRatio",
+            "required": false,
+            "description": "Fixed shape instead of a fixed height: \"auto\" (use `height`), \"video\" (16:9), \"wide\" (21:9) or \"square\" (default: \"auto\").",
+            "default": "\"auto\""
+          },
+          {
+            "name": "sandbox",
+            "type": "string",
+            "required": false,
+            "description": "Restrictions applied to the embedded page, e.g. \"allow-scripts allow-same-origin\". Empty string applies every restriction; omit for none.",
+            "default": null
+          },
+          {
+            "name": "allow",
+            "type": "string",
+            "required": false,
+            "description": "Permissions policy of the frame, e.g. \"fullscreen; clipboard-write\".",
+            "default": null
+          },
+          {
+            "name": "loading",
+            "type": "\"lazy\" | \"eager\"",
+            "required": false,
+            "description": "\"lazy\" waits until the frame is near the viewport, \"eager\" loads it right away (default: \"lazy\").",
+            "default": "\"lazy\""
+          },
+          {
+            "name": "referrerPolicy",
+            "type": "string",
+            "required": false,
+            "description": "Which referrer is sent with the request, e.g. \"no-referrer\" (default: \"strict-origin-when-cross-origin\").",
+            "default": "\"strict-origin-when-cross-origin\""
+          },
+          {
+            "name": "bordered",
+            "type": "boolean",
+            "required": false,
+            "description": "Draws a rounded border around the frame (default: true).",
+            "default": "true"
+          },
+          {
+            "name": "showLoader",
+            "type": "boolean",
+            "required": false,
+            "description": "Shows a spinner until the page has loaded (default: true).",
+            "default": "true"
+          },
+          {
+            "name": "showAddress",
+            "type": "boolean",
+            "required": false,
+            "description": "Shows a small address bar with the host above the frame (default: false).",
+            "default": "false"
+          },
+          {
+            "name": "onLoad",
+            "type": "() => void",
+            "required": false,
+            "description": "Called when the embedded page has finished loading.",
+            "default": null
+          },
+          {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0).",
+            "default": null
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "required": false,
+            "description": "Extra class name(s) applied to the root element.",
+            "default": null
+          },
+          {
+            "name": "classNames",
+            "type": "{ root?: string; frame?: string; address?: string; loader?: string; }",
+            "required": false,
+            "description": "Per-part class overrides — merged after (and win over) the built-in styling.",
+            "default": null
+          }
+        ],
+        "element": {
+          "tag": "l-iframe",
+          "props": {
+            "src": "string",
+            "title": "string",
+            "height": "string",
+            "ratio": "string",
+            "sandbox": "string",
+            "allow": "string",
+            "loading": "string",
+            "referrerPolicy": "string",
+            "bordered": "boolean",
+            "showLoader": "boolean",
+            "showAddress": "boolean",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number"
+          },
+          "extraProps": [],
+          "events": [
+            {
+              "callback": "onLoad",
+              "event": "load"
+            }
+          ]
+        }
+      }
+    ],
+    "hooks": [],
+    "types": {
+      "IframeRatio": "\"auto\" | \"video\" | \"square\" | \"wide\""
+    },
+    "dataTypes": []
+  },
+  "Chat Box": {
+    "components": [
+      {
+        "name": "ChatBox",
+        "props": [
+          {
+            "name": "variant",
+            "type": "ChatBoxVariant",
+            "required": false,
+            "description": "Look of the thread: \"bubble\" (filled chat bubbles), \"outline\" (outlined bubbles), \"flat\" (full-width rows, assistant rows tinted — like an AI assistant page) or \"compact\" (small text, tight spacing, no avatars) (default: \"bubble\").",
+            "default": "\"bubble\""
+          },
+          {
+            "name": "messages",
+            "type": "ChatMessage[]",
+            "required": false,
+            "description": "Messages to show (controlled) — add the user's message yourself in `onSend`. Omit to let the ChatBox keep its own list, seeded from `defaultMessages`.",
+            "default": null
+          },
+          {
+            "name": "defaultMessages",
+            "type": "ChatMessage[]",
+            "required": false,
+            "description": "Starting messages when `messages` is not provided.",
+            "default": "[]"
+          },
+          {
+            "name": "onSend",
+            "type": "(text: string) => void",
+            "required": false,
+            "description": "Called with the trimmed text when the user presses Enter or the send button.",
+            "default": null
+          },
+          {
+            "name": "thinking",
+            "type": "boolean | string",
+            "required": false,
+            "description": "Shows the \"thinking\" indicator at the end of the thread. Pass the text to show — `thinking=\"Searching the docs\"` — or `true` / an empty string for the default \"Thinking\" (default: off).",
+            "default": null
+          },
+          {
+            "name": "thinkingVariant",
+            "type": "ThinkingVariant",
+            "required": false,
+            "description": "Style of the thinking indicator: \"dots\" | \"wave\" | \"orb\" | \"shimmer\" (default: \"dots\").",
+            "default": "\"dots\""
+          },
+          {
+            "name": "thinkingSteps",
+            "type": "string[]",
+            "required": false,
+            "description": "Status lines the thinking indicator cycles through, e.g. [\"Reading the question\", \"Writing the answer\"] — replaces the thinking text.",
+            "default": null
+          },
+          {
+            "name": "thinkingElapsed",
+            "type": "boolean",
+            "required": false,
+            "description": "Adds a running timer to the thinking indicator — \"Thinking · 4s\" (default: false).",
+            "default": "false"
+          },
+          {
+            "name": "placeholder",
+            "type": "string",
+            "required": false,
+            "description": "Placeholder of the message box (default: \"Type a message…\").",
+            "default": "\"Type a message…\""
+          },
+          {
+            "name": "disabled",
+            "type": "boolean",
+            "required": false,
+            "description": "Disables the message box and send button (default: false).",
+            "default": "false"
+          },
+          {
+            "name": "height",
+            "type": "number | string",
+            "required": false,
+            "description": "Height of the whole chat, in px or any CSS length such as \"60vh\" (default: 440).",
+            "default": "440"
+          },
+          {
+            "name": "heading",
+            "type": "string",
+            "required": false,
+            "description": "Title in the header bar; omit (with `subtitle`) for no header.",
+            "default": null
+          },
+          {
+            "name": "subtitle",
+            "type": "string",
+            "required": false,
+            "description": "Smaller line under the title, e.g. \"Online\".",
+            "default": null
+          },
+          {
+            "name": "color",
+            "type": "ColorName",
+            "required": false,
+            "description": "Color of your own bubbles and the send button, one of the built-in ColorNames (default: \"accent\" — follows the theme accent).",
+            "default": "\"accent\""
+          },
+          {
+            "name": "emptyText",
+            "type": "string",
+            "required": false,
+            "description": "Text shown while there are no messages (default: \"Say hello 👋\").",
+            "default": "\"Say hello 👋\""
+          },
+          {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0).",
+            "default": null
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "required": false,
+            "description": "Extra class name(s) applied to the root element.",
+            "default": null
+          },
+          {
+            "name": "classNames",
+            "type": "{ root?: string; header?: string; messages?: string; bubble?: string; input?: string; send?: string; }",
+            "required": false,
+            "description": "Per-part class overrides — merged after (and win over) the built-in styling.",
+            "default": null
+          }
+        ],
+        "element": {
+          "tag": "l-chat-box",
+          "props": {
+            "messages": "json",
+            "defaultMessages": "json",
+            "variant": "string",
+            "thinking": "string",
+            "thinkingVariant": "string",
+            "thinkingSteps": "json",
+            "thinkingElapsed": "boolean",
+            "placeholder": "string",
+            "disabled": "boolean",
+            "height": "string",
+            "heading": "string",
+            "subtitle": "string",
+            "color": "string",
+            "emptyText": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number"
+          },
+          "extraProps": [],
+          "events": [
+            {
+              "callback": "onSend",
+              "event": "send"
+            }
+          ]
+        }
+      }
+    ],
+    "hooks": [],
+    "types": {
+      "ChatRole": "\"user\" | \"assistant\" | \"system\"",
+      "ChatBoxVariant": "\"bubble\" | \"outline\" | \"flat\" | \"compact\""
+    },
+    "dataTypes": []
+  },
+  "Thinking": {
+    "components": [
+      {
+        "name": "Thinking",
+        "props": [
+          {
+            "name": "label",
+            "type": "string",
+            "required": false,
+            "description": "Text next to the indicator (default: \"Thinking\"). Ignored while `steps` is set.",
+            "default": "\"Thinking\""
+          },
+          {
+            "name": "variant",
+            "type": "ThinkingVariant",
+            "required": false,
+            "description": "Indicator style: \"dots\" (bouncing dots), \"wave\" (audio-style bars), \"orb\" (pulsing gradient orb) or \"shimmer\" (the label itself glows in a sweep) (default: \"dots\").",
+            "default": "\"dots\""
+          },
+          {
+            "name": "size",
+            "type": "ThinkingSize",
+            "required": false,
+            "description": "\"sm\" | \"md\" | \"lg\" (default: \"md\").",
+            "default": "\"md\""
+          },
+          {
+            "name": "color",
+            "type": "ColorName",
+            "required": false,
+            "description": "Color of the indicator, one of the built-in ColorNames (default: \"accent\" — follows the theme accent).",
+            "default": "\"accent\""
+          },
+          {
+            "name": "steps",
+            "type": "string[]",
+            "required": false,
+            "description": "Status lines to cycle through, e.g. [\"Reading the file\", \"Planning\", \"Writing the answer\"] — replaces `label` and loops every `stepInterval` ms.",
+            "default": null
+          },
+          {
+            "name": "stepInterval",
+            "type": "number",
+            "required": false,
+            "description": "How long each step stays on screen, in ms (default: 2200).",
+            "default": "2200"
+          },
+          {
+            "name": "showElapsed",
+            "type": "boolean",
+            "required": false,
+            "description": "Appends a running timer — \"Thinking · 4s\" (default: false).",
+            "default": "false"
+          },
+          {
+            "name": "transition",
+            "type": "TransitionVariant",
+            "required": false,
+            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
+            "default": null
+          },
+          {
+            "name": "transitionDuration",
+            "type": "number",
+            "required": false,
+            "description": "Enter transition duration in ms (default: 450).",
+            "default": null
+          },
+          {
+            "name": "transitionDelay",
+            "type": "number",
+            "required": false,
+            "description": "Delay before the enter transition starts, in ms (default: 0).",
+            "default": null
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "required": false,
+            "description": "Extra class name(s) applied to the root element.",
+            "default": null
+          },
+          {
+            "name": "classNames",
+            "type": "{ root?: string; indicator?: string; label?: string; }",
+            "required": false,
+            "description": "Per-part class overrides — merged after (and win over) the built-in styling.",
+            "default": null
+          }
+        ],
+        "element": {
+          "tag": "l-thinking",
+          "props": {
+            "label": "string",
+            "variant": "string",
+            "size": "string",
+            "color": "string",
+            "steps": "json",
+            "stepInterval": "number",
+            "showElapsed": "boolean",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number"
+          },
+          "extraProps": [],
+          "events": []
+        }
+      }
+    ],
+    "hooks": [],
+    "types": {
+      "ThinkingVariant": "\"dots\" | \"wave\" | \"orb\" | \"shimmer\"",
+      "ThinkingSize": "\"sm\" | \"md\" | \"lg\""
+    },
     "dataTypes": []
   },
   "Account Settings": {

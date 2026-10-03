@@ -11,15 +11,17 @@ export interface CodeBlockProps {
   code?: string;
   /** Per-framework source, e.g. `{ react: "...", vue: "...", angular: "...", js: "..." }`. */
   variants?: CodeBlockVariants;
+  /** Start with the code showing instead of collapsed behind "View code" (default: false). */
+  defaultOpen?: boolean;
 }
 
 // Preference order when the globally-selected framework has no example yet.
 const FALLBACK_ORDER: CodeFramework[] = ["react", "js", "vue", "angular"];
 
-export default function CodeBlock({ code, variants }: CodeBlockProps) {
+export default function CodeBlock({ code, variants, defaultOpen = false }: CodeBlockProps) {
   const { framework } = useCodeFramework();
   const [copied, setCopied] = useState(false);
-  const [expanded, setExpanded] = useState(false);
+  const [expanded, setExpanded] = useState(defaultOpen);
 
   const allVariants: CodeBlockVariants = code !== undefined ? { react: code, ...variants } : { ...variants };
 

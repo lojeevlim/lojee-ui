@@ -135,8 +135,8 @@ export default function MotionLab() {
           <Card title="Progress" hoverEffect={hoverEffect} {...motion} transitionDelay={60}>
             <div className="space-y-4">
               <div><p className="mb-1 text-xs font-medium text-fg-muted">Storage</p><ProgressBar value={72} /></div>
-              <div><p className="mb-1 text-xs font-medium text-fg-muted">Bandwidth</p><ProgressBar value={38} color="violet" /></div>
-              <div><p className="mb-1 text-xs font-medium text-fg-muted">Uptime</p><ProgressBar value={91} color="emerald" /></div>
+              <div><p className="mb-1 text-xs font-medium text-fg-muted">Bandwidth</p><ProgressBar value={38} /></div>
+              <div><p className="mb-1 text-xs font-medium text-fg-muted">Uptime</p><ProgressBar value={91} /></div>
             </div>
           </Card>
           <Stat label="Revenue" value="$48,290" change="12.5%" trend="up" icon="zap" countUp hoverEffect={hoverEffect} {...motion} transitionDelay={120} />

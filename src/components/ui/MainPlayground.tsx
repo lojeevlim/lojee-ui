@@ -2,7 +2,7 @@ import { useState } from "react";
 import { AppWindowFrame, ColorSwatches, OptionGroup, PlaygroundLayout } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
 import type { ColorName } from "../../core/tokens";
-import { useTheme, type AccentName, type ThemeMode } from "../../core/theme";
+import { useTheme, type Accent, type ThemeMode } from "../../core/theme";
 import { ThemeProvider } from "./Theme/ThemeProvider";
 import { App } from "./AppLayout/App";
 import { Main, type MainPadding } from "./Main/Main";
@@ -19,7 +19,7 @@ export default function MainPlayground() {
   const [padding, setPadding] = useState<MainPadding>("md");
   const [panel, setPanel] = useState<Panel>("default");
   const [theme, setTheme] = useState<ThemeMode>("light");
-  const [accent, setAccent] = useState<AccentName>(siteAccent);
+  const [accent, setAccent] = useState<Accent>(siteAccent);
   // Follow the site accent when it changes (the swatches can still override it).
   const [prevSiteAccent, setPrevSiteAccent] = useState(siteAccent);
   if (prevSiteAccent !== siteAccent) {
@@ -91,7 +91,7 @@ import "lojee-ui/elements";
       <OptionGroup label="Padding" options={PADDINGS} value={padding} onChange={setPadding} />
       <OptionGroup label="Panel" options={PANELS} value={panel} onChange={setPanel} />
       <OptionGroup label="Theme" options={THEMES} value={theme} onChange={setTheme} />
-      <ColorSwatches label="Accent" value={accent as ColorName} onChange={(c) => setAccent(c as AccentName)} />
+      <ColorSwatches label="Accent" value={accent as ColorName} onChange={(c) => setAccent(c as Accent)} />
     </PlaygroundLayout>
   );
 }

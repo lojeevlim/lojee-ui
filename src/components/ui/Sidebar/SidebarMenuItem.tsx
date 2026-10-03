@@ -86,10 +86,10 @@ export interface SidebarMenuItemProps {
    * left-docked collapsed rail). */
   tooltipPosition?: TooltipPortalPosition;
   /** Use the translucent active/hover treatment made for dark surfaces (default: false) — pass
-   * `true` alongside a Sidebar `variant="dark"/"gradient"/"glass"`. */
+   * `true` alongside a Sidebar `variant="dark"/"gradient"`. */
   dark?: boolean;
   /** Strengthens the active row's background/ring beyond `dark`'s usual subtle overlay (default:
-   * false) — pass `true` alongside a Sidebar `variant="gradient"/"glass"` specifically (not "dark"),
+   * false) — pass `true` alongside a Sidebar `variant="gradient"` specifically (not "dark"),
    * since those sit on a translucent or already-colorful surface where the normal overlay is much
    * easier to lose than it is against "dark"'s plain, solid fill. Has no effect when `dark` is false. */
   vividActive?: boolean;

@@ -236,10 +236,9 @@ onActiveItemChange(item: unknown) {
         <section>
           <SectionLabel
             sub={
-              'Seven themes, identical set to Sidebar\'s: "light" (default), "dark", "bordered"/' +
-              '"elevated"/"glass" (detached, floating bars), "minimal" (no chrome at all), and ' +
-              '"gradient" (color-tinted). "bordered" tints its border with `color`/`borderWidth`; ' +
-              '"glass" tints its backdrop with `color` instead.'
+              'Six themes, identical set to Sidebar\'s: "light" (default), "dark", "bordered"/' +
+              '"elevated" (detached, floating bars), "minimal" (no chrome at all), and ' +
+              '"gradient" (color-tinted). "bordered" tints its border with `color`/`borderWidth`.'
             }
           >
             Variants
@@ -256,10 +255,10 @@ onActiveItemChange(item: unknown) {
                 actions={<Avatar initials="JD" size="sm" />}
               />
             </div>
-            <div className="rounded-lg bg-surface-muted p-4">
+            <div className="rounded-lg border border-border bg-[color-mix(in_srgb,var(--color-accent-500)_8%,var(--color-surface))] p-4">
               <Navbar variant="bordered" brand="Lojee" items={VARIANT_ITEMS} actions={<Avatar initials="JD" size="sm" />} />
             </div>
-            <div className="rounded-lg bg-surface-muted p-4">
+            <div className="rounded-lg border border-border bg-[color-mix(in_srgb,var(--color-accent-500)_8%,var(--color-surface))] p-4">
               <Navbar variant="elevated" brand="Lojee" items={VARIANT_ITEMS} actions={<Avatar initials="JD" size="sm" />} />
             </div>
             <div className="rounded-lg border border-dashed border-border-strong bg-surface p-4">
@@ -268,14 +267,6 @@ onActiveItemChange(item: unknown) {
             <div className="overflow-hidden rounded-lg">
               <Navbar
                 variant="gradient"
-                brand={<span className="text-white">Lojee</span>}
-                items={VARIANT_ITEMS}
-                actions={<Avatar initials="JD" size="sm" />}
-              />
-            </div>
-            <div className="overflow-hidden rounded-lg border border-border bg-accent-100 p-4">
-              <Navbar
-                variant="glass"
                 brand={<span className="text-white">Lojee</span>}
                 items={VARIANT_ITEMS}
                 actions={<Avatar initials="JD" size="sm" />}
@@ -294,12 +285,11 @@ onActiveItemChange(item: unknown) {
 />
 
 {/* Also available:
-    variant="bordered" / "elevated" / "glass" — detached-panel looks (rounded corners, floats
+    variant="bordered" / "elevated" — detached-panel looks (rounded corners, floats
       inside a page instead of docking full-width). Their backdrop (padding + a neutral background)
       is built in, so no extra markup is needed. "bordered" is a solid bar on the page surface with a
       color-tinted border (see \`color\`/\`borderWidth\`); "elevated" is the same bar but
-      shadow-only, no border; "glass" has no background color at all, just backdrop-blur-xl —
-      needs something with real color/texture behind it to read.
+      shadow-only, no border.
     variant="minimal"  — no background/border at all, blends into the page.
     variant="gradient" — a left-to-right gradient built from \`color\` (600 → 700). */}`,
               js: `<l-Navbar id="variants-navbar" variant="dark"></l-Navbar>
@@ -314,7 +304,7 @@ onActiveItemChange(item: unknown) {
   ];
 </script>
 
-<!-- "bordered"/"elevated"/"glass" — detached-panel looks; their backdrop is built in, no extra
+<!-- "bordered"/"elevated" — detached-panel looks; their backdrop is built in, no extra
      markup needed. "minimal" — no background/border at all, blends into the page. -->`,
               vue: `<template>
   <!-- l-Navbar is a native custom element, not a Vue component — Vue's own #slotName shorthand only
@@ -324,7 +314,7 @@ onActiveItemChange(item: unknown) {
     <div slot="brand"><span class="text-white">Lojee</span></div>
   </l-Navbar>
 
-  <!-- "bordered"/"elevated"/"glass" — detached-panel looks; their backdrop is built in, no extra
+  <!-- "bordered"/"elevated" — detached-panel looks; their backdrop is built in, no extra
        markup needed. "minimal" — no background/border at all, blends into the page. -->
 </template>
 
@@ -336,7 +326,7 @@ const items = [
   { label: "Products" },
 ];
 </script>`,
-              angular: `<!-- "bordered"/"elevated"/"glass" — detached-panel looks; their backdrop is built in, no extra
+              angular: `<!-- "bordered"/"elevated" — detached-panel looks; their backdrop is built in, no extra
      markup needed. "minimal" — no background/border at all, blends into the page. -->
 <l-Navbar variant="dark" [items]="items">
   <div slot="brand"><span class="text-white">Lojee</span></div>

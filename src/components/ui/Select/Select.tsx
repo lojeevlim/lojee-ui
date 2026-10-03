@@ -20,6 +20,8 @@ export interface SelectProps extends Omit<SelectHTMLAttributes<HTMLSelectElement
   placeholder?: string;
   /** Control height and text size: "sm", "md" (default) or "lg". */
   size?: SelectSize;
+  /** Icon name shown at the start of the field, e.g. "code" — see src/core/icons.ts for the available set (default: none). */
+  icon?: string;
   /** Marks the field as invalid with a rose border/focus ring (default: false). */
   invalid?: boolean;
   /** Enter/exit transition for the dropdown list: "fade" | "slide-up" | "slide-down" | "slide-left" | "slide-right" | "zoom" | "zoom-out" | "flip" | "blur" | "bounce" | "rotate" | "drop" | "skew" (default: none). Respects `prefers-reduced-motion`. */
@@ -33,7 +35,7 @@ export interface SelectProps extends Omit<SelectHTMLAttributes<HTMLSelectElement
   /** Extra CSS class(es) added to the root element, merged before `classNames.root`. */
   className?: string;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
-  classNames?: { root?: string; select?: string; icon?: string; menu?: string; option?: string };
+  classNames?: { root?: string; select?: string; icon?: string; leadingIcon?: string; menu?: string; option?: string };
 }
 
 const SIZE_CLASSES: Record<SelectSize, string> = {
@@ -43,6 +45,10 @@ const SIZE_CLASSES: Record<SelectSize, string> = {
 };
 
 const ICON_PX: Record<SelectSize, number> = { sm: 14, md: 16, lg: 18 };
+
+// Left padding that makes room for the leading icon.
+const ICON_PAD: Record<SelectSize, string> = { sm: "pl-8", md: "pl-9", lg: "pl-11" };
+const ICON_LEFT: Record<SelectSize, string> = { sm: "left-2.5", md: "left-3", lg: "left-4" };
 
 const BASE_CLASSES =
   "flex w-full items-center rounded-md border border-border-strong bg-surface pr-9 text-left text-fg outline-none transition-colors focus:border-fg-subtle focus:ring-2 focus:ring-fg-subtle/20 disabled:cursor-not-allowed disabled:opacity-50";
@@ -55,6 +61,7 @@ const INVALID_CLASSES = "border-rose-400 focus:border-rose-500 focus:ring-rose-5
 export function Select({
   options,
   placeholder,
+  icon,
   size = "md",
   invalid = false,
   transition,
@@ -204,10 +211,11 @@ export function Select({
         onKeyDown={onKeyDown}
         onFocus={onFocus as never}
         onBlur={onBlur as never}
-        className={cx(BASE_CLASSES, SIZE_CLASSES[size], invalid && INVALID_CLASSES, classNames?.select)}
+        className={cx(BASE_CLASSES, SIZE_CLASSES[size], icon && ICON_PAD[size], invalid && INVALID_CLASSES, classNames?.select)}
       >
         <span className={cx("min-w-0 flex-1 truncate", !selected && "text-fg-subtle")}>{selected ? selected.label : (placeholder ?? "")}</span>
       </button>
+      {icon && <Icon name={icon} size={ICON_PX[size]} className={cx("pointer-events-none absolute text-fg-subtle", ICON_LEFT[size], classNames?.leadingIcon)} />}
       <Icon
         name="chevron-down"
         size={ICON_PX[size]}

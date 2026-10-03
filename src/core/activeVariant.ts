@@ -36,7 +36,7 @@ export function activeAccent(color: string, isNamed: boolean): string {
  * (a no-op for "solid", which keeps each component's own classes).
  * - `kind: "fill"` — the element that carries the active *background* (a row, or Navbar/Sidebar's sliding pill).
  * - `kind: "text"` — an item whose fill is drawn by something else (the sliding pill): only its text color changes.
- * - `dark` — the surface behind it is dark (dark/gradient/glass variants), so the text stays white.
+ * - `dark` — the surface behind it is dark (dark/gradient variants), so the text stays white.
  */
 export function activeMarker(
   kind: "fill" | "text",

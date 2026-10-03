@@ -7,6 +7,7 @@ interface AppCodeOptions {
   mode?: string;
   accent?: string;
   activeVariant?: string;
+  design?: string;
   /** Sections left out of the example (their markup is omitted). */
   hidden?: AppSection[];
   /** Stack into one column below this container width, like React's `collapseBelow` ("md" is the default). */
@@ -33,6 +34,7 @@ export function appCodeVariants(react: string, opts: AppCodeOptions = {}): CodeB
     `default-mode="${opts.mode ?? "light"}"`,
     opts.accent && `default-accent="${opts.accent}"`,
     opts.activeVariant && opts.activeVariant !== "solid" && `default-active-variant="${opts.activeVariant}"`,
+    opts.design && opts.design !== "bento" && `default-design="${opts.design}"`,
   ]
     .filter(Boolean)
     .join(" ");

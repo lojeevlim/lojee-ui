@@ -86,6 +86,10 @@ import PasswordInputPlayground from "./PasswordInputPlayground";
 import LoginFormPlayground from "./LoginFormPlayground";
 import SignupFormPlayground from "./SignupFormPlayground";
 import ProfileSettingsPlayground from "./ProfileSettingsPlayground";
+import PlanBillingPlayground from "./PlanBillingPlayground";
+import IframePlayground from "./IframePlayground";
+import ChatBoxPlayground from "./ChatBoxPlayground";
+import ThinkingPlayground from "./ThinkingPlayground";
 import AccountSettingsPlayground from "./AccountSettingsPlayground";
 
 export interface PlaygroundProps {
@@ -180,6 +184,10 @@ const PLAYGROUNDS: Record<string, ComponentType> = {
   "Login Form": LoginFormPlayground,
   "Signup Form": SignupFormPlayground,
   "Profile Settings": ProfileSettingsPlayground,
+  "Plan & Billing": PlanBillingPlayground,
+  Iframe: IframePlayground,
+  "Chat Box": ChatBoxPlayground,
+  Thinking: ThinkingPlayground,
   "Account Settings": AccountSettingsPlayground,
 };
 

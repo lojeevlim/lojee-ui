@@ -407,7 +407,7 @@ export class AppComponent {
         <section>
           <SectionLabel
             sub={
-              'Seven themes: "light" (default), "dark", "bordered"/"elevated"/"glass" (detached, ' +
+              'Six themes: "light" (default), "dark", "bordered"/"elevated" (detached, ' +
               'floating panels), "minimal" (no chrome at all), and "gradient" (color-tinted).'
             }
           >
@@ -432,9 +432,6 @@ export class AppComponent {
             <div className="h-72 overflow-hidden rounded-lg">
               <Sidebar variant="gradient" header="Lojee Inc" footer="Jordan Diaz" items={VARIANT_ITEMS} />
             </div>
-            <div className="h-72 overflow-hidden rounded-lg border border-border">
-              <Sidebar variant="glass" height="100%" className="h-full" header="Lojee Inc" footer="Jordan Diaz" items={VARIANT_ITEMS} />
-            </div>
           </div>
           <CodeBlock
             variants={{
@@ -451,13 +448,12 @@ export class AppComponent {
 />
 
 {/* Also available:
-    variant="bordered" / "elevated" / "glass" — detached-panel looks (rounded corners, floats
+    variant="bordered" / "elevated" — detached-panel looks (rounded corners, floats
       inside a page instead of docking to a screen edge). Their backdrop (padding + a neutral
       background) is built in, so no extra markup is needed — just give them a height, e.g.
       height="100%" inside a sized parent. "bordered" is a solid panel on the page surface with a color-tinted
       border (see \`color\`/\`borderWidth\`); "elevated" is the same solid panel on the page surface but
-      shadow-only, no border; "glass" has no background color at all, just backdrop-blur-xl —
-      needs something with real color/texture behind it to read.
+      shadow-only, no border.
     variant="minimal"  — no background/border at all, blends into the page.
     variant="gradient" — a top-to-bottom gradient built from \`color\` (600 → 700). */}`,
               js: `<l-Sidebar id="variants-sidebar" variant="dark" header="Lojee Inc" footer="Jordan Diaz"></l-Sidebar>

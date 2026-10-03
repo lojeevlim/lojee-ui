@@ -10,13 +10,13 @@
 // entry (entry.ts, next to this file) adds that import instead.
 
 export { ANIMATED_VARIANTS, type AnimatedVariant } from "../core/animated";
-export { Button, type ButtonProps } from "../components/ui/Buttons/Button";
+export { Button, type ButtonProps, type GradientDirection } from "../components/ui/Buttons/Button";
 export { SplitButton, type SplitButtonProps } from "../components/ui/Buttons/SplitButton";
 export {
   SplitButtonMenuItem,
   type SplitButtonMenuItemProps,
 } from "../components/ui/Buttons/SplitButtonMenuItem";
-export { ButtonGroup, type ButtonGroupProps } from "../components/ui/Buttons/ButtonGroup";
+export { ButtonGroup, type ButtonGroupProps, type ButtonGroupItemClick } from "../components/ui/Buttons/ButtonGroup";
 export { SegmentButton, type SegmentButtonProps } from "../components/ui/Buttons/SegmentButton";
 export { default as Modal, type ModalProps } from "../components/ui/Modal";
 export { Badge, type BadgeProps, type BadgeVariant, type BadgeSize } from "../components/ui/Badge/Badge";
@@ -254,6 +254,16 @@ export {
   type ProfileCardProps,
   type ProfileCardStat,
 } from "../components/ui/ProfileCard/ProfileCard";
+export {
+  PlanBilling,
+  type PlanBillingProps,
+  type PlanStatus,
+  type PlanUsage,
+  type PlanPaymentMethod,
+} from "../components/ui/PlanBilling/PlanBilling";
+export { Iframe, type IframeProps, type IframeRatio } from "../components/ui/Iframe/Iframe";
+export { ChatBox, type ChatBoxProps, type ChatMessage, type ChatRole, type ChatBoxVariant } from "../components/ui/ChatBox/ChatBox";
+export { Thinking, type ThinkingProps, type ThinkingVariant, type ThinkingSize } from "../components/ui/Thinking/Thinking";
 export { UserMenu, type UserMenuProps, type UserMenuItem } from "../components/ui/UserMenu/UserMenu";
 export {
   PasswordInput,

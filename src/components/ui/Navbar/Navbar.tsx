@@ -1,10 +1,12 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import type { CSSProperties, ReactNode } from "react";
+import { linearGradient, type GradientDirection } from "../../../core/gradient";
 import { cx, isColorName, type ColorName } from "../../../core/tokens";
 import { NavbarItem } from "./NavbarItem";
 import { Tooltip } from "../Tooltip/Tooltip";
 import { navbarActiveFillClasses } from "./navbarActiveStyles";
 import { activeMarker } from "../../../core/activeVariant";
+import { layoutBox } from "../../../core/layoutOffset";
 import { motionClass, motionStyle, type TransitionVariant, type HoverEffect } from "../../../core/motion";
 
 // Determines which `items` row matches the current URL — identical logic to Sidebar's own
@@ -36,7 +38,7 @@ function darkenHex(hex: string, factor = 0.82): string {
   return `#${[16, 8, 0].map((shift) => channel(shift).toString(16).padStart(2, "0")).join("")}`;
 }
 
-export type NavbarVariant = "light" | "dark" | "bordered" | "elevated" | "minimal" | "gradient" | "glass";
+export type NavbarVariant = "light" | "dark" | "bordered" | "elevated" | "minimal" | "gradient";
 
 /** One link for the `items` shortcut — see `NavbarProps.items`. */
 export interface NavbarItemSpec {
@@ -86,23 +88,18 @@ export interface NavbarProps {
   sticky?: boolean;
   /** Bottom border (default: true) — only meaningful for "light"/"dark"/"gradient". Has no effect on
    * "minimal" (never shows a border, by design — the whole point of that one) or on the detached-panel
-   * variants "bordered"/"elevated"/"glass", each of which controls its own border entirely through
+   * variants "bordered"/"elevated", each of which controls its own border entirely through
    * `variant` itself (see below), not this toggle. */
   bordered?: boolean;
   /**
    * Visual theme (default: "light"):
-   * - "bordered"/"elevated"/"glass" all float as a detached card instead of docking full-width to the
+   * - "bordered"/"elevated" both float as a detached card instead of docking full-width to the
    *   page — kept as separate names since each still has its own distinct bar look on top of that
    *   shared shape: "bordered" has a thick `color`-tinted border, shadow, and rounded corners (see
    *   `color`/`borderWidth`); "elevated" has that same shadow and rounded corners but no border — depth
-   *   from the shadow alone, Material-bar style; "glass" is a faint, colorless `bg-white/10` tint plus
-   *   `backdrop-blur-2xl` — a real frosted-glass look, not a solid tinted bar. `color` tints "glass"'s
-   *   backdrop (the padded space around the bar) instead of the bar itself, since `backdrop-blur` can
-   *   only ever blur what's behind it *within this same component* — its own backdrop, never your page
-   *   — so a fully colorless bar would camouflage against a backdrop of the same color, with no
-   *   contrast left to reveal its rounded corners or shadow. All three are self-contained — an inset
-   *   backdrop is included automatically (padding + `bg-surface-muted`, or `color` for "glass") so the bar
-   *   always reads correctly (rounded corners, blur) with no wrapper markup needed on your end.
+   *   from the shadow alone, Material-bar style.
+   *   Both are self-contained — an inset backdrop is included automatically (padding + a light tint of the theme accent)
+   *   so the bar always reads correctly (rounded corners) with no wrapper markup needed on your end.
    * - "dark" — a deep shade of the theme accent (accent-950), brand text (and, by inheritance, any plain text/links) switches to
    *   white.
    * - "minimal" — no background/border at all, blends into the page.
@@ -113,10 +110,12 @@ export interface NavbarProps {
    * (e.g. "#7c3aed" from a color-wheel picker) for a fully custom accent, unconstrained by the fixed
    * palette. For "gradient" it's the gradient itself (600→700-equivalent; a custom hex gets a
    * programmatically darkened second stop); for "bordered" it tints the bar's own border (has no effect
-   * on "elevated", which has no border to tint); for "glass" — which has no background color of its own
-   * — it tints the backdrop around the bar instead, since that's the only part of it that can carry a
-   * color at all. Has no effect on "light"/"dark"/"minimal". */
+   * on "elevated", which has no border to tint). Has no effect on "light"/"dark"/"minimal". */
   color?: ColorName | (string & {});
+  /** Second color of the "gradient" variant: a `ColorName` or any CSS color such as "#ec4899" (default: a darker shade of `color`). */
+  gradientTo?: ColorName | (string & {});
+  /** Direction of the "gradient" variant: "to-right" | "to-left" | "to-bottom" | "to-top" | "to-br" | "to-bl" | "to-tr" | "to-tl" (default: "to-right"). */
+  gradientDirection?: GradientDirection;
   /** "bordered"'s own border thickness in px (default: 2). Has no effect on any other variant — every
    * other variant's border (where it has one at all) is a fixed-width neutral divider, not an
    * adjustable, colored one. */
@@ -146,24 +145,19 @@ const VARIANT_CLASSES: Record<NavbarVariant, string> = {
   // explicit color of its own otherwise falls back to the browser's default (near-black, invisible
   // against `bg-slate-900`) text color instead of inheriting something sane.
   dark: "bg-accent-950 text-white/70",
-  // "bordered", "elevated", and "glass" all float as a detached card (see `isDetachedPanel`) rather
+  // "bordered" and "elevated" both float as a detached card (see `isDetachedPanel`) rather
   // than docking full-width — kept as separate `variant` names since each still has its own distinct
-  // look (colored border / shadow-only / frosted-transparent) on top of that shared shape. "elevated"
+  // look (colored border / shadow-only) on top of that shared shape. "elevated"
   // deliberately carries no border — shadow-lg alone does the "floating card" job, Material-style — so
   // it stays visually distinct from "bordered" instead of duplicating it.
   bordered: "bg-surface text-fg border-2 border-border-strong rounded-xl shadow-lg",
   elevated: "bg-surface text-fg rounded-xl shadow-lg",
   minimal: "bg-transparent text-fg",
   gradient: "text-white",
-  // Same frosted-glass treatment as Sidebar's own "glass" — see that component for the full reasoning
-  // on `bg-white/10`/`backdrop-blur-2xl`/the arbitrary shadow value. The shadow here is a touch lighter
-  // (`35px`/`-12px` vs. Sidebar's `55px`/`-10px`) since a navbar is a much shorter, wider shape — the same
-  // spread read as disproportionately heavy stretched across a full-width bar instead of a tall rail.
-  glass: "bg-white/10 backdrop-blur-2xl border border-white/10 text-white rounded-xl shadow-[0_0_35px_-12px_rgba(0,0,0,0.18)]",
 };
 
 // Only "light"/"dark"/"gradient" ever render the `bordered` boolean's divider (see `isDetachedPanel`
-// and "minimal" in the `variant` JSDoc above) — the other four don't need an entry here at all.
+// and "minimal" in the `variant` JSDoc above) — the other three don't need an entry here at all.
 const VARIANT_DIVIDER_CLASSES: Partial<Record<NavbarVariant, string>> = {
   light: "border-border",
   dark: "border-accent-900",
@@ -177,7 +171,6 @@ const VARIANT_BRAND_TEXT: Record<NavbarVariant, string> = {
   elevated: "text-fg",
   minimal: "text-fg",
   gradient: "text-white",
-  glass: "text-white",
 };
 
 // "bordered"'s defining feature is its border, so unlike every other variant it tints that border with
@@ -200,26 +193,6 @@ const DETACHED_PANEL_ACCENT_BORDER: Record<ColorName, string> = {
   pink: "border-pink-300 dark:border-pink-700",
 };
 
-// "glass" itself has no background color (see VARIANT_CLASSES) — its own backdrop, the space around
-// the frosted bar, is the only thing that can carry `color` for it, so it does instead. Same mid-tone
-// (500) as Sidebar's identical map — this backdrop's whole job is to be visible color behind a
-// translucent bar, the opposite of a subtle divider/border tint.
-const GLASS_BACKDROP: Record<ColorName, string> = {
-  slate: "bg-slate-500",
-  gray: "bg-gray-500",
-  indigo: "bg-indigo-500",
-  accent: "bg-accent-500",
-  violet: "bg-violet-500",
-  blue: "bg-blue-500",
-  cyan: "bg-cyan-500",
-  emerald: "bg-emerald-500",
-  teal: "bg-teal-500",
-  amber: "bg-amber-500",
-  orange: "bg-orange-500",
-  rose: "bg-rose-500",
-  pink: "bg-pink-500",
-};
-
 export function Navbar({
   brand,
   children,
@@ -231,6 +204,8 @@ export function Navbar({
   bordered = true,
   variant = "light",
   color = "accent",
+  gradientTo,
+  gradientDirection = "to-right",
   borderWidth,
   transition,
   transitionDuration,
@@ -240,15 +215,15 @@ export function Navbar({
   classNames,
 }: NavbarProps) {
   // Same "detached panel" concept as Sidebar (see its own `isDetachedPanel` for the full reasoning) —
-  // "bordered"/"elevated"/"glass" float as a card with an inset backdrop instead of docking full-width.
-  const isDetachedPanel = variant === "bordered" || variant === "elevated" || variant === "glass";
+  // "bordered"/"elevated" float as a card with an inset backdrop instead of docking full-width.
+  const isDetachedPanel = variant === "bordered" || variant === "elevated";
   const colorIsNamed = isColorName(color);
   // Same pairing Sidebar gives its own directly-composed `SidebarMenuItem`s (see Sidebar.tsx's `dark`/
   // `vividActive`) — threaded automatically into every `items`-generated `NavbarItem` below, so (unlike
   // directly-composed `NavbarItem` children, which have no ancestor to auto-detect these from — see its
   // own doc comment) the data-driven shortcut needs no extra wiring to match the parent Navbar's theme.
-  const dark = variant === "dark" || variant === "gradient" || variant === "glass";
-  const vividActive = variant === "gradient" || variant === "glass";
+  const dark = variant === "dark" || variant === "gradient";
+  const vividActive = variant === "gradient";
   // Always self-manages which `items` link is highlighted — identical logic/reasoning to Sidebar's own
   // `selectedLabel` (see Sidebar.tsx for the full "seed vs. lock" explanation of `active`/
   // `defaultActiveItem`, and of the URL-matching/`popstate`/`onActiveItemChange` effects below).
@@ -296,9 +271,9 @@ export function Navbar({
         setPillRect(null);
         return;
       }
-      const containerRect = container.getBoundingClientRect();
-      const activeElRect = activeEl.getBoundingClientRect();
-      setPillRect({ left: activeElRect.left - containerRect.left, width: activeElRect.width });
+      // Layout offsets, not bounding rects: a transform from an enter transition ("bounce" starts at scale 0.3) would skew the rect.
+      const box = layoutBox(activeEl, container);
+      setPillRect({ left: box.left, width: box.width });
     };
     measure();
     // Link widths are content-driven (`auto-cols-fr` sizes every column to the widest link's own text)
@@ -343,7 +318,7 @@ export function Navbar({
       );
     });
   // Only "bordered" ties its border to `color`/`borderWidth` — "elevated" has no border at all
-  // (shadow-only), "glass" deliberately stays colorless (a real frosted-glass look has no tint), and
+  // (shadow-only), and
   // every other variant's border is a fixed-width neutral divider, not an adjustable, colored one.
   const hasAccentBorder = variant === "bordered";
   const borderedAccentClass = hasAccentBorder && colorIsNamed ? DETACHED_PANEL_ACCENT_BORDER[color] : undefined;
@@ -353,18 +328,12 @@ export function Navbar({
         ...(borderWidth !== undefined && { borderWidth: `${borderWidth}px` }),
       }
     : undefined;
-  const isGlass = variant === "glass";
-  // "glass"'s own backdrop (the padded space around the bar, not the bar itself) is what carries
-  // `color` for it — a named ColorName gets a real Tailwind class; a custom value falls back to the
-  // same inline-style approach used everywhere else in this component for arbitrary CSS colors.
-  const glassBackdropClass = isGlass && colorIsNamed ? GLASS_BACKDROP[color] : undefined;
   const style: CSSProperties = {
-    ...(isGlass && !colorIsNamed && { backgroundColor: color }),
+    // The second stop defaults to a darker shade of `color`: 600 → 700 for a named color (700 is the darkest
+    // shade every ColorName's `colorClasses` entry references, so Tailwind always emits its variable), and
+    // a programmatic darkening for a custom one.
     ...(variant === "gradient" && {
-      backgroundImage: colorIsNamed
-        ? // "to right", not Sidebar's "to bottom" — this bar is horizontal, not a vertical rail.
-          `linear-gradient(to right, var(--color-${color}-600), var(--color-${color}-700))`
-        : `linear-gradient(to right, ${color}, ${darkenHex(color)})`,
+      backgroundImage: linearGradient(color, gradientTo ?? (colorIsNamed ? `var(--color-${color}-700)` : darkenHex(color)), gradientDirection),
     }),
   };
   const dividerClass = VARIANT_DIVIDER_CLASSES[variant];
@@ -442,7 +411,7 @@ export function Navbar({
 
   return (
     <div
-      className={cx("p-3", isGlass ? glassBackdropClass : "bg-surface-muted", sticky && "sticky top-0 z-40")}
+      className={cx("p-3", "bg-[color-mix(in_srgb,var(--color-accent-500)_8%,var(--color-surface))]", sticky && "sticky top-0 z-40")}
       style={style}
     >
       {bar}

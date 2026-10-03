@@ -415,6 +415,67 @@ export class AppComponent {}`,
             }}
           />
         </section>
+        <section>
+          <SectionLabel sub="Pass header for a gray bar on top — a title, a count or a button, with no column labels. The list becomes one rounded card.">With header</SectionLabel>
+          <Row>
+            <div className="w-72">
+              <List header="Files">
+                <ListItem icon="file">Project brief.pdf</ListItem>
+                <ListItem icon="image">Cover photo.png</ListItem>
+                <ListItem icon="folder">Archive</ListItem>
+              </List>
+            </div>
+          </Row>
+          <CodeBlock
+            variants={{
+              react: `<List header="Files">
+  <ListItem icon="file">Project brief.pdf</ListItem>
+  <ListItem icon="image">Cover photo.png</ListItem>
+  <ListItem icon="folder">Archive</ListItem>
+</List>`,
+              js: `<l-List>
+  <span slot="header">Files</span>
+  <l-ListItem icon="file">Project brief.pdf</l-ListItem>
+  <l-ListItem icon="image">Cover photo.png</l-ListItem>
+  <l-ListItem icon="folder">Archive</l-ListItem>
+</l-List>
+
+<script type="module">
+  import "lojee-ui/elements";
+</script>`,
+              vue: `<template>
+  <l-List>
+    <span slot="header">Files</span>
+    <l-ListItem icon="file">Project brief.pdf</l-ListItem>
+    <l-ListItem icon="image">Cover photo.png</l-ListItem>
+    <l-ListItem icon="folder">Archive</l-ListItem>
+  </l-List>
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-List>
+      <span slot="header">Files</span>
+      <l-ListItem icon="file">Project brief.pdf</l-ListItem>
+      <l-ListItem icon="image">Cover photo.png</l-ListItem>
+      <l-ListItem icon="folder">Archive</l-ListItem>
+    </l-List>
+  \`,
+})
+export class AppComponent {}`,
+            }}
+          />
+        </section>
       </div>
     </div>
   );

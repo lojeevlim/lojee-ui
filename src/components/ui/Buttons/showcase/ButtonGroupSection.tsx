@@ -8,6 +8,7 @@ export function ButtonGroupSection() {
   const [align, setAlign] = useState<"left" | "center" | "right">("left");
   const [bold, setBold] = useState(false);
   const [italic, setItalic] = useState(false);
+  const [clicked, setClicked] = useState<string>("nothing yet");
 
   return (
     <section>
@@ -33,6 +34,17 @@ export function ButtonGroupSection() {
           <SegmentButton>Month</SegmentButton>
           <SegmentButton>Year</SegmentButton>
         </ButtonGroup>
+
+        <div>
+          <ButtonGroup onItemClick={({ index, label }) => setClicked(`#${index} “${label}”`)}>
+            <SegmentButton>Day</SegmentButton>
+            <SegmentButton>Week</SegmentButton>
+            <SegmentButton>Month</SegmentButton>
+          </ButtonGroup>
+          <p className="mt-2 text-xs text-fg-subtle">
+            onItemClick on the group — clicked: <span className="font-mono text-fg">{clicked}</span>
+          </p>
+        </div>
       </div>
       <CodeBlock
         variants={{
@@ -40,43 +52,37 @@ export function ButtonGroupSection() {
   <SegmentButton icon="align-left" active={align === "left"} onClick={() => setAlign("left")} />
   <SegmentButton icon="align-center" active={align === "center"} onClick={() => setAlign("center")} />
   <SegmentButton icon="align-right" active={align === "right"} onClick={() => setAlign("right")} />
+</ButtonGroup>
+
+{/* One handler for the whole group instead of one onClick per button */}
+<ButtonGroup onItemClick={({ index, label }) => console.log(index, label)}>
+  <SegmentButton>Day</SegmentButton>
+  <SegmentButton>Week</SegmentButton>
+  <SegmentButton>Month</SegmentButton>
 </ButtonGroup>`,
-          js: `<l-ButtonGroup>
-  <l-SegmentButton icon="align-left" id="align-left"></l-SegmentButton>
-  <l-SegmentButton icon="align-center" id="align-center"></l-SegmentButton>
-  <l-SegmentButton icon="align-right" id="align-right"></l-SegmentButton>
-</l-ButtonGroup>
+          js: `<!-- One handler on the group. event.detail is { index, label } of the clicked button;
+     "this" is the group, so it can mark the clicked segment active — no ids needed. -->
+<l-button-group onitemclick="[...this.children].forEach((b, i) => (b.active = i === event.detail.index))">
+  <l-segment-button icon="align-left" active></l-segment-button>
+  <l-segment-button icon="align-center"></l-segment-button>
+  <l-segment-button icon="align-right"></l-segment-button>
+</l-button-group>
 
-<script type="module">
-  import "lojee-ui/elements";
-
-  const buttons = {
-    left: document.getElementById("align-left"),
-    center: document.getElementById("align-center"),
-    right: document.getElementById("align-right"),
-  };
-  function setAlign(value) {
-    for (const [key, btn] of Object.entries(buttons)) {
-      btn.active = key === value;
-    }
-  }
-  buttons.left.addEventListener("click", () => setAlign("left"));
-  buttons.center.addEventListener("click", () => setAlign("center"));
-  buttons.right.addEventListener("click", () => setAlign("right"));
-</script>`,
+<script type="module">import "lojee-ui/elements";</script>`,
           vue: `<template>
-  <l-ButtonGroup>
-    <l-SegmentButton icon="align-left" :active="align === 'left'" @click="align = 'left'" />
-    <l-SegmentButton icon="align-center" :active="align === 'center'" @click="align = 'center'" />
-    <l-SegmentButton icon="align-right" :active="align === 'right'" @click="align = 'right'" />
-  </l-ButtonGroup>
+  <!-- @itemclick fires once for the whole group; $event.detail is { index, label } -->
+  <l-button-group @itemclick="align = $event.detail.index">
+    <l-segment-button icon="align-left" :active="align === 0" />
+    <l-segment-button icon="align-center" :active="align === 1" />
+    <l-segment-button icon="align-right" :active="align === 2" />
+  </l-button-group>
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue";
 import "lojee-ui/elements";
 
-const align = ref("left");
+const align = ref(0);
 </script>`,
           angular: `// button-group-showcase.component.ts
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
@@ -87,15 +93,16 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-ButtonGroup>
-      <l-SegmentButton icon="align-left" [active]="align === 'left'" (click)="align = 'left'" />
-      <l-SegmentButton icon="align-center" [active]="align === 'center'" (click)="align = 'center'" />
-      <l-SegmentButton icon="align-right" [active]="align === 'right'" (click)="align = 'right'" />
-    </l-ButtonGroup>
+    <!-- (itemclick) fires once for the whole group; $event.detail is { index, label } -->
+    <l-button-group (itemclick)="align = $event.detail.index">
+      <l-segment-button icon="align-left" [active]="align === 0"></l-segment-button>
+      <l-segment-button icon="align-center" [active]="align === 1"></l-segment-button>
+      <l-segment-button icon="align-right" [active]="align === 2"></l-segment-button>
+    </l-button-group>
   \`,
 })
 export class ButtonGroupShowcaseComponent {
-  align: "left" | "center" | "right" = "left";
+  align = 0;
 }`,
         }}
       />

@@ -113,3 +113,18 @@
 @media (prefers-reduced-motion: reduce) {
   [class*="animate-"] { animation: none !important; }
 }
+
+/* Claymorphism text: chunky letters puffed out of the page. A top-lit gradient fill gives the rounded, inflated body; a light edge on the top-left, a tighter shade and a long soft drop on the bottom-right give the raised clay edge. drop-shadow() (not
+   text-shadow) so it also works on the gradient-filled, transparent-colored words inside. */
+.lp-clay-text {
+  font-weight: 800;
+  color: transparent;
+  background-image: linear-gradient(180deg, color-mix(in srgb, var(--color-fg) 78%, white) 0%, var(--color-fg) 48%, color-mix(in srgb, var(--color-fg) 84%, black) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  filter: drop-shadow(-3px -3px 2px rgb(255 255 255 / 1)) drop-shadow(3px 4px 2px rgb(84 96 150 / 0.4)) drop-shadow(8px 14px 12px rgb(84 96 150 / 0.3));
+}
+[data-theme="dark"] .lp-clay-text {
+  background-image: linear-gradient(180deg, color-mix(in srgb, var(--color-fg) 100%, white) 0%, var(--color-fg) 45%, color-mix(in srgb, var(--color-fg) 78%, black) 100%);
+  filter: drop-shadow(-2px -2px 1px rgb(255 255 255 / 0.14)) drop-shadow(3px 4px 2px rgb(0 0 0 / 0.55)) drop-shadow(8px 14px 12px rgb(0 0 0 / 0.5));
+}

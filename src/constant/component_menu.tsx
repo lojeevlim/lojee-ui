@@ -113,6 +113,16 @@ export const COMPONENT_MENU: Menu[]  = [
                 label: "Code Snippet",
             },
 
+            {
+                icon: "globe",
+                label: "Iframe",
+            },
+
+            {
+                icon: "message-square",
+                label: "Chat Box",
+            },
+
         ],
     },
 
@@ -296,6 +306,11 @@ export const COMPONENT_MENU: Menu[]  = [
             {
                 icon: "bell-ring",
                 label: "Notification",
+            },
+
+            {
+                icon: "sparkles",
+                label: "Thinking",
             },
 
             {
@@ -534,6 +549,11 @@ export const COMPONENT_MENU: Menu[]  = [
             {
                 icon: "user-cog",
                 label: "Profile Settings",
+            },
+
+            {
+                icon: "credit-card",
+                label: "Plan & Billing",
             },
 
             {

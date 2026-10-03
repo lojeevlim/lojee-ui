@@ -9,6 +9,8 @@ export interface ListProps {
   ordered?: boolean;
   /** Row styling: "plain" (default) | "divided" (dividers between rows) | "bordered" (dividers plus a rounded outer border). */
   variant?: ListVariant;
+  /** Content of a gray header bar above the rows (a title, a count, a button …) — no column labels. When set, the list is drawn as one rounded, bordered card with the header on top. */
+  header?: ReactNode;
   /** Enter transition: "fade" | "slide-up" | "slide-down" | "slide-left" | "slide-right" | "zoom" | "zoom-out" | "flip" | "blur" | "bounce" | "rotate" | "drop" | "skew" (default: none). Respects `prefers-reduced-motion`. */
   transition?: TransitionVariant;
   /** Enter transition duration in ms (default: 450). */
@@ -22,17 +24,34 @@ export interface ListProps {
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
   classNames?: {
     root?: string;
+    header?: string;
+    list?: string;
   };
 }
 
 const VARIANT_CLASSES: Record<ListVariant, string> = {
   plain: "",
   divided: "divide-y divide-border",
-  bordered: "divide-y divide-border rounded-lg border border-border overflow-hidden",
+  bordered: "divide-y divide-border rounded-xl border border-border overflow-hidden",
 };
 
-export function List({ ordered = false, variant = "plain", children, className, classNames, transition, transitionDuration, transitionDelay }: ListProps) {
+export function List({ ordered = false, variant = "plain", header, children, className, classNames, transition, transitionDuration, transitionDelay }: ListProps) {
   const Tag = ordered ? "ol" : "ul";
+  if (header != null) {
+    return (
+      <div
+        className={cx("overflow-hidden rounded-xl border border-border bg-surface", motionClass(transition), className, classNames?.root)}
+        style={motionStyle(transitionDuration, transitionDelay)}
+      >
+        <div className={cx("border-b border-border bg-surface-muted px-3 py-2 text-xs font-medium uppercase tracking-wide text-fg-subtle", classNames?.header)}>
+          <slot name="header">{header}</slot>
+        </div>
+        <Tag className={cx("list-none divide-y divide-border", classNames?.list)}>
+          <slot>{children}</slot>
+        </Tag>
+      </div>
+    );
+  }
   return (
     <Tag
       className={cx("list-none", VARIANT_CLASSES[variant], motionClass(transition), className, classNames?.root)}

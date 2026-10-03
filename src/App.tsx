@@ -75,6 +75,10 @@ import PasswordInputShowcase from './components/ui/PasswordInput'
 import LoginFormShowcase from './components/ui/LoginForm'
 import SignupFormShowcase from './components/ui/SignupForm'
 import ProfileSettingsShowcase from './components/ui/ProfileSettings'
+import PlanBillingShowcase from './components/ui/PlanBilling'
+import IframeShowcase from './components/ui/Iframe'
+import ChatBoxShowcase from './components/ui/ChatBox'
+import ThinkingShowcase from './components/ui/Thinking'
 import AccountSettingsShowcase from './components/ui/AccountSettings'
 
 import SidebarLayout from './components/layouts/Sidebar'
@@ -197,6 +201,10 @@ const SHOWCASES: Record<string, ComponentType> = {
   'Login Form': LoginFormShowcase,
   'Signup Form': SignupFormShowcase,
   'Profile Settings': ProfileSettingsShowcase,
+  'Plan & Billing': PlanBillingShowcase,
+  Iframe: IframeShowcase,
+  'Chat Box': ChatBoxShowcase,
+  Thinking: ThinkingShowcase,
   'Account Settings': AccountSettingsShowcase,
 }
 

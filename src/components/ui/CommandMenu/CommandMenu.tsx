@@ -134,15 +134,19 @@ export function CommandMenu({
         onClick={onClose}
       />
       <div
+        data-cmd="panel"
         className={cx(
-          "relative w-full max-w-lg overflow-hidden rounded-xl bg-surface shadow-2xl ring-1 ring-black/5",
+          "relative w-full max-w-lg self-start overflow-hidden rounded-2xl bg-surface p-2 shadow-2xl ring-1 ring-black/5",
           motionClass(transition),
           classNames?.panel
         )}
         style={motionStyle(transitionDuration, transitionDelay)}
         {...motionState(open)}
       >
-        <span className="relative flex w-full items-center border-b border-border px-4 py-3">
+        <span
+          data-cmd="search"
+          className="relative mb-2 flex w-full items-center rounded-xl bg-surface-muted/70 px-3.5 py-2.5 ring-1 ring-inset ring-border transition-shadow focus-within:ring-2 focus-within:ring-accent-500/40"
+        >
           <Icon name="search" size={16} className={cx("pointer-events-none mr-2 shrink-0 text-fg-subtle", classNames?.icon)} />
           <input
             type="text"
@@ -161,7 +165,7 @@ export function CommandMenu({
           />
         </span>
 
-        <div role="listbox" className={cx("max-h-80 overflow-y-auto py-2", classNames?.list)}>
+        <div role="listbox" data-cmd="list" className={cx("max-h-80 space-y-0.5 overflow-y-auto", classNames?.list)}>
           {filtered.length === 0 && (
             <div className={cx("px-4 py-6 text-center text-sm text-fg-subtle", classNames?.empty)}>No results found.</div>
           )}
@@ -170,6 +174,7 @@ export function CommandMenu({
               key={item.id ?? item.label}
               type="button"
               role="option"
+              data-cmd="item"
               ref={(el) => {
                 if (el && i === safeHighlighted) el.scrollIntoView({ block: "nearest" });
               }}
@@ -179,13 +184,13 @@ export function CommandMenu({
               onMouseEnter={() => setHighlightedIndex(i)}
               onClick={() => selectItem(item)}
               className={cx(
-                "flex w-full items-center gap-2.5 px-4 py-2 text-left text-sm text-fg-muted disabled:cursor-not-allowed disabled:opacity-40",
-                i === safeHighlighted && "bg-surface-muted",
+                "flex w-full items-center gap-2.5 rounded-xl px-3 py-2 text-left text-sm text-fg-muted transition-colors disabled:cursor-not-allowed disabled:opacity-40",
+                i === safeHighlighted && "bg-[color-mix(in_srgb,var(--color-accent-500)_9%,var(--color-surface))] text-fg shadow-sm ring-1 ring-inset ring-accent-500/20",
                 i === safeHighlighted && classNames?.activeItem,
                 classNames?.item
               )}
             >
-              {item.icon && <Icon name={item.icon} size={16} className="shrink-0 text-fg-subtle" />}
+              {item.icon && <Icon name={item.icon} size={16} className={cx("shrink-0 text-fg-subtle transition-colors", i === safeHighlighted && "text-accent-600 dark:text-accent-400")} />}
               <span className="flex-1 truncate">{item.label}</span>
               {item.description && <span className="shrink-0 text-xs text-fg-subtle">{item.description}</span>}
               {item.shortcut && <span className="text-xs text-fg-subtle">{item.shortcut}</span>}

@@ -20,10 +20,10 @@ export interface NavbarItemProps {
   /** Prevents interaction and dims the item (default: false). */
   disabled?: boolean;
   /** Use the translucent active/hover treatment made for dark surfaces (default: false) — pass `true`
-   * alongside a Navbar `variant="dark"/"gradient"/"glass"`. */
+   * alongside a Navbar `variant="dark"/"gradient"`. */
   dark?: boolean;
   /** Strengthens the active link's background/ring beyond `dark`'s usual subtle overlay (default:
-   * false) — pass `true` alongside a Navbar `variant="gradient"/"glass"` specifically (not "dark"),
+   * false) — pass `true` alongside a Navbar `variant="gradient"` specifically (not "dark"),
    * since those sit on a translucent or already-colorful surface where the normal overlay is much
    * easier to lose than it is against "dark"'s plain, solid fill. Has no effect when `dark` is false. */
   vividActive?: boolean;

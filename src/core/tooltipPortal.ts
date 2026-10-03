@@ -26,7 +26,7 @@ export function setTooltipPortalCss(css: string) {
   tooltipCss = css;
 }
 
-const THEME_ATTRS = ["data-theme", "data-accent", "data-active-variant"] as const;
+const THEME_ATTRS = ["data-theme", "data-accent", "data-accent-color", "data-active-variant", "data-design"] as const;
 
 function getBodyTooltipRoot(): Element {
   let host = document.querySelector<HTMLElement>("[data-lojee-tooltip-layer]");

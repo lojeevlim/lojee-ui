@@ -8,7 +8,7 @@ import { ProgressBar } from "../ui/ProgressBar/ProgressBar";
 import { NavigationMenu } from "../ui/NavigationMenu/NavigationMenu";
 import { Alert } from "../ui/Alert/Alert";
 import { COLORS } from "../../core/tokens";
-import { useTheme, type AccentName, type ThemeMode } from "../../core/theme";
+import { useTheme, type Accent, type ThemeMode } from "../../core/theme";
 import type { ActiveVariant } from "../../core/activeVariant";
 
 const VARIANTS: ActiveVariant[] = ["solid", "outline", "soft"];
@@ -18,7 +18,7 @@ export default function ThemeLab() {
   // The preview starts from the site's own theme and accent, so it matches what the visitor already sees.
   const site = useTheme();
   const [mode, setMode] = useState<ThemeMode>(site.mode);
-  const [accent, setAccent] = useState<AccentName>(site.accent);
+  const [accent, setAccent] = useState<Accent>(site.accent);
   const [variant, setVariant] = useState<ActiveVariant>("solid");
 
   return (

@@ -36,6 +36,10 @@
 @theme {
   --animate-shimmer: lojee-shimmer 1.6s ease-in-out infinite;
   --animate-progress-indeterminate: lojee-progress-indeterminate 1.4s ease-in-out infinite;
+  --animate-think-dot: lojee-think-dot 1.2s ease-in-out infinite;
+  --animate-think-wave: lojee-think-wave 1.1s ease-in-out infinite;
+  --animate-think-orb: lojee-think-orb 2.4s ease-in-out infinite;
+  --animate-think-sweep: lojee-think-sweep 2.2s linear infinite;
 
   --color-surface: var(--lojee-surface);
   --color-surface-muted: var(--lojee-surface-muted);
@@ -345,6 +349,48 @@
   }
 }
 
+@keyframes lojee-think-dot {
+  0%, 80%, 100% {
+    transform: scale(0.55);
+    opacity: 0.4;
+  }
+  40% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes lojee-think-wave {
+  0%, 100% {
+    transform: scaleY(0.35);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes lojee-think-orb {
+  0%, 100% {
+    transform: scale(0.85) rotate(0deg);
+    box-shadow: 0 0 0 0 color-mix(in srgb, currentColor 45%, transparent);
+  }
+  50% {
+    transform: scale(1) rotate(180deg);
+    box-shadow: 0 0 0 7px color-mix(in srgb, currentColor 0%, transparent);
+  }
+}
+
+@keyframes lojee-think-sweep {
+  from {
+    -webkit-mask-position: 130% 0;
+    mask-position: 130% 0;
+  }
+  to {
+    -webkit-mask-position: -30% 0;
+    mask-position: -30% 0;
+  }
+}
+
 @keyframes lojee-progress-indeterminate {
   0% {
     transform: translateX(-100%);
@@ -611,4 +657,607 @@
 @media (prefers-reduced-motion: reduce) {
   .lojee-hv { transition: none; }
   .lojee-hv::after { transition: none; }
+}
+
+/* Clickable things show the pointer. Tailwind v4 resets <button> to the default arrow, so every control that reacts to
+   a click is given it here (and a "not-allowed" cursor while disabled). Written with :where() inside the base layer so
+   a component's own `cursor-*` class — a drag handle's grab, say — always wins. */
+@layer base {
+  :where(
+      button,
+      [role="button"],
+      [role="tab"],
+      [role="menuitem"],
+      [role="option"],
+      [role="switch"],
+      [role="checkbox"],
+      [role="radio"],
+      summary,
+      select,
+      a[href],
+      label[for],
+      input[type="checkbox"],
+      input[type="radio"],
+      input[type="range"],
+      input[type="file"],
+      input[type="color"]
+    ):not(:disabled, [aria-disabled="true"]) {
+    cursor: pointer;
+  }
+  :where(button, [role="button"], select, input):is(:disabled, [aria-disabled="true"]) {
+    cursor: not-allowed;
+  }
+
+  /* Native sliders, checkboxes, radios and <progress> bars are drawn by the browser in its own blue — tint them with the theme accent. */
+  :where(input[type="range"], input[type="checkbox"], input[type="radio"], progress) {
+    accent-color: var(--color-accent-600);
+  }
+}
+
+/* ---- Slider thumb ----
+   A soft, raised pill with two dimples, over a track that is filled up to the thumb. `.lojee-slider` is a single-value
+   slider (6px track, fill amount from --slider-p = 0…1, fill color from --slider-fill); `.lojee-range` is one of the
+   two inputs of a range slider (transparent track — its fill is drawn separately). */
+.lojee-slider,
+.lojee-range {
+  --lojee-thumb-w: 44px;
+  --lojee-thumb-h: 24px;
+  -webkit-appearance: none;
+  appearance: none;
+  height: var(--lojee-thumb-h);
+  background: transparent;
+  outline: none;
+}
+.lojee-slider::-webkit-slider-runnable-track {
+  height: 6px;
+  border-radius: 9999px;
+  background: linear-gradient(
+    to right,
+    var(--slider-fill, var(--color-accent-600)) calc(var(--lojee-thumb-w) / 2 + (100% - var(--lojee-thumb-w)) * var(--slider-p, 0.5)),
+    var(--color-border) 0
+  );
+}
+.lojee-slider::-moz-range-track {
+  height: 6px;
+  border-radius: 9999px;
+  background: linear-gradient(
+    to right,
+    var(--slider-fill, var(--color-accent-600)) calc(var(--lojee-thumb-w) / 2 + (100% - var(--lojee-thumb-w)) * var(--slider-p, 0.5)),
+    var(--color-border) 0
+  );
+}
+.lojee-range::-webkit-slider-runnable-track {
+  height: var(--lojee-thumb-h);
+  background: transparent;
+}
+.lojee-range::-moz-range-track {
+  height: var(--lojee-thumb-h);
+  background: transparent;
+}
+.lojee-slider::-webkit-slider-thumb,
+.lojee-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: var(--lojee-thumb-w);
+  height: var(--lojee-thumb-h);
+  border: 0;
+  border-radius: 9999px;
+  cursor: grab;
+  background:
+    radial-gradient(circle at 14px 50%, color-mix(in srgb, var(--color-surface) 70%, white) 0 4.5px, rgba(0, 0, 0, 0.13) 5.5px 6px, transparent 7px),
+    radial-gradient(circle at 30px 50%, color-mix(in srgb, var(--color-surface) 70%, white) 0 4.5px, rgba(0, 0, 0, 0.13) 5.5px 6px, transparent 7px),
+    linear-gradient(180deg, var(--color-surface), var(--color-surface-muted));
+  box-shadow:
+    0 3px 7px rgba(0, 0, 0, 0.22),
+    0 1px 2px rgba(0, 0, 0, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.85),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.08);
+}
+.lojee-slider::-webkit-slider-thumb {
+  margin-top: calc((6px - var(--lojee-thumb-h)) / 2);
+}
+.lojee-slider::-moz-range-thumb,
+.lojee-range::-moz-range-thumb {
+  width: var(--lojee-thumb-w);
+  height: var(--lojee-thumb-h);
+  box-sizing: border-box;
+  border: 0;
+  border-radius: 9999px;
+  cursor: grab;
+  background:
+    radial-gradient(circle at 14px 50%, color-mix(in srgb, var(--color-surface) 70%, white) 0 4.5px, rgba(0, 0, 0, 0.13) 5.5px 6px, transparent 7px),
+    radial-gradient(circle at 30px 50%, color-mix(in srgb, var(--color-surface) 70%, white) 0 4.5px, rgba(0, 0, 0, 0.13) 5.5px 6px, transparent 7px),
+    linear-gradient(180deg, var(--color-surface), var(--color-surface-muted));
+  box-shadow:
+    0 3px 7px rgba(0, 0, 0, 0.22),
+    0 1px 2px rgba(0, 0, 0, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.85),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.08);
+}
+.lojee-slider:active::-webkit-slider-thumb,
+.lojee-range:active::-webkit-slider-thumb {
+  cursor: grabbing;
+}
+.lojee-slider:active::-moz-range-thumb,
+.lojee-range:active::-moz-range-thumb {
+  cursor: grabbing;
+}
+.lojee-slider:focus-visible::-webkit-slider-thumb,
+.lojee-range:focus-visible::-webkit-slider-thumb {
+  box-shadow:
+    0 3px 7px rgba(0, 0, 0, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.85),
+    0 0 0 3px color-mix(in srgb, var(--color-accent-500) 45%, transparent);
+}
+.lojee-slider:focus-visible::-moz-range-thumb,
+.lojee-range:focus-visible::-moz-range-thumb {
+  box-shadow:
+    0 3px 7px rgba(0, 0, 0, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.85),
+    0 0 0 3px color-mix(in srgb, var(--color-accent-500) 45%, transparent);
+}
+
+/* The slider's `hoverEffect` acts on the thumb only (set as data-thumb-hover on the input), never on the whole control. */
+.lojee-slider::-webkit-slider-thumb,
+.lojee-range::-webkit-slider-thumb {
+  transition: translate 0.2s cubic-bezier(0.22, 1, 0.36, 1), scale 0.2s cubic-bezier(0.22, 1, 0.36, 1), rotate 0.2s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.2s ease, filter 0.2s ease;
+}
+.lojee-slider::-moz-range-thumb,
+.lojee-range::-moz-range-thumb {
+  transition: translate 0.2s cubic-bezier(0.22, 1, 0.36, 1), scale 0.2s cubic-bezier(0.22, 1, 0.36, 1), rotate 0.2s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.2s ease, filter 0.2s ease;
+}
+:is(.lojee-slider, .lojee-range)[data-thumb-hover="lift"]::-webkit-slider-thumb:hover { translate: 0 -3px; box-shadow: 0 10px 14px -4px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.85), inset 0 -2px 4px rgba(0,0,0,0.08); }
+:is(.lojee-slider, .lojee-range)[data-thumb-hover="lift"]::-moz-range-thumb:hover { translate: 0 -3px; box-shadow: 0 10px 14px -4px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.85), inset 0 -2px 4px rgba(0,0,0,0.08); }
+:is(.lojee-slider, .lojee-range)[data-thumb-hover="scale"]::-webkit-slider-thumb:hover { scale: 1.12; }
+:is(.lojee-slider, .lojee-range)[data-thumb-hover="scale"]::-moz-range-thumb:hover { scale: 1.12; }
+:is(.lojee-slider, .lojee-range)[data-thumb-hover="tilt"]::-webkit-slider-thumb:hover { rotate: -4deg; scale: 1.06; }
+:is(.lojee-slider, .lojee-range)[data-thumb-hover="tilt"]::-moz-range-thumb:hover { rotate: -4deg; scale: 1.06; }
+:is(.lojee-slider, .lojee-range)[data-thumb-hover="ring"]::-webkit-slider-thumb:hover { box-shadow: 0 3px 7px rgba(0,0,0,0.22), inset 0 1px 0 rgba(255,255,255,0.85), 0 0 0 4px color-mix(in srgb, var(--color-accent-500) 35%, transparent); }
+:is(.lojee-slider, .lojee-range)[data-thumb-hover="ring"]::-moz-range-thumb:hover { box-shadow: 0 3px 7px rgba(0,0,0,0.22), inset 0 1px 0 rgba(255,255,255,0.85), 0 0 0 4px color-mix(in srgb, var(--color-accent-500) 35%, transparent); }
+:is(.lojee-slider, .lojee-range)[data-thumb-hover="glow"]::-webkit-slider-thumb:hover { box-shadow: 0 0 0 1px color-mix(in srgb, var(--color-accent-500) 60%, transparent), 0 0 18px 2px color-mix(in srgb, var(--color-accent-500) 55%, transparent), inset 0 1px 0 rgba(255,255,255,0.85); }
+:is(.lojee-slider, .lojee-range)[data-thumb-hover="glow"]::-moz-range-thumb:hover { box-shadow: 0 0 0 1px color-mix(in srgb, var(--color-accent-500) 60%, transparent), 0 0 18px 2px color-mix(in srgb, var(--color-accent-500) 55%, transparent), inset 0 1px 0 rgba(255,255,255,0.85); }
+:is(.lojee-slider, .lojee-range)[data-thumb-hover="shine"]::-webkit-slider-thumb:hover { filter: brightness(1.08) saturate(1.1); }
+:is(.lojee-slider, .lojee-range)[data-thumb-hover="shine"]::-moz-range-thumb:hover { filter: brightness(1.08) saturate(1.1); }
+:is(.lojee-slider, .lojee-range)[data-thumb-hover="press"]::-webkit-slider-thumb:active { scale: 0.94; }
+:is(.lojee-slider, .lojee-range)[data-thumb-hover="press"]::-moz-range-thumb:active { scale: 0.94; }
+@media (prefers-reduced-motion: reduce) {
+  .lojee-slider::-webkit-slider-thumb, .lojee-range::-webkit-slider-thumb { transition: none; }
+  .lojee-slider::-moz-range-thumb, .lojee-range::-moz-range-thumb { transition: none; }
+}
+
+/* =====================================================================================================================
+   Design: Claymorphism  —  data-design="clay"
+   Soft, puffy, rounded shapes: every raised thing gets a drop shadow plus an inner light edge (top-left) and an inner
+   shade (bottom-right), fields are pressed-in wells, and hard outlines fade away. The default design, "bento" (flat
+   surfaces, thin borders, modest radii), has no rules here — it is simply what the components look like without this block.
+   ===================================================================================================================== */
+[data-design="clay"] {
+  /* Rounder corners everywhere a radius utility (rounded-md … rounded-3xl) is used. */
+  --radius-xs: 0.5rem;
+  --radius-sm: 0.75rem;
+  --radius-md: 1rem;
+  --radius-lg: 1.25rem;
+  --radius-xl: 1.75rem;
+  --radius-2xl: 2.25rem;
+  --radius-3xl: 2.75rem;
+  --radius-4xl: 3.25rem;
+}
+[data-design="clay"][data-theme="light"] {
+  --clay-hi: rgb(255 255 255 / 0.95);
+  --clay-lo: rgb(84 96 150 / 0.2);
+  --clay-drop: rgb(84 96 150 / 0.22);
+  --lojee-surface: #eef0f9;
+  --lojee-surface-muted: #e4e7f3;
+  --lojee-surface-raised: #f5f6fc;
+  --lojee-border: rgb(84 96 150 / 0.1);
+  --lojee-border-strong: rgb(84 96 150 / 0.2);
+}
+[data-design="clay"][data-theme="dark"] {
+  --clay-hi: rgb(255 255 255 / 0.08);
+  --clay-lo: rgb(0 0 0 / 0.5);
+  --clay-drop: rgb(0 0 0 / 0.45);
+  --lojee-surface: #232634;
+  --lojee-surface-muted: #1b1d28;
+  --lojee-surface-raised: #2b2f3f;
+  --lojee-border: rgb(255 255 255 / 0.07);
+  --lojee-border-strong: rgb(255 255 255 / 0.14);
+}
+[data-design="clay"] {
+  --clay-raise-sm: 3px 4px 9px var(--clay-drop), inset 2px 2px 4px var(--clay-hi), inset -2px -3px 5px var(--clay-lo);
+  --clay-raise-md: 6px 8px 18px var(--clay-drop), inset 3px 3px 7px var(--clay-hi), inset -4px -5px 9px var(--clay-lo);
+  --clay-raise-lg: 10px 14px 30px var(--clay-drop), inset 4px 4px 10px var(--clay-hi), inset -6px -7px 14px var(--clay-lo);
+  --clay-well: inset 3px 4px 8px var(--clay-lo), inset -3px -3px 7px var(--clay-hi);
+  --clay-gloss: inset 2px 2px 4px rgb(255 255 255 / 0.4), inset -2px -3px 5px rgb(0 0 0 / 0.2);
+  --clay-gloss-thin: inset 1px 1px 2px rgb(255 255 255 / 0.4), inset -1px -2px 3px rgb(0 0 0 / 0.18);
+}
+
+/* Shadow utilities become clay shadows (they only set --tw-shadow, so rings and focus outlines still compose with them).
+   An element that also carries a `…:shadow-none` (e.g. the App's Side, a drawer-shadowed on small screens and flat once docked) keeps it. */
+[data-design="clay"] .shadow-xs:not([class*="shadow-none"]),
+[data-design="clay"] .shadow-sm:not([class*="shadow-none"]) { --tw-shadow: var(--clay-raise-sm); }
+[data-design="clay"] .shadow-md:not([class*="shadow-none"]) { --tw-shadow: var(--clay-raise-md); }
+[data-design="clay"] .shadow-lg:not([class*="shadow-none"]),
+[data-design="clay"] .shadow-xl:not([class*="shadow-none"]),
+[data-design="clay"] .shadow-2xl:not([class*="shadow-none"]) { --tw-shadow: var(--clay-raise-lg); }
+
+/* Boxes: a rounded, outlined, surface-colored thing (card, panel, popover, table frame…) is raised off the page. */
+[data-design="clay"] :is(.rounded-lg, .rounded-xl, .rounded-2xl, .rounded-3xl)[class*="border-border"][class*="bg-surface"]:not([class^="bg-surface-muted"], [class*=" bg-surface-muted"]) {
+  border-color: transparent;
+  box-shadow: var(--clay-raise-md);
+}
+/* Tinted callouts (alerts, banners, notifications) lose their outline and puff up in their own pastel. */
+[data-design="clay"] :is(.rounded-lg, .rounded-xl, .rounded-2xl)[class*="border-"][class*="bg-"][class*="-50"]:not(button, a, input, textarea, select, [class*="border-dashed"]) {
+  border-color: transparent;
+  box-shadow: var(--clay-raise-md);
+}
+/* An outlined box with no fill of its own (table frames, list frames) is raised too. */
+[data-design="clay"] :is(.rounded-lg, .rounded-xl, .rounded-2xl).border[class*="border-border"]:not([class*="bg-"], [class*="border-dashed"], button, a, input, textarea, select) {
+  border-color: transparent;
+  box-shadow: var(--clay-raise-md);
+}
+/* Muted wells (code blocks, chips, kbd, tracks, secondary panels) are pressed in. */
+[data-design="clay"] :is(.rounded, .rounded-md, .rounded-lg, .rounded-xl, .rounded-2xl)[class*="bg-surface-muted"]:not(button):not([role="tab"]):not([class*="text-"][class*="hover:"]) {
+  box-shadow: var(--clay-well);
+}
+
+/* Fields are wells. */
+[data-design="clay"] :is(input:not([type="checkbox"], [type="radio"], [type="range"], [type="color"], [type="file"], [type="hidden"]), textarea, select) {
+  border-color: transparent;
+  background-color: var(--color-surface-muted);
+  box-shadow: var(--clay-well);
+}
+[data-design="clay"] :is(.rounded-md, .rounded-lg, .rounded-xl)[class*="border-border-strong"]:not(button, input, textarea, select, [class*="bg-accent"], [class*="bg-slate-9"]) {
+  border-color: transparent;
+  box-shadow: var(--clay-well);
+}
+
+/* Solid colored things are puffy: big buttons and pills get a thick bevel, small marks (dots, bars, thumbs) a thin one.
+   Only a fill the element has by default counts — a `hover:bg-…` that merely appears on hover does not. */
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class^="bg-slate-600"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class*=" bg-slate-600"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class^="bg-gray-600"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class*=" bg-gray-600"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class^="bg-indigo-600"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class*=" bg-indigo-600"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class^="bg-accent-600"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class*=" bg-accent-600"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class^="bg-violet-600"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class*=" bg-violet-600"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class^="bg-blue-600"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class*=" bg-blue-600"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class^="bg-cyan-600"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class*=" bg-cyan-600"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class^="bg-emerald-600"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class*=" bg-emerald-600"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class^="bg-teal-600"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class*=" bg-teal-600"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class^="bg-orange-600"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class*=" bg-orange-600"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class^="bg-rose-600"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class*=" bg-rose-600"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class^="bg-pink-600"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class*=" bg-pink-600"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class^="bg-amber-500"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class*=" bg-amber-500"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class^="bg-slate-900"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class*=" bg-slate-900"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class^="bg-accent-950"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class*=" bg-accent-950"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class^="bg-fg"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class*=" bg-fg"] {
+  box-shadow: 5px 7px 14px var(--clay-drop), var(--clay-gloss);
+}
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class^="bg-slate-50"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class*=" bg-slate-50"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class^="bg-gray-50"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class*=" bg-gray-50"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class^="bg-indigo-50"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class*=" bg-indigo-50"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class^="bg-accent-50"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class*=" bg-accent-50"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class^="bg-violet-50"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class*=" bg-violet-50"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class^="bg-blue-50"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class*=" bg-blue-50"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class^="bg-cyan-50"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class*=" bg-cyan-50"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class^="bg-emerald-50"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class*=" bg-emerald-50"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class^="bg-teal-50"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class*=" bg-teal-50"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class^="bg-amber-50"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class*=" bg-amber-50"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class^="bg-orange-50"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class*=" bg-orange-50"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class^="bg-rose-50"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class*=" bg-rose-50"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class^="bg-pink-50"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class*=" bg-pink-50"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class^="bg-slate-100"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class*=" bg-slate-100"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class^="bg-gray-100"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class*=" bg-gray-100"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class^="bg-indigo-100"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class*=" bg-indigo-100"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class^="bg-accent-100"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class*=" bg-accent-100"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class^="bg-violet-100"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class*=" bg-violet-100"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class^="bg-blue-100"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class*=" bg-blue-100"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class^="bg-cyan-100"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class*=" bg-cyan-100"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class^="bg-emerald-100"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class*=" bg-emerald-100"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class^="bg-teal-100"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class*=" bg-teal-100"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class^="bg-amber-100"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class*=" bg-amber-100"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class^="bg-orange-100"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class*=" bg-orange-100"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class^="bg-rose-100"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class*=" bg-rose-100"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class^="bg-pink-100"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class*=" bg-pink-100"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class^="bg-surface-muted"],
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class*=" bg-surface-muted"] {
+  border-color: transparent;
+  box-shadow: var(--clay-raise-sm);
+}
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"], [role="menuitem"])[class*="border"]:is([class^="bg-surface"], [class*=" bg-surface"]):not([class^="bg-surface-muted"], [class*=" bg-surface-muted"]) {
+  border-color: transparent;
+  box-shadow: var(--clay-raise-sm);
+}
+[data-design="clay"] :is(button, [role="button"]):is(:active):not(:disabled) {
+  box-shadow: var(--clay-well);
+}
+[data-design="clay"] span[class*="rounded-full"][class^="bg-slate-600"],
+[data-design="clay"] span[class*="rounded-full"][class*=" bg-slate-600"],
+[data-design="clay"] div[class*="rounded-full"][class^="bg-slate-600"],
+[data-design="clay"] div[class*="rounded-full"][class*=" bg-slate-600"],
+[data-design="clay"] i[class*="rounded-full"][class^="bg-slate-600"],
+[data-design="clay"] i[class*="rounded-full"][class*=" bg-slate-600"],
+[data-design="clay"] span[class*="rounded-full"][class^="bg-gray-600"],
+[data-design="clay"] span[class*="rounded-full"][class*=" bg-gray-600"],
+[data-design="clay"] div[class*="rounded-full"][class^="bg-gray-600"],
+[data-design="clay"] div[class*="rounded-full"][class*=" bg-gray-600"],
+[data-design="clay"] i[class*="rounded-full"][class^="bg-gray-600"],
+[data-design="clay"] i[class*="rounded-full"][class*=" bg-gray-600"],
+[data-design="clay"] span[class*="rounded-full"][class^="bg-indigo-600"],
+[data-design="clay"] span[class*="rounded-full"][class*=" bg-indigo-600"],
+[data-design="clay"] div[class*="rounded-full"][class^="bg-indigo-600"],
+[data-design="clay"] div[class*="rounded-full"][class*=" bg-indigo-600"],
+[data-design="clay"] i[class*="rounded-full"][class^="bg-indigo-600"],
+[data-design="clay"] i[class*="rounded-full"][class*=" bg-indigo-600"],
+[data-design="clay"] span[class*="rounded-full"][class^="bg-accent-600"],
+[data-design="clay"] span[class*="rounded-full"][class*=" bg-accent-600"],
+[data-design="clay"] div[class*="rounded-full"][class^="bg-accent-600"],
+[data-design="clay"] div[class*="rounded-full"][class*=" bg-accent-600"],
+[data-design="clay"] i[class*="rounded-full"][class^="bg-accent-600"],
+[data-design="clay"] i[class*="rounded-full"][class*=" bg-accent-600"],
+[data-design="clay"] span[class*="rounded-full"][class^="bg-violet-600"],
+[data-design="clay"] span[class*="rounded-full"][class*=" bg-violet-600"],
+[data-design="clay"] div[class*="rounded-full"][class^="bg-violet-600"],
+[data-design="clay"] div[class*="rounded-full"][class*=" bg-violet-600"],
+[data-design="clay"] i[class*="rounded-full"][class^="bg-violet-600"],
+[data-design="clay"] i[class*="rounded-full"][class*=" bg-violet-600"],
+[data-design="clay"] span[class*="rounded-full"][class^="bg-blue-600"],
+[data-design="clay"] span[class*="rounded-full"][class*=" bg-blue-600"],
+[data-design="clay"] div[class*="rounded-full"][class^="bg-blue-600"],
+[data-design="clay"] div[class*="rounded-full"][class*=" bg-blue-600"],
+[data-design="clay"] i[class*="rounded-full"][class^="bg-blue-600"],
+[data-design="clay"] i[class*="rounded-full"][class*=" bg-blue-600"],
+[data-design="clay"] span[class*="rounded-full"][class^="bg-cyan-600"],
+[data-design="clay"] span[class*="rounded-full"][class*=" bg-cyan-600"],
+[data-design="clay"] div[class*="rounded-full"][class^="bg-cyan-600"],
+[data-design="clay"] div[class*="rounded-full"][class*=" bg-cyan-600"],
+[data-design="clay"] i[class*="rounded-full"][class^="bg-cyan-600"],
+[data-design="clay"] i[class*="rounded-full"][class*=" bg-cyan-600"],
+[data-design="clay"] span[class*="rounded-full"][class^="bg-emerald-600"],
+[data-design="clay"] span[class*="rounded-full"][class*=" bg-emerald-600"],
+[data-design="clay"] div[class*="rounded-full"][class^="bg-emerald-600"],
+[data-design="clay"] div[class*="rounded-full"][class*=" bg-emerald-600"],
+[data-design="clay"] i[class*="rounded-full"][class^="bg-emerald-600"],
+[data-design="clay"] i[class*="rounded-full"][class*=" bg-emerald-600"],
+[data-design="clay"] span[class*="rounded-full"][class^="bg-teal-600"],
+[data-design="clay"] span[class*="rounded-full"][class*=" bg-teal-600"],
+[data-design="clay"] div[class*="rounded-full"][class^="bg-teal-600"],
+[data-design="clay"] div[class*="rounded-full"][class*=" bg-teal-600"],
+[data-design="clay"] i[class*="rounded-full"][class^="bg-teal-600"],
+[data-design="clay"] i[class*="rounded-full"][class*=" bg-teal-600"],
+[data-design="clay"] span[class*="rounded-full"][class^="bg-orange-600"],
+[data-design="clay"] span[class*="rounded-full"][class*=" bg-orange-600"],
+[data-design="clay"] div[class*="rounded-full"][class^="bg-orange-600"],
+[data-design="clay"] div[class*="rounded-full"][class*=" bg-orange-600"],
+[data-design="clay"] i[class*="rounded-full"][class^="bg-orange-600"],
+[data-design="clay"] i[class*="rounded-full"][class*=" bg-orange-600"],
+[data-design="clay"] span[class*="rounded-full"][class^="bg-rose-600"],
+[data-design="clay"] span[class*="rounded-full"][class*=" bg-rose-600"],
+[data-design="clay"] div[class*="rounded-full"][class^="bg-rose-600"],
+[data-design="clay"] div[class*="rounded-full"][class*=" bg-rose-600"],
+[data-design="clay"] i[class*="rounded-full"][class^="bg-rose-600"],
+[data-design="clay"] i[class*="rounded-full"][class*=" bg-rose-600"],
+[data-design="clay"] span[class*="rounded-full"][class^="bg-pink-600"],
+[data-design="clay"] span[class*="rounded-full"][class*=" bg-pink-600"],
+[data-design="clay"] div[class*="rounded-full"][class^="bg-pink-600"],
+[data-design="clay"] div[class*="rounded-full"][class*=" bg-pink-600"],
+[data-design="clay"] i[class*="rounded-full"][class^="bg-pink-600"],
+[data-design="clay"] i[class*="rounded-full"][class*=" bg-pink-600"],
+[data-design="clay"] span[class*="rounded-full"][class^="bg-amber-500"],
+[data-design="clay"] span[class*="rounded-full"][class*=" bg-amber-500"],
+[data-design="clay"] div[class*="rounded-full"][class^="bg-amber-500"],
+[data-design="clay"] div[class*="rounded-full"][class*=" bg-amber-500"],
+[data-design="clay"] i[class*="rounded-full"][class^="bg-amber-500"],
+[data-design="clay"] i[class*="rounded-full"][class*=" bg-amber-500"] {
+  box-shadow: var(--clay-gloss-thin);
+}
+
+/* Switches, checkboxes and radios. */
+[data-design="clay"] [role="switch"] ~ span,
+[data-design="clay"] input[type="checkbox"]:not([role="switch"]) ~ span,
+[data-design="clay"] input[type="radio"] ~ span {
+  box-shadow: var(--clay-well);
+}
+[data-design="clay"] input[type="checkbox"]:checked ~ span,
+[data-design="clay"] input[type="radio"]:checked ~ span {
+  box-shadow: var(--clay-gloss);
+}
+
+/* Dividers soften; the page itself takes the clay surface. */
+[data-design="clay"] body,
+body[data-design="clay"] {
+  background-color: var(--lojee-surface);
+}
+
+/* Progress tracks are pressed in, their fills puffy. */
+[data-design="clay"] [role="progressbar"] {
+  box-shadow: inset 2px 3px 5px var(--clay-lo), inset -1px -2px 3px var(--clay-hi);
+}
+[data-design="clay"] [role="progressbar"] > * {
+  box-shadow: var(--clay-gloss-thin);
+}
+
+/* Command menu: a puffy panel, a pressed-in search pill, and rows that rise out of the list when hovered or highlighted. */
+[data-design="clay"] [data-cmd="panel"] {
+  padding: 0.75rem;
+  border-radius: 2rem;
+  box-shadow: var(--clay-raise-lg);
+  --tw-ring-shadow: 0 0 #0000;
+}
+[data-design="clay"] [data-cmd="search"] {
+  margin-bottom: 0.5rem;
+  padding: 0.7rem 1.1rem;
+  border-bottom-width: 0;
+  border-radius: 9999px;
+  background-color: var(--color-surface-muted);
+  box-shadow: var(--clay-well);
+  transition: box-shadow 0.2s ease;
+}
+[data-design="clay"] [data-cmd="search"]:focus-within {
+  box-shadow: var(--clay-well), 0 0 0 3px color-mix(in srgb, var(--color-accent-500) 35%, transparent);
+}
+[data-design="clay"] [data-cmd="list"] {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding: 0.25rem 0.1rem 0.1rem;
+}
+[data-design="clay"] [data-cmd="item"] {
+  border-radius: 1.25rem;
+  padding: 0.65rem 1rem;
+  transition: background-color 0.18s ease, box-shadow 0.18s ease, translate 0.18s ease, color 0.18s ease;
+}
+[data-design="clay"] [data-cmd="item"]:is([aria-selected="true"], :hover):not(:disabled) {
+  background-color: var(--color-surface);
+  color: var(--color-fg);
+  translate: 0 -1px;
+  box-shadow: var(--clay-raise-sm);
+}
+[data-design="clay"] [data-cmd="item"][aria-selected="true"]:not(:disabled) {
+  background-color: color-mix(in srgb, var(--color-accent-500) 9%, var(--color-surface));
+}
+[data-design="clay"] [data-cmd="item"]:is([aria-selected="true"], :hover):not(:disabled) svg:first-child {
+  color: var(--color-accent-600);
+}
+[data-design="clay"] [data-cmd="item"]:active:not(:disabled) {
+  translate: 0 0;
+  box-shadow: var(--clay-well);
+}
+[data-design="clay"] [data-cmd="panel"] {
+  align-self: flex-start;
+}
+/* The pill is the field; the input inside it stays flat instead of becoming a second well. */
+[data-design="clay"] [data-cmd="search"] input {
+  background-color: transparent;
+  box-shadow: none;
+}
+[data-design="clay"][data-theme="dark"] [data-cmd="item"]:is([aria-selected="true"], :hover):not(:disabled) svg:first-child {
+  color: var(--color-accent-300);
+}
+
+/* Tooltip: a flat, softly dropped bubble — the inner light/shade of other clay shapes would stop at the bubble's edge and leave the arrow looking
+   like a separate, mismatched nub. The arrow keeps the bubble's color, with a rounded tip. */
+[data-design="clay"] [role="tooltip"] {
+  border-radius: 1rem;
+  box-shadow: 4px 6px 14px -2px var(--clay-drop);
+  --tw-shadow: 0 0 #0000;
+}
+[data-design="clay"] [role="tooltip"] > span[aria-hidden="true"] {
+  border-radius: 0.25rem;
+  box-shadow: none;
+}
+
+/* The docked sidebar sits above Main so its shadow falls over the page panel instead of hiding behind it. The cell must not clip
+   that shadow either (its content scrolls inside the Sidebar itself). */
+[data-design="clay"] [data-app-side][data-docked="true"] {
+  position: relative;
+  z-index: 10;
+  overflow: visible;
+}
+
+/* Listboxes (Select, Combobox, MultiSelect): a puffy list whose rows are rounded pills — the hovered / highlighted one rises out of it. */
+[data-design="clay"] [role="listbox"]:not([data-cmd]) {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding: 0.4rem;
+  border-color: transparent;
+  border-radius: 1.5rem;
+  box-shadow: var(--clay-raise-lg);
+}
+[data-design="clay"] [role="listbox"]:not([data-cmd]) > [role="option"] {
+  border-radius: 1rem;
+  padding: 0.5rem 0.75rem;
+  transition: background-color 0.18s ease, box-shadow 0.18s ease, translate 0.18s ease;
+}
+[data-design="clay"] [role="listbox"]:not([data-cmd]) > [role="option"]:is([class~="bg-surface-muted"], :hover):not([aria-disabled="true"]) {
+  background-color: color-mix(in srgb, var(--color-accent-500) 9%, var(--color-surface));
+  translate: 0 -1px;
+  box-shadow: var(--clay-raise-sm);
+}
+[data-design="clay"] [role="listbox"]:not([data-cmd]) > [role="option"][aria-selected="true"] {
+  background-color: var(--color-surface-muted);
+  box-shadow: var(--clay-well);
+}
+[data-design="clay"] [role="listbox"]:not([data-cmd]) > [role="option"][aria-selected="true"]:is([class~="bg-surface-muted"], :hover) {
+  background-color: color-mix(in srgb, var(--color-accent-500) 9%, var(--color-surface));
+  box-shadow: var(--clay-raise-sm);
+}
+
+/* Charts: the whole chart sits in a pressed-in tray; the shapes themselves are drawn clay by Chart.tsx (see useClayDefs there). */
+[data-design="clay"] [data-chart] {
+  padding: 1rem 1.1rem;
+  border-radius: 1.75rem;
+  background-color: var(--color-surface-muted);
+  box-shadow: var(--clay-well);
+}
+
+/* Buttons in a custom color (any CSS color, not a palette name) and gradient buttons carry their color in a variable or an inline
+   gradient instead of a `bg-<name>-600` class, so they need their own clay rules. */
+[data-design="clay"] :is(button, a, [role="button"])[class^="bg-[var(--btn-c)]"],
+[data-design="clay"] :is(button, a, [role="button"])[class*=" bg-[var(--btn-c)]"],
+[data-design="clay"] :is(button, a, [role="button"])[style*="linear-gradient"] {
+  box-shadow: 5px 7px 14px var(--clay-drop), var(--clay-gloss);
+}
+[data-design="clay"] :is(button, a, [role="button"])[class^="bg-[color-mix(in_srgb,var(--btn-c)"],
+[data-design="clay"] :is(button, a, [role="button"])[class*=" bg-[color-mix(in_srgb,var(--btn-c)"] {
+  border-color: transparent;
+  box-shadow: var(--clay-raise-sm);
+}
+[data-design="clay"] :is(button, a, [role="button"])[class*="border-[var(--btn-c)]"] {
+  border-style: solid;
+  border-color: color-mix(in srgb, var(--btn-c) 30%, transparent);
+  box-shadow: var(--clay-raise-sm);
+}
+[data-design="clay"] :is(button, a, [role="button"], [role="tab"])[style*="background-color"] {
+  box-shadow: 5px 7px 14px var(--clay-drop), var(--clay-gloss);
+}
+
+/* Changelog: the header card and the timeline nodes are raised too. */
+[data-design="clay"] [data-cl-hero] {
+  border-color: transparent;
+  box-shadow: var(--clay-raise-lg);
+}
+[data-design="clay"] [data-cl-node] {
+  box-shadow: 3px 4px 8px var(--clay-drop), inset 2px 2px 4px var(--clay-hi), inset -2px -3px 5px var(--clay-lo);
 }

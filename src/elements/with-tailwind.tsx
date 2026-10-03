@@ -1,6 +1,7 @@
 import { useEffect, useState, type ComponentType } from "react";
 import tailwindCss from "./tailwind-css";
 import { setTooltipPortalCss } from "../core/tooltipPortal";
+import { customAccentVars } from "../core/theme";
 
 // Tooltips drawn through a portal live in a shared body-level layer (see core/tooltipPortal.ts); give it the stylesheet.
 setTooltipPortalCss(tailwindCss);
@@ -13,14 +14,14 @@ setTooltipPortalCss(tailwindCss);
  */
 export function withTailwind<Props extends object>(Component: ComponentType<Props>) {
   return function WithTailwind(props: Props) {
-    const { theme, accent, active } = useHtmlTheme();
+    const { theme, accent, color, active, design } = useHtmlTheme();
     return (
       <>
         <style>{tailwindCss}</style>
         {/* Mirror <html>'s theme attributes: the `dark:` variant matches an ancestor
             [data-theme], and the accent palette variables resolve against the Tailwind
             palette that only exists inside this shadow root's own stylesheet. */}
-        <div style={{ display: "contents" }} data-theme={theme} data-accent={accent} data-active-variant={active}>
+        <div style={{ display: "contents", ...(color ? customAccentVars(color) : {}) }} data-theme={theme} data-accent={accent} data-accent-color={color} data-active-variant={active} data-design={design}>
           <Component {...props} />
         </div>
       </>
@@ -33,16 +34,18 @@ function useHtmlTheme() {
   const read = () => ({
     theme: document.documentElement.getAttribute("data-theme") ?? undefined,
     accent: document.documentElement.getAttribute("data-accent") ?? undefined,
+    color: document.documentElement.getAttribute("data-accent-color") ?? undefined,
     active: document.documentElement.getAttribute("data-active-variant") ?? undefined,
+    design: document.documentElement.getAttribute("data-design") ?? undefined,
   });
   const [state, setState] = useState(read);
   useEffect(() => {
     const sync = () => {
       const next = read();
-      setState((prev) => (prev.theme === next.theme && prev.accent === next.accent && prev.active === next.active ? prev : next));
+      setState((prev) => (prev.theme === next.theme && prev.accent === next.accent && prev.color === next.color && prev.active === next.active && prev.design === next.design ? prev : next));
     };
     const obs = new MutationObserver(sync);
-    obs.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme", "data-accent", "data-active-variant"] });
+    obs.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme", "data-accent", "data-accent-color", "data-active-variant", "data-design"] });
     sync();
     return () => obs.disconnect();
   }, []);

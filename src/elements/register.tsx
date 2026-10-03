@@ -22,6 +22,7 @@ import { defineAppSections } from "./app-sections";
 import { withSlots } from "./with-slots";
 import { ThemeSwitcher } from "../components/ui/ThemeSwitcher/ThemeSwitcher";
 import { AppElement, SideToggleElement, ThemeProviderElement } from "./app-element";
+import { withInlineEvents } from "./inline-events";
 import { Badge } from "../components/ui/Badge/Badge";
 import { Avatar } from "../components/ui/Avatar/Avatar";
 import { Image } from "../components/ui/Image/Image";
@@ -100,6 +101,10 @@ import { LoginForm } from "../components/ui/LoginForm/LoginForm";
 import { SignupForm } from "../components/ui/SignupForm/SignupForm";
 import { ProfileSettings } from "../components/ui/ProfileSettings/ProfileSettings";
 import { AccountSettings } from "../components/ui/AccountSettings/AccountSettings";
+import { PlanBilling } from "../components/ui/PlanBilling/PlanBilling";
+import { Iframe } from "../components/ui/Iframe/Iframe";
+import { ChatBox } from "../components/ui/ChatBox/ChatBox";
+import { Thinking } from "../components/ui/Thinking/Thinking";
 
 // Each element is a real <button>/<div> tree, so a native click already
 // bubbles across the shadow boundary — no "events" entry needed for plain
@@ -117,6 +122,7 @@ customElements.define(
       variant: "string",
       color: "string",
       gradientTo: "string",
+      gradientDirection: "string",
       size: "string",
       shape: "string",
       disabled: "boolean",
@@ -177,7 +183,15 @@ customElements.define(
 
 customElements.define(
   "l-button-group",
-  r2wc(withTailwind(ButtonGroup), { shadow: "open", props: { transition: "string", transitionDuration: "number", transitionDelay: "number", hoverEffect: "string" } })
+  // `onitemclick="…"` also works as an inline handler attribute (see inline-events.ts)
+  withInlineEvents(
+    r2wc(withTailwind(ButtonGroup), {
+      shadow: "open",
+      props: { transition: "string", transitionDuration: "number", transitionDelay: "number", hoverEffect: "string" },
+      events: { onItemClick: {} }, // dispatches "itemclick", detail = { index, label } of the clicked button
+    }),
+    ["itemclick"]
+  )
 );
 
 customElements.define(
@@ -338,7 +352,7 @@ customElements.define(
 
 customElements.define(
   "l-list",
-  r2wc(withTailwind(List), {
+  r2wc(withTailwind(withSlots(List, { header: "header" })), {
     shadow: "open",
     props: { ordered: "boolean", variant: "string", className: "string", transition: "string", transitionDuration: "number", transitionDelay: "number" },
   })
@@ -600,6 +614,7 @@ customElements.define(
       options: "json",
       value: "string",
       placeholder: "string",
+      icon: "string",
       size: "string",
       invalid: "boolean",
       disabled: "boolean",
@@ -917,7 +932,7 @@ customElements.define(
       sticky: "boolean",
       bordered: "boolean",
       variant: "string",
-      color: "string",
+      color: "string", gradientTo: "string", gradientDirection: "string",
       borderWidth: "number",
       items: "json",
       defaultActiveItem: "string",
@@ -966,7 +981,7 @@ customElements.define(
       height: "string",
       collapsed: "boolean",
       variant: "string",
-      color: "string",
+      color: "string", gradientTo: "string", gradientDirection: "string",
       collapsible: "boolean",
       header: "string",
       headerIcon: "string",
@@ -1022,7 +1037,7 @@ customElements.define(
   "l-header",
   r2wc(withHostBlock(withTailwind(withSlots(HeaderElement, { breadcrumbs: "breadcrumbs", description: "description", actions: "actions" }))), {
     shadow: "open",
-    props: { heading: "string", variant: "string", color: "string", borderWidth: "number", transition: "string", transitionDuration: "number", transitionDelay: "number" },
+    props: { heading: "string", variant: "string", color: "string", gradientTo: "string", gradientDirection: "string", borderWidth: "number", transition: "string", transitionDuration: "number", transitionDelay: "number" },
   })
 );
 
@@ -1425,14 +1440,14 @@ customElements.define(
   "l-app",
   r2wc(withHostBlock(withTailwind(AppElement)), {
     shadow: "open",
-    props: { theme: "string", accent: "string", activeVariant: "string", layout: "json", collapseBelow: "string" },
+    props: { theme: "string", accent: "string", design: "string", activeVariant: "string", layout: "json", collapseBelow: "string" },
   })
 );
 
 // Theme menu (light/dark, accent, active-item style) — changes the page theme on <html> by itself, no provider needed.
 customElements.define(
   "l-theme-switcher",
-  r2wc(withTailwind(ThemeSwitcher), { shadow: "open", props: { align: "string", showActiveItems: "boolean", showAccent: "boolean" } })
+  r2wc(withTailwind(ThemeSwitcher), { shadow: "open", props: { align: "string", showDesign: "boolean", showActiveItems: "boolean", showAccent: "boolean", showCustom: "boolean", customAccentLabel: "string", transition: "string", transitionDuration: "number", transitionDelay: "number", hoverEffect: "string" } })
 );
 
 customElements.define("l-side-toggle", r2wc(withTailwind(SideToggleElement), { shadow: "open", props: { label: "string" } }));
@@ -1446,10 +1461,12 @@ customElements.define(
       defaultMode: "string",
       defaultAccent: "string",
       defaultActiveVariant: "string",
+      defaultDesign: "string",
       isolated: "boolean",
       mode: "string",
       accent: "string",
       activeVariant: "string",
+      design: "string",
     },
   })
 );
@@ -1592,5 +1609,92 @@ customElements.define(
   r2wc(withHostBlock(withTailwind(CodeSnippetElement)), {
     shadow: "open",
     props: { code: "string", language: "string", heading: "string", lineNumbers: "boolean", copyable: "boolean" },
+  })
+);
+
+customElements.define(
+  "l-thinking",
+  r2wc(withTailwind(Thinking), {
+    shadow: "open",
+    props: { label: "string", variant: "string", size: "string", color: "string", steps: "json", stepInterval: "number", showElapsed: "boolean", transition: "string", transitionDuration: "number", transitionDelay: "number" },
+  })
+);
+
+customElements.define(
+  "l-iframe",
+  r2wc(withHostBlock(withTailwind(Iframe)), {
+    shadow: "open",
+    props: {
+      src: "string",
+      title: "string",
+      height: "string",
+      ratio: "string",
+      sandbox: "string",
+      allow: "string",
+      loading: "string",
+      referrerPolicy: "string",
+      bordered: "boolean",
+      showLoader: "boolean",
+      showAddress: "boolean",
+      transition: "string",
+      transitionDuration: "number",
+      transitionDelay: "number",
+    },
+    events: { onLoad: {} }, // dispatches "load" (the embedded page finished loading), detail = null
+  })
+);
+
+customElements.define(
+  "l-chat-box",
+  r2wc(withHostBlock(withTailwind(ChatBox)), {
+    shadow: "open",
+    props: {
+      messages: "json",
+      defaultMessages: "json",
+      variant: "string",
+      thinking: "string",
+      thinkingVariant: "string",
+      thinkingSteps: "json",
+      thinkingElapsed: "boolean",
+      placeholder: "string",
+      disabled: "boolean",
+      height: "string",
+      heading: "string",
+      subtitle: "string",
+      color: "string",
+      emptyText: "string",
+      transition: "string",
+      transitionDuration: "number",
+      transitionDelay: "number",
+    },
+    events: { onSend: {} }, // dispatches "send", detail = the message text
+  })
+);
+
+customElements.define(
+  "l-plan-billing",
+  r2wc(withHostBlock(withTailwind(PlanBilling)), {
+    shadow: "open",
+    props: {
+      planName: "string",
+      price: "string",
+      currency: "string",
+      interval: "string",
+      description: "string",
+      status: "string",
+      features: "json",
+      usage: "json",
+      nextBillingDate: "string",
+      paymentMethod: "json",
+      color: "string",
+      actionLabel: "string",
+      cancelLabel: "string",
+      cancelIcon: "string",
+      hoverEffect: "string",
+      transition: "string",
+      transitionDuration: "number",
+      transitionDelay: "number",
+    },
+    events: { onAction: {}, onCancel: {} }, // dispatch "action" (the plan button) / "cancel" (the top-right icon)
   })
 );

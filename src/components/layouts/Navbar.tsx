@@ -36,6 +36,8 @@ export default function NavbarLayout({ activeNav = "components", onNavChange, sh
   return (
     <UINavbar
       color="accent"
+      // variant="elevated" 
+      // transition="bounce"
       brand={
         <>
           {showSideToggle && <SideToggle />}
@@ -62,8 +64,8 @@ export default function NavbarLayout({ activeNav = "components", onNavChange, sh
       }}
       actions={
         <>
-          <ThemeSwitcher />
-          <CodeFrameworkSwitcher />
+          <ThemeSwitcher transition="bounce" />
+          <CodeFrameworkSwitcher  />
 
           <SearchMenu />
         </>

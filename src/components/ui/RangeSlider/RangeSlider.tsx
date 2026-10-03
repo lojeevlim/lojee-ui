@@ -12,7 +12,7 @@ export interface RangeSliderProps {
   value: [number, number];
   /** Called with the new `[low, high]` tuple whenever either thumb is moved; the consumer must store it back into `value`. */
   onChange?: (value: [number, number]) => void;
-  /** Color of the filled range and thumbs (default: "accent" — follows the theme accent). */
+  /** Color of the filled range between the thumbs (default: "accent" — follows the theme accent). */
   color?: ColorName;
   /** Shows the current "low – high" text below the slider (default: false). */
   showValue?: boolean;
@@ -22,7 +22,7 @@ export interface RangeSliderProps {
   transitionDuration?: number;
   /** Delay before the enter transition starts, in ms (default: 0) — handy for staggering. */
   transitionDelay?: number;
-  /** Effect while hovering: "lift" | "scale" | "press" | "tilt" | "ring" | "glow" | "shine" (default: none). */
+  /** Effect while hovering a thumb (the sliding buttons — never the whole slider): "lift" | "scale" | "press" | "tilt" | "ring" | "glow" | "shine" (default: none). */
   hoverEffect?: HoverEffect;
   /** Extra CSS class(es) added to the root element, merged before `classNames.root`. */
   className?: string;
@@ -46,24 +46,9 @@ const RANGE_BG: Record<ColorName, string> = {
   pink: "bg-pink-500",
 };
 
-const THUMB_BG: Record<ColorName, string> = {
-  slate: "[&::-webkit-slider-thumb]:bg-slate-900 [&::-moz-range-thumb]:bg-slate-900 dark:[&::-webkit-slider-thumb]:bg-slate-200 dark:[&::-moz-range-thumb]:bg-slate-200",
-  gray: "[&::-webkit-slider-thumb]:bg-gray-600 [&::-moz-range-thumb]:bg-gray-600",
-  indigo: "[&::-webkit-slider-thumb]:bg-indigo-600 [&::-moz-range-thumb]:bg-indigo-600",
-  accent: "[&::-webkit-slider-thumb]:bg-accent-600 [&::-moz-range-thumb]:bg-accent-600",
-  violet: "[&::-webkit-slider-thumb]:bg-violet-600 [&::-moz-range-thumb]:bg-violet-600",
-  blue: "[&::-webkit-slider-thumb]:bg-blue-600 [&::-moz-range-thumb]:bg-blue-600",
-  cyan: "[&::-webkit-slider-thumb]:bg-cyan-600 [&::-moz-range-thumb]:bg-cyan-600",
-  emerald: "[&::-webkit-slider-thumb]:bg-emerald-600 [&::-moz-range-thumb]:bg-emerald-600",
-  teal: "[&::-webkit-slider-thumb]:bg-teal-600 [&::-moz-range-thumb]:bg-teal-600",
-  amber: "[&::-webkit-slider-thumb]:bg-amber-500 [&::-moz-range-thumb]:bg-amber-500",
-  orange: "[&::-webkit-slider-thumb]:bg-orange-600 [&::-moz-range-thumb]:bg-orange-600",
-  rose: "[&::-webkit-slider-thumb]:bg-rose-600 [&::-moz-range-thumb]:bg-rose-600",
-  pink: "[&::-webkit-slider-thumb]:bg-pink-600 [&::-moz-range-thumb]:bg-pink-600",
-};
-
+// Each of the two inputs spans the whole range and only its thumb takes pointer events; the pill thumb is drawn by `.lojee-range` in theme.css.
 const INPUT_CLASSES =
-  "pointer-events-none absolute h-4 w-full appearance-none bg-transparent [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:cursor-pointer [&::-moz-range-thumb]:pointer-events-auto [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:appearance-none [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-0 [&::-moz-range-thumb]:cursor-pointer";
+  "lojee-range pointer-events-none absolute w-full [&::-webkit-slider-thumb]:pointer-events-auto [&::-moz-range-thumb]:pointer-events-auto";
 
 export function RangeSlider({
   min = 0,
@@ -81,37 +66,44 @@ export function RangeSlider({
   classNames,
 }: RangeSliderProps) {
   const [low, high] = value;
-  const leftPct = ((low - min) / (max - min)) * 100;
-  const rightPct = 100 - ((high - min) / (max - min)) * 100;
+  const span = max - min || 1;
+  const lowP = (low - min) / span;
+  const highP = (high - min) / span;
+  // The pill thumb is 44px wide, so a thumb's centre runs from 22px to (width − 22px) — the fill follows that, not 0–100%.
+  const at = (p: number) => `calc(22px + (100% - 44px) * ${p})`;
 
   return (
     <div
-      className={cx("w-full", motionClass(transition, hoverEffect), className, classNames?.root)}
+      className={cx("w-full", motionClass(transition), className, classNames?.root)}
       style={motionStyle(transitionDuration, transitionDelay)}
     >
-      <div className="relative h-4 flex items-center">
+      <div className="relative flex h-6 items-center">
         <div className={cx("absolute h-1.5 w-full rounded-full bg-border", classNames?.track)} />
         <div
           className={cx("absolute h-1.5 rounded-full", RANGE_BG[color], classNames?.range)}
-          style={{ left: `${leftPct}%`, right: `${rightPct}%` }}
+          style={{ left: at(lowP), right: at(1 - highP) }}
         />
         <input
           type="range"
           min={min}
-          max={high}
+          max={max}
           step={step}
           value={low}
-          onChange={(e) => onChange?.([Number(e.target.value), high])}
-          className={cx(INPUT_CLASSES, THUMB_BG[color], classNames?.thumb)}
+          onChange={(e) => onChange?.([Math.min(Number(e.target.value), high), high])}
+          data-thumb-hover={hoverEffect}
+          className={cx(INPUT_CLASSES, classNames?.thumb)}
+          // When both thumbs sit at the top end, the low one has to be on top or it could never be dragged back.
+          style={{ zIndex: low > min + span / 2 ? 2 : 1 }}
         />
         <input
           type="range"
-          min={low}
+          min={min}
           max={max}
           step={step}
           value={high}
-          onChange={(e) => onChange?.([low, Number(e.target.value)])}
-          className={cx(INPUT_CLASSES, THUMB_BG[color], classNames?.thumb)}
+          onChange={(e) => onChange?.([low, Math.max(Number(e.target.value), low)])}
+          data-thumb-hover={hoverEffect}
+          className={cx(INPUT_CLASSES, classNames?.thumb)}
         />
       </div>
       {showValue && (

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { Menu } from "lucide-react";
 import { cx } from "../../../core/tokens";
-import { ThemeContext, useTheme, type AccentName } from "../../../core/theme";
+import { ThemeContext, useTheme, accentAttrs, isDesign, type Accent, type DesignName } from "../../../core/theme";
 import type { ActiveVariant } from "../../../core/activeVariant";
 import { APP_THEME_OPTIONS, DEFAULT_LAYOUT, appGridStyle, type AppTheme, type GridLayout } from "./appLayout";
 import { APP_BREAKPOINTS, APP_BREAKPOINT_PX, type AppBreakpoint } from "./breakpoints";
@@ -11,8 +11,10 @@ export interface AppProps {
   /** Visual theme. Omit it and the App follows the surrounding `ThemeProvider` (light without one); pass it
    * to pin just this App to a theme — a scoped override that doesn't touch the page's own theme. */
   theme?: AppTheme;
-  /** Brand accent (a built-in color name). Omit to follow the surrounding `ThemeProvider`. */
-  accent?: AccentName;
+  /** Brand accent — a built-in color name or a custom hex color. Omit to follow the surrounding `ThemeProvider`. */
+  accent?: Accent;
+  /** Design language of this App: "bento" (default) or "clay" (Claymorphism). Omit to follow the surrounding `ThemeProvider`. */
+  design?: DesignName;
   /** How active items inside are drawn — "solid", "outline" or "soft". Omit to follow the `ThemeProvider`. */
   activeVariant?: ActiveVariant;
   /** Section placement as a matrix of section names; the CSS Grid is generated from it (default: top
@@ -38,7 +40,7 @@ export interface AppProps {
  * off-canvas drawer, opened by a `<SideToggle>` you place in `<Top>`. It keys off the App's own width, not
  * the viewport, so it also behaves inside a narrow panel.
  */
-export function App({ theme: themeProp, accent, activeVariant, layout = DEFAULT_LAYOUT, collapseBelow = "md", children, className }: AppProps) {
+export function App({ theme: themeProp, accent, design, activeVariant, layout = DEFAULT_LAYOUT, collapseBelow = "md", children, className }: AppProps) {
   // `theme` reaches the CSS as `data-theme` (see theme.css); guard against a stale/unknown value.
   const parent = useTheme();
   const theme = themeProp ?? parent.mode;
@@ -68,17 +70,19 @@ export function App({ theme: themeProp, accent, activeVariant, layout = DEFAULT_
   // Everything inside — components via the CSS tokens, and code via useTheme() — sees this App's theme.
   const resolvedAccent = accent ?? parent.accent;
   const resolvedActive = activeVariant ?? parent.activeVariant;
-  const scoped = { ...parent, mode: known ? theme : "light", accent: resolvedAccent, activeVariant: resolvedActive };
+  const resolvedDesign = isDesign(design) ? design : parent.design;
+  const scoped = { ...parent, mode: known ? theme : "light", accent: resolvedAccent, activeVariant: resolvedActive, design: resolvedDesign };
   return (
     <ThemeContext.Provider value={scoped}>
       <AppLayoutCtx.Provider value={{ breakpoint: collapseBelow, isCollapsed, sideOpen, setSideOpen }}>
         <div
           ref={rootRef}
           data-theme={known ? theme : "light"}
-          data-accent={resolvedAccent}
+          {...accentAttrs(resolvedAccent)}
           data-active-variant={resolvedActive}
+          data-design={resolvedDesign}
           className={cx(
-            "@container relative h-screen w-full overflow-hidden bg-[color-mix(in_srgb,var(--color-accent-500)_5%,var(--color-surface))] text-fg",
+            "@container relative h-screen w-full overflow-hidden bg-[color-mix(in_srgb,var(--color-accent-500)_8%,var(--color-surface))] text-fg",
             className
           )}
         >
@@ -110,9 +114,12 @@ export function Top({ children, className }: SectionProps) {
 }
 
 export function Side({ children, className }: SectionProps) {
-  const { breakpoint, sideOpen } = useAppLayout();
+  const { breakpoint, sideOpen, isCollapsed } = useAppLayout();
   return (
     <aside
+      // `data-docked`: a grid cell beside Main (not the off-canvas drawer) — lets a theme give it a shadow that falls over Main.
+      data-app-side=""
+      data-docked={!isCollapsed}
       className={cx(
         // Collapsed: an off-canvas panel sliding in over the App. Grid mode: a normal grid cell.
         "absolute inset-y-0 left-0 z-30 w-fit max-w-[85%] min-h-0 overflow-auto bg-surface shadow-xl transition-transform duration-200",

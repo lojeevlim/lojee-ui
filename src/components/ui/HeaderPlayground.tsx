@@ -2,11 +2,12 @@ import { useState } from "react";
 import { PREVIEW_PAGE_BG } from "./playgroundUtils";
 import { Header, type HeaderVariant } from "./Header/Header";
 import { Button } from "./Buttons/Button";
-import { OptionGroup, ColorSwatches, PlaygroundLayout, AppWindowFrame } from "./PlaygroundHelpers";
+import { OptionGroup, GradientColorSwatches, PlaygroundLayout, AppWindowFrame } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
 import { useMotion } from "./playgroundMotion";
+import type { GradientDirection } from "../../core/gradient";
 
-const VARIANTS: HeaderVariant[] = ["light", "dark", "bordered", "elevated", "minimal", "gradient", "glass"];
+const VARIANTS: HeaderVariant[] = ["light", "dark", "bordered", "elevated", "minimal", "gradient"];
 
 export default function HeaderPlayground() {
   const motion = useMotion({ hover: false });
@@ -15,6 +16,8 @@ export default function HeaderPlayground() {
   const [showActions, setShowActions] = useState(true);
   const [variant, setVariant] = useState<HeaderVariant>("light");
   const [color, setColor] = useState<string>("accent");
+  const [gradientTo, setGradientTo] = useState<string>("violet");
+  const [gradientDirection, setGradientDirection] = useState<GradientDirection>("to-right");
   const [borderWidth, setBorderWidth] = useState(2);
   // Only "bordered" has an adjustable border — "elevated" is shadow-only (see Header.tsx's
   // `hasAccentBorder`), so the border-thickness control has nothing to affect there.
@@ -23,12 +26,12 @@ export default function HeaderPlayground() {
   // purely so its boundary is visible in the playground UI, not something a real usage needs to
   // replicate (same purpose as SidebarPlayground's/NavbarPlayground's own wrapper).
   const previewWrapperClass = variant === "minimal" ? "bg-surface-muted p-3" : undefined;
-  // Same "dark"/"gradient"/"glass" grouping as Sidebar's own `dark` flag / NavbarPlayground's `onDark`
+  // Same "dark"/"gradient" grouping as Sidebar's own `dark` flag / NavbarPlayground's `onDark`
   // — all three sit on a dark-ish or already-colorful surface where the outline button's default
   // `text-fg`/`border-border-strong` (built for a light background) would be unreadable, so it
   // needs to switch to a light color too. The solid "New project" button doesn't need this — its fixed
   // `bg-slate-900`/`text-white` fill already reads fine against any of these.
-  const onDark = variant === "dark" || variant === "gradient" || variant === "glass";
+  const onDark = variant === "dark" || variant === "gradient";
   const importButtonClass = onDark ? "border-white/30 text-white hover:bg-white/10" : undefined;
 
   const titleValue = title || "Team settings";
@@ -49,6 +52,8 @@ export default function HeaderPlayground() {
               description={description || undefined}
               variant={variant}
               color={color}
+              gradientTo={variant === "gradient" ? gradientTo : undefined}
+              gradientDirection={variant === "gradient" ? gradientDirection : undefined}
               borderWidth={borderWidth}
               actions={
                 showActions ? (
@@ -72,7 +77,9 @@ export default function HeaderPlayground() {
 
   const descriptionAttr = description ? `\n  description="${description}"` : "";
   const variantAttr = variant !== "light" ? `\n  variant="${variant}"` : "";
-  const colorAttr = color !== "accent" ? `\n  color="${color}"` : "";
+  const baseColorAttr = color !== "accent" ? `\n  color="${color}"` : "";
+  const gradientAttr = variant === "gradient" ? ` gradientTo="${gradientTo}"${gradientDirection !== "to-right" ? ` gradientDirection="${gradientDirection}"` : ""}` : "";
+  const colorAttr = `${baseColorAttr}${gradientAttr}`;
   // Only meaningful for "bordered" — no point showing it in the sample for any other variant.
   const borderWidthAttrJsx = showBorderWidthControl && borderWidth !== 2 ? `\n  borderWidth={${borderWidth}}` : "";
   const borderWidthAttrHtml = showBorderWidthControl && borderWidth !== 2 ? `\n  border-width="${borderWidth}"` : "";
@@ -151,7 +158,15 @@ export default function HeaderPlayground() {
           />
         </div>
       )}
-      <ColorSwatches value={color} onChange={setColor} custom />
+      <GradientColorSwatches
+        gradient={variant === "gradient"}
+        color={color}
+        onColorChange={setColor}
+        gradientTo={gradientTo}
+        onGradientToChange={setGradientTo}
+        direction={gradientDirection}
+        onDirectionChange={setGradientDirection}
+      />
       <label className="flex items-center gap-2 text-xs font-medium text-fg-subtle">
         <input type="checkbox" checked={showActions} onChange={(e) => setShowActions(e.target.checked)} />
         Show actions

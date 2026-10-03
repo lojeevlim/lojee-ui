@@ -149,7 +149,7 @@ export default function LandingPage() {
             Motion, maps, skeleton loading and table actions
             <Icon name="arrow-right" size={12} />
           </div>
-          <h1 className="lp-enter mx-auto mt-7 max-w-4xl text-5xl font-semibold leading-[1.02] tracking-tight md:text-7xl lg:text-[5.25rem]" style={{ ["--d" as string]: "100ms" }}>
+          <h1 className="lp-enter lp-clay-text mx-auto mt-7 max-w-4xl text-5xl font-semibold leading-[1.02] tracking-tight md:text-7xl lg:text-[5.25rem]" style={{ ["--d" as string]: "100ms" }}>
             Interfaces that fit <span className="lp-shimmer-text">every framework</span>.
           </h1>
           <p className="lp-enter mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-fg-muted md:text-xl" style={{ ["--d" as string]: "200ms" }}>

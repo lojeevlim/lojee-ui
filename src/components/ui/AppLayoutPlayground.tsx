@@ -2,7 +2,7 @@ import { useState } from "react";
 import { PREVIEW_PAGE_BG } from "./playgroundUtils";
 import { AppWindowFrame, ColorSwatches, OptionGroup, PlaygroundLayout } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
-import { useTheme, type AccentName } from "../../core/theme";
+import { useTheme, DESIGNS, type Accent, type DesignName } from "../../core/theme";
 import { ACTIVE_VARIANTS, type ActiveVariant } from "../../core/activeVariant";
 import type { ColorName } from "../../core/tokens";
 import { ThemeProvider } from "./Theme/ThemeProvider";
@@ -29,7 +29,7 @@ const sameLayout = (a: GridLayout, b: GridLayout) => JSON.stringify(a) === JSON.
 export default function AppLayoutPlayground() {
   const { accent: siteAccent } = useTheme();
   const [theme, setTheme] = useState<AppTheme>("light");
-  const [accent, setAccent] = useState<AccentName>(siteAccent);
+  const [accent, setAccent] = useState<Accent>(siteAccent);
   // Follow the site accent when it changes (the swatches can still override it).
   const [prevSiteAccent, setPrevSiteAccent] = useState(siteAccent);
   if (prevSiteAccent !== siteAccent) {
@@ -37,6 +37,7 @@ export default function AppLayoutPlayground() {
     setAccent(siteAccent);
   }
   const [activeVariant, setActiveVariant] = useState<ActiveVariant>("solid");
+  const [design, setDesign] = useState<DesignName>("bento");
   const [viewport, setViewport] = useState<Viewport>("desktop");
   const [layout, setLayout] = useState<GridLayout>(DEFAULT_LAYOUT);
   // Sections taken out of the shell. The layout above keeps their cells, so adding one back puts it where it was.
@@ -53,7 +54,7 @@ export default function AppLayoutPlayground() {
     : `\n  layout={[\n${shown.map((row) => `    [${row.map((s) => `"${s}"`).join(", ")}],`).join("\n")}\n  ]}\n`;
   const appTag = layoutProp ? `<App${layoutProp}>` : `<App>`;
 
-  const activeProp = activeVariant === "solid" ? "" : ` defaultActiveVariant="${activeVariant}"`;
+  const activeProp = (activeVariant === "solid" ? "" : ` defaultActiveVariant="${activeVariant}"`) + (design === "bento" ? "" : ` defaultDesign="${design}"`);
 
   const topCode = `    <Top>
       <Navbar brand={<SideToggle />} items={[{ label: "Overview" }, { label: "Reports" }]} />
@@ -81,7 +82,7 @@ export default function AppLayoutPlayground() {
 ${parts}  </App>
 </ThemeProvider>`;
 
-  const codeVariants: CodeBlockVariants = appCodeVariants(code, { layout: shown, hidden, mode: theme, accent, activeVariant });
+  const codeVariants: CodeBlockVariants = appCodeVariants(code, { layout: shown, hidden, mode: theme, accent, activeVariant, design });
 
   return (
     <PlaygroundLayout preview={
@@ -91,7 +92,7 @@ ${parts}  </App>
               className="absolute inset-y-0 left-1/2 max-w-full -translate-x-1/2 transition-[width] duration-300"
               style={{ width: VIEWPORT_WIDTH[viewport] }}
             >
-              <ThemeProvider isolated mode={theme} accent={accent} activeVariant={activeVariant}>
+              <ThemeProvider isolated mode={theme} accent={accent} activeVariant={activeVariant} design={design}>
                 <AppLayoutDemo bare height="100%" layout={shown} hidden={hidden} />
               </ThemeProvider>
             </div>
@@ -116,6 +117,8 @@ ${parts}  </App>
         </select>
       </div>
 
+      <OptionGroup label="Design" options={DESIGNS.map((d) => d.value)} value={design} onChange={setDesign} render={(o) => DESIGNS.find((d) => d.value === o)?.label} />
+
       <OptionGroup label="Viewport (responsive)" options={VIEWPORTS} value={viewport} onChange={setViewport} />
 
       <OptionGroup
@@ -125,7 +128,7 @@ ${parts}  </App>
         onChange={setActiveVariant}
       />
 
-      <ColorSwatches label="Accent" value={accent as ColorName} onChange={(c) => setAccent(c as AccentName)} />
+      <ColorSwatches label="Accent" value={accent as ColorName} onChange={(c) => setAccent(c as Accent)} />
 
       <div className="sm:col-span-2">
         <div className="mb-3">

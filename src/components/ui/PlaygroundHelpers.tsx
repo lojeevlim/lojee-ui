@@ -1,6 +1,7 @@
 // Shared bits for every per-component *Playground.tsx (demo-only, alongside
 // ShowcaseHelpers.tsx) — the interactive "try it" panel behind the floating
 // Playground button, one per component in App.tsx's SHOWCASES map.
+import { GRADIENT_DIRECTIONS, type GradientDirection } from "../../core/gradient";
 import { useEffect, useRef, useState } from "react";
 import { Tooltip } from "./Tooltip/Tooltip";
 import { ColorPicker } from "./ColorPicker/ColorPicker";
@@ -362,5 +363,51 @@ export function PlaygroundLayout({
         )}
       </ScrollPane>
     </div>
+  );
+}
+
+const DIRECTION_LABELS: Record<GradientDirection, string> = {
+  "to-right": "→ Right",
+  "to-left": "← Left",
+  "to-bottom": "↓ Down",
+  "to-top": "↑ Up",
+  "to-br": "↘ Down right",
+  "to-bl": "↙ Down left",
+  "to-tr": "↗ Up right",
+  "to-tl": "↖ Up left",
+};
+
+/**
+ * The color control of a component that has a gradient variant. With `gradient` off it is one "Color" picker; with it on,
+ * "From color" and "To color" sit in one row (both accept any custom color) with a gradient-direction picker below.
+ */
+export function GradientColorSwatches({
+  gradient,
+  color,
+  onColorChange,
+  gradientTo,
+  onGradientToChange,
+  direction,
+  onDirectionChange,
+}: {
+  gradient: boolean;
+  color: string;
+  onColorChange: (color: string) => void;
+  gradientTo: string;
+  onGradientToChange: (color: string) => void;
+  direction: GradientDirection;
+  onDirectionChange: (direction: GradientDirection) => void;
+}) {
+  if (!gradient) return <ColorSwatches value={color} onChange={onColorChange} custom />;
+  return (
+    <>
+      <div className="grid grid-cols-1 gap-4 sm:col-span-2 sm:grid-cols-2">
+        <ColorSwatches label="From color" value={color} onChange={onColorChange} custom />
+        <ColorSwatches label="To color" value={gradientTo} onChange={onGradientToChange} custom />
+      </div>
+      <div className="sm:col-span-2">
+        <OptionGroup label="Gradient direction" options={GRADIENT_DIRECTIONS} value={direction} onChange={onDirectionChange} render={(o) => DIRECTION_LABELS[o]} />
+      </div>
+    </>
   );
 }

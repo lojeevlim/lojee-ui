@@ -52,13 +52,13 @@ function ToastPreview({ variant, title, children }: { variant: "success" | "warn
   );
 }
 
-function Deploying({ color }: { color?: "accent" | "emerald" | "violet" }) {
+function Deploying() {
   const [p, setP] = useState(34);
   useEffect(() => {
     const id = setInterval(() => setP((v) => (v >= 100 ? 10 : Math.min(100, v + 6))), 900);
     return () => clearInterval(id);
   }, []);
-  return <ProgressBar value={p} showLabel color={color} />;
+  return <ProgressBar value={p} showLabel />;
 }
 
 function PagerStack() {
@@ -139,9 +139,9 @@ const REEL_1: ReactNode[] = [
   <HeroCard key="progress" name="ProgressBar" w="w-72">
     <div className="space-y-3">
       <Deploying />
-      <ProgressBar value={72} color="emerald" size="lg" striped />
-      <ProgressBar value={45} color="violet" size="sm" />
-      <ProgressBar indeterminate color="amber" />
+      <ProgressBar value={72} size="lg" striped />
+      <ProgressBar value={45} size="sm" />
+      <ProgressBar indeterminate />
     </div>
   </HeroCard>,
   <HeroCard key="empty" name="EmptyState">
@@ -324,9 +324,9 @@ const REEL_4: ReactNode[] = [
   </HeroCard>,
   <HeroCard key="progress" name="ProgressBar · colors" w="w-72">
     <div className="space-y-3">
-      <ProgressBar value={80} showLabel color="rose" />
-      <ProgressBar value={55} showLabel color="cyan" striped />
-      <Deploying color="violet" />
+      <ProgressBar value={80} showLabel />
+      <ProgressBar value={55} showLabel striped />
+      <Deploying />
     </div>
   </HeroCard>,
   <HeroCard key="empty" name="EmptyState">

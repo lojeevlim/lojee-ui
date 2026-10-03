@@ -65,6 +65,7 @@ export default function SidebarLayout({
     <UISidebar
       color="accent"
       height="100%"
+      // variant="elevated" 
       width={inDrawer ? DRAWER_WIDTH_PX : WIDTH_PX}
       collapsed={collapsedNow}
       collapsible={collapsible}

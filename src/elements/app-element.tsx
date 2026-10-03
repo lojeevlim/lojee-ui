@@ -5,7 +5,7 @@ import { useAppLayout } from "../components/ui/AppLayout/appLayoutContext";
 import { ThemeProvider } from "../components/ui/Theme/ThemeProvider";
 import type { AppTheme, GridLayout } from "../components/ui/AppLayout/appLayout";
 import type { AppBreakpoint } from "../components/ui/AppLayout/breakpoints";
-import type { AccentName } from "../core/theme";
+import { isHexColor, isDesign, type Accent, type DesignName } from "../core/theme";
 import type { ActiveVariant } from "../core/activeVariant";
 
 const TOGGLE_EVENT = "lojee-side-toggle";
@@ -46,7 +46,8 @@ function HostBridge() {
 
 export interface AppElementProps {
   theme?: AppTheme;
-  accent?: AccentName;
+  accent?: Accent;
+  design?: DesignName;
   activeVariant?: ActiveVariant;
   layout?: GridLayout;
   collapseBelow?: AppBreakpoint;
@@ -54,9 +55,16 @@ export interface AppElementProps {
 
 const html = (name: string) => document.documentElement.getAttribute(name) ?? undefined;
 
+/** The accent <html> carries: a built-in name, or the hex behind a custom one. */
+function pageAccent(): Accent | undefined {
+  const name = html("data-accent");
+  const color = html("data-accent-color");
+  return name === "custom" && isHexColor(color) ? color : (name as Accent | undefined);
+}
+
 /** `<l-app>`: the App shell. Its sections are the child elements `<l-top>`, `<l-side>`, `<l-main>` and `<l-foot>`
  * (which assign themselves to the matching slots below). With no `theme` / `accent` / `active-variant` it follows the page's own theme (<html data-*>). */
-export function AppElement({ theme, accent, activeVariant, layout, collapseBelow }: AppElementProps) {
+export function AppElement({ theme, accent, design, activeVariant, layout, collapseBelow }: AppElementProps) {
   const ref = useRef<HTMLSpanElement>(null);
   const [mainPadding, setMainPadding] = useState<MainPadding | undefined>();
   // `<l-main padding="lg">`: the panel belongs to <Main> inside this shadow root, so mirror the child's attribute.
@@ -74,7 +82,8 @@ export function AppElement({ theme, accent, activeVariant, layout, collapseBelow
   return (
     <App
       theme={theme ?? (html("data-theme") as AppTheme | undefined)}
-      accent={accent ?? (html("data-accent") as AccentName | undefined)}
+      accent={accent ?? pageAccent()}
+      design={design ?? (isDesign(html("data-design")) ? (html("data-design") as DesignName) : undefined)}
       activeVariant={activeVariant ?? (html("data-active-variant") as ActiveVariant | undefined)}
       layout={layout}
       collapseBelow={collapseBelow}
@@ -131,12 +140,14 @@ export function SideToggleElement({ label = "Open navigation" }: { label?: strin
 /** `<l-theme-provider>`: sets the page theme (or, with `isolated`, only its own subtree) and projects its children. */
 export function ThemeProviderElement(props: {
   defaultMode?: "light" | "dark";
-  defaultAccent?: AccentName;
+  defaultAccent?: Accent;
   defaultActiveVariant?: ActiveVariant;
+  defaultDesign?: DesignName;
   isolated?: boolean;
   mode?: "light" | "dark";
-  accent?: AccentName;
+  accent?: Accent;
   activeVariant?: ActiveVariant;
+  design?: DesignName;
 }) {
   return (
     <ThemeProvider {...props}>

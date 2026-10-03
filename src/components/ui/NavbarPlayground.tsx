@@ -2,12 +2,13 @@ import { useState } from "react";
 import { PREVIEW_PAGE_BG } from "./playgroundUtils";
 import { Navbar, type NavbarVariant } from "./Navbar/Navbar";
 import { Avatar } from "./Avatar/Avatar";
-import { OptionGroup, ColorSwatches, PlaygroundLayout, AppWindowFrame } from "./PlaygroundHelpers";
+import { OptionGroup, GradientColorSwatches, PlaygroundLayout, AppWindowFrame } from "./PlaygroundHelpers";
 import { cx } from "../../core/tokens";
 import type { CodeBlockVariants } from "./CodeBlock";
 import { useMotion } from "./playgroundMotion";
+import type { GradientDirection } from "../../core/gradient";
 
-const VARIANTS: NavbarVariant[] = ["light", "dark", "bordered", "elevated", "minimal", "gradient", "glass"];
+const VARIANTS: NavbarVariant[] = ["light", "dark", "bordered", "elevated", "minimal", "gradient"];
 
 // `items` instead of composed NavbarItems — dark/color theming all come from Navbar itself
 // automatically once items are generated from it, no manual wiring needed the way composing
@@ -24,11 +25,13 @@ export default function NavbarPlayground() {
   const [bordered, setBordered] = useState(true);
   const [variant, setVariant] = useState<NavbarVariant>("light");
   const [color, setColor] = useState<string>("accent");
+  const [gradientTo, setGradientTo] = useState<string>("violet");
+  const [gradientDirection, setGradientDirection] = useState<GradientDirection>("to-right");
   const [borderWidth, setBorderWidth] = useState(2);
   const [defaultActiveItem, setDefaultActiveItem] = useState("Home");
   const [activeLabel, setActiveLabel] = useState<string | undefined>(undefined);
   const defaultActiveItemValue = defaultActiveItem === "none" ? undefined : defaultActiveItem;
-  const onDark = variant === "dark" || variant === "gradient" || variant === "glass";
+  const onDark = variant === "dark" || variant === "gradient";
   // Only "bordered" has an adjustable border — "elevated" is shadow-only (see Navbar.tsx's
   // `hasAccentBorder`), so the border-thickness control has nothing to affect there.
   const showBorderWidthControl = variant === "bordered";
@@ -50,6 +53,8 @@ export default function NavbarPlayground() {
       bordered={bordered}
       variant={variant}
       color={color}
+      gradientTo={variant === "gradient" ? gradientTo : undefined}
+      gradientDirection={variant === "gradient" ? gradientDirection : undefined}
       borderWidth={borderWidth}
       defaultActiveItem={defaultActiveItemValue}
       onActiveItemChange={(item) => setActiveLabel(item.label)}
@@ -89,7 +94,9 @@ export default function NavbarPlayground() {
   const borderedAttrJsx = bordered ? "" : " bordered={false}";
   const borderedAttrHtml = bordered ? "" : ` bordered="false"`;
   const variantAttr = variant !== "light" ? ` variant="${variant}"` : "";
-  const colorAttr = color !== "accent" ? ` color="${color}"` : "";
+  const baseColorAttr = color !== "accent" ? ` color="${color}"` : "";
+  const gradientAttr = variant === "gradient" ? ` gradientTo="${gradientTo}"${gradientDirection !== "to-right" ? ` gradientDirection="${gradientDirection}"` : ""}` : "";
+  const colorAttr = `${baseColorAttr}${gradientAttr}`;
   // Only meaningful for "bordered" — no point showing it in the sample for any other variant.
   const borderWidthAttrJsx = showBorderWidthControl && borderWidth !== 2 ? ` borderWidth={${borderWidth}}` : "";
   const borderWidthAttrHtml = showBorderWidthControl && borderWidth !== 2 ? ` border-width="${borderWidth}"` : "";
@@ -199,7 +206,15 @@ export class AppComponent {
         value={defaultActiveItem}
         onChange={setDefaultActiveItem}
       />
-      <ColorSwatches value={color} onChange={setColor} custom />
+      <GradientColorSwatches
+        gradient={variant === "gradient"}
+        color={color}
+        onColorChange={setColor}
+        gradientTo={gradientTo}
+        onGradientToChange={setGradientTo}
+        direction={gradientDirection}
+        onDirectionChange={setGradientDirection}
+      />
       {/* Beside (not below) the color swatches above — a normal, un-col-spanned grid cell, same
           reasoning as OptionGroup/ColorSwatches themselves, so the two share one row instead of this
           stacking as its own full-width row underneath. */}

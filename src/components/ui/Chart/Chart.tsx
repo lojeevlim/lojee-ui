@@ -1,6 +1,45 @@
+import { useId } from "react";
 import { cx, COLOR_HEX, type ColorName } from "../../../core/tokens";
 import { useProgress } from "../../../core/useCountUp";
+import { useDesign } from "../../../core/useDesign";
 import { motionClass, motionStyle, type TransitionVariant, type HoverEffect } from "../../../core/motion";
+
+// Claymorphism is drawn with plain SVG — layered gradients and stroked rims, no SVG filters or CSS geometry properties — so it renders the
+// same in every browser: a diagonal sheen (light on the top-left, shade on the bottom-right) over each shape, a rim that catches the light,
+// and one soft drop shadow for the whole chart. The shapes only get these under the Claymorphism design; Bento keeps the flat shapes.
+const CLAY_SHADOW = "drop-shadow(3px 6px 5px rgb(74 86 136 / 0.35))";
+
+function useClayDefs(on: boolean): { sheen: string; rim: string; gloss: string; defs: React.JSX.Element | null } {
+  const uid = useId().replace(/[^a-zA-Z0-9]/g, "");
+  const sheen = `lojee-sheen-${uid}`;
+  const rim = `lojee-rim-${uid}`;
+  const gloss = `lojee-gloss-${uid}`;
+  return {
+    sheen,
+    rim,
+    gloss,
+    defs: on ? (
+      <defs>
+        <linearGradient id={sheen} x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stopColor="#fff" stopOpacity="0.55" />
+          <stop offset="0.4" stopColor="#fff" stopOpacity="0" />
+          <stop offset="0.62" stopColor="#000" stopOpacity="0" />
+          <stop offset="1" stopColor="#000" stopOpacity="0.3" />
+        </linearGradient>
+        <linearGradient id={gloss} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#fff" stopOpacity="0.6" />
+          <stop offset="1" stopColor="#fff" stopOpacity="0" />
+        </linearGradient>
+        <linearGradient id={rim} x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stopColor="#fff" stopOpacity="0.95" />
+          <stop offset="0.45" stopColor="#fff" stopOpacity="0" />
+          <stop offset="0.6" stopColor="#000" stopOpacity="0" />
+          <stop offset="1" stopColor="#000" stopOpacity="0.4" />
+        </linearGradient>
+      </defs>
+    ) : null,
+  };
+}
 
 export type ChartType = "bar" | "line" | "donut";
 /** "default" draws the shapes only; "values" also prints each data value on the chart (above every bar and point, and in the donut legend and centre). */
@@ -85,10 +124,12 @@ function ValueTag({ x, y, value, progress }: { x: number; y: number; value: numb
   );
 }
 
-function BarChart({ data, color, height, svgClassName, progress, showValues }: { data: ChartDataPoint[]; color: ColorName; height: number; svgClassName?: string; progress: number; showValues: boolean }) {
+function BarChart({ data, color, height, svgClassName, progress, showValues, clay }: { data: ChartDataPoint[]; color: ColorName; height: number; svgClassName?: string; progress: number; showValues: boolean; clay: boolean }) {
   const max = Math.max(...data.map((d) => d.value), 1);
   const gap = VIEW_W / data.length / 4;
   const barWidth = VIEW_W / data.length - gap;
+  const g = useClayDefs(clay);
+  const radius = clay ? 12 : 4;
 
   return (
     <div className="relative">
@@ -96,20 +137,37 @@ function BarChart({ data, color, height, svgClassName, progress, showValues }: {
       viewBox={`0 0 ${VIEW_W} ${VIEW_H}`}
       preserveAspectRatio="none"
       className={cx("w-full", svgClassName)}
-      style={{ height }}
+      style={{ height, ...(clay ? { filter: CLAY_SHADOW } : null) }}
       role="img"
       aria-label="Bar chart"
     >
+      {g.defs}
+      {/* Clay: a pressed-in slot behind each bar for it to rise out of. */}
+      {clay &&
+        data.map((_, i) => (
+          <rect key={`slot-${i}`} x={i * (barWidth + gap) + gap / 2} y={0} width={barWidth} height={VIEW_H} rx={radius} fill="currentColor" className="text-fg/[0.06]" />
+        ))}
       {data.map((point, i) => {
         const barHeight = (point.value / max) * (VIEW_H - TOP_PADDING) * progress;
         const x = i * (barWidth + gap) + gap / 2;
         const y = VIEW_H - barHeight;
         return (
-          <rect key={i} x={x} y={y} width={barWidth} height={barHeight} rx={4} fill={hex(point.color ?? color)}>
-            <title>
-              {point.label}: {point.value}
-            </title>
-          </rect>
+          <g key={i}>
+            <rect x={x} y={y} width={barWidth} height={barHeight} rx={radius} fill={hex(point.color ?? color)}>
+              <title>
+                {point.label}: {point.value}
+              </title>
+            </rect>
+            {clay && barHeight > 2 && (
+              <>
+                <rect x={x} y={y} width={barWidth} height={barHeight} rx={radius} fill={`url(#${g.sheen})`} pointerEvents="none" />
+                <rect x={x + 3} y={y + 3} width={Math.max(0, barWidth - 6)} height={Math.max(0, barHeight - 6)} rx={Math.max(0, radius - 3)} fill="none" stroke={`url(#${g.rim})`} strokeWidth={8} strokeOpacity={0.45} vectorEffect="non-scaling-stroke" pointerEvents="none" />
+                <rect x={x + 1.5} y={y + 1.5} width={Math.max(0, barWidth - 3)} height={Math.max(0, barHeight - 3)} rx={Math.max(0, radius - 1.5)} fill="none" stroke={`url(#${g.rim})`} strokeWidth={3} vectorEffect="non-scaling-stroke" pointerEvents="none" />
+                {/* the glossy highlight running down the left of a clay tube */}
+                <rect x={x + barWidth * 0.17} y={y + barHeight * 0.1} width={barWidth * 0.13} height={barHeight * 0.5} rx={barWidth * 0.065} fill={`url(#${g.gloss})`} pointerEvents="none" />
+              </>
+            )}
+          </g>
         );
       })}
     </svg>
@@ -128,7 +186,7 @@ function BarChart({ data, color, height, svgClassName, progress, showValues }: {
 // stretches that clipped sliver into a thin shard instead of a clean circle.
 const LINE_PADDING_X = 8;
 
-function LineChart({ data, color, height, svgClassName, progress, showValues }: { data: ChartDataPoint[]; color: ColorName; height: number; svgClassName?: string; progress: number; showValues: boolean }) {
+function LineChart({ data, color, height, svgClassName, progress, showValues, clay }: { data: ChartDataPoint[]; color: ColorName; height: number; svgClassName?: string; progress: number; showValues: boolean; clay: boolean }) {
   const max = Math.max(...data.map((d) => d.value), 1);
   const plotWidth = VIEW_W - LINE_PADDING_X * 2;
   const stepX = data.length > 1 ? plotWidth / (data.length - 1) : 0;
@@ -138,6 +196,7 @@ function LineChart({ data, color, height, svgClassName, progress, showValues }: 
     return { x, y, point };
   });
   const strokeColor = hex(color);
+  const pts = points.map((p) => `${p.x},${p.y}`).join(" ");
 
   return (
     <div className="relative">
@@ -145,27 +204,53 @@ function LineChart({ data, color, height, svgClassName, progress, showValues }: 
       viewBox={`0 0 ${VIEW_W} ${VIEW_H}`}
       preserveAspectRatio="none"
       className={cx("w-full", svgClassName)}
-      style={{ height }}
+      style={{ height, ...(clay ? { filter: CLAY_SHADOW } : null) }}
       role="img"
       aria-label="Line chart"
     >
       <polyline
-        points={points.map((p) => `${p.x},${p.y}`).join(" ")}
+        points={pts}
         fill="none"
         stroke={strokeColor}
-        strokeWidth={2}
+        strokeWidth={clay ? 7 : 2}
         strokeLinejoin="round"
         strokeLinecap="round"
+        vectorEffect={clay ? "non-scaling-stroke" : undefined}
       />
-      {points.map(({ x, y, point }, i) => (
-        <circle key={i} cx={x} cy={y} r={4} fill={hex(point.color ?? color)} stroke="var(--lojee-surface)" strokeWidth={1.5}>
-          <title>
-            {point.label}: {point.value}
-          </title>
-        </circle>
-      ))}
+      {/* Clay: a thin light line along the top edge of the tube. */}
+      {clay && (
+        <polyline points={pts} fill="none" stroke="#fff" strokeOpacity={0.5} strokeWidth={2} strokeLinejoin="round" strokeLinecap="round" vectorEffect="non-scaling-stroke" transform="translate(-0.5 -1.5)" pointerEvents="none" />
+      )}
+      {!clay &&
+        points.map(({ x, y, point }, i) => (
+          <circle key={i} cx={x} cy={y} r={4} fill={hex(point.color ?? color)} stroke="var(--lojee-surface)" strokeWidth={1.5}>
+            <title>
+              {point.label}: {point.value}
+            </title>
+          </circle>
+        ))}
     </svg>
-    {showValues && points.map(({ x, y, point }, i) => <ValueTag key={i} x={x} y={y - 6} value={point.value} progress={progress} />)}
+    {/* Clay: round, glossy beads (HTML, so they stay perfectly round however the chart is stretched). */}
+    {clay &&
+      points.map(({ x, y, point }, i) => {
+        const c = hex(point.color ?? color);
+        return (
+          <span
+            key={i}
+            title={`${point.label}: ${point.value}`}
+            className="absolute h-[18px] w-[18px] rounded-full"
+            style={{
+              left: `${(x / VIEW_W) * 100}%`,
+              top: `${(y / VIEW_H) * 100}%`,
+              transform: "translate(-50%, -50%)",
+              background: `radial-gradient(circle at 32% 28%, rgb(255 255 255 / 0.85) 0, ${c} 52%, color-mix(in srgb, ${c} 72%, black) 100%)`,
+              boxShadow: "3px 4px 7px rgb(74 86 136 / 0.45), inset -2px -3px 5px rgb(0 0 0 / 0.25), inset 2px 2px 4px rgb(255 255 255 / 0.6)",
+              border: "3px solid var(--color-surface)",
+            }}
+          />
+        );
+      })}
+    {showValues && points.map(({ x, y, point }, i) => <ValueTag key={i} x={x} y={y - (clay ? 14 : 6)} value={point.value} progress={progress} />)}
     </div>
   );
 }
@@ -174,6 +259,26 @@ const DONUT_SIZE = 160;
 const DONUT_RADIUS = 60;
 const DONUT_STROKE = 22;
 const DONUT_CIRCUMFERENCE = 2 * Math.PI * DONUT_RADIUS;
+
+/** A concentric arc at `radius` covering the same angle as a segment drawn at `base` (its dash length and offset scale with the radius). */
+function ClayArc({ radius, base, length, offset, stroke, opacity, width }: { radius: number; base: number; length: number; offset: number; stroke: string; opacity: number; width: number }) {
+  const k = radius / base;
+  const circumference = 2 * Math.PI * radius;
+  return (
+    <circle
+      cx={DONUT_SIZE / 2}
+      cy={DONUT_SIZE / 2}
+      r={radius}
+      fill="none"
+      stroke={stroke}
+      strokeOpacity={opacity}
+      strokeWidth={width}
+      strokeDasharray={`${length * k} ${circumference - length * k}`}
+      strokeDashoffset={offset * k}
+      pointerEvents="none"
+    />
+  );
+}
 
 function DonutChart({
   data,
@@ -184,6 +289,7 @@ function DonutChart({
   labelClassName,
   progress,
   showValues,
+  clay,
 }: {
   data: ChartDataPoint[];
   color: ColorName;
@@ -193,6 +299,7 @@ function DonutChart({
   labelClassName?: string;
   progress: number;
   showValues: boolean;
+  clay: boolean;
 }) {
   const total = data.reduce((sum, d) => sum + d.value, 0) || 1;
   // Precompute each segment's cumulative starting offset into a plain array
@@ -213,24 +320,35 @@ function DonutChart({
   return (
     <div className="flex w-full flex-wrap items-center justify-center gap-6" style={{ minHeight: height }}>
       <div className="relative shrink-0" style={{ height, width: height }}>
-      <svg viewBox={`0 0 ${DONUT_SIZE} ${DONUT_SIZE}`} className={cx("shrink-0", svgClassName)} style={{ height, width: height }} role="img" aria-label="Donut chart">
+      <svg viewBox={`0 0 ${DONUT_SIZE} ${DONUT_SIZE}`} className={cx("shrink-0", svgClassName)} style={{ height, width: height, ...(clay ? { filter: CLAY_SHADOW } : null) }} role="img" aria-label="Donut chart">
         <g transform={`rotate(-90 ${DONUT_SIZE / 2} ${DONUT_SIZE / 2})`}>
+          {/* Clay: the empty ring the segments sit in. */}
+          {clay && <circle cx={DONUT_SIZE / 2} cy={DONUT_SIZE / 2} r={DONUT_RADIUS} fill="none" strokeWidth={DONUT_STROKE} stroke="currentColor" className="text-fg/[0.06]" />}
           {segments.map(({ point, segmentLength, offset }, i) => (
-            <circle
-              key={i}
-              cx={DONUT_SIZE / 2}
-              cy={DONUT_SIZE / 2}
-              r={DONUT_RADIUS}
-              fill="none"
-              stroke={hex(point.color ?? color)}
-              strokeWidth={DONUT_STROKE}
-              strokeDasharray={`${segmentLength} ${DONUT_CIRCUMFERENCE - segmentLength}`}
-              strokeDashoffset={offset}
-            >
-              <title>
-                {point.label}: {point.value}
-              </title>
-            </circle>
+            <g key={i}>
+              <circle
+                cx={DONUT_SIZE / 2}
+                cy={DONUT_SIZE / 2}
+                r={DONUT_RADIUS}
+                fill="none"
+                stroke={hex(point.color ?? color)}
+                strokeWidth={DONUT_STROKE}
+                strokeDasharray={`${segmentLength} ${DONUT_CIRCUMFERENCE - segmentLength}`}
+                strokeDashoffset={offset}
+              >
+                <title>
+                  {point.label}: {point.value}
+                </title>
+              </circle>
+              {/* Clay: the ring becomes a puffy tube — a light line along its outer edge and a shade along its inner edge. */}
+              {clay && segmentLength > 0.5 && (
+                <>
+                  <ClayArc radius={DONUT_RADIUS + DONUT_STROKE / 2 - 4} base={DONUT_RADIUS} length={segmentLength} offset={offset} stroke="#fff" opacity={0.24} width={6} />
+                  <ClayArc radius={DONUT_RADIUS + DONUT_STROKE / 2 - 5.5} base={DONUT_RADIUS} length={segmentLength} offset={offset} stroke="#fff" opacity={0.7} width={2} />
+                  <ClayArc radius={DONUT_RADIUS - DONUT_STROKE / 2 + 4} base={DONUT_RADIUS} length={segmentLength} offset={offset} stroke="#000" opacity={0.14} width={6} />
+                </>
+              )}
+            </g>
           ))}
         </g>
       </svg>
@@ -260,16 +378,20 @@ function DonutChart({
 export function Chart({ type = "bar", variant = "default", data, height = 200, color = "accent", showLabels = true, countUp = true, countUpDuration, className, classNames, transition, transitionDuration, transitionDelay, hoverEffect }: ChartProps) {
   const progress = useProgress(countUp, countUpDuration);
   const showValues = variant === "values";
+  const [rootRef, design] = useDesign();
+  const clay = design === "clay";
 
   return (
     <div
+      ref={rootRef}
+      data-chart=""
       className={cx("w-full", motionClass(transition, hoverEffect), className, classNames?.root)}
       style={motionStyle(transitionDuration, transitionDelay)}
     >
-      {type === "bar" && <BarChart data={data} color={color} height={height} svgClassName={classNames?.svg} progress={progress} showValues={showValues} />}
-      {type === "line" && <LineChart data={data} color={color} height={height} svgClassName={classNames?.svg} progress={progress} showValues={showValues} />}
+      {type === "bar" && <BarChart data={data} color={color} height={height} svgClassName={classNames?.svg} progress={progress} showValues={showValues} clay={clay} />}
+      {type === "line" && <LineChart data={data} color={color} height={height} svgClassName={classNames?.svg} progress={progress} showValues={showValues} clay={clay} />}
       {type === "donut" && (
-        <DonutChart data={data} color={color} height={height} showLabels={showLabels} svgClassName={classNames?.svg} labelClassName={classNames?.label} progress={progress} showValues={showValues} />
+        <DonutChart data={data} color={color} height={height} showLabels={showLabels} svgClassName={classNames?.svg} labelClassName={classNames?.label} progress={progress} showValues={showValues} clay={clay} />
       )}
       {showLabels && type !== "donut" && <LabelRow data={data} className={classNames?.label} />}
     </div>

@@ -479,10 +479,11 @@ export default function ThemeShowcase() {
           <ApiTable
             rows={[
               ["defaultMode", '"light" | "dark" — "light"', "Used when nothing is saved yet."],
-              ["defaultAccent", "AccentName — \"slate\"", "One of slate, gray, indigo, violet, blue, cyan, emerald, teal, amber, orange, rose, pink."],
+              ["defaultAccent", "Accent — \"slate\"", "One of slate, gray, indigo, violet, blue, cyan, emerald, teal, amber, orange, rose, pink — or any custom hex color such as \"#e11d89\"."],
               ["defaultActiveVariant", '"solid" | "outline" | "soft" — "solid"', "How active items are drawn (current page in a Sidebar / Navbar / Pagination, selected segment…)."],
+              ["defaultDesign", '"bento" | "clay" — "bento"', "The design language: Bento UI (flat surfaces, thin borders — the default) or Claymorphism (soft, puffy, rounded shapes with a raised inner light and shade)."],
               ["isolated", "boolean — false", "Scope the theme to this provider's own wrapper (no <html> change, no localStorage) — for self-contained previews."],
-              ["mode / accent", "ThemeMode / AccentName", "Controlled values; when given they win over the provider's own state."],
+              ["mode / accent / design", "ThemeMode / Accent / DesignName", "Controlled values; when given they win over the provider's own state."],
               ["children", "ReactNode", "Your app."],
             ]}
           />
@@ -497,11 +498,13 @@ export default function ThemeShowcase() {
           <ApiTable
             rows={[
               ["mode", '"light" | "dark"', "The active mode."],
-              ["accent", "AccentName", "The active accent."],
+              ["accent", "Accent", "The active accent: a built-in name or a custom hex color."],
               ["activeVariant", '"solid" | "outline" | "soft"', "How active items are drawn."],
+              ["design", '"bento" | "clay"', "The active design language."],
               ["setMode(mode)", "(mode) => void", "Switch mode and persist it."],
               ["setAccent(accent)", "(accent) => void", "Switch accent and persist it."],
               ["setActiveVariant(variant)", "(variant) => void", "Switch the active-item style and persist it."],
+              ["setDesign(design)", "(design) => void", "Switch between Bento UI and Claymorphism and persist it."],
             ]}
           />
         </Step>
@@ -612,7 +615,7 @@ export default function ThemeShowcase() {
           <ApiTable
             rows={[
               ["theme", '"light" | "dark"', "Omit to follow ThemeProvider."],
-              ["accent", "AccentName", "Omit to follow ThemeProvider."],
+              ["accent", "Accent", "A built-in name or a custom hex color. Omit to follow ThemeProvider."],
               ["layout", "GridLayout", "Section placement — see the App page."],
               ["collapseBelow", '"md" | "lg" | "xl" | "2xl" | "3xl"', "Container width below which Side becomes a drawer."],
             ]}

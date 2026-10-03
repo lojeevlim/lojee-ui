@@ -22,6 +22,9 @@ import { getIcon } from "../../../core/icons";
 import { animatedClass, animatedStyle, type AnimatedVariant } from "../../../core/animated";
 import { AnimatedOverlay } from "../../../core/AnimatedOverlay";
 import { motionClass, motionStyle, type TransitionVariant, type HoverEffect } from "../../../core/motion";
+import { linearGradient, type GradientDirection } from "../../../core/gradient";
+
+export type { GradientDirection };
 
 export interface ButtonProps {
   /** Attention animation: "glow" | "pulse" | "sweep" | "bounce" | "float" | "wiggle" | "border-spin" (default: none). Respects `prefers-reduced-motion`. */
@@ -34,8 +37,10 @@ export interface ButtonProps {
   variant?: ButtonVariant;
   /** Button color: a built-in `ColorName` (default: "accent", which follows the theme accent) or any CSS color such as "#8b5cf6"; ignored by the destructive variants. */
   color?: ColorName | (string & {});
-  /** Second color for the gradient variant (defaults to a matching preset partner). */
-  gradientTo?: ColorName;
+  /** Second color for the gradient variant: a `ColorName` or any CSS color such as "#ec4899" (defaults to a matching preset partner). */
+  gradientTo?: ColorName | (string & {});
+  /** Direction of the gradient variant: "to-right" | "to-left" | "to-bottom" | "to-top" | "to-br" | "to-bl" | "to-tr" | "to-tl" (default: "to-right"). */
+  gradientDirection?: GradientDirection;
   /** "xs" | "sm" | "md" | "lg" | "xl" | "full" (full width) (default: "md"). */
   size?: Size;
   /** "default" (size-based rounding), "pill" or "square" (default: "default"). */
@@ -86,6 +91,7 @@ export function Button({
   variant = "solid",
   color = "accent",
   gradientTo,
+  gradientDirection = "to-right",
   size = "md",
   shape = "default",
   disabled = false,
@@ -131,18 +137,18 @@ export function Button({
   } else if (variant === "destructive-outline") {
     variantClass = destructiveClasses.outline;
   } else if (variant === "gradient") {
-    const named = color as ColorName;
-    const toColor = gradientTo ?? defaultGradientPartner[named] ?? "violet";
     variantClass = GRADIENT_CLASSES;
-    gradientStyle = {
-      backgroundImage: `linear-gradient(to right, var(--color-${named}-600), var(--color-${toColor}-600))`,
-    };
   } else if (variant === "glass") {
     const colorSet = colorClasses[color as ColorName] || colorClasses.slate;
     variantClass = cx(colorSet.soft, "backdrop-blur-md border border-white/60 dark:border-white/10 shadow-sm");
   } else {
     const colorSet = colorClasses[color as ColorName] || colorClasses.slate;
     variantClass = colorSet[variant] || colorSet.solid;
+  }
+
+  if (variant === "gradient") {
+    const to = gradientTo ?? (isColorName(color) ? defaultGradientPartner[color] ?? "violet" : `color-mix(in srgb, ${color} 60%, black)`);
+    gradientStyle = { ...gradientStyle, backgroundImage: linearGradient(color, to, gradientDirection) };
   }
 
   const sizeClass = iconOnly ? iconOnlySizeClasses[size] : sizeClasses[size] || sizeClasses.md;

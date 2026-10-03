@@ -1,4 +1,4 @@
-import { cx, type ColorName } from "../../../core/tokens";
+import { cx, isColorName, type ColorName } from "../../../core/tokens";
 import { motionClass, motionStyle, type TransitionVariant } from "../../../core/motion";
 
 export type ProgressBarSize = "sm" | "md" | "lg";
@@ -10,8 +10,8 @@ export interface ProgressBarProps {
   max?: number;
   /** Controls track height (default: "md"). */
   size?: ProgressBarSize;
-  /** default "accent" — follows the theme accent */
-  color?: ColorName;
+  /** A built-in ColorName or any CSS color such as "#8b5cf6" (default: "accent" — follows the theme accent). */
+  color?: ColorName | (string & {});
   /** Shows the percentage as text. */
   showLabel?: boolean;
   /** Diagonal-stripe texture on the filled bar. */
@@ -76,7 +76,9 @@ export function ProgressBar({
 }: ProgressBarProps) {
   const clamped = Math.min(max, Math.max(0, value ?? 0));
   const pct = max > 0 ? (clamped / max) * 100 : 0;
-  const barColor = BG_COLOR[color] || BG_COLOR.slate;
+  const named = isColorName(color);
+  const barColor = named ? BG_COLOR[color] || BG_COLOR.slate : undefined;
+  const barStyle = named ? undefined : { backgroundColor: color };
 
   return (
     <div className={cx("w-full", motionClass(transition), className, classNames?.root)} style={motionStyle(transitionDuration, transitionDelay)}>
@@ -98,6 +100,7 @@ export function ProgressBar({
               barColor,
               classNames?.bar
             )}
+            style={barStyle}
           />
         ) : (
           <span
@@ -107,7 +110,7 @@ export function ProgressBar({
               striped && STRIPE_CLASSES,
               classNames?.bar
             )}
-            style={{ width: `${pct}%` }}
+            style={{ width: `${pct}%`, ...barStyle }}
           />
         )}
       </div>

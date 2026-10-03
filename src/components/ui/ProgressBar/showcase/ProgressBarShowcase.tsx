@@ -41,43 +41,43 @@ export default function ProgressBarShowcase() {
         </section>
 
         <section>
-          <SectionLabel sub="color picks from the shared palette.">Colors</SectionLabel>
+          <SectionLabel sub="Every bar follows the theme accent — change the accent from the top bar and they all update.">Colors</SectionLabel>
           <div className="flex flex-col gap-4">
-            <ProgressBar value={70} color="indigo" />
-            <ProgressBar value={55} color="emerald" />
-            <ProgressBar value={30} color="rose" />
+            <ProgressBar value={70} />
+            <ProgressBar value={55} />
+            <ProgressBar value={30} />
           </div>
           <CodeBlock
             variants={{
-              react: `<ProgressBar value={70} color="indigo" />
-<ProgressBar value={55} color="emerald" />
-<ProgressBar value={30} color="rose" />`,
-              js: `<l-ProgressBar value="70" color="indigo"></l-ProgressBar>
-<l-ProgressBar value="55" color="emerald"></l-ProgressBar>
-<l-ProgressBar value="30" color="rose"></l-ProgressBar>
+              react: `<ProgressBar value={70} />
+<ProgressBar value={55} />
+<ProgressBar value={30} />`,
+              js: `<l-ProgressBar value="70"></l-ProgressBar>
+<l-ProgressBar value="55"></l-ProgressBar>
+<l-ProgressBar value="30"></l-ProgressBar>
 
 <script type="module">import "lojee-ui/elements";</script>`,
-              vue: `<l-ProgressBar value="70" color="indigo" />
-<l-ProgressBar value="55" color="emerald" />
-<l-ProgressBar value="30" color="rose" />`,
-              angular: `<l-ProgressBar value="70" color="indigo" />
-<l-ProgressBar value="55" color="emerald" />
-<l-ProgressBar value="30" color="rose" />`,
+              vue: `<l-ProgressBar value="70" />
+<l-ProgressBar value="55" />
+<l-ProgressBar value="30" />`,
+              angular: `<l-ProgressBar value="70" />
+<l-ProgressBar value="55" />
+<l-ProgressBar value="30" />`,
             }}
           />
         </section>
 
         <section>
           <SectionLabel sub="A diagonal-stripe texture on the filled bar.">Striped</SectionLabel>
-          <ProgressBar value={65} striped color="blue" />
+          <ProgressBar value={65} striped />
           <CodeBlock
             variants={{
-              react: `<ProgressBar value={65} striped color="blue" />`,
-              js: `<l-ProgressBar value="65" striped color="blue"></l-ProgressBar>
+              react: `<ProgressBar value={65} striped />`,
+              js: `<l-ProgressBar value="65" striped></l-ProgressBar>
 
 <script type="module">import "lojee-ui/elements";</script>`,
-              vue: `<l-ProgressBar value="65" striped color="blue" />`,
-              angular: `<l-ProgressBar value="65" striped color="blue" />`,
+              vue: `<l-ProgressBar value="65" striped />`,
+              angular: `<l-ProgressBar value="65" striped />`,
             }}
           />
         </section>
@@ -99,15 +99,15 @@ export default function ProgressBarShowcase() {
 
         <section>
           <SectionLabel sub="Shows the current percentage as text.">With label</SectionLabel>
-          <ProgressBar value={45} showLabel color="violet" />
+          <ProgressBar value={45} showLabel />
           <CodeBlock
             variants={{
-              react: `<ProgressBar value={45} showLabel color="violet" />`,
-              js: `<l-ProgressBar value="45" showLabel color="violet"></l-ProgressBar>
+              react: `<ProgressBar value={45} showLabel />`,
+              js: `<l-ProgressBar value="45" showLabel></l-ProgressBar>
 
 <script type="module">import "lojee-ui/elements";</script>`,
-              vue: `<l-ProgressBar value="45" showLabel color="violet" />`,
-              angular: `<l-ProgressBar value="45" showLabel color="violet" />`,
+              vue: `<l-ProgressBar value="45" showLabel />`,
+              angular: `<l-ProgressBar value="45" showLabel />`,
             }}
           />
         </section>

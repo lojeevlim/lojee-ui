@@ -1,7 +1,7 @@
 import { useState } from "react";
 import CodeBlock from "../../CodeBlock";
 import { COLORS } from "../../../../core/tokens";
-import { THEME_MODES, useTheme, type AccentName, type ThemeMode } from "../../../../core/theme";
+import { THEME_MODES, useTheme, type Accent, type ThemeMode } from "../../../../core/theme";
 import { ACTIVE_VARIANTS, type ActiveVariant } from "../../../../core/activeVariant";
 import { ThemeProvider } from "../../Theme/ThemeProvider";
 import { SectionLabel } from "../../ShowcaseHelpers";
@@ -18,7 +18,7 @@ const SIDE_FIRST: GridLayout = [
 export default function AppShowcase() {
   const { accent: siteAccent } = useTheme();
   const [mode, setMode] = useState<ThemeMode>("light");
-  const [accent, setAccent] = useState<AccentName>(siteAccent);
+  const [accent, setAccent] = useState<Accent>(siteAccent);
   // Follow the site accent when it changes (the swatches below can still override it).
   const [prevSiteAccent, setPrevSiteAccent] = useState(siteAccent);
   if (prevSiteAccent !== siteAccent) {

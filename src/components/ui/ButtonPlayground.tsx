@@ -8,7 +8,7 @@ import {
   ButtonGroup,
   SegmentButton,
   defaultGradientPartner,
-  type ColorName,
+  type GradientDirection,
   type ButtonVariant,
   type Size,
   type Shape,
@@ -22,6 +22,18 @@ import { useMotion } from "./playgroundMotion";
 const VARIANTS: ButtonVariant[] = ["solid", "outline", "ghost", "soft", "link", "dashed", "gradient", "glass"];
 const SIZES: Size[] = ["xs", "sm", "md", "lg", "xl", "full"];
 const SHAPES: Shape[] = ["default", "pill", "square"];
+const GRADIENT_DIRECTIONS: GradientDirection[] = ["to-right", "to-left", "to-bottom", "to-top", "to-br", "to-bl", "to-tr", "to-tl"];
+const DIRECTION_LABELS: Record<GradientDirection, string> = {
+  "to-right": "→ Right",
+  "to-left": "← Left",
+  "to-bottom": "↓ Down",
+  "to-top": "↑ Up",
+  "to-br": "↘ Down right",
+  "to-bl": "↙ Down left",
+  "to-tr": "↗ Up right",
+  "to-tl": "↖ Up left",
+};
+const SEGMENTS = ["One", "Two", "Three"];
 const LAYOUTS = ["single", "icon", "group", "split"] as const;
 type Layout = (typeof LAYOUTS)[number];
 const LAYOUT_LABELS: Record<Layout, string> = {
@@ -71,7 +83,10 @@ export default function ButtonPlayground() {
   const motion = useMotion();
   const [variant, setVariant] = useState<ButtonVariant>("solid");
   const [color, setColor] = useState<string>("accent");
-  const [gradientTo, setGradientTo] = useState<ColorName>("violet");
+  const [gradientTo, setGradientTo] = useState<string>("violet");
+  const [gradientDirection, setGradientDirection] = useState<GradientDirection>("to-right");
+  const [showIcon, setShowIcon] = useState(true);
+  const [activeSeg, setActiveSeg] = useState(0);
   const [size, setSize] = useState<Size>("lg");
   const [shape, setShape] = useState<Shape>("default");
   const [label, setLabel] = useState("Click me");
@@ -112,12 +127,12 @@ export default function ButtonPlayground() {
     }
     if (layout === "group") {
       return (
-        <ButtonGroup key={motion.replayKey} {...motion.props} shape={shape}>
-          <SegmentButton active color={color}>
-            {label || "One"}
-          </SegmentButton>
-          <SegmentButton color={color}>Two</SegmentButton>
-          <SegmentButton color={color}>Three</SegmentButton>
+        <ButtonGroup key={motion.replayKey} {...motion.props} shape={shape} onItemClick={({ index }) => setActiveSeg(index)}>
+          {SEGMENTS.map((name, i) => (
+            <SegmentButton key={name} active={activeSeg === i} color={color} icon={showIcon ? iconKey : undefined}>
+              {i === 0 ? label || name : name}
+            </SegmentButton>
+          ))}
         </ButtonGroup>
       );
     }
@@ -151,9 +166,10 @@ export default function ButtonPlayground() {
         variant={variant}
         color={color}
         gradientTo={variant === "gradient" ? gradientTo : undefined}
+        gradientDirection={variant === "gradient" ? gradientDirection : undefined}
         size={size}
         shape={shape}
-        icon={iconKey}
+        icon={showIcon ? iconKey : undefined}
         iconPosition={iconPosition}
         label={label || "Button"}
       />
@@ -169,7 +185,9 @@ export default function ButtonPlayground() {
     if (layout === "group") {
       const shapeAttr = shape !== "default" ? ` shape="${shape}"` : "";
       const colorAttr = color !== "accent" ? ` color="${color}"` : "";
-      return `<ButtonGroup${shapeAttr}${motion.attrs}>\n  <SegmentButton active${colorAttr}>${label || "One"}</SegmentButton>\n  <SegmentButton${colorAttr}>Two</SegmentButton>\n  <SegmentButton${colorAttr}>Three</SegmentButton>\n</ButtonGroup>`;
+      const iconAttr = showIcon ? ` icon="${iconKey}"` : "";
+      const segs = SEGMENTS.map((name, i) => `  <SegmentButton${activeSeg === i ? " active" : ""}${colorAttr}${iconAttr}>${i === 0 ? label || name : name}</SegmentButton>`).join("\n");
+      return `<ButtonGroup${shapeAttr}${motion.attrs} onItemClick={({ index, label }) => setActive(index)}>\n${segs}\n</ButtonGroup>`;
     }
     if (layout === "split") {
       const shapeAttr = shape !== "default" ? ` shape="${shape}"` : "";
@@ -186,9 +204,9 @@ export default function ButtonPlayground() {
       return `<SplitButton icon="check" label="${label || "Approve"}" color="${color}" size="${size}"${shapeAttr}${menuIconAttr}${motion.attrs} />`;
     }
     return `<Button variant="${variant}" color="${color}"${
-      variant === "gradient" ? ` gradientTo="${gradientTo}"` : ""
-    } size="${size}"${anim.attrs}${motion.attrs}${shape !== "default" ? ` shape="${shape}"` : ""} icon="${iconKey}"${
-      iconPosition === "right" ? ` iconPosition="right"` : ""
+      variant === "gradient" ? ` gradientTo="${gradientTo}"${gradientDirection !== "to-right" ? ` gradientDirection="${gradientDirection}"` : ""}` : ""
+    } size="${size}"${anim.attrs}${motion.attrs}${shape !== "default" ? ` shape="${shape}"` : ""}${showIcon ? ` icon="${iconKey}"` : ""}${
+      showIcon && iconPosition === "right" ? ` iconPosition="right"` : ""
     } label="${label}" />`;
   })();
 
@@ -204,7 +222,9 @@ export default function ButtonPlayground() {
     if (layout === "group") {
       const shapeAttr = shape !== "default" ? ` shape="${shape}"` : "";
       const colorAttr = color !== "accent" ? ` color="${color}"` : "";
-      return `<l-ButtonGroup${shapeAttr}${motion.attrs}>\n  <l-SegmentButton active${colorAttr}>${label || "One"}</l-SegmentButton>\n  <l-SegmentButton${colorAttr}>Two</l-SegmentButton>\n  <l-SegmentButton${colorAttr}>Three</l-SegmentButton>\n</l-ButtonGroup>`;
+      const iconAttr = showIcon ? ` icon="${iconKey}"` : "";
+      const segs = SEGMENTS.map((name, i) => `  <l-segment-button${activeSeg === i ? " active" : ""}${colorAttr}${iconAttr}>${i === 0 ? label || name : name}</l-segment-button>`).join("\n");
+      return `<l-button-group${shapeAttr}${motion.attrs}>\n${segs}\n</l-button-group>`;
     }
     if (layout === "split") {
       const shapeAttr = shape !== "default" ? ` shape="${shape}"` : "";
@@ -221,17 +241,19 @@ export default function ButtonPlayground() {
       return `<l-SplitButton icon="check" label="${label || "Approve"}" color="${color}" size="${size}"${shapeAttr}${menuIconAttr}${motion.attrs} />`;
     }
     return `<l-Button variant="${variant}" color="${color}"${
-      variant === "gradient" ? ` gradientTo="${gradientTo}"` : ""
-    } size="${size}"${anim.attrs}${motion.attrs}${shape !== "default" ? ` shape="${shape}"` : ""} icon="${iconKey}"${
-      iconPosition === "right" ? ` iconPosition="right"` : ""
+      variant === "gradient" ? ` gradientTo="${gradientTo}"${gradientDirection !== "to-right" ? ` gradientDirection="${gradientDirection}"` : ""}` : ""
+    } size="${size}"${anim.attrs}${motion.attrs}${shape !== "default" ? ` shape="${shape}"` : ""}${showIcon ? ` icon="${iconKey}"` : ""}${
+      showIcon && iconPosition === "right" ? ` iconPosition="right"` : ""
     } label="${label}" />`;
   })();
 
+  // A ButtonGroup reports its clicks through one handler on the group — each framework's own way of listening, no ids or queries.
+  const groupHandler = (attr: string) => htmlMarkup.replace("<l-button-group", `<l-button-group ${attr}`);
   const codeVariants: CodeBlockVariants = {
     react: code,
-    js: `${htmlMarkup}\n\n<script type="module">import "lojee-ui/elements";</script>`,
-    vue: htmlMarkup,
-    angular: htmlMarkup,
+    js: `${layout === "group" ? groupHandler('onitemclick="console.log(event.detail)"') : htmlMarkup}${layout === "group" ? "\n\n<!-- event.detail is { index, label } of the clicked button -->" : ""}\n\n<script type="module">import "lojee-ui/elements";</script>`,
+    vue: layout === "group" ? groupHandler('@itemclick="onItemClick($event.detail)"') : htmlMarkup,
+    angular: layout === "group" ? groupHandler('(itemclick)="onItemClick($event.detail)"') : htmlMarkup,
   };
 
   return (
@@ -263,7 +285,7 @@ export default function ButtonPlayground() {
             onChange={(v) => {
               setVariant(v);
               if (v === "gradient") {
-                setGradientTo((prev) => (defaultGradientPartner[color] as ColorName) ?? prev);
+                setGradientTo((prev) => defaultGradientPartner[color] ?? prev);
               }
             }}
           />
@@ -279,9 +301,13 @@ export default function ButtonPlayground() {
           />
         )}
 
-        {(layout === "single" || layout === "icon") && (
+        {(layout === "single" || layout === "group") && (
+          <OptionGroup label="Icon" options={["on", "off"] as const} value={showIcon ? "on" : "off"} onChange={(v) => setShowIcon(v === "on")} />
+        )}
+
+        {(layout === "icon" || ((layout === "single" || layout === "group") && showIcon)) && (
           <div>
-            <span className="mb-1.5 block text-xs font-medium text-fg-subtle">Icon</span>
+            <span className="mb-1.5 block text-xs font-medium text-fg-subtle">Icon picker</span>
             <div className="flex flex-wrap gap-1.5">
               {ICONS.map(({ key, icon: Icon }) => (
                 <button
@@ -302,7 +328,7 @@ export default function ButtonPlayground() {
           </div>
         )}
 
-        {layout === "single" && (
+        {layout === "single" && showIcon && (
           <OptionGroup label="Icon position" options={["left", "right"] as const} value={iconPosition} onChange={setIconPosition} />
         )}
 
@@ -378,15 +404,17 @@ export default function ButtonPlayground() {
           </div>
         )}
 
-        <ColorSwatches
-          label={layout === "single" && variant === "gradient" ? "From color" : "Color"}
-          value={color}
-          onChange={setColor}
-          custom
-        />
+        {layout === "single" && variant === "gradient" ? (
+          <div className="grid grid-cols-1 gap-4 sm:col-span-2 sm:grid-cols-2">
+            <ColorSwatches label="From color" value={color} onChange={setColor} custom />
+            <ColorSwatches label="To color" value={gradientTo} onChange={setGradientTo} custom />
+          </div>
+        ) : (
+          <ColorSwatches label="Color" value={color} onChange={setColor} custom />
+        )}
 
         {layout === "single" && variant === "gradient" && (
-          <ColorSwatches label="To color" value={gradientTo} onChange={setGradientTo} />
+          <OptionGroup label="Gradient direction" options={GRADIENT_DIRECTIONS} value={gradientDirection} onChange={setGradientDirection} render={(o) => DIRECTION_LABELS[o]} />
         )}
 
         {(layout === "single" || layout === "icon") && anim.controls}

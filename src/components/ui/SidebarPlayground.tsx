@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { PREVIEW_PAGE_BG } from "./playgroundUtils";
 import { Sidebar, type SidebarVariant } from "./Sidebar/Sidebar";
-import { OptionGroup, ColorSwatches, PlaygroundLayout, AppWindowFrame } from "./PlaygroundHelpers";
+import { OptionGroup, GradientColorSwatches, PlaygroundLayout, AppWindowFrame } from "./PlaygroundHelpers";
 import { TRANSITIONS, type TransitionVariant } from "../../core/motion";
 import type { CodeBlockVariants } from "./CodeBlock";
 import { useMotion } from "./playgroundMotion";
+import type { GradientDirection } from "../../core/gradient";
 
-const VARIANTS: SidebarVariant[] = ["light", "dark", "bordered", "elevated", "minimal", "gradient", "glass"];
+const VARIANTS: SidebarVariant[] = ["light", "dark", "bordered", "elevated", "minimal", "gradient"];
 
 // "bordered"/"elevated" build their own backdrop in now (see Sidebar.tsx's `isDetachedPanel`), so
 // they dock flush here just like every other variant. "minimal" has no chrome of its own by design
@@ -18,7 +19,6 @@ const DOCK_CELL_CLASSES: Record<SidebarVariant, string> = {
   bordered: "flex",
   elevated: "flex",
   gradient: "flex",
-  glass: "flex",
   minimal: `flex ${PREVIEW_PAGE_BG} p-3`,
 };
 
@@ -50,6 +50,8 @@ export default function SidebarPlayground() {
   const [collapsed, setCollapsed] = useState(false);
   const [variant, setVariant] = useState<SidebarVariant>("light");
   const [color, setColor] = useState<string>("accent");
+  const [gradientTo, setGradientTo] = useState<string>("violet");
+  const [gradientDirection, setGradientDirection] = useState<GradientDirection>("to-bottom");
   const [collapsible, setCollapsible] = useState(true);
   const [defaultActiveItem, setDefaultActiveItem] = useState("none");
   const [borderWidth, setBorderWidth] = useState(2);
@@ -81,6 +83,8 @@ export default function SidebarPlayground() {
             collapsed={collapsed}
             variant={variant}
             color={color}
+            gradientTo={variant === "gradient" ? gradientTo : undefined}
+            gradientDirection={variant === "gradient" ? gradientDirection : undefined}
             collapsible={collapsible}
             onCollapsedChange={setCollapsed}
             onActiveItemChange={(item) => setActiveLabel(item.label)}
@@ -104,7 +108,9 @@ export default function SidebarPlayground() {
   const widthAttrHtml = !collapsed && width !== 256 ? ` width="${width}"` : "";
   const collapsedAttr = collapsed ? " collapsed" : "";
   const variantAttr = variant !== "light" ? ` variant="${variant}"` : "";
-  const colorAttr = color !== "accent" ? ` color="${color}"` : "";
+  const baseColorAttr = color !== "accent" ? ` color="${color}"` : "";
+  const gradientAttr = variant === "gradient" ? ` gradientTo="${gradientTo}"${gradientDirection !== "to-bottom" ? ` gradientDirection="${gradientDirection}"` : ""}` : "";
+  const colorAttr = `${baseColorAttr}${gradientAttr}`;
   const collapsibleAttr = collapsible ? " collapsible" : "";
   // `collapsed`/`collapsible` are boolean props — a bare attribute (no `="..."`) parses as an empty
   // string, which r2wc's boolean coercion reads as false, so every non-JSX target needs an explicit
@@ -227,7 +233,15 @@ export class AppComponent {
         value={defaultActiveItem}
         onChange={setDefaultActiveItem}
       />
-      <ColorSwatches value={color} onChange={setColor} custom />
+      <GradientColorSwatches
+        gradient={variant === "gradient"}
+        color={color}
+        onColorChange={setColor}
+        gradientTo={gradientTo}
+        onGradientToChange={setGradientTo}
+        direction={gradientDirection}
+        onDirectionChange={setGradientDirection}
+      />
       <div className="flex items-center gap-4 sm:col-span-2">
         <label className="flex items-center gap-2 text-xs font-medium text-fg-subtle">
           <input type="checkbox" checked={collapsible} onChange={(e) => setCollapsible(e.target.checked)} />
