@@ -53,8 +53,8 @@ export default function SearchMenu() {
         className="flex items-center gap-2 rounded-md border border-border bg-surface px-2.5 py-2 text-sm text-fg-muted transition-colors hover:bg-surface-muted focus:outline-none focus:ring-2 focus:ring-fg/10"
       >
         <Icon name="search" size={16} />
-        <span className="hidden sm:inline">Search</span>
-        <kbd className="hidden rounded border border-border bg-surface-muted px-1.5 py-0.5 font-sans text-[10px] text-fg-subtle md:inline">⌘K</kbd>
+        <span className="hidden min-[1280px]:inline">Search</span>
+        <kbd className="hidden rounded border border-border bg-surface-muted px-1.5 py-0.5 font-sans text-[10px] text-fg-subtle min-[1280px]:inline">⌘K</kbd>
       </button>
       <CommandMenu open={open} onClose={() => setOpen(false)} items={items} transition="fade" placeholder="Search components, docs and pages…" />
     </>

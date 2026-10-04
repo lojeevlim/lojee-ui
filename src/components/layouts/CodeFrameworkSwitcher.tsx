@@ -30,7 +30,7 @@ export default function CodeFrameworkSwitcher({ transition, transitionDuration, 
       transitionDuration={transitionDuration}
       transitionDelay={transitionDelay}
       hoverEffect={hoverEffect}
-      className="w-40 max-sm:w-32"
+      className="w-40 max-[1279px]:w-32 max-[900px]:w-28"
       classNames={{ menu: "right-0 left-auto w-44" }}
     />
   );

@@ -77,14 +77,14 @@ export default function NavbarLayout({ activeNav = "components", onNavChange, sh
       // icon is hidden and the links are text-only as before. On phones the equal-width columns give way to
       // content-sized ones.
       classNames={{
-        root: "relative z-[60] h-16 gap-1 px-2 py-0 sm:gap-4 sm:px-8 max-sm:[&>div:first-child]:gap-0 max-sm:[&>div:first-child]:min-w-0",
+        root: "relative z-[60] h-16 gap-1 px-2 py-0 sm:gap-2 sm:px-4 min-[1024px]:gap-4 min-[1024px]:px-8 max-sm:[&>div:first-child]:gap-0 max-sm:[&>div:first-child]:min-w-0",
         actions: "max-sm:gap-1",
         links:
-          "auto-cols-auto gap-1 max-sm:gap-0 max-sm:[&_a]:px-2.5 max-sm:[&_button]:px-2.5 max-sm:[&_a>span]:sr-only max-sm:[&_button>span]:sr-only sm:[&_svg]:hidden",
+          "auto-cols-auto gap-1 max-[1023px]:gap-0 max-[1023px]:[&_a]:px-2.5 max-[1023px]:[&_button]:px-2.5 max-[1023px]:[&_a>span]:sr-only max-[1023px]:[&_button>span]:sr-only min-[1024px]:[&_svg]:hidden",
       }}
       actions={
         <>
-          <ThemeSwitcher transition="bounce" />
+          <ThemeSwitcher transition="bounce" className="max-[1279px]:[&_button>span.capitalize]:hidden max-[1279px]:[&_button>svg]:hidden" />
           <CodeFrameworkSwitcher  />
 
           <SearchMenu />

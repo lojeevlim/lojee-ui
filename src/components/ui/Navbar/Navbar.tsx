@@ -312,7 +312,7 @@ export function Navbar({
       </NavbarItem>
       );
       return item.tooltip ? (
-        <Tooltip key={`${item.label}-${index}`} content={item.tooltip} position="bottom" color="neutral" open={item.tooltipOpen} className="flex" classNames={{ bubble: "sm:hidden" }}>
+        <Tooltip key={`${item.label}-${index}`} content={item.tooltip} position="bottom" color="neutral" open={item.tooltipOpen} className="flex" classNames={{ bubble: "min-[1024px]:hidden" }}>
           {link}
         </Tooltip>
       ) : (
