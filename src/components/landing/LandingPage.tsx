@@ -143,10 +143,10 @@ function Nav({ groups, onStart }: { groups: typeof COMPONENT_MENU; onStart: () =
           <div className="ml-auto flex items-center gap-2">
             {isMobile ? (
               <Tooltip content="Change theme" position="bottom" color="accent" open={themeHint}>
-                <ThemeSwitcher />
+                <ThemeSwitcher align="center"  transition="bounce"  />
               </Tooltip>
             ) : (
-              <ThemeSwitcher />
+              <ThemeSwitcher align="center"  transition="bounce"  />
             )}
             <Button variant="ghost" size="sm" icon="git-branch" label="GitHub" onClick={() => window.open(REPO_URL, "_blank", "noopener")} />
             <Button size="sm" label="Get started" onClick={onStart} />
