@@ -82,6 +82,9 @@ export interface SidebarMenuItemProps {
    * to detect, it just defaults to `false`; pass Sidebar's own `collapsed` value here explicitly.
    */
   collapsed?: boolean;
+  /** While `collapsed`: true (default) keeps a small label under each icon and shows no tooltip; false makes
+   * the row icon-only and shows the label in a tooltip on hover instead. */
+  showLabel?: boolean;
   /** Tooltip placement while `collapsed` (default: "right" — the usual fly-out direction for a
    * left-docked collapsed rail). */
   tooltipPosition?: TooltipPortalPosition;
@@ -146,6 +149,7 @@ export const SidebarMenuItem = forwardRef<HTMLAnchorElement | HTMLButtonElement,
       active = false,
       disabled = false,
       collapsed: collapsedProp,
+      showLabel = true,
       tooltipPosition = "right",
       dark = false,
       vividActive = false,
@@ -198,15 +202,17 @@ export const SidebarMenuItem = forwardRef<HTMLAnchorElement | HTMLButtonElement,
     const collapsedContent = (
       <span className="flex w-full min-w-0 flex-col items-center gap-1">
         {iconEl}
-        {/* A small label under the icon, so the rail is still readable at a glance (the tooltip stays for names
-            too long to fit). */}
-        <span className={cx("block w-full truncate text-center text-[10px] leading-none tracking-tight", classNames?.label)}>
-          <slot name={slotName}>{children}</slot>
-        </span>
+        {/* A small label under the icon so the rail reads at a glance; with `showLabel` off the row is icon-only and the
+            tooltip carries the name instead. */}
+        {showLabel && (
+          <span className={cx("block w-full truncate text-center text-[10px] leading-none tracking-tight", classNames?.label)}>
+            <slot name={slotName}>{children}</slot>
+          </span>
+        )}
       </span>
     );
     const content = collapsed ? (
-      children != null ? (
+      children != null && !showLabel ? (
         <Tooltip content={children} position={tooltipPosition} transition={tooltipTransition} transitionDuration={tooltipTransitionDuration} color={tooltipColor} portal className="flex w-full" classNames={{ bubble: classNames?.tooltip }}>
           {collapsedContent}
         </Tooltip>

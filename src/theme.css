@@ -889,9 +889,17 @@
   overflow: visible;
   transition: overflow 0s 0.3s allow-discrete;
 }
-/* The Sidebar body scrolls (overflow-y-auto clips on both axes) and has no right padding, so the active pill's
-   drop shadow was cut flat at its right edge; leave room for it. */
-[data-design="clay"] .lojee-sidebar-scroll { padding-right: 0.75rem; }
+/* The Sidebar body scrolls (overflow-y-auto clips on both axes), so the active pill's drop shadow was cut flat at its edges;
+   leave room for it. (The scrollbar is an overlay, so it takes no width and the padding is symmetric.) */
+[data-design="clay"] .lojee-sidebar-scroll {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+/* The collapsed rail centers its pill: equal padding on both sides. */
+[data-design="clay"] .lojee-sidebar-scroll[data-collapsed] {
+  padding-left: 0.625rem;
+  padding-right: 0.625rem;
+}
 
 /* Boxes: a rounded, outlined, surface-colored thing (card, panel, popover, table frame…) is raised off the page. */
 [data-design="clay"] :is(.rounded-lg, .rounded-xl, .rounded-2xl, .rounded-3xl)[class*="border-border"][class*="bg-surface"]:not([class^="bg-surface-muted"], [class*=" bg-surface-muted"]) {

@@ -10369,6 +10369,13 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           },
           {
+            "name": "showLabel",
+            "type": "boolean",
+            "required": false,
+            "description": "While collapsed: true (default) shows a small label under each item icon and no tooltip; false shows icons only, with each item's label in a tooltip on hover.",
+            "default": "true"
+          },
+          {
             "name": "tooltipTransition",
             "type": "TransitionVariant",
             "required": false,
@@ -10422,6 +10429,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "defaultActiveItem": "string",
             "borderWidth": "number",
             "sticky": "boolean",
+            "showLabel": "boolean",
             "transition": "string",
             "transitionDuration": "number",
             "transitionDelay": "number",
@@ -10492,6 +10500,13 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "type": "boolean",
             "required": false,
             "description": "Narrows to an icon-only row and shows `children` in a fly-out tooltip instead. Leave this unset to have it mirror the nearest ancestor `<l-sidebar>`'s own `collapsed` state automatically (Web Component usage only — nothing to configure). In plain React, where there's no such DOM ancestor to detect, it just defaults to `false`; pass Sidebar's own `collapsed` value here explicitly.",
+            "default": null
+          },
+          {
+            "name": "showLabel",
+            "type": "boolean",
+            "required": false,
+            "description": "While `collapsed`: true (default) keeps a small label under each icon and shows no tooltip; false makes the row icon-only and shows the label in a tooltip on hover instead.",
             "default": null
           },
           {
@@ -10604,6 +10619,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "dark": "boolean",
             "vividActive": "boolean",
             "color": "string",
+            "showLabel": "boolean",
             "tooltipPosition": "string",
             "transition": "string",
             "transitionDuration": "number",

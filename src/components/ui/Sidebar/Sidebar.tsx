@@ -81,7 +81,7 @@ export type SidebarVariant = "light" | "dark" | "bordered" | "elevated" | "minim
 // surrounding body/nav padding a consumer typically adds is subtracted —
 // 72px keeps the rail feeling compact while giving nav items enough room
 // not to need near-zero horizontal padding to avoid overflowing it.
-const COLLAPSED_WIDTH = 88;
+const COLLAPSED_WIDTH = 100;
 
 // The "bordered"/"elevated" backdrop's own padding (p-3 = 12px a side) — see `isDetachedPanel`.
 const DETACHED_PANEL_PADDING = 12;
@@ -260,6 +260,8 @@ export interface SidebarProps {
   transitionDuration?: number;
   /** Delay before the enter transition starts, in ms (default: 0) — handy for staggering. */
   transitionDelay?: number;
+  /** While collapsed: true (default) shows a small label under each item icon and no tooltip; false shows icons only, with each item's label in a tooltip on hover. */
+  showLabel?: boolean;
   /** Enter/exit transition of the tooltips shown in the collapsed rail and on the collapse button: "fade" | "slide-up" | "slide-down" | "slide-left" | "slide-right" | "zoom" | "zoom-out" | "flip" | "blur" | "bounce" | "rotate" | "drop" | "skew" (default: "bounce"). */
   tooltipTransition?: TransitionVariant;
   /** Enter/exit duration in ms of those same tooltips (default: 450). */
@@ -326,56 +328,20 @@ const DETACHED_PANEL_ACCENT_BORDER: Record<ColorName, string> = {
   pink: "border-pink-300 dark:border-pink-700",
 };
 
-// Built-in scrollbar for the nav list, shipped with the component (rendered as a <style> next to the
-// panel) so it works the same in React, inside a Web Component's shadow root, and without theme.css.
-// "Hairline" look: a 2px hairline track with a slim round-ended accent thumb on it, inset 44px top and
-// bottom. The thumb widens from 4px to 8px when the pointer is on it and deepens on grab. It auto-hides:
-// invisible at rest, fading in only while the list is scrolled (`data-scrolling`, set by the body's
-// onScroll and cleared after a short idle) or while the pointer is on the scrollbar itself (so it can be
-// grabbed) — and is drawn only while the list overflows. The thumb's length is set by the browser (it
-// scales with how much content overflows), so it is a capsule rather than a fixed dot. The 10px track is
-// always reserved (`scrollbar-gutter: stable`, with the body's right padding dropped to match) so rows
-// never shift. Firefox gets the standard thin scrollbar.
+// Built-in scrollbar for the nav list: the browser's own scrollbar is hidden and an overlay one is drawn instead — an
+// absolutely positioned hairline track with a slim round-ended accent thumb (see `useOverlayScrollbar`) — so it takes
+// no width and never shifts the rows. Shipped as a <style> next to the panel, so it works the same in React, inside a
+// Web Component's shadow root, and without theme.css. It auto-hides: invisible at rest, fading in only while the list
+// scrolls (`data-scrolling`, set by the body's onScroll and cleared after a short idle) or while the pointer is on it
+// (so it can be grabbed) — and is drawn only while the list overflows. The thumb widens from 4px to 8px on hover / grab.
 const SIDEBAR_SCROLLBAR_CSS = `
-.lojee-sidebar-scroll { scrollbar-gutter: stable; }
-@supports selector(::-webkit-scrollbar) {
-  .lojee-sidebar-scroll::-webkit-scrollbar { width: 10px; }
-  .lojee-sidebar-scroll::-webkit-scrollbar-track {
-    margin: 44px 0;
-    background-color: transparent;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 2px 100%;
-    transition: background-color 0.3s ease;
-  }
-  .lojee-sidebar-scroll::-webkit-scrollbar-thumb {
-    border: 3px solid transparent;
-    border-radius: 999px;
-    background-clip: padding-box;
-    background-color: transparent;
-    min-height: 20px;
-    transition: background-color 0.3s ease;
-  }
-  .lojee-sidebar-scroll[data-scrolling]::-webkit-scrollbar-track,
-  .lojee-sidebar-scroll::-webkit-scrollbar-track:hover {
-    background-image: linear-gradient(color-mix(in srgb, currentColor 16%, transparent), color-mix(in srgb, currentColor 16%, transparent));
-  }
-  .lojee-sidebar-scroll[data-scrolling]::-webkit-scrollbar-thumb {
-    background-color: var(--color-accent-500);
-  }
-  .lojee-sidebar-scroll::-webkit-scrollbar-thumb:hover {
-    border-width: 1px;
-    background-color: var(--color-accent-500);
-  }
-  .lojee-sidebar-scroll::-webkit-scrollbar-thumb:active {
-    border-width: 1px;
-    background-color: var(--color-accent-600);
-  }
-}
-@supports not selector(::-webkit-scrollbar) {
-  .lojee-sidebar-scroll { scrollbar-width: thin; scrollbar-color: transparent transparent; transition: scrollbar-color 0.3s ease; }
-  .lojee-sidebar-scroll[data-scrolling] { scrollbar-color: var(--color-accent-500) transparent; }
-}
+.lojee-sidebar-scroll { scrollbar-width: none; }
+.lojee-sidebar-scroll::-webkit-scrollbar { display: none; }
+.lojee-sidebar-track { opacity: 0; transition: opacity 0.3s ease; }
+.lojee-sidebar-bar { width: 4px; transition: width 0.15s ease, background-color 0.3s ease; }
+[data-scrolling] > .lojee-sidebar-track, .lojee-sidebar-track:hover, .lojee-sidebar-track[data-drag] { opacity: 1; }
+.lojee-sidebar-track:hover .lojee-sidebar-bar, .lojee-sidebar-track[data-drag] .lojee-sidebar-bar { width: 8px; }
+.lojee-sidebar-track[data-drag] .lojee-sidebar-bar { background-color: var(--color-accent-600); }
 `;
 
 const TOGGLE_BUTTON_CLASSES =
@@ -404,6 +370,7 @@ export function Sidebar({
   transition,
   transitionDuration,
   transitionDelay,
+  showLabel = true,
   tooltipTransition = "bounce",
   tooltipTransitionDuration,
   tooltipColor = "accent",
@@ -515,11 +482,62 @@ export function Sidebar({
   // Auto-hiding scrollbar: flag the body as scrolling, clear it after a short idle (see SIDEBAR_SCROLLBAR_CSS).
   const scrollIdleRef = useRef<number>(0);
   useEffect(() => () => window.clearTimeout(scrollIdleRef.current), []);
+  // The overlay scrollbar's thumb: measured from the scroll body (null while the list doesn't overflow).
+  const bodyRef = useRef<HTMLDivElement>(null);
+  const [thumb, setThumb] = useState<{ top: number; height: number } | null>(null);
+  const [dragging, setDragging] = useState(false);
+  const TRACK_INSET = 8;
+  const measureThumb = () => {
+    const el = bodyRef.current;
+    if (!el) return;
+    const { clientHeight: h, scrollHeight: sh, scrollTop } = el;
+    if (sh <= h + 1) {
+      setThumb((t) => (t === null ? t : null));
+      return;
+    }
+    const trackH = h - TRACK_INSET * 2;
+    const height = Math.max(24, (trackH * h) / sh);
+    const top = TRACK_INSET + ((trackH - height) * scrollTop) / (sh - h);
+    setThumb((t) => (t && Math.abs(t.top - top) < 0.5 && Math.abs(t.height - height) < 0.5 ? t : { top, height }));
+  };
+  useLayoutEffect(() => {
+    const el = bodyRef.current;
+    if (!el) return;
+    measureThumb();
+    // Rows opening / closing / the rail collapsing change the content height without any React render of this body.
+    const ro = new ResizeObserver(measureThumb);
+    ro.observe(el);
+    if (el.firstElementChild) ro.observe(el.firstElementChild);
+    if (navRef.current) ro.observe(navRef.current);
+    return () => ro.disconnect();
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- measureThumb only reads refs
+  }, [items, collapsed, openCategories]);
   const handleBodyScroll = (e: UIEvent<HTMLDivElement>) => {
-    const el = e.currentTarget;
-    el.setAttribute("data-scrolling", "");
+    const wrap = e.currentTarget.parentElement;
+    measureThumb();
+    wrap?.setAttribute("data-scrolling", "");
     window.clearTimeout(scrollIdleRef.current);
-    scrollIdleRef.current = window.setTimeout(() => el.removeAttribute("data-scrolling"), 900);
+    scrollIdleRef.current = window.setTimeout(() => wrap?.removeAttribute("data-scrolling"), 900);
+  };
+  // Dragging the thumb scrolls the body by the same ratio the thumb moves along its track.
+  const startThumbDrag = (e: React.PointerEvent<HTMLDivElement>) => {
+    const el = bodyRef.current;
+    if (!el || !thumb) return;
+    e.preventDefault();
+    const startY = e.clientY;
+    const startScroll = el.scrollTop;
+    const ratio = (el.scrollHeight - el.clientHeight) / (el.clientHeight - TRACK_INSET * 2 - thumb.height);
+    setDragging(true);
+    const move = (ev: PointerEvent) => {
+      el.scrollTop = startScroll + (ev.clientY - startY) * ratio;
+    };
+    const up = () => {
+      setDragging(false);
+      window.removeEventListener("pointermove", move);
+      window.removeEventListener("pointerup", up);
+    };
+    window.addEventListener("pointermove", move);
+    window.addEventListener("pointerup", up);
   };
   const itemNodesRef = useRef<Record<string, HTMLElement | null>>({});
   const [pillRect, setPillRect] = useState<{ top: number; height: number } | null>(null);
@@ -574,6 +592,7 @@ export function Sidebar({
       color={color}
       dark={dark}
       vividActive={vividActive}
+      showLabel={showLabel}
       tooltipTransition={tooltipTransition}
       tooltipTransitionDuration={tooltipTransitionDuration}
       tooltipColor={tooltipColor}
@@ -766,11 +785,26 @@ export function Sidebar({
           (ListItem's tooltip portals itself out of this container instead
           of relying on CSS overflow to escape it), so scrolling no longer
           has to be sacrificed for it. */}
-      <div onScroll={handleBodyScroll} className={cx("lojee-sidebar-scroll flex-1 overflow-y-auto py-2 pl-2 pr-0", classNames?.body)}>
-        <slot>
-          {itemRows}
-          {bodyChildren}
-        </slot>
+      <div className="relative flex min-h-0 flex-1 flex-col">
+        <div ref={bodyRef} onScroll={handleBodyScroll} data-collapsed={collapsed || undefined} className={cx("lojee-sidebar-scroll min-h-0 flex-1 overflow-y-auto overflow-x-hidden px-3 py-2", classNames?.body)}>
+          <slot>
+            {itemRows}
+            {bodyChildren}
+          </slot>
+        </div>
+        {thumb && (
+          // Absolutely positioned over the body's right edge, so it takes no layout space. The wide transparent strip is the hit area.
+          <div
+            aria-hidden="true"
+            className="lojee-sidebar-track absolute right-0 top-0 h-full w-3 touch-none"
+            data-drag={dragging || undefined}
+          >
+            <div className="absolute right-1.5 w-px bg-current opacity-15" style={{ top: TRACK_INSET, bottom: TRACK_INSET }} />
+            <div className="absolute right-0 flex w-3 cursor-grab justify-end pr-1 active:cursor-grabbing" style={{ top: thumb.top, height: thumb.height }} onPointerDown={startThumbDrag}>
+              <div className="lojee-sidebar-bar h-full rounded-full bg-accent-500" />
+            </div>
+          </div>
+        )}
       </div>
       {footerContent != null && (
         <div

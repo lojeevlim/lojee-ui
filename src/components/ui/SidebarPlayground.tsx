@@ -48,6 +48,7 @@ export default function SidebarPlayground() {
   const [header, setHeader] = useState("Lojee Inc");
   const [width, setWidth] = useState(256);
   const [collapsed, setCollapsed] = useState(false);
+  const [showLabel, setShowLabel] = useState(true);
   const [variant, setVariant] = useState<SidebarVariant>("light");
   const [color, setColor] = useState<string>("accent");
   const [gradientTo, setGradientTo] = useState<string>("violet");
@@ -81,6 +82,7 @@ export default function SidebarPlayground() {
             height="auto"
             className="self-stretch"
             collapsed={collapsed}
+            showLabel={showLabel}
             variant={variant}
             color={color}
             gradientTo={variant === "gradient" ? gradientTo : undefined}
@@ -135,9 +137,12 @@ export default function SidebarPlayground() {
     (tooltipDuration !== 450 ? ` tooltipTransitionDuration="${tooltipDuration}"` : "") +
     (tooltipColor !== "accent" ? ` tooltipColor="${tooltipColor}"` : "");
   const tooltipAttrsJsx = tooltipAttrs.replace(/(tooltipTransitionDuration)="(\d+)"/, "$1={$2}");
+  // Only worth showing when it differs from the default (labels shown, no tooltip).
+  const showLabelJsx = showLabel ? "" : " showLabel={false}";
+  const showLabelHtml = showLabel ? "" : ' show-label="false"';
   const borderWidthAttrHtml = showBorderWidthControl && borderWidth !== 2 ? ` border-width="${borderWidth}"` : "";
 
-  const code = `<Sidebar${widthAttrJsx}${collapsedAttr}${variantAttr}${colorAttr}${collapsibleAttr}${defaultActiveItemAttrJsx}${borderWidthAttrJsx}${motionAttrs}${tooltipAttrsJsx}
+  const code = `<Sidebar${widthAttrJsx}${collapsedAttr}${variantAttr}${colorAttr}${collapsibleAttr}${showLabelJsx}${defaultActiveItemAttrJsx}${borderWidthAttrJsx}${motionAttrs}${tooltipAttrsJsx}
   onCollapsedChange={setCollapsed}
   onActiveItemChange={(item) => console.log(item)}
   header="${headerText}"
@@ -148,7 +153,7 @@ export default function SidebarPlayground() {
 
   const codeVariants: CodeBlockVariants = {
     react: code,
-    js: `<l-Sidebar id="app-sidebar"${widthAttrHtml}${collapsedAttrHtml}${variantAttr}${colorAttr}${collapsibleAttrHtml}${defaultActiveItemAttrHtml}${borderWidthAttrHtml}${motionAttrs}${tooltipAttrs} header="${headerText}" header-icon="zap" footer="Jordan Diaz"></l-Sidebar>
+    js: `<l-Sidebar id="app-sidebar"${widthAttrHtml}${collapsedAttrHtml}${variantAttr}${colorAttr}${collapsibleAttrHtml}${showLabelHtml}${defaultActiveItemAttrHtml}${borderWidthAttrHtml}${motionAttrs}${tooltipAttrs} header="${headerText}" header-icon="zap" footer="Jordan Diaz"></l-Sidebar>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -158,7 +163,7 @@ export default function SidebarPlayground() {
   sidebar.addEventListener("activeitemchange", (e) => console.log(e.detail));
 </script>`,
     vue: `<template>
-  <l-Sidebar${widthAttrHtml}${collapsedAttrVue}${variantAttr}${colorAttr}${collapsibleAttrVue}${defaultActiveItemAttrHtml}${borderWidthAttrHtml}${motionAttrs}${tooltipAttrs} header="${headerText}" header-icon="zap" footer="Jordan Diaz" :items="items" @activeitemchange="(e) => console.log(e.detail)" />
+  <l-Sidebar${widthAttrHtml}${collapsedAttrVue}${variantAttr}${colorAttr}${collapsibleAttrVue}${showLabelHtml}${defaultActiveItemAttrHtml}${borderWidthAttrHtml}${motionAttrs}${tooltipAttrs} header="${headerText}" header-icon="zap" footer="Jordan Diaz" :items="items" @activeitemchange="(e) => console.log(e.detail)" />
 </template>
 
 <script setup lang="ts">
@@ -174,7 +179,7 @@ import "lojee-ui/elements";
   selector: "app-root",
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  template: \`<l-Sidebar${widthAttrHtml}${collapsedAttrAngular}${variantAttr}${colorAttr}${collapsibleAttrAngular}${defaultActiveItemAttrHtml}${borderWidthAttrHtml}${motionAttrs}${tooltipAttrs} header="${headerText}" header-icon="zap" footer="Jordan Diaz" [items]="items" (activeitemchange)="onActiveItemChange($event.detail)" />\`,
+  template: \`<l-Sidebar${widthAttrHtml}${collapsedAttrAngular}${variantAttr}${colorAttr}${collapsibleAttrAngular}${showLabelHtml}${defaultActiveItemAttrHtml}${borderWidthAttrHtml}${motionAttrs}${tooltipAttrs} header="${headerText}" header-icon="zap" footer="Jordan Diaz" [items]="items" (activeitemchange)="onActiveItemChange($event.detail)" />\`,
 })
 export class AppComponent {
   items = ${itemsLiteral};
@@ -250,6 +255,10 @@ export class AppComponent {
         <label className="flex items-center gap-2 text-xs font-medium text-fg-subtle">
           <input type="checkbox" checked={collapsed} onChange={(e) => setCollapsed(e.target.checked)} />
           Collapsed
+        </label>
+        <label className="flex items-center gap-2 text-xs font-medium text-fg-subtle">
+          <input type="checkbox" checked={showLabel} onChange={(e) => setShowLabel(e.target.checked)} />
+          Show label when collapsed (off → tooltip)
         </label>
         {/* Click a row in the preview — no state wiring above drives this beyond onActiveItemChange
             itself, demonstrating the built-in self-managed selection live. */}
