@@ -68,7 +68,7 @@ export function ColorPicker({ value, presets = DEFAULT_PRESETS, showInput = true
         )}
       </div>
       {presets.length > 0 && (
-        <div className="flex max-w-60 flex-wrap gap-1.5" role="listbox" aria-label="Preset colors">
+        <div className="flex max-w-60 flex-wrap gap-1.5" role="listbox" aria-label="Preset colors" data-swatches>
           {presets.map((p) => {
             const selected = normalize(p) === color;
             return (

@@ -1218,8 +1218,9 @@ body[data-design="clay"] {
   overflow: visible;
 }
 
-/* Listboxes (Select, Combobox, MultiSelect): a puffy list whose rows are rounded pills — the hovered / highlighted one rises out of it. */
-[data-design="clay"] [role="listbox"]:not([data-cmd]) {
+/* Listboxes (Select, Combobox, MultiSelect): a puffy list whose rows are rounded pills — the hovered / highlighted one rises out of it.
+   (Not the ColorPicker's row of preset swatches — `data-swatches` — which is a listbox for screen readers but must stay a wrapping row.) */
+[data-design="clay"] [role="listbox"]:not([data-cmd], [data-swatches]) {
   display: flex;
   flex-direction: column;
   gap: 0.2rem;
@@ -1228,21 +1229,21 @@ body[data-design="clay"] {
   border-radius: 1.5rem;
   box-shadow: var(--clay-raise-lg);
 }
-[data-design="clay"] [role="listbox"]:not([data-cmd]) > [role="option"] {
+[data-design="clay"] [role="listbox"]:not([data-cmd], [data-swatches]) > [role="option"] {
   border-radius: 1rem;
   padding: 0.5rem 0.75rem;
   transition: background-color 0.18s ease, box-shadow 0.18s ease, translate 0.18s ease;
 }
-[data-design="clay"] [role="listbox"]:not([data-cmd]) > [role="option"]:is([class~="bg-surface-muted"], :hover):not([aria-disabled="true"]) {
+[data-design="clay"] [role="listbox"]:not([data-cmd], [data-swatches]) > [role="option"]:is([class~="bg-surface-muted"], :hover):not([aria-disabled="true"]) {
   background-color: color-mix(in srgb, var(--color-accent-500) 9%, var(--color-surface));
   translate: 0 -1px;
   box-shadow: var(--clay-raise-sm);
 }
-[data-design="clay"] [role="listbox"]:not([data-cmd]) > [role="option"][aria-selected="true"] {
+[data-design="clay"] [role="listbox"]:not([data-cmd], [data-swatches]) > [role="option"][aria-selected="true"] {
   background-color: var(--color-surface-muted);
   box-shadow: var(--clay-well);
 }
-[data-design="clay"] [role="listbox"]:not([data-cmd]) > [role="option"][aria-selected="true"]:is([class~="bg-surface-muted"], :hover) {
+[data-design="clay"] [role="listbox"]:not([data-cmd], [data-swatches]) > [role="option"][aria-selected="true"]:is([class~="bg-surface-muted"], :hover) {
   background-color: color-mix(in srgb, var(--color-accent-500) 9%, var(--color-surface));
   box-shadow: var(--clay-raise-sm);
 }
