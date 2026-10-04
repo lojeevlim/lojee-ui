@@ -602,6 +602,24 @@ export function Sidebar({
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps -- closedCategoryLabels is a fresh Set every render, derived purely from collapsed/openCategories/items, which are already listed below.
   }, [selectedLabel, items, collapsed, openCategories]);
+  // Collapsing the rail opens every category (and expanding closes them again), which can push the active row out of the visible part of the
+  // list. Once that reflow has settled, scroll the body so the active row sits in the middle — unless it is already comfortably in view.
+  useEffect(() => {
+    const t = window.setTimeout(() => {
+      const body = bodyRef.current;
+      const el = selectedLabel ? itemNodesRef.current[selectedLabel] : null;
+      if (!body || !el) return;
+      const b = body.getBoundingClientRect();
+      const r = el.getBoundingClientRect();
+      if (r.height === 0) return; // hidden (its category is closed)
+      const margin = 32;
+      if (r.top >= b.top + margin && r.bottom <= b.bottom - margin) return;
+      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      body.scrollBy({ top: r.top + r.height / 2 - (b.top + b.height / 2), behavior: reduce ? "auto" : "smooth" });
+    }, 380);
+    return () => window.clearTimeout(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- runs when the rail collapses / expands (and on mount), not on every selection change
+  }, [collapsed]);
   const renderItemRow = (item: SidebarMenuItemSpec, key: string) => (
     <SidebarMenuItem
       key={key}

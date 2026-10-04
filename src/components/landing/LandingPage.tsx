@@ -227,7 +227,8 @@ export default function LandingPage() {
       <Nav groups={groups} onStart={start} />
 
       {/* Hero */}
-      <section onPointerMove={onHeroMove} className="relative isolate">
+      {/* z-20: the hero (its cards' shadows and glows, which spill past the section) paints above the sections that follow it. */}
+      <section onPointerMove={onHeroMove} className="relative isolate z-20">
         <div className="lp-grid pointer-events-none absolute inset-0 -z-10" />
         <div ref={heroGlow} className="lp-glow pointer-events-none absolute inset-0 -z-10" />
         <div className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-32 bg-gradient-to-t from-surface to-transparent" />

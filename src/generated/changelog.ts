@@ -2,8 +2,80 @@
 export interface ChangelogCommit { sha: string; short: string; date: string; author: string; email: string; subject: string; body: string }
 
 export const PACKAGE_VERSION = "0.1.0-alpha.9";
-export const CHANGELOG_GENERATED_AT = "2026-10-04T11:51:42.557Z";
+export const CHANGELOG_GENERATED_AT = "2026-10-04T12:15:01.265Z";
 export const CHANGELOG: ChangelogCommit[] = [
+  {
+    "sha": "38ca511444b5c048a3a6e09e0e699d24b52bac3f",
+    "short": "38ca511",
+    "date": "2026-10-04T20:11:28+08:00",
+    "author": "lojeevlim",
+    "email": "lojeevlim@gmail.com",
+    "subject": "Clay: ColorPicker preset swatches stay in a wrapping row (not styled as a dropdown list)",
+    "body": ""
+  },
+  {
+    "sha": "0cd634d88d3852201a62df8079a62b0dcb057bb9",
+    "short": "0cd634d",
+    "date": "2026-10-04T19:58:43+08:00",
+    "author": "lojeevlim",
+    "email": "lojeevlim@gmail.com",
+    "subject": "Docs navbar: show the Docs / Components / About icons on desktop too",
+    "body": ""
+  },
+  {
+    "sha": "b30c5e027f90f5c8a7132267285375b2fbf156a0",
+    "short": "b30c5e0",
+    "date": "2026-10-04T19:53:59+08:00",
+    "author": "lojeevlim",
+    "email": "lojeevlim@gmail.com",
+    "subject": "Landing navbar: icons on the Docs, Components, Changelog and About items",
+    "body": ""
+  },
+  {
+    "sha": "484d6353868de5e5f57ca0fc9769fa6382ff4a9e",
+    "short": "484d635",
+    "date": "2026-10-04T19:52:29+08:00",
+    "author": "lojeevlim",
+    "email": "lojeevlim@gmail.com",
+    "subject": "README: how to release (npm run release)",
+    "body": ""
+  },
+  {
+    "sha": "49c6df23f20dfdfda23f86a1cb7bdba415cbe432",
+    "short": "49c6df2",
+    "date": "2026-10-04T19:52:08+08:00",
+    "author": "lojeevlim",
+    "email": "lojeevlim@gmail.com",
+    "subject": "release script: --any-branch flag",
+    "body": ""
+  },
+  {
+    "sha": "311f5faa1d3b262a36c0c8c94fd7080e5c0c11af",
+    "short": "311f5fa",
+    "date": "2026-10-04T19:51:59+08:00",
+    "author": "lojeevlim",
+    "email": "lojeevlim@gmail.com",
+    "subject": "release script: fix command helper with inherited output",
+    "body": ""
+  },
+  {
+    "sha": "ed1be1597eec07ce3079d16e0cb9dfbc58a511f9",
+    "short": "ed1be15",
+    "date": "2026-10-04T19:51:42+08:00",
+    "author": "lojeevlim",
+    "email": "lojeevlim@gmail.com",
+    "subject": "Refresh generated docs (changelog, COMPONENTS.md for alpha.9)",
+    "body": ""
+  },
+  {
+    "sha": "911b28b889010079a6f1ffcaf2650dee744785f3",
+    "short": "911b28b",
+    "date": "2026-10-04T19:51:42+08:00",
+    "author": "lojeevlim",
+    "email": "lojeevlim@gmail.com",
+    "subject": "Add one-command release script (npm run release)",
+    "body": "Checks the tree and npm login, regenerates the docs, bumps the version, type-checks, builds, commits \"Release x\", tags vx, publishes (latest + alpha) and pushes."
+  },
   {
     "sha": "03e952107097aedc9e0d20baa2d5cf60d03a1eb2",
     "short": "03e9521",
