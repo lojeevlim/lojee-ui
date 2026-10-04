@@ -8,6 +8,7 @@ import SpinnerShowcase from './components/ui/Spinner'
 import LoaderShowcase from './components/ui/Loader'
 import DividerShowcase from './components/ui/Divider'
 import TooltipShowcase from './components/ui/Tooltip'
+import { Tooltip } from './components/ui/Tooltip/Tooltip'
 import CardShowcase from './components/ui/Card'
 import ContainerShowcase from './components/ui/Container'
 import SectionShowcase from './components/ui/Section'
@@ -286,18 +287,10 @@ function App() {
 
     {/* Playgrounds only exist for components — the docs pages (Introduction, Installation, …) have none. */}
     {navKind === 'components' && (
-      <div className="fixed bottom-4 right-4 z-10 flex flex-col items-end gap-2 motion-safe:animate-[lojee-fade-up_0.5s_ease-out_both] md:bottom-6 md:right-6">
-        {/* A short "Try it live" hint appears after the page settles and fades away again. */}
-        <div
-          aria-hidden="true"
-          className={`relative rounded-lg bg-fg px-3 py-1.5 text-xs font-medium text-surface shadow-lg transition-all duration-500 ${
-            playgroundHint && !playgroundOpen ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-1 opacity-0'
-          }`}
-        >
-          Try it live — tweak props and copy the code
-          <span className="absolute -bottom-1 right-8 h-2 w-2 rotate-45 bg-fg" />
-        </div>
+      <div className="fixed bottom-4 right-4 z-30 flex flex-col items-end gap-3 motion-safe:animate-[lojee-fade-up_0.5s_ease-out_both] md:bottom-6 md:right-6">
         {/* Glow pulses six times after load, then a light sweep glides across the button every few seconds. */}
+        {/* A short "Try it live" hint appears after the page settles and fades away again (it is also the button's hover tooltip). */}
+        <Tooltip content="Try it live — tweak props" position="top" color="accent" open={playgroundHint && !playgroundOpen}>
         <div className="relative overflow-hidden rounded-full motion-safe:animate-[lojee-glow_1.8s_ease-out_1.2s_6]">
           <Button
             type="button"
@@ -313,6 +306,7 @@ function App() {
             className="pointer-events-none absolute inset-y-0 left-0 w-1/2 bg-gradient-to-r from-transparent via-white/45 to-transparent motion-safe:animate-[lojee-sweep_5s_ease-in-out_2.5s_infinite] motion-reduce:hidden"
           />
         </div>
+        </Tooltip>
       </div>
     )}
 

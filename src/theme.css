@@ -1196,7 +1196,9 @@ body[data-design="clay"] {
   --tw-shadow: 0 0 #0000;
 }
 [data-design="clay"] [role="tooltip"] > span[aria-hidden="true"] {
-  border-radius: 0.25rem;
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 0.2rem;
   box-shadow: none;
 }
 
