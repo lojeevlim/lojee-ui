@@ -4,6 +4,7 @@
   "description": "React + TypeScript UI component library styled with Tailwind v4 — ships auto-generated Web Components alongside the React components, with a built-in demo/docs site.",
   "license": "MIT",
   "author": "lojeevlim",
+  "homepage": "https://lojee-ui.vercel.app/",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/lojeevlim/lojee-ui.git"

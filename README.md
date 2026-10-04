@@ -1,5 +1,7 @@
 # Lojee UI
 
+**Official site & docs: https://lojee-ui.vercel.app/**
+
 React + TypeScript UI component library styled with Tailwind v4 — ships auto-generated
 Web Components (`<l-*>` custom elements) alongside the React components, with a
 built-in demo/docs site.
