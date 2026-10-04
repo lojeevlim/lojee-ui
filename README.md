@@ -23,6 +23,19 @@ Other scripts:
 | `npm run lint` | Run ESLint |
 | `npm run preview` | Preview the built demo app |
 
+## Releasing
+
+```bash
+npm run release                       # next pre-release (0.1.0-alpha.N+1): docs, bump, build, commit, tag, publish, push
+npm run release -- minor              # or patch | major | an exact version
+npm run release -- --dry-run          # show the steps, change nothing
+npm run release -- --no-publish       # everything except `npm publish`
+```
+
+It needs a clean `main`, an npm login (or an `NPM_TOKEN` environment variable), and push rights. It regenerates the API reference,
+changelog and `COMPONENTS.md`, bumps the version, type-checks, builds, commits "Release x", tags `vx`, publishes with the `latest`
+tag (plus `alpha` while it is a pre-release) and pushes the commit and tag.
+
 > **Note:** `npm run build` (demo app) and `npm run build:pkg` (library) both write to
 > `dist/`. Don't run them back to back expecting both outputs to coexist — run
 > `build:pkg` on its own in a clean checkout when you need the package output.
