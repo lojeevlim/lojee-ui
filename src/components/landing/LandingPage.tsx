@@ -139,12 +139,13 @@ function Nav({ groups, onStart }: { groups: typeof COMPONENT_MENU; onStart: () =
           </button>
           <nav className="ml-6 hidden items-center gap-1 md:flex">
             {[
-              ["Docs", pathFor("docs", "Introduction")],
-              ["Components", pathFor("components", groups[0].items![0].label)],
-              ["Changelog", pathFor("docs", "Changelog")],
-              ["About", "/about"],
-            ].map(([label, to]) => (
-              <button key={label} type="button" onClick={() => navigate(to)} className="rounded-md px-3 py-1.5 text-sm text-fg-muted transition-colors hover:bg-surface-muted hover:text-fg">
+              ["Docs", pathFor("docs", "Introduction"), "book-open"],
+              ["Components", pathFor("components", groups[0].items![0].label), "shapes"],
+              ["Changelog", pathFor("docs", "Changelog"), "clock"],
+              ["About", "/about", "info"],
+            ].map(([label, to, icon]) => (
+              <button key={label} type="button" onClick={() => navigate(to)} className="inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm text-fg-muted transition-colors hover:bg-surface-muted hover:text-fg">
+                <Icon name={icon} size={15} />
                 {label}
               </button>
             ))}
