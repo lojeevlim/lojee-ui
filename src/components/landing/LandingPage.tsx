@@ -15,6 +15,7 @@ import Logo from "../layouts/Logo";
 import { ThemeSwitcher } from "../ui/ThemeSwitcher/ThemeSwitcher";
 import { Button } from "../ui/Buttons/Button";
 import { Badge } from "../ui/Badge/Badge";
+import { Tooltip } from "../ui/Tooltip/Tooltip";
 import { Icon } from "../ui/Icons/Icon";
 import { COMPONENT_MENU } from "../../constant/component_menu";
 import { pathFor } from "../../core/routes";
@@ -80,7 +81,7 @@ function Nav({ groups, onStart }: { groups: typeof COMPONENT_MENU; onStart: () =
   useEffect(() => {
     let idle = 0;
     const onScroll = () => {
-      const past = window.scrollY > 8;
+      const past = window.scrollY > 0;
       setScrolled(past);
       if (!past) {
         setGlow(false);
@@ -90,7 +91,7 @@ function Nav({ groups, onStart }: { groups: typeof COMPONENT_MENU; onStart: () =
       window.clearTimeout(idle);
       idle = window.setTimeout(() => setGlow(false), 600);
     };
-    setScrolled(window.scrollY > 8);
+    setScrolled(window.scrollY > 0);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => {
       window.removeEventListener("scroll", onScroll);
@@ -98,11 +99,30 @@ function Nav({ groups, onStart }: { groups: typeof COMPONENT_MENU; onStart: () =
     };
   }, []);
   const reduce = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  // Phones only: a short "Change theme" hint on the theme switcher, once per page load (like the docs Playground button's hint).
+  const [isMobile, setIsMobile] = useState(() => window.matchMedia("(max-width: 767px)").matches);
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 767px)");
+    const onChange = () => setIsMobile(mq.matches);
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
+  const [themeHint, setThemeHint] = useState(false);
+  useEffect(() => {
+    const show = window.setTimeout(() => setThemeHint(true), 1800);
+    const hide = window.setTimeout(() => setThemeHint(false), 8500);
+    return () => {
+      window.clearTimeout(show);
+      window.clearTimeout(hide);
+    };
+  }, []);
   return (
       <header
-        className={`sticky top-0 z-50 border-b transition-[border-color,box-shadow] duration-500 ${scrolled ? "bg-surface" : "bg-transparent"} ${
+        className={`sticky top-0 z-50 border-b ${scrolled ? "bg-surface" : "bg-transparent"} ${
           glow ? "border-accent-500 shadow-[0_1px_14px_1px_color-mix(in_srgb,var(--color-accent-500)_55%,transparent)]" : "border-transparent"
         }`}
+        // The background snaps over quickly; the glow fades in and out a little slower.
+        style={{ transition: "background-color 90ms linear, border-color 400ms ease, box-shadow 400ms ease" }}
       >
         <div className="mx-auto flex h-16 max-w-6xl items-center gap-3 px-5">
           <button type="button" onClick={() => window.scrollTo({ top: 0, behavior: reduce() ? "auto" : "smooth" })} className="group" aria-label="lojeeUI — back to top">
@@ -121,7 +141,13 @@ function Nav({ groups, onStart }: { groups: typeof COMPONENT_MENU; onStart: () =
             ))}
           </nav>
           <div className="ml-auto flex items-center gap-2">
-            <ThemeSwitcher />
+            {isMobile ? (
+              <Tooltip content="Change theme" position="bottom" color="accent" open={themeHint}>
+                <ThemeSwitcher />
+              </Tooltip>
+            ) : (
+              <ThemeSwitcher />
+            )}
             <Button variant="ghost" size="sm" icon="git-branch" label="GitHub" onClick={() => window.open(REPO_URL, "_blank", "noopener")} />
             <Button size="sm" label="Get started" onClick={onStart} />
           </div>
