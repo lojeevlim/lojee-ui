@@ -2,8 +2,35 @@
 export interface ChangelogCommit { sha: string; short: string; date: string; author: string; email: string; subject: string; body: string }
 
 export const PACKAGE_VERSION = "0.1.0-alpha.10";
-export const CHANGELOG_GENERATED_AT = "2026-10-04T14:48:53.195Z";
+export const CHANGELOG_GENERATED_AT = "2026-10-04T15:34:03.895Z";
 export const CHANGELOG: ChangelogCommit[] = [
+  {
+    "sha": "9cd93b3d7f7d9d414bc6b5f551fb75e89a1b5be4",
+    "short": "9cd93b3",
+    "date": "2026-10-04T23:17:11+08:00",
+    "author": "lojeevlim",
+    "email": "lojeevlim@gmail.com",
+    "subject": "Input: add a plain variant (text only, no box); ChatBox uses the Input component, with the plain variant in its flat style",
+    "body": ""
+  },
+  {
+    "sha": "19aa22a64d14037344509fdb7d822271c549a8e2",
+    "short": "19aa22a",
+    "date": "2026-10-04T22:56:09+08:00",
+    "author": "lojeevlim",
+    "email": "lojeevlim@gmail.com",
+    "subject": "Fix <l-theme-switcher>: change callbacks only report the pick, the theme is still applied unless controlled by its prop",
+    "body": ""
+  },
+  {
+    "sha": "b7b75a288a27d8203267e03f69a8579b381e21bd",
+    "short": "b7b75a2",
+    "date": "2026-10-04T22:48:53+08:00",
+    "author": "lojeevlim",
+    "email": "lojeevlim@gmail.com",
+    "subject": "Data binding: set state from outside and read changes back across components",
+    "body": "- Form controls report update/input/focus/invalid (web components) with two-way value/checked; React gets matching documented callbacks\n- Tabs, Carousel, Accordion, Popover, Dropdown/Context Menu gain controlled index/open props with change callbacks\n- Overlays, Pagination, Stepper, navigation, Table, Calendar, ThemeSwitcher report an update event\n- List accepts items; elements keep their value/checked in step for Vue v-model\n- Docs: Data Binding page, per-component Data Binding section above the API reference, language-specific captions, Angular LojeeValueAccessor"
+  },
   {
     "sha": "ae9e096605a756238800078797e79d944dc8ed92",
     "short": "ae9e096",
