@@ -2,8 +2,26 @@
 export interface ChangelogCommit { sha: string; short: string; date: string; author: string; email: string; subject: string; body: string }
 
 export const PACKAGE_VERSION = "0.1.0-alpha.9";
-export const CHANGELOG_GENERATED_AT = "2026-10-04T12:15:01.265Z";
+export const CHANGELOG_GENERATED_AT = "2026-10-04T12:21:33.436Z";
 export const CHANGELOG: ChangelogCommit[] = [
+  {
+    "sha": "3665d07fc3432d21679f01a9bd4788e7be047885",
+    "short": "3665d07",
+    "date": "2026-10-04T20:21:26+08:00",
+    "author": "lojeevlim",
+    "email": "lojeevlim@gmail.com",
+    "subject": "Set homepage to the official site (https://lojee-ui.vercel.app/) in package.json and README",
+    "body": ""
+  },
+  {
+    "sha": "5d2e5f8d59dd03c99039f7b76ba0e85c3c13253e",
+    "short": "5d2e5f8",
+    "date": "2026-10-04T20:19:57+08:00",
+    "author": "lojeevlim",
+    "email": "lojeevlim@gmail.com",
+    "subject": "Fixes: Sidebar reveals the active item on collapse/expand, changelog survives shallow clones, hero z-index",
+    "body": "- Sidebar: after collapsing / expanding, scroll the list so the active item is in view (centered) unless already comfortably visible\n- gen-changelog: keep the commits already in the committed changelog.ts, so a shallow clone (e.g. a deploy) no longer drops older history — fixes the landing \"New components\" announcement showing a plain commit title in production\n- Landing: hero section and cards get a higher z-index so card shadows / glows paint above following sections"
+  },
   {
     "sha": "38ca511444b5c048a3a6e09e0e699d24b52bac3f",
     "short": "38ca511",
