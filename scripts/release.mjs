@@ -1,9 +1,10 @@
-// One-command release:  npm run release [-- <bump>] [--dry-run] [--no-publish] [--no-push]
+// One-command release:  npm run release [-- <bump>] [--dry-run] [--no-publish] [--no-push] [--any-branch]
 //
 //   <bump>        patch | minor | major | prerelease (default) | an exact version such as 0.1.0-alpha.10
 //   --dry-run     print what would happen, change nothing
 //   --no-publish  do everything except `npm publish`
 //   --no-push     do not push the commit and tag to origin
+//   --any-branch  allow releasing from a branch other than main
 //
 // Steps: check the tree is clean and you are logged in to npm -> regenerate the generated docs (API reference, changelog,
 // COMPONENTS.md) -> bump the version -> type-check -> build the package -> commit "Release <v>" -> tag v<v> -> publish
@@ -34,7 +35,7 @@ const fail = (msg) => {
 
 // ---- checks ---------------------------------------------------------------------------------------------------------------
 const branch = run("git", ["rev-parse", "--abbrev-ref", "HEAD"]);
-if (branch !== "main") fail(`Release from main (you are on "${branch}").`);
+if (branch !== "main" && !flag("--any-branch")) fail(`Release from main (you are on "${branch}") — or pass --any-branch.`);
 if (run("git", ["status", "--porcelain"])) fail("The working tree has uncommitted changes — commit or stash them first.");
 
 // An npm token from NPM_TOKEN is written to a temporary config (never into the repo) and removed afterwards.
