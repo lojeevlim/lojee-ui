@@ -140,7 +140,7 @@ export interface ThemeSwitcherProps {
   onDesignChange?: (design: DesignName) => void;
   /** Where the dropdown (which always opens below the button) lines up with the button: "start" (left edges together), "center", or "end" (right edges together). "left" / "right" also work, as start / end. Default: "end". */
   align?: ThemeSwitcherAlign;
-  /** Show the "Design" section — Bento UI or Claymorphism (default: true). */
+  /** Show the "Design" section — Bento or Claymorphism (default: true). */
   showDesign?: boolean;
   /** Show the "Active items" section (default: true). */
   showActiveItems?: boolean;

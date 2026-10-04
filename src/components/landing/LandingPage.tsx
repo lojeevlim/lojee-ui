@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useState, type PointerEvent, type ReactNode } from "react";
+import { lazy, Suspense, useEffect, useRef, useState, type PointerEvent, type ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
 import "./landing.css";
 import Reveal from "./Reveal";
@@ -32,6 +32,15 @@ const ThemeLab = lazy(() => import("./ThemeLab"));
 const LayoutLab = lazy(() => import("./LayoutLab"));
 const MotionLab = lazy(() => import("./MotionLab"));
 const DataLab = lazy(() => import("./DataLab"));
+
+// The page sections below the hero are lazy chunks that mount as they near the viewport. Fetch (and parse) those chunks while the browser
+// is idle after the page has settled, so scrolling only has to render them instead of also downloading and compiling their code.
+const SECTION_CHUNKS = [() => import("./FrameworkFlow"), () => import("./MotionLab"), () => import("./DataLab"), () => import("./MapLab"), () => import("./ThemeLab"), () => import("./LayoutLab")];
+function prefetchSections() {
+  const w = window as Window & { requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number };
+  const idle = (cb: () => void) => (w.requestIdleCallback ? w.requestIdleCallback(cb, { timeout: 4000 }) : w.setTimeout(cb, 1500));
+  SECTION_CHUNKS.forEach((load, i) => w.setTimeout(() => idle(() => void load().catch(() => {})), 2500 + i * 600));
+}
 
 const INSTALL = "npm install lojee-ui";
 
@@ -175,6 +184,7 @@ export default function LandingPage() {
   const navigate = useNavigate();
   const [copied, setCopied] = useState(false);
   const [statsRef, statsSeen] = useInView<HTMLDivElement>(0.4);
+  useEffect(prefetchSections, []);
 
   const groups = COMPONENT_MENU.filter((g) => g.items?.length);
   const total = new Set(groups.flatMap((g) => g.items!.map((i) => i.label))).size;
@@ -190,10 +200,25 @@ export default function LandingPage() {
     }
   };
 
+  // The cursor glow follows the pointer. The position goes onto the glow layer itself (a leaf element) once per animation frame —
+  // custom properties are inherited, so writing them on the whole hero section made the browser re-style every element inside it
+  // (all the live cards) on each pointer event.
+  const heroGlow = useRef<HTMLDivElement>(null);
+  const glowPos = useRef<{ x: number; y: number; raf: number; el: HTMLElement | null }>({ x: 0, y: 0, raf: 0, el: null });
   const onHeroMove = (e: PointerEvent<HTMLElement>) => {
-    const r = e.currentTarget.getBoundingClientRect();
-    e.currentTarget.style.setProperty("--mx", `${e.clientX - r.left}px`);
-    e.currentTarget.style.setProperty("--my", `${e.clientY - r.top}px`);
+    const g = glowPos.current;
+    g.x = e.clientX;
+    g.y = e.clientY;
+    g.el = e.currentTarget;
+    if (g.raf) return;
+    g.raf = requestAnimationFrame(() => {
+      g.raf = 0;
+      const glow = heroGlow.current;
+      if (!glow || !g.el) return;
+      const r = g.el.getBoundingClientRect();
+      glow.style.setProperty("--mx", `${g.x - r.left}px`);
+      glow.style.setProperty("--my", `${g.y - r.top}px`);
+    });
   };
 
   return (
@@ -203,7 +228,7 @@ export default function LandingPage() {
       {/* Hero */}
       <section onPointerMove={onHeroMove} className="relative isolate">
         <div className="lp-grid pointer-events-none absolute inset-0 -z-10" />
-        <div className="lp-glow pointer-events-none absolute inset-0 -z-10" />
+        <div ref={heroGlow} className="lp-glow pointer-events-none absolute inset-0 -z-10" />
         <div className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-32 bg-gradient-to-t from-surface to-transparent" />
         <div className="mx-auto max-w-6xl px-5 pt-14 text-center lg:pt-24">
           <button type="button" onClick={() => navigate(pathFor("docs", "Changelog"))} className="lp-enter inline-flex max-w-full cursor-pointer items-center gap-2 rounded-full border border-border bg-surface/70 py-1 pl-1 pr-3 text-xs text-fg-muted shadow-sm" style={{ ["--d" as string]: "0ms" }}>

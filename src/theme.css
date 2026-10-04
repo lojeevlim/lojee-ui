@@ -1355,3 +1355,12 @@ body[data-design="clay"] {
 }
 /* ...and the two rows sit close: the first reel's shadow room overlaps the second's empty top padding. */
 [data-design="clay"] [data-hero-reel]:not(:last-child) { margin-bottom: -1.5rem; }
+
+/* Landing hero cards: Bento lights its border and shadow in the accent on hover; Clay (whose shadows are the raised-clay ones) gets an
+   accent ring and a soft glow around the raised card. */
+[data-design="clay"] [data-hero-card]:hover {
+  box-shadow:
+    var(--clay-raise-lg),
+    0 0 0 1.5px color-mix(in srgb, var(--color-accent-500) 60%, transparent),
+    0 0 34px 2px color-mix(in srgb, var(--color-accent-500) 38%, transparent) !important;
+}

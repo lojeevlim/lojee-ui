@@ -24,7 +24,7 @@ export const THEME_MODES: { value: ThemeMode; label: string }[] = [
 export type DesignName = "bento" | "clay";
 
 export const DESIGNS: { value: DesignName; label: string }[] = [
-  { value: "bento", label: "Bento UI" },
+  { value: "bento", label: "Bento" },
   { value: "clay", label: "Claymorphism" },
 ];
 

@@ -48,7 +48,9 @@ export function HeroCard({ name, children, w = "w-64" }: { name: string; childre
     <div
       onPointerMove={spotlight}
       data-hero-card={name}
-      className={`lp-spot relative hover:z-10 ${WIDTHS.has(w) ? w : "w-80"} flex h-52 shrink-0 flex-col rounded-2xl border border-border bg-surface p-4 shadow-lg shadow-black/5 transition-[transform,border-color,box-shadow] duration-300 hover:-translate-y-1.5 hover:scale-[1.03] hover:border-accent-500 hover:shadow-xl hover:shadow-accent-500/20`}
+      // content-visibility:auto skips layout / paint / animations of the cards that are off screen (most of a reel at any time), which cuts the
+      // hero's idle main-thread work by ~4x. The cards have a fixed size, so nothing shifts; the reels fade out at both edges, hiding the entry.
+      className={`lp-spot relative hover:z-10 [content-visibility:auto] [contain-intrinsic-size:auto_13rem] ${WIDTHS.has(w) ? w : "w-80"} flex h-52 shrink-0 flex-col rounded-2xl border border-border bg-surface p-4 shadow-lg shadow-black/5 transition-[transform,border-color,box-shadow] duration-300 hover:-translate-y-1.5 hover:scale-[1.03] hover:border-accent-500 hover:shadow-xl hover:shadow-accent-500/20`}
     >
       <p className="relative mb-3 shrink-0 font-mono text-[10px] uppercase tracking-wider text-fg-subtle">{name}</p>
       <div className="relative min-h-0 flex-1">

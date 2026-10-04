@@ -96,7 +96,7 @@ const INTERACTIVE = "input,textarea,select,button,a,label,[role='slider'],[role=
  */
 const Reel = memo(function Reel({ items, dir, speed, style }: { items: ReactNode[]; dir: 1 | -1; speed: number; style?: CSSProperties }) {
   const track = useRef<HTMLDivElement>(null);
-  const st = useRef({ x: 0, vel: 0, hover: false, drag: false, moved: false, startX: 0, startPos: 0, lastX: 0, lastT: 0, id: -1 });
+  const st = useRef({ x: 0, vel: 0, pressed: false, drag: false, moved: false, startX: 0, startPos: 0, lastX: 0, lastT: 0, id: -1 });
   const [grabbing, setGrabbing] = useState(false);
 
   const root = useRef<HTMLDivElement>(null);
@@ -118,12 +118,12 @@ const Reel = memo(function Reel({ items, dir, speed, style }: { items: ReactNode
       const t = st.current;
       const dt = Math.min(64, now - last);
       last = now;
-      const moving = !t.drag && (Math.abs(t.vel) > 0.0005 || (!t.hover && !reduce));
+      const moving = !t.drag && (Math.abs(t.vel) > 0.0005 || (!t.pressed && !reduce));
       if (t.drag || moving) {
         if (!t.drag) {
           t.x += t.vel * dt;
           t.vel = Math.abs(t.vel) < 0.0005 ? 0 : t.vel * Math.pow(0.94, dt / 16);
-          if (!t.hover && !reduce) t.x += dir * speed * dt;
+          if (!t.pressed && !reduce) t.x += dir * speed * dt;
         }
         if (half > 0) t.x = ((t.x % half) - half) % half; // keep it in (-half, 0] so the doubled list loops seamlessly
         el.style.transform = `translate3d(${t.x}px,0,0)`;
@@ -139,9 +139,14 @@ const Reel = memo(function Reel({ items, dir, speed, style }: { items: ReactNode
       }
     });
     io.observe(wrap);
+    const release = () => (st.current.pressed = false);
+    window.addEventListener("pointerup", release);
+    window.addEventListener("pointercancel", release);
     raf = requestAnimationFrame(tick);
     return () => {
       cancelAnimationFrame(raf);
+      window.removeEventListener("pointerup", release);
+      window.removeEventListener("pointercancel", release);
       io.disconnect();
       ro.disconnect();
     };
@@ -149,6 +154,8 @@ const Reel = memo(function Reel({ items, dir, speed, style }: { items: ReactNode
 
   const onDown = (e: PointerEvent<HTMLDivElement>) => {
     if (e.pointerType === "mouse" && e.button !== 0) return;
+    // The reel keeps gliding while the pointer merely hovers it; pressing (a click, or a hold to drag) stops it until the button is released.
+    st.current.pressed = true;
     if ((e.target as HTMLElement).closest(INTERACTIVE)) return; // let inputs, sliders and buttons work normally
     const t = st.current;
     t.drag = true;
@@ -198,8 +205,6 @@ const Reel = memo(function Reel({ items, dir, speed, style }: { items: ReactNode
       onPointerCancel={onUp}
       onLostPointerCapture={onUp}
       onDragStart={(e) => e.preventDefault()}
-      onPointerEnter={(e) => e.pointerType === "mouse" && (st.current.hover = true)}
-      onPointerLeave={() => (st.current.hover = false)}
       onClickCapture={(e) => {
         if (st.current.moved) {
           e.stopPropagation();

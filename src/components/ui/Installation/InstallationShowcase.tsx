@@ -600,7 +600,7 @@ export default function InstallationShowcase() {
       <Panel title="What's next?">
         <ul className="list-disc space-y-1.5 pl-5 text-sm text-fg-muted">
           <li>
-            Make it yours — light / dark mode, accent colors and the <strong className="text-fg">Bento UI</strong> or <strong className="text-fg">Claymorphism</strong>{" "}
+            Make it yours — light / dark mode, accent colors and the <strong className="text-fg">Bento</strong> or <strong className="text-fg">Claymorphism</strong>{" "}
             design — on the <Link className="font-medium text-accent-600 underline underline-offset-2 dark:text-accent-400" to={pathFor("docs", "Theming")}>Theming</Link> page.
           </li>
           <li>
