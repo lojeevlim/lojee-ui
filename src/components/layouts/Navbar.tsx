@@ -1,5 +1,8 @@
 import { Navbar as UINavbar, type NavbarItemSpec } from "../ui/Navbar/Navbar";
+import { useEffect, useState } from "react";
 import { SideToggle } from "../ui/AppLayout/App";
+import { useAppLayout } from "../ui/AppLayout/appLayoutContext";
+import { Tooltip } from "../ui/Tooltip/Tooltip";
 import { useNavigate } from "react-router-dom";
 import Logo from "./Logo";
 import { ThemeSwitcher } from "../ui/ThemeSwitcher/ThemeSwitcher";
@@ -31,6 +34,18 @@ export default function NavbarLayout({ activeNav = "components", onNavChange, sh
   // destroying and recreating the pill's own DOM node before its CSS transition ever got a frame to
   // animate — the click always looked instant, never sliding, no matter how slow the transition was.
   const navigate = useNavigate();
+  // Mobile only (while the sidebar is a drawer): a short hint on the menu button, once per page load — same idea as the
+  // Playground button's "Try it live" tooltip.
+  const { isCollapsed, sideOpen } = useAppLayout();
+  const [menuHint, setMenuHint] = useState(false);
+  useEffect(() => {
+    const show = setTimeout(() => setMenuHint(true), 1800);
+    const hide = setTimeout(() => setMenuHint(false), 8500);
+    return () => {
+      clearTimeout(show);
+      clearTimeout(hide);
+    };
+  }, []);
   const navItems: NavbarItemSpec[] = NAV_LABELS.map((label) => ({ label, icon: NAV_ICONS[label], tooltip: label, active: label === KEY_TO_LABEL[activeNav] }));
 
   return (
@@ -40,7 +55,14 @@ export default function NavbarLayout({ activeNav = "components", onNavChange, sh
       // transition="bounce"
       brand={
         <>
-          {showSideToggle && <SideToggle />}
+          {showSideToggle &&
+            (isCollapsed ? (
+              <Tooltip content="Menu" position="bottom" color="accent" open={menuHint && !sideOpen}>
+                <SideToggle />
+              </Tooltip>
+            ) : (
+              <SideToggle />
+            ))}
           <button type="button" onClick={() => navigate("/")} aria-label="lojeeUI home" className="rounded-md px-1 py-1 transition-opacity hover:opacity-80 max-sm:hidden">
             <Logo size={28} className="text-[15px] max-sm:[&>span]:hidden" />
           </button>

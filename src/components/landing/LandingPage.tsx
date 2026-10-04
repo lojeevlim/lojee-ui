@@ -75,15 +75,35 @@ function Section({ eyebrow, title, body, children }: { eyebrow: string; title: s
 function Nav({ groups, onStart }: { groups: typeof COMPONENT_MENU; onStart: () => void }) {
   const navigate = useNavigate();
   const [scrolled, setScrolled] = useState(false);
+  // The bottom border glows while the page is scrolling and fades away again once scrolling stops.
+  const [glow, setGlow] = useState(false);
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
-    onScroll();
+    let idle = 0;
+    const onScroll = () => {
+      const past = window.scrollY > 8;
+      setScrolled(past);
+      if (!past) {
+        setGlow(false);
+        return;
+      }
+      setGlow(true);
+      window.clearTimeout(idle);
+      idle = window.setTimeout(() => setGlow(false), 600);
+    };
+    setScrolled(window.scrollY > 8);
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.clearTimeout(idle);
+    };
   }, []);
   const reduce = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   return (
-      <header className={`sticky top-0 z-50 border-b transition-colors duration-300 ${scrolled ? "border-border bg-surface/95" : "border-transparent bg-transparent"}`}>
+      <header
+        className={`sticky top-0 z-50 border-b transition-[border-color,box-shadow] duration-500 ${scrolled ? "bg-surface" : "bg-transparent"} ${
+          glow ? "border-accent-500 shadow-[0_1px_14px_1px_color-mix(in_srgb,var(--color-accent-500)_55%,transparent)]" : "border-transparent"
+        }`}
+      >
         <div className="mx-auto flex h-16 max-w-6xl items-center gap-3 px-5">
           <button type="button" onClick={() => window.scrollTo({ top: 0, behavior: reduce() ? "auto" : "smooth" })} className="group" aria-label="lojeeUI — back to top">
             <Logo className="[&_svg]:transition-transform [&_svg]:duration-300 group-hover:[&_svg]:rotate-6 group-hover:[&_svg]:scale-105" />
