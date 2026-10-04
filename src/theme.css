@@ -1341,7 +1341,9 @@ body[data-design="clay"] {
 
 /* Input variants in Clay: filled / soft stay pressed-in wells like the default; the underline variant stays a flat rule. */
 [data-design="clay"] input[data-input-variant="underline"],
-[data-design="clay"] textarea[data-input-variant="underline"] {
+[data-design="clay"] textarea[data-input-variant="underline"],
+[data-design="clay"] input[data-input-variant="plain"],
+[data-design="clay"] textarea[data-input-variant="plain"] {
   border-radius: 0;
   box-shadow: none;
   background-color: transparent;

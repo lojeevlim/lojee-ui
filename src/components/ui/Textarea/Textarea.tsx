@@ -14,7 +14,7 @@ export interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElemen
   onFocus?: FocusEventHandler<HTMLTextAreaElement>;
   /** Called when the field fails validation (e.g. `required` and empty) — the native invalid event (the web component's `invalid` event, detail = the message). */
   onInvalid?: FormEventHandler<HTMLTextAreaElement>;
-  /** Look of the field: "outline" | "filled" | "underline" | "soft" (default: "outline"). */
+  /** Look of the field: "outline" | "filled" | "underline" | "soft" | "plain" (default: "outline"). */
   variant?: InputVariant;
   /** Applies error styling (rose border and focus ring) to flag invalid input (default: false). */
   invalid?: boolean;

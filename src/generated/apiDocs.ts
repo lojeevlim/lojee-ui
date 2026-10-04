@@ -4935,7 +4935,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "name": "variant",
             "type": "InputVariant",
             "required": false,
-            "description": "Look of the field: \"outline\" | \"filled\" | \"underline\" | \"soft\" (default: \"outline\").",
+            "description": "Look of the field: \"outline\" | \"filled\" | \"underline\" | \"soft\" | \"plain\" (default: \"outline\").",
             "default": "\"outline\""
           },
           {
@@ -5117,7 +5117,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "name": "variant",
             "type": "InputVariant",
             "required": false,
-            "description": "Look of the field: \"outline\" | \"filled\" | \"underline\" | \"soft\" (default: \"outline\").",
+            "description": "Look of the field: \"outline\" | \"filled\" | \"underline\" | \"soft\" | \"plain\" (default: \"outline\").",
             "default": "\"outline\""
           },
           {
@@ -6943,7 +6943,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "name": "variant",
             "type": "InputVariant",
             "required": false,
-            "description": "Look of the field: \"outline\" | \"filled\" | \"underline\" | \"soft\" (default: \"outline\").",
+            "description": "Look of the field: \"outline\" | \"filled\" | \"underline\" | \"soft\" | \"plain\" (default: \"outline\").",
             "default": "\"outline\""
           },
           {
@@ -13654,7 +13654,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "name": "variant",
             "type": "InputVariant",
             "required": false,
-            "description": "Look of the field: \"outline\" | \"filled\" | \"underline\" | \"soft\" (default: \"outline\").",
+            "description": "Look of the field: \"outline\" | \"filled\" | \"underline\" | \"soft\" | \"plain\" (default: \"outline\").",
             "default": "\"outline\""
           },
           {
@@ -14506,7 +14506,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "name": "variant",
             "type": "ChatBoxVariant",
             "required": false,
-            "description": "Look of the thread: \"bubble\" (filled chat bubbles), \"outline\" (outlined bubbles), \"flat\" (full-width rows, assistant rows tinted — like an AI assistant page) or \"compact\" (small text, tight spacing, no avatars) (default: \"bubble\").",
+            "description": "Look of the thread: \"bubble\" (filled chat bubbles), \"outline\" (outlined bubbles), \"flat\" (full-width rows, assistant rows tinted, and a plain borderless message field — like an AI assistant page) or \"compact\" (small text, tight spacing, no avatars) (default: \"bubble\").",
             "default": "\"bubble\""
           },
           {

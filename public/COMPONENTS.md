@@ -3467,7 +3467,7 @@ import { Iframe } from "lojee-ui";
 
 ### Chat Box · 1. Component Overview
 
-A chat thread with a message box — user and assistant bubbles, system notes, a "thinking" bubble and auto-scroll. Enter sends, Shift+Enter adds a line.
+A chat thread with a message box — user and assistant bubbles, system notes, a "thinking" bubble and auto-scroll. Enter sends.
 
 - React: `import { ChatBox } from "lojee-ui"`
 - Web Component: `<l-chat-box>` (after `import "lojee-ui/elements"`)
@@ -3478,7 +3478,7 @@ A chat thread with a message box — user and assistant bubbles, system notes, a
 
 | Prop | Type | Default | Description |
 | --- | --- | --- | --- |
-| `variant` | `ChatBoxVariant` | `"bubble"` | Look of the thread: "bubble" (filled chat bubbles), "outline" (outlined bubbles), "flat" (full-width rows, assistant rows tinted — like an AI assistant page) or "compact" (small text, tight spacing, no avatars) (default: "bubble"). |
+| `variant` | `ChatBoxVariant` | `"bubble"` | Look of the thread: "bubble" (filled chat bubbles), "outline" (outlined bubbles), "flat" (full-width rows, assistant rows tinted, and a plain borderless message field — like an AI assistant page) or "compact" (small text, tight spacing, no avatars) (default: "bubble"). |
 | `messages` | `ChatMessage[]` | — | Messages to show (controlled) — add the user's message yourself in `onSend`. Omit to let the ChatBox keep its own list, seeded from `defaultMessages`. |
 | `defaultMessages` | `ChatMessage[]` | `[]` | Starting messages when `messages` is not provided. |
 | `onSend` | `(text: string) => void` | — | Called with the trimmed text when the user presses Enter or the send button. |
@@ -3510,7 +3510,7 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 
 | Component | Prop | Values | Default | Notes |
 | --- | --- | --- | --- | --- |
-| `ChatBox` | `variant` | `bubble`, `outline`, `flat`, `compact` | `"bubble"` | Look of the thread: "bubble" (filled chat bubbles), "outline" (outlined bubbles), "flat" (full-width rows, assistant rows tinted — like an AI assistant page) or "compact" (small text, tight spacing, no avatars) (default: "bubble"). |
+| `ChatBox` | `variant` | `bubble`, `outline`, `flat`, `compact` | `"bubble"` | Look of the thread: "bubble" (filled chat bubbles), "outline" (outlined bubbles), "flat" (full-width rows, assistant rows tinted, and a plain borderless message field — like an AI assistant page) or "compact" (small text, tight spacing, no avatars) (default: "bubble"). |
 
 ### Chat Box · 5. Colors and Theming
 
@@ -3585,7 +3585,7 @@ import { ChatBox } from "lojee-ui";
 - ARIA roles used: `log`.
 - ARIA attributes set by the component: `aria-label`, `aria-live`.
 - Keyboard: has keyboard handling (e.g. Escape / arrow keys) — see the docs page for the exact keys.
-- Focus: visible focus ring (`focus-visible`).
+- Focus: uses the browser focus outline / the underlying control's ring.
 - Motion: respects `prefers-reduced-motion`.
 
 ### Chat Box · 13. Responsive Behavior
@@ -3623,7 +3623,7 @@ A text input wrapping the native <input> element.
 | `onFocus` | `FocusEventHandler<HTMLInputElement>` | — | Called when the field gains focus — the native focus event (the web component's `focus` event). |
 | `onInvalid` | `FormEventHandler<HTMLInputElement>` | — | Called when the field fails validation (e.g. `required` and empty) — the native invalid event (the web component's `invalid` event, detail = the message). |
 | `size` | `InputSize` | `"md"` | Control height and text size: "sm" \| "md" \| "lg". Defaults to "md". |
-| `variant` | `InputVariant` | `"outline"` | Look of the field: "outline" \| "filled" \| "underline" \| "soft" (default: "outline"). |
+| `variant` | `InputVariant` | `"outline"` | Look of the field: "outline" \| "filled" \| "underline" \| "soft" \| "plain" (default: "outline"). |
 | `invalid` | `boolean` | `false` | Applies error (rose) styling when true (default: false). |
 | `leadingIcon` | `string` | — | Icon name, e.g. "mail" — see src/core/icons.ts for the available set. |
 | `trailingIcon` | `string` | — | Icon name, e.g. "eye" — see src/core/icons.ts for the available set. |
@@ -3648,7 +3648,7 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 
 | Component | Prop | Values | Default | Notes |
 | --- | --- | --- | --- | --- |
-| `Input` | `variant` | `outline`, `filled`, `underline`, `soft` | `"outline"` | Look of the field: "outline" \| "filled" \| "underline" \| "soft" (default: "outline"). |
+| `Input` | `variant` | `outline`, `filled`, `underline`, `soft`, `plain` | `"outline"` | Look of the field: "outline" \| "filled" \| "underline" \| "soft" \| "plain" (default: "outline"). |
 
 ### Input · 5. Colors and Theming
 
@@ -3741,13 +3741,14 @@ sm, md, lg.
 
 #### Variants
 
-outline (default), filled, underline and soft — also on Textarea, PasswordInput and SearchInput.
+outline (default), filled, underline, soft and plain (just the text, no box) — also on Textarea, PasswordInput and SearchInput.
 
 ```tsx
 <Input variant="outline" placeholder="Outline" />
 <Input variant="filled" placeholder="Filled" />
 <Input variant="underline" placeholder="Underline" />
 <Input variant="soft" placeholder="Soft" />
+<Input variant="plain" placeholder="Plain" />
 ```
 
 #### With icons
@@ -3831,7 +3832,7 @@ A multi-line text input wrapping the native <textarea> element.
 | `onInput` | `FormEventHandler<HTMLTextAreaElement>` | — | Called as the user edits — the native input event (the web component's `input` event, detail = the current value). |
 | `onFocus` | `FocusEventHandler<HTMLTextAreaElement>` | — | Called when the field gains focus — the native focus event (the web component's `focus` event). |
 | `onInvalid` | `FormEventHandler<HTMLTextAreaElement>` | — | Called when the field fails validation (e.g. `required` and empty) — the native invalid event (the web component's `invalid` event, detail = the message). |
-| `variant` | `InputVariant` | `"outline"` | Look of the field: "outline" \| "filled" \| "underline" \| "soft" (default: "outline"). |
+| `variant` | `InputVariant` | `"outline"` | Look of the field: "outline" \| "filled" \| "underline" \| "soft" \| "plain" (default: "outline"). |
 | `invalid` | `boolean` | `false` | Applies error styling (rose border and focus ring) to flag invalid input (default: false). |
 | `resize` | `TextareaResize` | `"vertical"` | User resize handle: "none", "vertical" or "both" (default: "vertical"). |
 | `className` | `string` | — | Extra class name(s) appended to the root element. |
@@ -3855,7 +3856,7 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 
 | Component | Prop | Values | Default | Notes |
 | --- | --- | --- | --- | --- |
-| `Textarea` | `variant` | `outline`, `filled`, `underline`, `soft` | `"outline"` | Look of the field: "outline" \| "filled" \| "underline" \| "soft" (default: "outline"). |
+| `Textarea` | `variant` | `outline`, `filled`, `underline`, `soft`, `plain` | `"outline"` | Look of the field: "outline" \| "filled" \| "underline" \| "soft" \| "plain" (default: "outline"). |
 
 ### Textarea · 5. Colors and Theming
 
@@ -5950,7 +5951,7 @@ A text input with a leading search icon and a working clear button.
 | `onFocus` | `FocusEventHandler<HTMLInputElement>` | — | Called when the field gains focus — the native focus event (the web component's `focus` event). |
 | `onInvalid` | `FormEventHandler<HTMLInputElement>` | — | Called when the field fails validation (e.g. `required` and empty) — the native invalid event (the web component's `invalid` event, detail = the message). |
 | `size` | `SearchInputSize` | `"md"` | Control height and text size: "sm", "md" (default) or "lg". |
-| `variant` | `InputVariant` | `"outline"` | Look of the field: "outline" \| "filled" \| "underline" \| "soft" (default: "outline"). |
+| `variant` | `InputVariant` | `"outline"` | Look of the field: "outline" \| "filled" \| "underline" \| "soft" \| "plain" (default: "outline"). |
 | `onClear` | `() => void` | — | Called when the clear (x) button is clicked — only rendered when `value` is truthy and this is provided. |
 | `className` | `string` | — | Extra CSS class(es) added to the root element, merged before `classNames.root`. |
 | `classNames` | `{ root?: string; input?: string; icon?: string; clearButton?: string }` | — | Per-part class overrides — merged after (and win over) the built-in styling. |
@@ -5974,7 +5975,7 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 
 | Component | Prop | Values | Default | Notes |
 | --- | --- | --- | --- | --- |
-| `SearchInput` | `variant` | `outline`, `filled`, `underline`, `soft` | `"outline"` | Look of the field: "outline" \| "filled" \| "underline" \| "soft" (default: "outline"). |
+| `SearchInput` | `variant` | `outline`, `filled`, `underline`, `soft`, `plain` | `"outline"` | Look of the field: "outline" \| "filled" \| "underline" \| "soft" \| "plain" (default: "outline"). |
 
 ### Search Input · 5. Colors and Theming
 
@@ -6164,7 +6165,7 @@ A password field with a show/hide toggle button.
 | `onFocus` | `FocusEventHandler<HTMLInputElement>` | — | Called when the field gains focus — the native focus event (the web component's `focus` event). |
 | `onInvalid` | `FormEventHandler<HTMLInputElement>` | — | Called when the field fails validation (e.g. `required` and empty) — the native invalid event (the web component's `invalid` event, detail = the message). |
 | `size` | `PasswordInputSize` | `"md"` | Control height and text size: "sm", "md" (default) or "lg". |
-| `variant` | `InputVariant` | `"outline"` | Look of the field: "outline" \| "filled" \| "underline" \| "soft" (default: "outline"). |
+| `variant` | `InputVariant` | `"outline"` | Look of the field: "outline" \| "filled" \| "underline" \| "soft" \| "plain" (default: "outline"). |
 | `invalid` | `boolean` | `false` | Marks the field as invalid — rose border/focus ring and `aria-invalid` (default: false). |
 | `className` | `string` | — | Extra CSS class(es) added to the root element, merged before `classNames.root`. |
 | `classNames` | `{ root?: string; input?: string; toggleButton?: string }` | — | Per-part class overrides — merged after (and win over) the built-in styling. |
@@ -6187,7 +6188,7 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 
 | Component | Prop | Values | Default | Notes |
 | --- | --- | --- | --- | --- |
-| `PasswordInput` | `variant` | `outline`, `filled`, `underline`, `soft` | `"outline"` | Look of the field: "outline" \| "filled" \| "underline" \| "soft" (default: "outline"). |
+| `PasswordInput` | `variant` | `outline`, `filled`, `underline`, `soft`, `plain` | `"outline"` | Look of the field: "outline" \| "filled" \| "underline" \| "soft" \| "plain" (default: "outline"). |
 
 ### Password Input · 5. Colors and Theming
 

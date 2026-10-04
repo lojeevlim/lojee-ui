@@ -42,7 +42,7 @@ export default function ChatBoxShowcase() {
       <div className="space-y-12">
         <div>
           <h1 className="text-2xl font-semibold text-fg">ChatBox</h1>
-          <p className="mt-1 text-sm text-fg-subtle">A chat thread with a message box — user and assistant bubbles, system notes, a "thinking" bubble and auto-scroll. Enter sends, Shift+Enter adds a line.</p>
+          <p className="mt-1 text-sm text-fg-subtle">A chat thread with a message box — user and assistant bubbles, system notes, a "thinking" bubble and auto-scroll. Enter sends.</p>
         </div>
 
         <section>
@@ -194,7 +194,7 @@ export class ChatComponent {
           />
         </section>
         <section>
-          <SectionLabel sub='variant: "bubble" (default), "outline", "flat" (full-width rows, like an AI assistant page) or "compact" (small, no avatars).'>Variants</SectionLabel>
+          <SectionLabel sub='variant: "bubble" (default), "outline", "flat" (full-width rows and a plain borderless message field, like an AI assistant page) or "compact" (small, no avatars).'>Variants</SectionLabel>
           <div className="grid gap-4 md:grid-cols-2">
             {(["bubble", "outline", "flat", "compact"] as const).map((v) => (
               <div key={v}>

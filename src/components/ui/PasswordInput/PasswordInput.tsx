@@ -18,7 +18,7 @@ export interface PasswordInputProps extends Omit<InputHTMLAttributes<HTMLInputEl
   onInvalid?: FormEventHandler<HTMLInputElement>;
   /** Control height and text size: "sm", "md" (default) or "lg". */
   size?: PasswordInputSize;
-  /** Look of the field: "outline" | "filled" | "underline" | "soft" (default: "outline"). */
+  /** Look of the field: "outline" | "filled" | "underline" | "soft" | "plain" (default: "outline"). */
   variant?: InputVariant;
   /** Marks the field as invalid — rose border/focus ring and `aria-invalid` (default: false). */
   invalid?: boolean;

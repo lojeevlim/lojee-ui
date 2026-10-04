@@ -17,7 +17,7 @@ export interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 
   onInvalid?: FormEventHandler<HTMLInputElement>;
   /** Control height and text size: "sm" | "md" | "lg". Defaults to "md". */
   size?: InputSize;
-  /** Look of the field: "outline" | "filled" | "underline" | "soft" (default: "outline"). */
+  /** Look of the field: "outline" | "filled" | "underline" | "soft" | "plain" (default: "outline"). */
   variant?: InputVariant;
   /** Applies error (rose) styling when true (default: false). */
   invalid?: boolean;

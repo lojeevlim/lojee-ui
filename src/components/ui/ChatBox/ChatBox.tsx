@@ -1,7 +1,8 @@
-import { useEffect, useRef, useState, type KeyboardEvent, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { ArrowUp, Check, Copy, Sparkles, User } from "lucide-react";
 import { colorClasses, cx, nonInteractive, type ColorName } from "../../../core/tokens";
 import { motionClass, motionStyle, type TransitionVariant } from "../../../core/motion";
+import { Input } from "../Input/Input";
 import { Thinking, type ThinkingVariant } from "../Thinking/Thinking";
 import { highlightCode } from "../../../core/highlightCode";
 
@@ -74,7 +75,7 @@ export interface ChatMessage {
 }
 
 export interface ChatBoxProps {
-  /** Look of the thread: "bubble" (filled chat bubbles), "outline" (outlined bubbles), "flat" (full-width rows, assistant rows tinted — like an AI assistant page) or "compact" (small text, tight spacing, no avatars) (default: "bubble"). */
+  /** Look of the thread: "bubble" (filled chat bubbles), "outline" (outlined bubbles), "flat" (full-width rows, assistant rows tinted, and a plain borderless message field — like an AI assistant page) or "compact" (small text, tight spacing, no avatars) (default: "bubble"). */
   variant?: ChatBoxVariant;
   /** Messages to show (controlled) — add the user's message yourself in `onSend`. Omit to let the ChatBox keep its own list, seeded from `defaultMessages`. */
   messages?: ChatMessage[];
@@ -156,7 +157,6 @@ export function ChatBox({
   const [own, setOwn] = useState<ChatMessage[]>(defaultMessages);
   const [draft, setDraft] = useState("");
   const scroller = useRef<HTMLDivElement>(null);
-  const box = useRef<HTMLTextAreaElement>(null);
   const list = messages ?? own;
   // On when `thinking` is true or any string (even "" — a bare web-component attribute), off when missing / removed (undefined or null), false or "false".
   const isThinking = thinking != null && thinking !== false && thinking !== "false";
@@ -176,27 +176,12 @@ export function ChatBox({
     if (el) el.scrollTo({ top: el.scrollHeight, behavior: "smooth" });
   }, [list.length, isThinking]);
 
-  // Grow the box with its text, up to about five lines.
-  useEffect(() => {
-    const el = box.current;
-    if (!el) return;
-    el.style.height = "auto";
-    el.style.height = `${Math.min(el.scrollHeight, 120)}px`;
-  }, [draft]);
-
   const send = (override?: string) => {
     const text = (override ?? draft).trim();
     if (!text || disabled) return;
     if (messages === undefined) setOwn((prev) => [...prev, { id: `m-${Date.now()}-${prev.length}`, role: "user", content: text }]);
     onSend?.(text);
     if (override === undefined) setDraft("");
-  };
-
-  const onKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent.isComposing) {
-      e.preventDefault();
-      send();
-    }
   };
 
   return (
@@ -322,32 +307,28 @@ export function ChatBox({
       )}
 
       <form
-        className={cx("flex items-end gap-2 p-3", !(suggestions && suggestions.length > 0 && !list.some((m) => m.role === "user")) && "border-t border-border")}
+        className={cx("flex items-center gap-2 p-3", !(suggestions && suggestions.length > 0 && !list.some((m) => m.role === "user")) && "border-t border-border")}
         onSubmit={(e) => {
           e.preventDefault();
           send();
         }}
       >
-        <textarea
-          ref={box}
-          rows={1}
+        <Input
           value={draft}
           disabled={disabled}
           placeholder={placeholder}
           aria-label="Message"
+          autoComplete="off"
+          variant={flat ? "plain" : "outline"}
           onChange={(e) => setDraft(e.target.value)}
-          onKeyDown={onKeyDown}
-          className={cx(
-            "max-h-[120px] min-h-[38px] flex-1 resize-none rounded-lg border border-border bg-surface px-3 py-2 text-sm text-fg outline-none transition-colors placeholder:text-fg-subtle focus:border-border-strong disabled:opacity-50",
-            classNames?.input
-          )}
+          className={cx("min-w-0 flex-1", classNames?.input)}
         />
         <button
           type="submit"
           disabled={disabled || !draft.trim()}
           aria-label="Send message"
           className={cx(
-            "flex h-[38px] w-[38px] shrink-0 items-center justify-center rounded-lg transition-opacity disabled:cursor-not-allowed disabled:opacity-40",
+            "flex h-10 w-10 shrink-0 items-center justify-center rounded-lg transition-opacity disabled:cursor-not-allowed disabled:opacity-40",
             ownBubble,
             classNames?.send
           )}

@@ -17,7 +17,7 @@ export interface SearchInputProps extends Omit<InputHTMLAttributes<HTMLInputElem
   onInvalid?: FormEventHandler<HTMLInputElement>;
   /** Control height and text size: "sm", "md" (default) or "lg". */
   size?: SearchInputSize;
-  /** Look of the field: "outline" | "filled" | "underline" | "soft" (default: "outline"). */
+  /** Look of the field: "outline" | "filled" | "underline" | "soft" | "plain" (default: "outline"). */
   variant?: InputVariant;
   /** Called when the clear (x) button is clicked — only rendered when `value` is truthy and this is provided. */
   onClear?: () => void;

@@ -331,6 +331,7 @@ function App() {
       title={`${found.item.label} Playground`}
       className="lg:max-w-6xl"
       classNames={{ body: 'pb-6' }}
+      transition="bounce"
     >
       <Playground itemLabel={found.item.label} />
     </Modal>
