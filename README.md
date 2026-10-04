@@ -40,45 +40,7 @@ tag (plus `alpha` while it is a pre-release) and pushes the commit and tag.
 
 ### Publishing manually with an access token
 
-1. **Create a token** on npmjs.com: profile picture, *Access Tokens*, *Generate New Token*, *Granular Access Token*. Give it *Read and write* on `lojee-ui` only, a short expiry (7-30 days) and, if your account has 2FA, the option that lets the token bypass 2FA. npm shows the token once.
-2. **Put it in the terminal session**, never on a command line or in a file. Paste it at the hidden prompt:
-
-   ```bash
-   read -s -p "Token: " NPM_TOKEN; echo     # paste e.g. npm_EXAMPLE0000000000000000000000000000, press Enter
-   export NPM_TOKEN
-   echo ${#NPM_TOKEN}                       # must print a number above 0 (about 40)
-   npm whoami --//registry.npmjs.org/:_authToken=$NPM_TOKEN   # prints your npm username
-   ```
-
-   `NPM_TOKEN` is only the variable's name; the token itself goes in at the `Token:` prompt. Don't write `read -s npm_...`, `export NPM_TOKEN=npm_...` or put the token in `.env` / a committed file.
-3. **Check the state:** `git status --short` prints nothing, you are on `main`, and `npm view lojee-ui dist-tags` shows the current version.
-4. **Prepare:**
-
-   ```bash
-   npm run docs:api && npm run docs:changelog
-   npm version prerelease --preid alpha --no-git-tag-version   # e.g. alpha.10 -> alpha.11
-   npm run docs:ai                                              # after the bump: the version is written into COMPONENTS.md
-   npx tsc -b && npm run clean && npm run build:pkg
-   git add -A && git commit -m "Release 0.1.0-alpha.11" && git tag v0.1.0-alpha.11
-   ```
-5. **Publish** (preview the files first with `npm pack --dry-run`):
-
-   ```bash
-   npm publish --tag latest --//registry.npmjs.org/:_authToken=$NPM_TOKEN
-   npm dist-tag add lojee-ui@0.1.0-alpha.11 alpha --//registry.npmjs.org/:_authToken=$NPM_TOKEN
-   git push origin main --tags
-   npm view lojee-ui dist-tags     # the registry can take a few minutes to show it
-   ```
-6. **Clean up:** `unset NPM_TOKEN`, and delete the token on npmjs.com when you are done.
-
-`npm run release` does steps 4-5 for you and reads the same `NPM_TOKEN` variable.
-
-| Error | Cause / fix |
-| --- | --- |
-| `ENEEDAUTH` | The token is empty, wrong, revoked or expired. Check `echo ${#NPM_TOKEN}`, then make a new token. |
-| `E403` / `EOTP` | The token can't publish or can't bypass 2FA. Create a granular token with *Read and write* on `lojee-ui` and the 2FA-bypass option. |
-| `E403 ... previously published versions` | That version already exists; bump the version again. |
-| `E404` on publish | The token has no access to `lojee-ui`; re-create it with the package selected. |
+The full step-by-step guide, with example commands and output, is in [commands/npm.md](commands/npm.md). In short: create a granular token, paste it once at `read -rs NPM_TOKEN`, bump the version, build, then `npm publish --tag latest --userconfig "$TMP_NPMRC"`. `npm run release` does the same and reads `NPM_TOKEN`.
 
 > **Note:** `npm run build` (demo app) and `npm run build:pkg` (library) both write to
 > `dist/`. Don't run them back to back expecting both outputs to coexist — run
