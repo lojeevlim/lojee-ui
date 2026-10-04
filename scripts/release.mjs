@@ -20,7 +20,8 @@ const flag = (f) => args.includes(f);
 const bump = args.find((a) => !a.startsWith("--")) ?? "prerelease";
 const dry = flag("--dry-run");
 
-const run = (cmd, a, opts = {}) => execFileSync(cmd, a, { cwd: root, encoding: "utf8", stdio: ["ignore", "pipe", "inherit"], ...opts }).trim();
+// Returns the command's output (trimmed); with `stdio: "inherit"` the output goes to the terminal and "" is returned.
+const run = (cmd, a, opts = {}) => (execFileSync(cmd, a, { cwd: root, encoding: "utf8", stdio: ["ignore", "pipe", "inherit"], ...opts }) ?? "").trim();
 const step = (msg) => console.log(`\n▸ ${msg}`);
 const doIt = (msg, fn) => {
   step(msg + (dry ? "  (dry run — skipped)" : ""));
@@ -72,7 +73,10 @@ if (dry) {
 // The version number is written into COMPONENTS.md, so regenerate it once more after the bump.
 doIt("Refreshing COMPONENTS.md with the new version", () => run("node", ["scripts/gen-ai-reference.mjs"], { stdio: "inherit" }));
 doIt("Type-checking", () => run("npx", ["tsc", "-b"], { stdio: "inherit" }));
-doIt("Building the package", () => run("npm", ["run", "clean"], { stdio: "inherit" }) && run("npm", ["run", "build:pkg"], { stdio: "inherit" }));
+doIt("Building the package", () => {
+  run("npm", ["run", "clean"], { stdio: "inherit" });
+  run("npm", ["run", "build:pkg"], { stdio: "inherit" });
+});
 doIt(`Committing "Release ${version}" and tagging v${version}`, () => {
   run("git", ["add", "-A"]);
   run("git", ["commit", "-m", `Release ${version}`]);
