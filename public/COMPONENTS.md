@@ -3485,6 +3485,7 @@ A chat thread with a message box — user and assistant bubbles, system notes, a
 | `thinkingVariant` | `ThinkingVariant` | `"dots"` | Style of the thinking indicator: "dots" \| "wave" \| "orb" \| "shimmer" (default: "dots"). |
 | `thinkingSteps` | `string[]` | — | Status lines the thinking indicator cycles through, e.g. ["Reading the question", "Writing the answer"] — replaces the thinking text. |
 | `thinkingElapsed` | `boolean` | `false` | Adds a running timer to the thinking indicator — "Thinking · 4s" (default: false). |
+| `assistantIcon` | `ReactNode` | — | Icon for the assistant — in the header and beside its messages (React only; default: a sparkles icon). It is sized to fit, so pass a bare SVG / icon. |
 | `suggestions` | `string[]` | — | Quick-reply chips shown above the message box until the user has sent a message; clicking one sends it like typed text. |
 | `placeholder` | `string` | `"Type a message…"` | Placeholder of the message box (default: "Type a message…"). |
 | `disabled` | `boolean` | `false` | Disables the message box and send button (default: false). |
@@ -3534,7 +3535,9 @@ Standard visual states: default · hover · focus-visible (ring) · active/press
 
 ### Chat Box · 8. Slots / Children / Content
 
-_No children or slots — it is configured entirely through props._
+| Component | React prop | Type | Description |
+| --- | --- | --- | --- |
+| `ChatBox` | `assistantIcon` | `ReactNode` | Icon for the assistant — in the header and beside its messages (React only; default: a sparkles icon). It is sized to fit, so pass a bare SVG / icon. |
 
 In a Web Component, the element's light-DOM text/children go into the default slot; a prop that accepts a node (e.g. `header`, `footer`) can usually also be filled with a child carrying `slot="<name>"`.
 
@@ -13329,7 +13332,7 @@ The menu the lojee-ui navbar uses: light/dark, the accent color and the active-i
 | `onActiveVariantChange` | `(variant: ActiveVariant) => void` | — | Called when an active-item style is picked (default: the `ThemeProvider`'s `setActiveVariant`). |
 | `onDesignChange` | `(design: DesignName) => void` | — | Called when a design is picked (default: the `ThemeProvider`'s `setDesign`). |
 | `align` | `ThemeSwitcherAlign` | `"end"` | Where the dropdown (which always opens below the button) lines up with the button: "start" (left edges together), "center", or "end" (right edges together). "left" / "right" also work, as start / end. Default: "end". |
-| `showDesign` | `boolean` | `true` | Show the "Design" section — Bento UI or Claymorphism (default: true). |
+| `showDesign` | `boolean` | `true` | Show the "Design" section — Bento or Claymorphism (default: true). |
 | `showActiveItems` | `boolean` | `true` | Show the "Active items" section (default: true). |
 | `showAccent` | `boolean` | `true` | Show the "Accent" section — the built-in colors plus a "Custom" row that opens a color picker for any color (default: true). |
 | `showCustom` | `boolean` | `true` | Show the "Custom" row in the Accent section — a color picker for any accent color (default: true). |
@@ -15772,7 +15775,7 @@ import { MapMarker } from "lojee-ui";
 
 ### Map Routes · 1. Component Overview
 
-Draw paths on a map: from your own coordinates, or let the component fetch the road route between stops from the free OSRM service. Lines can be dashed, animated, highlighted, clicked, and drawn partly complete. Use <MapRoute> inside <Map> in React, or pass routes data everywhere.
+Draw paths on a map: give an array of two or more points (waypoints) and the real road route is found for you from the free OSRM service — or pass your own coordinates for a custom line. Lines can be dashed, animated, highlighted, clicked, and drawn partly complete. Use <MapRoute> inside <Map> in React, or pass routes data everywhere.
 
 - React: `import { MapRoute } from "lojee-ui"`
 
@@ -15783,7 +15786,11 @@ Draw paths on a map: from your own coordinates, or let the component fetch the r
 | Prop | Type | Default | Description |
 | --- | --- | --- | --- |
 | `coordinates` | `LngLat[]` | — | The line to draw, as `[lng, lat]` pairs. |
-| `waypoints` | `LngLat[]` | — | Instead of `coordinates`: stops to route through. The road route between them is fetched from the public OSRM demo server (falls back to straight lines if it can't be reached). |
+| `waypoints` | `LngLat[]` | — | The points to travel through, in order, as `[lng, lat]` pairs — `[A, B]` for a trip from A to B, `[A, B, C, D]` for any number of stops. The route between them follows the real roads (fetched from the public OSRM demo servers; falls back to straight lines if they can't be reached). Use this instead of `coordinates`. |
+| `prefer` | `RoutePreference` | `"shortest"` | Which route to draw when there are alternatives between two points: "shortest" (least distance) or "fastest" (least travel time) (default: "shortest"). Alternatives only exist for a trip of exactly two points. |
+| `profile` | `RouteProfile` | `"driving"` | How the trip is made: "driving", "cycling" or "walking" — each uses roads / paths that mode may take (default: "driving"). |
+| `routingUrl` | `string` | — | Base URL of your own OSRM routing server, e.g. "https://osrm.example.com/route/v1/driving" — replaces the public demo servers (use this in production). |
+| `onRouteError` | `(error: Error) => void` | — | Called when the road route could not be fetched (the line then falls back to straight segments between the points). |
 | `color` | `ColorName \| (string & {})` | `"accent"` | Line color: a built-in color name (default "accent", which follows the theme) or any CSS color. |
 | `width` | `number` | `4` | Line width in px (default 4). |
 | `opacity` | `number` | `0.85` | Line opacity from 0 to 1 (default 0.85). |
@@ -15808,7 +15815,10 @@ Draw paths on a map: from your own coordinates, or let the component fetch the r
 | --- | --- | --- |
 | `id` | `string` | — |
 | `coordinates` | `LngLat[]` | The line to draw, as `[lng, lat]` pairs. |
-| `waypoints` | `LngLat[]` | Instead of `coordinates`: stops to route through. The road route between them is fetched from the public OSRM demo server. |
+| `waypoints` | `LngLat[]` | Instead of `coordinates`: the points to travel through, in order — `[A, B]` or any number of stops (A → B → C …). The route between them follows the real roads (fetched from the public OSRM demo servers). |
+| `prefer` | `"shortest" \| "fastest"` | Which route to pick when there are alternatives: "shortest" (default) or "fastest". |
+| `profile` | `"driving" \| "cycling" \| "walking"` | "driving" (default), "cycling" or "walking". |
+| `routingUrl` | `string` | Base URL of your own OSRM server (replaces the public demo servers). |
 | `color` | `ColorName \| (string & {})` | — |
 | `width` | `number` | Line width in px (default 4). |
 | `opacity` | `number` | Line opacity from 0 to 1 (default 0.85). |
@@ -15834,6 +15844,7 @@ Draw paths on a map: from your own coordinates, or let the component fetch the r
 
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
+| `MapRoute` | `onRouteError` | `(error: Error) => void` | — (React only) | Called when the road route could not be fetched (the line then falls back to straight segments between the points). |
 | `MapRoute` | `onClick` | `() => void` | — (React only) | Called when the route line is clicked. |
 | `MapRoute` | `onLoad` | `(summary: MapRouteSummary) => void` | — (React only) | Called with the route's length (and travel time for `waypoints` routes) once its geometry is known. |
 

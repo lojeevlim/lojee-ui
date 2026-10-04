@@ -4,10 +4,12 @@ import { Map } from "./Map/Map";
 import { MapMarker } from "./MapMarker/MapMarker";
 import { OptionGroup, ColorSwatches, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import { mapCode, type CodeProp } from "./Map/showcase/mapCode";
-import { CITY_HALL, CEBU_LOOP, AIRPORT } from "./Map/samples";
+import { CITY_HALL, CEBU_LOOP, CEBU_STOPS, AIRPORT } from "./Map/samples";
 import type { MapRouteData } from "./Map/mapTypes";
 
-const SOURCES = ["Drawn line", "Road (OSRM)"] as const;
+// "Road" follows the real roads through several points (A → B → C → D); "Drawn line" is a custom line from your own coordinates.
+const SOURCES = ["Road (OSRM)", "Drawn line"] as const;
+const TRIP = [CITY_HALL, CEBU_STOPS[1].coord, CEBU_STOPS[2].coord, AIRPORT];
 const LINES = ["solid", "dashed"] as const;
 const ANIMATIONS = ["none", "flow", "draw", "pulse", "trail", "glow", "shimmer"] as const;
 const SPEEDS = ["0.5x", "1x", "2x"] as const;
@@ -15,7 +17,7 @@ const DIRECTIONS = ["forward", "reverse"] as const;
 const WIDTHS = ["3", "5", "8"] as const;
 
 export default function MapRoutePlayground() {
-  const [source, setSource] = useState<(typeof SOURCES)[number]>("Drawn line");
+  const [source, setSource] = useState<(typeof SOURCES)[number]>("Road (OSRM)");
   const [color, setColor] = useState<string>("accent");
   const [line, setLine] = useState<(typeof LINES)[number]>("solid");
   const [animation, setAnimation] = useState<(typeof ANIMATIONS)[number]>("none");
@@ -50,7 +52,7 @@ export default function MapRoutePlayground() {
 
   const road = source === "Road (OSRM)";
   const route: MapRouteData = {
-    ...(road ? { waypoints: [CITY_HALL, AIRPORT] } : { coordinates: CEBU_LOOP }),
+    ...(road ? { waypoints: TRIP } : { coordinates: CEBU_LOOP }),
     ...(color !== "accent" ? { color } : {}),
     width: Number(width),
     ...(line === "dashed" && !progressOn ? { dashArray: [2, 2] as [number, number] } : {}),
@@ -62,8 +64,8 @@ export default function MapRoutePlayground() {
   // Start and end markers, for both route kinds (a drawn line's are its first and last points).
   const start = road ? CITY_HALL : CEBU_LOOP[0];
   const end = road ? AIRPORT : CEBU_LOOP[CEBU_LOOP.length - 1];
-  const startLabel = road ? "Cebu City Hall" : "Start";
-  const endLabel = road ? "Mactan Airport" : "End";
+  const startLabel = road ? "A · Cebu City Hall" : "Start";
+  const endLabel = road ? "D · Mactan Airport" : "End";
   const center = road ? [123.94, 10.31] : [123.895, 10.31];
   const zoom = road ? 11.5 : 12.8;
 
@@ -72,6 +74,7 @@ export default function MapRoutePlayground() {
       <AppWindowBody className="min-h-[360px] !items-stretch !p-3">
         <Map key={source} center={[center[0], center[1]]} zoom={zoom} routes={[route]} fitBounds className="!h-auto min-h-[340px] flex-1">
           <MapMarker lng={start[0]} lat={start[1]} label={startLabel} color="emerald" />
+          {road && TRIP.slice(1, -1).map((c, i) => <MapMarker key={i} lng={c[0]} lat={c[1]} label={String.fromCharCode(66 + i)} />)}
           <MapMarker lng={end[0]} lat={end[1]} label={endLabel} color="rose" />
         </Map>
       </AppWindowBody>
@@ -80,7 +83,7 @@ export default function MapRoutePlayground() {
 
   const json = (v: unknown) => JSON.stringify(v, null, 2).replace(/"(\w+)":/g, "$1:");
   const attrs = [
-    road ? `waypoints={[[${CITY_HALL.join(", ")}], [${AIRPORT.join(", ")}]]}` : "coordinates={loop}",
+    road ? `waypoints={[${TRIP.map((c) => `[${c.join(", ")}]`).join(", ")}]}` : "coordinates={loop}",
     color !== "accent" && `color="${color}"`,
     `width={${width}}`,
     route.dashArray && "dashArray={[2, 2]}",

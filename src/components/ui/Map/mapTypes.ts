@@ -28,8 +28,14 @@ export interface MapRouteData {
   id?: string;
   /** The line to draw, as `[lng, lat]` pairs. */
   coordinates?: LngLat[];
-  /** Instead of `coordinates`: stops to route through. The road route between them is fetched from the public OSRM demo server. */
+  /** Instead of `coordinates`: the points to travel through, in order — `[A, B]` or any number of stops (A → B → C …). The route between them follows the real roads (fetched from the public OSRM demo servers). */
   waypoints?: LngLat[];
+  /** Which route to pick when there are alternatives: "shortest" (default) or "fastest". */
+  prefer?: "shortest" | "fastest";
+  /** "driving" (default), "cycling" or "walking". */
+  profile?: "driving" | "cycling" | "walking";
+  /** Base URL of your own OSRM server (replaces the public demo servers). */
+  routingUrl?: string;
   color?: ColorName | (string & {});
   /** Line width in px (default 4). */
   width?: number;

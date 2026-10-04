@@ -3,12 +3,12 @@ import { useEffect, useRef, useState, type CSSProperties, type PointerEvent } fr
 import { Badge } from "../ui/Badge/Badge";
 import { Button } from "../ui/Buttons/Button";
 import { Switch } from "../ui/Switch/Switch";
-import { ProgressBar } from "../ui/ProgressBar/ProgressBar";
 import { useTheme } from "../../core/theme";
 import { Map } from "../ui/Map/Map";
 import { MapMarker } from "../ui/MapMarker/MapMarker";
 import { MapRoute } from "../ui/MapRoute/MapRoute";
-import { CITIES, CEBU_STOPS, CEBU_LOOP } from "../ui/Map/samples";
+import { IdleMount } from "./LazyOnView";
+import { CITIES, CEBU_STOPS } from "../ui/Map/samples";
 
 /** Interactive map demo: fly between cities, tilt to 3D, and drive a route with markers. */
 export default function MapLab() {
@@ -17,7 +17,10 @@ export default function MapLab() {
   const [progress, setProgress] = useState(0.45);
   const [animated, setAnimated] = useState(true);
   const isCebu = city.name === "Cebu City";
-  const { mode, setMode } = useTheme();
+  const { mode } = useTheme();
+  // The Dark / Light switch re-themes only the map (its own `data-theme` wrapper), not the page. It starts from, and follows, the page theme.
+  const [mapDark, setMapDark] = useState(mode === "dark");
+  useEffect(() => setMapDark(mode === "dark"), [mode]);
   // "Track" drives the route from the start to the end, like following a vehicle.
   const [tracking, setTracking] = useState(false);
   // Time-based, so it moves at a steady pace on any screen; the route eases to each value, so it never steps.
@@ -105,7 +108,7 @@ export default function MapLab() {
         </div>
         <pre className="overflow-x-auto rounded-lg bg-surface-muted p-3 font-mono text-[11px] leading-relaxed text-fg-muted"><code>{highlightCode(`<Map center={[${city.center.join(", ")}]} zoom={${city.zoom}}${tilt ? " pitch={60}" : ""} controls={["zoom", "compass", "fullscreen", "style"]}>
   <MapMarker lng={…} lat={…} label="…" />
-  <MapRoute coordinates={route}${isCebu ? ` progress={${progress.toFixed(2)}}` : ""}${animated ? " animated" : ""} />
+  <MapRoute waypoints={stops}${isCebu ? ` progress={${progress.toFixed(2)}}` : ""}${animated ? " animated" : ""} />
 </Map>`)}</code></pre>
       </div>
 
@@ -119,30 +122,32 @@ export default function MapLab() {
               <span className="h-2.5 w-2.5 rounded-full bg-emerald-400" />
               <span className="ml-2 font-mono text-[10px] text-fg-subtle">{"<Map controls={[\"zoom\", \"style\"]} />"}</span>
             </div>
+            <div data-theme={mapDark ? "dark" : "light"} className="flex min-h-[420px] flex-1 flex-col lg:min-h-0">
+            <IdleMount className="flex flex-1 flex-col">
             <Map center={city.center} zoom={city.zoom} pitch={tilt ? 60 : 0} bearing={tilt ? -20 : 0} controls={["zoom", "compass", "fullscreen", "style"]} className="!h-auto min-h-[420px] flex-1 rounded-none border-0 lg:min-h-0">
               {isCebu && (
                 <>
-                  <MapRoute coordinates={CEBU_LOOP} progress={progress} animated={animated} width={5} />
+                  <MapRoute waypoints={CEBU_STOPS.map((s) => s.coord)} progress={progress} animated={animated} width={5} />
                   {CEBU_STOPS.map((s, i) => (
                     <MapMarker key={s.name} lng={s.coord[0]} lat={s.coord[1]} label={s.name} tooltip={s.name} popup={`Stop ${i + 1}: ${s.name}`} color={i === 0 ? "emerald" : "accent"} />
                   ))}
                 </>
               )}
             </Map>
+            </IdleMount>
+            </div>
           </div>
         </div>
 
-        <div className="lp-float-b pointer-events-none absolute -left-3 bottom-2 w-[48%] max-sm:hidden sm:-left-6 sm:bottom-4" style={layer(20)}>
-          <div className="pointer-events-auto space-y-2.5 rounded-xl border border-border bg-surface/95 p-3.5 shadow-xl shadow-black/10">
-            <div className="flex items-center justify-between">
-              <Badge variant="soft" color="emerald" label="On route" />
-              <span className="text-[11px] text-fg-subtle">{Math.round(progress * 100)}%</span>
-            </div>
-            <ProgressBar value={Math.round(progress * 100)} />
+        {/* Both floating cards sit in one row along the bottom of the map — same baseline, equal height, and inside the map frame. */}
+        <div className="pointer-events-none absolute inset-x-4 bottom-10 flex items-stretch gap-2 max-sm:hidden sm:inset-x-5 lg:bottom-4 lg:right-auto lg:w-[72%]">
+        <div className="lp-float-b min-w-0 flex-[1.4]" style={layer(20)}>
+          <div className="pointer-events-auto h-full space-y-1.5 rounded-lg border border-border bg-surface/95 p-2.5 shadow-lg shadow-black/10">
+            <Badge variant="soft" color="emerald" label="On route" />
             <div className="flex items-center justify-between gap-2">
               <Button
-                size="sm"
-                label={tracking ? "Stop" : "Track"}
+                size="xs"
+                label={`${tracking ? "Stop" : "Track"} · ${Math.round(progress * 100)}%`}
                 icon={tracking ? "square" : "map-pin"}
                 onClick={() => {
                   if (!tracking) {
@@ -152,19 +157,20 @@ export default function MapLab() {
                   setTracking((t) => !t);
                 }}
               />
-              <Switch size="sm" label={mode === "dark" ? "Dark" : "Light"} checked={mode === "dark"} onChange={(e) => setMode(e.target.checked ? "dark" : "light")} />
+              <Switch size="sm" label={mapDark ? "Dark" : "Light"} checked={mapDark} onChange={(e) => setMapDark(e.target.checked)} />
             </div>
           </div>
         </div>
 
-        <div className="lp-float-c pointer-events-none absolute -right-2 top-[58%] w-[30%] max-sm:hidden sm:-right-5" style={layer(14)}>
-          <div className="rounded-xl border border-border bg-surface/95 p-3 shadow-xl shadow-black/10">
-            <p className="text-[10px] uppercase tracking-wide text-fg-subtle">Weekly installs</p>
-            <p className="text-lg font-semibold text-fg">12.4k</p>
-            <svg viewBox="0 0 100 32" className="mt-1 h-8 w-full" fill="none" aria-hidden="true">
+        <div className="lp-float-c min-w-0 flex-1" style={layer(14)}>
+          <div className="h-full rounded-lg border border-border bg-surface/95 p-2.5 shadow-lg shadow-black/10">
+            <p className="text-[9px] uppercase tracking-wide text-fg-subtle">Weekly installs</p>
+            <p className="text-base font-semibold leading-tight text-fg">12.4k</p>
+            <svg viewBox="0 0 100 32" className="mt-0.5 h-6 w-full" fill="none" aria-hidden="true">
               <path className="lp-draw" d="M0 26 L14 21 L28 24 L42 14 L56 17 L70 8 L84 11 L100 3" stroke="var(--color-accent-500)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </div>
+        </div>
         </div>
       </div>
     </div>

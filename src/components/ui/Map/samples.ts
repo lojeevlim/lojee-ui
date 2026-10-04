@@ -11,7 +11,7 @@ export const CEBU_STOPS: { name: string; coord: LngLat }[] = [
   { name: "Taoist Temple", coord: [123.8793, 10.3366] },
 ];
 
-/** A hand-drawn line through the city (used for routes that need no network). */
+/** A hand-drawn line through the city — only for demos of a custom `coordinates` line; real routes use `waypoints` / `from` + `to`. */
 export const CEBU_LOOP: LngLat[] = [
   [123.9054, 10.2925],
   [123.9021, 10.2941],

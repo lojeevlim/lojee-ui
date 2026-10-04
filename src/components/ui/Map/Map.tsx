@@ -258,6 +258,9 @@ export function Map({
                 id={rid}
                 coordinates={r.coordinates}
                 waypoints={r.waypoints}
+                prefer={r.prefer}
+                profile={r.profile}
+                routingUrl={r.routingUrl}
                 color={r.color}
                 width={r.width}
                 opacity={r.opacity}

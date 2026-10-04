@@ -4,13 +4,21 @@ import type { ColorName } from "../../../core/tokens";
 import { useMap } from "../Map/mapContext";
 import type { LngLat, MapRouteSummary, RouteAnimation } from "../Map/mapTypes";
 import { clamp01, distanceMeters, easeInOutCubic, lineLength, luminance, pointAlong, resolveColor, shade, smoothstep, withAlpha } from "../Map/mapUtils";
-import { fetchRoutes } from "../Map/routing";
+import { fetchBestRoute, type RoutePreference, type RouteProfile } from "../Map/routing";
 
 export interface MapRouteProps {
   /** The line to draw, as `[lng, lat]` pairs. */
   coordinates?: LngLat[];
-  /** Instead of `coordinates`: stops to route through. The road route between them is fetched from the public OSRM demo server (falls back to straight lines if it can't be reached). */
+  /** The points to travel through, in order, as `[lng, lat]` pairs — `[A, B]` for a trip from A to B, `[A, B, C, D]` for any number of stops. The route between them follows the real roads (fetched from the public OSRM demo servers; falls back to straight lines if they can't be reached). Use this instead of `coordinates`. */
   waypoints?: LngLat[];
+  /** Which route to draw when there are alternatives between two points: "shortest" (least distance) or "fastest" (least travel time) (default: "shortest"). Alternatives only exist for a trip of exactly two points. */
+  prefer?: RoutePreference;
+  /** How the trip is made: "driving", "cycling" or "walking" — each uses roads / paths that mode may take (default: "driving"). */
+  profile?: RouteProfile;
+  /** Base URL of your own OSRM routing server, e.g. "https://osrm.example.com/route/v1/driving" — replaces the public demo servers (use this in production). */
+  routingUrl?: string;
+  /** Called when the road route could not be fetched (the line then falls back to straight segments between the points). */
+  onRouteError?: (error: Error) => void;
   /** Line color: a built-in color name (default "accent", which follows the theme) or any CSS color. */
   color?: ColorName | (string & {});
   /** Line width in px (default 4). */
@@ -144,6 +152,10 @@ function sliceLine(coords: LngLat[], fraction: number): LngLat[] {
 export function MapRoute({
   coordinates,
   waypoints,
+  prefer = "shortest",
+  profile = "driving",
+  routingUrl,
+  onRouteError,
   color = "accent",
   width = 4,
   opacity = 0.85,
@@ -165,24 +177,26 @@ export function MapRoute({
   const routeId = id ?? `route-${uid}`;
   const layerBase = `lojee-${uid}`;
   const [fetched, setFetched] = useState<{ coordinates: LngLat[]; distance: number; duration: number } | null>(null);
-  const handlers = useRef({ onClick, onLoad });
+  const handlers = useRef({ onClick, onLoad, onRouteError });
   useEffect(() => {
-    handlers.current = { onClick, onLoad };
+    handlers.current = { onClick, onLoad, onRouteError };
   });
 
-  // Fetch the road route between waypoints.
+  // Fetch the road route through the waypoints (A → B → C …).
   const wpKey = waypoints?.map((p) => p.join(",")).join(";") ?? "";
   useEffect(() => {
     const wps = wpKey ? (wpKey.split(";").map((p) => p.split(",").map(Number)) as LngLat[]) : [];
     if (wps.length < 2) return;
     const ac = new AbortController();
-    fetchRoutes(wps, { signal: ac.signal })
-      .then((r) => setFetched(r[0] ?? null))
-      .catch(() => {
-        if (!ac.signal.aborted) setFetched({ coordinates: wps, distance: lineLength(wps), duration: 0 });
+    fetchBestRoute(wps, { prefer, profile, baseUrl: routingUrl, signal: ac.signal })
+      .then((r) => setFetched(r ?? { coordinates: wps, distance: lineLength(wps), duration: 0 }))
+      .catch((err: Error) => {
+        if (ac.signal.aborted) return;
+        setFetched({ coordinates: wps, distance: lineLength(wps), duration: 0 });
+        handlers.current.onRouteError?.(err);
       });
     return () => ac.abort();
-  }, [wpKey]);
+  }, [wpKey, prefer, profile, routingUrl]);
 
   const coords = coordinates ?? (wpKey ? fetched?.coordinates : undefined);
   const coordKey = coords ? coords.map((p) => p.join(",")).join(";") : "";

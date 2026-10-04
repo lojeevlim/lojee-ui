@@ -1424,7 +1424,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "name": "showDesign",
             "type": "boolean",
             "required": false,
-            "description": "Show the \"Design\" section — Bento UI or Claymorphism (default: true).",
+            "description": "Show the \"Design\" section — Bento or Claymorphism (default: true).",
             "default": "true"
           },
           {
@@ -9698,7 +9698,9 @@ export const API_DOCS: Record<string, ApiDoc> = {
       "LngLat": "[number, number]",
       "RouteAnimation": "\"flow\" | \"draw\" | \"pulse\" | \"trail\" | \"glow\" | \"shimmer\"",
       "MapControlName": "\"zoom\" | \"compass\" | \"locate\" | \"fullscreen\" | \"scale\" | \"style\"",
-      "MapStyleName": "(typeof MAP_STYLE_NAMES)[number]"
+      "MapStyleName": "(typeof MAP_STYLE_NAMES)[number]",
+      "RouteProfile": "\"driving\" | \"cycling\" | \"walking\"",
+      "RoutePreference": "\"shortest\" | \"fastest\""
     },
     "dataTypes": [
       {
@@ -9924,7 +9926,35 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "name": "waypoints",
             "type": "LngLat[]",
             "required": false,
-            "description": "Instead of `coordinates`: stops to route through. The road route between them is fetched from the public OSRM demo server (falls back to straight lines if it can't be reached).",
+            "description": "The points to travel through, in order, as `[lng, lat]` pairs — `[A, B]` for a trip from A to B, `[A, B, C, D]` for any number of stops. The route between them follows the real roads (fetched from the public OSRM demo servers; falls back to straight lines if they can't be reached). Use this instead of `coordinates`.",
+            "default": null
+          },
+          {
+            "name": "prefer",
+            "type": "RoutePreference",
+            "required": false,
+            "description": "Which route to draw when there are alternatives between two points: \"shortest\" (least distance) or \"fastest\" (least travel time) (default: \"shortest\"). Alternatives only exist for a trip of exactly two points.",
+            "default": "\"shortest\""
+          },
+          {
+            "name": "profile",
+            "type": "RouteProfile",
+            "required": false,
+            "description": "How the trip is made: \"driving\", \"cycling\" or \"walking\" — each uses roads / paths that mode may take (default: \"driving\").",
+            "default": "\"driving\""
+          },
+          {
+            "name": "routingUrl",
+            "type": "string",
+            "required": false,
+            "description": "Base URL of your own OSRM routing server, e.g. \"https://osrm.example.com/route/v1/driving\" — replaces the public demo servers (use this in production).",
+            "default": null
+          },
+          {
+            "name": "onRouteError",
+            "type": "(error: Error) => void",
+            "required": false,
+            "description": "Called when the road route could not be fetched (the line then falls back to straight segments between the points).",
             "default": null
           },
           {
@@ -10063,7 +10093,28 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "name": "waypoints",
             "type": "LngLat[]",
             "required": false,
-            "description": "Instead of `coordinates`: stops to route through. The road route between them is fetched from the public OSRM demo server.",
+            "description": "Instead of `coordinates`: the points to travel through, in order — `[A, B]` or any number of stops (A → B → C …). The route between them follows the real roads (fetched from the public OSRM demo servers).",
+            "default": null
+          },
+          {
+            "name": "prefer",
+            "type": "\"shortest\" | \"fastest\"",
+            "required": false,
+            "description": "Which route to pick when there are alternatives: \"shortest\" (default) or \"fastest\".",
+            "default": null
+          },
+          {
+            "name": "profile",
+            "type": "\"driving\" | \"cycling\" | \"walking\"",
+            "required": false,
+            "description": "\"driving\" (default), \"cycling\" or \"walking\".",
+            "default": null
+          },
+          {
+            "name": "routingUrl",
+            "type": "string",
+            "required": false,
+            "description": "Base URL of your own OSRM server (replaces the public demo servers).",
             "default": null
           },
           {
@@ -13485,6 +13536,13 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "required": false,
             "description": "Adds a running timer to the thinking indicator — \"Thinking · 4s\" (default: false).",
             "default": "false"
+          },
+          {
+            "name": "assistantIcon",
+            "type": "ReactNode",
+            "required": false,
+            "description": "Icon for the assistant — in the header and beside its messages (React only; default: a sparkles icon). It is sized to fit, so pass a bare SVG / icon.",
+            "default": null
           },
           {
             "name": "suggestions",
