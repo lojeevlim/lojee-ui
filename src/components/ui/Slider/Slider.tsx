@@ -1,8 +1,16 @@
-import { useState, type ChangeEvent, type CSSProperties, type InputHTMLAttributes } from "react";
+import { useState, type ChangeEvent, type CSSProperties, type InputHTMLAttributes, type ChangeEventHandler, type FormEventHandler, type FocusEventHandler } from "react";
 import { cx, type ColorName } from "../../../core/tokens";
 import { motionClass, motionStyle, type TransitionVariant, type HoverEffect } from "../../../core/motion";
 
 export interface SliderProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "type"> {
+  /** The value was committed — the native change event (the web component's `update` event, detail = the new value). */
+  onChange?: ChangeEventHandler<HTMLInputElement>;
+  /** Called as the user edits — the native input event (the web component's `input` event, detail = the current value). */
+  onInput?: FormEventHandler<HTMLInputElement>;
+  /** Called when the field gains focus — the native focus event (the web component's `focus` event). */
+  onFocus?: FocusEventHandler<HTMLInputElement>;
+  /** Called when the field fails validation (e.g. `required` and empty) — the native invalid event (the web component's `invalid` event, detail = the message). */
+  onInvalid?: FormEventHandler<HTMLInputElement>;
   /** Color of the filled part of the track (default: "accent" — follows the theme accent). */
   color?: ColorName;
   /** Shows the current numeric value in a label beside the slider, kept in sync in both controlled and uncontrolled use (default: false). */

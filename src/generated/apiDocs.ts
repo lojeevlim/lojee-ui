@@ -749,6 +749,27 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           },
           {
+            "name": "onFocus",
+            "type": "(e: FocusEvent<HTMLInputElement>) => void",
+            "required": false,
+            "description": "Called when the field gains focus — the native focus event (the web component's `focus` event, detail = the value).",
+            "default": null
+          },
+          {
+            "name": "onInput",
+            "type": "(e: FormEvent<HTMLInputElement>) => void",
+            "required": false,
+            "description": "Called as the user edits the field — the native input event (the web component's `input` event, detail = the value).",
+            "default": null
+          },
+          {
+            "name": "onInvalid",
+            "type": "(e: FormEvent<HTMLInputElement>) => void",
+            "required": false,
+            "description": "Called when the field fails validation — the native invalid event (the web component's `invalid` event, detail = the message).",
+            "default": null
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -776,6 +797,22 @@ export const API_DOCS: Record<string, ApiDoc> = {
           },
           "extraProps": [],
           "events": [
+            {
+              "callback": "onUpdate",
+              "event": "update"
+            },
+            {
+              "callback": "onInput",
+              "event": "input"
+            },
+            {
+              "callback": "onFocus",
+              "event": "focus"
+            },
+            {
+              "callback": "onInvalid",
+              "event": "invalid"
+            },
             {
               "callback": "onChange",
               "event": "change"
@@ -864,6 +901,27 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           },
           {
+            "name": "onFocus",
+            "type": "(e: FocusEvent<HTMLInputElement>) => void",
+            "required": false,
+            "description": "Called when the field gains focus — the native focus event (the web component's `focus` event, detail = the value).",
+            "default": null
+          },
+          {
+            "name": "onInput",
+            "type": "(e: FormEvent<HTMLInputElement>) => void",
+            "required": false,
+            "description": "Called as the user edits the field — the native input event (the web component's `input` event, detail = the value).",
+            "default": null
+          },
+          {
+            "name": "onInvalid",
+            "type": "(e: FormEvent<HTMLInputElement>) => void",
+            "required": false,
+            "description": "Called when the field fails validation — the native invalid event (the web component's `invalid` event, detail = the message).",
+            "default": null
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -893,6 +951,22 @@ export const API_DOCS: Record<string, ApiDoc> = {
           },
           "extraProps": [],
           "events": [
+            {
+              "callback": "onUpdate",
+              "event": "update"
+            },
+            {
+              "callback": "onInput",
+              "event": "input"
+            },
+            {
+              "callback": "onFocus",
+              "event": "focus"
+            },
+            {
+              "callback": "onInvalid",
+              "event": "invalid"
+            },
             {
               "callback": "onChange",
               "event": "change"
@@ -983,6 +1057,27 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           },
           {
+            "name": "onFocus",
+            "type": "(e: FocusEvent<HTMLInputElement>) => void",
+            "required": false,
+            "description": "Called when the field gains focus — the native focus event (the web component's `focus` event, detail = the value).",
+            "default": null
+          },
+          {
+            "name": "onInput",
+            "type": "(e: FormEvent<HTMLInputElement>) => void",
+            "required": false,
+            "description": "Called as the user edits the field — the native input event (the web component's `input` event, detail = the value).",
+            "default": null
+          },
+          {
+            "name": "onInvalid",
+            "type": "(e: FormEvent<HTMLInputElement>) => void",
+            "required": false,
+            "description": "Called when the field fails validation — the native invalid event (the web component's `invalid` event, detail = the message).",
+            "default": null
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -1011,6 +1106,22 @@ export const API_DOCS: Record<string, ApiDoc> = {
           },
           "extraProps": [],
           "events": [
+            {
+              "callback": "onUpdate",
+              "event": "update"
+            },
+            {
+              "callback": "onInput",
+              "event": "input"
+            },
+            {
+              "callback": "onFocus",
+              "event": "focus"
+            },
+            {
+              "callback": "onInvalid",
+              "event": "invalid"
+            },
             {
               "callback": "onChange",
               "event": "change"
@@ -1112,6 +1223,10 @@ export const API_DOCS: Record<string, ApiDoc> = {
           "extraProps": [],
           "events": [
             {
+              "callback": "onUpdate",
+              "event": "update"
+            },
+            {
               "callback": "onChange",
               "event": "change"
             }
@@ -1166,6 +1281,27 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           },
           {
+            "name": "onFocus",
+            "type": "(e: FocusEvent<HTMLInputElement>) => void",
+            "required": false,
+            "description": "Called when the field gains focus — the native focus event (the web component's `focus` event, detail = the value).",
+            "default": null
+          },
+          {
+            "name": "onInput",
+            "type": "(e: FormEvent<HTMLInputElement>) => void",
+            "required": false,
+            "description": "Called as the user edits the field — the native input event (the web component's `input` event, detail = the value).",
+            "default": null
+          },
+          {
+            "name": "onInvalid",
+            "type": "(e: FormEvent<HTMLInputElement>) => void",
+            "required": false,
+            "description": "Called when the field fails validation — the native invalid event (the web component's `invalid` event, detail = the message).",
+            "default": null
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -1190,6 +1326,22 @@ export const API_DOCS: Record<string, ApiDoc> = {
           },
           "extraProps": [],
           "events": [
+            {
+              "callback": "onUpdate",
+              "event": "update"
+            },
+            {
+              "callback": "onInput",
+              "event": "input"
+            },
+            {
+              "callback": "onFocus",
+              "event": "focus"
+            },
+            {
+              "callback": "onInvalid",
+              "event": "invalid"
+            },
             {
               "callback": "onChange",
               "event": "change"
@@ -1508,6 +1660,11 @@ export const API_DOCS: Record<string, ApiDoc> = {
         "element": {
           "tag": "l-theme-switcher",
           "props": {
+            "open": "boolean",
+            "mode": "string",
+            "accent": "string",
+            "activeVariant": "string",
+            "design": "string",
             "align": "string",
             "showDesign": "boolean",
             "showActiveItems": "boolean",
@@ -1520,7 +1677,28 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "hoverEffect": "string"
           },
           "extraProps": [],
-          "events": []
+          "events": [
+            {
+              "callback": "onModeChange",
+              "event": "modechange"
+            },
+            {
+              "callback": "onAccentChange",
+              "event": "accentchange"
+            },
+            {
+              "callback": "onActiveVariantChange",
+              "event": "activevariantchange"
+            },
+            {
+              "callback": "onDesignChange",
+              "event": "designchange"
+            },
+            {
+              "callback": "onOpenChange",
+              "event": "openchange"
+            }
+          ]
         }
       }
     ],
@@ -3277,6 +3455,13 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           },
           {
+            "name": "items",
+            "type": "ListItemSpec[]",
+            "required": false,
+            "description": "Rows as data — `[\"Overview\", \"Settings\"]` or `[{ label: \"Overview\", icon: \"home\" }, …]` — instead of ListItem children; works the same in React and as a Web Component (`items` property / JSON attribute). Rendered before any `children`.",
+            "default": null
+          },
+          {
             "name": "children",
             "type": "ReactNode",
             "required": false,
@@ -3303,6 +3488,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
           "props": {
             "ordered": "boolean",
             "variant": "string",
+            "header": "string",
+            "items": "json",
             "className": "string",
             "transition": "string",
             "transitionDuration": "number",
@@ -3397,7 +3584,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
     ],
     "hooks": [],
     "types": {
-      "ListVariant": "\"plain\" | \"divided\" | \"bordered\""
+      "ListVariant": "\"plain\" | \"divided\" | \"bordered\"",
+      "ListItemSpec": "string | { label: ReactNode; icon?: string }"
     },
     "dataTypes": []
   },
@@ -3646,6 +3834,10 @@ export const API_DOCS: Record<string, ApiDoc> = {
           },
           "extraProps": [],
           "events": [
+            {
+              "callback": "onUpdate",
+              "event": "update"
+            },
             {
               "callback": "onAction",
               "event": "action"
@@ -4133,6 +4325,20 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           },
           {
+            "name": "open",
+            "type": "boolean",
+            "required": false,
+            "description": "Expands or collapses the item from outside — set it whenever you want to open / close it; the user can still toggle it, so it works with nothing wired up. Pair with `onOpenChange` for two-way binding.",
+            "default": null
+          },
+          {
+            "name": "onOpenChange",
+            "type": "(open: boolean) => void",
+            "required": false,
+            "description": "Called with the new open state whenever the item expands or collapses (the web component's `openchange` / `update` event, detail = true | false).",
+            "default": null
+          },
+          {
             "name": "disabled",
             "type": "boolean",
             "required": false,
@@ -4185,6 +4391,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
         "element": {
           "tag": "l-accordion-item",
           "props": {
+            "open": "boolean",
             "title": "string",
             "name": "string",
             "defaultOpen": "boolean",
@@ -4195,7 +4402,16 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "transitionDelay": "number"
           },
           "extraProps": [],
-          "events": []
+          "events": [
+            {
+              "callback": "onUpdate",
+              "event": "update"
+            },
+            {
+              "callback": "onOpenChange",
+              "event": "openchange"
+            }
+          ]
         }
       }
     ],
@@ -4221,6 +4437,20 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "required": false,
             "description": "0-indexed tab selected on first render (default: 0); the component tracks the selection itself afterwards (uncontrolled).",
             "default": "0"
+          },
+          {
+            "name": "index",
+            "type": "number",
+            "required": false,
+            "description": "The selected tab (0-indexed) — set it to select a tab from outside; the component also keeps its own selection, so a tab click works with nothing wired up. Pair with `onChange` for two-way binding.",
+            "default": null
+          },
+          {
+            "name": "onChange",
+            "type": "(index: number) => void",
+            "required": false,
+            "description": "Called with the new tab index when the user selects a tab (the web component's `change` / `update` event, detail = the index).",
+            "default": null
           },
           {
             "name": "color",
@@ -4268,6 +4498,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
         "element": {
           "tag": "l-tabs",
           "props": {
+            "index": "number",
             "tabs": "json",
             "defaultIndex": "number",
             "color": "string",
@@ -4276,7 +4507,16 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "transitionDelay": "number"
           },
           "extraProps": [],
-          "events": []
+          "events": [
+            {
+              "callback": "onUpdate",
+              "event": "update"
+            },
+            {
+              "callback": "onChange",
+              "event": "change"
+            }
+          ]
         }
       }
     ],
@@ -4507,6 +4747,10 @@ export const API_DOCS: Record<string, ApiDoc> = {
           "extraProps": [],
           "events": [
             {
+              "callback": "onUpdate",
+              "event": "update"
+            },
+            {
               "callback": "onPageChange",
               "event": "pagechange"
             }
@@ -4528,6 +4772,20 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "type": "ReactNode[]",
             "required": true,
             "description": "The slides to show, one node per slide, in order; the carousel manages the active slide itself.",
+            "default": null
+          },
+          {
+            "name": "index",
+            "type": "number",
+            "required": false,
+            "description": "The visible slide (0-indexed) — set it to move the carousel from outside; it also tracks the slide itself, so the arrows, dots and autoplay work with nothing wired up. Pair with `onChange` for two-way binding.",
+            "default": null
+          },
+          {
+            "name": "onChange",
+            "type": "(index: number) => void",
+            "required": false,
+            "description": "Called with the new slide index whenever the slide changes — the arrows, a dot, autoplay (the web component's `change` / `update` event, detail = the index).",
             "default": null
           },
           {
@@ -4604,6 +4862,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
         "element": {
           "tag": "l-carousel",
           "props": {
+            "index": "number",
             "slides": "json",
             "autoPlay": "boolean",
             "intervalMs": "number",
@@ -4615,7 +4874,16 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "hoverEffect": "string"
           },
           "extraProps": [],
-          "events": []
+          "events": [
+            {
+              "callback": "onUpdate",
+              "event": "update"
+            },
+            {
+              "callback": "onChange",
+              "event": "change"
+            }
+          ]
         }
       }
     ],
@@ -4628,6 +4896,34 @@ export const API_DOCS: Record<string, ApiDoc> = {
       {
         "name": "Input",
         "props": [
+          {
+            "name": "onChange",
+            "type": "ChangeEventHandler<HTMLInputElement>",
+            "required": false,
+            "description": "The value was committed — the native change event (the web component's `update` event, detail = the new value).",
+            "default": null
+          },
+          {
+            "name": "onInput",
+            "type": "FormEventHandler<HTMLInputElement>",
+            "required": false,
+            "description": "Called as the user edits — the native input event (the web component's `input` event, detail = the current value).",
+            "default": null
+          },
+          {
+            "name": "onFocus",
+            "type": "FocusEventHandler<HTMLInputElement>",
+            "required": false,
+            "description": "Called when the field gains focus — the native focus event (the web component's `focus` event).",
+            "default": null
+          },
+          {
+            "name": "onInvalid",
+            "type": "FormEventHandler<HTMLInputElement>",
+            "required": false,
+            "description": "Called when the field fails validation (e.g. `required` and empty) — the native invalid event (the web component's `invalid` event, detail = the message).",
+            "default": null
+          },
           {
             "name": "size",
             "type": "InputSize",
@@ -4757,7 +5053,24 @@ export const API_DOCS: Record<string, ApiDoc> = {
               "description": "Standard HTML attribute, passed straight to the underlying control."
             }
           ],
-          "events": []
+          "events": [
+            {
+              "callback": "onUpdate",
+              "event": "update"
+            },
+            {
+              "callback": "onInput",
+              "event": "input"
+            },
+            {
+              "callback": "onFocus",
+              "event": "focus"
+            },
+            {
+              "callback": "onInvalid",
+              "event": "invalid"
+            }
+          ]
         }
       }
     ],
@@ -4772,6 +5085,34 @@ export const API_DOCS: Record<string, ApiDoc> = {
       {
         "name": "Textarea",
         "props": [
+          {
+            "name": "onChange",
+            "type": "ChangeEventHandler<HTMLTextAreaElement>",
+            "required": false,
+            "description": "The value was committed — the native change event (the web component's `update` event, detail = the new value).",
+            "default": null
+          },
+          {
+            "name": "onInput",
+            "type": "FormEventHandler<HTMLTextAreaElement>",
+            "required": false,
+            "description": "Called as the user edits — the native input event (the web component's `input` event, detail = the current value).",
+            "default": null
+          },
+          {
+            "name": "onFocus",
+            "type": "FocusEventHandler<HTMLTextAreaElement>",
+            "required": false,
+            "description": "Called when the field gains focus — the native focus event (the web component's `focus` event).",
+            "default": null
+          },
+          {
+            "name": "onInvalid",
+            "type": "FormEventHandler<HTMLTextAreaElement>",
+            "required": false,
+            "description": "Called when the field fails validation (e.g. `required` and empty) — the native invalid event (the web component's `invalid` event, detail = the message).",
+            "default": null
+          },
           {
             "name": "variant",
             "type": "InputVariant",
@@ -4885,7 +5226,24 @@ export const API_DOCS: Record<string, ApiDoc> = {
               "description": "Standard HTML attribute, passed straight to the underlying control."
             }
           ],
-          "events": []
+          "events": [
+            {
+              "callback": "onUpdate",
+              "event": "update"
+            },
+            {
+              "callback": "onInput",
+              "event": "input"
+            },
+            {
+              "callback": "onFocus",
+              "event": "focus"
+            },
+            {
+              "callback": "onInvalid",
+              "event": "invalid"
+            }
+          ]
         }
       }
     ],
@@ -4980,6 +5338,34 @@ export const API_DOCS: Record<string, ApiDoc> = {
         "name": "Checkbox",
         "props": [
           {
+            "name": "onChange",
+            "type": "ChangeEventHandler<HTMLInputElement>",
+            "required": false,
+            "description": "The value was committed — the native change event (the web component's `update` event, detail = the new value).",
+            "default": null
+          },
+          {
+            "name": "onInput",
+            "type": "FormEventHandler<HTMLInputElement>",
+            "required": false,
+            "description": "Called as the user edits — the native input event (the web component's `input` event, detail = the current value).",
+            "default": null
+          },
+          {
+            "name": "onFocus",
+            "type": "FocusEventHandler<HTMLInputElement>",
+            "required": false,
+            "description": "Called when the field gains focus — the native focus event (the web component's `focus` event).",
+            "default": null
+          },
+          {
+            "name": "onInvalid",
+            "type": "FormEventHandler<HTMLInputElement>",
+            "required": false,
+            "description": "Called when the field fails validation (e.g. `required` and empty) — the native invalid event (the web component's `invalid` event, detail = the message).",
+            "default": null
+          },
+          {
             "name": "label",
             "type": "ReactNode",
             "required": false,
@@ -5039,6 +5425,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
         "element": {
           "tag": "l-checkbox",
           "props": {
+            "required": "boolean",
             "checked": "boolean",
             "defaultChecked": "boolean",
             "disabled": "boolean",
@@ -5052,6 +5439,11 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "hoverEffect": "string"
           },
           "extraProps": [
+            {
+              "name": "required",
+              "type": "boolean",
+              "description": "Standard HTML attribute, passed straight to the underlying control."
+            },
             {
               "name": "checked",
               "type": "boolean",
@@ -5078,7 +5470,24 @@ export const API_DOCS: Record<string, ApiDoc> = {
               "description": "Standard HTML attribute, passed straight to the underlying control."
             }
           ],
-          "events": []
+          "events": [
+            {
+              "callback": "onUpdate",
+              "event": "update"
+            },
+            {
+              "callback": "onInput",
+              "event": "input"
+            },
+            {
+              "callback": "onFocus",
+              "event": "focus"
+            },
+            {
+              "callback": "onInvalid",
+              "event": "invalid"
+            }
+          ]
         }
       }
     ],
@@ -5091,6 +5500,34 @@ export const API_DOCS: Record<string, ApiDoc> = {
       {
         "name": "Radio",
         "props": [
+          {
+            "name": "onChange",
+            "type": "ChangeEventHandler<HTMLInputElement>",
+            "required": false,
+            "description": "The value was committed — the native change event (the web component's `update` event, detail = the new value).",
+            "default": null
+          },
+          {
+            "name": "onInput",
+            "type": "FormEventHandler<HTMLInputElement>",
+            "required": false,
+            "description": "Called as the user edits — the native input event (the web component's `input` event, detail = the current value).",
+            "default": null
+          },
+          {
+            "name": "onFocus",
+            "type": "FocusEventHandler<HTMLInputElement>",
+            "required": false,
+            "description": "Called when the field gains focus — the native focus event (the web component's `focus` event).",
+            "default": null
+          },
+          {
+            "name": "onInvalid",
+            "type": "FormEventHandler<HTMLInputElement>",
+            "required": false,
+            "description": "Called when the field fails validation (e.g. `required` and empty) — the native invalid event (the web component's `invalid` event, detail = the message).",
+            "default": null
+          },
           {
             "name": "label",
             "type": "ReactNode",
@@ -5151,6 +5588,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
         "element": {
           "tag": "l-radio",
           "props": {
+            "required": "boolean",
             "checked": "boolean",
             "defaultChecked": "boolean",
             "disabled": "boolean",
@@ -5164,6 +5602,11 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "hoverEffect": "string"
           },
           "extraProps": [
+            {
+              "name": "required",
+              "type": "boolean",
+              "description": "Standard HTML attribute, passed straight to the underlying control."
+            },
             {
               "name": "checked",
               "type": "boolean",
@@ -5190,7 +5633,24 @@ export const API_DOCS: Record<string, ApiDoc> = {
               "description": "Standard HTML attribute, passed straight to the underlying control."
             }
           ],
-          "events": []
+          "events": [
+            {
+              "callback": "onUpdate",
+              "event": "update"
+            },
+            {
+              "callback": "onInput",
+              "event": "input"
+            },
+            {
+              "callback": "onFocus",
+              "event": "focus"
+            },
+            {
+              "callback": "onInvalid",
+              "event": "invalid"
+            }
+          ]
         }
       },
       {
@@ -5279,6 +5739,34 @@ export const API_DOCS: Record<string, ApiDoc> = {
         "name": "Switch",
         "props": [
           {
+            "name": "onChange",
+            "type": "ChangeEventHandler<HTMLInputElement>",
+            "required": false,
+            "description": "The value was committed — the native change event (the web component's `update` event, detail = the new value).",
+            "default": null
+          },
+          {
+            "name": "onInput",
+            "type": "FormEventHandler<HTMLInputElement>",
+            "required": false,
+            "description": "Called as the user edits — the native input event (the web component's `input` event, detail = the current value).",
+            "default": null
+          },
+          {
+            "name": "onFocus",
+            "type": "FocusEventHandler<HTMLInputElement>",
+            "required": false,
+            "description": "Called when the field gains focus — the native focus event (the web component's `focus` event).",
+            "default": null
+          },
+          {
+            "name": "onInvalid",
+            "type": "FormEventHandler<HTMLInputElement>",
+            "required": false,
+            "description": "Called when the field fails validation (e.g. `required` and empty) — the native invalid event (the web component's `invalid` event, detail = the message).",
+            "default": null
+          },
+          {
             "name": "label",
             "type": "ReactNode",
             "required": false,
@@ -5345,6 +5833,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
         "element": {
           "tag": "l-switch",
           "props": {
+            "required": "boolean",
             "checked": "boolean",
             "defaultChecked": "boolean",
             "disabled": "boolean",
@@ -5358,6 +5847,11 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "hoverEffect": "string"
           },
           "extraProps": [
+            {
+              "name": "required",
+              "type": "boolean",
+              "description": "Standard HTML attribute, passed straight to the underlying control."
+            },
             {
               "name": "checked",
               "type": "boolean",
@@ -5379,7 +5873,24 @@ export const API_DOCS: Record<string, ApiDoc> = {
               "description": "Standard HTML attribute, passed straight to the underlying control."
             }
           ],
-          "events": []
+          "events": [
+            {
+              "callback": "onUpdate",
+              "event": "update"
+            },
+            {
+              "callback": "onInput",
+              "event": "input"
+            },
+            {
+              "callback": "onFocus",
+              "event": "focus"
+            },
+            {
+              "callback": "onInvalid",
+              "event": "invalid"
+            }
+          ]
         }
       }
     ],
@@ -5475,6 +5986,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
         "element": {
           "tag": "l-select",
           "props": {
+            "required": "boolean",
+            "name": "string",
             "options": "json",
             "value": "string",
             "placeholder": "string",
@@ -5489,6 +6002,16 @@ export const API_DOCS: Record<string, ApiDoc> = {
           },
           "extraProps": [
             {
+              "name": "required",
+              "type": "boolean",
+              "description": "Standard HTML attribute, passed straight to the underlying control."
+            },
+            {
+              "name": "name",
+              "type": "string",
+              "description": "Standard HTML attribute, passed straight to the underlying control."
+            },
+            {
               "name": "value",
               "type": "string",
               "description": "Standard HTML attribute, passed straight to the underlying control."
@@ -5499,7 +6022,24 @@ export const API_DOCS: Record<string, ApiDoc> = {
               "description": "Standard HTML attribute, passed straight to the underlying control."
             }
           ],
-          "events": []
+          "events": [
+            {
+              "callback": "onUpdate",
+              "event": "update"
+            },
+            {
+              "callback": "onInput",
+              "event": "input"
+            },
+            {
+              "callback": "onFocus",
+              "event": "focus"
+            },
+            {
+              "callback": "onInvalid",
+              "event": "invalid"
+            }
+          ]
         }
       }
     ],
@@ -5607,6 +6147,10 @@ export const API_DOCS: Record<string, ApiDoc> = {
           "extraProps": [],
           "events": [
             {
+              "callback": "onUpdate",
+              "event": "update"
+            },
+            {
               "callback": "onChange",
               "event": "change"
             }
@@ -5680,6 +6224,27 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           },
           {
+            "name": "onFocus",
+            "type": "(e: FocusEvent<HTMLInputElement>) => void",
+            "required": false,
+            "description": "Called when the field gains focus — the native focus event (the web component's `focus` event, detail = the value).",
+            "default": null
+          },
+          {
+            "name": "onInput",
+            "type": "(e: FormEvent<HTMLInputElement>) => void",
+            "required": false,
+            "description": "Called as the user edits the field — the native input event (the web component's `input` event, detail = the value).",
+            "default": null
+          },
+          {
+            "name": "onInvalid",
+            "type": "(e: FormEvent<HTMLInputElement>) => void",
+            "required": false,
+            "description": "Called when the field fails validation — the native invalid event (the web component's `invalid` event, detail = the message).",
+            "default": null
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -5708,6 +6273,22 @@ export const API_DOCS: Record<string, ApiDoc> = {
           "extraProps": [],
           "events": [
             {
+              "callback": "onUpdate",
+              "event": "update"
+            },
+            {
+              "callback": "onInput",
+              "event": "input"
+            },
+            {
+              "callback": "onFocus",
+              "event": "focus"
+            },
+            {
+              "callback": "onInvalid",
+              "event": "invalid"
+            },
+            {
               "callback": "onChange",
               "event": "change"
             }
@@ -5724,6 +6305,34 @@ export const API_DOCS: Record<string, ApiDoc> = {
       {
         "name": "DatePicker",
         "props": [
+          {
+            "name": "onChange",
+            "type": "ChangeEventHandler<HTMLInputElement>",
+            "required": false,
+            "description": "The value was committed — the native change event (the web component's `update` event, detail = the new value).",
+            "default": null
+          },
+          {
+            "name": "onInput",
+            "type": "FormEventHandler<HTMLInputElement>",
+            "required": false,
+            "description": "Called as the user edits — the native input event (the web component's `input` event, detail = the current value).",
+            "default": null
+          },
+          {
+            "name": "onFocus",
+            "type": "FocusEventHandler<HTMLInputElement>",
+            "required": false,
+            "description": "Called when the field gains focus — the native focus event (the web component's `focus` event).",
+            "default": null
+          },
+          {
+            "name": "onInvalid",
+            "type": "FormEventHandler<HTMLInputElement>",
+            "required": false,
+            "description": "Called when the field fails validation (e.g. `required` and empty) — the native invalid event (the web component's `invalid` event, detail = the message).",
+            "default": null
+          },
           {
             "name": "size",
             "type": "DatePickerSize",
@@ -5798,6 +6407,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
         "element": {
           "tag": "l-date-picker",
           "props": {
+            "required": "boolean",
+            "name": "string",
             "value": "string",
             "size": "string",
             "variant": "string",
@@ -5810,6 +6421,16 @@ export const API_DOCS: Record<string, ApiDoc> = {
           },
           "extraProps": [
             {
+              "name": "required",
+              "type": "boolean",
+              "description": "Standard HTML attribute, passed straight to the underlying control."
+            },
+            {
+              "name": "name",
+              "type": "string",
+              "description": "Standard HTML attribute, passed straight to the underlying control."
+            },
+            {
               "name": "value",
               "type": "string",
               "description": "Standard HTML attribute, passed straight to the underlying control."
@@ -5821,6 +6442,22 @@ export const API_DOCS: Record<string, ApiDoc> = {
             }
           ],
           "events": [
+            {
+              "callback": "onUpdate",
+              "event": "update"
+            },
+            {
+              "callback": "onInput",
+              "event": "input"
+            },
+            {
+              "callback": "onFocus",
+              "event": "focus"
+            },
+            {
+              "callback": "onInvalid",
+              "event": "invalid"
+            },
             {
               "callback": "onClear",
               "event": "clear"
@@ -5995,6 +6632,34 @@ export const API_DOCS: Record<string, ApiDoc> = {
         "name": "TimePicker",
         "props": [
           {
+            "name": "onChange",
+            "type": "ChangeEventHandler<HTMLInputElement>",
+            "required": false,
+            "description": "The value was committed — the native change event (the web component's `update` event, detail = the new value).",
+            "default": null
+          },
+          {
+            "name": "onInput",
+            "type": "FormEventHandler<HTMLInputElement>",
+            "required": false,
+            "description": "Called as the user edits — the native input event (the web component's `input` event, detail = the current value).",
+            "default": null
+          },
+          {
+            "name": "onFocus",
+            "type": "FocusEventHandler<HTMLInputElement>",
+            "required": false,
+            "description": "Called when the field gains focus — the native focus event (the web component's `focus` event).",
+            "default": null
+          },
+          {
+            "name": "onInvalid",
+            "type": "FormEventHandler<HTMLInputElement>",
+            "required": false,
+            "description": "Called when the field fails validation (e.g. `required` and empty) — the native invalid event (the web component's `invalid` event, detail = the message).",
+            "default": null
+          },
+          {
             "name": "size",
             "type": "TimePickerSize",
             "required": false,
@@ -6054,6 +6719,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
         "element": {
           "tag": "l-time-picker",
           "props": {
+            "required": "boolean",
+            "name": "string",
             "value": "string",
             "size": "string",
             "invalid": "boolean",
@@ -6065,6 +6732,16 @@ export const API_DOCS: Record<string, ApiDoc> = {
           },
           "extraProps": [
             {
+              "name": "required",
+              "type": "boolean",
+              "description": "Standard HTML attribute, passed straight to the underlying control."
+            },
+            {
+              "name": "name",
+              "type": "string",
+              "description": "Standard HTML attribute, passed straight to the underlying control."
+            },
+            {
               "name": "value",
               "type": "string",
               "description": "Standard HTML attribute, passed straight to the underlying control."
@@ -6075,7 +6752,24 @@ export const API_DOCS: Record<string, ApiDoc> = {
               "description": "Standard HTML attribute, passed straight to the underlying control."
             }
           ],
-          "events": []
+          "events": [
+            {
+              "callback": "onUpdate",
+              "event": "update"
+            },
+            {
+              "callback": "onInput",
+              "event": "input"
+            },
+            {
+              "callback": "onFocus",
+              "event": "focus"
+            },
+            {
+              "callback": "onInvalid",
+              "event": "invalid"
+            }
+          ]
         }
       }
     ],
@@ -6178,6 +6872,22 @@ export const API_DOCS: Record<string, ApiDoc> = {
           ],
           "events": [
             {
+              "callback": "onUpdate",
+              "event": "update"
+            },
+            {
+              "callback": "onInput",
+              "event": "input"
+            },
+            {
+              "callback": "onFocus",
+              "event": "focus"
+            },
+            {
+              "callback": "onInvalid",
+              "event": "invalid"
+            },
+            {
               "callback": "onFilesSelected",
               "event": "filesselected"
             }
@@ -6194,6 +6904,34 @@ export const API_DOCS: Record<string, ApiDoc> = {
       {
         "name": "SearchInput",
         "props": [
+          {
+            "name": "onChange",
+            "type": "ChangeEventHandler<HTMLInputElement>",
+            "required": false,
+            "description": "The value was committed — the native change event (the web component's `update` event, detail = the new value).",
+            "default": null
+          },
+          {
+            "name": "onInput",
+            "type": "FormEventHandler<HTMLInputElement>",
+            "required": false,
+            "description": "Called as the user edits — the native input event (the web component's `input` event, detail = the current value).",
+            "default": null
+          },
+          {
+            "name": "onFocus",
+            "type": "FocusEventHandler<HTMLInputElement>",
+            "required": false,
+            "description": "Called when the field gains focus — the native focus event (the web component's `focus` event).",
+            "default": null
+          },
+          {
+            "name": "onInvalid",
+            "type": "FormEventHandler<HTMLInputElement>",
+            "required": false,
+            "description": "Called when the field fails validation (e.g. `required` and empty) — the native invalid event (the web component's `invalid` event, detail = the message).",
+            "default": null
+          },
           {
             "name": "size",
             "type": "SearchInputSize",
@@ -6261,6 +6999,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
         "element": {
           "tag": "l-search-input",
           "props": {
+            "required": "boolean",
+            "name": "string",
             "value": "string",
             "placeholder": "string",
             "size": "string",
@@ -6272,6 +7012,16 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "hoverEffect": "string"
           },
           "extraProps": [
+            {
+              "name": "required",
+              "type": "boolean",
+              "description": "Standard HTML attribute, passed straight to the underlying control."
+            },
+            {
+              "name": "name",
+              "type": "string",
+              "description": "Standard HTML attribute, passed straight to the underlying control."
+            },
             {
               "name": "value",
               "type": "string",
@@ -6289,6 +7039,22 @@ export const API_DOCS: Record<string, ApiDoc> = {
             }
           ],
           "events": [
+            {
+              "callback": "onUpdate",
+              "event": "update"
+            },
+            {
+              "callback": "onInput",
+              "event": "input"
+            },
+            {
+              "callback": "onFocus",
+              "event": "focus"
+            },
+            {
+              "callback": "onInvalid",
+              "event": "invalid"
+            },
             {
               "callback": "onClear",
               "event": "clear"
@@ -6308,6 +7074,34 @@ export const API_DOCS: Record<string, ApiDoc> = {
       {
         "name": "Slider",
         "props": [
+          {
+            "name": "onChange",
+            "type": "ChangeEventHandler<HTMLInputElement>",
+            "required": false,
+            "description": "The value was committed — the native change event (the web component's `update` event, detail = the new value).",
+            "default": null
+          },
+          {
+            "name": "onInput",
+            "type": "FormEventHandler<HTMLInputElement>",
+            "required": false,
+            "description": "Called as the user edits — the native input event (the web component's `input` event, detail = the current value).",
+            "default": null
+          },
+          {
+            "name": "onFocus",
+            "type": "FocusEventHandler<HTMLInputElement>",
+            "required": false,
+            "description": "Called when the field gains focus — the native focus event (the web component's `focus` event).",
+            "default": null
+          },
+          {
+            "name": "onInvalid",
+            "type": "FormEventHandler<HTMLInputElement>",
+            "required": false,
+            "description": "Called when the field fails validation (e.g. `required` and empty) — the native invalid event (the web component's `invalid` event, detail = the message).",
+            "default": null
+          },
           {
             "name": "color",
             "type": "ColorName",
@@ -6407,7 +7201,24 @@ export const API_DOCS: Record<string, ApiDoc> = {
               "description": "Standard HTML attribute, passed straight to the underlying control."
             }
           ],
-          "events": []
+          "events": [
+            {
+              "callback": "onUpdate",
+              "event": "update"
+            },
+            {
+              "callback": "onInput",
+              "event": "input"
+            },
+            {
+              "callback": "onFocus",
+              "event": "focus"
+            },
+            {
+              "callback": "onInvalid",
+              "event": "invalid"
+            }
+          ]
         }
       }
     ],
@@ -6498,6 +7309,27 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           },
           {
+            "name": "onFocus",
+            "type": "(e: FocusEvent<HTMLInputElement>) => void",
+            "required": false,
+            "description": "Called when the field gains focus — the native focus event (the web component's `focus` event, detail = the value).",
+            "default": null
+          },
+          {
+            "name": "onInput",
+            "type": "(e: FormEvent<HTMLInputElement>) => void",
+            "required": false,
+            "description": "Called as the user edits the field — the native input event (the web component's `input` event, detail = the value).",
+            "default": null
+          },
+          {
+            "name": "onInvalid",
+            "type": "(e: FormEvent<HTMLInputElement>) => void",
+            "required": false,
+            "description": "Called when the field fails validation — the native invalid event (the web component's `invalid` event, detail = the message).",
+            "default": null
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -6528,6 +7360,22 @@ export const API_DOCS: Record<string, ApiDoc> = {
           },
           "extraProps": [],
           "events": [
+            {
+              "callback": "onUpdate",
+              "event": "update"
+            },
+            {
+              "callback": "onInput",
+              "event": "input"
+            },
+            {
+              "callback": "onFocus",
+              "event": "focus"
+            },
+            {
+              "callback": "onInvalid",
+              "event": "invalid"
+            },
             {
               "callback": "onChange",
               "event": "change"
@@ -6636,6 +7484,10 @@ export const API_DOCS: Record<string, ApiDoc> = {
             }
           ],
           "events": [
+            {
+              "callback": "onUpdate",
+              "event": "update"
+            },
             {
               "callback": "onClose",
               "event": "close"
@@ -6759,6 +7611,10 @@ export const API_DOCS: Record<string, ApiDoc> = {
           ],
           "events": [
             {
+              "callback": "onUpdate",
+              "event": "update"
+            },
+            {
               "callback": "onClose",
               "event": "close"
             }
@@ -6867,6 +7723,10 @@ export const API_DOCS: Record<string, ApiDoc> = {
           ],
           "events": [
             {
+              "callback": "onUpdate",
+              "event": "update"
+            },
+            {
               "callback": "onClose",
               "event": "close"
             }
@@ -6926,6 +7786,20 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           },
           {
+            "name": "open",
+            "type": "boolean",
+            "required": false,
+            "description": "Opens or closes it from outside — set it whenever you want; the user can still toggle it, so it works with nothing wired up. Pair with `onOpenChange` for two-way binding.",
+            "default": null
+          },
+          {
+            "name": "onOpenChange",
+            "type": "(open: boolean) => void",
+            "required": false,
+            "description": "Called with the new open state whenever it opens or closes — a click, outside click, Escape (the web component's `openchange` / `update` event, detail = true | false).",
+            "default": null
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -6943,6 +7817,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
         "element": {
           "tag": "l-popover",
           "props": {
+            "open": "boolean",
             "content": "string",
             "position": "string",
             "transition": "string",
@@ -6950,7 +7825,16 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "transitionDelay": "number"
           },
           "extraProps": [],
-          "events": []
+          "events": [
+            {
+              "callback": "onUpdate",
+              "event": "update"
+            },
+            {
+              "callback": "onOpenChange",
+              "event": "openchange"
+            }
+          ]
         }
       }
     ],
@@ -7008,6 +7892,20 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           },
           {
+            "name": "open",
+            "type": "boolean",
+            "required": false,
+            "description": "Opens or closes it from outside — set it whenever you want; the user can still toggle it, so it works with nothing wired up. Pair with `onOpenChange` for two-way binding.",
+            "default": null
+          },
+          {
+            "name": "onOpenChange",
+            "type": "(open: boolean) => void",
+            "required": false,
+            "description": "Called with the new open state whenever it opens or closes — a click, outside click, Escape (the web component's `openchange` / `update` event, detail = true | false).",
+            "default": null
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -7025,13 +7923,23 @@ export const API_DOCS: Record<string, ApiDoc> = {
         "element": {
           "tag": "l-dropdown-menu",
           "props": {
+            "open": "boolean",
             "align": "string",
             "transition": "string",
             "transitionDuration": "number",
             "transitionDelay": "number"
           },
           "extraProps": [],
-          "events": []
+          "events": [
+            {
+              "callback": "onUpdate",
+              "event": "update"
+            },
+            {
+              "callback": "onOpenChange",
+              "event": "openchange"
+            }
+          ]
         }
       },
       {
@@ -7146,6 +8054,20 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           },
           {
+            "name": "open",
+            "type": "boolean",
+            "required": false,
+            "description": "Opens or closes it from outside — set it whenever you want; the user can still open / close it, so it works with nothing wired up. Pair with `onOpenChange` for two-way binding.",
+            "default": null
+          },
+          {
+            "name": "onOpenChange",
+            "type": "(open: boolean) => void",
+            "required": false,
+            "description": "Called with the new open state whenever it opens or closes — right-click, outside click, Escape (the web component's `openchange` / `update` event, detail = true | false).",
+            "default": null
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -7163,12 +8085,22 @@ export const API_DOCS: Record<string, ApiDoc> = {
         "element": {
           "tag": "l-context-menu",
           "props": {
+            "open": "boolean",
             "transition": "string",
             "transitionDuration": "number",
             "transitionDelay": "number"
           },
           "extraProps": [],
-          "events": []
+          "events": [
+            {
+              "callback": "onUpdate",
+              "event": "update"
+            },
+            {
+              "callback": "onOpenChange",
+              "event": "openchange"
+            }
+          ]
         }
       }
     ],
@@ -7257,6 +8189,10 @@ export const API_DOCS: Record<string, ApiDoc> = {
           },
           "extraProps": [],
           "events": [
+            {
+              "callback": "onUpdate",
+              "event": "update"
+            },
             {
               "callback": "onClose",
               "event": "close"
@@ -7395,6 +8331,10 @@ export const API_DOCS: Record<string, ApiDoc> = {
             }
           ],
           "events": [
+            {
+              "callback": "onUpdate",
+              "event": "update"
+            },
             {
               "callback": "onClose",
               "event": "close"
@@ -7810,6 +8750,10 @@ export const API_DOCS: Record<string, ApiDoc> = {
             }
           ],
           "events": [
+            {
+              "callback": "onUpdate",
+              "event": "update"
+            },
             {
               "callback": "onClose",
               "event": "close"
@@ -10491,6 +11435,10 @@ export const API_DOCS: Record<string, ApiDoc> = {
           "extraProps": [],
           "events": [
             {
+              "callback": "onUpdate",
+              "event": "update"
+            },
+            {
               "callback": "onCollapsedChange",
               "event": "collapsedchange"
             },
@@ -11027,6 +11975,10 @@ export const API_DOCS: Record<string, ApiDoc> = {
           "extraProps": [],
           "events": [
             {
+              "callback": "onUpdate",
+              "event": "update"
+            },
+            {
               "callback": "onChange",
               "event": "change"
             },
@@ -11141,6 +12093,10 @@ export const API_DOCS: Record<string, ApiDoc> = {
           },
           "extraProps": [],
           "events": [
+            {
+              "callback": "onUpdate",
+              "event": "update"
+            },
             {
               "callback": "onActiveItemChange",
               "event": "activeitemchange"
@@ -11328,6 +12284,10 @@ export const API_DOCS: Record<string, ApiDoc> = {
           },
           "extraProps": [],
           "events": [
+            {
+              "callback": "onUpdate",
+              "event": "update"
+            },
             {
               "callback": "onStepChange",
               "event": "stepchange"
@@ -11957,6 +12917,10 @@ export const API_DOCS: Record<string, ApiDoc> = {
           },
           "extraProps": [],
           "events": [
+            {
+              "callback": "onUpdate",
+              "event": "update"
+            },
             {
               "callback": "onSelect",
               "event": "select"
@@ -12652,6 +13616,34 @@ export const API_DOCS: Record<string, ApiDoc> = {
         "name": "PasswordInput",
         "props": [
           {
+            "name": "onChange",
+            "type": "ChangeEventHandler<HTMLInputElement>",
+            "required": false,
+            "description": "The value was committed — the native change event (the web component's `update` event, detail = the new value).",
+            "default": null
+          },
+          {
+            "name": "onInput",
+            "type": "FormEventHandler<HTMLInputElement>",
+            "required": false,
+            "description": "Called as the user edits — the native input event (the web component's `input` event, detail = the current value).",
+            "default": null
+          },
+          {
+            "name": "onFocus",
+            "type": "FocusEventHandler<HTMLInputElement>",
+            "required": false,
+            "description": "Called when the field gains focus — the native focus event (the web component's `focus` event).",
+            "default": null
+          },
+          {
+            "name": "onInvalid",
+            "type": "FormEventHandler<HTMLInputElement>",
+            "required": false,
+            "description": "Called when the field fails validation (e.g. `required` and empty) — the native invalid event (the web component's `invalid` event, detail = the message).",
+            "default": null
+          },
+          {
             "name": "size",
             "type": "PasswordInputSize",
             "required": false,
@@ -12718,6 +13710,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
         "element": {
           "tag": "l-password-input",
           "props": {
+            "required": "boolean",
+            "name": "string",
             "size": "string",
             "variant": "string",
             "invalid": "boolean",
@@ -12729,12 +13723,39 @@ export const API_DOCS: Record<string, ApiDoc> = {
           },
           "extraProps": [
             {
+              "name": "required",
+              "type": "boolean",
+              "description": "Standard HTML attribute, passed straight to the underlying control."
+            },
+            {
+              "name": "name",
+              "type": "string",
+              "description": "Standard HTML attribute, passed straight to the underlying control."
+            },
+            {
               "name": "disabled",
               "type": "boolean",
               "description": "Standard HTML attribute, passed straight to the underlying control."
             }
           ],
-          "events": []
+          "events": [
+            {
+              "callback": "onUpdate",
+              "event": "update"
+            },
+            {
+              "callback": "onInput",
+              "event": "input"
+            },
+            {
+              "callback": "onFocus",
+              "event": "focus"
+            },
+            {
+              "callback": "onInvalid",
+              "event": "invalid"
+            }
+          ]
         }
       }
     ],
@@ -13513,7 +14534,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "name": "thinking",
             "type": "boolean | string",
             "required": false,
-            "description": "Shows the \"thinking\" indicator at the end of the thread. Pass the text to show — `thinking=\"Searching the docs\"` — or `true` / an empty string for the default \"Thinking\" (default: off).",
+            "description": "Shows the \"thinking\" indicator at the end of the thread. Pass the text to show — `thinking=\"Searching the docs\"` — or `true` / an empty string for the default \"Thinking\" (default: off). As a web component, write `thinking=\"true\"` for the default label, and switch it off again by setting the property to `false` (`el.thinking = false`) — removing the attribute does not clear it.",
             "default": null
           },
           {

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import type { FocusEvent, FormEvent } from "react";
 import { cx } from "../../../core/tokens";
 import { useValue } from "../../../core/useValue";
 
@@ -13,6 +14,12 @@ export interface ColorPickerProps {
   disabled?: boolean;
   /** Called with the new "#rrggbb" color whenever it changes. */
   onChange?: (color: string) => void;
+  /** Called when the field gains focus — the native focus event (the web component's `focus` event, detail = the value). */
+  onFocus?: (e: FocusEvent<HTMLInputElement>) => void;
+  /** Called as the user edits the field — the native input event (the web component's `input` event, detail = the value). */
+  onInput?: (e: FormEvent<HTMLInputElement>) => void;
+  /** Called when the field fails validation — the native invalid event (the web component's `invalid` event, detail = the message). */
+  onInvalid?: (e: FormEvent<HTMLInputElement>) => void;
   /** Extra class name(s) appended to the root element. */
   className?: string;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
@@ -29,7 +36,7 @@ const normalize = (v: string) => {
 };
 
 /** Pick a color from the system picker, a row of presets, or by typing a hex code. */
-export function ColorPicker({ value, presets = DEFAULT_PRESETS, showInput = true, disabled = false, onChange, className, classNames }: ColorPickerProps) {
+export function ColorPicker({ value, presets = DEFAULT_PRESETS, showInput = true, disabled = false, onChange, onFocus, onInput, onInvalid, className, classNames }: ColorPickerProps) {
   const [color, setColor] = useValue<string>(value && normalize(value) ? normalize(value)! : undefined, "#6366f1");
   const [draft, setDraft] = useState(color);
   const [prevColor, setPrevColor] = useState(color);
@@ -61,6 +68,9 @@ export function ColorPicker({ value, presets = DEFAULT_PRESETS, showInput = true
             spellCheck={false}
             aria-label="Hex color"
             onChange={(e) => setDraft(e.target.value)}
+            onFocus={onFocus}
+            onInput={onInput}
+            onInvalid={onInvalid}
             onBlur={() => (normalize(draft) ? commit(draft) : setDraft(color))}
             onKeyDown={(e) => e.key === "Enter" && (normalize(draft) ? commit(draft) : setDraft(color))}
             className={cx("h-10 w-28 rounded-md border border-border-strong bg-surface px-3 font-mono text-sm uppercase text-fg outline-none transition-colors focus:border-slate-500 focus:ring-2 focus:ring-slate-500/20", classNames?.input)}

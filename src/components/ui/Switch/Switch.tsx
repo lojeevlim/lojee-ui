@@ -1,10 +1,18 @@
-import type { InputHTMLAttributes, ReactNode } from "react";
+import type { ChangeEventHandler, FocusEventHandler, FormEventHandler, InputHTMLAttributes, ReactNode } from "react";
 import { cx, type ColorName } from "../../../core/tokens";
 import { motionClass, motionStyle, type TransitionVariant, type HoverEffect } from "../../../core/motion";
 
 export type SwitchSize = "sm" | "md" | "lg";
 
 export interface SwitchProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "size" | "type"> {
+  /** The value was committed — the native change event (the web component's `update` event, detail = the new value). */
+  onChange?: ChangeEventHandler<HTMLInputElement>;
+  /** Called as the user edits — the native input event (the web component's `input` event, detail = the current value). */
+  onInput?: FormEventHandler<HTMLInputElement>;
+  /** Called when the field gains focus — the native focus event (the web component's `focus` event). */
+  onFocus?: FocusEventHandler<HTMLInputElement>;
+  /** Called when the field fails validation (e.g. `required` and empty) — the native invalid event (the web component's `invalid` event, detail = the message). */
+  onInvalid?: FormEventHandler<HTMLInputElement>;
   /** Text or element shown next to the switch. */
   label?: ReactNode;
   /** Switch size: "sm", "md" or "lg" (default: "md"). */

@@ -1,6 +1,7 @@
 import { DetailsList, type DetailsListItem } from "../DetailsList";
 import CodeBlock from "../../CodeBlock";
 import { SectionLabel, TransitionPreview } from "../../ShowcaseHelpers";
+import { useCodeFramework } from "../../../../core/codeFramework";
 
 const EVENTS: DetailsListItem[] = [
   { title: "@action", description: "Called when a row action is clicked, with the action and its row." },
@@ -26,8 +27,16 @@ const DETAILED: DetailsListItem[] = [
 ];
 
 const lit = (items: DetailsListItem[]) => JSON.stringify(items, null, 2).replace(/"(\w+)":/g, "$1:");
+// The sample's `code` field shows how to listen for the event; in the Vue and Angular snippets it is the template binding, not a DOM lookup.
+const withCode = (code: string) => DETAILED.map((it) => (it.code ? { ...it, code } : it));
+const VUE_ITEMS = withCode('<l-details-list @selectionchange="(e) => console.log(e.detail.keys, e.detail.rows)" />');
+const ANGULAR_ITEMS = withCode('<l-details-list (selectionchange)="onSelect($any($event).detail)"></l-details-list>');
+const REACT_ITEMS = withCode('<Table onSelectionChange={(keys, rows) => console.log(keys, rows)} />');
 
 export default function DetailsListShowcase() {
+  // The sample's code row follows the language chosen in the header: no DOM lookups in the Vue / Angular versions.
+  const { framework } = useCodeFramework();
+  const DETAILED_SHOWN = framework === "vue" ? VUE_ITEMS : framework === "angular" ? ANGULAR_ITEMS : framework === "react" ? REACT_ITEMS : DETAILED;
   return (
     <div>
       <div className="space-y-12">
@@ -53,20 +62,20 @@ export default function DetailsListShowcase() {
 
         <section>
           <SectionLabel sub="Rows can open to a paragraph, a fields table and a code sample. Set open to start a row expanded.">Fields and code</SectionLabel>
-          <DetailsList items={DETAILED} />
+          <DetailsList items={DETAILED_SHOWN} />
           <CodeBlock
             variants={{
               react: `<DetailsList items={items} />`,
               js: `document.querySelector("l-details-list").items = ${lit(DETAILED)};`,
-              vue: `<l-DetailsList :items="items" />\n\nconst items = ${lit(DETAILED)};`,
-              angular: `<l-DetailsList [items]="items"></l-DetailsList>\n\nitems = ${lit(DETAILED)};`,
+              vue: `<l-DetailsList :items="items" />\n\nconst items = ${lit(VUE_ITEMS)};`,
+              angular: `<l-DetailsList [items]="items"></l-DetailsList>\n\nitems = ${lit(ANGULAR_ITEMS)};`,
             }}
           />
         </section>
 
         <section>
           <SectionLabel sub="exclusive keeps only one row open at a time.">Exclusive</SectionLabel>
-          <DetailsList exclusive items={DETAILED} />
+          <DetailsList exclusive items={DETAILED_SHOWN} />
           <CodeBlock
             variants={{
               react: `<DetailsList exclusive items={items} />`,

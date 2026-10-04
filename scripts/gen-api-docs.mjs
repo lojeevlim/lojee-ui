@@ -97,7 +97,11 @@ function visit(node) {
               if (ts.isPropertyAssignment(pp)) props[keyName(pp.name, registerSf)] = ts.isStringLiteral(pp.initializer) ? pp.initializer.text : "json";
           }
           if (k === "events" && ts.isObjectLiteralExpression(prop.initializer))
-            for (const pp of prop.initializer.properties) if (ts.isPropertyAssignment(pp)) events.push(keyName(pp.name, registerSf));
+            for (const pp of prop.initializer.properties) {
+              if (ts.isPropertyAssignment(pp)) events.push(keyName(pp.name, registerSf));
+              // `...FORM_EVENTS` — the shared form events (see src/elements/with-form-events.tsx)
+              else if (ts.isSpreadAssignment(pp) && pp.expression.getText(registerSf) === "FORM_EVENTS") events.push("onUpdate", "onInput", "onFocus", "onInvalid");
+            }
         }
       }
       elements.push({ tag, comp, props, events });

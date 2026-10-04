@@ -197,6 +197,11 @@ export const COMPONENT_MENU: Menu[]  = [
             },
 
             {
+                icon: "lock-keyhole",
+                label: "Password Input",
+            },
+
+            {
                 icon: "sliders-horizontal",
                 label: "Slider",
             },
@@ -556,11 +561,6 @@ export const COMPONENT_MENU: Menu[]  = [
                 label: "Plan & Billing",
             },
 
-            {
-                icon: "lock-keyhole",
-                label: "Password Input",
-            },
-
         ],
     },
 
@@ -583,6 +583,11 @@ export  const DOCS_MENU: Menu [] = [
         {
             icon: "palette",
             label: "Theming",
+        },
+
+        {
+            icon: "refresh-cw",
+            label: "Data Binding",
         },
 
         {

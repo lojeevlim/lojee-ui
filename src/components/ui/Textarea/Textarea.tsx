@@ -1,11 +1,19 @@
 import { INPUT_VARIANT_CLASSES, INPUT_VARIANT_INVALID_CLASSES, type InputVariant } from "../../../core/inputVariants";
-import type { TextareaHTMLAttributes } from "react";
+import type { ChangeEventHandler, FocusEventHandler, FormEventHandler, TextareaHTMLAttributes } from "react";
 import { cx } from "../../../core/tokens";
 import { motionClass, motionStyle, type TransitionVariant, type HoverEffect } from "../../../core/motion";
 
 export type TextareaResize = "none" | "vertical" | "both";
 
 export interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
+  /** The value was committed — the native change event (the web component's `update` event, detail = the new value). */
+  onChange?: ChangeEventHandler<HTMLTextAreaElement>;
+  /** Called as the user edits — the native input event (the web component's `input` event, detail = the current value). */
+  onInput?: FormEventHandler<HTMLTextAreaElement>;
+  /** Called when the field gains focus — the native focus event (the web component's `focus` event). */
+  onFocus?: FocusEventHandler<HTMLTextAreaElement>;
+  /** Called when the field fails validation (e.g. `required` and empty) — the native invalid event (the web component's `invalid` event, detail = the message). */
+  onInvalid?: FormEventHandler<HTMLTextAreaElement>;
   /** Look of the field: "outline" | "filled" | "underline" | "soft" (default: "outline"). */
   variant?: InputVariant;
   /** Applies error styling (rose border and focus ring) to flag invalid input (default: false). */

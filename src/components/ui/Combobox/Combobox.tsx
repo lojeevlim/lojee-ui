@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import type { KeyboardEvent } from "react";
+import type { FocusEvent, FormEvent, KeyboardEvent } from "react";
 import { cx } from "../../../core/tokens";
 import { Icon } from "../Icons/Icon";
 import { motionClass, motionState, motionStyle, DEFAULT_TRANSITION_MS, type TransitionVariant, type HoverEffect } from "../../../core/motion";
@@ -27,6 +27,12 @@ export interface ComboboxProps {
   transitionDelay?: number;
   /** Effect while hovering the field: "lift" | "scale" | "press" | "tilt" | "ring" | "glow" | "shine" (default: none). */
   hoverEffect?: HoverEffect;
+  /** Called when the field gains focus — the native focus event (the web component's `focus` event, detail = the value). */
+  onFocus?: (e: FocusEvent<HTMLInputElement>) => void;
+  /** Called as the user edits the field — the native input event (the web component's `input` event, detail = the value). */
+  onInput?: (e: FormEvent<HTMLInputElement>) => void;
+  /** Called when the field fails validation — the native invalid event (the web component's `invalid` event, detail = the message). */
+  onInvalid?: (e: FormEvent<HTMLInputElement>) => void;
   /** Extra class names applied to the root element. */
   className?: string;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
@@ -43,6 +49,9 @@ export function Combobox({
   options,
   value,
   onChange,
+  onFocus,
+  onInput,
+  onInvalid,
   placeholder,
   transition,
   transitionDuration,
@@ -122,7 +131,12 @@ export function Combobox({
           type="text"
           value={inputValue}
           placeholder={placeholder}
-          onFocus={() => setOpen(true)}
+          onFocus={(e) => {
+            setOpen(true);
+            onFocus?.(e);
+          }}
+          onInput={onInput}
+          onInvalid={onInvalid}
           onChange={(e) => {
             setInputValue(e.target.value);
             setOpen(true);

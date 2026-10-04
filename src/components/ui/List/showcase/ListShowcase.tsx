@@ -25,30 +25,19 @@ export default function ListShowcase() {
           </Row>
           <CodeBlock
             variants={{
-              react: `<List variant="plain">
-  <ListItem>Overview</ListItem>
-  <ListItem>Settings</ListItem>
-  <ListItem>Billing</ListItem>
-</List>`,
-              js: `<l-List variant="plain">
-  <l-ListItem>Overview</l-ListItem>
-  <l-ListItem>Settings</l-ListItem>
-  <l-ListItem>Billing</l-ListItem>
-</l-List>
+              react: `<List variant="plain" items={["Overview", "Settings", "Billing"]} />`,
+              js: `<l-List variant="plain" items='["Overview","Settings","Billing"]'></l-List>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-List variant="plain">
-    <l-ListItem>Overview</l-ListItem>
-    <l-ListItem>Settings</l-ListItem>
-    <l-ListItem>Billing</l-ListItem>
-  </l-List>
+  <l-List variant="plain" :items.prop="items" />
 </template>
 
 <script setup lang="ts">
 import "lojee-ui/elements";
+const items = ["Overview", "Settings", "Billing"];
 </script>`,
               angular: `// app.component.ts
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
@@ -59,14 +48,12 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-List variant="plain">
-      <l-ListItem>Overview</l-ListItem>
-      <l-ListItem>Settings</l-ListItem>
-      <l-ListItem>Billing</l-ListItem>
-    </l-List>
+    <l-List variant="plain" [items]="items"></l-List>
   \`,
 })
-export class AppComponent {}`,
+export class AppComponent {
+  items = ["Overview", "Settings", "Billing"];
+}`,
             }}
           />
         </section>
@@ -84,29 +71,17 @@ export class AppComponent {}`,
           </Row>
           <CodeBlock
             variants={{
-              react: `<List variant="divided">
-  <ListItem icon="file">Project brief.pdf</ListItem>
-  <ListItem icon="image">Cover photo.png</ListItem>
-  <ListItem icon="folder">Archive</ListItem>
-</List>`,
-              js: `<l-List variant="divided">
-  <l-ListItem icon="file">Project brief.pdf</l-ListItem>
-  <l-ListItem icon="image">Cover photo.png</l-ListItem>
-  <l-ListItem icon="folder">Archive</l-ListItem>
-</l-List>`,
+              react: `<List variant="divided" items={[
+  { label: "Project brief.pdf", icon: "file" },
+  { label: "Cover photo.png", icon: "image" },
+  { label: "Archive", icon: "folder" },
+]} />`,
+              js: `<l-List variant="divided" items='[{"label":"Project brief.pdf","icon":"file"},{"label":"Cover photo.png","icon":"image"},{"label":"Archive","icon":"folder"}]'></l-List>`,
               vue: `<template>
-  <l-List variant="divided">
-    <l-ListItem icon="file">Project brief.pdf</l-ListItem>
-    <l-ListItem icon="image">Cover photo.png</l-ListItem>
-    <l-ListItem icon="folder">Archive</l-ListItem>
-  </l-List>
+  <l-List variant="divided" :items.prop="items" />
 </template>`,
               angular: `<!-- reuses the AppComponent from above -->
-<l-List variant="divided">
-  <l-ListItem icon="file">Project brief.pdf</l-ListItem>
-  <l-ListItem icon="image">Cover photo.png</l-ListItem>
-  <l-ListItem icon="folder">Archive</l-ListItem>
-</l-List>`,
+<l-List variant="divided" [items]="items"></l-List>`,
             }}
           />
         </section>
@@ -124,29 +99,17 @@ export class AppComponent {}`,
           </Row>
           <CodeBlock
             variants={{
-              react: `<List variant="bordered">
-  <ListItem icon="circle-check">Email verified</ListItem>
-  <ListItem icon="circle-check">Password set</ListItem>
-  <ListItem icon="circle-alert">Two-factor auth pending</ListItem>
-</List>`,
-              js: `<l-List variant="bordered">
-  <l-ListItem icon="circle-check">Email verified</l-ListItem>
-  <l-ListItem icon="circle-check">Password set</l-ListItem>
-  <l-ListItem icon="circle-alert">Two-factor auth pending</l-ListItem>
-</l-List>`,
+              react: `<List variant="bordered" items={[
+  { label: "Email verified", icon: "circle-check" },
+  { label: "Password set", icon: "circle-check" },
+  { label: "Two-factor auth pending", icon: "circle-alert" },
+]} />`,
+              js: `<l-List variant="bordered" items='[{"label":"Email verified","icon":"circle-check"},{"label":"Password set","icon":"circle-check"},{"label":"Two-factor auth pending","icon":"circle-alert"}]'></l-List>`,
               vue: `<template>
-  <l-List variant="bordered">
-    <l-ListItem icon="circle-check">Email verified</l-ListItem>
-    <l-ListItem icon="circle-check">Password set</l-ListItem>
-    <l-ListItem icon="circle-alert">Two-factor auth pending</l-ListItem>
-  </l-List>
+  <l-List variant="bordered" :items.prop="items" />
 </template>`,
               angular: `<!-- reuses the AppComponent from above -->
-<l-List variant="bordered">
-  <l-ListItem icon="circle-check">Email verified</l-ListItem>
-  <l-ListItem icon="circle-check">Password set</l-ListItem>
-  <l-ListItem icon="circle-alert">Two-factor auth pending</l-ListItem>
-</l-List>`,
+<l-List variant="bordered" [items]="items"></l-List>`,
             }}
           />
         </section>
@@ -164,29 +127,13 @@ export class AppComponent {}`,
           </Row>
           <CodeBlock
             variants={{
-              react: `<List ordered variant="divided">
-  <ListItem>Create an account</ListItem>
-  <ListItem>Verify your email</ListItem>
-  <ListItem>Invite your team</ListItem>
-</List>`,
-              js: `<l-List ordered variant="divided">
-  <l-ListItem>Create an account</l-ListItem>
-  <l-ListItem>Verify your email</l-ListItem>
-  <l-ListItem>Invite your team</l-ListItem>
-</l-List>`,
+              react: `<List ordered variant="divided" items={["Create an account", "Verify your email", "Invite your team"]} />`,
+              js: `<l-List ordered variant="divided" items='["Create an account","Verify your email","Invite your team"]'></l-List>`,
               vue: `<template>
-  <l-List ordered variant="divided">
-    <l-ListItem>Create an account</l-ListItem>
-    <l-ListItem>Verify your email</l-ListItem>
-    <l-ListItem>Invite your team</l-ListItem>
-  </l-List>
+  <l-List ordered variant="divided" :items.prop="items" />
 </template>`,
               angular: `<!-- reuses the AppComponent from above -->
-<l-List ordered variant="divided">
-  <l-ListItem>Create an account</l-ListItem>
-  <l-ListItem>Verify your email</l-ListItem>
-  <l-ListItem>Invite your team</l-ListItem>
-</l-List>`,
+<l-List ordered variant="divided" [items]="items"></l-List>`,
             }}
           />
         </section>
@@ -310,75 +257,28 @@ likedClassNames = { icon: "text-rose-500" };`,
           </Row>
           <CodeBlock
             variants={{
-              react: `<List variant="bordered" transition="fade">
-  <ListItem>Overview</ListItem>
-  <ListItem>Settings</ListItem>
-  <ListItem>Billing</ListItem>
-</List>
-<List variant="bordered" transition="slide-up">
-  <ListItem>Overview</ListItem>
-  <ListItem>Settings</ListItem>
-  <ListItem>Billing</ListItem>
-</List>
-<List variant="bordered" transition="slide-right" transitionDelay={100}>
-  <ListItem>Overview</ListItem>
-  <ListItem>Settings</ListItem>
-  <ListItem>Billing</ListItem>
-</List>
-<List variant="bordered" transition="drop" transitionDuration={700}>
-  <ListItem>Overview</ListItem>
-  <ListItem>Settings</ListItem>
-  <ListItem>Billing</ListItem>
-</List>`,
-              js: `<l-List variant="bordered" transition="fade">
-  <l-ListItem>Overview</l-ListItem>
-  <l-ListItem>Settings</l-ListItem>
-  <l-ListItem>Billing</l-ListItem>
-</l-List>
-<l-List variant="bordered" transition="slide-up">
-  <l-ListItem>Overview</l-ListItem>
-  <l-ListItem>Settings</l-ListItem>
-  <l-ListItem>Billing</l-ListItem>
-</l-List>
-<l-List variant="bordered" transition="slide-right" transitionDelay="100">
-  <l-ListItem>Overview</l-ListItem>
-  <l-ListItem>Settings</l-ListItem>
-  <l-ListItem>Billing</l-ListItem>
-</l-List>
-<l-List variant="bordered" transition="drop" transitionDuration="700">
-  <l-ListItem>Overview</l-ListItem>
-  <l-ListItem>Settings</l-ListItem>
-  <l-ListItem>Billing</l-ListItem>
-</l-List>
+              react: `<List variant="bordered" transition="fade" items={["Overview", "Settings", "Billing"]} />
+<List variant="bordered" transition="slide-up" items={["Overview", "Settings", "Billing"]} />
+<List variant="bordered" transition="slide-right" transitionDelay={100} items={["Overview", "Settings", "Billing"]} />
+<List variant="bordered" transition="drop" transitionDuration={700} items={["Overview", "Settings", "Billing"]} />`,
+              js: `<l-List variant="bordered" transition="fade" items='["Overview","Settings","Billing"]'></l-List>
+<l-List variant="bordered" transition="slide-up" items='["Overview","Settings","Billing"]'></l-List>
+<l-List variant="bordered" transition="slide-right" transitionDelay="100" items='["Overview","Settings","Billing"]'></l-List>
+<l-List variant="bordered" transition="drop" transitionDuration="700" items='["Overview","Settings","Billing"]'></l-List>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-List variant="bordered" transition="fade">
-    <l-ListItem>Overview</l-ListItem>
-    <l-ListItem>Settings</l-ListItem>
-    <l-ListItem>Billing</l-ListItem>
-  </l-List>
-  <l-List variant="bordered" transition="slide-up">
-    <l-ListItem>Overview</l-ListItem>
-    <l-ListItem>Settings</l-ListItem>
-    <l-ListItem>Billing</l-ListItem>
-  </l-List>
-  <l-List variant="bordered" transition="slide-right" transitionDelay="100">
-    <l-ListItem>Overview</l-ListItem>
-    <l-ListItem>Settings</l-ListItem>
-    <l-ListItem>Billing</l-ListItem>
-  </l-List>
-  <l-List variant="bordered" transition="drop" transitionDuration="700">
-    <l-ListItem>Overview</l-ListItem>
-    <l-ListItem>Settings</l-ListItem>
-    <l-ListItem>Billing</l-ListItem>
-  </l-List>
+  <l-List variant="bordered" transition="fade" :items.prop="items" />
+  <l-List variant="bordered" transition="slide-up" :items.prop="items" />
+  <l-List variant="bordered" transition="slide-right" transitionDelay="100" :items.prop="items" />
+  <l-List variant="bordered" transition="drop" transitionDuration="700" :items.prop="items" />
 </template>
 
 <script setup lang="ts">
 import "lojee-ui/elements";
+const items = ["Overview", "Settings", "Billing"];
 </script>`,
               angular: `// app.component.ts
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
@@ -389,29 +289,15 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-List variant="bordered" transition="fade">
-      <l-ListItem>Overview</l-ListItem>
-      <l-ListItem>Settings</l-ListItem>
-      <l-ListItem>Billing</l-ListItem>
-    </l-List>
-    <l-List variant="bordered" transition="slide-up">
-      <l-ListItem>Overview</l-ListItem>
-      <l-ListItem>Settings</l-ListItem>
-      <l-ListItem>Billing</l-ListItem>
-    </l-List>
-    <l-List variant="bordered" transition="slide-right" transitionDelay="100">
-      <l-ListItem>Overview</l-ListItem>
-      <l-ListItem>Settings</l-ListItem>
-      <l-ListItem>Billing</l-ListItem>
-    </l-List>
-    <l-List variant="bordered" transition="drop" transitionDuration="700">
-      <l-ListItem>Overview</l-ListItem>
-      <l-ListItem>Settings</l-ListItem>
-      <l-ListItem>Billing</l-ListItem>
-    </l-List>
+    <l-List variant="bordered" transition="fade" [items]="items"></l-List>
+    <l-List variant="bordered" transition="slide-up" [items]="items"></l-List>
+    <l-List variant="bordered" transition="slide-right" transitionDelay="100" [items]="items"></l-List>
+    <l-List variant="bordered" transition="drop" transitionDuration="700" [items]="items"></l-List>
   \`,
 })
-export class AppComponent {}`,
+export class AppComponent {
+  items = ["Overview", "Settings", "Billing"];
+}`,
             }}
           />
         </section>
@@ -428,32 +314,27 @@ export class AppComponent {}`,
           </Row>
           <CodeBlock
             variants={{
-              react: `<List header="Files">
-  <ListItem icon="file">Project brief.pdf</ListItem>
-  <ListItem icon="image">Cover photo.png</ListItem>
-  <ListItem icon="folder">Archive</ListItem>
-</List>`,
-              js: `<l-List>
-  <span slot="header">Files</span>
-  <l-ListItem icon="file">Project brief.pdf</l-ListItem>
-  <l-ListItem icon="image">Cover photo.png</l-ListItem>
-  <l-ListItem icon="folder">Archive</l-ListItem>
-</l-List>
+              react: `<List header="Files" items={[
+  { label: "Project brief.pdf", icon: "file" },
+  { label: "Cover photo.png", icon: "image" },
+  { label: "Archive", icon: "folder" },
+]} />`,
+              js: `<l-List header="Files" items='[{"label":"Project brief.pdf","icon":"file"},{"label":"Cover photo.png","icon":"image"},{"label":"Archive","icon":"folder"}]'></l-List>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-List>
-    <span slot="header">Files</span>
-    <l-ListItem icon="file">Project brief.pdf</l-ListItem>
-    <l-ListItem icon="image">Cover photo.png</l-ListItem>
-    <l-ListItem icon="folder">Archive</l-ListItem>
-  </l-List>
+  <l-List header="Files" :items.prop="items" />
 </template>
 
 <script setup lang="ts">
 import "lojee-ui/elements";
+const items = [
+  {label: "Project brief.pdf", icon: "file"},
+  {label: "Cover photo.png", icon: "image"},
+  {label: "Archive", icon: "folder"}
+];
 </script>`,
               angular: `// app.component.ts
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
@@ -464,15 +345,16 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-List>
-      <span slot="header">Files</span>
-      <l-ListItem icon="file">Project brief.pdf</l-ListItem>
-      <l-ListItem icon="image">Cover photo.png</l-ListItem>
-      <l-ListItem icon="folder">Archive</l-ListItem>
-    </l-List>
+    <l-List header="Files" [items]="items"></l-List>
   \`,
 })
-export class AppComponent {}`,
+export class AppComponent {
+  items = [
+    {label: "Project brief.pdf", icon: "file"},
+    {label: "Cover photo.png", icon: "image"},
+    {label: "Archive", icon: "folder"}
+  ];
+}`,
             }}
           />
         </section>

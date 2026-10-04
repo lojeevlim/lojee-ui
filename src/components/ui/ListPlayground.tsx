@@ -29,11 +29,11 @@ export default function ListPlayground() {
   );
 
   const headerAttr = showHeader ? ` header="${headerText || "Files"}"` : "";
-  const code = `<List variant="${variant}"${headerAttr}${motion.attrs}${ordered ? " ordered" : ""}>
-  <ListItem icon="file">Project brief.pdf</ListItem>
-  <ListItem icon="image">Cover photo.png</ListItem>
-  <ListItem icon="folder">Archive</ListItem>
-</List>`;
+  const code = `<List variant="${variant}"${headerAttr}${motion.attrs}${ordered ? " ordered" : ""} items={[
+  { label: "Project brief.pdf", icon: "file" },
+  { label: "Cover photo.png", icon: "image" },
+  { label: "Archive", icon: "folder" },
+]} />`;
 
   // Custom-element markup for the current configuration — identical across
   // Vue/Angular templates (plain attributes, no bindings needed for a static
@@ -41,17 +41,43 @@ export default function ListPlayground() {
   // HTML page needs to actually load the `<l-*>` definitions. Note the
   // explicit `ordered="true"` — r2wc's boolean parser needs a non-empty
   // value, so a bare attribute would silently parse to false.
-  const htmlMarkup = `<l-List variant="${variant}"${motion.attrs}${ordered ? ` ordered` : ""}>${showHeader ? `\n  <span slot="header">${headerText || "Files"}</span>` : ""}
-  <l-ListItem icon="file">Project brief.pdf</l-ListItem>
-  <l-ListItem icon="image">Cover photo.png</l-ListItem>
-  <l-ListItem icon="folder">Archive</l-ListItem>
-</l-List>`;
+  // Data-driven: the rows go in as `items` (a property in Vue / Angular, a JSON attribute in plain HTML), the title as `header`.
+  const itemsLiteral = `[
+  { label: "Project brief.pdf", icon: "file" },
+  { label: "Cover photo.png", icon: "image" },
+  { label: "Archive", icon: "folder" },
+]`;
+  const listAttrs = `variant="${variant}"${motion.attrs}${ordered ? ` ordered="true"` : ""}${showHeader ? ` header="${headerText || "Files"}"` : ""}`;
+  const htmlMarkup = `<l-List ${listAttrs}></l-List>
+
+<script type="module">
+  document.querySelector("l-list").items = ${itemsLiteral.replace(/\n/g, "\n  ")};
+</script>`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,
-    js: `${htmlMarkup}\n\n<script type="module">import "lojee-ui/elements";</script>`,
-    vue: htmlMarkup,
-    angular: htmlMarkup,
+    js: `${htmlMarkup.replace('<script type="module">', '<script type="module">\n  import "lojee-ui/elements";\n')}`,
+    vue: `<template>
+  <l-List ${listAttrs} :items.prop="items" />
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+const items = ${itemsLiteral};
+</script>`,
+    angular: `// list.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-list",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`<l-List ${listAttrs} [items]="items"></l-List>\`,
+})
+export class ListComponent {
+  items = ${itemsLiteral.replace(/\n/g, "\n  ")};
+}`,
   };
 
   return (

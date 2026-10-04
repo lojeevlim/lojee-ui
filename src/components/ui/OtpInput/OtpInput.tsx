@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import type { ClipboardEvent, KeyboardEvent } from "react";
+import type { ClipboardEvent, FocusEvent, FormEvent, KeyboardEvent } from "react";
 import { cx } from "../../../core/tokens";
 import { useValue } from "../../../core/useValue";
 
@@ -27,6 +27,12 @@ export interface OtpInputProps {
   onChange?: (value: string) => void;
   /** Called once with the full code when every box is filled. */
   onComplete?: (value: string) => void;
+  /** Called when the field gains focus — the native focus event (the web component's `focus` event, detail = the value). */
+  onFocus?: (e: FocusEvent<HTMLInputElement>) => void;
+  /** Called as the user edits the field — the native input event (the web component's `input` event, detail = the value). */
+  onInput?: (e: FormEvent<HTMLInputElement>) => void;
+  /** Called when the field fails validation — the native invalid event (the web component's `invalid` event, detail = the message). */
+  onInvalid?: (e: FormEvent<HTMLInputElement>) => void;
   /** Extra class name(s) appended to the root element. */
   className?: string;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
@@ -46,6 +52,9 @@ export function OtpInput({
   invalid = false,
   disabled = false,
   onChange,
+  onFocus,
+  onInput: onFieldInput, // the native input event (the digit handler below is also called onInput)
+  onInvalid,
   onComplete,
   className,
   classNames,
@@ -115,7 +124,12 @@ export function OtpInput({
           onChange={(e) => onInput(i, e.target.value)}
           onKeyDown={(e) => onKeyDown(i, e)}
           onPaste={onPaste}
-          onFocus={(e) => e.currentTarget.select()}
+          onFocus={(e) => {
+            e.currentTarget.select();
+            onFocus?.(e);
+          }}
+          onInput={onFieldInput}
+          onInvalid={onInvalid}
           className={cx(
             "rounded-md border bg-surface text-center font-medium text-fg outline-none transition-colors focus:ring-2 disabled:cursor-not-allowed disabled:opacity-50",
             SIZE[size],

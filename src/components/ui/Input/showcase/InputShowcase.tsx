@@ -2,8 +2,20 @@ import { useState } from "react";
 import { Input } from "../Input";
 import CodeBlock from "../../CodeBlock";
 import { SectionLabel, TransitionPreview } from "../../ShowcaseHelpers";
+import { useFormEventsNote } from "../../../../core/bindingNotes";
+import { useCodeFramework, type CodeFramework } from "../../../../core/codeFramework";
+
+const BINDING_NOTES: Record<CodeFramework, string> = {
+  react: "Two-way binding. The field is controlled (value + onChange) or uncontrolled (defaultValue).",
+  js: "Two-way binding. Set value (attribute or property) to push a value in — the user can still type, and the field follows later changes — and listen to input / update to read changes back (detail = the value).",
+  vue: "Two-way binding. v-model works, or bind :value.prop and write the change back from @update (detail = the value). The user can still type, and the field follows later changes.",
+  angular: "Two-way binding. Bind [value] and write the change back from (update) (detail = the value) — or use [(ngModel)] with the LojeeValueAccessor directive from the Data Binding page. The user can still type, and the field follows later changes.",
+};
+
 
 export default function InputShowcase() {
+  const eventsNote = useFormEventsNote();
+  const { framework } = useCodeFramework();
   const [email, setEmail] = useState("");
   const isInvalidEmail = email.length > 0 && !email.includes("@");
 
@@ -331,6 +343,117 @@ import "lojee-ui/elements";
   \`,
 })
 export class AppComponent {}`,
+            }}
+          />
+        </section>
+
+        <section>
+          <SectionLabel sub={eventsNote}>Events</SectionLabel>
+          <CodeBlock
+            variants={{
+              react: `<Input required placeholder="Email"
+  onChange={(e) => console.log("update", e.target.value)}
+  onInput={(e) => console.log("input", e.currentTarget.value)}
+  onFocus={() => console.log("focus")}
+  onInvalid={(e) => console.log("invalid", e.currentTarget.validationMessage)}
+/>`,
+              js: `<l-input required="true" placeholder="Email"></l-input>
+
+<script type="module">
+  import "lojee-ui/elements";
+
+  const el = document.querySelector("l-input");
+  el.addEventListener("update", (e) => console.log("update", e.detail)); // string
+  el.addEventListener("input", (e) => console.log("input", e.detail));
+  el.addEventListener("focus", (e) => console.log("focus", e.detail));
+  el.addEventListener("invalid", (e) => console.log("invalid", e.detail)); // the validation message
+</script>`,
+              vue: `<template>
+  <l-input required="true" placeholder="Email"
+    @update="(e) => console.log('update', e.detail)"
+    @input="(e) => console.log('input', e.detail)"
+    @focus="(e) => console.log('focus', e.detail)"
+    @invalid="(e) => console.log('invalid', e.detail)"
+  />
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-input required="true" placeholder="Email"
+      (update)="onUpdate($any($event).detail)"
+      (input)="onInput($any($event).detail)"
+      (focus)="onFocus()"
+      (invalid)="onInvalid($any($event).detail)"
+    ></l-input>
+  \`,
+})
+export class AppComponent {
+  onUpdate(value: string) {}
+  onInput(value: string) {}
+  onFocus() {}
+  onInvalid(message: string) {}
+}`,
+            }}
+          />
+        </section>
+
+        <section>
+          <SectionLabel sub={BINDING_NOTES[framework]}>Data binding</SectionLabel>
+          <CodeBlock
+            variants={{
+              react: `const [name, setName] = useState("Ada");
+
+// controlled: the state is the source of truth
+<Input value={name} onChange={(e) => setName(e.target.value)} />
+
+// or uncontrolled: it keeps its own value, you read it when you need it
+<Input defaultValue="Ada" onChange={(e) => save(e.target.value)} />`,
+              js: `<l-Input value="Ada"></l-Input>
+
+<script type="module">
+  import "lojee-ui/elements";
+
+  const field = document.querySelector("l-input");
+  field.addEventListener("input", (e) => (state.name = e.detail)); // read changes while typing (or "update" when committed)
+  field.value = "Grace"; // push a value in at any time
+</script>`,
+              vue: `<template>
+  <!-- value goes in as a property, changes come back through the event -->
+  <l-input :value.prop="name" @input="(e) => (name = e.detail)" />
+  <p>Hello {{ name }}</p>
+</template>
+
+<script setup lang="ts">
+import { ref } from "vue";
+import "lojee-ui/elements";
+const name = ref("Ada");
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-input [value]="name" (input)="name = $any($event).detail"></l-input>
+    <p>Hello {{ name }}</p>
+  \`,
+})
+export class AppComponent {
+  name = "Ada";
+}`,
             }}
           />
         </section>

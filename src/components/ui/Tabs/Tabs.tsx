@@ -4,6 +4,7 @@ import type { CSSProperties } from "react";
 import { cx, isColorName, type ColorName } from "../../../core/tokens";
 import { motionClass, motionStyle, type TransitionVariant } from "../../../core/motion";
 import { ACTIVE_ITEM_TRANSITION, ACTIVE_PILL_TRANSITION, activeAccent } from "../../../core/activeVariant";
+import { useValue } from "../../../core/useValue";
 
 export interface TabItem {
   label: ReactNode;
@@ -21,6 +22,10 @@ export interface TabsProps {
   tabs: TabItem[];
   /** 0-indexed tab selected on first render (default: 0); the component tracks the selection itself afterwards (uncontrolled). */
   defaultIndex?: number;
+  /** The selected tab (0-indexed) — set it to select a tab from outside; the component also keeps its own selection, so a tab click works with nothing wired up. Pair with `onChange` for two-way binding. */
+  index?: number;
+  /** Called with the new tab index when the user selects a tab (the web component's `change` / `update` event, detail = the index). */
+  onChange?: (index: number) => void;
   /** Accent color of the active tab (default: "accent" — follows the theme accent). */
   color?: ColorName;
   /** Enter transition: "fade" | "slide-up" | "slide-down" | "slide-left" | "slide-right" | "zoom" | "zoom-out" | "flip" | "blur" | "bounce" | "rotate" | "drop" | "skew" (default: none). Respects `prefers-reduced-motion`. */
@@ -57,8 +62,12 @@ const ACTIVE_COLOR: Record<ColorName, string> = {
   pink: "border-pink-600 text-pink-600 dark:border-pink-400 dark:text-pink-400",
 };
 
-export function Tabs({ tabs, defaultIndex = 0, color = "accent", transition, transitionDuration, transitionDelay, className, classNames }: TabsProps) {
-  const [activeIndex, setActiveIndex] = useState(defaultIndex);
+export function Tabs({ tabs, defaultIndex = 0, index, onChange, color = "accent", transition, transitionDuration, transitionDelay, className, classNames }: TabsProps) {
+  const [activeIndex, setActiveIndexState] = useValue<number>(index, defaultIndex);
+  const setActiveIndex = (i: number) => {
+    setActiveIndexState(i);
+    onChange?.(i);
+  };
   const active = tabs[activeIndex];
 
   // One underline slides between tabs (same slide as Sidebar / Navbar's pill) instead of each tab drawing its

@@ -310,6 +310,13 @@ const indexRows = [];
 const eventRows = [];
 const anchorOf = (label) => label.toLowerCase().replace(/[^a-z0-9 -]/g, "").trim().replace(/\s+/g, "-");
 
+// The shared form events of the `<l-*>` form controls (src/elements/with-form-events.tsx).
+const FORM_EVENT_DOCS = {
+  update: "The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`.",
+  input: "Fires as the user edits (typing, dragging); `detail` = the current value. React: `onInput`.",
+  focus: "The control gained focus; `detail` = the current value. React: `onFocus`.",
+  invalid: "The control failed validation (e.g. `required` and empty); `detail` = the validation message. React: `onInvalid`.",
+};
 const MAX_EXAMPLES = 5;
 const MAX_CODE_LINES = 40;
 // Props every component shares are documented once in §1.7; their rows are folded into one line per table.
@@ -380,7 +387,7 @@ function pageSection(label, categoryName) {
       if (ev) eventRows.push([label, code(c.element.tag), code(ev.event), code(p.name)]);
     }
     for (const ev of c.element?.events ?? []) if (!c.props.some((p) => p.name === ev.callback)) {
-      cbRows.push([code(c.name), code(ev.callback), "—", code(ev.event) + " (CustomEvent, payload in `detail`)", "—"]);
+      cbRows.push([code(c.name), code(ev.callback), "—", code(ev.event) + " (CustomEvent, payload in `detail`)", FORM_EVENT_DOCS[ev.event] ?? "—"]);
       eventRows.push([label, code(c.element.tag), code(ev.event), code(ev.callback)]);
     }
   }

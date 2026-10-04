@@ -1,4 +1,4 @@
-import type { InputHTMLAttributes } from "react";
+import type { ChangeEventHandler, FocusEventHandler, FormEventHandler, InputHTMLAttributes } from "react";
 import { cx } from "../../../core/tokens";
 import { motionClass, motionStyle, type TransitionVariant, type HoverEffect } from "../../../core/motion";
 import { Icon } from "../Icons/Icon";
@@ -7,6 +7,14 @@ import { INPUT_VARIANT_CLASSES, INPUT_VARIANT_INVALID_CLASSES, type InputVariant
 export type InputSize = "sm" | "md" | "lg";
 
 export interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "size"> {
+  /** The value was committed — the native change event (the web component's `update` event, detail = the new value). */
+  onChange?: ChangeEventHandler<HTMLInputElement>;
+  /** Called as the user edits — the native input event (the web component's `input` event, detail = the current value). */
+  onInput?: FormEventHandler<HTMLInputElement>;
+  /** Called when the field gains focus — the native focus event (the web component's `focus` event). */
+  onFocus?: FocusEventHandler<HTMLInputElement>;
+  /** Called when the field fails validation (e.g. `required` and empty) — the native invalid event (the web component's `invalid` event, detail = the message). */
+  onInvalid?: FormEventHandler<HTMLInputElement>;
   /** Control height and text size: "sm" | "md" | "lg". Defaults to "md". */
   size?: InputSize;
   /** Look of the field: "outline" | "filled" | "underline" | "soft" (default: "outline"). */

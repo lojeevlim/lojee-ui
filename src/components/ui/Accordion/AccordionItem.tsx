@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
 import { cx } from "../../../core/tokens";
 import { getIcon } from "../../../core/icons";
 import { motionClass, motionStyle, type TransitionVariant } from "../../../core/motion";
@@ -10,6 +10,10 @@ export interface AccordionItemProps {
   name?: string;
   /** Whether the item starts expanded (uncontrolled — the browser owns the open state afterwards; default: false). */
   defaultOpen?: boolean;
+  /** Expands or collapses the item from outside — set it whenever you want to open / close it; the user can still toggle it, so it works with nothing wired up. Pair with `onOpenChange` for two-way binding. */
+  open?: boolean;
+  /** Called with the new open state whenever the item expands or collapses (the web component's `openchange` / `update` event, detail = true | false). */
+  onOpenChange?: (open: boolean) => void;
   /** Disables interaction and dims the item so it cannot be toggled (default: false). */
   disabled?: boolean;
   /** Content of the collapsible panel, shown while the item is open. */
@@ -31,11 +35,16 @@ export interface AccordionItemProps {
   };
 }
 
-export function AccordionItem({ title, name, defaultOpen, disabled = false, children, transition, transitionDuration, transitionDelay, className, classNames }: AccordionItemProps) {
+export function AccordionItem({ title, name, defaultOpen, open, onOpenChange, disabled = false, children, transition, transitionDuration, transitionDelay, className, classNames }: AccordionItemProps) {
   // getIcon() always returns the same stable, module-level-imported
   // component reference for a given name, so this never actually causes a
   // remount — the lint rule can't verify that statically, hence the disable.
   const ChevronDownIcon = getIcon("chevron-down");
+  const details = useRef<HTMLDetailsElement>(null);
+  // The `open` prop pushes the state in whenever it changes (the browser owns it between those changes).
+  useEffect(() => {
+    if (open !== undefined && details.current) details.current.open = open;
+  }, [open]);
   return (
     // Built on native <details>/<summary> with a shared `name` — modern
     // browsers make same-named <details> elements mutually exclusive with
@@ -43,8 +52,10 @@ export function AccordionItem({ title, name, defaultOpen, disabled = false, chil
     // may arrive as separately-mounted Web Components with their own shadow
     // roots (see the constraint documented at the top of this component pair).
     <details
+      ref={details}
       name={name}
-      open={defaultOpen}
+      open={open ?? defaultOpen}
+      onToggle={(e) => onOpenChange?.(e.currentTarget.open)}
       className={cx("lojee-accordion-item group", disabled && "pointer-events-none opacity-40", motionClass(transition), className, classNames?.root)}
       style={motionStyle(transitionDuration, transitionDelay)}
     >

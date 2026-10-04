@@ -3,11 +3,12 @@ import { ChatBox, type ChatMessage } from "../ChatBox";
 import CodeBlock from "../../CodeBlock";
 import { SectionLabel } from "../../ShowcaseHelpers";
 
-const variants = (react: string, html: string) => ({
+// `vue` / `angular` default to the plain HTML; pass them when the snippet needs a script (those frameworks bind props and events in the template instead).
+const variants = (react: string, html: string, vue = html, angular = html) => ({
   react,
   js: `${html}\n\n<script type="module">import "lojee-ui/elements";</script>`,
-  vue: html,
-  angular: html,
+  vue,
+  angular,
 });
 
 const SEED: ChatMessage[] = [
@@ -59,12 +60,48 @@ export default function ChatBoxShowcase() {
   subtitle="Usually replies instantly"
   onSend={(text) => console.log(text)}
 />`,
-              `<l-ChatBox id="chat" heading="Lojee AI" subtitle="Usually replies instantly"></l-ChatBox>
+              `<l-ChatBox heading="Lojee AI" subtitle="Usually replies instantly"></l-ChatBox>
 <script type="module">
-  const chat = document.getElementById("chat");
+  const chat = document.querySelector("l-chat-box");
   chat.defaultMessages = [{ id: 1, role: "assistant", content: "Hi! Ask me anything." }];
   chat.addEventListener("send", (e) => console.log(e.detail)); // the text
-</script>`
+</script>`,
+              `<template>
+  <l-chat-box
+    heading="Lojee AI"
+    subtitle="Usually replies instantly"
+    :defaultMessages.prop="seed"
+    @send="(e) => console.log(e.detail)"
+  />
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+const seed = [{ id: 1, role: "assistant", content: "Hi! Ask me anything." }];
+</script>`,
+              `// chat.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-chat",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-chat-box
+      heading="Lojee AI"
+      subtitle="Usually replies instantly"
+      [defaultMessages]="seed"
+      (send)="onSend($any($event).detail)"
+    ></l-chat-box>
+  \`,
+})
+export class ChatComponent {
+  seed = [{ id: 1, role: "assistant", content: "Hi! Ask me anything." }];
+  onSend(text: string) {
+    console.log(text);
+  }
+}`
             )}
           />
         </section>
@@ -88,19 +125,71 @@ async function ask(text: string) {
 }
 
 <ChatBox messages={messages} thinking={thinking ? "Reading the docs" : undefined} onSend={ask} />`,
-              `<l-ChatBox id="chat"></l-ChatBox>
+              `<l-ChatBox></l-ChatBox>
 <script type="module">
-  const chat = document.getElementById("chat");
+  const chat = document.querySelector("l-chat-box");
   const messages = [];
   chat.addEventListener("send", async (e) => {
     messages.push({ id: messages.length, role: "user", content: e.detail });
     chat.messages = [...messages];
-    chat.setAttribute("thinking", "Reading the docs"); // any text, or "" for the default label
+    chat.thinking = "Reading the docs"; // any text (or true for the default label) — a property, so it can be switched off again
     messages.push({ id: messages.length, role: "assistant", content: await callYourModel(e.detail) });
     chat.messages = [...messages];
-    chat.removeAttribute("thinking");
+    chat.thinking = false;
   });
-</script>`
+</script>`,
+              `<template>
+  <!-- messages and thinking are props: thinking shows while it is text (or true) and hides when it is false -->
+  <l-chat-box
+    :messages.prop="messages"
+    :thinking.prop="thinking ? 'Reading the docs' : false"
+    @send="(e) => ask(e.detail)"
+  />
+</template>
+
+<script setup lang="ts">
+import { ref } from "vue";
+import "lojee-ui/elements";
+
+const messages = ref<{ id: number; role: "user" | "assistant"; content: string }[]>([]);
+const thinking = ref(false);
+
+async function ask(text: string) {
+  messages.value = [...messages.value, { id: messages.value.length, role: "user", content: text }];
+  thinking.value = true;
+  const answer = await callYourModel(text);
+  messages.value = [...messages.value, { id: messages.value.length, role: "assistant", content: answer }];
+  thinking.value = false;
+}
+</script>`,
+              `// chat.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-chat",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-chat-box
+      [messages]="messages"
+      [thinking]="thinking ? 'Reading the docs' : false"
+      (send)="ask($any($event).detail)"
+    ></l-chat-box>
+  \`,
+})
+export class ChatComponent {
+  messages: { id: number; role: "user" | "assistant"; content: string }[] = [];
+  thinking = false;
+
+  async ask(text: string) {
+    this.messages = [...this.messages, { id: this.messages.length, role: "user", content: text }];
+    this.thinking = true;
+    const answer = await callYourModel(text);
+    this.messages = [...this.messages, { id: this.messages.length, role: "assistant", content: answer }];
+    this.thinking = false;
+  }
+}`
             )}
           />
         </section>
@@ -119,7 +208,7 @@ async function ask(text: string) {
               `<ChatBox variant="outline" defaultMessages={messages} />
 <ChatBox variant="flat" defaultMessages={messages} />
 <ChatBox variant="compact" defaultMessages={messages} />`,
-              `<l-ChatBox id="chat" variant="flat"></l-ChatBox>`
+              `<l-ChatBox variant="flat"></l-ChatBox>`
             )}
           />
         </section>
@@ -135,7 +224,7 @@ async function ask(text: string) {
               `<ChatBox thinking="Searching the docs" thinkingVariant="shimmer" />
 <ChatBox thinking thinkingVariant="orb" />`,
               `<l-ChatBox thinking="Searching the docs" thinking-variant="shimmer"></l-ChatBox>
-<l-ChatBox thinking="" thinking-variant="orb"></l-ChatBox>`
+<l-ChatBox thinking="true" thinking-variant="orb"></l-ChatBox>`
             )}
           />
         </section>

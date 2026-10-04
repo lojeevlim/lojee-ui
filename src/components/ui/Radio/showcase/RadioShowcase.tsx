@@ -2,8 +2,10 @@ import { Radio } from "../Radio";
 import { RadioGroup } from "../RadioGroup";
 import CodeBlock from "../../CodeBlock";
 import { SectionLabel, Row, TransitionPreview } from "../../ShowcaseHelpers";
+import { useFormEventsNote } from "../../../../core/bindingNotes";
 
 export default function RadioShowcase() {
+  const eventsNote = useFormEventsNote();
   return (
     <div>
       <div className="space-y-12">
@@ -247,6 +249,66 @@ import "lojee-ui/elements";
   \`,
 })
 export class AppComponent {}`,
+            }}
+          />
+        </section>
+
+        <section>
+          <SectionLabel sub={eventsNote}>Events</SectionLabel>
+          <CodeBlock
+            variants={{
+              react: `<Radio label="Monthly" name="plan" value="monthly" required
+  onChange={(e) => console.log("update", e.target.value)}
+  onInput={(e) => console.log("input", e.currentTarget.value)}
+  onFocus={() => console.log("focus")}
+  onInvalid={(e) => console.log("invalid", e.currentTarget.validationMessage)}
+/>`,
+              js: `<l-radio label="Monthly" name="plan" value="monthly" required="true"></l-radio>
+
+<script type="module">
+  import "lojee-ui/elements";
+
+  const el = document.querySelector("l-radio");
+  el.addEventListener("update", (e) => console.log("update", e.detail)); // string
+  el.addEventListener("input", (e) => console.log("input", e.detail));
+  el.addEventListener("focus", (e) => console.log("focus", e.detail));
+  el.addEventListener("invalid", (e) => console.log("invalid", e.detail)); // the validation message
+</script>`,
+              vue: `<template>
+  <l-radio label="Monthly" name="plan" value="monthly" required="true"
+    @update="(e) => console.log('update', e.detail)"
+    @input="(e) => console.log('input', e.detail)"
+    @focus="(e) => console.log('focus', e.detail)"
+    @invalid="(e) => console.log('invalid', e.detail)"
+  />
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-radio label="Monthly" name="plan" value="monthly" required="true"
+      (update)="onUpdate($any($event).detail)"
+      (input)="onInput($any($event).detail)"
+      (focus)="onFocus()"
+      (invalid)="onInvalid($any($event).detail)"
+    ></l-radio>
+  \`,
+})
+export class AppComponent {
+  onUpdate(value: string) {}
+  onInput(value: string) {}
+  onFocus() {}
+  onInvalid(message: string) {}
+}`,
             }}
           />
         </section>

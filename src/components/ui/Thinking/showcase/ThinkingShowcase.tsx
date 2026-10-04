@@ -2,11 +2,12 @@ import { Thinking } from "../Thinking";
 import CodeBlock from "../../CodeBlock";
 import { SectionLabel, Row } from "../../ShowcaseHelpers";
 
-const variants = (react: string, html: string) => ({
+// `vue` / `angular` default to the plain HTML; pass them when the snippet needs a script (those frameworks bind props and events in the template instead).
+const variants = (react: string, html: string, vue = html, angular = html) => ({
   react,
   js: `${html}\n\n<script type="module">import "lojee-ui/elements";</script>`,
-  vue: html,
-  angular: html,
+  vue,
+  angular,
 });
 
 export default function ThinkingShowcase() {
@@ -52,10 +53,31 @@ export default function ThinkingShowcase() {
   steps={["Reading the question", "Searching the docs", "Writing the answer"]}
   showElapsed
 />`,
-              `<l-Thinking id="t" variant="orb" show-elapsed="true"></l-Thinking>
+              `<l-Thinking variant="orb" show-elapsed="true"></l-Thinking>
 <script type="module">
-  document.getElementById("t").steps = ["Reading the question", "Searching the docs", "Writing the answer"];
-</script>`
+  document.querySelector("l-thinking").steps = ["Reading the question", "Searching the docs", "Writing the answer"];
+</script>`,
+              `<template>
+  <l-thinking variant="orb" show-elapsed="true" :steps.prop="steps" />
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+const steps = ["Reading the question", "Searching the docs", "Writing the answer"];
+</script>`,
+              `// thinking.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-thinking",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`<l-thinking variant="orb" show-elapsed="true" [steps]="steps"></l-thinking>\`,
+})
+export class ThinkingComponent {
+  steps = ["Reading the question", "Searching the docs", "Writing the answer"];
+}`
             )}
           />
         </section>

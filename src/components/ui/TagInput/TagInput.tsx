@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { KeyboardEvent } from "react";
+import type { FocusEvent, FormEvent, KeyboardEvent } from "react";
 import { X } from "lucide-react";
 import { colorClasses, cx, nonInteractive, type ColorName } from "../../../core/tokens";
 import { useValue } from "../../../core/useValue";
@@ -21,6 +21,12 @@ export interface TagInputProps {
   disabled?: boolean;
   /** Called with the full list of tags whenever a tag is added or removed. */
   onChange?: (tags: string[]) => void;
+  /** Called when the field gains focus — the native focus event (the web component's `focus` event, detail = the value). */
+  onFocus?: (e: FocusEvent<HTMLInputElement>) => void;
+  /** Called as the user edits the field — the native input event (the web component's `input` event, detail = the value). */
+  onInput?: (e: FormEvent<HTMLInputElement>) => void;
+  /** Called when the field fails validation — the native invalid event (the web component's `invalid` event, detail = the message). */
+  onInvalid?: (e: FormEvent<HTMLInputElement>) => void;
   /** Extra class name(s) appended to the root element. */
   className?: string;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
@@ -37,6 +43,9 @@ export function TagInput({
   invalid = false,
   disabled = false,
   onChange,
+  onFocus,
+  onInput,
+  onInvalid,
   className,
   classNames,
 }: TagInputProps) {
@@ -95,6 +104,9 @@ export function TagInput({
         value={draft}
         disabled={disabled || full}
         onChange={(e) => setDraft(e.target.value)}
+        onFocus={onFocus}
+        onInput={onInput}
+        onInvalid={onInvalid}
         onKeyDown={onKeyDown}
         onBlur={() => add(draft)}
         placeholder={tags.length === 0 ? placeholder : full ? "" : undefined}

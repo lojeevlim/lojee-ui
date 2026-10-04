@@ -60,8 +60,9 @@ export default function EmptyStatePlayground() {
 </script>`
         : `\n\n<script type="module">import "lojee-ui/elements";</script>`
     }`,
-    vue: htmlMarkup,
-    angular: htmlMarkup,
+    // Vue and Angular bind the click in the template — no element lookup by id.
+    vue: htmlMarkup.replace(' id="add-item-btn"', ' @click="addItem()"'),
+    angular: htmlMarkup.replace(' id="add-item-btn"', ' (click)="addItem()"'),
   };
 
   return (

@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 import type { ReactNode } from "react";
 import { cx } from "../../../core/tokens";
 import { motionClass, motionStyle, type TransitionVariant, type HoverEffect } from "../../../core/motion";
 import { Icon } from "../Icons/Icon";
+import { useValue } from "../../../core/useValue";
 
 // Same reasoning as Tabs: a r2wc-wrapped Web Component can't inspect or
 // clone light-DOM children across the shadow boundary, so "active slide"
@@ -11,6 +12,10 @@ import { Icon } from "../Icons/Icon";
 export interface CarouselProps {
   /** The slides to show, one node per slide, in order; the carousel manages the active slide itself. */
   slides: ReactNode[];
+  /** The visible slide (0-indexed) — set it to move the carousel from outside; it also tracks the slide itself, so the arrows, dots and autoplay work with nothing wired up. Pair with `onChange` for two-way binding. */
+  index?: number;
+  /** Called with the new slide index whenever the slide changes — the arrows, a dot, autoplay (the web component's `change` / `update` event, detail = the index). */
+  onChange?: (index: number) => void;
   /** Automatically advances to the next slide (looping) every `intervalMs` (default: false). */
   autoPlay?: boolean;
   /** Milliseconds between automatic slide changes when `autoPlay` is on (default: 4000). */
@@ -42,6 +47,8 @@ export interface CarouselProps {
 
 export function Carousel({
   slides,
+  index,
+  onChange,
   autoPlay = false,
   intervalMs = 4000,
   showArrows = true,
@@ -53,7 +60,15 @@ export function Carousel({
   className,
   classNames,
 }: CarouselProps) {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useValue<number>(index, 0);
+  // Report every change of the visible slide (not the first render).
+  const reported = useRef(activeIndex);
+  useEffect(() => {
+    if (reported.current !== activeIndex) {
+      reported.current = activeIndex;
+      onChange?.(activeIndex);
+    }
+  }, [activeIndex, onChange]);
 
   useEffect(() => {
     if (!autoPlay || slides.length <= 1) return;

@@ -5,6 +5,9 @@
 import { DetailsList, type DetailsListItem } from "./DetailsList/DetailsList";
 import TableCellGuide from "./Table/TableCellGuide";
 import { API_DOCS, type ApiComponent, type ApiDoc, type ApiProp } from "../../generated/apiDocs";
+import CodeBlock from "./CodeBlock";
+import { SectionLabel } from "./ShowcaseHelpers";
+import { VALUE_ACCESSOR_TAGS } from "./DataBinding/valueAccessorSource";
 import { highlightCode } from "../../core/highlightCode";
 import { CODE_FRAMEWORK_LABEL, useCodeFramework, type CodeFramework } from "../../core/codeFramework";
 
@@ -343,6 +346,94 @@ const USAGE: Record<Exclude<CodeFramework, "react">, string> = {
   vue: "Scalars are plain kebab-case attributes (a boolean can be written bare, e.g. loading); objects and arrays use a :binding. Listen with @event — the payload is $event.detail. Requires the l-* tags to be treated as custom elements (isCustomElement).",
   angular: "Scalars are plain kebab-case attributes (a boolean can be written bare, e.g. loading); objects and arrays use a [property] binding. Listen with (event) — the payload is $event.detail. Add CUSTOM_ELEMENTS_SCHEMA to the module or component.",
 };
+
+// Data binding for a component: the state prop that is set from outside, and how a change is reported back — a callback in React, the
+// `update` event (or the component's own event) as a web component. (Vue's v-model works on the text-style fields; Angular's [(ngModel)]
+// works with the LojeeValueAccessor directive from the Data Binding page.)
+const STATE_PROPS = ["value", "checked", "open", "index", "page", "currentStep", "selected", "collapsed"];
+const DATA_PROPS = ["messages", "items", "center", "nodes"];
+const STATE_CALLBACKS = ["onChange", "onOpenChange", "onClose", "onPageChange", "onStepChange", "onActiveItemChange", "onSelectionChange", "onSelect", "onCollapsedChange"];
+const DATA_CALLBACKS = ["onSend", "onMove", "onNodeMove", "onItemSelect"];
+// Native-based controls: the React callback receives the change event.
+const NATIVE_HANDLER: Record<string, string> = {
+  Input: "e.target.value", Textarea: "e.target.value", PasswordInput: "e.target.value", SearchInput: "e.target.value", Select: "e.target.value",
+  DatePicker: "e.target.value", TimePicker: "e.target.value", Slider: "Number(e.target.value)", Checkbox: "e.target.checked", Switch: "e.target.checked", Radio: "e.target.value",
+};
+
+function bindingFor(c: ApiComponent) {
+  // Props inherited from native attributes (value, checked …) are not in the interface — the element's own prop list has them.
+  const names = new Set([...c.props.map((p) => p.name), ...(c.element ? [...Object.keys(c.element.props), ...c.element.extraProps.map((x) => x.name), ...c.element.events.map((e) => e.callback)] : [])]);
+  // A checkbox-like control binds `checked` — its `value` is the form value.
+  const stateProp = ["Checkbox", "Switch", "Radio"].includes(c.name) ? "checked" : STATE_PROPS.find((n) => names.has(n));
+  const prop = stateProp ?? DATA_PROPS.find((n) => names.has(n));
+  const callback = (stateProp ? STATE_CALLBACKS : DATA_CALLBACKS).find((n) => names.has(n));
+  if (!prop || (!callback && stateProp)) return null;
+  const el = c.element;
+  const event = el ? (el.events.some((e) => e.callback === "onUpdate") && stateProp ? "update" : el.events.find((e) => e.callback === callback)?.event) : undefined;
+  const noEvent = !callback;
+  return { prop, callback, event, noEvent, twoWay: Boolean(stateProp), webProp: el ? prop in el.props || el.extraProps.some((x) => x.name === prop) : false };
+}
+
+const FRAMEWORKS: CodeFramework[] = ["react", "js", "vue", "angular"];
+
+// The language-specific caption and code for one component's data binding (null when it has none).
+function bindingInfo(c: ApiComponent): { note: Record<CodeFramework, string>; code: Partial<Record<CodeFramework, string>> } | null {
+  const b = bindingFor(c);
+  if (!b) return null;
+  const { prop, callback, event, noEvent, twoWay, webProp } = b;
+  const what = prop === "open" ? "true when it opens, false when it closes" : prop === "checked" ? "true / false" : `the new ${prop}`;
+  const native = NATIVE_HANDLER[c.name];
+  const handler = native ? `(e) => setState(${native})` : callback === "onClose" ? "() => setState(false)" : twoWay ? "setState" : "(value) => { /* update your state */ }";
+  const tag = c.element?.tag;
+  const webOk = Boolean(tag && webProp && (noEvent || event));
+  const note: Record<CodeFramework, string> = {
+    react: noEvent
+      ? `Set ${prop} to the data to show — it is data, not state, so there is no change event.`
+      : `Pass ${prop} from your state and handle ${callback}${twoWay ? ` to write the change back (controlled), or use default${prop[0].toUpperCase()}${prop.slice(1)} to only read it.` : "."}`,
+    js: "",
+    vue: "",
+    angular: "",
+  };
+  const webNote = noEvent
+    ? `Set ${prop} to the data to show — it is data, not state, so there is no change event.`
+    : twoWay
+      ? `Set ${prop} from your state; ${event} reports each change (detail is ${what}).`
+      : `Set ${prop} to the data to show; ${event} reports what the user did (detail is the payload).`;
+  note.js = note.vue = note.angular = webNote;
+  const read = twoWay ? "(state = e.detail)" : "handle(e.detail)";
+  const code: Partial<Record<CodeFramework, string>> = {
+    react: noEvent ? `<${c.name} ${prop}={state} />` : `<${c.name} ${prop}={state} ${callback}={${handler}} />`,
+  };
+  if (webOk) {
+    code.js = noEvent ? `el.${prop} = state;` : `el.${prop} = state;\nel.addEventListener("${event}", (e) => ${read});`;
+    const vm = !noEvent && prop === "value" && ["Input", "Textarea", "PasswordInput", "SearchInput"].includes(c.name) ? `\n<!-- or: <${tag} v-model="state" /> -->` : "";
+    code.vue = noEvent ? `<${tag} :${prop}.prop="state" />` : `<${tag} :${prop}.prop="state" @${event}="(e) => ${read}" />${vm}`;
+    const nm = !noEvent && VALUE_ACCESSOR_TAGS.includes(tag!) ? `\n<!-- or: <${tag} [(ngModel)]="state"></${tag}> — needs the LojeeValueAccessor directive from the Data Binding page -->` : "";
+    code.angular = noEvent ? `<${tag} [${prop}]="state"></${tag}>` : `<${tag} [${prop}]="state" (${event})="${twoWay ? "state = " : "handle("}$any($event).detail${twoWay ? "" : ")"}"></${tag}>${nm}`;
+  }
+  return { note, code };
+}
+
+// Pages that already have their own hand-written "Data binding" section.
+const OWN_SECTION = new Set(["Input", "Checkbox"]);
+
+/** The "Data Binding" section shown above the API reference: how to set the component's state and read changes back, per language. */
+export function DataBindingSection({ name }: { name: string }) {
+  const { framework } = useCodeFramework();
+  const doc = API_DOCS[name];
+  if (!doc || OWN_SECTION.has(name)) return null;
+  const infos = doc.components.map(bindingInfo).filter((x): x is NonNullable<typeof x> => x !== null);
+  if (infos.length === 0) return null;
+  const code: Partial<Record<CodeFramework, string>> = {};
+  for (const fw of FRAMEWORKS) code[fw] = infos.map((i) => i.code[fw]).filter(Boolean).join("\n\n") || undefined;
+  if (!code[framework]) return null;
+  return (
+    <section className="mt-12">
+      <SectionLabel sub={infos[0].note[framework]}>Data Binding</SectionLabel>
+      <CodeBlock variants={code} />
+    </section>
+  );
+}
 
 export default function ApiReference({ name }: { name: string }) {
   const { framework } = useCodeFramework();

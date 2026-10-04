@@ -14,7 +14,7 @@
 
 - **Basic Components** — [Buttons](#buttons) · [Badges](#badges) · [Avatars](#avatars) · [Icons](#icons) · [Spinners](#spinners) · [Loaders](#loaders) · [Dividers](#dividers)
 - **Layout & Content** — [Cards](#cards) · [Containers](#containers) · [Sections](#sections) · [Grids](#grids) · [Lists](#lists) · [Accordions](#accordions) · [Carousels](#carousels) · [Images](#images) · [Videos](#videos) · [Code Snippet](#code-snippet) · [Iframe](#iframe) · [Chat Box](#chat-box)
-- **Forms & Inputs** — [Input](#input) · [Textarea](#textarea) · [Label](#label) · [Checkbox](#checkbox) · [Radio Group](#radio-group) · [Switch / Toggle](#switch-toggle) · [Select](#select) · [Multi Select](#multi-select) · [Combobox](#combobox) · [Date Picker](#date-picker) · [Time Picker](#time-picker) · [File Upload](#file-upload) · [Search Input](#search-input) · [Slider](#slider) · [Range Slider](#range-slider) · [Tag Input](#tag-input) · [Number Input](#number-input) · [OTP Input](#otp-input) · [Rating](#rating) · [Color Picker](#color-picker)
+- **Forms & Inputs** — [Input](#input) · [Textarea](#textarea) · [Label](#label) · [Checkbox](#checkbox) · [Radio Group](#radio-group) · [Switch / Toggle](#switch-toggle) · [Select](#select) · [Multi Select](#multi-select) · [Combobox](#combobox) · [Date Picker](#date-picker) · [Time Picker](#time-picker) · [File Upload](#file-upload) · [Search Input](#search-input) · [Password Input](#password-input) · [Slider](#slider) · [Range Slider](#range-slider) · [Tag Input](#tag-input) · [Number Input](#number-input) · [OTP Input](#otp-input) · [Rating](#rating) · [Color Picker](#color-picker)
 - **Overlays** — [Modal / Dialog](#modal-dialog) · [Drawer](#drawer) · [Sheet](#sheet) · [Popover](#popover) · [Dropdown Menu](#dropdown-menu) · [Context Menu](#context-menu) · [Command Menu](#command-menu) · [Alert Dialog](#alert-dialog) · [Tooltip](#tooltip)
 - **Feedback** — [Alert](#alert) · [Toast](#toast) · [Notification](#notification) · [Thinking](#thinking) · [Progress Bar](#progress-bar) · [Empty State](#empty-state) · [Error State](#error-state) · [Success State](#success-state) · [Loading State](#loading-state) · [Skeletons](#skeletons)
 - **Navigation** — [Navbar](#navbar) · [Sidebar](#sidebar) · [Top Bar](#top-bar) · [Header](#header) · [Footer](#footer) · [Navigation Menu](#navigation-menu) · [Bottom Navigation](#bottom-navigation) · [Tabs](#tabs) · [Stepper](#stepper) · [Breadcrumbs](#breadcrumbs) · [Pagination](#pagination) · [Main](#main)
@@ -22,7 +22,7 @@
 - **Data & Visualization** — [Tables](#tables) · [Grid View](#grid-view) · [Timeline](#timeline) · [Stats / KPI](#stats-kpi) · [Charts](#charts) · [Calendar](#calendar) · [Activity Feed](#activity-feed) · [Details List](#details-list)
 - **Diagrams** — [Flow Diagram](#flow-diagram)
 - **Maps** — [Map](#map) · [Map Markers](#map-markers) · [Map Routes](#map-routes)
-- **User / Account** — [Profile Card](#profile-card) · [User Menu](#user-menu) · [Login Form](#login-form) · [Signup Form](#signup-form) · [Account Settings](#account-settings) · [Profile Settings](#profile-settings) · [Plan & Billing](#plan-billing) · [Password Input](#password-input)
+- **User / Account** — [Profile Card](#profile-card) · [User Menu](#user-menu) · [Login Form](#login-form) · [Signup Form](#signup-form) · [Account Settings](#account-settings) · [Profile Settings](#profile-settings) · [Plan & Billing](#plan-billing)
 
 **Contents:** [Part 1 — Global concepts](#part-1--global-concepts) · [Part 2 — Component catalog](#part-2--component-catalog) · [Part 3 — Index](#part-3--index-and-quick-lookups)
 
@@ -2214,6 +2214,7 @@ A simple ordered or unordered list, with optional dividers, borders, and item ic
 | `ordered` | `boolean` | `false` | Renders an <ol> instead of a <ul> (default: false). |
 | `variant` | `ListVariant` | `"plain"` | Row styling: "plain" (default) \| "divided" (dividers between rows) \| "bordered" (dividers plus a rounded outer border). |
 | `header` | `ReactNode` | — | Content of a gray header bar above the rows (a title, a count, a button …) — no column labels. When set, the list is drawn as one rounded, bordered card with the header on top. |
+| `items` | `ListItemSpec[]` | — | Rows as data — `["Overview", "Settings"]` or `[{ label: "Overview", icon: "home" }, …]` — instead of ListItem children; works the same in React and as a Web Component (`items` property / JSON attribute). Rendered before any `children`. |
 | `children` | `ReactNode` | — | List rows, typically ListItem elements. |
 | `className` | `string` | — | Extra class name(s) applied to the root element. |
 | `classNames` | `{ root?: string; header?: string; list?: string; }` | — | Per-part class overrides — merged after (and win over) the built-in styling. |
@@ -2275,6 +2276,8 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 | --- | --- | --- |
 | `ordered` | `ordered` | boolean |
 | `variant` | `variant` | string |
+| `header` | `header` | string |
+| `items` | `items` | json (JSON string or object property) |
 | `className` | `class-name` | string |
 | `transition` | `transition` | string |
 | `transitionDuration` | `transition-duration` | number |
@@ -2296,19 +2299,11 @@ Minimal use in each target (from the first docs example, *Plain*):
 
 **React**
 ```tsx
-<List variant="plain">
-  <ListItem>Overview</ListItem>
-  <ListItem>Settings</ListItem>
-  <ListItem>Billing</ListItem>
-</List>
+<List variant="plain" items={["Overview", "Settings", "Billing"]} />
 ```
 **Plain HTML / JavaScript**
 ```html
-<l-List variant="plain">
-  <l-ListItem>Overview</l-ListItem>
-  <l-ListItem>Settings</l-ListItem>
-  <l-ListItem>Billing</l-ListItem>
-</l-List>
+<l-List variant="plain" items='["Overview","Settings","Billing"]'></l-List>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -2323,11 +2318,7 @@ Vue and Angular use the same `<l-*>` tag and attributes — see the framework te
 No dividers or border — just spacing.
 
 ```tsx
-<List variant="plain">
-  <ListItem>Overview</ListItem>
-  <ListItem>Settings</ListItem>
-  <ListItem>Billing</ListItem>
-</List>
+<List variant="plain" items={["Overview", "Settings", "Billing"]} />
 ```
 
 #### Divided
@@ -2335,11 +2326,11 @@ No dividers or border — just spacing.
 A hairline divider between each item.
 
 ```tsx
-<List variant="divided">
-  <ListItem icon="file">Project brief.pdf</ListItem>
-  <ListItem icon="image">Cover photo.png</ListItem>
-  <ListItem icon="folder">Archive</ListItem>
-</List>
+<List variant="divided" items={[
+  { label: "Project brief.pdf", icon: "file" },
+  { label: "Cover photo.png", icon: "image" },
+  { label: "Archive", icon: "folder" },
+]} />
 ```
 
 #### Bordered
@@ -2347,11 +2338,11 @@ A hairline divider between each item.
 Dividers plus an outer rounded border — reads as a self-contained card.
 
 ```tsx
-<List variant="bordered">
-  <ListItem icon="circle-check">Email verified</ListItem>
-  <ListItem icon="circle-check">Password set</ListItem>
-  <ListItem icon="circle-alert">Two-factor auth pending</ListItem>
-</List>
+<List variant="bordered" items={[
+  { label: "Email verified", icon: "circle-check" },
+  { label: "Password set", icon: "circle-check" },
+  { label: "Two-factor auth pending", icon: "circle-alert" },
+]} />
 ```
 
 #### Ordered
@@ -2359,11 +2350,7 @@ Dividers plus an outer rounded border — reads as a self-contained card.
 Renders an <ol> instead of a <ul> for sequential content.
 
 ```tsx
-<List ordered variant="divided">
-  <ListItem>Create an account</ListItem>
-  <ListItem>Verify your email</ListItem>
-  <ListItem>Invite your team</ListItem>
-</List>
+<List ordered variant="divided" items={["Create an account", "Verify your email", "Invite your team"]} />
 ```
 
 #### With tooltip
@@ -2383,6 +2370,7 @@ _3 more examples are on the docs page._
 ### Lists · 11. Component Composition
 
 - Built from `List`, `ListItem` — use them together as shown in the examples above.
+- Data-driven: pass `items` instead of child components (works the same as a Web Component).
 
 ### Lists · 12. Accessibility
 
@@ -2433,6 +2421,8 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 | `title` **required** | `ReactNode` | — | Heading shown in the always-visible trigger row; clicking it expands or collapses the panel. |
 | `name` | `string` | — | Shared value across sibling AccordionItems for native browser exclusive-open grouping (same mechanism as radio inputs' `name`) — the browser itself keeps only one open. Omit for an independently toggleable item. |
 | `defaultOpen` | `boolean` | — | Whether the item starts expanded (uncontrolled — the browser owns the open state afterwards; default: false). |
+| `open` | `boolean` | — | Expands or collapses the item from outside — set it whenever you want to open / close it; the user can still toggle it, so it works with nothing wired up. Pair with `onOpenChange` for two-way binding. |
+| `onOpenChange` | `(open: boolean) => void` | — | Called with the new open state whenever the item expands or collapses (the web component's `openchange` / `update` event, detail = true \| false). |
 | `disabled` | `boolean` | `false` | Disables interaction and dims the item so it cannot be toggled (default: false). |
 | `children` | `ReactNode` | — | Content of the collapsible panel, shown while the item is open. |
 | `className` | `string` | — | Extra class names applied to the item's root element. |
@@ -2442,7 +2432,10 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 
 ### Accordions · 3. Events
 
-_No component-specific events._ Native DOM events (`click`, `input`, `focus`…) bubble from the rendered element as usual.
+| Component | React callback | Signature | Web Component event | Description |
+| --- | --- | --- | --- | --- |
+| `AccordionItem` | `onOpenChange` | `(open: boolean) => void` | `openchange` (CustomEvent, payload in `detail`) | Called with the new open state whenever the item expands or collapses (the web component's `openchange` / `update` event, detail = true \| false). |
+| `AccordionItem` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
 
 ### Accordions · 4. Variants
 
@@ -2460,6 +2453,7 @@ _No size prop — it sizes to its container / content (see `className` to constr
 
 | Component | Prop | Type | Default | Effect |
 | --- | --- | --- | --- | --- |
+| `AccordionItem` | `open` | `boolean` | — | Expands or collapses the item from outside — set it whenever you want to open / close it; the user can still toggle it, so it works with nothing wired up. Pair with `onOpenChange` for two-way binding. |
 | `AccordionItem` | `disabled` | `boolean` | `false` | Disables interaction and dims the item so it cannot be toggled (default: false). |
 
 Standard visual states: default · hover · focus-visible (ring) · active/pressed · disabled (dimmed, not focusable).
@@ -2490,6 +2484,7 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 | React prop | HTML attribute | Attribute type |
 | --- | --- | --- |
+| `open` | `open` | boolean |
 | `title` | `title` | string |
 | `name` | `name` | string |
 | `defaultOpen` | `default-open` | boolean |
@@ -2641,6 +2636,8 @@ A self-contained, data-driven slideshow with arrows and dots.
 | Prop | Type | Default | Description |
 | --- | --- | --- | --- |
 | `slides` **required** | `ReactNode[]` | — | The slides to show, one node per slide, in order; the carousel manages the active slide itself. |
+| `index` | `number` | — | The visible slide (0-indexed) — set it to move the carousel from outside; it also tracks the slide itself, so the arrows, dots and autoplay work with nothing wired up. Pair with `onChange` for two-way binding. |
+| `onChange` | `(index: number) => void` | — | Called with the new slide index whenever the slide changes — the arrows, a dot, autoplay (the web component's `change` / `update` event, detail = the index). |
 | `autoPlay` | `boolean` | `false` | Automatically advances to the next slide (looping) every `intervalMs` (default: false). |
 | `intervalMs` | `number` | `4000` | Milliseconds between automatic slide changes when `autoPlay` is on (default: 4000). |
 | `showArrows` | `boolean` | `true` | Shows previous/next arrow buttons when there is more than one slide (default: true). |
@@ -2652,7 +2649,10 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 
 ### Carousels · 3. Events
 
-_No component-specific events._ Native DOM events (`click`, `input`, `focus`…) bubble from the rendered element as usual.
+| Component | React callback | Signature | Web Component event | Description |
+| --- | --- | --- | --- | --- |
+| `Carousel` | `onChange` | `(index: number) => void` | `change` (CustomEvent, payload in `detail`) | Called with the new slide index whenever the slide changes — the arrows, a dot, autoplay (the web component's `change` / `update` event, detail = the index). |
+| `Carousel` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
 
 ### Carousels · 4. Variants
 
@@ -2686,6 +2686,7 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 | React prop | HTML attribute | Attribute type |
 | --- | --- | --- |
+| `index` | `index` | number |
 | `slides` | `slides` | json (JSON string or object property) |
 | `autoPlay` | `auto-play` | boolean |
 | `intervalMs` | `interval-ms` | number |
@@ -3481,7 +3482,7 @@ A chat thread with a message box — user and assistant bubbles, system notes, a
 | `messages` | `ChatMessage[]` | — | Messages to show (controlled) — add the user's message yourself in `onSend`. Omit to let the ChatBox keep its own list, seeded from `defaultMessages`. |
 | `defaultMessages` | `ChatMessage[]` | `[]` | Starting messages when `messages` is not provided. |
 | `onSend` | `(text: string) => void` | — | Called with the trimmed text when the user presses Enter or the send button. |
-| `thinking` | `boolean \| string` | — | Shows the "thinking" indicator at the end of the thread. Pass the text to show — `thinking="Searching the docs"` — or `true` / an empty string for the default "Thinking" (default: off). |
+| `thinking` | `boolean \| string` | — | Shows the "thinking" indicator at the end of the thread. Pass the text to show — `thinking="Searching the docs"` — or `true` / an empty string for the default "Thinking" (default: off). As a web component, write `thinking="true"` for the default label, and switch it off again by setting the property to `false` (`el.thinking = false`) — removing the attribute does not clear it. |
 | `thinkingVariant` | `ThinkingVariant` | `"dots"` | Style of the thinking indicator: "dots" \| "wave" \| "orb" \| "shimmer" (default: "dots"). |
 | `thinkingSteps` | `string[]` | — | Status lines the thinking indicator cycles through, e.g. ["Reading the question", "Writing the answer"] — replaces the thinking text. |
 | `thinkingElapsed` | `boolean` | `false` | Adds a running timer to the thinking indicator — "Thinking · 4s" (default: false). |
@@ -3617,6 +3618,10 @@ A text input wrapping the native <input> element.
 
 | Prop | Type | Default | Description |
 | --- | --- | --- | --- |
+| `onChange` | `ChangeEventHandler<HTMLInputElement>` | — | The value was committed — the native change event (the web component's `update` event, detail = the new value). |
+| `onInput` | `FormEventHandler<HTMLInputElement>` | — | Called as the user edits — the native input event (the web component's `input` event, detail = the current value). |
+| `onFocus` | `FocusEventHandler<HTMLInputElement>` | — | Called when the field gains focus — the native focus event (the web component's `focus` event). |
+| `onInvalid` | `FormEventHandler<HTMLInputElement>` | — | Called when the field fails validation (e.g. `required` and empty) — the native invalid event (the web component's `invalid` event, detail = the message). |
 | `size` | `InputSize` | `"md"` | Control height and text size: "sm" \| "md" \| "lg". Defaults to "md". |
 | `variant` | `InputVariant` | `"outline"` | Look of the field: "outline" \| "filled" \| "underline" \| "soft" (default: "outline"). |
 | `invalid` | `boolean` | `false` | Applies error (rose) styling when true (default: false). |
@@ -3631,7 +3636,13 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 
 ### Input · 3. Events
 
-_No component-specific events._ Native DOM events (`click`, `input`, `focus`…) bubble from the rendered element as usual.
+| Component | React callback | Signature | Web Component event | Description |
+| --- | --- | --- | --- | --- |
+| `Input` | `onChange` | `ChangeEventHandler<HTMLInputElement>` | — (React only) | The value was committed — the native change event (the web component's `update` event, detail = the new value). |
+| `Input` | `onInput` | `FormEventHandler<HTMLInputElement>` | `input` (CustomEvent, payload in `detail`) | Called as the user edits — the native input event (the web component's `input` event, detail = the current value). |
+| `Input` | `onFocus` | `FocusEventHandler<HTMLInputElement>` | `focus` (CustomEvent, payload in `detail`) | Called when the field gains focus — the native focus event (the web component's `focus` event). |
+| `Input` | `onInvalid` | `FormEventHandler<HTMLInputElement>` | `invalid` (CustomEvent, payload in `detail`) | Called when the field fails validation (e.g. `required` and empty) — the native invalid event (the web component's `invalid` event, detail = the message). |
+| `Input` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
 
 ### Input · 4. Variants
 
@@ -3774,7 +3785,7 @@ const isInvalidEmail = email.length > 0 && !email.includes("@");
 />
 ```
 
-_2 more examples are on the docs page._
+_4 more examples are on the docs page._
 
 ### Input · 11. Component Composition
 
@@ -3816,6 +3827,10 @@ A multi-line text input wrapping the native <textarea> element.
 
 | Prop | Type | Default | Description |
 | --- | --- | --- | --- |
+| `onChange` | `ChangeEventHandler<HTMLTextAreaElement>` | — | The value was committed — the native change event (the web component's `update` event, detail = the new value). |
+| `onInput` | `FormEventHandler<HTMLTextAreaElement>` | — | Called as the user edits — the native input event (the web component's `input` event, detail = the current value). |
+| `onFocus` | `FocusEventHandler<HTMLTextAreaElement>` | — | Called when the field gains focus — the native focus event (the web component's `focus` event). |
+| `onInvalid` | `FormEventHandler<HTMLTextAreaElement>` | — | Called when the field fails validation (e.g. `required` and empty) — the native invalid event (the web component's `invalid` event, detail = the message). |
 | `variant` | `InputVariant` | `"outline"` | Look of the field: "outline" \| "filled" \| "underline" \| "soft" (default: "outline"). |
 | `invalid` | `boolean` | `false` | Applies error styling (rose border and focus ring) to flag invalid input (default: false). |
 | `resize` | `TextareaResize` | `"vertical"` | User resize handle: "none", "vertical" or "both" (default: "vertical"). |
@@ -3828,7 +3843,13 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 
 ### Textarea · 3. Events
 
-_No component-specific events._ Native DOM events (`click`, `input`, `focus`…) bubble from the rendered element as usual.
+| Component | React callback | Signature | Web Component event | Description |
+| --- | --- | --- | --- | --- |
+| `Textarea` | `onChange` | `ChangeEventHandler<HTMLTextAreaElement>` | — (React only) | The value was committed — the native change event (the web component's `update` event, detail = the new value). |
+| `Textarea` | `onInput` | `FormEventHandler<HTMLTextAreaElement>` | `input` (CustomEvent, payload in `detail`) | Called as the user edits — the native input event (the web component's `input` event, detail = the current value). |
+| `Textarea` | `onFocus` | `FocusEventHandler<HTMLTextAreaElement>` | `focus` (CustomEvent, payload in `detail`) | Called when the field gains focus — the native focus event (the web component's `focus` event). |
+| `Textarea` | `onInvalid` | `FormEventHandler<HTMLTextAreaElement>` | `invalid` (CustomEvent, payload in `detail`) | Called when the field fails validation (e.g. `required` and empty) — the native invalid event (the web component's `invalid` event, detail = the message). |
+| `Textarea` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
 
 ### Textarea · 4. Variants
 
@@ -3957,6 +3978,8 @@ Enter transitions via `transition` (with `transitionDuration` / `transitionDelay
 <Textarea hoverEffect="scale" placeholder="Scale" />
 <Textarea hoverEffect="glow" placeholder="Glow" />
 ```
+
+_1 more examples are on the docs page._
 
 ### Textarea · 11. Component Composition
 
@@ -4152,6 +4175,10 @@ A styled wrapper around a native checkbox input — fully keyboard/screen-reader
 
 | Prop | Type | Default | Description |
 | --- | --- | --- | --- |
+| `onChange` | `ChangeEventHandler<HTMLInputElement>` | — | The value was committed — the native change event (the web component's `update` event, detail = the new value). |
+| `onInput` | `FormEventHandler<HTMLInputElement>` | — | Called as the user edits — the native input event (the web component's `input` event, detail = the current value). |
+| `onFocus` | `FocusEventHandler<HTMLInputElement>` | — | Called when the field gains focus — the native focus event (the web component's `focus` event). |
+| `onInvalid` | `FormEventHandler<HTMLInputElement>` | — | Called when the field fails validation (e.g. `required` and empty) — the native invalid event (the web component's `invalid` event, detail = the message). |
 | `label` | `ReactNode` | — | Text or node shown beside the box; clicking it toggles the checkbox. |
 | `color` | `ColorName` | `"accent"` | Checked background color (default: accent — follows the theme). |
 | `className` | `string` | — | Extra class names applied to the root `<label>` element. |
@@ -4163,7 +4190,13 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 
 ### Checkbox · 3. Events
 
-_No component-specific events._ Native DOM events (`click`, `input`, `focus`…) bubble from the rendered element as usual.
+| Component | React callback | Signature | Web Component event | Description |
+| --- | --- | --- | --- | --- |
+| `Checkbox` | `onChange` | `ChangeEventHandler<HTMLInputElement>` | — (React only) | The value was committed — the native change event (the web component's `update` event, detail = the new value). |
+| `Checkbox` | `onInput` | `FormEventHandler<HTMLInputElement>` | `input` (CustomEvent, payload in `detail`) | Called as the user edits — the native input event (the web component's `input` event, detail = the current value). |
+| `Checkbox` | `onFocus` | `FocusEventHandler<HTMLInputElement>` | `focus` (CustomEvent, payload in `detail`) | Called when the field gains focus — the native focus event (the web component's `focus` event). |
+| `Checkbox` | `onInvalid` | `FormEventHandler<HTMLInputElement>` | `invalid` (CustomEvent, payload in `detail`) | Called when the field fails validation (e.g. `required` and empty) — the native invalid event (the web component's `invalid` event, detail = the message). |
+| `Checkbox` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
 
 ### Checkbox · 4. Variants
 
@@ -4199,6 +4232,7 @@ Web Component extras (slots and plain HTML attributes accepted by the `<l-*>` ta
 
 | Component | Name | Type | Description |
 | --- | --- | --- | --- |
+| `Checkbox` | `required` | `boolean` | Standard HTML attribute, passed straight to the underlying control. |
 | `Checkbox` | `checked` | `boolean` | Standard HTML attribute, passed straight to the underlying control. |
 | `Checkbox` | `defaultChecked` | `boolean` | Standard HTML attribute, passed straight to the underlying control. |
 | `Checkbox` | `disabled` | `boolean` | Standard HTML attribute, passed straight to the underlying control. |
@@ -4213,6 +4247,7 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 | React prop | HTML attribute | Attribute type |
 | --- | --- | --- |
+| `required` | `required` | boolean |
 | `checked` | `checked` | boolean |
 | `defaultChecked` | `default-checked` | boolean |
 | `disabled` | `disabled` | boolean |
@@ -4281,25 +4316,20 @@ An optional label prop rendered alongside the box.
 <Checkbox label="Accept terms and conditions" />
 ```
 
-#### Transitions
-
-Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`) and hover effects via `hoverEffect`. They play on mount — reload the page, or use Replay in the playground.
+#### Events
 
 ```tsx
-<Checkbox transition="fade" label="Fade" defaultChecked />
-<Checkbox transition="slide-up" label="Slide up" defaultChecked />
-<Checkbox transition="slide-right" transitionDelay={100} label="Slide right" defaultChecked />
-<Checkbox transition="zoom" label="Zoom" defaultChecked />
-<Checkbox transition="flip" label="Flip" defaultChecked />
-<Checkbox transition="blur" label="Blur" defaultChecked />
-<Checkbox transition="bounce" label="Bounce" defaultChecked />
-<Checkbox transition="drop" transitionDuration={700} label="Drop" defaultChecked />
-
-<Checkbox hoverEffect="lift" label="Lift" />
-<Checkbox hoverEffect="scale" label="Scale" />
-<Checkbox hoverEffect="glow" label="Glow" />
-<Checkbox hoverEffect="shine" label="Shine" />
+<Checkbox
+  label="I agree to the terms"
+  required
+  onChange={(e) => console.log("update", e.target.checked)}
+  onInput={(e) => console.log("input", e.currentTarget.checked)}
+  onFocus={() => console.log("focus")}
+  onInvalid={(e) => console.log("invalid", e.currentTarget.validationMessage)}
+/>
 ```
+
+_2 more examples are on the docs page._
 
 ### Checkbox · 11. Component Composition
 
@@ -4342,6 +4372,10 @@ A styled radio input, plus a RadioGroup layout wrapper — exclusivity is native
 
 | Prop | Type | Default | Description |
 | --- | --- | --- | --- |
+| `onChange` | `ChangeEventHandler<HTMLInputElement>` | — | The value was committed — the native change event (the web component's `update` event, detail = the new value). |
+| `onInput` | `FormEventHandler<HTMLInputElement>` | — | Called as the user edits — the native input event (the web component's `input` event, detail = the current value). |
+| `onFocus` | `FocusEventHandler<HTMLInputElement>` | — | Called when the field gains focus — the native focus event (the web component's `focus` event). |
+| `onInvalid` | `FormEventHandler<HTMLInputElement>` | — | Called when the field fails validation (e.g. `required` and empty) — the native invalid event (the web component's `invalid` event, detail = the message). |
 | `label` | `ReactNode` | — | Text or node rendered beside the radio; omit for a bare radio. |
 | `color` | `ColorName` | `"accent"` | Selected dot/border color (default: accent — follows the theme). |
 | `className` | `string` | — | Extra CSS class(es) added to the wrapping `<label>`, merged before `classNames.root`. |
@@ -4364,7 +4398,13 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 
 ### Radio Group · 3. Events
 
-_No component-specific events._ Native DOM events (`click`, `input`, `focus`…) bubble from the rendered element as usual.
+| Component | React callback | Signature | Web Component event | Description |
+| --- | --- | --- | --- | --- |
+| `Radio` | `onChange` | `ChangeEventHandler<HTMLInputElement>` | — (React only) | The value was committed — the native change event (the web component's `update` event, detail = the new value). |
+| `Radio` | `onInput` | `FormEventHandler<HTMLInputElement>` | `input` (CustomEvent, payload in `detail`) | Called as the user edits — the native input event (the web component's `input` event, detail = the current value). |
+| `Radio` | `onFocus` | `FocusEventHandler<HTMLInputElement>` | `focus` (CustomEvent, payload in `detail`) | Called when the field gains focus — the native focus event (the web component's `focus` event). |
+| `Radio` | `onInvalid` | `FormEventHandler<HTMLInputElement>` | `invalid` (CustomEvent, payload in `detail`) | Called when the field fails validation (e.g. `required` and empty) — the native invalid event (the web component's `invalid` event, detail = the message). |
+| `Radio` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
 
 ### Radio Group · 4. Variants
 
@@ -4403,6 +4443,7 @@ Web Component extras (slots and plain HTML attributes accepted by the `<l-*>` ta
 
 | Component | Name | Type | Description |
 | --- | --- | --- | --- |
+| `Radio` | `required` | `boolean` | Standard HTML attribute, passed straight to the underlying control. |
 | `Radio` | `checked` | `boolean` | Standard HTML attribute, passed straight to the underlying control. |
 | `Radio` | `defaultChecked` | `boolean` | Standard HTML attribute, passed straight to the underlying control. |
 | `Radio` | `disabled` | `boolean` | Standard HTML attribute, passed straight to the underlying control. |
@@ -4417,6 +4458,7 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 | React prop | HTML attribute | Attribute type |
 | --- | --- | --- |
+| `required` | `required` | boolean |
 | `checked` | `checked` | boolean |
 | `defaultChecked` | `default-checked` | boolean |
 | `disabled` | `disabled` | boolean |
@@ -4523,6 +4565,17 @@ Enter transitions via `transition` (with `transitionDuration` / `transitionDelay
 <Radio hoverEffect="shine" label="Shine" />
 ```
 
+#### Events
+
+```tsx
+<Radio label="Monthly" name="plan" value="monthly" required
+  onChange={(e) => console.log("update", e.target.value)}
+  onInput={(e) => console.log("input", e.currentTarget.value)}
+  onFocus={() => console.log("focus")}
+  onInvalid={(e) => console.log("invalid", e.currentTarget.validationMessage)}
+/>
+```
+
 ### Radio Group · 11. Component Composition
 
 - Built from `Radio`, `RadioGroup` — use them together as shown in the examples above.
@@ -4564,6 +4617,10 @@ A styled toggle switch — a native checkbox input under the hood.
 
 | Prop | Type | Default | Description |
 | --- | --- | --- | --- |
+| `onChange` | `ChangeEventHandler<HTMLInputElement>` | — | The value was committed — the native change event (the web component's `update` event, detail = the new value). |
+| `onInput` | `FormEventHandler<HTMLInputElement>` | — | Called as the user edits — the native input event (the web component's `input` event, detail = the current value). |
+| `onFocus` | `FocusEventHandler<HTMLInputElement>` | — | Called when the field gains focus — the native focus event (the web component's `focus` event). |
+| `onInvalid` | `FormEventHandler<HTMLInputElement>` | — | Called when the field fails validation (e.g. `required` and empty) — the native invalid event (the web component's `invalid` event, detail = the message). |
 | `label` | `ReactNode` | — | Text or element shown next to the switch. |
 | `size` | `SwitchSize` | `"md"` | Switch size: "sm", "md" or "lg" (default: "md"). |
 | `color` | `ColorName` | `"accent"` | "On" track color (default: accent — follows the theme). |
@@ -4576,7 +4633,13 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 
 ### Switch / Toggle · 3. Events
 
-_No component-specific events._ Native DOM events (`click`, `input`, `focus`…) bubble from the rendered element as usual.
+| Component | React callback | Signature | Web Component event | Description |
+| --- | --- | --- | --- | --- |
+| `Switch` | `onChange` | `ChangeEventHandler<HTMLInputElement>` | — (React only) | The value was committed — the native change event (the web component's `update` event, detail = the new value). |
+| `Switch` | `onInput` | `FormEventHandler<HTMLInputElement>` | `input` (CustomEvent, payload in `detail`) | Called as the user edits — the native input event (the web component's `input` event, detail = the current value). |
+| `Switch` | `onFocus` | `FocusEventHandler<HTMLInputElement>` | `focus` (CustomEvent, payload in `detail`) | Called when the field gains focus — the native focus event (the web component's `focus` event). |
+| `Switch` | `onInvalid` | `FormEventHandler<HTMLInputElement>` | `invalid` (CustomEvent, payload in `detail`) | Called when the field fails validation (e.g. `required` and empty) — the native invalid event (the web component's `invalid` event, detail = the message). |
+| `Switch` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
 
 ### Switch / Toggle · 4. Variants
 
@@ -4614,6 +4677,7 @@ Web Component extras (slots and plain HTML attributes accepted by the `<l-*>` ta
 
 | Component | Name | Type | Description |
 | --- | --- | --- | --- |
+| `Switch` | `required` | `boolean` | Standard HTML attribute, passed straight to the underlying control. |
 | `Switch` | `checked` | `boolean` | Standard HTML attribute, passed straight to the underlying control. |
 | `Switch` | `defaultChecked` | `boolean` | Standard HTML attribute, passed straight to the underlying control. |
 | `Switch` | `disabled` | `boolean` | Standard HTML attribute, passed straight to the underlying control. |
@@ -4627,6 +4691,7 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 | React prop | HTML attribute | Attribute type |
 | --- | --- | --- |
+| `required` | `required` | boolean |
 | `checked` | `checked` | boolean |
 | `defaultChecked` | `default-checked` | boolean |
 | `disabled` | `disabled` | boolean |
@@ -4705,7 +4770,7 @@ An optional label prop rendered alongside the track.
 <Switch label="Enable notifications" />
 ```
 
-_1 more examples are on the docs page._
+_2 more examples are on the docs page._
 
 ### Switch / Toggle · 11. Component Composition
 
@@ -4762,7 +4827,12 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 
 ### Select · 3. Events
 
-_No component-specific events._ Native DOM events (`click`, `input`, `focus`…) bubble from the rendered element as usual.
+| Component | React callback | Signature | Web Component event | Description |
+| --- | --- | --- | --- | --- |
+| `Select` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
+| `Select` | `onInput` | — | `input` (CustomEvent, payload in `detail`) | Fires as the user edits (typing, dragging); `detail` = the current value. React: `onInput`. |
+| `Select` | `onFocus` | — | `focus` (CustomEvent, payload in `detail`) | The control gained focus; `detail` = the current value. React: `onFocus`. |
+| `Select` | `onInvalid` | — | `invalid` (CustomEvent, payload in `detail`) | The control failed validation (e.g. `required` and empty); `detail` = the validation message. React: `onInvalid`. |
 
 ### Select · 4. Variants
 
@@ -4794,6 +4864,8 @@ Web Component extras (slots and plain HTML attributes accepted by the `<l-*>` ta
 
 | Component | Name | Type | Description |
 | --- | --- | --- | --- |
+| `Select` | `required` | `boolean` | Standard HTML attribute, passed straight to the underlying control. |
+| `Select` | `name` | `string` | Standard HTML attribute, passed straight to the underlying control. |
 | `Select` | `value` | `string` | Standard HTML attribute, passed straight to the underlying control. |
 | `Select` | `disabled` | `boolean` | Standard HTML attribute, passed straight to the underlying control. |
 
@@ -4805,6 +4877,8 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 | React prop | HTML attribute | Attribute type |
 | --- | --- | --- |
+| `required` | `required` | boolean |
+| `name` | `name` | string |
 | `options` | `options` | json (JSON string or object property) |
 | `value` | `value` | string |
 | `placeholder` | `placeholder` | string |
@@ -4943,6 +5017,7 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
 | `MultiSelect` | `onChange` | `(value: string[]) => void` | `change` (CustomEvent, payload in `detail`) | Called with the new array of selected `value`s whenever an option is toggled or a chip's remove button is clicked; the consumer must store it back into `value`. |
+| `MultiSelect` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
 
 ### Multi Select · 4. Variants
 
@@ -5111,6 +5186,9 @@ A single-select text input with a filtered, keyboard-navigable autocomplete drop
 | `value` | `string` | — | Controlled selected value. |
 | `onChange` | `(value: string) => void` | — | Called with the chosen option's `value` when the user selects an option by click or Enter. |
 | `placeholder` | `string` | — | Placeholder text shown in the input while it is empty. |
+| `onFocus` | `(e: FocusEvent<HTMLInputElement>) => void` | — | Called when the field gains focus — the native focus event (the web component's `focus` event, detail = the value). |
+| `onInput` | `(e: FormEvent<HTMLInputElement>) => void` | — | Called as the user edits the field — the native input event (the web component's `input` event, detail = the value). |
+| `onInvalid` | `(e: FormEvent<HTMLInputElement>) => void` | — | Called when the field fails validation — the native invalid event (the web component's `invalid` event, detail = the message). |
 | `className` | `string` | — | Extra class names applied to the root element. |
 | `classNames` | `{ root?: string; input?: string; menu?: string; option?: string; activeOption?: string; }` | — | Per-part class overrides — merged after (and win over) the built-in styling. |
 
@@ -5121,6 +5199,10 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
 | `Combobox` | `onChange` | `(value: string) => void` | `change` (CustomEvent, payload in `detail`) | Called with the chosen option's `value` when the user selects an option by click or Enter. |
+| `Combobox` | `onFocus` | `(e: FocusEvent<HTMLInputElement>) => void` | `focus` (CustomEvent, payload in `detail`) | Called when the field gains focus — the native focus event (the web component's `focus` event, detail = the value). |
+| `Combobox` | `onInput` | `(e: FormEvent<HTMLInputElement>) => void` | `input` (CustomEvent, payload in `detail`) | Called as the user edits the field — the native input event (the web component's `input` event, detail = the value). |
+| `Combobox` | `onInvalid` | `(e: FormEvent<HTMLInputElement>) => void` | `invalid` (CustomEvent, payload in `detail`) | Called when the field fails validation — the native invalid event (the web component's `invalid` event, detail = the message). |
+| `Combobox` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
 
 ### Combobox · 4. Variants
 
@@ -5274,6 +5356,10 @@ A styled native date input — the browser's own picker UI handles date selectio
 
 | Prop | Type | Default | Description |
 | --- | --- | --- | --- |
+| `onChange` | `ChangeEventHandler<HTMLInputElement>` | — | The value was committed — the native change event (the web component's `update` event, detail = the new value). |
+| `onInput` | `FormEventHandler<HTMLInputElement>` | — | Called as the user edits — the native input event (the web component's `input` event, detail = the current value). |
+| `onFocus` | `FocusEventHandler<HTMLInputElement>` | — | Called when the field gains focus — the native focus event (the web component's `focus` event). |
+| `onInvalid` | `FormEventHandler<HTMLInputElement>` | — | Called when the field fails validation (e.g. `required` and empty) — the native invalid event (the web component's `invalid` event, detail = the message). |
 | `size` | `DatePickerSize` | `"md"` | Control height and text size: "sm" \| "md" \| "lg". Defaults to "md". |
 | `variant` | `DatePickerVariant` | `"outline"` | Visual style: "outline" (default) \| "filled" \| "underline". |
 | `invalid` | `boolean` | `false` | Applies error (rose) styling when true (default: false). |
@@ -5309,7 +5395,12 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
+| `DatePicker` | `onChange` | `ChangeEventHandler<HTMLInputElement>` | — (React only) | The value was committed — the native change event (the web component's `update` event, detail = the new value). |
+| `DatePicker` | `onInput` | `FormEventHandler<HTMLInputElement>` | `input` (CustomEvent, payload in `detail`) | Called as the user edits — the native input event (the web component's `input` event, detail = the current value). |
+| `DatePicker` | `onFocus` | `FocusEventHandler<HTMLInputElement>` | `focus` (CustomEvent, payload in `detail`) | Called when the field gains focus — the native focus event (the web component's `focus` event). |
+| `DatePicker` | `onInvalid` | `FormEventHandler<HTMLInputElement>` | `invalid` (CustomEvent, payload in `detail`) | Called when the field fails validation (e.g. `required` and empty) — the native invalid event (the web component's `invalid` event, detail = the message). |
 | `DatePicker` | `onClear` | `() => void` | `clear` (CustomEvent, payload in `detail`) | Shows a clear (×) button when `value` is set — only meaningful for controlled usage. |
+| `DatePicker` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
 | `DateRangePicker` | `onStartChange` | `(value: string) => void` | `startchange` (CustomEvent, payload in `detail`) | Fires when the start date changes (or a preset is clicked), with the new yyyy-mm-dd string. |
 | `DateRangePicker` | `onEndChange` | `(value: string) => void` | `endchange` (CustomEvent, payload in `detail`) | Fires when the end date changes (or a preset is clicked), with the new yyyy-mm-dd string. |
 
@@ -5349,6 +5440,8 @@ Web Component extras (slots and plain HTML attributes accepted by the `<l-*>` ta
 
 | Component | Name | Type | Description |
 | --- | --- | --- | --- |
+| `DatePicker` | `required` | `boolean` | Standard HTML attribute, passed straight to the underlying control. |
+| `DatePicker` | `name` | `string` | Standard HTML attribute, passed straight to the underlying control. |
 | `DatePicker` | `value` | `string` | Standard HTML attribute, passed straight to the underlying control. |
 | `DatePicker` | `disabled` | `boolean` | Standard HTML attribute, passed straight to the underlying control. |
 
@@ -5360,6 +5453,8 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 | React prop | HTML attribute | Attribute type |
 | --- | --- | --- |
+| `required` | `required` | boolean |
+| `name` | `name` | string |
 | `value` | `value` | string |
 | `size` | `size` | string |
 | `variant` | `variant` | string |
@@ -5492,6 +5587,10 @@ A styled native time input — the browser's own picker UI handles time selectio
 
 | Prop | Type | Default | Description |
 | --- | --- | --- | --- |
+| `onChange` | `ChangeEventHandler<HTMLInputElement>` | — | The value was committed — the native change event (the web component's `update` event, detail = the new value). |
+| `onInput` | `FormEventHandler<HTMLInputElement>` | — | Called as the user edits — the native input event (the web component's `input` event, detail = the current value). |
+| `onFocus` | `FocusEventHandler<HTMLInputElement>` | — | Called when the field gains focus — the native focus event (the web component's `focus` event). |
+| `onInvalid` | `FormEventHandler<HTMLInputElement>` | — | Called when the field fails validation (e.g. `required` and empty) — the native invalid event (the web component's `invalid` event, detail = the message). |
 | `size` | `TimePickerSize` | `"md"` | Input height/text size: "sm", "md" or "lg" (default: "md"). |
 | `invalid` | `boolean` | `false` | Applies error styling (rose border and focus ring) to flag invalid input (default: false). |
 | `className` | `string` | — | Extra class name(s) appended to the root element. |
@@ -5503,7 +5602,13 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 
 ### Time Picker · 3. Events
 
-_No component-specific events._ Native DOM events (`click`, `input`, `focus`…) bubble from the rendered element as usual.
+| Component | React callback | Signature | Web Component event | Description |
+| --- | --- | --- | --- | --- |
+| `TimePicker` | `onChange` | `ChangeEventHandler<HTMLInputElement>` | — (React only) | The value was committed — the native change event (the web component's `update` event, detail = the new value). |
+| `TimePicker` | `onInput` | `FormEventHandler<HTMLInputElement>` | `input` (CustomEvent, payload in `detail`) | Called as the user edits — the native input event (the web component's `input` event, detail = the current value). |
+| `TimePicker` | `onFocus` | `FocusEventHandler<HTMLInputElement>` | `focus` (CustomEvent, payload in `detail`) | Called when the field gains focus — the native focus event (the web component's `focus` event). |
+| `TimePicker` | `onInvalid` | `FormEventHandler<HTMLInputElement>` | `invalid` (CustomEvent, payload in `detail`) | Called when the field fails validation (e.g. `required` and empty) — the native invalid event (the web component's `invalid` event, detail = the message). |
+| `TimePicker` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
 
 ### Time Picker · 4. Variants
 
@@ -5535,6 +5640,8 @@ Web Component extras (slots and plain HTML attributes accepted by the `<l-*>` ta
 
 | Component | Name | Type | Description |
 | --- | --- | --- | --- |
+| `TimePicker` | `required` | `boolean` | Standard HTML attribute, passed straight to the underlying control. |
+| `TimePicker` | `name` | `string` | Standard HTML attribute, passed straight to the underlying control. |
 | `TimePicker` | `value` | `string` | Standard HTML attribute, passed straight to the underlying control. |
 | `TimePicker` | `disabled` | `boolean` | Standard HTML attribute, passed straight to the underlying control. |
 
@@ -5546,6 +5653,8 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 | React prop | HTML attribute | Attribute type |
 | --- | --- | --- |
+| `required` | `required` | boolean |
+| `name` | `name` | string |
 | `value` | `value` | string |
 | `size` | `size` | string |
 | `invalid` | `invalid` | boolean |
@@ -5678,6 +5787,10 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
 | `FileUpload` | `onFilesSelected` | `(files: FileList \| null) => void` | `filesselected` (CustomEvent, payload in `detail`) | Fires when the user picks files (via click or drop), with the selected FileList (or null). |
+| `FileUpload` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
+| `FileUpload` | `onInput` | — | `input` (CustomEvent, payload in `detail`) | Fires as the user edits (typing, dragging); `detail` = the current value. React: `onInput`. |
+| `FileUpload` | `onFocus` | — | `focus` (CustomEvent, payload in `detail`) | The control gained focus; `detail` = the current value. React: `onFocus`. |
+| `FileUpload` | `onInvalid` | — | `invalid` (CustomEvent, payload in `detail`) | The control failed validation (e.g. `required` and empty); `detail` = the validation message. React: `onInvalid`. |
 
 ### File Upload · 4. Variants
 
@@ -5832,6 +5945,10 @@ A text input with a leading search icon and a working clear button.
 
 | Prop | Type | Default | Description |
 | --- | --- | --- | --- |
+| `onChange` | `ChangeEventHandler<HTMLInputElement>` | — | The value was committed — the native change event (the web component's `update` event, detail = the new value). |
+| `onInput` | `FormEventHandler<HTMLInputElement>` | — | Called as the user edits — the native input event (the web component's `input` event, detail = the current value). |
+| `onFocus` | `FocusEventHandler<HTMLInputElement>` | — | Called when the field gains focus — the native focus event (the web component's `focus` event). |
+| `onInvalid` | `FormEventHandler<HTMLInputElement>` | — | Called when the field fails validation (e.g. `required` and empty) — the native invalid event (the web component's `invalid` event, detail = the message). |
 | `size` | `SearchInputSize` | `"md"` | Control height and text size: "sm", "md" (default) or "lg". |
 | `variant` | `InputVariant` | `"outline"` | Look of the field: "outline" \| "filled" \| "underline" \| "soft" (default: "outline"). |
 | `onClear` | `() => void` | — | Called when the clear (x) button is clicked — only rendered when `value` is truthy and this is provided. |
@@ -5846,7 +5963,12 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
+| `SearchInput` | `onChange` | `ChangeEventHandler<HTMLInputElement>` | — (React only) | The value was committed — the native change event (the web component's `update` event, detail = the new value). |
+| `SearchInput` | `onInput` | `FormEventHandler<HTMLInputElement>` | `input` (CustomEvent, payload in `detail`) | Called as the user edits — the native input event (the web component's `input` event, detail = the current value). |
+| `SearchInput` | `onFocus` | `FocusEventHandler<HTMLInputElement>` | `focus` (CustomEvent, payload in `detail`) | Called when the field gains focus — the native focus event (the web component's `focus` event). |
+| `SearchInput` | `onInvalid` | `FormEventHandler<HTMLInputElement>` | `invalid` (CustomEvent, payload in `detail`) | Called when the field fails validation (e.g. `required` and empty) — the native invalid event (the web component's `invalid` event, detail = the message). |
 | `SearchInput` | `onClear` | `() => void` | `clear` (CustomEvent, payload in `detail`) | Called when the clear (x) button is clicked — only rendered when `value` is truthy and this is provided. |
+| `SearchInput` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
 
 ### Search Input · 4. Variants
 
@@ -5878,6 +6000,8 @@ Web Component extras (slots and plain HTML attributes accepted by the `<l-*>` ta
 
 | Component | Name | Type | Description |
 | --- | --- | --- | --- |
+| `SearchInput` | `required` | `boolean` | Standard HTML attribute, passed straight to the underlying control. |
+| `SearchInput` | `name` | `string` | Standard HTML attribute, passed straight to the underlying control. |
 | `SearchInput` | `value` | `string` | Standard HTML attribute, passed straight to the underlying control. |
 | `SearchInput` | `placeholder` | `string` | Standard HTML attribute, passed straight to the underlying control. |
 | `SearchInput` | `disabled` | `boolean` | Standard HTML attribute, passed straight to the underlying control. |
@@ -5890,6 +6014,8 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 | React prop | HTML attribute | Attribute type |
 | --- | --- | --- |
+| `required` | `required` | boolean |
+| `name` | `name` | string |
 | `value` | `value` | string |
 | `placeholder` | `placeholder` | string |
 | `size` | `size` | string |
@@ -5982,6 +6108,17 @@ Enter transitions via `transition` (with `transitionDuration` / `transitionDelay
 <SearchInput hoverEffect="ring" placeholder="Search…" />
 ```
 
+#### Events
+
+```tsx
+<SearchInput placeholder="Search…"
+  onChange={(e) => console.log("update", e.target.value)}
+  onInput={(e) => console.log("input", e.currentTarget.value)}
+  onFocus={() => console.log("focus")}
+  onInvalid={(e) => console.log("invalid", e.currentTarget.validationMessage)}
+/>
+```
+
 ### Search Input · 11. Component Composition
 
 - Standalone: drop it into any layout (Card, Section, Grid, Container, App shell) or inside forms and overlays.
@@ -6005,6 +6142,206 @@ Enter transitions via `transition` (with `transitionDuration` / `transitionDelay
 - Recolor with the theme accent; restyle globally with the theme tokens or `data-design="clay"`.
 - Motion: `transition`, `transitionDuration`, `transitionDelay`, `hoverEffect`.
 
+## Password Input
+
+*Category: Forms & Inputs.* Exports: `PasswordInput`.
+
+### Password Input · 1. Component Overview
+
+A password field with a show/hide toggle button.
+
+- React: `import { PasswordInput } from "lojee-ui"`
+- Web Component: `<l-password-input>` (after `import "lojee-ui/elements"`)
+
+### Password Input · 2. Props and Interfaces
+
+#### `PasswordInput`
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `onChange` | `ChangeEventHandler<HTMLInputElement>` | — | The value was committed — the native change event (the web component's `update` event, detail = the new value). |
+| `onInput` | `FormEventHandler<HTMLInputElement>` | — | Called as the user edits — the native input event (the web component's `input` event, detail = the current value). |
+| `onFocus` | `FocusEventHandler<HTMLInputElement>` | — | Called when the field gains focus — the native focus event (the web component's `focus` event). |
+| `onInvalid` | `FormEventHandler<HTMLInputElement>` | — | Called when the field fails validation (e.g. `required` and empty) — the native invalid event (the web component's `invalid` event, detail = the message). |
+| `size` | `PasswordInputSize` | `"md"` | Control height and text size: "sm", "md" (default) or "lg". |
+| `variant` | `InputVariant` | `"outline"` | Look of the field: "outline" \| "filled" \| "underline" \| "soft" (default: "outline"). |
+| `invalid` | `boolean` | `false` | Marks the field as invalid — rose border/focus ring and `aria-invalid` (default: false). |
+| `className` | `string` | — | Extra CSS class(es) added to the root element, merged before `classNames.root`. |
+| `classNames` | `{ root?: string; input?: string; toggleButton?: string }` | — | Per-part class overrides — merged after (and win over) the built-in styling. |
+
+Also accepts the shared motion props `transition`, `transitionDuration`, `transitionDelay`, `hoverEffect` — see §1.7.
+
+**Native attributes:** these components also accept every standard attribute of the underlying `<input>` (e.g. `id`, `name`, `value`, `defaultValue`, `placeholder`, `disabled`, `required`, `readOnly`, `min`/`max`/`step`, `aria-*`, `onChange`/`onFocus`/`onBlur`) — they are spread onto it.
+
+### Password Input · 3. Events
+
+| Component | React callback | Signature | Web Component event | Description |
+| --- | --- | --- | --- | --- |
+| `PasswordInput` | `onChange` | `ChangeEventHandler<HTMLInputElement>` | — (React only) | The value was committed — the native change event (the web component's `update` event, detail = the new value). |
+| `PasswordInput` | `onInput` | `FormEventHandler<HTMLInputElement>` | `input` (CustomEvent, payload in `detail`) | Called as the user edits — the native input event (the web component's `input` event, detail = the current value). |
+| `PasswordInput` | `onFocus` | `FocusEventHandler<HTMLInputElement>` | `focus` (CustomEvent, payload in `detail`) | Called when the field gains focus — the native focus event (the web component's `focus` event). |
+| `PasswordInput` | `onInvalid` | `FormEventHandler<HTMLInputElement>` | `invalid` (CustomEvent, payload in `detail`) | Called when the field fails validation (e.g. `required` and empty) — the native invalid event (the web component's `invalid` event, detail = the message). |
+| `PasswordInput` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
+
+### Password Input · 4. Variants
+
+| Component | Prop | Values | Default | Notes |
+| --- | --- | --- | --- | --- |
+| `PasswordInput` | `variant` | `outline`, `filled`, `underline`, `soft` | `"outline"` | Look of the field: "outline" \| "filled" \| "underline" \| "soft" (default: "outline"). |
+
+### Password Input · 5. Colors and Theming
+
+Follows the global theme (§1.4): it recolors with the accent, switches with light / dark mode, and takes the Claymorphism look when `data-design="clay"` is set. It has no color prop of its own.
+
+### Password Input · 6. Sizes
+
+| Component | Prop | Values | Default | Notes |
+| --- | --- | --- | --- | --- |
+| `PasswordInput` | `size` | `sm`, `md`, `lg` | `"md"` | Control height and text size: "sm", "md" (default) or "lg". |
+
+### Password Input · 7. Component States
+
+Native states also work: `disabled`, `required`, `readOnly` (spread onto the underlying element).
+
+| Component | Prop | Type | Default | Effect |
+| --- | --- | --- | --- | --- |
+| `PasswordInput` | `invalid` | `boolean` | `false` | Marks the field as invalid — rose border/focus ring and `aria-invalid` (default: false). |
+
+Standard visual states: default · hover · focus-visible (ring) · active/pressed · invalid (rose border/ring, `aria-invalid`).
+
+### Password Input · 8. Slots / Children / Content
+
+Web Component extras (slots and plain HTML attributes accepted by the `<l-*>` tag in addition to the props above):
+
+| Component | Name | Type | Description |
+| --- | --- | --- | --- |
+| `PasswordInput` | `required` | `boolean` | Standard HTML attribute, passed straight to the underlying control. |
+| `PasswordInput` | `name` | `string` | Standard HTML attribute, passed straight to the underlying control. |
+| `PasswordInput` | `disabled` | `boolean` | Standard HTML attribute, passed straight to the underlying control. |
+
+In a Web Component, the element's light-DOM text/children go into the default slot; a prop that accepts a node (e.g. `header`, `footer`) can usually also be filled with a child carrying `slot="<name>"`.
+
+### Password Input · 9. Framework Interfaces
+
+**`PasswordInput`** → `<l-password-input>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `required` | `required` | boolean |
+| `name` | `name` | string |
+| `size` | `size` | string |
+| `variant` | `variant` | string |
+| `invalid` | `invalid` | boolean |
+| `disabled` | `disabled` | boolean |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+| `hoverEffect` | `hover-effect` | string |
+
+Minimal use in each target (from the first docs example, *Basic*):
+
+**React**
+```tsx
+const [password, setPassword] = useState("");
+
+<PasswordInput value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
+```
+**Plain HTML / JavaScript**
+```html
+<l-PasswordInput id="password" placeholder="Password"></l-PasswordInput>
+
+<script type="module">
+  import "lojee-ui/elements";
+
+  const password = document.getElementById("password");
+  password.value = "hunter2";
+  password.addEventListener("input", (e) => { /* e.target.value */ });
+</script>
+```
+Vue and Angular use the same `<l-*>` tag and attributes — see the framework templates in §1.3.
+
+### Password Input · 10. Complete Usage Examples
+
+#### Basic
+
+Click the eye icon to reveal the value — internal state, no extra prop needed.
+
+```tsx
+const [password, setPassword] = useState("");
+
+<PasswordInput value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
+```
+
+#### Sizes
+
+sm, md, lg.
+
+```tsx
+<PasswordInput size="sm" placeholder="Small" />
+<PasswordInput size="md" placeholder="Medium" />
+<PasswordInput size="lg" placeholder="Large" />
+```
+
+#### Invalid
+
+Same red-border affordance as every other form field in this library.
+
+```tsx
+<PasswordInput invalid defaultValue="short" placeholder="Password" />
+```
+
+#### Disabled
+
+Same disabled affordance as native inputs.
+
+```tsx
+<PasswordInput disabled placeholder="Disabled" />
+```
+
+#### Transitions
+
+Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`) and hover effects via `hoverEffect`. They play on mount — reload the page, or use Replay in the playground.
+
+```tsx
+<PasswordInput transition="fade" placeholder="Password" />
+<PasswordInput transition="slide-up" placeholder="Password" />
+<PasswordInput transition="slide-right" transitionDelay={100} placeholder="Password" />
+<PasswordInput transition="zoom" placeholder="Password" />
+<PasswordInput transition="flip" placeholder="Password" />
+<PasswordInput transition="blur" placeholder="Password" />
+<PasswordInput transition="bounce" placeholder="Password" />
+<PasswordInput transition="drop" transitionDuration={700} placeholder="Password" />
+
+<PasswordInput hoverEffect="lift" placeholder="Password" />
+<PasswordInput hoverEffect="glow" placeholder="Password" />
+<PasswordInput hoverEffect="ring" placeholder="Password" />
+```
+
+_1 more examples are on the docs page._
+
+### Password Input · 11. Component Composition
+
+- Standalone: drop it into any layout (Card, Section, Grid, Container, App shell) or inside forms and overlays.
+
+### Password Input · 12. Accessibility
+
+- ARIA roles used: none beyond native element semantics.
+- ARIA attributes set by the component: `aria-invalid`, `aria-label`, `aria-pressed`.
+- Keyboard: native keyboard behavior of the underlying element (Tab to focus, Enter / Space to activate).
+- Focus: visible focus ring (`focus-visible`).
+- Motion: respects `prefers-reduced-motion`.
+
+### Password Input · 13. Responsive Behavior
+
+- Breakpoint modifiers in its source: `lg`, `md`, `sm`.
+- Mobile-first; touch targets keep a comfortable minimum size.
+
+### Password Input · 14. Customization
+
+- `className` adds classes to the root; `classNames` overrides individual parts — `PasswordInput`: `root`, `input`, `toggleButton`. Conflicting Tailwind utilities passed here win (tailwind-merge).
+- Recolor with the theme accent; restyle globally with the theme tokens or `data-design="clay"`.
+- Motion: `transition`, `transitionDuration`, `transitionDelay`, `hoverEffect`.
+
 ## Slider
 
 *Category: Forms & Inputs.* Exports: `Slider`.
@@ -6022,6 +6359,10 @@ A styled native range input for a single value.
 
 | Prop | Type | Default | Description |
 | --- | --- | --- | --- |
+| `onChange` | `ChangeEventHandler<HTMLInputElement>` | — | The value was committed — the native change event (the web component's `update` event, detail = the new value). |
+| `onInput` | `FormEventHandler<HTMLInputElement>` | — | Called as the user edits — the native input event (the web component's `input` event, detail = the current value). |
+| `onFocus` | `FocusEventHandler<HTMLInputElement>` | — | Called when the field gains focus — the native focus event (the web component's `focus` event). |
+| `onInvalid` | `FormEventHandler<HTMLInputElement>` | — | Called when the field fails validation (e.g. `required` and empty) — the native invalid event (the web component's `invalid` event, detail = the message). |
 | `color` | `ColorName` | `"accent"` | Color of the filled part of the track (default: "accent" — follows the theme accent). |
 | `showValue` | `boolean` | `false` | Shows the current numeric value in a label beside the slider, kept in sync in both controlled and uncontrolled use (default: false). |
 | `className` | `string` | — | Extra class name(s) appended to the root element. |
@@ -6033,7 +6374,13 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 
 ### Slider · 3. Events
 
-_No component-specific events._ Native DOM events (`click`, `input`, `focus`…) bubble from the rendered element as usual.
+| Component | React callback | Signature | Web Component event | Description |
+| --- | --- | --- | --- | --- |
+| `Slider` | `onChange` | `ChangeEventHandler<HTMLInputElement>` | — (React only) | The value was committed — the native change event (the web component's `update` event, detail = the new value). |
+| `Slider` | `onInput` | `FormEventHandler<HTMLInputElement>` | `input` (CustomEvent, payload in `detail`) | Called as the user edits — the native input event (the web component's `input` event, detail = the current value). |
+| `Slider` | `onFocus` | `FocusEventHandler<HTMLInputElement>` | `focus` (CustomEvent, payload in `detail`) | Called when the field gains focus — the native focus event (the web component's `focus` event). |
+| `Slider` | `onInvalid` | `FormEventHandler<HTMLInputElement>` | `invalid` (CustomEvent, payload in `detail`) | Called when the field fails validation (e.g. `required` and empty) — the native invalid event (the web component's `invalid` event, detail = the message). |
+| `Slider` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
 
 ### Slider · 4. Variants
 
@@ -6149,7 +6496,7 @@ Standard disabled state.
 <Slider defaultValue={40} disabled />
 ```
 
-_1 more examples are on the docs page._
+_2 more examples are on the docs page._
 
 ### Slider · 11. Component Composition
 
@@ -6198,6 +6545,9 @@ A dual-thumb range built from two overlapping native range inputs sharing one tr
 | `onChange` | `(value: [number, number]) => void` | — | Called with the new `[low, high]` tuple whenever either thumb is moved; the consumer must store it back into `value`. |
 | `color` | `ColorName` | `"accent"` | Color of the filled range between the thumbs (default: "accent" — follows the theme accent). |
 | `showValue` | `boolean` | `false` | Shows the current "low – high" text below the slider (default: false). |
+| `onFocus` | `(e: FocusEvent<HTMLInputElement>) => void` | — | Called when the field gains focus — the native focus event (the web component's `focus` event, detail = the value). |
+| `onInput` | `(e: FormEvent<HTMLInputElement>) => void` | — | Called as the user edits the field — the native input event (the web component's `input` event, detail = the value). |
+| `onInvalid` | `(e: FormEvent<HTMLInputElement>) => void` | — | Called when the field fails validation — the native invalid event (the web component's `invalid` event, detail = the message). |
 | `className` | `string` | — | Extra CSS class(es) added to the root element, merged before `classNames.root`. |
 | `classNames` | `{ root?: string; track?: string; range?: string; thumb?: string; value?: string }` | — | Per-part class overrides — merged after (and win over) the built-in styling. |
 
@@ -6208,6 +6558,10 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
 | `RangeSlider` | `onChange` | `(value: [number, number]) => void` | `change` (CustomEvent, payload in `detail`) | Called with the new `[low, high]` tuple whenever either thumb is moved; the consumer must store it back into `value`. |
+| `RangeSlider` | `onFocus` | `(e: FocusEvent<HTMLInputElement>) => void` | `focus` (CustomEvent, payload in `detail`) | Called when the field gains focus — the native focus event (the web component's `focus` event, detail = the value). |
+| `RangeSlider` | `onInput` | `(e: FormEvent<HTMLInputElement>) => void` | `input` (CustomEvent, payload in `detail`) | Called as the user edits the field — the native input event (the web component's `input` event, detail = the value). |
+| `RangeSlider` | `onInvalid` | `(e: FormEvent<HTMLInputElement>) => void` | `invalid` (CustomEvent, payload in `detail`) | Called when the field fails validation — the native invalid event (the web component's `invalid` event, detail = the message). |
+| `RangeSlider` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
 
 ### Range Slider · 4. Variants
 
@@ -6379,6 +6733,9 @@ A text field that turns what you type into removable tags. Enter or a comma adds
 | `invalid` | `boolean` | `false` | Red border for error states (default: false). |
 | `disabled` | `boolean` | `false` | Disables the input and the remove buttons (default: false). |
 | `onChange` | `(tags: string[]) => void` | — | Called with the full list of tags whenever a tag is added or removed. |
+| `onFocus` | `(e: FocusEvent<HTMLInputElement>) => void` | — | Called when the field gains focus — the native focus event (the web component's `focus` event, detail = the value). |
+| `onInput` | `(e: FormEvent<HTMLInputElement>) => void` | — | Called as the user edits the field — the native input event (the web component's `input` event, detail = the value). |
+| `onInvalid` | `(e: FormEvent<HTMLInputElement>) => void` | — | Called when the field fails validation — the native invalid event (the web component's `invalid` event, detail = the message). |
 | `className` | `string` | — | Extra class name(s) appended to the root element. |
 | `classNames` | `{ root?: string; tag?: string; input?: string }` | — | Per-part class overrides — merged after (and win over) the built-in styling. |
 
@@ -6387,6 +6744,10 @@ A text field that turns what you type into removable tags. Enter or a comma adds
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
 | `TagInput` | `onChange` | `(tags: string[]) => void` | `change` (CustomEvent, payload in `detail`) | Called with the full list of tags whenever a tag is added or removed. |
+| `TagInput` | `onFocus` | `(e: FocusEvent<HTMLInputElement>) => void` | `focus` (CustomEvent, payload in `detail`) | Called when the field gains focus — the native focus event (the web component's `focus` event, detail = the value). |
+| `TagInput` | `onInput` | `(e: FormEvent<HTMLInputElement>) => void` | `input` (CustomEvent, payload in `detail`) | Called as the user edits the field — the native input event (the web component's `input` event, detail = the value). |
+| `TagInput` | `onInvalid` | `(e: FormEvent<HTMLInputElement>) => void` | `invalid` (CustomEvent, payload in `detail`) | Called when the field fails validation — the native invalid event (the web component's `invalid` event, detail = the message). |
+| `TagInput` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
 
 ### Tag Input · 4. Variants
 
@@ -6524,6 +6885,9 @@ A number field with − and + buttons, arrow-key stepping and min / max / precis
 | `invalid` | `boolean` | `false` | Red border for error states (default: false). |
 | `disabled` | `boolean` | `false` | Disables the field and its buttons (default: false). |
 | `onChange` | `(value: number \| undefined) => void` | — | Called with the new number (or undefined when the field is cleared) whenever it changes. |
+| `onFocus` | `(e: FocusEvent<HTMLInputElement>) => void` | — | Called when the field gains focus — the native focus event (the web component's `focus` event, detail = the value). |
+| `onInput` | `(e: FormEvent<HTMLInputElement>) => void` | — | Called as the user edits the field — the native input event (the web component's `input` event, detail = the value). |
+| `onInvalid` | `(e: FormEvent<HTMLInputElement>) => void` | — | Called when the field fails validation — the native invalid event (the web component's `invalid` event, detail = the message). |
 | `className` | `string` | — | Extra class name(s) appended to the root element. |
 | `classNames` | `{ root?: string; input?: string; button?: string }` | — | Per-part class overrides — merged after (and win over) the built-in styling. |
 
@@ -6532,6 +6896,10 @@ A number field with − and + buttons, arrow-key stepping and min / max / precis
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
 | `NumberInput` | `onChange` | `(value: number \| undefined) => void` | `change` (CustomEvent, payload in `detail`) | Called with the new number (or undefined when the field is cleared) whenever it changes. |
+| `NumberInput` | `onFocus` | `(e: FocusEvent<HTMLInputElement>) => void` | `focus` (CustomEvent, payload in `detail`) | Called when the field gains focus — the native focus event (the web component's `focus` event, detail = the value). |
+| `NumberInput` | `onInput` | `(e: FormEvent<HTMLInputElement>) => void` | `input` (CustomEvent, payload in `detail`) | Called as the user edits the field — the native input event (the web component's `input` event, detail = the value). |
+| `NumberInput` | `onInvalid` | `(e: FormEvent<HTMLInputElement>) => void` | `invalid` (CustomEvent, payload in `detail`) | Called when the field fails validation — the native invalid event (the web component's `invalid` event, detail = the message). |
+| `NumberInput` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
 
 ### Number Input · 4. Variants
 
@@ -6670,6 +7038,9 @@ One box per character for verification codes. Typing moves forward, Backspace mo
 | `disabled` | `boolean` | `false` | Disables every box (default: false). |
 | `onChange` | `(value: string) => void` | — | Called with the code so far whenever a character is typed, pasted or deleted. |
 | `onComplete` | `(value: string) => void` | — | Called once with the full code when every box is filled. |
+| `onFocus` | `(e: FocusEvent<HTMLInputElement>) => void` | — | Called when the field gains focus — the native focus event (the web component's `focus` event, detail = the value). |
+| `onInput` | `(e: FormEvent<HTMLInputElement>) => void` | — | Called as the user edits the field — the native input event (the web component's `input` event, detail = the value). |
+| `onInvalid` | `(e: FormEvent<HTMLInputElement>) => void` | — | Called when the field fails validation — the native invalid event (the web component's `invalid` event, detail = the message). |
 | `className` | `string` | — | Extra class name(s) appended to the root element. |
 | `classNames` | `{ root?: string; box?: string }` | — | Per-part class overrides — merged after (and win over) the built-in styling. |
 
@@ -6679,6 +7050,10 @@ One box per character for verification codes. Typing moves forward, Backspace mo
 | --- | --- | --- | --- | --- |
 | `OtpInput` | `onChange` | `(value: string) => void` | `change` (CustomEvent, payload in `detail`) | Called with the code so far whenever a character is typed, pasted or deleted. |
 | `OtpInput` | `onComplete` | `(value: string) => void` | `complete` (CustomEvent, payload in `detail`) | Called once with the full code when every box is filled. |
+| `OtpInput` | `onFocus` | `(e: FocusEvent<HTMLInputElement>) => void` | `focus` (CustomEvent, payload in `detail`) | Called when the field gains focus — the native focus event (the web component's `focus` event, detail = the value). |
+| `OtpInput` | `onInput` | `(e: FormEvent<HTMLInputElement>) => void` | `input` (CustomEvent, payload in `detail`) | Called as the user edits the field — the native input event (the web component's `input` event, detail = the value). |
+| `OtpInput` | `onInvalid` | `(e: FormEvent<HTMLInputElement>) => void` | `invalid` (CustomEvent, payload in `detail`) | Called when the field fails validation — the native invalid event (the web component's `invalid` event, detail = the message). |
+| `OtpInput` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
 
 ### OTP Input · 4. Variants
 
@@ -6817,6 +7192,7 @@ A row of stars for showing or giving a rating. Hover to preview, click to set (c
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
 | `Rating` | `onChange` | `(value: number) => void` | `change` (CustomEvent, payload in `detail`) | Called with the new rating when a star is chosen. Choosing the current rating again clears it to 0. |
+| `Rating` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
 
 ### Rating · 4. Variants
 
@@ -6945,6 +7321,9 @@ Pick a color from the system picker, a row of presets, or by typing a hex code.
 | `showInput` | `boolean` | `true` | Shows a text field for typing a hex code (default: true). |
 | `disabled` | `boolean` | `false` | Disables the picker (default: false). |
 | `onChange` | `(color: string) => void` | — | Called with the new "#rrggbb" color whenever it changes. |
+| `onFocus` | `(e: FocusEvent<HTMLInputElement>) => void` | — | Called when the field gains focus — the native focus event (the web component's `focus` event, detail = the value). |
+| `onInput` | `(e: FormEvent<HTMLInputElement>) => void` | — | Called as the user edits the field — the native input event (the web component's `input` event, detail = the value). |
+| `onInvalid` | `(e: FormEvent<HTMLInputElement>) => void` | — | Called when the field fails validation — the native invalid event (the web component's `invalid` event, detail = the message). |
 | `className` | `string` | — | Extra class name(s) appended to the root element. |
 | `classNames` | `{ root?: string; swatch?: string; input?: string }` | — | Per-part class overrides — merged after (and win over) the built-in styling. |
 
@@ -6953,6 +7332,10 @@ Pick a color from the system picker, a row of presets, or by typing a hex code.
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
 | `ColorPicker` | `onChange` | `(color: string) => void` | `change` (CustomEvent, payload in `detail`) | Called with the new "#rrggbb" color whenever it changes. |
+| `ColorPicker` | `onFocus` | `(e: FocusEvent<HTMLInputElement>) => void` | `focus` (CustomEvent, payload in `detail`) | Called when the field gains focus — the native focus event (the web component's `focus` event, detail = the value). |
+| `ColorPicker` | `onInput` | `(e: FormEvent<HTMLInputElement>) => void` | `input` (CustomEvent, payload in `detail`) | Called as the user edits the field — the native input event (the web component's `input` event, detail = the value). |
+| `ColorPicker` | `onInvalid` | `(e: FormEvent<HTMLInputElement>) => void` | `invalid` (CustomEvent, payload in `detail`) | Called when the field fails validation — the native invalid event (the web component's `invalid` event, detail = the message). |
+| `ColorPicker` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
 
 ### Color Picker · 4. Variants
 
@@ -7078,6 +7461,7 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
 | `Modal` | `onClose` | `() => void` | `close` (CustomEvent, payload in `detail`) | Called with no arguments when the user presses Escape, clicks the overlay, or clicks the close button; the consumer should set `open` to false. |
+| `Modal` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
 
 ### Modal / Dialog · 4. Variants
 
@@ -7194,6 +7578,7 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
 | `Drawer` | `onClose` | `() => void` | `close` (CustomEvent, payload in `detail`) | Fires when the user requests closing (overlay click or close button) — the consumer should set `open` to false. |
+| `Drawer` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
 
 ### Drawer · 4. Variants
 
@@ -7368,6 +7753,7 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
 | `Sheet` | `onClose` | `() => void` | `close` (CustomEvent, payload in `detail`) | Called with no arguments when the user presses Escape, clicks the overlay, or clicks the close button; the consumer should set `open` to false. |
+| `Sheet` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
 
 ### Sheet · 4. Variants
 
@@ -7527,6 +7913,8 @@ Click-triggered floating content, anchored to a trigger element — closes on ou
 | `content` **required** | `ReactNode` | — | Content rendered inside the popover panel while it is open. |
 | `children` **required** | `ReactNode` | — | The trigger element; clicking it toggles the popover. |
 | `position` | `PopoverPosition` | `"bottom"` | Which side of the trigger the panel appears on: "top", "bottom" (default), "left" or "right". |
+| `open` | `boolean` | — | Opens or closes it from outside — set it whenever you want; the user can still toggle it, so it works with nothing wired up. Pair with `onOpenChange` for two-way binding. |
+| `onOpenChange` | `(open: boolean) => void` | — | Called with the new open state whenever it opens or closes — a click, outside click, Escape (the web component's `openchange` / `update` event, detail = true \| false). |
 | `className` | `string` | — | Extra CSS class(es) added to the root element, merged before `classNames.root`. |
 | `classNames` | `{ root?: string; panel?: string; }` | — | Per-part class overrides — merged after (and win over) the built-in styling. |
 
@@ -7534,7 +7922,10 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 
 ### Popover · 3. Events
 
-_No component-specific events._ Native DOM events (`click`, `input`, `focus`…) bubble from the rendered element as usual.
+| Component | React callback | Signature | Web Component event | Description |
+| --- | --- | --- | --- | --- |
+| `Popover` | `onOpenChange` | `(open: boolean) => void` | `openchange` (CustomEvent, payload in `detail`) | Called with the new open state whenever it opens or closes — a click, outside click, Escape (the web component's `openchange` / `update` event, detail = true \| false). |
+| `Popover` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
 
 ### Popover · 4. Variants
 
@@ -7552,7 +7943,9 @@ _No size prop — it sizes to its container / content (see `className` to constr
 
 ### Popover · 7. Component States
 
-_No dedicated state props — the visual states are default, hover, focus-visible and active._
+| Component | Prop | Type | Default | Effect |
+| --- | --- | --- | --- | --- |
+| `Popover` | `open` | `boolean` | — | Opens or closes it from outside — set it whenever you want; the user can still toggle it, so it works with nothing wired up. Pair with `onOpenChange` for two-way binding. |
 
 Standard visual states: default · hover · focus-visible (ring) · active/pressed.
 
@@ -7571,6 +7964,7 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 | React prop | HTML attribute | Attribute type |
 | --- | --- | --- |
+| `open` | `open` | boolean |
 | `content` | `content` | string |
 | `position` | `position` | string |
 | `transition` | `transition` | string |
@@ -7702,6 +8096,8 @@ A trigger-anchored menu of actions — closes on selection, outside click, or Es
 | `trigger` **required** | `ReactNode` | — | Element that toggles the menu when clicked. |
 | `align` | `DropdownMenuAlign` | `"start"` | Which edge of the trigger the menu aligns to: "start" (default) \| "end". |
 | `children` | `ReactNode` | — | Menu content, typically DropdownMenuItem elements; closes on item click, outside click, or Escape. |
+| `open` | `boolean` | — | Opens or closes it from outside — set it whenever you want; the user can still toggle it, so it works with nothing wired up. Pair with `onOpenChange` for two-way binding. |
+| `onOpenChange` | `(open: boolean) => void` | — | Called with the new open state whenever it opens or closes — a click, outside click, Escape (the web component's `openchange` / `update` event, detail = true \| false). |
 | `className` | `string` | — | Extra class name(s) applied to the root element. |
 | `classNames` | `{ root?: string; menu?: string; }` | — | Per-part class overrides — merged after (and win over) the built-in styling. |
 
@@ -7723,6 +8119,8 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
+| `DropdownMenu` | `onOpenChange` | `(open: boolean) => void` | `openchange` (CustomEvent, payload in `detail`) | Called with the new open state whenever it opens or closes — a click, outside click, Escape (the web component's `openchange` / `update` event, detail = true \| false). |
+| `DropdownMenu` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
 | `DropdownMenuItem` | `onClick` | `() => void` | — (React only) | Fires when the item is clicked (never for a disabled item); the parent menu closes afterwards. |
 
 ### Dropdown Menu · 4. Variants
@@ -7743,6 +8141,7 @@ _No size prop — it sizes to its container / content (see `className` to constr
 
 | Component | Prop | Type | Default | Effect |
 | --- | --- | --- | --- | --- |
+| `DropdownMenu` | `open` | `boolean` | — | Opens or closes it from outside — set it whenever you want; the user can still toggle it, so it works with nothing wired up. Pair with `onOpenChange` for two-way binding. |
 | `DropdownMenuItem` | `disabled` | `boolean` | `false` | Disables the item so it can't be clicked (default: false). |
 
 Standard visual states: default · hover · focus-visible (ring) · active/pressed · disabled (dimmed, not focusable).
@@ -7763,6 +8162,7 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 | React prop | HTML attribute | Attribute type |
 | --- | --- | --- |
+| `open` | `open` | boolean |
 | `align` | `align` | string |
 | `transition` | `transition` | string |
 | `transitionDuration` | `transition-duration` | number |
@@ -7910,6 +8310,8 @@ Right-click anywhere on the target area to open a menu at the cursor — closes 
 | --- | --- | --- | --- |
 | `children` **required** | `ReactNode` | — | The area that opens the menu when right-clicked (the trigger region). |
 | `menu` | `ReactNode` | — | Menu content (typically DropdownMenuItem elements) shown at the pointer position on right-click; closes on item click, outside click, or Escape. |
+| `open` | `boolean` | — | Opens or closes it from outside — set it whenever you want; the user can still open / close it, so it works with nothing wired up. Pair with `onOpenChange` for two-way binding. |
+| `onOpenChange` | `(open: boolean) => void` | — | Called with the new open state whenever it opens or closes — right-click, outside click, Escape (the web component's `openchange` / `update` event, detail = true \| false). |
 | `className` | `string` | — | Extra class name(s) applied to the root element. |
 | `classNames` | `{ root?: string; menu?: string; }` | — | Per-part class overrides — merged after (and win over) the built-in styling. |
 
@@ -7917,7 +8319,10 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 
 ### Context Menu · 3. Events
 
-_No component-specific events._ Native DOM events (`click`, `input`, `focus`…) bubble from the rendered element as usual.
+| Component | React callback | Signature | Web Component event | Description |
+| --- | --- | --- | --- | --- |
+| `ContextMenu` | `onOpenChange` | `(open: boolean) => void` | `openchange` (CustomEvent, payload in `detail`) | Called with the new open state whenever it opens or closes — right-click, outside click, Escape (the web component's `openchange` / `update` event, detail = true \| false). |
+| `ContextMenu` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
 
 ### Context Menu · 4. Variants
 
@@ -7933,7 +8338,9 @@ _No size prop — it sizes to its container / content (see `className` to constr
 
 ### Context Menu · 7. Component States
 
-_No dedicated state props — the visual states are default, hover, focus-visible and active._
+| Component | Prop | Type | Default | Effect |
+| --- | --- | --- | --- | --- |
+| `ContextMenu` | `open` | `boolean` | — | Opens or closes it from outside — set it whenever you want; the user can still open / close it, so it works with nothing wired up. Pair with `onOpenChange` for two-way binding. |
 
 Standard visual states: default · hover · focus-visible (ring) · active/pressed.
 
@@ -7952,6 +8359,7 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 | React prop | HTML attribute | Attribute type |
 | --- | --- | --- |
+| `open` | `open` | boolean |
 | `transition` | `transition` | string |
 | `transitionDuration` | `transition-duration` | number |
 | `transitionDelay` | `transition-delay` | number |
@@ -8115,6 +8523,7 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
 | `CommandMenu` | `onClose` | `() => void` | `close` (CustomEvent, payload in `detail`) | Called with no arguments when the menu should close: on Escape, on backdrop click, or after an item is selected. |
+| `CommandMenu` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
 
 ### Command Menu · 4. Variants
 
@@ -8296,6 +8705,7 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 | --- | --- | --- | --- | --- |
 | `AlertDialog` | `onClose` | `() => void` | `close` (CustomEvent, payload in `detail`) | Called with no arguments when the dialog should close: on Cancel, on Confirm (after `onConfirm`), on overlay click, or on Escape. |
 | `AlertDialog` | `onConfirm` | `() => void` | `confirm` (CustomEvent, payload in `detail`) | Called with no arguments when the confirm button is clicked, just before `onClose` fires. |
+| `AlertDialog` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
 
 ### Alert Dialog · 4. Variants
 
@@ -8916,6 +9326,7 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
 | `Toast` | `onClose` | `() => void` | `close` (CustomEvent, payload in `detail`) | Called with no arguments when the toast's close button is pressed or its `duration` elapses — set `open` to false here. |
+| `Toast` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
 
 ### Toast · 4. Variants
 
@@ -10730,6 +11141,7 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 | `Sidebar` | `onCollapsedChange` | `(collapsed: boolean) => void` | `collapsedchange` (CustomEvent, payload in `detail`) | Called whenever the collapsed state changes — whether toggled by the built-in button in uncontrolled mode, or requested while `collapsed` is a controlled prop. Optional either way; only needed if something outside `Sidebar` cares about the current state. |
 | `Sidebar` | `onActiveItemChange` | `(item: SidebarMenuItemSpec) => void` | `activeitemchange` (CustomEvent, payload in `detail`) | Called with the full `items` row object whenever the active row changes — a click, a URL match on mount/back-forward-navigation, or a row's `active` field changing to point elsewhere (see `SidebarMenuItemSpec.active`). Use this to read which item is active without tracking it yourself, e.g. to drive your own router's navigation or to sync active state elsewhere in your app. Not called for rows composed directly via `children` (only the data-driven `items` shortcut has a "current item" concept). |
 | `Sidebar` | `onNavigate` | `(path: string, item: SidebarMenuItemSpec) => void` | — (React only) | Called with a row's `path` when it is clicked, so your router can navigate without a page reload (e.g. React Router's `navigate`). Without it, `Sidebar` changes the URL itself with `history.pushState` and fires a `popstate` event, which routers that watch the history pick up — still no reload. Modified clicks (Ctrl/Cmd/Shift, middle button) and paths on another origin keep the browser's normal link behaviour. |
+| `Sidebar` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
 | `SidebarMenuItem` | `onClick` | `(event: React.MouseEvent<HTMLElement>) => void` | — (React only) | Called when the row is clicked, with the click event (not called while `disabled`). |
 
 ### Sidebar · 4. Variants
@@ -11760,6 +12172,7 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 | --- | --- | --- | --- | --- |
 | `NavigationMenu` | `onActiveItemChange` | `(item: NavigationMenuItem) => void` | `activeitemchange` (CustomEvent, payload in `detail`) | Called with the full item whenever the active item changes — a click, a URL match on mount/back-forward navigation, or an item's `active` field changing to point elsewhere. Same as Sidebar / Navbar. |
 | `NavigationMenu` | `onChange` | `(index: number, item: NavigationMenuItem) => void` | `change` (CustomEvent, payload in `detail`) | Called whenever a (non-disabled) item is clicked, with its index and data. |
+| `NavigationMenu` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
 
 ### Navigation Menu · 4. Variants
 
@@ -11979,6 +12392,7 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
 | `BottomNavigation` | `onActiveItemChange` | `(item: BottomNavigationItem) => void` | `activeitemchange` (CustomEvent, payload in `detail`) | Called with the full item whenever the active tab changes — a click, a URL match on mount/back-forward navigation, or an item's `active` field changing to point elsewhere. |
+| `BottomNavigation` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
 
 ### Bottom Navigation · 4. Variants
 
@@ -12180,6 +12594,8 @@ A self-contained, data-driven tabbed panel.
 | --- | --- | --- | --- |
 | `tabs` **required** | `TabItem[]` | — | The tabs, in order — each has a `label`, its panel `content`, and optional `disabled`. |
 | `defaultIndex` | `number` | `0` | 0-indexed tab selected on first render (default: 0); the component tracks the selection itself afterwards (uncontrolled). |
+| `index` | `number` | — | The selected tab (0-indexed) — set it to select a tab from outside; the component also keeps its own selection, so a tab click works with nothing wired up. Pair with `onChange` for two-way binding. |
+| `onChange` | `(index: number) => void` | — | Called with the new tab index when the user selects a tab (the web component's `change` / `update` event, detail = the index). |
 | `color` | `ColorName` | `"accent"` | Accent color of the active tab (default: "accent" — follows the theme accent). |
 | `className` | `string` | — | Extra class name(s) appended to the root element. |
 | `classNames` | `{ root?: string; list?: string; tab?: string; activeTab?: string; panel?: string; }` | — | Per-part class overrides — merged after (and win over) the built-in styling. |
@@ -12188,7 +12604,10 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 
 ### Tabs · 3. Events
 
-_No component-specific events._ Native DOM events (`click`, `input`, `focus`…) bubble from the rendered element as usual.
+| Component | React callback | Signature | Web Component event | Description |
+| --- | --- | --- | --- | --- |
+| `Tabs` | `onChange` | `(index: number) => void` | `change` (CustomEvent, payload in `detail`) | Called with the new tab index when the user selects a tab (the web component's `change` / `update` event, detail = the index). |
+| `Tabs` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
 
 ### Tabs · 4. Variants
 
@@ -12224,6 +12643,7 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 | React prop | HTML attribute | Attribute type |
 | --- | --- | --- |
+| `index` | `index` | number |
 | `tabs` | `tabs` | json (JSON string or object property) |
 | `defaultIndex` | `default-index` | number |
 | `color` | `color` | string |
@@ -12403,6 +12823,7 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
 | `Stepper` | `onStepChange` | `(index: number, step: StepperStep \| undefined) => void` | `stepchange` (CustomEvent, payload in `detail`) | Called with the new index and step whenever the current step changes (a click, Back / Next, `ref`, or the `currentStep` prop). `index === steps.length` means every step is complete. |
+| `Stepper` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
 
 ### Stepper · 4. Variants
 
@@ -12899,6 +13320,7 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
 | `Pagination` | `onPageChange` | `(page: number) => void` | `pagechange` (CustomEvent, payload in `detail`) | Called with the new 1-based page number when a page button, or the previous/next button, is clicked. |
+| `Pagination` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
 
 ### Pagination · 4. Variants
 
@@ -13347,11 +13769,11 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
-| `ThemeSwitcher` | `onModeChange` | `(mode: ThemeMode) => void` | — (React only) | Called when light/dark is picked (default: the `ThemeProvider`'s `setMode`). |
-| `ThemeSwitcher` | `onAccentChange` | `(accent: Accent) => void` | — (React only) | Called when an accent is picked (default: the `ThemeProvider`'s `setAccent`). |
-| `ThemeSwitcher` | `onActiveVariantChange` | `(variant: ActiveVariant) => void` | — (React only) | Called when an active-item style is picked (default: the `ThemeProvider`'s `setActiveVariant`). |
-| `ThemeSwitcher` | `onDesignChange` | `(design: DesignName) => void` | — (React only) | Called when a design is picked (default: the `ThemeProvider`'s `setDesign`). |
-| `ThemeSwitcher` | `onOpenChange` | `(open: boolean) => void` | — (React only) | Called when the menu asks to open or close (the button, a click outside, Escape). |
+| `ThemeSwitcher` | `onModeChange` | `(mode: ThemeMode) => void` | `modechange` (CustomEvent, payload in `detail`) | Called when light/dark is picked (default: the `ThemeProvider`'s `setMode`). |
+| `ThemeSwitcher` | `onAccentChange` | `(accent: Accent) => void` | `accentchange` (CustomEvent, payload in `detail`) | Called when an accent is picked (default: the `ThemeProvider`'s `setAccent`). |
+| `ThemeSwitcher` | `onActiveVariantChange` | `(variant: ActiveVariant) => void` | `activevariantchange` (CustomEvent, payload in `detail`) | Called when an active-item style is picked (default: the `ThemeProvider`'s `setActiveVariant`). |
+| `ThemeSwitcher` | `onDesignChange` | `(design: DesignName) => void` | `designchange` (CustomEvent, payload in `detail`) | Called when a design is picked (default: the `ThemeProvider`'s `setDesign`). |
+| `ThemeSwitcher` | `onOpenChange` | `(open: boolean) => void` | `openchange` (CustomEvent, payload in `detail`) | Called when the menu asks to open or close (the button, a click outside, Escape). |
 
 ### Theme Switcher · 4. Variants
 
@@ -13394,6 +13816,11 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 | React prop | HTML attribute | Attribute type |
 | --- | --- | --- |
+| `open` | `open` | boolean |
+| `mode` | `mode` | string |
+| `accent` | `accent` | string |
+| `activeVariant` | `active-variant` | string |
+| `design` | `design` | string |
 | `align` | `align` | string |
 | `showDesign` | `show-design` | boolean |
 | `showActiveItems` | `show-active-items` | boolean |
@@ -13728,6 +14155,7 @@ total: { value: 1249.5, currency: "EUR" }      // → €1,249.50
 | `Table` | `onViewChange` | `(view: TableView) => void` | `viewchange` (CustomEvent, payload in `detail`) | Called with "table" or "grid" when the view is switched. |
 | `Table` | `onAction` | `(action: TableAction, row: T) => void` | `action` (CustomEvent, payload in `detail`) | Called when a row action is clicked, with the action and its row. For built-ins it runs after the change: "delete" gets the removed row, "duplicate" gets the original row, and "edit" fires on Save with the updated row (Cancel and starting an edit don't fire it). |
 | `Table` | `onDataChange` | `(rows: T[]) => void` | `datachange` (CustomEvent, payload in `detail`) | Called with the updated rows after a built-in delete, duplicate or edit-save. |
+| `Table` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
 
 ### Tables · 4. Variants
 
@@ -14727,6 +15155,7 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 | `Calendar` | `onClose` | `() => void` | `close` (CustomEvent, payload in `detail`) | Called when the overlay should close (backdrop click, Escape, Cancel or Select). |
 | `Calendar` | `onConfirm` | `(date: string \| undefined, range?: CalendarRange) => void` | `confirm` (CustomEvent, payload in `detail`) | "modal" footer: called when Select is pressed, with the selected date — or, in range mode, `undefined` and the range as the second argument (the Web Component's `confirm` event carries only the first argument, so read the range from the last `rangeselect` event there). |
 | `Calendar` | `onCancel` | `() => void` | `cancel` (CustomEvent, payload in `detail`) | "modal" footer: called when Cancel is pressed. |
+| `Calendar` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
 
 ### Calendar · 4. Variants
 
@@ -17189,190 +17618,6 @@ import { PlanBilling } from "lojee-ui";
 - Recolor with `color`; restyle globally with the theme tokens or `data-design="clay"`.
 - Motion: `transition`, `transitionDuration`, `transitionDelay`, `hoverEffect`.
 
-## Password Input
-
-*Category: User / Account.* Exports: `PasswordInput`.
-
-### Password Input · 1. Component Overview
-
-A password field with a show/hide toggle button.
-
-- React: `import { PasswordInput } from "lojee-ui"`
-- Web Component: `<l-password-input>` (after `import "lojee-ui/elements"`)
-
-### Password Input · 2. Props and Interfaces
-
-#### `PasswordInput`
-
-| Prop | Type | Default | Description |
-| --- | --- | --- | --- |
-| `size` | `PasswordInputSize` | `"md"` | Control height and text size: "sm", "md" (default) or "lg". |
-| `variant` | `InputVariant` | `"outline"` | Look of the field: "outline" \| "filled" \| "underline" \| "soft" (default: "outline"). |
-| `invalid` | `boolean` | `false` | Marks the field as invalid — rose border/focus ring and `aria-invalid` (default: false). |
-| `className` | `string` | — | Extra CSS class(es) added to the root element, merged before `classNames.root`. |
-| `classNames` | `{ root?: string; input?: string; toggleButton?: string }` | — | Per-part class overrides — merged after (and win over) the built-in styling. |
-
-Also accepts the shared motion props `transition`, `transitionDuration`, `transitionDelay`, `hoverEffect` — see §1.7.
-
-**Native attributes:** these components also accept every standard attribute of the underlying `<input>` (e.g. `id`, `name`, `value`, `defaultValue`, `placeholder`, `disabled`, `required`, `readOnly`, `min`/`max`/`step`, `aria-*`, `onChange`/`onFocus`/`onBlur`) — they are spread onto it.
-
-### Password Input · 3. Events
-
-_No component-specific events._ Native DOM events (`click`, `input`, `focus`…) bubble from the rendered element as usual.
-
-### Password Input · 4. Variants
-
-| Component | Prop | Values | Default | Notes |
-| --- | --- | --- | --- | --- |
-| `PasswordInput` | `variant` | `outline`, `filled`, `underline`, `soft` | `"outline"` | Look of the field: "outline" \| "filled" \| "underline" \| "soft" (default: "outline"). |
-
-### Password Input · 5. Colors and Theming
-
-Follows the global theme (§1.4): it recolors with the accent, switches with light / dark mode, and takes the Claymorphism look when `data-design="clay"` is set. It has no color prop of its own.
-
-### Password Input · 6. Sizes
-
-| Component | Prop | Values | Default | Notes |
-| --- | --- | --- | --- | --- |
-| `PasswordInput` | `size` | `sm`, `md`, `lg` | `"md"` | Control height and text size: "sm", "md" (default) or "lg". |
-
-### Password Input · 7. Component States
-
-Native states also work: `disabled`, `required`, `readOnly` (spread onto the underlying element).
-
-| Component | Prop | Type | Default | Effect |
-| --- | --- | --- | --- | --- |
-| `PasswordInput` | `invalid` | `boolean` | `false` | Marks the field as invalid — rose border/focus ring and `aria-invalid` (default: false). |
-
-Standard visual states: default · hover · focus-visible (ring) · active/pressed · invalid (rose border/ring, `aria-invalid`).
-
-### Password Input · 8. Slots / Children / Content
-
-Web Component extras (slots and plain HTML attributes accepted by the `<l-*>` tag in addition to the props above):
-
-| Component | Name | Type | Description |
-| --- | --- | --- | --- |
-| `PasswordInput` | `disabled` | `boolean` | Standard HTML attribute, passed straight to the underlying control. |
-
-In a Web Component, the element's light-DOM text/children go into the default slot; a prop that accepts a node (e.g. `header`, `footer`) can usually also be filled with a child carrying `slot="<name>"`.
-
-### Password Input · 9. Framework Interfaces
-
-**`PasswordInput`** → `<l-password-input>`
-
-| React prop | HTML attribute | Attribute type |
-| --- | --- | --- |
-| `size` | `size` | string |
-| `variant` | `variant` | string |
-| `invalid` | `invalid` | boolean |
-| `disabled` | `disabled` | boolean |
-| `transition` | `transition` | string |
-| `transitionDuration` | `transition-duration` | number |
-| `transitionDelay` | `transition-delay` | number |
-| `hoverEffect` | `hover-effect` | string |
-
-Minimal use in each target (from the first docs example, *Basic*):
-
-**React**
-```tsx
-const [password, setPassword] = useState("");
-
-<PasswordInput value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
-```
-**Plain HTML / JavaScript**
-```html
-<l-PasswordInput id="password" placeholder="Password"></l-PasswordInput>
-
-<script type="module">
-  import "lojee-ui/elements";
-
-  const password = document.getElementById("password");
-  password.value = "hunter2";
-  password.addEventListener("input", (e) => { /* e.target.value */ });
-</script>
-```
-Vue and Angular use the same `<l-*>` tag and attributes — see the framework templates in §1.3.
-
-### Password Input · 10. Complete Usage Examples
-
-#### Basic
-
-Click the eye icon to reveal the value — internal state, no extra prop needed.
-
-```tsx
-const [password, setPassword] = useState("");
-
-<PasswordInput value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
-```
-
-#### Sizes
-
-sm, md, lg.
-
-```tsx
-<PasswordInput size="sm" placeholder="Small" />
-<PasswordInput size="md" placeholder="Medium" />
-<PasswordInput size="lg" placeholder="Large" />
-```
-
-#### Invalid
-
-Same red-border affordance as every other form field in this library.
-
-```tsx
-<PasswordInput invalid defaultValue="short" placeholder="Password" />
-```
-
-#### Disabled
-
-Same disabled affordance as native inputs.
-
-```tsx
-<PasswordInput disabled placeholder="Disabled" />
-```
-
-#### Transitions
-
-Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`) and hover effects via `hoverEffect`. They play on mount — reload the page, or use Replay in the playground.
-
-```tsx
-<PasswordInput transition="fade" placeholder="Password" />
-<PasswordInput transition="slide-up" placeholder="Password" />
-<PasswordInput transition="slide-right" transitionDelay={100} placeholder="Password" />
-<PasswordInput transition="zoom" placeholder="Password" />
-<PasswordInput transition="flip" placeholder="Password" />
-<PasswordInput transition="blur" placeholder="Password" />
-<PasswordInput transition="bounce" placeholder="Password" />
-<PasswordInput transition="drop" transitionDuration={700} placeholder="Password" />
-
-<PasswordInput hoverEffect="lift" placeholder="Password" />
-<PasswordInput hoverEffect="glow" placeholder="Password" />
-<PasswordInput hoverEffect="ring" placeholder="Password" />
-```
-
-### Password Input · 11. Component Composition
-
-- Standalone: drop it into any layout (Card, Section, Grid, Container, App shell) or inside forms and overlays.
-
-### Password Input · 12. Accessibility
-
-- ARIA roles used: none beyond native element semantics.
-- ARIA attributes set by the component: `aria-invalid`, `aria-label`, `aria-pressed`.
-- Keyboard: native keyboard behavior of the underlying element (Tab to focus, Enter / Space to activate).
-- Focus: visible focus ring (`focus-visible`).
-- Motion: respects `prefers-reduced-motion`.
-
-### Password Input · 13. Responsive Behavior
-
-- Breakpoint modifiers in its source: `lg`, `md`, `sm`.
-- Mobile-first; touch targets keep a comfortable minimum size.
-
-### Password Input · 14. Customization
-
-- `className` adds classes to the root; `classNames` overrides individual parts — `PasswordInput`: `root`, `input`, `toggleButton`. Conflicting Tailwind utilities passed here win (tailwind-merge).
-- Recolor with the theme accent; restyle globally with the theme tokens or `data-design="clay"`.
-- Motion: `transition`, `transitionDuration`, `transitionDelay`, `hoverEffect`.
-
 ---
 
 # Part 3 — Index and quick lookups
@@ -17413,6 +17658,7 @@ Enter transitions via `transition` (with `transitionDuration` / `transitionDelay
 | [Time Picker](#time-picker) | Forms & Inputs | `TimePicker` | `<l-time-picker>` |
 | [File Upload](#file-upload) | Forms & Inputs | `FileUpload` | `<l-file-upload>` |
 | [Search Input](#search-input) | Forms & Inputs | `SearchInput` | `<l-search-input>` |
+| [Password Input](#password-input) | Forms & Inputs | `PasswordInput` | `<l-password-input>` |
 | [Slider](#slider) | Forms & Inputs | `Slider` | `<l-slider>` |
 | [Range Slider](#range-slider) | Forms & Inputs | `RangeSlider` | `<l-range-slider>` |
 | [Tag Input](#tag-input) | Forms & Inputs | `TagInput` | `<l-tag-input>` |
@@ -17472,7 +17718,6 @@ Enter transitions via `transition` (with `transitionDuration` / `transitionDelay
 | [Account Settings](#account-settings) | User / Account | `AccountSettings` | `<l-account-settings>` |
 | [Profile Settings](#profile-settings) | User / Account | `ProfileSettings` | `<l-profile-settings>` |
 | [Plan & Billing](#plan-billing) | User / Account | `PlanBilling` | `<l-plan-billing>` |
-| [Password Input](#password-input) | User / Account | `PasswordInput` | `<l-password-input>` |
 
 ## 3.2 Web Component events
 
@@ -17480,6 +17725,10 @@ Enter transitions via `transition` (with `transitionDuration` / `transitionDelay
 | --- | --- | --- | --- |
 | Buttons | `l-split-button` | `menuclick` | `onMenuClick` |
 | Dividers | `l-divider` | `resize` | `onResize` |
+| Accordions | `l-accordion-item` | `openchange` | `onOpenChange` |
+| Accordions | `l-accordion-item` | `update` | `onUpdate` |
+| Carousels | `l-carousel` | `change` | `onChange` |
+| Carousels | `l-carousel` | `update` | `onUpdate` |
 | Images | `l-image` | `load` | `onLoad` |
 | Images | `l-image` | `error` | `onError` |
 | Videos | `l-video` | `play` | `onPlay` |
@@ -17490,32 +17739,119 @@ Enter transitions via `transition` (with `transitionDuration` / `transitionDelay
 | Code Snippet | `l-copy-button` | `copy` | `onCopy` |
 | Iframe | `l-iframe` | `load` | `onLoad` |
 | Chat Box | `l-chat-box` | `send` | `onSend` |
+| Input | `l-input` | `input` | `onInput` |
+| Input | `l-input` | `focus` | `onFocus` |
+| Input | `l-input` | `invalid` | `onInvalid` |
+| Input | `l-input` | `update` | `onUpdate` |
+| Textarea | `l-textarea` | `input` | `onInput` |
+| Textarea | `l-textarea` | `focus` | `onFocus` |
+| Textarea | `l-textarea` | `invalid` | `onInvalid` |
+| Textarea | `l-textarea` | `update` | `onUpdate` |
+| Checkbox | `l-checkbox` | `input` | `onInput` |
+| Checkbox | `l-checkbox` | `focus` | `onFocus` |
+| Checkbox | `l-checkbox` | `invalid` | `onInvalid` |
+| Checkbox | `l-checkbox` | `update` | `onUpdate` |
+| Radio Group | `l-radio` | `input` | `onInput` |
+| Radio Group | `l-radio` | `focus` | `onFocus` |
+| Radio Group | `l-radio` | `invalid` | `onInvalid` |
+| Radio Group | `l-radio` | `update` | `onUpdate` |
+| Switch / Toggle | `l-switch` | `input` | `onInput` |
+| Switch / Toggle | `l-switch` | `focus` | `onFocus` |
+| Switch / Toggle | `l-switch` | `invalid` | `onInvalid` |
+| Switch / Toggle | `l-switch` | `update` | `onUpdate` |
+| Select | `l-select` | `update` | `onUpdate` |
+| Select | `l-select` | `input` | `onInput` |
+| Select | `l-select` | `focus` | `onFocus` |
+| Select | `l-select` | `invalid` | `onInvalid` |
 | Multi Select | `l-multi-select` | `change` | `onChange` |
+| Multi Select | `l-multi-select` | `update` | `onUpdate` |
 | Combobox | `l-combobox` | `change` | `onChange` |
+| Combobox | `l-combobox` | `focus` | `onFocus` |
+| Combobox | `l-combobox` | `input` | `onInput` |
+| Combobox | `l-combobox` | `invalid` | `onInvalid` |
+| Combobox | `l-combobox` | `update` | `onUpdate` |
+| Date Picker | `l-date-picker` | `input` | `onInput` |
+| Date Picker | `l-date-picker` | `focus` | `onFocus` |
+| Date Picker | `l-date-picker` | `invalid` | `onInvalid` |
 | Date Picker | `l-date-picker` | `clear` | `onClear` |
+| Date Picker | `l-date-picker` | `update` | `onUpdate` |
 | Date Picker | `l-date-range-picker` | `startchange` | `onStartChange` |
 | Date Picker | `l-date-range-picker` | `endchange` | `onEndChange` |
+| Time Picker | `l-time-picker` | `input` | `onInput` |
+| Time Picker | `l-time-picker` | `focus` | `onFocus` |
+| Time Picker | `l-time-picker` | `invalid` | `onInvalid` |
+| Time Picker | `l-time-picker` | `update` | `onUpdate` |
 | File Upload | `l-file-upload` | `filesselected` | `onFilesSelected` |
+| File Upload | `l-file-upload` | `update` | `onUpdate` |
+| File Upload | `l-file-upload` | `input` | `onInput` |
+| File Upload | `l-file-upload` | `focus` | `onFocus` |
+| File Upload | `l-file-upload` | `invalid` | `onInvalid` |
+| Search Input | `l-search-input` | `input` | `onInput` |
+| Search Input | `l-search-input` | `focus` | `onFocus` |
+| Search Input | `l-search-input` | `invalid` | `onInvalid` |
 | Search Input | `l-search-input` | `clear` | `onClear` |
+| Search Input | `l-search-input` | `update` | `onUpdate` |
+| Password Input | `l-password-input` | `input` | `onInput` |
+| Password Input | `l-password-input` | `focus` | `onFocus` |
+| Password Input | `l-password-input` | `invalid` | `onInvalid` |
+| Password Input | `l-password-input` | `update` | `onUpdate` |
+| Slider | `l-slider` | `input` | `onInput` |
+| Slider | `l-slider` | `focus` | `onFocus` |
+| Slider | `l-slider` | `invalid` | `onInvalid` |
+| Slider | `l-slider` | `update` | `onUpdate` |
 | Range Slider | `l-range-slider` | `change` | `onChange` |
+| Range Slider | `l-range-slider` | `focus` | `onFocus` |
+| Range Slider | `l-range-slider` | `input` | `onInput` |
+| Range Slider | `l-range-slider` | `invalid` | `onInvalid` |
+| Range Slider | `l-range-slider` | `update` | `onUpdate` |
 | Tag Input | `l-tag-input` | `change` | `onChange` |
+| Tag Input | `l-tag-input` | `focus` | `onFocus` |
+| Tag Input | `l-tag-input` | `input` | `onInput` |
+| Tag Input | `l-tag-input` | `invalid` | `onInvalid` |
+| Tag Input | `l-tag-input` | `update` | `onUpdate` |
 | Number Input | `l-number-input` | `change` | `onChange` |
+| Number Input | `l-number-input` | `focus` | `onFocus` |
+| Number Input | `l-number-input` | `input` | `onInput` |
+| Number Input | `l-number-input` | `invalid` | `onInvalid` |
+| Number Input | `l-number-input` | `update` | `onUpdate` |
 | OTP Input | `l-otp-input` | `change` | `onChange` |
 | OTP Input | `l-otp-input` | `complete` | `onComplete` |
+| OTP Input | `l-otp-input` | `focus` | `onFocus` |
+| OTP Input | `l-otp-input` | `input` | `onInput` |
+| OTP Input | `l-otp-input` | `invalid` | `onInvalid` |
+| OTP Input | `l-otp-input` | `update` | `onUpdate` |
 | Rating | `l-rating` | `change` | `onChange` |
+| Rating | `l-rating` | `update` | `onUpdate` |
 | Color Picker | `l-color-picker` | `change` | `onChange` |
+| Color Picker | `l-color-picker` | `focus` | `onFocus` |
+| Color Picker | `l-color-picker` | `input` | `onInput` |
+| Color Picker | `l-color-picker` | `invalid` | `onInvalid` |
+| Color Picker | `l-color-picker` | `update` | `onUpdate` |
 | Modal / Dialog | `l-modal` | `close` | `onClose` |
+| Modal / Dialog | `l-modal` | `update` | `onUpdate` |
 | Drawer | `l-drawer` | `close` | `onClose` |
+| Drawer | `l-drawer` | `update` | `onUpdate` |
 | Sheet | `l-sheet` | `close` | `onClose` |
+| Sheet | `l-sheet` | `update` | `onUpdate` |
+| Popover | `l-popover` | `openchange` | `onOpenChange` |
+| Popover | `l-popover` | `update` | `onUpdate` |
+| Dropdown Menu | `l-dropdown-menu` | `openchange` | `onOpenChange` |
+| Dropdown Menu | `l-dropdown-menu` | `update` | `onUpdate` |
+| Context Menu | `l-context-menu` | `openchange` | `onOpenChange` |
+| Context Menu | `l-context-menu` | `update` | `onUpdate` |
 | Command Menu | `l-command-menu` | `close` | `onClose` |
+| Command Menu | `l-command-menu` | `update` | `onUpdate` |
 | Alert Dialog | `l-alert-dialog` | `close` | `onClose` |
 | Alert Dialog | `l-alert-dialog` | `confirm` | `onConfirm` |
+| Alert Dialog | `l-alert-dialog` | `update` | `onUpdate` |
 | Alert | `l-alert` | `close` | `onClose` |
 | Toast | `l-toast` | `close` | `onClose` |
+| Toast | `l-toast` | `update` | `onUpdate` |
 | Notification | `l-notification` | `dismiss` | `onDismiss` |
 | Navbar | `l-navbar` | `activeitemchange` | `onActiveItemChange` |
 | Sidebar | `l-sidebar` | `collapsedchange` | `onCollapsedChange` |
 | Sidebar | `l-sidebar` | `activeitemchange` | `onActiveItemChange` |
+| Sidebar | `l-sidebar` | `update` | `onUpdate` |
 | Top Bar | `l-top-bar` | `back` | `onBack` |
 | Top Bar | `l-top-bar` | `menuclick` | `onMenuClick` |
 | Top Bar | `l-top-bar` | `search` | `onSearch` |
@@ -17523,14 +17859,26 @@ Enter transitions via `transition` (with `transitionDuration` / `transitionDelay
 | Top Bar | `l-top-bar` | `actionclick` | `onActionClick` |
 | Navigation Menu | `l-navigation-menu` | `activeitemchange` | `onActiveItemChange` |
 | Navigation Menu | `l-navigation-menu` | `change` | `onChange` |
+| Navigation Menu | `l-navigation-menu` | `update` | `onUpdate` |
 | Bottom Navigation | `l-bottom-navigation` | `activeitemchange` | `onActiveItemChange` |
+| Bottom Navigation | `l-bottom-navigation` | `update` | `onUpdate` |
+| Tabs | `l-tabs` | `change` | `onChange` |
+| Tabs | `l-tabs` | `update` | `onUpdate` |
 | Stepper | `l-stepper` | `stepchange` | `onStepChange` |
+| Stepper | `l-stepper` | `update` | `onUpdate` |
 | Pagination | `l-pagination` | `pagechange` | `onPageChange` |
+| Pagination | `l-pagination` | `update` | `onUpdate` |
+| Theme Switcher | `l-theme-switcher` | `modechange` | `onModeChange` |
+| Theme Switcher | `l-theme-switcher` | `accentchange` | `onAccentChange` |
+| Theme Switcher | `l-theme-switcher` | `activevariantchange` | `onActiveVariantChange` |
+| Theme Switcher | `l-theme-switcher` | `designchange` | `onDesignChange` |
+| Theme Switcher | `l-theme-switcher` | `openchange` | `onOpenChange` |
 | Tables | `l-table` | `selectionchange` | `onSelectionChange` |
 | Tables | `l-table` | `sortchange` | `onSortChange` |
 | Tables | `l-table` | `viewchange` | `onViewChange` |
 | Tables | `l-table` | `action` | `onAction` |
 | Tables | `l-table` | `datachange` | `onDataChange` |
+| Tables | `l-table` | `update` | `onUpdate` |
 | Grid View | `l-grid-view` | `viewchange` | `onViewChange` |
 | Grid View | `l-grid-view` | `reorder` | `onReorder` |
 | Grid View | `l-grid-view` | `itemclick` | `onItemClick` |
@@ -17543,6 +17891,7 @@ Enter transitions via `transition` (with `transitionDuration` / `transitionDelay
 | Calendar | `l-calendar` | `close` | `onClose` |
 | Calendar | `l-calendar` | `confirm` | `onConfirm` |
 | Calendar | `l-calendar` | `cancel` | `onCancel` |
+| Calendar | `l-calendar` | `update` | `onUpdate` |
 | Flow Diagram | `l-flow-diagram` | `nodemove` | `onNodeMove` |
 | Flow Diagram | `l-flow-diagram` | `diagramchange` | `onDiagramChange` |
 | Flow Diagram | `l-flow-diagram` | `nodeclick` | `onNodeClick` |

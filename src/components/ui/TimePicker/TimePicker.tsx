@@ -1,4 +1,4 @@
-import type { InputHTMLAttributes } from "react";
+import type { ChangeEventHandler, FocusEventHandler, FormEventHandler, InputHTMLAttributes } from "react";
 import { cx } from "../../../core/tokens";
 import { motionClass, motionStyle, type TransitionVariant, type HoverEffect } from "../../../core/motion";
 import { Icon } from "../Icons/Icon";
@@ -6,6 +6,14 @@ import { Icon } from "../Icons/Icon";
 export type TimePickerSize = "sm" | "md" | "lg";
 
 export interface TimePickerProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "size" | "type"> {
+  /** The value was committed — the native change event (the web component's `update` event, detail = the new value). */
+  onChange?: ChangeEventHandler<HTMLInputElement>;
+  /** Called as the user edits — the native input event (the web component's `input` event, detail = the current value). */
+  onInput?: FormEventHandler<HTMLInputElement>;
+  /** Called when the field gains focus — the native focus event (the web component's `focus` event). */
+  onFocus?: FocusEventHandler<HTMLInputElement>;
+  /** Called when the field fails validation (e.g. `required` and empty) — the native invalid event (the web component's `invalid` event, detail = the message). */
+  onInvalid?: FormEventHandler<HTMLInputElement>;
   /** Input height/text size: "sm", "md" or "lg" (default: "md"). */
   size?: TimePickerSize;
   /** Applies error styling (rose border and focus ring) to flag invalid input (default: false). */

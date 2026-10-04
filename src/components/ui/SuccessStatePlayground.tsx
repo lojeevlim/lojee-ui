@@ -60,8 +60,9 @@ export default function SuccessStatePlayground() {
 </script>`
         : `\n\n<script type="module">import "lojee-ui/elements";</script>`
     }`,
-    vue: htmlMarkup,
-    angular: htmlMarkup,
+    // Vue and Angular bind the click in the template — no element lookup by id.
+    vue: htmlMarkup.replace(' id="continue-btn"', ' @click="next()"'),
+    angular: htmlMarkup.replace(' id="continue-btn"', ' (click)="next()"'),
   };
 
   return (

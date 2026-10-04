@@ -2,11 +2,12 @@ import { PlanBilling } from "../PlanBilling";
 import CodeBlock from "../../CodeBlock";
 import { SectionLabel } from "../../ShowcaseHelpers";
 
-const variants = (react: string, html: string) => ({
+// `vue` / `angular` default to the plain HTML; pass them when the snippet needs a script (those frameworks bind props and events in the template instead).
+const variants = (react: string, html: string, vue = html, angular = html) => ({
   react,
   js: `${html}\n\n<script type="module">import "lojee-ui/elements";</script>`,
-  vue: html,
-  angular: html,
+  vue,
+  angular,
 });
 
 export default function PlanBillingShowcase() {
@@ -44,15 +45,44 @@ export default function PlanBillingShowcase() {
     { label: "Storage", used: 46, limit: 50, unit: "GB" },
   ]}
 />`,
-              `<l-PlanBilling id="plan" plan-name="Pro" price="29" description="For growing teams"></l-PlanBilling>
+              `<l-PlanBilling plan-name="Pro" price="29" description="For growing teams"></l-PlanBilling>
 <script type="module">
-  const plan = document.getElementById("plan");
+  const plan = document.querySelector("l-plan-billing");
   plan.features = ["Unlimited projects", "50 GB storage", "Priority support", "Custom domains"];
   plan.usage = [
     { label: "Team seats", used: 8, limit: 10 },
     { label: "Storage", used: 46, limit: 50, unit: "GB" },
   ];
-</script>`
+</script>`,
+              `<template>
+  <l-plan-billing plan-name="Pro" price="29" description="For growing teams" :features.prop="features" :usage.prop="usage" />
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+const features = ["Unlimited projects", "50 GB storage", "Priority support", "Custom domains"];
+const usage = [
+  { label: "Team seats", used: 8, limit: 10 },
+  { label: "Storage", used: 46, limit: 50, unit: "GB" },
+];
+</script>`,
+              `// plan.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-plan",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`<l-plan-billing plan-name="Pro" price="29" description="For growing teams" [features]="features" [usage]="usage"></l-plan-billing>\`,
+})
+export class PlanComponent {
+  features = ["Unlimited projects", "50 GB storage", "Priority support", "Custom domains"];
+  usage = [
+    { label: "Team seats", used: 8, limit: 10 },
+    { label: "Storage", used: 46, limit: 50, unit: "GB" },
+  ];
+}`
             )}
           />
         </section>
@@ -86,13 +116,57 @@ export default function PlanBillingShowcase() {
   onCancel={cancelPlan}
   hoverEffect="lift"
 />`,
-              `<l-PlanBilling id="plan" plan-name="Business" price="99" status="trial" next-billing-date="Nov 3, 2026" action-label="Start free trial" hover-effect="lift"></l-PlanBilling>
+              `<l-PlanBilling plan-name="Business" price="99" status="trial" next-billing-date="Nov 3, 2026" action-label="Start free trial" hover-effect="lift"></l-PlanBilling>
 <script type="module">
-  const plan = document.getElementById("plan");
+  const plan = document.querySelector("l-plan-billing");
   plan.paymentMethod = { brand: "Visa", last4: "4242", expires: "08/27" };
   plan.addEventListener("action", () => selectPlan());
   plan.addEventListener("cancel", () => cancelPlan());
-</script>`
+</script>`,
+              `<template>
+  <l-plan-billing
+    plan-name="Business"
+    price="99"
+    status="trial"
+    next-billing-date="Nov 3, 2026"
+    action-label="Start free trial"
+    hover-effect="lift"
+    :paymentMethod.prop="{ brand: 'Visa', last4: '4242', expires: '08/27' }"
+    @action="selectPlan()"
+    @cancel="cancelPlan()"
+  />
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+</script>`,
+              `// plan.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-plan",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-plan-billing
+      plan-name="Business"
+      price="99"
+      status="trial"
+      next-billing-date="Nov 3, 2026"
+      action-label="Start free trial"
+      hover-effect="lift"
+      [paymentMethod]="paymentMethod"
+      (action)="selectPlan()"
+      (cancel)="cancelPlan()"
+    ></l-plan-billing>
+  \`,
+})
+export class PlanComponent {
+  paymentMethod = { brand: "Visa", last4: "4242", expires: "08/27" };
+  selectPlan() {}
+  cancelPlan() {}
+}`
             )}
           />
         </section>

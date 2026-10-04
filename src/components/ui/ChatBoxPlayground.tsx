@@ -65,7 +65,7 @@ export default function ChatBoxPlayground() {
     color !== "accent" ? `color="${color}"` : "",
     placeholder ? `placeholder="${placeholder}"` : "",
     variant !== "bubble" ? `variant="${variant}"` : "",
-    thinking ? `thinking="${thinkingText}"` : "",
+    thinking ? `thinking="${thinkingText || "true"}"` : "",
     thinking && thinkingVariant !== "dots" ? `thinkingVariant="${thinkingVariant}"` : "",
     thinking && useSteps ? `thinkingSteps={${JSON.stringify(THINKING_STEPS)}}` : "",
     thinking && elapsed ? "thinkingElapsed" : "",
@@ -82,17 +82,48 @@ export default function ChatBoxPlayground() {
 <ChatBox
   ${lines.join("\n  ")}
 />`;
-  const htmlAttrs = `${title ? ` heading="${title}"` : ""}${subtitle ? ` subtitle="${subtitle}"` : ""}${placeholder ? ` placeholder="${placeholder}"` : ""}${variant !== "bubble" ? ` variant="${variant}"` : ""}${color !== "accent" ? ` color="${color}"` : ""}${thinking ? ` thinking="${thinkingText}"` : ""}${thinking && thinkingVariant !== "dots" ? ` thinking-variant="${thinkingVariant}"` : ""}${thinking && elapsed ? ' thinking-elapsed="true"' : ""}${disabled ? ' disabled="true"' : ""}${height !== 440 ? ` height="${height}"` : ""}${motion.attrs}`;
-  const htmlMarkup = `<l-ChatBox id="chat"${htmlAttrs}></l-ChatBox>`;
-  const htmlScript = `const chat = document.getElementById("chat");
+  const htmlAttrs = `${title ? ` heading="${title}"` : ""}${subtitle ? ` subtitle="${subtitle}"` : ""}${placeholder ? ` placeholder="${placeholder}"` : ""}${variant !== "bubble" ? ` variant="${variant}"` : ""}${color !== "accent" ? ` color="${color}"` : ""}${thinking ? ` thinking="${thinkingText || "true"}"` : ""}${thinking && thinkingVariant !== "dots" ? ` thinking-variant="${thinkingVariant}"` : ""}${thinking && elapsed ? ' thinking-elapsed="true"' : ""}${disabled ? ' disabled="true"' : ""}${height !== 440 ? ` height="${height}"` : ""}${motion.attrs}`;
+  const htmlMarkup = `<l-ChatBox${htmlAttrs}></l-ChatBox>`;
+  const htmlScript = `const chat = document.querySelector("l-chat-box");
 ${thinking && useSteps ? `chat.thinkingSteps = ${JSON.stringify(THINKING_STEPS)};\n` : ""}chat.defaultMessages = [{ id: 1, role: "assistant", content: "Hi! Ask me anything." }];
 chat.addEventListener("send", (e) => console.log(e.detail)); // the text`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,
     js: `${htmlMarkup}\n\n<script type="module">\n  import "lojee-ui/elements";\n\n  ${htmlScript.replace(/\n/g, "\n  ")}\n</script>`,
-    vue: htmlMarkup,
-    angular: htmlMarkup,
+    // Vue and Angular bind the messages and the send event in the template (no element lookup needed).
+    vue: `<template>
+  <l-chat-box${htmlAttrs.replace(/ (\w[\w-]*)="([^"]*)"/g, "\n    $1=\"$2\"")}
+    :defaultMessages.prop="seed"${thinking && useSteps ? '\n    :thinkingSteps.prop="steps"' : ""}
+    @send="(e) => console.log(e.detail)"
+  />
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+const seed = [{ id: 1, role: "assistant", content: "Hi! Ask me anything." }];${thinking && useSteps ? `\nconst steps = ${JSON.stringify(THINKING_STEPS)};` : ""}
+</script>`,
+    angular: `// chat.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-chat",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-chat-box${htmlAttrs}
+      [defaultMessages]="seed"${thinking && useSteps ? '\n      [thinkingSteps]="steps"' : ""}
+      (send)="onSend($any($event).detail)"
+    ></l-chat-box>
+  \`,
+})
+export class ChatComponent {
+  seed = [{ id: 1, role: "assistant", content: "Hi! Ask me anything." }];${thinking && useSteps ? `\n  steps = ${JSON.stringify(THINKING_STEPS)};` : ""}
+  onSend(text: string) {
+    console.log(text);
+  }
+}`,
   };
 
   return (

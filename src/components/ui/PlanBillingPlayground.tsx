@@ -85,21 +85,56 @@ export default function PlanBillingPlayground() {
     ...motion.attrs.trim().split(/ (?=\w+=)/).filter(Boolean),
   ].filter(Boolean);
   const code = `<PlanBilling\n  ${lines.join("\n  ")}\n/>`;
-  const htmlMarkup = `<l-PlanBilling id="plan" plan-name="${planName || "Pro"}" price="${total}"${interval !== "month" ? ` interval="${interval}"` : ""}${currency && currency !== "$" ? ` currency="${currency}"` : ""}${status !== "active" ? ` status="${status}"` : ""}${color !== "accent" ? ` color="${color}"` : ""}${showDetails ? ` next-billing-date="Nov 3, 2026"` : ""}${showAction && actionLabel && actionLabel !== "Select Plan" ? ` action-label="${actionLabel}"` : ""}${motion.attrs}></l-PlanBilling>
+  const planAttrs = ` plan-name="${planName || "Pro"}" price="${total}"${interval !== "month" ? ` interval="${interval}"` : ""}${currency && currency !== "$" ? ` currency="${currency}"` : ""}${status !== "active" ? ` status="${status}"` : ""}${color !== "accent" ? ` color="${color}"` : ""}${showDetails ? ` next-billing-date="Nov 3, 2026"` : ""}${showAction && actionLabel && actionLabel !== "Select Plan" ? ` action-label="${actionLabel}"` : ""}${motion.attrs}`;
+  const htmlMarkup = `<l-PlanBilling${planAttrs}></l-PlanBilling>
 
 <script type="module">
-  const plan = document.getElementById("plan");
+  const plan = document.querySelector("l-plan-billing");
   plan.features = ${JSON.stringify(showFeatures ? FEATURES : [])};
   plan.usage = ${JSON.stringify(showUsage ? USAGE : [])};
   ${showAction ? 'plan.addEventListener("action", () => selectPlan());' : ""}
   ${showCancel ? 'plan.addEventListener("cancel", () => cancelPlan());' : ""}
 </script>`;
+  // Vue and Angular bind the data and the events in the template instead of looking the element up.
+  const vueMarkup = `<template>
+  <l-plan-billing${planAttrs}
+    :features.prop="features"
+    :usage.prop="usage"${showAction ? '\n    @action="selectPlan()"' : ""}${showCancel ? '\n    @cancel="cancelPlan()"' : ""}
+  />
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+const features = ${JSON.stringify(showFeatures ? FEATURES : [])};
+const usage = ${JSON.stringify(showUsage ? USAGE : [])};
+</script>`;
+  const angularMarkup = `// plan.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-plan",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-plan-billing${planAttrs}
+      [features]="features"
+      [usage]="usage"${showAction ? '\n      (action)="selectPlan()"' : ""}${showCancel ? '\n      (cancel)="cancelPlan()"' : ""}
+    ></l-plan-billing>
+  \`,
+})
+export class PlanComponent {
+  features = ${JSON.stringify(showFeatures ? FEATURES : [])};
+  usage = ${JSON.stringify(showUsage ? USAGE : [])};
+  selectPlan() {}
+  cancelPlan() {}
+}`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,
     js: `${htmlMarkup}\n\n<script type="module">import "lojee-ui/elements";</script>`,
-    vue: htmlMarkup,
-    angular: htmlMarkup,
+    vue: vueMarkup,
+    angular: angularMarkup,
   };
 
   return (

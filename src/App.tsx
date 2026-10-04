@@ -107,13 +107,15 @@ import type { GridLayout } from './components/ui/AppLayout/appLayout'
 import ChangelogShowcase from './components/ui/Changelog/ChangelogShowcase'
 import IntroductionShowcase from './components/ui/Introduction/IntroductionShowcase'
 import InstallationShowcase from './components/ui/Installation/InstallationShowcase'
-import ApiReference from './components/ui/ApiReference'
+import ApiReference, { DataBindingSection } from './components/ui/ApiReference'
 import ThemeShowcase from './components/ui/Theme/ThemeShowcase'
+import DataBindingShowcase from './components/ui/DataBinding'
 
 const SHOWCASES: Record<string, ComponentType> = {
   Introduction: IntroductionShowcase,
   Installation: InstallationShowcase,
   Theming: ThemeShowcase,
+  'Data Binding': DataBindingShowcase,
   Changelog: ChangelogShowcase,
   App: AppShowcase,
   Main: MainShowcase,
@@ -311,7 +313,7 @@ function App() {
             return ActiveShowcase ? (
               <div ref={contentRef}>
                 <ActiveShowcase />
-                <div><ApiReference name={found.item.label} /></div>
+                <div><DataBindingSection name={found.item.label} /><ApiReference name={found.item.label} /></div>
               </div>
             ) : <p>This is the main content area.</p>
           })()}

@@ -14,6 +14,7 @@ import {
   HeaderElement,
 } from "./modal-adapter";
 import { withTailwind, withHostBlock } from "./with-tailwind";
+import { withFormEvents, withUpdate, FORM_EVENTS } from "./with-form-events";
 import { StepperItemElement } from "./stepper-item";
 import { TopBarElement } from "./top-bar-element";
 import { TableElement } from "./table-element";
@@ -211,7 +212,7 @@ customElements.define(
 
 customElements.define(
   "l-modal",
-  r2wc(withTailwind(ModalElement), {
+  r2wc(withUpdate(withTailwind(ModalElement), { onClose: () => false }), {
     shadow: "open",
     props: {
       open: "boolean",
@@ -223,7 +224,7 @@ customElements.define(
       transitionDelay: "number",
       hoverEffect: "string",
     },
-    events: { onClose: {} }, // dispatches "close"
+    events: { onUpdate: {}, onClose: {} }, // dispatches "close"
   })
 );
 
@@ -354,7 +355,7 @@ customElements.define(
   "l-list",
   r2wc(withTailwind(withSlots(List, { header: "header" })), {
     shadow: "open",
-    props: { ordered: "boolean", variant: "string", className: "string", transition: "string", transitionDuration: "number", transitionDelay: "number" },
+    props: { ordered: "boolean", variant: "string", header: "string", items: "json", className: "string", transition: "string", transitionDuration: "number", transitionDelay: "number" },
   })
 );
 
@@ -391,9 +392,9 @@ customElements.define(
 // this works identically whether wrapped as a Web Component or not.
 customElements.define(
   "l-accordion-item",
-  r2wc(withTailwind(AccordionItem), {
+  r2wc(withUpdate(withTailwind(AccordionItem), ["onOpenChange"]), {
     shadow: "open",
-    props: {
+    props: { open: "boolean",
       title: "string",
       name: "string",
       defaultOpen: "boolean",
@@ -403,6 +404,7 @@ customElements.define(
       transitionDuration: "number",
       transitionDelay: "number",
     },
+    events: { onUpdate: {}, onOpenChange: {} },
   })
 );
 
@@ -411,7 +413,7 @@ customElements.define(
 // objects/functions instead of attributes for the `render` callback to work).
 customElements.define(
   "l-table",
-  r2wc(withTailwind(TableElement), {
+  r2wc(withUpdate(withTailwind(TableElement), ["onSelectionChange"]), {
     shadow: "open",
     props: {
       columns: "json",
@@ -438,7 +440,7 @@ customElements.define(
       transitionDuration: "number",
       transitionDelay: "number",
     },
-    events: {
+    events: { onUpdate: {},
       onAction: {}, // dispatches "action", detail = { action, row }
       onDataChange: {}, // dispatches "datachange", detail = the rows
       onSelectionChange: {}, // dispatches "selectionchange", detail = { keys, rows }
@@ -450,10 +452,10 @@ customElements.define(
 
 customElements.define(
   "l-pagination",
-  r2wc(withTailwind(Pagination), {
+  r2wc(withUpdate(withTailwind(Pagination), ["onPageChange"]), {
     shadow: "open",
     props: { page: "number", totalPages: "number", siblingCount: "number", color: "string", transition: "string", transitionDuration: "number", transitionDelay: "number" },
-    events: { onPageChange: {} }, // dispatches "pagechange", detail = new page number
+    events: { onUpdate: {}, onPageChange: {} }, // dispatches "pagechange", detail = new page number
   })
 );
 
@@ -461,23 +463,25 @@ customElements.define(
 // `tabs` DOM property directly with a real array, same caveat as Table above.
 customElements.define(
   "l-tabs",
-  r2wc(withTailwind(Tabs), {
+  r2wc(withUpdate(withTailwind(Tabs), ["onChange"]), {
     shadow: "open",
-    props: { tabs: "json", defaultIndex: "number", color: "string", transition: "string", transitionDuration: "number", transitionDelay: "number" },
+    props: { index: "number", tabs: "json", defaultIndex: "number", color: "string", transition: "string", transitionDuration: "number", transitionDelay: "number" },
+    events: { onUpdate: {}, onChange: {} },
   })
 );
 
 customElements.define(
   "l-carousel",
-  r2wc(withTailwind(Carousel), {
+  r2wc(withUpdate(withTailwind(Carousel), ["onChange"]), {
     shadow: "open",
-    props: { slides: "json", autoPlay: "boolean", intervalMs: "number", showArrows: "boolean", showDots: "boolean", transition: "string", transitionDuration: "number", transitionDelay: "number", hoverEffect: "string" },
+    props: { index: "number", slides: "json", autoPlay: "boolean", intervalMs: "number", showArrows: "boolean", showDots: "boolean", transition: "string", transitionDuration: "number", transitionDelay: "number", hoverEffect: "string" },
+    events: { onUpdate: {}, onChange: {} },
   })
 );
 
 customElements.define(
   "l-input",
-  r2wc(withTailwind(Input), {
+  r2wc(withFormEvents(withTailwind(Input), { mirror: true }), {
     shadow: "open",
     props: {
       value: "string",
@@ -496,12 +500,13 @@ customElements.define(
       transitionDelay: "number",
       hoverEffect: "string",
     },
+    events: { ...FORM_EVENTS },
   })
 );
 
 customElements.define(
   "l-textarea",
-  r2wc(withTailwind(Textarea), {
+  r2wc(withFormEvents(withTailwind(Textarea), { mirror: true }), {
     shadow: "open",
     props: {
       value: "string",
@@ -518,6 +523,7 @@ customElements.define(
       transitionDelay: "number",
       hoverEffect: "string",
     },
+    events: { ...FORM_EVENTS },
   })
 );
 
@@ -531,18 +537,20 @@ customElements.define(
 
 customElements.define(
   "l-search-input",
-  r2wc(withTailwind(SearchInput), {
+  r2wc(withFormEvents(withTailwind(SearchInput), { mirror: true }), {
     shadow: "open",
-    props: { value: "string", placeholder: "string", size: "string", variant: "string", disabled: "boolean", transition: "string", transitionDuration: "number", transitionDelay: "number", hoverEffect: "string" },
-    events: { onClear: {} }, // dispatches "clear" — no native DOM equivalent for the clear button
+    props: { required: "boolean", name: "string", value: "string", placeholder: "string", size: "string", variant: "string", disabled: "boolean", transition: "string", transitionDuration: "number", transitionDelay: "number", hoverEffect: "string" },
+    events: {
+      ...FORM_EVENTS, onClear: {} }, // dispatches "clear" — no native DOM equivalent for the clear button
   })
 );
 
 customElements.define(
   "l-checkbox",
-  r2wc(withTailwind(Checkbox), {
+  r2wc(withFormEvents(withTailwind(Checkbox), { mirror: true }), {
     shadow: "open",
     props: {
+      required: "boolean",
       checked: "boolean",
       defaultChecked: "boolean",
       disabled: "boolean",
@@ -555,14 +563,16 @@ customElements.define(
       transitionDelay: "number",
       hoverEffect: "string",
     },
+    events: { ...FORM_EVENTS },
   })
 );
 
 customElements.define(
   "l-radio",
-  r2wc(withTailwind(Radio), {
+  r2wc(withFormEvents(withTailwind(Radio), { mirror: true }), {
     shadow: "open",
     props: {
+      required: "boolean",
       checked: "boolean",
       defaultChecked: "boolean",
       disabled: "boolean",
@@ -575,6 +585,7 @@ customElements.define(
       transitionDelay: "number",
       hoverEffect: "string",
     },
+    events: { ...FORM_EVENTS },
   })
 );
 
@@ -590,9 +601,10 @@ customElements.define(
 
 customElements.define(
   "l-switch",
-  r2wc(withTailwind(Switch), {
+  r2wc(withFormEvents(withTailwind(Switch), { mirror: true }), {
     shadow: "open",
     props: {
+      required: "boolean",
       checked: "boolean",
       defaultChecked: "boolean",
       disabled: "boolean",
@@ -605,14 +617,17 @@ customElements.define(
       transitionDelay: "number",
       hoverEffect: "string",
     },
+    events: { ...FORM_EVENTS },
   })
 );
 
 customElements.define(
   "l-select",
-  r2wc(withTailwind(Select), {
+  r2wc(withFormEvents(withTailwind(Select), { mirror: true }), {
     shadow: "open",
     props: {
+      required: "boolean",
+      name: "string",
       options: "json",
       value: "string",
       placeholder: "string",
@@ -625,15 +640,17 @@ customElements.define(
       transitionDelay: "number",
       hoverEffect: "string",
     },
+    events: { ...FORM_EVENTS },
   })
 );
 
 customElements.define(
   "l-date-picker",
-  r2wc(withTailwind(DatePicker), {
+  r2wc(withFormEvents(withTailwind(DatePicker), { mirror: true }), {
     shadow: "open",
-    props: { value: "string", size: "string", variant: "string", invalid: "boolean", disabled: "boolean", transition: "string", transitionDuration: "number", transitionDelay: "number", hoverEffect: "string" },
-    events: { onClear: {} }, // dispatches "clear" — no native DOM equivalent for the clear button
+    props: { required: "boolean", name: "string", value: "string", size: "string", variant: "string", invalid: "boolean", disabled: "boolean", transition: "string", transitionDuration: "number", transitionDelay: "number", hoverEffect: "string" },
+    events: {
+      ...FORM_EVENTS, onClear: {} }, // dispatches "clear" — no native DOM equivalent for the clear button
   })
 );
 
@@ -665,15 +682,16 @@ customElements.define(
 
 customElements.define(
   "l-time-picker",
-  r2wc(withTailwind(TimePicker), {
+  r2wc(withFormEvents(withTailwind(TimePicker), { mirror: true }), {
     shadow: "open",
-    props: { value: "string", size: "string", invalid: "boolean", disabled: "boolean", transition: "string", transitionDuration: "number", transitionDelay: "number", hoverEffect: "string" },
+    props: { required: "boolean", name: "string", value: "string", size: "string", invalid: "boolean", disabled: "boolean", transition: "string", transitionDuration: "number", transitionDelay: "number", hoverEffect: "string" },
+    events: { ...FORM_EVENTS },
   })
 );
 
 customElements.define(
   "l-slider",
-  r2wc(withTailwind(Slider), {
+  r2wc(withFormEvents(withTailwind(Slider), { mirror: true }), {
     shadow: "open",
     props: {
       value: "string",
@@ -688,6 +706,7 @@ customElements.define(
       transitionDelay: "number",
       hoverEffect: "string",
     },
+    events: { ...FORM_EVENTS },
   })
 );
 
@@ -697,7 +716,7 @@ customElements.define(
 // input/change event.
 customElements.define(
   "l-range-slider",
-  r2wc(withTailwind(RangeSlider), {
+  r2wc(withFormEvents(withUpdate(withTailwind(RangeSlider), ["onChange"]), { update: false }), {
     shadow: "open",
     props: {
       value: "json",
@@ -711,7 +730,8 @@ customElements.define(
       transitionDelay: "number",
       hoverEffect: "string",
     },
-    events: { onChange: {} }, // dispatches "change", detail = [number, number]
+    events: {
+      ...FORM_EVENTS, onChange: {} }, // dispatches "change", detail = [number, number]
   })
 );
 
@@ -720,71 +740,75 @@ customElements.define(
 // "change" event (detail = string[]) instead of a native change event.
 customElements.define(
   "l-multi-select",
-  r2wc(withTailwind(MultiSelect), {
+  r2wc(withUpdate(withTailwind(MultiSelect), ["onChange"]), {
     shadow: "open",
     props: { options: "json", value: "json", placeholder: "string", color: "string", transition: "string", transitionDuration: "number", transitionDelay: "number", hoverEffect: "string" },
-    events: { onChange: {} }, // dispatches "change", detail = string[]
+    events: { onUpdate: {}, onChange: {} }, // dispatches "change", detail = string[]
   })
 );
 
 customElements.define(
   "l-combobox",
-  r2wc(withTailwind(Combobox), {
+  r2wc(withFormEvents(withUpdate(withTailwind(Combobox), ["onChange"]), { update: false }), {
     shadow: "open",
     props: { options: "json", value: "string", placeholder: "string", transition: "string", transitionDuration: "number", transitionDelay: "number", hoverEffect: "string" },
-    events: { onChange: {} }, // dispatches "change", detail = the selected value
+    events: {
+      ...FORM_EVENTS, onChange: {} }, // dispatches "change", detail = the selected value
   })
 );
 
 customElements.define(
   "l-file-upload",
-  r2wc(withTailwind(FileUpload), {
+  r2wc(withFormEvents(withTailwind(FileUpload)), {
     shadow: "open",
     props: { label: "string", accept: "string", multiple: "boolean", disabled: "boolean", transition: "string", transitionDuration: "number", transitionDelay: "number", hoverEffect: "string" },
-    events: { onFilesSelected: {} }, // dispatches "filesselected", detail = FileList | null
+    events: {
+      ...FORM_EVENTS, onFilesSelected: {} }, // dispatches "filesselected", detail = FileList | null
   })
 );
 
 customElements.define(
   "l-alert-dialog",
-  r2wc(withTailwind(withSlots(AlertDialogElement, { description: "" })), {
+  r2wc(withUpdate(withTailwind(withSlots(AlertDialogElement, { description: "" })), { onClose: () => false }), {
     shadow: "open",
     props: { open: "boolean", heading: "string", description: "string", variant: "string", confirmLabel: "string", cancelLabel: "string", transition: "string", transitionDuration: "number", transitionDelay: "number", hoverEffect: "string" },
-    events: { onClose: {}, onConfirm: {} }, // dispatch "close"/"confirm"
+    events: { onUpdate: {}, onClose: {}, onConfirm: {} }, // dispatch "close"/"confirm"
   })
 );
 
 customElements.define(
   "l-drawer",
-  r2wc(withTailwind(DrawerElement), {
+  r2wc(withUpdate(withTailwind(DrawerElement), { onClose: () => false }), {
     shadow: "open",
     props: { open: "boolean", heading: "string", position: "string", size: "string", transition: "string", transitionDuration: "number", transitionDelay: "number", hoverEffect: "string" },
-    events: { onClose: {} }, // dispatches "close"
+    events: { onUpdate: {}, onClose: {} }, // dispatches "close"
   })
 );
 
 customElements.define(
   "l-sheet",
-  r2wc(withTailwind(SheetElement), {
+  r2wc(withUpdate(withTailwind(SheetElement), { onClose: () => false }), {
     shadow: "open",
     props: { open: "boolean", heading: "string", transition: "string", transitionDuration: "number", transitionDelay: "number", hoverEffect: "string" },
-    events: { onClose: {} }, // dispatches "close"
+    events: { onUpdate: {}, onClose: {} }, // dispatches "close"
   })
 );
 
 customElements.define(
   "l-popover",
-  r2wc(withTailwind(Popover), {
+  r2wc(withUpdate(withTailwind(Popover), ["onOpenChange"]), {
     shadow: "open",
-    props: { content: "string", position: "string", transition: "string", transitionDuration: "number", transitionDelay: "number" },
+    props: { open: "boolean", content: "string", position: "string", transition: "string", transitionDuration: "number", transitionDelay: "number" },
+    events: { onUpdate: {}, onOpenChange: {} },
   })
 );
 
 customElements.define(
   "l-dropdown-menu",
-  r2wc(withTailwind(DropdownMenu), {
+  r2wc(withUpdate(withTailwind(DropdownMenu), ["onOpenChange"]), {
     shadow: "open",
-    props: { align: "string", transition: "string", transitionDuration: "number", transitionDelay: "number" },
+    props: { open: "boolean", align: "string", transition: "string", transitionDuration: "number", transitionDelay: "number" },
+    events: { onUpdate: {}, onOpenChange: {} },
   })
 );
 
@@ -803,17 +827,17 @@ customElements.define(
 
 customElements.define(
   "l-context-menu",
-  r2wc(withTailwind(ContextMenu), { shadow: "open", props: { transition: "string", transitionDuration: "number", transitionDelay: "number" } })
+  r2wc(withUpdate(withTailwind(ContextMenu), ["onOpenChange"]), { shadow: "open", props: { open: "boolean", transition: "string", transitionDuration: "number", transitionDelay: "number" }, events: { onUpdate: {}, onOpenChange: {} } })
 );
 
 // `items` is plain data — set the `items` DOM property directly with a real
 // array (including onSelect callbacks) for full control.
 customElements.define(
   "l-command-menu",
-  r2wc(withTailwind(CommandMenu), {
+  r2wc(withUpdate(withTailwind(CommandMenu), { onClose: () => false }), {
     shadow: "open",
     props: { open: "boolean", items: "json", placeholder: "string", transition: "string", transitionDuration: "number", transitionDelay: "number" },
-    events: { onClose: {} }, // dispatches "close"
+    events: { onUpdate: {}, onClose: {} }, // dispatches "close"
   })
 );
 
@@ -842,7 +866,7 @@ customElements.define(
 
 customElements.define(
   "l-toast",
-  r2wc(withTailwind(withSlots(ToastElement, { children: "" })), {
+  r2wc(withUpdate(withTailwind(withSlots(ToastElement, { children: "" })), { onClose: () => false }), {
     shadow: "open",
     props: {
       open: "boolean",
@@ -856,7 +880,7 @@ customElements.define(
       transitionDelay: "number",
       hoverEffect: "string",
     },
-    events: { onClose: {} }, // dispatches "close"
+    events: { onUpdate: {}, onClose: {} }, // dispatches "close"
   })
 );
 
@@ -976,7 +1000,7 @@ customElements.define(
 
 customElements.define(
   "l-sidebar",
-  r2wc(withHostBlock(withTailwind(Sidebar)), {
+  r2wc(withUpdate(withHostBlock(withTailwind(Sidebar)), ["onActiveItemChange"]), {
     shadow: "open",
     props: {
       width: "number",
@@ -1000,7 +1024,7 @@ customElements.define(
       tooltipTransitionDuration: "number",
       tooltipColor: "string",
     },
-    events: {
+    events: { onUpdate: {},
       onCollapsedChange: {}, // dispatches "collapsedchange", detail = the requested boolean
       onActiveItemChange: {}, // dispatches "activeitemchange", detail = the active item object
     },
@@ -1054,10 +1078,10 @@ customElements.define(
 // DOM property directly with a real array, same as Tabs' `tabs`.
 customElements.define(
   "l-navigation-menu",
-  r2wc(withTailwind(NavigationMenu), {
+  r2wc(withUpdate(withTailwind(NavigationMenu), ["onActiveItemChange"]), {
     shadow: "open",
     props: { items: "json", orientation: "string", color: "string", variant: "string", defaultActiveItem: "string", transition: "string", transitionDuration: "number", transitionDelay: "number", hoverEffect: "string" },
-    events: {
+    events: { onUpdate: {},
       onChange: {}, // dispatches "change", detail = the clicked item's index
       onActiveItemChange: {}, // dispatches "activeitemchange", detail = the active item object
     },
@@ -1066,16 +1090,16 @@ customElements.define(
 
 customElements.define(
   "l-bottom-navigation",
-  r2wc(withTailwind(BottomNavigation), {
+  r2wc(withUpdate(withTailwind(BottomNavigation), ["onActiveItemChange"]), {
     shadow: "open",
     props: { items: "json", color: "string", variant: "string", defaultActiveItem: "string", transition: "string", transitionDuration: "number", transitionDelay: "number", hoverEffect: "string" },
-    events: { onActiveItemChange: {} }, // dispatches "activeitemchange", detail = the active item object
+    events: { onUpdate: {}, onActiveItemChange: {} }, // dispatches "activeitemchange", detail = the active item object
   })
 );
 
 customElements.define(
   "l-stepper",
-  r2wc(withTailwind(Stepper), {
+  r2wc(withUpdate(withTailwind(Stepper), ["onStepChange"]), {
     shadow: "open",
     props: {
       steps: "json",
@@ -1095,7 +1119,7 @@ customElements.define(
       transitionDelay: "number",
       hoverEffect: "string",
     },
-    events: { onStepChange: {} }, // dispatches "stepchange", detail = the new step index
+    events: { onUpdate: {}, onStepChange: {} }, // dispatches "stepchange", detail = the new step index
   })
 );
 
@@ -1227,7 +1251,7 @@ customElements.define(
 
 customElements.define(
   "l-calendar",
-  r2wc(withTailwind(Calendar), {
+  r2wc(withUpdate(withTailwind(Calendar), ["onSelect"]), {
     shadow: "open",
     props: {
       month: "string",
@@ -1249,7 +1273,7 @@ customElements.define(
       transitionDelay: "number",
       hoverEffect: "string",
     },
-    events: {
+    events: { onUpdate: {},
       onSelect: {}, // dispatches "select"
       onRangeSelect: {}, // dispatches "rangeselect", detail = { start, end }
       onMonthChange: {}, // dispatches "monthchange"
@@ -1354,9 +1378,10 @@ customElements.define(
 
 customElements.define(
   "l-password-input",
-  r2wc(withTailwind(PasswordInput), {
+  r2wc(withFormEvents(withTailwind(PasswordInput), { mirror: true }), {
     shadow: "open",
-    props: { size: "string", variant: "string", invalid: "boolean", disabled: "boolean", transition: "string", transitionDuration: "number", transitionDelay: "number", hoverEffect: "string" },
+    props: { required: "boolean", name: "string", size: "string", variant: "string", invalid: "boolean", disabled: "boolean", transition: "string", transitionDuration: "number", transitionDelay: "number", hoverEffect: "string" },
+    events: { ...FORM_EVENTS },
   })
 );
 
@@ -1451,7 +1476,7 @@ customElements.define(
 // Theme menu (light/dark, accent, active-item style) — changes the page theme on <html> by itself, no provider needed.
 customElements.define(
   "l-theme-switcher",
-  r2wc(withTailwind(ThemeSwitcher), { shadow: "open", props: { align: "string", showDesign: "boolean", showActiveItems: "boolean", showAccent: "boolean", showCustom: "boolean", customAccentLabel: "string", transition: "string", transitionDuration: "number", transitionDelay: "number", hoverEffect: "string" } })
+  r2wc(withTailwind(ThemeSwitcher), { shadow: "open", props: { open: "boolean", mode: "string", accent: "string", activeVariant: "string", design: "string", align: "string", showDesign: "boolean", showActiveItems: "boolean", showAccent: "boolean", showCustom: "boolean", customAccentLabel: "string", transition: "string", transitionDuration: "number", transitionDelay: "number", hoverEffect: "string" }, events: { onModeChange: {}, onAccentChange: {}, onActiveVariantChange: {}, onDesignChange: {}, onOpenChange: {} } })
 );
 
 customElements.define("l-side-toggle", r2wc(withTailwind(SideToggleElement), { shadow: "open", props: { label: "string" } }));
@@ -1552,28 +1577,31 @@ customElements.define(
 // `change` carries the new value in `event.detail`.
 customElements.define(
   "l-tag-input",
-  r2wc(withHostBlock(withTailwind(TagInput)), {
+  r2wc(withFormEvents(withUpdate(withHostBlock(withTailwind(TagInput)), ["onChange"]), { update: false }), {
     shadow: "open",
     props: { value: "json", placeholder: "string", maxTags: "number", allowDuplicates: "boolean", color: "string", invalid: "boolean", disabled: "boolean" },
-    events: { onChange: {} }, // dispatches "change", detail = string[]
+    events: {
+      ...FORM_EVENTS, onChange: {} }, // dispatches "change", detail = string[]
   })
 );
 
 customElements.define(
   "l-number-input",
-  r2wc(withHostBlock(withTailwind(NumberInput)), {
+  r2wc(withFormEvents(withUpdate(withHostBlock(withTailwind(NumberInput)), ["onChange"]), { update: false }), {
     shadow: "open",
     props: { value: "number", min: "number", max: "number", step: "number", precision: "number", placeholder: "string", size: "string", invalid: "boolean", disabled: "boolean" },
-    events: { onChange: {} }, // dispatches "change", detail = number | undefined
+    events: {
+      ...FORM_EVENTS, onChange: {} }, // dispatches "change", detail = number | undefined
   })
 );
 
 customElements.define(
   "l-otp-input",
-  r2wc(withHostBlock(withTailwind(OtpInput)), {
+  r2wc(withFormEvents(withUpdate(withHostBlock(withTailwind(OtpInput)), ["onChange"]), { update: false }), {
     shadow: "open",
     props: { length: "number", value: "string", type: "string", mask: "boolean", autoFocus: "boolean", size: "string", invalid: "boolean", disabled: "boolean" },
     events: {
+      ...FORM_EVENTS,
       onChange: {}, // dispatches "change", detail = the code so far
       onComplete: {}, // dispatches "complete", detail = the full code
     },
@@ -1582,19 +1610,20 @@ customElements.define(
 
 customElements.define(
   "l-rating",
-  r2wc(withHostBlock(withTailwind(Rating)), {
+  r2wc(withUpdate(withHostBlock(withTailwind(Rating)), ["onChange"]), {
     shadow: "open",
     props: { value: "number", max: "number", allowHalf: "boolean", readOnly: "boolean", size: "string", label: "string" },
-    events: { onChange: {} }, // dispatches "change", detail = number
+    events: { onUpdate: {}, onChange: {} }, // dispatches "change", detail = number
   })
 );
 
 customElements.define(
   "l-color-picker",
-  r2wc(withHostBlock(withTailwind(ColorPicker)), {
+  r2wc(withFormEvents(withUpdate(withHostBlock(withTailwind(ColorPicker)), ["onChange"]), { update: false }), {
     shadow: "open",
     props: { value: "string", presets: "json", showInput: "boolean", disabled: "boolean" },
-    events: { onChange: {} }, // dispatches "change", detail = "#rrggbb"
+    events: {
+      ...FORM_EVENTS, onChange: {} }, // dispatches "change", detail = "#rrggbb"
   })
 );
 

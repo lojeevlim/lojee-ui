@@ -1,8 +1,11 @@
 import { Checkbox } from "../Checkbox";
 import CodeBlock from "../../CodeBlock";
 import { SectionLabel, Row, TransitionPreview } from "../../ShowcaseHelpers";
+import { useFormEventsNote, useCheckedBindingNote } from "../../../../core/bindingNotes";
 
 export default function CheckboxShowcase() {
+  const eventsNote = useFormEventsNote("the new value (true / false for a checkbox)");
+  const checkedNote = useCheckedBindingNote();
   return (
     <div>
       <div className="space-y-12">
@@ -125,6 +128,72 @@ export class AppComponent {}`,
         </section>
 
         <section>
+          <SectionLabel sub={eventsNote}>Events</SectionLabel>
+          <CodeBlock
+            variants={{
+              react: `<Checkbox
+  label="I agree to the terms"
+  required
+  onChange={(e) => console.log("update", e.target.checked)}
+  onInput={(e) => console.log("input", e.currentTarget.checked)}
+  onFocus={() => console.log("focus")}
+  onInvalid={(e) => console.log("invalid", e.currentTarget.validationMessage)}
+/>`,
+              js: `<l-Checkbox label="I agree to the terms" required="true"></l-Checkbox>
+
+<script type="module">
+  import "lojee-ui/elements";
+
+  const box = document.querySelector("l-checkbox");
+  box.addEventListener("update", (e) => console.log("update", e.detail)); // true | false
+  box.addEventListener("input", (e) => console.log("input", e.detail));
+  box.addEventListener("focus", (e) => console.log("focus", e.detail));
+  box.addEventListener("invalid", (e) => console.log("invalid", e.detail)); // the validation message
+</script>`,
+              vue: `<template>
+  <l-checkbox
+    label="I agree to the terms"
+    required="true"
+    @update="(e) => console.log('update', e.detail)"
+    @input="(e) => console.log('input', e.detail)"
+    @focus="(e) => console.log('focus', e.detail)"
+    @invalid="(e) => console.log('invalid', e.detail)"
+  />
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-checkbox
+      label="I agree to the terms"
+      required="true"
+      (update)="onUpdate($any($event).detail)"
+      (input)="onInput($any($event).detail)"
+      (focus)="onFocus()"
+      (invalid)="onInvalid($any($event).detail)"
+    ></l-checkbox>
+  \`,
+})
+export class AppComponent {
+  onUpdate(checked: boolean) {}
+  onInput(checked: boolean) {}
+  onFocus() {}
+  onInvalid(message: string) {}
+}`,
+            }}
+          />
+        </section>
+
+        <section>
           <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`) and hover effects via `hoverEffect`. They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
           <TransitionPreview layout="inline">
             <Checkbox transition="fade" label="Fade" defaultChecked />
@@ -217,6 +286,51 @@ import "lojee-ui/elements";
   \`,
 })
 export class AppComponent {}`,
+            }}
+          />
+        </section>
+
+        <section>
+          <SectionLabel sub={checkedNote}>Data binding</SectionLabel>
+          <CodeBlock
+            variants={{
+              react: `const [agreed, setAgreed] = useState(false);
+
+<Checkbox label="I agree" checked={agreed} onChange={(e) => setAgreed(e.target.checked)} />
+
+// or uncontrolled
+<Checkbox label="I agree" defaultChecked onChange={(e) => save(e.target.checked)} />`,
+              js: `<l-Checkbox label="I agree"></l-Checkbox>
+
+<script type="module">
+  import "lojee-ui/elements";
+
+  const box = document.querySelector("l-checkbox");
+  box.addEventListener("update", (e) => (state.agreed = e.detail)); // true | false
+  box.checked = true; // push a value in at any time
+</script>`,
+              vue: `<template>
+  <l-checkbox label="I agree" :checked.prop="agreed" @update="(e) => (agreed = e.detail)" />
+</template>
+
+<script setup lang="ts">
+import { ref } from "vue";
+import "lojee-ui/elements";
+const agreed = ref(false);
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`<l-checkbox label="I agree" [checked]="agreed" (update)="agreed = $any($event).detail"></l-checkbox>\`,
+})
+export class AppComponent {
+  agreed = false;
+}`,
             }}
           />
         </section>

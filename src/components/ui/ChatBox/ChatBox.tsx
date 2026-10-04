@@ -82,7 +82,7 @@ export interface ChatBoxProps {
   defaultMessages?: ChatMessage[];
   /** Called with the trimmed text when the user presses Enter or the send button. */
   onSend?: (text: string) => void;
-  /** Shows the "thinking" indicator at the end of the thread. Pass the text to show — `thinking="Searching the docs"` — or `true` / an empty string for the default "Thinking" (default: off). */
+  /** Shows the "thinking" indicator at the end of the thread. Pass the text to show — `thinking="Searching the docs"` — or `true` / an empty string for the default "Thinking" (default: off). As a web component, write `thinking="true"` for the default label, and switch it off again by setting the property to `false` (`el.thinking = false`) — removing the attribute does not clear it. */
   thinking?: boolean | string;
   /** Style of the thinking indicator: "dots" | "wave" | "orb" | "shimmer" (default: "dots"). */
   thinkingVariant?: ThinkingVariant;
@@ -158,8 +158,8 @@ export function ChatBox({
   const scroller = useRef<HTMLDivElement>(null);
   const box = useRef<HTMLTextAreaElement>(null);
   const list = messages ?? own;
-  // On when `thinking` is true or any string (even "" — a bare web-component attribute), off when missing, false or "false".
-  const isThinking = thinking !== undefined && thinking !== false && thinking !== "false";
+  // On when `thinking` is true or any string (even "" — a bare web-component attribute), off when missing / removed (undefined or null), false or "false".
+  const isThinking = thinking != null && thinking !== false && thinking !== "false";
   const thinkingText = typeof thinking === "string" && thinking.trim() && thinking !== "true" ? thinking : undefined;
   const compact = variant === "compact";
   const flat = variant === "flat";

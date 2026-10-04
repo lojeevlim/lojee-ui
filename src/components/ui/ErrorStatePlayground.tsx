@@ -66,8 +66,9 @@ export default function ErrorStatePlayground() {
 </script>`
         : `\n\n<script type="module">import "lojee-ui/elements";</script>`
     }`,
-    vue: htmlMarkup,
-    angular: htmlMarkup,
+    // Vue and Angular bind the click in the template — no element lookup by id.
+    vue: htmlMarkup.replace(' id="retry-btn"', ' @click="retry()"'),
+    angular: htmlMarkup.replace(' id="retry-btn"', ' (click)="retry()"'),
   };
 
   return (

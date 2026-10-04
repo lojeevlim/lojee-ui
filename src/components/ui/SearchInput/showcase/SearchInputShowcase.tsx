@@ -2,8 +2,10 @@ import { useState } from "react";
 import { SearchInput } from "../SearchInput";
 import CodeBlock from "../../CodeBlock";
 import { SectionLabel, TransitionPreview } from "../../ShowcaseHelpers";
+import { useFormEventsNote } from "../../../../core/bindingNotes";
 
 export default function SearchInputShowcase() {
+  const eventsNote = useFormEventsNote();
   const [query, setQuery] = useState("lojee-ui");
 
   return (
@@ -213,6 +215,66 @@ import "lojee-ui/elements";
   \`,
 })
 export class AppComponent {}`,
+            }}
+          />
+        </section>
+
+        <section>
+          <SectionLabel sub={eventsNote}>Events</SectionLabel>
+          <CodeBlock
+            variants={{
+              react: `<SearchInput placeholder="Search…"
+  onChange={(e) => console.log("update", e.target.value)}
+  onInput={(e) => console.log("input", e.currentTarget.value)}
+  onFocus={() => console.log("focus")}
+  onInvalid={(e) => console.log("invalid", e.currentTarget.validationMessage)}
+/>`,
+              js: `<l-search-input placeholder="Search…"></l-search-input>
+
+<script type="module">
+  import "lojee-ui/elements";
+
+  const el = document.querySelector("l-search-input");
+  el.addEventListener("update", (e) => console.log("update", e.detail)); // string
+  el.addEventListener("input", (e) => console.log("input", e.detail));
+  el.addEventListener("focus", (e) => console.log("focus", e.detail));
+  el.addEventListener("invalid", (e) => console.log("invalid", e.detail)); // the validation message
+</script>`,
+              vue: `<template>
+  <l-search-input placeholder="Search…"
+    @update="(e) => console.log('update', e.detail)"
+    @input="(e) => console.log('input', e.detail)"
+    @focus="(e) => console.log('focus', e.detail)"
+    @invalid="(e) => console.log('invalid', e.detail)"
+  />
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-search-input placeholder="Search…"
+      (update)="onUpdate($any($event).detail)"
+      (input)="onInput($any($event).detail)"
+      (focus)="onFocus()"
+      (invalid)="onInvalid($any($event).detail)"
+    ></l-search-input>
+  \`,
+})
+export class AppComponent {
+  onUpdate(value: string) {}
+  onInput(value: string) {}
+  onFocus() {}
+  onInvalid(message: string) {}
+}`,
             }}
           />
         </section>

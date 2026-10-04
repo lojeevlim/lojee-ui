@@ -1,4 +1,5 @@
 import { cx, type ColorName } from "../../../core/tokens";
+import type { FocusEvent, FormEvent } from "react";
 import { motionClass, motionStyle, type TransitionVariant, type HoverEffect } from "../../../core/motion";
 
 export interface RangeSliderProps {
@@ -24,6 +25,12 @@ export interface RangeSliderProps {
   transitionDelay?: number;
   /** Effect while hovering a thumb (the sliding buttons — never the whole slider): "lift" | "scale" | "press" | "tilt" | "ring" | "glow" | "shine" (default: none). */
   hoverEffect?: HoverEffect;
+  /** Called when the field gains focus — the native focus event (the web component's `focus` event, detail = the value). */
+  onFocus?: (e: FocusEvent<HTMLInputElement>) => void;
+  /** Called as the user edits the field — the native input event (the web component's `input` event, detail = the value). */
+  onInput?: (e: FormEvent<HTMLInputElement>) => void;
+  /** Called when the field fails validation — the native invalid event (the web component's `invalid` event, detail = the message). */
+  onInvalid?: (e: FormEvent<HTMLInputElement>) => void;
   /** Extra CSS class(es) added to the root element, merged before `classNames.root`. */
   className?: string;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
@@ -56,6 +63,9 @@ export function RangeSlider({
   step = 1,
   value,
   onChange,
+  onFocus,
+  onInput,
+  onInvalid,
   color = "accent",
   showValue = false,
   transition,
@@ -90,6 +100,9 @@ export function RangeSlider({
           step={step}
           value={low}
           onChange={(e) => onChange?.([Math.min(Number(e.target.value), high), high])}
+          onFocus={onFocus}
+          onInput={onInput}
+          onInvalid={onInvalid}
           data-thumb-hover={hoverEffect}
           className={cx(INPUT_CLASSES, classNames?.thumb)}
           // When both thumbs sit at the top end, the low one has to be on top or it could never be dragged back.
@@ -102,6 +115,9 @@ export function RangeSlider({
           step={step}
           value={high}
           onChange={(e) => onChange?.([low, Math.max(Number(e.target.value), low)])}
+          onFocus={onFocus}
+          onInput={onInput}
+          onInvalid={onInvalid}
           data-thumb-hover={hoverEffect}
           className={cx(INPUT_CLASSES, classNames?.thumb)}
         />

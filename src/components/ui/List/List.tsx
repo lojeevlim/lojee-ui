@@ -1,8 +1,12 @@
 import type { ReactNode } from "react";
+import { ListItem } from "./ListItem";
 import { cx } from "../../../core/tokens";
 import { motionClass, motionStyle, type TransitionVariant } from "../../../core/motion";
 
 export type ListVariant = "plain" | "divided" | "bordered";
+
+/** One row of a List's `items` — a plain string, or an object with the row's label and optional icon. */
+export type ListItemSpec = string | { label: ReactNode; icon?: string };
 
 export interface ListProps {
   /** Renders an <ol> instead of a <ul> (default: false). */
@@ -17,6 +21,8 @@ export interface ListProps {
   transitionDuration?: number;
   /** Delay before the enter transition starts, in ms (default: 0) — handy for staggering. */
   transitionDelay?: number;
+  /** Rows as data — `["Overview", "Settings"]` or `[{ label: "Overview", icon: "home" }, …]` — instead of ListItem children; works the same in React and as a Web Component (`items` property / JSON attribute). Rendered before any `children`. */
+  items?: ListItemSpec[];
   /** List rows, typically ListItem elements. */
   children?: ReactNode;
   /** Extra class name(s) applied to the root element. */
@@ -35,7 +41,11 @@ const VARIANT_CLASSES: Record<ListVariant, string> = {
   bordered: "divide-y divide-border rounded-xl border border-border overflow-hidden",
 };
 
-export function List({ ordered = false, variant = "plain", header, children, className, classNames, transition, transitionDuration, transitionDelay }: ListProps) {
+function rows(items?: ListItemSpec[]) {
+  return items?.map((it, i) => (typeof it === "string" ? <ListItem key={i}>{it}</ListItem> : <ListItem key={i} icon={it.icon}>{it.label}</ListItem>));
+}
+
+export function List({ ordered = false, variant = "plain", header, items, children, className, classNames, transition, transitionDuration, transitionDelay }: ListProps) {
   const Tag = ordered ? "ol" : "ul";
   if (header != null) {
     return (
@@ -47,6 +57,7 @@ export function List({ ordered = false, variant = "plain", header, children, cla
           <slot name="header">{header}</slot>
         </div>
         <Tag className={cx("list-none divide-y divide-border", classNames?.list)}>
+          {rows(items)}
           <slot>{children}</slot>
         </Tag>
       </div>
@@ -57,6 +68,7 @@ export function List({ ordered = false, variant = "plain", header, children, cla
       className={cx("list-none", VARIANT_CLASSES[variant], motionClass(transition), className, classNames?.root)}
       style={motionStyle(transitionDuration, transitionDelay)}
     >
+      {rows(items)}
       <slot>{children}</slot>
     </Tag>
   );

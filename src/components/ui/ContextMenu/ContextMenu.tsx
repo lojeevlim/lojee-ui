@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import type { MouseEvent as ReactMouseEvent, ReactNode } from "react";
 import { cx } from "../../../core/tokens";
 import { motionClass, motionState, motionStyle, DEFAULT_TRANSITION_MS, type TransitionVariant } from "../../../core/motion";
+import { useOpen } from "../../../core/useOpen";
 import { usePresence } from "../../../core/usePresence";
 
 export interface ContextMenuProps {
@@ -15,6 +16,10 @@ export interface ContextMenuProps {
   transitionDuration?: number;
   /** Delay before the enter transition starts, in ms (default: 0). */
   transitionDelay?: number;
+  /** Opens or closes it from outside — set it whenever you want; the user can still open / close it, so it works with nothing wired up. Pair with `onOpenChange` for two-way binding. */
+  open?: boolean;
+  /** Called with the new open state whenever it opens or closes — right-click, outside click, Escape (the web component's `openchange` / `update` event, detail = true | false). */
+  onOpenChange?: (open: boolean) => void;
   /** Extra class name(s) applied to the root element. */
   className?: string;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
@@ -24,8 +29,8 @@ export interface ContextMenuProps {
   };
 }
 
-export function ContextMenu({ children, menu, transition, transitionDuration, transitionDelay, className, classNames }: ContextMenuProps) {
-  const [open, setOpen] = useState(false);
+export function ContextMenu({ children, menu, open: openProp, onOpenChange, transition, transitionDuration, transitionDelay, className, classNames }: ContextMenuProps) {
+  const [open, setOpen] = useOpen(openProp, onOpenChange);
   // With a `transition` the panel stays mounted for the exit; without one it unmounts immediately, as before.
   const { mounted } = usePresence(open, transition ? (transitionDuration ?? DEFAULT_TRANSITION_MS) + (transitionDelay ?? 0) : 0);
   const [coords, setCoords] = useState({ x: 0, y: 0 });
