@@ -571,7 +571,14 @@ export function Sidebar({
     // a category's own height transition) — re-measuring on either keeps the pill honest about where
     // the active row actually ends up, rather than animating toward a now-stale position.
     window.addEventListener("resize", measure);
-    return () => window.removeEventListener("resize", measure);
+    // The categories open / close with a height transition (and collapsing the rail opens every one of them), so the active
+    // row keeps moving for a few hundred ms after this effect ran — re-measure as the list reflows, until it settles.
+    const ro = new ResizeObserver(measure);
+    if (navRef.current) ro.observe(navRef.current);
+    return () => {
+      window.removeEventListener("resize", measure);
+      ro.disconnect();
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps -- closedCategoryLabels is a fresh Set every render, derived purely from collapsed/openCategories/items, which are already listed below.
   }, [selectedLabel, items, collapsed, openCategories]);
   const renderItemRow = (item: SidebarMenuItemSpec, key: string) => (
