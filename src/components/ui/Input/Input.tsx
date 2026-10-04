@@ -2,12 +2,15 @@ import type { InputHTMLAttributes } from "react";
 import { cx } from "../../../core/tokens";
 import { motionClass, motionStyle, type TransitionVariant, type HoverEffect } from "../../../core/motion";
 import { Icon } from "../Icons/Icon";
+import { INPUT_VARIANT_CLASSES, INPUT_VARIANT_INVALID_CLASSES, type InputVariant } from "../../../core/inputVariants";
 
 export type InputSize = "sm" | "md" | "lg";
 
 export interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "size"> {
   /** Control height and text size: "sm" | "md" | "lg". Defaults to "md". */
   size?: InputSize;
+  /** Look of the field: "outline" | "filled" | "underline" | "soft" (default: "outline"). */
+  variant?: InputVariant;
   /** Applies error (rose) styling when true (default: false). */
   invalid?: boolean;
   /** Icon name, e.g. "mail" — see src/core/icons.ts for the available set. */
@@ -42,6 +45,7 @@ const BASE_CLASSES =
 const INVALID_CLASSES = "border-rose-400 focus:border-rose-500 focus:ring-rose-500/20";
 
 export function Input({
+  variant = "outline",
   size = "md",
   invalid = false,
   leadingIcon,
@@ -58,7 +62,9 @@ export function Input({
   const inputClasses = cx(
     BASE_CLASSES,
     SIZE_CLASSES[size],
+    INPUT_VARIANT_CLASSES[variant],
     invalid && INVALID_CLASSES,
+    invalid && INPUT_VARIANT_INVALID_CLASSES[variant],
     leadingIcon && "pl-9",
     trailingIcon && "pr-9"
   );
@@ -69,6 +75,7 @@ export function Input({
     return (
       <input
         aria-invalid={invalid || undefined}
+        data-input-variant={variant}
         // An <input> can't host the hover "shine" streak (it needs an ::after), so that effect is skipped here.
         className={cx(inputClasses, motionClass(transition, hoverEffect === "shine" ? undefined : hoverEffect), className, classNames?.root, classNames?.input)}
         style={motionStyles}
@@ -89,7 +96,7 @@ export function Input({
           className={cx("pointer-events-none absolute left-3 text-fg-subtle", classNames?.icon)}
         />
       )}
-      <input aria-invalid={invalid || undefined} className={cx(inputClasses, classNames?.input)} {...rest} />
+      <input aria-invalid={invalid || undefined} data-input-variant={variant} className={cx(inputClasses, classNames?.input)} {...rest} />
       {trailingIcon && (
         <Icon
           name={trailingIcon}

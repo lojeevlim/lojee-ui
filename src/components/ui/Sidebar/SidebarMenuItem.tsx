@@ -174,7 +174,7 @@ export const SidebarMenuItem = forwardRef<HTMLAnchorElement | HTMLButtonElement,
     const idleClass = dark ? "text-white/70" : "text-fg-muted";
 
     const rowClasses = cx(
-      "relative flex items-center rounded-lg text-sm transition-[color,background-color,box-shadow] duration-200 ease-[cubic-bezier(.4,0,.2,1)]",
+      "relative z-10 flex items-center rounded-lg text-sm transition-[color,background-color,box-shadow] duration-200 ease-[cubic-bezier(.4,0,.2,1)]",
       collapsed ? "w-full justify-center px-1 py-2.5" : "w-full gap-2.5 px-3 py-3",
       disabled && "pointer-events-none opacity-50",
       active ? activeClass : idleClass,

@@ -112,7 +112,7 @@ export const NavbarItem = forwardRef<HTMLAnchorElement | HTMLButtonElement, Navb
     // — plain `ease-out` read noticeably less smooth by comparison. Kept in sync with Navbar's own
     // sliding pill duration (see Navbar.tsx's `itemRows`) so the text-color swap and the pill's slide
     // finish together instead of visibly drifting apart.
-    "relative inline-flex items-center justify-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium transition-[color,background-color,box-shadow] duration-200 ease-[cubic-bezier(.4,0,.2,1)]",
+    "relative z-10 inline-flex items-center justify-center gap-1.5 rounded-md px-3 py-1.5 text-sm font-medium transition-[color,background-color,box-shadow] duration-200 ease-[cubic-bezier(.4,0,.2,1)]",
     disabled && "pointer-events-none opacity-50",
     active ? activeClass : idleClass,
     motionClass(transition, hoverEffect),

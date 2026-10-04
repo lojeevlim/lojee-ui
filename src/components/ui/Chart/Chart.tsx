@@ -4,10 +4,10 @@ import { useProgress } from "../../../core/useCountUp";
 import { useDesign } from "../../../core/useDesign";
 import { motionClass, motionStyle, type TransitionVariant, type HoverEffect } from "../../../core/motion";
 
-// Claymorphism is drawn with plain SVG — layered gradients and stroked rims, no SVG filters or CSS geometry properties — so it renders the
-// same in every browser: a diagonal sheen (light on the top-left, shade on the bottom-right) over each shape, a rim that catches the light,
-// and one soft drop shadow for the whole chart. The shapes only get these under the Claymorphism design; Bento keeps the flat shapes.
-const CLAY_SHADOW = "drop-shadow(3px 6px 5px rgb(74 86 136 / 0.35))";
+// Claymorphism follows the ProgressBar: shapes sit in pressed-in slots/tracks and are filled flat with just a thin highlight rim and a soft,
+// short shadow (no heavy tube shading). It is plain SVG — a faint diagonal sheen, a rim that catches the light — so it renders the same in
+// every browser. The shapes only get these under the Claymorphism design; Bento keeps the flat shapes.
+const CLAY_SHADOW = "drop-shadow(1px 2px 2px rgb(74 86 136 / 0.22))";
 
 function useClayDefs(on: boolean): { sheen: string; rim: string; gloss: string; defs: React.JSX.Element | null } {
   const uid = useId().replace(/[^a-zA-Z0-9]/g, "");
@@ -21,20 +21,20 @@ function useClayDefs(on: boolean): { sheen: string; rim: string; gloss: string; 
     defs: on ? (
       <defs>
         <linearGradient id={sheen} x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#fff" stopOpacity="0.55" />
+          <stop offset="0" stopColor="#fff" stopOpacity="0.25" />
           <stop offset="0.4" stopColor="#fff" stopOpacity="0" />
           <stop offset="0.62" stopColor="#000" stopOpacity="0" />
-          <stop offset="1" stopColor="#000" stopOpacity="0.3" />
+          <stop offset="1" stopColor="#000" stopOpacity="0.14" />
         </linearGradient>
         <linearGradient id={gloss} x1="0" y1="0" x2="0" y2="1">
           <stop offset="0" stopColor="#fff" stopOpacity="0.6" />
           <stop offset="1" stopColor="#fff" stopOpacity="0" />
         </linearGradient>
         <linearGradient id={rim} x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#fff" stopOpacity="0.95" />
+          <stop offset="0" stopColor="#fff" stopOpacity="0.55" />
           <stop offset="0.45" stopColor="#fff" stopOpacity="0" />
           <stop offset="0.6" stopColor="#000" stopOpacity="0" />
-          <stop offset="1" stopColor="#000" stopOpacity="0.4" />
+          <stop offset="1" stopColor="#000" stopOpacity="0.12" />
         </linearGradient>
       </defs>
     ) : null,
@@ -161,10 +161,7 @@ function BarChart({ data, color, height, svgClassName, progress, showValues, cla
             {clay && barHeight > 2 && (
               <>
                 <rect x={x} y={y} width={barWidth} height={barHeight} rx={radius} fill={`url(#${g.sheen})`} pointerEvents="none" />
-                <rect x={x + 3} y={y + 3} width={Math.max(0, barWidth - 6)} height={Math.max(0, barHeight - 6)} rx={Math.max(0, radius - 3)} fill="none" stroke={`url(#${g.rim})`} strokeWidth={8} strokeOpacity={0.45} vectorEffect="non-scaling-stroke" pointerEvents="none" />
-                <rect x={x + 1.5} y={y + 1.5} width={Math.max(0, barWidth - 3)} height={Math.max(0, barHeight - 3)} rx={Math.max(0, radius - 1.5)} fill="none" stroke={`url(#${g.rim})`} strokeWidth={3} vectorEffect="non-scaling-stroke" pointerEvents="none" />
-                {/* the glossy highlight running down the left of a clay tube */}
-                <rect x={x + barWidth * 0.17} y={y + barHeight * 0.1} width={barWidth * 0.13} height={barHeight * 0.5} rx={barWidth * 0.065} fill={`url(#${g.gloss})`} pointerEvents="none" />
+                <rect x={x + 1.5} y={y + 1.5} width={Math.max(0, barWidth - 3)} height={Math.max(0, barHeight - 3)} rx={Math.max(0, radius - 1.5)} fill="none" stroke={`url(#${g.rim})`} strokeWidth={2} vectorEffect="non-scaling-stroke" pointerEvents="none" />
               </>
             )}
           </g>
@@ -212,14 +209,14 @@ function LineChart({ data, color, height, svgClassName, progress, showValues, cl
         points={pts}
         fill="none"
         stroke={strokeColor}
-        strokeWidth={clay ? 7 : 2}
+        strokeWidth={clay ? 5 : 2}
         strokeLinejoin="round"
         strokeLinecap="round"
         vectorEffect={clay ? "non-scaling-stroke" : undefined}
       />
       {/* Clay: a thin light line along the top edge of the tube. */}
       {clay && (
-        <polyline points={pts} fill="none" stroke="#fff" strokeOpacity={0.5} strokeWidth={2} strokeLinejoin="round" strokeLinecap="round" vectorEffect="non-scaling-stroke" transform="translate(-0.5 -1.5)" pointerEvents="none" />
+        <polyline points={pts} fill="none" stroke="#fff" strokeOpacity={0.4} strokeWidth={1.5} strokeLinejoin="round" strokeLinecap="round" vectorEffect="non-scaling-stroke" transform="translate(-0.5 -1.5)" pointerEvents="none" />
       )}
       {!clay &&
         points.map(({ x, y, point }, i) => (
@@ -238,14 +235,14 @@ function LineChart({ data, color, height, svgClassName, progress, showValues, cl
           <span
             key={i}
             title={`${point.label}: ${point.value}`}
-            className="absolute h-[18px] w-[18px] rounded-full"
+            className="absolute h-[14px] w-[14px] rounded-full"
             style={{
               left: `${(x / VIEW_W) * 100}%`,
               top: `${(y / VIEW_H) * 100}%`,
               transform: "translate(-50%, -50%)",
-              background: `radial-gradient(circle at 32% 28%, rgb(255 255 255 / 0.85) 0, ${c} 52%, color-mix(in srgb, ${c} 72%, black) 100%)`,
-              boxShadow: "3px 4px 7px rgb(74 86 136 / 0.45), inset -2px -3px 5px rgb(0 0 0 / 0.25), inset 2px 2px 4px rgb(255 255 255 / 0.6)",
-              border: "3px solid var(--color-surface)",
+              backgroundColor: c,
+              boxShadow: "1px 2px 4px rgb(74 86 136 / 0.35), inset 1px 1px 2px rgb(255 255 255 / 0.4), inset -1px -2px 3px rgb(0 0 0 / 0.18)",
+              border: "2px solid var(--color-surface)",
             }}
           />
         );
@@ -340,12 +337,11 @@ function DonutChart({
                   {point.label}: {point.value}
                 </title>
               </circle>
-              {/* Clay: the ring becomes a puffy tube — a light line along its outer edge and a shade along its inner edge. */}
+              {/* Clay: a thin light line along the ring's outer edge and a faint shade along its inner edge. */}
               {clay && segmentLength > 0.5 && (
                 <>
-                  <ClayArc radius={DONUT_RADIUS + DONUT_STROKE / 2 - 4} base={DONUT_RADIUS} length={segmentLength} offset={offset} stroke="#fff" opacity={0.24} width={6} />
-                  <ClayArc radius={DONUT_RADIUS + DONUT_STROKE / 2 - 5.5} base={DONUT_RADIUS} length={segmentLength} offset={offset} stroke="#fff" opacity={0.7} width={2} />
-                  <ClayArc radius={DONUT_RADIUS - DONUT_STROKE / 2 + 4} base={DONUT_RADIUS} length={segmentLength} offset={offset} stroke="#000" opacity={0.14} width={6} />
+                  <ClayArc radius={DONUT_RADIUS + DONUT_STROKE / 2 - 1.5} base={DONUT_RADIUS} length={segmentLength} offset={offset} stroke="#fff" opacity={0.45} width={1.5} />
+                  <ClayArc radius={DONUT_RADIUS - DONUT_STROKE / 2 + 1.5} base={DONUT_RADIUS} length={segmentLength} offset={offset} stroke="#000" opacity={0.12} width={1.5} />
                 </>
               )}
             </g>

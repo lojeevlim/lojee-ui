@@ -136,18 +136,18 @@ function StepCircle({
   let circle: ReactNode;
   if (status === "complete") {
     circle = (
-      <div className={cx(CIRCLE_BASE, "bg-[var(--ac)] text-white", hover, classNames?.circle, classNames?.completeCircle)}>
+      <div data-step-circle="complete" className={cx(CIRCLE_BASE, "bg-[var(--ac)] text-white", hover, classNames?.circle, classNames?.completeCircle)}>
         <Icon name="check" size={16} />
       </div>
     );
   } else if (status === "current") {
     circle = (
-      <div className={cx(CIRCLE_BASE, "border-2 border-[var(--ac)] text-[var(--ac)]", hover, classNames?.circle, classNames?.currentCircle)}>
+      <div data-step-circle="current" className={cx(CIRCLE_BASE, "border-2 border-[var(--ac)] text-[var(--ac)]", hover, classNames?.circle, classNames?.currentCircle)}>
         {index + 1}
       </div>
     );
   } else {
-    circle = <div className={cx(CIRCLE_BASE, "border border-border-strong text-fg-subtle", hover, classNames?.circle)}>{index + 1}</div>;
+    circle = <div data-step-circle="upcoming" className={cx(CIRCLE_BASE, "border border-border-strong text-fg-subtle", hover, classNames?.circle)}>{index + 1}</div>;
   }
   if (!onClick) return <>{circle}</>;
   return (
@@ -273,7 +273,7 @@ export function Stepper({
             <div className="flex flex-col items-center">
               {circleFor(i, status)}
               {!isLast && (
-                <div className={cx("my-1 w-0.5 flex-1", i < clamped ? "bg-[var(--ac)]" : "bg-border", classNames?.connector)} />
+                <div data-step-connector={i < clamped ? "done" : "todo"} className={cx("my-1 w-0.5 flex-1", i < clamped ? "bg-[var(--ac)]" : "bg-border", classNames?.connector)} />
               )}
             </div>
             <div className={cx("pb-8", isLast && "pb-0")}>
@@ -298,7 +298,7 @@ export function Stepper({
                 {s.description && <p className={cx("mt-0.5 text-xs text-fg-subtle", classNames?.description)}>{s.description}</p>}
               </div>
             </div>
-            {!isLast && <div className={cx("mt-4 h-0.5 flex-1", i < clamped ? "bg-[var(--ac)]" : "bg-border", classNames?.connector)} />}
+            {!isLast && <div data-step-connector={i < clamped ? "done" : "todo"} className={cx("mt-4 h-0.5 flex-1", i < clamped ? "bg-[var(--ac)]" : "bg-border", classNames?.connector)} />}
           </li>
         );
       })}

@@ -57,7 +57,7 @@ export default function NavbarLayout({ activeNav = "components", onNavChange, sh
       // icon is hidden and the links are text-only as before. On phones the equal-width columns give way to
       // content-sized ones.
       classNames={{
-        root: "h-16 gap-1 px-2 py-0 sm:gap-4 sm:px-8 max-sm:[&>div:first-child]:gap-0 max-sm:[&>div:first-child]:min-w-0",
+        root: "relative z-[60] h-16 gap-1 px-2 py-0 sm:gap-4 sm:px-8 max-sm:[&>div:first-child]:gap-0 max-sm:[&>div:first-child]:min-w-0",
         actions: "max-sm:gap-1",
         links:
           "auto-cols-auto gap-1 max-sm:gap-0 max-sm:[&_a]:px-2.5 max-sm:[&_button]:px-2.5 max-sm:[&_a>span]:sr-only max-sm:[&_button>span]:sr-only sm:[&_svg]:hidden",

@@ -1,3 +1,4 @@
+import { INPUT_VARIANT_CLASSES, INPUT_VARIANT_INVALID_CLASSES, type InputVariant } from "../../../core/inputVariants";
 import { useState } from "react";
 import type { InputHTMLAttributes } from "react";
 import { cx } from "../../../core/tokens";
@@ -9,6 +10,8 @@ export type PasswordInputSize = "sm" | "md" | "lg";
 export interface PasswordInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "size" | "type"> {
   /** Control height and text size: "sm", "md" (default) or "lg". */
   size?: PasswordInputSize;
+  /** Look of the field: "outline" | "filled" | "underline" | "soft" (default: "outline"). */
+  variant?: InputVariant;
   /** Marks the field as invalid — rose border/focus ring and `aria-invalid` (default: false). */
   invalid?: boolean;
   /** Enter transition: "fade" | "slide-up" | "slide-down" | "slide-left" | "slide-right" | "zoom" | "zoom-out" | "flip" | "blur" | "bounce" | "rotate" | "drop" | "skew" (default: none). Respects `prefers-reduced-motion`. */
@@ -42,7 +45,7 @@ const INVALID_CLASSES = "border-rose-400 focus:border-rose-500 focus:ring-rose-5
 // decorative (`pointer-events-none`), but this needs a real clickable
 // toggle, so it's its own component with the same visual base as
 // Input/SearchInput/DatePicker rather than a variant of Input.
-export function PasswordInput({ size = "md", invalid = false, className, classNames, transition, transitionDuration, transitionDelay, hoverEffect, ...rest }: PasswordInputProps) {
+export function PasswordInput({ variant = "outline", size = "md", invalid = false, className, classNames, transition, transitionDuration, transitionDelay, hoverEffect, ...rest }: PasswordInputProps) {
   const [visible, setVisible] = useState(false);
 
   return (
@@ -50,11 +53,14 @@ export function PasswordInput({ size = "md", invalid = false, className, classNa
       <input
         type={visible ? "text" : "password"}
         aria-invalid={invalid || undefined}
+        data-input-variant={variant}
         className={cx(
           BASE_CLASSES,
           SIZE_CLASSES[size],
+          INPUT_VARIANT_CLASSES[variant],
           "pr-9",
           invalid && INVALID_CLASSES,
+          invalid && INPUT_VARIANT_INVALID_CLASSES[variant],
           classNames?.input
         )}
         {...rest}

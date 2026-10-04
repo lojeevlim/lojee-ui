@@ -45,6 +45,7 @@
     "maplibre-gl": ">=5.0.0"
   },
   "scripts": {
+    "predev": "node scripts/gen-changelog.mjs",
     "dev": "vite",
     "build": "node scripts/gen-api-docs.mjs && node scripts/gen-changelog.mjs && tsc -b && vite build",
     "build:lib": "vite build --config vite.lib.config.ts && tsc -p tsconfig.lib.json && cp src/theme.css dist/theme.css",

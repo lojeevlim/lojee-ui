@@ -93,6 +93,7 @@ export function Badge({
           classNames?.root
         )}
         style={{ ...animatedStyle(animated, color, pulseColor, pulseGradientTo), ...motionStyle(transitionDuration, transitionDelay) }}
+        data-badge="dot"
         role={label ? "status" : undefined}
         aria-label={label}
       >
@@ -120,6 +121,7 @@ export function Badge({
         classNames?.root
       )}
       style={{ ...animatedStyle(animated, color, pulseColor, pulseGradientTo), ...motionStyle(transitionDuration, transitionDelay) }}
+      data-badge={variant}
     >
       {/* eslint-disable-next-line react-hooks/static-components -- see comment above `const Icon` */}
       {Icon && <Icon size={ICON_PX[size]} className={classNames?.icon} />}

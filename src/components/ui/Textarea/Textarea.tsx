@@ -1,3 +1,4 @@
+import { INPUT_VARIANT_CLASSES, INPUT_VARIANT_INVALID_CLASSES, type InputVariant } from "../../../core/inputVariants";
 import type { TextareaHTMLAttributes } from "react";
 import { cx } from "../../../core/tokens";
 import { motionClass, motionStyle, type TransitionVariant, type HoverEffect } from "../../../core/motion";
@@ -5,6 +6,8 @@ import { motionClass, motionStyle, type TransitionVariant, type HoverEffect } fr
 export type TextareaResize = "none" | "vertical" | "both";
 
 export interface TextareaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
+  /** Look of the field: "outline" | "filled" | "underline" | "soft" (default: "outline"). */
+  variant?: InputVariant;
   /** Applies error styling (rose border and focus ring) to flag invalid input (default: false). */
   invalid?: boolean;
   /** User resize handle: "none", "vertical" or "both" (default: "vertical"). */
@@ -35,6 +38,7 @@ const BASE_CLASSES =
 const INVALID_CLASSES = "border-rose-400 focus:border-rose-500 focus:ring-rose-500/20";
 
 export function Textarea({
+  variant = "outline",
   invalid = false,
   resize = "vertical",
   transition,
@@ -48,10 +52,13 @@ export function Textarea({
 }: TextareaProps) {
   return (
     <textarea
+      data-input-variant={variant}
       className={cx(
         BASE_CLASSES,
         RESIZE_CLASSES[resize],
+        INPUT_VARIANT_CLASSES[variant],
         invalid && INVALID_CLASSES,
+        invalid && INPUT_VARIANT_INVALID_CLASSES[variant],
         // A <textarea> can't host the hover "shine" streak (it needs an ::after), so that effect is skipped here.
         motionClass(transition, hoverEffect === "shine" ? undefined : hoverEffect),
         className,

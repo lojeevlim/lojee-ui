@@ -631,7 +631,7 @@ export function Sidebar({
               <Icon name="chevron-down" size={14} className={cx("shrink-0 transition-transform duration-200", !isOpen && "-rotate-90")} />
             </button>
             <div className="grid transition-[grid-template-rows] duration-300 ease-[cubic-bezier(.4,0,.2,1)]" style={{ gridTemplateRows: isOpen ? "1fr" : "0fr" }}>
-              <div className="space-y-0.5 overflow-hidden">
+              <div className="space-y-0.5 overflow-hidden" data-sidebar-group data-open={isOpen}>
                 {entry.items.map((item, itemIndex) => renderItemRow(item, `${entry.category}-${itemIndex}`))}
               </div>
             </div>

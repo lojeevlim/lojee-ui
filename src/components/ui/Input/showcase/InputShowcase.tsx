@@ -63,6 +63,39 @@ export class AppComponent {}`,
         </section>
 
         <section>
+          <SectionLabel sub='outline (default), filled, underline and soft — also on Textarea, PasswordInput and SearchInput.'>Variants</SectionLabel>
+          <div className="max-w-sm space-y-3">
+            <Input variant="outline" placeholder="Outline" />
+            <Input variant="filled" placeholder="Filled" />
+            <Input variant="underline" placeholder="Underline" />
+            <Input variant="soft" placeholder="Soft" />
+          </div>
+          <CodeBlock
+            variants={{
+              react: `<Input variant="outline" placeholder="Outline" />
+<Input variant="filled" placeholder="Filled" />
+<Input variant="underline" placeholder="Underline" />
+<Input variant="soft" placeholder="Soft" />`,
+              js: `<l-Input variant="outline" placeholder="Outline"></l-Input>
+<l-Input variant="filled" placeholder="Filled"></l-Input>
+<l-Input variant="underline" placeholder="Underline"></l-Input>
+<l-Input variant="soft" placeholder="Soft"></l-Input>`,
+              vue: `<template>
+  <l-Input variant="outline" placeholder="Outline" />
+  <l-Input variant="filled" placeholder="Filled" />
+  <l-Input variant="underline" placeholder="Underline" />
+  <l-Input variant="soft" placeholder="Soft" />
+</template>`,
+              angular: `<!-- app.component.html — same AppComponent as above -->
+<l-Input variant="outline" placeholder="Outline" />
+<l-Input variant="filled" placeholder="Filled" />
+<l-Input variant="underline" placeholder="Underline" />
+<l-Input variant="soft" placeholder="Soft" />`,
+            }}
+          />
+        </section>
+
+        <section>
           <SectionLabel sub="An optional icon on either side.">With icons</SectionLabel>
           <div className="max-w-sm space-y-3">
             <Input leadingIcon="mail" placeholder="Email address" />

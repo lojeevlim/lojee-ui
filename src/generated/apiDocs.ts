@@ -4636,6 +4636,13 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": "\"md\""
           },
           {
+            "name": "variant",
+            "type": "InputVariant",
+            "required": false,
+            "description": "Look of the field: \"outline\" | \"filled\" | \"underline\" | \"soft\" (default: \"outline\").",
+            "default": "\"outline\""
+          },
+          {
             "name": "invalid",
             "type": "boolean",
             "required": false,
@@ -4709,6 +4716,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "name": "string",
             "type": "string",
             "size": "string",
+            "variant": "string",
             "invalid": "boolean",
             "leadingIcon": "string",
             "trailingIcon": "string",
@@ -4764,6 +4772,13 @@ export const API_DOCS: Record<string, ApiDoc> = {
       {
         "name": "Textarea",
         "props": [
+          {
+            "name": "variant",
+            "type": "InputVariant",
+            "required": false,
+            "description": "Look of the field: \"outline\" | \"filled\" | \"underline\" | \"soft\" (default: \"outline\").",
+            "default": "\"outline\""
+          },
           {
             "name": "invalid",
             "type": "boolean",
@@ -4830,6 +4845,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "required": "boolean",
             "name": "string",
             "rows": "number",
+            "variant": "string",
             "invalid": "boolean",
             "resize": "string",
             "transition": "string",
@@ -6186,6 +6202,13 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": "\"md\""
           },
           {
+            "name": "variant",
+            "type": "InputVariant",
+            "required": false,
+            "description": "Look of the field: \"outline\" | \"filled\" | \"underline\" | \"soft\" (default: \"outline\").",
+            "default": "\"outline\""
+          },
+          {
             "name": "onClear",
             "type": "() => void",
             "required": false,
@@ -6241,6 +6264,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "value": "string",
             "placeholder": "string",
             "size": "string",
+            "variant": "string",
             "disabled": "boolean",
             "transition": "string",
             "transitionDuration": "number",
@@ -12568,6 +12592,13 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": "\"md\""
           },
           {
+            "name": "variant",
+            "type": "InputVariant",
+            "required": false,
+            "description": "Look of the field: \"outline\" | \"filled\" | \"underline\" | \"soft\" (default: \"outline\").",
+            "default": "\"outline\""
+          },
+          {
             "name": "invalid",
             "type": "boolean",
             "required": false,
@@ -12621,6 +12652,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
           "tag": "l-password-input",
           "props": {
             "size": "string",
+            "variant": "string",
             "invalid": "boolean",
             "disabled": "boolean",
             "transition": "string",

@@ -487,6 +487,7 @@ customElements.define(
       name: "string",
       type: "string",
       size: "string",
+      variant: "string",
       invalid: "boolean",
       leadingIcon: "string",
       trailingIcon: "string",
@@ -509,6 +510,7 @@ customElements.define(
       required: "boolean",
       name: "string",
       rows: "number",
+      variant: "string",
       invalid: "boolean",
       resize: "string",
       transition: "string",
@@ -531,7 +533,7 @@ customElements.define(
   "l-search-input",
   r2wc(withTailwind(SearchInput), {
     shadow: "open",
-    props: { value: "string", placeholder: "string", size: "string", disabled: "boolean", transition: "string", transitionDuration: "number", transitionDelay: "number", hoverEffect: "string" },
+    props: { value: "string", placeholder: "string", size: "string", variant: "string", disabled: "boolean", transition: "string", transitionDuration: "number", transitionDelay: "number", hoverEffect: "string" },
     events: { onClear: {} }, // dispatches "clear" — no native DOM equivalent for the clear button
   })
 );
@@ -1352,7 +1354,7 @@ customElements.define(
   "l-password-input",
   r2wc(withTailwind(PasswordInput), {
     shadow: "open",
-    props: { size: "string", invalid: "boolean", disabled: "boolean", transition: "string", transitionDuration: "number", transitionDelay: "number", hoverEffect: "string" },
+    props: { size: "string", variant: "string", invalid: "boolean", disabled: "boolean", transition: "string", transitionDuration: "number", transitionDelay: "number", hoverEffect: "string" },
   })
 );
 

@@ -19,6 +19,7 @@ import { Icon } from "../ui/Icons/Icon";
 import { COMPONENT_MENU } from "../../constant/component_menu";
 import { pathFor } from "../../core/routes";
 import { REPO_URL } from "../../core/repo";
+import { CHANGELOG } from "../../generated/changelog";
 import { COLORS } from "../../core/tokens";
 import { ANIMATED_VARIANTS } from "../../core/animated";
 import { TRANSITIONS } from "../../core/motion";
@@ -109,6 +110,10 @@ function Nav({ groups, onStart }: { groups: typeof COMPONENT_MENU; onStart: () =
   );
 }
 
+// The announcement pill shows the newest change from the git history (generated into the changelog at dev / build time),
+// skipping version-bump commits like "Release 0.1.0-alpha.6" which say nothing about what changed.
+const LATEST_UPDATE = CHANGELOG.find((c) => !/^release\b/i.test(c.subject))?.subject ?? "See what's new";
+
 export default function LandingPage() {
   const navigate = useNavigate();
   const [copied, setCopied] = useState(false);
@@ -144,11 +149,11 @@ export default function LandingPage() {
         <div className="lp-glow pointer-events-none absolute inset-0 -z-10" />
         <div className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-32 bg-gradient-to-t from-surface to-transparent" />
         <div className="mx-auto max-w-6xl px-5 pt-14 text-center lg:pt-24">
-          <div className="lp-enter inline-flex items-center gap-2 rounded-full border border-border bg-surface/70 py-1 pl-1 pr-3 text-xs text-fg-muted shadow-sm" style={{ ["--d" as string]: "0ms" }}>
-            <Badge variant="solid" label="New" animated="pulse" />
-            Motion, maps, skeleton loading and table actions
+          <button type="button" onClick={() => navigate(pathFor("docs", "Changelog"))} className="lp-enter inline-flex max-w-full cursor-pointer items-center gap-2 rounded-full border border-border bg-surface/70 py-1 pl-1 pr-3 text-xs text-fg-muted shadow-sm" style={{ ["--d" as string]: "0ms" }}>
+            <span className="relative z-10 inline-flex"><Badge variant="solid" label="New" animated="pulse" /></span>
+            <span className="truncate">{LATEST_UPDATE}</span>
             <Icon name="arrow-right" size={12} />
-          </div>
+          </button>
           <h1 className="lp-enter lp-clay-text mx-auto mt-7 max-w-4xl text-5xl font-semibold leading-[1.02] tracking-tight md:text-7xl lg:text-[5.25rem]" style={{ ["--d" as string]: "100ms" }}>
             Interfaces that fit <span className="lp-shimmer-text">every framework</span>.
           </h1>

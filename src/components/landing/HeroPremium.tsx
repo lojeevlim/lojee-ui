@@ -189,6 +189,7 @@ const Reel = memo(function Reel({ items, dir, speed, style }: { items: ReactNode
   return (
     <div
       ref={root}
+      data-hero-reel
       className={`overflow-hidden py-3 [mask-image:linear-gradient(to_right,transparent,#000_8%,#000_92%,transparent)] [touch-action:pan-y] ${grabbing ? "cursor-grabbing" : "cursor-grab"}`}
       style={style}
       onPointerDown={onDown}

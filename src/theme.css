@@ -97,9 +97,9 @@
 :host,
 [data-theme="light"] {
   color-scheme: light;
-  --lojee-surface: #ffffff;
+  --lojee-surface: #FDFBF7;
   --lojee-surface-muted: #f1f5f9;
-  --lojee-surface-raised: #ffffff;
+  --lojee-surface-raised: #FDFBF7;
   --lojee-fg: #0f172a;
   --lojee-fg-muted: #475569;
   --lojee-fg-subtle: #64748b;
@@ -846,9 +846,9 @@
   --clay-hi: rgb(255 255 255 / 0.95);
   --clay-lo: rgb(84 96 150 / 0.2);
   --clay-drop: rgb(84 96 150 / 0.22);
-  --lojee-surface: #eef0f9;
-  --lojee-surface-muted: #e4e7f3;
-  --lojee-surface-raised: #f5f6fc;
+  --lojee-surface: #FDFBF7;
+  --lojee-surface-muted: #f1f5f9;
+  --lojee-surface-raised: #FDFBF7;
   --lojee-border: rgb(84 96 150 / 0.1);
   --lojee-border-strong: rgb(84 96 150 / 0.2);
 }
@@ -856,11 +856,11 @@
   --clay-hi: rgb(255 255 255 / 0.08);
   --clay-lo: rgb(0 0 0 / 0.5);
   --clay-drop: rgb(0 0 0 / 0.45);
-  --lojee-surface: #232634;
-  --lojee-surface-muted: #1b1d28;
-  --lojee-surface-raised: #2b2f3f;
-  --lojee-border: rgb(255 255 255 / 0.07);
-  --lojee-border-strong: rgb(255 255 255 / 0.14);
+  --lojee-surface: #0b1220;
+  --lojee-surface-muted: #162033;
+  --lojee-surface-raised: #111a2b;
+  --lojee-border: #263449;
+  --lojee-border-strong: #3a4a63;
 }
 [data-design="clay"] {
   --clay-raise-sm: 3px 4px 9px var(--clay-drop), inset 2px 2px 4px var(--clay-hi), inset -2px -3px 5px var(--clay-lo);
@@ -879,6 +879,19 @@
 [data-design="clay"] .shadow-lg:not([class*="shadow-none"]),
 [data-design="clay"] .shadow-xl:not([class*="shadow-none"]),
 [data-design="clay"] .shadow-2xl:not([class*="shadow-none"]) { --tw-shadow: var(--clay-raise-lg); }
+
+/* Sliding active pills (Navbar, Sidebar, Pagination…) sit above their sibling items' backgrounds/shadows so the
+   pill's clay drop shadow isn't painted over; the items' labels are z-10 and stay on top of the pill. */
+[data-design="clay"] [data-active-fill]:not(button, a, [role]) { z-index: 5; }
+/* A Sidebar category clips its items (overflow-hidden, for the collapse animation), which cuts the active pill's
+   drop shadow at the group edges. Once open it stops clipping (the flip waits out the 300ms expand). */
+[data-design="clay"] [data-sidebar-group][data-open="true"] {
+  overflow: visible;
+  transition: overflow 0s 0.3s allow-discrete;
+}
+/* The Sidebar body scrolls (overflow-y-auto clips on both axes) and has no right padding, so the active pill's
+   drop shadow was cut flat at its right edge; leave room for it. */
+[data-design="clay"] .lojee-sidebar-scroll { padding-right: 0.75rem; }
 
 /* Boxes: a rounded, outlined, surface-colored thing (card, panel, popover, table frame…) is raised off the page. */
 [data-design="clay"] :is(.rounded-lg, .rounded-xl, .rounded-2xl, .rounded-3xl)[class*="border-border"][class*="bg-surface"]:not([class^="bg-surface-muted"], [class*=" bg-surface-muted"]) {
@@ -1261,3 +1274,74 @@ body[data-design="clay"] {
 [data-design="clay"] [data-cl-node] {
   box-shadow: 3px 4px 8px var(--clay-drop), inset 2px 2px 4px var(--clay-hi), inset -2px -3px 5px var(--clay-lo);
 }
+
+/* ---- Clay: Badge, Avatar, Stepper, Map pins / popups / controls ---- */
+/* Badges become small puffed pills: solid ones glossy like buttons, soft / outline ones raised off the page. */
+[data-design="clay"] [data-badge] {
+  border-radius: 9999px;
+  border-color: transparent;
+}
+[data-design="clay"] [data-badge="solid"] { box-shadow: 2px 3px 7px var(--clay-drop), var(--clay-gloss-thin); }
+[data-design="clay"] :is([data-badge="soft"], [data-badge="outline"]) {
+  box-shadow: 2px 3px 6px var(--clay-drop), inset 1px 1px 2px var(--clay-hi), inset -1px -2px 3px var(--clay-lo);
+}
+[data-design="clay"] [data-badge="dot"] { box-shadow: 1px 2px 4px var(--clay-drop), var(--clay-gloss-thin); }
+
+/* Avatars: a raised bubble. The inset highlight is a pseudo-element so a photo can't cover it. */
+[data-design="clay"] [data-avatar-clip] {
+  position: relative;
+  box-shadow: 3px 4px 9px var(--clay-drop);
+}
+[data-design="clay"] [data-avatar-clip]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  box-shadow: inset 2px 2px 4px var(--clay-hi), inset -2px -3px 5px var(--clay-lo);
+}
+[data-design="clay"] [data-avatar-status] {
+  box-shadow: 1px 2px 4px var(--clay-drop), var(--clay-gloss-thin);
+}
+
+/* Stepper: step circles are clay balls; the connector is a groove that fills in as steps complete. */
+[data-design="clay"] [data-step-circle="complete"] { box-shadow: 3px 4px 9px var(--clay-drop), var(--clay-gloss); }
+[data-design="clay"] :is([data-step-circle="current"], [data-step-circle="upcoming"]) {
+  background-color: var(--lojee-surface);
+  box-shadow: var(--clay-raise-sm);
+}
+[data-design="clay"] [data-step-circle="upcoming"] { border-color: transparent; }
+[data-design="clay"] [data-step-connector] { border-radius: 9999px; }
+[data-design="clay"] [data-step-connector="todo"] { box-shadow: var(--clay-well); }
+[data-design="clay"] [data-step-connector="done"] { box-shadow: 1px 2px 4px var(--clay-drop), var(--clay-gloss-thin); }
+
+/* Map pins (+ their gloss highlight), popups, zoom controls and the style switcher. */
+[data-design="clay"] [data-map-pin] svg { filter: drop-shadow(3px 5px 4px var(--clay-drop)); }
+[data-design="clay"] [data-map-pin] .lojee-pin-gloss { fill-opacity: 0.5; }
+[data-design="clay"] .maplibregl-popup-content {
+  border-radius: 18px;
+  box-shadow: var(--clay-raise-md);
+}
+[data-design="clay"] .maplibregl-ctrl-group {
+  border-radius: 14px;
+  box-shadow: var(--clay-raise-sm);
+}
+[data-design="clay"] .maplibregl-ctrl-attrib { border-radius: 9999px 0 0 0; }
+
+/* Input variants in Clay: filled / soft stay pressed-in wells like the default; the underline variant stays a flat rule. */
+[data-design="clay"] input[data-input-variant="underline"],
+[data-design="clay"] textarea[data-input-variant="underline"] {
+  border-radius: 0;
+  box-shadow: none;
+  background-color: transparent;
+}
+
+/* Landing hero reels clip their overflow, which sliced the cards' long Clay drop shadows flat at the bottom; leave room for them.
+   (The hovered card is also lifted above its neighbours — see HeroCard.) */
+[data-design="clay"] [data-hero-reel] {
+  padding-top: 1rem;
+  padding-bottom: 2.5rem;
+  position: relative;
+}
+/* ...and the two rows sit close: the first reel's shadow room overlaps the second's empty top padding. */
+[data-design="clay"] [data-hero-reel]:not(:last-child) { margin-bottom: -1.5rem; }

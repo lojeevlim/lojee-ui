@@ -111,7 +111,7 @@ export function Avatar({
       {/* Clips the image/fallback to the avatar's shape — kept off the root
           span so the status dot below (a sibling, not a child of this) isn't
           clipped along with it when it overlaps the corner. */}
-      <span className={cx("flex h-full w-full items-center justify-center overflow-hidden", shapeClass)}>
+      <span data-avatar-clip className={cx("flex h-full w-full items-center justify-center overflow-hidden", shapeClass)}>
         {showImage ? (
           <img
             src={src}
@@ -140,6 +140,7 @@ export function Avatar({
             STATUS_DOT_SIZE[size],
             classNames?.status
           )}
+          data-avatar-status
           aria-label={status}
         />
       )}

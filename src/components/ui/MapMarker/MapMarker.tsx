@@ -101,10 +101,11 @@ export function MapMarker({ lng, lat, label, color = "accent", icon, popup, tool
 
   const fill = cssColor(color);
   const pin = (
-    <div className={cx("relative flex cursor-pointer flex-col items-center", className)} style={{ width: 28, height: 36 }}>
+    <div data-map-pin className={cx("relative flex cursor-pointer flex-col items-center", className)} style={{ width: 28, height: 36 }}>
       <svg width="28" height="36" viewBox="0 0 28 36" fill="none" className="drop-shadow-md" aria-hidden="true">
         <path d="M14 0C6.3 0 0 6.1 0 13.7 0 24 14 36 14 36s14-12 14-22.3C28 6.1 21.7 0 14 0Z" fill={fill} />
         <circle cx="14" cy="13.5" r="9" fill="white" fillOpacity={icon ? 0.18 : 0.9} />
+        <ellipse className="lojee-pin-gloss" cx="9.5" cy="7" rx="4.5" ry="3" fill="white" fillOpacity={0} transform="rotate(-35 9.5 7)" />
       </svg>
       {icon && (
         <span className="absolute left-1/2 top-[7px] -translate-x-1/2 text-white">
