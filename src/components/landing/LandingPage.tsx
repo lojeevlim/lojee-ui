@@ -28,14 +28,13 @@ import { TRANSITIONS } from "../../core/motion";
 const HeroPremium = lazy(() => import("./HeroPremium"));
 const MapLab = lazy(() => import("./MapLab"));
 const FrameworkFlow = lazy(() => import("./FrameworkFlow"));
-const ThemeLab = lazy(() => import("./ThemeLab"));
 const LayoutLab = lazy(() => import("./LayoutLab"));
-const MotionLab = lazy(() => import("./MotionLab"));
+const LookAndFeelLab = lazy(() => import("./LookAndFeelLab"));
 const DataLab = lazy(() => import("./DataLab"));
 
 // The page sections below the hero are lazy chunks that mount as they near the viewport. Fetch (and parse) those chunks while the browser
 // is idle after the page has settled, so scrolling only has to render them instead of also downloading and compiling their code.
-const SECTION_CHUNKS = [() => import("./FrameworkFlow"), () => import("./MotionLab"), () => import("./DataLab"), () => import("./MapLab"), () => import("./ThemeLab"), () => import("./LayoutLab")];
+const SECTION_CHUNKS = [() => import("./FrameworkFlow"), () => import("./LookAndFeelLab"), () => import("./DataLab"), () => import("./MapLab"), () => import("./LayoutLab")];
 function prefetchSections() {
   const w = window as Window & { requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number };
   const idle = (cb: () => void) => (w.requestIdleCallback ? w.requestIdleCallback(cb, { timeout: 4000 }) : w.setTimeout(cb, 1500));
@@ -301,8 +300,8 @@ export default function LandingPage() {
         </div>
       </Section>
 
-      <Section eyebrow="Motion" title="Bring every component to life" body="Pick an enter transition, an attention effect and a hover effect — pulses and borders can be a solid color or a gradient. It all respects reduced-motion.">
-        <LazyOnView minHeight={640}><MotionLab /></LazyOnView>
+      <Section eyebrow="Look & feel" title="Make it move. Make it yours." body="Choose how components enter, react and respond to a hover — then set the mode, accent and style in one click. Every change is live, themeable and respects reduced-motion.">
+        <LazyOnView minHeight={720}><LookAndFeelLab /></LazyOnView>
       </Section>
 
       <Section eyebrow="Data" title="Tables that load, edit and react" body="Tables show shimmering skeleton rows while data loads, switch between a table and a card grid, and let users select, edit, duplicate or delete rows with no extra code.">
@@ -310,11 +309,7 @@ export default function LandingPage() {
       </Section>
 
       <Section eyebrow="Maps" title="Interactive maps, markers and routes" body="A MapLibre vector map with free basemaps — no API key. It follows your light and dark theme, loads only when shown, and composes with draggable markers, popups and animated routes.">
-        <LazyOnView minHeight={640}><MapLab /></LazyOnView>
-      </Section>
-
-      <Section eyebrow="Theming" title="Make it yours in one click" body="Mode, accent and the active-item style are plain CSS variables. Try it — this preview is a real, isolated ThemeProvider.">
-        <LazyOnView minHeight={520}><ThemeLab /></LazyOnView>
+        <LazyOnView minHeight={760}><MapLab /></LazyOnView>
       </Section>
 
       <Section eyebrow="App layout" title="Arrange a whole app with a matrix" body="Describe the layout as rows and columns of region names. The grid, the responsive drawer and the transitions come for free.">
@@ -344,7 +339,7 @@ export default function LandingPage() {
 
       <footer className="border-t border-border">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-5 py-8 text-sm text-fg-subtle sm:flex-row">
-          <span className="flex items-center gap-3"><Logo size={22} className="text-sm" /><span>© 2026 Lojee, Inc. · MIT license</span></span>
+          <span className="flex items-center gap-3"><Logo size={22} className="text-sm" /><span>Made with <span className="text-rose-500" aria-label="love">♥</span> by Lojee · © 2026 · MIT</span></span>
           <div className="flex items-center gap-5">
             <button type="button" className="hover:text-fg" onClick={() => navigate(pathFor("docs", "Changelog"))}>Changelog</button>
             <button type="button" className="hover:text-fg" onClick={() => navigate("/about")}>About</button>

@@ -617,18 +617,34 @@
 /* Hover effects use the individual translate/scale/rotate properties so they never fight a transform animation. */
 .lojee-hv {
   transition-property: color, background-color, border-color, box-shadow, opacity, translate, scale, rotate, filter;
-  transition-duration: 0.25s;
-  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  /* One slow, springy ease shared by every effect (ring and glow below only vary it slightly), so they all feel alike. */
+  transition-duration: 0.55s;
+  transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 .lojee-hv-lift:hover { translate: 0 -4px; box-shadow: 0 14px 28px -10px rgb(0 0 0 / 0.3); }
 .lojee-hv-scale:hover { scale: 1.05; }
 .lojee-hv-press:active { scale: 0.95; }
 .lojee-hv-tilt:hover { rotate: -2deg; scale: 1.03; }
-.lojee-hv-ring:hover { box-shadow: 0 0 0 4px color-mix(in srgb, var(--lojee-anim-from, var(--color-accent-500)) 35%, transparent); }
+/* Ring: the halo grows out from the edge with a small spring overshoot, and the element swells a touch. */
+.lojee-hv-ring {
+  transition-duration: 0.55s;
+  transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.lojee-hv-ring:hover {
+  scale: 1.02;
+  box-shadow: 0 0 0 5px color-mix(in srgb, var(--lojee-anim-from, var(--color-accent-500)) 32%, transparent);
+}
+/* Glow: a slow, soft bloom — a hairline edge plus two wide halos fading in, with a slight swell. */
+.lojee-hv-glow {
+  transition-duration: 0.85s;
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
 .lojee-hv-glow:hover {
+  scale: 1.015;
   box-shadow:
     0 0 0 1px color-mix(in srgb, var(--lojee-anim-from, var(--color-accent-500)) 60%, transparent),
-    0 0 26px 2px color-mix(in srgb, var(--lojee-anim-from, var(--color-accent-500)) 55%, transparent);
+    0 0 22px 2px color-mix(in srgb, var(--lojee-anim-from, var(--color-accent-500)) 50%, transparent),
+    0 0 56px 8px color-mix(in srgb, var(--lojee-anim-from, var(--color-accent-500)) 24%, transparent);
 }
 .lojee-hv-shine::after {
   content: "";
@@ -639,7 +655,7 @@
   background: linear-gradient(110deg, transparent 35%, rgb(255 255 255 / 0.45) 50%, transparent 65%) no-repeat;
   background-size: 250% 100%;
   background-position: 150% 0;
-  transition: background-position 0.7s ease;
+  transition: background-position 0.9s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .lojee-hv-shine:hover::after { background-position: -50% 0; }
 
@@ -919,6 +935,23 @@
 /* Muted wells (code blocks, chips, kbd, tracks, secondary panels) are pressed in. */
 [data-design="clay"] :is(.rounded, .rounded-md, .rounded-lg, .rounded-xl, .rounded-2xl)[class*="bg-surface-muted"]:not(button):not([role="tab"]):not([class*="text-"][class*="hover:"]) {
   box-shadow: var(--clay-well);
+}
+
+/* Hover effects that draw with box-shadow (lift, ring, glow) lose to the clay shadow rules above, which are more specific —
+   so under clay they are restated here on top of the raised shadow. The clay raise (outer + two inset shadows) comes FIRST in
+   each list: shadows only animate when the inset / outer entries line up with the resting list, so the halo goes last. */
+[data-design="clay"] .lojee-hv-lift:hover { box-shadow: var(--clay-raise-lg) !important; }
+[data-design="clay"] .lojee-hv-ring:hover {
+  box-shadow:
+    var(--clay-raise-md),
+    0 0 0 5px color-mix(in srgb, var(--lojee-anim-from, var(--color-accent-500)) 32%, transparent) !important;
+}
+[data-design="clay"] .lojee-hv-glow:hover {
+  box-shadow:
+    var(--clay-raise-md),
+    0 0 0 1px color-mix(in srgb, var(--lojee-anim-from, var(--color-accent-500)) 60%, transparent),
+    0 0 22px 2px color-mix(in srgb, var(--lojee-anim-from, var(--color-accent-500)) 50%, transparent),
+    0 0 56px 8px color-mix(in srgb, var(--lojee-anim-from, var(--color-accent-500)) 24%, transparent) !important;
 }
 
 /* Fields are wells. */

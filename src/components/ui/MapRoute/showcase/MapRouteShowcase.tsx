@@ -272,13 +272,6 @@ export default function MapRouteShowcase() {
               extraJs: "  // Track: ease progress from 0 to 1 over a few seconds:  map.routes = [{ ...map.routes[0], progress: 0.6 }];",
             })}
           />
-          <CodeBlock
-            variants={mapCode({
-              props: [{ name: "center", value: "[123.895, 10.31]", kind: "json" }, zoom(12.8), { name: "routes", value: `[{ waypoints: ${coordsCode(STOPS)}, color: "rose", width: 4, animated: "pulse" }]`, kind: "json" }],
-              reactProps: [{ name: "center", value: "[123.895, 10.31]", kind: "json" }, zoom(12.8)],
-              reactChildren: `  <MapRoute waypoints={stops} color="rose" width={4} animated="pulse" animationSpeed={1.5} />\n  <MapRoute waypoints={stops} color="emerald" dashArray={[2, 2]} />`,
-            })}
-          />
         </section>
 
         <section>

@@ -3,6 +3,10 @@ import { highlightCode } from "../../core/highlightCode";
 import { Icon } from "../ui/Icons/Icon";
 import { FlowDiagram } from "../ui/FlowDiagram/FlowDiagram";
 import { FRAMEWORK_FLOW } from "../ui/FlowDiagram/samples";
+import { LOGOS } from "./frameworkLogos";
+
+// The source component carries the React logo; each framework node carries its own.
+const FLOW_NODES = FRAMEWORK_FLOW.nodes.map((n) => ({ ...n, logo: LOGOS[n.id === "source" ? "react" : n.id] }));
 
 type Fw = "react" | "vue" | "angular" | "js";
 
@@ -10,7 +14,7 @@ const FRAMEWORKS: { key: Fw; label: string }[] = [
   { key: "react", label: "React" },
   { key: "vue", label: "Vue" },
   { key: "angular", label: "Angular" },
-  { key: "js", label: "Plain JS" },
+  { key: "js", label: "Plain TS/JS" },
 ];
 const isFw = (id: string): id is Fw => FRAMEWORKS.some((f) => f.key === id);
 
@@ -51,10 +55,13 @@ export default function FrameworkFlow() {
   }, []);
 
   return (
-    <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)]">
-      <div ref={boxRef} className="lp-grid-fine overflow-hidden rounded-2xl border border-border bg-surface p-3">
+    <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-[minmax(0,1.7fr)_minmax(0,1fr)]">
+      <div ref={boxRef} className="lp-grid-fine overflow-hidden rounded-2xl border border-border bg-surface p-4">
         <FlowDiagram
-          nodes={FRAMEWORK_FLOW.nodes}
+          nodes={FLOW_NODES}
+          nodeWidth={160}
+          nodeHeight={88}
+          spacing={30}
           edges={FRAMEWORK_FLOW.edges}
           captionTop={FRAMEWORK_FLOW.captionTop}
           captionBottom={FRAMEWORK_FLOW.captionBottom}

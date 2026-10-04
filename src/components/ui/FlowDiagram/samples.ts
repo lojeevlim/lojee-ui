@@ -20,13 +20,13 @@ function sample(name: string, nodes: FlowNodeData[], edges: FlowEdgeData[], capt
 export const FRAMEWORK_FLOW = sample(
   "Frameworks",
   [
-    { id: "source", label: "<Button />", sublabel: "React component", icon: "box" },
-    { id: "r2wc", label: "r2wc", sublabel: "+ Shadow DOM", shape: "pill", tone: "accent" },
-    { id: "element", label: "custom element", shape: "circle" },
+    { id: "source", label: "<Components />", icon: "box" },
+    { id: "r2wc", label: "r2wc", sublabel: "shadow DOM", shape: "pill", tone: "accent" },
+    { id: "element", label: "Element", shape: "circle" },
     { id: "react", label: "React", icon: "box" },
     { id: "vue", label: "Vue", icon: "box" },
     { id: "angular", label: "Angular", icon: "box" },
-    { id: "js", label: "Plain JS", icon: "box" },
+    { id: "js", label: "Plain TS/JS", icon: "box" },
   ],
   [
     { from: "source", to: "r2wc" },

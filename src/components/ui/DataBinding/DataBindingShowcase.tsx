@@ -1,7 +1,7 @@
 import CodeBlock from "../CodeBlock";
 import { useCodeFramework, type CodeFramework } from "../../../core/codeFramework";
 import { SectionLabel } from "../ShowcaseHelpers";
-import { VALUE_ACCESSOR_FILE, VALUE_ACCESSOR_SOURCE, VALUE_ACCESSOR_TAGS } from "./valueAccessorSource";
+import BindingGuide, { guideTitle } from "./guides";
 
 // One row per component: how to set its state from outside and how to read it back — in React, and as a web component (Vue / Angular / JS).
 // "Set" is a prop (attribute or property on the element); "read" is the callback in React and the event on the element.
@@ -188,23 +188,10 @@ export class AppComponent {
           />
         </section>
 
-        {framework === "angular" && (
         <section>
-          <SectionLabel sub="Angular needs one small directive for [(ngModel)], [formControl] and formControlName — copy it into your app (Angular only compiles directives that belong to the app) and add it to the component's imports. It covers every form control below.">Angular ngModel</SectionLabel>
-          <p className="mb-2 text-xs text-fg-subtle">Works on: {VALUE_ACCESSOR_TAGS.join(", ")}.</p>
-          <CodeBlock
-            variants={{
-              angular: `// ${VALUE_ACCESSOR_FILE}\n${VALUE_ACCESSOR_SOURCE}\n// app.component.ts — add LojeeValueAccessor to the component's imports\n// template:\n//   <l-input [(ngModel)]="name"></l-input>\n//   <l-checkbox label="Agree" [(ngModel)]="agree"></l-checkbox>\n//   <l-input [formControl]="control"></l-input>`,
-            }}
-          />
+          <SectionLabel sub={guideTitle(framework).sub}>{guideTitle(framework).title}</SectionLabel>
+          <BindingGuide framework={framework} />
         </section>
-        )}
-
-        {framework === "vue" && (
-          <section>
-            <SectionLabel sub={'v-model works on the text-style fields (Input, Textarea, Password Input, Search Input …): <l-input v-model="name" />. For everything else, bind :prop.prop and listen to @update.'}>Vue v-model</SectionLabel>
-          </section>
-        )}
 
         {GROUPS.map((g) => (
           <Group key={g.title} {...g} />

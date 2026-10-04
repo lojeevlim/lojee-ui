@@ -11,6 +11,8 @@ export interface FlowNodeData {
   label: string;
   sublabel?: string;
   icon?: string;
+  /** An image URL (e.g. a brand logo or data URI) drawn in the icon's place, in full colour. */
+  logo?: string;
   shape?: FlowShape;
   tone?: FlowTone;
   layer?: number;

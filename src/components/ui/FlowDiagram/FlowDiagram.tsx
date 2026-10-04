@@ -607,6 +607,8 @@ export function FlowDiagram({
           const rimY = y + 8;
           const hasSub = !!n.sublabel;
           const iconSize = 15;
+          const logoSize = h >= 80 ? 36 : 26;
+          const hasLogo = !!n.logo && h >= 64;
           return (
             <g
               key={n.id}
@@ -671,7 +673,10 @@ export function FlowDiagram({
               {variant === "minimal" && (
                 <line x1={x + 6} x2={x + w - 6} y1={y + h - 2} y2={y + h - 2} stroke={hot || n.tone === "accent" ? pal.base : "var(--color-border-strong)"} strokeWidth={hot ? 2.4 : 1.5} strokeLinecap="round" style={{ transition: "stroke .3s" }} />
               )}
-              {Icon && (
+              {hasLogo && (
+                <image href={n.logo} x={cx0 - logoSize / 2} y={cy0 - logoSize - 2} width={logoSize} height={logoSize} preserveAspectRatio="xMidYMid meet" />
+              )}
+              {!hasLogo && Icon && (
                 <Icon
                   x={cx0 - iconSize / 2}
                   y={hasSub ? cy0 - 22 : cy0 - 21}
@@ -684,7 +689,7 @@ export function FlowDiagram({
               )}
               <text
                 x={cx0}
-                y={cy0 + (n.shape === "cylinder" ? 5 : 0) + (Icon && h >= 56 ? (hasSub ? 2 : 6) : hasSub ? -2 : 5)}
+                y={cy0 + (n.shape === "cylinder" ? 5 : 0) + (hasLogo ? logoSize / 2 - 4 + (hasSub ? 0 : 2) : Icon && h >= 56 ? (hasSub ? 2 : 6) : hasSub ? -2 : 5)}
                 textAnchor="middle"
                 fontSize={n.shape === "circle" ? 11 : 13}
                 fontWeight={600}
@@ -695,7 +700,7 @@ export function FlowDiagram({
                 {n.label}
               </text>
               {hasSub && (
-                <text x={cx0} y={cy0 + (Icon && h >= 56 ? 16 : 14)} textAnchor="middle" fontSize="10" fill={look.sub} fontFamily={font} style={{ transition: "fill .3s" }}>
+                <text x={cx0} y={cy0 + (hasLogo ? logoSize / 2 + 12 : Icon && h >= 56 ? 16 : 14)} textAnchor="middle" fontSize="10" fill={look.sub} fontFamily={font} style={{ transition: "fill .3s" }}>
                   {n.sublabel}
                 </text>
               )}

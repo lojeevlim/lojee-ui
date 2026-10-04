@@ -1,4 +1,3 @@
-import { highlightCode } from "../../core/highlightCode";
 import { useEffect, useRef, useState, type CSSProperties, type PointerEvent } from "react";
 import { Badge } from "../ui/Badge/Badge";
 import { Button } from "../ui/Buttons/Button";
@@ -106,13 +105,9 @@ export default function MapLab() {
           </label>
           {!isCebu && <p className="mt-2 text-xs text-fg-subtle">Markers and the route are drawn on Cebu City.</p>}
         </div>
-        <pre className="overflow-x-auto rounded-lg bg-surface-muted p-3 font-mono text-[11px] leading-relaxed text-fg-muted"><code>{highlightCode(`<Map center={[${city.center.join(", ")}]} zoom={${city.zoom}}${tilt ? " pitch={60}" : ""} controls={["zoom", "compass", "fullscreen", "style"]}>
-  <MapMarker lng={…} lat={…} label="…" />
-  <MapRoute waypoints={stops}${isCebu ? ` progress={${progress.toFixed(2)}}` : ""}${animated ? " animated" : ""} />
-</Map>`)}</code></pre>
       </div>
 
-      <div ref={stage} className="relative flex select-none flex-col py-6 sm:py-8 lg:py-0" onPointerMove={onMove} onPointerLeave={onLeave}>
+      <div ref={stage} className="relative flex select-none flex-col py-6 sm:py-8 lg:min-h-[700px] lg:py-0" onPointerMove={onMove} onPointerLeave={onLeave}>
         <div className="lp-aurora pointer-events-none absolute -inset-6 -z-10" aria-hidden="true" />
         <div className="lp-float-a flex flex-1 flex-col lg:absolute lg:inset-0" style={layer(8)}>
           <div className="flex flex-1 flex-col overflow-hidden rounded-2xl border border-border bg-surface/80 shadow-2xl shadow-accent-900/10 ring-1 ring-black/5">
@@ -122,9 +117,9 @@ export default function MapLab() {
               <span className="h-2.5 w-2.5 rounded-full bg-emerald-400" />
               <span className="ml-2 font-mono text-[10px] text-fg-subtle">{"<Map controls={[\"zoom\", \"style\"]} />"}</span>
             </div>
-            <div data-theme={mapDark ? "dark" : "light"} className="flex min-h-[420px] flex-1 flex-col lg:min-h-0">
+            <div data-theme={mapDark ? "dark" : "light"} className="flex min-h-[520px] flex-1 flex-col lg:min-h-0">
             <IdleMount className="flex flex-1 flex-col">
-            <Map center={city.center} zoom={city.zoom} pitch={tilt ? 60 : 0} bearing={tilt ? -20 : 0} controls={["zoom", "compass", "fullscreen", "style"]} className="!h-auto min-h-[420px] flex-1 rounded-none border-0 lg:min-h-0">
+            <Map center={city.center} zoom={city.zoom} pitch={tilt ? 60 : 0} bearing={tilt ? -20 : 0} controls={["zoom", "compass", "fullscreen", "style"]} className="!h-auto min-h-[520px] flex-1 rounded-none border-0 lg:min-h-0">
               {isCebu && (
                 <>
                   <MapRoute waypoints={CEBU_STOPS.map((s) => s.coord)} progress={progress} animated={animated} width={5} />
