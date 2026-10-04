@@ -34,19 +34,17 @@ export default function NavbarLayout({ activeNav = "components", onNavChange, sh
   // destroying and recreating the pill's own DOM node before its CSS transition ever got a frame to
   // animate — the click always looked instant, never sliding, no matter how slow the transition was.
   const navigate = useNavigate();
-  // Mobile only (while the sidebar is a drawer): a short hint on the menu button, once per page load — same idea as the
-  // Playground button's "Try it live" tooltip.
+  // Mobile only: a short one-time hint tour after the page loads, one tooltip at a time — Menu (while the sidebar is a
+  // drawer), then Docs, Components and About (their labels are hidden on phones) — each replacing the previous, then all gone.
+  // The same idea as the Playground button's "Try it live" tooltip. (The item tooltips are CSS-hidden from `sm` up.)
   const { isCollapsed, sideOpen } = useAppLayout();
-  const [menuHint, setMenuHint] = useState(false);
+  const [hintStep, setHintStep] = useState(-1);
   useEffect(() => {
-    const show = setTimeout(() => setMenuHint(true), 1800);
-    const hide = setTimeout(() => setMenuHint(false), 8500);
-    return () => {
-      clearTimeout(show);
-      clearTimeout(hide);
-    };
+    const STEP_MS = 1800;
+    const timers = [0, 1, 2, 3, 4].map((step) => window.setTimeout(() => setHintStep(step < 4 ? step : -1), 1800 + step * STEP_MS));
+    return () => timers.forEach(clearTimeout);
   }, []);
-  const navItems: NavbarItemSpec[] = NAV_LABELS.map((label) => ({ label, icon: NAV_ICONS[label], tooltip: label, active: label === KEY_TO_LABEL[activeNav] }));
+  const navItems: NavbarItemSpec[] = NAV_LABELS.map((label, i) => ({ label, icon: NAV_ICONS[label], tooltip: label, tooltipOpen: hintStep === i + 1, active: label === KEY_TO_LABEL[activeNav] }));
 
   return (
     <UINavbar
@@ -57,7 +55,7 @@ export default function NavbarLayout({ activeNav = "components", onNavChange, sh
         <>
           {showSideToggle &&
             (isCollapsed ? (
-              <Tooltip content="Menu" position="bottom" color="accent" open={menuHint && !sideOpen}>
+              <Tooltip content="Menu" position="bottom" color="accent" open={hintStep === 0 && !sideOpen}>
                 <SideToggle />
               </Tooltip>
             ) : (

@@ -156,9 +156,20 @@ function Nav({ groups, onStart }: { groups: typeof COMPONENT_MENU; onStart: () =
   );
 }
 
-// The announcement pill shows the newest change from the git history (generated into the changelog at dev / build time),
-// skipping version-bump commits like "Release 0.1.0-alpha.6" which say nothing about what changed.
-const LATEST_UPDATE = CHANGELOG.find((c) => !/^release\b/i.test(c.subject))?.subject ?? "See what's new";
+// The announcement pill shows what was newest in terms of components — the latest "New component(s): …" line in the git
+// history's commit messages (generated into the changelog at dev / build time) — not fixes or tweaks. Without any such line it
+// falls back to the newest non-release commit subject.
+const NEW_COMPONENTS_LINE = /^[-*•]?\s*new components?\s*[:–—-]\s*(.+)$/i;
+function latestUpdate(): string {
+  for (const commit of CHANGELOG) {
+    for (const line of commit.body.split("\n")) {
+      const m = line.trim().match(NEW_COMPONENTS_LINE);
+      if (m) return `${/components/i.test(line) ? "Components" : "Component"}: ${m[1].replace(/\.$/, "")}`;
+    }
+  }
+  return CHANGELOG.find((c) => !/^release\b/i.test(c.subject))?.subject ?? "See what's new";
+}
+const LATEST_UPDATE = latestUpdate();
 
 export default function LandingPage() {
   const navigate = useNavigate();

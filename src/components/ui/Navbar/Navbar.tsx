@@ -59,6 +59,8 @@ export interface NavbarItemSpec {
   active?: boolean;
   /** Shows a tooltip under the link on hover/focus (useful when the label is visually hidden, e.g. an icon-only link on phones). */
   tooltip?: string;
+  /** Keeps that tooltip showing while true, whether or not the link is hovered — e.g. to step through a short hint tour of icon-only links. */
+  tooltipOpen?: boolean;
 }
 
 export interface NavbarProps {
@@ -310,7 +312,7 @@ export function Navbar({
       </NavbarItem>
       );
       return item.tooltip ? (
-        <Tooltip key={`${item.label}-${index}`} content={item.tooltip} position="bottom" color="neutral" className="flex" classNames={{ bubble: "sm:hidden" }}>
+        <Tooltip key={`${item.label}-${index}`} content={item.tooltip} position="bottom" color="neutral" open={item.tooltipOpen} className="flex" classNames={{ bubble: "sm:hidden" }}>
           {link}
         </Tooltip>
       ) : (
