@@ -130,13 +130,13 @@ export interface ThemeSwitcherProps {
   activeVariant?: ActiveVariant;
   /** Current design language — "bento" or "clay". Omit to use the surrounding `ThemeProvider`. */
   design?: DesignName;
-  /** Called when light/dark is picked (default: the `ThemeProvider`'s `setMode`). */
+  /** Called when light/dark is picked (the theme is still applied unless you control it with the matching prop). */
   onModeChange?: (mode: ThemeMode) => void;
-  /** Called when an accent is picked (default: the `ThemeProvider`'s `setAccent`). */
+  /** Called when an accent is picked (the theme is still applied unless you control it with the matching prop). */
   onAccentChange?: (accent: Accent) => void;
-  /** Called when an active-item style is picked (default: the `ThemeProvider`'s `setActiveVariant`). */
+  /** Called when an active-item style is picked (the theme is still applied unless you control it with the matching prop). */
   onActiveVariantChange?: (variant: ActiveVariant) => void;
-  /** Called when a design is picked (default: the `ThemeProvider`'s `setDesign`). */
+  /** Called when a design is picked (the theme is still applied unless you control it with the matching prop). */
   onDesignChange?: (design: DesignName) => void;
   /** Where the dropdown (which always opens below the button) lines up with the button: "start" (left edges together), "center", or "end" (right edges together). "left" / "right" also work, as start / end. Default: "end". */
   align?: ThemeSwitcherAlign;
@@ -201,10 +201,11 @@ export function ThemeSwitcher({
   const accent = accentProp ?? theme.accent;
   const activeVariant = activeProp ?? theme.activeVariant;
   const design = designProp ?? theme.design;
-  const setMode = onModeChange ?? theme.setMode;
-  const setAccent = onAccentChange ?? theme.setAccent;
-  const setActiveVariant = onActiveVariantChange ?? theme.setActiveVariant;
-  const setDesign = onDesignChange ?? theme.setDesign;
+  // The callbacks report the pick; the built-in theme is still applied unless that value is controlled through its prop.
+  const setMode = (v: ThemeMode) => { onModeChange?.(v); if (modeProp === undefined) theme.setMode(v); };
+  const setAccent = (v: Accent) => { onAccentChange?.(v); if (accentProp === undefined) theme.setAccent(v); };
+  const setActiveVariant = (v: ActiveVariant) => { onActiveVariantChange?.(v); if (activeProp === undefined) theme.setActiveVariant(v); };
+  const setDesign = (v: DesignName) => { onDesignChange?.(v); if (designProp === undefined) theme.setDesign(v); };
   // Unknown values (e.g. a typo in an attribute) fall back to the defaults.
   const placement = PLACEMENT[ALIGN_ALIAS[align] ?? "end"];
   const [openState, setOpenState] = useState(false);

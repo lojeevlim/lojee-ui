@@ -13749,10 +13749,10 @@ The menu the lojee-ui navbar uses: light/dark, the accent color and the active-i
 | `accent` | `Accent` | — | Current accent — a built-in name or a custom hex color. Omit to use the surrounding `ThemeProvider`. |
 | `activeVariant` | `ActiveVariant` | — | Current active-item style — omit to use the surrounding `ThemeProvider`. |
 | `design` | `DesignName` | — | Current design language — "bento" or "clay". Omit to use the surrounding `ThemeProvider`. |
-| `onModeChange` | `(mode: ThemeMode) => void` | — | Called when light/dark is picked (default: the `ThemeProvider`'s `setMode`). |
-| `onAccentChange` | `(accent: Accent) => void` | — | Called when an accent is picked (default: the `ThemeProvider`'s `setAccent`). |
-| `onActiveVariantChange` | `(variant: ActiveVariant) => void` | — | Called when an active-item style is picked (default: the `ThemeProvider`'s `setActiveVariant`). |
-| `onDesignChange` | `(design: DesignName) => void` | — | Called when a design is picked (default: the `ThemeProvider`'s `setDesign`). |
+| `onModeChange` | `(mode: ThemeMode) => void` | — | Called when light/dark is picked (the theme is still applied unless you control it with the matching prop). |
+| `onAccentChange` | `(accent: Accent) => void` | — | Called when an accent is picked (the theme is still applied unless you control it with the matching prop). |
+| `onActiveVariantChange` | `(variant: ActiveVariant) => void` | — | Called when an active-item style is picked (the theme is still applied unless you control it with the matching prop). |
+| `onDesignChange` | `(design: DesignName) => void` | — | Called when a design is picked (the theme is still applied unless you control it with the matching prop). |
 | `align` | `ThemeSwitcherAlign` | `"end"` | Where the dropdown (which always opens below the button) lines up with the button: "start" (left edges together), "center", or "end" (right edges together). "left" / "right" also work, as start / end. Default: "end". |
 | `showDesign` | `boolean` | `true` | Show the "Design" section — Bento or Claymorphism (default: true). |
 | `showActiveItems` | `boolean` | `true` | Show the "Active items" section (default: true). |
@@ -13769,10 +13769,10 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
-| `ThemeSwitcher` | `onModeChange` | `(mode: ThemeMode) => void` | `modechange` (CustomEvent, payload in `detail`) | Called when light/dark is picked (default: the `ThemeProvider`'s `setMode`). |
-| `ThemeSwitcher` | `onAccentChange` | `(accent: Accent) => void` | `accentchange` (CustomEvent, payload in `detail`) | Called when an accent is picked (default: the `ThemeProvider`'s `setAccent`). |
-| `ThemeSwitcher` | `onActiveVariantChange` | `(variant: ActiveVariant) => void` | `activevariantchange` (CustomEvent, payload in `detail`) | Called when an active-item style is picked (default: the `ThemeProvider`'s `setActiveVariant`). |
-| `ThemeSwitcher` | `onDesignChange` | `(design: DesignName) => void` | `designchange` (CustomEvent, payload in `detail`) | Called when a design is picked (default: the `ThemeProvider`'s `setDesign`). |
+| `ThemeSwitcher` | `onModeChange` | `(mode: ThemeMode) => void` | `modechange` (CustomEvent, payload in `detail`) | Called when light/dark is picked (the theme is still applied unless you control it with the matching prop). |
+| `ThemeSwitcher` | `onAccentChange` | `(accent: Accent) => void` | `accentchange` (CustomEvent, payload in `detail`) | Called when an accent is picked (the theme is still applied unless you control it with the matching prop). |
+| `ThemeSwitcher` | `onActiveVariantChange` | `(variant: ActiveVariant) => void` | `activevariantchange` (CustomEvent, payload in `detail`) | Called when an active-item style is picked (the theme is still applied unless you control it with the matching prop). |
+| `ThemeSwitcher` | `onDesignChange` | `(design: DesignName) => void` | `designchange` (CustomEvent, payload in `detail`) | Called when a design is picked (the theme is still applied unless you control it with the matching prop). |
 | `ThemeSwitcher` | `onOpenChange` | `(open: boolean) => void` | `openchange` (CustomEvent, payload in `detail`) | Called when the menu asks to open or close (the button, a click outside, Escape). |
 
 ### Theme Switcher · 4. Variants

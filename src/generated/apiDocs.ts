@@ -1541,28 +1541,28 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "name": "onModeChange",
             "type": "(mode: ThemeMode) => void",
             "required": false,
-            "description": "Called when light/dark is picked (default: the `ThemeProvider`'s `setMode`).",
+            "description": "Called when light/dark is picked (the theme is still applied unless you control it with the matching prop).",
             "default": null
           },
           {
             "name": "onAccentChange",
             "type": "(accent: Accent) => void",
             "required": false,
-            "description": "Called when an accent is picked (default: the `ThemeProvider`'s `setAccent`).",
+            "description": "Called when an accent is picked (the theme is still applied unless you control it with the matching prop).",
             "default": null
           },
           {
             "name": "onActiveVariantChange",
             "type": "(variant: ActiveVariant) => void",
             "required": false,
-            "description": "Called when an active-item style is picked (default: the `ThemeProvider`'s `setActiveVariant`).",
+            "description": "Called when an active-item style is picked (the theme is still applied unless you control it with the matching prop).",
             "default": null
           },
           {
             "name": "onDesignChange",
             "type": "(design: DesignName) => void",
             "required": false,
-            "description": "Called when a design is picked (default: the `ThemeProvider`'s `setDesign`).",
+            "description": "Called when a design is picked (the theme is still applied unless you control it with the matching prop).",
             "default": null
           },
           {
