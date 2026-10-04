@@ -215,21 +215,54 @@ const APP_LAYOUT: GridLayout = [
   ['side', 'main'],
 ]
 
-function App() {
-  const { navKind: rawNavKind, item } = useParams()
-  const navigate = useNavigate()
-  const [playgroundOpen, setPlaygroundOpen] = useState(false)
-  const [playgroundHint, setPlaygroundHint] = useState(false)
+// The floating Playground button and its "Try it live" hint. It owns the hint's timers, so the hint showing and hiding re-renders only
+// this button — not the whole docs app (sidebar, navbar and the open page).
+let playgroundHintShown = false
 
-  // The "Try it live" hint shows once per page load, a moment after the page settles, then fades away.
+function PlaygroundFab({ open, onOpen }: { open: boolean; onOpen: () => void }) {
+  const [hint, setHint] = useState(false)
+  // The hint shows once per page load (not again when the button remounts after visiting a docs page), a moment after the page settles, then fades away.
   useEffect(() => {
-    const show = setTimeout(() => setPlaygroundHint(true), 1800)
-    const hide = setTimeout(() => setPlaygroundHint(false), 8500)
+    if (playgroundHintShown) return
+    const show = setTimeout(() => {
+      playgroundHintShown = true
+      setHint(true)
+    }, 1800)
+    const hide = setTimeout(() => setHint(false), 8500)
     return () => {
       clearTimeout(show)
       clearTimeout(hide)
     }
   }, [])
+  return (
+    <div className="fixed bottom-4 right-4 z-30 flex flex-col items-end gap-3 motion-safe:animate-[lojee-fade-up_0.5s_ease-out_both] md:bottom-6 md:right-6">
+      {/* Glow pulses six times after load, then a light sweep glides across the button every few seconds. */}
+      {/* A short "Try it live" hint appears after the page settles and fades away again (it is also the button's hover tooltip). */}
+      <Tooltip content="Try it live — tweak props" position="top" color="accent" open={hint && !open}>
+      <div className="relative overflow-hidden rounded-full motion-safe:animate-[lojee-glow_1.8s_ease-out_1.2s_6]">
+        <Button
+          type="button"
+          onClick={onOpen}
+          className="flex items-center gap-2 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-accent-600/30 ring-1 ring-white/25 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-accent-600/40 active:translate-y-0"
+          label="Playground"
+          color="accent"
+          shape="pill"
+          icon="play-circle"
+        />
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-y-0 left-0 w-1/2 bg-gradient-to-r from-transparent via-white/45 to-transparent motion-safe:animate-[lojee-sweep_5s_ease-in-out_2.5s_infinite] motion-reduce:hidden"
+        />
+      </div>
+      </Tooltip>
+    </div>
+  )
+}
+
+function App() {
+  const { navKind: rawNavKind, item } = useParams()
+  const navigate = useNavigate()
+  const [playgroundOpen, setPlaygroundOpen] = useState(false)
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
   const contentRef = useRef<HTMLDivElement>(null)
 
@@ -287,27 +320,7 @@ function App() {
 
     {/* Playgrounds only exist for components — the docs pages (Introduction, Installation, …) have none. */}
     {navKind === 'components' && (
-      <div className="fixed bottom-4 right-4 z-30 flex flex-col items-end gap-3 motion-safe:animate-[lojee-fade-up_0.5s_ease-out_both] md:bottom-6 md:right-6">
-        {/* Glow pulses six times after load, then a light sweep glides across the button every few seconds. */}
-        {/* A short "Try it live" hint appears after the page settles and fades away again (it is also the button's hover tooltip). */}
-        <Tooltip content="Try it live — tweak props" position="top" color="accent" open={playgroundHint && !playgroundOpen}>
-        <div className="relative overflow-hidden rounded-full motion-safe:animate-[lojee-glow_1.8s_ease-out_1.2s_6]">
-          <Button
-            type="button"
-            onClick={() => setPlaygroundOpen(true)}
-            className="flex items-center gap-2 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-accent-600/30 ring-1 ring-white/25 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-accent-600/40 active:translate-y-0"
-            label="Playground"
-            color="accent"
-            shape="pill"
-            icon="play-circle"
-          />
-          <span
-            aria-hidden="true"
-            className="pointer-events-none absolute inset-y-0 left-0 w-1/2 bg-gradient-to-r from-transparent via-white/45 to-transparent motion-safe:animate-[lojee-sweep_5s_ease-in-out_2.5s_infinite] motion-reduce:hidden"
-          />
-        </div>
-        </Tooltip>
-      </div>
+      <PlaygroundFab open={playgroundOpen} onOpen={() => setPlaygroundOpen(true)} />
     )}
 
     <Modal

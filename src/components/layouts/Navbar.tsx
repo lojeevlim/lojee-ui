@@ -1,5 +1,5 @@
 import { Navbar as UINavbar, type NavbarItemSpec } from "../ui/Navbar/Navbar";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { SideToggle } from "../ui/AppLayout/App";
 import { useAppLayout } from "../ui/AppLayout/appLayoutContext";
 import { Tooltip } from "../ui/Tooltip/Tooltip";
@@ -44,7 +44,11 @@ export default function NavbarLayout({ activeNav = "components", onNavChange, sh
     const timers = [0, 1, 2, 3, 4].map((step) => window.setTimeout(() => setHintStep(step < 4 ? step : -1), 1800 + step * STEP_MS));
     return () => timers.forEach(clearTimeout);
   }, []);
-  const navItems: NavbarItemSpec[] = NAV_LABELS.map((label, i) => ({ label, icon: NAV_ICONS[label], tooltip: label, tooltipOpen: hintStep === i + 1, active: label === KEY_TO_LABEL[activeNav] }));
+  // A stable list unless the hint step or the active page changes, so the Navbar below doesn't re-run its measuring effects on every render.
+  const navItems: NavbarItemSpec[] = useMemo(
+    () => NAV_LABELS.map((label, i) => ({ label, icon: NAV_ICONS[label], tooltip: label, tooltipOpen: hintStep === i + 1, active: label === KEY_TO_LABEL[activeNav] })),
+    [hintStep, activeNav]
+  );
 
   return (
     <UINavbar

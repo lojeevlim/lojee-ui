@@ -1660,6 +1660,7 @@ customElements.define(
       thinkingVariant: "string",
       thinkingSteps: "json",
       thinkingElapsed: "boolean",
+      suggestions: "json",
       placeholder: "string",
       disabled: "boolean",
       height: "string",

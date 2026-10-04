@@ -45,9 +45,9 @@
     "maplibre-gl": ">=5.0.0"
   },
   "scripts": {
-    "predev": "node scripts/gen-changelog.mjs",
+    "predev": "node scripts/gen-changelog.mjs && node scripts/gen-ai-reference.mjs",
     "dev": "vite",
-    "build": "node scripts/gen-api-docs.mjs && node scripts/gen-changelog.mjs && tsc -b && vite build",
+    "build": "node scripts/gen-api-docs.mjs && node scripts/gen-changelog.mjs && node scripts/gen-ai-reference.mjs && tsc -b && vite build",
     "build:lib": "vite build --config vite.lib.config.ts && tsc -p tsconfig.lib.json && cp src/theme.css dist/theme.css",
     "build:elements": "vite build --config vite.elements.config.ts",
     "build:pkg": "npm run build:lib && npm run build:elements",
@@ -55,6 +55,7 @@
     "prepublishOnly": "npm run clean && npm run build:pkg",
     "docs:api": "node scripts/gen-api-docs.mjs",
     "docs:changelog": "node scripts/gen-changelog.mjs",
+    "docs:ai": "node scripts/gen-ai-reference.mjs",
     "lint": "eslint .",
     "preview": "vite preview"
   },

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState, type ReactNode } from "react";
+import { useCallback, useEffect, useMemo, useState, type ReactNode } from "react";
 import {
   ThemeContext,
   DEFAULT_ACCENT,
@@ -123,9 +123,15 @@ export function ThemeProvider({
     [isolated]
   );
 
+  // A stable value, so components reading the theme re-render only when a theme setting actually changes — not whenever the provider's parent does.
+  const themeValue = useMemo(
+    () => ({ mode, accent, activeVariant, design, setMode, setAccent, setActiveVariant, setDesign }),
+    [mode, accent, activeVariant, design, setMode, setAccent, setActiveVariant, setDesign]
+  );
+
   return (
     <ThemeProviderPresentContext.Provider value>
-    <ThemeContext.Provider value={{ mode, accent, activeVariant, design, setMode, setAccent, setActiveVariant, setDesign }}>
+    <ThemeContext.Provider value={themeValue}>
       {isolated ? (
         // `display: contents` keeps the wrapper out of layout while still scoping the theme attributes.
         <div data-theme={mode} {...accentAttrs(accent)} data-active-variant={activeVariant} data-design={design} style={{ display: "contents", ...accentAttrs(accent).style }}>

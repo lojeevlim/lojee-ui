@@ -7,7 +7,7 @@ import { useAnimation } from "./playgroundAnimation";
 import { useMotion } from "./playgroundMotion";
 
 const VARIANTS: BadgeVariant[] = ["solid", "outline", "soft"];
-const SIZES: BadgeSize[] = ["sm", "md", "lg"];
+const SIZES: BadgeSize[] = ["xs", "sm", "md", "lg"];
 
 export default function BadgePlayground() {
   const anim = useAnimation();

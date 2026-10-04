@@ -484,7 +484,11 @@ export function Sidebar({
   useEffect(() => () => window.clearTimeout(scrollIdleRef.current), []);
   // The overlay scrollbar's thumb: measured from the scroll body (null while the list doesn't overflow).
   const bodyRef = useRef<HTMLDivElement>(null);
-  const [thumb, setThumb] = useState<{ top: number; height: number } | null>(null);
+  // The thumb moves on every scroll frame, so its position is written straight to the DOM (a ref) instead of through React state —
+  // only "is there a thumb at all" is state, so scrolling never re-renders the whole sidebar.
+  const thumbRef = useRef<HTMLDivElement>(null);
+  const thumbBox = useRef<{ top: number; height: number } | null>(null);
+  const [hasThumb, setHasThumb] = useState(false);
   const [dragging, setDragging] = useState(false);
   const TRACK_INSET = 8;
   const measureThumb = () => {
@@ -492,13 +496,19 @@ export function Sidebar({
     if (!el) return;
     const { clientHeight: h, scrollHeight: sh, scrollTop } = el;
     if (sh <= h + 1) {
-      setThumb((t) => (t === null ? t : null));
+      thumbBox.current = null;
+      setHasThumb(false);
       return;
     }
     const trackH = h - TRACK_INSET * 2;
     const height = Math.max(24, (trackH * h) / sh);
     const top = TRACK_INSET + ((trackH - height) * scrollTop) / (sh - h);
-    setThumb((t) => (t && Math.abs(t.top - top) < 0.5 && Math.abs(t.height - height) < 0.5 ? t : { top, height }));
+    thumbBox.current = { top, height };
+    if (thumbRef.current) {
+      thumbRef.current.style.top = `${top}px`;
+      thumbRef.current.style.height = `${height}px`;
+    }
+    setHasThumb(true);
   };
   useLayoutEffect(() => {
     const el = bodyRef.current;
@@ -522,6 +532,7 @@ export function Sidebar({
   // Dragging the thumb scrolls the body by the same ratio the thumb moves along its track.
   const startThumbDrag = (e: React.PointerEvent<HTMLDivElement>) => {
     const el = bodyRef.current;
+    const thumb = thumbBox.current;
     if (!el || !thumb) return;
     e.preventDefault();
     const startY = e.clientY;
@@ -540,7 +551,11 @@ export function Sidebar({
     window.addEventListener("pointerup", up);
   };
   const itemNodesRef = useRef<Record<string, HTMLElement | null>>({});
-  const [pillRect, setPillRect] = useState<{ top: number; height: number } | null>(null);
+  // Same idea for the sliding pill: it follows its row on every frame of a category's open / close animation, so its top / height
+  // are written to the DOM (a ref) instead of re-rendering the whole sidebar each frame; only "is there a pill" is state.
+  const pillRef = useRef<HTMLDivElement>(null);
+  const pillBox = useRef<{ top: number; height: number } | null>(null);
+  const [hasPill, setHasPill] = useState(false);
   // A row inside a currently-closed category never has a real visible position to pin the pill to —
   // `getBoundingClientRect()` on it still reports its normal, "as if open" box even once its category's
   // grid track is resting at `0fr` (an ancestor's `overflow-hidden` clips what paints, but never changes
@@ -559,12 +574,18 @@ export function Sidebar({
       const activeEl =
         selectedLabel && !closedCategoryLabels.has(selectedLabel) ? itemNodesRef.current[selectedLabel] : null;
       if (!container || !activeEl) {
-        setPillRect(null);
+        pillBox.current = null;
+        setHasPill(false);
         return;
       }
       // Layout offsets, not bounding rects: a transform from an enter transition ("bounce" starts at scale 0.3) would skew the rect.
       const box = layoutBox(activeEl, container);
-      setPillRect({ top: box.top, height: box.height });
+      pillBox.current = { top: box.top, height: box.height };
+      if (pillRef.current) {
+        pillRef.current.style.top = `${box.top}px`;
+        pillRef.current.style.height = `${box.height}px`;
+      }
+      setHasPill(true);
     };
     measure();
     // `collapsed`/`openCategories` both reflow the rows below them (the rail's own width transition,
@@ -614,16 +635,17 @@ export function Sidebar({
   );
   const itemRows = items && items.length > 0 && (
     <nav ref={navRef} className="relative space-y-1.5">
-      {pillRect && (
+      {hasPill && pillBox.current && (
         <div
+          ref={pillRef}
           aria-hidden
           className={cx(
             "pointer-events-none absolute inset-x-0 rounded-lg transition-[top,height,background-color,box-shadow] duration-200 ease-[cubic-bezier(.4,0,.2,1)]",
             sidebarActiveFillClasses(color, dark, vividActive)
           )}
           {...activeMarker("fill", color, colorIsNamed, dark, {
-            top: pillRect.top,
-            height: pillRect.height,
+            top: pillBox.current.top,
+            height: pillBox.current.height,
             ...(!colorIsNamed && !dark && { backgroundColor: color }),
           })}
         />
@@ -799,7 +821,7 @@ export function Sidebar({
             {bodyChildren}
           </slot>
         </div>
-        {thumb && (
+        {hasThumb && thumbBox.current && (
           // Absolutely positioned over the body's right edge, so it takes no layout space. The wide transparent strip is the hit area.
           <div
             aria-hidden="true"
@@ -807,7 +829,7 @@ export function Sidebar({
             data-drag={dragging || undefined}
           >
             <div className="absolute right-1.5 w-px bg-current opacity-15" style={{ top: TRACK_INSET, bottom: TRACK_INSET }} />
-            <div className="absolute right-0 flex w-3 cursor-grab justify-end pr-1 active:cursor-grabbing" style={{ top: thumb.top, height: thumb.height }} onPointerDown={startThumbDrag}>
+            <div ref={thumbRef} className="absolute right-0 flex w-3 cursor-grab justify-end pr-1 active:cursor-grabbing" style={{ top: thumbBox.current.top, height: thumbBox.current.height }} onPointerDown={startThumbDrag}>
               <div className="lojee-sidebar-bar h-full rounded-full bg-accent-500" />
             </div>
           </div>

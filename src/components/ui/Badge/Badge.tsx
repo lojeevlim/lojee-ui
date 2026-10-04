@@ -6,7 +6,7 @@ import { AnimatedOverlay } from "../../../core/AnimatedOverlay";
 import { motionClass, motionStyle, type TransitionVariant, type HoverEffect } from "../../../core/motion";
 
 export type BadgeVariant = "solid" | "outline" | "soft";
-export type BadgeSize = "sm" | "md" | "lg";
+export type BadgeSize = "xs" | "sm" | "md" | "lg";
 
 export interface BadgeProps {
   /** Attention animation: "glow" | "pulse" | "sweep" | "bounce" | "float" | "wiggle" | "border-spin" (default: none). Respects `prefers-reduced-motion`. */
@@ -27,7 +27,7 @@ export interface BadgeProps {
   variant?: BadgeVariant;
   /** Badge color, one of the built-in `ColorName`s (default: "accent", which follows the theme accent). */
   color?: ColorName;
-  /** "sm" | "md" | "lg" (default: "md"). */
+  /** "xs" | "sm" | "md" | "lg" (default: "md"). */
   size?: BadgeSize;
   /** Icon name, e.g. "check" — see src/core/icons.ts for the available set. */
   icon?: string;
@@ -47,14 +47,16 @@ export interface BadgeProps {
 }
 
 const SIZE_CLASSES: Record<BadgeSize, string> = {
+  xs: "text-[9px] leading-none px-1 py-0.5 gap-0.5 rounded",
   sm: "text-[11px] px-1.5 py-0.5 gap-1 rounded-md",
   md: "text-xs px-2 py-0.5 gap-1 rounded-md",
   lg: "text-sm px-2.5 py-1 gap-1.5 rounded-lg",
 };
 
-const ICON_PX: Record<BadgeSize, number> = { sm: 11, md: 12, lg: 14 };
+const ICON_PX: Record<BadgeSize, number> = { xs: 9, sm: 11, md: 12, lg: 14 };
 
 const DOT_SIZE: Record<BadgeSize, string> = {
+  xs: "h-1 w-1",
   sm: "h-1.5 w-1.5",
   md: "h-2 w-2",
   lg: "h-2.5 w-2.5",

@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { COMPONENT_MENU, type Menu } from "../../constant/component_menu";
 import { pathFor, type NavKind } from "../../core/routes";
@@ -61,6 +62,9 @@ export default function SidebarLayout({
   const collapsible = collapsibleProp && !inDrawer;
   const collapsedNow = collapsible && collapsed;
 
+  // A stable list: a new array every render would re-run the Sidebar's measuring effects each time.
+  const navItems = useMemo(() => buildNavItems(nav, activeLabel), [nav, activeLabel])
+
   return (
     <UISidebar
       color="accent"
@@ -70,7 +74,7 @@ export default function SidebarLayout({
       collapsed={collapsedNow}
       collapsible={collapsible}
       onCollapsedChange={onCollapsedChange}
-      items={buildNavItems(nav, activeLabel)}
+      items={navItems}
       onActiveItemChange={(item: SidebarMenuItemSpec) => {
         navigate(pathFor(navKind, item.label));
         setSideOpen(false); // when App has collapsed Side into a drawer, close it after choosing a page

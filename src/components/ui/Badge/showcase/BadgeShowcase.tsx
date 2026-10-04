@@ -91,26 +91,31 @@ export class BadgeShowcaseComponent {}`,
         </section>
 
         <section>
-          <SectionLabel sub="sm, md, lg.">Sizes</SectionLabel>
+          <SectionLabel sub="xs, sm, md, lg.">Sizes</SectionLabel>
           <Row>
+            <Badge size="xs" label="Extra small" />
             <Badge size="sm" label="Small" />
             <Badge size="md" label="Medium" />
             <Badge size="lg" label="Large" />
           </Row>
           <CodeBlock
             variants={{
-              react: `<Badge size="sm" label="Small" />
+              react: `<Badge size="xs" label="Extra small" />
+<Badge size="sm" label="Small" />
 <Badge size="md" label="Medium" />
 <Badge size="lg" label="Large" />`,
-              js: `<l-Badge size="sm" label="Small"></l-Badge>
+              js: `<l-Badge size="xs" label="Extra small"></l-Badge>
+<l-Badge size="sm" label="Small"></l-Badge>
 <l-Badge size="md" label="Medium"></l-Badge>
 <l-Badge size="lg" label="Large"></l-Badge>`,
               vue: `<template>
+  <l-Badge size="xs" label="Extra small" />
   <l-Badge size="sm" label="Small" />
   <l-Badge size="md" label="Medium" />
   <l-Badge size="lg" label="Large" />
 </template>`,
               angular: `<!-- reuses BadgeShowcaseComponent from above -->
+<l-Badge size="xs" label="Extra small" />
 <l-Badge size="sm" label="Small" />
 <l-Badge size="md" label="Medium" />
 <l-Badge size="lg" label="Large" />`,

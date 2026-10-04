@@ -2193,7 +2193,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "name": "size",
             "type": "BadgeSize",
             "required": false,
-            "description": "\"sm\" | \"md\" | \"lg\" (default: \"md\").",
+            "description": "\"xs\" | \"sm\" | \"md\" | \"lg\" (default: \"md\").",
             "default": "\"md\""
           },
           {
@@ -2264,7 +2264,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
     "hooks": [],
     "types": {
       "BadgeVariant": "\"solid\" | \"outline\" | \"soft\"",
-      "BadgeSize": "\"sm\" | \"md\" | \"lg\""
+      "BadgeSize": "\"xs\" | \"sm\" | \"md\" | \"lg\""
     },
     "dataTypes": []
   },
@@ -13487,6 +13487,13 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": "false"
           },
           {
+            "name": "suggestions",
+            "type": "string[]",
+            "required": false,
+            "description": "Quick-reply chips shown above the message box until the user has sent a message; clicking one sends it like typed text.",
+            "default": null
+          },
+          {
             "name": "placeholder",
             "type": "string",
             "required": false,
@@ -13565,7 +13572,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
           },
           {
             "name": "classNames",
-            "type": "{ root?: string; header?: string; messages?: string; bubble?: string; input?: string; send?: string; }",
+            "type": "{ root?: string; header?: string; messages?: string; bubble?: string; input?: string; send?: string; suggestion?: string; }",
             "required": false,
             "description": "Per-part class overrides — merged after (and win over) the built-in styling.",
             "default": null
@@ -13581,6 +13588,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "thinkingVariant": "string",
             "thinkingSteps": "json",
             "thinkingElapsed": "boolean",
+            "suggestions": "json",
             "placeholder": "string",
             "disabled": "boolean",
             "height": "string",
