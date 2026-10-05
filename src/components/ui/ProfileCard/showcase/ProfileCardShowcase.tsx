@@ -284,40 +284,40 @@ export class AppComponent {}`,
         </section>
 
         <section>
-          <SectionLabel sub="Attention effects via `animated`. Pulse and border-spin take a solid `pulseColor` or a gradient with `pulseGradientTo`.">Animated</SectionLabel>
+          <SectionLabel sub="Attention effects via `animation`. Pulse and border-spin take a solid `pulseColor` or a gradient with `pulseGradientTo`.">Animation</SectionLabel>
           <div className="grid gap-6 sm:grid-cols-2">
-            <ProfileCard name="Priya Nair" role="Glow" avatarInitials="PN" animated="glow" />
-            <ProfileCard name="Marcus Lee" role="Pulse" avatarInitials="ML" color="emerald" animated="pulse" />
-            <ProfileCard name="Ana Souza" role="Gradient pulse" avatarInitials="AS" color="rose" animated="pulse" pulseColor="rose" pulseGradientTo="amber" />
-            <ProfileCard name="Tom Reed" role="Sweep" avatarInitials="TR" color="blue" animated="sweep" />
-            <ProfileCard name="Lena Fox" role="Float" avatarInitials="LF" color="violet" animated="float" />
-            <ProfileCard name="Kai Wong" role="Border spin" avatarInitials="KW" animated="border-spin" pulseColor="violet" pulseGradientTo="cyan" />
+            <ProfileCard name="Priya Nair" role="Glow" avatarInitials="PN" animation="glow" />
+            <ProfileCard name="Marcus Lee" role="Pulse" avatarInitials="ML" color="emerald" animation="pulse" />
+            <ProfileCard name="Ana Souza" role="Gradient pulse" avatarInitials="AS" color="rose" animation="pulse" pulseColor="rose" pulseGradientTo="amber" />
+            <ProfileCard name="Tom Reed" role="Sweep" avatarInitials="TR" color="blue" animation="sweep" />
+            <ProfileCard name="Lena Fox" role="Float" avatarInitials="LF" color="violet" animation="float" />
+            <ProfileCard name="Kai Wong" role="Border spin" avatarInitials="KW" animation="border-spin" pulseColor="violet" pulseGradientTo="cyan" />
           </div>
           <CodeBlock
             variants={{
-              react: `<ProfileCard name="Priya Nair" role="Glow" avatarInitials="PN" animated="glow" />
-<ProfileCard name="Marcus Lee" role="Pulse" avatarInitials="ML" color="emerald" animated="pulse" />
-<ProfileCard name="Ana Souza" role="Gradient pulse" avatarInitials="AS" color="rose" animated="pulse" pulseColor="rose" pulseGradientTo="amber" />
-<ProfileCard name="Tom Reed" role="Sweep" avatarInitials="TR" color="blue" animated="sweep" />
-<ProfileCard name="Lena Fox" role="Float" avatarInitials="LF" color="violet" animated="float" />
-<ProfileCard name="Kai Wong" role="Border spin" avatarInitials="KW" animated="border-spin" pulseColor="violet" pulseGradientTo="cyan" />`,
-              js: `<l-ProfileCard name="Priya Nair" role="Glow" avatarInitials="PN" animated="glow"></l-ProfileCard>
-<l-ProfileCard name="Marcus Lee" role="Pulse" avatarInitials="ML" color="emerald" animated="pulse"></l-ProfileCard>
-<l-ProfileCard name="Ana Souza" role="Gradient pulse" avatarInitials="AS" color="rose" animated="pulse" pulseColor="rose" pulseGradientTo="amber"></l-ProfileCard>
-<l-ProfileCard name="Tom Reed" role="Sweep" avatarInitials="TR" color="blue" animated="sweep"></l-ProfileCard>
-<l-ProfileCard name="Lena Fox" role="Float" avatarInitials="LF" color="violet" animated="float"></l-ProfileCard>
-<l-ProfileCard name="Kai Wong" role="Border spin" avatarInitials="KW" animated="border-spin" pulseColor="violet" pulseGradientTo="cyan"></l-ProfileCard>
+              react: `<ProfileCard name="Priya Nair" role="Glow" avatarInitials="PN" animation="glow" />
+<ProfileCard name="Marcus Lee" role="Pulse" avatarInitials="ML" color="emerald" animation="pulse" />
+<ProfileCard name="Ana Souza" role="Gradient pulse" avatarInitials="AS" color="rose" animation="pulse" pulseColor="rose" pulseGradientTo="amber" />
+<ProfileCard name="Tom Reed" role="Sweep" avatarInitials="TR" color="blue" animation="sweep" />
+<ProfileCard name="Lena Fox" role="Float" avatarInitials="LF" color="violet" animation="float" />
+<ProfileCard name="Kai Wong" role="Border spin" avatarInitials="KW" animation="border-spin" pulseColor="violet" pulseGradientTo="cyan" />`,
+              js: `<l-ProfileCard name="Priya Nair" role="Glow" avatarInitials="PN" animation="glow"></l-ProfileCard>
+<l-ProfileCard name="Marcus Lee" role="Pulse" avatarInitials="ML" color="emerald" animation="pulse"></l-ProfileCard>
+<l-ProfileCard name="Ana Souza" role="Gradient pulse" avatarInitials="AS" color="rose" animation="pulse" pulseColor="rose" pulseGradientTo="amber"></l-ProfileCard>
+<l-ProfileCard name="Tom Reed" role="Sweep" avatarInitials="TR" color="blue" animation="sweep"></l-ProfileCard>
+<l-ProfileCard name="Lena Fox" role="Float" avatarInitials="LF" color="violet" animation="float"></l-ProfileCard>
+<l-ProfileCard name="Kai Wong" role="Border spin" avatarInitials="KW" animation="border-spin" pulseColor="violet" pulseGradientTo="cyan"></l-ProfileCard>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-ProfileCard name="Priya Nair" role="Glow" avatarInitials="PN" animated="glow"></l-ProfileCard>
-  <l-ProfileCard name="Marcus Lee" role="Pulse" avatarInitials="ML" color="emerald" animated="pulse"></l-ProfileCard>
-  <l-ProfileCard name="Ana Souza" role="Gradient pulse" avatarInitials="AS" color="rose" animated="pulse" pulseColor="rose" pulseGradientTo="amber"></l-ProfileCard>
-  <l-ProfileCard name="Tom Reed" role="Sweep" avatarInitials="TR" color="blue" animated="sweep"></l-ProfileCard>
-  <l-ProfileCard name="Lena Fox" role="Float" avatarInitials="LF" color="violet" animated="float"></l-ProfileCard>
-  <l-ProfileCard name="Kai Wong" role="Border spin" avatarInitials="KW" animated="border-spin" pulseColor="violet" pulseGradientTo="cyan"></l-ProfileCard>
+  <l-ProfileCard name="Priya Nair" role="Glow" avatarInitials="PN" animation="glow"></l-ProfileCard>
+  <l-ProfileCard name="Marcus Lee" role="Pulse" avatarInitials="ML" color="emerald" animation="pulse"></l-ProfileCard>
+  <l-ProfileCard name="Ana Souza" role="Gradient pulse" avatarInitials="AS" color="rose" animation="pulse" pulseColor="rose" pulseGradientTo="amber"></l-ProfileCard>
+  <l-ProfileCard name="Tom Reed" role="Sweep" avatarInitials="TR" color="blue" animation="sweep"></l-ProfileCard>
+  <l-ProfileCard name="Lena Fox" role="Float" avatarInitials="LF" color="violet" animation="float"></l-ProfileCard>
+  <l-ProfileCard name="Kai Wong" role="Border spin" avatarInitials="KW" animation="border-spin" pulseColor="violet" pulseGradientTo="cyan"></l-ProfileCard>
 </template>
 
 <script setup lang="ts">
@@ -332,12 +332,12 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-ProfileCard name="Priya Nair" role="Glow" avatarInitials="PN" animated="glow"></l-ProfileCard>
-    <l-ProfileCard name="Marcus Lee" role="Pulse" avatarInitials="ML" color="emerald" animated="pulse"></l-ProfileCard>
-    <l-ProfileCard name="Ana Souza" role="Gradient pulse" avatarInitials="AS" color="rose" animated="pulse" pulseColor="rose" pulseGradientTo="amber"></l-ProfileCard>
-    <l-ProfileCard name="Tom Reed" role="Sweep" avatarInitials="TR" color="blue" animated="sweep"></l-ProfileCard>
-    <l-ProfileCard name="Lena Fox" role="Float" avatarInitials="LF" color="violet" animated="float"></l-ProfileCard>
-    <l-ProfileCard name="Kai Wong" role="Border spin" avatarInitials="KW" animated="border-spin" pulseColor="violet" pulseGradientTo="cyan"></l-ProfileCard>
+    <l-ProfileCard name="Priya Nair" role="Glow" avatarInitials="PN" animation="glow"></l-ProfileCard>
+    <l-ProfileCard name="Marcus Lee" role="Pulse" avatarInitials="ML" color="emerald" animation="pulse"></l-ProfileCard>
+    <l-ProfileCard name="Ana Souza" role="Gradient pulse" avatarInitials="AS" color="rose" animation="pulse" pulseColor="rose" pulseGradientTo="amber"></l-ProfileCard>
+    <l-ProfileCard name="Tom Reed" role="Sweep" avatarInitials="TR" color="blue" animation="sweep"></l-ProfileCard>
+    <l-ProfileCard name="Lena Fox" role="Float" avatarInitials="LF" color="violet" animation="float"></l-ProfileCard>
+    <l-ProfileCard name="Kai Wong" role="Border spin" avatarInitials="KW" animation="border-spin" pulseColor="violet" pulseGradientTo="cyan"></l-ProfileCard>
   \`,
 })
 export class AppComponent {}`,

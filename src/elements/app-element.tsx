@@ -148,6 +148,7 @@ export function ThemeProviderElement(props: {
   accent?: Accent;
   activeVariant?: ActiveVariant;
   design?: DesignName;
+  scrollbar?: "dot" | "native";
 }) {
   return (
     <ThemeProvider {...props}>

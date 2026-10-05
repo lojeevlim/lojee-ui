@@ -14,14 +14,14 @@ setTooltipPortalCss(tailwindCss);
  */
 export function withTailwind<Props extends object>(Component: ComponentType<Props>) {
   return function WithTailwind(props: Props) {
-    const { theme, accent, color, active, design } = useHtmlTheme();
+    const { theme, accent, color, active, design, scrollbar } = useHtmlTheme();
     return (
       <>
         <style>{tailwindCss}</style>
         {/* Mirror <html>'s theme attributes: the `dark:` variant matches an ancestor
             [data-theme], and the accent palette variables resolve against the Tailwind
             palette that only exists inside this shadow root's own stylesheet. */}
-        <div style={{ display: "contents", ...(color ? customAccentVars(color) : {}) }} data-theme={theme} data-accent={accent} data-accent-color={color} data-active-variant={active} data-design={design}>
+        <div style={{ display: "contents", ...(color ? customAccentVars(color) : {}) }} data-theme={theme} data-accent={accent} data-accent-color={color} data-active-variant={active} data-design={design} data-scrollbar={scrollbar}>
           <Component {...props} />
         </div>
       </>
@@ -37,15 +37,16 @@ function useHtmlTheme() {
     color: document.documentElement.getAttribute("data-accent-color") ?? undefined,
     active: document.documentElement.getAttribute("data-active-variant") ?? undefined,
     design: document.documentElement.getAttribute("data-design") ?? undefined,
+    scrollbar: document.documentElement.getAttribute("data-scrollbar") ?? undefined,
   });
   const [state, setState] = useState(read);
   useEffect(() => {
     const sync = () => {
       const next = read();
-      setState((prev) => (prev.theme === next.theme && prev.accent === next.accent && prev.color === next.color && prev.active === next.active && prev.design === next.design ? prev : next));
+      setState((prev) => (prev.theme === next.theme && prev.accent === next.accent && prev.color === next.color && prev.active === next.active && prev.design === next.design && prev.scrollbar === next.scrollbar ? prev : next));
     };
     const obs = new MutationObserver(sync);
-    obs.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme", "data-accent", "data-accent-color", "data-active-variant", "data-design"] });
+    obs.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme", "data-accent", "data-accent-color", "data-active-variant", "data-design", "data-scrollbar"] });
     sync();
     return () => obs.disconnect();
   }, []);

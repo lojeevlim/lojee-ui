@@ -2,15 +2,15 @@ import type { ReactNode } from "react";
 import { cx, type ColorName } from "../../../core/tokens";
 import { Icon } from "../Icons/Icon";
 import { getIcon } from "../../../core/icons";
-import { animatedClass, animatedStyle, type AnimatedVariant } from "../../../core/animated";
+import { animatedClass, animatedStyle, type AnimatedProp } from "../../../core/animated";
 import { AnimatedOverlay } from "../../../core/AnimatedOverlay";
 import { motionClass, motionStyle, type TransitionVariant, type HoverEffect } from "../../../core/motion";
 
 export type AlertVariant = "info" | "success" | "warning" | "error" | "accent";
 
 export interface AlertProps {
-  /** Attention animation: "glow" | "pulse" | "sweep" | "bounce" | "float" | "wiggle" | "border-spin" (default: none). Respects `prefers-reduced-motion`. */
-  animated?: AnimatedVariant;
+  /** Attention animation: "glow" | "pulse" | "sweep" | "bounce" | "float" | "wiggle" | "border-spin" | "particles" | "tail" — one, or a list to combine, e.g. ["particles", "tail"] (default: none). Respects `prefers-reduced-motion`. */
+  animation?: AnimatedProp;
   /** Color of the animation (pulse ring, glow, spinning border): a `ColorName` or any CSS color (default: the component's own color). */
   pulseColor?: ColorName | (string & {});
   /** Second color — turns the pulse ring and spinning border into a gradient from `pulseColor` to this (default: solid `pulseColor`). */
@@ -83,7 +83,7 @@ export function Alert({
   onClose,
   className,
   classNames,
-  animated,
+  animation,
   pulseColor,
   pulseGradientTo,
   transition,
@@ -105,12 +105,12 @@ export function Alert({
       className={cx(
         "flex gap-3 rounded-lg border p-4",
         VARIANT_CLASSES[variant],
-        animatedClass(animated),
+        animatedClass(animation),
         motionClass(transition, hoverEffect),
         className,
         classNames?.root
       )}
-      style={{ ...animatedStyle(animated, VARIANT_ANIM_COLOR[variant], pulseColor, pulseGradientTo), ...motionStyle(transitionDuration, transitionDelay) }}
+      style={{ ...animatedStyle(animation, VARIANT_ANIM_COLOR[variant], pulseColor, pulseGradientTo), ...motionStyle(transitionDuration, transitionDelay) }}
     >
       {hasIcon && iconName && (
         <Icon name={iconName} size={20} className={cx("mt-0.5 shrink-0", ICON_COLOR_CLASSES[variant], classNames?.icon)} />
@@ -138,7 +138,7 @@ export function Alert({
           <Icon name="x" size={16} />
         </button>
       )}
-      <AnimatedOverlay variant={animated} />
+      <AnimatedOverlay variant={animation} />
     </div>
   );
 }

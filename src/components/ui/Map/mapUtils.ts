@@ -162,7 +162,12 @@ const THEME_CSS = `
 .maplibregl-ctrl-group button+button{border-top:1px solid var(--lojee-border,#e2e8f0)}
 [data-theme="dark"] .maplibregl-ctrl-group button .maplibregl-ctrl-icon,[data-theme="dark"] .maplibregl-ctrl-group button span{filter:invert(1)}
 .maplibregl-ctrl-scale{background:color-mix(in srgb,var(--lojee-surface,#fff) 80%,transparent);color:var(--lojee-fg,#0f172a);border-color:var(--lojee-fg-subtle,#64748b)}
-.maplibregl-ctrl-attrib{background:color-mix(in srgb,var(--lojee-surface,#fff) 75%,transparent)!important;color:var(--lojee-fg-muted,#475569)}
+/* The credit is required by the map data / tile licenses, so it stays — just quiet: tiny, faint and see-through until hovered. */
+.maplibregl-ctrl-attrib{background:transparent!important;color:var(--lojee-fg-muted,#475569);font-size:9px;line-height:1.3;opacity:.45;transition:opacity .2s ease,background-color .2s ease;margin:0 4px 4px 0!important;border-radius:999px}
+.maplibregl-ctrl-attrib:hover,.maplibregl-ctrl-attrib.maplibregl-compact-show{opacity:1;background:color-mix(in srgb,var(--lojee-surface,#fff) 80%,transparent)!important}
+.maplibregl-ctrl-attrib.maplibregl-compact{min-height:16px;padding:0 2px}
+.maplibregl-ctrl-attrib.maplibregl-compact .maplibregl-ctrl-attrib-button{width:16px;height:16px;background-size:11px}
+.maplibregl-ctrl-attrib.maplibregl-compact-show{padding:2px 20px 2px 8px}
 .maplibregl-ctrl-attrib a{color:inherit}
 `;
 

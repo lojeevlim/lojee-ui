@@ -163,6 +163,14 @@ export function Map({
           attributionControl: { compact: true },
         });
         const m = map;
+        // The credit stays (map data / tile licenses require it) but starts folded into the small (i) button instead of open text.
+        const foldAttribution = () => {
+          const a = el.querySelector(".maplibregl-ctrl-attrib");
+          a?.removeAttribute("open");
+          a?.classList.remove("maplibregl-compact-show");
+        };
+        foldAttribution();
+        m.once("load", foldAttribution);
         m.on("style.load", () => setStyleVersion((v) => v + 1));
         m.on("load", () => handlers.current.onLoad?.(m));
         m.on("moveend", () => {

@@ -60,7 +60,7 @@ function Pager() {
 
 const ROW_1: ReactNode[] = [
   <Card key="button" name="Button"><div className="flex flex-wrap gap-2"><Button size="sm" label="Deploy" icon="zap" /><Button size="sm" variant="outline" label="Preview" /></div></Card>,
-  <Card key="badge" name="Badge"><div className="flex flex-wrap gap-2"><Badge variant="soft" color="emerald" label="Live" animated="pulse" /><Badge variant="solid" label="New" /><Badge variant="outline" label="Beta" /></div></Card>,
+  <Card key="badge" name="Badge"><div className="flex flex-wrap gap-2"><Badge variant="soft" color="emerald" label="Live" animation="pulse" /><Badge variant="solid" label="New" /><Badge variant="outline" label="Beta" /></div></Card>,
   <Card key="switch" name="Switch"><ThemeSwitch /></Card>,
   <Card key="progress" name="ProgressBar"><Deploying /></Card>,
   <Card key="stat" name="Stat"><Stat label="Weekly installs" value={12400} change="18.2%" trend="up" /></Card>,

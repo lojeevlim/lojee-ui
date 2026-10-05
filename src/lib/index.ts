@@ -9,7 +9,7 @@
 // type-checkers at a dist/index.css that doesn't exist. The Vite build
 // entry (entry.ts, next to this file) adds that import instead.
 
-export { ANIMATED_VARIANTS, type AnimatedVariant } from "../core/animated";
+export { ANIMATED_VARIANTS, parseAnimated, type AnimatedVariant, type AnimatedProp } from "../core/animated";
 export { Button, type ButtonProps, type GradientDirection } from "../components/ui/Buttons/Button";
 export { SplitButton, type SplitButtonProps } from "../components/ui/Buttons/SplitButton";
 export {
@@ -33,6 +33,7 @@ export { getIcon, ICONS, ICON_NAMES } from "../components/ui/Icons/registry";
 export { Spinner, type SpinnerProps, type SpinnerSize, type SpinnerVariant } from "../components/ui/Spinner/Spinner";
 export { Divider, type DividerProps, type DividerOrientation } from "../components/ui/Divider/Divider";
 export { DotScroll, type DotScrollProps, type DotScrollAxis } from "../components/ui/DotScroll/DotScroll";
+export { PageScrollbar } from "../components/ui/DotScroll/PageScrollbar";
 export { Tooltip, type TooltipProps, type TooltipPosition } from "../components/ui/Tooltip/Tooltip";
 
 export { Card, type CardProps, type CardVariant, type CardPadding } from "../components/ui/Card/Card";

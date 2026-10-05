@@ -1,15 +1,15 @@
 import { cx, COLOR_HEX, type ColorName } from "../../../core/tokens";
 import { Icon } from "../Icons/Icon";
 import { useCountUp } from "../../../core/useCountUp";
-import { animatedClass, animatedStyle, type AnimatedVariant } from "../../../core/animated";
+import { animatedClass, animatedStyle, type AnimatedProp } from "../../../core/animated";
 import { AnimatedOverlay } from "../../../core/AnimatedOverlay";
 import { motionClass, motionStyle, type TransitionVariant, type HoverEffect } from "../../../core/motion";
 
 export type StatTrend = "up" | "down" | "neutral";
 
 export interface StatProps {
-  /** Attention animation: "glow" | "pulse" | "sweep" | "bounce" | "float" | "wiggle" | "border-spin" (default: none). Respects `prefers-reduced-motion`. */
-  animated?: AnimatedVariant;
+  /** Attention animation: "glow" | "pulse" | "sweep" | "bounce" | "float" | "wiggle" | "border-spin" | "particles" | "tail" — one, or a list to combine, e.g. ["particles", "tail"] (default: none). Respects `prefers-reduced-motion`. */
+  animation?: AnimatedProp;
   /** Color of the animation (pulse ring, glow, spinning border): a `ColorName` or any CSS color (default: the component's own color). */
   pulseColor?: ColorName | (string & {});
   /** Second color — turns the pulse ring and spinning border into a gradient from `pulseColor` to this (default: solid `pulseColor`). */
@@ -73,13 +73,13 @@ const TREND_CLASSES: Record<StatTrend, string> = {
   neutral: "text-fg-subtle",
 };
 
-export function Stat({ label, value, countUp = false, countUpDuration, change, trend = "neutral", icon, color = "accent", className, classNames, animated, pulseColor, pulseGradientTo, transition, transitionDuration, transitionDelay, hoverEffect }: StatProps) {
+export function Stat({ label, value, countUp = false, countUpDuration, change, trend = "neutral", icon, color = "accent", className, classNames, animation, pulseColor, pulseGradientTo, transition, transitionDuration, transitionDelay, hoverEffect }: StatProps) {
   const displayValue = useCountUp(value, countUp, countUpDuration);
 
   return (
     <div
-      className={cx("rounded-xl border border-border bg-surface p-5", animatedClass(animated), motionClass(transition, hoverEffect), className, classNames?.root)}
-      style={{ ...animatedStyle(animated, color, pulseColor, pulseGradientTo), ...motionStyle(transitionDuration, transitionDelay) }}
+      className={cx("rounded-xl border border-border bg-surface p-5", animatedClass(animation), motionClass(transition, hoverEffect), className, classNames?.root)}
+      style={{ ...animatedStyle(animation, color, pulseColor, pulseGradientTo), ...motionStyle(transitionDuration, transitionDelay) }}
     >
       {icon && (
         <div
@@ -102,7 +102,7 @@ export function Stat({ label, value, countUp = false, countUpDuration, change, t
           <span>{change}</span>
         </div>
       )}
-      <AnimatedOverlay variant={animated} />
+      <AnimatedOverlay variant={animation} />
     </div>
   );
 }

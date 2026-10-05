@@ -136,12 +136,12 @@ const REEL_1: ReactNode[] = [
       <Button size="sm" variant="outline" icon="bell" label="Inbox" badge="3" />
     </div>
   </HeroCard>,
-  <HeroCard key="btn-animated" name="Button / animated + hover" w="w-80">
+  <HeroCard key="btn-animated" name="Button / animation + hover" w="w-80">
     <div className="flex flex-wrap items-center gap-2">
-      <Button size="sm" animated="pulse" label="Pulse" />
-      <Button size="sm" animated="glow" variant="soft" label="Glow" />
-      <Button size="sm" animated="border-spin" variant="outline" label="Spin" />
-      <Button size="sm" animated="sweep" label="Sweep" />
+      <Button size="sm" animation="pulse" label="Pulse" />
+      <Button size="sm" animation="glow" variant="soft" label="Glow" />
+      <Button size="sm" animation="border-spin" variant="outline" label="Spin" />
+      <Button size="sm" animation="sweep" label="Sweep" />
     </div>
     <Label>hover effects</Label>
     <div className="flex flex-wrap items-center gap-2">
@@ -235,19 +235,19 @@ const REEL_2: ReactNode[] = [
       <Badge variant="solid" color="rose" icon="zap" label="Hot" />
     </div>
   </HeroCard>,
-  <HeroCard key="badge-dot" name="Badge / dot + animated" w="w-72">
+  <HeroCard key="badge-dot" name="Badge / dot + animation" w="w-72">
     <div className="flex items-center gap-2">
       <Badge dot color="emerald" />
       <Badge dot color="amber" />
       <Badge dot color="rose" />
       <Badge dot color="accent" size="lg" />
     </div>
-    <Label>animated</Label>
+    <Label>animation</Label>
     <div className="flex flex-wrap gap-1.5">
-      <Badge variant="soft" color="emerald" label="Live" animated="pulse" />
-      <Badge variant="solid" label="Glow" animated="glow" />
-      <Badge variant="outline" color="violet" label="Spin" animated="border-spin" />
-      <Badge variant="soft" color="amber" label="Sweep" animated="sweep" />
+      <Badge variant="soft" color="emerald" label="Live" animation="pulse" />
+      <Badge variant="solid" label="Glow" animation="glow" />
+      <Badge variant="outline" color="violet" label="Spin" animation="border-spin" />
+      <Badge variant="soft" color="amber" label="Sweep" animation="sweep" />
     </div>
   </HeroCard>,
   <HeroCard key="avatar-sizes" name="Avatar / sizes">
@@ -275,7 +275,7 @@ const REEL_2: ReactNode[] = [
     <div className="flex items-center gap-3">
       <Avatar size="lg" src={sampleImage(1, 96, 96)} alt="Sample" status="online" />
       <Avatar size="lg" src={sampleImage(2, 96, 96)} alt="Sample" shape="square" />
-      <Avatar size="lg" animated="pulse" initials="NW" />
+      <Avatar size="lg" animation="pulse" initials="NW" />
     </div>
   </HeroCard>,
   <HeroCard key="avatar-group" name="AvatarGroup">
@@ -414,8 +414,8 @@ const REEL_3: ReactNode[] = [
       <Card variant="soft" padding="md"><span className="text-[11px] text-fg-muted">md</span></Card>
       <Card variant="soft" padding="lg"><span className="text-[11px] text-fg-muted">lg</span></Card>
     </div>
-    <Label>animated</Label>
-    <Card variant="outline" padding="sm" animated="glow"><span className="text-xs text-fg">Glowing card</span></Card>
+    <Label>animation</Label>
+    <Card variant="outline" padding="sm" animation="glow"><span className="text-xs text-fg">Glowing card</span></Card>
   </HeroCard>,
 ];
 

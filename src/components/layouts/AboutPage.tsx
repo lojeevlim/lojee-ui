@@ -6,6 +6,7 @@ import { Icon } from "../ui/Icons/Icon"
 import { COMPONENT_MENU } from "../../constant/component_menu"
 import { defaultPathFor, pathFor } from "../../core/routes"
 import { REPO_URL } from "../../core/repo"
+import { DotScroll } from "../ui/DotScroll/DotScroll"
 
 
 const VALUES = [
@@ -44,7 +45,8 @@ export default function AboutPage() {
   return (
     <div className="flex h-screen flex-col bg-surface text-fg">
       <Navbar activeNav="about" onNavChange={handleNavChange} showSideToggle={false} />
-      <main className="flex-1 overflow-y-auto">
+      <main className="min-h-0 flex-1">
+        <DotScroll className="h-full">
         <div className="mx-auto max-w-4xl space-y-14 px-6 py-10 md:py-14">
           <header className="space-y-4">
             <Badge variant="soft" color="accent" label="About" />
@@ -131,6 +133,7 @@ export default function AboutPage() {
             <span>Made by lojeevlim · © 2026 Lojee, Inc.</span>
           </footer>
         </div>
+        </DotScroll>
       </main>
     </div>
   )

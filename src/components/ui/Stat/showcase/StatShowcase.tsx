@@ -284,48 +284,48 @@ export class AppComponent {}`,
         </section>
 
         <section>
-          <SectionLabel sub="Attention effects via `animated`. Pulse and border-spin take a solid `pulseColor` or a gradient with `pulseGradientTo`.">Animated</SectionLabel>
+          <SectionLabel sub="Attention effects via `animation`. Pulse and border-spin take a solid `pulseColor` or a gradient with `pulseGradientTo`.">Animation</SectionLabel>
           <Grid cols={4} gap="md">
-            <Stat label="Glow" value="$48,290" icon="zap" animated="glow" />
-            <Stat label="Pulse" value="12,483" icon="users" animated="pulse" />
-            <Stat label="Gradient pulse" value="3.42%" icon="activity" color="rose" animated="pulse" pulseColor="rose" pulseGradientTo="amber" />
-            <Stat label="Sweep" value="1.08%" icon="activity" animated="sweep" />
-            <Stat label="Bounce" value="$9,120" icon="zap" animated="bounce" />
-            <Stat label="Float" value="842" icon="users" animated="float" />
-            <Stat label="Wiggle" value="97%" icon="activity" animated="wiggle" />
-            <Stat label="Border spin" value="24h" icon="clock" animated="border-spin" pulseColor="violet" pulseGradientTo="cyan" />
+            <Stat label="Glow" value="$48,290" icon="zap" animation="glow" />
+            <Stat label="Pulse" value="12,483" icon="users" animation="pulse" />
+            <Stat label="Gradient pulse" value="3.42%" icon="activity" color="rose" animation="pulse" pulseColor="rose" pulseGradientTo="amber" />
+            <Stat label="Sweep" value="1.08%" icon="activity" animation="sweep" />
+            <Stat label="Bounce" value="$9,120" icon="zap" animation="bounce" />
+            <Stat label="Float" value="842" icon="users" animation="float" />
+            <Stat label="Wiggle" value="97%" icon="activity" animation="wiggle" />
+            <Stat label="Border spin" value="24h" icon="clock" animation="border-spin" pulseColor="violet" pulseGradientTo="cyan" />
           </Grid>
           <CodeBlock
             variants={{
-              react: `<Stat label="Glow" value="$48,290" icon="zap" animated="glow" />
-<Stat label="Pulse" value="12,483" icon="users" animated="pulse" />
-<Stat label="Gradient pulse" value="3.42%" icon="activity" color="rose" animated="pulse" pulseColor="rose" pulseGradientTo="amber" />
-<Stat label="Sweep" value="1.08%" icon="activity" animated="sweep" />
-<Stat label="Bounce" value="$9,120" icon="zap" animated="bounce" />
-<Stat label="Float" value="842" icon="users" animated="float" />
-<Stat label="Wiggle" value="97%" icon="activity" animated="wiggle" />
-<Stat label="Border spin" value="24h" icon="clock" animated="border-spin" pulseColor="violet" pulseGradientTo="cyan" />`,
-              js: `<l-Stat label="Glow" value="$48,290" icon="zap" animated="glow"></l-Stat>
-<l-Stat label="Pulse" value="12,483" icon="users" animated="pulse"></l-Stat>
-<l-Stat label="Gradient pulse" value="3.42%" icon="activity" color="rose" animated="pulse" pulseColor="rose" pulseGradientTo="amber"></l-Stat>
-<l-Stat label="Sweep" value="1.08%" icon="activity" animated="sweep"></l-Stat>
-<l-Stat label="Bounce" value="$9,120" icon="zap" animated="bounce"></l-Stat>
-<l-Stat label="Float" value="842" icon="users" animated="float"></l-Stat>
-<l-Stat label="Wiggle" value="97%" icon="activity" animated="wiggle"></l-Stat>
-<l-Stat label="Border spin" value="24h" icon="clock" animated="border-spin" pulseColor="violet" pulseGradientTo="cyan"></l-Stat>
+              react: `<Stat label="Glow" value="$48,290" icon="zap" animation="glow" />
+<Stat label="Pulse" value="12,483" icon="users" animation="pulse" />
+<Stat label="Gradient pulse" value="3.42%" icon="activity" color="rose" animation="pulse" pulseColor="rose" pulseGradientTo="amber" />
+<Stat label="Sweep" value="1.08%" icon="activity" animation="sweep" />
+<Stat label="Bounce" value="$9,120" icon="zap" animation="bounce" />
+<Stat label="Float" value="842" icon="users" animation="float" />
+<Stat label="Wiggle" value="97%" icon="activity" animation="wiggle" />
+<Stat label="Border spin" value="24h" icon="clock" animation="border-spin" pulseColor="violet" pulseGradientTo="cyan" />`,
+              js: `<l-Stat label="Glow" value="$48,290" icon="zap" animation="glow"></l-Stat>
+<l-Stat label="Pulse" value="12,483" icon="users" animation="pulse"></l-Stat>
+<l-Stat label="Gradient pulse" value="3.42%" icon="activity" color="rose" animation="pulse" pulseColor="rose" pulseGradientTo="amber"></l-Stat>
+<l-Stat label="Sweep" value="1.08%" icon="activity" animation="sweep"></l-Stat>
+<l-Stat label="Bounce" value="$9,120" icon="zap" animation="bounce"></l-Stat>
+<l-Stat label="Float" value="842" icon="users" animation="float"></l-Stat>
+<l-Stat label="Wiggle" value="97%" icon="activity" animation="wiggle"></l-Stat>
+<l-Stat label="Border spin" value="24h" icon="clock" animation="border-spin" pulseColor="violet" pulseGradientTo="cyan"></l-Stat>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-Stat label="Glow" value="$48,290" icon="zap" animated="glow"></l-Stat>
-  <l-Stat label="Pulse" value="12,483" icon="users" animated="pulse"></l-Stat>
-  <l-Stat label="Gradient pulse" value="3.42%" icon="activity" color="rose" animated="pulse" pulseColor="rose" pulseGradientTo="amber"></l-Stat>
-  <l-Stat label="Sweep" value="1.08%" icon="activity" animated="sweep"></l-Stat>
-  <l-Stat label="Bounce" value="$9,120" icon="zap" animated="bounce"></l-Stat>
-  <l-Stat label="Float" value="842" icon="users" animated="float"></l-Stat>
-  <l-Stat label="Wiggle" value="97%" icon="activity" animated="wiggle"></l-Stat>
-  <l-Stat label="Border spin" value="24h" icon="clock" animated="border-spin" pulseColor="violet" pulseGradientTo="cyan"></l-Stat>
+  <l-Stat label="Glow" value="$48,290" icon="zap" animation="glow"></l-Stat>
+  <l-Stat label="Pulse" value="12,483" icon="users" animation="pulse"></l-Stat>
+  <l-Stat label="Gradient pulse" value="3.42%" icon="activity" color="rose" animation="pulse" pulseColor="rose" pulseGradientTo="amber"></l-Stat>
+  <l-Stat label="Sweep" value="1.08%" icon="activity" animation="sweep"></l-Stat>
+  <l-Stat label="Bounce" value="$9,120" icon="zap" animation="bounce"></l-Stat>
+  <l-Stat label="Float" value="842" icon="users" animation="float"></l-Stat>
+  <l-Stat label="Wiggle" value="97%" icon="activity" animation="wiggle"></l-Stat>
+  <l-Stat label="Border spin" value="24h" icon="clock" animation="border-spin" pulseColor="violet" pulseGradientTo="cyan"></l-Stat>
 </template>
 
 <script setup lang="ts">
@@ -340,14 +340,14 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Stat label="Glow" value="$48,290" icon="zap" animated="glow"></l-Stat>
-    <l-Stat label="Pulse" value="12,483" icon="users" animated="pulse"></l-Stat>
-    <l-Stat label="Gradient pulse" value="3.42%" icon="activity" color="rose" animated="pulse" pulseColor="rose" pulseGradientTo="amber"></l-Stat>
-    <l-Stat label="Sweep" value="1.08%" icon="activity" animated="sweep"></l-Stat>
-    <l-Stat label="Bounce" value="$9,120" icon="zap" animated="bounce"></l-Stat>
-    <l-Stat label="Float" value="842" icon="users" animated="float"></l-Stat>
-    <l-Stat label="Wiggle" value="97%" icon="activity" animated="wiggle"></l-Stat>
-    <l-Stat label="Border spin" value="24h" icon="clock" animated="border-spin" pulseColor="violet" pulseGradientTo="cyan"></l-Stat>
+    <l-Stat label="Glow" value="$48,290" icon="zap" animation="glow"></l-Stat>
+    <l-Stat label="Pulse" value="12,483" icon="users" animation="pulse"></l-Stat>
+    <l-Stat label="Gradient pulse" value="3.42%" icon="activity" color="rose" animation="pulse" pulseColor="rose" pulseGradientTo="amber"></l-Stat>
+    <l-Stat label="Sweep" value="1.08%" icon="activity" animation="sweep"></l-Stat>
+    <l-Stat label="Bounce" value="$9,120" icon="zap" animation="bounce"></l-Stat>
+    <l-Stat label="Float" value="842" icon="users" animation="float"></l-Stat>
+    <l-Stat label="Wiggle" value="97%" icon="activity" animation="wiggle"></l-Stat>
+    <l-Stat label="Border spin" value="24h" icon="clock" animation="border-spin" pulseColor="violet" pulseGradientTo="cyan"></l-Stat>
   \`,
 })
 export class AppComponent {}`,

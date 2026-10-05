@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { cx } from "../../../core/tokens";
 import { APP_BREAKPOINTS } from "../AppLayout/breakpoints";
 import { useAppLayout } from "../AppLayout/appLayoutContext";
+import { DotScroll } from "../DotScroll/DotScroll";
 
 export type MainPadding = "none" | "sm" | "md" | "lg" | "xl";
 
@@ -19,9 +20,15 @@ export interface MainProps {
 export function Main({ children, className, padding = "md" }: MainProps) {
   const { breakpoint } = useAppLayout();
   // The built-in page panel: a rounded surface (light/dark follows the theme) floating on the App's tinted
-  // background, inset by a margin, with `padding` inside. Every part is a default — a `className` (e.g. `p-0`,
-  // `rounded-none`, `bg-transparent m-0`) overrides it.
+  // background, inset by a margin, with `padding` inside. Every part is a default — a `className` (e.g.
+  // `rounded-none`, `bg-transparent m-0`) overrides it. The panel scrolls inside a DotScroll (the glowing-dot scrollbar,
+  // or the native one when the theme says `scrollbar="native"`), so the scrollbar sits on the panel's own edge and the
+  // padding scrolls with the content.
   return (
-    <main className={cx("m-2 rounded-xl bg-surface md:m-3", MAIN_PADDING[padding] ?? MAIN_PADDING.md, APP_BREAKPOINTS[breakpoint].main, className)}>{children}</main>
+    <main className={cx("m-2 overflow-hidden rounded-xl bg-surface md:m-3", APP_BREAKPOINTS[breakpoint].main.replace("overflow-auto", "overflow-hidden"), className)}>
+      <DotScroll className="h-full" viewportClassName={MAIN_PADDING[padding] ?? MAIN_PADDING.md}>
+        {children}
+      </DotScroll>
+    </main>
   );
 }

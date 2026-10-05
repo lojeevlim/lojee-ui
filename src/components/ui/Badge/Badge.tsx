@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { colorClasses, cx, nonInteractive, solidBg, type ColorName } from "../../../core/tokens";
 import { getIcon } from "../../../core/icons";
-import { animatedClass, animatedStyle, type AnimatedVariant } from "../../../core/animated";
+import { animatedClass, animatedStyle, type AnimatedProp } from "../../../core/animated";
 import { AnimatedOverlay } from "../../../core/AnimatedOverlay";
 import { motionClass, motionStyle, type TransitionVariant, type HoverEffect } from "../../../core/motion";
 
@@ -9,8 +9,8 @@ export type BadgeVariant = "solid" | "outline" | "soft";
 export type BadgeSize = "xs" | "sm" | "md" | "lg";
 
 export interface BadgeProps {
-  /** Attention animation: "glow" | "pulse" | "sweep" | "bounce" | "float" | "wiggle" | "border-spin" (default: none). Respects `prefers-reduced-motion`. */
-  animated?: AnimatedVariant;
+  /** Attention animation: "glow" | "pulse" | "sweep" | "bounce" | "float" | "wiggle" | "border-spin" | "particles" | "tail" — one, or a list to combine, e.g. ["particles", "tail"] (default: none). Respects `prefers-reduced-motion`. */
+  animation?: AnimatedProp;
   /** Color of the animation (pulse ring, glow, spinning border): a `ColorName` or any CSS color (default: the component's own color). */
   pulseColor?: ColorName | (string & {});
   /** Second color — turns the pulse ring and spinning border into a gradient from `pulseColor` to this (default: solid `pulseColor`). */
@@ -72,7 +72,7 @@ export function Badge({
   children,
   className,
   classNames,
-  animated,
+  animation,
   pulseColor,
   pulseGradientTo,
   transition,
@@ -89,17 +89,17 @@ export function Badge({
           "inline-block rounded-full",
           solidBg(colorSet.solid),
           DOT_SIZE[size],
-          animatedClass(animated),
+          animatedClass(animation),
           motionClass(transition, hoverEffect),
           className,
           classNames?.root
         )}
-        style={{ ...animatedStyle(animated, color, pulseColor, pulseGradientTo), ...motionStyle(transitionDuration, transitionDelay) }}
+        style={{ ...animatedStyle(animation, color, pulseColor, pulseGradientTo), ...motionStyle(transitionDuration, transitionDelay) }}
         data-badge="dot"
         role={label ? "status" : undefined}
         aria-label={label}
       >
-        <AnimatedOverlay variant={animated} />
+        <AnimatedOverlay variant={animation} />
       </span>
     );
   }
@@ -117,18 +117,18 @@ export function Badge({
         "inline-flex items-center font-medium whitespace-nowrap",
         variantClass,
         SIZE_CLASSES[size],
-        animatedClass(animated),
+        animatedClass(animation),
         motionClass(transition, hoverEffect),
         className,
         classNames?.root
       )}
-      style={{ ...animatedStyle(animated, color, pulseColor, pulseGradientTo), ...motionStyle(transitionDuration, transitionDelay) }}
+      style={{ ...animatedStyle(animation, color, pulseColor, pulseGradientTo), ...motionStyle(transitionDuration, transitionDelay) }}
       data-badge={variant}
     >
       {/* eslint-disable-next-line react-hooks/static-components -- see comment above `const Icon` */}
       {Icon && <Icon size={ICON_PX[size]} className={classNames?.icon} />}
       <slot>{content}</slot>
-      <AnimatedOverlay variant={animated} />
+      <AnimatedOverlay variant={animation} />
     </span>
   );
 }

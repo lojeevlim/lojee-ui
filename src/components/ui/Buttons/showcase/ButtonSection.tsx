@@ -296,11 +296,10 @@ export class ButtonShowcaseComponent {}`,
           States
         </SectionLabel>
         <Row>
-          <Button variant="solid" color="slate" label="Default — hover me" />
-          <Button variant="solid" color="slate" disabled label="Disabled" />
+          <Button variant="solid" label="Default — hover me" />
+          <Button variant="solid" disabled label="Disabled" />
           <Button
             variant="solid"
-            color="slate"
             icon={loadingBtn ? undefined : "check"}
             loading={loadingBtn}
             label={loadingBtn ? "Saving…" : "Save changes"}
@@ -309,12 +308,12 @@ export class ButtonShowcaseComponent {}`,
         </Row>
         <CodeBlock
           variants={{
-            react: `<Button color="slate" label="Default — hover me" />
-<Button color="slate" disabled label="Disabled" />
-<Button color="slate" loading={isSaving} onClick={handleSave} label={isSaving ? "Saving…" : "Save changes"} />`,
-            js: `<l-Button color="slate" label="Default — hover me"></l-Button>
-<l-Button color="slate" disabled label="Disabled"></l-Button>
-<l-Button id="save-btn" color="slate" label="Save changes"></l-Button>
+            react: `<Button label="Default — hover me" />
+<Button disabled label="Disabled" />
+<Button loading={isSaving} onClick={handleSave} label={isSaving ? "Saving…" : "Save changes"} />`,
+            js: `<l-Button label="Default — hover me"></l-Button>
+<l-Button disabled label="Disabled"></l-Button>
+<l-Button id="save-btn" label="Save changes"></l-Button>
 
 <script type="module">
   const saveBtn = document.getElementById("save-btn");
@@ -328,20 +327,18 @@ export class ButtonShowcaseComponent {}`,
   });
 </script>`,
             vue: `<template>
-  <l-Button color="slate" label="Default — hover me" />
-  <l-Button color="slate" disabled label="Disabled" />
+  <l-Button label="Default — hover me" />
+  <l-Button disabled label="Disabled" />
   <l-Button
-    color="slate"
     :loading="isSaving"
     :label="isSaving ? 'Saving…' : 'Save changes'"
     @click="handleSave"
   />
 </template>`,
             angular: `<!-- reuses ButtonShowcaseComponent from above -->
-<l-Button color="slate" label="Default — hover me" />
-<l-Button color="slate" disabled label="Disabled" />
+<l-Button label="Default — hover me" />
+<l-Button disabled label="Disabled" />
 <l-Button
-  color="slate"
   [loading]="isSaving"
   [label]="isSaving ? 'Saving…' : 'Save changes'"
   (click)="handleSave()"
@@ -354,9 +351,9 @@ export class ButtonShowcaseComponent {}`,
       <section>
         <SectionLabel sub="Same button, three corner treatments.">Shapes</SectionLabel>
         <Row>
-          <Button variant="solid" color="slate" shape="default" label="Default" />
-          <Button variant="solid" color="slate" shape="pill" label="Pill" />
-          <Button variant="solid" color="slate" shape="square" label="Square" />
+          <Button variant="solid" shape="default" label="Default" />
+          <Button variant="solid" shape="pill" label="Pill" />
+          <Button variant="solid" shape="square" label="Square" />
         </Row>
         <CodeBlock
           variants={{
@@ -387,7 +384,6 @@ export class ButtonShowcaseComponent {}`,
         <Row>
           <Button
             variant="solid"
-            color="slate"
             label="Custom root"
             className="rounded-full ring-2 ring-offset-2 ring-indigo-500"
           />

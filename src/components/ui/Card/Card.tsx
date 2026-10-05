@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { cx, type ColorName } from "../../../core/tokens";
-import { animatedClass, animatedStyle, type AnimatedVariant } from "../../../core/animated";
+import { animatedClass, animatedStyle, type AnimatedProp } from "../../../core/animated";
 import { motionClass, motionStyle, type TransitionVariant, type HoverEffect } from "../../../core/motion";
 import { AnimatedOverlay } from "../../../core/AnimatedOverlay";
 
@@ -8,8 +8,8 @@ export type CardVariant = "outline" | "elevated" | "soft" | "ghost";
 export type CardPadding = "none" | "sm" | "md" | "lg";
 
 export interface CardProps {
-  /** Attention animation: "glow" | "pulse" | "sweep" | "bounce" | "float" | "wiggle" | "border-spin" (default: none). Respects `prefers-reduced-motion`. */
-  animated?: AnimatedVariant;
+  /** Attention animation: "glow" | "pulse" | "sweep" | "bounce" | "float" | "wiggle" | "border-spin" | "particles" | "tail" — one, or a list to combine, e.g. ["particles", "tail"] (default: none). Respects `prefers-reduced-motion`. */
+  animation?: AnimatedProp;
   /** Color of the animation (pulse ring, glow, spinning border): a `ColorName` or any CSS color (default: the component's own color). */
   pulseColor?: ColorName | (string & {});
   /** Second color — turns the pulse ring and spinning border into a gradient from `pulseColor` to this (default: solid `pulseColor`). */
@@ -63,7 +63,7 @@ export function Card({
   children,
   className,
   classNames,
-  animated,
+  animation,
   pulseColor,
   pulseGradientTo,
   transition,
@@ -79,12 +79,12 @@ export function Card({
         PADDING_CLASSES[padding],
         hoverable && "transition-shadow hover:shadow-lg",
         hoverable && variant === "outline" && "hover:border-border-strong",
-        animatedClass(animated),
+        animatedClass(animation),
         motionClass(transition, hoverEffect),
         className,
         classNames?.root
       )}
-      style={{ ...animatedStyle(animated, "accent", pulseColor, pulseGradientTo), ...motionStyle(transitionDuration, transitionDelay) }}
+      style={{ ...animatedStyle(animation, "accent", pulseColor, pulseGradientTo), ...motionStyle(transitionDuration, transitionDelay) }}
     >
       {title != null && <h3 className={cx("text-base font-semibold text-fg mb-2", classNames?.title)}>{title}</h3>}
       <div className={classNames?.body}>
@@ -93,7 +93,7 @@ export function Card({
       {footer != null && (
         <div className={cx("border-t border-border mt-4 pt-4", classNames?.footer)}>{footer}</div>
       )}
-      <AnimatedOverlay variant={animated} />
+      <AnimatedOverlay variant={animation} />
     </div>
   );
 }

@@ -264,52 +264,52 @@ export class AppComponent {}`,
         </section>
 
         <section>
-          <SectionLabel sub="Attention effects via `animated`. Pulse and border-spin take a solid `pulseColor` or a gradient with `pulseGradientTo`.">Animated</SectionLabel>
+          <SectionLabel sub="Attention effects via `animation`. Pulse and border-spin take a solid `pulseColor` or a gradient with `pulseGradientTo`.">Animation</SectionLabel>
           <Row>
-            <Badge animated="glow" label="Glow" />
-            <Badge animated="pulse" label="Pulse" />
-            <Badge animated="pulse" variant="solid" pulseColor="rose" pulseGradientTo="amber" label="Gradient pulse" />
-            <Badge animated="sweep" variant="solid" label="Sweep" />
-            <Badge animated="bounce" label="Bounce" />
-            <Badge animated="float" label="Float" />
-            <Badge animated="wiggle" label="Wiggle" />
-            <Badge animated="border-spin" pulseColor="violet" pulseGradientTo="cyan" label="Border spin" />
-            <Badge dot animated="pulse" color="emerald" label="Online" />
+            <Badge animation="glow" label="Glow" />
+            <Badge animation="pulse" label="Pulse" />
+            <Badge animation="pulse" variant="solid" pulseColor="rose" pulseGradientTo="amber" label="Gradient pulse" />
+            <Badge animation="sweep" variant="solid" label="Sweep" />
+            <Badge animation="bounce" label="Bounce" />
+            <Badge animation="float" label="Float" />
+            <Badge animation="wiggle" label="Wiggle" />
+            <Badge animation="border-spin" pulseColor="violet" pulseGradientTo="cyan" label="Border spin" />
+            <Badge dot animation="pulse" color="emerald" label="Online" />
           </Row>
           <CodeBlock
             variants={{
-              react: `<Badge animated="glow" label="Glow" />
-<Badge animated="pulse" label="Pulse" />
-<Badge animated="pulse" variant="solid" pulseColor="rose" pulseGradientTo="amber" label="Gradient pulse" />
-<Badge animated="sweep" variant="solid" label="Sweep" />
-<Badge animated="bounce" label="Bounce" />
-<Badge animated="float" label="Float" />
-<Badge animated="wiggle" label="Wiggle" />
-<Badge animated="border-spin" pulseColor="violet" pulseGradientTo="cyan" label="Border spin" />
-<Badge dot animated="pulse" color="emerald" label="Online" />`,
-              js: `<l-Badge animated="glow" label="Glow"></l-Badge>
-<l-Badge animated="pulse" label="Pulse"></l-Badge>
-<l-Badge animated="pulse" variant="solid" pulseColor="rose" pulseGradientTo="amber" label="Gradient pulse"></l-Badge>
-<l-Badge animated="sweep" variant="solid" label="Sweep"></l-Badge>
-<l-Badge animated="bounce" label="Bounce"></l-Badge>
-<l-Badge animated="float" label="Float"></l-Badge>
-<l-Badge animated="wiggle" label="Wiggle"></l-Badge>
-<l-Badge animated="border-spin" pulseColor="violet" pulseGradientTo="cyan" label="Border spin"></l-Badge>
-<l-Badge dot animated="pulse" color="emerald" label="Online"></l-Badge>
+              react: `<Badge animation="glow" label="Glow" />
+<Badge animation="pulse" label="Pulse" />
+<Badge animation="pulse" variant="solid" pulseColor="rose" pulseGradientTo="amber" label="Gradient pulse" />
+<Badge animation="sweep" variant="solid" label="Sweep" />
+<Badge animation="bounce" label="Bounce" />
+<Badge animation="float" label="Float" />
+<Badge animation="wiggle" label="Wiggle" />
+<Badge animation="border-spin" pulseColor="violet" pulseGradientTo="cyan" label="Border spin" />
+<Badge dot animation="pulse" color="emerald" label="Online" />`,
+              js: `<l-Badge animation="glow" label="Glow"></l-Badge>
+<l-Badge animation="pulse" label="Pulse"></l-Badge>
+<l-Badge animation="pulse" variant="solid" pulseColor="rose" pulseGradientTo="amber" label="Gradient pulse"></l-Badge>
+<l-Badge animation="sweep" variant="solid" label="Sweep"></l-Badge>
+<l-Badge animation="bounce" label="Bounce"></l-Badge>
+<l-Badge animation="float" label="Float"></l-Badge>
+<l-Badge animation="wiggle" label="Wiggle"></l-Badge>
+<l-Badge animation="border-spin" pulseColor="violet" pulseGradientTo="cyan" label="Border spin"></l-Badge>
+<l-Badge dot animation="pulse" color="emerald" label="Online"></l-Badge>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-Badge animated="glow" label="Glow"></l-Badge>
-  <l-Badge animated="pulse" label="Pulse"></l-Badge>
-  <l-Badge animated="pulse" variant="solid" pulseColor="rose" pulseGradientTo="amber" label="Gradient pulse"></l-Badge>
-  <l-Badge animated="sweep" variant="solid" label="Sweep"></l-Badge>
-  <l-Badge animated="bounce" label="Bounce"></l-Badge>
-  <l-Badge animated="float" label="Float"></l-Badge>
-  <l-Badge animated="wiggle" label="Wiggle"></l-Badge>
-  <l-Badge animated="border-spin" pulseColor="violet" pulseGradientTo="cyan" label="Border spin"></l-Badge>
-  <l-Badge dot animated="pulse" color="emerald" label="Online"></l-Badge>
+  <l-Badge animation="glow" label="Glow"></l-Badge>
+  <l-Badge animation="pulse" label="Pulse"></l-Badge>
+  <l-Badge animation="pulse" variant="solid" pulseColor="rose" pulseGradientTo="amber" label="Gradient pulse"></l-Badge>
+  <l-Badge animation="sweep" variant="solid" label="Sweep"></l-Badge>
+  <l-Badge animation="bounce" label="Bounce"></l-Badge>
+  <l-Badge animation="float" label="Float"></l-Badge>
+  <l-Badge animation="wiggle" label="Wiggle"></l-Badge>
+  <l-Badge animation="border-spin" pulseColor="violet" pulseGradientTo="cyan" label="Border spin"></l-Badge>
+  <l-Badge dot animation="pulse" color="emerald" label="Online"></l-Badge>
 </template>
 
 <script setup lang="ts">
@@ -324,15 +324,15 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Badge animated="glow" label="Glow"></l-Badge>
-    <l-Badge animated="pulse" label="Pulse"></l-Badge>
-    <l-Badge animated="pulse" variant="solid" pulseColor="rose" pulseGradientTo="amber" label="Gradient pulse"></l-Badge>
-    <l-Badge animated="sweep" variant="solid" label="Sweep"></l-Badge>
-    <l-Badge animated="bounce" label="Bounce"></l-Badge>
-    <l-Badge animated="float" label="Float"></l-Badge>
-    <l-Badge animated="wiggle" label="Wiggle"></l-Badge>
-    <l-Badge animated="border-spin" pulseColor="violet" pulseGradientTo="cyan" label="Border spin"></l-Badge>
-    <l-Badge dot animated="pulse" color="emerald" label="Online"></l-Badge>
+    <l-Badge animation="glow" label="Glow"></l-Badge>
+    <l-Badge animation="pulse" label="Pulse"></l-Badge>
+    <l-Badge animation="pulse" variant="solid" pulseColor="rose" pulseGradientTo="amber" label="Gradient pulse"></l-Badge>
+    <l-Badge animation="sweep" variant="solid" label="Sweep"></l-Badge>
+    <l-Badge animation="bounce" label="Bounce"></l-Badge>
+    <l-Badge animation="float" label="Float"></l-Badge>
+    <l-Badge animation="wiggle" label="Wiggle"></l-Badge>
+    <l-Badge animation="border-spin" pulseColor="violet" pulseGradientTo="cyan" label="Border spin"></l-Badge>
+    <l-Badge dot animation="pulse" color="emerald" label="Online"></l-Badge>
   \`,
 })
 export class AppComponent {}`,

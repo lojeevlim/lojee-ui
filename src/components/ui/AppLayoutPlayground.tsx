@@ -72,7 +72,7 @@ export default function AppLayoutPlayground() {
       <Button color="accent" label="Solid" />
       <Button color="accent" variant="outline" label="Outline" />
       <Button color="accent" variant="soft" label="Soft" />
-      <Button variant="solid" color="accent" size="lg" animated="sweep" icon="plus" label="Click me" />
+      <Button variant="solid" color="accent" size="lg" animation="sweep" icon="plus" label="Click me" />
     </Main>
 `;
   const parts = [has("top") && topCode, has("side") && sideCode, mainCode, has("footer") && footCode].filter(Boolean).join("\n");

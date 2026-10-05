@@ -19,7 +19,7 @@ import {
   type Shape,
 } from "../../../core/tokens";
 import { getIcon } from "../../../core/icons";
-import { animatedClass, animatedStyle, type AnimatedVariant } from "../../../core/animated";
+import { animatedClass, animatedStyle, type AnimatedProp } from "../../../core/animated";
 import { AnimatedOverlay } from "../../../core/AnimatedOverlay";
 import { motionClass, motionStyle, type TransitionVariant, type HoverEffect } from "../../../core/motion";
 import { linearGradient, type GradientDirection } from "../../../core/gradient";
@@ -27,8 +27,8 @@ import { linearGradient, type GradientDirection } from "../../../core/gradient";
 export type { GradientDirection };
 
 export interface ButtonProps {
-  /** Attention animation: "glow" | "pulse" | "sweep" | "bounce" | "float" | "wiggle" | "border-spin" (default: none). Respects `prefers-reduced-motion`. */
-  animated?: AnimatedVariant;
+  /** Attention animation: "glow" | "pulse" | "sweep" | "bounce" | "float" | "wiggle" | "border-spin" | "particles" | "tail" — one, or a list to combine, e.g. ["particles", "tail"] (default: none). Respects `prefers-reduced-motion`. */
+  animation?: AnimatedProp;
   /** Color of the animation (pulse ring, glow, spinning border): a `ColorName` or any CSS color (default: the component's own color). */
   pulseColor?: ColorName | (string & {});
   /** Second color — turns the pulse ring and spinning border into a gradient from `pulseColor` to this (default: solid `pulseColor`). */
@@ -108,7 +108,7 @@ export function Button({
   "aria-expanded": ariaExpanded,
   className,
   classNames,
-  animated,
+  animation,
   pulseColor,
   pulseGradientTo,
   transition,
@@ -160,11 +160,11 @@ export function Button({
       type={type}
       disabled={disabled || loading}
       onClick={onClick}
-      style={{ ...gradientStyle, ...animatedStyle(animated, color, pulseColor, pulseGradientTo), ...motionStyle(transitionDuration, transitionDelay) }}
+      style={{ ...gradientStyle, ...animatedStyle(animation, color, pulseColor, pulseGradientTo), ...motionStyle(transitionDuration, transitionDelay) }}
       aria-label={iconOnly ? label : undefined}
       aria-haspopup={ariaHaspopup}
       aria-expanded={ariaExpanded}
-      className={cx(base, variantClass, sizeClass, shapeClass, badge != null && "relative", animatedClass(animated), motionClass(transition, hoverEffect), className, classNames?.root)}
+      className={cx(base, variantClass, sizeClass, shapeClass, badge != null && "relative", animatedClass(animation), motionClass(transition, hoverEffect), className, classNames?.root)}
     >
       {loading && <Loader2 size={iconSize[size]} className="animate-spin" />}
       {/* eslint-disable-next-line react-hooks/static-components -- see comment above `const Icon` */}
@@ -182,7 +182,7 @@ export function Button({
           {badge}
         </span>
       )}
-      <AnimatedOverlay variant={animated} />
+      <AnimatedOverlay variant={animation} />
     </button>
   );
 }

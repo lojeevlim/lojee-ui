@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { colorClasses, cx, type ColorName } from "../../../core/tokens";
-import { animatedClass, animatedStyle, type AnimatedVariant } from "../../../core/animated";
+import { animatedClass, animatedStyle, type AnimatedProp } from "../../../core/animated";
 import { AnimatedOverlay } from "../../../core/AnimatedOverlay";
 import { motionClass, motionStyle, type TransitionVariant, type HoverEffect } from "../../../core/motion";
 
@@ -9,8 +9,8 @@ export type AvatarShape = "circle" | "square";
 export type AvatarStatus = "online" | "offline" | "busy" | "away";
 
 export interface AvatarProps {
-  /** Attention animation: "glow" | "pulse" | "sweep" | "bounce" | "float" | "wiggle" | "border-spin" (default: none). Respects `prefers-reduced-motion`. */
-  animated?: AnimatedVariant;
+  /** Attention animation: "glow" | "pulse" | "sweep" | "bounce" | "float" | "wiggle" | "border-spin" | "particles" | "tail" — one, or a list to combine, e.g. ["particles", "tail"] (default: none). Respects `prefers-reduced-motion`. */
+  animation?: AnimatedProp;
   /** Color of the animation (pulse ring, glow, spinning border): a `ColorName` or any CSS color (default: the component's own color). */
   pulseColor?: ColorName | (string & {});
   /** Second color — turns the pulse ring and spinning border into a gradient from `pulseColor` to this (default: solid `pulseColor`). */
@@ -83,7 +83,7 @@ export function Avatar({
   color = "accent",
   className,
   classNames,
-  animated,
+  animation,
   pulseColor,
   pulseGradientTo,
   transition,
@@ -100,13 +100,13 @@ export function Avatar({
     <span
       className={cx(
         "relative inline-flex shrink-0 items-center justify-center",
-        (animated || hoverEffect) && shapeClass,
-        animatedClass(animated),
+        (animation || hoverEffect) && shapeClass,
+        animatedClass(animation),
         motionClass(transition, hoverEffect),
         className,
         classNames?.root
       )}
-      style={{ width: px, height: px, ...animatedStyle(animated, color, pulseColor, pulseGradientTo), ...motionStyle(transitionDuration, transitionDelay) }}
+      style={{ width: px, height: px, ...animatedStyle(animation, color, pulseColor, pulseGradientTo), ...motionStyle(transitionDuration, transitionDelay) }}
     >
       {/* Clips the image/fallback to the avatar's shape — kept off the root
           span so the status dot below (a sibling, not a child of this) isn't
@@ -144,7 +144,7 @@ export function Avatar({
           aria-label={status}
         />
       )}
-      <AnimatedOverlay variant={animated} />
+      <AnimatedOverlay variant={animation} />
     </span>
   );
 }

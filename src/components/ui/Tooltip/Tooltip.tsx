@@ -48,6 +48,21 @@ const ARROW_CLASSES: Record<TooltipPosition, string> = {
   right: "-left-1 top-1/2 -translate-y-1/2",
 };
 
+// On the left / right sides the arrow's diagonal runs along the bubble's height, so on the two smallest sizes (short bubbles) the standard 8px
+// square would be almost as tall as the bubble. They get a smaller square instead (6px for xs, 7px for sm), re-offset to still half-overlap the edge.
+const SMALL_SIDE_ARROW: Partial<Record<"xs" | "sm", Record<"left" | "right", string>>> = {
+  xs: { left: "h-1.5 w-1.5 -right-[3px] top-1/2 -translate-y-1/2", right: "h-1.5 w-1.5 -left-[3px] top-1/2 -translate-y-1/2" },
+  sm: { left: "h-[7px] w-[7px] -right-[3.5px] top-1/2 -translate-y-1/2", right: "h-[7px] w-[7px] -left-[3.5px] top-1/2 -translate-y-1/2" },
+};
+
+/** The arrow's classes and size marker for a position + bubble size. */
+function arrowProps(position: TooltipPosition, size: string | undefined) {
+  const small = (position === "left" || position === "right") && (size === "xs" || size === "sm") ? size : undefined;
+  return small
+    ? { className: cx("absolute z-0 rotate-45 bg-inherit", SMALL_SIDE_ARROW[small]?.[position as "left" | "right"]), "data-tip-small": small }
+    : { className: cx("absolute z-0 h-2 w-2 rotate-45 bg-inherit", ARROW_CLASSES[position]) };
+}
+
 const POSITION_CLASSES: Record<TooltipPosition, string> = {
   top: "bottom-full left-1/2 mb-2 -translate-x-1/2",
   bottom: "top-full left-1/2 mt-2 -translate-x-1/2",
@@ -160,8 +175,9 @@ export function Tooltip({
                 style={motionStyle(transitionDuration, transitionDelay)}
                 {...(transition && motionState(portalOpen))}
               >
-                {content}
-                <span aria-hidden="true" className={cx("absolute h-2 w-2 rotate-45 bg-inherit", ARROW_CLASSES[position])} />
+                {/* The label sits above the arrow, so the arrow's inner half never paints over the text. */}
+                <span className="relative z-10">{content}</span>
+                <span aria-hidden="true" {...arrowProps(position, size)} />
               </span>
             </span>,
             frozen.root
@@ -196,8 +212,8 @@ export function Tooltip({
         style={motionStyle(transitionDuration, transitionDelay)}
         {...(transition && motionState(visible))}
       >
-        {content}
-        <span aria-hidden="true" className={cx("absolute h-2 w-2 rotate-45 bg-inherit", ARROW_CLASSES[position])} />
+        <span className="relative z-10">{content}</span>
+        <span aria-hidden="true" {...arrowProps(position, size)} />
       </span>
       )}
     </span>

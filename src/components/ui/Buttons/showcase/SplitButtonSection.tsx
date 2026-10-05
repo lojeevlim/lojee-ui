@@ -81,7 +81,7 @@ export class SplitButtonShowcaseComponent {}`,
           Dropdown options
         </SectionLabel>
         <Row>
-          <SplitButton icon="download" label="Export" color="slate">
+          <SplitButton icon="download" label="Export">
             <SplitButtonMenuItem icon="file" onClick={() => alert("Export as PDF")}>
               Export as PDF
             </SplitButtonMenuItem>
@@ -96,13 +96,13 @@ export class SplitButtonShowcaseComponent {}`,
         </Row>
         <CodeBlock
           variants={{
-            react: `<SplitButton icon="download" label="Export" color="indigo">
+            react: `<SplitButton icon="download" label="Export">
   <SplitButtonMenuItem icon="file" onClick={() => exportAs("pdf")}>Export as PDF</SplitButtonMenuItem>
   <SplitButtonMenuItem icon="list" onClick={() => exportAs("csv")}>Export as CSV</SplitButtonMenuItem>
   <SplitButtonMenuItem icon="image" onClick={() => exportAs("png")}>Export as PNG</SplitButtonMenuItem>
   <SplitButtonMenuItem disabled>Cancel</SplitButtonMenuItem>
 </SplitButton>`,
-            js: `<l-SplitButton icon="download" label="Export" color="indigo">
+            js: `<l-SplitButton icon="download" label="Export">
   <l-SplitButtonMenuItem icon="file" id="export-pdf">Export as PDF</l-SplitButtonMenuItem>
   <l-SplitButtonMenuItem icon="list" id="export-csv">Export as CSV</l-SplitButtonMenuItem>
   <l-SplitButtonMenuItem icon="image" id="export-png">Export as PNG</l-SplitButtonMenuItem>
@@ -115,7 +115,7 @@ export class SplitButtonShowcaseComponent {}`,
   document.getElementById("export-png").addEventListener("click", () => exportAs("png"));
 </script>`,
             vue: `<template>
-  <l-SplitButton icon="download" label="Export" color="indigo">
+  <l-SplitButton icon="download" label="Export">
     <l-SplitButtonMenuItem icon="file" @click="exportAs('pdf')">Export as PDF</l-SplitButtonMenuItem>
     <l-SplitButtonMenuItem icon="list" @click="exportAs('csv')">Export as CSV</l-SplitButtonMenuItem>
     <l-SplitButtonMenuItem icon="image" @click="exportAs('png')">Export as PNG</l-SplitButtonMenuItem>
@@ -123,7 +123,7 @@ export class SplitButtonShowcaseComponent {}`,
   </l-SplitButton>
 </template>`,
             angular: `<!-- reuses SplitButtonShowcaseComponent from above -->
-<l-SplitButton icon="download" label="Export" color="indigo">
+<l-SplitButton icon="download" label="Export">
   <l-SplitButtonMenuItem icon="file" (click)="exportAs('pdf')">Export as PDF</l-SplitButtonMenuItem>
   <l-SplitButtonMenuItem icon="list" (click)="exportAs('csv')">Export as CSV</l-SplitButtonMenuItem>
   <l-SplitButtonMenuItem icon="image" (click)="exportAs('png')">Export as PNG</l-SplitButtonMenuItem>

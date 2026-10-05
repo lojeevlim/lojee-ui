@@ -116,7 +116,7 @@ customElements.define(
   r2wc(withTailwind(Button), {
     shadow: "open",
     props: {
-      animated: "string",
+      animation: "string",
       pulseColor: "string",
       pulseGradientTo: "string",
       variant: "string",
@@ -232,7 +232,7 @@ customElements.define(
   r2wc(withTailwind(Badge), {
     shadow: "open",
     props: {
-      animated: "string",
+      animation: "string",
       pulseColor: "string",
       pulseGradientTo: "string",
       variant: "string",
@@ -254,7 +254,7 @@ customElements.define(
   r2wc(withTailwind(Avatar), {
     shadow: "open",
     props: {
-      animated: "string",
+      animation: "string",
       pulseColor: "string",
       pulseGradientTo: "string",
       src: "string",
@@ -314,7 +314,7 @@ customElements.define(
   "l-card",
   r2wc(withTailwind(withSlots(Card, { footer: "footer", children: "" })), {
     shadow: "open",
-    props: { variant: "string", padding: "string", hoverable: "boolean", title: "string", footer: "string", animated: "string", pulseColor: "string", pulseGradientTo: "string", transition: "string", transitionDuration: "number", transitionDelay: "number", hoverEffect: "string" },
+    props: { variant: "string", padding: "string", hoverable: "boolean", title: "string", footer: "string", animation: "string", pulseColor: "string", pulseGradientTo: "string", transition: "string", transitionDuration: "number", transitionDelay: "number", hoverEffect: "string" },
   })
 );
 
@@ -843,7 +843,7 @@ customElements.define(
   r2wc(withTailwind(withSlots(AlertElement, { children: "" })), {
     shadow: "open",
     props: {
-      animated: "string",
+      animation: "string",
       pulseColor: "string",
       pulseGradientTo: "string",
       variant: "string",
@@ -1184,7 +1184,7 @@ customElements.define(
       trend: "string",
       icon: "string",
       color: "string",
-      animated: "string",
+      animation: "string",
       pulseColor: "string",
       pulseGradientTo: "string",
       transition: "string",
@@ -1336,7 +1336,7 @@ customElements.define(
   r2wc(withTailwind(withSlots(ProfileCard, { actions: "actions" })), {
     shadow: "open",
     props: {
-      animated: "string",
+      animation: "string",
       pulseColor: "string",
       pulseGradientTo: "string",
       name: "string",
@@ -1496,6 +1496,7 @@ customElements.define(
       accent: "string",
       activeVariant: "string",
       design: "string",
+      scrollbar: "string",
     },
   })
 );

@@ -83,11 +83,11 @@ export default function LookAndFeelLab() {
   const [gradient, setGradient] = useState(true);
   const [run, setRun] = useState(0);
 
-  const animated = effect === "none" ? undefined : effect;
+  const animation = effect === "none" ? undefined : effect;
   const hoverEffect = hover === "none" ? undefined : hover;
-  const pulseGradientTo = gradient && (animated === "pulse" || animated === "border-spin") ? "violet" : undefined;
+  const pulseGradientTo = gradient && (animation === "pulse" || animation === "border-spin") ? "violet" : undefined;
   const motion = { transition, transitionDelay: 0 };
-  const anim = { animated, pulseColor, pulseGradientTo };
+  const anim = { animation, pulseColor, pulseGradientTo };
 
   return (
     <div className="grid grid-cols-1 gap-6 lg:grid-cols-[300px_minmax(0,1fr)]">
@@ -125,7 +125,7 @@ export default function LookAndFeelLab() {
             ))}
           </div>
           <Chips label="Attention effect" options={["none", ...ANIMATED_VARIANTS] as const} value={effect} onChange={setEffect} />
-        {(animated === "pulse" || animated === "glow" || animated === "border-spin") && (
+        {(animation === "pulse" || animation === "glow" || animation === "border-spin") && (
           <div>
             <p className={LABEL}>Effect color</p>
             <div className="flex flex-wrap items-center gap-2">
@@ -140,7 +140,7 @@ export default function LookAndFeelLab() {
                   style={{ backgroundColor: `var(--color-${c}-500)` }}
                 />
               ))}
-              {(animated === "pulse" || animated === "border-spin") && (
+              {(animation === "pulse" || animation === "border-spin") && (
                 <button
                   type="button"
                   onClick={() => setGradient((g) => !g)}

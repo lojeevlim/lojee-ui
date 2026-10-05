@@ -116,7 +116,7 @@ const SHOWCASES: Record<string, ComponentType> = {
   Theming: ThemeShowcase,
   'Data Binding': DataBindingShowcase,
   Changelog: ChangelogShowcase,
-  App: AppShowcase,
+  'App Layout': AppShowcase,
   Main: MainShowcase,
   Images: ImageShowcase,
   Videos: VideoShowcase,
@@ -235,11 +235,9 @@ function PlaygroundFab({ open, onOpen }: { open: boolean; onOpen: () => void }) 
     }
   }, [])
   return (
-    <div className="fixed bottom-4 right-4 z-30 flex flex-col items-end gap-3 motion-safe:animate-[lojee-fade-up_0.5s_ease-out_both] md:bottom-6 md:right-6">
-      {/* Glow pulses six times after load, then a light sweep glides across the button every few seconds. */}
+    <div className="fixed bottom-4 right-4 z-30 flex flex-col items-end gap-3 md:bottom-6 md:right-6">
       {/* A short "Try it live" hint appears after the page settles and fades away again (it is also the button's hover tooltip). */}
       <Tooltip content="Try it live — tweak props" position="top" color="accent" open={hint && !open}>
-      <div className="relative overflow-hidden rounded-full motion-safe:animate-[lojee-glow_1.8s_ease-out_1.2s_6]">
         <Button
           type="button"
           onClick={onOpen}
@@ -247,13 +245,10 @@ function PlaygroundFab({ open, onOpen }: { open: boolean; onOpen: () => void }) 
           label="Playground"
           color="accent"
           shape="pill"
+          hoverEffect="tilt"
           icon="play-circle"
+          animation={["particles", "sweep"]} 
         />
-        <span
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-y-0 left-0 w-1/2 bg-gradient-to-r from-transparent via-white/45 to-transparent motion-safe:animate-[lojee-sweep_5s_ease-in-out_2.5s_infinite] motion-reduce:hidden"
-        />
-      </div>
       </Tooltip>
     </div>
   )
@@ -269,7 +264,8 @@ function App() {
   // <Main> is the scroll container, so glide it back to the top whenever the page changes.
   useEffect(() => {
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    contentRef.current?.closest('main')?.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' })
+    const scroller = contentRef.current?.closest('.lojee-ds-view') ?? contentRef.current?.closest('main')
+    scroller?.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' })
   }, [rawNavKind, item])
 
   const navKind: NavKind = rawNavKind === 'docs' ? 'docs' : 'components'

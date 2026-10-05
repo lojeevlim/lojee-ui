@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { cx, type ColorName } from "../../../core/tokens";
 import { Avatar } from "../Avatar/Avatar";
-import { animatedClass, animatedStyle, type AnimatedVariant } from "../../../core/animated";
+import { animatedClass, animatedStyle, type AnimatedProp } from "../../../core/animated";
 import { AnimatedOverlay } from "../../../core/AnimatedOverlay";
 import { motionClass, motionStyle, type TransitionVariant, type HoverEffect } from "../../../core/motion";
 
@@ -11,8 +11,8 @@ export interface ProfileCardStat {
 }
 
 export interface ProfileCardProps {
-  /** Attention animation: "glow" | "pulse" | "sweep" | "bounce" | "float" | "wiggle" | "border-spin" (default: none). Respects `prefers-reduced-motion`. */
-  animated?: AnimatedVariant;
+  /** Attention animation: "glow" | "pulse" | "sweep" | "bounce" | "float" | "wiggle" | "border-spin" | "particles" | "tail" — one, or a list to combine, e.g. ["particles", "tail"] (default: none). Respects `prefers-reduced-motion`. */
+  animation?: AnimatedProp;
   /** Color of the animation (pulse ring, glow, spinning border): a `ColorName` or any CSS color (default: the component's own color). */
   pulseColor?: ColorName | (string & {});
   /** Second color — turns the pulse ring and spinning border into a gradient from `pulseColor` to this (default: solid `pulseColor`). */
@@ -85,7 +85,7 @@ export function ProfileCard({
   color = "accent",
   className,
   classNames,
-  animated,
+  animation,
   pulseColor,
   pulseGradientTo,
   transition,
@@ -97,12 +97,12 @@ export function ProfileCard({
     <div
       className={cx(
         "w-full rounded-xl border border-border bg-surface",
-        animatedClass(animated),
+        animatedClass(animation),
         motionClass(transition, hoverEffect),
         className,
         classNames?.root
       )}
-      style={{ ...animatedStyle(animated, color, pulseColor, pulseGradientTo), ...motionStyle(transitionDuration, transitionDelay) }}
+      style={{ ...animatedStyle(animation, color, pulseColor, pulseGradientTo), ...motionStyle(transitionDuration, transitionDelay) }}
     >
       {/* Clips the banner to the card's rounded corners — kept off the root so the pulse ring can extend past it. */}
       <div className="overflow-hidden rounded-t-[inherit]">
@@ -140,7 +140,7 @@ export function ProfileCard({
           </div>
         )}
       </div>
-      <AnimatedOverlay variant={animated} />
+      <AnimatedOverlay variant={animation} />
     </div>
   );
 }

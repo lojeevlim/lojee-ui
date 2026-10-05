@@ -50,7 +50,7 @@ export function appCodeVariants(react: string, opts: AppCodeOptions = {}): CodeB
       `  <l-Button color="accent" label="Solid"></l-Button>`,
       `  <l-Button color="accent" variant="outline" label="Outline"></l-Button>`,
       `  <l-Button color="accent" variant="soft" label="Soft"></l-Button>`,
-      `  <l-Button variant="solid" color="accent" size="lg" animated="sweep" icon="plus" label="Click me"></l-Button>`,
+      `  <l-Button variant="solid" color="accent" size="lg" animation="sweep" icon="plus" label="Click me"></l-Button>`,
       `</l-Main>`,
       ...(has("footer") ? [`<l-Foot>`, `  <l-Footer bottom="© 2026 Lojee, Inc. All rights reserved."></l-Footer>`, `</l-Foot>`] : []),
     ]

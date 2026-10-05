@@ -18,7 +18,7 @@
 - **Overlays** — [Modal / Dialog](#modal-dialog) · [Drawer](#drawer) · [Sheet](#sheet) · [Popover](#popover) · [Dropdown Menu](#dropdown-menu) · [Context Menu](#context-menu) · [Command Menu](#command-menu) · [Alert Dialog](#alert-dialog) · [Tooltip](#tooltip)
 - **Feedback** — [Alert](#alert) · [Toast](#toast) · [Notification](#notification) · [Thinking](#thinking) · [Progress Bar](#progress-bar) · [Empty State](#empty-state) · [Error State](#error-state) · [Success State](#success-state) · [Loading State](#loading-state) · [Skeletons](#skeletons)
 - **Navigation** — [Navbar](#navbar) · [Sidebar](#sidebar) · [Top Bar](#top-bar) · [Header](#header) · [Footer](#footer) · [Navigation Menu](#navigation-menu) · [Bottom Navigation](#bottom-navigation) · [Tabs](#tabs) · [Stepper](#stepper) · [Breadcrumbs](#breadcrumbs) · [Pagination](#pagination) · [Main](#main)
-- **App Layout** — [App](#app) · [Theme Switcher](#theme-switcher)
+- **App** — [App Layout](#app-layout) · [Theme Switcher](#theme-switcher)
 - **Data & Visualization** — [Tables](#tables) · [Grid View](#grid-view) · [Timeline](#timeline) · [Stats / KPI](#stats-kpi) · [Charts](#charts) · [Calendar](#calendar) · [Activity Feed](#activity-feed) · [Details List](#details-list)
 - **Diagrams** — [Flow Diagram](#flow-diagram)
 - **Maps** — [Map](#map) · [Map Markers](#map-markers) · [Map Routes](#map-routes)
@@ -134,7 +134,7 @@ Sized components use a `size` prop — usually `sm` | `md` | `lg` (default `md`)
 | `transitionDuration` | number (ms) | Duration of that transition (default 450). |
 | `transitionDelay` | number (ms) | Delay before it starts — handy for staggering. |
 | `hoverEffect` | `lift`, `scale`, `press`, `tilt`, `ring`, `glow`, `shine` | Effect while hovering. Default none. |
-| `animated` | `glow`, `pulse`, `sweep`, `bounce`, `float`, `wiggle`, `border-spin` | Looping attention animation on some components (Button, Badge, Avatar, Card, Alert, Stat, ProfileCard). Pair with `pulseColor` / `pulseGradientTo`. |
+| `animated` | `glow`, `pulse`, `sweep`, `bounce`, `float`, `wiggle`, `border-spin`, `particles`, `tail` | Looping attention animation on some components (Button, Badge, Avatar, Card, Alert, Stat, ProfileCard). Pair with `pulseColor` / `pulseGradientTo`. |
 
 ## 1.8 Icons
 
@@ -194,7 +194,7 @@ Variants, sizes, colors and states — all built with Tailwind utility classes.
 
 | Prop | Type | Default | Description |
 | --- | --- | --- | --- |
-| `animated` | `AnimatedVariant` | — | Attention animation: "glow" \| "pulse" \| "sweep" \| "bounce" \| "float" \| "wiggle" \| "border-spin" (default: none). Respects `prefers-reduced-motion`. |
+| `animation` | `AnimatedProp` | — | Attention animation: "glow" \| "pulse" \| "sweep" \| "bounce" \| "float" \| "wiggle" \| "border-spin" \| "particles" \| "tail" — one, or a list to combine, e.g. ["particles", "tail"] (default: none). Respects `prefers-reduced-motion`. |
 | `pulseColor` | `ColorName \| (string & {})` | — | Color of the animation (pulse ring, glow, spinning border): a `ColorName` or any CSS color (default: the component's own color). |
 | `pulseGradientTo` | `ColorName \| (string & {})` | — | Second color — turns the pulse ring and spinning border into a gradient from `pulseColor` to this (default: solid `pulseColor`). |
 | `variant` | `ButtonVariant` | `"solid"` | Visual style: "solid", "outline", "ghost", "soft", "link", "dashed", "destructive", "destructive-soft", "destructive-outline", "gradient" or "glass" (default: "solid"). |
@@ -324,7 +324,6 @@ Native states also work: `disabled`, `required`, `readOnly` (spread onto the und
 
 | Component | Prop | Type | Default | Effect |
 | --- | --- | --- | --- | --- |
-| `Button` | `animated` | `AnimatedVariant` | — | Attention animation: "glow" \| "pulse" \| "sweep" \| "bounce" \| "float" \| "wiggle" \| "border-spin" (default: none). Respects `prefers-reduced-motion`. |
 | `Button` | `disabled` | `boolean` | `false` | Disables the button and dims it (default: false). |
 | `Button` | `loading` | `boolean` | `false` | Shows a spinner in place of the icon and disables the button while true (default: false). |
 | `Button` | `iconOnly` | `boolean` | `false` | Render as an icon-only button (no visible text) — label becomes the accessible name. |
@@ -352,7 +351,7 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 | React prop | HTML attribute | Attribute type |
 | --- | --- | --- |
-| `animated` | `animated` | string |
+| `animation` | `animation` | string |
 | `pulseColor` | `pulse-color` | string |
 | `pulseGradientTo` | `pulse-gradient-to` | string |
 | `variant` | `variant` | string |
@@ -489,19 +488,22 @@ Enter transitions via `transition` (with `transitionDuration` / `transitionDelay
 <Button hoverEffect="shine" label="Shine" />
 ```
 
-#### Animated
-
-Attention effects via `animated`. Pulse and border-spin take a solid `pulseColor` or a gradient with `pulseGradientTo`.
+#### Animation
 
 ```tsx
-<Button animated="glow" label="Glow" />
-<Button animated="pulse" label="Pulse" />
-<Button animated="pulse" pulseColor="rose" pulseGradientTo="amber" label="Gradient pulse" />
-<Button animated="sweep" label="Sweep" />
-<Button animated="bounce" label="Bounce" />
-<Button animated="float" variant="outline" label="Float" />
-<Button animated="wiggle" label="Wiggle" />
-<Button animated="border-spin" pulseColor="violet" pulseGradientTo="cyan" variant="soft" label="Border spin" />
+<Button animation="glow" label="Glow" />
+<Button animation="pulse" label="Pulse" />
+<Button animation="pulse" pulseColor="rose" pulseGradientTo="amber" label="Gradient pulse" />
+<Button animation="sweep" label="Sweep" />
+<Button animation="bounce" label="Bounce" />
+<Button animation="float" variant="outline" label="Float" />
+<Button animation="wiggle" label="Wiggle" />
+<Button animation="border-spin" pulseColor="violet" pulseGradientTo="cyan" variant="soft" label="Border spin" />
+<Button animation="particles" label="Particles" />
+<Button animation="particles" pulseColor="rose" variant="outline" label="Particles · rose" />
+<Button animation="tail" label="Tail" />
+<Button animation={["particles", "tail"]} label="Particles + tail" />
+<Button animation={["particles", "tail", "pulse"]} variant="soft" label="Particles + tail + pulse" />
 ```
 
 #### Variants
@@ -574,7 +576,7 @@ Small status/label pills — solid, outline, and soft, in every color.
 
 | Prop | Type | Default | Description |
 | --- | --- | --- | --- |
-| `animated` | `AnimatedVariant` | — | Attention animation: "glow" \| "pulse" \| "sweep" \| "bounce" \| "float" \| "wiggle" \| "border-spin" (default: none). Respects `prefers-reduced-motion`. |
+| `animation` | `AnimatedProp` | — | Attention animation: "glow" \| "pulse" \| "sweep" \| "bounce" \| "float" \| "wiggle" \| "border-spin" \| "particles" \| "tail" — one, or a list to combine, e.g. ["particles", "tail"] (default: none). Respects `prefers-reduced-motion`. |
 | `pulseColor` | `ColorName \| (string & {})` | — | Color of the animation (pulse ring, glow, spinning border): a `ColorName` or any CSS color (default: the component's own color). |
 | `pulseGradientTo` | `ColorName \| (string & {})` | — | Second color — turns the pulse ring and spinning border into a gradient from `pulseColor` to this (default: solid `pulseColor`). |
 | `variant` | `BadgeVariant` | `"soft"` | "solid" \| "outline" \| "soft" — filled, bordered or tinted look (default: "soft"). |
@@ -616,9 +618,7 @@ Follows the global theme (§1.4): it recolors with the accent, switches with lig
 
 ### Badges · 7. Component States
 
-| Component | Prop | Type | Default | Effect |
-| --- | --- | --- | --- | --- |
-| `Badge` | `animated` | `AnimatedVariant` | — | Attention animation: "glow" \| "pulse" \| "sweep" \| "bounce" \| "float" \| "wiggle" \| "border-spin" (default: none). Respects `prefers-reduced-motion`. |
+_No dedicated state props — the visual states are default, hover, focus-visible and active._
 
 Standard visual states: default · hover · focus-visible (ring) · active/pressed.
 
@@ -636,7 +636,7 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 | React prop | HTML attribute | Attribute type |
 | --- | --- | --- |
-| `animated` | `animated` | string |
+| `animation` | `animation` | string |
 | `pulseColor` | `pulse-color` | string |
 | `pulseGradientTo` | `pulse-gradient-to` | string |
 | `variant` | `variant` | string |
@@ -762,7 +762,7 @@ User images with an initials fallback, status indicator, and grouping.
 
 | Prop | Type | Default | Description |
 | --- | --- | --- | --- |
-| `animated` | `AnimatedVariant` | — | Attention animation: "glow" \| "pulse" \| "sweep" \| "bounce" \| "float" \| "wiggle" \| "border-spin" (default: none). Respects `prefers-reduced-motion`. |
+| `animation` | `AnimatedProp` | — | Attention animation: "glow" \| "pulse" \| "sweep" \| "bounce" \| "float" \| "wiggle" \| "border-spin" \| "particles" \| "tail" — one, or a list to combine, e.g. ["particles", "tail"] (default: none). Respects `prefers-reduced-motion`. |
 | `pulseColor` | `ColorName \| (string & {})` | — | Color of the animation (pulse ring, glow, spinning border): a `ColorName` or any CSS color (default: the component's own color). |
 | `pulseGradientTo` | `ColorName \| (string & {})` | — | Second color — turns the pulse ring and spinning border into a gradient from `pulseColor` to this (default: solid `pulseColor`). |
 | `src` | `string` | — | Image URL; falls back to `initials` when omitted or if the image fails to load. |
@@ -814,9 +814,7 @@ Follows the global theme (§1.4): it recolors with the accent, switches with lig
 
 ### Avatars · 7. Component States
 
-| Component | Prop | Type | Default | Effect |
-| --- | --- | --- | --- | --- |
-| `Avatar` | `animated` | `AnimatedVariant` | — | Attention animation: "glow" \| "pulse" \| "sweep" \| "bounce" \| "float" \| "wiggle" \| "border-spin" (default: none). Respects `prefers-reduced-motion`. |
+_No dedicated state props — the visual states are default, hover, focus-visible and active._
 
 Standard visual states: default · hover · focus-visible (ring) · active/pressed.
 
@@ -834,7 +832,7 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 | React prop | HTML attribute | Attribute type |
 | --- | --- | --- |
-| `animated` | `animated` | string |
+| `animation` | `animation` | string |
 | `pulseColor` | `pulse-color` | string |
 | `pulseGradientTo` | `pulse-gradient-to` | string |
 | `src` | `src` | string |
@@ -1391,7 +1389,7 @@ A surface for grouping related content, with optional title and footer.
 
 | Prop | Type | Default | Description |
 | --- | --- | --- | --- |
-| `animated` | `AnimatedVariant` | — | Attention animation: "glow" \| "pulse" \| "sweep" \| "bounce" \| "float" \| "wiggle" \| "border-spin" (default: none). Respects `prefers-reduced-motion`. |
+| `animation` | `AnimatedProp` | — | Attention animation: "glow" \| "pulse" \| "sweep" \| "bounce" \| "float" \| "wiggle" \| "border-spin" \| "particles" \| "tail" — one, or a list to combine, e.g. ["particles", "tail"] (default: none). Respects `prefers-reduced-motion`. |
 | `pulseColor` | `ColorName \| (string & {})` | — | Color of the animation (pulse ring, glow, spinning border): a `ColorName` or any CSS color (default: the component's own color). |
 | `pulseGradientTo` | `ColorName \| (string & {})` | — | Second color — turns the pulse ring and spinning border into a gradient from `pulseColor` to this (default: solid `pulseColor`). |
 | `variant` | `CardVariant` | `"outline"` | "outline" \| "elevated" \| "soft" \| "ghost" — border, shadow, muted background or no chrome (default: "outline"). |
@@ -1429,9 +1427,7 @@ _No size prop — it sizes to its container / content (see `className` to constr
 
 ### Cards · 7. Component States
 
-| Component | Prop | Type | Default | Effect |
-| --- | --- | --- | --- | --- |
-| `Card` | `animated` | `AnimatedVariant` | — | Attention animation: "glow" \| "pulse" \| "sweep" \| "bounce" \| "float" \| "wiggle" \| "border-spin" (default: none). Respects `prefers-reduced-motion`. |
+_No dedicated state props — the visual states are default, hover, focus-visible and active._
 
 Standard visual states: default · hover · focus-visible (ring) · active/pressed.
 
@@ -1456,7 +1452,7 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 | `hoverable` | `hoverable` | boolean |
 | `title` | `title` | string |
 | `footer` | `footer` | string |
-| `animated` | `animated` | string |
+| `animation` | `animation` | string |
 | `pulseColor` | `pulse-color` | string |
 | `pulseGradientTo` | `pulse-gradient-to` | string |
 | `transition` | `transition` | string |
@@ -8956,7 +8952,7 @@ An inline, non-dismissing-by-default banner message for surfacing status, feedba
 
 | Prop | Type | Default | Description |
 | --- | --- | --- | --- |
-| `animated` | `AnimatedVariant` | — | Attention animation: "glow" \| "pulse" \| "sweep" \| "bounce" \| "float" \| "wiggle" \| "border-spin" (default: none). Respects `prefers-reduced-motion`. |
+| `animation` | `AnimatedProp` | — | Attention animation: "glow" \| "pulse" \| "sweep" \| "bounce" \| "float" \| "wiggle" \| "border-spin" \| "particles" \| "tail" — one, or a list to combine, e.g. ["particles", "tail"] (default: none). Respects `prefers-reduced-motion`. |
 | `pulseColor` | `ColorName \| (string & {})` | — | Color of the animation (pulse ring, glow, spinning border): a `ColorName` or any CSS color (default: the component's own color). |
 | `pulseGradientTo` | `ColorName \| (string & {})` | — | Second color — turns the pulse ring and spinning border into a gradient from `pulseColor` to this (default: solid `pulseColor`). |
 | `variant` | `AlertVariant` | `"info"` | Visual/semantic tone: "info" \| "success" \| "warning" \| "error" \| "accent" — "accent" follows the theme accent color (default: "info"). |
@@ -8998,7 +8994,6 @@ _No size prop — it sizes to its container / content (see `className` to constr
 
 | Component | Prop | Type | Default | Effect |
 | --- | --- | --- | --- | --- |
-| `Alert` | `animated` | `AnimatedVariant` | — | Attention animation: "glow" \| "pulse" \| "sweep" \| "bounce" \| "float" \| "wiggle" \| "border-spin" (default: none). Respects `prefers-reduced-motion`. |
 | `Alert` | `closable` | `boolean` | `false` | Shows a dismiss (X) button (default: false); the alert does not hide itself, so remove it in `onClose`. |
 
 Standard visual states: default · hover · focus-visible (ring) · active/pressed.
@@ -9024,7 +9019,7 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 | React prop | HTML attribute | Attribute type |
 | --- | --- | --- |
-| `animated` | `animated` | string |
+| `animation` | `animation` | string |
 | `pulseColor` | `pulse-color` | string |
 | `pulseGradientTo` | `pulse-gradient-to` | string |
 | `variant` | `variant` | string |
@@ -13360,20 +13355,20 @@ Every default is overridable with a class: drop the panel look for a page that w
 - Recolor with the theme accent; restyle globally with the theme tokens or `data-design="clay"`.
 - Motion: no per-component motion props.
 
-## ── App Layout ──
+## ── App ──
 
-## App
+## App Layout
 
-*Category: App Layout.* Exports: `App`, `Section`.
+*Category: App.* Exports: `App`, `Section`.
 
-### App · 1. Component Overview
+### App Layout · 1. Component Overview
 
 A themeable app shell: compose Top, Side, Main and Foot (holding a Footer), and the CSS Grid is generated from a layout matrix. Open the Playground to rearrange sections by drag and drop.
 
 - React: `import { App } from "lojee-ui"` · `import { Section } from "lojee-ui"`
 - Web Component: `<l-app>` (after `import "lojee-ui/elements"`)
 
-### App · 2. Props and Interfaces
+### App Layout · 2. Props and Interfaces
 
 #### `App`
 
@@ -13401,17 +13396,17 @@ A themeable app shell: compose Top, Side, Main and Foot (holding a Footer), and 
 | --- | --- | --- |
 | `useAppLayout` | `useAppLayout()` | Controls for the collapsed sidebar drawer — e.g. call `setSideOpen(false)` after a nav link is chosen. |
 
-### App · 3. Events
+### App Layout · 3. Events
 
 _No component-specific events._ Native DOM events (`click`, `input`, `focus`…) bubble from the rendered element as usual.
 
-### App · 4. Variants
+### App Layout · 4. Variants
 
 | Component | Prop | Values | Default | Notes |
 | --- | --- | --- | --- | --- |
 | `App` | `layout` | `GridLayout` | `DEFAULT_LAYOUT` | Section placement as a matrix of section names; the CSS Grid is generated from it (default: top spanning the full width, side + main in the middle row, footer spanning the full width). |
 
-### App · 5. Colors and Theming
+### App Layout · 5. Colors and Theming
 
 | Component | Prop | Values | Default | Notes |
 | --- | --- | --- | --- | --- |
@@ -13422,17 +13417,17 @@ _No component-specific events._ Native DOM events (`click`, `input`, `focus`…)
 
 Follows the global theme (§1.4): it recolors with the accent, switches with light / dark mode, and takes the Claymorphism look when `data-design="clay"` is set.
 
-### App · 6. Sizes
+### App Layout · 6. Sizes
 
 _No size prop — it sizes to its container / content (see `className` to constrain it)._
 
-### App · 7. Component States
+### App Layout · 7. Component States
 
 _No dedicated state props — the visual states are default, hover, focus-visible and active._
 
 Standard visual states: default · hover · focus-visible (ring) · active/pressed.
 
-### App · 8. Slots / Children / Content
+### App Layout · 8. Slots / Children / Content
 
 | Component | React prop | Type | Description |
 | --- | --- | --- | --- |
@@ -13441,7 +13436,7 @@ Standard visual states: default · hover · focus-visible (ring) · active/press
 
 In a Web Component, the element's light-DOM text/children go into the default slot; a prop that accepts a node (e.g. `header`, `footer`) can usually also be filled with a child carrying `slot="<name>"`.
 
-### App · 9. Framework Interfaces
+### App Layout · 9. Framework Interfaces
 
 **`App`** → `<l-app>`
 
@@ -13456,7 +13451,7 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 - `Section`: React only (no standalone Web Component — used through its parent).
 
-### App · 10. Complete Usage Examples
+### App Layout · 10. Complete Usage Examples
 
 No packaged examples. Minimal use:
 
@@ -13465,11 +13460,11 @@ import { App } from "lojee-ui";
 
 <App />
 ```
-### App · 11. Component Composition
+### App Layout · 11. Component Composition
 
 - Built from `App`, `Section` — use them together as shown in the examples above.
 
-### App · 12. Accessibility
+### App Layout · 12. Accessibility
 
 - ARIA roles used: none beyond native element semantics.
 - ARIA attributes set by the component: `aria-expanded`, `aria-hidden`, `aria-label`.
@@ -13477,13 +13472,13 @@ import { App } from "lojee-ui";
 - Focus: uses the browser focus outline / the underlying control's ring.
 - Motion: inherits the library's reduced-motion handling for transitions.
 
-### App · 13. Responsive Behavior
+### App Layout · 13. Responsive Behavior
 
 - Breakpoint modifiers in its source: `@2xl`, `@3xl`, `@lg`, `@md`, `@xl`, `lg`, `md`, `xl`.
 - Measures its own container (container queries / ResizeObserver), so it adapts inside narrow panels, not only on small viewports.
 - Mobile-first; touch targets keep a comfortable minimum size.
 
-### App · 14. Customization
+### App Layout · 14. Customization
 
 - `className` adds classes to the root; `classNames` overrides individual parts. Conflicting Tailwind utilities passed here win (tailwind-merge).
 - Recolor with the theme accent; restyle globally with the theme tokens or `data-design="clay"`.
@@ -13491,7 +13486,7 @@ import { App } from "lojee-ui";
 
 ## Theme Switcher
 
-*Category: App Layout.* Exports: `ThemeSwitcher`.
+*Category: App.* Exports: `ThemeSwitcher`.
 
 ### Theme Switcher · 1. Component Overview
 
@@ -14485,7 +14480,7 @@ A single metric card — label, value, and an optional trend or icon. Arrange se
 
 | Prop | Type | Default | Description |
 | --- | --- | --- | --- |
-| `animated` | `AnimatedVariant` | — | Attention animation: "glow" \| "pulse" \| "sweep" \| "bounce" \| "float" \| "wiggle" \| "border-spin" (default: none). Respects `prefers-reduced-motion`. |
+| `animation` | `AnimatedProp` | — | Attention animation: "glow" \| "pulse" \| "sweep" \| "bounce" \| "float" \| "wiggle" \| "border-spin" \| "particles" \| "tail" — one, or a list to combine, e.g. ["particles", "tail"] (default: none). Respects `prefers-reduced-motion`. |
 | `pulseColor` | `ColorName \| (string & {})` | — | Color of the animation (pulse ring, glow, spinning border): a `ColorName` or any CSS color (default: the component's own color). |
 | `pulseGradientTo` | `ColorName \| (string & {})` | — | Second color — turns the pulse ring and spinning border into a gradient from `pulseColor` to this (default: solid `pulseColor`). |
 | `label` **required** | `string` | — | Caption describing the metric, e.g. "Total revenue". |
@@ -14526,7 +14521,6 @@ _No size prop — it sizes to its container / content (see `className` to constr
 
 | Component | Prop | Type | Default | Effect |
 | --- | --- | --- | --- | --- |
-| `Stat` | `animated` | `AnimatedVariant` | — | Attention animation: "glow" \| "pulse" \| "sweep" \| "bounce" \| "float" \| "wiggle" \| "border-spin" (default: none). Respects `prefers-reduced-motion`. |
 | `Stat` | `countUp` | `boolean` | `false` | Counts the number in `value` up from 0 when the stat mounts (and when `value` changes), keeping any prefix/suffix such as "$" or "%" (default: false). Respects `prefers-reduced-motion`. |
 
 Standard visual states: default · hover · focus-visible (ring) · active/pressed.
@@ -14551,7 +14545,7 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 | `trend` | `trend` | string |
 | `icon` | `icon` | string |
 | `color` | `color` | string |
-| `animated` | `animated` | string |
+| `animation` | `animation` | string |
 | `pulseColor` | `pulse-color` | string |
 | `pulseGradientTo` | `pulse-gradient-to` | string |
 | `transition` | `transition` | string |
@@ -16186,7 +16180,7 @@ A user profile summary — avatar, name, role, bio, and optional stats or action
 
 | Prop | Type | Default | Description |
 | --- | --- | --- | --- |
-| `animated` | `AnimatedVariant` | — | Attention animation: "glow" \| "pulse" \| "sweep" \| "bounce" \| "float" \| "wiggle" \| "border-spin" (default: none). Respects `prefers-reduced-motion`. |
+| `animation` | `AnimatedProp` | — | Attention animation: "glow" \| "pulse" \| "sweep" \| "bounce" \| "float" \| "wiggle" \| "border-spin" \| "particles" \| "tail" — one, or a list to combine, e.g. ["particles", "tail"] (default: none). Respects `prefers-reduced-motion`. |
 | `pulseColor` | `ColorName \| (string & {})` | — | Color of the animation (pulse ring, glow, spinning border): a `ColorName` or any CSS color (default: the component's own color). |
 | `pulseGradientTo` | `ColorName \| (string & {})` | — | Second color — turns the pulse ring and spinning border into a gradient from `pulseColor` to this (default: solid `pulseColor`). |
 | `name` **required** | `string` | — | The person's display name, shown as the card heading. |
@@ -16225,9 +16219,7 @@ _No size prop — it sizes to its container / content (see `className` to constr
 
 ### Profile Card · 7. Component States
 
-| Component | Prop | Type | Default | Effect |
-| --- | --- | --- | --- | --- |
-| `ProfileCard` | `animated` | `AnimatedVariant` | — | Attention animation: "glow" \| "pulse" \| "sweep" \| "bounce" \| "float" \| "wiggle" \| "border-spin" (default: none). Respects `prefers-reduced-motion`. |
+_No dedicated state props — the visual states are default, hover, focus-visible and active._
 
 Standard visual states: default · hover · focus-visible (ring) · active/pressed.
 
@@ -16245,7 +16237,7 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 | React prop | HTML attribute | Attribute type |
 | --- | --- | --- |
-| `animated` | `animated` | string |
+| `animation` | `animation` | string |
 | `pulseColor` | `pulse-color` | string |
 | `pulseGradientTo` | `pulse-gradient-to` | string |
 | `name` | `name` | string |
@@ -17464,8 +17456,8 @@ import { PlanBilling } from "lojee-ui";
 | [Breadcrumbs](#breadcrumbs) | Navigation | `BreadcrumbItem`, `Breadcrumbs` | `<l-breadcrumb-item>`, `<l-breadcrumbs>` |
 | [Pagination](#pagination) | Navigation | `Pagination` | `<l-pagination>` |
 | [Main](#main) | Navigation | `Main` | — |
-| [App](#app) | App Layout | `App`, `Section` | `<l-app>` |
-| [Theme Switcher](#theme-switcher) | App Layout | `ThemeSwitcher` | `<l-theme-switcher>` |
+| [App Layout](#app-layout) | App | `App`, `Section` | `<l-app>` |
+| [Theme Switcher](#theme-switcher) | App | `ThemeSwitcher` | `<l-theme-switcher>` |
 | [Tables](#tables) | Data & Visualization | `Table` | `<l-table>` |
 | [Grid View](#grid-view) | Data & Visualization | `GridView` | `<l-grid-view>` |
 | [Timeline](#timeline) | Data & Visualization | `Timeline` | `<l-timeline>` |

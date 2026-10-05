@@ -415,13 +415,13 @@ export const COMPONENT_MENU: Menu[]  = [
     },
 
     {
-        section: "App Layout",
+        section: "App",
 
         items: [
 
             {
                 icon: "layout-dashboard",
-                label: "App",
+                label: "App Layout",
             },
 
             {

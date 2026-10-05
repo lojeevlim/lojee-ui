@@ -1,6 +1,20 @@
 import { Button } from "../Button";
+import { Badge } from "../../Badge/Badge";
 import CodeBlock from "../../CodeBlock";
 import { SectionLabel, Row, TransitionPreview } from "../../ShowcaseHelpers";
+
+// A "Coming soon" tag pinned to the corner of a demo whose effect is not released yet.
+function Soon({ children }: { children: React.ReactNode }) {
+  return (
+    <span className="relative mr-4 mt-4 inline-flex">
+      {children}
+      {/* Amber Badge; its own ring (a surface-colored outline that follows the badge's corners) keeps it distinct from the button underneath. */}
+      <span className="pointer-events-none absolute -right-3 -top-[18px] z-10">
+        <Badge variant="solid" color="amber" size="xs" label="Coming soon" className="ring-2 ring-surface" />
+      </span>
+    </span>
+  );
+}
 
 // Animated and Transitions demos — kept together at the bottom of the Button page.
 export function ButtonMotionSection() {
@@ -115,50 +129,80 @@ export class AppComponent {}`,
       </section>
 
       <section>
-        <SectionLabel sub="Attention effects via `animated`. Pulse and border-spin take a solid `pulseColor` or a gradient with `pulseGradientTo`.">
-          Animated
+        <SectionLabel sub={'Attention effects via `animation`. Pulse and border-spin take a solid `pulseColor` or a gradient with `pulseGradientTo`. Particles drift off the button (click it and it sends out one pulse: a thin ripple ring with fading echoes and a burst of particles, like the scrollbar). Tail streams a soft comet trail behind the button while the page scrolls. Combine effects by passing a list — `animation={["particles", "tail"]}`, or a space-separated string on web components (`animation="particles tail pulse"`); element animations (glow, bounce, float, wiggle) run one at a time, the rest stack freely. Scroll the page to see the tail.'}>
+          Animation
         </SectionLabel>
         <Row>
-          <Button animated="glow" label="Glow" />
-          <Button animated="pulse" label="Pulse" />
-          <Button animated="pulse" pulseColor="rose" pulseGradientTo="amber" label="Gradient pulse" />
-          <Button animated="sweep" label="Sweep" />
-          <Button animated="bounce" label="Bounce" />
-          <Button animated="float" variant="outline" label="Float" />
-          <Button animated="wiggle" label="Wiggle" />
-          <Button animated="border-spin" pulseColor="violet" pulseGradientTo="cyan" variant="soft" label="Border spin" />
+          <Button animation="glow" label="Glow" />
+          <Button animation="pulse" label="Pulse" />
+          <Button animation="pulse" pulseColor="rose" pulseGradientTo="amber" label="Gradient pulse" />
+          <Button animation="sweep" label="Sweep" />
+          <Button animation="bounce" label="Bounce" />
+          <Button animation="float" variant="outline" label="Float" />
+          <Button animation="wiggle" label="Wiggle" />
+          <Button animation="border-spin" pulseColor="violet" pulseGradientTo="cyan" variant="soft" label="Border spin" />
+          <Soon>
+            <Button animation="particles" label="Particles" />
+          </Soon>
+          <Soon>
+            <Button animation="particles" pulseColor="rose" variant="outline" label="Particles · rose" />
+          </Soon>
+          <Soon>
+            <Button animation="tail" label="Tail" />
+          </Soon>
+          <Soon>
+            <Button animation={["particles", "tail"]} label="Particles + tail" />
+          </Soon>
+          <Soon>
+            <Button animation={["particles", "tail", "pulse"]} variant="soft" label="Particles + tail + pulse" />
+          </Soon>
         </Row>
         <CodeBlock
           variants={{
-              react: `<Button animated="glow" label="Glow" />
-<Button animated="pulse" label="Pulse" />
-<Button animated="pulse" pulseColor="rose" pulseGradientTo="amber" label="Gradient pulse" />
-<Button animated="sweep" label="Sweep" />
-<Button animated="bounce" label="Bounce" />
-<Button animated="float" variant="outline" label="Float" />
-<Button animated="wiggle" label="Wiggle" />
-<Button animated="border-spin" pulseColor="violet" pulseGradientTo="cyan" variant="soft" label="Border spin" />`,
-              js: `<l-Button animated="glow" label="Glow"></l-Button>
-<l-Button animated="pulse" label="Pulse"></l-Button>
-<l-Button animated="pulse" pulseColor="rose" pulseGradientTo="amber" label="Gradient pulse"></l-Button>
-<l-Button animated="sweep" label="Sweep"></l-Button>
-<l-Button animated="bounce" label="Bounce"></l-Button>
-<l-Button animated="float" variant="outline" label="Float"></l-Button>
-<l-Button animated="wiggle" label="Wiggle"></l-Button>
-<l-Button animated="border-spin" pulseColor="violet" pulseGradientTo="cyan" variant="soft" label="Border spin"></l-Button>
+              react: `<Button animation="glow" label="Glow" />
+<Button animation="pulse" label="Pulse" />
+<Button animation="pulse" pulseColor="rose" pulseGradientTo="amber" label="Gradient pulse" />
+<Button animation="sweep" label="Sweep" />
+<Button animation="bounce" label="Bounce" />
+<Button animation="float" variant="outline" label="Float" />
+<Button animation="wiggle" label="Wiggle" />
+<Button animation="border-spin" pulseColor="violet" pulseGradientTo="cyan" variant="soft" label="Border spin" />
+<Button animation="particles" label="Particles" />
+<Button animation="particles" pulseColor="rose" variant="outline" label="Particles · rose" />
+<Button animation="tail" label="Tail" />
+<Button animation={["particles", "tail"]} label="Particles + tail" />
+<Button animation={["particles", "tail", "pulse"]} variant="soft" label="Particles + tail + pulse" />`,
+              js: `<l-Button animation="glow" label="Glow"></l-Button>
+<l-Button animation="pulse" label="Pulse"></l-Button>
+<l-Button animation="pulse" pulseColor="rose" pulseGradientTo="amber" label="Gradient pulse"></l-Button>
+<l-Button animation="sweep" label="Sweep"></l-Button>
+<l-Button animation="bounce" label="Bounce"></l-Button>
+<l-Button animation="float" variant="outline" label="Float"></l-Button>
+<l-Button animation="wiggle" label="Wiggle"></l-Button>
+<l-Button animation="border-spin" pulseColor="violet" pulseGradientTo="cyan" variant="soft" label="Border spin"></l-Button>
+<l-Button animation="particles" label="Particles"></l-Button>
+<l-Button animation="particles" pulseColor="rose" variant="outline" label="Particles · rose"></l-Button>
+<l-Button animation="tail" label="Tail"></l-Button>
+<l-Button animation="particles tail" label="Particles + tail"></l-Button>
+<l-Button animation="particles tail pulse" variant="soft" label="Particles + tail + pulse"></l-Button>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-Button animated="glow" label="Glow"></l-Button>
-  <l-Button animated="pulse" label="Pulse"></l-Button>
-  <l-Button animated="pulse" pulseColor="rose" pulseGradientTo="amber" label="Gradient pulse"></l-Button>
-  <l-Button animated="sweep" label="Sweep"></l-Button>
-  <l-Button animated="bounce" label="Bounce"></l-Button>
-  <l-Button animated="float" variant="outline" label="Float"></l-Button>
-  <l-Button animated="wiggle" label="Wiggle"></l-Button>
-  <l-Button animated="border-spin" pulseColor="violet" pulseGradientTo="cyan" variant="soft" label="Border spin"></l-Button>
+  <l-Button animation="glow" label="Glow"></l-Button>
+  <l-Button animation="pulse" label="Pulse"></l-Button>
+  <l-Button animation="pulse" pulseColor="rose" pulseGradientTo="amber" label="Gradient pulse"></l-Button>
+  <l-Button animation="sweep" label="Sweep"></l-Button>
+  <l-Button animation="bounce" label="Bounce"></l-Button>
+  <l-Button animation="float" variant="outline" label="Float"></l-Button>
+  <l-Button animation="wiggle" label="Wiggle"></l-Button>
+  <l-Button animation="border-spin" pulseColor="violet" pulseGradientTo="cyan" variant="soft" label="Border spin"></l-Button>
+  <l-Button animation="particles" label="Particles"></l-Button>
+  <l-Button animation="particles" pulseColor="rose" variant="outline" label="Particles · rose"></l-Button>
+  <l-Button animation="tail" label="Tail"></l-Button>
+  <l-Button animation="particles tail" label="Particles + tail"></l-Button>
+  <l-Button animation="particles tail pulse" variant="soft" label="Particles + tail + pulse"></l-Button>
 </template>
 
 <script setup lang="ts">
@@ -173,14 +217,19 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Button animated="glow" label="Glow"></l-Button>
-    <l-Button animated="pulse" label="Pulse"></l-Button>
-    <l-Button animated="pulse" pulseColor="rose" pulseGradientTo="amber" label="Gradient pulse"></l-Button>
-    <l-Button animated="sweep" label="Sweep"></l-Button>
-    <l-Button animated="bounce" label="Bounce"></l-Button>
-    <l-Button animated="float" variant="outline" label="Float"></l-Button>
-    <l-Button animated="wiggle" label="Wiggle"></l-Button>
-    <l-Button animated="border-spin" pulseColor="violet" pulseGradientTo="cyan" variant="soft" label="Border spin"></l-Button>
+    <l-Button animation="glow" label="Glow"></l-Button>
+    <l-Button animation="pulse" label="Pulse"></l-Button>
+    <l-Button animation="pulse" pulseColor="rose" pulseGradientTo="amber" label="Gradient pulse"></l-Button>
+    <l-Button animation="sweep" label="Sweep"></l-Button>
+    <l-Button animation="bounce" label="Bounce"></l-Button>
+    <l-Button animation="float" variant="outline" label="Float"></l-Button>
+    <l-Button animation="wiggle" label="Wiggle"></l-Button>
+    <l-Button animation="border-spin" pulseColor="violet" pulseGradientTo="cyan" variant="soft" label="Border spin"></l-Button>
+    <l-Button animation="particles" label="Particles"></l-Button>
+    <l-Button animation="particles" pulseColor="rose" variant="outline" label="Particles · rose"></l-Button>
+    <l-Button animation="tail" label="Tail"></l-Button>
+    <l-Button animation="particles tail" label="Particles + tail"></l-Button>
+    <l-Button animation="particles tail pulse" variant="soft" label="Particles + tail + pulse"></l-Button>
   \`,
 })
 export class AppComponent {}`,

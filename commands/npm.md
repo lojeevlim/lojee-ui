@@ -109,8 +109,8 @@ npm run build:pkg
 
 ```bash
 git add -A
-git commit -m "Release 0.1.0-alpha.11"
-git tag v0.1.0-alpha.11
+git commit -m "Release 0.1.0-alpha.*" #->you should define the latest release version "*"" Release 0.1.0-alpha.11
+git tag v0.1.0-alpha.* #->you should define the latest tag "*"" example tag v0.1.0-alpha.11
 ```
 
 ### 5. Publish
@@ -119,7 +119,7 @@ These are the two commands, with your version filled in. Run them exactly as wri
 
 ```bash
 npm publish --tag latest --//registry.npmjs.org/:_authToken=$NPM_TOKEN
-npm dist-tag add lojee-ui@0.1.0-alpha.11 alpha --//registry.npmjs.org/:_authToken=$NPM_TOKEN
+npm dist-tag add lojee-ui@0.1.0-alpha.* alpha --//registry.npmjs.org/:_authToken=$NPM_TOKEN #you should define the latest dist-tag "*"" example tag lojee-ui@0.1.0-alpha.11
 ```
 
 The first one uploads `alpha.11` as `latest`. The second also tags it `alpha`, so both tags move from `alpha.10` to `alpha.11`. If the first one fails, **stop** and do not run the second.

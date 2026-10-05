@@ -253,48 +253,48 @@ export class AppComponent {}`,
         </section>
 
         <section>
-          <SectionLabel sub="Attention effects via `animated`. Pulse and border-spin take a solid `pulseColor` or a gradient with `pulseGradientTo`.">Animated</SectionLabel>
+          <SectionLabel sub="Attention effects via `animation`. Pulse and border-spin take a solid `pulseColor` or a gradient with `pulseGradientTo`.">Animation</SectionLabel>
           <Row>
-            <Avatar initials="GL" color="indigo" animated="glow" />
-            <Avatar initials="PL" color="indigo" animated="pulse" />
-            <Avatar initials="GP" color="rose" animated="pulse" pulseColor="rose" pulseGradientTo="amber" status="online" />
-            <Avatar initials="SW" color="indigo" animated="sweep" />
-            <Avatar initials="BN" color="indigo" animated="bounce" />
-            <Avatar initials="FL" color="indigo" animated="float" />
-            <Avatar initials="WG" color="indigo" animated="wiggle" />
-            <Avatar initials="BS" color="violet" animated="border-spin" pulseColor="violet" pulseGradientTo="cyan" shape="square" />
+            <Avatar initials="GL" color="indigo" animation="glow" />
+            <Avatar initials="PL" color="indigo" animation="pulse" />
+            <Avatar initials="GP" color="rose" animation="pulse" pulseColor="rose" pulseGradientTo="amber" status="online" />
+            <Avatar initials="SW" color="indigo" animation="sweep" />
+            <Avatar initials="BN" color="indigo" animation="bounce" />
+            <Avatar initials="FL" color="indigo" animation="float" />
+            <Avatar initials="WG" color="indigo" animation="wiggle" />
+            <Avatar initials="BS" color="violet" animation="border-spin" pulseColor="violet" pulseGradientTo="cyan" shape="square" />
           </Row>
           <CodeBlock
             variants={{
-              react: `<Avatar initials="GL" color="indigo" animated="glow" />
-<Avatar initials="PL" color="indigo" animated="pulse" />
-<Avatar initials="GP" color="rose" animated="pulse" pulseColor="rose" pulseGradientTo="amber" status="online" />
-<Avatar initials="SW" color="indigo" animated="sweep" />
-<Avatar initials="BN" color="indigo" animated="bounce" />
-<Avatar initials="FL" color="indigo" animated="float" />
-<Avatar initials="WG" color="indigo" animated="wiggle" />
-<Avatar initials="BS" color="violet" animated="border-spin" pulseColor="violet" pulseGradientTo="cyan" shape="square" />`,
-              js: `<l-Avatar initials="GL" color="indigo" animated="glow"></l-Avatar>
-<l-Avatar initials="PL" color="indigo" animated="pulse"></l-Avatar>
-<l-Avatar initials="GP" color="rose" animated="pulse" pulseColor="rose" pulseGradientTo="amber" status="online"></l-Avatar>
-<l-Avatar initials="SW" color="indigo" animated="sweep"></l-Avatar>
-<l-Avatar initials="BN" color="indigo" animated="bounce"></l-Avatar>
-<l-Avatar initials="FL" color="indigo" animated="float"></l-Avatar>
-<l-Avatar initials="WG" color="indigo" animated="wiggle"></l-Avatar>
-<l-Avatar initials="BS" color="violet" animated="border-spin" pulseColor="violet" pulseGradientTo="cyan" shape="square"></l-Avatar>
+              react: `<Avatar initials="GL" color="indigo" animation="glow" />
+<Avatar initials="PL" color="indigo" animation="pulse" />
+<Avatar initials="GP" color="rose" animation="pulse" pulseColor="rose" pulseGradientTo="amber" status="online" />
+<Avatar initials="SW" color="indigo" animation="sweep" />
+<Avatar initials="BN" color="indigo" animation="bounce" />
+<Avatar initials="FL" color="indigo" animation="float" />
+<Avatar initials="WG" color="indigo" animation="wiggle" />
+<Avatar initials="BS" color="violet" animation="border-spin" pulseColor="violet" pulseGradientTo="cyan" shape="square" />`,
+              js: `<l-Avatar initials="GL" color="indigo" animation="glow"></l-Avatar>
+<l-Avatar initials="PL" color="indigo" animation="pulse"></l-Avatar>
+<l-Avatar initials="GP" color="rose" animation="pulse" pulseColor="rose" pulseGradientTo="amber" status="online"></l-Avatar>
+<l-Avatar initials="SW" color="indigo" animation="sweep"></l-Avatar>
+<l-Avatar initials="BN" color="indigo" animation="bounce"></l-Avatar>
+<l-Avatar initials="FL" color="indigo" animation="float"></l-Avatar>
+<l-Avatar initials="WG" color="indigo" animation="wiggle"></l-Avatar>
+<l-Avatar initials="BS" color="violet" animation="border-spin" pulseColor="violet" pulseGradientTo="cyan" shape="square"></l-Avatar>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-Avatar initials="GL" color="indigo" animated="glow"></l-Avatar>
-  <l-Avatar initials="PL" color="indigo" animated="pulse"></l-Avatar>
-  <l-Avatar initials="GP" color="rose" animated="pulse" pulseColor="rose" pulseGradientTo="amber" status="online"></l-Avatar>
-  <l-Avatar initials="SW" color="indigo" animated="sweep"></l-Avatar>
-  <l-Avatar initials="BN" color="indigo" animated="bounce"></l-Avatar>
-  <l-Avatar initials="FL" color="indigo" animated="float"></l-Avatar>
-  <l-Avatar initials="WG" color="indigo" animated="wiggle"></l-Avatar>
-  <l-Avatar initials="BS" color="violet" animated="border-spin" pulseColor="violet" pulseGradientTo="cyan" shape="square"></l-Avatar>
+  <l-Avatar initials="GL" color="indigo" animation="glow"></l-Avatar>
+  <l-Avatar initials="PL" color="indigo" animation="pulse"></l-Avatar>
+  <l-Avatar initials="GP" color="rose" animation="pulse" pulseColor="rose" pulseGradientTo="amber" status="online"></l-Avatar>
+  <l-Avatar initials="SW" color="indigo" animation="sweep"></l-Avatar>
+  <l-Avatar initials="BN" color="indigo" animation="bounce"></l-Avatar>
+  <l-Avatar initials="FL" color="indigo" animation="float"></l-Avatar>
+  <l-Avatar initials="WG" color="indigo" animation="wiggle"></l-Avatar>
+  <l-Avatar initials="BS" color="violet" animation="border-spin" pulseColor="violet" pulseGradientTo="cyan" shape="square"></l-Avatar>
 </template>
 
 <script setup lang="ts">
@@ -309,14 +309,14 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Avatar initials="GL" color="indigo" animated="glow"></l-Avatar>
-    <l-Avatar initials="PL" color="indigo" animated="pulse"></l-Avatar>
-    <l-Avatar initials="GP" color="rose" animated="pulse" pulseColor="rose" pulseGradientTo="amber" status="online"></l-Avatar>
-    <l-Avatar initials="SW" color="indigo" animated="sweep"></l-Avatar>
-    <l-Avatar initials="BN" color="indigo" animated="bounce"></l-Avatar>
-    <l-Avatar initials="FL" color="indigo" animated="float"></l-Avatar>
-    <l-Avatar initials="WG" color="indigo" animated="wiggle"></l-Avatar>
-    <l-Avatar initials="BS" color="violet" animated="border-spin" pulseColor="violet" pulseGradientTo="cyan" shape="square"></l-Avatar>
+    <l-Avatar initials="GL" color="indigo" animation="glow"></l-Avatar>
+    <l-Avatar initials="PL" color="indigo" animation="pulse"></l-Avatar>
+    <l-Avatar initials="GP" color="rose" animation="pulse" pulseColor="rose" pulseGradientTo="amber" status="online"></l-Avatar>
+    <l-Avatar initials="SW" color="indigo" animation="sweep"></l-Avatar>
+    <l-Avatar initials="BN" color="indigo" animation="bounce"></l-Avatar>
+    <l-Avatar initials="FL" color="indigo" animation="float"></l-Avatar>
+    <l-Avatar initials="WG" color="indigo" animation="wiggle"></l-Avatar>
+    <l-Avatar initials="BS" color="violet" animation="border-spin" pulseColor="violet" pulseGradientTo="cyan" shape="square"></l-Avatar>
   \`,
 })
 export class AppComponent {}`,

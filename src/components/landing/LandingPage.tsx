@@ -1,4 +1,5 @@
 import { lazy, Suspense, useEffect, useRef, useState, type PointerEvent, type ReactNode } from "react";
+import { PageScrollbar } from "../ui/DotScroll/PageScrollbar"
 import { useNavigate } from "react-router-dom";
 import "./landing.css";
 import Reveal from "./Reveal";
@@ -21,7 +22,7 @@ import { COMPONENT_MENU } from "../../constant/component_menu";
 import { pathFor } from "../../core/routes";
 import { REPO_URL } from "../../core/repo";
 import { CHANGELOG } from "../../generated/changelog";
-import { COLORS } from "../../core/tokens";
+import { ACCENTS, PRESET_ACCENTS } from "../../core/theme";
 import { ANIMATED_VARIANTS } from "../../core/animated";
 import { TRANSITIONS } from "../../core/motion";
 
@@ -158,7 +159,7 @@ function Nav({ groups, onStart }: { groups: typeof COMPONENT_MENU; onStart: () =
               <ThemeSwitcher align="center"  transition="bounce"  />
             )}
             <Button variant="ghost" size="sm" icon="git-branch" label="GitHub" onClick={() => window.open(REPO_URL, "_blank", "noopener")} />
-            <Button size="sm" label="Get started" onClick={onStart} />
+            <Button size="sm" label="Get Started" onClick={onStart} />
           </div>
         </div>
       </header>
@@ -223,6 +224,7 @@ export default function LandingPage() {
 
   return (
     <div className="min-h-screen overflow-x-clip bg-surface text-fg">
+      <PageScrollbar />
       <Nav groups={groups} onStart={start} />
 
       {/* Hero */}
@@ -233,7 +235,7 @@ export default function LandingPage() {
         <div className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-32 bg-gradient-to-t from-surface to-transparent" />
         <div className="mx-auto max-w-6xl px-5 pt-14 text-center lg:pt-24">
           <button type="button" onClick={() => navigate(pathFor("docs", "Changelog"))} className="lp-enter inline-flex max-w-full cursor-pointer items-center gap-2 rounded-full border border-border bg-surface/70 py-1 pl-1 pr-3 text-xs text-fg-muted shadow-sm" style={{ ["--d" as string]: "0ms" }}>
-            <span className="relative z-10 inline-flex"><Badge variant="solid" label="New" animated="pulse" /></span>
+            <span className="relative z-10 inline-flex"><Badge variant="solid" label="New" animation="pulse" /></span>
             <span className="truncate">{LATEST_UPDATE}</span>
             <Icon name="arrow-right" size={12} />
           </button>
@@ -244,7 +246,7 @@ export default function LandingPage() {
             {total}+ themeable components for React, shipped as Web Components for Vue, Angular and plain JavaScript — with motion, maps and live data built in.
           </p>
           <div className="lp-enter mt-9 flex flex-wrap items-center justify-center gap-3" style={{ ["--d" as string]: "300ms" }}>
-            <Button size="lg" icon="arrow-right" iconPosition="right" label="Get started" onClick={start} />
+            <Button size="lg" animation={["particles", "tail"]} icon="arrow-right" iconPosition="right" label="Get Started" onClick={start} />
             <Button size="lg" variant="outline" label="Browse components" onClick={() => navigate(pathFor("components", groups[0].items![0].label))} />
           </div>
           <button
@@ -276,7 +278,7 @@ export default function LandingPage() {
           <Stat active={statsSeen} target={total} suffix="+" label="Components" />
           <Stat active={statsSeen} target={TRANSITIONS.length} label="Enter transitions" />
           <Stat active={statsSeen} target={ANIMATED_VARIANTS.length} label="Attention effects" />
-          <Stat active={statsSeen} target={COLORS.length} label="Accent colors" />
+          <Stat active={statsSeen} target={ACCENTS.length + PRESET_ACCENTS.length} suffix="+" label="Accent colors" />
         </div>
       </section>
 

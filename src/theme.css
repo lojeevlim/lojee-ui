@@ -415,7 +415,7 @@
   }
 }
 
-/* Attention animations (the `animated` prop on Button, Badge, Avatar, Card, Alert, Stat, ProfileCard).
+/* Attention animations (the `animation` prop on Button, Badge, Avatar, Card, Alert, Stat, ProfileCard).
    Colors come from --lojee-anim-from / --lojee-anim-to, set inline by core/animated.tsx. Everything is
    switched off for users who prefer reduced motion. */
 .lojee-anim-ring,
@@ -428,7 +428,6 @@
 }
 
 /* Hollow ring: the gradient/solid fill only shows in the padding area. */
-.lojee-anim-ring,
 .lojee-anim-border {
   padding: 2px;
   -webkit-mask:
@@ -440,9 +439,10 @@
     linear-gradient(#000 0 0);
 }
 
+/* Pulse: a soft expanding glow — a ring of color spreads 22px out from the element and fades, over and
+   over. With a gradient (`pulseGradientTo`) a second, wider ring in the second color follows the first. */
 .lojee-anim-ring {
-  background: linear-gradient(135deg, var(--lojee-anim-from), var(--lojee-anim-to, var(--lojee-anim-from)));
-  opacity: 0;
+  box-shadow: 0 0 0 0 transparent;
 }
 
 .lojee-anim-border {
@@ -476,13 +476,15 @@
 
 @keyframes lojee-anim-pulse {
   0% {
-    inset: 0;
-    opacity: 0.8;
+    box-shadow:
+      0 0 0 0 color-mix(in srgb, var(--lojee-anim-from) 60%, transparent),
+      0 0 0 0 color-mix(in srgb, var(--lojee-anim-to, var(--lojee-anim-from)) var(--lojee-anim-to-a, 0%), transparent);
   }
   80%,
   100% {
-    inset: -12px;
-    opacity: 0;
+    box-shadow:
+      0 0 0 22px color-mix(in srgb, var(--lojee-anim-from) 0%, transparent),
+      0 0 0 30px color-mix(in srgb, var(--lojee-anim-to, var(--lojee-anim-from)) 0%, transparent);
   }
 }
 
@@ -554,6 +556,157 @@
   }
 }
 
+/* "particles": glowing specks drift off the element; while the page scrolls it also trails a tail (opposite to the way it appears to
+   move: scrolling down = it moves up = tail below) shedding more specks. Colors come from --lojee-anim-from. */
+.lojee-anim-particles {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  overflow: visible;
+}
+.lojee-anim-spark {
+  position: absolute;
+  width: var(--sz, 4px);
+  height: var(--sz, 4px);
+  margin: calc(var(--sz, 4px) / -2) 0 0 calc(var(--sz, 4px) / -2);
+  border-radius: 9999px;
+  background: var(--lojee-anim-from);
+  box-shadow: 0 0 8px 2px color-mix(in srgb, var(--lojee-anim-from) 70%, transparent);
+  opacity: 0;
+}
+/* Clicking sends out ONE pulse, the same as the dotted scrollbar's end burst: a ripple ring grows out of the element and the specks fly out. */
+.lojee-anim-click {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 1px solid var(--lojee-anim-from);
+  opacity: 0;
+  pointer-events: none;
+  --o: 0.9;
+}
+/* Echoes: two fainter rings trail the first, each a beat later, so the pulse seems to reverberate. */
+.lojee-anim-click-2 { --o: 0.55; }
+.lojee-anim-click-3 { --o: 0.3; }
+.lojee-anim-particles[data-click] .lojee-anim-click {
+  animation: lojee-anim-click 0.95s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.lojee-anim-particles[data-click] .lojee-anim-click-2 { animation-delay: 0.12s; }
+.lojee-anim-particles[data-click] .lojee-anim-click-3 { animation-delay: 0.24s; }
+@keyframes lojee-anim-click {
+  0% { opacity: var(--o); transform: scale(1); }
+  100% { opacity: 0; transform: scale(1.5, 2.2); }
+}
+.lojee-anim-particles[data-click] .lojee-anim-spark {
+  animation: lojee-anim-spark-pulse 0.75s cubic-bezier(0.22, 1, 0.36, 1) 1 both;
+  animation-delay: calc(var(--d, 0s) * 0.05);
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  box-shadow: 0 0 10px 3px color-mix(in srgb, var(--lojee-anim-from) 75%, transparent);
+}
+@keyframes lojee-anim-spark-pulse {
+  0% { opacity: 0; transform: translate(0, 0) scale(0.5); }
+  18% { opacity: 1; }
+  100% { opacity: 0; transform: translate(calc(var(--dx) * 2.4), calc(var(--dy) * 2.1)) scale(0.15); }
+}
+
+/* The click burst: many short-lived specks (created on click, see AnimatedOverlay) flying out of the element's edge in two waves. */
+.lojee-anim-burst {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: var(--sz);
+  height: var(--sz);
+  margin: calc(var(--sz) / -2) 0 0 calc(var(--sz) / -2);
+  border-radius: 9999px;
+  background: var(--lojee-anim-from);
+  box-shadow: 0 0 8px 2px color-mix(in srgb, var(--lojee-anim-from) 70%, transparent);
+  opacity: 0;
+  pointer-events: none;
+  animation: lojee-anim-burst 0.85s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: var(--dl, 0s);
+}
+@keyframes lojee-anim-burst {
+  0% { opacity: 0; transform: translate(0, 0) scale(0.4); }
+  14% { opacity: 1; }
+  100% { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(0.1); }
+}
+
+/* "tail": a soft comet trail behind the element while the page scrolls (scrolling down = it moves up = the tail streams out below).
+   A blurred, feathered gradient that eases out with a spring and fades back in when you stop — like the scrollbar dot's trail. */
+.lojee-anim-tailwrap {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  overflow: visible;
+}
+.lojee-anim-tail {
+  position: absolute;
+  left: 50%;
+  width: 70%;
+  height: 0;
+  transform: translateX(-50%);
+  opacity: 0;
+  filter: blur(6px);
+  /* Eases out like a spring when the page starts moving and drifts back slowly when it stops. */
+  transition: height 0.9s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.9s cubic-bezier(0.33, 1, 0.68, 1);
+}
+.lojee-anim-tailwrap[data-dir="down"] .lojee-anim-tail {
+  top: calc(100% - 3px);
+  border-radius: 0 0 50% 50% / 0 0 100% 100%;
+  background: radial-gradient(ellipse 58% 100% at 50% 0%, color-mix(in srgb, var(--lojee-anim-from) 92%, transparent) 0%, color-mix(in srgb, var(--lojee-anim-from) 55%, transparent) 28%, color-mix(in srgb, var(--lojee-anim-from) 24%, transparent) 55%, color-mix(in srgb, var(--lojee-anim-from) 7%, transparent) 80%, transparent 100%);
+}
+.lojee-anim-tailwrap[data-dir="up"] .lojee-anim-tail {
+  bottom: calc(100% - 3px);
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+  background: radial-gradient(ellipse 58% 100% at 50% 100%, color-mix(in srgb, var(--lojee-anim-from) 92%, transparent) 0%, color-mix(in srgb, var(--lojee-anim-from) 55%, transparent) 28%, color-mix(in srgb, var(--lojee-anim-from) 24%, transparent) 55%, color-mix(in srgb, var(--lojee-anim-from) 7%, transparent) 80%, transparent 100%);
+}
+.lojee-anim-tailwrap[data-scrolling] .lojee-anim-tail {
+  height: var(--lojee-tail, 28px);
+  opacity: 1;
+}
+/* The bright core: a thin, crisp streak down the middle of the glow (like the scrollbar dot's tail line), tapering to nothing. */
+.lojee-anim-tail-core {
+  position: absolute;
+  left: 50%;
+  width: 5px;
+  height: 0;
+  margin-left: -2.5px;
+  opacity: 0;
+  text-decoration: none;
+  filter: blur(0.8px);
+  transition: height 0.75s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s cubic-bezier(0.33, 1, 0.68, 1);
+}
+.lojee-anim-tailwrap[data-dir="down"] .lojee-anim-tail-core {
+  top: calc(100% - 1px);
+  clip-path: polygon(0 0, 100% 0, 58% 100%, 42% 100%);
+  background: linear-gradient(to bottom, color-mix(in srgb, var(--lojee-anim-from) 50%, white) 0%, color-mix(in srgb, var(--lojee-anim-from) 70%, transparent) 20%, color-mix(in srgb, var(--lojee-anim-from) 25%, transparent) 55%, transparent 100%);
+}
+.lojee-anim-tailwrap[data-dir="up"] .lojee-anim-tail-core {
+  bottom: calc(100% - 1px);
+  clip-path: polygon(42% 0, 58% 0, 100% 100%, 0 100%);
+  background: linear-gradient(to top, color-mix(in srgb, var(--lojee-anim-from) 50%, white) 0%, color-mix(in srgb, var(--lojee-anim-from) 70%, transparent) 20%, color-mix(in srgb, var(--lojee-anim-from) 25%, transparent) 55%, transparent 100%);
+}
+.lojee-anim-tailwrap[data-scrolling] .lojee-anim-tail-core {
+  height: calc(var(--lojee-tail, 28px) * 0.8);
+  opacity: 0.72;
+}
+@keyframes lojee-anim-spark {
+  0% { opacity: 0; transform: translate(0, 0) scale(0.5); }
+  20% { opacity: 1; }
+  100% { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(0.1); }
+}
+/* While scrolling the specks stream out along the tail instead, faster. */
+@keyframes lojee-anim-spark-trail {
+  0% { opacity: 0; transform: translate(0, 0) scale(0.7); }
+  15% { opacity: 1; }
+  100% { opacity: 0; transform: translate(calc(var(--dx) * 0.4), calc(var(--s, 1) * 46px)) scale(0.1); }
+}
+.lojee-anim-particles[data-dir="down"] { --s: 1; }
+.lojee-anim-particles[data-dir="up"] { --s: -1; }
+
 @media (prefers-reduced-motion: no-preference) {
   .lojee-anim-ring {
     animation: lojee-anim-pulse 1.8s ease-out infinite;
@@ -576,12 +729,22 @@
   .lojee-anim-wiggle {
     animation: lojee-anim-wiggle 2.5s ease-in-out infinite;
   }
+  .lojee-anim-spark {
+    animation: lojee-anim-spark 2s ease-out infinite;
+    animation-delay: var(--d, 0s);
+  }
+  .lojee-anim-particles[data-scrolling] .lojee-anim-spark {
+    animation: lojee-anim-spark-trail 0.7s ease-out infinite;
+    animation-delay: calc(var(--d, 0s) * 0.25);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .lojee-anim-ring,
   .lojee-anim-border,
-  .lojee-anim-clip {
+  .lojee-anim-clip,
+  .lojee-anim-particles,
+  .lojee-anim-tailwrap {
     display: none;
   }
 }
@@ -1522,6 +1685,17 @@ body[data-design="clay"] {
   height: 0.75rem;
   border-radius: 0.2rem;
   box-shadow: none;
+}
+/* Left / right tips on the two smallest tooltips match their short bubbles. */
+[data-design="clay"] [role="tooltip"] > span[aria-hidden="true"][data-tip-small="xs"] {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 0.15rem;
+}
+[data-design="clay"] [role="tooltip"] > span[aria-hidden="true"][data-tip-small="sm"] {
+  width: 0.5625rem;
+  height: 0.5625rem;
+  border-radius: 0.15rem;
 }
 
 /* The docked sidebar sits above Main so its shadow falls over the page panel instead of hiding behind it. The cell must not clip

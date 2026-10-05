@@ -154,7 +154,7 @@ const PLAYGROUNDS: Record<string, ComponentType> = {
   Sidebar: SidebarPlayground,
   Header: HeaderPlayground,
   Footer: FooterPlayground,
-  App: AppLayoutPlayground,
+  "App Layout": AppLayoutPlayground,
   Main: MainPlayground,
   Images: ImagePlayground,
   Videos: VideoPlayground,

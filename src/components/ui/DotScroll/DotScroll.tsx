@@ -18,6 +18,8 @@ export interface DotScrollProps extends Omit<HTMLAttributes<HTMLDivElement>, "cl
   className?: string;
   /** Classes for the scrolling viewport inside — padding, gaps (`space-y-2`, `p-6`, `py-1`…). */
   viewportClassName?: string;
+  /** "auto" (default) follows the theme (`ThemeProvider scrollbar`: "dot" unless set to "native"); "dot" / "native" force one. */
+  scrollbar?: "auto" | "dot" | "native";
   /** Ref to the scrolling viewport element (for `scrollIntoView`, `scrollTop`…). */
   viewportRef?: Ref<HTMLDivElement>;
   /** Any other attributes (`role`, `id`, `data-*`, `onKeyDown`, `aria-*`) are placed on the scrolling viewport. */
@@ -61,6 +63,22 @@ export const DOT_SCROLL_CSS = `
 .lojee-ds-spark:nth-child(3) { --dx: -3px; --dist: 20px; --d: 0.34s; }
 .lojee-ds-spark:nth-child(4) { --dx: -11px; --dist: 46px; --d: 0.5s; }
 .lojee-ds-spark:nth-child(5) { --dx: -6px; --dist: 32px; --d: 0.68s; }
+.lojee-ds-spark:nth-child(6) { --dx: -7px; --dist: 30px; --d: 0.08s; }
+.lojee-ds-spark:nth-child(7) { --dx: -2px; --dist: 42px; --d: 0.26s; }
+.lojee-ds-spark:nth-child(8) { --dx: -10px; --dist: 24px; --d: 0.42s; }
+.lojee-ds-spark:nth-child(9) { --dx: -4px; --dist: 50px; --d: 0.58s; }
+.lojee-ds-spark:nth-child(10) { --dx: -8px; --dist: 36px; --d: 0.76s; }
+/* Whole-page variant (PageScrollbar): the track is fixed to the window's right edge; the dot is a little larger than a container's. */
+.lojee-ds-page { position: static; }
+.lojee-ds-page > .lojee-ds-track { position: fixed; top: 0; right: 0; width: 20px; height: 100vh; z-index: 60; }
+.lojee-ds-page .lojee-ds-thumb { width: 20px !important; }
+.lojee-ds-page .lojee-ds-guide { right: 9px !important; width: 2px !important; }
+.lojee-ds-page .lojee-ds-bar::after { width: 12px; height: 12px; }
+.lojee-ds-page .lojee-ds-track:hover .lojee-ds-bar::after, .lojee-ds-page .lojee-ds-track[data-drag] .lojee-ds-bar::after { width: 15px; height: 15px; }
+.lojee-ds-page .lojee-ds-bar::before { width: 6px; margin-left: -3px; }
+.lojee-ds-page .lojee-ds-spark { width: 4px; height: 4px; margin: -2px 0 0 -2px; }
+.lojee-ds-page .lojee-ds-ring { width: 12px; height: 12px; margin: -6px 0 0 -6px; }
+.lojee-ds-page .lojee-ds-burst { width: 4px; height: 4px; margin: -2px 0 0 -2px; --c: var(--color-accent-500, #8b5cf6); }
 .lojee-ds[data-dir="down"], .lojee-ds[data-dir="right"] { --s: -1; }
 .lojee-ds[data-dir="up"], .lojee-ds[data-dir="left"] { --s: 1; }
 .lojee-ds[data-axis="y"][data-scrolling] .lojee-ds-spark, .lojee-ds[data-axis="y"] .lojee-ds-track[data-drag] .lojee-ds-spark { animation: lojee-ds-spark-y 0.85s ease-out infinite; animation-delay: var(--d); }
@@ -89,7 +107,7 @@ export const DOT_SCROLL_CSS = `
 }
 `;
 
-export function DotScroll({ axis = "y", className, viewportClassName, viewportRef, children, onScroll, ...rest }: DotScrollProps) {
+export function DotScroll({ axis = "y", className, viewportClassName, viewportRef, scrollbar = "auto", children, onScroll, ...rest }: DotScrollProps) {
   const vertical = axis === "y";
   const wrapRef = useRef<HTMLDivElement>(null);
   const viewRef = useRef<HTMLDivElement | null>(null);
@@ -101,6 +119,9 @@ export function DotScroll({ axis = "y", className, viewportClassName, viewportRe
   const endTimerRef = useRef(0);
   const box = useRef({ size: 0, track: 0 });
   const [hasThumb, setHasThumb] = useState(false);
+  // "auto" reads the nearest [data-scrollbar] (set by ThemeProvider, mirrored into web components); no attribute means "dot".
+  const [themeMode, setThemeMode] = useState<"dot" | "native">("dot");
+  const native = (scrollbar === "auto" ? themeMode : scrollbar) === "native";
   const [dragging, setDragging] = useState(false);
 
   const setViewRef = useCallback(
@@ -137,7 +158,7 @@ export function DotScroll({ axis = "y", className, viewportClassName, viewportRe
 
   useLayoutEffect(() => {
     const el = viewRef.current;
-    if (!el) return;
+    if (!el || native) return;
     measure();
     let raf = 0;
     const later = () => {
@@ -153,7 +174,16 @@ export function DotScroll({ axis = "y", className, viewportClassName, viewportRe
       ro.disconnect();
       mo.disconnect();
     };
-  }, [measure]);
+  }, [measure, native]);
+  useLayoutEffect(() => {
+    if (scrollbar !== "auto") return;
+    const host = wrapRef.current?.closest("[data-scrollbar]") ?? document.documentElement;
+    const read = () => setThemeMode(host.getAttribute("data-scrollbar") === "native" ? "native" : "dot");
+    read();
+    const obs = new MutationObserver(read);
+    obs.observe(host, { attributes: true, attributeFilter: ["data-scrollbar"] });
+    return () => obs.disconnect();
+  }, [scrollbar]);
   useEffect(
     () => () => {
       window.clearTimeout(idleRef.current);
@@ -228,12 +258,12 @@ export function DotScroll({ axis = "y", className, viewportClassName, viewportRe
       <div
         {...rest}
         ref={setViewRef}
-        onScroll={handleScroll}
-        className={cx("lojee-ds-view h-full", vertical ? "overflow-y-auto overflow-x-hidden" : "overflow-x-auto overflow-y-hidden", viewportClassName)}
+        onScroll={native ? onScroll : handleScroll}
+        className={cx(native ? "h-full max-h-[inherit]" : "lojee-ds-view h-full", vertical ? "overflow-y-auto overflow-x-hidden" : "overflow-x-auto overflow-y-hidden", viewportClassName)}
       >
         {children}
       </div>
-      {hasThumb && (
+      {hasThumb && !native && (
         <div aria-hidden="true" className="lojee-ds-track" data-drag={dragging || undefined}>
           <div className="lojee-ds-guide" />
           <div ref={thumbRef} className="lojee-ds-thumb" onPointerDown={startDrag}>

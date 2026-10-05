@@ -62,6 +62,9 @@ export interface ThemeProviderProps {
   activeVariant?: ActiveVariant;
   /** Controlled design language — when given, it wins over the provider's own state. */
   design?: DesignName;
+  /** Scrollbar style for the library's scrolling areas (`Main`, `DotScroll`…): "dot" (default — a dotted guide with a glowing accent dot,
+   * tail and particles, like the Sidebar's) or "native" (the browser's own, tinted with the accent). Set as `data-scrollbar` on the root. */
+  scrollbar?: "dot" | "native";
 }
 
 /** Sets `data-theme` / `data-accent` on <html> (or on its own wrapper when `isolated`) and exposes them via useTheme(). */
@@ -76,6 +79,7 @@ export function ThemeProvider({
   accent: accentProp,
   activeVariant: activeVariantProp,
   design: designProp,
+  scrollbar = "dot",
 }: ThemeProviderProps) {
   const [modeState, setModeState] = useState<ThemeMode>(() => (isolated ? defaultMode : readStored(MODE_KEY, isThemeMode, defaultMode)));
   const [accentState, setAccentState] = useState<Accent>(() => (isolated ? defaultAccent : readStored(ACCENT_KEY, isAccent, defaultAccent)));
@@ -91,6 +95,10 @@ export function ThemeProvider({
   useEffect(() => {
     if (!isolated) applyTheme(mode, accent, activeVariant, design);
   }, [isolated, mode, accent, activeVariant, design]);
+  useEffect(() => {
+    if (isolated) return;
+    document.documentElement.setAttribute("data-scrollbar", scrollbar);
+  }, [isolated, scrollbar]);
 
   const setMode = useCallback(
     (next: ThemeMode) => {
@@ -134,7 +142,7 @@ export function ThemeProvider({
     <ThemeContext.Provider value={themeValue}>
       {isolated ? (
         // `display: contents` keeps the wrapper out of layout while still scoping the theme attributes.
-        <div data-theme={mode} {...accentAttrs(accent)} data-active-variant={activeVariant} data-design={design} style={{ display: "contents", ...accentAttrs(accent).style }}>
+        <div data-theme={mode} {...accentAttrs(accent)} data-active-variant={activeVariant} data-design={design} data-scrollbar={scrollbar} style={{ display: "contents", ...accentAttrs(accent).style }}>
           {children}
         </div>
       ) : (

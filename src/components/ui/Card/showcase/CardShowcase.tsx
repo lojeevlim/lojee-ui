@@ -247,48 +247,48 @@ export class AppComponent {}`,
         </section>
 
         <section>
-          <SectionLabel sub="Attention effects via `animated`. Pulse and border-spin take a solid `pulseColor` or a gradient with `pulseGradientTo`.">Animated</SectionLabel>
+          <SectionLabel sub="Attention effects via `animation`. Pulse and border-spin take a solid `pulseColor` or a gradient with `pulseGradientTo`.">Animation</SectionLabel>
           <Row>
-            <Card animated="glow" className="w-40">Glow</Card>
-            <Card animated="pulse" className="w-40">Pulse</Card>
-            <Card animated="pulse" pulseColor="rose" pulseGradientTo="amber" className="w-40">Gradient pulse</Card>
-            <Card animated="sweep" className="w-40">Sweep</Card>
-            <Card animated="bounce" className="w-40">Bounce</Card>
-            <Card animated="float" variant="elevated" className="w-40">Float</Card>
-            <Card animated="wiggle" className="w-40">Wiggle</Card>
-            <Card animated="border-spin" pulseColor="violet" pulseGradientTo="cyan" className="w-40">Border spin</Card>
+            <Card animation="glow" className="w-40">Glow</Card>
+            <Card animation="pulse" className="w-40">Pulse</Card>
+            <Card animation="pulse" pulseColor="rose" pulseGradientTo="amber" className="w-40">Gradient pulse</Card>
+            <Card animation="sweep" className="w-40">Sweep</Card>
+            <Card animation="bounce" className="w-40">Bounce</Card>
+            <Card animation="float" variant="elevated" className="w-40">Float</Card>
+            <Card animation="wiggle" className="w-40">Wiggle</Card>
+            <Card animation="border-spin" pulseColor="violet" pulseGradientTo="cyan" className="w-40">Border spin</Card>
           </Row>
           <CodeBlock
             variants={{
-              react: `<Card animated="glow">Glow</Card>
-<Card animated="pulse">Pulse</Card>
-<Card animated="pulse" pulseColor="rose" pulseGradientTo="amber">Gradient pulse</Card>
-<Card animated="sweep">Sweep</Card>
-<Card animated="bounce">Bounce</Card>
-<Card animated="float" variant="elevated">Float</Card>
-<Card animated="wiggle">Wiggle</Card>
-<Card animated="border-spin" pulseColor="violet" pulseGradientTo="cyan">Border spin</Card>`,
-              js: `<l-Card animated="glow">Glow</l-Card>
-<l-Card animated="pulse">Pulse</l-Card>
-<l-Card animated="pulse" pulseColor="rose" pulseGradientTo="amber">Gradient pulse</l-Card>
-<l-Card animated="sweep">Sweep</l-Card>
-<l-Card animated="bounce">Bounce</l-Card>
-<l-Card animated="float" variant="elevated">Float</l-Card>
-<l-Card animated="wiggle">Wiggle</l-Card>
-<l-Card animated="border-spin" pulseColor="violet" pulseGradientTo="cyan">Border spin</l-Card>
+              react: `<Card animation="glow">Glow</Card>
+<Card animation="pulse">Pulse</Card>
+<Card animation="pulse" pulseColor="rose" pulseGradientTo="amber">Gradient pulse</Card>
+<Card animation="sweep">Sweep</Card>
+<Card animation="bounce">Bounce</Card>
+<Card animation="float" variant="elevated">Float</Card>
+<Card animation="wiggle">Wiggle</Card>
+<Card animation="border-spin" pulseColor="violet" pulseGradientTo="cyan">Border spin</Card>`,
+              js: `<l-Card animation="glow">Glow</l-Card>
+<l-Card animation="pulse">Pulse</l-Card>
+<l-Card animation="pulse" pulseColor="rose" pulseGradientTo="amber">Gradient pulse</l-Card>
+<l-Card animation="sweep">Sweep</l-Card>
+<l-Card animation="bounce">Bounce</l-Card>
+<l-Card animation="float" variant="elevated">Float</l-Card>
+<l-Card animation="wiggle">Wiggle</l-Card>
+<l-Card animation="border-spin" pulseColor="violet" pulseGradientTo="cyan">Border spin</l-Card>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-Card animated="glow">Glow</l-Card>
-  <l-Card animated="pulse">Pulse</l-Card>
-  <l-Card animated="pulse" pulseColor="rose" pulseGradientTo="amber">Gradient pulse</l-Card>
-  <l-Card animated="sweep">Sweep</l-Card>
-  <l-Card animated="bounce">Bounce</l-Card>
-  <l-Card animated="float" variant="elevated">Float</l-Card>
-  <l-Card animated="wiggle">Wiggle</l-Card>
-  <l-Card animated="border-spin" pulseColor="violet" pulseGradientTo="cyan">Border spin</l-Card>
+  <l-Card animation="glow">Glow</l-Card>
+  <l-Card animation="pulse">Pulse</l-Card>
+  <l-Card animation="pulse" pulseColor="rose" pulseGradientTo="amber">Gradient pulse</l-Card>
+  <l-Card animation="sweep">Sweep</l-Card>
+  <l-Card animation="bounce">Bounce</l-Card>
+  <l-Card animation="float" variant="elevated">Float</l-Card>
+  <l-Card animation="wiggle">Wiggle</l-Card>
+  <l-Card animation="border-spin" pulseColor="violet" pulseGradientTo="cyan">Border spin</l-Card>
 </template>
 
 <script setup lang="ts">
@@ -303,14 +303,14 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Card animated="glow">Glow</l-Card>
-    <l-Card animated="pulse">Pulse</l-Card>
-    <l-Card animated="pulse" pulseColor="rose" pulseGradientTo="amber">Gradient pulse</l-Card>
-    <l-Card animated="sweep">Sweep</l-Card>
-    <l-Card animated="bounce">Bounce</l-Card>
-    <l-Card animated="float" variant="elevated">Float</l-Card>
-    <l-Card animated="wiggle">Wiggle</l-Card>
-    <l-Card animated="border-spin" pulseColor="violet" pulseGradientTo="cyan">Border spin</l-Card>
+    <l-Card animation="glow">Glow</l-Card>
+    <l-Card animation="pulse">Pulse</l-Card>
+    <l-Card animation="pulse" pulseColor="rose" pulseGradientTo="amber">Gradient pulse</l-Card>
+    <l-Card animation="sweep">Sweep</l-Card>
+    <l-Card animation="bounce">Bounce</l-Card>
+    <l-Card animation="float" variant="elevated">Float</l-Card>
+    <l-Card animation="wiggle">Wiggle</l-Card>
+    <l-Card animation="border-spin" pulseColor="violet" pulseGradientTo="cyan">Border spin</l-Card>
   \`,
 })
 export class AppComponent {}`,

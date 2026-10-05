@@ -346,50 +346,50 @@ export class AppComponent {}`,
         </section>
 
         <section>
-          <SectionLabel sub="Attention effects via `animated`. Pulse and border-spin take a solid `pulseColor` or a gradient with `pulseGradientTo`.">Animated</SectionLabel>
+          <SectionLabel sub="Attention effects via `animation`. Pulse and border-spin take a solid `pulseColor` or a gradient with `pulseGradientTo`.">Animation</SectionLabel>
           <div className="flex flex-col gap-4">
-            <Alert variant="info" title="Glow" animated="glow">A soft breathing glow.</Alert>
-            <Alert variant="success" title="Pulse" animated="pulse">An expanding ring in the alert's own color.</Alert>
-            <Alert variant="error" title="Gradient pulse" animated="pulse" pulseColor="rose" pulseGradientTo="amber">A gradient pulse ring.</Alert>
-            <Alert variant="warning" title="Sweep" animated="sweep">A light streak gliding across.</Alert>
-            <Alert variant="info" title="Border spin" animated="border-spin" pulseColor="blue" pulseGradientTo="cyan">A rotating gradient border.</Alert>
+            <Alert variant="info" title="Glow" animation="glow">A soft breathing glow.</Alert>
+            <Alert variant="success" title="Pulse" animation="pulse">An expanding ring in the alert's own color.</Alert>
+            <Alert variant="error" title="Gradient pulse" animation="pulse" pulseColor="rose" pulseGradientTo="amber">A gradient pulse ring.</Alert>
+            <Alert variant="warning" title="Sweep" animation="sweep">A light streak gliding across.</Alert>
+            <Alert variant="info" title="Border spin" animation="border-spin" pulseColor="blue" pulseGradientTo="cyan">A rotating gradient border.</Alert>
             <div className="flex flex-wrap gap-4">
-              <Alert variant="info" title="Bounce" animated="bounce" className="w-56">Bounce</Alert>
-              <Alert variant="success" title="Float" animated="float" className="w-56">Float</Alert>
-              <Alert variant="warning" title="Wiggle" animated="wiggle" className="w-56">Wiggle</Alert>
+              <Alert variant="info" title="Bounce" animation="bounce" className="w-56">Bounce</Alert>
+              <Alert variant="success" title="Float" animation="float" className="w-56">Float</Alert>
+              <Alert variant="warning" title="Wiggle" animation="wiggle" className="w-56">Wiggle</Alert>
             </div>
           </div>
           <CodeBlock
             variants={{
-              react: `<Alert variant="info" title="Glow" animated="glow">A soft breathing glow.</Alert>
-<Alert variant="success" title="Pulse" animated="pulse">An expanding ring in the alert's own color.</Alert>
-<Alert variant="error" title="Gradient pulse" animated="pulse" pulseColor="rose" pulseGradientTo="amber">A gradient pulse ring.</Alert>
-<Alert variant="warning" title="Sweep" animated="sweep">A light streak gliding across.</Alert>
-<Alert variant="info" title="Border spin" animated="border-spin" pulseColor="blue" pulseGradientTo="cyan">A rotating gradient border.</Alert>
-<Alert variant="info" title="Bounce" animated="bounce">Bounce</Alert>
-<Alert variant="success" title="Float" animated="float">Float</Alert>
-<Alert variant="warning" title="Wiggle" animated="wiggle">Wiggle</Alert>`,
-              js: `<l-Alert variant="info" heading="Glow" animated="glow">A soft breathing glow.</l-Alert>
-<l-Alert variant="success" heading="Pulse" animated="pulse">An expanding ring in the alert's own color.</l-Alert>
-<l-Alert variant="error" heading="Gradient pulse" animated="pulse" pulseColor="rose" pulseGradientTo="amber">A gradient pulse ring.</l-Alert>
-<l-Alert variant="warning" heading="Sweep" animated="sweep">A light streak gliding across.</l-Alert>
-<l-Alert variant="info" heading="Border spin" animated="border-spin" pulseColor="blue" pulseGradientTo="cyan">A rotating gradient border.</l-Alert>
-<l-Alert variant="info" heading="Bounce" animated="bounce">Bounce</l-Alert>
-<l-Alert variant="success" heading="Float" animated="float">Float</l-Alert>
-<l-Alert variant="warning" heading="Wiggle" animated="wiggle">Wiggle</l-Alert>
+              react: `<Alert variant="info" title="Glow" animation="glow">A soft breathing glow.</Alert>
+<Alert variant="success" title="Pulse" animation="pulse">An expanding ring in the alert's own color.</Alert>
+<Alert variant="error" title="Gradient pulse" animation="pulse" pulseColor="rose" pulseGradientTo="amber">A gradient pulse ring.</Alert>
+<Alert variant="warning" title="Sweep" animation="sweep">A light streak gliding across.</Alert>
+<Alert variant="info" title="Border spin" animation="border-spin" pulseColor="blue" pulseGradientTo="cyan">A rotating gradient border.</Alert>
+<Alert variant="info" title="Bounce" animation="bounce">Bounce</Alert>
+<Alert variant="success" title="Float" animation="float">Float</Alert>
+<Alert variant="warning" title="Wiggle" animation="wiggle">Wiggle</Alert>`,
+              js: `<l-Alert variant="info" heading="Glow" animation="glow">A soft breathing glow.</l-Alert>
+<l-Alert variant="success" heading="Pulse" animation="pulse">An expanding ring in the alert's own color.</l-Alert>
+<l-Alert variant="error" heading="Gradient pulse" animation="pulse" pulseColor="rose" pulseGradientTo="amber">A gradient pulse ring.</l-Alert>
+<l-Alert variant="warning" heading="Sweep" animation="sweep">A light streak gliding across.</l-Alert>
+<l-Alert variant="info" heading="Border spin" animation="border-spin" pulseColor="blue" pulseGradientTo="cyan">A rotating gradient border.</l-Alert>
+<l-Alert variant="info" heading="Bounce" animation="bounce">Bounce</l-Alert>
+<l-Alert variant="success" heading="Float" animation="float">Float</l-Alert>
+<l-Alert variant="warning" heading="Wiggle" animation="wiggle">Wiggle</l-Alert>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-Alert variant="info" heading="Glow" animated="glow">A soft breathing glow.</l-Alert>
-  <l-Alert variant="success" heading="Pulse" animated="pulse">An expanding ring in the alert's own color.</l-Alert>
-  <l-Alert variant="error" heading="Gradient pulse" animated="pulse" pulseColor="rose" pulseGradientTo="amber">A gradient pulse ring.</l-Alert>
-  <l-Alert variant="warning" heading="Sweep" animated="sweep">A light streak gliding across.</l-Alert>
-  <l-Alert variant="info" heading="Border spin" animated="border-spin" pulseColor="blue" pulseGradientTo="cyan">A rotating gradient border.</l-Alert>
-  <l-Alert variant="info" heading="Bounce" animated="bounce">Bounce</l-Alert>
-  <l-Alert variant="success" heading="Float" animated="float">Float</l-Alert>
-  <l-Alert variant="warning" heading="Wiggle" animated="wiggle">Wiggle</l-Alert>
+  <l-Alert variant="info" heading="Glow" animation="glow">A soft breathing glow.</l-Alert>
+  <l-Alert variant="success" heading="Pulse" animation="pulse">An expanding ring in the alert's own color.</l-Alert>
+  <l-Alert variant="error" heading="Gradient pulse" animation="pulse" pulseColor="rose" pulseGradientTo="amber">A gradient pulse ring.</l-Alert>
+  <l-Alert variant="warning" heading="Sweep" animation="sweep">A light streak gliding across.</l-Alert>
+  <l-Alert variant="info" heading="Border spin" animation="border-spin" pulseColor="blue" pulseGradientTo="cyan">A rotating gradient border.</l-Alert>
+  <l-Alert variant="info" heading="Bounce" animation="bounce">Bounce</l-Alert>
+  <l-Alert variant="success" heading="Float" animation="float">Float</l-Alert>
+  <l-Alert variant="warning" heading="Wiggle" animation="wiggle">Wiggle</l-Alert>
 </template>
 
 <script setup lang="ts">
@@ -404,14 +404,14 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Alert variant="info" heading="Glow" animated="glow">A soft breathing glow.</l-Alert>
-    <l-Alert variant="success" heading="Pulse" animated="pulse">An expanding ring in the alert's own color.</l-Alert>
-    <l-Alert variant="error" heading="Gradient pulse" animated="pulse" pulseColor="rose" pulseGradientTo="amber">A gradient pulse ring.</l-Alert>
-    <l-Alert variant="warning" heading="Sweep" animated="sweep">A light streak gliding across.</l-Alert>
-    <l-Alert variant="info" heading="Border spin" animated="border-spin" pulseColor="blue" pulseGradientTo="cyan">A rotating gradient border.</l-Alert>
-    <l-Alert variant="info" heading="Bounce" animated="bounce">Bounce</l-Alert>
-    <l-Alert variant="success" heading="Float" animated="float">Float</l-Alert>
-    <l-Alert variant="warning" heading="Wiggle" animated="wiggle">Wiggle</l-Alert>
+    <l-Alert variant="info" heading="Glow" animation="glow">A soft breathing glow.</l-Alert>
+    <l-Alert variant="success" heading="Pulse" animation="pulse">An expanding ring in the alert's own color.</l-Alert>
+    <l-Alert variant="error" heading="Gradient pulse" animation="pulse" pulseColor="rose" pulseGradientTo="amber">A gradient pulse ring.</l-Alert>
+    <l-Alert variant="warning" heading="Sweep" animation="sweep">A light streak gliding across.</l-Alert>
+    <l-Alert variant="info" heading="Border spin" animation="border-spin" pulseColor="blue" pulseGradientTo="cyan">A rotating gradient border.</l-Alert>
+    <l-Alert variant="info" heading="Bounce" animation="bounce">Bounce</l-Alert>
+    <l-Alert variant="success" heading="Float" animation="float">Float</l-Alert>
+    <l-Alert variant="warning" heading="Wiggle" animation="wiggle">Wiggle</l-Alert>
   \`,
 })
 export class AppComponent {}`,

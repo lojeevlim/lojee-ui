@@ -7,7 +7,7 @@ export interface ApiDataType { name: string; via: string | null; note: string | 
 export interface ApiDoc { components: ApiComponent[]; hooks: ApiHook[]; types: Record<string, string>; dataTypes: ApiDataType[] }
 
 export const API_DOCS: Record<string, ApiDoc> = {
-  "App": {
+  "App Layout": {
     "components": [
       {
         "name": "App",
@@ -1714,10 +1714,10 @@ export const API_DOCS: Record<string, ApiDoc> = {
         "name": "Button",
         "props": [
           {
-            "name": "animated",
-            "type": "AnimatedVariant",
+            "name": "animation",
+            "type": "AnimatedProp",
             "required": false,
-            "description": "Attention animation: \"glow\" | \"pulse\" | \"sweep\" | \"bounce\" | \"float\" | \"wiggle\" | \"border-spin\" (default: none). Respects `prefers-reduced-motion`.",
+            "description": "Attention animation: \"glow\" | \"pulse\" | \"sweep\" | \"bounce\" | \"float\" | \"wiggle\" | \"border-spin\" | \"particles\" | \"tail\" — one, or a list to combine, e.g. [\"particles\", \"tail\"] (default: none). Respects `prefers-reduced-motion`.",
             "default": null
           },
           {
@@ -1906,7 +1906,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
         "element": {
           "tag": "l-button",
           "props": {
-            "animated": "string",
+            "animation": "string",
             "pulseColor": "string",
             "pulseGradientTo": "string",
             "variant": "string",
@@ -2305,10 +2305,10 @@ export const API_DOCS: Record<string, ApiDoc> = {
         "name": "Badge",
         "props": [
           {
-            "name": "animated",
-            "type": "AnimatedVariant",
+            "name": "animation",
+            "type": "AnimatedProp",
             "required": false,
-            "description": "Attention animation: \"glow\" | \"pulse\" | \"sweep\" | \"bounce\" | \"float\" | \"wiggle\" | \"border-spin\" (default: none). Respects `prefers-reduced-motion`.",
+            "description": "Attention animation: \"glow\" | \"pulse\" | \"sweep\" | \"bounce\" | \"float\" | \"wiggle\" | \"border-spin\" | \"particles\" | \"tail\" — one, or a list to combine, e.g. [\"particles\", \"tail\"] (default: none). Respects `prefers-reduced-motion`.",
             "default": null
           },
           {
@@ -2420,7 +2420,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
         "element": {
           "tag": "l-badge",
           "props": {
-            "animated": "string",
+            "animation": "string",
             "pulseColor": "string",
             "pulseGradientTo": "string",
             "variant": "string",
@@ -2452,10 +2452,10 @@ export const API_DOCS: Record<string, ApiDoc> = {
         "name": "Avatar",
         "props": [
           {
-            "name": "animated",
-            "type": "AnimatedVariant",
+            "name": "animation",
+            "type": "AnimatedProp",
             "required": false,
-            "description": "Attention animation: \"glow\" | \"pulse\" | \"sweep\" | \"bounce\" | \"float\" | \"wiggle\" | \"border-spin\" (default: none). Respects `prefers-reduced-motion`.",
+            "description": "Attention animation: \"glow\" | \"pulse\" | \"sweep\" | \"bounce\" | \"float\" | \"wiggle\" | \"border-spin\" | \"particles\" | \"tail\" — one, or a list to combine, e.g. [\"particles\", \"tail\"] (default: none). Respects `prefers-reduced-motion`.",
             "default": null
           },
           {
@@ -2567,7 +2567,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
         "element": {
           "tag": "l-avatar",
           "props": {
-            "animated": "string",
+            "animation": "string",
             "pulseColor": "string",
             "pulseGradientTo": "string",
             "src": "string",
@@ -2920,10 +2920,10 @@ export const API_DOCS: Record<string, ApiDoc> = {
         "name": "Card",
         "props": [
           {
-            "name": "animated",
-            "type": "AnimatedVariant",
+            "name": "animation",
+            "type": "AnimatedProp",
             "required": false,
-            "description": "Attention animation: \"glow\" | \"pulse\" | \"sweep\" | \"bounce\" | \"float\" | \"wiggle\" | \"border-spin\" (default: none). Respects `prefers-reduced-motion`.",
+            "description": "Attention animation: \"glow\" | \"pulse\" | \"sweep\" | \"bounce\" | \"float\" | \"wiggle\" | \"border-spin\" | \"particles\" | \"tail\" — one, or a list to combine, e.g. [\"particles\", \"tail\"] (default: none). Respects `prefers-reduced-motion`.",
             "default": null
           },
           {
@@ -3033,7 +3033,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "hoverable": "boolean",
             "title": "string",
             "footer": "string",
-            "animated": "string",
+            "animation": "string",
             "pulseColor": "string",
             "pulseGradientTo": "string",
             "transition": "string",
@@ -8441,10 +8441,10 @@ export const API_DOCS: Record<string, ApiDoc> = {
         "name": "Alert",
         "props": [
           {
-            "name": "animated",
-            "type": "AnimatedVariant",
+            "name": "animation",
+            "type": "AnimatedProp",
             "required": false,
-            "description": "Attention animation: \"glow\" | \"pulse\" | \"sweep\" | \"bounce\" | \"float\" | \"wiggle\" | \"border-spin\" (default: none). Respects `prefers-reduced-motion`.",
+            "description": "Attention animation: \"glow\" | \"pulse\" | \"sweep\" | \"bounce\" | \"float\" | \"wiggle\" | \"border-spin\" | \"particles\" | \"tail\" — one, or a list to combine, e.g. [\"particles\", \"tail\"] (default: none). Respects `prefers-reduced-motion`.",
             "default": null
           },
           {
@@ -8549,7 +8549,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
         "element": {
           "tag": "l-alert",
           "props": {
-            "animated": "string",
+            "animation": "string",
             "pulseColor": "string",
             "pulseGradientTo": "string",
             "variant": "string",
@@ -12446,10 +12446,10 @@ export const API_DOCS: Record<string, ApiDoc> = {
         "name": "Stat",
         "props": [
           {
-            "name": "animated",
-            "type": "AnimatedVariant",
+            "name": "animation",
+            "type": "AnimatedProp",
             "required": false,
-            "description": "Attention animation: \"glow\" | \"pulse\" | \"sweep\" | \"bounce\" | \"float\" | \"wiggle\" | \"border-spin\" (default: none). Respects `prefers-reduced-motion`.",
+            "description": "Attention animation: \"glow\" | \"pulse\" | \"sweep\" | \"bounce\" | \"float\" | \"wiggle\" | \"border-spin\" | \"particles\" | \"tail\" — one, or a list to combine, e.g. [\"particles\", \"tail\"] (default: none). Respects `prefers-reduced-motion`.",
             "default": null
           },
           {
@@ -12576,7 +12576,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "trend": "string",
             "icon": "string",
             "color": "string",
-            "animated": "string",
+            "animation": "string",
             "pulseColor": "string",
             "pulseGradientTo": "string",
             "transition": "string",
@@ -13361,10 +13361,10 @@ export const API_DOCS: Record<string, ApiDoc> = {
         "name": "ProfileCard",
         "props": [
           {
-            "name": "animated",
-            "type": "AnimatedVariant",
+            "name": "animation",
+            "type": "AnimatedProp",
             "required": false,
-            "description": "Attention animation: \"glow\" | \"pulse\" | \"sweep\" | \"bounce\" | \"float\" | \"wiggle\" | \"border-spin\" (default: none). Respects `prefers-reduced-motion`.",
+            "description": "Attention animation: \"glow\" | \"pulse\" | \"sweep\" | \"bounce\" | \"float\" | \"wiggle\" | \"border-spin\" | \"particles\" | \"tail\" — one, or a list to combine, e.g. [\"particles\", \"tail\"] (default: none). Respects `prefers-reduced-motion`.",
             "default": null
           },
           {
@@ -13483,7 +13483,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
         "element": {
           "tag": "l-profile-card",
           "props": {
-            "animated": "string",
+            "animation": "string",
             "pulseColor": "string",
             "pulseGradientTo": "string",
             "name": "string",

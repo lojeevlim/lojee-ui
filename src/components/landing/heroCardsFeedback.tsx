@@ -114,7 +114,7 @@ const tabs = (color?: "emerald" | "violet") => (
     color={color}
     tabs={[
       { label: "Install", content: <p className={TAB_NOTE}>npm install lojee-ui</p> },
-      { label: "Style", content: <p className={TAB_NOTE}>Light, dark, 12 accents.</p> },
+      { label: "Style", content: <p className={TAB_NOTE}>Light, dark, 40+ accents.</p> },
       { label: "Ship", content: <p className={TAB_NOTE}>Web Components too.</p> },
     ]}
   />
