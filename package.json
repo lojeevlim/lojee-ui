@@ -1,6 +1,6 @@
 {
   "name": "lojee-ui",
-  "version": "0.1.0-alpha.11",
+  "version": "0.1.0-alpha.12",
   "description": "React + TypeScript UI component library styled with Tailwind v4 — ships auto-generated Web Components alongside the React components, with a built-in demo/docs site.",
   "license": "MIT",
   "author": "lojeevlim",

@@ -2,8 +2,17 @@
 export interface ChangelogCommit { sha: string; short: string; date: string; author: string; email: string; subject: string; body: string }
 
 export const PACKAGE_VERSION = "0.1.0-alpha.11";
-export const CHANGELOG_GENERATED_AT = "2026-10-05T07:18:52.809Z";
+export const CHANGELOG_GENERATED_AT = "2026-10-05T14:23:56.995Z";
 export const CHANGELOG: ChangelogCommit[] = [
+  {
+    "sha": "9607b75d6d485b1b079b9f4f71112c2e21ed04df",
+    "short": "9607b75",
+    "date": "2026-10-05T22:21:06+08:00",
+    "author": "lojeevlim",
+    "email": "lojeevlim@gmail.com",
+    "subject": "Clay pass across components, Skeleton replaces Loader, DotScroll scrollbar, BottomNavigation floating button",
+    "body": "- Clay: Slider/RangeSlider, Divider handle, TopBar, Header, Footer, Stepper, Tabs, Timeline, Stat, Chart bars, Map frame, active items; design label \"Clay\"\n- Slider/RangeSlider: size, thumbVariant, valuePlacement (\"thumb\" puts the value inside the button)\n- BottomNavigation: iconOnly, floating action button (fabIcon / fabLabel / onFabClick) in a curved notch, onItemClick; responsive Transitions grid\n- Divider: handleVariant; Skeleton: wave animation; Footer: color only (variants removed)\n- ThemeSwitcher: more accents and presets, accent name on the trigger, fix items vanishing on Custom\n- Merge Loader into Skeleton (breaking: Loader / <l-loader> removed)\n- New DotScroll: dotted scrollbar with glowing dot, tail, particles and edge burst; used by Sidebar, Modal, Drawer, Sheet, menus, dropdowns, Table, code blocks\n- Theme-colored scrollbars, browser-tab icon follows the accent, site default theme light/clay/solid/violet\n- Showcases: labelled variants everywhere, wider App sidebar, landing controls panel taller"
+  },
   {
     "sha": "467ae4b5a26dceee4c139daddb489bab72631a55",
     "short": "467ae4b",

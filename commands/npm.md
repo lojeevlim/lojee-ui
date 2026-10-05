@@ -75,7 +75,7 @@ lojeevlim                   <- your npm username
 
 ```bash
 npm run docs:api && npm run docs:changelog
-npm version prerelease --preid alpha --no-git-tag-version
+npm version prerelease --preid alpha --no-git-tag-version #->manual versioning example -> npm version 0.1.0-alpha.12 --no-git-tag-version
 npm run docs:ai
 ```
 
