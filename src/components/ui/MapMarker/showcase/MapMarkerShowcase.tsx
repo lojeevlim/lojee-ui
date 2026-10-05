@@ -30,7 +30,7 @@ function DraggableDemo() {
   const [pos, setPos] = useState({ lng: 123.9049, lat: 10.3182 });
   return (
     <div className="space-y-3">
-      <Map center={[123.9049, 10.3182]} zoom={13.5} className="h-80">
+      <Map center={[123.9049, 10.3182]} zoom={13.5} height={420}>
         <MapMarker lng={pos.lng} lat={pos.lat} draggable color="rose" label="Drag me" onDragEnd={setPos} />
       </Map>
       <p className="font-mono text-xs text-fg-subtle">
@@ -44,7 +44,7 @@ function ClickDemo() {
   const [clicked, setClicked] = useState<string>("none");
   return (
     <div className="space-y-3">
-      <Map center={[123.895, 10.316]} zoom={12} markers={LABELED} fitBounds onMarkerClick={(m) => setClicked(m.label ?? m.id ?? "")} className="h-80" />
+      <Map center={[123.895, 10.316]} zoom={12} markers={LABELED} fitBounds onMarkerClick={(m) => setClicked(m.label ?? m.id ?? "")} height={420} />
       <p className="text-sm text-fg-subtle">
         Last clicked: <span className="font-medium text-fg">{clicked}</span>
       </p>
@@ -66,7 +66,7 @@ export default function MapMarkerShowcase() {
 
         <section>
           <SectionLabel sub="A marker needs only lng and lat.">Basic</SectionLabel>
-          <Map center={CEBU} zoom={12} className="h-80">
+          <Map center={CEBU} zoom={12} height={420}>
             {BASIC.map((m, i) => (
               <MapMarker key={i} lng={m.lng} lat={m.lat} />
             ))}
@@ -82,7 +82,7 @@ export default function MapMarkerShowcase() {
 
         <section>
           <SectionLabel sub="color takes a built-in color name (default accent — follows the theme) or any CSS color; icon draws an icon from the library's set inside the pin.">Colors and icons</SectionLabel>
-          <Map center={[123.895, 10.318]} zoom={12} className="h-80">
+          <Map center={[123.895, 10.318]} zoom={12} height={420}>
             {COLORED.map((m, i) => (
               <MapMarker key={i} lng={m.lng} lat={m.lat} color={m.color} icon={m.icon} />
             ))}
@@ -98,7 +98,7 @@ export default function MapMarkerShowcase() {
 
         <section>
           <SectionLabel sub="label puts a small tag beside the pin.">Labels</SectionLabel>
-          <Map center={[123.895, 10.318]} zoom={12} className="h-80">
+          <Map center={[123.895, 10.318]} zoom={12} height={420}>
             {LABELED.map((m, i) => (
               <MapMarker key={i} lng={m.lng} lat={m.lat} label={m.label} />
             ))}
@@ -114,7 +114,7 @@ export default function MapMarkerShowcase() {
 
         <section>
           <SectionLabel sub="popup opens on click. In React it can be any content; as data it is text.">Popups</SectionLabel>
-          <Map center={[123.895, 10.315]} zoom={12.5} className="h-80">
+          <Map center={[123.895, 10.315]} zoom={12.5} height={420}>
             <MapMarker lng={POPUPS[0].lng} lat={POPUPS[0].lat} label="Fort San Pedro" popup={POPUPS[0].popup} />
             <MapMarker
               lng={POPUPS[1].lng}
@@ -144,7 +144,7 @@ export default function MapMarkerShowcase() {
 
         <section>
           <SectionLabel sub="tooltip is a short bubble shown while hovering — handy when there are many markers.">Tooltips</SectionLabel>
-          <Map center={[123.895, 10.318]} zoom={12} className="h-80">
+          <Map center={[123.895, 10.318]} zoom={12} height={420}>
             {TIPS.map((m, i) => (
               <MapMarker key={i} lng={m.lng} lat={m.lat} tooltip={m.tooltip} color="violet" />
             ))}
@@ -173,7 +173,7 @@ export default function MapMarkerShowcase() {
 
         <section>
           <SectionLabel sub="Give MapMarker children to replace the pin with anything — an avatar, a badge, a price tag.">Custom markers</SectionLabel>
-          <Map center={[123.895, 10.318]} zoom={12} className="h-80">
+          <Map center={[123.895, 10.318]} zoom={12} height={420}>
             {CEBU_STOPS.map((s, i) => (
               <MapMarker key={s.name} lng={s.coord[0]} lat={s.coord[1]} popup={s.name}>
                 <span className="flex h-8 w-8 items-center justify-center rounded-full bg-accent-600 text-sm font-semibold text-white shadow-lg ring-4 ring-white/70">{i + 1}</span>

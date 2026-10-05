@@ -479,9 +479,9 @@ export default function ThemeShowcase() {
           <ApiTable
             rows={[
               ["defaultMode", '"light" | "dark" — "light"', "Used when nothing is saved yet."],
-              ["defaultAccent", "Accent — \"slate\"", "One of slate, gray, indigo, violet, blue, cyan, emerald, teal, amber, orange, rose, pink — or any custom hex color such as \"#e11d89\"."],
+              ["defaultAccent", "Accent — \"slate\"", "One of slate, gray, indigo, violet, blue, cyan, emerald, teal, amber, orange, rose, pink, red, lime, green, sky, fuchsia, purple, yellow, stone, zinc, neutral, mauve, mist, olive, taupe — or any custom hex color such as \"#e11d89\"."],
               ["defaultActiveVariant", '"solid" | "outline" | "soft" — "solid"', "How active items are drawn (current page in a Sidebar / Navbar / Pagination, selected segment…)."],
-              ["defaultDesign", '"bento" | "clay" — "bento"', "The design language: Bento (flat surfaces, thin borders — the default) or Claymorphism (soft, puffy, rounded shapes with a raised inner light and shade)."],
+              ["defaultDesign", '"bento" | "clay" — "bento"', "The design language: Bento (flat surfaces, thin borders — the default) or Clay (soft, puffy, rounded shapes with a raised inner light and shade)."],
               ["isolated", "boolean — false", "Scope the theme to this provider's own wrapper (no <html> change, no localStorage) — for self-contained previews."],
               ["mode / accent / design", "ThemeMode / Accent / DesignName", "Controlled values; when given they win over the provider's own state."],
               ["children", "ReactNode", "Your app."],
@@ -504,7 +504,7 @@ export default function ThemeShowcase() {
               ["setMode(mode)", "(mode) => void", "Switch mode and persist it."],
               ["setAccent(accent)", "(accent) => void", "Switch accent and persist it."],
               ["setActiveVariant(variant)", "(variant) => void", "Switch the active-item style and persist it."],
-              ["setDesign(design)", "(design) => void", "Switch between Bento and Claymorphism and persist it."],
+              ["setDesign(design)", "(design) => void", "Switch between Bento and Clay and persist it."],
             ]}
           />
         </Step>

@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { Fragment, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { cx, isColorName, type ColorName } from "../../../core/tokens";
 import { ACTIVE_ITEM_TRANSITION, ACTIVE_PILL_TRANSITION, activeAccent, activeMarker, explicitActive, type ActiveVariant } from "../../../core/activeVariant";
 import { navbarActiveFillClasses } from "../Navbar/navbarActiveStyles";
@@ -55,6 +55,17 @@ export interface BottomNavigationProps {
   /** Called with the full item whenever the active tab changes — a click, a URL match on
    * mount/back-forward navigation, or an item's `active` field changing to point elsewhere. */
   onActiveItemChange?: (item: BottomNavigationItem) => void;
+  /** Called on every tab click, with the clicked item and its index — including a click on the tab that is already active (which
+   * `onActiveItemChange` does not report). The web component's `itemclick` event (detail = the item). */
+  onItemClick?: (item: BottomNavigationItem, index: number) => void;
+  /** Shows only the icons — the labels are hidden (they stay as each tab's accessible name and tooltip). Default: false. */
+  iconOnly?: boolean;
+  /** Icon name of a floating action button raised above the middle of the bar (e.g. "plus"). Setting it shows the button and splits the tabs around it. */
+  fabIcon?: string;
+  /** Accessible name / tooltip of the floating button (default: "Action"). */
+  fabLabel?: string;
+  /** Called when the floating button is pressed (the web component's `fabclick` event). */
+  onFabClick?: () => void;
   /** Enter transition: "fade" | "slide-up" | "slide-down" | "slide-left" | "slide-right" | "zoom" | "zoom-out" | "flip" | "blur" | "bounce" | "rotate" | "drop" | "skew" (default: none). Respects `prefers-reduced-motion`. */
   transition?: TransitionVariant;
   /** Enter transition duration in ms (default: 450). */
@@ -80,8 +91,13 @@ export function BottomNavigation({
   items,
   color = "accent",
   variant,
+  iconOnly = false,
+  fabIcon,
+  fabLabel = "Action",
+  onFabClick,
   defaultActiveItem,
   onActiveItemChange,
+  onItemClick,
   transition,
   transitionDuration,
   transitionDelay,
@@ -157,9 +173,38 @@ export function BottomNavigation({
   return (
     <div
       ref={barRef}
-      className={cx("relative flex items-center justify-around gap-1 border-t border-border bg-surface px-2 py-2", motionClass(transition), className, classNames?.root)}
+      className={cx("relative flex items-center justify-around gap-1 px-2 py-2", !fabIcon && "border-t border-border bg-surface", motionClass(transition), className, classNames?.root)}
       style={motionStyle(transitionDuration, transitionDelay)}
     >
+      {fabIcon && (
+        // The bar's surface when there is a floating button: the same bar, but with a round notch scooped out of its top edge (smooth
+        // shoulders on both sides) for the button to sit in. Drawn as left | notch | right so the middle can follow a curve.
+        <div aria-hidden data-bn-surface="" className="pointer-events-none absolute inset-0 flex">
+          <div className="flex-1 border-t border-border bg-surface" />
+          <div className="flex w-[120px] shrink-0 flex-col">
+            <svg viewBox="0 0 120 44" className="block h-[44px] w-[120px] overflow-visible" data-bn-notch="">
+              <defs>
+                <filter id="lojee-bn-notch-blur" x="-10%" y="-40%" width="120%" height="180%">
+                  <feGaussianBlur stdDeviation="2" />
+                </filter>
+              </defs>
+              {/* A soft shadow the bar's edge casts into the notch: a blurred stroke along the scoop, mostly hidden under the bar's fill. */}
+              <path
+                data-bn-notch-shadow=""
+                d="M18.2,0 A8,8 0 0 1 26.16,7.24 A34,34 0 0 0 93.84,7.24 A8,8 0 0 1 101.8,0"
+                fill="none"
+                strokeWidth="4"
+                filter="url(#lojee-bn-notch-blur)"
+                className="stroke-black/10"
+              />
+              <path d="M0,0 L18.2,0 A8,8 0 0 1 26.16,7.24 A34,34 0 0 0 93.84,7.24 A8,8 0 0 1 101.8,0 L120,0 L120,44.5 L0,44.5 Z" className="fill-surface" />
+              <path d="M0,0.5 L18.2,0.5 A8,8 0 0 1 26.16,7.74 A34,34 0 0 0 93.84,7.74 A8,8 0 0 1 101.8,0.5 L120,0.5" fill="none" strokeWidth="1" className="stroke-border" />
+            </svg>
+            <div className="-mt-px flex-1 bg-surface" />
+          </div>
+          <div className="flex-1 border-t border-border bg-surface" />
+        </div>
+      )}
       {pill && variant !== "text" && (
         <span
           aria-hidden
@@ -172,7 +217,8 @@ export function BottomNavigation({
       {items.map((item, i) => {
         const active = item.label === selectedLabel;
         const itemClasses = cx(
-          "relative z-10 flex min-w-0 flex-1 flex-col items-center gap-0.5 rounded-xl px-2 py-2.5 text-[11px]",
+          "relative z-10 flex min-w-0 flex-1 flex-col items-center gap-0.5 rounded-xl px-2 text-[11px]",
+          iconOnly ? "py-3" : "py-2.5",
           ACTIVE_ITEM_TRANSITION,
           active
             ? cx(explicit ? explicit.textClass : "text-white", classNames?.activeItem)
@@ -186,7 +232,7 @@ export function BottomNavigation({
         const content = (
           <>
             <span className={cx("relative", classNames?.icon)}>
-              <Icon name={item.icon} size={18} />
+              <Icon name={item.icon} size={iconOnly ? 22 : 18} />
               {item.badge !== undefined && (
                 <span
                   className={cx(
@@ -198,10 +244,10 @@ export function BottomNavigation({
                 </span>
               )}
             </span>
-            <span className={cx("max-w-full truncate", classNames?.label)}>{item.label}</span>
+            {!iconOnly && <span className={cx("max-w-full truncate", classNames?.label)}>{item.label}</span>}
           </>
         );
-        return item.href ? (
+        const tab = item.href ? (
           <a
             key={`${item.label}-${i}`}
             ref={(el) => {
@@ -209,9 +255,14 @@ export function BottomNavigation({
             }}
             href={item.href}
             aria-current={active ? "page" : undefined}
+            aria-label={iconOnly ? item.label : undefined}
+            title={iconOnly ? item.label : undefined}
             className={itemClasses}
             {...activeProps}
-            onClick={() => setSelectedLabel(item.label)}
+            onClick={() => {
+              setSelectedLabel(item.label);
+              onItemClick?.(item, i);
+            }}
           >
             {content}
           </a>
@@ -223,14 +274,43 @@ export function BottomNavigation({
             }}
             type="button"
             aria-current={active ? "page" : undefined}
+            aria-label={iconOnly ? item.label : undefined}
+            title={iconOnly ? item.label : undefined}
             className={itemClasses}
             {...activeProps}
-            onClick={() => setSelectedLabel(item.label)}
+            onClick={() => {
+              setSelectedLabel(item.label);
+              onItemClick?.(item, i);
+            }}
           >
             {content}
           </button>
         );
+        // With a floating button, a gap in the middle of the row leaves room for it.
+        return fabIcon && i === Math.ceil(items.length / 2) ? (
+          <Fragment key={`${item.label}-${i}`}>
+            <span aria-hidden className="w-16 shrink-0" />
+            {tab}
+          </Fragment>
+        ) : (
+          tab
+        );
       })}
+      {fabIcon && (
+        <>
+          <button
+            type="button"
+            data-bn-fab=""
+            aria-label={fabLabel}
+            title={fabLabel}
+            onClick={() => onFabClick?.()}
+            className="absolute -top-6 left-1/2 z-20 flex size-14 -translate-x-1/2 items-center justify-center rounded-full text-white shadow-lg transition-transform duration-200 hover:-translate-y-0.5 active:scale-95 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[color-mix(in_srgb,var(--ac)_35%,transparent)]"
+            style={{ backgroundColor: activeAccent(color, colorIsNamed), ["--ac" as string]: activeAccent(color, colorIsNamed) }}
+          >
+            <Icon name={fabIcon} size={26} />
+          </button>
+        </>
+      )}
     </div>
   );
 }

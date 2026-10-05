@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { DotScroll } from "./DotScroll/DotScroll";
 import { Copy, Check, ChevronDown } from "lucide-react";
 import { highlightCode } from "../../core/highlightCode";
 import { closeCustomElements } from "../../core/htmlCode";
@@ -75,9 +76,11 @@ export default function CodeBlock({ code, variants, defaultOpen = false }: CodeB
             </p>
           )}
           {activeCode && (
-            <pre className="overflow-x-auto px-4 pb-4 text-xs leading-relaxed text-fg">
-              <code>{highlightCode(activeCode)}</code>
-            </pre>
+            <DotScroll axis="x">
+              <pre className="px-4 pb-4 text-xs leading-relaxed text-fg">
+                <code>{highlightCode(activeCode)}</code>
+              </pre>
+            </DotScroll>
           )}
         </>
       )}

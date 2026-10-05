@@ -5,7 +5,7 @@ import { wcCode } from "./webComponentCode";
 import { useMotion } from "./playgroundMotion";
 
 const VARIANTS: SkeletonVariant[] = ["text", "rect", "circle"];
-const ANIMATIONS: SkeletonAnimation[] = ["pulse", "shimmer", "none"];
+const ANIMATIONS: SkeletonAnimation[] = ["pulse", "shimmer", "wave", "none"];
 const LINES = ["1", "2", "3", "5"] as const;
 
 export default function SkeletonPlayground() {

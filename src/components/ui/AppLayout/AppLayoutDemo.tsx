@@ -41,7 +41,7 @@ export default function AppLayoutDemo({
         <Side>
           <Sidebar
             color="accent"
-            width={150}
+            width={210}
             height="100%"
             collapsible={false}
             items={[

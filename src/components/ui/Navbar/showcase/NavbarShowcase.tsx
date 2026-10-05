@@ -36,12 +36,12 @@ export default function NavbarShowcase() {
             Basic
           </SectionLabel>
           <div className="overflow-hidden rounded-lg border border-border">
-            <Navbar brand="Lojee" items={BASIC_ITEMS} actions={<Avatar initials="JD" size="sm" />} />
+            <Navbar brand="App" items={BASIC_ITEMS} actions={<Avatar initials="JD" size="sm" />} />
           </div>
           <CodeBlock
             variants={{
               react: `<Navbar
-  brand="Lojee"
+  brand="App"
   items={[
     { label: "Home", active: true },
     { label: "Products" },
@@ -49,7 +49,7 @@ export default function NavbarShowcase() {
   ]}
   actions={<Avatar initials="JD" size="sm" />}
 />`,
-              js: `<l-Navbar id="basic-navbar" brand="Lojee">
+              js: `<l-Navbar id="basic-navbar" brand="App">
   <div slot="actions">
     <l-Avatar initials="JD" size="sm"></l-Avatar>
   </div>
@@ -68,7 +68,7 @@ export default function NavbarShowcase() {
   <!-- l-Navbar is a native custom element, not a Vue component — Vue's own #slotName shorthand only
        resolves for actual Vue components, so a real light-DOM slot="actions" projects here instead,
        same plain attribute vanilla JS/Angular use above. -->
-  <l-Navbar brand="Lojee" :items="items">
+  <l-Navbar brand="App" :items="items">
     <div slot="actions">
       <l-Avatar initials="JD" size="sm" />
     </div>
@@ -85,7 +85,7 @@ const items = [
 ];
 </script>`,
               angular: `<!-- app.component.html -->
-<l-Navbar brand="Lojee" [items]="items">
+<l-Navbar brand="App" [items]="items">
   <div slot="actions">
     <l-Avatar initials="JD" size="sm"></l-Avatar>
   </div>
@@ -100,7 +100,7 @@ const items = [
           </SectionLabel>
           <div className="overflow-hidden rounded-lg border border-border">
             <Navbar
-              brand="Lojee"
+              brand="App"
               defaultActiveItem="Dashboard"
               onActiveItemChange={(item) => setActiveLabel(item.label)}
               items={ACTIVE_LINK_ITEMS}
@@ -113,7 +113,7 @@ const items = [
           <CodeBlock
             variants={{
               react: `<Navbar
-  brand="Lojee"
+  brand="App"
   defaultActiveItem="Dashboard"
   onActiveItemChange={(item) => console.log(item)}
   items={[
@@ -122,7 +122,7 @@ const items = [
     { label: "Team", href: "/team" },
   ]}
 />`,
-              js: `<l-Navbar id="active-navbar" brand="Lojee" default-active-item="Dashboard"></l-Navbar>
+              js: `<l-Navbar id="active-navbar" brand="App" default-active-item="Dashboard"></l-Navbar>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -137,7 +137,7 @@ const items = [
 </script>`,
               vue: `<template>
   <l-Navbar
-    brand="Lojee"
+    brand="App"
     default-active-item="Dashboard"
     :items="items"
     @activeitemchange="(e) => console.log(e.detail)"
@@ -154,7 +154,7 @@ const items = [
 ];
 </script>`,
               angular: `<l-Navbar
-  brand="Lojee"
+  brand="App"
   default-active-item="Dashboard"
   [items]="items"
   (activeitemchange)="onActiveItemChange($event.detail)"
@@ -175,7 +175,7 @@ onActiveItemChange(item: unknown) {
         <section>
           <SectionLabel sub="Set sticky so the bar pins to the top of its scroll container.">Sticky</SectionLabel>
           <div className="h-64 overflow-y-auto rounded-lg border border-border">
-            <Navbar sticky brand="Lojee">
+            <Navbar sticky brand="App">
               <Button variant="ghost" label="Home" />
               <Button variant="ghost" label="Products" />
             </Navbar>
@@ -190,7 +190,7 @@ onActiveItemChange(item: unknown) {
           <CodeBlock
             variants={{
               react: `<div className="h-64 overflow-y-auto">
-  <Navbar sticky brand="Lojee">
+  <Navbar sticky brand="App">
     <Button variant="ghost" label="Home" />
     <Button variant="ghost" label="Products" />
   </Navbar>
@@ -199,7 +199,7 @@ onActiveItemChange(item: unknown) {
   </div>
 </div>`,
               js: `<div class="h-64 overflow-y-auto">
-  <l-Navbar sticky brand="Lojee">
+  <l-Navbar sticky brand="App">
     <l-Button variant="ghost" label="Home"></l-Button>
     <l-Button variant="ghost" label="Products"></l-Button>
   </l-Navbar>
@@ -211,7 +211,7 @@ onActiveItemChange(item: unknown) {
 <script type="module">import "lojee-ui/elements";</script>`,
               vue: `<template>
   <div class="h-64 overflow-y-auto">
-    <l-Navbar sticky brand="Lojee">
+    <l-Navbar sticky brand="App">
       <l-Button variant="ghost" label="Home" />
       <l-Button variant="ghost" label="Products" />
     </l-Navbar>
@@ -221,7 +221,7 @@ onActiveItemChange(item: unknown) {
   </div>
 </template>`,
               angular: `<div class="h-64 overflow-y-auto">
-  <l-Navbar sticky brand="Lojee">
+  <l-Navbar sticky brand="App">
     <l-Button variant="ghost" label="Home"></l-Button>
     <l-Button variant="ghost" label="Products"></l-Button>
   </l-Navbar>
@@ -243,41 +243,59 @@ onActiveItemChange(item: unknown) {
           >
             Variants
           </SectionLabel>
-          <div className="grid gap-4">
-            <div className="overflow-hidden rounded-lg border border-border">
-              <Navbar brand="Lojee" items={VARIANT_ITEMS} actions={<Avatar initials="JD" size="sm" />} />
+          <div className="grid gap-6">
+            <div>
+              <p className="mb-1.5 font-mono text-xs text-fg-subtle">light</p>
+              <div className="overflow-hidden rounded-lg border border-border">
+                <Navbar brand="App" items={VARIANT_ITEMS} actions={<Avatar initials="JD" size="sm" />} />
+              </div>
             </div>
-            <div className="overflow-hidden rounded-lg border border-slate-800">
-              <Navbar
-                variant="dark"
-                brand={<span className="text-white">Lojee</span>}
-                items={VARIANT_ITEMS}
-                actions={<Avatar initials="JD" size="sm" />}
-              />
+            <div>
+              <p className="mb-1.5 font-mono text-xs text-fg-subtle">dark</p>
+              <div className="overflow-hidden rounded-lg border border-slate-800">
+                <Navbar
+                  variant="dark"
+                  brand={<span className="text-white">App</span>}
+                  items={VARIANT_ITEMS}
+                  actions={<Avatar initials="JD" size="sm" />}
+                />
+              </div>
             </div>
-            <div className="rounded-lg border border-border bg-[color-mix(in_srgb,var(--color-accent-500)_8%,var(--color-surface))] p-4">
-              <Navbar variant="bordered" brand="Lojee" items={VARIANT_ITEMS} actions={<Avatar initials="JD" size="sm" />} />
+            <div>
+              <p className="mb-1.5 font-mono text-xs text-fg-subtle">bordered</p>
+              <div className="rounded-lg border border-border bg-[color-mix(in_srgb,var(--color-accent-500)_8%,var(--color-surface))] p-4">
+                <Navbar variant="bordered" brand="App" items={VARIANT_ITEMS} actions={<Avatar initials="JD" size="sm" />} />
+              </div>
             </div>
-            <div className="rounded-lg border border-border bg-[color-mix(in_srgb,var(--color-accent-500)_8%,var(--color-surface))] p-4">
-              <Navbar variant="elevated" brand="Lojee" items={VARIANT_ITEMS} actions={<Avatar initials="JD" size="sm" />} />
+            <div>
+              <p className="mb-1.5 font-mono text-xs text-fg-subtle">elevated</p>
+              <div className="rounded-lg border border-border bg-[color-mix(in_srgb,var(--color-accent-500)_8%,var(--color-surface))] p-4">
+                <Navbar variant="elevated" brand="App" items={VARIANT_ITEMS} actions={<Avatar initials="JD" size="sm" />} />
+              </div>
             </div>
-            <div className="rounded-lg border border-dashed border-border-strong bg-surface p-4">
-              <Navbar variant="minimal" brand="Lojee" items={VARIANT_ITEMS} actions={<Avatar initials="JD" size="sm" />} />
+            <div>
+              <p className="mb-1.5 font-mono text-xs text-fg-subtle">minimal</p>
+              <div className="rounded-lg border border-dashed border-border-strong bg-surface p-4">
+                <Navbar variant="minimal" brand="App" items={VARIANT_ITEMS} actions={<Avatar initials="JD" size="sm" />} />
+              </div>
             </div>
-            <div className="overflow-hidden rounded-lg">
-              <Navbar
-                variant="gradient"
-                brand={<span className="text-white">Lojee</span>}
-                items={VARIANT_ITEMS}
-                actions={<Avatar initials="JD" size="sm" />}
-              />
+            <div>
+              <p className="mb-1.5 font-mono text-xs text-fg-subtle">gradient</p>
+              <div className="overflow-hidden rounded-lg">
+                <Navbar
+                  variant="gradient"
+                  brand={<span className="text-white">App</span>}
+                  items={VARIANT_ITEMS}
+                  actions={<Avatar initials="JD" size="sm" />}
+                />
+              </div>
             </div>
           </div>
           <CodeBlock
             variants={{
               react: `<Navbar
   variant="dark"
-  brand={<span className="text-white">Lojee</span>}
+  brand={<span className="text-white">App</span>}
   items={[
     { label: "Home", active: true },
     { label: "Products" },
@@ -309,9 +327,9 @@ onActiveItemChange(item: unknown) {
               vue: `<template>
   <!-- l-Navbar is a native custom element, not a Vue component — Vue's own #slotName shorthand only
        resolves for actual Vue components, so a real light-DOM slot="brand" projects here instead
-       (or just the plain brand="Lojee" attribute works fine too, when no custom styling is needed). -->
+       (or just the plain brand="App" attribute works fine too, when no custom styling is needed). -->
   <l-Navbar variant="dark" :items="items">
-    <div slot="brand"><span class="text-white">Lojee</span></div>
+    <div slot="brand"><span class="text-white">App</span></div>
   </l-Navbar>
 
   <!-- "bordered"/"elevated" — detached-panel looks; their backdrop is built in, no extra
@@ -329,7 +347,7 @@ const items = [
               angular: `<!-- "bordered"/"elevated" — detached-panel looks; their backdrop is built in, no extra
      markup needed. "minimal" — no background/border at all, blends into the page. -->
 <l-Navbar variant="dark" [items]="items">
-  <div slot="brand"><span class="text-white">Lojee</span></div>
+  <div slot="brand"><span class="text-white">App</span></div>
 </l-Navbar>
 
 items = [
@@ -346,7 +364,7 @@ items = [
           </SectionLabel>
           <div className="overflow-hidden rounded-lg border border-border">
             <Navbar
-              brand="Lojee"
+              brand="App"
               classNames={{
                 root: "bg-indigo-50 dark:bg-indigo-950/40",
                 brand: "text-indigo-900 dark:text-indigo-200",
@@ -359,13 +377,13 @@ items = [
           <CodeBlock
             variants={{
               react: `<Navbar
-  brand="Lojee"
+  brand="App"
   classNames={{ root: "bg-indigo-50 dark:bg-indigo-950/40", brand: "text-indigo-900 dark:text-indigo-200" }}
 >
   <Button variant="ghost" label="Home" className="text-indigo-700 hover:bg-indigo-100 dark:text-indigo-300 dark:hover:bg-indigo-900/40" />
   <Button variant="ghost" label="Products" className="text-indigo-700 hover:bg-indigo-100 dark:text-indigo-300 dark:hover:bg-indigo-900/40" />
 </Navbar>`,
-              js: `<l-Navbar brand="Lojee" id="indigo-navbar">
+              js: `<l-Navbar brand="App" id="indigo-navbar">
   <l-Button variant="ghost" label="Home" class="text-indigo-700 hover:bg-indigo-100 dark:text-indigo-300 dark:hover:bg-indigo-900/40"></l-Button>
   <l-Button variant="ghost" label="Products" class="text-indigo-700 hover:bg-indigo-100 dark:text-indigo-300 dark:hover:bg-indigo-900/40"></l-Button>
 </l-Navbar>
@@ -379,7 +397,7 @@ items = [
   };
 </script>`,
               vue: `<template>
-  <l-Navbar brand="Lojee" :classNames="navbarClassNames">
+  <l-Navbar brand="App" :classNames="navbarClassNames">
     <l-Button variant="ghost" label="Home" class="text-indigo-700 hover:bg-indigo-100 dark:text-indigo-300 dark:hover:bg-indigo-900/40" />
     <l-Button variant="ghost" label="Products" class="text-indigo-700 hover:bg-indigo-100 dark:text-indigo-300 dark:hover:bg-indigo-900/40" />
   </l-Navbar>
@@ -388,7 +406,7 @@ items = [
 <script setup lang="ts">
 const navbarClassNames = { root: "bg-indigo-50 dark:bg-indigo-950/40", brand: "text-indigo-900 dark:text-indigo-200" };
 </script>`,
-              angular: `<l-Navbar brand="Lojee" [classNames]="navbarClassNames">
+              angular: `<l-Navbar brand="App" [classNames]="navbarClassNames">
   <l-Button variant="ghost" label="Home" class="text-indigo-700 hover:bg-indigo-100 dark:text-indigo-300 dark:hover:bg-indigo-900/40"></l-Button>
   <l-Button variant="ghost" label="Products" class="text-indigo-700 hover:bg-indigo-100 dark:text-indigo-300 dark:hover:bg-indigo-900/40"></l-Button>
 </l-Navbar>

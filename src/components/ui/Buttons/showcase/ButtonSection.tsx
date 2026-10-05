@@ -21,13 +21,13 @@ export function ButtonSection() {
           Variants
         </SectionLabel>
         <Row>
-          <Button variant="solid" label="Solid"/>
-          <Button variant="outline" label="Outline"/>
-          <Button variant="ghost" label="Ghost"/>
-          <Button variant="soft" label="Soft"/>
-          <Button variant="link" label="Link"/>
-          <Button variant="dashed" label="Dashed"/>
-          <Button variant="glass" label="Glass"/>
+          <div><p className="mb-1.5 font-mono text-xs text-fg-subtle">solid</p><Button variant="solid" label="Solid"/></div>
+          <div><p className="mb-1.5 font-mono text-xs text-fg-subtle">outline</p><Button variant="outline" label="Outline"/></div>
+          <div><p className="mb-1.5 font-mono text-xs text-fg-subtle">ghost</p><Button variant="ghost" label="Ghost"/></div>
+          <div><p className="mb-1.5 font-mono text-xs text-fg-subtle">soft</p><Button variant="soft" label="Soft"/></div>
+          <div><p className="mb-1.5 font-mono text-xs text-fg-subtle">link</p><Button variant="link" label="Link"/></div>
+          <div><p className="mb-1.5 font-mono text-xs text-fg-subtle">dashed</p><Button variant="dashed" label="Dashed"/></div>
+          <div><p className="mb-1.5 font-mono text-xs text-fg-subtle">glass</p><Button variant="glass" label="Glass"/></div>
         </Row>
         <CodeBlock
           variants={{

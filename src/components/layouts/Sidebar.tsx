@@ -19,6 +19,8 @@ export interface SidebarProps {
    * changes up through `onCollapsedChange`. */
   collapsed?: boolean;
   onCollapsedChange?: (collapsed: boolean) => void;
+  /** Collapse / expand animation speed (see `ui/Sidebar`). */
+  collapseSpeed?: "slow" | "normal" | "fast" | number;
 }
 
 // Data-driven now (Sidebar's `items` shortcut, category groups included) instead of a hand-rolled
@@ -54,6 +56,7 @@ export default function SidebarLayout({
   collapsible: collapsibleProp = true,
   collapsed = false,
   onCollapsedChange,
+  collapseSpeed,
 }: SidebarProps) {
   const navigate = useNavigate();
   const { isCollapsed: inDrawer, setSideOpen } = useAppLayout();
@@ -74,6 +77,7 @@ export default function SidebarLayout({
       collapsed={collapsedNow}
       collapsible={collapsible}
       onCollapsedChange={onCollapsedChange}
+      collapseSpeed={collapseSpeed}
       items={navItems}
       onActiveItemChange={(item: SidebarMenuItemSpec) => {
         navigate(pathFor(navKind, item.label));

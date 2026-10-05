@@ -71,8 +71,8 @@ export default function MapRoutePlayground() {
 
   const preview = (
     <AppWindowFrame>
-      <AppWindowBody className="min-h-[360px] !items-stretch !p-3">
-        <Map key={source} center={[center[0], center[1]]} zoom={zoom} routes={[route]} fitBounds className="!h-auto min-h-[340px] flex-1">
+      <AppWindowBody className="min-h-[480px] !items-stretch !p-3">
+        <Map key={source} center={[center[0], center[1]]} zoom={zoom} routes={[route]} fitBounds className="!aspect-auto !h-auto !w-full min-h-[460px] flex-1">
           <MapMarker lng={start[0]} lat={start[1]} label={startLabel} color="emerald" />
           {road && TRIP.slice(1, -1).map((c, i) => <MapMarker key={i} lng={c[0]} lat={c[1]} label={String.fromCharCode(66 + i)} />)}
           <MapMarker lng={end[0]} lat={end[1]} label={endLabel} color="rose" />

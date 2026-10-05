@@ -9,17 +9,23 @@ import { motionClass, motionStyle, type TransitionVariant, type HoverEffect } fr
 // every browser. The shapes only get these under the Claymorphism design; Bento keeps the flat shapes.
 const CLAY_SHADOW = "drop-shadow(1px 2px 2px rgb(74 86 136 / 0.22))";
 
-function useClayDefs(on: boolean): { sheen: string; rim: string; gloss: string; defs: React.JSX.Element | null } {
+function useClayDefs(on: boolean): { drop: string; sheen: string; rim: string; gloss: string; defs: React.JSX.Element | null } {
   const uid = useId().replace(/[^a-zA-Z0-9]/g, "");
   const sheen = `lojee-sheen-${uid}`;
   const rim = `lojee-rim-${uid}`;
   const gloss = `lojee-gloss-${uid}`;
+  const drop = `lojee-drop-${uid}`;
   return {
+    drop,
     sheen,
     rim,
     gloss,
     defs: on ? (
       <defs>
+        {/* The active-item shadow (5px 7px 14px), in viewBox units. */}
+        <filter id={drop} filterUnits="userSpaceOnUse" x={-40} y={-40} width={VIEW_W + 80} height={VIEW_H + 80}>
+          <feDropShadow dx={4} dy={6} stdDeviation={6} floodColor="rgb(84 96 150)" floodOpacity={0.3} />
+        </filter>
         <linearGradient id={sheen} x1="0" y1="0" x2="1" y2="1">
           <stop offset="0" stopColor="#fff" stopOpacity="0.25" />
           <stop offset="0.4" stopColor="#fff" stopOpacity="0" />
@@ -137,7 +143,7 @@ function BarChart({ data, color, height, svgClassName, progress, showValues, cla
       viewBox={`0 0 ${VIEW_W} ${VIEW_H}`}
       preserveAspectRatio="none"
       className={cx("w-full", svgClassName)}
-      style={{ height, ...(clay ? { filter: CLAY_SHADOW } : null) }}
+      style={{ height, ...(clay ? { overflow: "visible" } : null) }}
       role="img"
       aria-label="Bar chart"
     >
@@ -152,7 +158,7 @@ function BarChart({ data, color, height, svgClassName, progress, showValues, cla
         const x = i * (barWidth + gap) + gap / 2;
         const y = VIEW_H - barHeight;
         return (
-          <g key={i}>
+          <g key={i} filter={clay && barHeight > 2 ? `url(#${g.drop})` : undefined}>
             <rect x={x} y={y} width={barWidth} height={barHeight} rx={radius} fill={hex(point.color ?? color)}>
               <title>
                 {point.label}: {point.value}
@@ -161,7 +167,8 @@ function BarChart({ data, color, height, svgClassName, progress, showValues, cla
             {clay && barHeight > 2 && (
               <>
                 <rect x={x} y={y} width={barWidth} height={barHeight} rx={radius} fill={`url(#${g.sheen})`} pointerEvents="none" />
-                <rect x={x + 1.5} y={y + 1.5} width={Math.max(0, barWidth - 3)} height={Math.max(0, barHeight - 3)} rx={Math.max(0, radius - 1.5)} fill="none" stroke={`url(#${g.rim})`} strokeWidth={2} vectorEffect="non-scaling-stroke" pointerEvents="none" />
+                <rect x={x + 1.5} y={y + 1.5} width={Math.max(0, barWidth - 3)} height={Math.max(0, barHeight - 3)} rx={Math.max(0, radius - 1.5)} fill="none" stroke={`url(#${g.rim})`} strokeWidth={3} vectorEffect="non-scaling-stroke" pointerEvents="none" />
+                <rect x={x} y={y} width={barWidth} height={Math.min(barHeight, 40)} rx={radius} fill={`url(#${g.gloss})`} opacity={0.35} pointerEvents="none" />
               </>
             )}
           </g>

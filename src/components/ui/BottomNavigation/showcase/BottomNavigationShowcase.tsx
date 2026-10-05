@@ -41,17 +41,24 @@ const items = ${ITEMS_CODE};
 items = ${ITEMS_CODE};`,
 });
 
-function Phone({ children }: { children: React.ReactNode }) {
+// A mock phone: the same size as the Basic example (320px wide, 256px of page above the bar). `mx-auto` centers a lone one.
+function Phone({ children, className = "", fluid = false }: { children: React.ReactNode; className?: string; fluid?: boolean }) {
   return (
-    <div className="mx-auto max-w-xs overflow-hidden rounded-2xl border border-border shadow-sm">
-      <div className="h-32 bg-surface-muted" />
+    <div className={`${fluid ? "w-full min-w-0" : "w-80 max-w-full"} overflow-hidden rounded-2xl border border-border shadow-sm ${className}`}>
+      <div className={`${fluid ? "h-24" : "h-64"} bg-surface-muted`} />
       {children}
     </div>
   );
 }
 
+// Several phones side by side in one row; wraps on narrow screens.
+function PhoneRow({ children }: { children: React.ReactNode }) {
+  return <div className="flex flex-wrap items-start justify-center gap-4">{children}</div>;
+}
+
 export default function BottomNavigationShowcase() {
   const [lastActive, setLastActive] = useState("Home");
+  const [lastClick, setLastClick] = useState("—");
 
   return (
     <div>
@@ -136,13 +143,14 @@ export class AppComponent {
 
         <section>
           <SectionLabel sub="color takes any built-in color (including accent, which follows the theme) or a custom CSS color.">Colors</SectionLabel>
-          <div className="grid gap-4 sm:grid-cols-3">
+          {/* One row of phones, each exactly the size of the Basic example (w-80 = max-w-xs, 256px page area); wraps on narrow screens. */}
+          <PhoneRow>
             {(["accent", "emerald", "rose"] as const).map((c) => (
               <Phone key={c}>
                 <BottomNavigation color={c} items={TAB_ITEMS} />
               </Phone>
             ))}
-          </div>
+          </PhoneRow>
           <CodeBlock variants={barCode("bottom-nav-color", 'color="emerald"')} />
         </section>
 
@@ -150,25 +158,32 @@ export class AppComponent {
           <SectionLabel sub={"variant draws the active tab as a solid fill, an outline or a soft tint — or \"text\", which highlights only the icon and label with no fill. Leave it out and it follows the theme's active-item style."}>
             Variants
           </SectionLabel>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <PhoneRow>
             {(["solid", "outline", "soft", "text"] as const).map((v) => (
-              <Phone key={v}>
-                <BottomNavigation variant={v} items={TAB_ITEMS} />
-              </Phone>
+              <div key={v}>
+                <p className="mb-1.5 font-mono text-xs text-fg-subtle">{v}</p>
+                <Phone>
+                  <BottomNavigation variant={v} items={TAB_ITEMS} />
+                </Phone>
+              </div>
             ))}
-          </div>
+          </PhoneRow>
           <CodeBlock variants={barCode("bottom-nav-variant", 'variant="text"')} />
         </section>
 
         <section>
-          <SectionLabel sub="onActiveItemChange fires with the whole item whenever the active tab changes — a click, or a URL / active-prop change.">
+          <SectionLabel sub="onActiveItemChange fires with the whole item whenever the active tab changes — a click, or a URL / active-prop change. onItemClick fires on every tab click (even on the active one) and onFabClick on the floating button; on the web component they are the activeitemchange, itemclick and fabclick events.">
             Selection callback
           </SectionLabel>
-          <Phone>
-            <BottomNavigation items={TAB_ITEMS} onActiveItemChange={(item) => setLastActive(item.label)} />
+          <Phone className="mx-auto">
+            <BottomNavigation
+              items={TAB_ITEMS}
+              onActiveItemChange={(item) => setLastActive(item.label)}
+              onItemClick={(item) => setLastClick(item.label)}
+            />
           </Phone>
           <p className="mt-2 text-center text-sm text-fg-subtle">
-            Active: <span className="font-medium text-fg">{lastActive}</span>
+            Active: <span className="font-medium text-fg">{lastActive}</span> · Last click: <span className="font-medium text-fg">{lastClick}</span>
           </p>
           <CodeBlock
             variants={{
@@ -176,7 +191,9 @@ export class AppComponent {
 
 <BottomNavigation
   items={[/* ... */]}
-  onActiveItemChange={(item) => setActive(item.label)}
+  onActiveItemChange={(item) => setActive(item.label)}  // the active tab changed
+  onItemClick={(item, index) => console.log("clicked", item.label, index)}  // every tab click
+  onFabClick={() => console.log("floating button")}  // with fabIcon
 />`,
               js: `<l-BottomNavigation id="bottom-nav-callback"></l-BottomNavigation>
 
@@ -185,9 +202,9 @@ export class AppComponent {
 
   const bar = document.getElementById("bottom-nav-callback");
   bar.items = ${ITEMS_CODE.replace(/\n/g, "\n  ")};
-  bar.addEventListener("activeitemchange", (e) => {
-    console.log("Active:", e.detail.label);
-  });
+  bar.addEventListener("activeitemchange", (e) => console.log("Active:", e.detail.label));
+  bar.addEventListener("itemclick", (e) => console.log("Clicked:", e.detail.label)); // every click
+  bar.addEventListener("fabclick", () => console.log("Floating button")); // with fabIcon
 </script>`,
               vue: `<template>
   <l-BottomNavigation :items="items" @activeitemchange="onChange" />
@@ -262,6 +279,119 @@ items = [
         </section>
 
         <section>
+          <SectionLabel sub="iconOnly hides the labels and shows just the icons (each tab keeps its label as its accessible name and tooltip).">Icon only</SectionLabel>
+          <Phone className="mx-auto">
+            <BottomNavigation
+              iconOnly
+              items={[
+                { icon: "home", label: "Home", active: true },
+                { icon: "search", label: "Search" },
+                { icon: "heart", label: "Saved" },
+                { icon: "user", label: "Profile" },
+              ]}
+            />
+          </Phone>
+          <CodeBlock
+            variants={{
+              react: `<BottomNavigation
+  iconOnly
+  items={[
+    { icon: "home", label: "Home", active: true },
+    { icon: "search", label: "Search" },
+    { icon: "heart", label: "Saved" },
+    { icon: "user", label: "Profile" },
+  ]}
+/>`,
+              js: `<l-BottomNavigation id="icon-nav" iconOnly="true"></l-BottomNavigation>
+
+<script type="module">
+  import "lojee-ui/elements";
+
+  document.getElementById("icon-nav").items = [
+    { icon: "home", label: "Home", active: true },
+    { icon: "search", label: "Search" },
+    { icon: "heart", label: "Saved" },
+    { icon: "user", label: "Profile" },
+  ];
+</script>`,
+              vue: `<l-BottomNavigation :items="items" iconOnly="true" />`,
+              angular: `<l-BottomNavigation [items]="items" iconOnly="true" />`,
+            }}
+          />
+        </section>
+
+        <section>
+          <SectionLabel sub="fabIcon adds a floating action button raised above the middle of the bar and splits the tabs around it. The button sits in a notch cut into the bar. The icon is configurable, the button takes the bar's color (the theme accent by default), and onFabClick (the fabclick event) fires when it is pressed.">Floating button</SectionLabel>
+          {/* The bar overlays the page (absolute at the bottom of a page-colored frame), so the notch shows the page through it. */}
+          <div className="relative mx-auto h-80 w-80 max-w-full overflow-hidden rounded-2xl border border-border bg-surface-muted shadow-sm">
+            <div className="absolute inset-x-0 bottom-0">
+              <BottomNavigation
+                fabIcon="plus"
+                fabLabel="Add"
+                items={[
+                  { icon: "home", label: "Home", active: true },
+                  { icon: "calendar", label: "Events" },
+                  { icon: "message-circle", label: "Chat" },
+                  { icon: "user", label: "Profile" },
+                ]}
+              />
+            </div>
+          </div>
+          <CodeBlock
+            variants={{
+              react: `<BottomNavigation
+  fabIcon="plus"
+  fabLabel="Add"
+  onFabClick={() => console.log("add")}
+  items={[
+    { icon: "home", label: "Home", active: true },
+    { icon: "calendar", label: "Events" },
+    { icon: "message-circle", label: "Chat" },
+    { icon: "user", label: "Profile" },
+  ]}
+/>`,
+              js: `<l-BottomNavigation id="fab-nav" fabIcon="plus" fabLabel="Add"></l-BottomNavigation>
+
+<script type="module">
+  import "lojee-ui/elements";
+
+  const nav = document.getElementById("fab-nav");
+  nav.items = [
+    { icon: "home", label: "Home", active: true },
+    { icon: "calendar", label: "Events" },
+    { icon: "message-circle", label: "Chat" },
+    { icon: "user", label: "Profile" },
+  ];
+  nav.addEventListener("fabclick", () => console.log("add"));
+</script>`,
+              vue: `<template>
+  <l-BottomNavigation :items="items" fabIcon="plus" fabLabel="Add" @fabclick="onAdd" />
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+
+const items = [
+  { icon: "home", label: "Home", active: true },
+  { icon: "calendar", label: "Events" },
+  { icon: "message-circle", label: "Chat" },
+  { icon: "user", label: "Profile" },
+];
+const onAdd = () => console.log("add");
+</script>`,
+              angular: `<l-BottomNavigation [items]="items" fabIcon="plus" fabLabel="Add" (fabclick)="onAdd()"></l-BottomNavigation>
+
+items = [
+  { icon: "home", label: "Home", active: true },
+  { icon: "calendar", label: "Events" },
+  { icon: "message-circle", label: "Chat" },
+  { icon: "user", label: "Profile" },
+];`,
+            }}
+          />
+        </section>
+
+        <section>
           <SectionLabel sub="A tab's `badge` renders as a small count pill on the icon's top-right corner.">With a badge</SectionLabel>
           <div className="mx-auto max-w-xs overflow-hidden rounded-2xl border border-border shadow-sm">
             <div className="h-64 bg-surface-muted" />
@@ -322,18 +452,19 @@ items = [
 
         <section>
           <SectionLabel sub="Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`) and hover effects via `hoverEffect`. They play on mount — reload the page, or use Replay in the playground.">Transitions</SectionLabel>
-          <TransitionPreview cols={2}>
-            <div className="overflow-hidden rounded-lg border border-border"><BottomNavigation items={TAB_ITEMS} transition="fade" /></div>
-            <div className="overflow-hidden rounded-lg border border-border"><BottomNavigation items={TAB_ITEMS} transition="slide-down" /></div>
-            <div className="overflow-hidden rounded-lg border border-border"><BottomNavigation items={TAB_ITEMS} transition="slide-right" transitionDelay={100} /></div>
-            <div className="overflow-hidden rounded-lg border border-border"><BottomNavigation items={TAB_ITEMS} transition="zoom" /></div>
-            <div className="overflow-hidden rounded-lg border border-border"><BottomNavigation items={TAB_ITEMS} transition="blur" /></div>
-            <div className="overflow-hidden rounded-lg border border-border"><BottomNavigation items={TAB_ITEMS} transition="drop" transitionDuration={700} /></div>
-          </TransitionPreview>
-          <div className="grid gap-4 sm:grid-cols-2">
-            <div className="overflow-hidden rounded-lg border border-border"><BottomNavigation items={TAB_ITEMS} hoverEffect="lift" /></div>
-            <div className="overflow-hidden rounded-lg border border-border"><BottomNavigation items={TAB_ITEMS} hoverEffect="glow" /></div>
-            <div className="overflow-hidden rounded-lg border border-border"><BottomNavigation items={TAB_ITEMS} hoverEffect="shine" /></div>
+          {/* Six enter transitions and three hover effects, in a grid of compact phones — 3 across on wide screens, 2 then 1 as it narrows. */}
+          <div>
+            <TransitionPreview gridClassName="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+              <Phone fluid><BottomNavigation items={TAB_ITEMS} transition="fade" /></Phone>
+              <Phone fluid><BottomNavigation items={TAB_ITEMS} transition="slide-down" /></Phone>
+              <Phone fluid><BottomNavigation items={TAB_ITEMS} transition="slide-right" transitionDelay={100} /></Phone>
+              <Phone fluid><BottomNavigation items={TAB_ITEMS} transition="zoom" /></Phone>
+              <Phone fluid><BottomNavigation items={TAB_ITEMS} transition="blur" /></Phone>
+              <Phone fluid><BottomNavigation items={TAB_ITEMS} transition="drop" transitionDuration={700} /></Phone>
+              <Phone fluid><BottomNavigation items={TAB_ITEMS} hoverEffect="lift" /></Phone>
+              <Phone fluid><BottomNavigation items={TAB_ITEMS} hoverEffect="glow" /></Phone>
+              <Phone fluid><BottomNavigation items={TAB_ITEMS} hoverEffect="shine" /></Phone>
+            </TransitionPreview>
           </div>
           <CodeBlock
             variants={{

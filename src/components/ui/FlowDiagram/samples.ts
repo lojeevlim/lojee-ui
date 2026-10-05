@@ -20,9 +20,9 @@ function sample(name: string, nodes: FlowNodeData[], edges: FlowEdgeData[], capt
 export const FRAMEWORK_FLOW = sample(
   "Frameworks",
   [
-    { id: "source", label: "<Components />", icon: "box" },
+    { id: "source", label: "<Button/>", icon: "box" },
     { id: "r2wc", label: "r2wc", sublabel: "shadow DOM", shape: "pill", tone: "accent" },
-    { id: "element", label: "Element", shape: "circle" },
+    { id: "element", label: "Custom", sublabel: "Element", shape: "circle" },
     { id: "react", label: "React", icon: "box" },
     { id: "vue", label: "Vue", icon: "box" },
     { id: "angular", label: "Angular", icon: "box" },

@@ -4,6 +4,7 @@ import { X } from "lucide-react";
 import { cx } from "../../../core/tokens";
 import { motionClass, motionState, motionStyle, DEFAULT_TRANSITION_MS, type TransitionVariant, type HoverEffect } from "../../../core/motion";
 import { usePresence } from "../../../core/usePresence";
+import { DotScroll } from "../DotScroll/DotScroll";
 
 export interface SheetProps {
   /** Whether the sheet is shown (controlled) — renders nothing when false; slides up from the bottom when it becomes true. */
@@ -123,9 +124,9 @@ export function Sheet({
             <X size={18} />
           </button>
         </div>
-        <div className={cx("overflow-y-auto p-6", classNames?.body)}>
+        <DotScroll className="flex flex-col" viewportClassName={cx("min-h-0 flex-1 p-6", classNames?.body)}>
           <slot>{children}</slot>
-        </div>
+        </DotScroll>
       </div>
     </div>
   );

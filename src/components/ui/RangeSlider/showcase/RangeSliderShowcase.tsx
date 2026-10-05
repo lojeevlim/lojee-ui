@@ -1,7 +1,11 @@
 import { useState } from "react";
 import { RangeSlider, type RangeSliderProps } from "../RangeSlider";
+import type { SliderSize, SliderThumbVariant } from "../../Slider/Slider";
 import CodeBlock from "../../CodeBlock";
 import { SectionLabel, TransitionPreview } from "../../ShowcaseHelpers";
+
+const SIZES: SliderSize[] = ["sm", "md", "lg"];
+const THUMBS: SliderThumbVariant[] = ["pill", "circle", "bar", "solid"];
 
 // Uncontrolled stand-in for the Transitions examples, which only need a slider that moves.
 function DemoRange(props: Omit<RangeSliderProps, "value" | "onChange">) {
@@ -101,6 +105,73 @@ export class AppComponent {
         </section>
 
         <section>
+          <SectionLabel sub="Three sizes via size. The track grows with the thumbs.">Sizes</SectionLabel>
+          <div className="max-w-sm space-y-5">
+            {SIZES.map((sz) => (
+              <div key={sz}>
+                <p className="mb-1 font-mono text-xs text-fg-subtle">{sz}</p>
+                <DemoRange size={sz} />
+              </div>
+            ))}
+          </div>
+          <CodeBlock
+            variants={{
+              react: `<RangeSlider size="lg" value={value} onChange={setValue} />`,
+              js: `<l-RangeSlider id="range" size="lg"></l-RangeSlider>
+
+<script type="module">
+  import "lojee-ui/elements";
+  document.querySelector("#range").value = [20, 70];
+</script>`,
+              vue: `<l-RangeSlider :value="[20, 70]" size="lg" />`,
+              angular: `<l-RangeSlider [value]="[20, 70]" size="lg" />`,
+            }}
+          />
+        </section>
+
+        <section>
+          <SectionLabel sub="Pick the thumbs with thumbVariant. Under the clay design the thumbs are puffy clay buttons and the track a pressed-in groove.">Thumb variants</SectionLabel>
+          <div className="grid max-w-xl gap-6 sm:grid-cols-2">
+            {THUMBS.map((v) => (
+              <div key={v}>
+                <p className="mb-1 font-mono text-xs text-fg-subtle">{v}</p>
+                <DemoRange thumbVariant={v} size="lg" />
+              </div>
+            ))}
+          </div>
+          <CodeBlock
+            variants={{
+              react: `<RangeSlider thumbVariant="circle" size="lg" value={value} onChange={setValue} />
+
+// thumbVariant: "pill" (default) | "circle" | "bar" | "solid"`,
+              js: `<l-RangeSlider id="range" thumbVariant="circle" size="lg"></l-RangeSlider>`,
+              vue: `<l-RangeSlider :value="[20, 70]" thumbVariant="circle" size="lg" />`,
+              angular: `<l-RangeSlider [value]="[20, 70]" thumbVariant="circle" size="lg" />`,
+            }}
+          />
+        </section>
+
+        <section>
+          <SectionLabel sub="valuePlacement=&quot;thumb&quot; puts each number inside its sliding button instead of below the track. The numbers take the slider color. Shown here with each thumb variant; use size md or lg so the number fits.">Value inside the thumb</SectionLabel>
+          <div className="grid max-w-xl gap-6 sm:grid-cols-2">
+            {THUMBS.map((v) => (
+              <div key={v}>
+                <p className="mb-1 font-mono text-xs text-fg-subtle">{v}</p>
+                <DemoRange showValue valuePlacement="thumb" thumbVariant={v} size="lg" />
+              </div>
+            ))}
+          </div>
+          <CodeBlock
+            variants={{
+              react: `<RangeSlider showValue valuePlacement="thumb" thumbVariant="circle" size="lg" value={value} onChange={setValue} />`,
+              js: `<l-RangeSlider id="range" showValue="true" valuePlacement="thumb" size="lg"></l-RangeSlider>`,
+              vue: `<l-RangeSlider :value="[20, 70]" showValue="true" valuePlacement="thumb" size="lg" />`,
+              angular: `<l-RangeSlider [value]="[20, 70]" showValue="true" valuePlacement="thumb" size="lg" />`,
+            }}
+          />
+        </section>
+
+        <section>
           <SectionLabel sub="Custom min/max/step — e.g. a price filter.">Custom range</SectionLabel>
           <div className="max-w-sm">
             <RangeSlider
@@ -109,7 +180,6 @@ export class AppComponent {
               step={10}
               value={priceRange}
               onChange={setPriceRange}
-              color="emerald"
               showValue
             />
           </div>
@@ -121,10 +191,9 @@ export class AppComponent {
   step={10}
   value={value}
   onChange={setValue}
-  color="emerald"
   showValue
 />`,
-              js: `<l-RangeSlider id="price-range" min="0" max="1000" step="10" color="emerald" showValue></l-RangeSlider>
+              js: `<l-RangeSlider id="price-range" min="0" max="1000" step="10" showValue></l-RangeSlider>
 
 <script type="module">
   const priceRange = document.getElementById("price-range");
@@ -139,7 +208,6 @@ export class AppComponent {
     min="0"
     max="1000"
     step="10"
-    color="emerald"
     showValue
     @change="value = $event.detail"
   />
@@ -150,7 +218,6 @@ export class AppComponent {
   min="0"
   max="1000"
   step="10"
-  color="emerald"
   showValue
   (change)="value = $event.detail"
  />`,

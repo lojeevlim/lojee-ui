@@ -214,7 +214,7 @@ const REEL_2: ReactNode[] = [
   </HeroCard>,
   <HeroCard key="footer" name="Footer" w="w-96">
     <div className={`${FRAME} h-24`}>
-      <Footer variant="dark" bottom="© 2026 Lojee, Inc.">
+      <Footer color="slate" bottom="© 2026 Lojee, Inc.">
         <LinkColumn heading="Product" links={["Features", "Pricing"]} />
         <LinkColumn heading="Company" links={["About", "Blog"]} />
         <LinkColumn heading="Legal" links={["Privacy", "Terms"]} />

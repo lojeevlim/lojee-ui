@@ -1,17 +1,16 @@
 import { useState } from "react";
 import { PREVIEW_PAGE_BG } from "./playgroundUtils";
-import { Footer, type FooterVariant } from "./Footer/Footer";
+import { Footer } from "./Footer/Footer";
 import { OptionGroup, ColorSwatches, PlaygroundLayout, AppWindowFrame } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
 import { useMotion } from "./playgroundMotion";
 
-const VARIANTS: FooterVariant[] = ["light", "dark", "minimal", "accent"];
-
 export default function FooterPlayground() {
   const motion = useMotion({ hover: false });
   const [copyright, setCopyright] = useState("© 2026 Lojee, Inc. All rights reserved.");
-  const [variant, setVariant] = useState<FooterVariant>("light");
   const [color, setColor] = useState<string>("accent");
+  const [useColor, setUseColor] = useState(false);
+  const effColor = useColor ? color : undefined;
   // Footer docks to the bottom of a page — shown with a little page content
   // above it so it reads as sitting at the bottom of a real page.
   const preview = (
@@ -24,20 +23,25 @@ export default function FooterPlayground() {
         <Footer
           key={motion.replayKey}
           {...motion.props}
-          bottom={copyright ? <span className={variant === "dark" ? "text-fg-subtle" : undefined}>{copyright}</span> : undefined}
-          variant={variant}
-          color={color}
-        />
+          bottom={copyright || undefined}
+          color={effColor}
+        >
+          <div className="col-span-2 sm:col-span-4">
+            <h4 className={`text-sm font-semibold ${effColor ? "text-white" : "text-fg"}`}>Lojee</h4>
+            <p className={`mt-1 text-sm ${effColor ? "text-white/70" : "text-fg-muted"}`}>
+              Build interfaces faster with a small, themeable component library.
+            </p>
+          </div>
+        </Footer>
       </div>
     </AppWindowFrame>
   );
 
   const bottomValue = copyright || "© 2026 Lojee, Inc. All rights reserved.";
-  const variantAttr =
-    (variant !== "light" ? ` variant="${variant}"` : "") + (variant === "accent" && color !== "accent" ? ` color="${color}"` : "") +
-    motion.attrs;
-  const code = `<Footer bottom="${bottomValue}"${variantAttr} />`;
-  const htmlMarkup = `<l-Footer bottom="${bottomValue}"${variantAttr}></l-Footer>`;
+  const variantAttr = (effColor ? ` color="${effColor}"` : "") + motion.attrs;
+  const body = "Lojee";
+  const code = `<Footer bottom="${bottomValue}"${variantAttr}>\n  ${body}\n</Footer>`;
+  const htmlMarkup = `<l-Footer bottom="${bottomValue}"${variantAttr}>\n  ${body}\n</l-Footer>`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,
@@ -57,8 +61,8 @@ export default function FooterPlayground() {
           placeholder="© 2026 Lojee, Inc. All rights reserved."
         />
       </div>
-      <OptionGroup label="Variant" options={VARIANTS} value={variant} onChange={setVariant} />
-      {variant === "accent" && <ColorSwatches label="Color" value={color} onChange={setColor} custom />}
+      <OptionGroup label="Fill" options={["neutral", "color"] as const} value={useColor ? "color" : "neutral"} onChange={(v) => setUseColor(v === "color")} />
+      {useColor && <ColorSwatches label="Color" value={color} onChange={setColor} custom />}
       {motion.controls}
     </PlaygroundLayout>
   );

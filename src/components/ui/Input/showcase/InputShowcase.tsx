@@ -77,11 +77,26 @@ export class AppComponent {}`,
         <section>
           <SectionLabel sub='outline (default), filled, underline, soft and plain (just the text, no box) — also on Textarea, PasswordInput and SearchInput.'>Variants</SectionLabel>
           <div className="max-w-sm space-y-3">
-            <Input variant="outline" placeholder="Outline" />
-            <Input variant="filled" placeholder="Filled" />
-            <Input variant="underline" placeholder="Underline" />
-            <Input variant="soft" placeholder="Soft" />
-            <Input variant="plain" placeholder="Plain" />
+            <div>
+              <p className="mb-1.5 font-mono text-xs text-fg-subtle">outline</p>
+              <Input variant="outline" placeholder="Outline" />
+            </div>
+            <div>
+              <p className="mb-1.5 font-mono text-xs text-fg-subtle">filled</p>
+              <Input variant="filled" placeholder="Filled" />
+            </div>
+            <div>
+              <p className="mb-1.5 font-mono text-xs text-fg-subtle">underline</p>
+              <Input variant="underline" placeholder="Underline" />
+            </div>
+            <div>
+              <p className="mb-1.5 font-mono text-xs text-fg-subtle">soft</p>
+              <Input variant="soft" placeholder="Soft" />
+            </div>
+            <div>
+              <p className="mb-1.5 font-mono text-xs text-fg-subtle">plain</p>
+              <Input variant="plain" placeholder="Plain" />
+            </div>
           </div>
           <CodeBlock
             variants={{

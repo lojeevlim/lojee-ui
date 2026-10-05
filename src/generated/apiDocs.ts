@@ -623,7 +623,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "name": "animation",
             "type": "SkeletonAnimation",
             "required": false,
-            "description": "How it shows that something is loading: \"pulse\" (default), \"shimmer\" (a light sweep) or \"none\". Respects `prefers-reduced-motion`.",
+            "description": "How it shows that something is loading: \"pulse\" (default), \"shimmer\" (a light sweep), \"wave\" (like \"pulse\" but each text line is staggered so several lines ripple — a single block looks the same as \"pulse\") or \"none\". Respects `prefers-reduced-motion`.",
             "default": "\"pulse\""
           },
           {
@@ -683,7 +683,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
     "hooks": [],
     "types": {
       "SkeletonVariant": "\"text\" | \"rect\" | \"circle\"",
-      "SkeletonAnimation": "\"pulse\" | \"shimmer\" | \"none\""
+      "SkeletonAnimation": "\"pulse\" | \"shimmer\" | \"wave\" | \"none\""
     },
     "dataTypes": []
   },
@@ -1576,7 +1576,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "name": "showDesign",
             "type": "boolean",
             "required": false,
-            "description": "Show the \"Design\" section — Bento or Claymorphism (default: true).",
+            "description": "Show the \"Design\" section — Bento or Clay (default: true).",
             "default": "true"
           },
           {
@@ -2787,106 +2787,6 @@ export const API_DOCS: Record<string, ApiDoc> = {
     },
     "dataTypes": []
   },
-  "Loaders": {
-    "components": [
-      {
-        "name": "Loader",
-        "props": [
-          {
-            "name": "shape",
-            "type": "LoaderShape",
-            "required": false,
-            "description": "Skeleton shape: \"text\" (stacked lines), \"circle\" or \"rect\". Defaults to \"text\".",
-            "default": null
-          },
-          {
-            "name": "variant",
-            "type": "LoaderVariant",
-            "required": false,
-            "description": "Animation style for the skeleton (default: \"pulse\"). \"wave\" is like \"pulse\" but staggers each line's delay so multiple lines ripple instead of fading in sync — for \"circle\"/\"rect\" (a single block) it looks the same as \"pulse\". \"none\" disables animation entirely.",
-            "default": null
-          },
-          {
-            "name": "width",
-            "type": "number",
-            "required": false,
-            "description": "Pixel width, for \"rect\" and \"circle\" (defaults to a sensible size per shape).",
-            "default": null
-          },
-          {
-            "name": "height",
-            "type": "number",
-            "required": false,
-            "description": "Pixel height, for \"rect\" (defaults to a sensible size per shape).",
-            "default": null
-          },
-          {
-            "name": "lines",
-            "type": "number",
-            "required": false,
-            "description": "Number of stacked lines, for \"text\" only.",
-            "default": null
-          },
-          {
-            "name": "transition",
-            "type": "TransitionVariant",
-            "required": false,
-            "description": "Enter transition: \"fade\" | \"slide-up\" | \"slide-down\" | \"slide-left\" | \"slide-right\" | \"zoom\" | \"zoom-out\" | \"flip\" | \"blur\" | \"bounce\" | \"rotate\" | \"drop\" | \"skew\" (default: none). Respects `prefers-reduced-motion`.",
-            "default": null
-          },
-          {
-            "name": "transitionDuration",
-            "type": "number",
-            "required": false,
-            "description": "Enter transition duration in ms (default: 450).",
-            "default": null
-          },
-          {
-            "name": "transitionDelay",
-            "type": "number",
-            "required": false,
-            "description": "Delay before the enter transition starts, in ms (default: 0) — handy for staggering.",
-            "default": null
-          },
-          {
-            "name": "className",
-            "type": "string",
-            "required": false,
-            "description": "Extra class name(s) applied to the root element.",
-            "default": null
-          },
-          {
-            "name": "classNames",
-            "type": "{ root?: string; item?: string; }",
-            "required": false,
-            "description": "Per-part class overrides — merged after (and win over) the built-in styling.",
-            "default": null
-          }
-        ],
-        "element": {
-          "tag": "l-loader",
-          "props": {
-            "shape": "string",
-            "variant": "string",
-            "width": "number",
-            "height": "number",
-            "lines": "number",
-            "transition": "string",
-            "transitionDuration": "number",
-            "transitionDelay": "number"
-          },
-          "extraProps": [],
-          "events": []
-        }
-      }
-    ],
-    "hooks": [],
-    "types": {
-      "LoaderShape": "\"text\" | \"circle\" | \"rect\"",
-      "LoaderVariant": "\"pulse\" | \"shimmer\" | \"wave\" | \"none\""
-    },
-    "dataTypes": []
-  },
   "Dividers": {
     "components": [
       {
@@ -2956,6 +2856,13 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": "false"
           },
           {
+            "name": "handleVariant",
+            "type": "DividerHandleVariant",
+            "required": false,
+            "description": "Look of the drag handle when `resizable`: \"grip\" (default, two rows of dots), \"dots\" (three dots), \"arrows\" (a round button with direction chevrons), \"circle\" (a round button with a single dot), \"bar\" (a short thick bar) or \"pill\" (a plain pill). Under the clay design the handle renders as a puffy clay button.",
+            "default": "\"grip\""
+          },
+          {
             "name": "onResize",
             "type": "(deltaPx: number) => void",
             "required": false,
@@ -2984,6 +2891,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "label": "string",
             "color": "string",
             "resizable": "boolean",
+            "handleVariant": "string",
             "step": "number",
             "transition": "string",
             "transitionDuration": "number",
@@ -3001,7 +2909,8 @@ export const API_DOCS: Record<string, ApiDoc> = {
     ],
     "hooks": [],
     "types": {
-      "DividerOrientation": "\"horizontal\" | \"vertical\""
+      "DividerOrientation": "\"horizontal\" | \"vertical\"",
+      "DividerHandleVariant": "\"grip\" | \"dots\" | \"arrows\" | \"circle\" | \"bar\" | \"pill\""
     },
     "dataTypes": []
   },
@@ -7110,11 +7019,32 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": "\"accent\""
           },
           {
+            "name": "size",
+            "type": "SliderSize",
+            "required": false,
+            "description": "Size of the thumb (and track): \"sm\" | \"md\" | \"lg\" (default: \"md\").",
+            "default": "\"md\""
+          },
+          {
+            "name": "thumbVariant",
+            "type": "SliderThumbVariant",
+            "required": false,
+            "description": "Look of the thumb: \"pill\" (default, two dimples), \"circle\" (round, one dimple), \"bar\" (a slim handle) or \"solid\" (filled with the slider color).",
+            "default": "\"pill\""
+          },
+          {
             "name": "showValue",
             "type": "boolean",
             "required": false,
             "description": "Shows the current numeric value in a label beside the slider, kept in sync in both controlled and uncontrolled use (default: false).",
             "default": "false"
+          },
+          {
+            "name": "valuePlacement",
+            "type": "SliderValuePlacement",
+            "required": false,
+            "description": "Where `showValue` puts the number: \"side\" (beside the track, default) or \"thumb\" (inside the sliding button — best with the \"pill\", \"circle\" or \"solid\" thumb).",
+            "default": "\"side\""
           },
           {
             "name": "transition",
@@ -7167,6 +7097,9 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "max": "number",
             "step": "number",
             "color": "string",
+            "size": "string",
+            "thumbVariant": "string",
+            "valuePlacement": "string",
             "showValue": "boolean",
             "disabled": "boolean",
             "transition": "string",
@@ -7223,7 +7156,11 @@ export const API_DOCS: Record<string, ApiDoc> = {
       }
     ],
     "hooks": [],
-    "types": {},
+    "types": {
+      "SliderSize": "\"sm\" | \"md\" | \"lg\"",
+      "SliderThumbVariant": "\"pill\" | \"circle\" | \"bar\" | \"solid\"",
+      "SliderValuePlacement": "\"side\" | \"thumb\""
+    },
     "dataTypes": []
   },
   "Range Slider": {
@@ -7277,8 +7214,29 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "name": "showValue",
             "type": "boolean",
             "required": false,
-            "description": "Shows the current \"low – high\" text below the slider (default: false).",
+            "description": "Shows the current values — below the slider as \"low – high\", or inside each thumb with `valuePlacement=\"thumb\"` (default: false).",
             "default": "false"
+          },
+          {
+            "name": "size",
+            "type": "SliderSize",
+            "required": false,
+            "description": "Size of the thumbs (and track): \"sm\" | \"md\" | \"lg\" (default: \"md\").",
+            "default": "\"md\""
+          },
+          {
+            "name": "thumbVariant",
+            "type": "SliderThumbVariant",
+            "required": false,
+            "description": "Look of the thumbs: \"pill\" (default, two dimples), \"circle\" (round, one dimple), \"bar\" (a slim handle) or \"solid\" (filled with the slider color).",
+            "default": "\"pill\""
+          },
+          {
+            "name": "valuePlacement",
+            "type": "SliderValuePlacement",
+            "required": false,
+            "description": "Where `showValue` puts the numbers: \"side\" (below the track, default) or \"thumb\" (inside each sliding button — best at size md or lg).",
+            "default": "\"side\""
           },
           {
             "name": "transition",
@@ -7352,6 +7310,9 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "max": "number",
             "step": "number",
             "color": "string",
+            "size": "string",
+            "thumbVariant": "string",
+            "valuePlacement": "string",
             "showValue": "boolean",
             "transition": "string",
             "transitionDuration": "number",
@@ -10516,10 +10477,24 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           },
           {
+            "name": "width",
+            "type": "number | string",
+            "required": false,
+            "description": "Width of the map: a number of px, or any CSS length such as \"50%\" or \"40rem\". Left unset, the map is as wide as its container.",
+            "default": null
+          },
+          {
+            "name": "height",
+            "type": "number | string",
+            "required": false,
+            "description": "Height of the map: a number of px, or any CSS length such as \"60vh\" or \"30rem\". Left unset, the map is 480px tall.",
+            "default": null
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
-            "description": "Extra class names applied to the root element (its default size is `h-[360px] w-full`).",
+            "description": "Extra class names applied to the root element (its default size is `h-[480px] w-full`).",
             "default": null
           },
           {
@@ -10543,7 +10518,9 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "routes": "json",
             "fitBounds": "boolean",
             "fitPadding": "number",
-            "interactive": "boolean"
+            "interactive": "boolean",
+            "width": "string",
+            "height": "string"
           },
           "extraProps": [],
           "events": [
@@ -11343,6 +11320,13 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           },
           {
+            "name": "collapseSpeed",
+            "type": "SidebarSpeed | number",
+            "required": false,
+            "description": "Speed of the collapse / expand animation — the panel width, header, footer and every item all share it, in both directions: \"fast\" (150ms) | \"normal\" (300ms) | \"slow\" (600ms), or a number of ms (default: \"normal\").",
+            "default": "\"normal\""
+          },
+          {
             "name": "transition",
             "type": "TransitionVariant",
             "required": false,
@@ -11425,6 +11409,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "borderWidth": "number",
             "sticky": "boolean",
             "showLabel": "boolean",
+            "collapseSpeed": "string",
             "transition": "string",
             "transitionDuration": "number",
             "transitionDelay": "number",
@@ -11634,6 +11619,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
     ],
     "hooks": [],
     "types": {
+      "SidebarSpeed": "\"slow\" | \"normal\" | \"fast\"",
       "SidebarVariant": "\"light\" | \"dark\" | \"bordered\" | \"elevated\" | \"minimal\" | \"gradient\""
     },
     "dataTypes": []
@@ -11792,18 +11778,11 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           },
           {
-            "name": "variant",
-            "type": "FooterVariant",
-            "required": false,
-            "description": "Visual theme (default: \"light\"): - \"dark\" — slate-900 background, muted light text for the bottom bar. - \"minimal\" — no background at all, blends into the page. - \"accent\" — a solid `color` background with white text; `color` defaults to the theme's accent, so it changes with the accent picker.",
-            "default": "\"light\""
-          },
-          {
             "name": "color",
             "type": "ColorName | (string & {})",
             "required": false,
-            "description": "Background color for `variant=\"accent\"` (default: \"accent\", which follows the theme's accent color) — one of the built-in ColorNames, or any other CSS color value. Ignored by the other variants.",
-            "default": "\"accent\""
+            "description": "Fill color — one of the built-in ColorNames, or any other CSS color value (e.g. \"#7c3aed\"). The footer becomes a solid `color` background with white text. Leave it unset for the neutral look (a soft muted-surface background).",
+            "default": null
           },
           {
             "name": "transition",
@@ -11845,7 +11824,6 @@ export const API_DOCS: Record<string, ApiDoc> = {
           "tag": "l-footer",
           "props": {
             "bottom": "string",
-            "variant": "string",
             "color": "string",
             "transition": "string",
             "transitionDuration": "number",
@@ -11857,9 +11835,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
       }
     ],
     "hooks": [],
-    "types": {
-      "FooterVariant": "\"light\" | \"dark\" | \"minimal\" | \"accent\""
-    },
+    "types": {},
     "dataTypes": []
   },
   "Navigation Menu": {
@@ -12037,6 +12013,41 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           },
           {
+            "name": "onItemClick",
+            "type": "(item: BottomNavigationItem, index: number) => void",
+            "required": false,
+            "description": "Called on every tab click, with the clicked item and its index — including a click on the tab that is already active (which `onActiveItemChange` does not report). The web component's `itemclick` event (detail = the item).",
+            "default": null
+          },
+          {
+            "name": "iconOnly",
+            "type": "boolean",
+            "required": false,
+            "description": "Shows only the icons — the labels are hidden (they stay as each tab's accessible name and tooltip). Default: false.",
+            "default": "false"
+          },
+          {
+            "name": "fabIcon",
+            "type": "string",
+            "required": false,
+            "description": "Icon name of a floating action button raised above the middle of the bar (e.g. \"plus\"). Setting it shows the button and splits the tabs around it.",
+            "default": null
+          },
+          {
+            "name": "fabLabel",
+            "type": "string",
+            "required": false,
+            "description": "Accessible name / tooltip of the floating button (default: \"Action\").",
+            "default": "\"Action\""
+          },
+          {
+            "name": "onFabClick",
+            "type": "() => void",
+            "required": false,
+            "description": "Called when the floating button is pressed (the web component's `fabclick` event).",
+            "default": null
+          },
+          {
             "name": "transition",
             "type": "TransitionVariant",
             "required": false,
@@ -12085,6 +12096,9 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "items": "json",
             "color": "string",
             "variant": "string",
+            "iconOnly": "boolean",
+            "fabIcon": "string",
+            "fabLabel": "string",
             "defaultActiveItem": "string",
             "transition": "string",
             "transitionDuration": "number",
@@ -12100,6 +12114,14 @@ export const API_DOCS: Record<string, ApiDoc> = {
             {
               "callback": "onActiveItemChange",
               "event": "activeitemchange"
+            },
+            {
+              "callback": "onItemClick",
+              "event": "itemclick"
+            },
+            {
+              "callback": "onFabClick",
+              "event": "fabclick"
             }
           ]
         }

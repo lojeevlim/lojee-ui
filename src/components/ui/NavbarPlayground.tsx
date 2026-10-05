@@ -20,7 +20,7 @@ const DEFAULT_ACTIVE_OPTIONS = ["none", ...NAV_ITEMS.map((item) => item.label)];
 
 export default function NavbarPlayground() {
   const motion = useMotion();
-  const [brand, setBrand] = useState("Lojee");
+  const [brand, setBrand] = useState("App");
   const [sticky, setSticky] = useState(false);
   const [bordered, setBordered] = useState(true);
   const [variant, setVariant] = useState<NavbarVariant>("light");
@@ -180,7 +180,7 @@ export class AppComponent {
           value={brand}
           onChange={(e) => setBrand(e.target.value)}
           className="w-full rounded-md border border-border px-3 py-1.5 text-sm text-fg outline-none transition-colors focus:border-border-strong"
-          placeholder="Lojee"
+          placeholder="App"
         />
       </div>
       <OptionGroup label="Variant" options={VARIANTS} value={variant} onChange={setVariant} />

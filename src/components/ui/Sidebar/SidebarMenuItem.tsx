@@ -58,7 +58,7 @@ function labelSlideStyle(hidden: boolean): CSSProperties {
     opacity: hidden ? 0 : 1,
     maxWidth: hidden ? 0 : 200,
     transform: hidden ? "translateX(-6px)" : "translateX(0)",
-    transition: "opacity .15s ease, transform .2s cubic-bezier(.4,0,.2,1), max-width .2s cubic-bezier(.4,0,.2,1)",
+    transition: "opacity calc(var(--sb-dur, 300ms) * .5) ease, transform var(--sb-dur, 300ms) cubic-bezier(.22,1,.36,1), max-width var(--sb-dur, 300ms) cubic-bezier(.22,1,.36,1)",
   };
 }
 
@@ -171,6 +171,24 @@ export const SidebarMenuItem = forwardRef<HTMLAnchorElement | HTMLButtonElement,
     const colorIsNamed = isColorName(color);
     const { collapsed, rootRef } = useAncestorCollapsed(collapsedProp, forwardedRef);
 
+    // The collapsed and expanded rows are different layouts, so the swap itself can't be tweened — fade + ease the
+    // new content in over the sidebar's own speed (`--sb-dur`) instead of letting it pop in.
+    const wasCollapsed = useRef(collapsed);
+    useEffect(() => {
+      if (wasCollapsed.current === collapsed) return;
+      wasCollapsed.current = collapsed;
+      const root = rootRef.current;
+      if (!root || window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return;
+      const raw = getComputedStyle(root).getPropertyValue("--sb-dur").trim();
+      const duration = raw.endsWith("ms") ? parseFloat(raw) : raw.endsWith("s") ? parseFloat(raw) * 1000 : 300;
+      for (const child of Array.from(root.children)) {
+        child.animate?.(
+          [{ opacity: 0, transform: collapsed ? "scale(.85)" : "translateX(-8px)" }, { opacity: 1, transform: "none" }],
+          { duration, easing: "cubic-bezier(.22,1,.36,1)" }
+        );
+      }
+    }, [collapsed, rootRef]);
+
     const activeClass = cx(
       "font-medium text-white",
       activeStyle === "fill" && sidebarActiveFillClasses(color, dark, vividActive)
@@ -178,7 +196,7 @@ export const SidebarMenuItem = forwardRef<HTMLAnchorElement | HTMLButtonElement,
     const idleClass = dark ? "text-white/70" : "text-fg-muted";
 
     const rowClasses = cx(
-      "relative z-10 flex items-center rounded-lg text-sm transition-[color,background-color,box-shadow] duration-200 ease-[cubic-bezier(.4,0,.2,1)]",
+      "relative z-10 flex items-center rounded-lg text-sm transition-[color,background-color,box-shadow,padding,gap] duration-[var(--sb-dur,300ms)] ease-[cubic-bezier(.22,1,.36,1)]",
       collapsed ? "w-full justify-center px-1 py-2.5" : "w-full gap-2.5 px-3 py-3",
       disabled && "pointer-events-none opacity-50",
       active ? activeClass : idleClass,

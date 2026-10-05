@@ -31,8 +31,8 @@ export { AvatarGroup, type AvatarGroupProps } from "../components/ui/Avatar/Avat
 export { Icon, type IconProps } from "../components/ui/Icons/Icon";
 export { getIcon, ICONS, ICON_NAMES } from "../components/ui/Icons/registry";
 export { Spinner, type SpinnerProps, type SpinnerSize, type SpinnerVariant } from "../components/ui/Spinner/Spinner";
-export { Loader, type LoaderProps, type LoaderShape, type LoaderVariant } from "../components/ui/Loader/Loader";
 export { Divider, type DividerProps, type DividerOrientation } from "../components/ui/Divider/Divider";
+export { DotScroll, type DotScrollProps, type DotScrollAxis } from "../components/ui/DotScroll/DotScroll";
 export { Tooltip, type TooltipProps, type TooltipPosition } from "../components/ui/Tooltip/Tooltip";
 
 export { Card, type CardProps, type CardVariant, type CardPadding } from "../components/ui/Card/Card";
@@ -195,7 +195,7 @@ export {
 } from "../components/ui/Sidebar/Sidebar";
 export { SidebarMenuItem, type SidebarMenuItemProps } from "../components/ui/Sidebar/SidebarMenuItem";
 export { Header, type HeaderProps, type HeaderVariant } from "../components/ui/Header/Header";
-export { Footer, type FooterProps, type FooterVariant } from "../components/ui/Footer/Footer";
+export { Footer, type FooterProps } from "../components/ui/Footer/Footer";
 export {
   NavigationMenu,
   type NavigationMenuProps,

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import type { KeyboardEvent } from "react";
 import { cx } from "../../../core/tokens";
 import { Icon } from "../Icons/Icon";
+import { DotScroll } from "../DotScroll/DotScroll";
 import { motionClass, motionState, motionStyle, DEFAULT_TRANSITION_MS, type TransitionVariant } from "../../../core/motion";
 import { usePresence } from "../../../core/usePresence";
 
@@ -165,7 +166,7 @@ export function CommandMenu({
           />
         </span>
 
-        <div role="listbox" data-cmd="list" className={cx("max-h-80 space-y-0.5 overflow-y-auto", classNames?.list)}>
+        <DotScroll className="max-h-80" viewportClassName={cx("space-y-0.5", classNames?.list)} role="listbox" data-cmd="list">
           {filtered.length === 0 && (
             <div className={cx("px-4 py-6 text-center text-sm text-fg-subtle", classNames?.empty)}>No results found.</div>
           )}
@@ -196,7 +197,7 @@ export function CommandMenu({
               {item.shortcut && <span className="text-xs text-fg-subtle">{item.shortcut}</span>}
             </button>
           ))}
-        </div>
+        </DotScroll>
       </div>
     </div>
   );

@@ -46,11 +46,6 @@ export const COMPONENT_MENU: Menu[]  = [
             },
 
             {
-                icon: "loader",
-                label: "Loaders",
-            },
-
-            {
                 icon: "minus",
                 label: "Dividers",
             },

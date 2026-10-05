@@ -3,7 +3,7 @@
    comment) makes Tailwind scan the library's own build — this file is copied next to the JS in `dist/` —
    so the components' classes get generated with no `@source ../node_modules/...` line in the consumer's CSS.
    Import this after your own `@import "tailwindcss";`. It provides:
-     - the animate-* tokens (Loader "shimmer", ProgressBar "indeterminate")
+     - the animate-* tokens (Skeleton "shimmer", ProgressBar "indeterminate")
      - semantic color utilities: bg-surface, bg-surface-muted, bg-surface-raised,
        text-fg, text-fg-muted, text-fg-subtle, border-border, border-border-strong
      - an `accent` palette (bg-accent-600, text-accent-700, ...) — the default brand color
@@ -292,6 +292,21 @@
   --lojee-accent-900: var(--color-pink-900);
   --lojee-accent-950: var(--color-pink-950);
 }
+/* More Tailwind palettes as accents (see ACCENTS in src/core/theme.ts). */
+[data-accent="red"] { --lojee-accent-50: var(--color-red-50); --lojee-accent-100: var(--color-red-100); --lojee-accent-200: var(--color-red-200); --lojee-accent-300: var(--color-red-300); --lojee-accent-400: var(--color-red-400); --lojee-accent-500: var(--color-red-500); --lojee-accent-600: var(--color-red-600); --lojee-accent-700: var(--color-red-700); --lojee-accent-800: var(--color-red-800); --lojee-accent-900: var(--color-red-900); --lojee-accent-950: var(--color-red-950); }
+[data-accent="lime"] { --lojee-accent-50: var(--color-lime-50); --lojee-accent-100: var(--color-lime-100); --lojee-accent-200: var(--color-lime-200); --lojee-accent-300: var(--color-lime-300); --lojee-accent-400: var(--color-lime-400); --lojee-accent-500: var(--color-lime-500); --lojee-accent-600: var(--color-lime-600); --lojee-accent-700: var(--color-lime-700); --lojee-accent-800: var(--color-lime-800); --lojee-accent-900: var(--color-lime-900); --lojee-accent-950: var(--color-lime-950); }
+[data-accent="green"] { --lojee-accent-50: var(--color-green-50); --lojee-accent-100: var(--color-green-100); --lojee-accent-200: var(--color-green-200); --lojee-accent-300: var(--color-green-300); --lojee-accent-400: var(--color-green-400); --lojee-accent-500: var(--color-green-500); --lojee-accent-600: var(--color-green-600); --lojee-accent-700: var(--color-green-700); --lojee-accent-800: var(--color-green-800); --lojee-accent-900: var(--color-green-900); --lojee-accent-950: var(--color-green-950); }
+[data-accent="sky"] { --lojee-accent-50: var(--color-sky-50); --lojee-accent-100: var(--color-sky-100); --lojee-accent-200: var(--color-sky-200); --lojee-accent-300: var(--color-sky-300); --lojee-accent-400: var(--color-sky-400); --lojee-accent-500: var(--color-sky-500); --lojee-accent-600: var(--color-sky-600); --lojee-accent-700: var(--color-sky-700); --lojee-accent-800: var(--color-sky-800); --lojee-accent-900: var(--color-sky-900); --lojee-accent-950: var(--color-sky-950); }
+[data-accent="fuchsia"] { --lojee-accent-50: var(--color-fuchsia-50); --lojee-accent-100: var(--color-fuchsia-100); --lojee-accent-200: var(--color-fuchsia-200); --lojee-accent-300: var(--color-fuchsia-300); --lojee-accent-400: var(--color-fuchsia-400); --lojee-accent-500: var(--color-fuchsia-500); --lojee-accent-600: var(--color-fuchsia-600); --lojee-accent-700: var(--color-fuchsia-700); --lojee-accent-800: var(--color-fuchsia-800); --lojee-accent-900: var(--color-fuchsia-900); --lojee-accent-950: var(--color-fuchsia-950); }
+[data-accent="purple"] { --lojee-accent-50: var(--color-purple-50); --lojee-accent-100: var(--color-purple-100); --lojee-accent-200: var(--color-purple-200); --lojee-accent-300: var(--color-purple-300); --lojee-accent-400: var(--color-purple-400); --lojee-accent-500: var(--color-purple-500); --lojee-accent-600: var(--color-purple-600); --lojee-accent-700: var(--color-purple-700); --lojee-accent-800: var(--color-purple-800); --lojee-accent-900: var(--color-purple-900); --lojee-accent-950: var(--color-purple-950); }
+[data-accent="yellow"] { --lojee-accent-50: var(--color-yellow-50); --lojee-accent-100: var(--color-yellow-100); --lojee-accent-200: var(--color-yellow-200); --lojee-accent-300: var(--color-yellow-300); --lojee-accent-400: var(--color-yellow-400); --lojee-accent-500: var(--color-yellow-500); --lojee-accent-600: var(--color-yellow-600); --lojee-accent-700: var(--color-yellow-700); --lojee-accent-800: var(--color-yellow-800); --lojee-accent-900: var(--color-yellow-900); --lojee-accent-950: var(--color-yellow-950); }
+[data-accent="stone"] { --lojee-accent-50: var(--color-stone-50); --lojee-accent-100: var(--color-stone-100); --lojee-accent-200: var(--color-stone-200); --lojee-accent-300: var(--color-stone-300); --lojee-accent-400: var(--color-stone-400); --lojee-accent-500: var(--color-stone-500); --lojee-accent-600: var(--color-stone-600); --lojee-accent-700: var(--color-stone-700); --lojee-accent-800: var(--color-stone-800); --lojee-accent-900: var(--color-stone-900); --lojee-accent-950: var(--color-stone-950); }
+[data-accent="zinc"] { --lojee-accent-50: var(--color-zinc-50); --lojee-accent-100: var(--color-zinc-100); --lojee-accent-200: var(--color-zinc-200); --lojee-accent-300: var(--color-zinc-300); --lojee-accent-400: var(--color-zinc-400); --lojee-accent-500: var(--color-zinc-500); --lojee-accent-600: var(--color-zinc-600); --lojee-accent-700: var(--color-zinc-700); --lojee-accent-800: var(--color-zinc-800); --lojee-accent-900: var(--color-zinc-900); --lojee-accent-950: var(--color-zinc-950); }
+[data-accent="neutral"] { --lojee-accent-50: var(--color-neutral-50); --lojee-accent-100: var(--color-neutral-100); --lojee-accent-200: var(--color-neutral-200); --lojee-accent-300: var(--color-neutral-300); --lojee-accent-400: var(--color-neutral-400); --lojee-accent-500: var(--color-neutral-500); --lojee-accent-600: var(--color-neutral-600); --lojee-accent-700: var(--color-neutral-700); --lojee-accent-800: var(--color-neutral-800); --lojee-accent-900: var(--color-neutral-900); --lojee-accent-950: var(--color-neutral-950); }
+[data-accent="mauve"] { --lojee-accent-50: var(--color-mauve-50); --lojee-accent-100: var(--color-mauve-100); --lojee-accent-200: var(--color-mauve-200); --lojee-accent-300: var(--color-mauve-300); --lojee-accent-400: var(--color-mauve-400); --lojee-accent-500: var(--color-mauve-500); --lojee-accent-600: var(--color-mauve-600); --lojee-accent-700: var(--color-mauve-700); --lojee-accent-800: var(--color-mauve-800); --lojee-accent-900: var(--color-mauve-900); --lojee-accent-950: var(--color-mauve-950); }
+[data-accent="mist"] { --lojee-accent-50: var(--color-mist-50); --lojee-accent-100: var(--color-mist-100); --lojee-accent-200: var(--color-mist-200); --lojee-accent-300: var(--color-mist-300); --lojee-accent-400: var(--color-mist-400); --lojee-accent-500: var(--color-mist-500); --lojee-accent-600: var(--color-mist-600); --lojee-accent-700: var(--color-mist-700); --lojee-accent-800: var(--color-mist-800); --lojee-accent-900: var(--color-mist-900); --lojee-accent-950: var(--color-mist-950); }
+[data-accent="olive"] { --lojee-accent-50: var(--color-olive-50); --lojee-accent-100: var(--color-olive-100); --lojee-accent-200: var(--color-olive-200); --lojee-accent-300: var(--color-olive-300); --lojee-accent-400: var(--color-olive-400); --lojee-accent-500: var(--color-olive-500); --lojee-accent-600: var(--color-olive-600); --lojee-accent-700: var(--color-olive-700); --lojee-accent-800: var(--color-olive-800); --lojee-accent-900: var(--color-olive-900); --lojee-accent-950: var(--color-olive-950); }
+[data-accent="taupe"] { --lojee-accent-50: var(--color-taupe-50); --lojee-accent-100: var(--color-taupe-100); --lojee-accent-200: var(--color-taupe-200); --lojee-accent-300: var(--color-taupe-300); --lojee-accent-400: var(--color-taupe-400); --lojee-accent-500: var(--color-taupe-500); --lojee-accent-600: var(--color-taupe-600); --lojee-accent-700: var(--color-taupe-700); --lojee-accent-800: var(--color-taupe-800); --lojee-accent-900: var(--color-taupe-900); --lojee-accent-950: var(--color-taupe-950); }
 
 /* ---- Accordion open / close transition ----
    AccordionItem is a native <details>; browsers snap it open and shut. Where supported (`::details-content` and
@@ -679,6 +694,13 @@
    a click is given it here (and a "not-allowed" cursor while disabled). Written with :where() inside the base layer so
    a component's own `cursor-*` class — a drag handle's grab, say — always wins. */
 @layer base {
+  /* Scrollbars follow the theme: a slim thumb in the accent color (on a transparent track) for every scrolling element —
+     page, panels, lists, tables, code blocks — including inside web-component shadow roots. Zero specificity, so a
+     component's own scrollbar styling still wins. */
+  :where(*) {
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(in srgb, var(--color-accent-500) 55%, transparent) transparent;
+  }
   :where(
       button,
       [role="button"],
@@ -711,21 +733,47 @@
 }
 
 /* ---- Slider thumb ----
-   A soft, raised pill with two dimples, over a track that is filled up to the thumb. `.lojee-slider` is a single-value
-   slider (6px track, fill amount from --slider-p = 0…1, fill color from --slider-fill); `.lojee-range` is one of the
-   two inputs of a range slider (transparent track — its fill is drawn separately). */
+   A flat pebble (hairline border, colored core dot) over a slim track that is filled up to it. `.lojee-slider` is a
+   single-value slider (fill amount from --slider-p = 0…1, fill color from --slider-fill); `.lojee-range` is one of the
+   two inputs of a range slider (transparent track — its fill is drawn separately). The clay design restyles the same
+   parts as a puffy pebble.
+   Size:    data-size="sm|md|lg" on the input sets --lojee-thumb-h (track height follows it).
+   Variant: data-thumb-variant="pill|circle|bar|solid" sets the thumb width, whether it has a core dot, and its colors. */
 .lojee-slider,
 .lojee-range {
-  --lojee-thumb-w: 44px;
   --lojee-thumb-h: 24px;
+  --lojee-thumb-w: calc(var(--lojee-thumb-h) * 1.83);
+  --lojee-track-h: calc(var(--lojee-thumb-h) * 0.3);
+  --lojee-base-top: var(--color-surface);
+  --lojee-base-bot: var(--color-surface);
+  --lojee-core: radial-gradient(circle at 50% 50%, var(--slider-fill, var(--color-accent-600)) 0 calc(var(--lojee-thumb-h) * 0.14), transparent calc(var(--lojee-thumb-h) * 0.15));
   -webkit-appearance: none;
   appearance: none;
   height: var(--lojee-thumb-h);
   background: transparent;
   outline: none;
 }
+.lojee-slider[data-size="sm"], .lojee-range[data-size="sm"] { --lojee-thumb-h: 18px; }
+.lojee-slider[data-size="lg"], .lojee-range[data-size="lg"] { --lojee-thumb-h: 32px; }
+.lojee-slider[data-thumb-variant="circle"], .lojee-range[data-thumb-variant="circle"] {
+  --lojee-thumb-w: var(--lojee-thumb-h);
+}
+.lojee-slider[data-thumb-variant="bar"], .lojee-range[data-thumb-variant="bar"] {
+  --lojee-thumb-w: calc(var(--lojee-thumb-h) * 0.5);
+  --lojee-core: linear-gradient(transparent, transparent);
+}
+.lojee-slider[data-thumb-variant="solid"], .lojee-range[data-thumb-variant="solid"] {
+  --lojee-thumb-w: var(--lojee-thumb-h);
+  --lojee-base-top: color-mix(in srgb, var(--slider-fill, var(--color-accent-600)) 80%, white);
+  --lojee-base-bot: var(--slider-fill, var(--color-accent-600));
+  --lojee-core: linear-gradient(transparent, transparent);
+}
+.lojee-slider[data-thumb-label], .lojee-range[data-thumb-label] { --lojee-core: linear-gradient(transparent, transparent); }
+.lojee-slider[data-thumb-label][data-thumb-variant="bar"], .lojee-range[data-thumb-label][data-thumb-variant="bar"] { --lojee-thumb-w: calc(var(--lojee-thumb-h) * 1.3); }
+.lojee-slider[data-thumb-variant="solid"]::-webkit-slider-thumb, .lojee-range[data-thumb-variant="solid"]::-webkit-slider-thumb { border-color: var(--slider-fill, var(--color-accent-600)); }
+.lojee-slider[data-thumb-variant="solid"]::-moz-range-thumb, .lojee-range[data-thumb-variant="solid"]::-moz-range-thumb { border-color: var(--slider-fill, var(--color-accent-600)); }
 .lojee-slider::-webkit-slider-runnable-track {
-  height: 6px;
+  height: var(--lojee-track-h);
   border-radius: 9999px;
   background: linear-gradient(
     to right,
@@ -734,7 +782,7 @@
   );
 }
 .lojee-slider::-moz-range-track {
-  height: 6px;
+  height: var(--lojee-track-h);
   border-radius: 9999px;
   background: linear-gradient(
     to right,
@@ -756,39 +804,27 @@
   appearance: none;
   width: var(--lojee-thumb-w);
   height: var(--lojee-thumb-h);
-  border: 0;
+  box-sizing: border-box;
+  border: 1.5px solid var(--color-border-strong);
   border-radius: 9999px;
   cursor: grab;
-  background:
-    radial-gradient(circle at 14px 50%, color-mix(in srgb, var(--color-surface) 70%, white) 0 4.5px, rgba(0, 0, 0, 0.13) 5.5px 6px, transparent 7px),
-    radial-gradient(circle at 30px 50%, color-mix(in srgb, var(--color-surface) 70%, white) 0 4.5px, rgba(0, 0, 0, 0.13) 5.5px 6px, transparent 7px),
-    linear-gradient(180deg, var(--color-surface), var(--color-surface-muted));
-  box-shadow:
-    0 3px 7px rgba(0, 0, 0, 0.22),
-    0 1px 2px rgba(0, 0, 0, 0.18),
-    inset 0 1px 0 rgba(255, 255, 255, 0.85),
-    inset 0 -2px 4px rgba(0, 0, 0, 0.08);
+  background: var(--lojee-core), linear-gradient(180deg, var(--lojee-base-top), var(--lojee-base-bot));
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
 }
 .lojee-slider::-webkit-slider-thumb {
-  margin-top: calc((6px - var(--lojee-thumb-h)) / 2);
+  margin-top: calc((var(--lojee-track-h) - var(--lojee-thumb-h)) / 2);
 }
 .lojee-slider::-moz-range-thumb,
 .lojee-range::-moz-range-thumb {
   width: var(--lojee-thumb-w);
   height: var(--lojee-thumb-h);
   box-sizing: border-box;
-  border: 0;
+  box-sizing: border-box;
+  border: 1.5px solid var(--color-border-strong);
   border-radius: 9999px;
   cursor: grab;
-  background:
-    radial-gradient(circle at 14px 50%, color-mix(in srgb, var(--color-surface) 70%, white) 0 4.5px, rgba(0, 0, 0, 0.13) 5.5px 6px, transparent 7px),
-    radial-gradient(circle at 30px 50%, color-mix(in srgb, var(--color-surface) 70%, white) 0 4.5px, rgba(0, 0, 0, 0.13) 5.5px 6px, transparent 7px),
-    linear-gradient(180deg, var(--color-surface), var(--color-surface-muted));
-  box-shadow:
-    0 3px 7px rgba(0, 0, 0, 0.22),
-    0 1px 2px rgba(0, 0, 0, 0.18),
-    inset 0 1px 0 rgba(255, 255, 255, 0.85),
-    inset 0 -2px 4px rgba(0, 0, 0, 0.08);
+  background: var(--lojee-core), linear-gradient(180deg, var(--lojee-base-top), var(--lojee-base-bot));
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
 }
 .lojee-slider:active::-webkit-slider-thumb,
 .lojee-range:active::-webkit-slider-thumb {
@@ -801,15 +837,13 @@
 .lojee-slider:focus-visible::-webkit-slider-thumb,
 .lojee-range:focus-visible::-webkit-slider-thumb {
   box-shadow:
-    0 3px 7px rgba(0, 0, 0, 0.22),
-    inset 0 1px 0 rgba(255, 255, 255, 0.85),
+    0 1px 2px rgba(0, 0, 0, 0.12),
     0 0 0 3px color-mix(in srgb, var(--color-accent-500) 45%, transparent);
 }
 .lojee-slider:focus-visible::-moz-range-thumb,
 .lojee-range:focus-visible::-moz-range-thumb {
   box-shadow:
-    0 3px 7px rgba(0, 0, 0, 0.22),
-    inset 0 1px 0 rgba(255, 255, 255, 0.85),
+    0 1px 2px rgba(0, 0, 0, 0.12),
     0 0 0 3px color-mix(in srgb, var(--color-accent-500) 45%, transparent);
 }
 
@@ -899,6 +933,63 @@
 /* Sliding active pills (Navbar, Sidebar, Pagination…) sit above their sibling items' backgrounds/shadows so the
    pill's clay drop shadow isn't painted over; the items' labels are z-10 and stay on top of the pill. */
 [data-design="clay"] [data-active-fill]:not(button, a, [role]) { z-index: 5; }
+/* Whatever carries the active fill (a row or the sliding pill) gets the same shadow as a filled button. The outline and
+   soft active styles override this with their own box-shadow (!important). */
+[data-design="clay"] [data-active-fill] {
+  box-shadow: 5px 7px 14px var(--clay-drop), var(--clay-gloss);
+}
+/* Outline / soft active styles get a clay body too (the theme's data-design and data-active-variant may sit on the same element or on nested ones). */
+:is([data-design="clay"][data-active-variant="soft"], [data-design="clay"] [data-active-variant="soft"], [data-active-variant="soft"] [data-design="clay"]) [data-active-fill] {
+  box-shadow: 3px 4px 9px var(--clay-drop), inset 2px 2px 4px var(--clay-hi), inset -2px -3px 5px var(--clay-lo) !important;
+}
+:is([data-design="clay"][data-active-variant="outline"], [data-design="clay"] [data-active-variant="outline"], [data-active-variant="outline"] [data-design="clay"]) [data-active-fill] {
+  box-shadow: inset 0 0 0 1.5px var(--ac), 3px 4px 9px var(--clay-drop) !important;
+}
+/* Active items that aren't marked with data-active-fill. */
+/* Tabs: the tablist is a pressed-in rounded track and the sliding indicator becomes a raised clay pill behind the active tab's text. */
+[data-design="clay"] [role="tablist"] {
+  border-bottom-width: 0;
+  padding: 5px;
+  gap: 4px;
+  border-radius: 1rem;
+  background-color: var(--lojee-surface-muted);
+  box-shadow: var(--clay-well);
+}
+[data-design="clay"] [role="tablist"] > span[aria-hidden] {
+  top: 5px;
+  bottom: 5px;
+  height: auto;
+  border-radius: 0.75rem;
+  background-color: var(--lojee-surface);
+  box-shadow: var(--clay-raise-sm);
+}
+[data-design="clay"] [role="tab"] {
+  border-radius: 0.75rem;
+  border-bottom-width: 0;
+}
+[data-design="clay"] [role="tab"][aria-selected="true"] {
+  background-color: transparent;
+  box-shadow: none;
+}
+/* Stepper: complete = glossy clay ball, current = raised surface ball with the accent ring, upcoming = pressed in. */
+[data-design="clay"] [data-step-circle="complete"] {
+  box-shadow: 3px 4px 9px var(--clay-drop), var(--clay-gloss);
+}
+[data-design="clay"] [data-step-circle="current"] {
+  background-color: var(--lojee-surface);
+  box-shadow: 3px 4px 9px var(--clay-drop), inset 2px 2px 4px var(--clay-hi), inset -2px -3px 5px var(--clay-lo);
+}
+[data-design="clay"] [data-step-circle="upcoming"] {
+  border-color: transparent;
+  background-color: var(--lojee-surface-muted);
+  box-shadow: var(--clay-well);
+}
+/* A pressed toggle button. (aria-current="page" items are not styled here: every library component with a current item — Sidebar,
+   Navbar, BottomNavigation… — draws it with a sliding pill or marked row, and a second shadow on the item itself spoils the
+   outline / soft / text active styles.) */
+[data-design="clay"] button[aria-pressed="true"]:not([data-active-fill], [data-active-text]):not([class*="bg-"]) {
+  box-shadow: var(--clay-raise-sm);
+}
 /* A Sidebar category clips its items (overflow-hidden, for the collapse animation), which cuts the active pill's
    drop shadow at the group edges. Once open it stops clipping (the flip waits out the 300ms expand). */
 [data-design="clay"] [data-sidebar-group][data-open="true"] {
@@ -1171,6 +1262,196 @@ body[data-design="clay"] {
   box-shadow: var(--clay-gloss-thin);
 }
 
+/* Skeletons: pressed-in clay wells (inner shadow); text lines and circles become pills, blocks keep the clay radius. */
+[data-design="clay"] [data-skeleton] {
+  background-color: var(--lojee-surface-muted);
+  box-shadow: var(--clay-well);
+}
+[data-design="clay"] :is([data-skeleton="text"], [data-skeleton="circle"]) {
+  border-radius: 9999px;
+}
+[data-design="clay"] [data-skeleton]::before {
+  opacity: 0.6;
+}
+
+/* Slider / RangeSlider: a slim pressed-in track, and a smooth clay pebble with a colored core that floats above it (lit from the top). */
+[data-design="clay"] .lojee-slider,
+[data-design="clay"] .lojee-range {
+  --lojee-pebble: var(--lojee-core), linear-gradient(180deg, var(--color-surface), var(--color-surface-muted));
+  --lojee-pebble-shadow: 0 6px 12px var(--clay-drop), inset 0 2px 3px var(--clay-hi), inset 0 -3px 6px var(--clay-lo);
+}
+[data-design="clay"] :is(.lojee-slider, .lojee-range)[data-thumb-variant="solid"] {
+  --lojee-pebble: linear-gradient(180deg, var(--lojee-base-top), var(--lojee-base-bot));
+  --lojee-pebble-shadow: 0 6px 12px var(--clay-drop), var(--clay-gloss);
+}
+[data-design="clay"] [data-range-track] { box-shadow: inset 0 2px 3px var(--clay-lo), inset 0 -1px 2px var(--clay-hi); }
+[data-design="clay"] [data-range-fill] { box-shadow: var(--clay-gloss-thin); }
+[data-design="clay"] .lojee-slider::-webkit-slider-runnable-track,
+[data-design="clay"] .lojee-slider::-moz-range-track {
+  box-shadow: inset 0 2px 3px var(--clay-lo), inset 0 -1px 2px var(--clay-hi);
+}
+[data-design="clay"] .lojee-slider::-webkit-slider-thumb,
+[data-design="clay"] .lojee-range::-webkit-slider-thumb {
+  background: var(--lojee-pebble);
+  border: 0;
+  box-shadow: var(--lojee-pebble-shadow);
+}
+[data-design="clay"] .lojee-slider::-moz-range-thumb,
+[data-design="clay"] .lojee-range::-moz-range-thumb {
+  background: var(--lojee-pebble);
+  border: 0;
+  box-shadow: var(--lojee-pebble-shadow);
+}
+[data-design="clay"] :is(.lojee-slider, .lojee-range):active::-webkit-slider-thumb {
+  translate: 0 2px;
+  box-shadow: 0 2px 5px var(--clay-drop), inset 0 2px 3px var(--clay-hi), inset 0 -3px 6px var(--clay-lo);
+}
+[data-design="clay"] :is(.lojee-slider, .lojee-range):active::-moz-range-thumb {
+  translate: 0 2px;
+  box-shadow: 0 2px 5px var(--clay-drop), inset 0 2px 3px var(--clay-hi), inset 0 -3px 6px var(--clay-lo);
+}
+[data-design="clay"] :is(.lojee-slider, .lojee-range):focus-visible::-webkit-slider-thumb {
+  box-shadow: var(--lojee-pebble-shadow), 0 0 0 3px color-mix(in srgb, var(--color-accent-500) 45%, transparent);
+}
+[data-design="clay"] :is(.lojee-slider, .lojee-range):focus-visible::-moz-range-thumb {
+  box-shadow: var(--lojee-pebble-shadow), 0 0 0 3px color-mix(in srgb, var(--color-accent-500) 45%, transparent);
+}
+
+/* Divider drag handle: a soft dimple pressed into the page (inner shadow) that pops out when hovered and fills with the accent when dragged. */
+[data-design="clay"] [data-divider-handle][data-divider-handle] {
+  background-image: none;
+  background-color: var(--lojee-surface-muted);
+  border-color: transparent;
+  box-shadow: var(--clay-well);
+}
+[data-design="clay"] .group:hover [data-divider-handle] {
+  scale: 1.05;
+  background-color: var(--lojee-surface);
+  box-shadow: var(--clay-raise-sm);
+}
+[data-design="clay"] .group:active [data-divider-handle],
+[data-design="clay"] .group:focus-visible [data-divider-handle] {
+  scale: 1;
+  background-image: none;
+  background-color: var(--color-accent-500);
+  box-shadow: var(--clay-gloss);
+}
+
+/* TopBar: a rounded clay bar (light / elevated raised, accent glossy, minimal flat), round clay icon buttons that press in when
+   clicked, a pressed-in search pill and glossy badges. */
+[data-design="clay"] [data-topbar] {
+  border-radius: 1.5rem;
+}
+[data-design="clay"] [data-topbar="light"] {
+  border-bottom-color: transparent;
+  box-shadow: var(--clay-raise-md);
+}
+[data-design="clay"] [data-topbar="elevated"] {
+  box-shadow: var(--clay-raise-lg);
+}
+[data-design="clay"] [data-topbar="accent"] {
+  box-shadow: 6px 8px 18px var(--clay-drop), var(--clay-gloss);
+}
+[data-design="clay"] [data-topbar-button] {
+  border-radius: 9999px;
+  background-color: var(--lojee-surface);
+  box-shadow: var(--clay-raise-sm);
+}
+[data-design="clay"] [data-topbar-button]:hover {
+  box-shadow: var(--clay-raise-md);
+  translate: 0 -1px;
+}
+[data-design="clay"] [data-topbar-button]:active {
+  box-shadow: var(--clay-well);
+  translate: 0 0;
+}
+[data-design="clay"] [data-topbar="accent"] [data-topbar-button] {
+  background-color: rgb(255 255 255 / 0.16);
+  box-shadow: var(--clay-gloss-thin);
+}
+[data-design="clay"] [data-topbar="accent"] [data-topbar-button]:hover {
+  background-color: rgb(255 255 255 / 0.26);
+  box-shadow: 2px 3px 6px var(--clay-drop), var(--clay-gloss-thin);
+}
+[data-design="clay"] [data-topbar-search] {
+  border-radius: 9999px;
+  border-color: transparent;
+  box-shadow: var(--clay-well);
+}
+[data-design="clay"] [data-topbar-badge] {
+  box-shadow: 1px 2px 4px var(--clay-drop), var(--clay-gloss-thin);
+}
+
+/* Header: a soft rounded clay panel (docked bars round off too); dark / gradient get a glossy body; minimal stays flat. */
+[data-design="clay"] [data-header]:not([data-header="minimal"]) {
+  border-radius: 1.75rem;
+  border-color: transparent;
+}
+[data-design="clay"] [data-header="light"] {
+  padding: 1rem 1.5rem;
+  box-shadow: var(--clay-raise-md);
+}
+[data-design="clay"] :is([data-header="bordered"], [data-header="elevated"]) {
+  box-shadow: var(--clay-raise-lg);
+}
+[data-design="clay"] :is([data-header="dark"], [data-header="gradient"]) {
+  box-shadow: 6px 8px 18px var(--clay-drop), var(--clay-gloss);
+}
+
+/* Footer: a puffy clay slab with rounded corners; its bottom divider is an engraved groove. */
+[data-design="clay"] [data-footer] {
+  border-radius: 2rem;
+}
+[data-design="clay"] [data-footer="neutral"] {
+  box-shadow: var(--clay-raise-md);
+}
+[data-design="clay"] [data-footer="color"] {
+  box-shadow: 6px 8px 18px var(--clay-drop), var(--clay-gloss);
+}
+[data-design="clay"] [data-footer="neutral"] [data-footer-bottom] {
+  border-top-width: 2px;
+  border-top-color: var(--clay-lo);
+  box-shadow: inset 0 1px 0 var(--clay-hi);
+}
+[data-design="clay"] [data-footer="color"] [data-footer-bottom] {
+  border-top-width: 2px;
+  border-top-color: rgb(0 0 0 / 0.25);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.15);
+}
+
+/* Stepper connectors: a pressed-in groove, with a glossy clay fill for the finished stretch. */
+[data-design="clay"] [data-step-connector] {
+  border-radius: 9999px;
+}
+[data-design="clay"] [data-step-connector="todo"] {
+  background-color: var(--lojee-surface-muted);
+  box-shadow: var(--clay-well);
+}
+[data-design="clay"] [data-step-connector="done"] {
+  box-shadow: 1px 2px 3px var(--clay-drop), var(--clay-gloss-thin);
+}
+[data-design="clay"] [data-step-connector].h-0\.5 { height: 6px; }
+[data-design="clay"] [data-step-connector].w-0\.5 { width: 6px; }
+[data-design="clay"] [data-step-circle] {
+  width: 2.25rem;
+  height: 2.25rem;
+}
+
+/* BottomNavigation floating button: a puffy glossy clay ball sitting in a soft well-ringed cutout. */
+[data-design="clay"] [data-bn-notch-shadow] {
+  stroke: var(--clay-drop);
+  opacity: 0.5;
+}
+[data-design="clay"] [data-bn-fab] {
+  box-shadow: 6px 8px 16px var(--clay-drop), var(--clay-gloss);
+}
+[data-design="clay"] [data-bn-fab]:hover {
+  box-shadow: 8px 11px 20px var(--clay-drop), var(--clay-gloss);
+}
+[data-design="clay"] [data-bn-fab]:active {
+  box-shadow: 2px 3px 6px var(--clay-drop), var(--clay-gloss);
+}
+
 /* Command menu: a puffy panel, a pressed-in search pill, and rows that rise out of the list when hovered or highlighted. */
 [data-design="clay"] [data-cmd="panel"] {
   padding: 0.75rem;
@@ -1261,6 +1542,11 @@ body[data-design="clay"] {
   border-color: transparent;
   border-radius: 1.5rem;
   box-shadow: var(--clay-raise-lg);
+}
+/* Inside a DotScroll the outer panel already carries the radius and shadow — the scrolling list must not draw a second one. */
+[data-design="clay"] .lojee-ds-view[role="listbox"]:not([data-cmd], [data-swatches]) {
+  border-radius: 0;
+  box-shadow: none;
 }
 [data-design="clay"] [role="listbox"]:not([data-cmd], [data-swatches]) > [role="option"] {
   border-radius: 1rem;
@@ -1362,6 +1648,17 @@ body[data-design="clay"] {
 /* Map pins (+ their gloss highlight), popups, zoom controls and the style switcher. */
 [data-design="clay"] [data-map-pin] svg { filter: drop-shadow(3px 5px 4px var(--clay-drop)); }
 [data-design="clay"] [data-map-pin] .lojee-pin-gloss { fill-opacity: 0.5; }
+/* Map frame: big rounded raised slab; the canvas covers the root's own insets, so the rim is an overlay above it. */
+[data-design="clay"] [data-map-root] {
+  border-radius: 28px;
+  border-color: transparent;
+  box-shadow: 10px 14px 30px var(--clay-drop);
+}
+[data-design="clay"] [data-map-root] > [data-map-rim] {
+  display: block;
+  box-shadow: inset 4px 4px 10px var(--clay-hi), inset -6px -7px 14px var(--clay-lo);
+}
+[data-design="clay"] [data-map-root] .maplibregl-ctrl-group { border-radius: 14px; }
 [data-design="clay"] .maplibregl-popup-content {
   border-radius: 18px;
   box-shadow: var(--clay-raise-md);
@@ -1399,4 +1696,22 @@ body[data-design="clay"] {
     var(--clay-raise-lg),
     0 0 0 1.5px color-mix(in srgb, var(--color-accent-500) 60%, transparent),
     0 0 34px 2px color-mix(in srgb, var(--color-accent-500) 38%, transparent) !important;
+}
+
+/* Clay: Timeline markers are glossy raised balls in the item color, the connector a pressed groove; Stat icon is a puffy raised badge. */
+[data-design="clay"] [data-tl-marker] {
+  background: var(--ic) !important;
+  color: #fff !important;
+  box-shadow: 3px 4px 8px var(--clay-drop), var(--clay-gloss);
+}
+[data-design="clay"] [data-tl-line] {
+  background: var(--clay-lo) !important;
+  border-radius: 9999px;
+  box-shadow: var(--clay-well);
+}
+[data-design="clay"] [data-stat-icon] {
+  background: var(--ic) !important;
+  color: #fff !important;
+  border-radius: 9999px;
+  box-shadow: 4px 6px 12px var(--clay-drop), var(--clay-gloss);
 }

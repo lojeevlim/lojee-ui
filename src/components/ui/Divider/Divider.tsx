@@ -5,6 +5,9 @@ import { motionClass, motionStyle, type TransitionVariant } from "../../../core/
 
 export type DividerOrientation = "horizontal" | "vertical";
 
+/** Look of the drag handle on a `resizable` divider. */
+export type DividerHandleVariant = "grip" | "dots" | "arrows" | "circle" | "bar" | "pill";
+
 export interface DividerProps {
   /** "horizontal" (default) draws a full-width line; "vertical" draws a full-height line. */
   orientation?: DividerOrientation;
@@ -30,6 +33,12 @@ export interface DividerProps {
    * handle.
    */
   resizable?: boolean;
+  /**
+   * Look of the drag handle when `resizable`: "grip" (default, two rows of dots), "dots" (three dots), "arrows" (a
+   * round button with direction chevrons), "circle" (a round button with a single dot), "bar" (a short thick bar) or
+   * "pill" (a plain pill). Under the clay design the handle renders as a puffy clay button.
+   */
+  handleVariant?: DividerHandleVariant;
   /** Called with the pointer/keyboard movement in px (positive = right/down). */
   onResize?: (deltaPx: number) => void;
   /** Keyboard step size in px when resizable (default 10). */
@@ -62,12 +71,25 @@ const BORDER_COLOR: Record<ColorName, string> = {
   pink: "border-pink-200 dark:border-pink-800",
 };
 
-// The grip in the middle of a resizable divider: a small pill with two rows (or columns) of dots, so it is obvious
-// the line can be dragged. Purely visual — the whole divider is the drag target.
-function GripHandle({ vertical, className }: { vertical: boolean; className?: string }) {
+// The handle in the middle of a resizable divider: a small button-like pill so it is obvious the line can be
+// dragged. Purely visual — the whole divider is the drag target. `data-divider-handle` is the hook for the clay look.
+function GripHandle({ vertical, variant, className }: { vertical: boolean; variant: DividerHandleVariant; className?: string }) {
+  const round = variant === "arrows" || variant === "circle";
+  const size = round
+    ? "size-6"
+    : variant === "bar"
+      ? vertical ? "h-8 w-1.5" : "h-1.5 w-8"
+      : variant === "dots"
+        ? vertical ? "h-6 w-4" : "h-4 w-6"
+        : variant === "pill"
+          ? vertical ? "h-8 w-3" : "h-3 w-8"
+          : vertical ? "h-10 w-4" : "h-4 w-10";
+  const dot = "size-[3px] rounded-full bg-fg-subtle/70 transition-colors duration-200 group-hover:bg-accent-500 group-active:bg-white group-focus-visible:bg-accent-500";
+  const stroke = "text-fg-subtle transition-colors duration-200 group-hover:text-accent-500 group-active:text-white group-focus-visible:text-accent-500";
   return (
     <span
       aria-hidden
+      data-divider-handle={variant}
       className={cx(
         // A soft top-lit gradient pill: hairline border, a fine drop shadow and an inner highlight so it reads as a raised grip.
         "pointer-events-none absolute left-1/2 top-1/2 z-10 flex -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-gradient-to-b from-surface to-surface-muted",
@@ -77,18 +99,26 @@ function GripHandle({ vertical, className }: { vertical: boolean; className?: st
         "group-hover:scale-105 group-hover:border-accent-300 group-hover:shadow-[0_2px_8px_rgb(0_0_0/0.14),inset_0_1px_0_rgb(255_255_255/0.75)]",
         "group-active:scale-110 group-active:border-accent-600 group-active:from-accent-500 group-active:to-accent-600 group-active:shadow-[0_0_0_4px_color-mix(in_srgb,var(--color-accent-500)_25%,transparent)]",
         "group-focus-visible:border-accent-600 group-focus-visible:shadow-[0_0_0_4px_color-mix(in_srgb,var(--color-accent-500)_25%,transparent)]",
-        vertical ? "h-10 w-4" : "h-4 w-10",
+        size,
         className
       )}
     >
-      <span className={cx("grid gap-[3px]", vertical ? "grid-cols-2" : "grid-flow-col grid-rows-2")}>
-        {Array.from({ length: 6 }, (_, i) => (
-          <span
-            key={i}
-            className="size-[3px] rounded-full bg-fg-subtle/70 transition-colors duration-200 group-hover:bg-accent-500 group-active:bg-white group-focus-visible:bg-accent-500"
-          />
-        ))}
-      </span>
+      {variant === "grip" && (
+        <span className={cx("grid gap-[3px]", vertical ? "grid-cols-2" : "grid-flow-col grid-rows-2")}>
+          {Array.from({ length: 6 }, (_, i) => <span key={i} className={dot} />)}
+        </span>
+      )}
+      {variant === "dots" && (
+        <span className={cx("flex gap-[3px]", vertical && "flex-col")}>
+          {Array.from({ length: 3 }, (_, i) => <span key={i} className={dot} />)}
+        </span>
+      )}
+      {variant === "circle" && <span className={dot} />}
+      {variant === "arrows" && (
+        <svg viewBox="0 0 16 16" className={cx("size-4", stroke)} fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+          {vertical ? <path d="M5.5 5 3 8l2.5 3M10.5 5 13 8l-2.5 3" /> : <path d="M5 5.5 8 3l3 2.5M5 10.5 8 13l3-2.5" />}
+        </svg>
+      )}
     </span>
   );
 }
@@ -104,6 +134,7 @@ export function Divider({
   transitionDelay,
   resizable = false,
   onResize,
+  handleVariant = "grip",
   step = 10,
   classNames,
 }: DividerProps) {
@@ -174,6 +205,7 @@ export function Divider({
         {...dragHandleProps}
       >
         <span
+          data-divider-line=""
           className={cx(
             "w-px border-l transition-colors",
             borderClass,
@@ -181,7 +213,7 @@ export function Divider({
             classNames?.line
           )}
         />
-        {resizable && <GripHandle vertical className={classNames?.handle} />}
+        {resizable && <GripHandle vertical variant={handleVariant} className={classNames?.handle} />}
       </span>
     );
   }
@@ -201,6 +233,7 @@ export function Divider({
         {...dragHandleProps}
       >
         <span
+          data-divider-line=""
           className={cx(
             "h-px w-full border-t transition-colors",
             borderClass,
@@ -208,7 +241,7 @@ export function Divider({
             classNames?.line
           )}
         />
-        <GripHandle vertical={false} className={classNames?.handle} />
+        <GripHandle vertical={false} variant={handleVariant} className={classNames?.handle} />
       </span>
     );
   }

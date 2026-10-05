@@ -74,7 +74,7 @@ export interface HeaderProps {
 
 const VARIANT_CLASSES: Record<HeaderVariant, string> = {
   light: "bg-surface border-b border-border",
-  dark: "bg-accent-950 border-b border-accent-900",
+  dark: "bg-accent-950 border-b border-white/10",
   // "bordered" and "elevated" both float as a detached card (see `isDetachedPanel`) rather
   // than sitting flush in the page's own content flow — kept as separate `variant` names since each
   // still has its own distinct look (colored border / shadow-only) on top of
@@ -200,6 +200,7 @@ export function Header({
 
   const panel = (
     <div
+      data-header={variant}
       className={cx(
         "flex flex-col gap-1",
         isDetachedPanel ? "p-4" : hasFilledDockedBackground ? "px-6 py-4" : "pb-6",

@@ -1,4 +1,4 @@
-import { memo, useEffect, useRef, useState, type CSSProperties, type PointerEvent, type ReactNode } from "react";
+import { cloneElement, isValidElement, memo, useEffect, useRef, useState, type CSSProperties, type PointerEvent, type ReactNode } from "react";
 import { HeroCard as Card } from "./HeroCard";
 import { BASIC_REELS } from "./heroCardsBasic";
 import { FORMS_REELS } from "./heroCardsForms";
@@ -224,7 +224,10 @@ const Reel = memo(function Reel({ items, dir, speed, style }: { items: ReactNode
 });
 
 // Every card, dealt out across the two reels in turn so each row mixes small and large components.
-const ALL_CARDS: ReactNode[] = [...ROW_1, ...ROW_2, ...ROW_3, ...BASIC_REELS.flat(), ...FORMS_REELS.flat(), ...FEEDBACK_REELS.flat(), ...DATA_REELS.flat()];
+// The card files each pick their own keys ("search", "progress"…), so the same key shows up in several of them — re-key by position.
+const ALL_CARDS: ReactNode[] = [...ROW_1, ...ROW_2, ...ROW_3, ...BASIC_REELS.flat(), ...FORMS_REELS.flat(), ...FEEDBACK_REELS.flat(), ...DATA_REELS.flat()].map((c, i) =>
+  isValidElement(c) ? cloneElement(c, { key: `card-${i}` }) : c
+);
 const REELS: ReactNode[][] = [0, 1].map((r) => ALL_CARDS.filter((_, i) => i % 2 === r));
 
 // Each reel drifts a little with the cursor, at its own depth (--px / --py are set on the stage without re-rendering).

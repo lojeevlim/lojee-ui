@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-/* Animation tokens (Loader "shimmer", ProgressBar "indeterminate") plus the
+/* Animation tokens (Skeleton "shimmer", ProgressBar "indeterminate") plus the
    theme tokens — semantic surface/fg/border colors, the accent palette, and the
    light/dark + data-accent switching. Kept in theme.css so the published
    `lojee-ui/theme.css` and this demo stylesheet stay identical. */

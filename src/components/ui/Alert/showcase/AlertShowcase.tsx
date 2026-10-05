@@ -20,18 +20,30 @@ export default function AlertShowcase() {
         <section>
           <SectionLabel sub="Each variant carries its own color treatment and default icon.">Variants</SectionLabel>
           <div className="flex flex-col gap-3">
-            <Alert variant="info" title="Heads up">
-              This is an informational message.
-            </Alert>
-            <Alert variant="success" title="Saved">
-              Your changes have been saved.
-            </Alert>
-            <Alert variant="warning" title="Careful">
-              This action may have unintended side effects.
-            </Alert>
-            <Alert variant="error" title="Something went wrong">
-              We couldn't process your request. Please try again.
-            </Alert>
+            <div>
+              <p className="mb-1.5 font-mono text-xs text-fg-subtle">info</p>
+              <Alert variant="info" title="Heads up">
+                This is an informational message.
+              </Alert>
+            </div>
+            <div>
+              <p className="mb-1.5 font-mono text-xs text-fg-subtle">success</p>
+              <Alert variant="success" title="Saved">
+                Your changes have been saved.
+              </Alert>
+            </div>
+            <div>
+              <p className="mb-1.5 font-mono text-xs text-fg-subtle">warning</p>
+              <Alert variant="warning" title="Careful">
+                This action may have unintended side effects.
+              </Alert>
+            </div>
+            <div>
+              <p className="mb-1.5 font-mono text-xs text-fg-subtle">error</p>
+              <Alert variant="error" title="Something went wrong">
+                We couldn't process your request. Please try again.
+              </Alert>
+            </div>
           </div>
           <CodeBlock
             variants={{

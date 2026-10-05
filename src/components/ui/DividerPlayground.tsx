@@ -1,17 +1,19 @@
 import { useState } from "react";
-import { Divider, type DividerOrientation } from "./Divider/Divider";
+import { Divider, type DividerOrientation, type DividerHandleVariant } from "./Divider/Divider";
 import type { ColorName } from "../../core/tokens";
 import { OptionGroup, ColorSwatches, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import type { CodeBlockVariants } from "./CodeBlock";
 import { useMotion } from "./playgroundMotion";
 
 const ORIENTATIONS: DividerOrientation[] = ["horizontal", "vertical"];
+const HANDLES: DividerHandleVariant[] = ["grip", "dots", "arrows", "circle", "bar", "pill"];
 
 export default function DividerPlayground() {
   const [orientation, setOrientation] = useState<DividerOrientation>("horizontal");
   const [label, setLabel] = useState("");
   const [color, setColor] = useState<ColorName>("accent");
   const [resizable, setResizable] = useState(false);
+  const [handle, setHandle] = useState<DividerHandleVariant>("grip");
   const motion = useMotion({ hover: false });
 
   const isVertical = orientation === "vertical";
@@ -22,12 +24,12 @@ export default function DividerPlayground() {
         {isVertical ? (
           <div className="flex h-24 items-center gap-3">
             <div className="text-xs text-fg-subtle">Left</div>
-            <Divider key={motion.replayKey} {...motion.props} orientation="vertical" color={color} resizable={resizable} />
+            <Divider key={motion.replayKey} {...motion.props} orientation="vertical" color={color} resizable={resizable} handleVariant={handle} />
             <div className="text-xs text-fg-subtle">Right</div>
           </div>
         ) : (
           <div className="w-64">
-            <Divider key={motion.replayKey} {...motion.props} color={color} label={label || undefined} resizable={resizable} />
+            <Divider key={motion.replayKey} {...motion.props} color={color} label={label || undefined} resizable={resizable} handleVariant={handle} />
           </div>
         )}
       </AppWindowBody>
@@ -39,6 +41,7 @@ export default function DividerPlayground() {
     color !== "accent" ? `color="${color}"` : null,
     !isVertical && !resizable && label ? `label="${label}"` : null,
     resizable ? "resizable" : null,
+    resizable && handle !== "grip" ? `handleVariant="${handle}"` : null,
   ]
     .filter(Boolean)
     .join(" ");
@@ -52,6 +55,7 @@ export default function DividerPlayground() {
     color !== "accent" ? `color="${color}"` : null,
     !isVertical && !resizable && label ? `label="${label}"` : null,
     resizable ? `resizable="true"` : null,
+    resizable && handle !== "grip" ? `handleVariant="${handle}"` : null,
   ]
     .filter(Boolean)
     .join(" ");
@@ -96,6 +100,8 @@ export default function DividerPlayground() {
           </button>
         </div>
       </div>
+
+      {resizable && <OptionGroup label="Handle" options={HANDLES} value={handle} onChange={setHandle} />}
 
       {motion.controls}
     </PlaygroundLayout>

@@ -3,6 +3,7 @@ import { ArrowUp, Check, Copy, Sparkles, User } from "lucide-react";
 import { colorClasses, cx, nonInteractive, type ColorName } from "../../../core/tokens";
 import { motionClass, motionStyle, type TransitionVariant } from "../../../core/motion";
 import { Input } from "../Input/Input";
+import { DotScroll } from "../DotScroll/DotScroll";
 import { Thinking, type ThinkingVariant } from "../Thinking/Thinking";
 import { highlightCode } from "../../../core/highlightCode";
 
@@ -201,11 +202,12 @@ export function ChatBox({
         </div>
       )}
 
-      <div
-        ref={scroller}
+      <DotScroll
+        className="flex min-h-0 flex-1 flex-col"
+        viewportRef={scroller}
         role="log"
         aria-live="polite"
-        className={cx("min-h-0 flex-1 overflow-y-auto overflow-x-hidden", flat ? "divide-y divide-border" : compact ? "space-y-2.5 px-3 py-3" : "space-y-4 px-4 py-4", classNames?.messages)}
+        viewportClassName={cx("min-h-0 flex-1", flat ? "divide-y divide-border" : compact ? "space-y-2.5 px-3 py-3" : "space-y-4 px-4 py-4", classNames?.messages)}
       >
         {list.length === 0 && !isThinking && <p className="py-8 text-center text-sm text-fg-subtle">{emptyText}</p>}
         {list.map((m) => {
@@ -288,7 +290,7 @@ export function ChatBox({
               </div>
             </div>
           ))}
-      </div>
+      </DotScroll>
 
       {suggestions && suggestions.length > 0 && !list.some((m) => m.role === "user") && (
         <div className="flex flex-wrap gap-1.5 border-t border-border px-3 pt-3">

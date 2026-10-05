@@ -22,7 +22,7 @@ import { Image } from "../ui/Image/Image";
 import { sampleImage } from "../ui/Image/samples";
 import { List } from "../ui/List/List";
 import { ListItem } from "../ui/List/ListItem";
-import { Loader } from "../ui/Loader/Loader";
+import { Skeleton } from "../ui/Skeleton/Skeleton";
 import { Section } from "../ui/Section/Section";
 import { Spinner } from "../ui/Spinner/Spinner";
 
@@ -340,29 +340,29 @@ const REEL_2: ReactNode[] = [
 ];
 
 const REEL_3: ReactNode[] = [
-  <HeroCard key="loader-text" name="Loader / text" w="w-72">
+  <HeroCard key="skeleton-text" name="Skeleton / text" w="w-72">
     <Label>pulse</Label>
-    <Loader shape="text" lines={3} variant="pulse" />
+    <Skeleton variant="text" animation="pulse" lines={3} />
     <Label>shimmer</Label>
-    <Loader shape="text" lines={2} variant="shimmer" />
+    <Skeleton variant="text" animation="shimmer" lines={2} />
     <Label>wave</Label>
-    <Loader shape="text" lines={2} variant="wave" />
+    <Skeleton variant="text" animation="wave" lines={2} />
   </HeroCard>,
-  <HeroCard key="loader-shapes" name="Loader / shapes" w="w-72">
+  <HeroCard key="skeleton-shapes" name="Skeleton / shapes" w="w-72">
     <div className="flex items-center gap-3">
-      <Loader shape="circle" variant="shimmer" width={44} />
+      <Skeleton variant="circle" animation="shimmer" size={44} />
       <div className="flex-1">
-        <Loader shape="text" lines={2} variant="shimmer" />
+        <Skeleton variant="text" animation="shimmer" lines={2} />
       </div>
     </div>
     <Label>rect</Label>
-    <Loader shape="rect" variant="pulse" height={56} width={220} />
+    <Skeleton variant="rect" animation="pulse" height={56} width={220} />
   </HeroCard>,
-  <HeroCard key="loader-card" name="Loader / card skeleton" w="w-72">
+  <HeroCard key="skeleton-card" name="Skeleton / card" w="w-72">
     <div className="space-y-3">
-      <Loader shape="rect" variant="wave" height={64} width={240} />
-      <Loader shape="text" lines={3} variant="wave" />
-      <Loader shape="rect" variant="none" height={28} width={96} />
+      <Skeleton variant="rect" animation="wave" height={64} width={240} />
+      <Skeleton variant="text" animation="wave" lines={3} />
+      <Skeleton variant="rect" animation="none" height={28} width={96} />
     </div>
   </HeroCard>,
   <HeroCard key="divider-h" name="Divider / horizontal" w="w-72">

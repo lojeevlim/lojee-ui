@@ -173,6 +173,7 @@ export function TopBar({
 
   return (
     <header
+      data-topbar={variant}
       style={{ ...style, ...motionStyle(transitionDuration, transitionDelay) }}
       className={cx(
         "flex w-full items-center gap-3",
@@ -185,7 +186,7 @@ export function TopBar({
       )}
     >
       {(menu ?? onMenuClick != null) && (
-        <button type="button" aria-label={menuLabel} onClick={() => onMenuClick?.()} className={buttonClass}>
+        <button type="button" aria-label={menuLabel} onClick={() => onMenuClick?.()} data-topbar-button="" className={buttonClass}>
           <Icon name="menu" size={18} />
         </button>
       )}
@@ -195,7 +196,7 @@ export function TopBar({
           aria-label={backLabel}
           // No handler given: go back in the browser history.
           onClick={() => (onBack ? onBack() : window.history.back())}
-          className={buttonClass}
+          data-topbar-button="" className={buttonClass}
         >
           <Icon name="arrow-left" size={18} />
         </button>
@@ -217,6 +218,7 @@ export function TopBar({
         {searchOpen ? (
           <input
             type="search"
+            data-topbar-search=""
             autoFocus
             value={query}
             placeholder={searchPlaceholder}
@@ -247,7 +249,7 @@ export function TopBar({
             aria-label={searchOpen ? "Close search" : "Search"}
             aria-expanded={searchOpen}
             onClick={() => (searchOpen ? closeSearch() : setSearchOpen(true))}
-            className={buttonClass}
+            data-topbar-button="" className={buttonClass}
           >
             <Icon name={searchOpen ? "x" : "search"} size={18} />
           </button>
@@ -258,6 +260,7 @@ export function TopBar({
               <Icon name={action.icon} size={18} />
               {action.badge !== undefined && (
                 <span
+                  data-topbar-badge=""
                   className={cx(
                     "absolute right-0.5 top-0.5 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-red-500 px-1 text-[10px] font-medium leading-none text-white",
                     classNames?.badge
@@ -275,7 +278,7 @@ export function TopBar({
               aria-label={action.label}
               title={action.label}
               aria-disabled={action.disabled}
-              className={cx(buttonClass, action.disabled && "pointer-events-none opacity-40")}
+              data-topbar-button="" className={cx(buttonClass, action.disabled && "pointer-events-none opacity-40")}
               onClick={() => onActionClick?.(action, i)}
             >
               {content}
@@ -287,7 +290,7 @@ export function TopBar({
               aria-label={action.label}
               title={action.label}
               disabled={action.disabled}
-              className={cx(buttonClass, action.disabled && "opacity-40")}
+              data-topbar-button="" className={cx(buttonClass, action.disabled && "opacity-40")}
               onClick={() => onActionClick?.(action, i)}
             >
               {content}

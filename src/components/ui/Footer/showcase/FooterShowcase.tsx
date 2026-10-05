@@ -2,22 +2,26 @@ import { Footer } from "../Footer";
 import CodeBlock from "../../CodeBlock";
 import { SectionLabel, TransitionPreview } from "../../ShowcaseHelpers";
 
-function LinkColumn({ heading, links, dark, accent }: { heading: string; links: string[]; dark?: boolean; accent?: boolean }) {
+const COPY = "© 2026 Lojee, Inc. All rights reserved.";
+
+function Brand({ filled }: { filled?: boolean }) {
   return (
-    <div>
-      <h4 className={`text-sm font-semibold ${dark || accent ? "text-white" : "text-fg"}`}>{heading}</h4>
-      <ul className="mt-3 space-y-2">
-        {links.map((link) => (
-          <li key={link}>
-            <a href="#" className={`text-sm ${accent ? "text-white/70 hover:text-white" : dark ? "text-slate-400 hover:text-white" : "text-fg-muted hover:text-fg"}`}>
-              {link}
-            </a>
-          </li>
-        ))}
-      </ul>
+    <div className="col-span-2 sm:col-span-4">
+      <h4 className={`text-sm font-semibold ${filled ? "text-white" : "text-fg"}`}>Lojee</h4>
+      <p className={`mt-1 text-sm ${filled ? "text-white/70" : "text-fg-muted"}`}>Build interfaces faster with a small, themeable component library.</p>
     </div>
   );
 }
+
+const COLORS: { label: string; color?: string }[] = [
+  { label: "default (no color)" },
+  { label: "accent", color: "accent" },
+  { label: "slate", color: "slate" },
+  { label: "emerald", color: "emerald" },
+  { label: "rose", color: "rose" },
+  { label: "amber", color: "amber" },
+  { label: "custom · #7c3aed", color: "#7c3aed" },
+];
 
 export default function FooterShowcase() {
   return (
@@ -25,242 +29,87 @@ export default function FooterShowcase() {
       <div className="space-y-12">
         <div>
           <h1 className="text-2xl font-semibold text-fg">Footer</h1>
-          <p className="text-sm text-fg-subtle mt-1">A site-wide bottom footer with link columns and a copyright bar.</p>
+          <p className="text-sm text-fg-subtle mt-1">A site-wide bottom footer with a content area and a copyright bar, in a neutral surface or any color.</p>
         </div>
 
         <section>
-          <SectionLabel sub="A grid of link columns above a copyright line.">Basic</SectionLabel>
-          <Footer bottom="© 2026 Lojee, Inc. All rights reserved.">
-            <LinkColumn heading="Product" links={["Features", "Pricing", "Changelog"]} />
-            <LinkColumn heading="Company" links={["About", "Careers", "Blog"]} />
-            <LinkColumn heading="Resources" links={["Docs", "Guides", "Support"]} />
-            <LinkColumn heading="Legal" links={["Privacy", "Terms"]} />
+          <SectionLabel sub="Some text above a copyright line.">Basic</SectionLabel>
+          <Footer bottom={COPY}>
+            <Brand />
           </Footer>
           <CodeBlock
             variants={{
-              react: `<Footer bottom="© 2026 Lojee, Inc. All rights reserved.">
-  <div>
-    <h4>Product</h4>
-    <ul>
-      <li><a href="#">Features</a></li>
-      <li><a href="#">Pricing</a></li>
-      <li><a href="#">Changelog</a></li>
-    </ul>
-  </div>
-  <div>
-    <h4>Company</h4>
-    <ul>
-      <li><a href="#">About</a></li>
-      <li><a href="#">Careers</a></li>
-      <li><a href="#">Blog</a></li>
-    </ul>
-  </div>
-  <div>
-    <h4>Resources</h4>
-    <ul>
-      <li><a href="#">Docs</a></li>
-      <li><a href="#">Guides</a></li>
-      <li><a href="#">Support</a></li>
-    </ul>
-  </div>
-  <div>
-    <h4>Legal</h4>
-    <ul>
-      <li><a href="#">Privacy</a></li>
-      <li><a href="#">Terms</a></li>
-    </ul>
-  </div>
+              react: `<Footer bottom="${COPY}">
+  <h4>Lojee</h4>
+  <p>Build interfaces faster with a small, themeable component library.</p>
 </Footer>`,
-              js: `<l-Footer bottom="© 2026 Lojee, Inc. All rights reserved.">
-  <div>
-    <h4>Product</h4>
-    <ul>
-      <li><a href="#">Features</a></li>
-      <li><a href="#">Pricing</a></li>
-      <li><a href="#">Changelog</a></li>
-    </ul>
-  </div>
-  <div>
-    <h4>Company</h4>
-    <ul>
-      <li><a href="#">About</a></li>
-      <li><a href="#">Careers</a></li>
-      <li><a href="#">Blog</a></li>
-    </ul>
-  </div>
-  <div>
-    <h4>Resources</h4>
-    <ul>
-      <li><a href="#">Docs</a></li>
-      <li><a href="#">Guides</a></li>
-      <li><a href="#">Support</a></li>
-    </ul>
-  </div>
-  <div>
-    <h4>Legal</h4>
-    <ul>
-      <li><a href="#">Privacy</a></li>
-      <li><a href="#">Terms</a></li>
-    </ul>
-  </div>
+              js: `<l-Footer bottom="${COPY}">
+  <h4>Lojee</h4>
+  <p>Build interfaces faster with a small, themeable component library.</p>
 </l-Footer>
 
 <script type="module">import "lojee-ui/elements";</script>`,
               vue: `<template>
-  <l-Footer bottom="© 2026 Lojee, Inc. All rights reserved.">
-    <div v-for="column in columns" :key="column.heading">
-      <h4>{{ column.heading }}</h4>
-      <ul>
-        <li v-for="link in column.links" :key="link"><a href="#">{{ link }}</a></li>
-      </ul>
-    </div>
+  <l-Footer bottom="${COPY}">
+    <h4>Lojee</h4>
+    <p>Build interfaces faster with a small, themeable component library.</p>
   </l-Footer>
 </template>`,
-              angular: `<l-Footer bottom="© 2026 Lojee, Inc. All rights reserved.">
-  <div *ngFor="let column of columns">
-    <h4>{{ column.heading }}</h4>
-    <ul>
-      <li *ngFor="let link of column.links"><a href="#">{{ link }}</a></li>
-    </ul>
-  </div>
+              angular: `<l-Footer bottom="${COPY}">
+  <h4>Lojee</h4>
+  <p>Build interfaces faster with a small, themeable component library.</p>
 </l-Footer>`,
             }}
           />
         </section>
 
         <section>
-          <SectionLabel sub={`Four looks: "light" (default), "dark", "minimal" (no background, blends into the page) and "accent" (a solid color background — the theme's accent by default, so it changes with the accent picker; pass color for another).`}>
-            Variants
-          </SectionLabel>
-          <div className="space-y-4">
-            <div className="overflow-hidden rounded-lg border border-slate-800">
-              <Footer variant="dark" bottom={<span className="text-slate-400">© 2026 Lojee, Inc. All rights reserved.</span>}>
-                <LinkColumn heading="Product" links={["Features", "Pricing"]} dark />
-                <LinkColumn heading="Company" links={["About", "Careers"]} dark />
-                <LinkColumn heading="Resources" links={["Docs", "Support"]} dark />
-                <LinkColumn heading="Legal" links={["Privacy", "Terms"]} dark />
-              </Footer>
-            </div>
-            <div className="overflow-hidden rounded-lg border border-border">
-              <Footer variant="accent" bottom="© 2026 Lojee, Inc. All rights reserved.">
-                <LinkColumn heading="Product" links={["Features", "Pricing"]} accent />
-                <LinkColumn heading="Company" links={["About", "Careers"]} accent />
-                <LinkColumn heading="Resources" links={["Docs", "Support"]} accent />
-                <LinkColumn heading="Legal" links={["Privacy", "Terms"]} accent />
-              </Footer>
-            </div>
-            <div className="overflow-hidden rounded-lg border border-border">
-              <Footer variant="accent" color="emerald" bottom="© 2026 Lojee, Inc. — color=&quot;emerald&quot;">
-                <LinkColumn heading="Product" links={["Features", "Pricing"]} accent />
-                <LinkColumn heading="Company" links={["About", "Careers"]} accent />
-              </Footer>
-            </div>
-            <div className="rounded-lg border border-dashed border-border-strong bg-surface">
-              <Footer variant="minimal" bottom="© 2026 Lojee, Inc. All rights reserved.">
-                <LinkColumn heading="Product" links={["Features", "Pricing"]} />
-                <LinkColumn heading="Company" links={["About", "Careers"]} />
-              </Footer>
-            </div>
+          <SectionLabel sub="Pick the fill with color — any built-in color (accent follows the theme) or a custom CSS color such as #7c3aed. Without it the footer is a soft neutral surface.">Colors</SectionLabel>
+          <div className="grid gap-4">
+            {COLORS.map(({ label, color }) => (
+              <div key={label}>
+                <p className="mb-1.5 font-mono text-xs text-fg-subtle">{label}</p>
+                <Footer color={color} className="rounded-lg" bottom={COPY}>
+                  <Brand filled={color !== undefined} />
+                </Footer>
+              </div>
+            ))}
           </div>
           <CodeBlock
             variants={{
-              react: `<Footer variant="dark" bottom={<span className="text-slate-400">© 2026 Lojee, Inc.</span>}>
-  <LinkColumns />
-</Footer>
-
-{/* Also available: variant="minimal" (no background, blends into the page)
-    and variant="accent" — a solid background in the theme accent: */}
-<Footer variant="accent" bottom="© 2026 Lojee, Inc.">
-  <LinkColumns />
-</Footer>
-
-{/* pin another color */}
-<Footer variant="accent" color="emerald" bottom="© 2026 Lojee, Inc." />`,
-              js: `<l-Footer variant="dark">
-  <!-- link columns -->
-  <div slot="bottom"><span class="text-slate-400">© 2026 Lojee, Inc.</span></div>
-</l-Footer>
-
-<!-- Theme-accent footer: <l-Footer variant="accent"> — pin a color with color="emerald" -->
+              react: `<Footer bottom="${COPY}">Lojee</Footer>
+<Footer color="accent" bottom="${COPY}">Lojee</Footer>
+<Footer color="emerald" bottom="${COPY}">Lojee</Footer>
+<Footer color="#7c3aed" bottom="${COPY}">Lojee</Footer>`,
+              js: `<l-Footer bottom="${COPY}">Lojee</l-Footer>
+<l-Footer color="accent" bottom="${COPY}">Lojee</l-Footer>
+<l-Footer color="emerald" bottom="${COPY}">Lojee</l-Footer>
+<l-Footer color="#7c3aed" bottom="${COPY}">Lojee</l-Footer>
 
 <script type="module">import "lojee-ui/elements";</script>`,
               vue: `<template>
-  <l-Footer variant="dark">
-    <!-- link columns -->
-    <div slot="bottom"><span class="text-slate-400">© 2026 Lojee, Inc.</span></div>
-  </l-Footer>
+  <l-Footer color="emerald" bottom="${COPY}">Lojee</l-Footer>
 </template>`,
-              angular: `<l-Footer variant="dark">
-  <!-- link columns -->
-  <div slot="bottom"><span class="text-slate-400">© 2026 Lojee, Inc.</span></div>
-</l-Footer>`,
+              angular: `<l-Footer color="emerald" bottom="${COPY}">Lojee</l-Footer>`,
             }}
           />
         </section>
 
         <section>
-          <SectionLabel sub="Just the bottom bar — copyright plus a couple of legal links, no columns.">
+          <SectionLabel sub="Just the bottom bar — a copyright line, no content.">
             Bottom bar only
           </SectionLabel>
-          <Footer
-            bottom={
-              <div className="flex flex-wrap items-center justify-between gap-3">
-                <span>© 2026 Lojee, Inc. All rights reserved.</span>
-                <div className="flex items-center gap-4">
-                  <a href="#" className="hover:text-fg">
-                    Privacy
-                  </a>
-                  <a href="#" className="hover:text-fg">
-                    Terms
-                  </a>
-                </div>
-              </div>
-            }
-          />
+          <Footer bottom={COPY} />
           <CodeBlock
             variants={{
-              react: `<Footer
-  bottom={
-    <div className="flex flex-wrap items-center justify-between gap-3">
-      <span>© 2026 Lojee, Inc. All rights reserved.</span>
-      <div className="flex items-center gap-4">
-        <a href="#">Privacy</a>
-        <a href="#">Terms</a>
-      </div>
-    </div>
-  }
-/>`,
-              js: `<l-Footer>
-  <div slot="bottom" class="flex flex-wrap items-center justify-between gap-3">
-    <span>© 2026 Lojee, Inc. All rights reserved.</span>
-    <div class="flex items-center gap-4">
-      <a href="#">Privacy</a>
-      <a href="#">Terms</a>
-    </div>
-  </div>
-</l-Footer>
+              react: `<Footer bottom="${COPY}" />`,
+              js: `<l-Footer bottom="${COPY}"></l-Footer>
 
 <script type="module">import "lojee-ui/elements";</script>`,
               vue: `<template>
-  <l-Footer>
-    <div slot="bottom" class="flex flex-wrap items-center justify-between gap-3">
-      <span>© 2026 Lojee, Inc. All rights reserved.</span>
-      <div class="flex items-center gap-4">
-        <a href="#">Privacy</a>
-        <a href="#">Terms</a>
-      </div>
-    </div>
-  </l-Footer>
+  <l-Footer bottom="${COPY}"></l-Footer>
 </template>`,
-              angular: `<l-Footer>
-  <div slot="bottom" class="flex flex-wrap items-center justify-between gap-3">
-    <span>© 2026 Lojee, Inc. All rights reserved.</span>
-    <div class="flex items-center gap-4">
-      <a href="#">Privacy</a>
-      <a href="#">Terms</a>
-    </div>
-  </div>
-</l-Footer>`,
+              angular: `<l-Footer bottom="${COPY}"></l-Footer>`,
             }}
           />
         </section>

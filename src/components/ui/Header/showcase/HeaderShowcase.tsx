@@ -92,55 +92,73 @@ export default function HeaderShowcase() {
             Variants
           </SectionLabel>
           <div className="grid gap-4">
-            <div className="overflow-hidden rounded-lg border border-border">
-              <Header
-                title="Team settings"
-                description="Manage members, roles, and billing for your workspace."
-                actions={<Button label="New project" />}
-                classNames={{ root: "px-4" }}
-              />
+            <div>
+              <p className="mb-1.5 font-mono text-xs text-fg-subtle">default</p>
+              <div>
+                <Header
+                  title="Team settings"
+                  description="Manage members, roles, and billing for your workspace."
+                  actions={<Button label="New project" />}
+                  classNames={{ root: "rounded-lg px-4" }}
+                />
+              </div>
             </div>
-            <div className="overflow-hidden rounded-lg border border-slate-800">
-              <Header
-                variant="dark"
-                title="Team settings"
-                description="Manage members, roles, and billing for your workspace."
-                actions={<Button label="New project" />}
-                classNames={{ root: "px-4" }}
-              />
+            <div>
+              <p className="mb-1.5 font-mono text-xs text-fg-subtle">dark</p>
+              <div>
+                <Header
+                  variant="dark"
+                  title="Team settings"
+                  description="Manage members, roles, and billing for your workspace."
+                  actions={<Button label="New project" />}
+                  classNames={{ root: "rounded-lg px-4" }}
+                />
+              </div>
             </div>
-            <div className="rounded-lg bg-surface-muted p-4">
-              <Header
-                variant="bordered"
-                title="Team settings"
-                description="Manage members, roles, and billing for your workspace."
-                actions={<Button label="New project" />}
-              />
+            <div>
+              <p className="mb-1.5 font-mono text-xs text-fg-subtle">bordered</p>
+              <div className="rounded-lg bg-surface-muted p-4">
+                <Header
+                  variant="bordered"
+                  title="Team settings"
+                  description="Manage members, roles, and billing for your workspace."
+                  actions={<Button label="New project" />}
+                />
+              </div>
             </div>
-            <div className="rounded-lg bg-surface-muted p-4">
-              <Header
-                variant="elevated"
-                title="Team settings"
-                description="Manage members, roles, and billing for your workspace."
-                actions={<Button label="New project" />}
-              />
+            <div>
+              <p className="mb-1.5 font-mono text-xs text-fg-subtle">elevated</p>
+              <div className="rounded-lg bg-surface-muted p-4">
+                <Header
+                  variant="elevated"
+                  title="Team settings"
+                  description="Manage members, roles, and billing for your workspace."
+                  actions={<Button label="New project" />}
+                />
+              </div>
             </div>
-            <div className="rounded-lg border border-dashed border-border-strong bg-surface p-4">
-              <Header
-                variant="minimal"
-                title="Team settings"
-                description="Manage members, roles, and billing for your workspace."
-                actions={<Button label="New project" />}
-              />
+            <div>
+              <p className="mb-1.5 font-mono text-xs text-fg-subtle">minimal</p>
+              <div className="rounded-lg border border-dashed border-border-strong bg-surface p-4">
+                <Header
+                  variant="minimal"
+                  title="Team settings"
+                  description="Manage members, roles, and billing for your workspace."
+                  actions={<Button label="New project" />}
+                />
+              </div>
             </div>
-            <div className="overflow-hidden rounded-lg">
-              <Header
-                variant="gradient"
-                title="Team settings"
-                description="Manage members, roles, and billing for your workspace."
-                actions={<Button variant="outline" label="New project" className="border-white/30 text-white hover:bg-surface/10" />}
-                classNames={{ root: "px-4" }}
-              />
+            <div>
+              <p className="mb-1.5 font-mono text-xs text-fg-subtle">gradient</p>
+              <div>
+                <Header
+                  variant="gradient"
+                  title="Team settings"
+                  description="Manage members, roles, and billing for your workspace."
+                  actions={<Button variant="outline" label="New project" className="border-white/30 text-white hover:bg-surface/10" />}
+                  classNames={{ root: "rounded-lg px-4" }}
+                />
+              </div>
             </div>
           </div>
           <CodeBlock

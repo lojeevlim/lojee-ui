@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { cx, type ColorName } from "../../../core/tokens";
+import { cx, COLOR_HEX, type ColorName } from "../../../core/tokens";
 import { motionClass, motionStyle, type TransitionVariant } from "../../../core/motion";
 import { Icon } from "../Icons/Icon";
 
@@ -80,12 +80,12 @@ function Marker({ item, classNames }: { item: TimelineItem; classNames?: Timelin
   const color = item.color ?? "accent";
   if (item.icon) {
     return (
-      <div className={cx("flex h-7 w-7 shrink-0 items-center justify-center rounded-full", MARKER_ICON[color], classNames?.marker)}>
+      <div data-tl-marker="" style={{ "--ic": color === "accent" ? "var(--lojee-accent-600)" : COLOR_HEX[color] } as React.CSSProperties} className={cx("flex h-7 w-7 shrink-0 items-center justify-center rounded-full", MARKER_ICON[color], classNames?.marker)}>
         <Icon name={item.icon} size={14} />
       </div>
     );
   }
-  return <div className={cx("h-2.5 w-2.5 shrink-0 rounded-full", MARKER_DOT[color], classNames?.marker)} />;
+  return <div data-tl-marker="" style={{ "--ic": color === "accent" ? "var(--lojee-accent-600)" : COLOR_HEX[color] } as React.CSSProperties} className={cx("h-2.5 w-2.5 shrink-0 rounded-full", MARKER_DOT[color], classNames?.marker)} />;
 }
 
 const STAGGER_MS = 60;
@@ -107,7 +107,7 @@ export function Timeline({ items, orientation = "vertical", transition, transiti
                   {item.timestamp && <p className="mt-0.5 text-xs text-fg-subtle">{item.timestamp}</p>}
                 </div>
               </div>
-              {!isLast && <div className={cx("mb-6 h-0.5 flex-1 bg-border", classNames?.line)} />}
+              {!isLast && <div data-tl-line="" className={cx("mb-6 h-0.5 flex-1 bg-border", classNames?.line)} />}
             </li>
           );
         })}
@@ -123,7 +123,7 @@ export function Timeline({ items, orientation = "vertical", transition, transiti
           <li key={i} className={cx("flex gap-3", motionClass(transition), classNames?.item)} style={transition ? itemMotion(i) : undefined}>
             <div className="flex flex-col items-center">
               <Marker item={item} classNames={classNames} />
-              {!isLast && <div className={cx("my-1 w-0.5 flex-1 bg-border", classNames?.line)} />}
+              {!isLast && <div data-tl-line="" className={cx("my-1 w-0.5 flex-1 bg-border", classNames?.line)} />}
             </div>
             <div className={cx("pb-6", isLast && "pb-0", classNames?.content)}>
               <p className="text-sm font-medium text-fg">{item.title}</p>

@@ -414,23 +414,41 @@ export class AppComponent {
             Variants
           </SectionLabel>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            <div className="h-72 overflow-hidden rounded-lg border border-border">
-              <Sidebar header="Lojee Inc" footer="Jordan Diaz" items={VARIANT_ITEMS} />
+            <div>
+              <p className="mb-1.5 font-mono text-xs text-fg-subtle">light</p>
+              <div className="h-72 overflow-hidden rounded-lg border border-border">
+                <Sidebar header="Lojee Inc" footer="Jordan Diaz" items={VARIANT_ITEMS} />
+              </div>
             </div>
-            <div className="h-72 overflow-hidden rounded-lg border border-slate-800">
-              <Sidebar variant="dark" header="Lojee Inc" footer="Jordan Diaz" items={VARIANT_ITEMS} />
+            <div>
+              <p className="mb-1.5 font-mono text-xs text-fg-subtle">dark</p>
+              <div className="h-72 overflow-hidden rounded-lg border border-slate-800">
+                <Sidebar variant="dark" header="Lojee Inc" footer="Jordan Diaz" items={VARIANT_ITEMS} />
+              </div>
             </div>
-            <div className="h-72 overflow-hidden rounded-lg border border-border">
-              <Sidebar variant="bordered" height="100%" className="h-full" header="Lojee Inc" items={VARIANT_ITEMS} />
+            <div>
+              <p className="mb-1.5 font-mono text-xs text-fg-subtle">bordered</p>
+              <div className="h-72 overflow-hidden rounded-lg border border-border">
+                <Sidebar variant="bordered" height="100%" className="h-full" header="Lojee Inc" items={VARIANT_ITEMS} />
+              </div>
             </div>
-            <div className="h-72 overflow-hidden rounded-lg border border-border">
-              <Sidebar variant="elevated" height="100%" className="h-full" header="Lojee Inc" items={VARIANT_ITEMS} />
+            <div>
+              <p className="mb-1.5 font-mono text-xs text-fg-subtle">elevated</p>
+              <div className="h-72 overflow-hidden rounded-lg border border-border">
+                <Sidebar variant="elevated" height="100%" className="h-full" header="Lojee Inc" items={VARIANT_ITEMS} />
+              </div>
             </div>
-            <div className="h-72 rounded-lg border border-dashed border-border-strong bg-surface p-4">
-              <Sidebar variant="minimal" height="100%" className="h-full" header="Lojee Inc" items={VARIANT_ITEMS} />
+            <div>
+              <p className="mb-1.5 font-mono text-xs text-fg-subtle">minimal</p>
+              <div className="h-72 rounded-lg border border-dashed border-border-strong bg-surface p-4">
+                <Sidebar variant="minimal" height="100%" className="h-full" header="Lojee Inc" items={VARIANT_ITEMS} />
+              </div>
             </div>
-            <div className="h-72 overflow-hidden rounded-lg">
-              <Sidebar variant="gradient" header="Lojee Inc" footer="Jordan Diaz" items={VARIANT_ITEMS} />
+            <div>
+              <p className="mb-1.5 font-mono text-xs text-fg-subtle">gradient</p>
+              <div className="h-72 overflow-hidden rounded-lg">
+                <Sidebar variant="gradient" header="Lojee Inc" footer="Jordan Diaz" items={VARIANT_ITEMS} />
+              </div>
             </div>
           </div>
           <CodeBlock
@@ -711,6 +729,42 @@ export class AppComponent {
     { label: "Projects", icon: "folder" },
   ];
 }`,
+            }}
+          />
+        </section>
+
+        <section>
+          <SectionLabel sub="`collapseSpeed` sets how fast the panel narrows to the icon rail and widens back — the same speed both ways, items included: &quot;fast&quot; (150ms), &quot;normal&quot; (300ms, the default) or &quot;slow&quot; (600ms) — or a number of ms. Click each toggle to compare.">
+            Collapse speed
+          </SectionLabel>
+          <div className="flex flex-wrap gap-6">
+            {(["fast", "normal", "slow"] as const).map((speed) => (
+              <div key={speed}>
+                <div className="mb-2 text-xs font-medium text-fg-subtle">{speed}</div>
+                <div className="h-64 w-fit overflow-hidden rounded-lg border border-border">
+                  <Sidebar
+                    collapsible
+                    width={200}
+                    collapseSpeed={speed}
+                    header="Lojee Inc"
+                    headerIcon="zap"
+                    items={VARIANT_ITEMS}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+          <CodeBlock
+            variants={{
+              react: `{/* "fast" | "normal" (default) | "slow", or a number of ms — same speed collapsing and expanding */}
+<Sidebar collapsible collapseSpeed="slow" header="Lojee Inc" headerIcon="zap" items={items} />
+
+<Sidebar collapsible collapseSpeed={800} items={items} />`,
+              js: `<l-Sidebar id="app-sidebar" collapsible="true" collapse-speed="slow" header="Lojee Inc" header-icon="zap"></l-Sidebar>`,
+              vue: `<template>
+  <l-Sidebar :collapsible="true" collapse-speed="slow" header="Lojee Inc" header-icon="zap" :items="items" />
+</template>`,
+              angular: `template: \`<l-Sidebar [collapsible]="true" collapse-speed="slow" header="Lojee Inc" header-icon="zap" [items]="items" />\`,`,
             }}
           />
         </section>

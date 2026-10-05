@@ -74,12 +74,21 @@ function darkenHex(hex: string, factor = 0.82): string {
   return `#${[16, 8, 0].map((shift) => channel(shift).toString(16).padStart(2, "0")).join("")}`;
 }
 
+export type SidebarSpeed = "slow" | "normal" | "fast";
+const SPEED_MS: Record<SidebarSpeed, number> = { fast: 150, normal: 300, slow: 600 };
+/** A preset name, a number of ms, or a numeric string (web-component attribute) → ms. */
+function speedToMs(speed: SidebarSpeed | number | string): number {
+  if (typeof speed === "string" && speed in SPEED_MS) return SPEED_MS[speed as SidebarSpeed];
+  const n = Number(speed);
+  return Number.isFinite(n) ? n : SPEED_MS.normal;
+}
+
 export type SidebarVariant = "light" | "dark" | "bordered" | "elevated" | "minimal" | "gradient";
 
 // Width of the icon-only rail when `collapsed`. 64px looks right for the
 // icon itself but leaves almost no breathing room around it once the
 // surrounding body/nav padding a consumer typically adds is subtracted —
-// 72px keeps the rail feeling compact while giving nav items enough room
+// 100px keeps the rail feeling compact while giving nav items enough room
 // not to need near-zero horizontal padding to avoid overflowing it.
 const COLLAPSED_WIDTH = 100;
 
@@ -254,6 +263,8 @@ export interface SidebarProps {
    * clicks (Ctrl/Cmd/Shift, middle button) and paths on another origin keep the browser's normal link
    * behaviour. */
   onNavigate?: (path: string, item: SidebarMenuItemSpec) => void;
+  /** Speed of the collapse / expand animation — the panel width, header, footer and every item all share it, in both directions: "fast" (150ms) | "normal" (300ms) | "slow" (600ms), or a number of ms (default: "normal"). */
+  collapseSpeed?: SidebarSpeed | number;
   /** Enter transition: "fade" | "slide-up" | "slide-down" | "slide-left" | "slide-right" | "zoom" | "zoom-out" | "flip" | "blur" | "bounce" | "rotate" | "drop" | "skew" (default: none). Respects `prefers-reduced-motion`. */
   transition?: TransitionVariant;
   /** Enter transition duration in ms (default: 450). */
@@ -338,10 +349,45 @@ const SIDEBAR_SCROLLBAR_CSS = `
 .lojee-sidebar-scroll { scrollbar-width: none; }
 .lojee-sidebar-scroll::-webkit-scrollbar { display: none; }
 .lojee-sidebar-track { opacity: 0; transition: opacity 0.3s ease; }
-.lojee-sidebar-bar { width: 4px; transition: width 0.15s ease, background-color 0.3s ease; }
+.lojee-sidebar-guide { background: repeating-linear-gradient(to bottom, currentColor 0 2px, transparent 2px 7px); opacity: 0.18; }
+.lojee-sidebar-bar { position: relative; width: 100%; background: transparent; }
+.lojee-sidebar-bar::after { content: ""; position: absolute; left: 50%; top: 50%; width: 8px; height: 8px; border-radius: 9999px; transform: translate(-50%, -50%); background: var(--color-accent-500, #8b5cf6); box-shadow: 0 0 0 0 transparent; transition: width 0.15s ease, height 0.15s ease, background-color 0.3s ease, box-shadow 0.3s ease; }
+/* Tail: a comet trail behind the dot, on the side it is travelling away from (set by data-dir on the wrapper), longer the faster you scroll (--tail). */
+.lojee-sidebar-bar::before { content: ""; position: absolute; left: 50%; width: 4px; height: 0; margin-left: -2px; border-radius: 9999px; opacity: 0; pointer-events: none; transition: height 0.45s cubic-bezier(.22,1,.36,1), opacity 0.45s ease; }
+[data-dir="down"] .lojee-sidebar-bar::before { bottom: 50%; background: linear-gradient(to top, color-mix(in srgb, var(--color-accent-500, #8b5cf6) 85%, transparent), transparent); }
+[data-dir="up"] .lojee-sidebar-bar::before { top: 50%; background: linear-gradient(to bottom, color-mix(in srgb, var(--color-accent-500, #8b5cf6) 85%, transparent), transparent); }
+[data-scrolling] .lojee-sidebar-bar::before, .lojee-sidebar-track[data-drag] .lojee-sidebar-bar::before { height: var(--tail, 24px); opacity: 1; }
+/* Particles: a few specks shed from the dot while scrolling, drifting back along the tail and fading out. */
+.lojee-sidebar-spark { position: absolute; left: 50%; top: 50%; width: 3px; height: 3px; margin: -1.5px 0 0 -1.5px; border-radius: 9999px; background: var(--color-accent-500, #8b5cf6); box-shadow: 0 0 5px 1px color-mix(in srgb, var(--color-accent-500, #8b5cf6) 70%, transparent); opacity: 0; pointer-events: none; }
+.lojee-sidebar-spark:nth-child(1) { --dx: -5px; --dist: 26px; --d: 0s; }
+.lojee-sidebar-spark:nth-child(2) { --dx: -9px; --dist: 38px; --d: 0.17s; }
+.lojee-sidebar-spark:nth-child(3) { --dx: -3px; --dist: 20px; --d: 0.34s; }
+.lojee-sidebar-spark:nth-child(4) { --dx: -11px; --dist: 46px; --d: 0.5s; }
+.lojee-sidebar-spark:nth-child(5) { --dx: -6px; --dist: 32px; --d: 0.68s; }
+[data-dir="down"] { --sy: -1; }
+[data-dir="up"] { --sy: 1; }
+[data-scrolling] .lojee-sidebar-spark, .lojee-sidebar-track[data-drag] .lojee-sidebar-spark { animation: lojee-sidebar-spark 0.85s ease-out infinite; animation-delay: var(--d); }
+@keyframes lojee-sidebar-spark {
+  0% { opacity: 0; transform: translate(0, 0) scale(1); }
+  15% { opacity: 1; }
+  100% { opacity: 0; transform: translate(var(--dx), calc(var(--sy, -1) * var(--dist))) scale(0.3); }
+}
+/* Reaching the end: a burst of specks flies out of the dot and a ripple ring expands from it (data-end, set for a moment when the content scrolls to its last edge). */
+.lojee-sidebar-burst, .lojee-sidebar-ring { position: absolute; left: 50%; top: 50%; border-radius: 9999px; opacity: 0; pointer-events: none; }
+.lojee-sidebar-burst { width: 3px; height: 3px; margin: -1.5px 0 0 -1.5px; background: var(--color-accent-500, #8b5cf6); --c: var(--color-accent-500, #8b5cf6); box-shadow: 0 -5px 0 0 var(--c), 0 5px 0 0 var(--c), 5px 0 0 0 var(--c), -5px 0 0 0 var(--c), 3.5px -3.5px 0 0 var(--c), -3.5px -3.5px 0 0 var(--c), 3.5px 3.5px 0 0 var(--c), -3.5px 3.5px 0 0 var(--c); }
+.lojee-sidebar-ring { width: 8px; height: 8px; margin: -4px 0 0 -4px; border: 2px solid var(--color-accent-500, #8b5cf6); }
+[data-end] .lojee-sidebar-burst { animation: lojee-sidebar-burst 0.75s ease-out; }
+[data-end] .lojee-sidebar-ring { animation: lojee-sidebar-ring 0.8s ease-out; }
+@keyframes lojee-sidebar-burst { 0% { opacity: 1; transform: scale(0.5); } 100% { opacity: 0; transform: scale(3.6); } }
+@keyframes lojee-sidebar-ring { 0% { opacity: 0.85; transform: scale(1); } 100% { opacity: 0; transform: scale(4.5); } }
+@media (prefers-reduced-motion: reduce) {
+  .lojee-sidebar-spark, .lojee-sidebar-burst, .lojee-sidebar-ring { display: none; }
+  .lojee-sidebar-bar::before { transition: none; }
+}
 [data-scrolling] > .lojee-sidebar-track, .lojee-sidebar-track:hover, .lojee-sidebar-track[data-drag] { opacity: 1; }
-.lojee-sidebar-track:hover .lojee-sidebar-bar, .lojee-sidebar-track[data-drag] .lojee-sidebar-bar { width: 8px; }
-.lojee-sidebar-track[data-drag] .lojee-sidebar-bar { background-color: var(--color-accent-600); }
+[data-scrolling] > .lojee-sidebar-track .lojee-sidebar-bar::after, .lojee-sidebar-track[data-drag] .lojee-sidebar-bar::after { box-shadow: 0 0 6px 2px color-mix(in srgb, var(--color-accent-500, #8b5cf6) 70%, transparent), 0 0 14px 4px color-mix(in srgb, var(--color-accent-500, #8b5cf6) 40%, transparent); }
+.lojee-sidebar-track:hover .lojee-sidebar-bar::after, .lojee-sidebar-track[data-drag] .lojee-sidebar-bar::after { width: 10px; height: 10px; }
+.lojee-sidebar-track[data-drag] .lojee-sidebar-bar::after { background-color: var(--color-accent-600, #7c3aed); }
 `;
 
 const TOGGLE_BUTTON_CLASSES =
@@ -367,6 +413,7 @@ export function Sidebar({
   onCollapsedChange,
   onActiveItemChange,
   onNavigate,
+  collapseSpeed = "normal",
   transition,
   transitionDuration,
   transitionDelay,
@@ -412,7 +459,7 @@ export function Sidebar({
     headerContent = (
       <span className="flex min-w-0 items-center gap-2.5">
         {headerIcon && <Icon name={headerIcon} size={18} className="shrink-0" />}
-        {header != null && !collapsed && <span className="truncate">{header}</span>}
+        {header != null && (!collapsed || collapsible) && <span className="truncate">{header}</span>}
       </span>
     );
   }
@@ -481,7 +528,17 @@ export function Sidebar({
   const navRef = useRef<HTMLElement>(null);
   // Auto-hiding scrollbar: flag the body as scrolling, clear it after a short idle (see SIDEBAR_SCROLLBAR_CSS).
   const scrollIdleRef = useRef<number>(0);
-  useEffect(() => () => window.clearTimeout(scrollIdleRef.current), []);
+  const lastTopRef = useRef(0);
+  const atEndRef = useRef(false);
+  const atStartRef = useRef(true);
+  const endTimerRef = useRef<number>(0);
+  useEffect(
+    () => () => {
+      window.clearTimeout(scrollIdleRef.current);
+      window.clearTimeout(endTimerRef.current);
+    },
+    []
+  );
   // The overlay scrollbar's thumb: measured from the scroll body (null while the list doesn't overflow).
   const bodyRef = useRef<HTMLDivElement>(null);
   // The thumb moves on every scroll frame, so its position is written straight to the DOM (a ref) instead of through React state —
@@ -525,6 +582,27 @@ export function Sidebar({
   const handleBodyScroll = (e: UIEvent<HTMLDivElement>) => {
     const wrap = e.currentTarget.parentElement;
     measureThumb();
+    // Which way it moved and how fast, for the dot's tail and particles.
+    const top = e.currentTarget.scrollTop;
+    const delta = top - lastTopRef.current;
+    lastTopRef.current = top;
+    if (delta !== 0) {
+      wrap?.setAttribute("data-dir", delta > 0 ? "down" : "up");
+      thumbRef.current?.style.setProperty("--tail", `${Math.min(64, 16 + Math.abs(delta) * 1.6)}px`);
+    }
+    // Reaching the top or bottom fires the edge effects (a burst of specks + a ripple ring) once per arrival.
+    const atEnd = top >= e.currentTarget.scrollHeight - e.currentTarget.clientHeight - 1;
+    const atStart = top <= 1;
+    if (((atEnd && !atEndRef.current && delta > 0) || (atStart && !atStartRef.current && delta < 0)) && wrap) {
+      wrap.removeAttribute("data-end");
+      void wrap.offsetWidth; // restart the animations if one edge follows the other quickly
+      wrap.setAttribute("data-end", "");
+      window.clearTimeout(endTimerRef.current);
+      endTimerRef.current = window.setTimeout(() => wrap.removeAttribute("data-end"), 900);
+    }
+    if (!atEnd && !atStart) wrap?.removeAttribute("data-end");
+    atEndRef.current = atEnd;
+    atStartRef.current = atStart;
     wrap?.setAttribute("data-scrolling", "");
     window.clearTimeout(scrollIdleRef.current);
     scrollIdleRef.current = window.setTimeout(() => wrap?.removeAttribute("data-scrolling"), 900);
@@ -658,7 +736,7 @@ export function Sidebar({
           ref={pillRef}
           aria-hidden
           className={cx(
-            "pointer-events-none absolute inset-x-0 rounded-lg transition-[top,height,background-color,box-shadow] duration-200 ease-[cubic-bezier(.4,0,.2,1)]",
+            "pointer-events-none absolute inset-x-0 rounded-lg transition-[top,height,background-color,box-shadow] duration-[var(--sb-dur,300ms)] ease-[cubic-bezier(.22,1,.36,1)]",
             sidebarActiveFillClasses(color, dark, vividActive)
           )}
           {...activeMarker("fill", color, colorIsNamed, dark, {
@@ -694,9 +772,9 @@ export function Sidebar({
               )}
             >
               <span className="truncate">{entry.category}</span>
-              <Icon name="chevron-down" size={14} className={cx("shrink-0 transition-transform duration-200", !isOpen && "-rotate-90")} />
+              <Icon name="chevron-down" size={14} className={cx("shrink-0 transition-transform duration-[var(--sb-dur,300ms)]", !isOpen && "-rotate-90")} />
             </button>
-            <div className="grid transition-[grid-template-rows] duration-300 ease-[cubic-bezier(.4,0,.2,1)]" style={{ gridTemplateRows: isOpen ? "1fr" : "0fr" }}>
+            <div className="grid transition-[grid-template-rows] duration-[var(--sb-dur,300ms)] ease-[cubic-bezier(.22,1,.36,1)]" style={{ gridTemplateRows: isOpen ? "1fr" : "0fr" }}>
               <div className="space-y-0.5 overflow-hidden" data-sidebar-group data-open={isOpen}>
                 {entry.items.map((item, itemIndex) => renderItemRow(item, `${entry.category}-${itemIndex}`))}
               </div>
@@ -733,10 +811,10 @@ export function Sidebar({
           ...(borderWidth !== undefined && { borderWidth: `${borderWidth}px` }),
         }
       : undefined;
-  const style: CSSProperties = {
+  const style = {
     width: collapsed ? collapsedWidth : width,
     height,
-    transitionTimingFunction: "cubic-bezier(.4, 0, .2, 1)",
+    "--sb-dur": `${speedToMs(collapseSpeed)}ms`,
     // The second stop defaults to a darker shade of `color`: 600 → 700 for a named color (700 is the darkest
     // shade every ColorName's `colorClasses` entry references, so Tailwind always emits its variable), and
     // a programmatic darkening for a custom one.
@@ -771,7 +849,7 @@ export function Sidebar({
         <div
           className={cx(
             // h-16 = the Navbar's height, so a Sidebar header and a Navbar line up across the top of an app without any overrides.
-            "flex h-16 shrink-0 items-center border-b px-3 transition-[gap] duration-300 ease-[cubic-bezier(.4,0,.2,1)]",
+            "flex h-16 shrink-0 items-center border-b px-3 transition-[gap] duration-[var(--sb-dur,300ms)] ease-[cubic-bezier(.22,1,.36,1)]",
             hideHeaderContent ? "gap-0" : "gap-2",
             VARIANT_DIVIDER_CLASSES[variant],
             // Expanded, no header content at all (no `header`/`headerIcon`, no composed
@@ -799,7 +877,7 @@ export function Sidebar({
             // `max-width`, it doesn't need to know the content's actual
             // width to animate smoothly down to zero.
             <div
-              className={cx("grid min-w-0 transition-[grid-template-columns,opacity] duration-300 ease-[cubic-bezier(.4,0,.2,1)]", !collapsed && "flex-1")}
+              className={cx("grid min-w-0 transition-[grid-template-columns,opacity] duration-[var(--sb-dur,300ms)] ease-[cubic-bezier(.22,1,.36,1)]", !collapsed && "flex-1")}
               style={{ gridTemplateColumns: hideHeaderContent ? "0fr" : "1fr", opacity: hideHeaderContent ? 0 : 1 }}
             >
               <div className="min-w-0 overflow-hidden truncate">
@@ -846,9 +924,15 @@ export function Sidebar({
             className="lojee-sidebar-track absolute right-0 top-0 h-full w-3 touch-none"
             data-drag={dragging || undefined}
           >
-            <div className="absolute right-1.5 w-px bg-current opacity-15" style={{ top: TRACK_INSET, bottom: TRACK_INSET }} />
-            <div ref={thumbRef} className="absolute right-0 flex w-3 cursor-grab justify-end pr-1 active:cursor-grabbing" style={{ top: thumbBox.current.top, height: thumbBox.current.height }} onPointerDown={startThumbDrag}>
-              <div className="lojee-sidebar-bar h-full rounded-full bg-accent-500" />
+            <div className="lojee-sidebar-guide absolute right-1.5 w-px" style={{ top: TRACK_INSET, bottom: TRACK_INSET }} />
+            <div ref={thumbRef} className="absolute right-0 flex w-3 cursor-grab active:cursor-grabbing" style={{ top: thumbBox.current.top, height: thumbBox.current.height }} onPointerDown={startThumbDrag}>
+              <div className="lojee-sidebar-bar h-full">
+                {[0, 1, 2, 3, 4].map((i) => (
+                  <i key={i} className="lojee-sidebar-spark" />
+                ))}
+                <b className="lojee-sidebar-ring" />
+                <b className="lojee-sidebar-burst" />
+              </div>
             </div>
           </div>
         )}
@@ -862,7 +946,7 @@ export function Sidebar({
               of truncating to an unreadable sliver. Same grid-template-columns 1fr/0fr technique as
               the header's content, so it shrinks in step with the panel's own width animation. */}
           <div
-            className="grid min-w-0 transition-[grid-template-columns,opacity] duration-300 ease-[cubic-bezier(.4,0,.2,1)]"
+            className="grid min-w-0 transition-[grid-template-columns,opacity] duration-[var(--sb-dur,300ms)] ease-[cubic-bezier(.22,1,.36,1)]"
             style={{ gridTemplateColumns: collapsed ? "0fr" : "1fr", opacity: collapsed ? 0 : 1 }}
           >
             <div className="min-w-0 overflow-hidden truncate">
@@ -877,7 +961,7 @@ export function Sidebar({
   return (
     <div
       className={cx(
-        "relative flex flex-col transition-[width] duration-300",
+        "relative flex flex-col transition-[width] duration-[var(--sb-dur,300ms)] ease-[cubic-bezier(.22,1,.36,1)] will-change-[width] motion-reduce:!duration-0",
         // `self-start` stops a sticky flex item from stretching to match a taller row sibling (e.g. a
         // `<main>` full of content) — cross-axis `stretch` is the flex default, and would otherwise
         // fight the explicit `height` this component already sets via `style` below.

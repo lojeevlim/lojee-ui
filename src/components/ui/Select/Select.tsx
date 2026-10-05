@@ -2,6 +2,7 @@ import { useEffect, useId, useLayoutEffect, useRef, useState } from "react";
 import type { KeyboardEvent, SelectHTMLAttributes } from "react";
 import { cx } from "../../../core/tokens";
 import { Icon } from "../Icons/Icon";
+import { DotScroll } from "../DotScroll/DotScroll";
 import { usePresence } from "../../../core/usePresence";
 import { motionClass, motionState, motionStyle, DEFAULT_TRANSITION_MS, type TransitionVariant, type HoverEffect } from "../../../core/motion";
 
@@ -222,12 +223,13 @@ export function Select({
         className={cx("pointer-events-none absolute right-3 text-fg-subtle transition-transform", open && "rotate-180", classNames?.icon)}
       />
       {mounted && (
-        <div
-          ref={listRef}
+        <DotScroll
+          viewportRef={listRef}
           id={listId}
           role="listbox"
+          viewportClassName="py-1"
           className={cx(
-            "absolute left-0 top-full z-20 mt-1 max-h-60 w-full overflow-y-auto rounded-lg border border-border bg-surface py-1 text-fg shadow-lg",
+            "absolute left-0 top-full z-20 mt-1 max-h-60 w-full overflow-hidden rounded-lg border border-border bg-surface text-fg shadow-lg in-data-[design=clay]:rounded-3xl in-data-[design=clay]:border-transparent",
             motionClass(transition),
             classNames?.menu
           )}
@@ -258,7 +260,7 @@ export function Select({
               </div>
             );
           })}
-        </div>
+        </DotScroll>
       )}
     </span>
   );

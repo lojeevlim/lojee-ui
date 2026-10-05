@@ -61,11 +61,11 @@ export default function AppLayoutPlayground() {
     </Top>
 `;
   const sideCode = `    <Side>
-      <Sidebar items={[{ label: "Dashboard", icon: "home" }]} />
+      <Sidebar width={210} items={[{ label: "Dashboard", icon: "home" }]} />
     </Side>
 `;
   const footCode = `    <Foot>
-      <Footer bottom="© 2026 Lojee, Inc. All rights reserved." variant="minimal" />
+      <Footer bottom="© 2026 Lojee, Inc. All rights reserved." />
     </Foot>
 `;
   const mainCode = `    <Main>

@@ -5,7 +5,6 @@ import BadgeShowcase from './components/ui/Badge'
 import AvatarShowcase from './components/ui/Avatar'
 import IconsShowcase from './components/ui/Icons'
 import SpinnerShowcase from './components/ui/Spinner'
-import LoaderShowcase from './components/ui/Loader'
 import DividerShowcase from './components/ui/Divider'
 import TooltipShowcase from './components/ui/Tooltip'
 import { Tooltip } from './components/ui/Tooltip/Tooltip'
@@ -134,7 +133,6 @@ const SHOWCASES: Record<string, ComponentType> = {
   Avatars: AvatarShowcase,
   Icons: IconsShowcase,
   Spinners: SpinnerShowcase,
-  Loaders: LoaderShowcase,
   Dividers: DividerShowcase,
   Cards: CardShowcase,
   Containers: ContainerShowcase,
@@ -291,7 +289,7 @@ function App() {
   }
 
   return (
-    <ThemeProvider defaultMode="dark" defaultAccent="orange" defaultDesign="clay" defaultActiveVariant="solid">
+    <ThemeProvider defaultMode="light" defaultAccent="violet" defaultDesign="clay" defaultActiveVariant="solid">
 
       <AppShell layout={APP_LAYOUT} collapseBelow="3xl">
         <Top>

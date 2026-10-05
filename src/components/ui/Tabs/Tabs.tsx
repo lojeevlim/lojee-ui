@@ -113,7 +113,7 @@ export function Tabs({ tabs, defaultIndex = 0, index, onChange, color = "accent"
               disabled={tab.disabled}
               onClick={() => setActiveIndex(i)}
               className={cx(
-                "border-b-2 border-transparent px-4 py-2 text-sm font-medium",
+                "relative z-[1] border-b-2 border-transparent px-4 py-2 text-sm font-medium",
                 ACTIVE_ITEM_TRANSITION,
                 isActive ? cx(activeText, classNames?.activeTab) : "text-fg-subtle hover:text-fg",
                 tab.disabled && "opacity-40 pointer-events-none",

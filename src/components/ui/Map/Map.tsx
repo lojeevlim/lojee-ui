@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import type * as MapLibre from "maplibre-gl";
 import { cx } from "../../../core/tokens";
-// MapLibre's web worker, bundled by Vite so it also works when the library is consumed from node_modules (only the URL is imported here).
+// MapLibre's web worker, bundled by Vite. Its URL is only the fallback: the worker is inlined (below) so it never
+// depends on a separate file being served next to this one (dev-server pre-bundling, copied/CDN-hosted builds).
 import workerUrl from "maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url";
 import { MapContext, type MapLibreModule } from "./mapContext";
 import { MapControls } from "./MapControls";
@@ -52,16 +53,45 @@ export interface MapProps {
   onRouteLoad?: (summary: MapRouteSummary) => void;
   /** `MapMarker`, `MapRoute`, `MapControls` or your own components that use `useMap()`. */
   children?: ReactNode;
-  /** Extra class names applied to the root element (its default size is `h-[360px] w-full`). */
+  /** Width of the map: a number of px, or any CSS length such as "50%" or "40rem". Left unset, the map is as wide as its container. */
+  width?: number | string;
+  /** Height of the map: a number of px, or any CSS length such as "60vh" or "30rem". Left unset, the map is 480px tall. */
+  height?: number | string;
+  /** Extra class names applied to the root element (its default size is `h-[480px] w-full`). */
   className?: string;
   /** Per-part class overrides (`root`, `map`) — merged after the built-in styling. */
   classNames?: { root?: string; map?: string };
 }
 
+// A blob: URL for the inlined worker (null if that fails → fall back to `workerUrl`). Vite's `?worker&inline` only
+// hands out a Worker constructor, so grab the object URL it creates for its blob while building one throwaway worker.
+let inlineWorkerUrl: Promise<string | null> | undefined;
+function getInlineWorkerUrl(): Promise<string | null> {
+  inlineWorkerUrl ??= import("maplibre-gl/dist/maplibre-gl-worker.mjs?worker&inline")
+    .then(({ default: InlineWorker }) => {
+      const original = URL.createObjectURL;
+      let url: string | null = null;
+      URL.createObjectURL = (obj: Blob | MediaSource) => (url = original.call(URL, obj));
+      try {
+        new InlineWorker().terminate();
+      } finally {
+        URL.createObjectURL = original;
+      }
+      return url;
+    })
+    .catch(() => null);
+  return inlineWorkerUrl;
+}
+
+/** A number (or numeric string, e.g. from a Web Component attribute) is px; anything else is a CSS length as given. */
+const cssLength = (v: number | string | undefined) => (/^\d+(\.\d+)?$/.test(String(v)) ? `${v}px` : v);
+
 const CONTROLS_DEFAULT: MapControlName[] = ["zoom", "compass", "locate", "fullscreen"];
 
 /** An interactive MapLibre map that follows the light / dark theme. Compose it with `MapMarker`, `MapRoute` and `MapControls`, or pass `markers` / `routes` as data. */
 export function Map({
+  width,
+  height,
   center = [0, 20],
   zoom = 2,
   pitch = 0,
@@ -113,10 +143,11 @@ export function Map({
     let disposed = false;
     let map: MapLibre.Map | undefined;
     ensureMapCss(el);
-    import("maplibre-gl")
-      .then((maplibre) => {
+    Promise.all([import("maplibre-gl"), getInlineWorkerUrl()])
+      .then(([maplibre, inlineUrl]) => {
         if (disposed) return;
-        if (maplibre.getWorkerUrl() !== workerUrl) maplibre.setWorkerUrl(workerUrl);
+        const url = inlineUrl ?? workerUrl;
+        if (maplibre.getWorkerUrl() !== url) maplibre.setWorkerUrl(url);
         const isDark = isDarkAround(el);
         const i = initial.current;
         const resolved = resolveStyle(i.mapStyle, isDark);
@@ -210,10 +241,25 @@ export function Map({
   const controlList = controls === true ? CONTROLS_DEFAULT : controls || null;
   const showStyleSwitcher = !!controlList?.includes("style");
 
+  const hasWidth = width !== undefined && width !== "";
+  const hasHeight = height !== undefined && height !== "";
+
   return (
-    <div className={cx("relative h-[360px] w-full overflow-hidden rounded-xl border border-border bg-surface-muted", className, classNames?.root)}>
+    <div
+      data-map-root
+      className={cx(
+        "relative overflow-hidden rounded-xl border border-border bg-surface-muted",
+        // Full width and 480px tall unless `width` / `height` say otherwise.
+        !hasWidth && "w-full",
+        !hasHeight && "h-[480px]",
+        className,
+        classNames?.root
+      )}
+      style={hasWidth || hasHeight ? { ...(hasWidth && { width: cssLength(width) }), ...(hasHeight && { height: cssLength(height) }) } : undefined}
+    >
       {/* Inline position: MapLibre's own stylesheet sets `.maplibregl-map { position: relative }`, which would beat a utility class. */}
       <div ref={containerRef} className={classNames?.map} style={{ position: "absolute", inset: 0 }} />
+      <div data-map-rim aria-hidden="true" className="pointer-events-none absolute inset-0 z-[5] hidden rounded-[inherit]" />
       {!instance && (
         <div className="pointer-events-none absolute inset-0 flex items-center justify-center text-sm text-fg-subtle">
           {failed ? "The map could not be loaded." : "Loading map…"}

@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import type { FocusEvent, FormEvent, KeyboardEvent } from "react";
 import { cx } from "../../../core/tokens";
 import { Icon } from "../Icons/Icon";
+import { DotScroll } from "../DotScroll/DotScroll";
 import { motionClass, motionState, motionStyle, DEFAULT_TRANSITION_MS, type TransitionVariant, type HoverEffect } from "../../../core/motion";
 import { usePresence } from "../../../core/usePresence";
 
@@ -151,10 +152,11 @@ export function Combobox({
       </span>
 
       {mounted && (
-        <div
+        <DotScroll
           role="listbox"
+          viewportClassName="py-1"
           className={cx(
-            "absolute z-10 mt-1 w-full max-h-60 overflow-y-auto rounded-lg border border-border bg-surface py-1 shadow-lg",
+            "absolute z-10 mt-1 w-full max-h-60 overflow-hidden rounded-lg border border-border bg-surface shadow-lg in-data-[design=clay]:rounded-3xl in-data-[design=clay]:border-transparent",
             motionClass(transition),
             classNames?.menu
           )}
@@ -183,7 +185,7 @@ export function Combobox({
               {o.label}
             </button>
           ))}
-        </div>
+        </DotScroll>
       )}
     </div>
   );

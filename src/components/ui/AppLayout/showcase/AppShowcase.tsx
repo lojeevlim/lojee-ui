@@ -91,14 +91,14 @@ export default function AppShowcase() {
               `<ThemeProvider defaultMode="${mode}" defaultAccent="${accent}"${activeVariant === "solid" ? "" : ` defaultActiveVariant="${activeVariant}"`}>
   <App>
     <Top><Navbar brand={<SideToggle />} items={[{ label: "Overview" }]} /></Top>
-    <Side><Sidebar items={[{ label: "Dashboard", icon: "home" }]} /></Side>
+    <Side><Sidebar width={210} items={[{ label: "Dashboard", icon: "home" }]} /></Side>
     <Main>
       <Button color="accent" label="Solid" />
       <Button color="accent" variant="outline" label="Outline" />
       <Button color="accent" variant="soft" label="Soft" />
       <Button variant="solid" color="accent" size="lg" animated="sweep" icon="plus" label="Click me" />
     </Main>
-    <Foot><Footer bottom="© 2026 Lojee, Inc. All rights reserved." variant="minimal" /></Foot>
+    <Foot><Footer bottom="© 2026 Lojee, Inc. All rights reserved." /></Foot>
   </App>
 </ThemeProvider>`,
               { mode, accent, activeVariant }
@@ -130,9 +130,9 @@ export default function AppShowcase() {
 <ThemeProvider defaultMode="dark" defaultAccent="emerald">
   <App>
     <Top><Navbar brand={<SideToggle />} items={[{ label: "Overview" }]} /></Top>
-    <Side><Sidebar items={[{ label: "Dashboard", icon: "home" }]} /></Side>
+    <Side><Sidebar width={210} items={[{ label: "Dashboard", icon: "home" }]} /></Side>
     <Main><Dashboard /></Main>
-    <Foot><Footer bottom="© 2026 Lojee, Inc. All rights reserved." variant="minimal" /></Foot>
+    <Foot><Footer bottom="© 2026 Lojee, Inc. All rights reserved." /></Foot>
   </App>
 </ThemeProvider>
 
@@ -178,7 +178,7 @@ export default function AppShowcase() {
     <Navbar brand={<SideToggle />} />
   </Top>
   <Side>
-    <Sidebar />
+    <Sidebar width={210} />
   </Side>
   ...
 </App>`,

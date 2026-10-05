@@ -44,6 +44,7 @@ export default function SidebarPlayground() {
   const motion = useMotion({ hover: false });
   const [tooltipTransition, setTooltipTransition] = useState<TransitionVariant>("bounce");
   const [tooltipDuration, setTooltipDuration] = useState(450);
+  const [speed, setSpeed] = useState<"slow" | "normal" | "fast">("normal");
   const [tooltipColor, setTooltipColor] = useState<TooltipColor>("accent");
   const [header, setHeader] = useState("Lojee Inc");
   const [width, setWidth] = useState(256);
@@ -83,6 +84,7 @@ export default function SidebarPlayground() {
             className="self-stretch"
             collapsed={collapsed}
             showLabel={showLabel}
+            collapseSpeed={speed}
             variant={variant}
             color={color}
             gradientTo={variant === "gradient" ? gradientTo : undefined}
@@ -132,6 +134,10 @@ export default function SidebarPlayground() {
   const borderWidthAttrJsx = showBorderWidthControl && borderWidth !== 2 ? ` borderWidth={${borderWidth}}` : "";
   // Same attribute names in React and the custom elements.
   const motionAttrs = motion.attrs;
+  const speedAttrsJsx =
+    (speed !== "normal" ? ` collapseSpeed="${speed}"` : "");
+  const speedAttrsHtml =
+    (speed !== "normal" ? ` collapse-speed="${speed}"` : "");
   const tooltipAttrs =
     (tooltipTransition !== "bounce" ? ` tooltipTransition="${tooltipTransition}"` : "") +
     (tooltipDuration !== 450 ? ` tooltipTransitionDuration="${tooltipDuration}"` : "") +
@@ -142,7 +148,7 @@ export default function SidebarPlayground() {
   const showLabelHtml = showLabel ? "" : ' show-label="false"';
   const borderWidthAttrHtml = showBorderWidthControl && borderWidth !== 2 ? ` border-width="${borderWidth}"` : "";
 
-  const code = `<Sidebar${widthAttrJsx}${collapsedAttr}${variantAttr}${colorAttr}${collapsibleAttr}${showLabelJsx}${defaultActiveItemAttrJsx}${borderWidthAttrJsx}${motionAttrs}${tooltipAttrsJsx}
+  const code = `<Sidebar${widthAttrJsx}${collapsedAttr}${variantAttr}${colorAttr}${collapsibleAttr}${showLabelJsx}${speedAttrsJsx}${defaultActiveItemAttrJsx}${borderWidthAttrJsx}${motionAttrs}${tooltipAttrsJsx}
   onCollapsedChange={setCollapsed}
   onActiveItemChange={(item) => console.log(item)}
   header="${headerText}"
@@ -153,7 +159,7 @@ export default function SidebarPlayground() {
 
   const codeVariants: CodeBlockVariants = {
     react: code,
-    js: `<l-Sidebar id="app-sidebar"${widthAttrHtml}${collapsedAttrHtml}${variantAttr}${colorAttr}${collapsibleAttrHtml}${showLabelHtml}${defaultActiveItemAttrHtml}${borderWidthAttrHtml}${motionAttrs}${tooltipAttrs} header="${headerText}" header-icon="zap" footer="Jordan Diaz"></l-Sidebar>
+    js: `<l-Sidebar id="app-sidebar"${widthAttrHtml}${collapsedAttrHtml}${variantAttr}${colorAttr}${collapsibleAttrHtml}${showLabelHtml}${speedAttrsHtml}${defaultActiveItemAttrHtml}${borderWidthAttrHtml}${motionAttrs}${tooltipAttrs} header="${headerText}" header-icon="zap" footer="Jordan Diaz"></l-Sidebar>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -163,7 +169,7 @@ export default function SidebarPlayground() {
   sidebar.addEventListener("activeitemchange", (e) => console.log(e.detail));
 </script>`,
     vue: `<template>
-  <l-Sidebar${widthAttrHtml}${collapsedAttrVue}${variantAttr}${colorAttr}${collapsibleAttrVue}${showLabelHtml}${defaultActiveItemAttrHtml}${borderWidthAttrHtml}${motionAttrs}${tooltipAttrs} header="${headerText}" header-icon="zap" footer="Jordan Diaz" :items="items" @activeitemchange="(e) => console.log(e.detail)" />
+  <l-Sidebar${widthAttrHtml}${collapsedAttrVue}${variantAttr}${colorAttr}${collapsibleAttrVue}${showLabelHtml}${speedAttrsHtml}${defaultActiveItemAttrHtml}${borderWidthAttrHtml}${motionAttrs}${tooltipAttrs} header="${headerText}" header-icon="zap" footer="Jordan Diaz" :items="items" @activeitemchange="(e) => console.log(e.detail)" />
 </template>
 
 <script setup lang="ts">
@@ -179,7 +185,7 @@ import "lojee-ui/elements";
   selector: "app-root",
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  template: \`<l-Sidebar${widthAttrHtml}${collapsedAttrAngular}${variantAttr}${colorAttr}${collapsibleAttrAngular}${showLabelHtml}${defaultActiveItemAttrHtml}${borderWidthAttrHtml}${motionAttrs}${tooltipAttrs} header="${headerText}" header-icon="zap" footer="Jordan Diaz" [items]="items" (activeitemchange)="onActiveItemChange($event.detail)" />\`,
+  template: \`<l-Sidebar${widthAttrHtml}${collapsedAttrAngular}${variantAttr}${colorAttr}${collapsibleAttrAngular}${showLabelHtml}${speedAttrsHtml}${defaultActiveItemAttrHtml}${borderWidthAttrHtml}${motionAttrs}${tooltipAttrs} header="${headerText}" header-icon="zap" footer="Jordan Diaz" [items]="items" (activeitemchange)="onActiveItemChange($event.detail)" />\`,
 })
 export class AppComponent {
   items = ${itemsLiteral};
@@ -266,6 +272,7 @@ export class AppComponent {
           Active: <span className="text-fg-muted">{activeLabel ?? "none yet — click a row"}</span>
         </span>
       </div>
+      <OptionGroup label="Collapse speed" options={["slow", "normal", "fast"] as const} value={speed} onChange={setSpeed} />
       {motion.controls}
       {/* Tooltips appear on the collapse toggle and on every nav row while the rail is collapsed. */}
       <OptionGroup label="Tooltip transition" options={TRANSITIONS} value={tooltipTransition} onChange={setTooltipTransition} />

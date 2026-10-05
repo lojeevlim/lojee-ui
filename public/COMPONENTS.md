@@ -12,7 +12,7 @@
 
 **Components by category**
 
-- **Basic Components** — [Buttons](#buttons) · [Badges](#badges) · [Avatars](#avatars) · [Icons](#icons) · [Spinners](#spinners) · [Loaders](#loaders) · [Dividers](#dividers)
+- **Basic Components** — [Buttons](#buttons) · [Badges](#badges) · [Avatars](#avatars) · [Icons](#icons) · [Spinners](#spinners) · [Dividers](#dividers)
 - **Layout & Content** — [Cards](#cards) · [Containers](#containers) · [Sections](#sections) · [Grids](#grids) · [Lists](#lists) · [Accordions](#accordions) · [Carousels](#carousels) · [Images](#images) · [Videos](#videos) · [Code Snippet](#code-snippet) · [Iframe](#iframe) · [Chat Box](#chat-box)
 - **Forms & Inputs** — [Input](#input) · [Textarea](#textarea) · [Label](#label) · [Checkbox](#checkbox) · [Radio Group](#radio-group) · [Switch / Toggle](#switch-toggle) · [Select](#select) · [Multi Select](#multi-select) · [Combobox](#combobox) · [Date Picker](#date-picker) · [Time Picker](#time-picker) · [File Upload](#file-upload) · [Search Input](#search-input) · [Password Input](#password-input) · [Slider](#slider) · [Range Slider](#range-slider) · [Tag Input](#tag-input) · [Number Input](#number-input) · [OTP Input](#otp-input) · [Rating](#rating) · [Color Picker](#color-picker)
 - **Overlays** — [Modal / Dialog](#modal-dialog) · [Drawer](#drawer) · [Sheet](#sheet) · [Popover](#popover) · [Dropdown Menu](#dropdown-menu) · [Context Menu](#context-menu) · [Command Menu](#command-menu) · [Alert Dialog](#alert-dialog) · [Tooltip](#tooltip)
@@ -1196,167 +1196,6 @@ Enter transitions via `transition` (with `transitionDuration` / `transitionDelay
 - Recolor with `color`; restyle globally with the theme tokens or `data-design="clay"`.
 - Motion: `transition`, `transitionDuration`, `transitionDelay`.
 
-## Loaders
-
-*Category: Basic Components.* Exports: `Loader`.
-
-### Loaders · 1. Component Overview
-
-Skeleton placeholders for content that's still loading — distinct from Spinner's spinning/bouncing indicators.
-
-- React: `import { Loader } from "lojee-ui"`
-- Web Component: `<l-loader>` (after `import "lojee-ui/elements"`)
-
-### Loaders · 2. Props and Interfaces
-
-#### `Loader`
-
-| Prop | Type | Default | Description |
-| --- | --- | --- | --- |
-| `shape` | `LoaderShape` | — | Skeleton shape: "text" (stacked lines), "circle" or "rect". Defaults to "text". |
-| `variant` | `LoaderVariant` | — | Animation style for the skeleton (default: "pulse"). "wave" is like "pulse" but staggers each line's delay so multiple lines ripple instead of fading in sync — for "circle"/"rect" (a single block) it looks the same as "pulse". "none" disables animation entirely. |
-| `width` | `number` | — | Pixel width, for "rect" and "circle" (defaults to a sensible size per shape). |
-| `height` | `number` | — | Pixel height, for "rect" (defaults to a sensible size per shape). |
-| `lines` | `number` | — | Number of stacked lines, for "text" only. |
-| `className` | `string` | — | Extra class name(s) applied to the root element. |
-| `classNames` | `{ root?: string; item?: string; }` | — | Per-part class overrides — merged after (and win over) the built-in styling. |
-
-Also accepts the shared motion props `transition`, `transitionDuration`, `transitionDelay` — see §1.7.
-
-### Loaders · 3. Events
-
-_No component-specific events._ Native DOM events (`click`, `input`, `focus`…) bubble from the rendered element as usual.
-
-### Loaders · 4. Variants
-
-| Component | Prop | Values | Default | Notes |
-| --- | --- | --- | --- | --- |
-| `Loader` | `shape` | `text`, `circle`, `rect` | — | Skeleton shape: "text" (stacked lines), "circle" or "rect". Defaults to "text". |
-| `Loader` | `variant` | `pulse`, `shimmer`, `wave`, `none` | — | Animation style for the skeleton (default: "pulse"). "wave" is like "pulse" but staggers each line's delay so multiple lines ripple instead of fading in sync — for "circle"/"rect" (a single block) it looks the same as "pulse". "none" disables animation entirely. |
-
-### Loaders · 5. Colors and Theming
-
-Follows the global theme (§1.4): it recolors with the accent, switches with light / dark mode, and takes the Claymorphism look when `data-design="clay"` is set. It has no color prop of its own.
-
-### Loaders · 6. Sizes
-
-| Component | Prop | Values | Default | Notes |
-| --- | --- | --- | --- | --- |
-| `Loader` | `width` | `number` | — | Pixel width, for "rect" and "circle" (defaults to a sensible size per shape). |
-| `Loader` | `height` | `number` | — | Pixel height, for "rect" (defaults to a sensible size per shape). |
-
-### Loaders · 7. Component States
-
-_No dedicated state props — the visual states are default, hover, focus-visible and active._
-
-Standard visual states: default · hover · focus-visible (ring) · active/pressed.
-
-### Loaders · 8. Slots / Children / Content
-
-_No children or slots — it is configured entirely through props._
-
-In a Web Component, the element's light-DOM text/children go into the default slot; a prop that accepts a node (e.g. `header`, `footer`) can usually also be filled with a child carrying `slot="<name>"`.
-
-### Loaders · 9. Framework Interfaces
-
-**`Loader`** → `<l-loader>`
-
-| React prop | HTML attribute | Attribute type |
-| --- | --- | --- |
-| `shape` | `shape` | string |
-| `variant` | `variant` | string |
-| `width` | `width` | number |
-| `height` | `height` | number |
-| `lines` | `lines` | number |
-| `transition` | `transition` | string |
-| `transitionDuration` | `transition-duration` | number |
-| `transitionDelay` | `transition-delay` | number |
-
-Minimal use in each target (from the first docs example, *Text skeleton*):
-
-**React**
-```tsx
-<Loader shape="text" lines={3} />
-```
-**Plain HTML / JavaScript**
-```html
-<l-Loader shape="text" lines="3"></l-Loader>
-
-<script type="module">
-  import "lojee-ui/elements";
-</script>
-```
-Vue and Angular use the same `<l-*>` tag and attributes — see the framework templates in §1.3.
-
-### Loaders · 10. Complete Usage Examples
-
-#### Text skeleton
-
-Stacked lines, the last one shorter.
-
-```tsx
-<Loader shape="text" lines={3} />
-```
-
-#### Circle skeleton
-
-For an avatar-shaped placeholder.
-
-```tsx
-<Loader shape="circle" width={40} />
-```
-
-#### Rect skeleton
-
-For image/card placeholders.
-
-```tsx
-<Loader shape="rect" height={120} />
-```
-
-#### Variant
-
-pulse (default), a sweeping shimmer highlight, or no animation at all.
-
-```tsx
-<Loader shape="rect" variant="pulse" width={140} height={80} />
-<Loader shape="rect" variant="shimmer" width={140} height={80} />
-<Loader shape="rect" variant="none" width={140} height={80} />
-```
-
-#### Wave variant
-
-Like pulse, but each line's delay is staggered so they ripple instead of fading in sync.
-
-```tsx
-<Loader shape="text" variant="wave" lines={4} />
-```
-
-_2 more examples are on the docs page._
-
-### Loaders · 11. Component Composition
-
-- Standalone: drop it into any layout (Card, Section, Grid, Container, App shell) or inside forms and overlays.
-
-### Loaders · 12. Accessibility
-
-- ARIA roles used: none beyond native element semantics.
-- ARIA attributes set by the component: none.
-- Keyboard: native keyboard behavior of the underlying element (Tab to focus, Enter / Space to activate).
-- Focus: uses the browser focus outline / the underlying control's ring.
-- Motion: respects `prefers-reduced-motion`.
-
-### Loaders · 13. Responsive Behavior
-
-- No breakpoint-specific rules — it is fluid and adapts to its container width.
-- Mobile-first; touch targets keep a comfortable minimum size.
-
-### Loaders · 14. Customization
-
-- `className` adds classes to the root; `classNames` overrides individual parts — `Loader`: `root`, `item`. Conflicting Tailwind utilities passed here win (tailwind-merge).
-- Recolor with the theme accent; restyle globally with the theme tokens or `data-design="clay"`.
-- Motion: `transition`, `transitionDuration`, `transitionDelay`.
-
 ## Dividers
 
 *Category: Basic Components.* Exports: `Divider`.
@@ -1380,6 +1219,7 @@ A plain rule, one with centered label text, or a draggable resize handle.
 | `color` | `ColorName` | `"accent"` | Line color: a built-in ColorName (default: "accent"). |
 | `className` | `string` | — | Extra class name(s) applied to the root element. |
 | `resizable` | `boolean` | `false` | Turns the divider into a draggable resize handle (mouse/touch drag, or arrow keys when focused), with a small grip pill in the middle of the line to show it can be dragged. It reports movement via `onResize` — it does NOT own any size state itself, so the consumer decides how to apply the delta (e.g. to a panel's width/height), same as a headless split-pane handle. |
+| `handleVariant` | `DividerHandleVariant` | `"grip"` | Look of the drag handle when `resizable`: "grip" (default, two rows of dots), "dots" (three dots), "arrows" (a round button with direction chevrons), "circle" (a round button with a single dot), "bar" (a short thick bar) or "pill" (a plain pill). Under the clay design the handle renders as a puffy clay button. |
 | `onResize` | `(deltaPx: number) => void` | — | Called with the pointer/keyboard movement in px (positive = right/down). |
 | `step` | `number` | `10` | Keyboard step size in px when resizable (default 10). |
 | `classNames` | `{ root?: string; line?: string; label?: string; handle?: string; }` | — | Per-part class overrides — merged after (and win over) the built-in styling. |
@@ -1434,6 +1274,7 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 | `label` | `label` | string |
 | `color` | `color` | string |
 | `resizable` | `resizable` | boolean |
+| `handleVariant` | `handle-variant` | string |
 | `step` | `step` | number |
 | `transition` | `transition` | string |
 | `transitionDuration` | `transition-duration` | number |
@@ -1505,7 +1346,7 @@ Drag it (or focus it and use arrow keys) — it reports the movement via onResiz
 </div>
 ```
 
-_1 more examples are on the docs page._
+_2 more examples are on the docs page._
 
 ### Dividers · 11. Component Composition
 
@@ -6365,7 +6206,10 @@ A styled native range input for a single value.
 | `onFocus` | `FocusEventHandler<HTMLInputElement>` | — | Called when the field gains focus — the native focus event (the web component's `focus` event). |
 | `onInvalid` | `FormEventHandler<HTMLInputElement>` | — | Called when the field fails validation (e.g. `required` and empty) — the native invalid event (the web component's `invalid` event, detail = the message). |
 | `color` | `ColorName` | `"accent"` | Color of the filled part of the track (default: "accent" — follows the theme accent). |
+| `size` | `SliderSize` | `"md"` | Size of the thumb (and track): "sm" \| "md" \| "lg" (default: "md"). |
+| `thumbVariant` | `SliderThumbVariant` | `"pill"` | Look of the thumb: "pill" (default, two dimples), "circle" (round, one dimple), "bar" (a slim handle) or "solid" (filled with the slider color). |
 | `showValue` | `boolean` | `false` | Shows the current numeric value in a label beside the slider, kept in sync in both controlled and uncontrolled use (default: false). |
+| `valuePlacement` | `SliderValuePlacement` | `"side"` | Where `showValue` puts the number: "side" (beside the track, default) or "thumb" (inside the sliding button — best with the "pill", "circle" or "solid" thumb). |
 | `className` | `string` | — | Extra class name(s) appended to the root element. |
 | `classNames` | `{ root?: string; input?: string; value?: string }` | — | Per-part class overrides — merged after (and win over) the built-in styling. |
 
@@ -6397,7 +6241,9 @@ Follows the global theme (§1.4): it recolors with the accent, switches with lig
 
 ### Slider · 6. Sizes
 
-_No size prop — it sizes to its container / content (see `className` to constrain it)._
+| Component | Prop | Values | Default | Notes |
+| --- | --- | --- | --- | --- |
+| `Slider` | `size` | `sm`, `md`, `lg` | `"md"` | Size of the thumb (and track): "sm" \| "md" \| "lg" (default: "md"). |
 
 ### Slider · 7. Component States
 
@@ -6432,6 +6278,9 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 | `max` | `max` | number |
 | `step` | `step` | number |
 | `color` | `color` | string |
+| `size` | `size` | string |
+| `thumbVariant` | `thumb-variant` | string |
+| `valuePlacement` | `value-placement` | string |
 | `showValue` | `show-value` | boolean |
 | `disabled` | `disabled` | boolean |
 | `transition` | `transition` | string |
@@ -6481,23 +6330,27 @@ Matches the shared color palette.
 <Slider defaultValue={30} color="indigo" showValue />
 ```
 
-#### Custom range
+#### Sizes
 
-min/max/step pass through like any native range input.
-
-```tsx
-<Slider min={0} max={10} step={1} defaultValue={5} showValue />
-```
-
-#### Disabled
-
-Standard disabled state.
+Three sizes via size. The track grows with the thumb.
 
 ```tsx
-<Slider defaultValue={40} disabled />
+<Slider size="sm" />
+<Slider size="md" />
+<Slider size="lg" />
 ```
 
-_2 more examples are on the docs page._
+#### Thumb variants
+
+Pick the thumb with thumbVariant. Under the clay design the thumb is a puffy clay button and the track a pressed-in groove.
+
+```tsx
+<Slider thumbVariant="circle" size="lg" />
+
+// thumbVariant: "pill" (default) | "circle" | "bar" | "solid"
+```
+
+_5 more examples are on the docs page._
 
 ### Slider · 11. Component Composition
 
@@ -6506,14 +6359,14 @@ _2 more examples are on the docs page._
 ### Slider · 12. Accessibility
 
 - ARIA roles used: none beyond native element semantics.
-- ARIA attributes set by the component: none.
+- ARIA attributes set by the component: `aria-hidden`.
 - Keyboard: native keyboard behavior of the underlying element (Tab to focus, Enter / Space to activate).
 - Focus: uses the browser focus outline / the underlying control's ring.
 - Motion: respects `prefers-reduced-motion`.
 
 ### Slider · 13. Responsive Behavior
 
-- No breakpoint-specific rules — it is fluid and adapts to its container width.
+- Breakpoint modifiers in its source: `lg`, `md`, `sm`.
 - Mobile-first; touch targets keep a comfortable minimum size.
 
 ### Slider · 14. Customization
@@ -6545,7 +6398,10 @@ A dual-thumb range built from two overlapping native range inputs sharing one tr
 | `value` **required** | `[number, number]` | — | Controlled `[low, high]` tuple of the two thumbs' current values. |
 | `onChange` | `(value: [number, number]) => void` | — | Called with the new `[low, high]` tuple whenever either thumb is moved; the consumer must store it back into `value`. |
 | `color` | `ColorName` | `"accent"` | Color of the filled range between the thumbs (default: "accent" — follows the theme accent). |
-| `showValue` | `boolean` | `false` | Shows the current "low – high" text below the slider (default: false). |
+| `showValue` | `boolean` | `false` | Shows the current values — below the slider as "low – high", or inside each thumb with `valuePlacement="thumb"` (default: false). |
+| `size` | `SliderSize` | `"md"` | Size of the thumbs (and track): "sm" \| "md" \| "lg" (default: "md"). |
+| `thumbVariant` | `SliderThumbVariant` | `"pill"` | Look of the thumbs: "pill" (default, two dimples), "circle" (round, one dimple), "bar" (a slim handle) or "solid" (filled with the slider color). |
+| `valuePlacement` | `SliderValuePlacement` | `"side"` | Where `showValue` puts the numbers: "side" (below the track, default) or "thumb" (inside each sliding button — best at size md or lg). |
 | `onFocus` | `(e: FocusEvent<HTMLInputElement>) => void` | — | Called when the field gains focus — the native focus event (the web component's `focus` event, detail = the value). |
 | `onInput` | `(e: FormEvent<HTMLInputElement>) => void` | — | Called as the user edits the field — the native input event (the web component's `input` event, detail = the value). |
 | `onInvalid` | `(e: FormEvent<HTMLInputElement>) => void` | — | Called when the field fails validation — the native invalid event (the web component's `invalid` event, detail = the message). |
@@ -6578,7 +6434,9 @@ Follows the global theme (§1.4): it recolors with the accent, switches with lig
 
 ### Range Slider · 6. Sizes
 
-_No size prop — it sizes to its container / content (see `className` to constrain it)._
+| Component | Prop | Values | Default | Notes |
+| --- | --- | --- | --- | --- |
+| `RangeSlider` | `size` | `sm`, `md`, `lg` | `"md"` | Size of the thumbs (and track): "sm" \| "md" \| "lg" (default: "md"). |
 
 ### Range Slider · 7. Component States
 
@@ -6603,6 +6461,9 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 | `max` | `max` | number |
 | `step` | `step` | number |
 | `color` | `color` | string |
+| `size` | `size` | string |
+| `thumbVariant` | `thumb-variant` | string |
+| `valuePlacement` | `value-placement` | string |
 | `showValue` | `show-value` | boolean |
 | `transition` | `transition` | string |
 | `transitionDuration` | `transition-duration` | number |
@@ -6653,38 +6514,33 @@ Shows the current [low, high] as text below the track.
 <RangeSlider value={value} onChange={setValue} color="indigo" showValue />
 ```
 
-#### Custom range
+#### Sizes
 
-Custom min/max/step — e.g. a price filter.
-
-```tsx
-<RangeSlider
-  min={0}
-  max={1000}
-  step={10}
-  value={value}
-  onChange={setValue}
-  color="emerald"
-  showValue
-/>
-```
-
-#### Transitions
-
-Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`) and hover effects via `hoverEffect`. They play on mount — reload the page, or use Replay in the playground.
+Three sizes via size. The track grows with the thumbs.
 
 ```tsx
-<RangeSlider transition="fade" value={[20, 70]} />
-<RangeSlider transition="slide-up" value={[20, 70]} />
-<RangeSlider transition="slide-right" transitionDelay={100} value={[20, 70]} />
-<RangeSlider transition="zoom" value={[20, 70]} />
-<RangeSlider transition="flip" value={[20, 70]} />
-<RangeSlider transition="blur" value={[20, 70]} />
-
-<RangeSlider hoverEffect="lift" value={[20, 70]} />
-<RangeSlider hoverEffect="scale" value={[20, 70]} />
-<RangeSlider hoverEffect="glow" value={[20, 70]} />
+<RangeSlider size="lg" value={value} onChange={setValue} />
 ```
+
+#### Thumb variants
+
+Pick the thumbs with thumbVariant. Under the clay design the thumbs are puffy clay buttons and the track a pressed-in groove.
+
+```tsx
+<RangeSlider thumbVariant="circle" size="lg" value={value} onChange={setValue} />
+
+// thumbVariant: "pill" (default) | "circle" | "bar" | "solid"
+```
+
+#### Value inside the thumb
+
+valuePlacement="thumb" puts each number inside its sliding button instead of below the track. The numbers take the slider color. Shown here with each thumb variant; use size md or lg so the number fits.
+
+```tsx
+<RangeSlider showValue valuePlacement="thumb" thumbVariant="circle" size="lg" value={value} onChange={setValue} />
+```
+
+_2 more examples are on the docs page._
 
 ### Range Slider · 11. Component Composition
 
@@ -6693,7 +6549,7 @@ Enter transitions via `transition` (with `transitionDuration` / `transitionDelay
 ### Range Slider · 12. Accessibility
 
 - ARIA roles used: none beyond native element semantics.
-- ARIA attributes set by the component: none.
+- ARIA attributes set by the component: `aria-hidden`.
 - Keyboard: native keyboard behavior of the underlying element (Tab to focus, Enter / Space to activate).
 - Focus: uses the browser focus outline / the underlying control's ring.
 - Motion: respects `prefers-reduced-motion`.
@@ -10637,7 +10493,7 @@ A grey placeholder in the shape of content that is still loading — text lines,
 | `height` | `string \| number` | — | Height: any CSS length or a number of px (default: one text line for "text", 80px for "rect"). |
 | `size` | `number` | `40` | Diameter of a "circle" in px (default: 40). |
 | `lines` | `number` | `1` | For "text": how many lines to draw. The last one is shorter, like real text (default: 1). |
-| `animation` | `SkeletonAnimation` | `"pulse"` | How it shows that something is loading: "pulse" (default), "shimmer" (a light sweep) or "none". Respects `prefers-reduced-motion`. |
+| `animation` | `SkeletonAnimation` | `"pulse"` | How it shows that something is loading: "pulse" (default), "shimmer" (a light sweep), "wave" (like "pulse" but each text line is staggered so several lines ripple — a single block looks the same as "pulse") or "none". Respects `prefers-reduced-motion`. |
 | `className` | `string` | — | Extra class name(s) appended to the root element. |
 | `classNames` | `{ root?: string; line?: string }` | — | Per-part class overrides — merged after (and win over) the built-in styling. |
 
@@ -10909,7 +10765,7 @@ Minimal use in each target (from the first docs example, *Basic*):
 **React**
 ```tsx
 <Navbar
-  brand="Lojee"
+  brand="App"
   items={[
     { label: "Home", active: true },
     { label: "Products" },
@@ -10920,7 +10776,7 @@ Minimal use in each target (from the first docs example, *Basic*):
 ```
 **Plain HTML / JavaScript**
 ```html
-<l-Navbar id="basic-navbar" brand="Lojee">
+<l-Navbar id="basic-navbar" brand="App">
   <div slot="actions">
     <l-Avatar initials="JD" size="sm"></l-Avatar>
   </div>
@@ -10946,7 +10802,7 @@ items is the data-driven shortcut for a simple, evenly-spaced link row — the s
 
 ```tsx
 <Navbar
-  brand="Lojee"
+  brand="App"
   items={[
     { label: "Home", active: true },
     { label: "Products" },
@@ -10962,7 +10818,7 @@ Leave active unset on every link (the common case) and Navbar determines and man
 
 ```tsx
 <Navbar
-  brand="Lojee"
+  brand="App"
   defaultActiveItem="Dashboard"
   onActiveItemChange={(item) => console.log(item)}
   items={[
@@ -10979,7 +10835,7 @@ Set sticky so the bar pins to the top of its scroll container.
 
 ```tsx
 <div className="h-64 overflow-y-auto">
-  <Navbar sticky brand="Lojee">
+  <Navbar sticky brand="App">
     <Button variant="ghost" label="Home" />
     <Button variant="ghost" label="Products" />
   </Navbar>
@@ -10994,7 +10850,7 @@ Set sticky so the bar pins to the top of its scroll container.
 ```tsx
 <Navbar
   variant="dark"
-  brand={<span className="text-white">Lojee</span>}
+  brand={<span className="text-white">App</span>}
   items={[
     { label: "Home", active: true },
     { label: "Products" },
@@ -11017,7 +10873,7 @@ Override the root with className, or target the brand/links/actions slots with c
 
 ```tsx
 <Navbar
-  brand="Lojee"
+  brand="App"
   classNames={{ root: "bg-indigo-50 dark:bg-indigo-950/40", brand: "text-indigo-900 dark:text-indigo-200" }}
 >
   <Button variant="ghost" label="Home" className="text-indigo-700 hover:bg-indigo-100 dark:text-indigo-300 dark:hover:bg-indigo-900/40" />
@@ -11100,6 +10956,7 @@ A vertical navigation panel — an app-shell shell for the rest of the library's
 | `onCollapsedChange` | `(collapsed: boolean) => void` | — | Called whenever the collapsed state changes — whether toggled by the built-in button in uncontrolled mode, or requested while `collapsed` is a controlled prop. Optional either way; only needed if something outside `Sidebar` cares about the current state. |
 | `onActiveItemChange` | `(item: SidebarMenuItemSpec) => void` | — | Called with the full `items` row object whenever the active row changes — a click, a URL match on mount/back-forward-navigation, or a row's `active` field changing to point elsewhere (see `SidebarMenuItemSpec.active`). Use this to read which item is active without tracking it yourself, e.g. to drive your own router's navigation or to sync active state elsewhere in your app. Not called for rows composed directly via `children` (only the data-driven `items` shortcut has a "current item" concept). |
 | `onNavigate` | `(path: string, item: SidebarMenuItemSpec) => void` | — | Called with a row's `path` when it is clicked, so your router can navigate without a page reload (e.g. React Router's `navigate`). Without it, `Sidebar` changes the URL itself with `history.pushState` and fires a `popstate` event, which routers that watch the history pick up — still no reload. Modified clicks (Ctrl/Cmd/Shift, middle button) and paths on another origin keep the browser's normal link behaviour. |
+| `collapseSpeed` | `SidebarSpeed \| number` | `"normal"` | Speed of the collapse / expand animation — the panel width, header, footer and every item all share it, in both directions: "fast" (150ms) \| "normal" (300ms) \| "slow" (600ms), or a number of ms (default: "normal"). |
 | `showLabel` | `boolean` | `true` | While collapsed: true (default) shows a small label under each item icon and no tooltip; false shows icons only, with each item's label in a tooltip on hover. |
 | `tooltipTransition` | `TransitionVariant` | `"bounce"` | Enter/exit transition of the tooltips shown in the collapsed rail and on the collapse button: "fade" \| "slide-up" \| "slide-down" \| "slide-left" \| "slide-right" \| "zoom" \| "zoom-out" \| "flip" \| "blur" \| "bounce" \| "rotate" \| "drop" \| "skew" (default: "bounce"). |
 | `tooltipTransitionDuration` | `number` | — | Enter/exit duration in ms of those same tooltips (default: 450). |
@@ -11222,6 +11079,7 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 | `borderWidth` | `border-width` | number |
 | `sticky` | `sticky` | boolean |
 | `showLabel` | `show-label` | boolean |
+| `collapseSpeed` | `collapse-speed` | string |
 | `transition` | `transition` | string |
 | `transitionDuration` | `transition-duration` | number |
 | `transitionDelay` | `transition-delay` | number |
@@ -11387,7 +11245,7 @@ Mix { category, items } entries into items for labeled, collapsible section grou
     variant="gradient" — a top-to-bottom gradient built from `color` (600 → 700). */}
 ```
 
-_4 more examples are on the docs page._
+_5 more examples are on the docs page._
 
 ### Sidebar · 11. Component Composition
 
@@ -11875,7 +11733,7 @@ Enter transitions via `transition` (with `transitionDuration` / `transitionDelay
 
 ### Footer · 1. Component Overview
 
-A site-wide bottom footer with link columns and a copyright bar.
+A site-wide bottom footer with a content area and a copyright bar, in a neutral surface or any color.
 
 - React: `import { Footer } from "lojee-ui"`
 - Web Component: `<l-footer>` (after `import "lojee-ui/elements"`)
@@ -11888,8 +11746,7 @@ A site-wide bottom footer with link columns and a copyright bar.
 | --- | --- | --- | --- |
 | `children` | `ReactNode` | — | Main content area — link columns, etc. |
 | `bottom` | `ReactNode` | — | Bottom bar content — copyright, legal links. Rendered below a top border. |
-| `variant` | `FooterVariant` | `"light"` | Visual theme (default: "light"): - "dark" — slate-900 background, muted light text for the bottom bar. - "minimal" — no background at all, blends into the page. - "accent" — a solid `color` background with white text; `color` defaults to the theme's accent, so it changes with the accent picker. |
-| `color` | `ColorName \| (string & {})` | `"accent"` | Background color for `variant="accent"` (default: "accent", which follows the theme's accent color) — one of the built-in ColorNames, or any other CSS color value. Ignored by the other variants. |
+| `color` | `ColorName \| (string & {})` | — | Fill color — one of the built-in ColorNames, or any other CSS color value (e.g. "#7c3aed"). The footer becomes a solid `color` background with white text. Leave it unset for the neutral look (a soft muted-surface background). |
 | `className` | `string` | — | Extra class name(s) applied to the root element. |
 | `classNames` | `{ root?: string; content?: string; bottom?: string; }` | — | Per-part class overrides — merged after (and win over) the built-in styling. |
 
@@ -11901,15 +11758,13 @@ _No component-specific events._ Native DOM events (`click`, `input`, `focus`…)
 
 ### Footer · 4. Variants
 
-| Component | Prop | Values | Default | Notes |
-| --- | --- | --- | --- | --- |
-| `Footer` | `variant` | `light`, `dark`, `minimal`, `accent` | `"light"` | Visual theme (default: "light"): - "dark" — slate-900 background, muted light text for the bottom bar. - "minimal" — no background at all, blends into the page. - "accent" — a solid `color` background with white text; `color` defaults to the theme's accent, so it changes with the accent picker. |
+_This component has no variant prop — it has a single look (restyle it with colors / `classNames`)._
 
 ### Footer · 5. Colors and Theming
 
 | Component | Prop | Values | Default | Notes |
 | --- | --- | --- | --- | --- |
-| `Footer` | `color` | `slate`, `gray`, `indigo`, `violet`, `blue`, `cyan`, `emerald`, `teal`, `amber`, `orange`, `rose`, `pink`, `accent` | `"accent"` | Background color for `variant="accent"` (default: "accent", which follows the theme's accent color) — one of the built-in ColorNames, or any other CSS color value. Ignored by the other variants. |
+| `Footer` | `color` | `slate`, `gray`, `indigo`, `violet`, `blue`, `cyan`, `emerald`, `teal`, `amber`, `orange`, `rose`, `pink`, `accent` | — | Fill color — one of the built-in ColorNames, or any other CSS color value (e.g. "#7c3aed"). The footer becomes a solid `color` background with white text. Leave it unset for the neutral look (a soft muted-surface background). |
 
 Follows the global theme (§1.4): it recolors with the accent, switches with light / dark mode, and takes the Claymorphism look when `data-design="clay"` is set.
 
@@ -11939,7 +11794,6 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 | React prop | HTML attribute | Attribute type |
 | --- | --- | --- |
 | `bottom` | `bottom` | string |
-| `variant` | `variant` | string |
 | `color` | `color` | string |
 | `transition` | `transition` | string |
 | `transitionDuration` | `transition-duration` | number |
@@ -11949,74 +11803,16 @@ Minimal use in each target (from the first docs example, *Basic*):
 
 **React**
 ```tsx
-<Footer bottom="© 2026 Lojee, Inc. All rights reserved.">
-  <div>
-    <h4>Product</h4>
-    <ul>
-      <li><a href="#">Features</a></li>
-      <li><a href="#">Pricing</a></li>
-      <li><a href="#">Changelog</a></li>
-    </ul>
-  </div>
-  <div>
-    <h4>Company</h4>
-    <ul>
-      <li><a href="#">About</a></li>
-      <li><a href="#">Careers</a></li>
-      <li><a href="#">Blog</a></li>
-    </ul>
-  </div>
-  <div>
-    <h4>Resources</h4>
-    <ul>
-      <li><a href="#">Docs</a></li>
-      <li><a href="#">Guides</a></li>
-      <li><a href="#">Support</a></li>
-    </ul>
-  </div>
-  <div>
-    <h4>Legal</h4>
-    <ul>
-      <li><a href="#">Privacy</a></li>
-      <li><a href="#">Terms</a></li>
-    </ul>
-  </div>
+<Footer bottom="${COPY}">
+  <h4>Lojee</h4>
+  <p>Build interfaces faster with a small, themeable component library.</p>
 </Footer>
 ```
 **Plain HTML / JavaScript**
 ```html
-<l-Footer bottom="© 2026 Lojee, Inc. All rights reserved.">
-  <div>
-    <h4>Product</h4>
-    <ul>
-      <li><a href="#">Features</a></li>
-      <li><a href="#">Pricing</a></li>
-      <li><a href="#">Changelog</a></li>
-    </ul>
-  </div>
-  <div>
-    <h4>Company</h4>
-    <ul>
-      <li><a href="#">About</a></li>
-      <li><a href="#">Careers</a></li>
-      <li><a href="#">Blog</a></li>
-    </ul>
-  </div>
-  <div>
-    <h4>Resources</h4>
-    <ul>
-      <li><a href="#">Docs</a></li>
-      <li><a href="#">Guides</a></li>
-      <li><a href="#">Support</a></li>
-    </ul>
-  </div>
-  <div>
-    <h4>Legal</h4>
-    <ul>
-      <li><a href="#">Privacy</a></li>
-      <li><a href="#">Terms</a></li>
-    </ul>
-  </div>
+<l-Footer bottom="${COPY}">
+  <h4>Lojee</h4>
+  <p>Build interfaces faster with a small, themeable component library.</p>
 </l-Footer>
 
 <script type="module">import "lojee-ui/elements";</script>
@@ -12027,79 +11823,32 @@ Vue and Angular use the same `<l-*>` tag and attributes — see the framework te
 
 #### Basic
 
-A grid of link columns above a copyright line.
+Some text above a copyright line.
 
 ```tsx
-<Footer bottom="© 2026 Lojee, Inc. All rights reserved.">
-  <div>
-    <h4>Product</h4>
-    <ul>
-      <li><a href="#">Features</a></li>
-      <li><a href="#">Pricing</a></li>
-      <li><a href="#">Changelog</a></li>
-    </ul>
-  </div>
-  <div>
-    <h4>Company</h4>
-    <ul>
-      <li><a href="#">About</a></li>
-      <li><a href="#">Careers</a></li>
-      <li><a href="#">Blog</a></li>
-    </ul>
-  </div>
-  <div>
-    <h4>Resources</h4>
-    <ul>
-      <li><a href="#">Docs</a></li>
-      <li><a href="#">Guides</a></li>
-      <li><a href="#">Support</a></li>
-    </ul>
-  </div>
-  <div>
-    <h4>Legal</h4>
-    <ul>
-      <li><a href="#">Privacy</a></li>
-      <li><a href="#">Terms</a></li>
-    </ul>
-  </div>
+<Footer bottom="${COPY}">
+  <h4>Lojee</h4>
+  <p>Build interfaces faster with a small, themeable component library.</p>
 </Footer>
 ```
 
-#### Variants
+#### Colors
 
-Four looks: "light" (default), "dark", "minimal" (no background, blends into the page) and "accent" (a solid color background — the theme's accent by default, so it changes with the accent picker; pass color for another).
+Pick the fill with color — any built-in color (accent follows the theme) or a custom CSS color such as #7c3aed. Without it the footer is a soft neutral surface.
 
 ```tsx
-<Footer variant="dark" bottom={<span className="text-slate-400">© 2026 Lojee, Inc.</span>}>
-  <LinkColumns />
-</Footer>
-
-{/* Also available: variant="minimal" (no background, blends into the page)
-    and variant="accent" — a solid background in the theme accent: */}
-<Footer variant="accent" bottom="© 2026 Lojee, Inc.">
-  <LinkColumns />
-</Footer>
-
-{/* pin another color */}
-<Footer variant="accent" color="emerald" bottom="© 2026 Lojee, Inc." />
+<Footer bottom="${COPY}">Lojee</Footer>
+<Footer color="accent" bottom="${COPY}">Lojee</Footer>
+<Footer color="emerald" bottom="${COPY}">Lojee</Footer>
+<Footer color="#7c3aed" bottom="${COPY}">Lojee</Footer>
 ```
 
 #### Bottom bar only
 
-Just the bottom bar — copyright plus a couple of legal links, no columns.
+Just the bottom bar — a copyright line, no content.
 
 ```tsx
-<Footer
-  bottom={
-    <div className="flex flex-wrap items-center justify-between gap-3">
-      <span>© 2026 Lojee, Inc. All rights reserved.</span>
-      <div className="flex items-center gap-4">
-        <a href="#">Privacy</a>
-        <a href="#">Terms</a>
-      </div>
-    </div>
-  }
-/>
+<Footer bottom="${COPY}" />
 ```
 
 #### Transitions
@@ -12383,6 +12132,11 @@ A mobile-style bottom tab bar — icon and label per tab, active tab highlighted
 | `variant` | `ActiveVariant \| "text"` | — | How the active tab is drawn: "solid", "outline" or "soft" fill, or "text" — no fill at all, only the icon and label are highlighted in `color`. Leave it out to follow the theme's active-item style (`ThemeProvider`'s `defaultActiveVariant`, default "solid"; the theme never picks "text"). |
 | `defaultActiveItem` | `string` | — | Only an initial default (see `BottomNavigationItem.active`): which tab starts selected when nothing else — a matching `href`, an `active: true` entry — already determines it. |
 | `onActiveItemChange` | `(item: BottomNavigationItem) => void` | — | Called with the full item whenever the active tab changes — a click, a URL match on mount/back-forward navigation, or an item's `active` field changing to point elsewhere. |
+| `onItemClick` | `(item: BottomNavigationItem, index: number) => void` | — | Called on every tab click, with the clicked item and its index — including a click on the tab that is already active (which `onActiveItemChange` does not report). The web component's `itemclick` event (detail = the item). |
+| `iconOnly` | `boolean` | `false` | Shows only the icons — the labels are hidden (they stay as each tab's accessible name and tooltip). Default: false. |
+| `fabIcon` | `string` | — | Icon name of a floating action button raised above the middle of the bar (e.g. "plus"). Setting it shows the button and splits the tabs around it. |
+| `fabLabel` | `string` | `"Action"` | Accessible name / tooltip of the floating button (default: "Action"). |
+| `onFabClick` | `() => void` | — | Called when the floating button is pressed (the web component's `fabclick` event). |
 | `className` | `string` | — | Extra class names applied to the root bar. |
 | `classNames` | `{ root?: string; item?: string; activeItem?: string; icon?: string; label?: string; badge?: string; }` | — | Per-part class overrides (`root`, `item`, `activeItem`, `icon`, `label`, `badge`) — merged after the built-in styling. |
 
@@ -12393,6 +12147,8 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
 | `BottomNavigation` | `onActiveItemChange` | `(item: BottomNavigationItem) => void` | `activeitemchange` (CustomEvent, payload in `detail`) | Called with the full item whenever the active tab changes — a click, a URL match on mount/back-forward navigation, or an item's `active` field changing to point elsewhere. |
+| `BottomNavigation` | `onItemClick` | `(item: BottomNavigationItem, index: number) => void` | `itemclick` (CustomEvent, payload in `detail`) | Called on every tab click, with the clicked item and its index — including a click on the tab that is already active (which `onActiveItemChange` does not report). The web component's `itemclick` event (detail = the item). |
+| `BottomNavigation` | `onFabClick` | `() => void` | `fabclick` (CustomEvent, payload in `detail`) | Called when the floating button is pressed (the web component's `fabclick` event). |
 | `BottomNavigation` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
 
 ### Bottom Navigation · 4. Variants
@@ -12415,7 +12171,9 @@ _No size prop — it sizes to its container / content (see `className` to constr
 
 ### Bottom Navigation · 7. Component States
 
-_No dedicated state props — the visual states are default, hover, focus-visible and active._
+| Component | Prop | Type | Default | Effect |
+| --- | --- | --- | --- | --- |
+| `BottomNavigation` | `iconOnly` | `boolean` | `false` | Shows only the icons — the labels are hidden (they stay as each tab's accessible name and tooltip). Default: false. |
 
 Standard visual states: default · hover · focus-visible (ring) · active/pressed.
 
@@ -12434,6 +12192,9 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 | `items` | `items` | json (JSON string or object property) |
 | `color` | `color` | string |
 | `variant` | `variant` | string |
+| `iconOnly` | `icon-only` | boolean |
+| `fabIcon` | `fab-icon` | string |
+| `fabLabel` | `fab-label` | string |
 | `defaultActiveItem` | `default-active-item` | string |
 | `transition` | `transition` | string |
 | `transitionDuration` | `transition-duration` | number |
@@ -12489,14 +12250,16 @@ Click any tab — the bar keeps track of the active one itself, like Sidebar and
 
 #### Selection callback
 
-onActiveItemChange fires with the whole item whenever the active tab changes — a click, or a URL / active-prop change.
+onActiveItemChange fires with the whole item whenever the active tab changes — a click, or a URL / active-prop change. onItemClick fires on every tab click (even on the active one) and onFabClick on the floating button; on the web component they are the activeitemchange, itemclick and fabclick events.
 
 ```tsx
 const [active, setActive] = useState("Home");
 
 <BottomNavigation
   items={[/* ... */]}
-  onActiveItemChange={(item) => setActive(item.label)}
+  onActiveItemChange={(item) => setActive(item.label)}  // the active tab changed
+  onItemClick={(item, index) => console.log("clicked", item.label, index)}  // every tab click
+  onFabClick={() => console.log("floating button")}  // with fabIcon
 />
 ```
 
@@ -12514,44 +12277,41 @@ Give a tab an href and it renders as a real link; the bar also matches the curre
 />
 ```
 
-#### With a badge
+#### Icon only
 
-A tab's `badge` renders as a small count pill on the icon's top-right corner.
+iconOnly hides the labels and shows just the icons (each tab keeps its label as its accessible name and tooltip).
 
 ```tsx
 <BottomNavigation
+  iconOnly
   items={[
     { icon: "home", label: "Home", active: true },
     { icon: "search", label: "Search" },
-    { icon: "bell", label: "Alerts", badge: "3" },
+    { icon: "heart", label: "Saved" },
     { icon: "user", label: "Profile" },
   ]}
 />
 ```
 
-#### Transitions
+#### Floating button
 
-Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`) and hover effects via `hoverEffect`. They play on mount — reload the page, or use Replay in the playground.
+fabIcon adds a floating action button raised above the middle of the bar and splits the tabs around it. The button sits in a notch cut into the bar. The icon is configurable, the button takes the bar's color (the theme accent by default), and onFabClick (the fabclick event) fires when it is pressed.
 
 ```tsx
-const items = [
-  { icon: "home", label: "Home", active: true },
-  { icon: "search", label: "Search" },
-  { icon: "heart", label: "Saved" },
-  { icon: "user", label: "Profile" },
-];
-
-<BottomNavigation items={items} transition="fade" />
-<BottomNavigation items={items} transition="slide-down" />
-<BottomNavigation items={items} transition="slide-right" transitionDelay={100} />
-<BottomNavigation items={items} transition="zoom" />
-<BottomNavigation items={items} transition="blur" />
-<BottomNavigation items={items} transition="drop" transitionDuration={700} />
-
-<BottomNavigation items={items} hoverEffect="lift" />
-<BottomNavigation items={items} hoverEffect="glow" />
-<BottomNavigation items={items} hoverEffect="shine" />
+<BottomNavigation
+  fabIcon="plus"
+  fabLabel="Add"
+  onFabClick={() => console.log("add")}
+  items={[
+    { icon: "home", label: "Home", active: true },
+    { icon: "calendar", label: "Events" },
+    { icon: "message-circle", label: "Chat" },
+    { icon: "user", label: "Profile" },
+  ]}
+/>
 ```
+
+_2 more examples are on the docs page._
 
 ### Bottom Navigation · 11. Component Composition
 
@@ -12560,9 +12320,9 @@ const items = [
 ### Bottom Navigation · 12. Accessibility
 
 - ARIA roles used: none beyond native element semantics.
-- ARIA attributes set by the component: `aria-current`, `aria-hidden`.
+- ARIA attributes set by the component: `aria-current`, `aria-hidden`, `aria-label`.
 - Keyboard: native keyboard behavior of the underlying element (Tab to focus, Enter / Space to activate).
-- Focus: uses the browser focus outline / the underlying control's ring.
+- Focus: visible focus ring (`focus-visible`).
 - Motion: respects `prefers-reduced-motion`.
 
 ### Bottom Navigation · 13. Responsive Behavior
@@ -13755,7 +13515,7 @@ The menu the lojee-ui navbar uses: light/dark, the accent color and the active-i
 | `onActiveVariantChange` | `(variant: ActiveVariant) => void` | — | Called when an active-item style is picked (the theme is still applied unless you control it with the matching prop). |
 | `onDesignChange` | `(design: DesignName) => void` | — | Called when a design is picked (the theme is still applied unless you control it with the matching prop). |
 | `align` | `ThemeSwitcherAlign` | `"end"` | Where the dropdown (which always opens below the button) lines up with the button: "start" (left edges together), "center", or "end" (right edges together). "left" / "right" also work, as start / end. Default: "end". |
-| `showDesign` | `boolean` | `true` | Show the "Design" section — Bento or Claymorphism (default: true). |
+| `showDesign` | `boolean` | `true` | Show the "Design" section — Bento or Clay (default: true). |
 | `showActiveItems` | `boolean` | `true` | Show the "Active items" section (default: true). |
 | `showAccent` | `boolean` | `true` | Show the "Accent" section — the built-in colors plus a "Custom" row that opens a color picker for any color (default: true). |
 | `showCustom` | `boolean` | `true` | Show the "Custom" row in the Accent section — a color picker for any accent color (default: true). |
@@ -15946,7 +15706,9 @@ An interactive vector map built on MapLibre GL with free CARTO basemaps — no A
 | `onRouteClick` | `(route: MapRouteData) => void` | — | Called when a data-driven route is clicked. |
 | `onRouteLoad` | `(summary: MapRouteSummary) => void` | — | Called when a data-driven route's geometry is known, with its length and (for fetched routes) travel time. |
 | `children` | `ReactNode` | — | `MapMarker`, `MapRoute`, `MapControls` or your own components that use `useMap()`. |
-| `className` | `string` | — | Extra class names applied to the root element (its default size is `h-[360px] w-full`). |
+| `width` | `number \| string` | — | Width of the map: a number of px, or any CSS length such as "50%" or "40rem". Left unset, the map is as wide as its container. |
+| `height` | `number \| string` | — | Height of the map: a number of px, or any CSS length such as "60vh" or "30rem". Left unset, the map is 480px tall. |
+| `className` | `string` | — | Extra class names applied to the root element (its default size is `h-[480px] w-full`). |
 | `classNames` | `{ root?: string; map?: string }` | — | Per-part class overrides (`root`, `map`) — merged after the built-in styling. |
 
 #### `MapControls`
@@ -16007,7 +15769,10 @@ Follows the global theme (§1.4): it recolors with the accent, switches with lig
 
 ### Map · 6. Sizes
 
-_No size prop — it sizes to its container / content (see `className` to constrain it)._
+| Component | Prop | Values | Default | Notes |
+| --- | --- | --- | --- | --- |
+| `Map` | `width` | `number \| string` | — | Width of the map: a number of px, or any CSS length such as "50%" or "40rem". Left unset, the map is as wide as its container. |
+| `Map` | `height` | `number \| string` | — | Height of the map: a number of px, or any CSS length such as "60vh" or "30rem". Left unset, the map is 480px tall. |
 
 ### Map · 7. Component States
 
@@ -16042,6 +15807,8 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 | `fitBounds` | `fit-bounds` | boolean |
 | `fitPadding` | `fit-padding` | number |
 | `interactive` | `interactive` | boolean |
+| `width` | `width` | string |
+| `height` | `height` | string |
 
 - `MapControls`: React only (no standalone Web Component — used through its parent).
 - ``: React only (no standalone Web Component — used through its parent).
@@ -17632,7 +17399,6 @@ import { PlanBilling } from "lojee-ui";
 | [Avatars](#avatars) | Basic Components | `Avatar`, `AvatarGroup` | `<l-avatar>`, `<l-avatar-group>` |
 | [Icons](#icons) | Basic Components | `Icon` | `<l-icon>` |
 | [Spinners](#spinners) | Basic Components | `Spinner` | `<l-spinner>` |
-| [Loaders](#loaders) | Basic Components | `Loader` | `<l-loader>` |
 | [Dividers](#dividers) | Basic Components | `Divider` | `<l-divider>` |
 | [Cards](#cards) | Layout & Content | `Card` | `<l-card>` |
 | [Containers](#containers) | Layout & Content | `Container` | `<l-container>` |
@@ -17862,6 +17628,8 @@ import { PlanBilling } from "lojee-ui";
 | Navigation Menu | `l-navigation-menu` | `change` | `onChange` |
 | Navigation Menu | `l-navigation-menu` | `update` | `onUpdate` |
 | Bottom Navigation | `l-bottom-navigation` | `activeitemchange` | `onActiveItemChange` |
+| Bottom Navigation | `l-bottom-navigation` | `itemclick` | `onItemClick` |
+| Bottom Navigation | `l-bottom-navigation` | `fabclick` | `onFabClick` |
 | Bottom Navigation | `l-bottom-navigation` | `update` | `onUpdate` |
 | Tabs | `l-tabs` | `change` | `onChange` |
 | Tabs | `l-tabs` | `update` | `onUpdate` |

@@ -9,7 +9,50 @@ import { DEFAULT_ACTIVE_VARIANT, type ActiveVariant } from "./activeVariant";
 export type ThemeMode = "light" | "dark";
 /** Same as ThemeMode — kept as an alias for existing imports. */
 export type ResolvedTheme = ThemeMode;
-export type AccentName = (typeof COLORS)[number]["base"];
+/** Accents beyond the component `ColorName`s — extra Tailwind palettes only the theme accent (and ThemeSwitcher) offers. */
+const EXTRA_ACCENTS = [
+  { name: "Red", base: "red" },
+  { name: "Lime", base: "lime" },
+  { name: "Green", base: "green" },
+  { name: "Sky", base: "sky" },
+  { name: "Fuchsia", base: "fuchsia" },
+  { name: "Purple", base: "purple" },
+  { name: "Yellow", base: "yellow" },
+  { name: "Stone", base: "stone" },
+  { name: "Zinc", base: "zinc" },
+  { name: "Neutral", base: "neutral" },
+  { name: "Mauve", base: "mauve" },
+  { name: "Mist", base: "mist" },
+  { name: "Olive", base: "olive" },
+  { name: "Taupe", base: "taupe" }
+] as const;
+
+/** Hand-picked preset colors ThemeSwitcher offers after the named palettes — each applies as a custom (hex) accent. */
+export const PRESET_ACCENTS: readonly { name: string; hex: string }[] = [
+  { name: "Coral", hex: "#ff6b6b" },
+  { name: "Tangerine", hex: "#ff8a3d" },
+  { name: "Gold", hex: "#f5b700" },
+  { name: "Moss", hex: "#6a994e" },
+  { name: "Forest", hex: "#2d6a4f" },
+  { name: "Mint", hex: "#2ecc9a" },
+  { name: "Aqua", hex: "#14b8c4" },
+  { name: "Ocean", hex: "#1f7ae0" },
+  { name: "Royal", hex: "#4a56e2" },
+  { name: "Midnight", hex: "#1b2a49" },
+  { name: "Lavender", hex: "#9b8cf0" },
+  { name: "Grape", hex: "#7b2cbf" },
+  { name: "Orchid", hex: "#d45fd0" },
+  { name: "Raspberry", hex: "#d6336c" },
+  { name: "Crimson", hex: "#d90429" },
+  { name: "Wine", hex: "#8a1c4b" },
+  { name: "Cocoa", hex: "#7a4b2a" },
+  { name: "Sand", hex: "#c8a97e" },
+];
+
+/** Every built-in accent, in the order ThemeSwitcher lists them. */
+export const ACCENTS: readonly { name: string; base: AccentName }[] = [...COLORS, ...EXTRA_ACCENTS];
+
+export type AccentName = (typeof COLORS)[number]["base"] | (typeof EXTRA_ACCENTS)[number]["base"];
 
 /** A built-in accent name, or any custom color written as a hex string such as "#e11d89". */
 export type Accent = AccentName | (string & {});
@@ -25,7 +68,7 @@ export type DesignName = "bento" | "clay";
 
 export const DESIGNS: { value: DesignName; label: string }[] = [
   { value: "bento", label: "Bento" },
-  { value: "clay", label: "Claymorphism" },
+  { value: "clay", label: "Clay" },
 ];
 
 export const DEFAULT_DESIGN: DesignName = "bento";
@@ -41,7 +84,7 @@ export function isThemeMode(v: unknown): v is ThemeMode {
 }
 
 export function isAccentName(v: unknown): v is AccentName {
-  return COLORS.some((c) => c.base === v);
+  return ACCENTS.some((c) => c.base === v);
 }
 
 const HEX = /^#(?:[0-9a-f]{3}|[0-9a-f]{6})$/i;

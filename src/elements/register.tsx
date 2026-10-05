@@ -39,7 +39,6 @@ import { CodeSnippetElement } from "./code-snippet-element";
 import { AvatarGroup } from "../components/ui/Avatar/AvatarGroup";
 import { Icon } from "../components/ui/Icons/Icon";
 import { Spinner } from "../components/ui/Spinner/Spinner";
-import { Loader } from "../components/ui/Loader/Loader";
 import { Divider } from "../components/ui/Divider/Divider";
 import { Tooltip } from "../components/ui/Tooltip/Tooltip";
 import { Card } from "../components/ui/Card/Card";
@@ -295,18 +294,10 @@ customElements.define(
 );
 
 customElements.define(
-  "l-loader",
-  r2wc(withTailwind(Loader), {
-    shadow: "open",
-    props: { shape: "string", variant: "string", width: "number", height: "number", lines: "number", transition: "string", transitionDuration: "number", transitionDelay: "number" },
-  })
-);
-
-customElements.define(
   "l-divider",
   r2wc(withTailwind(Divider), {
     shadow: "open",
-    props: { orientation: "string", label: "string", color: "string", resizable: "boolean", step: "number", transition: "string", transitionDuration: "number", transitionDelay: "number" },
+    props: { orientation: "string", label: "string", color: "string", resizable: "boolean", handleVariant: "string", step: "number", transition: "string", transitionDuration: "number", transitionDelay: "number" },
     events: { onResize: {} }, // dispatches "resize", detail = delta px
   })
 );
@@ -699,6 +690,9 @@ customElements.define(
       max: "number",
       step: "number",
       color: "string",
+      size: "string",
+      thumbVariant: "string",
+      valuePlacement: "string",
       showValue: "boolean",
       disabled: "boolean",
       transition: "string",
@@ -724,6 +718,9 @@ customElements.define(
       max: "number",
       step: "number",
       color: "string",
+      size: "string",
+      thumbVariant: "string",
+      valuePlacement: "string",
       showValue: "boolean",
       transition: "string",
       transitionDuration: "number",
@@ -1017,6 +1014,7 @@ customElements.define(
       borderWidth: "number",
       sticky: "boolean",
       showLabel: "boolean",
+      collapseSpeed: "string", // "slow" | "normal" | "fast" or ms
       transition: "string",
       transitionDuration: "number",
       transitionDelay: "number",
@@ -1071,7 +1069,7 @@ customElements.define(
 
 customElements.define(
   "l-footer",
-  r2wc(withHostBlock(withTailwind(withSlots(Footer, { children: "", bottom: "bottom" }))), { shadow: "open", props: { bottom: "string", variant: "string", color: "string", transition: "string", transitionDuration: "number", transitionDelay: "number" } })
+  r2wc(withHostBlock(withTailwind(withSlots(Footer, { children: "", bottom: "bottom" }))), { shadow: "open", props: { bottom: "string", color: "string", transition: "string", transitionDuration: "number", transitionDelay: "number" } })
 );
 
 // `items` is plain data (label/href/icon/active/disabled) — set the `items`
@@ -1090,10 +1088,10 @@ customElements.define(
 
 customElements.define(
   "l-bottom-navigation",
-  r2wc(withUpdate(withTailwind(BottomNavigation), ["onActiveItemChange"]), {
+  r2wc(withUpdate(withTailwind(BottomNavigation), ["onActiveItemChange", "onItemClick", "onFabClick"]), {
     shadow: "open",
-    props: { items: "json", color: "string", variant: "string", defaultActiveItem: "string", transition: "string", transitionDuration: "number", transitionDelay: "number", hoverEffect: "string" },
-    events: { onUpdate: {}, onActiveItemChange: {} }, // dispatches "activeitemchange", detail = the active item object
+    props: { items: "json", color: "string", variant: "string", iconOnly: "boolean", fabIcon: "string", fabLabel: "string", defaultActiveItem: "string", transition: "string", transitionDuration: "number", transitionDelay: "number", hoverEffect: "string" },
+    events: { onUpdate: {}, onActiveItemChange: {}, onItemClick: {}, onFabClick: {} }, // dispatches "activeitemchange" (detail = the active item), "itemclick" (detail = the clicked item, every click) and "fabclick"
   })
 );
 
@@ -1432,7 +1430,7 @@ customElements.define(
 );
 
 // A MapLibre map. Markers and routes are plain data (`markers`, `routes` — set them as DOM properties with real arrays);
-// the element fills its host, so give `<l-map>` a height with CSS. MapLibre loads on demand the first time a map shows.
+// it is full width and 480px tall unless you set `width` / `height` (e.g. height="600" or "60vh"). MapLibre loads on demand the first time a map shows.
 customElements.define(
   "l-map",
   r2wc(withHostBlock(withTailwind(MapElement)), {
@@ -1449,6 +1447,8 @@ customElements.define(
       fitBounds: "boolean",
       fitPadding: "number",
       interactive: "boolean",
+      width: "string", // px number or CSS length; unset = container width
+      height: "string", // px number or CSS length; unset = 480px
     },
     events: {
       onLoad: {}, // dispatches "load"

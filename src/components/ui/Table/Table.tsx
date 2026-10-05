@@ -11,6 +11,7 @@ import { Rating } from "../Rating/Rating";
 import { Button } from "../Buttons/Button";
 import { getTooltipPortalRoot, TOOLTIP_PORTAL_Z_CLASS } from "../../../core/tooltipPortal";
 import { getIcon } from "../../../core/icons";
+import { DotScroll } from "../DotScroll/DotScroll";
 import { motionClass, motionStyle, type TransitionVariant } from "../../../core/motion";
 
 /** How a cell's value is drawn when the column has no `render`. */
@@ -897,9 +898,8 @@ export function Table<T>({
   return (
     <div
       className={cx(
-        "overflow-x-auto",
         stack && STACK.root,
-        look === "card" && "rounded-xl border border-border bg-surface shadow-sm",
+        look === "card" && "overflow-hidden rounded-xl border border-border bg-surface shadow-sm",
         look === "lined" && "bg-surface",
         motionClass(transition),
         className,
@@ -907,6 +907,7 @@ export function Table<T>({
       )}
       style={motionStyle(transitionDuration, transitionDelay)}
     >
+      <DotScroll axis="x">
       {selectable && selectedCount > 0 && (
         <div className="flex items-center justify-between gap-3 border-b border-border bg-accent-500/[0.07] px-4 py-2 text-sm">
           <span className="font-medium text-fg">{selectedCount} selected</span>
@@ -1193,6 +1194,7 @@ export function Table<T>({
         </tbody>
       </table>
       )}
+      </DotScroll>
     </div>
   );
 }

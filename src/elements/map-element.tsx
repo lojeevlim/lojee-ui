@@ -1,6 +1,6 @@
 import { Map, type MapProps } from "../components/ui/Map/Map";
 
-// Wrapper for `<l-map>`: fills the host element (set its height with CSS, e.g. `style="height:400px"`), and flattens
+// Wrapper for `<l-map>`: full width and 480px tall by default; set the `width` / `height` attributes (e.g. `height="500"` or `height="60vh"`) to resize it, and flattens
 // the callbacks whose React signature takes two arguments into a single event payload.
 export type MapElementProps = Omit<MapProps, "onLoad" | "onMarkerDragEnd" | "children"> & {
   onLoad?: () => void;
@@ -12,7 +12,7 @@ export function MapElement({ onLoad, onMarkerDragEnd, className, ...rest }: MapE
   return (
     <Map
       {...rest}
-      className={className ?? "h-full min-h-[320px]"}
+      className={className}
       onLoad={onLoad ? () => onLoad() : undefined}
       onMarkerDragEnd={onMarkerDragEnd ? (m, p) => onMarkerDragEnd({ ...m, ...p }) : undefined}
     />

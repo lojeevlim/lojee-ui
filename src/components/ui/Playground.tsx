@@ -4,7 +4,6 @@ import BadgePlayground from "./BadgePlayground";
 import AvatarPlayground from "./AvatarPlayground";
 import IconPlayground from "./IconPlayground";
 import SpinnerPlayground from "./SpinnerPlayground";
-import LoaderPlayground from "./LoaderPlayground";
 import DividerPlayground from "./DividerPlayground";
 import TooltipPlayground from "./TooltipPlayground";
 import CardPlayground from "./CardPlayground";
@@ -102,7 +101,6 @@ const PLAYGROUNDS: Record<string, ComponentType> = {
   Avatars: AvatarPlayground,
   Icons: IconPlayground,
   Spinners: SpinnerPlayground,
-  Loaders: LoaderPlayground,
   Dividers: DividerPlayground,
   Cards: CardPlayground,
   Containers: ContainerPlayground,

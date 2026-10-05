@@ -85,7 +85,6 @@ Available slots per component:
 | `AvatarGroup` | `root` |
 | `Tooltip` | `root`, `bubble` |
 | `Spinner` | `root`, `dot`, `bar` |
-| `Loader` | `root`, `item` |
 | `Divider` | `root`, `line`, `label` |
 
 `SplitButton`'s dropdown is composed from `SplitButtonMenuItem` children (not a data

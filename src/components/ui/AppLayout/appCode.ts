@@ -45,14 +45,14 @@ export function appCodeVariants(react: string, opts: AppCodeOptions = {}): CodeB
   const sections = (navAttr: string, sideAttr: string, indent: string) =>
     [
       ...(has("top") ? [`<l-Top>`, `  <l-Navbar${navAttr}><l-Side-Toggle slot="brand"></l-Side-Toggle></l-Navbar>`, `</l-Top>`] : []),
-      ...(has("side") ? [`<l-Side>`, `  <l-Sidebar${sideAttr}></l-Sidebar>`, `</l-Side>`] : []),
+      ...(has("side") ? [`<l-Side>`, `  <l-Sidebar width="210"${sideAttr}></l-Sidebar>`, `</l-Side>`] : []),
       `<l-Main>`,
       `  <l-Button color="accent" label="Solid"></l-Button>`,
       `  <l-Button color="accent" variant="outline" label="Outline"></l-Button>`,
       `  <l-Button color="accent" variant="soft" label="Soft"></l-Button>`,
       `  <l-Button variant="solid" color="accent" size="lg" animated="sweep" icon="plus" label="Click me"></l-Button>`,
       `</l-Main>`,
-      ...(has("footer") ? [`<l-Foot>`, `  <l-Footer bottom="© 2026 Lojee, Inc. All rights reserved." variant="minimal"></l-Footer>`, `</l-Foot>`] : []),
+      ...(has("footer") ? [`<l-Foot>`, `  <l-Footer bottom="© 2026 Lojee, Inc. All rights reserved."></l-Footer>`, `</l-Foot>`] : []),
     ]
       .map((l) => indent + l)
       .join("\n");

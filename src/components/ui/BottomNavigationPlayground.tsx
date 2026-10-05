@@ -8,6 +8,7 @@ import { useMotion } from "./playgroundMotion";
 
 // "theme" = no `variant` prop: the active tab follows the theme's active-item style. "text" highlights only the icon + label.
 const VARIANTS = ["theme", "solid", "outline", "soft", "text"] as const;
+const FABS = ["none", "plus", "scan", "search", "zap"] as const;
 const LABELS = ["Home", "Search", "Saved", "Profile"] as const;
 const ICONS: Record<(typeof LABELS)[number], string> = {
   Home: "home",
@@ -19,6 +20,8 @@ const ICONS: Record<(typeof LABELS)[number], string> = {
 export default function BottomNavigationPlayground() {
   const motion = useMotion();
   const [color, setColor] = useState<string>("accent");
+  const [iconOnly, setIconOnly] = useState(false);
+  const [fab, setFab] = useState<(typeof FABS)[number]>("none");
   const [variant, setVariant] = useState<(typeof VARIANTS)[number]>("theme");
   const [activeLabel, setActiveLabel] = useState<(typeof LABELS)[number]>("Home");
 
@@ -42,6 +45,8 @@ export default function BottomNavigationPlayground() {
           {...motion.props}
           items={items}
           color={color}
+          iconOnly={iconOnly}
+          fabIcon={fab === "none" ? undefined : fab}
           variant={variant === "theme" ? undefined : (variant as ActiveVariant | "text")}
           onActiveItemChange={(item) => setActiveLabel(item.label as (typeof LABELS)[number])}
         />
@@ -56,7 +61,7 @@ export default function BottomNavigationPlayground() {
   // `items` is a "json"-typed prop with no native attribute form — it must be
   // assigned as a real DOM property (js) or bound (vue/angular) rather than
   // stringified into the tag.
-  const attrs = [color !== "accent" ? `color="${color}"` : null, variant !== "theme" ? `variant="${variant}"` : null, motion.attrs.trim() || null]
+  const attrs = [color !== "accent" ? `color="${color}"` : null, variant !== "theme" ? `variant="${variant}"` : null, iconOnly ? `iconOnly="true"` : null, fab !== "none" ? `fabIcon="${fab}"` : null, motion.attrs.trim() || null]
     .filter(Boolean)
     .join(" ");
   const attrStr = attrs ? ` ${attrs}` : "";
@@ -97,6 +102,19 @@ ${itemsCode}
 
   return (
     <PlaygroundLayout preview={preview} variants={codeVariants}>
+      <div>
+        <span className="mb-1.5 block text-xs font-medium text-fg-subtle">Labels</span>
+        <div className="flex flex-wrap gap-1.5">
+          <button
+            type="button"
+            onClick={() => setIconOnly((v) => !v)}
+            className={"rounded-md px-2.5 py-1 text-xs font-medium transition-colors " + (iconOnly ? "bg-fg text-surface" : "bg-surface-muted text-fg-muted hover:bg-border")}
+          >
+            Icon only
+          </button>
+        </div>
+      </div>
+      <OptionGroup label="Floating button" options={FABS} value={fab} onChange={setFab} />
       <OptionGroup label="Variant" options={VARIANTS} value={variant} onChange={setVariant} />
       <ColorSwatches value={color} onChange={setColor} custom />
       <OptionGroup label="Active tab" options={LABELS} value={activeLabel} onChange={setActiveLabel} />

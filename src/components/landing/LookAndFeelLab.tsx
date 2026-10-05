@@ -92,7 +92,7 @@ export default function LookAndFeelLab() {
   return (
     <div className="grid grid-cols-1 gap-6 lg:grid-cols-[300px_minmax(0,1fr)]">
       {/* Sticky: the controls stay in view while the preview scrolls past, and scroll away with the section once the whole card has been shown. */}
-      <div className="space-y-3.5 self-start rounded-2xl border border-border bg-surface p-4 lg:sticky lg:top-20 lg:max-h-[calc(100vh-6rem)] lg:overflow-y-auto">
+      <div className="space-y-3 self-start rounded-2xl border border-border bg-surface p-4 lg:sticky lg:top-16 lg:max-h-[calc(100vh-4.5rem)] lg:overflow-y-auto lg:overscroll-contain">
         <Segmented label="Mode" options={["light", "dark"] as ThemeMode[]} value={mode} onChange={setMode} />
         <div>
           <p className={LABEL}>Accent</p>
@@ -161,7 +161,7 @@ export default function LookAndFeelLab() {
       <ThemeProvider isolated mode={mode} accent={accent} activeVariant={variant}>
         <div className="rounded-2xl border border-border bg-surface p-5 text-fg shadow-sm transition-colors duration-500 md:p-6">
           <div className="flex flex-wrap items-center justify-between gap-3">
-            <div className="max-w-full overflow-x-auto"><NavigationMenu items={[{ label: "Overview", active: true }, { label: "Analytics" }, { label: "Reports" }, { label: "Settings" }]} /></div>
+            <div className="mb-6 max-w-full overflow-x-auto px-2 pb-4 pt-1 -mx-2"><NavigationMenu items={[{ label: "Overview", active: true }, { label: "Analytics" }, { label: "Reports" }, { label: "Settings" }]} /></div>
             <Badge variant="soft" label="Live preview" />
           </div>
 

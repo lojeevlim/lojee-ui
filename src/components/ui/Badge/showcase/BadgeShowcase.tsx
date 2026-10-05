@@ -16,9 +16,9 @@ export default function BadgeShowcase() {
         <section>
           <SectionLabel sub="Solid, outline, and soft.">Variants</SectionLabel>
           <Row>
-            <Badge variant="solid" label="Solid" />
-            <Badge variant="outline" label="Outline" />
-            <Badge variant="soft" label="Soft" />
+            <div><p className="mb-1.5 font-mono text-xs text-fg-subtle">solid</p><Badge variant="solid" label="Solid" /></div>
+            <div><p className="mb-1.5 font-mono text-xs text-fg-subtle">outline</p><Badge variant="outline" label="Outline" /></div>
+            <div><p className="mb-1.5 font-mono text-xs text-fg-subtle">soft</p><Badge variant="soft" label="Soft" /></div>
           </Row>
           <CodeBlock
             variants={{

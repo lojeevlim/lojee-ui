@@ -77,11 +77,26 @@ export class SpinnerShowcaseComponent {}`,
         <section>
           <SectionLabel sub="circle, dots, ring, bars, or pulse.">Variant</SectionLabel>
           <Row>
-            <Spinner variant="circle" color="indigo" size="lg" />
-            <Spinner variant="dots" color="indigo" size="lg" />
-            <Spinner variant="ring" color="indigo" size="lg" />
-            <Spinner variant="bars" color="indigo" size="lg" />
-            <Spinner variant="pulse" color="indigo" size="lg" />
+            <div>
+              <p className="mb-1.5 font-mono text-xs text-fg-subtle">circle</p>
+              <Spinner variant="circle" color="indigo" size="lg" />
+            </div>
+            <div>
+              <p className="mb-1.5 font-mono text-xs text-fg-subtle">dots</p>
+              <Spinner variant="dots" color="indigo" size="lg" />
+            </div>
+            <div>
+              <p className="mb-1.5 font-mono text-xs text-fg-subtle">ring</p>
+              <Spinner variant="ring" color="indigo" size="lg" />
+            </div>
+            <div>
+              <p className="mb-1.5 font-mono text-xs text-fg-subtle">bars</p>
+              <Spinner variant="bars" color="indigo" size="lg" />
+            </div>
+            <div>
+              <p className="mb-1.5 font-mono text-xs text-fg-subtle">pulse</p>
+              <Spinner variant="pulse" color="indigo" size="lg" />
+            </div>
           </Row>
           <CodeBlock
             variants={{

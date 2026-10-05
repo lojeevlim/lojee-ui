@@ -1,4 +1,4 @@
-import { cx, type ColorName } from "../../../core/tokens";
+import { cx, COLOR_HEX, type ColorName } from "../../../core/tokens";
 import { Icon } from "../Icons/Icon";
 import { useCountUp } from "../../../core/useCountUp";
 import { animatedClass, animatedStyle, type AnimatedVariant } from "../../../core/animated";
@@ -83,6 +83,8 @@ export function Stat({ label, value, countUp = false, countUpDuration, change, t
     >
       {icon && (
         <div
+          data-stat-icon=""
+          style={{ "--ic": color === "accent" ? "var(--lojee-accent-600)" : COLOR_HEX[color] } as React.CSSProperties}
           className={cx(
             "mb-3 flex h-9 w-9 items-center justify-center rounded-lg",
             ICON_SQUARE_CLASSES[color],

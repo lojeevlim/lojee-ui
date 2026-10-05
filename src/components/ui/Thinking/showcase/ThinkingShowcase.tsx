@@ -22,10 +22,22 @@ export default function ThinkingShowcase() {
         <section>
           <SectionLabel sub="Four looks. The default is three bouncing dots.">Variants</SectionLabel>
           <Row>
-            <Thinking variant="dots" />
-            <Thinking variant="wave" />
-            <Thinking variant="orb" />
-            <Thinking variant="shimmer" />
+            <div>
+              <p className="mb-1.5 font-mono text-xs text-fg-subtle">dots</p>
+              <Thinking variant="dots" />
+            </div>
+            <div>
+              <p className="mb-1.5 font-mono text-xs text-fg-subtle">wave</p>
+              <Thinking variant="wave" />
+            </div>
+            <div>
+              <p className="mb-1.5 font-mono text-xs text-fg-subtle">orb</p>
+              <Thinking variant="orb" />
+            </div>
+            <div>
+              <p className="mb-1.5 font-mono text-xs text-fg-subtle">shimmer</p>
+              <Thinking variant="shimmer" />
+            </div>
           </Row>
           <CodeBlock
             variants={variants(

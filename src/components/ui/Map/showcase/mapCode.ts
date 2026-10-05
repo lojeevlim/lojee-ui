@@ -50,7 +50,7 @@ export function mapCode({
 ${reactLines}
 ${reactChildren ? `>\n${reactChildren}\n</Map>` : "/>"}`;
 
-  const style = `style="height: ${height}px"`;
+  const style = `height="${height}"`;
   const scalarHtml = scalar.map(attr).join(" ");
   // Vue/Angular bindings sit inside a double-quoted attribute, so string literals inside them must use single quotes.
   const bindingValue = (v: string) => v.replace(/\n\s*/g, " ").replace(/'/g, "\\'").replace(/"/g, "'");

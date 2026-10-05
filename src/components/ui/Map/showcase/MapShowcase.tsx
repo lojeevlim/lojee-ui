@@ -65,8 +65,8 @@ export default function MapShowcase() {
         <section>
           <SectionLabel sub={'controls={true} adds zoom, compass, locate-me and fullscreen. Pass a list to choose — "zoom" | "compass" | "locate" | "fullscreen" | "scale" | "style".'}>Controls</SectionLabel>
           <div className="grid gap-4 md:grid-cols-2">
-            <Map center={CEBU} zoom={11} controls className="h-72" />
-            <Map center={CEBU} zoom={11} controls={["zoom", "scale"]} className="h-72" />
+            <Map center={CEBU} zoom={11} controls height={380} />
+            <Map center={CEBU} zoom={11} controls={["zoom", "scale"]} height={380} />
           </div>
           <CodeBlock
             variants={mapCode({
@@ -85,12 +85,12 @@ export default function MapShowcase() {
             {MAP_STYLE_NAMES.map((s) => (
               <div key={s}>
                 <p className="mb-1 font-mono text-[11px] uppercase tracking-wide text-fg-subtle">{s}</p>
-                <Map center={CEBU} zoom={12} mapStyle={s} className="h-44" />
+                <Map center={CEBU} zoom={12} mapStyle={s} height={260} />
               </div>
             ))}
           </div>
           <div className="mt-4">
-            <Map center={CEBU} zoom={12} controls={["zoom", "style"]} markers={[{ lng: CEBU[0], lat: CEBU[1], label: "Cebu City" }]} className="h-72" />
+            <Map center={CEBU} zoom={12} controls={["zoom", "style"]} markers={[{ lng: CEBU[0], lat: CEBU[1], label: "Cebu City" }]} height={380} />
           </div>
           <CodeBlock variants={mapCode({ props: [{ name: "center", value: "[123.9, 10.305]", kind: "json" }, { name: "zoom", value: "12", kind: "number" }, { name: "mapStyle", value: '"voyager"', kind: "string" }, { name: "controls", value: '["zoom", "style"]', kind: "json" }] })} />
         </section>

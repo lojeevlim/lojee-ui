@@ -14,10 +14,22 @@ export default function CardShowcase() {
         <section>
           <SectionLabel sub="outline, elevated, soft, and ghost.">Variants</SectionLabel>
           <Row>
-            <Card variant="outline">Outline</Card>
-            <Card variant="elevated">Elevated</Card>
-            <Card variant="soft">Soft</Card>
-            <Card variant="ghost">Ghost</Card>
+            <div>
+              <p className="mb-1.5 font-mono text-xs text-fg-subtle">outline</p>
+              <Card variant="outline">Outline</Card>
+            </div>
+            <div>
+              <p className="mb-1.5 font-mono text-xs text-fg-subtle">elevated</p>
+              <Card variant="elevated">Elevated</Card>
+            </div>
+            <div>
+              <p className="mb-1.5 font-mono text-xs text-fg-subtle">soft</p>
+              <Card variant="soft">Soft</Card>
+            </div>
+            <div>
+              <p className="mb-1.5 font-mono text-xs text-fg-subtle">ghost</p>
+              <Card variant="ghost">Ghost</Card>
+            </div>
           </Row>
           <CodeBlock
             variants={{

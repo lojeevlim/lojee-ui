@@ -2,8 +2,17 @@
 export interface ChangelogCommit { sha: string; short: string; date: string; author: string; email: string; subject: string; body: string }
 
 export const PACKAGE_VERSION = "0.1.0-alpha.11";
-export const CHANGELOG_GENERATED_AT = "2026-10-04T16:07:20.399Z";
+export const CHANGELOG_GENERATED_AT = "2026-10-05T07:18:52.809Z";
 export const CHANGELOG: ChangelogCommit[] = [
+  {
+    "sha": "467ae4b5a26dceee4c139daddb489bab72631a55",
+    "short": "467ae4b",
+    "date": "2026-10-05T00:51:53+08:00",
+    "author": "lojeevlim",
+    "email": "lojeevlim@gmail.com",
+    "subject": "Landing + docs: per-language data-binding guides, logo flow diagram, merged Look & feel lab",
+    "body": "- Data Binding docs: step-by-step guide per language (React, Plain JS/TS, Vue, Angular)\n- FlowDiagram: nodes take a `logo` image; landing diagram shows real React/Vue/Angular/TS+JS logos, larger layout\n- Landing: merge Motion + Theming into one \"Make it move. Make it yours.\" card with sticky controls; footer \"Made with ♥\"; drop code snippets from the map and theme demos; taller map\n- Hover effects: shared slow springy transition; ring and glow animate; clay shadow overrides so lift/ring/glow show under the clay design\n- MapRoute docs: remove the stray second Animations snippet"
+  },
   {
     "sha": "2e30d3ca1e3f7cc33903e5a94e82d7bf008ea561",
     "short": "2e30d3c",

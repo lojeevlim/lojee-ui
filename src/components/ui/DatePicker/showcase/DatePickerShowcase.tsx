@@ -62,9 +62,18 @@ export class AppComponent {}
         <section>
           <SectionLabel sub="outline (default), filled, underline.">Variants</SectionLabel>
           <div className="max-w-sm space-y-3">
-            <DatePicker variant="outline" />
-            <DatePicker variant="filled" />
-            <DatePicker variant="underline" />
+            <div>
+              <p className="mb-1.5 font-mono text-xs text-fg-subtle">outline</p>
+              <DatePicker variant="outline" />
+            </div>
+            <div>
+              <p className="mb-1.5 font-mono text-xs text-fg-subtle">filled</p>
+              <DatePicker variant="filled" />
+            </div>
+            <div>
+              <p className="mb-1.5 font-mono text-xs text-fg-subtle">underline</p>
+              <DatePicker variant="underline" />
+            </div>
           </div>
           <CodeBlock
             variants={{

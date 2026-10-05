@@ -1,2 +1,2 @@
-export { Footer, type FooterProps, type FooterVariant } from "./Footer";
+export { Footer, type FooterProps } from "./Footer";
 export { default } from "./showcase/FooterShowcase";

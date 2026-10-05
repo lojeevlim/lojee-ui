@@ -33,8 +33,8 @@ export default function SkeletonShowcase() {
       </section>
 
       <section className="mt-10 space-y-3">
-        <SectionLabel sub={'`animation` is "pulse" (default), "shimmer" (a light sweep across) or "none". Both respect `prefers-reduced-motion`.'}>Animation</SectionLabel>
-        <div className="grid max-w-lg gap-4 sm:grid-cols-3">
+        <SectionLabel sub={'`animation` is "pulse" (default), "shimmer" (a light sweep across), "wave" (lines pulse one after another) or "none". All respect `prefers-reduced-motion`.'}>Animation</SectionLabel>
+        <div className="grid max-w-xl gap-4 sm:grid-cols-4">
           <div>
             <Skeleton variant="rect" animation="pulse" />
             <p className="mt-1.5 text-center text-xs text-fg-subtle">pulse</p>
@@ -42,6 +42,10 @@ export default function SkeletonShowcase() {
           <div>
             <Skeleton variant="rect" animation="shimmer" />
             <p className="mt-1.5 text-center text-xs text-fg-subtle">shimmer</p>
+          </div>
+          <div>
+            <Skeleton lines={3} animation="wave" />
+            <p className="mt-1.5 text-center text-xs text-fg-subtle">wave</p>
           </div>
           <div>
             <Skeleton variant="rect" animation="none" />

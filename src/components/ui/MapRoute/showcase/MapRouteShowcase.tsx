@@ -25,7 +25,7 @@ function ProgressDemo() {
   const here = pointAlong(road ?? STOPS, progress);
   return (
     <div className="space-y-3">
-      <Map center={[123.895, 10.318]} zoom={12.4} className="h-80">
+      <Map center={[123.895, 10.318]} zoom={12.4} height={420}>
         <MapRoute waypoints={STOPS} progress={progress} width={5} fit onLoad={(s) => setRoad(s.coordinates)} />
         <MapMarker lng={STOPS[0][0]} lat={STOPS[0][1]} label="Start" color="emerald" icon="flag" />
         <MapMarker lng={STOPS[3][0]} lat={STOPS[3][1]} label="End" color="rose" icon="flag" />
@@ -88,7 +88,7 @@ function AnimationsDemo() {
         {(["flow", "draw", "pulse", "trail", "glow", "shimmer"] as const).map((name: RouteAnimation) => (
           <div key={name}>
             <p className="mb-1 font-mono text-[11px] uppercase tracking-wide text-fg-subtle">{name}</p>
-            <Map center={[123.895, 10.31]} zoom={12.8} className="h-56">
+            <Map center={[123.895, 10.31]} zoom={12.8} height={320}>
               <MapRoute waypoints={STOPS} fit width={5} animated={name} progress={started ? progress : undefined} />
             </Map>
           </div>
@@ -111,7 +111,7 @@ function WaypointDemo() {
   const [info, setInfo] = useState<MapRouteSummary | null>(null);
   return (
     <div className="space-y-3">
-      <Map center={[123.94, 10.31]} zoom={11.5} className="h-80">
+      <Map center={[123.94, 10.31]} zoom={11.5} height={420}>
         <MapRoute waypoints={TRIP.map((t) => t.coord)} fit onLoad={setInfo} />
         {TRIP.map((t, i) => (
           <MapMarker key={t.name} lng={t.coord[0]} lat={t.coord[1]} label={`${LETTERS[i]} · ${t.name}`} color={i === 0 ? "emerald" : i === TRIP.length - 1 ? "rose" : "accent"} />
@@ -149,7 +149,7 @@ function FromToDemo() {
         {pick<RoutePreference>(["shortest", "fastest"], prefer, setPrefer)}
         {pick<RouteProfile>(["driving", "cycling", "walking"], profile, setProfile)}
       </div>
-      <Map center={[123.94, 10.31]} zoom={11.5} className="h-80">
+      <Map center={[123.94, 10.31]} zoom={11.5} height={420}>
         <MapRoute waypoints={[CITY_HALL, AIRPORT]} prefer={prefer} profile={profile} fit onLoad={setInfo} />
         <MapMarker lng={CITY_HALL[0]} lat={CITY_HALL[1]} label="A · Cebu City Hall" color="emerald" />
         <MapMarker lng={AIRPORT[0]} lat={AIRPORT[1]} label="B · Mactan Airport" color="rose" />
@@ -182,7 +182,7 @@ function PlanningDemo() {
   const ordered = useMemo(() => (routes ? routes.map((r, i) => ({ r, i })) : []), [routes]);
   return (
     <div className="grid gap-4 lg:grid-cols-[1fr_16rem]">
-      <Map center={[123.94, 10.31]} zoom={11.5} className="h-80" fitBounds>
+      <Map center={[123.94, 10.31]} zoom={11.5} height={420} fitBounds>
         {[...ordered]
           // the selected route is drawn last so it sits on top
           .sort((a, b) => Number(a.i === selected) - Number(b.i === selected))
@@ -230,7 +230,7 @@ export default function MapRouteShowcase() {
 
         <section>
           <SectionLabel sub="waypoints is a list of [lng, lat] stops — the route between them follows the real roads, stop after stop. Numbered markers mark each stop. (For a custom line that is not a road, pass coordinates instead.)">Basic route</SectionLabel>
-          <Map center={[123.895, 10.318]} zoom={12.4} className="h-80">
+          <Map center={[123.895, 10.318]} zoom={12.4} height={420}>
             <MapRoute waypoints={STOPS} width={5} fit />
             {CEBU_STOPS.map((s, i) => (
               <MapMarker key={s.name} lng={s.coord[0]} lat={s.coord[1]} label={s.name}>
@@ -256,7 +256,7 @@ export default function MapRouteShowcase() {
             ].map((v) => (
               <div key={v.name}>
                 <p className="mb-1 font-mono text-[11px] uppercase tracking-wide text-fg-subtle">{v.name}</p>
-                <Map center={[123.895, 10.31]} zoom={12.8} className="h-56">
+                <Map center={[123.895, 10.31]} zoom={12.8} height={320}>
                   <MapRoute waypoints={STOPS} fit {...v.props} />
                 </Map>
               </div>
@@ -356,15 +356,15 @@ const draw = () => {
 };
 map.addEventListener("routeclick", (e) => { selected = Number(e.detail.id.split("-")[1]); draw(); });
 draw();`,
-              vue: `<l-map style="height: 360px" :routes="routes" fit-bounds="true" @routeclick="(e: CustomEvent) => select(e.detail.id)" />`,
-              angular: `<l-map style="height: 360px" [routes]="routes" fit-bounds="true" (routeclick)="select($event.detail.id)"></l-map>`,
+              vue: `<l-map height="420" :routes="routes" fit-bounds="true" @routeclick="(e: CustomEvent) => select(e.detail.id)" />`,
+              angular: `<l-map height="420" [routes]="routes" fit-bounds="true" (routeclick)="select($event.detail.id)"></l-map>`,
             }}
           />
         </section>
 
         <section>
           <SectionLabel sub="Routes as plain data — one array describes every line on the map.">Data-driven routes</SectionLabel>
-          <Map center={[123.895, 10.31]} zoom={12.8} routes={loopRoutes} fitBounds className="h-72" />
+          <Map center={[123.895, 10.31]} zoom={12.8} routes={loopRoutes} fitBounds height={380} />
           <CodeBlock
             variants={mapCode({
               props: [{ name: "fitBounds", value: "true", kind: "boolean" }, { name: "routes", value: `[{ waypoints: ${coordsCode(STOPS)}, color: "accent", width: 5 }]`, kind: "json" }],

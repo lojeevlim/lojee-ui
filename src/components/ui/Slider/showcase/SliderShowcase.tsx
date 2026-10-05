@@ -1,7 +1,10 @@
-import { Slider } from "../Slider";
+import { Slider, type SliderSize, type SliderThumbVariant } from "../Slider";
 import CodeBlock from "../../CodeBlock";
 import { SectionLabel, Row, TransitionPreview } from "../../ShowcaseHelpers";
 import { useFormEventsNote } from "../../../../core/bindingNotes";
+
+const SIZES: SliderSize[] = ["sm", "md", "lg"];
+const THUMBS: SliderThumbVariant[] = ["pill", "circle", "bar", "solid"];
 
 export default function SliderShowcase() {
   const eventsNote = useFormEventsNote();
@@ -84,6 +87,72 @@ export class AppComponent {}
 </template>`,
               angular: `<!-- app.component.html -->
 <l-Slider value="30" color="indigo" showValue />`,
+            }}
+          />
+        </section>
+
+        <section>
+          <SectionLabel sub="Three sizes via size. The track grows with the thumb.">Sizes</SectionLabel>
+          <div className="max-w-sm space-y-5">
+            {SIZES.map((sz) => (
+              <div key={sz}>
+                <p className="mb-1 font-mono text-xs text-fg-subtle">{sz}</p>
+                <Slider defaultValue={45} size={sz} />
+              </div>
+            ))}
+          </div>
+          <CodeBlock
+            variants={{
+              react: `<Slider size="sm" />
+<Slider size="md" />
+<Slider size="lg" />`,
+              js: `<l-Slider size="lg" value="45"></l-Slider>`,
+              vue: `<l-Slider size="lg" value="45" />`,
+              angular: `<l-Slider size="lg" value="45" />`,
+            }}
+          />
+        </section>
+
+        <section>
+          <SectionLabel sub="Pick the thumb with thumbVariant. Under the clay design the thumb is a puffy clay button and the track a pressed-in groove.">Thumb variants</SectionLabel>
+          <div className="grid max-w-xl gap-6 sm:grid-cols-2">
+            {THUMBS.map((v) => (
+              <div key={v}>
+                <p className="mb-1 font-mono text-xs text-fg-subtle">{v}</p>
+                <Slider defaultValue={55} thumbVariant={v} size="lg" />
+              </div>
+            ))}
+          </div>
+          <CodeBlock
+            variants={{
+              react: `<Slider thumbVariant="circle" size="lg" />
+
+// thumbVariant: "pill" (default) | "circle" | "bar" | "solid"`,
+              js: `<l-Slider thumbVariant="circle" size="lg" value="55"></l-Slider>`,
+              vue: `<l-Slider thumbVariant="circle" size="lg" value="55" />`,
+              angular: `<l-Slider thumbVariant="circle" size="lg" value="55" />`,
+            }}
+          />
+        </section>
+
+        <section>
+          <SectionLabel sub="valuePlacement=&quot;thumb&quot; puts the number inside the sliding button instead of beside the track. The number takes the slider color. Shown here with each thumb variant; use size md or lg so the number fits.">Value inside the thumb</SectionLabel>
+          <div className="grid max-w-xl gap-6 sm:grid-cols-2">
+            {THUMBS.map((v) => (
+              <div key={v}>
+                <p className="mb-1 font-mono text-xs text-fg-subtle">{v}</p>
+                <Slider defaultValue={55} showValue valuePlacement="thumb" thumbVariant={v} size="lg" />
+              </div>
+            ))}
+          </div>
+          <CodeBlock
+            variants={{
+              react: `<Slider showValue valuePlacement="thumb" thumbVariant="circle" size="lg" />
+
+// thumbVariant: "pill" (default) | "circle" | "bar" | "solid"`,
+              js: `<l-Slider showValue="true" valuePlacement="thumb" size="lg" value="40"></l-Slider>`,
+              vue: `<l-Slider showValue="true" valuePlacement="thumb" size="lg" value="40" />`,
+              angular: `<l-Slider showValue="true" valuePlacement="thumb" size="lg" value="40" />`,
             }}
           />
         </section>

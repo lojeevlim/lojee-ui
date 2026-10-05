@@ -1,6 +1,7 @@
 import { cx } from "../../../core/tokens";
 import { highlightCode } from "../../../core/highlightCode";
 import { CopyButton } from "./CopyButton";
+import { DotScroll } from "../DotScroll/DotScroll";
 
 export interface CodeSnippetProps {
   /** The code to show. */
@@ -35,7 +36,8 @@ export function CodeSnippet({ code, language, title, lineNumbers = false, copyab
           {copyable && <CopyButton text={code} iconOnly />}
         </div>
       )}
-      <pre className={cx("overflow-x-auto p-4 text-xs leading-relaxed text-fg", classNames?.code)}>
+      <DotScroll axis="x">
+      <pre className={cx("p-4 text-xs leading-relaxed text-fg", classNames?.code)}>
         {lineNumbers ? (
           <code className="grid grid-cols-[auto_1fr] gap-x-4">
             <span aria-hidden className="select-none text-right text-fg-subtle">
@@ -51,6 +53,7 @@ export function CodeSnippet({ code, language, title, lineNumbers = false, copyab
           <code>{highlightCode(lines.join("\n"))}</code>
         )}
       </pre>
+      </DotScroll>
     </div>
   );
 }

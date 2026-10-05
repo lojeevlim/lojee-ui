@@ -1,12 +1,13 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { Check, ChevronDown } from "lucide-react";
-import { COLORS } from "../../../core/tokens";
 import {
   THEME_MODES,
   THEME_STORAGE_KEYS,
   ThemeProviderPresentContext,
   applyTheme,
   isAccent,
+  ACCENTS,
+  PRESET_ACCENTS,
   isDesign,
   DESIGNS,
   DEFAULT_DESIGN,
@@ -22,6 +23,7 @@ import {
 } from "../../../core/theme";
 import { motionClass, motionState, motionStyle, DEFAULT_TRANSITION_MS, type TransitionVariant, type HoverEffect } from "../../../core/motion";
 import { usePresence } from "../../../core/usePresence";
+import { DotScroll } from "../DotScroll/DotScroll";
 import { ACTIVE_VARIANTS, DEFAULT_ACTIVE_VARIANT, isActiveVariant, type ActiveVariant } from "../../../core/activeVariant";
 
 const MODE_LABEL = Object.fromEntries(THEME_MODES.map((m) => [m.value, m.label])) as Record<ThemeMode, string>;
@@ -140,7 +142,7 @@ export interface ThemeSwitcherProps {
   onDesignChange?: (design: DesignName) => void;
   /** Where the dropdown (which always opens below the button) lines up with the button: "start" (left edges together), "center", or "end" (right edges together). "left" / "right" also work, as start / end. Default: "end". */
   align?: ThemeSwitcherAlign;
-  /** Show the "Design" section — Bento or Claymorphism (default: true). */
+  /** Show the "Design" section — Bento or Clay (default: true). */
   showDesign?: boolean;
   /** Show the "Active items" section (default: true). */
   showActiveItems?: boolean;
@@ -246,7 +248,7 @@ export function ThemeSwitcher({
       >
         <Preview theme={mode} accent={accent} />
         <span className="hidden capitalize sm:inline">
-          {MODE_LABEL[mode]}{showAccent ? ` · ${accent}` : ""}
+          {MODE_LABEL[mode]}{showAccent ? ` · ${accentLabel(accent, customAccentLabel)}` : ""}
         </span>
         <ChevronDown size={14} className={`hidden transition-transform sm:block ${open ? "rotate-180" : ""}`} />
       </button>
@@ -255,10 +257,11 @@ export function ThemeSwitcher({
         <div
           role="menu"
           aria-label="Theme"
-          className={`absolute top-full mt-2 ${placement} z-50 max-h-96 w-56 overflow-y-auto rounded-lg border border-border bg-surface-raised p-2 shadow-lg ${motionClass(transition) ?? ""}`}
+          className={`absolute top-full mt-2 ${placement} z-50 w-56 overflow-clip rounded-lg border border-border bg-surface-raised shadow-lg ${motionClass(transition) ?? ""}`}
           style={motionStyle(transitionDuration, transitionDelay)}
           {...motionState(open)}
         >
+          <DotScroll className="max-h-96" viewportClassName="p-2">
           <p className="px-2 pb-1 pt-1 text-xs font-semibold text-fg-subtle">Theme</p>
           <ul>
             {THEME_MODES.map(({ value, label }) => (
@@ -308,9 +311,19 @@ export function ThemeSwitcher({
             <>
               <p className="px-2 pb-1 pt-3 text-xs font-semibold text-fg-subtle">Accent</p>
               <ul>
-                {COLORS.map((c) => (
+                {ACCENTS.map((c) => (
                   <li key={c.base}>
                     <Row active={accent === c.base} onSelect={() => setAccent(c.base)} preview={<Preview theme={mode} accent={c.base} />} label={c.name} />
+                  </li>
+                ))}
+                {PRESET_ACCENTS.map((c) => (
+                  <li key={c.hex}>
+                    <Row
+                      active={isHexColor(accent) && normalizeHex(accent) === normalizeHex(c.hex)}
+                      onSelect={() => setAccent(c.hex)}
+                      preview={<Preview theme={mode} accent={c.hex} />}
+                      label={c.name}
+                    />
                   </li>
                 ))}
                 {showCustom && (
@@ -321,10 +334,18 @@ export function ThemeSwitcher({
               </ul>
             </>
           )}
+          </DotScroll>
         </div>
       )}
     </div>
   );
+}
+
+/** The accent as a name for the trigger: a built-in accent's name, a preset's name ("Coral"), else the custom label — never a raw hex. */
+function accentLabel(accent: Accent, customLabel: string): string {
+  if (!isHexColor(accent)) return accent;
+  const hex = normalizeHex(accent);
+  return PRESET_ACCENTS.find((p) => normalizeHex(p.hex) === hex)?.name ?? customLabel;
 }
 
 /** "Custom" accent: a row that opens the browser's color picker; every pick applies at once. */
@@ -334,7 +355,7 @@ function CustomAccentRow({ accent, mode, label, onPick }: { accent: Accent; mode
   const shown = active ? normalizeHex(accent) : draft;
   return (
     <label
-      className={`flex w-full cursor-pointer items-center gap-3 rounded-md px-2 py-1.5 text-left text-sm transition-colors focus-within:ring-2 focus-within:ring-fg/10 hover:bg-surface-muted ${
+      className={`relative flex w-full cursor-pointer items-center gap-3 rounded-md px-2 py-1.5 text-left text-sm transition-colors focus-within:ring-2 focus-within:ring-fg/10 hover:bg-surface-muted ${
         active ? "bg-surface-muted text-fg" : "text-fg-muted"
       }`}
     >

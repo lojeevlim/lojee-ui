@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import type { CSSProperties } from "react";
 import { cx, isColorName, type ColorName } from "../../../core/tokens";
 import { Icon } from "../Icons/Icon";
+import { DotScroll } from "../DotScroll/DotScroll";
 import { motionClass, motionState, motionStyle, DEFAULT_TRANSITION_MS, type TransitionVariant, type HoverEffect } from "../../../core/motion";
 import { activeAccent } from "../../../core/activeVariant";
 import { usePresence } from "../../../core/usePresence";
@@ -151,11 +152,12 @@ export function MultiSelect({
       </div>
 
       {mounted && (
-        <div
+        <DotScroll
           role="listbox"
           aria-multiselectable="true"
+          viewportClassName="py-1"
           className={cx(
-            "absolute z-10 mt-1 w-full max-h-60 overflow-y-auto rounded-lg border border-border bg-surface py-1 shadow-lg",
+            "absolute z-10 mt-1 w-full max-h-60 overflow-hidden rounded-lg border border-border bg-surface shadow-lg in-data-[design=clay]:rounded-3xl in-data-[design=clay]:border-transparent",
             motionClass(transition),
             classNames?.menu
           )}
@@ -185,7 +187,7 @@ export function MultiSelect({
               </button>
             );
           })}
-        </div>
+        </DotScroll>
       )}
     </div>
   );

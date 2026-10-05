@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { Divider } from "../Divider";
+import { Divider, type DividerHandleVariant } from "../Divider";
 import { Button } from "../../Buttons/Button";
 import CodeBlock from "../../CodeBlock";
 import { SectionLabel } from "../../ShowcaseHelpers";
 
 const MIN_PANEL_PX = 80;
+const HANDLE_VARIANTS: DividerHandleVariant[] = ["grip", "dots", "arrows", "circle", "bar", "pill"];
 
 export default function DividerShowcase() {
   const [leftWidth, setLeftWidth] = useState(180);
@@ -189,6 +190,38 @@ const leftWidth = ref(180);
 </div>
 
 <!-- class DividerShowcaseComponent { leftWidth = 180; } -->`,
+            }}
+          />
+        </section>
+
+        <section>
+          <SectionLabel sub="Pick the look of the drag button with handleVariant. Under the clay design it renders as a puffy clay button.">
+            Handle variants
+          </SectionLabel>
+
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {HANDLE_VARIANTS.map((v) => (
+              <div key={v}>
+                <p className="mb-2 font-mono text-xs text-fg-subtle">{v}</p>
+                <div className="flex h-24 items-center gap-2 rounded-lg border border-border px-4">
+                  <Divider resizable handleVariant={v} className="flex-1" />
+                  <Divider orientation="vertical" resizable handleVariant={v} />
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <CodeBlock
+            variants={{
+              react: `<Divider resizable handleVariant="arrows" />
+<Divider orientation="vertical" resizable handleVariant="dots" />
+
+// handleVariant: "grip" (default) | "dots" | "arrows" | "circle" | "bar" | "pill"`,
+              js: `<l-Divider resizable="true" handleVariant="arrows"></l-Divider>
+
+<script type="module">import "lojee-ui/elements";</script>`,
+              vue: `<l-Divider resizable="true" handleVariant="arrows" />`,
+              angular: `<l-Divider resizable="true" handleVariant="arrows"></l-Divider>`,
             }}
           />
         </section>

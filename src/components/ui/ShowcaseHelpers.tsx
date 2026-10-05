@@ -40,9 +40,11 @@ export interface TransitionPreviewProps {
   cols?: keyof typeof GRID_COLS;
   /** "inline" lays small, naturally-sized elements (badges, avatars, buttons) out in a wrapping row instead of a grid. */
   layout?: "grid" | "inline";
+  /** Replaces the default grid column classes (e.g. "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3") — for a different responsive breakpoint than `cols` gives. */
+  gridClassName?: string;
 }
 
-export function TransitionPreview({ children, cols = 4, layout = "grid" }: TransitionPreviewProps) {
+export function TransitionPreview({ children, cols = 4, layout = "grid", gridClassName }: TransitionPreviewProps) {
   const [run, setRun] = useState(0);
   return (
     <div className="mb-4">
@@ -55,7 +57,7 @@ export function TransitionPreview({ children, cols = 4, layout = "grid" }: Trans
           Replay
         </button>
       </div>
-      <div key={run} className={layout === "inline" ? "flex flex-wrap items-center gap-3" : `grid items-start gap-4 ${GRID_COLS[cols]}`}>
+      <div key={run} className={layout === "inline" ? "flex flex-wrap items-center gap-3" : `grid items-start gap-4 ${gridClassName ?? GRID_COLS[cols]}`}>
         {children}
       </div>
     </div>
