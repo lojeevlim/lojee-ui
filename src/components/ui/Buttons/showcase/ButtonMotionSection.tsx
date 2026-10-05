@@ -10,7 +10,7 @@ function Soon({ children }: { children: React.ReactNode }) {
       {children}
       {/* Amber Badge; its own ring (a surface-colored outline that follows the badge's corners) keeps it distinct from the button underneath. */}
       <span className="pointer-events-none absolute -right-3 -top-[18px] z-10">
-        <Badge variant="solid" color="amber" size="xs" label="Coming soon" className="ring-2 ring-surface" />
+        <Badge variant="solid" color="emerald" size="xs" label="new" className="ring-2 ring-surface" />
       </span>
     </span>
   );
