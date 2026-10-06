@@ -609,6 +609,8 @@ export function FlowDiagram({
           const iconSize = 15;
           const logoSize = h >= 80 ? 36 : 26;
           const hasLogo = !!n.logo && h >= 64;
+          // Wide logos (e.g. two brands side by side) get a wider box; square ones still render at logoSize, centred (meet).
+          const logoBoxW = Math.min(w - 12, logoSize * 2.6);
           return (
             <g
               key={n.id}
@@ -674,7 +676,7 @@ export function FlowDiagram({
                 <line x1={x + 6} x2={x + w - 6} y1={y + h - 2} y2={y + h - 2} stroke={hot || n.tone === "accent" ? pal.base : "var(--color-border-strong)"} strokeWidth={hot ? 2.4 : 1.5} strokeLinecap="round" style={{ transition: "stroke .3s" }} />
               )}
               {hasLogo && (
-                <image href={n.logo} x={cx0 - logoSize / 2} y={cy0 - logoSize - 2} width={logoSize} height={logoSize} preserveAspectRatio="xMidYMid meet" />
+                <image href={n.logo} x={cx0 - logoBoxW / 2} y={cy0 - logoSize - 2} width={logoBoxW} height={logoSize} preserveAspectRatio="xMidYMid meet" />
               )}
               {!hasLogo && Icon && (
                 <Icon

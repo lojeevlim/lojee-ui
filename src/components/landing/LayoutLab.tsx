@@ -48,29 +48,33 @@ export default function LayoutLab() {
 
   return (
     <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)]">
-      <div className="lp-grid-fine relative aspect-[16/10] overflow-hidden rounded-2xl border border-border bg-surface-muted p-3">
-        <div className="relative h-full w-full">
-          {(Object.keys(p.boxes) as Area[]).map((area) => {
-            const [x, y, w, h] = p.boxes[area];
-            return (
-              <div
-                key={area}
-                className={`absolute flex items-center justify-center overflow-hidden rounded-lg border-2 text-xs font-semibold shadow-sm transition-all duration-700 ease-[cubic-bezier(0.2,0.7,0.2,1)] ${AREA_STYLE[area]}`}
-                style={{ left: `${x}%`, top: `${y}%`, width: `${w}%`, height: `${h}%` }}
-              >
-                <div className="flex w-full flex-col items-center gap-1.5 px-2">
-                  <span className="font-mono">{`<${area[0].toUpperCase()}${area.slice(1)} />`}</span>
-                  {area === "main" && (
-                    <div className="w-full space-y-1.5 opacity-70">
-                      <span className="block h-1.5 w-3/4 rounded-full bg-fg-subtle/40" />
-                      <span className="block h-1.5 w-1/2 rounded-full bg-fg-subtle/40" />
-                      <span className="block h-1.5 w-2/3 rounded-full bg-fg-subtle/40" />
-                    </div>
-                  )}
+      {/* Glass frame (same as Card variant="glass"): a frosted accent-tinted halo 10px outside the card. overflow-hidden, padding and the grid texture move to an inner wrapper so the halo isn't clipped; the card's fill moves to ::after. */}
+      <div className="relative isolate aspect-[16/10] rounded-2xl border border-border before:pointer-events-none before:absolute before:-inset-2.5 before:-z-20 before:rounded-[calc(var(--radius-2xl)+10px)] before:border before:border-accent-500/20 before:bg-accent-500/[0.07] before:backdrop-blur-2xl before:content-[''] after:pointer-events-none after:absolute after:inset-0 after:-z-10 after:rounded-[inherit] after:bg-surface-muted after:content-['']">
+        <div className="lp-grid-fine relative h-full w-full overflow-hidden rounded-[inherit] p-3">
+          <div className="relative h-full w-full">
+            {(Object.keys(p.boxes) as Area[]).map((area) => {
+              const [x, y, w, h] = p.boxes[area];
+              return (
+                <div
+                  key={area}
+                  className={`absolute flex items-center justify-center overflow-hidden rounded-lg border-2 text-xs font-semibold shadow-sm transition-all duration-700 ease-[cubic-bezier(0.2,0.7,0.2,1)] ${AREA_STYLE[area]}`}
+                  style={{ left: `${x}%`, top: `${y}%`, width: `${w}%`, height: `${h}%` }}
+                >
+                  <div className="flex w-full flex-col items-center gap-1.5 px-2">
+                    <span className="font-mono">{`<${area[0].toUpperCase()}${area.slice(1)} />`}</span>
+                    {area === "main" && (
+                      <div className="w-full space-y-1.5 opacity-70">
+                        <span className="block h-1.5 w-3/4 rounded-full bg-fg-subtle/40" />
+                        <span className="block h-1.5 w-1/2 rounded-full bg-fg-subtle/40" />
+                        <span className="block h-1.5 w-2/3 rounded-full bg-fg-subtle/40" />
+                      </div>
+                    )}
+                  </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+
+          </div>
         </div>
       </div>
 

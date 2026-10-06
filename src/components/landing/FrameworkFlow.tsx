@@ -5,8 +5,8 @@ import { FlowDiagram } from "../ui/FlowDiagram/FlowDiagram";
 import { FRAMEWORK_FLOW } from "../ui/FlowDiagram/samples";
 import { LOGOS } from "./frameworkLogos";
 
-// The source component carries the React logo; each framework node carries its own.
-const FLOW_NODES = FRAMEWORK_FLOW.nodes.map((n) => ({ ...n, logo: LOGOS[n.id === "source" ? "react" : n.id] }));
+// The source component carries the React + Tailwind logos; each framework node carries its own.
+const FLOW_NODES = FRAMEWORK_FLOW.nodes.map((n) => ({ ...n, logo: LOGOS[n.id === "source" ? "reactTailwind" : n.id] }));
 
 type Fw = "react" | "vue" | "angular" | "js";
 
@@ -56,22 +56,25 @@ export default function FrameworkFlow() {
 
   return (
     <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-[minmax(0,1.7fr)_minmax(0,1fr)]">
-      <div ref={boxRef} className="lp-grid-fine overflow-hidden rounded-2xl border border-border bg-surface p-4">
-        <FlowDiagram
-          nodes={FLOW_NODES}
-          nodeWidth={160}
-          nodeHeight={88}
-          spacing={30}
-          edges={FRAMEWORK_FLOW.edges}
-          captionTop={FRAMEWORK_FLOW.captionTop}
-          captionBottom={FRAMEWORK_FLOW.captionBottom}
-          direction="auto"
-          animated={onScreen}
-          activeNode={fw}
-          onNodeClick={(n) => isFw(n.id) && setFw(n.id)}
-          onNodeHover={(n) => n && isFw(n.id) && setFw(n.id)}
-          label="lojee-ui React component wrapped as a Web Component and used in React, Vue, Angular and plain JS"
-        />
+      {/* Glass frame (same as Card variant="glass"): a frosted accent-tinted halo 10px outside the card. overflow-hidden and the grid texture move to an inner wrapper so the halo isn't clipped; the card's fill moves to ::after. */}
+      <div ref={boxRef} className="relative isolate rounded-2xl border border-border before:pointer-events-none before:absolute before:-inset-2.5 before:-z-20 before:rounded-[calc(var(--radius-2xl)+10px)] before:border before:border-accent-500/20 before:bg-accent-500/[0.07] before:backdrop-blur-2xl before:content-[''] after:pointer-events-none after:absolute after:inset-0 after:-z-10 after:rounded-[inherit] after:bg-surface after:content-['']">
+        <div className="lp-grid-fine overflow-hidden rounded-[inherit] p-4">
+          <FlowDiagram
+            nodes={FLOW_NODES}
+            nodeWidth={160}
+            nodeHeight={88}
+            spacing={30}
+            edges={FRAMEWORK_FLOW.edges}
+            captionTop={FRAMEWORK_FLOW.captionTop}
+            captionBottom={FRAMEWORK_FLOW.captionBottom}
+            direction="auto"
+            animated={onScreen}
+            activeNode={fw}
+            onNodeClick={(n) => isFw(n.id) && setFw(n.id)}
+            onNodeHover={(n) => n && isFw(n.id) && setFw(n.id)}
+            label="lojee-ui React component wrapped as a Web Component and used in React, Vue, Angular and plain JS"
+          />
+        </div>
       </div>
 
       <div className="space-y-3">

@@ -1411,7 +1411,7 @@ _No component-specific events._ Native DOM events (`click`, `input`, `focus`…)
 
 | Component | Prop | Values | Default | Notes |
 | --- | --- | --- | --- | --- |
-| `Card` | `variant` | `outline`, `elevated`, `soft`, `ghost` | `"outline"` | "outline" \| "elevated" \| "soft" \| "ghost" — border, shadow, muted background or no chrome (default: "outline"). |
+| `Card` | `variant` | `outline`, `elevated`, `soft`, `ghost`, `glass` | `"outline"` | "outline" \| "elevated" \| "soft" \| "ghost" — border, shadow, muted background or no chrome (default: "outline"). |
 
 ### Cards · 5. Colors and Theming
 
@@ -1468,6 +1468,7 @@ Minimal use in each target (from the first docs example, *Variants*):
 <Card variant="elevated">Elevated</Card>
 <Card variant="soft">Soft</Card>
 <Card variant="ghost">Ghost</Card>
+<Card variant="glass">Glass</Card>
 ```
 **Plain HTML / JavaScript**
 ```html
@@ -1475,6 +1476,7 @@ Minimal use in each target (from the first docs example, *Variants*):
 <l-Card variant="elevated">Elevated</l-Card>
 <l-Card variant="soft">Soft</l-Card>
 <l-Card variant="ghost">Ghost</l-Card>
+<l-Card variant="glass">Glass</l-Card>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -1486,13 +1488,14 @@ Vue and Angular use the same `<l-*>` tag and attributes — see the framework te
 
 #### Variants
 
-outline, elevated, soft, and ghost.
+outline, elevated, soft, ghost, and glass (a frosted frame on every side).
 
 ```tsx
 <Card variant="outline">Outline</Card>
 <Card variant="elevated">Elevated</Card>
 <Card variant="soft">Soft</Card>
 <Card variant="ghost">Ghost</Card>
+<Card variant="glass">Glass</Card>
 ```
 
 #### Padding

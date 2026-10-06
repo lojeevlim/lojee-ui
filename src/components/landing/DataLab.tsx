@@ -71,7 +71,8 @@ export default function DataLab() {
         <Button variant="outline" icon="refresh-cw" label="Reload data" onClick={reload} />
       </div>
 
-      <div className="rounded-2xl border border-border bg-surface p-5 shadow-sm md:p-6">
+      {/* Glass frame (same as Card variant="glass"): a frosted accent-tinted halo 10px outside the card; the card's own fill moves to ::after so the halo shows behind it. */}
+      <div className="relative isolate rounded-2xl border border-border p-5 shadow-sm before:pointer-events-none before:absolute before:-inset-2.5 before:-z-20 before:rounded-[calc(var(--radius-2xl)+10px)] before:border before:border-accent-500/20 before:bg-accent-500/[0.07] before:backdrop-blur-2xl before:content-[''] after:pointer-events-none after:absolute after:inset-0 after:-z-10 after:rounded-[inherit] after:bg-surface after:content-[''] md:p-6">
         <div className="mb-4 flex items-center justify-between gap-3">
           <p className="text-sm font-semibold text-fg">Customers</p>
           <p className="text-xs text-fg-subtle" aria-live="polite">{last}</p>

@@ -206,6 +206,46 @@ export default function LandingPage() {
   // (all the live cards) on each pointer event.
   const heroGlow = useRef<HTMLDivElement>(null);
   const glowPos = useRef<{ x: number; y: number; raf: number; el: HTMLElement | null }>({ x: 0, y: 0, raf: 0, el: null });
+  // The clay light follows the pointer too: the direction from the heading to the cursor sets the light, and highlights/shadows are offset
+  // against it. The filter's feOffsets are SVG attributes (not CSS), so they are written directly;
+  const heroTitle = useRef<HTMLHeadingElement>(null);
+  const clayFilter = useRef<SVGSVGElement>(null);
+  const setClayLight = (lx: number, ly: number) => {
+    clayFilter.current?.querySelectorAll<SVGFEOffsetElement>("feOffset[data-k]").forEach((o) => {
+      const k = Number(o.dataset.k);
+      o.setAttribute("dx", String(-lx * k));
+      o.setAttribute("dy", String(-ly * k));
+    });
+    // feDistantLight azimuth: angle (degrees) of the vector pointing at the light, in the filter's y-down space.
+    const az = (Math.atan2(ly, lx) * 180) / Math.PI;
+    clayFilter.current?.querySelectorAll<SVGFEDistantLightElement>("feDistantLight").forEach((d) => d.setAttribute("azimuth", String(az)));
+  };
+  // Ease the light toward the pointer direction instead of snapping (SVG filter attributes can't use CSS transitions). The light is an angle that
+  // eases along the shortest way round with a time-based exponential ease (same feel at any frame rate), so a pointer crossing to the opposite
+  // side swings the light round smoothly instead of collapsing through the middle.
+  const REST_ANGLE = Math.atan2(-0.8, -0.6);
+  const light = useRef({ a: REST_ANGLE, ta: REST_ANGLE, t: 0, raf: 0 });
+  const easeLight = (now: number) => {
+    const l = light.current;
+    const dt = Math.min(now - (l.t || now), 64);
+    l.t = now;
+    let d = l.ta - l.a;
+    d = Math.atan2(Math.sin(d), Math.cos(d));
+    l.a += d * (1 - Math.exp(-dt / 160));
+    setClayLight(Math.cos(l.a), Math.sin(l.a));
+    if (Math.abs(d) > 0.002) l.raf = requestAnimationFrame(easeLight);
+    else { l.raf = 0; l.t = 0; }
+  };
+  const steerLight = (angle: number) => {
+    const l = light.current;
+    l.ta = angle;
+    if (!l.raf) l.raf = requestAnimationFrame(easeLight);
+  };
+  const onTitleMove = (e: PointerEvent<HTMLElement>) => {
+    const r = e.currentTarget.getBoundingClientRect();
+    e.currentTarget.style.setProperty("--hx", `${e.clientX - r.left}px`);
+    e.currentTarget.style.setProperty("--hy", `${e.clientY - r.top}px`);
+  };
   const onHeroMove = (e: PointerEvent<HTMLElement>) => {
     const g = glowPos.current;
     g.x = e.clientX;
@@ -219,17 +259,54 @@ export default function LandingPage() {
       const r = g.el.getBoundingClientRect();
       glow.style.setProperty("--mx", `${g.x - r.left}px`);
       glow.style.setProperty("--my", `${g.y - r.top}px`);
+      const t = heroTitle.current?.getBoundingClientRect();
+      if (t && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        const dx = g.x - (t.left + t.width / 2);
+        const dy = g.y - (t.top + t.height / 2);
+        steerLight(Math.atan2(dy, dx));
+      }
     });
   };
+
+  useEffect(() => setClayLight(-0.6, -0.8), []);
 
   return (
     <div className="min-h-screen overflow-x-clip bg-surface text-fg">
       <PageScrollbar />
       <Nav groups={groups} onStart={start} />
 
+      {/* Bumped clay letters, like the clay Button: the glyph alpha is blurred into a height map and lit with a distant light (diffuse only: soft matte shading across the bump, no specular sheen so it never looks glossy), so the letters look puffed out instead of outlined. The light's azimuth and the drop offset follow the pointer (setClayLight). #lp-clay-letters adds the Button-style drop shadow; #lp-clay-spot (the hover spotlight copy) is the same bump without it. */}
+      <svg ref={clayFilter} width="0" height="0" aria-hidden className="pointer-events-none absolute">
+        {[
+          { id: "lp-clay-letters", drop: false },
+          { id: "lp-clay-spot", drop: false },
+        ].map(({ id, drop }) => (
+          <filter key={id} id={id} x="-20%" y="-35%" width="140%" height="190%" colorInterpolationFilters="sRGB">
+            {drop && (
+              <>
+                <feGaussianBlur in="SourceAlpha" stdDeviation="7" result="dropBlur" />
+                <feOffset in="dropBlur" dx="5" dy="7" data-k="8.6" result="dropOff" />
+                <feFlood style={{ floodColor: "color-mix(in srgb, var(--color-accent-600) 30%, transparent)" }} />
+                <feComposite in2="dropOff" operator="in" result="drop" />
+              </>
+            )}
+            <feGaussianBlur in="SourceAlpha" stdDeviation="3.2" result="bump" />
+            <feDiffuseLighting in="bump" surfaceScale="6" diffuseConstant="1" lightingColor="#fff" result="diffuse">
+              <feDistantLight azimuth="233" elevation="52" />
+            </feDiffuseLighting>
+            <feComposite in="SourceGraphic" in2="diffuse" operator="arithmetic" k1="1.22" k2="0" k3="0" k4="0" result="shaded" />
+            <feComposite in="shaded" in2="SourceAlpha" operator="in" result="body" />
+            <feMerge>
+              {drop && <feMergeNode in="drop" />}
+              <feMergeNode in="body" />
+            </feMerge>
+          </filter>
+        ))}
+      </svg>
+
       {/* Hero */}
       {/* z-20: the hero (its cards' shadows and glows, which spill past the section) paints above the sections that follow it. */}
-      <section onPointerMove={onHeroMove} className="relative isolate z-20">
+      <section onPointerMove={onHeroMove} onPointerLeave={() => steerLight(REST_ANGLE)} className="relative isolate z-20">
         <div className="lp-grid pointer-events-none absolute inset-0 -z-10" />
         <div ref={heroGlow} className="lp-glow pointer-events-none absolute inset-0 -z-10" />
         <div className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-32 bg-gradient-to-t from-surface to-transparent" />
@@ -239,20 +316,28 @@ export default function LandingPage() {
             <span className="truncate">{LATEST_UPDATE}</span>
             <Icon name="arrow-right" size={12} />
           </button>
-          <h1 className="lp-enter lp-clay-text mx-auto mt-7 max-w-4xl text-5xl font-semibold leading-[1.02] tracking-tight md:text-7xl lg:text-[5.25rem]" style={{ ["--d" as string]: "100ms" }}>
-            Interfaces that fit <span className="lp-shimmer-text">every framework</span>.
+          <h1 ref={heroTitle} onPointerMove={onTitleMove} className="lp-enter lp-clay-text relative mx-auto mt-7 w-fit max-w-5xl text-[3.4rem] leading-[1.05] md:text-[5.25rem] lg:text-[6rem]" style={{ ["--d" as string]: "100ms" }}>
+            <span className="lp-clay-shaded">
+              <span className="lp-clay-ink">Interfaces that fit every framework.</span>
+            </span>
+            {/* Hover spotlight: a copy of the heading in the theme colours, revealed only inside a small circle around the pointer, so the colour changes by portion rather than by letter. */}
+            <span aria-hidden className="lp-clay-spot pointer-events-none absolute inset-0 select-none">
+              <span className="lp-clay-lit">
+                <span className="lp-spot-accent">Interfaces that fit</span> <span className="lp-shimmer-text">every framework.</span>
+              </span>
+            </span>
           </h1>
-          <p className="lp-enter mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-fg-muted md:text-xl" style={{ ["--d" as string]: "200ms" }}>
+          <p className="lp-enter mx-auto mt-9 max-w-2xl text-lg leading-relaxed text-fg-muted md:text-xl" style={{ ["--d" as string]: "200ms" }}>
             {total}+ themeable components for React, shipped as Web Components for Vue, Angular and plain JavaScript — with motion, maps and live data built in.
           </p>
-          <div className="lp-enter mt-9 flex flex-wrap items-center justify-center gap-3" style={{ ["--d" as string]: "300ms" }}>
+          <div className="lp-enter mt-12 flex flex-wrap items-center justify-center gap-3" style={{ ["--d" as string]: "300ms" }}>
             <Button size="lg" animation={["particles", "tail"]} icon="arrow-right" iconPosition="right" label="Get Started" onClick={start} />
             <Button size="lg" variant="outline" label="Browse components" onClick={() => navigate(pathFor("components", groups[0].items![0].label))} />
           </div>
           <button
             type="button"
             onClick={copy}
-            className="lp-enter group mx-auto mt-6 flex items-center gap-3 rounded-full border border-border bg-surface/70 py-2 pl-5 pr-4 font-mono text-sm text-fg transition-colors hover:border-accent-500"
+            className="lp-enter group mx-auto mt-9 flex items-center gap-3 rounded-full border border-border bg-surface/70 py-2 pl-5 pr-4 font-mono text-sm text-fg transition-colors hover:border-accent-500"
             style={{ ["--d" as string]: "400ms" }}
             aria-label="Copy install command"
           >
@@ -266,7 +351,7 @@ export default function LandingPage() {
             </span>
           </button>
         </div>
-        <div className="lp-enter pb-20 lg:pb-28" style={{ ["--d" as string]: "500ms" }}>
+        <div className="lp-enter pt-12 pb-20 lg:pt-20 lg:pb-28" style={{ ["--d" as string]: "500ms" }}>
           <Suspense fallback={<div className="mt-16 min-h-[30rem]" />}><HeroPremium /></Suspense>
         </div>
       </section>

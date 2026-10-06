@@ -4,7 +4,7 @@ import { animatedClass, animatedStyle, type AnimatedProp } from "../../../core/a
 import { motionClass, motionStyle, type TransitionVariant, type HoverEffect } from "../../../core/motion";
 import { AnimatedOverlay } from "../../../core/AnimatedOverlay";
 
-export type CardVariant = "outline" | "elevated" | "soft" | "ghost";
+export type CardVariant = "outline" | "elevated" | "soft" | "ghost" | "glass";
 export type CardPadding = "none" | "sm" | "md" | "lg";
 
 export interface CardProps {
@@ -14,7 +14,7 @@ export interface CardProps {
   pulseColor?: ColorName | (string & {});
   /** Second color — turns the pulse ring and spinning border into a gradient from `pulseColor` to this (default: solid `pulseColor`). */
   pulseGradientTo?: ColorName | (string & {});
-  /** "outline" | "elevated" | "soft" | "ghost" — border, shadow, muted background or no chrome (default: "outline"). */
+  /** "outline" | "elevated" | "soft" | "ghost" | "glass" — border, shadow, muted background, no chrome, or a frosted-glass frame around the content (default: "outline"). */
   variant?: CardVariant;
   /** Inner spacing: "none" | "sm" | "md" | "lg" (default: "md"). */
   padding?: CardPadding;
@@ -45,6 +45,8 @@ const VARIANT_CLASSES: Record<CardVariant, string> = {
   elevated: "bg-surface shadow-md",
   soft: "bg-surface-muted",
   ghost: "bg-transparent",
+  glass:
+    "relative isolate before:pointer-events-none before:absolute before:-inset-2.5 before:-z-20 before:rounded-[calc(var(--radius-xl)+10px)] before:border before:border-accent-500/20 before:bg-accent-500/[0.07] before:backdrop-blur-2xl before:content-[''] border border-border after:pointer-events-none after:absolute after:inset-0 after:-z-10 after:rounded-[inherit] after:bg-surface after:content-['']",
 };
 
 const PADDING_CLASSES: Record<CardPadding, string> = {

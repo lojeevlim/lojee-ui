@@ -197,7 +197,7 @@ const Reel = memo(function Reel({ items, dir, speed, style }: { items: ReactNode
     <div
       ref={root}
       data-hero-reel
-      className={`overflow-hidden py-3 [mask-image:linear-gradient(to_right,transparent,#000_8%,#000_92%,transparent)] [touch-action:pan-y] ${grabbing ? "cursor-grabbing" : "cursor-grab"}`}
+      className={`relative overflow-hidden py-6 hover:z-10 [mask-image:linear-gradient(to_right,transparent,#000_8%,#000_92%,transparent)] [touch-action:pan-y] ${grabbing ? "cursor-grabbing" : "cursor-grab"}`}
       style={style}
       onPointerDown={onDown}
       onPointerMove={onMove}
@@ -213,7 +213,7 @@ const Reel = memo(function Reel({ items, dir, speed, style }: { items: ReactNode
       }}
     >
       {/* Doubled so wrapping at half the width loops seamlessly. */}
-      <div ref={track} className={`flex w-max gap-4 will-change-transform select-none ${grabbing ? "pointer-events-none" : ""}`}>
+      <div ref={track} className={`flex w-max gap-8 pr-8 will-change-transform select-none ${grabbing ? "pointer-events-none" : ""}`}>
         {items}
         {items.map((c, i) => (
           <div key={`dup-${i}`} aria-hidden="true" className="contents">{c}</div>
@@ -259,7 +259,7 @@ export default function HeroPremium() {
   return (
     <div ref={stage} className="relative mt-16 text-left" onPointerMove={onMove} onPointerLeave={onLeave}>
       <div className="lp-beam pointer-events-none absolute -top-24 left-1/2 -z-10 h-72 w-[70%] -translate-x-1/2" aria-hidden="true" />
-      <div className="space-y-2">
+      <div className="space-y-0">
         <Reel items={REELS[0]} dir={-1} speed={0.045} style={DRIFT_A} />
         <Reel items={REELS[1]} dir={1} speed={0.036} style={DRIFT_B} />
       </div>

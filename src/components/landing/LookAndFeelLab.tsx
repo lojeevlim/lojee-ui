@@ -159,7 +159,8 @@ export default function LookAndFeelLab() {
       </div>
 
       <ThemeProvider isolated mode={mode} accent={accent} activeVariant={variant}>
-        <div className="rounded-2xl border border-border bg-surface p-5 text-fg shadow-sm transition-colors duration-500 md:p-6">
+        {/* Glass frame (same as Card variant="glass"): a frosted accent-tinted halo 10px outside the card; the card's own fill moves to ::after so the halo shows behind it. */}
+        <div className="relative isolate rounded-2xl border border-border p-5 text-fg shadow-sm transition-colors duration-500 before:pointer-events-none before:absolute before:-inset-2.5 before:-z-20 before:rounded-[calc(var(--radius-2xl)+10px)] before:border before:border-accent-500/20 before:bg-accent-500/[0.07] before:backdrop-blur-2xl before:content-[''] after:pointer-events-none after:absolute after:inset-0 after:-z-10 after:rounded-[inherit] after:bg-surface after:content-[''] md:p-6">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div className="mb-6 max-w-full overflow-x-auto px-2 pb-4 pt-1 -mx-2"><NavigationMenu items={[{ label: "Overview", active: true }, { label: "Analytics" }, { label: "Reports" }, { label: "Settings" }]} /></div>
             <Badge variant="soft" label="Live preview" />

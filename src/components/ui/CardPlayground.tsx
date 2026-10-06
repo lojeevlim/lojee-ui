@@ -5,7 +5,7 @@ import type { CodeBlockVariants } from "./CodeBlock";
 import { useAnimation } from "./playgroundAnimation";
 import { useMotion } from "./playgroundMotion";
 
-const VARIANTS: CardVariant[] = ["outline", "elevated", "soft", "ghost"];
+const VARIANTS: CardVariant[] = ["outline", "elevated", "soft", "ghost", "glass"];
 const PADDINGS: CardPadding[] = ["none", "sm", "md", "lg"];
 
 export default function CardPlayground() {

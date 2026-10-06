@@ -1856,10 +1856,12 @@ body[data-design="clay"] {
 /* Landing hero reels clip their overflow, which sliced the cards' long Clay drop shadows flat at the bottom; leave room for them.
    (The hovered card is also lifted above its neighbours — see HeroCard.) */
 [data-design="clay"] [data-hero-reel] {
-  padding-top: 1rem;
+  padding-top: 1.75rem; /* room for the hovered card's lift (6px) and its 10px glass frame */
   padding-bottom: 2.5rem;
   position: relative;
 }
+/* The hovered row paints above the other one so the lifted card's glass frame and glow are never covered. */
+[data-design="clay"] [data-hero-reel]:hover { z-index: 10; }
 /* ...and the two rows sit close: the first reel's shadow room overlaps the second's empty top padding. */
 [data-design="clay"] [data-hero-reel]:not(:last-child) { margin-bottom: -1.5rem; }
 

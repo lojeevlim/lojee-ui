@@ -8,6 +8,11 @@ export const LOGOS: Record<string, string> = {
     "-11.5 -10.2 23 20.4",
     `<circle r="2.05" fill="#61dafb"/><g fill="none" stroke="#61dafb" stroke-width="1">${REACT_RING(0)}${REACT_RING(60)}${REACT_RING(120)}</g>`
   ),
+  // The source component: the React logo with the Tailwind CSS logo beside it (the component is a React + Tailwind component).
+  reactTailwind: svg(
+    "0 0 100 40",
+    `<g transform="translate(19 20) scale(1.7)"><circle r="2.05" fill="#61dafb"/><g fill="none" stroke="#61dafb" stroke-width="1">${REACT_RING(0)}${REACT_RING(60)}${REACT_RING(120)}</g></g><g transform="translate(50 3.5) scale(0.85)"><path fill="#38bdf8" fill-rule="evenodd" clip-rule="evenodd" d="M27 0c-7.2 0-11.7 3.6-13.5 10.8 2.7-3.6 5.85-4.95 9.45-4.05 2.054.513 3.522 2.004 5.147 3.653C30.744 13.09 33.808 16.2 40.5 16.2c7.2 0 11.7-3.6 13.5-10.8-2.7 3.6-5.85 4.95-9.45 4.05-2.054-.513-3.522-2.004-5.147-3.653C36.756 3.11 33.692 0 27 0zM13.5 16.2C6.3 16.2 1.8 19.8 0 27c2.7-3.6 5.85-4.95 9.45-4.05 2.054.514 3.522 2.004 5.147 3.653C17.244 29.29 20.308 32.4 27 32.4c7.2 0 11.7-3.6 13.5-10.8-2.7 3.6-5.85 4.95-9.45 4.05-2.054-.513-3.522-2.004-5.147-3.653C23.256 19.31 20.192 16.2 13.5 16.2z"/></g>`
+  ),
   vue: svg(
     "0 0 261.76 226.69",
     `<path fill="#41b883" d="M161.096.001l-30.225 52.351L100.647.001H-.005l130.877 226.688L261.749.001z"/><path fill="#34495e" d="M161.096.001l-30.225 52.351L100.647.001H52.346l78.526 136.01L209.398.001z"/>`

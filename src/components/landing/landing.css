@@ -40,7 +40,7 @@
 }
 
 .lp-shimmer-text {
-  background-image: linear-gradient(100deg, var(--color-accent-600), var(--color-accent-400), var(--color-fg), var(--color-accent-500), var(--color-accent-600));
+  background-image: linear-gradient(100deg, var(--color-accent-600), var(--color-accent-500), var(--color-accent-700), var(--color-accent-500), var(--color-accent-600));
   background-size: 250% 100%;
   -webkit-background-clip: text;
   background-clip: text;
@@ -117,14 +117,28 @@
 /* Claymorphism text: chunky letters puffed out of the page. A top-lit gradient fill gives the rounded, inflated body; a light edge on the top-left, a tighter shade and a long soft drop on the bottom-right give the raised clay edge. drop-shadow() (not
    text-shadow) so it also works on the gradient-filled, transparent-colored words inside. */
 .lp-clay-text {
-  font-weight: 800;
+  font-family: "Nunito", ui-rounded, "SF Pro Rounded", "Varela Round", system-ui, sans-serif;
+  font-weight: 900;
+  letter-spacing: -0.01em;
+}
+/* Base ink: deep near-black tinted with the theme accent (background-color clipped to the glyphs). The bump shading comes from the #lp-clay-letters SVG filter. */
+.lp-clay-ink {
   color: transparent;
-  background-image: linear-gradient(180deg, color-mix(in srgb, var(--color-fg) 78%, white) 0%, var(--color-fg) 48%, color-mix(in srgb, var(--color-fg) 84%, black) 100%);
+  background-color: color-mix(in srgb, var(--color-fg) 78%, var(--color-accent-700));
   -webkit-background-clip: text;
   background-clip: text;
-  filter: drop-shadow(-3px -3px 2px rgb(255 255 255 / 1)) drop-shadow(3px 4px 2px rgb(84 96 150 / 0.4)) drop-shadow(8px 14px 12px rgb(84 96 150 / 0.3));
 }
-[data-theme="dark"] .lp-clay-text {
-  background-image: linear-gradient(180deg, color-mix(in srgb, var(--color-fg) 100%, white) 0%, var(--color-fg) 45%, color-mix(in srgb, var(--color-fg) 78%, black) 100%);
-  filter: drop-shadow(-2px -2px 1px rgb(255 255 255 / 0.14)) drop-shadow(3px 4px 2px rgb(0 0 0 / 0.55)) drop-shadow(8px 14px 12px rgb(0 0 0 / 0.5));
+/* Hover spotlight: an aria-hidden copy of the heading in the theme colours ("Interfaces that fit" accent, "every framework." its shimmer), revealed only inside a small soft circle around the pointer (--hx/--hy, set on the h1).
+   It carries the same bump (without the drop shadow), so the lit patch still looks raised. */
+.lp-clay-spot {
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  -webkit-mask-image: radial-gradient(circle 70px at var(--hx, 50%) var(--hy, 50%), #000 35%, transparent 100%);
+  mask-image: radial-gradient(circle 70px at var(--hx, 50%) var(--hy, 50%), #000 35%, transparent 100%);
 }
+.lp-clay-text:hover .lp-clay-spot { opacity: 1; }
+.lp-clay-lit { filter: url(#lp-clay-spot); }
+.lp-spot-accent { color: var(--color-accent-600); }
+[data-theme="dark"] .lp-spot-accent { color: var(--color-accent-400); }
+/* Same accent-tinted clay shading (#lp-clay-letters) on both halves of the heading. */
+.lp-clay-shaded { filter: url(#lp-clay-letters); }
