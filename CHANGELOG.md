@@ -2,6 +2,67 @@
 
 All notable changes to lojee-ui. The docs site also has a live changelog (Docs → Changelog) generated from the git history.
 
+## 0.1.0-alpha.13 — 2026-10-06
+
+### Added
+- **Animation effects** — `animation` prop on Button (and friends): `glow`, `pulse`, `sweep`, `bounce`, `float`, `wiggle`, `border-spin`, `particles`, `tail`; pass one or a list to combine. Respects `prefers-reduced-motion`.
+- Page scrollbar and tooltip tips on the docs site.
+
+### Changed
+- **Breaking:** the `animated` prop is renamed `animation`. Smoother `pulse`.
+
+## 0.1.0-alpha.12 — 2026-10-05
+
+### Added
+- **DotScroll** — dotted scrollbar with a glowing dot, tail, particles and edge burst; used by Sidebar, Modal, Drawer, Sheet, menus, dropdowns, Table and code blocks.
+- **BottomNavigation** — `iconOnly`, and a floating action button (`fabIcon` / `fabLabel` / `onFabClick`) in a curved notch; `onItemClick`.
+- **Slider / RangeSlider** — `size`, `thumbVariant`, `valuePlacement` (`"thumb"` puts the value inside the handle). Divider `handleVariant`.
+- **Clay** look applied across Slider, TopBar, Header, Footer, Stepper, Tabs, Timeline, Stat, Chart bars, Map frame and active items. ThemeSwitcher gains more accents and presets.
+- Per-language **data-binding guides** and a logo flow diagram on the docs site.
+
+### Changed
+- **Breaking:** `Loader` / `<l-loader>` is merged into `Skeleton` (now with a wave animation). Footer takes `color` only (variants removed).
+- Theme-colored scrollbars; the browser-tab icon follows the accent.
+
+## 0.1.0-alpha.11 — 2026-10-04
+
+### Added
+- **Data binding** — set component state from outside and read changes back, in React, Vue, Angular and plain JS.
+- **Input** — `plain` variant (text only, no box); ChatBox now uses Input.
+
+### Fixed
+- `<l-theme-switcher>` change callbacks only report the pick; the theme is still applied unless controlled by its prop.
+
+## 0.1.0-alpha.10 — 2026-10-04
+
+### Added
+- One-command release script (`npm run release`).
+
+### Fixed
+- Sidebar reveals the active item on collapse/expand; changelog survives shallow clones; `homepage` points to https://lojee-ui.vercel.app/.
+
+## 0.1.0-alpha.6 – alpha.9 — 2026-10-04
+
+### Added
+- **Claymorphism** design look, new components and theming updates; input variants; Sidebar `showLabel` and overlay scrollbar.
+- ChatBox code highlighting and options, Badge `xs`.
+- **MapRoute** — real road routes from an array of points (A → B → C …).
+
+## 0.1.0-alpha.5 — 2026-10-03
+
+### Added
+- **MapRoute** animation variants (`draw`, `pulse`, `trail`, `glow`, `shimmer`).
+- **DetailsList** and **GridView** replace DataGrid; Table, Chart and Stat updates.
+
+## 0.1.0-alpha.2 – alpha.4 — 2026-10-01 – 2026-10-02
+
+### Added
+- **Maps** (`Map`, `MapMarker`, `MapRoute`), motion effects and skeleton loading.
+- **Image**, **Video**, **Skeleton**, **TagInput**, **NumberInput**, **OtpInput**, **Rating**, **ColorPicker** and **CodeSnippet**.
+- App shell, theme provider/switcher and slot projection for Web Components; `Main` panel.
+- Buttons accept any CSS color; Tooltip sizes `xs`–`xl` and an always-open state; Divider grip handle.
+- Sidebar rows navigate by `path` without a page reload.
+
 ## 0.1.0-alpha.1 — 2026-10-01
 
 ### Added

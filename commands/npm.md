@@ -4,7 +4,7 @@ Follow **Step 1 to Step 6** in order, one block at a time, and wait for each to 
 
 - **Package:** `lojee-ui` (public, unscoped), registry https://registry.npmjs.org
 - **Published contents:** only `dist/` (`"files": ["dist"]` in `package.json`)
-- **Current line:** `0.1.0-alpha.x`, published under the `latest` and `alpha` tags. Right now both point at `0.1.0-alpha.10`, so the next release is `0.1.0-alpha.11`. Check with `npm view lojee-ui dist-tags`.
+- **Current line:** `0.1.0-alpha.x`, published under the `latest` and `alpha` tags. Check where both tags point, and so what the next release is, with `npm view lojee-ui dist-tags`. The version numbers in the examples below are illustrative.
 - Example values (like `npm_EXAMPLE…`) are fake. Replace them with your own.
 
 ## Before you start: get a token

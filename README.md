@@ -1,10 +1,104 @@
 # Lojee UI
 
+[![npm](https://img.shields.io/npm/v/lojee-ui?label=npm)](https://www.npmjs.com/package/lojee-ui)
+[![license](https://img.shields.io/npm/l/lojee-ui)](LICENSE)
+[![docs](https://img.shields.io/badge/docs-lojee--ui.vercel.app-0f172a)](https://lojee-ui.vercel.app/)
+
 **Official site & docs: https://lojee-ui.vercel.app/**
 
 React + TypeScript UI component library styled with Tailwind v4 — ships auto-generated
 Web Components (`<l-*>` custom elements) alongside the React components, with a
 built-in demo/docs site.
+
+> **Status:** pre-release (`0.1.0-alpha.x`). Expect changes between alphas — see the [changelog](CHANGELOG.md).
+
+## Features
+
+- **100+ components** — buttons, forms, overlays, feedback, navigation, data display, charts, calendar, maps, flow diagrams, app layout and account screens.
+- **React and Web Components** — use `<Button>` in React, or `<l-button>` in Vue, Angular, or plain HTML.
+- **Themes** — light / dark mode, 12 brand accents and switchable looks (including **Clay**), all CSS variables.
+- **Animation effects** — `animation="glow" | "pulse" | "sweep" | "bounce" | "float" | "wiggle" | "border-spin" | "particles" | "tail"` (combine with a list; respects `prefers-reduced-motion`).
+- **DotScroll** — a dotted, theme-colored scrollbar used across menus, drawers, tables and code blocks.
+- **Data binding** — set component state from outside and read changes back, in every framework.
+- **Fully customizable** — `className` and per-part `classNames` on every component, merged with `tailwind-merge`.
+- **AI-friendly reference** — [public/COMPONENTS.md](public/COMPONENTS.md) documents every component, prop and event.
+
+## Installation
+
+```bash
+npm install lojee-ui
+```
+
+Consumers need `react`, `react-dom`, `lucide-react`, and **`tailwindcss` (v4) installed and
+set up** as peer dependencies for the React build — nothing is bundled, and Tailwind is
+required (the components are styled with the Tailwind classes your build generates).
+Import `lojee-ui/theme.css` right after Tailwind; it carries the design tokens and the
+animation tokens, and tells Tailwind to scan the library itself, so no `@source` line is
+needed:
+
+```css
+@import "tailwindcss";
+@import "lojee-ui/theme.css";
+```
+
+For non-React consumers, the auto-generated `<l-*>` Web Components are available from
+the `lojee-ui/elements` subpath (self-contained, bundles React internally):
+
+```ts
+import "lojee-ui/elements";
+```
+
+### Quick start
+
+React:
+
+```tsx
+import { ThemeProvider, Button } from "lojee-ui";
+
+export default function App() {
+  return (
+    <ThemeProvider defaultMode="light" defaultAccent="emerald">
+      <Button animation="glow">Save</Button>
+    </ThemeProvider>
+  );
+}
+```
+
+Vue, Angular or plain HTML:
+
+```html
+<script type="module">import "lojee-ui/elements";</script>
+<l-button animation="glow">Save</l-button>
+```
+
+## Components
+
+| Category | Components |
+| --- | --- |
+| Basic | Button, SplitButton, ButtonGroup, SegmentButton, Badge, Avatar, Icon, Spinner, Divider |
+| Layout & Content | Card, Container, Section, Grid, List, Accordion, Carousel, Image, Video, CodeSnippet, Iframe, ChatBox |
+| Forms & Inputs | Input, Textarea, Checkbox, Radio, Switch, Select, MultiSelect, Combobox, DatePicker, TimePicker, FileUpload, SearchInput, PasswordInput, Slider, RangeSlider, TagInput, NumberInput, OtpInput, Rating, ColorPicker |
+| Overlays | Modal, Drawer, Sheet, Popover, DropdownMenu, ContextMenu, CommandMenu, AlertDialog, Tooltip |
+| Feedback | Alert, Toast, Notification, Thinking, ProgressBar, EmptyState, ErrorState, SuccessState, LoadingState, Skeleton |
+| Navigation | Navbar, Sidebar, TopBar, Header, Footer, NavigationMenu, BottomNavigation, Tabs, Stepper, Breadcrumbs, Pagination |
+| App | AppLayout (`App`, `Top`, `Side`, `Main`, `Footer`), ThemeSwitcher |
+| Data & Visualization | Table, GridView, DetailsList, Timeline, Stat, Chart, Calendar, ActivityFeed, FlowDiagram |
+| Maps | Map, MapMarker, MapRoute, MapControls |
+| User / Account | ProfileCard, UserMenu, LoginForm, SignupForm, AccountSettings, ProfileSettings, PlanBilling |
+
+Live examples, playgrounds and per-framework API tables for each are on the [docs site](https://lojee-ui.vercel.app/).
+
+## Data binding
+
+Every component can be driven from outside and report changes back — controlled props and `onChange` in React, `v-model` / property bindings
+in Vue and Angular, and plain properties plus events on the `<l-*>` elements. See the per-language guides on the docs site.
+
+## Breaking changes in recent alphas
+
+- `Loader` / `<l-loader>` was removed (alpha.12) — use `Skeleton` / `<l-skeleton>`.
+- The `animated` prop was renamed `animation` (alpha.13).
+
+See the full [changelog](CHANGELOG.md).
 
 ## Development
 
@@ -86,6 +180,7 @@ Available slots per component:
 | `Tooltip` | `root`, `bubble` |
 | `Spinner` | `root`, `dot`, `bar` |
 | `Divider` | `root`, `line`, `label` |
+| `Skeleton` | `root`, `line` |
 
 `SplitButton`'s dropdown is composed from `SplitButtonMenuItem` children (not a data
 prop), each with its own `className`:
@@ -156,31 +251,6 @@ The Web Components bundle includes MapLibre. Markers and routes are plain data t
   map.markers = [{ lng: 123.9054, lat: 10.2925, label: "Fort San Pedro", popup: "Hello" }];
   map.routes = [{ waypoints: [[123.9, 10.305], [123.9049, 10.3182]] }];
 </script>
-```
-
-## Installation
-
-```bash
-npm install lojee-ui
-```
-
-Consumers need `react`, `react-dom`, `lucide-react`, and **`tailwindcss` (v4) installed and
-set up** as peer dependencies for the React build — nothing is bundled, and Tailwind is
-required (the components are styled with the Tailwind classes your build generates).
-Import `lojee-ui/theme.css` right after Tailwind; it carries the design tokens and the
-animation tokens, and tells Tailwind to scan the library itself, so no `@source` line is
-needed:
-
-```css
-@import "tailwindcss";
-@import "lojee-ui/theme.css";
-```
-
-For non-React consumers, the auto-generated `<l-*>` Web Components are available from
-the `lojee-ui/elements` subpath (self-contained, bundles React internally):
-
-```ts
-import "lojee-ui/elements";
 ```
 
 ## Alternative distribution methods
