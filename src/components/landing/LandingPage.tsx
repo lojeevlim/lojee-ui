@@ -314,7 +314,7 @@ export default function LandingPage() {
         <div className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-32 bg-gradient-to-t from-surface to-transparent" />
         <div className="mx-auto max-w-6xl px-5 pt-14 text-center lg:pt-24">
           <button type="button" onClick={() => navigate(pathFor("docs", "Changelog"))} className="lp-enter inline-flex max-w-full cursor-pointer items-center gap-2 rounded-full border border-border bg-surface/70 py-1 pl-1 pr-3 text-xs text-fg-muted shadow-sm" style={{ ["--d" as string]: "0ms" }}>
-            <span className="relative z-10 inline-flex"><Badge variant="solid" label="New" animation="pulse" /></span>
+            <span className="relative z-10 inline-flex"><Badge variant="solid" label="New" animation="sweep" /></span>
             <span className="truncate">{LATEST_UPDATE}</span>
             <Icon name="arrow-right" size={12} />
           </button>
