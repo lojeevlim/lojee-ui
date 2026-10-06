@@ -1854,24 +1854,18 @@ body[data-design="clay"] {
 }
 
 /* Landing hero reels clip their overflow, which sliced the cards' long Clay drop shadows flat at the bottom; leave room for them.
-   (The hovered card is also lifted above its neighbours — see HeroCard.) */
+   (No hover effects on the cards — they only react when pressed or when the reel is dragged.) */
 [data-design="clay"] [data-hero-reel] {
-  padding-top: 1.75rem; /* room for the hovered card's lift (6px) and its 10px glass frame */
+  padding-top: 1.75rem; /* room for the cards' 10px glass frame */
   padding-bottom: 2.5rem;
   position: relative;
 }
-/* The hovered row paints above the other one so the lifted card's glass frame and glow are never covered. */
-[data-design="clay"] [data-hero-reel]:hover { z-index: 10; }
 /* ...and the two rows sit close: the first reel's shadow room overlaps the second's empty top padding. */
 [data-design="clay"] [data-hero-reel]:not(:last-child) { margin-bottom: -1.5rem; }
 
-/* Landing hero cards: Bento lights its border and shadow in the accent on hover; Clay (whose shadows are the raised-clay ones) gets an
-   accent ring and a soft glow around the raised card. */
-[data-design="clay"] [data-hero-card]:hover {
-  box-shadow:
-    var(--clay-raise-lg),
-    0 0 0 1.5px color-mix(in srgb, var(--color-accent-500) 60%, transparent),
-    0 0 34px 2px color-mix(in srgb, var(--color-accent-500) 38%, transparent) !important;
+/* Landing hero cards: no hover effect; a press (click / touch) sinks the card into the clay well. */
+[data-design="clay"] [data-hero-card]:active {
+  box-shadow: var(--clay-well) !important;
 }
 
 /* Clay: Timeline markers are glossy raised balls in the item color, the connector a pressed groove; Stat icon is a puffy raised badge. */

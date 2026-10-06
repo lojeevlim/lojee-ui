@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { spotlight } from "./hooks";
 
 // Every hero card is the same height and one of three widths, so the three reels read as tidy rows.
 const WIDTHS = new Set(["w-64", "w-72", "w-80"]);
@@ -45,14 +44,13 @@ function Fit({ children }: { children: ReactNode }) {
 /** One captioned, live component inside the hero reel. `w` is a Tailwind width class — w-64 (default), w-72 or w-80; anything wider is capped at w-80. */
 export function HeroCard({ name, children, w = "w-64" }: { name: string; children: ReactNode; w?: string }) {
   return (
-    // The outer box only adds the frosted-glass frame around the card (10px padding cancelled by a -10px margin, so the layout and the card size are unchanged).
+    // The outer box only adds the frosted-glass frame around the card (10px padding cancelled by a -10px margin, so the layout and the card size are unchanged). No hover effects: the card only reacts when pressed.
     // content-visibility:auto skips layout / paint / animations of the cards that are off screen (most of a reel at any time), which cuts the
     // hero's idle main-thread work by ~4x. The cards have a fixed size, so nothing shifts; the reels fade out at both edges, hiding the entry.
-    <div className="relative z-20 -m-2.5 shrink-0 p-2.5 transition-transform duration-300 [content-visibility:auto] [contain-intrinsic-size:auto_13rem] before:pointer-events-none before:absolute before:inset-0 before:-z-10 before:rounded-[calc(var(--radius-2xl)+10px)] before:border before:border-accent-500/20 before:bg-accent-500/[0.07] before:backdrop-blur-2xl before:content-[''] hover:z-50 hover:-translate-y-1.5 hover:scale-[1.03]">
+    <div className="relative z-20 -m-2.5 shrink-0 p-2.5 transition-transform duration-150 active:scale-[0.98] [content-visibility:auto] [contain-intrinsic-size:auto_13rem] before:pointer-events-none before:absolute before:inset-0 before:-z-10 before:rounded-[calc(var(--radius-2xl)+10px)] before:border before:border-accent-500/20 before:bg-accent-500/[0.07] before:backdrop-blur-2xl before:content-['']">
       <div
-        onPointerMove={spotlight}
         data-hero-card={name}
-        className={`lp-spot ${WIDTHS.has(w) ? w : "w-80"} flex h-52 flex-col rounded-2xl border border-border bg-surface p-4 shadow-lg shadow-black/5 transition-[border-color,box-shadow] duration-300 hover:border-accent-500 hover:shadow-xl hover:shadow-accent-500/20`}
+        className={`relative overflow-hidden ${WIDTHS.has(w) ? w : "w-80"} flex h-52 flex-col rounded-2xl border border-border bg-surface p-4 shadow-lg shadow-black/5`}
       >
         <p className="relative mb-3 shrink-0 font-mono text-[10px] uppercase tracking-wider text-fg-subtle">{name}</p>
         <div className="relative min-h-0 flex-1">

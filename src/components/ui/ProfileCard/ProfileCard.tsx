@@ -110,13 +110,11 @@ export function ProfileCard({
       </div>
 
       <div className="px-5 pb-5">
-        <div className={cx("-mt-8 mb-3", classNames?.avatar)}>
-          <Avatar
-            src={avatarSrc}
-            initials={avatarInitials}
-            size="xl"
-            className="ring-4 ring-surface"
-          />
+        <div className={cx("relative z-10 -mt-8 mb-3", classNames?.avatar)}>
+          {/* Solid surface backing: the avatar's initials fill is a translucent tint, so over the banner (most visible in dark mode) the banner showed through. */}
+          <div className="inline-flex rounded-full bg-surface">
+            <Avatar src={avatarSrc} initials={avatarInitials} size="xl" />
+          </div>
         </div>
 
         <h3 className="text-lg font-semibold text-fg">{name}</h3>

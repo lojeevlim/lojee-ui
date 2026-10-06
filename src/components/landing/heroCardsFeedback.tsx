@@ -213,7 +213,8 @@ const REEL_2: ReactNode[] = [
     </div>
   </HeroCard>,
   <HeroCard key="footer" name="Footer" w="w-96">
-    <div className={`${FRAME} h-24`}>
+    {/* Fixed-width wrapper (Fit scales it to the card) and no fixed frame height, so the link columns and the copyright row aren't cut off. */}
+    <div className={`${FRAME} w-[24rem]`}>
       <Footer color="slate" bottom="© 2026 Lojee, Inc.">
         <LinkColumn heading="Product" links={["Features", "Pricing"]} />
         <LinkColumn heading="Company" links={["About", "Blog"]} />
@@ -298,9 +299,10 @@ const REEL_4: ReactNode[] = [
     <PagerStack />
   </HeroCard>,
   <HeroCard key="navbar" name="Navbar · variants" w="w-[34rem]">
-    <div className="space-y-2">
-      <div className={`${FRAME} h-14`}><Navbar variant="gradient" brand="Lojee" items={NAV_ITEMS} /></div>
-      <div className={`${FRAME} h-14`}><Navbar variant="bordered" brand="Lojee" color="violet" items={NAV_ITEMS} /></div>
+    {/* The navbars need ~27rem to lay out; the card is narrower, so a fixed-width wrapper lets Fit scale the whole thing down instead of squashing the links on top of each other. No fixed frame height, so the bordered navbar isn't clipped. */}
+    <div className="w-[30rem] space-y-2">
+      <div className={FRAME}><Navbar variant="gradient" brand="Lojee" items={NAV_ITEMS} /></div>
+      <div className={FRAME}><Navbar variant="bordered" brand="Lojee" color="violet" items={NAV_ITEMS} /></div>
     </div>
   </HeroCard>,
   <HeroCard key="notif" name="Notification" w="w-80">

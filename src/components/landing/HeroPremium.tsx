@@ -1,4 +1,4 @@
-import { cloneElement, isValidElement, memo, useEffect, useRef, useState, type CSSProperties, type PointerEvent, type ReactNode } from "react";
+import { cloneElement, isValidElement, memo, useEffect, useRef, useState, type PointerEvent, type ReactNode } from "react";
 import { HeroCard as Card } from "./HeroCard";
 import { BASIC_REELS } from "./heroCardsBasic";
 import { FORMS_REELS } from "./heroCardsForms";
@@ -94,7 +94,7 @@ const INTERACTIVE = "input,textarea,select,button,a,label,[role='slider'],[role=
  * One reel of cards. It glides on its own (`dir` -1 = left, 1 = right), pauses while the pointer is over it, and can be
  * dragged left / right with the mouse or a finger — releasing keeps a little momentum before it settles back into gliding.
  */
-const Reel = memo(function Reel({ items, dir, speed, style }: { items: ReactNode[]; dir: 1 | -1; speed: number; style?: CSSProperties }) {
+const Reel = memo(function Reel({ items, dir, speed }: { items: ReactNode[]; dir: 1 | -1; speed: number }) {
   const track = useRef<HTMLDivElement>(null);
   const st = useRef({ x: 0, vel: 0, pressed: false, drag: false, moved: false, startX: 0, startPos: 0, lastX: 0, lastT: 0, id: -1 });
   const [grabbing, setGrabbing] = useState(false);
@@ -197,8 +197,7 @@ const Reel = memo(function Reel({ items, dir, speed, style }: { items: ReactNode
     <div
       ref={root}
       data-hero-reel
-      className={`relative overflow-hidden py-6 hover:z-10 [mask-image:linear-gradient(to_right,transparent,#000_8%,#000_92%,transparent)] [touch-action:pan-y] ${grabbing ? "cursor-grabbing" : "cursor-grab"}`}
-      style={style}
+      className="relative overflow-hidden py-6 [mask-image:linear-gradient(to_right,transparent,#000_8%,#000_92%,transparent)] [touch-action:pan-y]"
       onPointerDown={onDown}
       onPointerMove={onMove}
       onPointerUp={onUp}
@@ -230,38 +229,14 @@ const ALL_CARDS: ReactNode[] = [...ROW_1, ...ROW_2, ...ROW_3, ...BASIC_REELS.fla
 );
 const REELS: ReactNode[][] = [0, 1].map((r) => ALL_CARDS.filter((_, i) => i % 2 === r));
 
-// Each reel drifts a little with the cursor, at its own depth (--px / --py are set on the stage without re-rendering).
-const drift = (d: number): CSSProperties => ({ transform: `translate3d(calc(var(--px, 0) * ${d}px), calc(var(--py, 0) * ${d * 0.6}px), 0)`, transition: "transform 0.4s ease-out" });
-const DRIFT_A = drift(-10);
-const DRIFT_B = drift(6);
-
 /** Premium hero stage: two reels of live, interactive components gliding left, under a light beam. */
 export default function HeroPremium() {
-  const stage = useRef<HTMLDivElement>(null);
-  const frame = useRef(0);
-  const onMove = (e: PointerEvent<HTMLDivElement>) => {
-    const el = stage.current;
-    if (!el) return;
-    const cx = e.clientX;
-    const cy = e.clientY;
-    cancelAnimationFrame(frame.current);
-    frame.current = requestAnimationFrame(() => {
-      const r = el.getBoundingClientRect();
-      el.style.setProperty("--px", String(((cx - r.left) / r.width - 0.5) * 2));
-      el.style.setProperty("--py", String(((cy - r.top) / r.height - 0.5) * 2));
-    });
-  };
-  const onLeave = () => {
-    cancelAnimationFrame(frame.current);
-    stage.current?.style.setProperty("--px", "0");
-    stage.current?.style.setProperty("--py", "0");
-  };
   return (
-    <div ref={stage} className="relative mt-16 text-left" onPointerMove={onMove} onPointerLeave={onLeave}>
+    <div className="relative mt-16 text-left">
       <div className="lp-beam pointer-events-none absolute -top-24 left-1/2 -z-10 h-72 w-[70%] -translate-x-1/2" aria-hidden="true" />
       <div className="space-y-0">
-        <Reel items={REELS[0]} dir={-1} speed={0.045} style={DRIFT_A} />
-        <Reel items={REELS[1]} dir={1} speed={0.036} style={DRIFT_B} />
+        <Reel items={REELS[0]} dir={-1} speed={0.045} />
+        <Reel items={REELS[1]} dir={1} speed={0.036} />
       </div>
     </div>
   );

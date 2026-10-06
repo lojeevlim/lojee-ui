@@ -2,6 +2,7 @@ import { lazy, Suspense, useEffect, useRef, useState, type PointerEvent, type Re
 import { PageScrollbar } from "../ui/DotScroll/PageScrollbar"
 import { useNavigate } from "react-router-dom";
 import "./landing.css";
+import ParticleTrail from "./ParticleTrail";
 import Reveal from "./Reveal";
 import LazyOnView from "./LazyOnView";
 
@@ -307,6 +308,7 @@ export default function LandingPage() {
       {/* Hero */}
       {/* z-20: the hero (its cards' shadows and glows, which spill past the section) paints above the sections that follow it. */}
       <section onPointerMove={onHeroMove} onPointerLeave={() => steerLight(REST_ANGLE)} className="relative isolate z-20">
+        <ParticleTrail />
         <div className="lp-grid pointer-events-none absolute inset-0 -z-10" />
         <div ref={heroGlow} className="lp-glow pointer-events-none absolute inset-0 -z-10" />
         <div className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-32 bg-gradient-to-t from-surface to-transparent" />
@@ -351,13 +353,13 @@ export default function LandingPage() {
             </span>
           </button>
         </div>
-        <div className="lp-enter pt-12 pb-20 lg:pt-20 lg:pb-28" style={{ ["--d" as string]: "500ms" }}>
+        <div className="lp-enter pt-12 pb-10 lg:pt-20 lg:pb-14" style={{ ["--d" as string]: "500ms" }}>
           <Suspense fallback={<div className="mt-16 min-h-[30rem]" />}><HeroPremium /></Suspense>
         </div>
       </section>
 
       {/* Stats */}
-      <section className="mx-auto max-w-6xl px-5 py-16">
+      <section className="mx-auto max-w-6xl px-5 pb-16 pt-4">
         <div ref={statsRef} className="relative overflow-hidden rounded-3xl border border-border bg-surface/60 shadow-xl shadow-black/5 [&>div]:border-border max-md:[&>div:nth-child(odd)]:border-r max-md:[&>div:nth-child(-n+2)]:border-b md:grid-cols-4 md:[&>div:not(:last-child)]:border-r grid grid-cols-2">
           <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent-500/70 to-transparent" aria-hidden="true" />
           <Stat active={statsSeen} target={total} suffix="+" label="Components" />
