@@ -139,6 +139,105 @@
 .lp-clay-text:hover .lp-clay-spot { opacity: 1; }
 .lp-clay-lit { filter: url(#lp-clay-spot); }
 .lp-spot-accent { color: var(--color-accent-600); }
-[data-theme="dark"] .lp-spot-accent { color: var(--color-accent-400); }
+/* Dark mode: the heading itself takes the theme colour, so the spotlight and the pointer trail take over the heading's former light ink to stay visible on it. */
+[data-theme="dark"] .lp-clay-ink { background-color: var(--color-accent-400); }
+[data-theme="dark"] .lp-clay-lit .lp-spot-accent { color: color-mix(in srgb, white 70%, var(--color-accent-200)); }
+[data-theme="dark"] .lp-clay-lit .lp-shimmer-text { background-image: none; background-color: color-mix(in srgb, white 70%, var(--color-accent-200)); }
+.lp-trail-probe { color: var(--color-accent-500); }
+[data-theme="dark"] .lp-trail-probe { color: color-mix(in srgb, white 55%, var(--color-accent-300)); }
+/* Dark mode: the spotlight glows like a light shining on the letters. */
+[data-theme="dark"] .lp-clay-spot { filter: drop-shadow(0 0 10px color-mix(in srgb, var(--color-accent-400) 70%, transparent)) brightness(1.25); }
+/* Dark mode, before the pointer first moves: the spotlight copy is on, with a much wider soft circle centred above the heading (over the "New" badge), so it reads as a lamp lighting the heading from the top centre. */
+[data-theme="dark"] .lp-clay-text[data-rest] .lp-clay-spot {
+  opacity: 1;
+  -webkit-mask-image: radial-gradient(circle 190px at 50% var(--rest-y, 0px), #000 15%, transparent 100%);
+  mask-image: radial-gradient(circle 190px at 50% var(--rest-y, 0px), #000 15%, transparent 100%);
+  /* Kept in the heading's own violet: the lit patch is a lighter tint of the theme colour (not white) with no glow or shadow around the letters. */
+  filter: none;
+}
+[data-theme="dark"] .lp-clay-text[data-rest] .lp-clay-lit .lp-spot-accent { color: var(--color-accent-300); }
+[data-theme="dark"] .lp-clay-text[data-rest] .lp-clay-lit .lp-shimmer-text { background-image: none; background-color: var(--color-accent-300); }
+/* Dark mode, before the pointer first moves: the hero's cursor glow (normally centred behind the heading) is pinned to the very top instead, so nothing glows around the heading itself. */
+[data-theme="dark"] .lp-glow[data-rest] {
+  background: radial-gradient(460px 200px at 50% 0, color-mix(in srgb, var(--color-accent-500) 26%, transparent), transparent 100%);
+}
+@keyframes lp-rest-dust {
+  0% { opacity: 0; transform: translate(0, 0) scale(0.6); }
+  15% { opacity: 0.9; }
+  100% { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(0.3); }
+}
+/* Particles in the top glow: specks drift down out of it and fade (dark mode, until the pointer first moves). */
+.lp-rest-dust {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 24rem;
+  z-index: -10;
+  pointer-events: none;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+[data-theme="dark"] .lp-rest-dust[data-rest] { opacity: 1; }
+/* Light mode never shows them, so do not let 320 invisible specks animate forever either. */
+:root:not([data-theme="dark"]) .lp-rest-dust { display: none; }
+.lp-rest-dust i {
+  position: absolute;
+  top: 0;
+  width: var(--sz);
+  height: var(--sz);
+  border-radius: 9999px;
+  background: var(--color-accent-300);
+  box-shadow: 0 0 7px 1px color-mix(in srgb, var(--color-accent-400) 85%, transparent);
+  opacity: 0;
+  animation: lp-rest-dust var(--dur) ease-out var(--dl) infinite;
+}
+@media (prefers-reduced-motion: reduce) { .lp-rest-dust i { animation: none; } }
+/* The lamp itself: a wash of the theme colour spilling down from the top centre of the hero, right under the navbar, with a small bright core at the very top. Dark mode, until the pointer first moves. */
+.lp-rest-beam {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 9rem;
+  z-index: -10;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1s ease;
+  background:
+    radial-gradient(ellipse 26% 100% at 50% 0%, color-mix(in srgb, var(--color-accent-500) 22%, transparent), transparent 80%);
+}
+[data-theme="dark"] .lp-rest-beam[data-rest] { opacity: 1; }
 /* Same accent-tinted clay shading (#lp-clay-letters) on both halves of the heading. */
 .lp-clay-shaded { filter: url(#lp-clay-letters); }
+
+/* Feature cards: the card under the scroll line is lit (data-lit): its icon switches on like a lamp (filled with the theme colour, white glyph, layered glow and a soft expanding ring) and a faint light spills down from the icon corner. */
+.lp-feat { transition: border-color 0.9s ease, box-shadow 0.9s ease, transform 0.3s, translate 0.3s, background-color 0.3s; }
+.lp-feat-icon { transition: background-color 0.9s cubic-bezier(0.22, 1, 0.36, 1), color 0.9s ease, box-shadow 1.1s cubic-bezier(0.22, 1, 0.36, 1), transform 0.9s cubic-bezier(0.22, 1, 0.36, 1); }
+.lp-feat::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(220px circle at 28px 28px, color-mix(in srgb, var(--color-accent-500) 16%, transparent), transparent 70%);
+  opacity: 0;
+  transition: opacity 1s ease;
+  pointer-events: none;
+}
+.lp-feat[data-lit]::after { opacity: 1; }
+.lp-feat-icon::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 1px solid var(--color-accent-400);
+  opacity: 0;
+  pointer-events: none;
+}
+.lp-feat[data-lit] { border-color: color-mix(in srgb, var(--color-accent-500) 45%, transparent); }
+.lp-feat[data-lit] .lp-feat-icon {
+  background-color: var(--color-accent-500);
+  color: white;
+  transform: scale(1.08);
+  box-shadow: 0 0 12px 2px color-mix(in srgb, var(--color-accent-500) 65%, transparent), 0 0 32px 6px color-mix(in srgb, var(--color-accent-400) 40%, transparent);
+}
+.lp-feat[data-lit] .lp-feat-icon::after { animation: lp-feat-ring 1.8s ease-out 0.3s infinite; }
+@keyframes lp-feat-ring { 0% { opacity: 0.8; transform: scale(1); } 100% { opacity: 0; transform: scale(1.9); } }
+@media (prefers-reduced-motion: reduce) { .lp-feat, .lp-feat-icon, .lp-feat::after { transition: none; } .lp-feat[data-lit] .lp-feat-icon::after { animation: none; } }
+

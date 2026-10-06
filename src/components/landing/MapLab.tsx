@@ -66,8 +66,8 @@ export default function MapLab() {
   const layer = (d: number): CSSProperties => ({ transform: `translate3d(calc(var(--px, 0) * ${d}px), calc(var(--py, 0) * ${d}px), 0)` });
 
   return (
-    <div className="grid grid-cols-1 gap-6 lg:grid-cols-[300px_minmax(0,1fr)]">
-      <div className="space-y-5 rounded-2xl border border-border bg-surface p-5">
+    <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.7fr)]">
+      <div className="space-y-4 rounded-2xl border border-border bg-surface p-4 lg:h-[392px] lg:overflow-y-auto">
         <div>
           <p className="mb-2 text-xs font-medium uppercase tracking-wide text-fg-subtle">Fly to</p>
           <div className="grid grid-cols-2 gap-1.5">
@@ -107,7 +107,7 @@ export default function MapLab() {
         </div>
       </div>
 
-      <div ref={stage} className="relative flex select-none flex-col py-6 sm:py-8 lg:min-h-[700px] lg:py-0" onPointerMove={onMove} onPointerLeave={onLeave}>
+      <div ref={stage} className="relative flex select-none flex-col py-6 sm:py-8 lg:h-[392px] lg:py-0" onPointerMove={onMove} onPointerLeave={onLeave}>
         <div className="lp-aurora pointer-events-none absolute -inset-6 -z-10" aria-hidden="true" />
         <div className="lp-float-a flex flex-1 flex-col lg:absolute lg:inset-0" style={layer(8)}>
           <div className="flex flex-1 flex-col overflow-hidden rounded-2xl border border-border bg-surface/80 shadow-2xl shadow-accent-900/10 ring-1 ring-black/5">
@@ -117,9 +117,9 @@ export default function MapLab() {
               <span className="h-2.5 w-2.5 rounded-full bg-emerald-400" />
               <span className="ml-2 font-mono text-[10px] text-fg-subtle">{"<Map controls={[\"zoom\", \"style\"]} />"}</span>
             </div>
-            <div data-theme={mapDark ? "dark" : "light"} className="flex min-h-[520px] flex-1 flex-col lg:min-h-0">
+            <div data-theme={mapDark ? "dark" : "light"} className="flex min-h-[400px] flex-1 flex-col lg:min-h-0">
             <IdleMount className="flex flex-1 flex-col">
-            <Map center={city.center} zoom={city.zoom} pitch={tilt ? 60 : 0} bearing={tilt ? -20 : 0} controls={["zoom", "compass", "fullscreen", "style"]} className="!h-auto min-h-[520px] flex-1 rounded-none border-0 lg:min-h-0">
+            <Map center={city.center} zoom={city.zoom} pitch={tilt ? 60 : 0} bearing={tilt ? -20 : 0} controls={["zoom", "compass", "fullscreen", "style"]} className="!h-auto min-h-[400px] flex-1 rounded-none border-0 lg:min-h-0">
               {isCebu && (
                 <>
                   <MapRoute waypoints={CEBU_STOPS.map((s) => s.coord)} progress={progress} animated={animated} width={5} />

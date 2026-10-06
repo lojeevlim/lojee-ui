@@ -98,6 +98,62 @@ export class AppComponent {}`,
         </section>
 
         <section>
+          <SectionLabel sub="Dark mode only: the glass frame lights up like a backlight in the theme colour. Switch the theme to dark and hover, press or scroll to see each one.">Lighting</SectionLabel>
+          <div className="flex flex-wrap items-start gap-10 pt-2">
+            <div>
+              <p className="mb-7 font-mono text-xs text-fg-subtle">lighting="hover"</p>
+              <Card variant="glass" lighting="hover">Hover me</Card>
+            </div>
+            <div>
+              <p className="mb-7 font-mono text-xs text-fg-subtle">lighting="press"</p>
+              <Card variant="glass" lighting="press">Press me</Card>
+            </div>
+            <div>
+              <p className="mb-7 font-mono text-xs text-fg-subtle">lighting="scroll"</p>
+              <Card variant="glass" lighting="scroll">Scroll to centre</Card>
+            </div>
+          </div>
+          <CodeBlock
+            variants={{
+              react: `<Card variant="glass" lighting="hover">Hover me</Card>
+<Card variant="glass" lighting="press">Press me</Card>
+<Card variant="glass" lighting="scroll">Scroll to centre</Card>`,
+              js: `<l-Card variant="glass" lighting="hover">Hover me</l-Card>
+<l-Card variant="glass" lighting="press">Press me</l-Card>
+<l-Card variant="glass" lighting="scroll">Scroll to centre</l-Card>
+
+<script type="module">
+  import "lojee-ui/elements";
+</script>`,
+              vue: `<template>
+  <l-Card variant="glass" lighting="hover">Hover me</l-Card>
+  <l-Card variant="glass" lighting="press">Press me</l-Card>
+  <l-Card variant="glass" lighting="scroll">Scroll to centre</l-Card>
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-Card variant="glass" lighting="hover">Hover me</l-Card>
+    <l-Card variant="glass" lighting="press">Press me</l-Card>
+    <l-Card variant="glass" lighting="scroll">Scroll to centre</l-Card>
+  \`,
+})
+export class AppComponent {}`,
+            }}
+          />
+        </section>
+
+        <section>
           <SectionLabel sub="none, sm, md, lg.">Padding</SectionLabel>
           <Row>
             <Card padding="none">None</Card>

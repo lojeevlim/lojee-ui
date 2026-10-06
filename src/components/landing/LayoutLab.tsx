@@ -1,5 +1,6 @@
 import { highlightCode } from "../../core/highlightCode";
 import { useState } from "react";
+import { useGlassLighting } from "../../core/glassLighting";
 
 type Area = "top" | "side" | "main" | "footer";
 type Box = [x: number, y: number, w: number, h: number];
@@ -44,12 +45,13 @@ const AREA_STYLE: Record<Area, string> = {
 /** Interactive App-layout schematic: pick a preset and the four regions glide to their new places. */
 export default function LayoutLab() {
   const [i, setI] = useState(0);
+  const [lightRef, lightAttrs] = useGlassLighting<HTMLDivElement>("scroll");
   const p = PRESETS[i];
 
   return (
     <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)]">
       {/* Glass frame (same as Card variant="glass"): a frosted accent-tinted halo 10px outside the card. overflow-hidden, padding and the grid texture move to an inner wrapper so the halo isn't clipped; the card's fill moves to ::after. */}
-      <div className="relative isolate aspect-[16/10] rounded-2xl border border-border before:pointer-events-none before:absolute before:-inset-2.5 before:-z-20 before:rounded-[calc(var(--radius-2xl)+10px)] before:border before:border-accent-500/20 before:bg-accent-500/[0.07] before:backdrop-blur-2xl before:content-[''] after:pointer-events-none after:absolute after:inset-0 after:-z-10 after:rounded-[inherit] after:bg-surface-muted after:content-['']">
+      <div ref={lightRef} {...lightAttrs} className="relative isolate aspect-[16/10] rounded-2xl border border-border before:pointer-events-none before:absolute before:-inset-2.5 before:-z-20 before:rounded-[calc(var(--radius-2xl)+10px)] before:border before:border-accent-500/20 before:bg-accent-500/[0.07] before:backdrop-blur-2xl before:content-[''] after:pointer-events-none after:absolute after:inset-0 after:-z-10 after:rounded-[inherit] after:bg-surface-muted after:content-['']">
         <div className="lp-grid-fine relative h-full w-full overflow-hidden rounded-[inherit] p-3">
           <div className="relative h-full w-full">
             {(Object.keys(p.boxes) as Area[]).map((area) => {

@@ -85,6 +85,56 @@ export class ButtonShowcaseComponent {}`,
         />
       </section>
 
+      {/* LIGHTING — the glass variant's backlight (dark mode only) */}
+      <section>
+        <SectionLabel sub="Dark mode only: the glass frame lights up like a backlight in the button's colour. Switch the theme to dark and hover, press or scroll to see each one.">
+          Lighting
+        </SectionLabel>
+        <Row>
+          <div><p className="mb-4 font-mono text-xs text-fg-subtle">lighting="hover"</p><Button variant="glass" lighting="hover" label="Hover me" /></div>
+          <div><p className="mb-4 font-mono text-xs text-fg-subtle">lighting="press"</p><Button variant="glass" lighting="press" label="Press me" /></div>
+          <div><p className="mb-4 font-mono text-xs text-fg-subtle">lighting="scroll"</p><Button variant="glass" lighting="scroll" label="Scroll to centre" /></div>
+        </Row>
+        <CodeBlock
+          variants={{
+            react: `<Button variant="glass" lighting="hover" label="Hover me" />
+<Button variant="glass" lighting="press" label="Press me" />
+<Button variant="glass" lighting="scroll" label="Scroll to centre" />`,
+            js: `<l-Button variant="glass" lighting="hover" label="Hover me"></l-Button>
+<l-Button variant="glass" lighting="press" label="Press me"></l-Button>
+<l-Button variant="glass" lighting="scroll" label="Scroll to centre"></l-Button>
+
+<script type="module">
+  import "lojee-ui/elements";
+</script>`,
+            vue: `<template>
+  <l-Button variant="glass" lighting="hover" label="Hover me" />
+  <l-Button variant="glass" lighting="press" label="Press me" />
+  <l-Button variant="glass" lighting="scroll" label="Scroll to centre" />
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+</script>`,
+            angular: `// button-showcase.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-button-showcase",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-Button variant="glass" lighting="hover" label="Hover me" />
+    <l-Button variant="glass" lighting="press" label="Press me" />
+    <l-Button variant="glass" lighting="scroll" label="Scroll to centre" />
+  \`,
+})
+export class ButtonShowcaseComponent {}`,
+          }}
+        />
+      </section>
+
       {/* SIZES — includes full width */}
       <section>
         <SectionLabel sub="From compact (xs) to prominent (xl), plus a full-width stretch.">

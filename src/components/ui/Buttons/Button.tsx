@@ -21,6 +21,7 @@ import {
 import { getIcon } from "../../../core/icons";
 import { animatedClass, animatedStyle, type AnimatedProp } from "../../../core/animated";
 import { AnimatedOverlay } from "../../../core/AnimatedOverlay";
+import { useGlassLighting, type GlassLighting } from "../../../core/glassLighting";
 import { motionClass, motionStyle, type TransitionVariant, type HoverEffect } from "../../../core/motion";
 import { linearGradient, type GradientDirection } from "../../../core/gradient";
 
@@ -35,6 +36,8 @@ export interface ButtonProps {
   pulseGradientTo?: ColorName | (string & {});
   /** Visual style: "solid", "outline", "ghost", "soft", "link", "dashed", "destructive", "destructive-soft", "destructive-outline", "gradient" or "glass" (default: "solid"). */
   variant?: ButtonVariant;
+  /** Lights the glass variant's frame like a backlight, in the button's colour — dark mode only: "hover" (while hovered), "press" (while pressed, fading out after) or "scroll" (while it is at the vertical centre of the viewport). Ignored by the other variants (default: none). */
+  lighting?: GlassLighting;
   /** Button color: a built-in `ColorName` (default: "accent", which follows the theme accent) or any CSS color such as "#8b5cf6"; ignored by the destructive variants. */
   color?: ColorName | (string & {});
   /** Second color for the gradient variant: a `ColorName` or any CSS color such as "#ec4899" (defaults to a matching preset partner). */
@@ -87,8 +90,15 @@ export interface ButtonProps {
   };
 }
 
+const GLASS_CLASSES = [
+  "lojee-glass-btn relative isolate",
+  "before:pointer-events-none before:absolute before:-inset-1.5 before:-z-20 before:rounded-[var(--btn-frame-r)] before:border before:border-[color:color-mix(in_srgb,var(--btn-glass)_22%,transparent)] before:bg-[color-mix(in_srgb,var(--btn-glass)_8%,transparent)] before:backdrop-blur-[3px] before:content-['']",
+  "after:pointer-events-none after:absolute after:inset-0 after:-z-10 after:rounded-[inherit] after:bg-[inherit] after:content-['']",
+].join(" ");
+
 export function Button({
   variant = "solid",
+  lighting,
   color = "accent",
   gradientTo,
   gradientDirection = "to-right",
@@ -119,13 +129,24 @@ export function Button({
   // getIcon() always returns the same stable, module-level-imported
   // component reference for a given name, so this never actually causes a
   // remount — the lint rule can't verify that statically, hence the disable.
+  const [lightRef, lightAttrs] = useGlassLighting<HTMLButtonElement>(lighting, variant === "glass");
   const Icon = getIcon(icon);
   const base = BASE_BUTTON_CLASSES;
 
   let variantClass;
   let gradientStyle: CSSProperties | undefined;
   const custom = !isColorName(color) && !variant.startsWith("destructive");
-  if (custom) {
+  // "glass": a solid button inside Card's glass-style frame: a frosted, colour-tinted band just outside it (::before) and, in dark mode, a backlight in the colour.
+  let glassStyle: CSSProperties | undefined;
+  if (variant === "glass") {
+    const solid = custom ? customButtonStyle("solid", color) : undefined;
+    const colorSet = colorClasses[color as ColorName] || colorClasses.accent;
+    variantClass = cx(solid ? solid.className : colorSet.solid, GLASS_CLASSES);
+    // The frame's corners are concentric with the button's: its radius plus the 6px gap (Card does the same with +10px).
+    const token = size === "xs" || size === "sm" ? "--radius-md" : size === "xl" ? "--radius-xl" : "--radius-lg";
+    const frameRadius = shape === "pill" ? "9999px" : shape === "square" ? "6px" : `calc(var(${token}) + 6px)`;
+    glassStyle = { ...solid?.style, ["--btn-glass" as string]: isColorName(color) ? `var(--color-${color}-500)` : color, ["--btn-frame-r" as string]: frameRadius };
+  } else if (custom) {
     // Any CSS color: a few inline variables plus literal classes (see customButtonStyle).
     const c = customButtonStyle(variant, color);
     variantClass = variant === "gradient" ? cx(GRADIENT_CLASSES, c.className) : c.className;
@@ -138,9 +159,6 @@ export function Button({
     variantClass = destructiveClasses.outline;
   } else if (variant === "gradient") {
     variantClass = GRADIENT_CLASSES;
-  } else if (variant === "glass") {
-    const colorSet = colorClasses[color as ColorName] || colorClasses.slate;
-    variantClass = cx(colorSet.soft, "backdrop-blur-md border border-white/60 dark:border-white/10 shadow-sm");
   } else {
     const colorSet = colorClasses[color as ColorName] || colorClasses.slate;
     variantClass = colorSet[variant] || colorSet.solid;
@@ -157,10 +175,12 @@ export function Button({
 
   return (
     <button
+      ref={lightRef}
+      {...lightAttrs}
       type={type}
       disabled={disabled || loading}
       onClick={onClick}
-      style={{ ...gradientStyle, ...animatedStyle(animation, color, pulseColor, pulseGradientTo), ...motionStyle(transitionDuration, transitionDelay) }}
+      style={{ ...gradientStyle, ...glassStyle, ...animatedStyle(animation, color, pulseColor, pulseGradientTo), ...motionStyle(transitionDuration, transitionDelay) }}
       aria-label={iconOnly ? label : undefined}
       aria-haspopup={ariaHaspopup}
       aria-expanded={ariaExpanded}

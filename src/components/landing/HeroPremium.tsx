@@ -96,7 +96,7 @@ const INTERACTIVE = "input,textarea,select,button,a,label,[role='slider'],[role=
  */
 const Reel = memo(function Reel({ items, dir, speed }: { items: ReactNode[]; dir: 1 | -1; speed: number }) {
   const track = useRef<HTMLDivElement>(null);
-  const st = useRef({ x: 0, vel: 0, pressed: false, drag: false, moved: false, startX: 0, startPos: 0, lastX: 0, lastT: 0, id: -1 });
+  const st = useRef({ x: 0, target: 0, auto: 1, vel: 0, pressed: false, drag: false, moved: false, startX: 0, startPos: 0, lastX: 0, lastT: 0, id: -1 });
   const [grabbing, setGrabbing] = useState(false);
 
   const root = useRef<HTMLDivElement>(null);
@@ -110,23 +110,51 @@ const Reel = memo(function Reel({ items, dir, speed }: { items: ReactNode[]; dir
     let last = performance.now();
     let half = 0;
     let visible = true;
-    const measure = () => (half = el.scrollWidth / 2);
+    // The loop period is the distance from a card to its duplicate in the doubled list, measured from the cards themselves (scrollWidth / 2 is off by the
+    // wrappers' overflow, which made the loop jump at the seam). A reel also starts half a loop in, away from the seam, so dragging it never crosses it at once.
+    let placed = false;
+    const measure = () => {
+      const a = el.children[0]?.getBoundingClientRect();
+      const b = el.children[items.length]?.firstElementChild?.getBoundingClientRect(); // the duplicates sit in `display: contents` wrappers
+      const period = a && b ? b.left - a.left : 0;
+      if (period > 0) half = period;
+      if (half > 0 && !placed) {
+        placed = true;
+        st.current.x = st.current.target = st.current.startPos = -half / 2;
+      }
+    };
     measure();
     const ro = new ResizeObserver(measure);
     ro.observe(el);
+    let written = NaN;
     const tick = (now: number) => {
       const t = st.current;
       const dt = Math.min(64, now - last);
       last = now;
-      const moving = !t.drag && (Math.abs(t.vel) > 0.0005 || (!t.pressed && !reduce));
-      if (t.drag || moving) {
-        if (!t.drag) {
-          t.x += t.vel * dt;
-          t.vel = Math.abs(t.vel) < 0.0005 ? 0 : t.vel * Math.pow(0.94, dt / 16);
-          if (!t.pressed && !reduce) t.x += dir * speed * dt;
+      // The gliding speed eases to a stop when the reel is pressed or dragged and eases back up after the release, so nothing starts or stops with a jolt.
+      const goal = t.pressed || t.drag || reduce ? 0 : 1;
+      t.auto += (goal - t.auto) * (1 - Math.exp(-dt / 220));
+      if (Math.abs(goal - t.auto) < 0.002) t.auto = goal;
+      if (t.drag) {
+        // While dragging, the reel follows the pointer through a short ease instead of snapping to every pointer event, which smooths out jittery input.
+        t.x += (t.target - t.x) * (1 - Math.exp(-dt / 55));
+      } else {
+        t.x += t.vel * dt + dir * speed * t.auto * dt;
+        t.vel = Math.abs(t.vel) < 0.0005 ? 0 : t.vel * Math.pow(0.94, dt / 16);
+      }
+      if (half > 0) {
+        // keep it in (-half, 0] so the doubled list loops seamlessly (the drag target moves with it)
+        const wrapped = ((t.x % half) - half) % half;
+        const shift = wrapped - t.x;
+        if (shift) {
+          t.x = wrapped;
+          t.target += shift;
+          t.startPos += shift;
         }
-        if (half > 0) t.x = ((t.x % half) - half) % half; // keep it in (-half, 0] so the doubled list loops seamlessly
-        el.style.transform = `translate3d(${t.x}px,0,0)`;
+      }
+      if (t.x !== written) {
+        written = t.x;
+        el.style.transform = `translate3d(${t.x.toFixed(2)}px,0,0)`;
       }
       raf = visible ? requestAnimationFrame(tick) : 0;
     };
@@ -150,7 +178,7 @@ const Reel = memo(function Reel({ items, dir, speed }: { items: ReactNode[]; dir
       io.disconnect();
       ro.disconnect();
     };
-  }, [dir, speed]);
+  }, [dir, speed, items.length]);
 
   const onDown = (e: PointerEvent<HTMLDivElement>) => {
     if (e.pointerType === "mouse" && e.button !== 0) return;
@@ -162,6 +190,7 @@ const Reel = memo(function Reel({ items, dir, speed }: { items: ReactNode[]; dir
     t.moved = false;
     t.startX = t.lastX = e.clientX;
     t.startPos = t.x;
+    t.target = t.x;
     t.lastT = performance.now();
     t.vel = 0;
     t.id = e.pointerId;
@@ -175,7 +204,7 @@ const Reel = memo(function Reel({ items, dir, speed }: { items: ReactNode[]; dir
       setGrabbing(true);
     }
     if (!t.moved) return;
-    t.x = t.startPos + (e.clientX - t.startX);
+    t.target = t.startPos + (e.clientX - t.startX);
     const now = performance.now();
     const dt = Math.max(1, now - t.lastT);
     // Smooth the release velocity over several samples so one jittery event can't fling the reel.
@@ -197,7 +226,7 @@ const Reel = memo(function Reel({ items, dir, speed }: { items: ReactNode[]; dir
     <div
       ref={root}
       data-hero-reel
-      className="relative overflow-hidden py-6 [mask-image:linear-gradient(to_right,transparent,#000_8%,#000_92%,transparent)] [touch-action:pan-y]"
+      className="pointer-events-none relative overflow-hidden py-6 [mask-image:linear-gradient(to_right,transparent,#000_8%,#000_92%,transparent)] [touch-action:pan-y]"
       onPointerDown={onDown}
       onPointerMove={onMove}
       onPointerUp={onUp}
@@ -212,7 +241,7 @@ const Reel = memo(function Reel({ items, dir, speed }: { items: ReactNode[]; dir
       }}
     >
       {/* Doubled so wrapping at half the width loops seamlessly. */}
-      <div ref={track} className={`flex w-max gap-8 pr-8 will-change-transform select-none ${grabbing ? "pointer-events-none" : ""}`}>
+      <div ref={track} className={`flex h-52 w-max gap-8 pr-8 will-change-transform select-none ${grabbing ? "pointer-events-none [&_[data-hero-card]]:!scale-100" : "pointer-events-auto"}`}>
         {items}
         {items.map((c, i) => (
           <div key={`dup-${i}`} aria-hidden="true" className="contents">{c}</div>
@@ -232,9 +261,9 @@ const REELS: ReactNode[][] = [0, 1].map((r) => ALL_CARDS.filter((_, i) => i % 2 
 /** Premium hero stage: two reels of live, interactive components gliding left, under a light beam. */
 export default function HeroPremium() {
   return (
-    <div className="relative mt-16 text-left">
+    <div className="relative mt-2 text-left">
       <div className="lp-beam pointer-events-none absolute -top-24 left-1/2 -z-10 h-72 w-[70%] -translate-x-1/2" aria-hidden="true" />
-      <div className="space-y-0">
+      <div className="flow-root">
         <Reel items={REELS[0]} dir={-1} speed={0.045} />
         <Reel items={REELS[1]} dir={1} speed={0.036} />
       </div>

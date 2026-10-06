@@ -10,7 +10,7 @@ import { ThemeProvider } from './components/ui/Theme/ThemeProvider.tsx'
 import { syncFaviconWithTheme } from './core/favicon'
 
 // The site's own default look (until a visitor picks something else in the theme switcher, which is remembered).
-const SITE_THEME = { defaultMode: 'light', defaultAccent: 'violet', defaultDesign: 'clay', defaultActiveVariant: 'solid' } as const
+const SITE_THEME = { defaultMode: 'dark', defaultAccent: 'violet', defaultDesign: 'clay', defaultActiveVariant: 'solid' } as const
 
 // The browser-tab icon follows the theme accent.
 syncFaviconWithTheme()

@@ -285,7 +285,7 @@ function App() {
   }
 
   return (
-    <ThemeProvider defaultMode="light" defaultAccent="violet" defaultDesign="clay" defaultActiveVariant="solid">
+    <ThemeProvider defaultMode="dark" defaultAccent="violet" defaultDesign="clay" defaultActiveVariant="solid">
 
       <AppShell layout={APP_LAYOUT} collapseBelow="3xl">
         <Top>
@@ -325,7 +325,7 @@ function App() {
       title={`${found.item.label} Playground`}
       className="lg:max-w-6xl"
       classNames={{ body: 'pb-6' }}
-      transition="bounce"
+      transition="blur"
     >
       <Playground itemLabel={found.item.label} />
     </Modal>

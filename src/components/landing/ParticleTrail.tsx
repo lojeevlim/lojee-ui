@@ -23,12 +23,15 @@ export default function ParticleTrail() {
     const el = cv?.parentElement;
     const ctx = cv?.getContext("2d");
     if (!cv || !el || !ctx) return;
-    const f = { hx: 0, hy: 0, tx: 0, ty: 0, px: 0, py: 0, on: false, press: false, raf: 0, last: 0, tick: 0, color: "#8b5cf6", w: 0, h: 0, dpr: 1, dust: [] as Dust[] };
+    const f = { hx: 0, hy: 0, tx: 0, ty: 0, px: 0, py: 0, on: false, press: false, raf: 0, last: 0, tick: 0, color: "#8b5cf6", glow: false, w: 0, h: 0, dpr: 1, dust: [] as Dust[] };
 
     const loop = (now: number) => {
       const dt = Math.min(48, now - (f.last || now));
       f.last = now;
-      if (f.tick++ % 20 === 0 && probe.current) f.color = getComputedStyle(probe.current).color;
+      if (f.tick++ % 20 === 0 && probe.current) {
+        f.color = getComputedStyle(probe.current).color;
+        f.glow = document.documentElement.dataset.theme === "dark";
+      }
       // The emitter eases after the pointer and sheds dust along its path (more when it moves faster, a burst while pressed).
       f.hx += (f.tx - f.hx) * 0.35;
       f.hy += (f.ty - f.hy) * 0.35;
@@ -47,6 +50,10 @@ export default function ParticleTrail() {
       ctx.setTransform(f.dpr, 0, 0, f.dpr, 0, 0);
       ctx.clearRect(0, 0, f.w, f.h);
       ctx.fillStyle = f.color;
+      // Dark mode: the dust reads as light: additive blending plus a soft halo in its own colour.
+      ctx.globalCompositeOperation = f.glow ? "lighter" : "source-over";
+      ctx.shadowColor = f.color;
+      ctx.shadowBlur = f.glow ? 14 : 0;
       for (let i = f.dust.length - 1; i >= 0; i--) {
         const d = f.dust[i];
         d.life -= d.decay * dt;
@@ -59,6 +66,8 @@ export default function ParticleTrail() {
         ctx.fill();
       }
       ctx.globalAlpha = 1;
+      ctx.globalCompositeOperation = "source-over";
+      ctx.shadowBlur = 0;
       f.raf = f.on || f.dust.length ? requestAnimationFrame(loop) : 0;
       if (!f.raf) f.last = 0;
     };
@@ -109,7 +118,7 @@ export default function ParticleTrail() {
   return (
     <>
       {/* Resolves the theme accent to a real colour string for the canvas. */}
-      <span ref={probe} aria-hidden="true" className="pointer-events-none absolute h-0 w-0 text-accent-500" />
+      <span ref={probe} aria-hidden="true" className="lp-trail-probe pointer-events-none absolute h-0 w-0" />
       <canvas ref={canvas} aria-hidden="true" className="pointer-events-none absolute inset-0 z-[60] h-full w-full [@media(hover:none)]:hidden" />
     </>
   );

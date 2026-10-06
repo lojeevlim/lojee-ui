@@ -3,6 +3,7 @@ import { cx, type ColorName } from "../../../core/tokens";
 import { animatedClass, animatedStyle, type AnimatedProp } from "../../../core/animated";
 import { motionClass, motionStyle, type TransitionVariant, type HoverEffect } from "../../../core/motion";
 import { AnimatedOverlay } from "../../../core/AnimatedOverlay";
+import { useGlassLighting, type GlassLighting } from "../../../core/glassLighting";
 
 export type CardVariant = "outline" | "elevated" | "soft" | "ghost" | "glass";
 export type CardPadding = "none" | "sm" | "md" | "lg";
@@ -14,8 +15,10 @@ export interface CardProps {
   pulseColor?: ColorName | (string & {});
   /** Second color — turns the pulse ring and spinning border into a gradient from `pulseColor` to this (default: solid `pulseColor`). */
   pulseGradientTo?: ColorName | (string & {});
-  /** "outline" | "elevated" | "soft" | "ghost" | "glass" — border, shadow, muted background, no chrome, or a frosted-glass frame around the content (default: "outline"). */
+  /** "outline" | "elevated" | "soft" | "ghost" | "glass" — border, shadow, muted background, no chrome, or a frosted-glass frame around the content that, in dark mode, is backlit in the theme colour (default: "outline"). */
   variant?: CardVariant;
+  /** Lights the glass variant's frame like a backlight, in the theme colour — dark mode only: "hover" (while hovered), "press" (while pressed, fading out after) or "scroll" (while it is at the vertical centre of the viewport). Ignored by the other variants (default: none). */
+  lighting?: GlassLighting;
   /** Inner spacing: "none" | "sm" | "md" | "lg" (default: "md"). */
   padding?: CardPadding;
   /** Adds a hover shadow (and stronger border on the outline variant) for clickable cards (default: false). */
@@ -46,7 +49,7 @@ const VARIANT_CLASSES: Record<CardVariant, string> = {
   soft: "bg-surface-muted",
   ghost: "bg-transparent",
   glass:
-    "relative isolate before:pointer-events-none before:absolute before:-inset-2.5 before:-z-20 before:rounded-[calc(var(--radius-xl)+10px)] before:border before:border-accent-500/20 before:bg-accent-500/[0.07] before:backdrop-blur-2xl before:content-[''] border border-border after:pointer-events-none after:absolute after:inset-0 after:-z-10 after:rounded-[inherit] after:bg-surface after:content-['']",
+    "relative isolate before:pointer-events-none before:absolute before:-inset-2.5 before:-z-20 before:rounded-[calc(var(--radius-xl)+10px)] before:border before:border-accent-500/20 before:bg-accent-500/[0.07] before:backdrop-blur-lg before:content-[''] border border-border after:pointer-events-none after:absolute after:inset-0 after:-z-10 after:rounded-[inherit] after:bg-surface after:content-['']",
 };
 
 const PADDING_CLASSES: Record<CardPadding, string> = {
@@ -58,6 +61,7 @@ const PADDING_CLASSES: Record<CardPadding, string> = {
 
 export function Card({
   variant = "outline",
+  lighting,
   padding = "md",
   hoverable = false,
   title,
@@ -73,8 +77,11 @@ export function Card({
   transitionDelay,
   hoverEffect,
 }: CardProps) {
+  const [lightRef, lightAttrs] = useGlassLighting<HTMLDivElement>(lighting, variant === "glass");
   return (
     <div
+      ref={lightRef}
+      {...lightAttrs}
       className={cx(
         "rounded-xl",
         VARIANT_CLASSES[variant],

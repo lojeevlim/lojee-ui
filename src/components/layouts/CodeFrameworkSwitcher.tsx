@@ -26,7 +26,7 @@ export default function CodeFrameworkSwitcher({ transition, transitionDuration, 
       value={framework}
       
       onChange={(e) => setFramework(e.target.value as CodeFramework)}
-      transition={transition ?? "bounce"}
+      transition={transition ?? "fade"}
       transitionDuration={transitionDuration}
       transitionDelay={transitionDelay}
       hoverEffect={hoverEffect}

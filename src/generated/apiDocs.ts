@@ -1742,6 +1742,13 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": "\"solid\""
           },
           {
+            "name": "lighting",
+            "type": "GlassLighting",
+            "required": false,
+            "description": "Lights the glass variant's frame like a backlight, in the button's colour — dark mode only: \"hover\" (while hovered), \"press\" (while pressed, fading out after) or \"scroll\" (while it is at the vertical centre of the viewport). Ignored by the other variants (default: none).",
+            "default": null
+          },
+          {
             "name": "color",
             "type": "ColorName | (string & {})",
             "required": false,
@@ -1910,6 +1917,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "pulseColor": "string",
             "pulseGradientTo": "string",
             "variant": "string",
+            "lighting": "string",
             "color": "string",
             "gradientTo": "string",
             "gradientDirection": "string",
@@ -2944,8 +2952,15 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "name": "variant",
             "type": "CardVariant",
             "required": false,
-            "description": "\"outline\" | \"elevated\" | \"soft\" | \"ghost\" — border, shadow, muted background or no chrome (default: \"outline\").",
+            "description": "\"outline\" | \"elevated\" | \"soft\" | \"ghost\" | \"glass\" — border, shadow, muted background, no chrome, or a frosted-glass frame around the content that, in dark mode, is backlit in the theme colour (default: \"outline\").",
             "default": "\"outline\""
+          },
+          {
+            "name": "lighting",
+            "type": "GlassLighting",
+            "required": false,
+            "description": "Lights the glass variant's frame like a backlight, in the theme colour — dark mode only: \"hover\" (while hovered), \"press\" (while pressed, fading out after) or \"scroll\" (while it is at the vertical centre of the viewport). Ignored by the other variants (default: none).",
+            "default": null
           },
           {
             "name": "padding",
@@ -3029,6 +3044,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
           "tag": "l-card",
           "props": {
             "variant": "string",
+            "lighting": "string",
             "padding": "string",
             "hoverable": "boolean",
             "title": "string",
@@ -3048,7 +3064,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
     ],
     "hooks": [],
     "types": {
-      "CardVariant": "\"outline\" | \"elevated\" | \"soft\" | \"ghost\"",
+      "CardVariant": "\"outline\" | \"elevated\" | \"soft\" | \"ghost\" | \"glass\"",
       "CardPadding": "\"none\" | \"sm\" | \"md\" | \"lg\""
     },
     "dataTypes": []

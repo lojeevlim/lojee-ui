@@ -55,7 +55,7 @@ function usePageScroll(ref: React.RefObject<HTMLElement | null>) {
 
 // A fixed crowd of ambient particles, laid out once: each starts on the element's edge (an ellipse around it), drifts outward along its own
 // direction and distance, and has its own size and delay. Deterministic (no Math.random), so server and client render the same markup.
-const AMBIENT = 60;
+const AMBIENT = 120;
 const rand = (i: number, k: number) => {
   const x = Math.sin(i * 12.9898 + k * 78.233) * 43758.5453;
   return x - Math.floor(x);
@@ -86,7 +86,7 @@ function ParticlesOverlay() {
     // A click sends out ONE pulse, like the dotted scrollbar's end burst: a ripple ring expands from the element while a crowd of particles flies
     // out of its edge. Each particle is a short-lived element with its own start point on the element's edge,
     // direction, distance, size and delay (set as CSS variables), removed once its animation has played.
-    const BURST = 38;
+    const BURST = 70;
     const onClick = () => {
       const r = host.getBoundingClientRect();
       for (let i = 0; i < BURST; i++) {

@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useRef, useState, type PointerEvent, type ReactNode } from "react";
+import { lazy, Suspense, useEffect, useRef, useState, type CSSProperties, type PointerEvent, type ReactNode } from "react";
 import { PageScrollbar } from "../ui/DotScroll/PageScrollbar"
 import { useNavigate } from "react-router-dom";
 import "./landing.css";
@@ -53,19 +53,33 @@ const FEATURES: { icon: string; title: string; body: string; span?: string }[] =
   { icon: "table-2", title: "Data that feels alive", body: "Skeleton loading, charts and stats that count up from zero, and tables with built-in edit, duplicate and delete." },
   { icon: "map", title: "Maps, markers and routes", body: "MapLibre-powered maps with draggable markers and turn-by-turn routes, loaded only when shown." },
   { icon: "layout-dashboard", title: "App layout system", body: "Top, side, main and footer on a container-query grid that collapses to a drawer.", span: "lg:col-span-2" },
-  { icon: "zap", title: "Tailwind v4 native", body: "One @import. No config, no compiled stylesheet, nothing to fight." },
+  { icon: "zap", title: "Tailwind v4 native", body: "One @import. No config, no compiled stylesheet, nothing to fight.", span: "lg:col-span-2" },
 ];
+
+// Specks drifting down out of the dark-mode top glow while the pointer hasn't moved yet (see .lp-rest-dust in landing.css). Fixed values so the markup is stable.
+const REST_DUST = Array.from({ length: 320 }, (_, i) => ({
+  left: `calc(50% + ${(((i * 53) % 101) - 50) * 4.4}px)`,
+  "--sz": `${1.5 + (i % 3)}px`,
+  "--dur": `${3.6 + (i % 6) * 0.6}s`,
+  "--dl": `${((i * 0.31) % 3.6).toFixed(2)}s`,
+  "--dx": `${((i % 2 ? 1 : -1) * (4 + (i % 5) * 5))}px`,
+  "--dy": `${90 + (i % 7) * 42}px`,
+}) as CSSProperties);
 
 function Stat({ target, suffix = "", label, active }: { target: number; suffix?: string; label: string; active: boolean }) {
   const n = useCountUp(target, active);
   return (
-    <div onPointerMove={spotlight} className="lp-spot group relative px-6 py-8 text-center transition-colors duration-300 md:py-10">
-      <p className="bg-gradient-to-b from-fg to-fg/55 bg-clip-text text-4xl font-semibold tabular-nums tracking-tight text-transparent md:text-5xl">
-        {n}
-        {suffix && <span className="text-accent-500">{suffix}</span>}
+    <div className="px-3 py-3 text-center md:py-4">
+      <p className="lp-clay-text text-2xl tabular-nums md:text-3xl">
+        <span className="lp-clay-shaded">
+          <span className="lp-clay-ink">
+            {n}
+            {suffix}
+          </span>
+        </span>
       </p>
-      <span className="mx-auto mt-3 block h-px w-8 bg-gradient-to-r from-transparent via-accent-500 to-transparent transition-all duration-500 group-hover:w-16" aria-hidden="true" />
-      <p className="mt-3 font-mono text-[11px] uppercase tracking-[0.2em] text-fg-subtle">{label}</p>
+      <span className="mx-auto mt-1.5 block h-px w-5 bg-gradient-to-r from-transparent via-accent-500 to-transparent" aria-hidden="true" />
+      <p className="mt-1.5 font-mono text-[9px] uppercase tracking-[0.18em] text-fg-subtle">{label}</p>
     </div>
   );
 }
@@ -154,10 +168,10 @@ function Nav({ groups, onStart }: { groups: typeof COMPONENT_MENU; onStart: () =
           <div className="ml-auto flex items-center gap-2">
             {isMobile ? (
               <Tooltip content="Change theme" position="bottom" color="accent" open={themeHint}>
-                <ThemeSwitcher align="center"  transition="bounce"  />
+                <ThemeSwitcher align="center"  transition="blur"  />
               </Tooltip>
             ) : (
-              <ThemeSwitcher align="center"  transition="bounce"  />
+              <ThemeSwitcher align="center"  transition="blur"  />
             )}
             <Button variant="ghost" size="sm" icon="git-branch" label="GitHub" onClick={() => window.open(REPO_URL, "_blank", "noopener")} />
             <Button size="sm" label="Get Started" onClick={onStart} />
@@ -187,6 +201,30 @@ export default function LandingPage() {
   const [copied, setCopied] = useState(false);
   const [statsRef, statsSeen] = useInView<HTMLDivElement>(0.4);
   useEffect(prefetchSections, []);
+  // "Built for real applications": the feature cards light up one by one by scroll position. A line at 60% of the viewport height travels down the grid as you
+  // scroll; the grid's height is split evenly between the cards, so each one stays lit while the line is inside its share, in reading order.
+  const featRef = useRef<HTMLDivElement>(null);
+  const [litFeat, setLitFeat] = useState(-1);
+  useEffect(() => {
+    const el = featRef.current;
+    if (!el || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const r = el.getBoundingClientRect();
+      const p = (window.innerHeight * 0.6 - r.top) / r.height;
+      setLitFeat(p < 0 || p >= 1 ? -1 : Math.min(FEATURES.length - 1, Math.floor(p * FEATURES.length)));
+    };
+    const onScroll = () => { if (!raf) raf = requestAnimationFrame(update); };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true, capture: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("scroll", onScroll, { capture: true });
+      window.removeEventListener("resize", onScroll);
+    };
+  }, []);
 
   const groups = COMPONENT_MENU.filter((g) => g.items?.length);
   const total = new Set(groups.flatMap((g) => g.items!.map((i) => i.label))).size;
@@ -221,31 +259,34 @@ export default function LandingPage() {
     const az = (Math.atan2(ly, lx) * 180) / Math.PI;
     clayFilter.current?.querySelectorAll<SVGFEDistantLightElement>("feDistantLight").forEach((d) => d.setAttribute("azimuth", String(az)));
   };
-  // Ease the light toward the pointer direction instead of snapping (SVG filter attributes can't use CSS transitions). The light is an angle that
-  // eases along the shortest way round with a time-based exponential ease (same feel at any frame rate), so a pointer crossing to the opposite
-  // side swings the light round smoothly instead of collapsing through the middle.
-  const REST_ANGLE = Math.atan2(-0.8, -0.6);
-  const light = useRef({ a: REST_ANGLE, ta: REST_ANGLE, t: 0, raf: 0 });
-  const easeLight = (now: number) => {
-    const l = light.current;
+  // The hover spotlight is lit by a point light at the pointer itself, so the shading changes by area (like the colour does) instead of by a global
+  // direction: letters near the pointer are lit toward it. SVG filter attributes can't use CSS transitions, so the light eases toward the pointer with a
+  // time-based exponential ease (same feel at any frame rate), trailing it smoothly.
+  const spotLight = useRef({ x: 0, y: 0, tx: 0, ty: 0, t: 0, raf: 0 });
+  const easeSpotLight = (now: number) => {
+    const l = spotLight.current;
     const dt = Math.min(now - (l.t || now), 64);
     l.t = now;
-    let d = l.ta - l.a;
-    d = Math.atan2(Math.sin(d), Math.cos(d));
-    l.a += d * (1 - Math.exp(-dt / 160));
-    setClayLight(Math.cos(l.a), Math.sin(l.a));
-    if (Math.abs(d) > 0.002) l.raf = requestAnimationFrame(easeLight);
+    const k = 1 - Math.exp(-dt / 220);
+    l.x += (l.tx - l.x) * k;
+    l.y += (l.ty - l.y) * k;
+    clayFilter.current?.querySelectorAll<SVGFEPointLightElement>("fePointLight").forEach((p) => {
+      p.setAttribute("x", String(l.x));
+      p.setAttribute("y", String(l.y));
+    });
+    if (Math.abs(l.tx - l.x) + Math.abs(l.ty - l.y) > 0.3) l.raf = requestAnimationFrame(easeSpotLight);
     else { l.raf = 0; l.t = 0; }
-  };
-  const steerLight = (angle: number) => {
-    const l = light.current;
-    l.ta = angle;
-    if (!l.raf) l.raf = requestAnimationFrame(easeLight);
   };
   const onTitleMove = (e: PointerEvent<HTMLElement>) => {
     const r = e.currentTarget.getBoundingClientRect();
     e.currentTarget.style.setProperty("--hx", `${e.clientX - r.left}px`);
     e.currentTarget.style.setProperty("--hy", `${e.clientY - r.top}px`);
+    const l = spotLight.current;
+    l.tx = e.clientX - r.left;
+    l.ty = e.clientY - r.top;
+    // First move after entering: start the light at the pointer instead of sweeping in from wherever it last was.
+    if (!l.raf && !l.x && !l.y) { l.x = l.tx; l.y = l.ty; }
+    if (!l.raf) l.raf = requestAnimationFrame(easeSpotLight);
   };
   const onHeroMove = (e: PointerEvent<HTMLElement>) => {
     const g = glowPos.current;
@@ -260,16 +301,31 @@ export default function LandingPage() {
       const r = g.el.getBoundingClientRect();
       glow.style.setProperty("--mx", `${g.x - r.left}px`);
       glow.style.setProperty("--my", `${g.y - r.top}px`);
-      const t = heroTitle.current?.getBoundingClientRect();
-      if (t && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-        const dx = g.x - (t.left + t.width / 2);
-        const dy = g.y - (t.top + t.height / 2);
-        steerLight(Math.atan2(dy, dx));
-      }
     });
   };
 
   useEffect(() => setClayLight(-0.6, -0.8), []);
+
+  // Dark mode: until the pointer first moves, a light acts like the pointer resting at the top centre of the heading (a beam from just below the navbar leads down to it), lighting only the top of the letters
+  // (see [data-rest] in landing.css; the shading's point light starts there too). Once the pointer moves, the heading behaves as usual.
+  const [restLight, setRestLight] = useState(true);
+  useEffect(() => {
+    const h = heroTitle.current;
+    if (h) {
+      const l = spotLight.current;
+      // The light acts like a pointer resting on the top centre of the heading, so only the top of the letters is lit.
+      h.style.setProperty("--rest-y", "0px");
+      l.x = l.tx = h.getBoundingClientRect().width / 2;
+      l.y = l.ty = 0;
+      clayFilter.current?.querySelectorAll<SVGFEPointLightElement>("fePointLight").forEach((p) => {
+        p.setAttribute("x", String(l.x));
+        p.setAttribute("y", String(l.y));
+      });
+    }
+    const off = () => setRestLight(false);
+    window.addEventListener("pointermove", off, { once: true, passive: true });
+    return () => window.removeEventListener("pointermove", off);
+  }, []);
 
   return (
     <div className="min-h-screen overflow-x-clip bg-surface text-fg">
@@ -279,9 +335,9 @@ export default function LandingPage() {
       {/* Bumped clay letters, like the clay Button: the glyph alpha is blurred into a height map and lit with a distant light (diffuse only: soft matte shading across the bump, no specular sheen so it never looks glossy), so the letters look puffed out instead of outlined. The light's azimuth and the drop offset follow the pointer (setClayLight). #lp-clay-letters adds the Button-style drop shadow; #lp-clay-spot (the hover spotlight copy) is the same bump without it. */}
       <svg ref={clayFilter} width="0" height="0" aria-hidden className="pointer-events-none absolute">
         {[
-          { id: "lp-clay-letters", drop: false },
-          { id: "lp-clay-spot", drop: false },
-        ].map(({ id, drop }) => (
+          { id: "lp-clay-letters", drop: false, point: false },
+          { id: "lp-clay-spot", drop: false, point: true },
+        ].map(({ id, drop, point }) => (
           <filter key={id} id={id} x="-20%" y="-35%" width="140%" height="190%" colorInterpolationFilters="sRGB">
             {drop && (
               <>
@@ -293,7 +349,7 @@ export default function LandingPage() {
             )}
             <feGaussianBlur in="SourceAlpha" stdDeviation="3.2" result="bump" />
             <feDiffuseLighting in="bump" surfaceScale="6" diffuseConstant="1" lightingColor="#fff" result="diffuse">
-              <feDistantLight azimuth="233" elevation="52" />
+              {point ? <fePointLight x="0" y="0" z="70" /> : <feDistantLight azimuth="233" elevation="52" />}
             </feDiffuseLighting>
             <feComposite in="SourceGraphic" in2="diffuse" operator="arithmetic" k1="1.22" k2="0" k3="0" k4="0" result="shaded" />
             <feComposite in="shaded" in2="SourceAlpha" operator="in" result="body" />
@@ -307,18 +363,24 @@ export default function LandingPage() {
 
       {/* Hero */}
       {/* z-20: the hero (its cards' shadows and glows, which spill past the section) paints above the sections that follow it. */}
-      <section onPointerMove={onHeroMove} onPointerLeave={() => steerLight(REST_ANGLE)} className="relative isolate z-20">
+      <section onPointerMove={onHeroMove} className="relative isolate z-20">
         <ParticleTrail />
+        <div data-rest={restLight ? "" : undefined} className="lp-rest-beam" aria-hidden="true" />
+        {restLight && (
+          <div data-rest="" className="lp-rest-dust" aria-hidden="true">
+            {REST_DUST.map((style, i) => <i key={i} style={style} />)}
+          </div>
+        )}
         <div className="lp-grid pointer-events-none absolute inset-0 -z-10" />
-        <div ref={heroGlow} className="lp-glow pointer-events-none absolute inset-0 -z-10" />
+        <div ref={heroGlow} data-rest={restLight ? "" : undefined} className="lp-glow pointer-events-none absolute inset-0 -z-10" />
         <div className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-32 bg-gradient-to-t from-surface to-transparent" />
-        <div className="mx-auto max-w-6xl px-5 pt-14 text-center lg:pt-24">
+        <div className="mx-auto flex min-h-screen max-w-6xl flex-col items-center justify-start px-5 pt-14 text-center lg:pt-24">
           <button type="button" onClick={() => navigate(pathFor("docs", "Changelog"))} className="lp-enter inline-flex max-w-full cursor-pointer items-center gap-2 rounded-full border border-border bg-surface/70 py-1 pl-1 pr-3 text-xs text-fg-muted shadow-sm" style={{ ["--d" as string]: "0ms" }}>
             <span className="relative z-10 inline-flex"><Badge variant="solid" label="New" animation="sweep" /></span>
             <span className="truncate">{LATEST_UPDATE}</span>
             <Icon name="arrow-right" size={12} />
           </button>
-          <h1 ref={heroTitle} onPointerMove={onTitleMove} className="lp-enter lp-clay-text relative mx-auto mt-7 w-fit max-w-5xl text-[3.4rem] leading-[1.05] md:text-[5.25rem] lg:text-[6rem]" style={{ ["--d" as string]: "100ms" }}>
+          <h1 ref={heroTitle} data-rest={restLight ? "" : undefined} onPointerMove={onTitleMove} className="lp-enter lp-clay-text relative mx-auto mt-7 w-fit max-w-5xl text-[3.4rem] leading-[1.05] md:text-[5.25rem] lg:text-[6rem]" style={{ ["--d" as string]: "100ms" }}>
             <span className="lp-clay-shaded">
               <span className="lp-clay-ink">Interfaces that fit every framework.</span>
             </span>
@@ -333,7 +395,7 @@ export default function LandingPage() {
             {total}+ themeable components for React, shipped as Web Components for Vue, Angular and plain JavaScript — with motion, maps and live data built in.
           </p>
           <div className="lp-enter mt-12 flex flex-wrap items-center justify-center gap-3" style={{ ["--d" as string]: "300ms" }}>
-            <Button size="lg" animation={["particles", "tail"]} icon="arrow-right" iconPosition="right" label="Get Started" onClick={start} />
+            <Button size="lg" icon="arrow-right" iconPosition="right" label="Get Started" onClick={start} />
             <Button size="lg" variant="outline" label="Browse components" onClick={() => navigate(pathFor("components", groups[0].items![0].label))} />
           </div>
           <button
@@ -353,19 +415,17 @@ export default function LandingPage() {
             </span>
           </button>
         </div>
-        <div className="lp-enter pt-12 pb-10 lg:pt-20 lg:pb-14" style={{ ["--d" as string]: "500ms" }}>
-          <Suspense fallback={<div className="mt-16 min-h-[30rem]" />}><HeroPremium /></Suspense>
+        {/* Stats: a compact row between the hero text and the card reels */}
+        <div className="mx-auto max-w-3xl px-5 pb-6 pt-4">
+          <div ref={statsRef} className="relative overflow-hidden rounded-3xl border border-border bg-surface/60 shadow-xl shadow-black/5 [&>div]:border-border max-md:[&>div:nth-child(odd)]:border-r max-md:[&>div:nth-child(-n+2)]:border-b md:grid-cols-4 md:[&>div:not(:last-child)]:border-r grid grid-cols-2">
+            <Stat active={statsSeen} target={total} suffix="+" label="Components" />
+            <Stat active={statsSeen} target={TRANSITIONS.length} label="Enter transitions" />
+            <Stat active={statsSeen} target={ANIMATED_VARIANTS.length} label="Attention effects" />
+            <Stat active={statsSeen} target={ACCENTS.length + PRESET_ACCENTS.length} suffix="+" label="Accent colors" />
+          </div>
         </div>
-      </section>
-
-      {/* Stats */}
-      <section className="mx-auto max-w-6xl px-5 pb-16 pt-4">
-        <div ref={statsRef} className="relative overflow-hidden rounded-3xl border border-border bg-surface/60 shadow-xl shadow-black/5 [&>div]:border-border max-md:[&>div:nth-child(odd)]:border-r max-md:[&>div:nth-child(-n+2)]:border-b md:grid-cols-4 md:[&>div:not(:last-child)]:border-r grid grid-cols-2">
-          <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent-500/70 to-transparent" aria-hidden="true" />
-          <Stat active={statsSeen} target={total} suffix="+" label="Components" />
-          <Stat active={statsSeen} target={TRANSITIONS.length} label="Enter transitions" />
-          <Stat active={statsSeen} target={ANIMATED_VARIANTS.length} label="Attention effects" />
-          <Stat active={statsSeen} target={ACCENTS.length + PRESET_ACCENTS.length} suffix="+" label="Accent colors" />
+        <div className="lp-enter pt-2 pb-2 lg:pt-2 lg:pb-2" style={{ ["--d" as string]: "500ms" }}>
+          <Suspense fallback={<div className="mt-16 min-h-[30rem]" />}><HeroPremium /></Suspense>
         </div>
       </section>
 
@@ -374,11 +434,11 @@ export default function LandingPage() {
       </Section>
 
       <Section eyebrow="Everything included" title="Built for real applications">
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <div ref={featRef} className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           {FEATURES.map((f, i) => (
             <Reveal key={f.title} delay={i * 60} className={f.span}>
-              <div onPointerMove={spotlight} className="lp-spot group h-full rounded-2xl border border-border bg-surface p-5 transition-all duration-300 hover:-translate-y-1 hover:border-accent-500/50 hover:shadow-lg hover:shadow-black/5">
-                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent-500/10 text-accent-600 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3 dark:text-accent-400">
+              <div onPointerMove={spotlight} data-lit={litFeat === i ? "" : undefined} className="lp-spot lp-feat group h-full rounded-2xl border border-border bg-surface p-5 transition-all duration-300 hover:-translate-y-1 hover:border-accent-500/50 hover:shadow-lg hover:shadow-black/5">
+                <span className="lp-feat-icon relative flex h-10 w-10 items-center justify-center rounded-xl bg-accent-500/10 text-accent-600 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3 dark:text-accent-400">
                   <Icon name={f.icon} size={20} />
                 </span>
                 <h3 className="mt-4 text-base font-semibold text-fg">{f.title}</h3>
@@ -390,15 +450,15 @@ export default function LandingPage() {
       </Section>
 
       <Section eyebrow="Look & feel" title="Make it move. Make it yours." body="Choose how components enter, react and respond to a hover — then set the mode, accent and style in one click. Every change is live, themeable and respects reduced-motion.">
-        <LazyOnView minHeight={720}><LookAndFeelLab /></LazyOnView>
+        <LazyOnView minHeight={400}><LookAndFeelLab /></LazyOnView>
       </Section>
 
       <Section eyebrow="Data" title="Tables that load, edit and react" body="Tables show shimmering skeleton rows while data loads, switch between a table and a card grid, and let users select, edit, duplicate or delete rows with no extra code.">
-        <LazyOnView minHeight={640}><DataLab /></LazyOnView>
+        <LazyOnView minHeight={400}><DataLab /></LazyOnView>
       </Section>
 
       <Section eyebrow="Maps" title="Interactive maps, markers and routes" body="A MapLibre vector map with free basemaps — no API key. It follows your light and dark theme, loads only when shown, and composes with draggable markers, popups and animated routes.">
-        <LazyOnView minHeight={760}><MapLab /></LazyOnView>
+        <LazyOnView minHeight={400}><MapLab /></LazyOnView>
       </Section>
 
       <Section eyebrow="App layout" title="Arrange a whole app with a matrix" body="Describe the layout as rows and columns of region names. The grid, the responsive drawer and the transitions come for free.">

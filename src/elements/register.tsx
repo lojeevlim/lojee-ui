@@ -120,6 +120,7 @@ customElements.define(
       pulseColor: "string",
       pulseGradientTo: "string",
       variant: "string",
+      lighting: "string",
       color: "string",
       gradientTo: "string",
       gradientDirection: "string",
@@ -314,7 +315,7 @@ customElements.define(
   "l-card",
   r2wc(withTailwind(withSlots(Card, { footer: "footer", children: "" })), {
     shadow: "open",
-    props: { variant: "string", padding: "string", hoverable: "boolean", title: "string", footer: "string", animation: "string", pulseColor: "string", pulseGradientTo: "string", transition: "string", transitionDuration: "number", transitionDelay: "number", hoverEffect: "string" },
+    props: { variant: "string", lighting: "string", padding: "string", hoverable: "boolean", title: "string", footer: "string", animation: "string", pulseColor: "string", pulseGradientTo: "string", transition: "string", transitionDuration: "number", transitionDelay: "number", hoverEffect: "string" },
   })
 );
 

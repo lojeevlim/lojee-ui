@@ -2,8 +2,35 @@
 export interface ChangelogCommit { sha: string; short: string; date: string; author: string; email: string; subject: string; body: string }
 
 export const PACKAGE_VERSION = "0.1.0-alpha.14";
-export const CHANGELOG_GENERATED_AT = "2026-10-06T04:17:49.863Z";
+export const CHANGELOG_GENERATED_AT = "2026-10-06T14:05:17.443Z";
 export const CHANGELOG: ChangelogCommit[] = [
+  {
+    "sha": "34ce7729383ed46a68e9acf2f5730a48c319d2c5",
+    "short": "34ce772",
+    "date": "2026-10-06T19:35:19+08:00",
+    "author": "lojeevlim",
+    "email": "lojeevlim@gmail.com",
+    "subject": "Landing: \"New\" badge in the hero uses the sweep animation",
+    "body": ""
+  },
+  {
+    "sha": "40038cad94d1762efb2cb5ca8ad01757369f3323",
+    "short": "40038ca",
+    "date": "2026-10-06T19:32:40+08:00",
+    "author": "lojeevlim",
+    "email": "lojeevlim@gmail.com",
+    "subject": "Hero: no card hover effects, particle-trail pointer over reels and heading; fix Navbar/Footer cards and ProfileCard avatar",
+    "body": "- Hero cards: remove hover lift/scale/glow, the cursor spotlight and the cursor parallax; cards only react when pressed\n- ParticleTrail: canvas tail of theme-coloured particles that follows the mouse over the reels and the hero heading\n- Navbar variants and Footer hero cards: fixed-width wrapper scaled by Fit, no clipped frames\n- ProfileCard: no avatar ring, solid backing so the banner no longer shows through in dark mode, avatar above the banner\n- Hero spacing: stats row sits closer to the card reels"
+  },
+  {
+    "sha": "9135f203ad29a38a5ac466348b82915002f4b50a",
+    "short": "9135f20",
+    "date": "2026-10-06T14:16:49+08:00",
+    "author": "lojeevlim",
+    "email": "lojeevlim@gmail.com",
+    "subject": "Landing: clay hero heading, glass frames on lab cards, React + Tailwind in the framework diagram, Card glass \"Coming soon\"",
+    "body": "- Hero heading: Nunito, matte SVG diffuse-lighting bump (no gloss), softer accent-tinted dark ink, hover spotlight in theme colours,\nsmoother angle-based pointer light that eases back to rest, more hero spacing\n- Glass frame on the preview/right-hand cards of the Look & feel, Data and Framework labs and the App layout card\n- FlowDiagram: wide logos get a wider box; source node shows React + Tailwind\n- Card: glass variant; docs demo tagged with an amber \"Coming soon\" badge"
+  },
   {
     "sha": "51c346da2b0d76506c949a363053c1165d2ec6b4",
     "short": "51c346d",

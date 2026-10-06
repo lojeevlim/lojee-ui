@@ -89,7 +89,7 @@ const REEL_1: ReactNode[] = [
       <Button size="sm" variant="soft" label="Soft" />
       <Button size="sm" variant="ghost" label="Ghost" />
       <Button size="sm" variant="gradient" label="Gradient" />
-      <Button size="sm" variant="glass" label="Glass" />
+      <Button size="sm" variant="glass" lighting="scroll" label="Glass" />
       <Button size="sm" variant="dashed" label="Dashed" />
       <Button size="sm" variant="link" label="Link" />
     </div>

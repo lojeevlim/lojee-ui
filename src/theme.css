@@ -1853,18 +1853,17 @@ body[data-design="clay"] {
   background-color: transparent;
 }
 
-/* Landing hero reels clip their overflow, which sliced the cards' long Clay drop shadows flat at the bottom; leave room for them.
-   (No hover effects on the cards — they only react when pressed or when the reel is dragged.) */
-[data-design="clay"] [data-hero-reel] {
-  padding-top: 1.75rem; /* room for the cards' 10px glass frame */
-  padding-bottom: 2.5rem;
+/* Landing hero reels: each reel's box fits its cards (the track is exactly one card tall, see HeroPremium) with a bit of room around them for the glass frame; the reel clips anything further out, so a lit card's glow is cut at that margin.
+   The two rows then sit one gap apart: the room under the first reel overlaps the room above the second. */
+[data-hero-reel] {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
   position: relative;
 }
-/* ...and the two rows sit close: the first reel's shadow room overlaps the second's empty top padding. */
-[data-design="clay"] [data-hero-reel]:not(:last-child) { margin-bottom: -1.5rem; }
+[data-hero-reel]:not(:last-child) { margin-bottom: -1rem; }
 
 /* Landing hero cards: no hover effect; a press (click / touch) sinks the card into the clay well. */
-[data-design="clay"] [data-hero-card]:active {
+[data-design="clay"] [data-hero-card]:active > * {
   box-shadow: var(--clay-well) !important;
 }
 
@@ -1885,3 +1884,28 @@ body[data-design="clay"] {
   border-radius: 9999px;
   box-shadow: 4px 6px 12px var(--clay-drop), var(--clay-gloss);
 }
+
+/* Button variant="glass": the solid base is painted on an ::after layer above the frosted frame, which also covers the button's own inset shading. In the clay design that layer therefore carries the same inset gloss as the "solid" variant (the outer drop shadow still comes from the button itself). */
+[data-design="clay"] .lojee-glass-btn::after {
+  box-shadow: var(--clay-gloss);
+}
+
+/* Glass lighting (Card / Button variant="glass" with `lighting`; the outer glow's size can be tuned with --glass-glow-a / -sa / -b / -sb: blur and spread of the tight and the wide layer), dark mode only: the frosted frame (::before) is lit like a backlight in the component's colour (--btn-glass on a Button, the theme accent on a Card). "hover" and "press" are plain :hover / :active (the light fades out slowly after a press); "scroll" is the data-lit flag set while the element is well inside the viewport. */
+[data-lighting]::before {
+  transition: background-color 0.9s ease, border-color 0.9s ease, box-shadow 0.9s ease, backdrop-filter 0.9s ease;
+}
+:is([data-lighting="hover"]:hover, [data-lighting="press"]:active, [data-lighting="scroll"][data-lit]):where([data-theme="dark"] *):not(:where([data-theme="dark"] [data-theme="light"] *))::before {
+  background-color: color-mix(in srgb, var(--btn-glass, var(--color-accent-500)) 34%, transparent);
+  background-image: linear-gradient(135deg, rgb(255 255 255 / 0.5) 0%, rgb(255 255 255 / 0.1) 24%, transparent 46%, transparent 70%, rgb(255 255 255 / 0.24) 100%);
+  -webkit-backdrop-filter: blur(6px) saturate(1.8) brightness(1.12);
+  backdrop-filter: blur(6px) saturate(1.8) brightness(1.12);
+  border-color: color-mix(in srgb, white 65%, var(--btn-glass, var(--color-accent-300)));
+  box-shadow:
+    0 0 var(--glass-glow-a, 14px) var(--glass-glow-sa, 3px) color-mix(in srgb, var(--btn-glass, var(--color-accent-500)) 70%, transparent),
+    0 0 var(--glass-glow-b, 40px) var(--glass-glow-sb, 8px) color-mix(in srgb, var(--btn-glass, var(--color-accent-500)) 36%, transparent),
+    inset 0 1px 1px 0 rgb(255 255 255 / 0.8),
+    inset 0 0 12px 1px rgb(255 255 255 / 0.35),
+    inset 0 0 24px 3px color-mix(in srgb, var(--btn-glass, var(--color-accent-300)) 45%, transparent);
+}
+[data-lighting="press"]:active::before { transition-duration: 0.15s; }
+@media (prefers-reduced-motion: reduce) { [data-lighting]::before { transition: none; } }

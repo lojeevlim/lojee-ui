@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
+import { useGlassLighting } from "../../core/glassLighting";
 import { highlightCode } from "../../core/highlightCode";
 import { Icon } from "../ui/Icons/Icon";
 import { FlowDiagram } from "../ui/FlowDiagram/FlowDiagram";
@@ -33,7 +34,7 @@ import "lojee-ui/elements";
 import "lojee-ui/elements";
 
 <l-button color="accent" label="Save" (click)="save()"></l-button>`,
-  js: `<l-button color="accent" label="Save"></l-button>
+  js: `<l-Button color="accent" label="Save"/>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -44,20 +45,20 @@ import "lojee-ui/elements";
 export default function FrameworkFlow() {
   const [fw, setFw] = useState<Fw>("react");
   // Flowing packets run in SMIL on the main thread, so only animate while the diagram is on screen.
-  const boxRef = useRef<HTMLDivElement>(null);
+  const [lightRef, lightAttrs] = useGlassLighting<HTMLDivElement>("scroll"); // the glass frame lights up (dark mode) while the card is well inside the viewport
   const [onScreen, setOnScreen] = useState(false);
   useEffect(() => {
-    const el = boxRef.current;
+    const el = lightRef.current;
     if (!el) return;
     const io = new IntersectionObserver(([e]) => setOnScreen(e.isIntersecting));
     io.observe(el);
     return () => io.disconnect();
-  }, []);
+  }, [lightRef]);
 
   return (
     <div className="grid grid-cols-1 items-center gap-8 lg:grid-cols-[minmax(0,1.7fr)_minmax(0,1fr)]">
       {/* Glass frame (same as Card variant="glass"): a frosted accent-tinted halo 10px outside the card. overflow-hidden and the grid texture move to an inner wrapper so the halo isn't clipped; the card's fill moves to ::after. */}
-      <div ref={boxRef} className="relative isolate rounded-2xl border border-border before:pointer-events-none before:absolute before:-inset-2.5 before:-z-20 before:rounded-[calc(var(--radius-2xl)+10px)] before:border before:border-accent-500/20 before:bg-accent-500/[0.07] before:backdrop-blur-2xl before:content-[''] after:pointer-events-none after:absolute after:inset-0 after:-z-10 after:rounded-[inherit] after:bg-surface after:content-['']">
+      <div ref={lightRef} {...lightAttrs} className="relative isolate rounded-2xl border border-border before:pointer-events-none before:absolute before:-inset-2.5 before:-z-20 before:rounded-[calc(var(--radius-2xl)+10px)] before:border before:border-accent-500/20 before:bg-accent-500/[0.07] before:backdrop-blur-lg before:content-[''] after:pointer-events-none after:absolute after:inset-0 after:-z-10 after:rounded-[inherit] after:bg-surface after:content-['']">
         <div className="lp-grid-fine overflow-hidden rounded-[inherit] p-4">
           <FlowDiagram
             nodes={FLOW_NODES}
