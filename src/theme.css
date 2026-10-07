@@ -1853,14 +1853,15 @@ body[data-design="clay"] {
   background-color: transparent;
 }
 
-/* Landing hero reels: each reel's box fits its cards (the track is exactly one card tall, see HeroPremium) with a bit of room around them for the glass frame; the reel clips anything further out, so a lit card's glow is cut at that margin.
-   The two rows then sit one gap apart: the room under the first reel overlaps the room above the second. */
-[data-hero-reel] {
-  padding-top: 1.5rem;
-  padding-bottom: 1.5rem;
-  position: relative;
+/* Landing hero: the light a glowing card throws onto the cards around it (see spillLight in HeroCard). A radial gradient centred on the glowing card's position, which is
+   outside the neighbour, so only the neighbour's edge facing it is brightened; it fades in and out with the glow. Dark mode only, like the glow itself. */
+[data-hero-spill] {
+  opacity: 0;
+  background:
+    radial-gradient(circle 230px at var(--lx, 50%) var(--ly, 50%), color-mix(in srgb, var(--color-accent-300) calc(var(--li, 0) * 36%), transparent), color-mix(in srgb, var(--color-accent-500) calc(var(--li, 0) * 13%), transparent) 50%, transparent 100%);
+  mix-blend-mode: screen;
 }
-[data-hero-reel]:not(:last-child) { margin-bottom: -1rem; }
+[data-theme="dark"] [data-spill] > [data-hero-spill] { opacity: 1; }
 
 /* Landing hero cards: no hover effect; a press (click / touch) sinks the card into the clay well. */
 [data-design="clay"] [data-hero-card]:active > * {

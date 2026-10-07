@@ -198,6 +198,7 @@ Variants, sizes, colors and states — all built with Tailwind utility classes.
 | `pulseColor` | `ColorName \| (string & {})` | — | Color of the animation (pulse ring, glow, spinning border): a `ColorName` or any CSS color (default: the component's own color). |
 | `pulseGradientTo` | `ColorName \| (string & {})` | — | Second color — turns the pulse ring and spinning border into a gradient from `pulseColor` to this (default: solid `pulseColor`). |
 | `variant` | `ButtonVariant` | `"solid"` | Visual style: "solid", "outline", "ghost", "soft", "link", "dashed", "destructive", "destructive-soft", "destructive-outline", "gradient" or "glass" (default: "solid"). |
+| `lighting` | `GlassLighting` | — | Lights the glass variant's frame like a backlight, in the button's colour — dark mode only: "hover" (while hovered), "press" (while pressed, fading out after) or "scroll" (while it is at the vertical centre of the viewport). Ignored by the other variants (default: none). |
 | `color` | `ColorName \| (string & {})` | `"accent"` | Button color: a built-in `ColorName` (default: "accent", which follows the theme accent) or any CSS color such as "#8b5cf6"; ignored by the destructive variants. |
 | `gradientTo` | `ColorName \| (string & {})` | — | Second color for the gradient variant: a `ColorName` or any CSS color such as "#ec4899" (defaults to a matching preset partner). |
 | `gradientDirection` | `GradientDirection` | `"to-right"` | Direction of the gradient variant: "to-right" \| "to-left" \| "to-bottom" \| "to-top" \| "to-br" \| "to-bl" \| "to-tr" \| "to-tl" (default: "to-right"). |
@@ -355,6 +356,7 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 | `pulseColor` | `pulse-color` | string |
 | `pulseGradientTo` | `pulse-gradient-to` | string |
 | `variant` | `variant` | string |
+| `lighting` | `lighting` | string |
 | `color` | `color` | string |
 | `gradientTo` | `gradient-to` | string |
 | `gradientDirection` | `gradient-direction` | string |
@@ -520,20 +522,17 @@ Solid, outline, ghost, soft, link, dashed, and a frosted glass style.
 <Button variant="glass" label="Glass"/>
 ```
 
-#### Sizes
+#### Lighting
 
-From compact (xs) to prominent (xl), plus a full-width stretch.
+Dark mode only: the glass frame lights up like a backlight in the button's colour. Switch the theme to dark and hover, press or scroll to see each one.
 
 ```tsx
-<Button size="xs" label="Extra small" />
-<Button size="sm" label="Small" />
-<Button size="md" label="Medium" />
-<Button size="lg" label="Large" />
-<Button size="xl" label="Extra large" />
-<Button size="full" label="Full Width" />
+<Button variant="glass" lighting="hover" label="Hover me" />
+<Button variant="glass" lighting="press" label="Press me" />
+<Button variant="glass" lighting="scroll" label="Scroll to centre" />
 ```
 
-_10 more examples are on the docs page._
+_11 more examples are on the docs page._
 
 ### Buttons · 11. Component Composition
 
@@ -1392,7 +1391,8 @@ A surface for grouping related content, with optional title and footer.
 | `animation` | `AnimatedProp` | — | Attention animation: "glow" \| "pulse" \| "sweep" \| "bounce" \| "float" \| "wiggle" \| "border-spin" \| "particles" \| "tail" — one, or a list to combine, e.g. ["particles", "tail"] (default: none). Respects `prefers-reduced-motion`. |
 | `pulseColor` | `ColorName \| (string & {})` | — | Color of the animation (pulse ring, glow, spinning border): a `ColorName` or any CSS color (default: the component's own color). |
 | `pulseGradientTo` | `ColorName \| (string & {})` | — | Second color — turns the pulse ring and spinning border into a gradient from `pulseColor` to this (default: solid `pulseColor`). |
-| `variant` | `CardVariant` | `"outline"` | "outline" \| "elevated" \| "soft" \| "ghost" — border, shadow, muted background or no chrome (default: "outline"). |
+| `variant` | `CardVariant` | `"outline"` | "outline" \| "elevated" \| "soft" \| "ghost" \| "glass" — border, shadow, muted background, no chrome, or a frosted-glass frame around the content that, in dark mode, is backlit in the theme colour (default: "outline"). |
+| `lighting` | `GlassLighting` | — | Lights the glass variant's frame like a backlight, in the theme colour — dark mode only: "hover" (while hovered), "press" (while pressed, fading out after) or "scroll" (while it is at the vertical centre of the viewport). Ignored by the other variants (default: none). |
 | `padding` | `CardPadding` | `"md"` | Inner spacing: "none" \| "sm" \| "md" \| "lg" (default: "md"). |
 | `hoverable` | `boolean` | `false` | Adds a hover shadow (and stronger border on the outline variant) for clickable cards (default: false). |
 | `title` | `ReactNode` | — | Optional heading rendered above the body. |
@@ -1411,7 +1411,7 @@ _No component-specific events._ Native DOM events (`click`, `input`, `focus`…)
 
 | Component | Prop | Values | Default | Notes |
 | --- | --- | --- | --- | --- |
-| `Card` | `variant` | `outline`, `elevated`, `soft`, `ghost`, `glass` | `"outline"` | "outline" \| "elevated" \| "soft" \| "ghost" — border, shadow, muted background or no chrome (default: "outline"). |
+| `Card` | `variant` | `outline`, `elevated`, `soft`, `ghost`, `glass` | `"outline"` | "outline" \| "elevated" \| "soft" \| "ghost" \| "glass" — border, shadow, muted background, no chrome, or a frosted-glass frame around the content that, in dark mode, is backlit in the theme colour (default: "outline"). |
 
 ### Cards · 5. Colors and Theming
 
@@ -1448,6 +1448,7 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 | React prop | HTML attribute | Attribute type |
 | --- | --- | --- |
 | `variant` | `variant` | string |
+| `lighting` | `lighting` | string |
 | `padding` | `padding` | string |
 | `hoverable` | `hoverable` | boolean |
 | `title` | `title` | string |
@@ -1498,6 +1499,16 @@ outline, elevated, soft, ghost, and glass (a frosted frame on every side).
 <Card variant="glass">Glass</Card>
 ```
 
+#### Lighting
+
+Dark mode only: the glass frame lights up like a backlight in the theme colour. Switch the theme to dark and hover, press or scroll to see each one.
+
+```tsx
+<Card variant="glass" lighting="hover">Hover me</Card>
+<Card variant="glass" lighting="press">Press me</Card>
+<Card variant="glass" lighting="scroll">Scroll to centre</Card>
+```
+
 #### Padding
 
 none, sm, md, lg.
@@ -1528,27 +1539,7 @@ A title above the body and a footer below it, separated by a border.
 </Card>
 ```
 
-#### Transitions
-
-Enter transitions via `transition` (with `transitionDuration` / `transitionDelay`) and hover effects via `hoverEffect`. Press Replay to run the enter transitions again.
-
-```tsx
-<Card transition="fade">Fade</Card>
-<Card transition="slide-up">Slide up</Card>
-<Card transition="slide-right" transitionDelay={100}>Slide right</Card>
-<Card transition="zoom">Zoom</Card>
-<Card transition="flip">Flip</Card>
-<Card transition="blur">Blur</Card>
-<Card transition="bounce">Bounce</Card>
-<Card transition="drop" transitionDuration={700}>Drop</Card>
-
-<Card hoverEffect="lift">Lift</Card>
-<Card hoverEffect="glow">Glow</Card>
-<Card hoverEffect="shine">Shine</Card>
-<Card hoverEffect="tilt">Tilt</Card>
-```
-
-_1 more examples are on the docs page._
+_2 more examples are on the docs page._
 
 ### Cards · 11. Component Composition
 
