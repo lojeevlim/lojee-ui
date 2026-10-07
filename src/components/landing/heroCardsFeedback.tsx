@@ -131,9 +131,10 @@ const REEL_1: ReactNode[] = [
     </div>
   </HeroCard>,
   <HeroCard key="navbar" name="Navbar" w="w-[34rem]">
-    <div className="space-y-2">
-      <div className={`${FRAME} h-14`}><Navbar brand="Lojee" items={NAV_ITEMS} actions={<Avatar initials="JD" size="sm" />} /></div>
-      <div className={`${FRAME} h-14`}><Navbar variant="dark" brand="Lojee" items={NAV_ITEMS} /></div>
+    {/* Fixed-width wrapper so Fit scales the navbars down instead of squashing the links on top of each other; no fixed frame height, so the bar (h-16) isn't clipped. */}
+    <div className="w-[34rem] space-y-2">
+      <div className={FRAME}><Navbar brand="Lojee" items={NAV_ITEMS} actions={<Avatar initials="JD" size="sm" />} /></div>
+      <div className={FRAME}><Navbar variant="dark" brand="Lojee" items={NAV_ITEMS} /></div>
     </div>
   </HeroCard>,
   <HeroCard key="progress" name="ProgressBar" w="w-72">

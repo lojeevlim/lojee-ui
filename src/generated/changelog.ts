@@ -2,8 +2,17 @@
 export interface ChangelogCommit { sha: string; short: string; date: string; author: string; email: string; subject: string; body: string }
 
 export const PACKAGE_VERSION = "0.1.0-alpha.14";
-export const CHANGELOG_GENERATED_AT = "2026-10-06T14:05:17.443Z";
+export const CHANGELOG_GENERATED_AT = "2026-10-07T18:14:45.440Z";
 export const CHANGELOG: ChangelogCommit[] = [
+  {
+    "sha": "590e94a4a3d4f2569c206c4eab19b940b783bfee",
+    "short": "590e94a",
+    "date": "2026-10-07T02:32:56+08:00",
+    "author": "lojeevlim",
+    "email": "lojeevlim@gmail.com",
+    "subject": "Glass lighting prop, landing page rework, hero reel fixes, dark mode default",
+    "body": "- Card/Button glass: new `lighting` prop (\"hover\" | \"press\" | \"scroll\", dark mode only) backed by a useGlassLighting hook and theme.css rules; Button glass is now a solid base inside a Card-style frosted frame (clay gloss, concentric corners); showcases and l-card / l-button props updated\n- Landing: hero text block is full height, hero cards are the real glass Card (fixed 28rem x 21rem wrapper, mount-near-viewport gating), reels fit their cards with equal row/column gaps, stats row moved above the reels (compact, count-up kept, effects removed)\n- Landing: Make it move / Tables / Maps labs sized like the framework diagram (1fr / 1.7fr, 392px) and use the glass Card; features grid fills its last row; narrow-screen switch layouts fixed; dark-mode top glow with particles before the pointer moves\n- Hero reels: eased start/stop and drag, exact loop period measurement and mid-loop start (fixes the seam flicker on row 2)\n- Site and docs app now default to dark mode"
+  },
   {
     "sha": "34ce7729383ed46a68e9acf2f5730a48c319d2c5",
     "short": "34ce772",

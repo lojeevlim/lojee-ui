@@ -99,12 +99,9 @@ const Reel = memo(function Reel({ items, dir, speed }: { items: ReactNode[]; dir
   const st = useRef({ x: 0, target: 0, auto: 1, vel: 0, pressed: false, drag: false, moved: false, startX: 0, startPos: 0, lastX: 0, lastT: 0, id: -1 });
   const [grabbing, setGrabbing] = useState(false);
 
-  const root = useRef<HTMLDivElement>(null);
-
   useEffect(() => {
     const el = track.current;
-    const wrap = root.current;
-    if (!el || !wrap) return;
+    if (!el) return;
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     let raf = 0;
     let last = performance.now();
@@ -166,7 +163,7 @@ const Reel = memo(function Reel({ items, dir, speed }: { items: ReactNode[]; dir
         raf = requestAnimationFrame(tick);
       }
     });
-    io.observe(wrap);
+    io.observe(el);
     const release = () => (st.current.pressed = false);
     window.addEventListener("pointerup", release);
     window.addEventListener("pointercancel", release);
@@ -218,15 +215,15 @@ const Reel = memo(function Reel({ items, dir, speed }: { items: ReactNode[]; dir
     t.drag = false;
     // Held still before letting go: no momentum. Otherwise cap it so a flick stays controlled.
     t.vel = performance.now() - t.lastT > 80 ? 0 : Math.max(-2.5, Math.min(2.5, t.vel));
-    if (t.id >= 0 && root.current?.hasPointerCapture(t.id)) root.current.releasePointerCapture(t.id);
+    if (t.id >= 0 && track.current?.hasPointerCapture(t.id)) track.current.releasePointerCapture(t.id);
     setGrabbing(false);
   };
 
   return (
     <div
-      ref={root}
-      data-hero-reel
-      className="pointer-events-none relative overflow-hidden py-6 [mask-image:linear-gradient(to_right,transparent,#000_8%,#000_92%,transparent)] [touch-action:pan-y]"
+      ref={track}
+      data-hero-track
+      className={`relative z-30 flex h-52 w-max gap-8 pr-8 will-change-transform select-none [touch-action:pan-y] ${grabbing ? "pointer-events-none [&_[data-hero-card]]:!scale-100" : "pointer-events-auto"}`}
       onPointerDown={onDown}
       onPointerMove={onMove}
       onPointerUp={onUp}
@@ -241,12 +238,10 @@ const Reel = memo(function Reel({ items, dir, speed }: { items: ReactNode[]; dir
       }}
     >
       {/* Doubled so wrapping at half the width loops seamlessly. */}
-      <div ref={track} className={`flex h-52 w-max gap-8 pr-8 will-change-transform select-none ${grabbing ? "pointer-events-none [&_[data-hero-card]]:!scale-100" : "pointer-events-auto"}`}>
-        {items}
-        {items.map((c, i) => (
-          <div key={`dup-${i}`} aria-hidden="true" className="contents">{c}</div>
-        ))}
-      </div>
+      {items}
+      {items.map((c, i) => (
+        <div key={`dup-${i}`} aria-hidden="true" className="contents">{c}</div>
+      ))}
     </div>
   );
 });
@@ -263,7 +258,7 @@ export default function HeroPremium() {
   return (
     <div className="relative mt-2 text-left">
       <div className="lp-beam pointer-events-none absolute -top-24 left-1/2 -z-10 h-72 w-[70%] -translate-x-1/2" aria-hidden="true" />
-      <div className="flow-root">
+      <div className="pointer-events-none -my-32 flex flex-col gap-8 overflow-x-clip overflow-y-visible bg-transparent py-[9.5rem] [mask-image:linear-gradient(to_right,transparent,#000_8%,#000_92%,transparent)]">
         <Reel items={REELS[0]} dir={-1} speed={0.045} />
         <Reel items={REELS[1]} dir={1} speed={0.036} />
       </div>

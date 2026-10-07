@@ -70,7 +70,7 @@ function Stat({ target, suffix = "", label, active }: { target: number; suffix?:
   const n = useCountUp(target, active);
   return (
     <div className="px-3 py-3 text-center md:py-4">
-      <p className="lp-clay-text text-2xl tabular-nums md:text-3xl">
+      <p className="lp-clay-text lp-stat-num text-2xl tabular-nums md:text-3xl">
         <span className="lp-clay-shaded">
           <span className="lp-clay-ink">
             {n}
@@ -306,11 +306,62 @@ export default function LandingPage() {
 
   useEffect(() => setClayLight(-0.6, -0.8), []);
 
+  // Firefly: while the pointer is not over the heading, a small light, shown as a drifting trail of glowing particles, wanders around it on its own. Its position is a few slow sine waves of different
+  // periods (so the path never visibly repeats) plus a gentle flicker; the same spotlight that follows the pointer is revealed around it (--fx / --fy,
+  // see .lp-clay-text[data-firefly] in landing.css) and the clay point light follows it, so the nearby letters light up as it passes and fade as it leaves.
+  useEffect(() => {
+    const h = heroTitle.current;
+    if (!h || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    let hovered = false;
+    let visible = true;
+    let raf = 0;
+    const sleep = () => window.dispatchEvent(new CustomEvent("lp-firefly", { detail: { x: 0, y: 0, on: false } }));
+    const enter = () => { hovered = true; h.removeAttribute("data-firefly"); sleep(); };
+    const leave = () => { hovered = false; };
+    h.addEventListener("pointerenter", enter);
+    h.addEventListener("pointerleave", leave);
+    const io = new IntersectionObserver(([e]) => {
+      visible = e.isIntersecting;
+      if (!visible) sleep();
+      if (visible && !raf) raf = requestAnimationFrame(tick);
+    });
+    io.observe(h);
+    const tick = (now: number) => {
+      raf = visible ? requestAnimationFrame(tick) : 0;
+      if (hovered || !visible) return;
+      const w = h.offsetWidth;
+      const ht = h.offsetHeight;
+      const a = now * 0.001;
+      const x = w * (0.5 + 0.52 * (0.62 * Math.sin(a * 0.31 + 1.3) + 0.38 * Math.sin(a * 0.77 + 0.4)));
+      const y = ht * (0.5 + 0.55 * (0.6 * Math.sin(a * 0.43 + 2.1) + 0.4 * Math.sin(a * 1.13 + 0.9)));
+      h.setAttribute("data-firefly", "");
+      h.style.setProperty("--fx", `${x.toFixed(1)}px`);
+      h.style.setProperty("--fy", `${y.toFixed(1)}px`);
+      const box = h.getBoundingClientRect();
+      window.dispatchEvent(new CustomEvent("lp-firefly", { detail: { x: box.left + x, y: box.top + y, on: true } }));
+      const l = spotLight.current;
+      l.tx = x;
+      l.ty = y;
+      if (!l.raf) l.raf = requestAnimationFrame(easeSpotLight);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => {
+      cancelAnimationFrame(raf);
+      io.disconnect();
+      sleep();
+      h.removeEventListener("pointerenter", enter);
+      h.removeEventListener("pointerleave", leave);
+      h.removeAttribute("data-firefly");
+    };
+  }, []);
+
   // Dark mode: until the pointer first moves, a light acts like the pointer resting at the top centre of the heading (a beam from just below the navbar leads down to it), lighting only the top of the letters
   // (see [data-rest] in landing.css; the shading's point light starts there too). Once the pointer moves, the heading behaves as usual.
   const [restLight, setRestLight] = useState(true);
   useEffect(() => {
     const h = heroTitle.current;
+    // The navbar lamp is straight above the heading, so until the pointer moves the letters are shaded as lit from the top (highlight on top edges, shade underneath).
+    setClayLight(0, -1);
     if (h) {
       const l = spotLight.current;
       // The light acts like a pointer resting on the top centre of the heading, so only the top of the letters is lit.
@@ -322,7 +373,7 @@ export default function LandingPage() {
         p.setAttribute("y", String(l.y));
       });
     }
-    const off = () => setRestLight(false);
+    const off = () => { setRestLight(false); setClayLight(-0.6, -0.8); };
     window.addEventListener("pointermove", off, { once: true, passive: true });
     return () => window.removeEventListener("pointermove", off);
   }, []);
@@ -335,9 +386,11 @@ export default function LandingPage() {
       {/* Bumped clay letters, like the clay Button: the glyph alpha is blurred into a height map and lit with a distant light (diffuse only: soft matte shading across the bump, no specular sheen so it never looks glossy), so the letters look puffed out instead of outlined. The light's azimuth and the drop offset follow the pointer (setClayLight). #lp-clay-letters adds the Button-style drop shadow; #lp-clay-spot (the hover spotlight copy) is the same bump without it. */}
       <svg ref={clayFilter} width="0" height="0" aria-hidden className="pointer-events-none absolute">
         {[
-          { id: "lp-clay-letters", drop: false, point: false },
-          { id: "lp-clay-spot", drop: false, point: true },
-        ].map(({ id, drop, point }) => (
+          { id: "lp-clay-letters", drop: false, point: false, scale: 6 },
+          { id: "lp-clay-spot", drop: false, point: true, scale: 6 },
+          // Stats numbers: the same bump with a much shallower height map, so the shading is gentle.
+          { id: "lp-clay-soft", drop: false, point: false, scale: 2 },
+        ].map(({ id, drop, point, scale }) => (
           <filter key={id} id={id} x="-20%" y="-35%" width="140%" height="190%" colorInterpolationFilters="sRGB">
             {drop && (
               <>
@@ -348,7 +401,7 @@ export default function LandingPage() {
               </>
             )}
             <feGaussianBlur in="SourceAlpha" stdDeviation="3.2" result="bump" />
-            <feDiffuseLighting in="bump" surfaceScale="6" diffuseConstant="1" lightingColor="#fff" result="diffuse">
+            <feDiffuseLighting in="bump" surfaceScale={scale} diffuseConstant="1" lightingColor="#fff" result="diffuse">
               {point ? <fePointLight x="0" y="0" z="70" /> : <feDistantLight azimuth="233" elevation="52" />}
             </feDiffuseLighting>
             <feComposite in="SourceGraphic" in2="diffuse" operator="arithmetic" k1="1.22" k2="0" k3="0" k4="0" result="shaded" />
@@ -374,7 +427,7 @@ export default function LandingPage() {
         <div className="lp-grid pointer-events-none absolute inset-0 -z-10" />
         <div ref={heroGlow} data-rest={restLight ? "" : undefined} className="lp-glow pointer-events-none absolute inset-0 -z-10" />
         <div className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-32 bg-gradient-to-t from-surface to-transparent" />
-        <div className="mx-auto flex min-h-screen max-w-6xl flex-col items-center justify-start px-5 pt-14 text-center lg:pt-24">
+        <div className="mx-auto flex min-h-screen max-w-6xl flex-col items-center justify-center px-5 py-14 text-center lg:py-24">
           <button type="button" onClick={() => navigate(pathFor("docs", "Changelog"))} className="lp-enter inline-flex max-w-full cursor-pointer items-center gap-2 rounded-full border border-border bg-surface/70 py-1 pl-1 pr-3 text-xs text-fg-muted shadow-sm" style={{ ["--d" as string]: "0ms" }}>
             <span className="relative z-10 inline-flex"><Badge variant="solid" label="New" animation="sweep" /></span>
             <span className="truncate">{LATEST_UPDATE}</span>
@@ -417,11 +470,12 @@ export default function LandingPage() {
         </div>
         {/* Stats: a compact row between the hero text and the card reels */}
         <div className="mx-auto max-w-3xl px-5 pb-6 pt-4">
-          <div ref={statsRef} className="relative overflow-hidden rounded-3xl border border-border bg-surface/60 shadow-xl shadow-black/5 [&>div]:border-border max-md:[&>div:nth-child(odd)]:border-r max-md:[&>div:nth-child(-n+2)]:border-b md:grid-cols-4 md:[&>div:not(:last-child)]:border-r grid grid-cols-2">
+          <div ref={statsRef} data-spill-target className="relative overflow-hidden rounded-3xl border border-border bg-surface/60 shadow-xl shadow-black/5 [&>div]:border-border max-md:[&>div:nth-child(odd)]:border-r max-md:[&>div:nth-child(-n+2)]:border-b md:grid-cols-4 md:[&>div:not(:last-of-type)]:border-r grid grid-cols-2">
             <Stat active={statsSeen} target={total} suffix="+" label="Components" />
             <Stat active={statsSeen} target={TRANSITIONS.length} label="Enter transitions" />
             <Stat active={statsSeen} target={ANIMATED_VARIANTS.length} label="Attention effects" />
             <Stat active={statsSeen} target={ACCENTS.length + PRESET_ACCENTS.length} suffix="+" label="Accent colors" />
+            <span data-hero-spill aria-hidden="true" className="pointer-events-none absolute inset-0" />
           </div>
         </div>
         <div className="lp-enter pt-2 pb-2 lg:pt-2 lg:pb-2" style={{ ["--d" as string]: "500ms" }}>
