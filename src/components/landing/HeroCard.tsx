@@ -42,6 +42,59 @@ function Fit({ children }: { children: ReactNode }) {
   );
 }
 
+/** How far (px) the light of a glowing card reaches onto the cards around it. */
+const SPILL_REACH = 260;
+/** How long (ms) the light takes to ease out after the card is released. */
+const SPILL_FADE = 450;
+
+/**
+ * While a hero card is pressed (and glowing), the cards near it (and the stats bar above them), in the same row or the other one, pick up some of its light. It is recomputed every frame from
+ * where the cards are right now (the other row keeps gliding), so it follows the glowing card instead of sticking to a card that has moved on: each card gets the
+ * glow's position relative to itself (--lx / --ly, usually outside the card) and how strong it is there (--li, 0 at SPILL_REACH), and its overlay paints a radial
+ * gradient from that point, so only the part of the card facing the glowing one is lit. After the release the light eases out over SPILL_FADE ms.
+ */
+function spillLight(source: HTMLElement) {
+  const cards = [...document.querySelectorAll<HTMLElement>("[data-hero-card], [data-spill-target]")].filter((el) => el !== source);
+  let held = true;
+  let releasedAt = 0;
+  let raf = 0;
+  const frame = (now: number) => {
+    const fade = held ? 1 : 1 - (now - releasedAt) / SPILL_FADE;
+    const s = source.getBoundingClientRect();
+    for (const el of cards) {
+      const r = el.getBoundingClientRect();
+      let k = 0;
+      if (fade > 0 && r.right > 0 && r.left < window.innerWidth) {
+        // The light leaves the glowing card at the point of its frame nearest to this card's centre.
+        const lx = Math.min(Math.max(r.left + r.width / 2, s.left), s.right);
+        const ly = Math.min(Math.max(r.top + r.height / 2, s.top), s.bottom);
+        // distance from that point to the nearest point of this card
+        const dx = Math.max(r.left - lx, 0, lx - r.right);
+        const dy = Math.max(r.top - ly, 0, ly - r.bottom);
+        k = Math.max(0, 1 - Math.hypot(dx, dy) / SPILL_REACH) * fade;
+        if (k > 0) {
+          el.style.setProperty("--lx", `${(lx - r.left).toFixed(0)}px`);
+          el.style.setProperty("--ly", `${(ly - r.top).toFixed(0)}px`);
+          el.style.setProperty("--li", k.toFixed(3));
+        }
+      }
+      if (k > 0) el.setAttribute("data-spill", "");
+      else el.removeAttribute("data-spill");
+    }
+    if (held || fade > 0) raf = requestAnimationFrame(frame);
+  };
+  const release = () => {
+    held = false;
+    releasedAt = performance.now();
+    window.removeEventListener("pointerup", release);
+    window.removeEventListener("pointercancel", release);
+  };
+  window.addEventListener("pointerup", release);
+  window.addEventListener("pointercancel", release);
+  cancelAnimationFrame(raf);
+  raf = requestAnimationFrame(frame);
+}
+
 /** One captioned, live component inside the hero reel, drawn with the library's own glass `Card`, whose `lighting` prop lights its frame in dark mode. Every card has the same width, so the `w` prop is accepted for older call sites but no longer changes anything. */
 export function HeroCard({ name, children }: { name: string; children: ReactNode; w?: string }) {
   // The reels hold a couple of hundred live components, doubled for the seamless loop, but only a handful are ever on screen. A card mounts its content only
@@ -67,11 +120,8 @@ export function HeroCard({ name, children }: { name: string; children: ReactNode
     };
   }, []);
   return (
-    // The wrapper only makes room for the Card's frosted-glass frame, which sits 10px outside the card (64px of padding cancelled by a -64px margin, so the layout and the card size are unchanged, and a fixed 28rem × 21rem box so the cards occupy exactly the same space whether or not content-visibility is currently skipping them — a size that changed as cards scrolled in and out shifted the whole row; it also leaves room for the Card's own lighting glow, which content-visibility's paint containment would otherwise cut off as a hard square — hence pointer-events only on the Card),
-    // and carries the content-visibility below (its paint containment would clip the frame if it were on the Card itself). No hover lift / scale effects: the card only sinks when pressed.
-    // content-visibility:auto skips layout / paint / animations of the cards that are off screen (most of a reel at any time), which cuts the
-    // hero's idle main-thread work by ~4x. The cards have a fixed size, so nothing shifts; the reels fade out at both edges, hiding the entry.
-    <div ref={wrap} data-hero-card={name} className="pointer-events-none relative z-20 -m-16 h-[21rem] w-[28rem] shrink-0 p-16 transition-transform duration-150 active:scale-[0.98] [content-visibility:auto] [contain-intrinsic-size:28rem_21rem]">
+    // No hover lift / scale effects: the card only sinks when pressed. The wrapper adds no padding or negative margin, so it never overlaps the neighbouring rows.
+    <div ref={wrap} data-hero-card={name} onPointerDown={(e) => spillLight(e.currentTarget)} className="pointer-events-none relative z-20 shrink-0 transition-transform duration-150 active:scale-[0.98]">
       <Card
         variant="glass"
         lighting="press"
@@ -84,6 +134,7 @@ export function HeroCard({ name, children }: { name: string; children: ReactNode
           {near && <Fit>{children}</Fit>}
         </div>
       </Card>
+      <span data-hero-spill aria-hidden="true" className="pointer-events-none absolute inset-0 rounded-2xl" />
     </div>
   );
 }

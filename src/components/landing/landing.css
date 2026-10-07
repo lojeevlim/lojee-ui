@@ -137,16 +137,33 @@
   mask-image: radial-gradient(circle 70px at var(--hx, 50%) var(--hy, 50%), #000 35%, transparent 100%);
 }
 .lp-clay-text:hover .lp-clay-spot { opacity: 1; }
+/* Firefly (while the pointer is away): the same spotlight copy, revealed around the wandering light (--fx/--fy) instead of the pointer, and a little softer. */
+.lp-clay-text[data-firefly]:not(:hover) .lp-clay-spot {
+  opacity: 0.85;
+  -webkit-mask-image: radial-gradient(circle 95px at var(--fx, 50%) var(--fy, 50%), #000 15%, transparent 100%);
+  mask-image: radial-gradient(circle 95px at var(--fx, 50%) var(--fy, 50%), #000 15%, transparent 100%);
+}
+/* Dark mode, resting lamp: the lamp's wide circle at the top and the firefly's spotlight circle are both revealed (masks add up). */
+[data-theme="dark"] .lp-clay-text[data-rest][data-firefly]:not(:hover) .lp-clay-spot {
+  opacity: 1;
+  -webkit-mask-image: radial-gradient(circle 190px at 50% var(--rest-y, 0px), #000 15%, transparent 100%), radial-gradient(circle 95px at var(--fx, 50%) var(--fy, 50%), #000 15%, transparent 100%);
+  mask-image: radial-gradient(circle 190px at 50% var(--rest-y, 0px), #000 15%, transparent 100%), radial-gradient(circle 95px at var(--fx, 50%) var(--fy, 50%), #000 15%, transparent 100%);
+}
 .lp-clay-lit { filter: url(#lp-clay-spot); }
 .lp-spot-accent { color: var(--color-accent-600); }
 /* Dark mode: the heading itself takes the theme colour, so the spotlight and the pointer trail take over the heading's former light ink to stay visible on it. */
 [data-theme="dark"] .lp-clay-ink { background-color: var(--color-accent-400); }
-[data-theme="dark"] .lp-clay-lit .lp-spot-accent { color: color-mix(in srgb, white 70%, var(--color-accent-200)); }
-[data-theme="dark"] .lp-clay-lit .lp-shimmer-text { background-image: none; background-color: color-mix(in srgb, white 70%, var(--color-accent-200)); }
+[data-theme="dark"] .lp-clay-lit .lp-spot-accent { color: color-mix(in srgb, white 12%, var(--color-accent-300)); }
+[data-theme="dark"] .lp-clay-lit .lp-shimmer-text { background-image: none; background-color: color-mix(in srgb, white 12%, var(--color-accent-300)); }
+/* Stats numbers: flat in light mode, glowing in the theme colour in dark mode (no dark shadow). drop-shadow() because the digits are background-clipped, transparent-coloured text. */
+.lp-stat-num .lp-clay-shaded { filter: none; }
+[data-theme="dark"] .lp-stat-num .lp-clay-shaded { filter: drop-shadow(0 0 7px color-mix(in srgb, var(--color-accent-400) 75%, transparent)) drop-shadow(0 0 20px color-mix(in srgb, var(--color-accent-400) 50%, transparent)); }
+.lp-stat-num .lp-clay-ink { background-color: var(--color-accent-500); }
+[data-theme="dark"] .lp-stat-num .lp-clay-ink { background-color: var(--color-accent-300); }
 .lp-trail-probe { color: var(--color-accent-500); }
 [data-theme="dark"] .lp-trail-probe { color: color-mix(in srgb, white 55%, var(--color-accent-300)); }
 /* Dark mode: the spotlight glows like a light shining on the letters. */
-[data-theme="dark"] .lp-clay-spot { filter: drop-shadow(0 0 10px color-mix(in srgb, var(--color-accent-400) 70%, transparent)) brightness(1.25); }
+[data-theme="dark"] .lp-clay-spot { filter: drop-shadow(0 0 4px color-mix(in srgb, var(--color-accent-400) 22%, transparent)) brightness(1); }
 /* Dark mode, before the pointer first moves: the spotlight copy is on, with a much wider soft circle centred above the heading (over the "New" badge), so it reads as a lamp lighting the heading from the top centre. */
 [data-theme="dark"] .lp-clay-text[data-rest] .lp-clay-spot {
   opacity: 1;
@@ -205,6 +222,8 @@
     radial-gradient(ellipse 26% 100% at 50% 0%, color-mix(in srgb, var(--color-accent-500) 22%, transparent), transparent 80%);
 }
 [data-theme="dark"] .lp-rest-beam[data-rest] { opacity: 1; }
+/* Resting lamp: it is above the heading, so the letters also cast a soft shadow straight down. */
+[data-theme="dark"] .lp-clay-text[data-rest] .lp-clay-shaded { filter: url(#lp-clay-letters) drop-shadow(0 4px 5px rgb(0 0 0 / 0.14)); }
 /* Same accent-tinted clay shading (#lp-clay-letters) on both halves of the heading. */
 .lp-clay-shaded { filter: url(#lp-clay-letters); }
 
