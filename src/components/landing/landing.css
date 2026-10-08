@@ -16,10 +16,19 @@
 }
 
 /* Cursor-following glow (--mx / --my are set from pointer events). */
-.lp-glow {
-  background: radial-gradient(520px circle at var(--mx, 50%) var(--my, 30%), color-mix(in srgb, var(--color-accent-500) 22%, transparent), transparent 60%);
-  transition: opacity 0.4s;
+.lp-glow { overflow: hidden; transition: opacity 0.4s; }
+/* The glow is a small fixed gradient moved with a transform (compositor only) instead of a hero-sized gradient repainted on every pointer move. 624px = the old 520px circle fading out at 60%. */
+.lp-glow-dot {
+  position: absolute;
+  left: 50%;
+  top: 30%;
+  width: 624px;
+  height: 624px;
+  margin: -312px 0 0 -312px;
+  background: radial-gradient(circle closest-side, color-mix(in srgb, var(--color-accent-500) 22%, transparent), transparent);
+  will-change: transform;
 }
+[data-theme="dark"] .lp-glow[data-rest] .lp-glow-dot { display: none; }
 
 /* Card spotlight on hover. */
 .lp-spot {
@@ -137,19 +146,9 @@
   mask-image: radial-gradient(circle 70px at var(--hx, 50%) var(--hy, 50%), #000 35%, transparent 100%);
 }
 .lp-clay-text:hover .lp-clay-spot { opacity: 1; }
-/* Firefly (while the pointer is away): the same spotlight copy, revealed around the wandering light (--fx/--fy) instead of the pointer, and a little softer. */
-.lp-clay-text[data-firefly]:not(:hover) .lp-clay-spot {
-  opacity: 0.85;
-  -webkit-mask-image: radial-gradient(circle 95px at var(--fx, 50%) var(--fy, 50%), #000 15%, transparent 100%);
-  mask-image: radial-gradient(circle 95px at var(--fx, 50%) var(--fy, 50%), #000 15%, transparent 100%);
-}
-/* Dark mode, resting lamp: the lamp's wide circle at the top and the firefly's spotlight circle are both revealed (masks add up). */
-[data-theme="dark"] .lp-clay-text[data-rest][data-firefly]:not(:hover) .lp-clay-spot {
-  opacity: 1;
-  -webkit-mask-image: radial-gradient(circle 190px at 50% var(--rest-y, 0px), #000 15%, transparent 100%), radial-gradient(circle 95px at var(--fx, 50%) var(--fy, 50%), #000 15%, transparent 100%);
-  mask-image: radial-gradient(circle 190px at 50% var(--rest-y, 0px), #000 15%, transparent 100%), radial-gradient(circle 95px at var(--fx, 50%) var(--fy, 50%), #000 15%, transparent 100%);
-}
-.lp-clay-lit { filter: url(#lp-clay-spot); }
+/* The lit copy is lit inside a small clipped window that travels with the light (see writeSpotLight), so the lighting filter only ever covers that window, not the whole heading. */
+.lp-clay-win { position: absolute; left: 0; top: 0; width: 200px; height: 200px; overflow: hidden; contain: layout paint size; filter: url(#lp-clay-spot); will-change: transform; }
+.lp-clay-lit { position: absolute; left: 0; top: 0; display: block; will-change: transform; }
 .lp-spot-accent { color: var(--color-accent-600); }
 /* Dark mode: the heading itself takes the theme colour, so the spotlight and the pointer trail take over the heading's former light ink to stay visible on it. */
 [data-theme="dark"] .lp-clay-ink { background-color: var(--color-accent-400); }
@@ -163,17 +162,7 @@
 .lp-trail-probe { color: var(--color-accent-500); }
 [data-theme="dark"] .lp-trail-probe { color: color-mix(in srgb, white 55%, var(--color-accent-300)); }
 /* Dark mode: the spotlight glows like a light shining on the letters. */
-[data-theme="dark"] .lp-clay-spot { filter: drop-shadow(0 0 4px color-mix(in srgb, var(--color-accent-400) 22%, transparent)) brightness(1); }
-/* Dark mode, before the pointer first moves: the spotlight copy is on, with a much wider soft circle centred above the heading (over the "New" badge), so it reads as a lamp lighting the heading from the top centre. */
-[data-theme="dark"] .lp-clay-text[data-rest] .lp-clay-spot {
-  opacity: 1;
-  -webkit-mask-image: radial-gradient(circle 190px at 50% var(--rest-y, 0px), #000 15%, transparent 100%);
-  mask-image: radial-gradient(circle 190px at 50% var(--rest-y, 0px), #000 15%, transparent 100%);
-  /* Kept in the heading's own violet: the lit patch is a lighter tint of the theme colour (not white) with no glow or shadow around the letters. */
-  filter: none;
-}
-[data-theme="dark"] .lp-clay-text[data-rest] .lp-clay-lit .lp-spot-accent { color: var(--color-accent-300); }
-[data-theme="dark"] .lp-clay-text[data-rest] .lp-clay-lit .lp-shimmer-text { background-image: none; background-color: var(--color-accent-300); }
+[data-theme="dark"] .lp-clay-win { filter: url(#lp-clay-spot) drop-shadow(0 0 4px color-mix(in srgb, var(--color-accent-400) 22%, transparent)) brightness(1); }
 /* Dark mode, before the pointer first moves: the hero's cursor glow (normally centred behind the heading) is pinned to the very top instead, so nothing glows around the heading itself. */
 [data-theme="dark"] .lp-glow[data-rest] {
   background: radial-gradient(460px 200px at 50% 0, color-mix(in srgb, var(--color-accent-500) 26%, transparent), transparent 100%);
@@ -209,6 +198,8 @@
   animation: lp-rest-dust var(--dur) ease-out var(--dl) infinite;
 }
 @media (prefers-reduced-motion: reduce) { .lp-rest-dust i { animation: none; } }
+/* The 320 drifting specks hold still while the page scrolls. */
+:root[data-scrolling] .lp-rest-dust i { animation-play-state: paused; }
 /* The lamp itself: a wash of the theme colour spilling down from the top centre of the hero, right under the navbar, with a small bright core at the very top. Dark mode, until the pointer first moves. */
 .lp-rest-beam {
   position: absolute;
@@ -222,10 +213,10 @@
     radial-gradient(ellipse 26% 100% at 50% 0%, color-mix(in srgb, var(--color-accent-500) 22%, transparent), transparent 80%);
 }
 [data-theme="dark"] .lp-rest-beam[data-rest] { opacity: 1; }
-/* Resting lamp: it is above the heading, so the letters also cast a soft shadow straight down. */
-[data-theme="dark"] .lp-clay-text[data-rest] .lp-clay-shaded { filter: url(#lp-clay-letters) drop-shadow(0 4px 5px rgb(0 0 0 / 0.14)); }
 /* Same accent-tinted clay shading (#lp-clay-letters) on both halves of the heading. */
 .lp-clay-shaded { filter: url(#lp-clay-letters); }
+/* Hero heading, pointer over it: one small soft shadow under the letters. A static filter (nothing changes per pointer move), so it costs one repaint when the pointer enters. */
+h1.lp-clay-text:hover > .lp-clay-shaded { filter: url(#lp-clay-letters) drop-shadow(0 4px 6px rgb(0 0 0 / 0.1)); }
 
 /* Feature cards: the card under the scroll line is lit (data-lit): its icon switches on like a lamp (filled with the theme colour, white glyph, layered glow and a soft expanding ring) and a faint light spills down from the icon corner. */
 .lp-feat { transition: border-color 0.9s ease, box-shadow 0.9s ease, transform 0.3s, translate 0.3s, background-color 0.3s; }
@@ -260,3 +251,6 @@
 @keyframes lp-feat-ring { 0% { opacity: 0.8; transform: scale(1); } 100% { opacity: 0; transform: scale(1.9); } }
 @media (prefers-reduced-motion: reduce) { .lp-feat, .lp-feat-icon, .lp-feat::after { transition: none; } .lp-feat[data-lit] .lp-feat-icon::after { animation: none; } }
 
+
+/* While the page scrolls, the live cards in the hero reels hold their own animations still (pulses, progress bars, shimmer) so the frame goes to scrolling. */
+:root[data-scrolling] [data-hero-track] * { animation-play-state: paused !important; }

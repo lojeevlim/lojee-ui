@@ -1,3 +1,4 @@
+import { isScrolling } from "./scrollState";
 import { cloneElement, isValidElement, memo, useEffect, useRef, useState, type PointerEvent, type ReactNode } from "react";
 import { HeroCard as Card } from "./HeroCard";
 import { BASIC_REELS } from "./heroCardsBasic";
@@ -71,7 +72,7 @@ const ROW_1: ReactNode[] = [
 const ROW_2: ReactNode[] = [
   <Card key="input" name="Input"><Input placeholder="you@company.com" leadingIcon="mail" /></Card>,
   <Card key="search" name="SearchInput"><SearchInput placeholder="Search components…" /></Card>,
-  <Card key="select" name="Select"><Select placeholder="Pick a framework" options={[{ label: "React", value: "react" }, { label: "Vue", value: "vue" }, { label: "Angular", value: "angular" }]} /></Card>,
+  <Card key="select" name="Select" overflowVisible><Select placeholder="Pick a framework" options={[{ label: "React", value: "react" }, { label: "Vue", value: "vue" }, { label: "Angular", value: "angular" }]} /></Card>,
   <Card key="tabs" name="Tabs" w="w-72"><Tabs tabs={[{ label: "Install", content: <p className="pt-2 text-xs text-fg-muted">npm install lojee-ui</p> }, { label: "Style", content: <p className="pt-2 text-xs text-fg-muted">Light, dark, 12 accents.</p> }, { label: "Ship", content: <p className="pt-2 text-xs text-fg-muted">Web Components too.</p> }]} /></Card>,
   <Card key="slider" name="Slider"><Slider defaultValue={60} showValue /></Card>,
   <Card key="pagination" name="Pagination" w="w-96"><Pager /></Card>,
@@ -128,8 +129,8 @@ const Reel = memo(function Reel({ items, dir, speed }: { items: ReactNode[]; dir
       const t = st.current;
       const dt = Math.min(64, now - last);
       last = now;
-      // The gliding speed eases to a stop when the reel is pressed or dragged and eases back up after the release, so nothing starts or stops with a jolt.
-      const goal = t.pressed || t.drag || reduce ? 0 : 1;
+      // The gliding speed eases to a stop when the reel is pressed, dragged or the page is scrolling (so scrolling has the frame budget to itself) and eases back up after the release, so nothing starts or stops with a jolt.
+      const goal = t.pressed || t.drag || reduce || isScrolling() ? 0 : 1;
       t.auto += (goal - t.auto) * (1 - Math.exp(-dt / 220));
       if (Math.abs(goal - t.auto) < 0.002) t.auto = goal;
       if (t.drag) {

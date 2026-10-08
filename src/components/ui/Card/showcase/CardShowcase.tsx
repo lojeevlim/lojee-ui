@@ -110,17 +110,17 @@ export class AppComponent {}`,
             </div>
             <div>
               <p className="mb-7 font-mono text-xs text-fg-subtle">lighting="scroll"</p>
-              <Card variant="glass" lighting="scroll">Scroll to centre</Card>
+              <Card variant="glass" lighting="scroll">Scroll to center</Card>
             </div>
           </div>
           <CodeBlock
             variants={{
               react: `<Card variant="glass" lighting="hover">Hover me</Card>
 <Card variant="glass" lighting="press">Press me</Card>
-<Card variant="glass" lighting="scroll">Scroll to centre</Card>`,
+<Card variant="glass" lighting="scroll">Scroll to center</Card>`,
               js: `<l-Card variant="glass" lighting="hover">Hover me</l-Card>
 <l-Card variant="glass" lighting="press">Press me</l-Card>
-<l-Card variant="glass" lighting="scroll">Scroll to centre</l-Card>
+<l-Card variant="glass" lighting="scroll">Scroll to center</l-Card>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -128,7 +128,7 @@ export class AppComponent {}`,
               vue: `<template>
   <l-Card variant="glass" lighting="hover">Hover me</l-Card>
   <l-Card variant="glass" lighting="press">Press me</l-Card>
-  <l-Card variant="glass" lighting="scroll">Scroll to centre</l-Card>
+  <l-Card variant="glass" lighting="scroll">Scroll to center</l-Card>
 </template>
 
 <script setup lang="ts">
@@ -145,7 +145,7 @@ import "lojee-ui/elements";
   template: \`
     <l-Card variant="glass" lighting="hover">Hover me</l-Card>
     <l-Card variant="glass" lighting="press">Press me</l-Card>
-    <l-Card variant="glass" lighting="scroll">Scroll to centre</l-Card>
+    <l-Card variant="glass" lighting="scroll">Scroll to center</l-Card>
   \`,
 })
 export class AppComponent {}`,

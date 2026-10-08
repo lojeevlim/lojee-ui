@@ -285,7 +285,7 @@ function App() {
   }
 
   return (
-    <ThemeProvider defaultMode="dark" defaultAccent="violet" defaultDesign="clay" defaultActiveVariant="solid">
+    <ThemeProvider defaultMode="dark" defaultAccent="#d6336c" defaultDesign="clay" defaultActiveVariant="solid">
 
       <AppShell layout={APP_LAYOUT} collapseBelow="3xl">
         <Top>

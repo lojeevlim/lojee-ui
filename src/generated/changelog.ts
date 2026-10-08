@@ -2,8 +2,17 @@
 export interface ChangelogCommit { sha: string; short: string; date: string; author: string; email: string; subject: string; body: string }
 
 export const PACKAGE_VERSION = "0.1.0-alpha.14";
-export const CHANGELOG_GENERATED_AT = "2026-10-07T18:14:45.440Z";
+export const CHANGELOG_GENERATED_AT = "2026-10-08T14:47:11.360Z";
 export const CHANGELOG: ChangelogCommit[] = [
+  {
+    "sha": "649038fca77a2587db7214bfa2255e0c9b8a3d45",
+    "short": "649038f",
+    "date": "2026-10-08T03:10:49+08:00",
+    "author": "lojeevlim",
+    "email": "lojeevlim@gmail.com",
+    "subject": "Landing hero: card light spill, heading firefly particles, no card padding wrappers",
+    "body": "- Pressed hero cards (and the stats bar) light the nearest edge of nearby cards, recomputed every frame so it follows moving cards\n- Heading gets a wandering firefly shown as a particle trail that lights the letters it passes\n- Remove the padded/negative-margin card wrapper and the reel wrapper so glows are no longer clipped or overlapping"
+  },
   {
     "sha": "590e94a4a3d4f2569c206c4eab19b940b783bfee",
     "short": "590e94a",

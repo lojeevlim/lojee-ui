@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { isScrolling } from "./scrollState";
 
 type Dust = { x: number; y: number; vx: number; vy: number; life: number; decay: number; size: number };
 
@@ -23,7 +24,7 @@ export default function ParticleTrail() {
     const el = cv?.parentElement;
     const ctx = cv?.getContext("2d");
     if (!cv || !el || !ctx) return;
-    const f = { hx: 0, hy: 0, tx: 0, ty: 0, px: 0, py: 0, on: false, press: false, fly: false, fx: 0, fy: 0, fpx: 0, fpy: 0, raf: 0, last: 0, tick: 0, color: "#8b5cf6", glow: false, w: 0, h: 0, dpr: 1, dust: [] as Dust[] };
+    const f = { hx: 0, hy: 0, tx: 0, ty: 0, px: 0, py: 0, on: false, press: false, raf: 0, last: 0, tick: 0, color: "#8b5cf6", glow: false, w: 0, h: 0, dpr: 1, dust: [] as Dust[] };
 
     const loop = (now: number) => {
       const dt = Math.min(48, now - (f.last || now));
@@ -35,7 +36,7 @@ export default function ParticleTrail() {
       // The emitter eases after the pointer and sheds dust along its path (more when it moves faster, a burst while pressed).
       f.hx += (f.tx - f.hx) * 0.35;
       f.hy += (f.ty - f.hy) * 0.35;
-      if (f.on) {
+      if (f.on && !isScrolling()) {
         const dist = Math.hypot(f.hx - f.px, f.hy - f.py);
         const n = Math.min(6, Math.floor(dist / 5) + (f.press ? 3 : 0) + (Math.random() < 0.25 ? 1 : 0));
         for (let i = 0; i < n && f.dust.length < MAX_DUST; i++) {
@@ -47,19 +48,6 @@ export default function ParticleTrail() {
       }
       f.px = f.hx;
       f.py = f.hy;
-      // The heading's firefly (see LandingPage) is a second emitter: it sheds a few soft specks along its wandering path.
-      if (f.fly) {
-        const dist = Math.hypot(f.fx - f.fpx, f.fy - f.fpy);
-        const n = Math.min(4, Math.floor(dist / 4) + (Math.random() < 0.5 ? 1 : 0));
-        for (let i = 0; i < n && f.dust.length < MAX_DUST; i++) {
-          const t = Math.random();
-          const ang = Math.random() * Math.PI * 2;
-          const sp = 0.012 + Math.random() * 0.026;
-          f.dust.push({ x: f.fpx + (f.fx - f.fpx) * t + (Math.random() - 0.5) * 8, y: f.fpy + (f.fy - f.fpy) * t + (Math.random() - 0.5) * 8, vx: Math.cos(ang) * sp, vy: Math.sin(ang) * sp - 0.004, life: 1, decay: 0.0009 + Math.random() * 0.0009, size: 1 + Math.random() * 2.2 });
-        }
-        f.fpx = f.fx;
-        f.fpy = f.fy;
-      }
       ctx.setTransform(f.dpr, 0, 0, f.dpr, 0, 0);
       ctx.clearRect(0, 0, f.w, f.h);
       ctx.fillStyle = f.color;
@@ -81,7 +69,7 @@ export default function ParticleTrail() {
       ctx.globalAlpha = 1;
       ctx.globalCompositeOperation = "source-over";
       ctx.shadowBlur = 0;
-      f.raf = f.on || f.fly || f.dust.length ? requestAnimationFrame(loop) : 0;
+      f.raf = f.on || f.dust.length ? requestAnimationFrame(loop) : 0;
       if (!f.raf) f.last = 0;
     };
     const wake = () => { if (!f.raf) f.raf = requestAnimationFrame(loop); };
@@ -109,17 +97,6 @@ export default function ParticleTrail() {
       f.on = on;
       if (on) wake();
     };
-    const onFly = (e: Event) => {
-      const d = (e as CustomEvent<{ x: number; y: number; on: boolean }>).detail;
-      if (!d.on) { f.fly = false; return; }
-      const r = el.getBoundingClientRect();
-      f.fx = d.x - r.left;
-      f.fy = d.y - r.top;
-      if (!f.fly) { f.fpx = f.fx; f.fpy = f.fy; }
-      f.fly = true;
-      wake();
-    };
-    window.addEventListener("lp-firefly", onFly);
     const onLeave = () => { f.on = false; };
     const onDown = () => { f.press = true; wake(); };
     const onUp = () => { f.press = false; };
@@ -136,7 +113,6 @@ export default function ParticleTrail() {
       el.removeEventListener("pointerdown", onDown);
       window.removeEventListener("pointerup", onUp);
       window.removeEventListener("pointercancel", onUp);
-      window.removeEventListener("lp-firefly", onFly);
     };
   }, []);
 

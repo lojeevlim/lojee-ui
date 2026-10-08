@@ -25,10 +25,13 @@ export function Main({ children, className, padding = "md" }: MainProps) {
   // or the native one when the theme says `scrollbar="native"`), so the scrollbar sits on the panel's own edge and the
   // padding scrolls with the content.
   return (
-    <main className={cx("m-2 overflow-hidden rounded-xl bg-surface md:m-3", APP_BREAKPOINTS[breakpoint].main.replace("overflow-auto", "overflow-hidden"), className)}>
+    <main className={cx("relative m-2 overflow-hidden rounded-xl bg-surface md:m-3", APP_BREAKPOINTS[breakpoint].main.replace("overflow-auto", "overflow-hidden"), className)}>
       <DotScroll className="h-full" viewportClassName={MAIN_PADDING[padding] ?? MAIN_PADDING.md}>
         {children}
       </DotScroll>
+      {/* A small fade at the panel's top and bottom edges: content softly melts into the panel colour instead of being cut off. */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 z-10 h-8 bg-gradient-to-b from-surface to-transparent" />
+      <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-8 bg-gradient-to-t from-surface to-transparent" />
     </main>
   );
 }

@@ -342,14 +342,14 @@ export const FORMS_REELS: ReactNode[][] = [
   ],
   // Reel 3: selection and pickers
   [
-    <HeroCard key="select" name="Select · sizes">
+    <HeroCard key="select" name="Select · sizes" overflowVisible>
       <Stack>
         <Select size="sm" placeholder="Small" options={FRAMEWORKS} />
         <SelectDemo />
         <Select size="lg" placeholder="Large" options={FRAMEWORKS} />
       </Stack>
     </HeroCard>,
-    <HeroCard key="select-states" name="Select · states">
+    <HeroCard key="select-states" name="Select · states" overflowVisible>
       <Stack>
         <Select invalid placeholder="Required" options={FRAMEWORKS} />
         <Select disabled placeholder="Disabled" options={FRAMEWORKS} />
@@ -376,7 +376,7 @@ export const FORMS_REELS: ReactNode[][] = [
     <HeroCard key="datepicker-states" name="DatePicker · sizes &amp; states">
       <Stack>
         <DatePicker size="sm" />
-        <DatePicker size="lg" invalid />
+        <DatePicker size="lg" />
         <DatePicker disabled defaultValue="2026-10-03" />
       </Stack>
     </HeroCard>,

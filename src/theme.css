@@ -1862,6 +1862,13 @@ body[data-design="clay"] {
   mix-blend-mode: screen;
 }
 [data-theme="dark"] [data-spill] > [data-hero-spill] { opacity: 1; }
+/* The glowing (pressed) card lights up a little itself too, not just the cards around it: a soft wash of the theme colour, brightest toward the middle, over its face. */
+[data-hero-spill] { transition: opacity 0.9s ease; }
+[data-theme="dark"] [data-hero-card]:active > [data-hero-spill] {
+  opacity: 1;
+  transition-duration: 0.15s;
+  background: radial-gradient(ellipse 75% 70% at 50% 45%, color-mix(in srgb, var(--color-accent-300) 20%, transparent), color-mix(in srgb, var(--color-accent-500) 8%, transparent) 60%, transparent 100%);
+}
 
 /* Landing hero cards: no hover effect; a press (click / touch) sinks the card into the clay well. */
 [data-design="clay"] [data-hero-card]:active > * {

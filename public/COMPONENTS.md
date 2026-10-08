@@ -529,7 +529,7 @@ Dark mode only: the glass frame lights up like a backlight in the button's colou
 ```tsx
 <Button variant="glass" lighting="hover" label="Hover me" />
 <Button variant="glass" lighting="press" label="Press me" />
-<Button variant="glass" lighting="scroll" label="Scroll to centre" />
+<Button variant="glass" lighting="scroll" label="Scroll to center" />
 ```
 
 _11 more examples are on the docs page._
@@ -1506,7 +1506,7 @@ Dark mode only: the glass frame lights up like a backlight in the theme colour. 
 ```tsx
 <Card variant="glass" lighting="hover">Hover me</Card>
 <Card variant="glass" lighting="press">Press me</Card>
-<Card variant="glass" lighting="scroll">Scroll to centre</Card>
+<Card variant="glass" lighting="scroll">Scroll to center</Card>
 ```
 
 #### Padding

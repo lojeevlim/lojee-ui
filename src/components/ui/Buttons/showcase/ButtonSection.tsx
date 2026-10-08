@@ -93,16 +93,16 @@ export class ButtonShowcaseComponent {}`,
         <Row>
           <div><p className="mb-4 font-mono text-xs text-fg-subtle">lighting="hover"</p><Button variant="glass" lighting="hover" label="Hover me" /></div>
           <div><p className="mb-4 font-mono text-xs text-fg-subtle">lighting="press"</p><Button variant="glass" lighting="press" label="Press me" /></div>
-          <div><p className="mb-4 font-mono text-xs text-fg-subtle">lighting="scroll"</p><Button variant="glass" lighting="scroll" label="Scroll to centre" /></div>
+          <div><p className="mb-4 font-mono text-xs text-fg-subtle">lighting="scroll"</p><Button variant="glass" lighting="scroll" label="Scroll to center" /></div>
         </Row>
         <CodeBlock
           variants={{
             react: `<Button variant="glass" lighting="hover" label="Hover me" />
 <Button variant="glass" lighting="press" label="Press me" />
-<Button variant="glass" lighting="scroll" label="Scroll to centre" />`,
+<Button variant="glass" lighting="scroll" label="Scroll to center" />`,
             js: `<l-Button variant="glass" lighting="hover" label="Hover me"></l-Button>
 <l-Button variant="glass" lighting="press" label="Press me"></l-Button>
-<l-Button variant="glass" lighting="scroll" label="Scroll to centre"></l-Button>
+<l-Button variant="glass" lighting="scroll" label="Scroll to center"></l-Button>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -110,7 +110,7 @@ export class ButtonShowcaseComponent {}`,
             vue: `<template>
   <l-Button variant="glass" lighting="hover" label="Hover me" />
   <l-Button variant="glass" lighting="press" label="Press me" />
-  <l-Button variant="glass" lighting="scroll" label="Scroll to centre" />
+  <l-Button variant="glass" lighting="scroll" label="Scroll to center" />
 </template>
 
 <script setup lang="ts">
@@ -127,7 +127,7 @@ import "lojee-ui/elements";
   template: \`
     <l-Button variant="glass" lighting="hover" label="Hover me" />
     <l-Button variant="glass" lighting="press" label="Press me" />
-    <l-Button variant="glass" lighting="scroll" label="Scroll to centre" />
+    <l-Button variant="glass" lighting="scroll" label="Scroll to center" />
   \`,
 })
 export class ButtonShowcaseComponent {}`,

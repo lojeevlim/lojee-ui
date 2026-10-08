@@ -2,6 +2,7 @@ import { lazy, Suspense, useEffect, useRef, useState, type CSSProperties, type P
 import { PageScrollbar } from "../ui/DotScroll/PageScrollbar"
 import { useNavigate } from "react-router-dom";
 import "./landing.css";
+import { isScrolling } from "./scrollState";
 import ParticleTrail from "./ParticleTrail";
 import Reveal from "./Reveal";
 import LazyOnView from "./LazyOnView";
@@ -57,6 +58,9 @@ const FEATURES: { icon: string; title: string; body: string; span?: string }[] =
 ];
 
 // Specks drifting down out of the dark-mode top glow while the pointer hasn't moved yet (see .lp-rest-dust in landing.css). Fixed values so the markup is stable.
+// Size of the small window the hover spotlight is lit in, and how far (px) it may trail behind the pointer (the lit circle is 70px in radius).
+const SPOT_WIN = 200;
+const SPOT_LAG = 30;
 const REST_DUST = Array.from({ length: 320 }, (_, i) => ({
   left: `calc(50% + ${(((i * 53) % 101) - 50) * 4.4}px)`,
   "--sz": `${1.5 + (i % 3)}px`,
@@ -142,12 +146,18 @@ function Nav({ groups, onStart }: { groups: typeof COMPONENT_MENU; onStart: () =
   }, []);
   return (
       <header
-        className={`sticky top-0 z-50 border-b ${scrolled ? "bg-surface" : "bg-transparent"} ${
-          glow ? "border-accent-500 shadow-[0_1px_14px_1px_color-mix(in_srgb,var(--color-accent-500)_55%,transparent)]" : "border-transparent"
-        }`}
-        // The background snaps over quickly; the glow fades in and out a little slower.
-        style={{ transition: "background-color 90ms linear, border-color 400ms ease, box-shadow 400ms ease" }}
+        className={`sticky top-0 z-50 border-b border-transparent ${scrolled ? "bg-surface" : "bg-transparent"}`}
+        style={{ transition: "background-color 90ms linear" }}
       >
+        {/* The glow forms at the middle of the bottom edge, spreads out sideways and fades toward both ends. */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-0"
+          style={{ opacity: glow ? 1 : 0, transform: glow ? "scaleX(1)" : "scaleX(0.15)", transition: glow ? "opacity 400ms ease, transform 900ms ease-out" : "opacity 600ms ease, transform 900ms ease-in" }}
+        >
+          <div className="absolute inset-x-0 -bottom-px h-px" style={{ background: "linear-gradient(to right, transparent, var(--color-accent-500) 50%, transparent)" }} />
+          <div className="absolute inset-x-0 top-0 h-5" style={{ background: "radial-gradient(ellipse 50% 100% at 50% 0, color-mix(in srgb, var(--color-accent-500) 45%, transparent), transparent)" }} />
+        </div>
         <div className="mx-auto flex h-16 max-w-6xl items-center gap-3 px-5">
           <button type="button" onClick={() => window.scrollTo({ top: 0, behavior: reduce() ? "auto" : "smooth" })} className="group" aria-label="lojeeUI — back to top">
             <Logo className="[&_svg]:transition-transform [&_svg]:duration-300 group-hover:[&_svg]:rotate-6 group-hover:[&_svg]:scale-105" />
@@ -159,9 +169,11 @@ function Nav({ groups, onStart }: { groups: typeof COMPONENT_MENU; onStart: () =
               ["Changelog", pathFor("docs", "Changelog"), "clock"],
               ["About", "/about", "info"],
             ].map(([label, to, icon]) => (
-              <button key={label} type="button" onClick={() => navigate(to)} className="inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm text-fg-muted transition-colors hover:bg-surface-muted hover:text-fg">
-                <Icon name={icon} size={15} />
+              <button key={label} type="button" onClick={() => navigate(to)} className="group/nav relative inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm text-fg-muted transition-[background-color,color,transform] duration-300 ease-out hover:-translate-y-px hover:bg-surface-muted hover:text-fg focus-visible:text-fg">
+                <span className="inline-flex transition-transform duration-300 ease-out group-hover/nav:-rotate-6 group-hover/nav:scale-110"><Icon name={icon} size={15} /></span>
                 {label}
+                {/* Underline that slides in from the left when the pointer arrives, and out to the right when it leaves. */}
+                <span aria-hidden="true" className="pointer-events-none absolute inset-x-3 bottom-0.5 h-0.5 origin-left scale-x-0 rounded-full bg-accent-500 transition-transform duration-300 ease-out group-hover/nav:scale-x-100" />
               </button>
             ))}
           </nav>
@@ -201,6 +213,7 @@ export default function LandingPage() {
   const [copied, setCopied] = useState(false);
   const [statsRef, statsSeen] = useInView<HTMLDivElement>(0.4);
   useEffect(prefetchSections, []);
+  useEffect(() => { isScrolling(); }, []); // starts tracking scroll (html[data-scrolling]) from the first frame
   // "Built for real applications": the feature cards light up one by one by scroll position. A line at 60% of the viewport height travels down the grid as you
   // scroll; the grid's height is split evenly between the cards, so each one stays lit while the line is inside its share, in reading order.
   const featRef = useRef<HTMLDivElement>(null);
@@ -259,10 +272,25 @@ export default function LandingPage() {
     const az = (Math.atan2(ly, lx) * 180) / Math.PI;
     clayFilter.current?.querySelectorAll<SVGFEDistantLightElement>("feDistantLight").forEach((d) => d.setAttribute("azimuth", String(az)));
   };
-  // The hover spotlight is lit by a point light at the pointer itself, so the shading changes by area (like the colour does) instead of by a global
-  // direction: letters near the pointer are lit toward it. SVG filter attributes can't use CSS transitions, so the light eases toward the pointer with a
-  // time-based exponential ease (same feel at any frame rate), trailing it smoothly.
+  // The hover spotlight is lit by a point light at the pointer itself, so the shading changes by area. The lighting filter is the expensive part, and re-running it over the whole
+  // (very wide) heading on every frame made fast pointer moves lag. So the lit copy lives in a small clipped window (SPOT_WIN px square) that travels with the eased light:
+  // the point light sits at the window's centre (a fixed fePointLight), the window is moved with a transform and the copy inside is counter-moved, so only that small area
+  // is re-lit per frame. SVG filter attributes can't use CSS transitions, so the light eases toward the pointer with a time-based exponential ease (same feel at any frame rate).
   const spotLight = useRef({ x: 0, y: 0, tx: 0, ty: 0, t: 0, raf: 0 });
+  const spotWin = useRef<HTMLSpanElement>(null);
+  const spotLit = useRef<HTMLSpanElement>(null);
+  const lastLight = useRef({ x: NaN, y: NaN });
+  const lastWrite = useRef(0);
+  const writeSpotLight = (x: number, y: number) => {
+    const last = lastLight.current;
+    if (Math.abs(x - last.x) < 0.5 && Math.abs(y - last.y) < 0.5) return;
+    last.x = x;
+    last.y = y;
+    const wx = (x - SPOT_WIN / 2).toFixed(1);
+    const wy = (y - SPOT_WIN / 2).toFixed(1);
+    if (spotWin.current) spotWin.current.style.transform = `translate3d(${wx}px, ${wy}px, 0)`;
+    if (spotLit.current) spotLit.current.style.transform = `translate3d(${-Number(wx)}px, ${-Number(wy)}px, 0)`;
+  };
   const easeSpotLight = (now: number) => {
     const l = spotLight.current;
     const dt = Math.min(now - (l.t || now), 64);
@@ -270,23 +298,42 @@ export default function LandingPage() {
     const k = 1 - Math.exp(-dt / 220);
     l.x += (l.tx - l.x) * k;
     l.y += (l.ty - l.y) * k;
-    clayFilter.current?.querySelectorAll<SVGFEPointLightElement>("fePointLight").forEach((p) => {
-      p.setAttribute("x", String(l.x));
-      p.setAttribute("y", String(l.y));
-    });
-    if (Math.abs(l.tx - l.x) + Math.abs(l.ty - l.y) > 0.3) l.raf = requestAnimationFrame(easeSpotLight);
+    // The window never trails further behind the pointer than the lit circle's reach, however fast it moves.
+    l.x = l.tx + Math.max(-SPOT_LAG, Math.min(SPOT_LAG, l.x - l.tx));
+    l.y = l.ty + Math.max(-SPOT_LAG, Math.min(SPOT_LAG, l.y - l.ty));
+    // Re-lighting is capped at ~60 a second, so 120/144Hz displays do not pay double for it.
+    if (now - lastWrite.current >= 15 || Math.abs(l.tx - l.x) + Math.abs(l.ty - l.y) <= 0.5) {
+      lastWrite.current = now;
+      writeSpotLight(l.x, l.y);
+    }
+    if (Math.abs(l.tx - l.x) + Math.abs(l.ty - l.y) > 0.5) l.raf = requestAnimationFrame(easeSpotLight);
     else { l.raf = 0; l.t = 0; }
   };
+  // Pointer events can fire several times per frame (and faster than the display): only the latest position is kept and applied once per animation frame,
+  // so the heading's rect is read and the mask variables are written once per frame instead of once per event.
+  const titlePos = useRef<{ x: number; y: number; raf: number; el: HTMLElement | null }>({ x: 0, y: 0, raf: 0, el: null });
   const onTitleMove = (e: PointerEvent<HTMLElement>) => {
-    const r = e.currentTarget.getBoundingClientRect();
-    e.currentTarget.style.setProperty("--hx", `${e.clientX - r.left}px`);
-    e.currentTarget.style.setProperty("--hy", `${e.clientY - r.top}px`);
-    const l = spotLight.current;
-    l.tx = e.clientX - r.left;
-    l.ty = e.clientY - r.top;
-    // First move after entering: start the light at the pointer instead of sweeping in from wherever it last was.
-    if (!l.raf && !l.x && !l.y) { l.x = l.tx; l.y = l.ty; }
-    if (!l.raf) l.raf = requestAnimationFrame(easeSpotLight);
+    const t = titlePos.current;
+    t.x = e.clientX;
+    t.y = e.clientY;
+    t.el = e.currentTarget;
+    if (t.raf) return;
+    t.raf = requestAnimationFrame(() => {
+      t.raf = 0;
+      const el = t.el;
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      const x = t.x - r.left;
+      const y = t.y - r.top;
+      el.style.setProperty("--hx", `${x.toFixed(1)}px`);
+      el.style.setProperty("--hy", `${y.toFixed(1)}px`);
+      const l = spotLight.current;
+      l.tx = x;
+      l.ty = y;
+      // First move after entering: start the light at the pointer instead of sweeping in from wherever it last was.
+      if (!l.raf && !l.x && !l.y) { l.x = l.tx; l.y = l.ty; }
+      if (!l.raf) l.raf = requestAnimationFrame(easeSpotLight);
+    });
   };
   const onHeroMove = (e: PointerEvent<HTMLElement>) => {
     const g = glowPos.current;
@@ -299,95 +346,69 @@ export default function LandingPage() {
       const glow = heroGlow.current;
       if (!glow || !g.el) return;
       const r = g.el.getBoundingClientRect();
-      glow.style.setProperty("--mx", `${g.x - r.left}px`);
-      glow.style.setProperty("--my", `${g.y - r.top}px`);
+      const dot = glow.firstElementChild as HTMLElement | null;
+      if (dot) dot.style.transform = `translate3d(${(g.x - r.left - r.width / 2).toFixed(1)}px, ${(g.y - r.top - r.height * 0.3).toFixed(1)}px, 0)`;
     });
   };
 
   useEffect(() => setClayLight(-0.6, -0.8), []);
 
-  // Firefly: while the pointer is not over the heading, a small light, shown as a drifting trail of glowing particles, wanders around it on its own. Its position is a few slow sine waves of different
-  // periods (so the path never visibly repeats) plus a gentle flicker; the same spotlight that follows the pointer is revealed around it (--fx / --fy,
-  // see .lp-clay-text[data-firefly] in landing.css) and the clay point light follows it, so the nearby letters light up as it passes and fade as it leaves.
+  // The copy inside the spotlight window must wrap exactly like the heading, so it takes the heading's width.
   useEffect(() => {
     const h = heroTitle.current;
-    if (!h || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    let hovered = false;
-    let visible = true;
-    let raf = 0;
-    const sleep = () => window.dispatchEvent(new CustomEvent("lp-firefly", { detail: { x: 0, y: 0, on: false } }));
-    const enter = () => { hovered = true; h.removeAttribute("data-firefly"); sleep(); };
-    const leave = () => { hovered = false; };
-    h.addEventListener("pointerenter", enter);
-    h.addEventListener("pointerleave", leave);
-    const io = new IntersectionObserver(([e]) => {
-      visible = e.isIntersecting;
-      if (!visible) sleep();
-      if (visible && !raf) raf = requestAnimationFrame(tick);
-    });
-    io.observe(h);
-    const tick = (now: number) => {
-      raf = visible ? requestAnimationFrame(tick) : 0;
-      if (hovered || !visible) return;
-      const w = h.offsetWidth;
-      const ht = h.offsetHeight;
-      const a = now * 0.001;
-      const x = w * (0.5 + 0.52 * (0.62 * Math.sin(a * 0.31 + 1.3) + 0.38 * Math.sin(a * 0.77 + 0.4)));
-      const y = ht * (0.5 + 0.55 * (0.6 * Math.sin(a * 0.43 + 2.1) + 0.4 * Math.sin(a * 1.13 + 0.9)));
-      h.setAttribute("data-firefly", "");
-      h.style.setProperty("--fx", `${x.toFixed(1)}px`);
-      h.style.setProperty("--fy", `${y.toFixed(1)}px`);
-      const box = h.getBoundingClientRect();
-      window.dispatchEvent(new CustomEvent("lp-firefly", { detail: { x: box.left + x, y: box.top + y, on: true } }));
-      const l = spotLight.current;
-      l.tx = x;
-      l.ty = y;
-      if (!l.raf) l.raf = requestAnimationFrame(easeSpotLight);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => {
-      cancelAnimationFrame(raf);
-      io.disconnect();
-      sleep();
-      h.removeEventListener("pointerenter", enter);
-      h.removeEventListener("pointerleave", leave);
-      h.removeAttribute("data-firefly");
-    };
+    if (!h) return;
+    const sync = () => spotLit.current?.style.setProperty("width", `${h.offsetWidth}px`);
+    sync();
+    const ro = new ResizeObserver(sync);
+    ro.observe(h);
+    return () => ro.disconnect();
   }, []);
 
-  // Dark mode: until the pointer first moves, a light acts like the pointer resting at the top centre of the heading (a beam from just below the navbar leads down to it), lighting only the top of the letters
-  // (see [data-rest] in landing.css; the shading's point light starts there too). Once the pointer moves, the heading behaves as usual.
+  // Dark mode: until the pointer first moves, the hero's top glow (beam, dust, pinned cursor glow; see [data-rest] in landing.css) rests under the navbar. The heading itself is not lit by it.
   const [restLight, setRestLight] = useState(true);
   useEffect(() => {
-    const h = heroTitle.current;
-    // The navbar lamp is straight above the heading, so until the pointer moves the letters are shaded as lit from the top (highlight on top edges, shade underneath).
-    setClayLight(0, -1);
-    if (h) {
-      const l = spotLight.current;
-      // The light acts like a pointer resting on the top centre of the heading, so only the top of the letters is lit.
-      h.style.setProperty("--rest-y", "0px");
-      l.x = l.tx = h.getBoundingClientRect().width / 2;
-      l.y = l.ty = 0;
-      clayFilter.current?.querySelectorAll<SVGFEPointLightElement>("fePointLight").forEach((p) => {
-        p.setAttribute("x", String(l.x));
-        p.setAttribute("y", String(l.y));
-      });
-    }
-    const off = () => { setRestLight(false); setClayLight(-0.6, -0.8); };
+    const off = () => setRestLight(false);
     window.addEventListener("pointermove", off, { once: true, passive: true });
     return () => window.removeEventListener("pointermove", off);
+  }, []);
+
+  // Bottom blur: always on as a plain blur; while the page is being scrolled (and ~600ms after) it picks up the theme colour in dark mode, then eases back to plain.
+  const [scrollTint, setScrollTint] = useState(false);
+  useEffect(() => {
+    let idle = 0;
+    const onScroll = () => {
+      setScrollTint(true);
+      window.clearTimeout(idle);
+      idle = window.setTimeout(() => setScrollTint(false), 600);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.clearTimeout(idle);
+    };
   }, []);
 
   return (
     <div className="min-h-screen overflow-x-clip bg-surface text-fg">
       <PageScrollbar />
+      {/* One fade along the bottom edge of the viewport: the page melts into its background colour. In dark mode that colour eases toward the theme colour while scrolling and back after. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none fixed inset-x-0 bottom-0 z-40 h-36 bg-surface [-webkit-mask-image:linear-gradient(to_top,#000_0%,rgb(0_0_0/0.92)_12%,rgb(0_0_0/0.7)_28%,rgb(0_0_0/0.42)_46%,rgb(0_0_0/0.18)_66%,rgb(0_0_0/0.05)_84%,transparent_100%)] [mask-image:linear-gradient(to_top,#000_0%,rgb(0_0_0/0.92)_12%,rgb(0_0_0/0.7)_28%,rgb(0_0_0/0.42)_46%,rgb(0_0_0/0.18)_66%,rgb(0_0_0/0.05)_84%,transparent_100%)]"
+      >
+        {/* Dark mode: the theme colour, faded in while scrolling and out after. A separate layer on top of the plain surface fade, so the base never animates (no light flash on reload while the theme is applied). */}
+        <div
+          className="absolute inset-0 opacity-0 transition-opacity ease-in-out dark:opacity-[var(--tint)]"
+          style={{ transitionDuration: scrollTint ? "700ms" : "1400ms", ["--tint" as string]: scrollTint ? 1 : 0, background: "color-mix(in srgb, var(--color-accent-500) 13%, transparent)" }}
+        />
+      </div>
       <Nav groups={groups} onStart={start} />
 
       {/* Bumped clay letters, like the clay Button: the glyph alpha is blurred into a height map and lit with a distant light (diffuse only: soft matte shading across the bump, no specular sheen so it never looks glossy), so the letters look puffed out instead of outlined. The light's azimuth and the drop offset follow the pointer (setClayLight). #lp-clay-letters adds the Button-style drop shadow; #lp-clay-spot (the hover spotlight copy) is the same bump without it. */}
       <svg ref={clayFilter} width="0" height="0" aria-hidden className="pointer-events-none absolute">
         {[
           { id: "lp-clay-letters", drop: false, point: false, scale: 6 },
-          { id: "lp-clay-spot", drop: false, point: true, scale: 6 },
+          { id: "lp-clay-spot", drop: false, point: true, scale: 2.5 },
           // Stats numbers: the same bump with a much shallower height map, so the shading is gentle.
           { id: "lp-clay-soft", drop: false, point: false, scale: 2 },
         ].map(({ id, drop, point, scale }) => (
@@ -402,7 +423,7 @@ export default function LandingPage() {
             )}
             <feGaussianBlur in="SourceAlpha" stdDeviation="3.2" result="bump" />
             <feDiffuseLighting in="bump" surfaceScale={scale} diffuseConstant="1" lightingColor="#fff" result="diffuse">
-              {point ? <fePointLight x="0" y="0" z="70" /> : <feDistantLight azimuth="233" elevation="52" />}
+              {point ? <fePointLight x={SPOT_WIN / 2} y={SPOT_WIN / 2} z="120" /> : <feDistantLight azimuth="233" elevation="52" />}
             </feDiffuseLighting>
             <feComposite in="SourceGraphic" in2="diffuse" operator="arithmetic" k1="1.22" k2="0" k3="0" k4="0" result="shaded" />
             <feComposite in="shaded" in2="SourceAlpha" operator="in" result="body" />
@@ -425,7 +446,7 @@ export default function LandingPage() {
           </div>
         )}
         <div className="lp-grid pointer-events-none absolute inset-0 -z-10" />
-        <div ref={heroGlow} data-rest={restLight ? "" : undefined} className="lp-glow pointer-events-none absolute inset-0 -z-10" />
+        <div ref={heroGlow} data-rest={restLight ? "" : undefined} className="lp-glow pointer-events-none absolute inset-0 -z-10"><div className="lp-glow-dot" /></div>
         <div className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-32 bg-gradient-to-t from-surface to-transparent" />
         <div className="mx-auto flex min-h-screen max-w-6xl flex-col items-center justify-center px-5 py-14 text-center lg:py-24">
           <button type="button" onClick={() => navigate(pathFor("docs", "Changelog"))} className="lp-enter inline-flex max-w-full cursor-pointer items-center gap-2 rounded-full border border-border bg-surface/70 py-1 pl-1 pr-3 text-xs text-fg-muted shadow-sm" style={{ ["--d" as string]: "0ms" }}>
@@ -439,8 +460,10 @@ export default function LandingPage() {
             </span>
             {/* Hover spotlight: a copy of the heading in the theme colours, revealed only inside a small circle around the pointer, so the colour changes by portion rather than by letter. */}
             <span aria-hidden className="lp-clay-spot pointer-events-none absolute inset-0 select-none">
-              <span className="lp-clay-lit">
-                <span className="lp-spot-accent">Interfaces that fit</span> <span className="lp-shimmer-text">every framework.</span>
+              <span ref={spotWin} className="lp-clay-win">
+                <span ref={spotLit} className="lp-clay-lit">
+                  <span className="lp-spot-accent">Interfaces that fit</span> <span className="lp-shimmer-text">every framework.</span>
+                </span>
               </span>
             </span>
           </h1>

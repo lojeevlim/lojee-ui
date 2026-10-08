@@ -6,7 +6,7 @@ const CARD_WIDTH = "w-80";
 const MIN_SCALE = 0.5;
 
 /** Shrinks content that is taller or wider than its box (never below MIN_SCALE) so big components fit a small card; short content is left alone. */
-function Fit({ children }: { children: ReactNode }) {
+function Fit({ children, clip }: { children: ReactNode; clip: boolean }) {
   const box = useRef<HTMLDivElement>(null);
   const inner = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1);
@@ -34,7 +34,7 @@ function Fit({ children }: { children: ReactNode }) {
   }, []);
 
   return (
-    <div ref={box} className={scale < 1 ? "h-full [overflow:clip] [overflow-clip-margin:1rem]" : "h-full"}>
+    <div ref={box} className={scale < 1 && clip ? "h-full overflow-hidden" : "h-full"}>
       <div ref={inner} style={scale < 1 ? { width: `${100 / scale}%`, transform: `scale(${scale})`, transformOrigin: "0 0" } : undefined}>
         {children}
       </div>
@@ -96,7 +96,7 @@ function spillLight(source: HTMLElement) {
 }
 
 /** One captioned, live component inside the hero reel, drawn with the library's own glass `Card`, whose `lighting` prop lights its frame in dark mode. Every card has the same width, so the `w` prop is accepted for older call sites but no longer changes anything. */
-export function HeroCard({ name, children }: { name: string; children: ReactNode; w?: string }) {
+export function HeroCard({ name, children, overflowVisible = false }: { name: string; children: ReactNode; w?: string; overflowVisible?: boolean }) {
   // The reels hold a couple of hundred live components, doubled for the seamless loop, but only a handful are ever on screen. A card mounts its content only
   // while it is within about a screen of the viewport (the card has a fixed size, so nothing shifts), which keeps the number of live components, effects and
   // animations on the page small.
@@ -130,8 +130,8 @@ export function HeroCard({ name, children }: { name: string; children: ReactNode
         classNames={{ body: "flex min-h-0 flex-1 flex-col" }}
       >
         <p className="relative mb-3 shrink-0 font-mono text-[10px] uppercase tracking-wider text-fg-subtle">{name}</p>
-        <div className="relative min-h-0 flex-1 [overflow:clip] [overflow-clip-margin:1rem]">
-          {near && <Fit>{children}</Fit>}
+        <div className={`relative min-h-0 flex-1 ${overflowVisible ? "" : "overflow-hidden"}`}>
+          {near && <Fit clip={!overflowVisible}>{children}</Fit>}
         </div>
       </Card>
       <span data-hero-spill aria-hidden="true" className="pointer-events-none absolute inset-0 rounded-2xl" />
