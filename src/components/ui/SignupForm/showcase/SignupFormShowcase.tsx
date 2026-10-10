@@ -34,7 +34,7 @@ export default function SignupFormShowcase() {
               react: `const [values, setValues] = useState(null);
 
 <SignupForm onSubmit={setValues} />`,
-              js: `<l-SignupForm id="signup"></l-SignupForm>
+              js: `<l-signup-form id="signup"></l-signup-form>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -44,7 +44,7 @@ export default function SignupFormShowcase() {
   });
 </script>`,
               vue: `<template>
-  <l-SignupForm @submit="onSubmit" />
+  <l-signup-form @submit="onSubmit" />
 </template>
 
 <script setup lang="ts">
@@ -52,7 +52,7 @@ function onSubmit(values) {
   console.log(values);
 }
 </script>`,
-              angular: `<l-SignupForm (submit)="onSubmit($event)"></l-SignupForm>
+              angular: `<l-signup-form (submit)="onSubmit($event)"></l-signup-form>
 
 onSubmit(values) {
   console.log(values);
@@ -86,21 +86,21 @@ onSubmit(values) {
     </p>
   }
 />`,
-              js: `<l-SignupForm>
+              js: `<l-signup-form>
   <p slot="footer">Already have an account? <a href="/login">Log in</a></p>
-</l-SignupForm>
+</l-signup-form>
 
 <script type="module">import "lojee-ui/elements";</script>`,
               vue: `<template>
-  <l-SignupForm>
+  <l-signup-form>
     <div slot="footer">
       <p>Already have an account? <a href="/login">Log in</a></p>
     </div>
-  </l-SignupForm>
+  </l-signup-form>
 </template>`,
-              angular: `<l-SignupForm>
+              angular: `<l-signup-form>
   <p slot="footer">Already have an account? <a href="/login">Log in</a></p>
-</l-SignupForm>`,
+</l-signup-form>`,
             }}
           />
         </section>
@@ -115,9 +115,9 @@ onSubmit(values) {
           <CodeBlock
             variants={{
               react: `<SignupForm mismatchError="Those passwords don't match — try again." />`,
-              js: `<l-SignupForm mismatchError="Those passwords don't match — try again."></l-SignupForm>`,
-              vue: `<l-SignupForm mismatchError="Those passwords don't match — try again." />`,
-              angular: `<l-SignupForm mismatchError="Those passwords don't match — try again."></l-SignupForm>`,
+              js: `<l-signup-form mismatchError="Those passwords don't match — try again."></l-signup-form>`,
+              vue: `<l-signup-form mismatchError="Those passwords don't match — try again." />`,
+              angular: `<l-signup-form mismatchError="Those passwords don't match — try again."></l-signup-form>`,
             }}
           />
         </section>
@@ -142,23 +142,23 @@ onSubmit(values) {
 <SignupForm transition="flip" transitionDuration={700} />
 <SignupForm hoverEffect="lift" />
 <SignupForm hoverEffect="glow" />`,
-              js: `<l-SignupForm transition="fade"></l-SignupForm>
-<l-SignupForm transition="slide-up"></l-SignupForm>
-<l-SignupForm transition="zoom" transitionDelay="100"></l-SignupForm>
-<l-SignupForm transition="flip" transitionDuration="700"></l-SignupForm>
-<l-SignupForm hoverEffect="lift"></l-SignupForm>
-<l-SignupForm hoverEffect="glow"></l-SignupForm>
+              js: `<l-signup-form transition="fade"></l-signup-form>
+<l-signup-form transition="slide-up"></l-signup-form>
+<l-signup-form transition="zoom" transitionDelay="100"></l-signup-form>
+<l-signup-form transition="flip" transitionDuration="700"></l-signup-form>
+<l-signup-form hoverEffect="lift"></l-signup-form>
+<l-signup-form hoverEffect="glow"></l-signup-form>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-SignupForm transition="fade"></l-SignupForm>
-  <l-SignupForm transition="slide-up"></l-SignupForm>
-  <l-SignupForm transition="zoom" transitionDelay="100"></l-SignupForm>
-  <l-SignupForm transition="flip" transitionDuration="700"></l-SignupForm>
-  <l-SignupForm hoverEffect="lift"></l-SignupForm>
-  <l-SignupForm hoverEffect="glow"></l-SignupForm>
+  <l-signup-form transition="fade"></l-signup-form>
+  <l-signup-form transition="slide-up"></l-signup-form>
+  <l-signup-form transition="zoom" transitionDelay="100"></l-signup-form>
+  <l-signup-form transition="flip" transitionDuration="700"></l-signup-form>
+  <l-signup-form hoverEffect="lift"></l-signup-form>
+  <l-signup-form hoverEffect="glow"></l-signup-form>
 </template>
 
 <script setup lang="ts">
@@ -173,12 +173,12 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-SignupForm transition="fade"></l-SignupForm>
-    <l-SignupForm transition="slide-up"></l-SignupForm>
-    <l-SignupForm transition="zoom" transitionDelay="100"></l-SignupForm>
-    <l-SignupForm transition="flip" transitionDuration="700"></l-SignupForm>
-    <l-SignupForm hoverEffect="lift"></l-SignupForm>
-    <l-SignupForm hoverEffect="glow"></l-SignupForm>
+    <l-signup-form transition="fade"></l-signup-form>
+    <l-signup-form transition="slide-up"></l-signup-form>
+    <l-signup-form transition="zoom" transitionDelay="100"></l-signup-form>
+    <l-signup-form transition="flip" transitionDuration="700"></l-signup-form>
+    <l-signup-form hoverEffect="lift"></l-signup-form>
+    <l-signup-form hoverEffect="glow"></l-signup-form>
   \`,
 })
 export class AppComponent {}`,

@@ -34,7 +34,7 @@ export default function FileUploadPlayground() {
   // No json props on <FileUpload>, and `accept` isn't demoed by this
   // playground — just the plain attributes. `multiple` needs an explicit
   // "true" since r2wc parses a bare attribute as false.
-  const htmlMarkup = `<l-FileUpload label="${label || "Click to upload or drag and drop"}"${
+  const htmlMarkup = `<l-file-upload label="${label || "Click to upload or drag and drop"}"${
     multiple ? ` multiple` : ""
   }${motion.attrs} />`;
 

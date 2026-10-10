@@ -49,7 +49,7 @@ export default function ComboboxPlayground() {
 
   const codeVariants: CodeBlockVariants = {
     react: code,
-    js: `<l-Combobox id="city-combobox" placeholder="${placeholder}"${valueAttr}${motion.attrs}></l-Combobox>
+    js: `<l-combobox id="city-combobox" placeholder="${placeholder}"${valueAttr}${motion.attrs}></l-combobox>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -59,13 +59,13 @@ export default function ComboboxPlayground() {
   document.querySelector("#city-combobox").options = options;
 </script>`,
     vue: `<template>
-  <l-Combobox :options="options" placeholder="${placeholder}"${valueAttr}${motion.attrs} />
+  <l-combobox :options="options" placeholder="${placeholder}"${valueAttr}${motion.attrs} />
 </template>
 
 <script setup lang="ts">
 const options = ${optionsLiteral};
 </script>`,
-    angular: `<l-Combobox [options]="options" placeholder="${placeholder}"${valueAttr}${motion.attrs} />
+    angular: `<l-combobox [options]="options" placeholder="${placeholder}"${valueAttr}${motion.attrs} />
 
 options = ${optionsLiteral};`,
   };

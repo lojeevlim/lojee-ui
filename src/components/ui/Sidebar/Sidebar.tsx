@@ -506,7 +506,12 @@ export function Sidebar({
   });
   useEffect(() => {
     if (typeof window === "undefined") return;
-    const syncToUrl = () => setSelectedLabel(findActiveLabel(flatItemsRef.current, window.location.pathname));
+    // Only follow the URL when it matches a row: a link like href="#" (e.g. inside a docs example) fires `popstate` on click without
+    // matching anything, and that must not clear the selected row.
+    const syncToUrl = () => {
+      const match = findActiveLabel(flatItemsRef.current, window.location.pathname);
+      if (match !== undefined) setSelectedLabel(match);
+    };
     window.addEventListener("popstate", syncToUrl);
     return () => window.removeEventListener("popstate", syncToUrl);
   }, []);

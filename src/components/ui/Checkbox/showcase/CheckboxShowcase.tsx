@@ -26,15 +26,15 @@ export default function CheckboxShowcase() {
             variants={{
               react: `<Checkbox />
 <Checkbox defaultChecked />`,
-              js: `<l-Checkbox ></l-Checkbox>
-<l-Checkbox defaultChecked></l-Checkbox>
+              js: `<l-checkbox ></l-checkbox>
+<l-checkbox defaultChecked></l-checkbox>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-Checkbox />
-  <l-Checkbox defaultChecked />
+  <l-checkbox />
+  <l-checkbox defaultChecked />
 </template>
 
 <script setup lang="ts">
@@ -49,8 +49,8 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Checkbox />
-    <l-Checkbox defaultChecked />
+    <l-checkbox />
+    <l-checkbox defaultChecked />
   \`,
 })
 export class AppComponent {}`,
@@ -72,18 +72,18 @@ export class AppComponent {}`,
               react: `<Checkbox color="indigo" defaultChecked />
 <Checkbox color="emerald" defaultChecked />
 <Checkbox color="rose" defaultChecked />`,
-              js: `<l-Checkbox color="indigo" defaultChecked></l-Checkbox>
-<l-Checkbox color="emerald" defaultChecked></l-Checkbox>
-<l-Checkbox color="rose" defaultChecked></l-Checkbox>`,
+              js: `<l-checkbox color="indigo" defaultChecked></l-checkbox>
+<l-checkbox color="emerald" defaultChecked></l-checkbox>
+<l-checkbox color="rose" defaultChecked></l-checkbox>`,
               vue: `<template>
-  <l-Checkbox color="indigo" defaultChecked />
-  <l-Checkbox color="emerald" defaultChecked />
-  <l-Checkbox color="rose" defaultChecked />
+  <l-checkbox color="indigo" defaultChecked />
+  <l-checkbox color="emerald" defaultChecked />
+  <l-checkbox color="rose" defaultChecked />
 </template>`,
               angular: `<!-- app.component.html — same AppComponent as above -->
-<l-Checkbox color="indigo" defaultChecked />
-<l-Checkbox color="emerald" defaultChecked />
-<l-Checkbox color="rose" defaultChecked />`,
+<l-checkbox color="indigo" defaultChecked />
+<l-checkbox color="emerald" defaultChecked />
+<l-checkbox color="rose" defaultChecked />`,
             }}
           />
         </section>
@@ -98,15 +98,15 @@ export class AppComponent {}`,
             variants={{
               react: `<Checkbox disabled />
 <Checkbox disabled defaultChecked />`,
-              js: `<l-Checkbox disabled></l-Checkbox>
-<l-Checkbox disabled defaultChecked></l-Checkbox>`,
+              js: `<l-checkbox disabled></l-checkbox>
+<l-checkbox disabled defaultChecked></l-checkbox>`,
               vue: `<template>
-  <l-Checkbox disabled />
-  <l-Checkbox disabled defaultChecked />
+  <l-checkbox disabled />
+  <l-checkbox disabled defaultChecked />
 </template>`,
               angular: `<!-- app.component.html — same AppComponent as above -->
-<l-Checkbox disabled />
-<l-Checkbox disabled defaultChecked />`,
+<l-checkbox disabled />
+<l-checkbox disabled defaultChecked />`,
             }}
           />
         </section>
@@ -120,9 +120,9 @@ export class AppComponent {}`,
           <CodeBlock
             variants={{
               react: `<Checkbox label="Accept terms and conditions" />`,
-              js: `<l-Checkbox label="Accept terms and conditions"></l-Checkbox>`,
-              vue: `<l-Checkbox label="Accept terms and conditions" />`,
-              angular: `<l-Checkbox label="Accept terms and conditions" />`,
+              js: `<l-checkbox label="Accept terms and conditions"></l-checkbox>`,
+              vue: `<l-checkbox label="Accept terms and conditions" />`,
+              angular: `<l-checkbox label="Accept terms and conditions" />`,
             }}
           />
         </section>
@@ -139,7 +139,7 @@ export class AppComponent {}`,
   onFocus={() => console.log("focus")}
   onInvalid={(e) => console.log("invalid", e.currentTarget.validationMessage)}
 />`,
-              js: `<l-Checkbox label="I agree to the terms" required="true"></l-Checkbox>
+              js: `<l-checkbox label="I agree to the terms" required="true"></l-checkbox>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -225,37 +225,37 @@ export class AppComponent {
 <Checkbox hoverEffect="scale" label="Scale" />
 <Checkbox hoverEffect="glow" label="Glow" />
 <Checkbox hoverEffect="shine" label="Shine" />`,
-              js: `<l-Checkbox transition="fade" label="Fade" defaultChecked></l-Checkbox>
-<l-Checkbox transition="slide-up" label="Slide up" defaultChecked></l-Checkbox>
-<l-Checkbox transition="slide-right" transitionDelay="100" label="Slide right" defaultChecked></l-Checkbox>
-<l-Checkbox transition="zoom" label="Zoom" defaultChecked></l-Checkbox>
-<l-Checkbox transition="flip" label="Flip" defaultChecked></l-Checkbox>
-<l-Checkbox transition="blur" label="Blur" defaultChecked></l-Checkbox>
-<l-Checkbox transition="bounce" label="Bounce" defaultChecked></l-Checkbox>
-<l-Checkbox transition="drop" transitionDuration="700" label="Drop" defaultChecked></l-Checkbox>
+              js: `<l-checkbox transition="fade" label="Fade" defaultChecked></l-checkbox>
+<l-checkbox transition="slide-up" label="Slide up" defaultChecked></l-checkbox>
+<l-checkbox transition="slide-right" transitionDelay="100" label="Slide right" defaultChecked></l-checkbox>
+<l-checkbox transition="zoom" label="Zoom" defaultChecked></l-checkbox>
+<l-checkbox transition="flip" label="Flip" defaultChecked></l-checkbox>
+<l-checkbox transition="blur" label="Blur" defaultChecked></l-checkbox>
+<l-checkbox transition="bounce" label="Bounce" defaultChecked></l-checkbox>
+<l-checkbox transition="drop" transitionDuration="700" label="Drop" defaultChecked></l-checkbox>
 
-<l-Checkbox hoverEffect="lift" label="Lift"></l-Checkbox>
-<l-Checkbox hoverEffect="scale" label="Scale"></l-Checkbox>
-<l-Checkbox hoverEffect="glow" label="Glow"></l-Checkbox>
-<l-Checkbox hoverEffect="shine" label="Shine"></l-Checkbox>
+<l-checkbox hoverEffect="lift" label="Lift"></l-checkbox>
+<l-checkbox hoverEffect="scale" label="Scale"></l-checkbox>
+<l-checkbox hoverEffect="glow" label="Glow"></l-checkbox>
+<l-checkbox hoverEffect="shine" label="Shine"></l-checkbox>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-Checkbox transition="fade" label="Fade" defaultChecked></l-Checkbox>
-  <l-Checkbox transition="slide-up" label="Slide up" defaultChecked></l-Checkbox>
-  <l-Checkbox transition="slide-right" transitionDelay="100" label="Slide right" defaultChecked></l-Checkbox>
-  <l-Checkbox transition="zoom" label="Zoom" defaultChecked></l-Checkbox>
-  <l-Checkbox transition="flip" label="Flip" defaultChecked></l-Checkbox>
-  <l-Checkbox transition="blur" label="Blur" defaultChecked></l-Checkbox>
-  <l-Checkbox transition="bounce" label="Bounce" defaultChecked></l-Checkbox>
-  <l-Checkbox transition="drop" transitionDuration="700" label="Drop" defaultChecked></l-Checkbox>
+  <l-checkbox transition="fade" label="Fade" defaultChecked></l-checkbox>
+  <l-checkbox transition="slide-up" label="Slide up" defaultChecked></l-checkbox>
+  <l-checkbox transition="slide-right" transitionDelay="100" label="Slide right" defaultChecked></l-checkbox>
+  <l-checkbox transition="zoom" label="Zoom" defaultChecked></l-checkbox>
+  <l-checkbox transition="flip" label="Flip" defaultChecked></l-checkbox>
+  <l-checkbox transition="blur" label="Blur" defaultChecked></l-checkbox>
+  <l-checkbox transition="bounce" label="Bounce" defaultChecked></l-checkbox>
+  <l-checkbox transition="drop" transitionDuration="700" label="Drop" defaultChecked></l-checkbox>
 
-  <l-Checkbox hoverEffect="lift" label="Lift"></l-Checkbox>
-  <l-Checkbox hoverEffect="scale" label="Scale"></l-Checkbox>
-  <l-Checkbox hoverEffect="glow" label="Glow"></l-Checkbox>
-  <l-Checkbox hoverEffect="shine" label="Shine"></l-Checkbox>
+  <l-checkbox hoverEffect="lift" label="Lift"></l-checkbox>
+  <l-checkbox hoverEffect="scale" label="Scale"></l-checkbox>
+  <l-checkbox hoverEffect="glow" label="Glow"></l-checkbox>
+  <l-checkbox hoverEffect="shine" label="Shine"></l-checkbox>
 </template>
 
 <script setup lang="ts">
@@ -270,19 +270,19 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Checkbox transition="fade" label="Fade" defaultChecked></l-Checkbox>
-    <l-Checkbox transition="slide-up" label="Slide up" defaultChecked></l-Checkbox>
-    <l-Checkbox transition="slide-right" transitionDelay="100" label="Slide right" defaultChecked></l-Checkbox>
-    <l-Checkbox transition="zoom" label="Zoom" defaultChecked></l-Checkbox>
-    <l-Checkbox transition="flip" label="Flip" defaultChecked></l-Checkbox>
-    <l-Checkbox transition="blur" label="Blur" defaultChecked></l-Checkbox>
-    <l-Checkbox transition="bounce" label="Bounce" defaultChecked></l-Checkbox>
-    <l-Checkbox transition="drop" transitionDuration="700" label="Drop" defaultChecked></l-Checkbox>
+    <l-checkbox transition="fade" label="Fade" defaultChecked></l-checkbox>
+    <l-checkbox transition="slide-up" label="Slide up" defaultChecked></l-checkbox>
+    <l-checkbox transition="slide-right" transitionDelay="100" label="Slide right" defaultChecked></l-checkbox>
+    <l-checkbox transition="zoom" label="Zoom" defaultChecked></l-checkbox>
+    <l-checkbox transition="flip" label="Flip" defaultChecked></l-checkbox>
+    <l-checkbox transition="blur" label="Blur" defaultChecked></l-checkbox>
+    <l-checkbox transition="bounce" label="Bounce" defaultChecked></l-checkbox>
+    <l-checkbox transition="drop" transitionDuration="700" label="Drop" defaultChecked></l-checkbox>
 
-    <l-Checkbox hoverEffect="lift" label="Lift"></l-Checkbox>
-    <l-Checkbox hoverEffect="scale" label="Scale"></l-Checkbox>
-    <l-Checkbox hoverEffect="glow" label="Glow"></l-Checkbox>
-    <l-Checkbox hoverEffect="shine" label="Shine"></l-Checkbox>
+    <l-checkbox hoverEffect="lift" label="Lift"></l-checkbox>
+    <l-checkbox hoverEffect="scale" label="Scale"></l-checkbox>
+    <l-checkbox hoverEffect="glow" label="Glow"></l-checkbox>
+    <l-checkbox hoverEffect="shine" label="Shine"></l-checkbox>
   \`,
 })
 export class AppComponent {}`,
@@ -300,7 +300,7 @@ export class AppComponent {}`,
 
 // or uncontrolled
 <Checkbox label="I agree" defaultChecked onChange={(e) => save(e.target.checked)} />`,
-              js: `<l-Checkbox label="I agree"></l-Checkbox>
+              js: `<l-checkbox label="I agree"></l-checkbox>
 
 <script type="module">
   import "lojee-ui/elements";

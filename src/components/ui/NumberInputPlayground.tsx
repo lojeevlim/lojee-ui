@@ -41,9 +41,9 @@ export default function NumberInputPlayground() {
       preview={preview}
       variants={wcCode({
         react: `<NumberInput${reactNum(common)}${invalid === "on" ? " invalid" : ""}${disabled === "on" ? " disabled" : ""} />`,
-        html: `<l-Number-Input${common}${flag(invalid === "on", (n) => `${n}="true"`, "invalid")}${flag(disabled === "on", (n) => `${n}="true"`, "disabled")}></l-Number-Input>`,
-        vueHtml: `<l-Number-Input${common}${flag(invalid === "on", (n) => `:${n}="true"`, "invalid")}${flag(disabled === "on", (n) => `:${n}="true"`, "disabled")}></l-Number-Input>`,
-        angularHtml: `<l-Number-Input${common}${flag(invalid === "on", (n) => `[${n}]="true"`, "invalid")}${flag(disabled === "on", (n) => `[${n}]="true"`, "disabled")}></l-Number-Input>`,
+        html: `<l-number-input${common}${flag(invalid === "on", (n) => `${n}="true"`, "invalid")}${flag(disabled === "on", (n) => `${n}="true"`, "disabled")}></l-number-input>`,
+        vueHtml: `<l-number-input${common}${flag(invalid === "on", (n) => `:${n}="true"`, "invalid")}${flag(disabled === "on", (n) => `:${n}="true"`, "disabled")}></l-number-input>`,
+        angularHtml: `<l-number-input${common}${flag(invalid === "on", (n) => `[${n}]="true"`, "invalid")}${flag(disabled === "on", (n) => `[${n}]="true"`, "disabled")}></l-number-input>`,
       })}
     >
       <OptionGroup label="Size" options={SIZES} value={size} onChange={setSize} />

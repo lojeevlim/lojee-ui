@@ -60,10 +60,10 @@ export default function DrawerShowcase() {
 <Drawer open={open} onClose={() => setOpen(false)} position="${position}" title="${position} drawer">
   <p>This drawer slid in from the ${position} edge.</p>
 </Drawer>`,
-              js: `<l-Button label="Open ${position} drawer" id="open-drawer-btn"></l-Button>
-<l-Drawer id="edge-drawer" position="${position}" heading="${position} drawer">
+              js: `<l-button label="Open ${position} drawer" id="open-drawer-btn"></l-button>
+<l-drawer id="edge-drawer" position="${position}" heading="${position} drawer">
   <p>This drawer slid in from the ${position} edge.</p>
-</l-Drawer>
+</l-drawer>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -74,10 +74,10 @@ export default function DrawerShowcase() {
   drawer.addEventListener("close", () => { drawer.open = false; });
 </script>`,
               vue: `<template>
-  <l-Button label="Open ${position} drawer" @click="open = true" />
-  <l-Drawer :open="open" position="${position}" heading="${position} drawer" @close="open = false">
+  <l-button label="Open ${position} drawer" @click="open = true" />
+  <l-drawer :open="open" position="${position}" heading="${position} drawer" @close="open = false">
     <p>This drawer slid in from the ${position} edge.</p>
-  </l-Drawer>
+  </l-drawer>
 </template>
 
 <script setup lang="ts">
@@ -95,10 +95,10 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Button label="Open ${position} drawer" (click)="open = true" />
-    <l-Drawer [open]="open" position="${position}" heading="${position} drawer" (close)="open = false">
+    <l-button label="Open ${position} drawer" (click)="open = true" />
+    <l-drawer [open]="open" position="${position}" heading="${position} drawer" (close)="open = false">
       <p>This drawer slid in from the ${position} edge.</p>
-    </l-Drawer>
+    </l-drawer>
   \`,
 })
 export class DrawerShowcaseComponent {
@@ -121,23 +121,23 @@ export class DrawerShowcaseComponent {
               react: `<Drawer open={open} onClose={() => setOpen(false)} position="right" size="480px" title="Wide drawer">
   <p>This drawer is 480px wide instead of the 320px default.</p>
 </Drawer>`,
-              js: `<l-Drawer id="wide-drawer" position="right" size="480px" heading="Wide drawer">
+              js: `<l-drawer id="wide-drawer" position="right" size="480px" heading="Wide drawer">
   <p>This drawer is 480px wide instead of the 320px default.</p>
-</l-Drawer>
+</l-drawer>
 
 <script type="module">
   const drawer = document.getElementById("wide-drawer");
   drawer.addEventListener("close", () => { drawer.open = false; });
 </script>`,
               vue: `<template>
-  <l-Drawer :open="open" position="right" size="480px" heading="Wide drawer" @close="open = false">
+  <l-drawer :open="open" position="right" size="480px" heading="Wide drawer" @close="open = false">
     <p>This drawer is 480px wide instead of the 320px default.</p>
-  </l-Drawer>
+  </l-drawer>
 </template>`,
               angular: `<!-- reuses DrawerShowcaseComponent from above -->
-<l-Drawer [open]="open" position="right" size="480px" heading="Wide drawer" (close)="open = false">
+<l-drawer [open]="open" position="right" size="480px" heading="Wide drawer" (close)="open = false">
   <p>This drawer is 480px wide instead of the 320px default.</p>
-</l-Drawer>`,
+</l-drawer>`,
             }}
           />
         </section>
@@ -168,10 +168,10 @@ export class DrawerShowcaseComponent {
 <Drawer open={open} onClose={() => setOpen(false)} title="Transition" position="right" ${trReact}>
   <p>A transition replaces the drawer's default slide.</p>
 </Drawer>`,
-              js: `<l-Button label="Open drawer" id="open-tr-btn"></l-Button>
-<l-Drawer id="tr-overlay" heading="Transition" position="right" ${trHtml}>
+              js: `<l-button label="Open drawer" id="open-tr-btn"></l-button>
+<l-drawer id="tr-overlay" heading="Transition" position="right" ${trHtml}>
   <p>A transition replaces the drawer's default slide.</p>
-</l-Drawer>
+</l-drawer>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -182,10 +182,10 @@ export class DrawerShowcaseComponent {
   overlay.addEventListener("close", () => { overlay.open = false; });
 </script>`,
               vue: `<template>
-  <l-Button label="Open drawer" @click="open = true"></l-Button>
-  <l-Drawer :open="open" heading="Transition" position="right" ${trHtml} @close="open = false">
+  <l-button label="Open drawer" @click="open = true"></l-button>
+  <l-drawer :open="open" heading="Transition" position="right" ${trHtml} @close="open = false">
     <p>A transition replaces the drawer's default slide.</p>
-  </l-Drawer>
+  </l-drawer>
 </template>
 
 <script setup lang="ts">
@@ -203,10 +203,10 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Button label="Open drawer" (click)="open = true"></l-Button>
-    <l-Drawer [open]="open" heading="Transition" position="right" ${trHtml} (close)="open = false">
+    <l-button label="Open drawer" (click)="open = true"></l-button>
+    <l-drawer [open]="open" heading="Transition" position="right" ${trHtml} (close)="open = false">
       <p>A transition replaces the drawer's default slide.</p>
-    </l-Drawer>
+    </l-drawer>
   \`,
 })
 export class AppComponent {

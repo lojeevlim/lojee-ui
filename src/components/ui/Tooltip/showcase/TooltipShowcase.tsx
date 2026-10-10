@@ -36,17 +36,17 @@ export default function TooltipShowcase() {
               react: `<Tooltip content="Tooltip on top" position="top">
   <Button variant="outline" label="Top" />
 </Tooltip>`,
-              js: `<l-Tooltip content="Tooltip on top" position="top">
-  <l-Button variant="outline" label="Top"></l-Button>
-</l-Tooltip>
+              js: `<l-tooltip content="Tooltip on top" position="top">
+  <l-button variant="outline" label="Top"></l-button>
+</l-tooltip>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-Tooltip content="Tooltip on top" position="top">
-    <l-Button variant="outline" label="Top" />
-  </l-Tooltip>
+  <l-tooltip content="Tooltip on top" position="top">
+    <l-button variant="outline" label="Top" />
+  </l-tooltip>
 </template>
 
 <script setup lang="ts">
@@ -61,9 +61,9 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Tooltip content="Tooltip on top" position="top">
-      <l-Button variant="outline" label="Top" />
-    </l-Tooltip>
+    <l-tooltip content="Tooltip on top" position="top">
+      <l-button variant="outline" label="Top" />
+    </l-tooltip>
   \`,
 })
 export class TooltipShowcaseComponent {}`,
@@ -107,59 +107,59 @@ export class TooltipShowcaseComponent {}`,
 <Tooltip content="Extra large" size="xl">
   <Button variant="outline" label="xl" />
 </Tooltip>`,
-              js: `<l-Tooltip content="Extra small" size="xs">
-  <l-Button variant="outline" label="xs"></l-Button>
-</l-Tooltip>
-<l-Tooltip content="Small" size="sm">
-  <l-Button variant="outline" label="sm"></l-Button>
-</l-Tooltip>
-<l-Tooltip content="Medium">
-  <l-Button variant="outline" label="md (default)"></l-Button>
-</l-Tooltip>
-<l-Tooltip content="Large" size="lg">
-  <l-Button variant="outline" label="lg"></l-Button>
-</l-Tooltip>
-<l-Tooltip content="Extra large" size="xl">
-  <l-Button variant="outline" label="xl"></l-Button>
-</l-Tooltip>
+              js: `<l-tooltip content="Extra small" size="xs">
+  <l-button variant="outline" label="xs"></l-button>
+</l-tooltip>
+<l-tooltip content="Small" size="sm">
+  <l-button variant="outline" label="sm"></l-button>
+</l-tooltip>
+<l-tooltip content="Medium">
+  <l-button variant="outline" label="md (default)"></l-button>
+</l-tooltip>
+<l-tooltip content="Large" size="lg">
+  <l-button variant="outline" label="lg"></l-button>
+</l-tooltip>
+<l-tooltip content="Extra large" size="xl">
+  <l-button variant="outline" label="xl"></l-button>
+</l-tooltip>
 
 <script type="module">import "lojee-ui/elements";</script>`,
               vue: `<template>
-  <l-Tooltip content="Extra small" size="xs">
-    <l-Button variant="outline" label="xs"></l-Button>
-  </l-Tooltip>
-  <l-Tooltip content="Small" size="sm">
-    <l-Button variant="outline" label="sm"></l-Button>
-  </l-Tooltip>
-  <l-Tooltip content="Medium">
-    <l-Button variant="outline" label="md (default)"></l-Button>
-  </l-Tooltip>
-  <l-Tooltip content="Large" size="lg">
-    <l-Button variant="outline" label="lg"></l-Button>
-  </l-Tooltip>
-  <l-Tooltip content="Extra large" size="xl">
-    <l-Button variant="outline" label="xl"></l-Button>
-  </l-Tooltip>
+  <l-tooltip content="Extra small" size="xs">
+    <l-button variant="outline" label="xs"></l-button>
+  </l-tooltip>
+  <l-tooltip content="Small" size="sm">
+    <l-button variant="outline" label="sm"></l-button>
+  </l-tooltip>
+  <l-tooltip content="Medium">
+    <l-button variant="outline" label="md (default)"></l-button>
+  </l-tooltip>
+  <l-tooltip content="Large" size="lg">
+    <l-button variant="outline" label="lg"></l-button>
+  </l-tooltip>
+  <l-tooltip content="Extra large" size="xl">
+    <l-button variant="outline" label="xl"></l-button>
+  </l-tooltip>
 </template>
 
 <script setup lang="ts">
 import "lojee-ui/elements";
 </script>`,
-              angular: `<l-Tooltip content="Extra small" size="xs">
-  <l-Button variant="outline" label="xs"></l-Button>
-</l-Tooltip>
-<l-Tooltip content="Small" size="sm">
-  <l-Button variant="outline" label="sm"></l-Button>
-</l-Tooltip>
-<l-Tooltip content="Medium">
-  <l-Button variant="outline" label="md (default)"></l-Button>
-</l-Tooltip>
-<l-Tooltip content="Large" size="lg">
-  <l-Button variant="outline" label="lg"></l-Button>
-</l-Tooltip>
-<l-Tooltip content="Extra large" size="xl">
-  <l-Button variant="outline" label="xl"></l-Button>
-</l-Tooltip>`,
+              angular: `<l-tooltip content="Extra small" size="xs">
+  <l-button variant="outline" label="xs"></l-button>
+</l-tooltip>
+<l-tooltip content="Small" size="sm">
+  <l-button variant="outline" label="sm"></l-button>
+</l-tooltip>
+<l-tooltip content="Medium">
+  <l-button variant="outline" label="md (default)"></l-button>
+</l-tooltip>
+<l-tooltip content="Large" size="lg">
+  <l-button variant="outline" label="lg"></l-button>
+</l-tooltip>
+<l-tooltip content="Extra large" size="xl">
+  <l-button variant="outline" label="xl"></l-button>
+</l-tooltip>`,
             }}
           />
         </section>
@@ -194,18 +194,18 @@ import "lojee-ui/elements";
               react: `<Tooltip content="Indigo tooltip" color="indigo">
   <Button variant="outline" label="Indigo" />
 </Tooltip>`,
-              js: `<l-Tooltip content="Indigo tooltip" color="indigo">
-  <l-Button variant="outline" label="Indigo"></l-Button>
-</l-Tooltip>`,
+              js: `<l-tooltip content="Indigo tooltip" color="indigo">
+  <l-button variant="outline" label="Indigo"></l-button>
+</l-tooltip>`,
               vue: `<template>
-  <l-Tooltip content="Indigo tooltip" color="indigo">
-    <l-Button variant="outline" label="Indigo" />
-  </l-Tooltip>
+  <l-tooltip content="Indigo tooltip" color="indigo">
+    <l-button variant="outline" label="Indigo" />
+  </l-tooltip>
 </template>`,
               angular: `<!-- reuses TooltipShowcaseComponent from above -->
-<l-Tooltip content="Indigo tooltip" color="indigo">
-  <l-Button variant="outline" label="Indigo" />
-</l-Tooltip>`,
+<l-tooltip content="Indigo tooltip" color="indigo">
+  <l-button variant="outline" label="Indigo" />
+</l-tooltip>`,
             }}
           />
         </section>
@@ -223,12 +223,12 @@ import "lojee-ui/elements";
           <CodeBlock
             variants={{
               react: `<Tooltip content="Waits a bit" delayMs={500}>...</Tooltip>`,
-              js: `<l-Tooltip content="Waits a bit" delayMs="500">...</l-Tooltip>`,
+              js: `<l-tooltip content="Waits a bit" delayMs="500">...</l-tooltip>`,
               vue: `<template>
-  <l-Tooltip content="Waits a bit" delayMs="500">...</l-Tooltip>
+  <l-tooltip content="Waits a bit" delayMs="500">...</l-tooltip>
 </template>`,
               angular: `<!-- reuses TooltipShowcaseComponent from above -->
-<l-Tooltip content="Waits a bit" delayMs="500">...</l-Tooltip>`,
+<l-tooltip content="Waits a bit" delayMs="500">...</l-tooltip>`,
             }}
           />
         </section>
@@ -245,18 +245,18 @@ import "lojee-ui/elements";
               react: `<Tooltip content="This works on plain text too">
   <span>Hover this text</span>
 </Tooltip>`,
-              js: `<l-Tooltip content="This works on plain text too">
+              js: `<l-tooltip content="This works on plain text too">
   <span>Hover this text</span>
-</l-Tooltip>`,
+</l-tooltip>`,
               vue: `<template>
-  <l-Tooltip content="This works on plain text too">
+  <l-tooltip content="This works on plain text too">
     <span>Hover this text</span>
-  </l-Tooltip>
+  </l-tooltip>
 </template>`,
               angular: `<!-- reuses TooltipShowcaseComponent from above -->
-<l-Tooltip content="This works on plain text too">
+<l-tooltip content="This works on plain text too">
   <span>Hover this text</span>
-</l-Tooltip>`,
+</l-tooltip>`,
             }}
           />
         </section>
@@ -278,23 +278,23 @@ import "lojee-ui/elements";
               react: `<Tooltip content="Always visible" position="top" open>
   <Button variant="outline" label="Active" />
 </Tooltip>`,
-              js: `<l-Tooltip content="Always visible" position="top" open="true">
-  <l-Button variant="outline" label="Active"></l-Button>
-</l-Tooltip>
+              js: `<l-tooltip content="Always visible" position="top" open="true">
+  <l-button variant="outline" label="Active"></l-button>
+</l-tooltip>
 
 <script type="module">import "lojee-ui/elements";</script>`,
               vue: `<template>
-  <l-Tooltip content="Always visible" position="top" :open="true">
-    <l-Button variant="outline" label="Active"></l-Button>
-  </l-Tooltip>
+  <l-tooltip content="Always visible" position="top" :open="true">
+    <l-button variant="outline" label="Active"></l-button>
+  </l-tooltip>
 </template>
 
 <script setup lang="ts">
 import "lojee-ui/elements";
 </script>`,
-              angular: `<l-Tooltip content="Always visible" position="top" [open]="true">
-  <l-Button variant="outline" label="Active"></l-Button>
-</l-Tooltip>`,
+              angular: `<l-tooltip content="Always visible" position="top" [open]="true">
+  <l-button variant="outline" label="Active"></l-button>
+</l-tooltip>`,
             }}
           />
         </section>
@@ -360,73 +360,73 @@ import "lojee-ui/elements";
 <Tooltip transition="drop" transitionDuration={700} content="Tooltip text">
   <Button variant="outline" label="Drop" />
 </Tooltip>`,
-              js: `<l-Tooltip transition="fade" content="Tooltip text">
-  <l-Button variant="outline" label="Fade"></l-Button>
-</l-Tooltip>
+              js: `<l-tooltip transition="fade" content="Tooltip text">
+  <l-button variant="outline" label="Fade"></l-button>
+</l-tooltip>
 
-<l-Tooltip transition="slide-up" content="Tooltip text">
-  <l-Button variant="outline" label="Slide up"></l-Button>
-</l-Tooltip>
+<l-tooltip transition="slide-up" content="Tooltip text">
+  <l-button variant="outline" label="Slide up"></l-button>
+</l-tooltip>
 
-<l-Tooltip transition="slide-right" transitionDelay="100" content="Tooltip text">
-  <l-Button variant="outline" label="Slide right"></l-Button>
-</l-Tooltip>
+<l-tooltip transition="slide-right" transitionDelay="100" content="Tooltip text">
+  <l-button variant="outline" label="Slide right"></l-button>
+</l-tooltip>
 
-<l-Tooltip transition="zoom" content="Tooltip text">
-  <l-Button variant="outline" label="Zoom"></l-Button>
-</l-Tooltip>
+<l-tooltip transition="zoom" content="Tooltip text">
+  <l-button variant="outline" label="Zoom"></l-button>
+</l-tooltip>
 
-<l-Tooltip transition="flip" content="Tooltip text">
-  <l-Button variant="outline" label="Flip"></l-Button>
-</l-Tooltip>
+<l-tooltip transition="flip" content="Tooltip text">
+  <l-button variant="outline" label="Flip"></l-button>
+</l-tooltip>
 
-<l-Tooltip transition="blur" content="Tooltip text">
-  <l-Button variant="outline" label="Blur"></l-Button>
-</l-Tooltip>
+<l-tooltip transition="blur" content="Tooltip text">
+  <l-button variant="outline" label="Blur"></l-button>
+</l-tooltip>
 
-<l-Tooltip transition="bounce" content="Tooltip text">
-  <l-Button variant="outline" label="Bounce"></l-Button>
-</l-Tooltip>
+<l-tooltip transition="bounce" content="Tooltip text">
+  <l-button variant="outline" label="Bounce"></l-button>
+</l-tooltip>
 
-<l-Tooltip transition="drop" transitionDuration="700" content="Tooltip text">
-  <l-Button variant="outline" label="Drop"></l-Button>
-</l-Tooltip>
+<l-tooltip transition="drop" transitionDuration="700" content="Tooltip text">
+  <l-button variant="outline" label="Drop"></l-button>
+</l-tooltip>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-Tooltip transition="fade" content="Tooltip text">
-    <l-Button variant="outline" label="Fade"></l-Button>
-  </l-Tooltip>
+  <l-tooltip transition="fade" content="Tooltip text">
+    <l-button variant="outline" label="Fade"></l-button>
+  </l-tooltip>
 
-  <l-Tooltip transition="slide-up" content="Tooltip text">
-    <l-Button variant="outline" label="Slide up"></l-Button>
-  </l-Tooltip>
+  <l-tooltip transition="slide-up" content="Tooltip text">
+    <l-button variant="outline" label="Slide up"></l-button>
+  </l-tooltip>
 
-  <l-Tooltip transition="slide-right" transitionDelay="100" content="Tooltip text">
-    <l-Button variant="outline" label="Slide right"></l-Button>
-  </l-Tooltip>
+  <l-tooltip transition="slide-right" transitionDelay="100" content="Tooltip text">
+    <l-button variant="outline" label="Slide right"></l-button>
+  </l-tooltip>
 
-  <l-Tooltip transition="zoom" content="Tooltip text">
-    <l-Button variant="outline" label="Zoom"></l-Button>
-  </l-Tooltip>
+  <l-tooltip transition="zoom" content="Tooltip text">
+    <l-button variant="outline" label="Zoom"></l-button>
+  </l-tooltip>
 
-  <l-Tooltip transition="flip" content="Tooltip text">
-    <l-Button variant="outline" label="Flip"></l-Button>
-  </l-Tooltip>
+  <l-tooltip transition="flip" content="Tooltip text">
+    <l-button variant="outline" label="Flip"></l-button>
+  </l-tooltip>
 
-  <l-Tooltip transition="blur" content="Tooltip text">
-    <l-Button variant="outline" label="Blur"></l-Button>
-  </l-Tooltip>
+  <l-tooltip transition="blur" content="Tooltip text">
+    <l-button variant="outline" label="Blur"></l-button>
+  </l-tooltip>
 
-  <l-Tooltip transition="bounce" content="Tooltip text">
-    <l-Button variant="outline" label="Bounce"></l-Button>
-  </l-Tooltip>
+  <l-tooltip transition="bounce" content="Tooltip text">
+    <l-button variant="outline" label="Bounce"></l-button>
+  </l-tooltip>
 
-  <l-Tooltip transition="drop" transitionDuration="700" content="Tooltip text">
-    <l-Button variant="outline" label="Drop"></l-Button>
-  </l-Tooltip>
+  <l-tooltip transition="drop" transitionDuration="700" content="Tooltip text">
+    <l-button variant="outline" label="Drop"></l-button>
+  </l-tooltip>
 </template>
 
 <script setup lang="ts">
@@ -441,37 +441,37 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Tooltip transition="fade" content="Tooltip text">
-      <l-Button variant="outline" label="Fade"></l-Button>
-    </l-Tooltip>
+    <l-tooltip transition="fade" content="Tooltip text">
+      <l-button variant="outline" label="Fade"></l-button>
+    </l-tooltip>
 
-    <l-Tooltip transition="slide-up" content="Tooltip text">
-      <l-Button variant="outline" label="Slide up"></l-Button>
-    </l-Tooltip>
+    <l-tooltip transition="slide-up" content="Tooltip text">
+      <l-button variant="outline" label="Slide up"></l-button>
+    </l-tooltip>
 
-    <l-Tooltip transition="slide-right" transitionDelay="100" content="Tooltip text">
-      <l-Button variant="outline" label="Slide right"></l-Button>
-    </l-Tooltip>
+    <l-tooltip transition="slide-right" transitionDelay="100" content="Tooltip text">
+      <l-button variant="outline" label="Slide right"></l-button>
+    </l-tooltip>
 
-    <l-Tooltip transition="zoom" content="Tooltip text">
-      <l-Button variant="outline" label="Zoom"></l-Button>
-    </l-Tooltip>
+    <l-tooltip transition="zoom" content="Tooltip text">
+      <l-button variant="outline" label="Zoom"></l-button>
+    </l-tooltip>
 
-    <l-Tooltip transition="flip" content="Tooltip text">
-      <l-Button variant="outline" label="Flip"></l-Button>
-    </l-Tooltip>
+    <l-tooltip transition="flip" content="Tooltip text">
+      <l-button variant="outline" label="Flip"></l-button>
+    </l-tooltip>
 
-    <l-Tooltip transition="blur" content="Tooltip text">
-      <l-Button variant="outline" label="Blur"></l-Button>
-    </l-Tooltip>
+    <l-tooltip transition="blur" content="Tooltip text">
+      <l-button variant="outline" label="Blur"></l-button>
+    </l-tooltip>
 
-    <l-Tooltip transition="bounce" content="Tooltip text">
-      <l-Button variant="outline" label="Bounce"></l-Button>
-    </l-Tooltip>
+    <l-tooltip transition="bounce" content="Tooltip text">
+      <l-button variant="outline" label="Bounce"></l-button>
+    </l-tooltip>
 
-    <l-Tooltip transition="drop" transitionDuration="700" content="Tooltip text">
-      <l-Button variant="outline" label="Drop"></l-Button>
-    </l-Tooltip>
+    <l-tooltip transition="drop" transitionDuration="700" content="Tooltip text">
+      <l-button variant="outline" label="Drop"></l-button>
+    </l-tooltip>
   \`,
 })
 export class AppComponent {}`,

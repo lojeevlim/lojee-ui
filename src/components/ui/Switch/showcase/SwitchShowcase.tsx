@@ -25,15 +25,15 @@ export default function SwitchShowcase() {
             variants={{
               react: `<Switch />
 <Switch defaultChecked />`,
-              js: `<l-Switch ></l-Switch>
-<l-Switch defaultChecked></l-Switch>
+              js: `<l-switch ></l-switch>
+<l-switch defaultChecked></l-switch>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-Switch />
-  <l-Switch defaultChecked />
+  <l-switch />
+  <l-switch defaultChecked />
 </template>
 
 <script setup lang="ts">
@@ -48,8 +48,8 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Switch />
-    <l-Switch defaultChecked />
+    <l-switch />
+    <l-switch defaultChecked />
   \`,
 })
 export class AppComponent {}`,
@@ -69,18 +69,18 @@ export class AppComponent {}`,
               react: `<Switch size="sm" defaultChecked />
 <Switch size="md" defaultChecked />
 <Switch size="lg" defaultChecked />`,
-              js: `<l-Switch size="sm" defaultChecked></l-Switch>
-<l-Switch size="md" defaultChecked></l-Switch>
-<l-Switch size="lg" defaultChecked></l-Switch>`,
+              js: `<l-switch size="sm" defaultChecked></l-switch>
+<l-switch size="md" defaultChecked></l-switch>
+<l-switch size="lg" defaultChecked></l-switch>`,
               vue: `<template>
-  <l-Switch size="sm" defaultChecked />
-  <l-Switch size="md" defaultChecked />
-  <l-Switch size="lg" defaultChecked />
+  <l-switch size="sm" defaultChecked />
+  <l-switch size="md" defaultChecked />
+  <l-switch size="lg" defaultChecked />
 </template>`,
               angular: `<!-- app.component.html — same AppComponent as above -->
-<l-Switch size="sm" defaultChecked />
-<l-Switch size="md" defaultChecked />
-<l-Switch size="lg" defaultChecked />`,
+<l-switch size="sm" defaultChecked />
+<l-switch size="md" defaultChecked />
+<l-switch size="lg" defaultChecked />`,
             }}
           />
         </section>
@@ -99,18 +99,18 @@ export class AppComponent {}`,
               react: `<Switch color="indigo" defaultChecked />
 <Switch color="emerald" defaultChecked />
 <Switch color="rose" defaultChecked />`,
-              js: `<l-Switch color="indigo" defaultChecked></l-Switch>
-<l-Switch color="emerald" defaultChecked></l-Switch>
-<l-Switch color="rose" defaultChecked></l-Switch>`,
+              js: `<l-switch color="indigo" defaultChecked></l-switch>
+<l-switch color="emerald" defaultChecked></l-switch>
+<l-switch color="rose" defaultChecked></l-switch>`,
               vue: `<template>
-  <l-Switch color="indigo" defaultChecked />
-  <l-Switch color="emerald" defaultChecked />
-  <l-Switch color="rose" defaultChecked />
+  <l-switch color="indigo" defaultChecked />
+  <l-switch color="emerald" defaultChecked />
+  <l-switch color="rose" defaultChecked />
 </template>`,
               angular: `<!-- app.component.html — same AppComponent as above -->
-<l-Switch color="indigo" defaultChecked />
-<l-Switch color="emerald" defaultChecked />
-<l-Switch color="rose" defaultChecked />`,
+<l-switch color="indigo" defaultChecked />
+<l-switch color="emerald" defaultChecked />
+<l-switch color="rose" defaultChecked />`,
             }}
           />
         </section>
@@ -125,15 +125,15 @@ export class AppComponent {}`,
             variants={{
               react: `<Switch disabled />
 <Switch disabled defaultChecked />`,
-              js: `<l-Switch disabled></l-Switch>
-<l-Switch disabled defaultChecked></l-Switch>`,
+              js: `<l-switch disabled></l-switch>
+<l-switch disabled defaultChecked></l-switch>`,
               vue: `<template>
-  <l-Switch disabled />
-  <l-Switch disabled defaultChecked />
+  <l-switch disabled />
+  <l-switch disabled defaultChecked />
 </template>`,
               angular: `<!-- app.component.html — same AppComponent as above -->
-<l-Switch disabled />
-<l-Switch disabled defaultChecked />`,
+<l-switch disabled />
+<l-switch disabled defaultChecked />`,
             }}
           />
         </section>
@@ -147,9 +147,9 @@ export class AppComponent {}`,
           <CodeBlock
             variants={{
               react: `<Switch label="Enable notifications" />`,
-              js: `<l-Switch label="Enable notifications"></l-Switch>`,
-              vue: `<l-Switch label="Enable notifications" />`,
-              angular: `<l-Switch label="Enable notifications" />`,
+              js: `<l-switch label="Enable notifications"></l-switch>`,
+              vue: `<l-switch label="Enable notifications" />`,
+              angular: `<l-switch label="Enable notifications" />`,
             }}
           />
         </section>
@@ -186,37 +186,37 @@ export class AppComponent {}`,
 <Switch hoverEffect="scale" label="Scale" />
 <Switch hoverEffect="glow" label="Glow" />
 <Switch hoverEffect="shine" label="Shine" />`,
-              js: `<l-Switch transition="fade" label="Fade" defaultChecked></l-Switch>
-<l-Switch transition="slide-up" label="Slide up" defaultChecked></l-Switch>
-<l-Switch transition="slide-right" transitionDelay="100" label="Slide right" defaultChecked></l-Switch>
-<l-Switch transition="zoom" label="Zoom" defaultChecked></l-Switch>
-<l-Switch transition="flip" label="Flip" defaultChecked></l-Switch>
-<l-Switch transition="blur" label="Blur" defaultChecked></l-Switch>
-<l-Switch transition="bounce" label="Bounce" defaultChecked></l-Switch>
-<l-Switch transition="drop" transitionDuration="700" label="Drop" defaultChecked></l-Switch>
+              js: `<l-switch transition="fade" label="Fade" defaultChecked></l-switch>
+<l-switch transition="slide-up" label="Slide up" defaultChecked></l-switch>
+<l-switch transition="slide-right" transitionDelay="100" label="Slide right" defaultChecked></l-switch>
+<l-switch transition="zoom" label="Zoom" defaultChecked></l-switch>
+<l-switch transition="flip" label="Flip" defaultChecked></l-switch>
+<l-switch transition="blur" label="Blur" defaultChecked></l-switch>
+<l-switch transition="bounce" label="Bounce" defaultChecked></l-switch>
+<l-switch transition="drop" transitionDuration="700" label="Drop" defaultChecked></l-switch>
 
-<l-Switch hoverEffect="lift" label="Lift"></l-Switch>
-<l-Switch hoverEffect="scale" label="Scale"></l-Switch>
-<l-Switch hoverEffect="glow" label="Glow"></l-Switch>
-<l-Switch hoverEffect="shine" label="Shine"></l-Switch>
+<l-switch hoverEffect="lift" label="Lift"></l-switch>
+<l-switch hoverEffect="scale" label="Scale"></l-switch>
+<l-switch hoverEffect="glow" label="Glow"></l-switch>
+<l-switch hoverEffect="shine" label="Shine"></l-switch>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-Switch transition="fade" label="Fade" defaultChecked></l-Switch>
-  <l-Switch transition="slide-up" label="Slide up" defaultChecked></l-Switch>
-  <l-Switch transition="slide-right" transitionDelay="100" label="Slide right" defaultChecked></l-Switch>
-  <l-Switch transition="zoom" label="Zoom" defaultChecked></l-Switch>
-  <l-Switch transition="flip" label="Flip" defaultChecked></l-Switch>
-  <l-Switch transition="blur" label="Blur" defaultChecked></l-Switch>
-  <l-Switch transition="bounce" label="Bounce" defaultChecked></l-Switch>
-  <l-Switch transition="drop" transitionDuration="700" label="Drop" defaultChecked></l-Switch>
+  <l-switch transition="fade" label="Fade" defaultChecked></l-switch>
+  <l-switch transition="slide-up" label="Slide up" defaultChecked></l-switch>
+  <l-switch transition="slide-right" transitionDelay="100" label="Slide right" defaultChecked></l-switch>
+  <l-switch transition="zoom" label="Zoom" defaultChecked></l-switch>
+  <l-switch transition="flip" label="Flip" defaultChecked></l-switch>
+  <l-switch transition="blur" label="Blur" defaultChecked></l-switch>
+  <l-switch transition="bounce" label="Bounce" defaultChecked></l-switch>
+  <l-switch transition="drop" transitionDuration="700" label="Drop" defaultChecked></l-switch>
 
-  <l-Switch hoverEffect="lift" label="Lift"></l-Switch>
-  <l-Switch hoverEffect="scale" label="Scale"></l-Switch>
-  <l-Switch hoverEffect="glow" label="Glow"></l-Switch>
-  <l-Switch hoverEffect="shine" label="Shine"></l-Switch>
+  <l-switch hoverEffect="lift" label="Lift"></l-switch>
+  <l-switch hoverEffect="scale" label="Scale"></l-switch>
+  <l-switch hoverEffect="glow" label="Glow"></l-switch>
+  <l-switch hoverEffect="shine" label="Shine"></l-switch>
 </template>
 
 <script setup lang="ts">
@@ -231,19 +231,19 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Switch transition="fade" label="Fade" defaultChecked></l-Switch>
-    <l-Switch transition="slide-up" label="Slide up" defaultChecked></l-Switch>
-    <l-Switch transition="slide-right" transitionDelay="100" label="Slide right" defaultChecked></l-Switch>
-    <l-Switch transition="zoom" label="Zoom" defaultChecked></l-Switch>
-    <l-Switch transition="flip" label="Flip" defaultChecked></l-Switch>
-    <l-Switch transition="blur" label="Blur" defaultChecked></l-Switch>
-    <l-Switch transition="bounce" label="Bounce" defaultChecked></l-Switch>
-    <l-Switch transition="drop" transitionDuration="700" label="Drop" defaultChecked></l-Switch>
+    <l-switch transition="fade" label="Fade" defaultChecked></l-switch>
+    <l-switch transition="slide-up" label="Slide up" defaultChecked></l-switch>
+    <l-switch transition="slide-right" transitionDelay="100" label="Slide right" defaultChecked></l-switch>
+    <l-switch transition="zoom" label="Zoom" defaultChecked></l-switch>
+    <l-switch transition="flip" label="Flip" defaultChecked></l-switch>
+    <l-switch transition="blur" label="Blur" defaultChecked></l-switch>
+    <l-switch transition="bounce" label="Bounce" defaultChecked></l-switch>
+    <l-switch transition="drop" transitionDuration="700" label="Drop" defaultChecked></l-switch>
 
-    <l-Switch hoverEffect="lift" label="Lift"></l-Switch>
-    <l-Switch hoverEffect="scale" label="Scale"></l-Switch>
-    <l-Switch hoverEffect="glow" label="Glow"></l-Switch>
-    <l-Switch hoverEffect="shine" label="Shine"></l-Switch>
+    <l-switch hoverEffect="lift" label="Lift"></l-switch>
+    <l-switch hoverEffect="scale" label="Scale"></l-switch>
+    <l-switch hoverEffect="glow" label="Glow"></l-switch>
+    <l-switch hoverEffect="shine" label="Shine"></l-switch>
   \`,
 })
 export class AppComponent {}`,

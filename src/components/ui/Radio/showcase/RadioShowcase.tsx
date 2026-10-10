@@ -30,21 +30,21 @@ export default function RadioShowcase() {
   <Radio name="plan" label="Pro" />
   <Radio name="plan" label="Enterprise" />
 </RadioGroup>`,
-              js: `<l-RadioGroup>
-  <l-Radio name="plan" label="Free" defaultChecked></l-Radio>
-  <l-Radio name="plan" label="Pro"></l-Radio>
-  <l-Radio name="plan" label="Enterprise"></l-Radio>
-</l-RadioGroup>
+              js: `<l-radio-group>
+  <l-radio name="plan" label="Free" defaultChecked></l-radio>
+  <l-radio name="plan" label="Pro"></l-radio>
+  <l-radio name="plan" label="Enterprise"></l-radio>
+</l-radio-group>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-RadioGroup>
-    <l-Radio name="plan" label="Free" defaultChecked />
-    <l-Radio name="plan" label="Pro" />
-    <l-Radio name="plan" label="Enterprise" />
-  </l-RadioGroup>
+  <l-radio-group>
+    <l-radio name="plan" label="Free" defaultChecked />
+    <l-radio name="plan" label="Pro" />
+    <l-radio name="plan" label="Enterprise" />
+  </l-radio-group>
 </template>
 
 <script setup lang="ts">
@@ -59,11 +59,11 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-RadioGroup>
-      <l-Radio name="plan" label="Free" defaultChecked />
-      <l-Radio name="plan" label="Pro" />
-      <l-Radio name="plan" label="Enterprise" />
-    </l-RadioGroup>
+    <l-radio-group>
+      <l-radio name="plan" label="Free" defaultChecked />
+      <l-radio name="plan" label="Pro" />
+      <l-radio name="plan" label="Enterprise" />
+    </l-radio-group>
   \`,
 })
 export class AppComponent {}`,
@@ -85,24 +85,24 @@ export class AppComponent {}`,
   <Radio name="size" label="Medium" />
   <Radio name="size" label="Large" />
 </RadioGroup>`,
-              js: `<l-RadioGroup orientation="horizontal">
-  <l-Radio name="size" label="Small" defaultChecked></l-Radio>
-  <l-Radio name="size" label="Medium"></l-Radio>
-  <l-Radio name="size" label="Large"></l-Radio>
-</l-RadioGroup>`,
+              js: `<l-radio-group orientation="horizontal">
+  <l-radio name="size" label="Small" defaultChecked></l-radio>
+  <l-radio name="size" label="Medium"></l-radio>
+  <l-radio name="size" label="Large"></l-radio>
+</l-radio-group>`,
               vue: `<template>
-  <l-RadioGroup orientation="horizontal">
-    <l-Radio name="size" label="Small" defaultChecked />
-    <l-Radio name="size" label="Medium" />
-    <l-Radio name="size" label="Large" />
-  </l-RadioGroup>
+  <l-radio-group orientation="horizontal">
+    <l-radio name="size" label="Small" defaultChecked />
+    <l-radio name="size" label="Medium" />
+    <l-radio name="size" label="Large" />
+  </l-radio-group>
 </template>`,
               angular: `<!-- app.component.html — same AppComponent as above -->
-<l-RadioGroup orientation="horizontal">
-  <l-Radio name="size" label="Small" defaultChecked />
-  <l-Radio name="size" label="Medium" />
-  <l-Radio name="size" label="Large" />
-</l-RadioGroup>`,
+<l-radio-group orientation="horizontal">
+  <l-radio name="size" label="Small" defaultChecked />
+  <l-radio name="size" label="Medium" />
+  <l-radio name="size" label="Large" />
+</l-radio-group>`,
             }}
           />
         </section>
@@ -119,15 +119,15 @@ export class AppComponent {}`,
             variants={{
               react: `<Radio name="color-indigo" color="indigo" label="Indigo" defaultChecked />
 <Radio name="color-emerald" color="emerald" label="Emerald" defaultChecked />`,
-              js: `<l-Radio name="color-indigo" color="indigo" label="Indigo" defaultChecked></l-Radio>
-<l-Radio name="color-emerald" color="emerald" label="Emerald" defaultChecked></l-Radio>`,
+              js: `<l-radio name="color-indigo" color="indigo" label="Indigo" defaultChecked></l-radio>
+<l-radio name="color-emerald" color="emerald" label="Emerald" defaultChecked></l-radio>`,
               vue: `<template>
-  <l-Radio name="color-indigo" color="indigo" label="Indigo" defaultChecked />
-  <l-Radio name="color-emerald" color="emerald" label="Emerald" defaultChecked />
+  <l-radio name="color-indigo" color="indigo" label="Indigo" defaultChecked />
+  <l-radio name="color-emerald" color="emerald" label="Emerald" defaultChecked />
 </template>`,
               angular: `<!-- app.component.html — same AppComponent as above -->
-<l-Radio name="color-indigo" color="indigo" label="Indigo" defaultChecked />
-<l-Radio name="color-emerald" color="emerald" label="Emerald" defaultChecked />`,
+<l-radio name="color-indigo" color="indigo" label="Indigo" defaultChecked />
+<l-radio name="color-emerald" color="emerald" label="Emerald" defaultChecked />`,
             }}
           />
         </section>
@@ -173,47 +173,47 @@ export class AppComponent {}`,
 <Radio hoverEffect="scale" label="Scale" />
 <Radio hoverEffect="glow" label="Glow" />
 <Radio hoverEffect="shine" label="Shine" />`,
-              js: `<l-Radio transition="fade" label="Fade"></l-Radio>
-<l-Radio transition="slide-up" label="Slide up"></l-Radio>
-<l-Radio transition="slide-right" transitionDelay="100" label="Slide right"></l-Radio>
-<l-Radio transition="zoom" label="Zoom"></l-Radio>
-<l-Radio transition="flip" label="Flip"></l-Radio>
-<l-Radio transition="blur" label="Blur"></l-Radio>
-<l-Radio transition="bounce" label="Bounce"></l-Radio>
-<l-Radio transition="drop" transitionDuration="700" label="Drop"></l-Radio>
+              js: `<l-radio transition="fade" label="Fade"></l-radio>
+<l-radio transition="slide-up" label="Slide up"></l-radio>
+<l-radio transition="slide-right" transitionDelay="100" label="Slide right"></l-radio>
+<l-radio transition="zoom" label="Zoom"></l-radio>
+<l-radio transition="flip" label="Flip"></l-radio>
+<l-radio transition="blur" label="Blur"></l-radio>
+<l-radio transition="bounce" label="Bounce"></l-radio>
+<l-radio transition="drop" transitionDuration="700" label="Drop"></l-radio>
 
-<l-RadioGroup transition="slide-up" hoverEffect="lift">
-  <l-Radio name="tr-plan" label="Free" defaultChecked></l-Radio>
-  <l-Radio name="tr-plan" label="Pro"></l-Radio>
-</l-RadioGroup>
+<l-radio-group transition="slide-up" hoverEffect="lift">
+  <l-radio name="tr-plan" label="Free" defaultChecked></l-radio>
+  <l-radio name="tr-plan" label="Pro"></l-radio>
+</l-radio-group>
 
-<l-Radio hoverEffect="lift" label="Lift"></l-Radio>
-<l-Radio hoverEffect="scale" label="Scale"></l-Radio>
-<l-Radio hoverEffect="glow" label="Glow"></l-Radio>
-<l-Radio hoverEffect="shine" label="Shine"></l-Radio>
+<l-radio hoverEffect="lift" label="Lift"></l-radio>
+<l-radio hoverEffect="scale" label="Scale"></l-radio>
+<l-radio hoverEffect="glow" label="Glow"></l-radio>
+<l-radio hoverEffect="shine" label="Shine"></l-radio>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-Radio transition="fade" label="Fade"></l-Radio>
-  <l-Radio transition="slide-up" label="Slide up"></l-Radio>
-  <l-Radio transition="slide-right" transitionDelay="100" label="Slide right"></l-Radio>
-  <l-Radio transition="zoom" label="Zoom"></l-Radio>
-  <l-Radio transition="flip" label="Flip"></l-Radio>
-  <l-Radio transition="blur" label="Blur"></l-Radio>
-  <l-Radio transition="bounce" label="Bounce"></l-Radio>
-  <l-Radio transition="drop" transitionDuration="700" label="Drop"></l-Radio>
+  <l-radio transition="fade" label="Fade"></l-radio>
+  <l-radio transition="slide-up" label="Slide up"></l-radio>
+  <l-radio transition="slide-right" transitionDelay="100" label="Slide right"></l-radio>
+  <l-radio transition="zoom" label="Zoom"></l-radio>
+  <l-radio transition="flip" label="Flip"></l-radio>
+  <l-radio transition="blur" label="Blur"></l-radio>
+  <l-radio transition="bounce" label="Bounce"></l-radio>
+  <l-radio transition="drop" transitionDuration="700" label="Drop"></l-radio>
 
-  <l-RadioGroup transition="slide-up" hoverEffect="lift">
-    <l-Radio name="tr-plan" label="Free" defaultChecked></l-Radio>
-    <l-Radio name="tr-plan" label="Pro"></l-Radio>
-  </l-RadioGroup>
+  <l-radio-group transition="slide-up" hoverEffect="lift">
+    <l-radio name="tr-plan" label="Free" defaultChecked></l-radio>
+    <l-radio name="tr-plan" label="Pro"></l-radio>
+  </l-radio-group>
 
-  <l-Radio hoverEffect="lift" label="Lift"></l-Radio>
-  <l-Radio hoverEffect="scale" label="Scale"></l-Radio>
-  <l-Radio hoverEffect="glow" label="Glow"></l-Radio>
-  <l-Radio hoverEffect="shine" label="Shine"></l-Radio>
+  <l-radio hoverEffect="lift" label="Lift"></l-radio>
+  <l-radio hoverEffect="scale" label="Scale"></l-radio>
+  <l-radio hoverEffect="glow" label="Glow"></l-radio>
+  <l-radio hoverEffect="shine" label="Shine"></l-radio>
 </template>
 
 <script setup lang="ts">
@@ -228,24 +228,24 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Radio transition="fade" label="Fade"></l-Radio>
-    <l-Radio transition="slide-up" label="Slide up"></l-Radio>
-    <l-Radio transition="slide-right" transitionDelay="100" label="Slide right"></l-Radio>
-    <l-Radio transition="zoom" label="Zoom"></l-Radio>
-    <l-Radio transition="flip" label="Flip"></l-Radio>
-    <l-Radio transition="blur" label="Blur"></l-Radio>
-    <l-Radio transition="bounce" label="Bounce"></l-Radio>
-    <l-Radio transition="drop" transitionDuration="700" label="Drop"></l-Radio>
+    <l-radio transition="fade" label="Fade"></l-radio>
+    <l-radio transition="slide-up" label="Slide up"></l-radio>
+    <l-radio transition="slide-right" transitionDelay="100" label="Slide right"></l-radio>
+    <l-radio transition="zoom" label="Zoom"></l-radio>
+    <l-radio transition="flip" label="Flip"></l-radio>
+    <l-radio transition="blur" label="Blur"></l-radio>
+    <l-radio transition="bounce" label="Bounce"></l-radio>
+    <l-radio transition="drop" transitionDuration="700" label="Drop"></l-radio>
 
-    <l-RadioGroup transition="slide-up" hoverEffect="lift">
-      <l-Radio name="tr-plan" label="Free" defaultChecked></l-Radio>
-      <l-Radio name="tr-plan" label="Pro"></l-Radio>
-    </l-RadioGroup>
+    <l-radio-group transition="slide-up" hoverEffect="lift">
+      <l-radio name="tr-plan" label="Free" defaultChecked></l-radio>
+      <l-radio name="tr-plan" label="Pro"></l-radio>
+    </l-radio-group>
 
-    <l-Radio hoverEffect="lift" label="Lift"></l-Radio>
-    <l-Radio hoverEffect="scale" label="Scale"></l-Radio>
-    <l-Radio hoverEffect="glow" label="Glow"></l-Radio>
-    <l-Radio hoverEffect="shine" label="Shine"></l-Radio>
+    <l-radio hoverEffect="lift" label="Lift"></l-radio>
+    <l-radio hoverEffect="scale" label="Scale"></l-radio>
+    <l-radio hoverEffect="glow" label="Glow"></l-radio>
+    <l-radio hoverEffect="shine" label="Shine"></l-radio>
   \`,
 })
 export class AppComponent {}`,

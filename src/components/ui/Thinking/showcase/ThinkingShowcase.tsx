@@ -45,10 +45,10 @@ export default function ThinkingShowcase() {
 <Thinking variant="wave" />
 <Thinking variant="orb" />
 <Thinking variant="shimmer" />`,
-              `<l-Thinking variant="dots"></l-Thinking>
-<l-Thinking variant="wave"></l-Thinking>
-<l-Thinking variant="orb"></l-Thinking>
-<l-Thinking variant="shimmer"></l-Thinking>`
+              `<l-thinking variant="dots"></l-thinking>
+<l-thinking variant="wave"></l-thinking>
+<l-thinking variant="orb"></l-thinking>
+<l-thinking variant="shimmer"></l-thinking>`
             )}
           />
         </section>
@@ -65,7 +65,7 @@ export default function ThinkingShowcase() {
   steps={["Reading the question", "Searching the docs", "Writing the answer"]}
   showElapsed
 />`,
-              `<l-Thinking variant="orb" show-elapsed="true"></l-Thinking>
+              `<l-thinking variant="orb" show-elapsed="true"></l-thinking>
 <script type="module">
   document.querySelector("l-thinking").steps = ["Reading the question", "Searching the docs", "Writing the answer"];
 </script>`,
@@ -106,9 +106,9 @@ export class ThinkingComponent {
               `<Thinking size="sm" label="Small" />
 <Thinking size="md" label="Medium" color="violet" />
 <Thinking size="lg" label="Large" color="emerald" variant="wave" />`,
-              `<l-Thinking size="sm" label="Small"></l-Thinking>
-<l-Thinking size="md" label="Medium" color="violet"></l-Thinking>
-<l-Thinking size="lg" label="Large" color="emerald" variant="wave"></l-Thinking>`
+              `<l-thinking size="sm" label="Small"></l-thinking>
+<l-thinking size="md" label="Medium" color="violet"></l-thinking>
+<l-thinking size="lg" label="Large" color="emerald" variant="wave"></l-thinking>`
             )}
           />
         </section>

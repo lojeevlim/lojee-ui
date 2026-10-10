@@ -25,17 +25,17 @@ export default function VideoShowcase() {
         <CodeBlock
           variants={{
             react: `<Video src="/media/intro.mp4" label="Product intro" />`,
-            js: `<l-Video src="/media/intro.mp4" label="Product intro"></l-Video>
+            js: `<l-video src="/media/intro.mp4" label="Product intro"></l-video>
 
 <script type="module">import "lojee-ui/elements";</script>`,
             vue: `<template>
-  <l-Video src="/media/intro.mp4" label="Product intro"></l-Video>
+  <l-video src="/media/intro.mp4" label="Product intro"></l-video>
 </template>
 
 <script setup lang="ts">
 import "lojee-ui/elements";
 </script>`,
-            angular: `<l-Video src="/media/intro.mp4" label="Product intro"></l-Video>`,
+            angular: `<l-video src="/media/intro.mp4" label="Product intro"></l-video>`,
           }}
         />
       </section>
@@ -62,7 +62,7 @@ import "lojee-ui/elements";
   poster="/media/intro.jpg"
   label="Product intro"
 />`,
-            js: `<l-Video id="intro" poster="/media/intro.jpg" label="Product intro"></l-Video>
+            js: `<l-video id="intro" poster="/media/intro.jpg" label="Product intro"></l-video>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -73,7 +73,7 @@ import "lojee-ui/elements";
   ];
 </script>`,
             vue: `<template>
-  <l-Video :sources="sources" poster="/media/intro.jpg" label="Product intro"></l-Video>
+  <l-video :sources="sources" poster="/media/intro.jpg" label="Product intro"></l-video>
 </template>
 
 <script setup lang="ts">
@@ -84,7 +84,7 @@ const sources = [
   { src: "/media/intro.mp4", type: "video/mp4" },
 ];
 </script>`,
-            angular: `<l-Video [sources]="sources" poster="/media/intro.jpg" label="Product intro"></l-Video>
+            angular: `<l-video [sources]="sources" poster="/media/intro.jpg" label="Product intro"></l-video>
 
 // component class
 sources = [
@@ -104,14 +104,14 @@ sources = [
           variants={{
             react: `<Video src="https://www.youtube.com/watch?v=aqz-KE-bpKQ" label="Big Buck Bunny" />
 <Video src="https://vimeo.com/76979871" label="The New Vimeo Player" />`,
-            js: `<l-Video src="https://www.youtube.com/watch?v=aqz-KE-bpKQ" label="Big Buck Bunny"></l-Video>
-<l-Video src="https://vimeo.com/76979871" label="The New Vimeo Player"></l-Video>`,
+            js: `<l-video src="https://www.youtube.com/watch?v=aqz-KE-bpKQ" label="Big Buck Bunny"></l-video>
+<l-video src="https://vimeo.com/76979871" label="The New Vimeo Player"></l-video>`,
             vue: `<template>
-  <l-Video src="https://www.youtube.com/watch?v=aqz-KE-bpKQ" label="Big Buck Bunny"></l-Video>
-  <l-Video src="https://vimeo.com/76979871" label="The New Vimeo Player"></l-Video>
+  <l-video src="https://www.youtube.com/watch?v=aqz-KE-bpKQ" label="Big Buck Bunny"></l-video>
+  <l-video src="https://vimeo.com/76979871" label="The New Vimeo Player"></l-video>
 </template>`,
-            angular: `<l-Video src="https://www.youtube.com/watch?v=aqz-KE-bpKQ" label="Big Buck Bunny"></l-Video>
-<l-Video src="https://vimeo.com/76979871" label="The New Vimeo Player"></l-Video>`,
+            angular: `<l-video src="https://www.youtube.com/watch?v=aqz-KE-bpKQ" label="Big Buck Bunny"></l-video>
+<l-video src="https://vimeo.com/76979871" label="The New Vimeo Player"></l-video>`,
           }}
         />
       </section>
@@ -126,11 +126,11 @@ sources = [
         <CodeBlock
           variants={{
             react: `<Video src="/media/loop.mp4" autoPlay loop controls={false} ratio="4/3" fit="cover" />`,
-            js: `<l-Video src="/media/loop.mp4" auto-play="true" loop="true" controls="false" ratio="4/3" fit="cover"></l-Video>`,
+            js: `<l-video src="/media/loop.mp4" auto-play="true" loop="true" controls="false" ratio="4/3" fit="cover"></l-video>`,
             vue: `<template>
-  <l-Video src="/media/loop.mp4" :auto-play="true" :loop="true" :controls="false" ratio="4/3" fit="cover"></l-Video>
+  <l-video src="/media/loop.mp4" :auto-play="true" :loop="true" :controls="false" ratio="4/3" fit="cover"></l-video>
 </template>`,
-            angular: `<l-Video src="/media/loop.mp4" [autoPlay]="true" [loop]="true" [controls]="false" ratio="4/3" fit="cover"></l-Video>`,
+            angular: `<l-video src="/media/loop.mp4" [autoPlay]="true" [loop]="true" [controls]="false" ratio="4/3" fit="cover"></l-video>`,
           }}
         />
       </section>
@@ -151,23 +151,23 @@ sources = [
           variants={{
             react: `<Video src="/missing.mp4" ratio="4/3" label="Missing video" />
 <Video src="/missing.mp4" ratio="4/3" label="Missing video" fallback={<span>Video coming soon</span>} />`,
-            js: `<l-Video src="/missing.mp4" ratio="4/3" label="Missing video"></l-Video>
+            js: `<l-video src="/missing.mp4" ratio="4/3" label="Missing video"></l-video>
 
-<l-Video src="/missing.mp4" ratio="4/3" label="Missing video">
+<l-video src="/missing.mp4" ratio="4/3" label="Missing video">
   <span slot="fallback">Video coming soon</span>
-</l-Video>`,
+</l-video>`,
             vue: `<template>
-  <l-Video src="/missing.mp4" ratio="4/3" label="Missing video"></l-Video>
+  <l-video src="/missing.mp4" ratio="4/3" label="Missing video"></l-video>
 
-  <l-Video src="/missing.mp4" ratio="4/3" label="Missing video">
+  <l-video src="/missing.mp4" ratio="4/3" label="Missing video">
     <span slot="fallback">Video coming soon</span>
-  </l-Video>
+  </l-video>
 </template>`,
-            angular: `<l-Video src="/missing.mp4" ratio="4/3" label="Missing video"></l-Video>
+            angular: `<l-video src="/missing.mp4" ratio="4/3" label="Missing video"></l-video>
 
-<l-Video src="/missing.mp4" ratio="4/3" label="Missing video">
+<l-video src="/missing.mp4" ratio="4/3" label="Missing video">
   <span slot="fallback">Video coming soon</span>
-</l-Video>`,
+</l-video>`,
           }}
         />
       </section>
@@ -183,7 +183,7 @@ sources = [
   onEnded={() => console.log("done")}
   onLoad={(duration) => console.log(duration, "seconds")}
 />`,
-            js: `<l-Video id="intro" src="/media/intro.mp4"></l-Video>
+            js: `<l-video id="intro" src="/media/intro.mp4"></l-video>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -195,7 +195,7 @@ sources = [
   video.addEventListener("load", (e) => console.log(e.detail, "seconds"));
 </script>`,
             vue: `<template>
-  <l-Video src="/media/intro.mp4" @play="onPlay" @pause="onPause" @ended="onEnded" @load="onLoad"></l-Video>
+  <l-video src="/media/intro.mp4" @play="onPlay" @pause="onPause" @ended="onEnded" @load="onLoad"></l-video>
 </template>
 
 <script setup lang="ts">
@@ -206,7 +206,7 @@ const onPause = () => console.log("paused");
 const onEnded = () => console.log("done");
 const onLoad = (e: CustomEvent<number>) => console.log(e.detail, "seconds");
 </script>`,
-            angular: `<l-Video src="/media/intro.mp4" (play)="onPlay()" (pause)="onPause()" (ended)="onEnded()" (load)="onLoad($event)"></l-Video>
+            angular: `<l-video src="/media/intro.mp4" (play)="onPlay()" (pause)="onPause()" (ended)="onEnded()" (load)="onLoad($event)"></l-video>
 
 // component class
 onLoad(e: CustomEvent<number>) {

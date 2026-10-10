@@ -60,8 +60,8 @@ export default function CommandMenuPlayground() {
       `  { label: "${item.label}", icon: "${item.icon}"${item.shortcut ? `, shortcut: "${item.shortcut}"` : ""} }`
   ).join(",\n");
 
-  const htmlMarkup = `<l-Button label="Open command menu" id="open-command-btn" />
-<l-CommandMenu id="command-menu"${motion.attrs} />`;
+  const htmlMarkup = `<l-button label="Open command menu" id="open-command-btn" />
+<l-command-menu id="command-menu"${motion.attrs} />`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,
@@ -79,8 +79,8 @@ ${itemsSnippet}
   commandMenu.addEventListener("close", () => { commandMenu.open = false; });
 </script>`,
     vue: `<template>
-  <l-Button label="Open command menu" @click="open = true" />
-  <l-CommandMenu :open="open" :items="items"${motion.attrs} @close="open = false" />
+  <l-button label="Open command menu" @click="open = true" />
+  <l-command-menu :open="open" :items="items"${motion.attrs} @close="open = false" />
 </template>
 
 <script setup lang="ts">
@@ -93,8 +93,8 @@ ${itemsSnippet}
 ]);
 </script>`,
     angular: `<!-- app.component.html -->
-<l-Button label="Open command menu" (click)="open = true" />
-<l-CommandMenu [open]="open" [items]="items"${motion.attrs} (close)="open = false" />
+<l-button label="Open command menu" (click)="open = true" />
+<l-command-menu [open]="open" [items]="items"${motion.attrs} (close)="open = false" />
 
 <!-- app.component.ts -->
 items = [

@@ -41,11 +41,11 @@ export default function BreadcrumbsPlayground() {
   // Vue/Angular templates (plain attributes, no bindings needed for a static
   // snapshot); the "js" variant just adds the one-time module import a plain
   // HTML page needs to actually load the `<l-*>` definitions.
-  const htmlMarkup = `<l-Breadcrumbs${attrStr}>
-  <l-BreadcrumbItem href="/">Home</l-BreadcrumbItem>
-  <l-BreadcrumbItem href="/projects">Projects</l-BreadcrumbItem>
-  <l-BreadcrumbItem${lastIcon ? ` icon="circle-user"` : ""}>Profile</l-BreadcrumbItem>
-</l-Breadcrumbs>`;
+  const htmlMarkup = `<l-breadcrumbs${attrStr}>
+  <l-breadcrumb-item href="/">Home</l-breadcrumb-item>
+  <l-breadcrumb-item href="/projects">Projects</l-breadcrumb-item>
+  <l-breadcrumb-item${lastIcon ? ` icon="circle-user"` : ""}>Profile</l-breadcrumb-item>
+</l-breadcrumbs>`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,

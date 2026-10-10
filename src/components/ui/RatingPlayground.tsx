@@ -30,9 +30,9 @@ export default function RatingPlayground() {
       preview={preview}
       variants={wcCode({
         react: `<Rating value={3}${common.replace(/ max="(\d+)"/, " max={$1}")}${half === "on" ? " allowHalf" : ""}${readOnly === "on" ? " readOnly" : ""} />`,
-        html: `<l-Rating value="3"${common}${flags((n) => `${n}="true"`)}></l-Rating>`,
-        vueHtml: `<l-Rating :value="3"${common}${flags((n) => `:${n}="true"`)}></l-Rating>`,
-        angularHtml: `<l-Rating [value]="3"${common}${flags((n) => `[${n.replace(/-(\w)/g, (_, c: string) => c.toUpperCase())}]="true"`)}></l-Rating>`,
+        html: `<l-rating value="3"${common}${flags((n) => `${n}="true"`)}></l-rating>`,
+        vueHtml: `<l-rating :value="3"${common}${flags((n) => `:${n}="true"`)}></l-rating>`,
+        angularHtml: `<l-rating [value]="3"${common}${flags((n) => `[${n.replace(/-(\w)/g, (_, c: string) => c.toUpperCase())}]="true"`)}></l-rating>`,
       })}
     >
       <OptionGroup label="Stars" options={MAXES} value={max} onChange={setMax} />

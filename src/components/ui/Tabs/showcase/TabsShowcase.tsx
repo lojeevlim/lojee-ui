@@ -35,7 +35,7 @@ export default function TabsShowcase() {
     { label: "Settings", content: <p>Adjust your preferences.</p> },
   ]}
 />`,
-              js: `<l-Tabs id="basic-tabs"></l-Tabs>
+              js: `<l-tabs id="basic-tabs"></l-tabs>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -47,7 +47,7 @@ export default function TabsShowcase() {
   ];
 </script>`,
               vue: `<template>
-  <l-Tabs :tabs="tabs" />
+  <l-tabs :tabs="tabs" />
 </template>
 
 <script setup lang="ts">
@@ -67,7 +67,7 @@ import "lojee-ui/elements";
   selector: "app-root",
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  template: \`<l-Tabs [tabs]="tabs" />\`,
+  template: \`<l-tabs [tabs]="tabs" />\`,
 })
 export class AppComponent {
   tabs = [
@@ -98,7 +98,7 @@ export class AppComponent {
     { label: "Review", content: <p>Review and confirm.</p> },
   ]}
 />`,
-              js: `<l-Tabs id="disabled-tabs"></l-Tabs>
+              js: `<l-tabs id="disabled-tabs"></l-tabs>
 
 <script type="module">
   document.getElementById("disabled-tabs").tabs = [
@@ -108,7 +108,7 @@ export class AppComponent {
   ];
 </script>`,
               vue: `<template>
-  <l-Tabs :tabs="tabs" />
+  <l-tabs :tabs="tabs" />
 </template>
 
 <script setup lang="ts">
@@ -126,7 +126,7 @@ tabs = [
 ];
 
 // app.component.html
-<l-Tabs [tabs]="tabs" />`,
+<l-tabs [tabs]="tabs" />`,
             }}
           />
         </section>
@@ -153,7 +153,7 @@ tabs = [
     { label: "Shipping", content: <p>Shipping and returns.</p> },
   ]}
 />`,
-              js: `<l-Tabs id="color-tabs" color="indigo" defaultIndex="1"></l-Tabs>
+              js: `<l-tabs id="color-tabs" color="indigo" defaultIndex="1"></l-tabs>
 
 <script type="module">
   document.getElementById("color-tabs").tabs = [
@@ -163,7 +163,7 @@ tabs = [
   ];
 </script>`,
               vue: `<template>
-  <l-Tabs :tabs="tabs" color="indigo" defaultIndex="1" />
+  <l-tabs :tabs="tabs" color="indigo" defaultIndex="1" />
 </template>
 
 <script setup lang="ts">
@@ -181,7 +181,7 @@ tabs = [
 ];
 
 // app.component.html
-<l-Tabs [tabs]="tabs" color="indigo" defaultIndex="1" />`,
+<l-tabs [tabs]="tabs" color="indigo" defaultIndex="1" />`,
             }}
           />
         </section>
@@ -222,12 +222,12 @@ tabs = [
 <Tabs tabs={tabs} transition="zoom" />
 <Tabs tabs={tabs} transition="blur" />
 <Tabs tabs={tabs} transition="drop" transitionDuration={700} />`,
-              js: `<l-Tabs transition="fade"></l-Tabs>
-<l-Tabs transition="slide-up"></l-Tabs>
-<l-Tabs transition="slide-right" transitionDelay="100"></l-Tabs>
-<l-Tabs transition="zoom"></l-Tabs>
-<l-Tabs transition="blur"></l-Tabs>
-<l-Tabs transition="drop" transitionDuration="700"></l-Tabs>
+              js: `<l-tabs transition="fade"></l-tabs>
+<l-tabs transition="slide-up"></l-tabs>
+<l-tabs transition="slide-right" transitionDelay="100"></l-tabs>
+<l-tabs transition="zoom"></l-tabs>
+<l-tabs transition="blur"></l-tabs>
+<l-tabs transition="drop" transitionDuration="700"></l-tabs>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -240,12 +240,12 @@ tabs = [
   document.querySelectorAll("l-Tabs").forEach((el) => (el.tabs = tabs));
 </script>`,
               vue: `<template>
-  <l-Tabs :tabs="tabs" transition="fade"></l-Tabs>
-  <l-Tabs :tabs="tabs" transition="slide-up"></l-Tabs>
-  <l-Tabs :tabs="tabs" transition="slide-right" transitionDelay="100"></l-Tabs>
-  <l-Tabs :tabs="tabs" transition="zoom"></l-Tabs>
-  <l-Tabs :tabs="tabs" transition="blur"></l-Tabs>
-  <l-Tabs :tabs="tabs" transition="drop" transitionDuration="700"></l-Tabs>
+  <l-tabs :tabs="tabs" transition="fade"></l-tabs>
+  <l-tabs :tabs="tabs" transition="slide-up"></l-tabs>
+  <l-tabs :tabs="tabs" transition="slide-right" transitionDelay="100"></l-tabs>
+  <l-tabs :tabs="tabs" transition="zoom"></l-tabs>
+  <l-tabs :tabs="tabs" transition="blur"></l-tabs>
+  <l-tabs :tabs="tabs" transition="drop" transitionDuration="700"></l-tabs>
 </template>
 
 <script setup lang="ts">
@@ -266,12 +266,12 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Tabs [tabs]="tabs" transition="fade"></l-Tabs>
-    <l-Tabs [tabs]="tabs" transition="slide-up"></l-Tabs>
-    <l-Tabs [tabs]="tabs" transition="slide-right" transitionDelay="100"></l-Tabs>
-    <l-Tabs [tabs]="tabs" transition="zoom"></l-Tabs>
-    <l-Tabs [tabs]="tabs" transition="blur"></l-Tabs>
-    <l-Tabs [tabs]="tabs" transition="drop" transitionDuration="700"></l-Tabs>
+    <l-tabs [tabs]="tabs" transition="fade"></l-tabs>
+    <l-tabs [tabs]="tabs" transition="slide-up"></l-tabs>
+    <l-tabs [tabs]="tabs" transition="slide-right" transitionDelay="100"></l-tabs>
+    <l-tabs [tabs]="tabs" transition="zoom"></l-tabs>
+    <l-tabs [tabs]="tabs" transition="blur"></l-tabs>
+    <l-tabs [tabs]="tabs" transition="drop" transitionDuration="700"></l-tabs>
   \`,
 })
 export class AppComponent {

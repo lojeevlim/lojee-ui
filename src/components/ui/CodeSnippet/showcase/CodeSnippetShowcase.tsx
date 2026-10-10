@@ -26,9 +26,9 @@ export default function CodeSnippetShowcase() {
         <CodeBlock
           variants={wcCode({
             react: `<CodeSnippet code={source} title="Save.tsx" language="tsx" />`,
-            html: `<l-Code-Snippet id="snippet" heading="Save.tsx" language="tsx"></l-Code-Snippet>`,
-            vueHtml: `<l-Code-Snippet :code="source" heading="Save.tsx" language="tsx"></l-Code-Snippet>`,
-            angularHtml: `<l-Code-Snippet [code]="source" heading="Save.tsx" language="tsx"></l-Code-Snippet>`,
+            html: `<l-code-snippet id="snippet" heading="Save.tsx" language="tsx"></l-code-snippet>`,
+            vueHtml: `<l-code-snippet :code="source" heading="Save.tsx" language="tsx"></l-code-snippet>`,
+            angularHtml: `<l-code-snippet [code]="source" heading="Save.tsx" language="tsx"></l-code-snippet>`,
             script: `document.getElementById("snippet").code = 'import { Button } from "lojee-ui";';`,
             vueScript: `const source = \`import { Button } from "lojee-ui";\`;`,
             angularClass: `source = 'import { Button } from "lojee-ui";';`,
@@ -46,12 +46,12 @@ export default function CodeSnippetShowcase() {
           variants={wcCode({
             react: `<CodeSnippet code={source} language="tsx" lineNumbers />
 <CodeSnippet code="npm install lojee-ui" copyable={false} />`,
-            html: `<l-Code-Snippet language="tsx" line-numbers="true"></l-Code-Snippet>
-<l-Code-Snippet code="npm install lojee-ui" copyable="false"></l-Code-Snippet>`,
-            vueHtml: `<l-Code-Snippet :code="source" language="tsx" :line-numbers="true"></l-Code-Snippet>
-<l-Code-Snippet code="npm install lojee-ui" :copyable="false"></l-Code-Snippet>`,
-            angularHtml: `<l-Code-Snippet [code]="source" language="tsx" [lineNumbers]="true"></l-Code-Snippet>
-<l-Code-Snippet code="npm install lojee-ui" [copyable]="false"></l-Code-Snippet>`,
+            html: `<l-code-snippet language="tsx" line-numbers="true"></l-code-snippet>
+<l-code-snippet code="npm install lojee-ui" copyable="false"></l-code-snippet>`,
+            vueHtml: `<l-code-snippet :code="source" language="tsx" :line-numbers="true"></l-code-snippet>
+<l-code-snippet code="npm install lojee-ui" :copyable="false"></l-code-snippet>`,
+            angularHtml: `<l-code-snippet [code]="source" language="tsx" [lineNumbers]="true"></l-code-snippet>
+<l-code-snippet code="npm install lojee-ui" [copyable]="false"></l-code-snippet>`,
           })}
         />
       </section>
@@ -68,15 +68,15 @@ export default function CodeSnippetShowcase() {
             react: `<CopyButton text="npm install lojee-ui" />
 <CopyButton text="npm install lojee-ui" iconOnly />
 <CopyButton text="npm install lojee-ui" label="Copy command" copiedLabel="Copied!" />`,
-            html: `<l-Copy-Button text="npm install lojee-ui"></l-Copy-Button>
-<l-Copy-Button text="npm install lojee-ui" icon-only="true"></l-Copy-Button>
-<l-Copy-Button text="npm install lojee-ui" label="Copy command" copied-label="Copied!"></l-Copy-Button>`,
-            vueHtml: `<l-Copy-Button text="npm install lojee-ui"></l-Copy-Button>
-<l-Copy-Button text="npm install lojee-ui" :icon-only="true"></l-Copy-Button>
-<l-Copy-Button text="npm install lojee-ui" label="Copy command" copied-label="Copied!"></l-Copy-Button>`,
-            angularHtml: `<l-Copy-Button text="npm install lojee-ui"></l-Copy-Button>
-<l-Copy-Button text="npm install lojee-ui" [iconOnly]="true"></l-Copy-Button>
-<l-Copy-Button text="npm install lojee-ui" label="Copy command" copied-label="Copied!"></l-Copy-Button>`,
+            html: `<l-copy-button text="npm install lojee-ui"></l-copy-button>
+<l-copy-button text="npm install lojee-ui" icon-only="true"></l-copy-button>
+<l-copy-button text="npm install lojee-ui" label="Copy command" copied-label="Copied!"></l-copy-button>`,
+            vueHtml: `<l-copy-button text="npm install lojee-ui"></l-copy-button>
+<l-copy-button text="npm install lojee-ui" :icon-only="true"></l-copy-button>
+<l-copy-button text="npm install lojee-ui" label="Copy command" copied-label="Copied!"></l-copy-button>`,
+            angularHtml: `<l-copy-button text="npm install lojee-ui"></l-copy-button>
+<l-copy-button text="npm install lojee-ui" [iconOnly]="true"></l-copy-button>
+<l-copy-button text="npm install lojee-ui" label="Copy command" copied-label="Copied!"></l-copy-button>`,
           })}
         />
       </section>

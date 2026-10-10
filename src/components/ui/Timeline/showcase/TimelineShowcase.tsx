@@ -41,7 +41,7 @@ export default function TimelineShowcase() {
     { title: "Delivered", timestamp: "Jan 6, 1:47 PM" },
   ]}
 />`,
-              js: `<l-Timeline id="timeline-basic"></l-Timeline>
+              js: `<l-timeline id="timeline-basic"></l-timeline>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -54,7 +54,7 @@ export default function TimelineShowcase() {
   ];
 </script>`,
               vue: `<template>
-  <l-Timeline :items="items" />
+  <l-timeline :items="items" />
 </template>
 
 <script setup lang="ts">
@@ -75,7 +75,7 @@ import "lojee-ui/elements";
   selector: "app-root",
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  template: \`<l-Timeline [items]="items" />\`,
+  template: \`<l-timeline [items]="items" />\`,
 })
 export class AppComponent {
   items = [
@@ -115,7 +115,7 @@ export class AppComponent {
     { title: "Delivered", icon: "circle-dot", color: "slate" },
   ]}
 />`,
-              js: `<l-Timeline id="timeline-icons"></l-Timeline>
+              js: `<l-timeline id="timeline-icons"></l-timeline>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -129,7 +129,7 @@ export class AppComponent {
   ];
 </script>`,
               vue: `<template>
-  <l-Timeline :items="items" />
+  <l-timeline :items="items" />
 </template>
 
 <script setup lang="ts">
@@ -153,7 +153,7 @@ items = [
 ];
 
 // app.component.html
-<l-Timeline [items]="items" />`,
+<l-timeline [items]="items" />`,
             }}
           />
         </section>
@@ -182,7 +182,7 @@ items = [
     { title: "Delivered", icon: "circle-dot", color: "slate" },
   ]}
 />`,
-              js: `<l-Timeline id="timeline-horizontal" orientation="horizontal"></l-Timeline>
+              js: `<l-timeline id="timeline-horizontal" orientation="horizontal"></l-timeline>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -195,7 +195,7 @@ items = [
   ];
 </script>`,
               vue: `<template>
-  <l-Timeline :items="items" orientation="horizontal" />
+  <l-timeline :items="items" orientation="horizontal" />
 </template>
 
 <script setup lang="ts">
@@ -217,7 +217,7 @@ items = [
 ];
 
 // app.component.html
-<l-Timeline [items]="items" orientation="horizontal" />`,
+<l-timeline [items]="items" orientation="horizontal" />`,
             }}
           />
         </section>
@@ -242,10 +242,10 @@ items = [
 <Timeline items={items} transition="slide-up" />
 <Timeline items={items} transition="slide-right" transitionDelay={100} />
 <Timeline items={items} transition="drop" transitionDuration={700} />`,
-              js: `<l-Timeline transition="fade"></l-Timeline>
-<l-Timeline transition="slide-up"></l-Timeline>
-<l-Timeline transition="slide-right" transitionDelay="100"></l-Timeline>
-<l-Timeline transition="drop" transitionDuration="700"></l-Timeline>
+              js: `<l-timeline transition="fade"></l-timeline>
+<l-timeline transition="slide-up"></l-timeline>
+<l-timeline transition="slide-right" transitionDelay="100"></l-timeline>
+<l-timeline transition="drop" transitionDuration="700"></l-timeline>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -258,10 +258,10 @@ items = [
   document.querySelectorAll("l-Timeline").forEach((el) => (el.items = items));
 </script>`,
               vue: `<template>
-  <l-Timeline :items="items" transition="fade"></l-Timeline>
-  <l-Timeline :items="items" transition="slide-up"></l-Timeline>
-  <l-Timeline :items="items" transition="slide-right" transitionDelay="100"></l-Timeline>
-  <l-Timeline :items="items" transition="drop" transitionDuration="700"></l-Timeline>
+  <l-timeline :items="items" transition="fade"></l-timeline>
+  <l-timeline :items="items" transition="slide-up"></l-timeline>
+  <l-timeline :items="items" transition="slide-right" transitionDelay="100"></l-timeline>
+  <l-timeline :items="items" transition="drop" transitionDuration="700"></l-timeline>
 </template>
 
 <script setup lang="ts">
@@ -282,10 +282,10 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Timeline [items]="items" transition="fade"></l-Timeline>
-    <l-Timeline [items]="items" transition="slide-up"></l-Timeline>
-    <l-Timeline [items]="items" transition="slide-right" transitionDelay="100"></l-Timeline>
-    <l-Timeline [items]="items" transition="drop" transitionDuration="700"></l-Timeline>
+    <l-timeline [items]="items" transition="fade"></l-timeline>
+    <l-timeline [items]="items" transition="slide-up"></l-timeline>
+    <l-timeline [items]="items" transition="slide-right" transitionDelay="100"></l-timeline>
+    <l-timeline [items]="items" transition="drop" transitionDuration="700"></l-timeline>
   \`,
 })
 export class AppComponent {

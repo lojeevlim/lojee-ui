@@ -10,7 +10,7 @@ const STEPS_CODE = `[{ label: "Cart" }, { label: "Shipping" }, { label: "Payment
 
 const colorCode = (attr: string) => ({
   react: `<Stepper ${attr} currentStep={2} steps={${STEPS_CODE}} />`,
-  js: `<l-Stepper id="stepper-color" ${attr} current-step="2"></l-Stepper>
+  js: `<l-stepper id="stepper-color" ${attr} current-step="2"></l-stepper>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -18,7 +18,7 @@ const colorCode = (attr: string) => ({
   document.getElementById("stepper-color").steps = ${STEPS_CODE};
 </script>`,
   vue: `<template>
-  <l-Stepper :steps="steps" ${attr} current-step="2" />
+  <l-stepper :steps="steps" ${attr} current-step="2" />
 </template>
 
 <script setup lang="ts">
@@ -26,7 +26,7 @@ import "lojee-ui/elements";
 
 const steps = ${STEPS_CODE};
 </script>`,
-  angular: `<l-Stepper [steps]="steps" ${attr} current-step="2"></l-Stepper>
+  angular: `<l-stepper [steps]="steps" ${attr} current-step="2"></l-stepper>
 
 steps = ${STEPS_CODE};`,
 });
@@ -140,7 +140,7 @@ export default function StepperShowcase() {
     { label: "Confirm" },
   ]}
 />`,
-              js: `<l-Stepper id="stepper-basic" current-step="2"></l-Stepper>
+              js: `<l-stepper id="stepper-basic" current-step="2"></l-stepper>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -153,7 +153,7 @@ export default function StepperShowcase() {
   ];
 </script>`,
               vue: `<template>
-  <l-Stepper :steps="steps" current-step="2" />
+  <l-stepper :steps="steps" current-step="2" />
 </template>
 
 <script setup lang="ts">
@@ -174,7 +174,7 @@ import "lojee-ui/elements";
   selector: "app-root",
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  template: \`<l-Stepper [steps]="steps" current-step="2" />\`,
+  template: \`<l-stepper [steps]="steps" current-step="2" />\`,
 })
 export class AppComponent {
   steps = [
@@ -224,7 +224,7 @@ export class AppComponent {
 
 {/* navigation shows the built-in Back / Next buttons (Finish on the last step).
     Step circles are clickable by default when a step has content — clickable={false} turns that off. */}`,
-              js: `<l-Stepper id="stepper-sections" default-step="1" navigation="true"></l-Stepper>
+              js: `<l-stepper id="stepper-sections" default-step="1" navigation="true"></l-stepper>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -234,7 +234,7 @@ export class AppComponent {
   el.addEventListener("stepchange", (e) => console.log("Step:", e.detail));
 </script>`,
               vue: `<template>
-  <l-Stepper :steps="steps" default-step="1" navigation="true" @stepchange="onChange" />
+  <l-stepper :steps="steps" default-step="1" navigation="true" @stepchange="onChange" />
 </template>
 
 <script setup lang="ts">
@@ -246,7 +246,7 @@ function onChange(e: CustomEvent) {
   console.log("Step:", e.detail);
 }
 </script>`,
-              angular: `<l-Stepper [steps]="steps" default-step="1" navigation="true" (stepchange)="onChange($event)"></l-Stepper>
+              angular: `<l-stepper [steps]="steps" default-step="1" navigation="true" (stepchange)="onChange($event)"></l-stepper>
 
 steps = ${SECTION_STEPS_CODE};
 
@@ -426,7 +426,7 @@ function AccountForm() {
 
 {/* or just render with a new value — it follows currentStep when it changes */}
 <Stepper steps={steps} currentStep={step} />`,
-              js: `<l-Stepper id="stepper-code"></l-Stepper>
+              js: `<l-stepper id="stepper-code"></l-stepper>
 <button id="next">Next</button>
 
 <script type="module">
@@ -440,7 +440,7 @@ function AccountForm() {
   });
 </script>`,
               vue: `<template>
-  <l-Stepper :steps="steps" :currentStep="step" />
+  <l-stepper :steps="steps" :currentStep="step" />
   <button @click="step++">Next</button>
 </template>
 
@@ -451,7 +451,7 @@ import "lojee-ui/elements";
 const step = ref(0);
 const steps = [{ label: "Cart" }, { label: "Shipping" }, { label: "Payment" }];
 </script>`,
-              angular: `<l-Stepper [steps]="steps" [currentStep]="step"></l-Stepper>
+              angular: `<l-stepper [steps]="steps" [currentStep]="step"></l-stepper>
 <button (click)="step = step + 1">Next</button>
 
 step = 0;
@@ -499,7 +499,7 @@ steps = [{ label: "Cart" }, { label: "Shipping" }, { label: "Payment" }];`,
     { label: "Review", description: "Confirm your details" },
   ]}
 />`,
-              js: `<l-Stepper id="stepper-desc" current-step="1"></l-Stepper>
+              js: `<l-stepper id="stepper-desc" current-step="1"></l-stepper>
 
 <script type="module">
   document.getElementById("stepper-desc").steps = [
@@ -509,7 +509,7 @@ steps = [{ label: "Cart" }, { label: "Shipping" }, { label: "Payment" }];`,
   ];
 </script>`,
               vue: `<template>
-  <l-Stepper :steps="steps" current-step="1" />
+  <l-stepper :steps="steps" current-step="1" />
 </template>
 
 <script setup lang="ts">
@@ -527,7 +527,7 @@ steps = [
 ];
 
 // app.component.html
-<l-Stepper [steps]="steps" current-step="1" />`,
+<l-stepper [steps]="steps" current-step="1" />`,
             }}
           />
         </section>
@@ -558,7 +558,7 @@ steps = [
     { label: "Delivered" },
   ]}
 />`,
-              js: `<l-Stepper id="stepper-vertical" orientation="vertical" current-step="1"></l-Stepper>
+              js: `<l-stepper id="stepper-vertical" orientation="vertical" current-step="1"></l-stepper>
 
 <script type="module">
   document.getElementById("stepper-vertical").steps = [
@@ -569,7 +569,7 @@ steps = [
   ];
 </script>`,
               vue: `<template>
-  <l-Stepper :steps="steps" orientation="vertical" current-step="1" />
+  <l-stepper :steps="steps" orientation="vertical" current-step="1" />
 </template>
 
 <script setup lang="ts">
@@ -589,7 +589,7 @@ steps = [
 ];
 
 // app.component.html
-<l-Stepper [steps]="steps" orientation="vertical" current-step="1" />`,
+<l-stepper [steps]="steps" orientation="vertical" current-step="1" />`,
             }}
           />
         </section>
@@ -611,7 +611,7 @@ steps = [
     { label: "Confirm" },
   ]}
 />`,
-              js: `<l-Stepper id="stepper-complete" current-step="4"></l-Stepper>
+              js: `<l-stepper id="stepper-complete" current-step="4"></l-stepper>
 
 <script type="module">
   document.getElementById("stepper-complete").steps = [
@@ -622,7 +622,7 @@ steps = [
   ];
 </script>`,
               vue: `<template>
-  <l-Stepper :steps="steps" current-step="4" />
+  <l-stepper :steps="steps" current-step="4" />
 </template>
 
 <script setup lang="ts">
@@ -642,7 +642,7 @@ steps = [
 ];
 
 // app.component.html
-<l-Stepper [steps]="steps" current-step="4" />`,
+<l-stepper [steps]="steps" current-step="4" />`,
             }}
           />
         </section>
@@ -676,16 +676,16 @@ steps = [
 <Stepper steps={steps} currentStep={1} hoverEffect="scale" />
 <Stepper steps={steps} currentStep={1} hoverEffect="ring" />
 <Stepper steps={steps} currentStep={1} hoverEffect="glow" />`,
-              js: `<l-Stepper class="transition-demo" current-step="1" transition="fade"></l-Stepper>
-<l-Stepper class="transition-demo" current-step="1" transition="slide-down"></l-Stepper>
-<l-Stepper class="transition-demo" current-step="1" transition="slide-right" transitionDelay="100"></l-Stepper>
-<l-Stepper class="transition-demo" current-step="1" transition="zoom"></l-Stepper>
-<l-Stepper class="transition-demo" current-step="1" transition="blur"></l-Stepper>
-<l-Stepper class="transition-demo" current-step="1" transition="drop" transitionDuration="700"></l-Stepper>
+              js: `<l-stepper class="transition-demo" current-step="1" transition="fade"></l-stepper>
+<l-stepper class="transition-demo" current-step="1" transition="slide-down"></l-stepper>
+<l-stepper class="transition-demo" current-step="1" transition="slide-right" transitionDelay="100"></l-stepper>
+<l-stepper class="transition-demo" current-step="1" transition="zoom"></l-stepper>
+<l-stepper class="transition-demo" current-step="1" transition="blur"></l-stepper>
+<l-stepper class="transition-demo" current-step="1" transition="drop" transitionDuration="700"></l-stepper>
 
-<l-Stepper class="transition-demo" current-step="1" hoverEffect="scale"></l-Stepper>
-<l-Stepper class="transition-demo" current-step="1" hoverEffect="ring"></l-Stepper>
-<l-Stepper class="transition-demo" current-step="1" hoverEffect="glow"></l-Stepper>
+<l-stepper class="transition-demo" current-step="1" hoverEffect="scale"></l-stepper>
+<l-stepper class="transition-demo" current-step="1" hoverEffect="ring"></l-stepper>
+<l-stepper class="transition-demo" current-step="1" hoverEffect="glow"></l-stepper>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -694,16 +694,16 @@ steps = [
   document.querySelectorAll(".transition-demo").forEach((el) => (el.steps = steps));
 </script>`,
               vue: `<template>
-  <l-Stepper :steps="steps" current-step="1" transition="fade"></l-Stepper>
-  <l-Stepper :steps="steps" current-step="1" transition="slide-down"></l-Stepper>
-  <l-Stepper :steps="steps" current-step="1" transition="slide-right" transitionDelay="100"></l-Stepper>
-  <l-Stepper :steps="steps" current-step="1" transition="zoom"></l-Stepper>
-  <l-Stepper :steps="steps" current-step="1" transition="blur"></l-Stepper>
-  <l-Stepper :steps="steps" current-step="1" transition="drop" transitionDuration="700"></l-Stepper>
+  <l-stepper :steps="steps" current-step="1" transition="fade"></l-stepper>
+  <l-stepper :steps="steps" current-step="1" transition="slide-down"></l-stepper>
+  <l-stepper :steps="steps" current-step="1" transition="slide-right" transitionDelay="100"></l-stepper>
+  <l-stepper :steps="steps" current-step="1" transition="zoom"></l-stepper>
+  <l-stepper :steps="steps" current-step="1" transition="blur"></l-stepper>
+  <l-stepper :steps="steps" current-step="1" transition="drop" transitionDuration="700"></l-stepper>
 
-  <l-Stepper :steps="steps" current-step="1" hoverEffect="scale"></l-Stepper>
-  <l-Stepper :steps="steps" current-step="1" hoverEffect="ring"></l-Stepper>
-  <l-Stepper :steps="steps" current-step="1" hoverEffect="glow"></l-Stepper>
+  <l-stepper :steps="steps" current-step="1" hoverEffect="scale"></l-stepper>
+  <l-stepper :steps="steps" current-step="1" hoverEffect="ring"></l-stepper>
+  <l-stepper :steps="steps" current-step="1" hoverEffect="glow"></l-stepper>
 </template>
 
 <script setup lang="ts">
@@ -720,16 +720,16 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Stepper [steps]="steps" current-step="1" transition="fade"></l-Stepper>
-    <l-Stepper [steps]="steps" current-step="1" transition="slide-down"></l-Stepper>
-    <l-Stepper [steps]="steps" current-step="1" transition="slide-right" transitionDelay="100"></l-Stepper>
-    <l-Stepper [steps]="steps" current-step="1" transition="zoom"></l-Stepper>
-    <l-Stepper [steps]="steps" current-step="1" transition="blur"></l-Stepper>
-    <l-Stepper [steps]="steps" current-step="1" transition="drop" transitionDuration="700"></l-Stepper>
+    <l-stepper [steps]="steps" current-step="1" transition="fade"></l-stepper>
+    <l-stepper [steps]="steps" current-step="1" transition="slide-down"></l-stepper>
+    <l-stepper [steps]="steps" current-step="1" transition="slide-right" transitionDelay="100"></l-stepper>
+    <l-stepper [steps]="steps" current-step="1" transition="zoom"></l-stepper>
+    <l-stepper [steps]="steps" current-step="1" transition="blur"></l-stepper>
+    <l-stepper [steps]="steps" current-step="1" transition="drop" transitionDuration="700"></l-stepper>
 
-    <l-Stepper [steps]="steps" current-step="1" hoverEffect="scale"></l-Stepper>
-    <l-Stepper [steps]="steps" current-step="1" hoverEffect="ring"></l-Stepper>
-    <l-Stepper [steps]="steps" current-step="1" hoverEffect="glow"></l-Stepper>
+    <l-stepper [steps]="steps" current-step="1" hoverEffect="scale"></l-stepper>
+    <l-stepper [steps]="steps" current-step="1" hoverEffect="ring"></l-stepper>
+    <l-stepper [steps]="steps" current-step="1" hoverEffect="glow"></l-stepper>
   \`,
 })
 export class AppComponent {

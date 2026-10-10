@@ -53,9 +53,9 @@ export default function DetailsListShowcase() {
           <CodeBlock
             variants={{
               react: `<DetailsList items={items} />`,
-              js: `<l-DetailsList id="events"></l-DetailsList>\n\n<script type="module">\n  import "lojee-ui/elements";\n\n  document.getElementById("events").items = ${lit(EVENTS)};\n</script>`,
-              vue: `<template>\n  <l-DetailsList :items="items" />\n</template>\n\n<script setup lang="ts">\nconst items = ${lit(EVENTS)};\n</script>`,
-              angular: `<l-DetailsList [items]="items"></l-DetailsList>\n\n// component class\nitems = ${lit(EVENTS)};`,
+              js: `<l-details-list id="events"></l-details-list>\n\n<script type="module">\n  import "lojee-ui/elements";\n\n  document.getElementById("events").items = ${lit(EVENTS)};\n</script>`,
+              vue: `<template>\n  <l-details-list :items="items" />\n</template>\n\n<script setup lang="ts">\nconst items = ${lit(EVENTS)};\n</script>`,
+              angular: `<l-details-list [items]="items"></l-details-list>\n\n// component class\nitems = ${lit(EVENTS)};`,
             }}
           />
         </section>
@@ -67,8 +67,8 @@ export default function DetailsListShowcase() {
             variants={{
               react: `<DetailsList items={items} />`,
               js: `document.querySelector("l-details-list").items = ${lit(DETAILED)};`,
-              vue: `<l-DetailsList :items="items" />\n\nconst items = ${lit(VUE_ITEMS)};`,
-              angular: `<l-DetailsList [items]="items"></l-DetailsList>\n\nitems = ${lit(ANGULAR_ITEMS)};`,
+              vue: `<l-details-list :items="items" />\n\nconst items = ${lit(VUE_ITEMS)};`,
+              angular: `<l-details-list [items]="items"></l-details-list>\n\nitems = ${lit(ANGULAR_ITEMS)};`,
             }}
           />
         </section>
@@ -79,9 +79,9 @@ export default function DetailsListShowcase() {
           <CodeBlock
             variants={{
               react: `<DetailsList exclusive items={items} />`,
-              js: `<l-DetailsList exclusive="true"></l-DetailsList>`,
-              vue: `<l-DetailsList exclusive="true" :items="items" />`,
-              angular: `<l-DetailsList exclusive="true" [items]="items"></l-DetailsList>`,
+              js: `<l-details-list exclusive="true"></l-details-list>`,
+              vue: `<l-details-list exclusive="true" :items="items" />`,
+              angular: `<l-details-list exclusive="true" [items]="items"></l-details-list>`,
             }}
           />
         </section>

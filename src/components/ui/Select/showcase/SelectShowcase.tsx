@@ -26,7 +26,7 @@ export default function SelectShowcase() {
           <CodeBlock
             variants={{
               react: `<Select options={options} placeholder="Choose a fruit" />`,
-              js: `<l-Select id="fruit-select" placeholder="Choose a fruit"></l-Select>
+              js: `<l-select id="fruit-select" placeholder="Choose a fruit"></l-select>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -40,7 +40,7 @@ export default function SelectShowcase() {
   ];
 </script>`,
               vue: `<template>
-  <l-Select :options="options" placeholder="Choose a fruit" />
+  <l-select :options="options" placeholder="Choose a fruit" />
 </template>
 
 <script setup lang="ts">
@@ -62,7 +62,7 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Select [options]="options" placeholder="Choose a fruit" />
+    <l-select [options]="options" placeholder="Choose a fruit" />
   \`,
 })
 export class AppComponent {
@@ -87,10 +87,10 @@ export class AppComponent {
           <CodeBlock
             variants={{
               react: `<Select options={options} size="sm" placeholder="Small" />`,
-              js: `<l-Select size="sm" placeholder="Small"></l-Select>
+              js: `<l-select size="sm" placeholder="Small"></l-select>
 <!-- .options set via DOM property assignment — see the Placeholder example above -->`,
-              vue: `<l-Select :options="options" size="sm" placeholder="Small" />`,
-              angular: `<l-Select [options]="options" size="sm" placeholder="Small" />`,
+              vue: `<l-select :options="options" size="sm" placeholder="Small" />`,
+              angular: `<l-select [options]="options" size="sm" placeholder="Small" />`,
             }}
           />
         </section>
@@ -103,10 +103,10 @@ export class AppComponent {
           <CodeBlock
             variants={{
               react: `<Select options={options} placeholder="Choose a fruit" invalid />`,
-              js: `<l-Select placeholder="Choose a fruit" invalid></l-Select>
+              js: `<l-select placeholder="Choose a fruit" invalid></l-select>
 <!-- .options set via DOM property assignment — see the Placeholder example above -->`,
-              vue: `<l-Select :options="options" placeholder="Choose a fruit" invalid />`,
-              angular: `<l-Select [options]="options" placeholder="Choose a fruit" invalid />`,
+              vue: `<l-select :options="options" placeholder="Choose a fruit" invalid />`,
+              angular: `<l-select [options]="options" placeholder="Choose a fruit" invalid />`,
             }}
           />
         </section>
@@ -148,10 +148,10 @@ export class AppComponent {
           <CodeBlock
             variants={{
               react: `<Select options={options} placeholder="Choose a fruit" disabled />`,
-              js: `<l-Select placeholder="Choose a fruit" disabled></l-Select>
+              js: `<l-select placeholder="Choose a fruit" disabled></l-select>
 <!-- .options set via DOM property assignment — see the Placeholder example above -->`,
-              vue: `<l-Select :options="options" placeholder="Choose a fruit" disabled />`,
-              angular: `<l-Select [options]="options" placeholder="Choose a fruit" disabled />`,
+              vue: `<l-select :options="options" placeholder="Choose a fruit" disabled />`,
+              angular: `<l-select [options]="options" placeholder="Choose a fruit" disabled />`,
             }}
           />
         </section>
@@ -180,15 +180,15 @@ export class AppComponent {
 <Select options={options} placeholder="Choose a fruit" hoverEffect="lift" />
 <Select options={options} placeholder="Choose a fruit" hoverEffect="glow" />
 <Select options={options} placeholder="Choose a fruit" hoverEffect="ring" />`,
-              js: `<l-Select placeholder="Choose a fruit" transition="fade"></l-Select>
-<l-Select placeholder="Choose a fruit" transition="slide-up"></l-Select>
-<l-Select placeholder="Choose a fruit" transition="zoom"></l-Select>
-<l-Select placeholder="Choose a fruit" transition="flip"></l-Select>
-<l-Select placeholder="Choose a fruit" transition="slide-right" transitionDelay="100"></l-Select>
-<l-Select placeholder="Choose a fruit" transition="bounce" transitionDuration="700"></l-Select>
-<l-Select placeholder="Choose a fruit" hoverEffect="lift"></l-Select>
-<l-Select placeholder="Choose a fruit" hoverEffect="glow"></l-Select>
-<l-Select placeholder="Choose a fruit" hoverEffect="ring"></l-Select>
+              js: `<l-select placeholder="Choose a fruit" transition="fade"></l-select>
+<l-select placeholder="Choose a fruit" transition="slide-up"></l-select>
+<l-select placeholder="Choose a fruit" transition="zoom"></l-select>
+<l-select placeholder="Choose a fruit" transition="flip"></l-select>
+<l-select placeholder="Choose a fruit" transition="slide-right" transitionDelay="100"></l-select>
+<l-select placeholder="Choose a fruit" transition="bounce" transitionDuration="700"></l-select>
+<l-select placeholder="Choose a fruit" hoverEffect="lift"></l-select>
+<l-select placeholder="Choose a fruit" hoverEffect="glow"></l-select>
+<l-select placeholder="Choose a fruit" hoverEffect="ring"></l-select>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -205,15 +205,15 @@ export class AppComponent {
   });
 </script>`,
               vue: `<template>
-  <l-Select :options="options" placeholder="Choose a fruit" transition="fade"></l-Select>
-  <l-Select :options="options" placeholder="Choose a fruit" transition="slide-up"></l-Select>
-  <l-Select :options="options" placeholder="Choose a fruit" transition="zoom"></l-Select>
-  <l-Select :options="options" placeholder="Choose a fruit" transition="flip"></l-Select>
-  <l-Select :options="options" placeholder="Choose a fruit" transition="slide-right" transitionDelay="100"></l-Select>
-  <l-Select :options="options" placeholder="Choose a fruit" transition="bounce" transitionDuration="700"></l-Select>
-  <l-Select :options="options" placeholder="Choose a fruit" hoverEffect="lift"></l-Select>
-  <l-Select :options="options" placeholder="Choose a fruit" hoverEffect="glow"></l-Select>
-  <l-Select :options="options" placeholder="Choose a fruit" hoverEffect="ring"></l-Select>
+  <l-select :options="options" placeholder="Choose a fruit" transition="fade"></l-select>
+  <l-select :options="options" placeholder="Choose a fruit" transition="slide-up"></l-select>
+  <l-select :options="options" placeholder="Choose a fruit" transition="zoom"></l-select>
+  <l-select :options="options" placeholder="Choose a fruit" transition="flip"></l-select>
+  <l-select :options="options" placeholder="Choose a fruit" transition="slide-right" transitionDelay="100"></l-select>
+  <l-select :options="options" placeholder="Choose a fruit" transition="bounce" transitionDuration="700"></l-select>
+  <l-select :options="options" placeholder="Choose a fruit" hoverEffect="lift"></l-select>
+  <l-select :options="options" placeholder="Choose a fruit" hoverEffect="glow"></l-select>
+  <l-select :options="options" placeholder="Choose a fruit" hoverEffect="ring"></l-select>
 </template>
 
 <script setup lang="ts">
@@ -235,15 +235,15 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Select [options]="options" placeholder="Choose a fruit" transition="fade"></l-Select>
-    <l-Select [options]="options" placeholder="Choose a fruit" transition="slide-up"></l-Select>
-    <l-Select [options]="options" placeholder="Choose a fruit" transition="zoom"></l-Select>
-    <l-Select [options]="options" placeholder="Choose a fruit" transition="flip"></l-Select>
-    <l-Select [options]="options" placeholder="Choose a fruit" transition="slide-right" transitionDelay="100"></l-Select>
-    <l-Select [options]="options" placeholder="Choose a fruit" transition="bounce" transitionDuration="700"></l-Select>
-    <l-Select [options]="options" placeholder="Choose a fruit" hoverEffect="lift"></l-Select>
-    <l-Select [options]="options" placeholder="Choose a fruit" hoverEffect="glow"></l-Select>
-    <l-Select [options]="options" placeholder="Choose a fruit" hoverEffect="ring"></l-Select>
+    <l-select [options]="options" placeholder="Choose a fruit" transition="fade"></l-select>
+    <l-select [options]="options" placeholder="Choose a fruit" transition="slide-up"></l-select>
+    <l-select [options]="options" placeholder="Choose a fruit" transition="zoom"></l-select>
+    <l-select [options]="options" placeholder="Choose a fruit" transition="flip"></l-select>
+    <l-select [options]="options" placeholder="Choose a fruit" transition="slide-right" transitionDelay="100"></l-select>
+    <l-select [options]="options" placeholder="Choose a fruit" transition="bounce" transitionDuration="700"></l-select>
+    <l-select [options]="options" placeholder="Choose a fruit" hoverEffect="lift"></l-select>
+    <l-select [options]="options" placeholder="Choose a fruit" hoverEffect="glow"></l-select>
+    <l-select [options]="options" placeholder="Choose a fruit" hoverEffect="ring"></l-select>
   \`,
 })
 export class AppComponent {

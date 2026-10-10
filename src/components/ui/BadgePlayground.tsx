@@ -34,7 +34,7 @@ export default function BadgePlayground() {
   // Custom-element markup for the current configuration — plain literal
   // attributes are enough for a static snapshot; boolean props must be
   // written as explicit `="true"` since r2wc treats a bare attribute as "".
-  const htmlMarkup = `<l-Badge variant="${variant}" color="${color}" size="${size}"${anim.attrs}${motion.attrs}${
+  const htmlMarkup = `<l-badge variant="${variant}" color="${color}" size="${size}"${anim.attrs}${motion.attrs}${
     dot ? ` dot` : ""
   }${icon && !dot ? ` icon="check"` : ""}${dot ? "" : ` label="${label || "Badge"}"`} />`;
 

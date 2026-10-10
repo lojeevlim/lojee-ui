@@ -33,23 +33,23 @@ export default function AccordionShowcase() {
     framework-agnostic Web Components.
   </AccordionItem>
 </Accordion>`,
-              js: `<l-Accordion>
-  <l-AccordionItem title="What is lojee-ui?" defaultOpen>
+              js: `<l-accordion>
+  <l-accordion-item title="What is lojee-ui?" defaultOpen>
     A React + TypeScript + Tailwind component library that also ships as
     framework-agnostic Web Components.
-  </l-AccordionItem>
-</l-Accordion>
+  </l-accordion-item>
+</l-accordion>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-Accordion>
-    <l-AccordionItem title="What is lojee-ui?" defaultOpen>
+  <l-accordion>
+    <l-accordion-item title="What is lojee-ui?" defaultOpen>
       A React + TypeScript + Tailwind component library that also ships as
       framework-agnostic Web Components.
-    </l-AccordionItem>
-  </l-Accordion>
+    </l-accordion-item>
+  </l-accordion>
 </template>
 
 <script setup lang="ts">
@@ -64,12 +64,12 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Accordion>
-      <l-AccordionItem title="What is lojee-ui?" defaultOpen>
+    <l-accordion>
+      <l-accordion-item title="What is lojee-ui?" defaultOpen>
         A React + TypeScript + Tailwind component library that also ships as
         framework-agnostic Web Components.
-      </l-AccordionItem>
-    </l-Accordion>
+      </l-accordion-item>
+    </l-accordion>
   \`,
 })
 export class AppComponent {}`,
@@ -111,48 +111,48 @@ export class AppComponent {}`,
     map for its internal parts.
   </AccordionItem>
 </Accordion>`,
-              js: `<l-Accordion>
-  <l-AccordionItem name="faq" title="How do I install it?" defaultOpen>
+              js: `<l-accordion>
+  <l-accordion-item name="faq" title="How do I install it?" defaultOpen>
     Run \`npm install lojee-ui\` and import the component you need.
-  </l-AccordionItem>
-  <l-AccordionItem name="faq" title="Does it work outside React?">
+  </l-accordion-item>
+  <l-accordion-item name="faq" title="Does it work outside React?">
     Yes — every component is also published as a Web Component, usable from
     any framework or plain HTML.
-  </l-AccordionItem>
-  <l-AccordionItem name="faq" title="Can I customize the styling?">
+  </l-accordion-item>
+  <l-accordion-item name="faq" title="Can I customize the styling?">
     Every component accepts a \`className\` for the root and a \`classNames\`
     map for its internal parts.
-  </l-AccordionItem>
-</l-Accordion>`,
+  </l-accordion-item>
+</l-accordion>`,
               vue: `<template>
-  <l-Accordion>
-    <l-AccordionItem name="faq" title="How do I install it?" defaultOpen>
+  <l-accordion>
+    <l-accordion-item name="faq" title="How do I install it?" defaultOpen>
       Run \`npm install lojee-ui\` and import the component you need.
-    </l-AccordionItem>
-    <l-AccordionItem name="faq" title="Does it work outside React?">
+    </l-accordion-item>
+    <l-accordion-item name="faq" title="Does it work outside React?">
       Yes — every component is also published as a Web Component, usable from
       any framework or plain HTML.
-    </l-AccordionItem>
-    <l-AccordionItem name="faq" title="Can I customize the styling?">
+    </l-accordion-item>
+    <l-accordion-item name="faq" title="Can I customize the styling?">
       Every component accepts a \`className\` for the root and a \`classNames\`
       map for its internal parts.
-    </l-AccordionItem>
-  </l-Accordion>
+    </l-accordion-item>
+  </l-accordion>
 </template>`,
               angular: `<!-- reuses the AppComponent from above -->
-<l-Accordion>
-  <l-AccordionItem name="faq" title="How do I install it?" defaultOpen>
+<l-accordion>
+  <l-accordion-item name="faq" title="How do I install it?" defaultOpen>
     Run \`npm install lojee-ui\` and import the component you need.
-  </l-AccordionItem>
-  <l-AccordionItem name="faq" title="Does it work outside React?">
+  </l-accordion-item>
+  <l-accordion-item name="faq" title="Does it work outside React?">
     Yes — every component is also published as a Web Component, usable from
     any framework or plain HTML.
-  </l-AccordionItem>
-  <l-AccordionItem name="faq" title="Can I customize the styling?">
+  </l-accordion-item>
+  <l-accordion-item name="faq" title="Can I customize the styling?">
     Every component accepts a \`className\` for the root and a \`classNames\`
     map for its internal parts.
-  </l-AccordionItem>
-</l-Accordion>`,
+  </l-accordion-item>
+</l-accordion>`,
             }}
           />
         </section>
@@ -173,21 +173,21 @@ export class AppComponent {}`,
   <AccordionItem title="Shipping">Ships within 3-5 business days.</AccordionItem>
   <AccordionItem title="Returns">Free returns within 30 days of delivery.</AccordionItem>
 </Accordion>`,
-              js: `<l-Accordion>
-  <l-AccordionItem title="Shipping">Ships within 3-5 business days.</l-AccordionItem>
-  <l-AccordionItem title="Returns">Free returns within 30 days of delivery.</l-AccordionItem>
-</l-Accordion>`,
+              js: `<l-accordion>
+  <l-accordion-item title="Shipping">Ships within 3-5 business days.</l-accordion-item>
+  <l-accordion-item title="Returns">Free returns within 30 days of delivery.</l-accordion-item>
+</l-accordion>`,
               vue: `<template>
-  <l-Accordion>
-    <l-AccordionItem title="Shipping">Ships within 3-5 business days.</l-AccordionItem>
-    <l-AccordionItem title="Returns">Free returns within 30 days of delivery.</l-AccordionItem>
-  </l-Accordion>
+  <l-accordion>
+    <l-accordion-item title="Shipping">Ships within 3-5 business days.</l-accordion-item>
+    <l-accordion-item title="Returns">Free returns within 30 days of delivery.</l-accordion-item>
+  </l-accordion>
 </template>`,
               angular: `<!-- reuses the AppComponent from above -->
-<l-Accordion>
-  <l-AccordionItem title="Shipping">Ships within 3-5 business days.</l-AccordionItem>
-  <l-AccordionItem title="Returns">Free returns within 30 days of delivery.</l-AccordionItem>
-</l-Accordion>`,
+<l-accordion>
+  <l-accordion-item title="Shipping">Ships within 3-5 business days.</l-accordion-item>
+  <l-accordion-item title="Returns">Free returns within 30 days of delivery.</l-accordion-item>
+</l-accordion>`,
             }}
           />
         </section>
@@ -210,21 +210,21 @@ export class AppComponent {}`,
   <AccordionItem title="Available section">This one opens normally.</AccordionItem>
   <AccordionItem title="Locked section" disabled>This content is unavailable.</AccordionItem>
 </Accordion>`,
-              js: `<l-Accordion>
-  <l-AccordionItem title="Available section">This one opens normally.</l-AccordionItem>
-  <l-AccordionItem title="Locked section" disabled>This content is unavailable.</l-AccordionItem>
-</l-Accordion>`,
+              js: `<l-accordion>
+  <l-accordion-item title="Available section">This one opens normally.</l-accordion-item>
+  <l-accordion-item title="Locked section" disabled>This content is unavailable.</l-accordion-item>
+</l-accordion>`,
               vue: `<template>
-  <l-Accordion>
-    <l-AccordionItem title="Available section">This one opens normally.</l-AccordionItem>
-    <l-AccordionItem title="Locked section" disabled>This content is unavailable.</l-AccordionItem>
-  </l-Accordion>
+  <l-accordion>
+    <l-accordion-item title="Available section">This one opens normally.</l-accordion-item>
+    <l-accordion-item title="Locked section" disabled>This content is unavailable.</l-accordion-item>
+  </l-accordion>
 </template>`,
               angular: `<!-- reuses the AppComponent from above -->
-<l-Accordion>
-  <l-AccordionItem title="Available section">This one opens normally.</l-AccordionItem>
-  <l-AccordionItem title="Locked section" disabled>This content is unavailable.</l-AccordionItem>
-</l-Accordion>`,
+<l-accordion>
+  <l-accordion-item title="Available section">This one opens normally.</l-accordion-item>
+  <l-accordion-item title="Locked section" disabled>This content is unavailable.</l-accordion-item>
+</l-accordion>`,
             }}
           />
         </section>
@@ -257,11 +257,11 @@ export class AppComponent {}`,
     Every slot can be restyled independently via classNames.
   </AccordionItem>
 </Accordion>`,
-              js: `<l-Accordion class="border-indigo-200 divide-indigo-200 dark:border-indigo-900 dark:divide-indigo-900">
-  <l-AccordionItem id="custom-colors-item" title="Custom colors" defaultOpen>
+              js: `<l-accordion class="border-indigo-200 divide-indigo-200 dark:border-indigo-900 dark:divide-indigo-900">
+  <l-accordion-item id="custom-colors-item" title="Custom colors" defaultOpen>
     Every slot can be restyled independently via classNames.
-  </l-AccordionItem>
-</l-Accordion>
+  </l-accordion-item>
+</l-accordion>
 
 <script type="module">
   document.getElementById("custom-colors-item").classNames = {
@@ -271,21 +271,21 @@ export class AppComponent {}`,
   };
 </script>`,
               vue: `<template>
-  <l-Accordion class="border-indigo-200 divide-indigo-200 dark:border-indigo-900 dark:divide-indigo-900">
-    <l-AccordionItem title="Custom colors" defaultOpen :classNames="itemClassNames">
+  <l-accordion class="border-indigo-200 divide-indigo-200 dark:border-indigo-900 dark:divide-indigo-900">
+    <l-accordion-item title="Custom colors" defaultOpen :classNames="itemClassNames">
       Every slot can be restyled independently via classNames.
-    </l-AccordionItem>
-  </l-Accordion>
+    </l-accordion-item>
+  </l-accordion>
 </template>
 
 <script setup lang="ts">
 const itemClassNames = { trigger: "text-indigo-900 dark:text-indigo-200", icon: "text-indigo-400", panel: "text-indigo-700 dark:text-indigo-300" };
 </script>`,
-              angular: `<l-Accordion class="border-indigo-200 divide-indigo-200 dark:border-indigo-900 dark:divide-indigo-900">
-  <l-AccordionItem title="Custom colors" defaultOpen [classNames]="itemClassNames">
+              angular: `<l-accordion class="border-indigo-200 divide-indigo-200 dark:border-indigo-900 dark:divide-indigo-900">
+  <l-accordion-item title="Custom colors" defaultOpen [classNames]="itemClassNames">
     Every slot can be restyled independently via classNames.
-  </l-AccordionItem>
-</l-Accordion>
+  </l-accordion-item>
+</l-accordion>
 
 itemClassNames = { trigger: "text-indigo-900 dark:text-indigo-200", icon: "text-indigo-400", panel: "text-indigo-700 dark:text-indigo-300" };`,
             }}
@@ -380,93 +380,93 @@ itemClassNames = { trigger: "text-indigo-900 dark:text-indigo-200", icon: "text-
 <Accordion hoverEffect="shine">
   <AccordionItem title="Shine">Panel content.</AccordionItem>
 </Accordion>`,
-              js: `<l-Accordion transition="fade">
-  <l-AccordionItem title="Fade">Panel content.</l-AccordionItem>
-</l-Accordion>
+              js: `<l-accordion transition="fade">
+  <l-accordion-item title="Fade">Panel content.</l-accordion-item>
+</l-accordion>
 
-<l-Accordion transition="slide-up">
-  <l-AccordionItem title="Slide up">Panel content.</l-AccordionItem>
-</l-Accordion>
+<l-accordion transition="slide-up">
+  <l-accordion-item title="Slide up">Panel content.</l-accordion-item>
+</l-accordion>
 
-<l-Accordion transition="slide-right" transitionDelay="100">
-  <l-AccordionItem title="Slide right">Panel content.</l-AccordionItem>
-</l-Accordion>
+<l-accordion transition="slide-right" transitionDelay="100">
+  <l-accordion-item title="Slide right">Panel content.</l-accordion-item>
+</l-accordion>
 
-<l-Accordion transition="zoom">
-  <l-AccordionItem title="Zoom">Panel content.</l-AccordionItem>
-</l-Accordion>
+<l-accordion transition="zoom">
+  <l-accordion-item title="Zoom">Panel content.</l-accordion-item>
+</l-accordion>
 
-<l-Accordion transition="blur">
-  <l-AccordionItem title="Blur">Panel content.</l-AccordionItem>
-</l-Accordion>
+<l-accordion transition="blur">
+  <l-accordion-item title="Blur">Panel content.</l-accordion-item>
+</l-accordion>
 
-<l-Accordion transition="drop" transitionDuration="700">
-  <l-AccordionItem title="Drop">Panel content.</l-AccordionItem>
-</l-Accordion>
+<l-accordion transition="drop" transitionDuration="700">
+  <l-accordion-item title="Drop">Panel content.</l-accordion-item>
+</l-accordion>
 
-<l-Accordion>
-  <l-AccordionItem title="First" transition="slide-up">Panel content.</l-AccordionItem>
-  <l-AccordionItem title="Second" transition="slide-up" transitionDelay="100">Panel content.</l-AccordionItem>
-  <l-AccordionItem title="Third" transition="slide-up" transitionDelay="200">Panel content.</l-AccordionItem>
-</l-Accordion>
+<l-accordion>
+  <l-accordion-item title="First" transition="slide-up">Panel content.</l-accordion-item>
+  <l-accordion-item title="Second" transition="slide-up" transitionDelay="100">Panel content.</l-accordion-item>
+  <l-accordion-item title="Third" transition="slide-up" transitionDelay="200">Panel content.</l-accordion-item>
+</l-accordion>
 
-<l-Accordion hoverEffect="lift">
-  <l-AccordionItem title="Lift">Panel content.</l-AccordionItem>
-</l-Accordion>
+<l-accordion hoverEffect="lift">
+  <l-accordion-item title="Lift">Panel content.</l-accordion-item>
+</l-accordion>
 
-<l-Accordion hoverEffect="glow">
-  <l-AccordionItem title="Glow">Panel content.</l-AccordionItem>
-</l-Accordion>
+<l-accordion hoverEffect="glow">
+  <l-accordion-item title="Glow">Panel content.</l-accordion-item>
+</l-accordion>
 
-<l-Accordion hoverEffect="shine">
-  <l-AccordionItem title="Shine">Panel content.</l-AccordionItem>
-</l-Accordion>
+<l-accordion hoverEffect="shine">
+  <l-accordion-item title="Shine">Panel content.</l-accordion-item>
+</l-accordion>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-Accordion transition="fade">
-    <l-AccordionItem title="Fade">Panel content.</l-AccordionItem>
-  </l-Accordion>
+  <l-accordion transition="fade">
+    <l-accordion-item title="Fade">Panel content.</l-accordion-item>
+  </l-accordion>
 
-  <l-Accordion transition="slide-up">
-    <l-AccordionItem title="Slide up">Panel content.</l-AccordionItem>
-  </l-Accordion>
+  <l-accordion transition="slide-up">
+    <l-accordion-item title="Slide up">Panel content.</l-accordion-item>
+  </l-accordion>
 
-  <l-Accordion transition="slide-right" transitionDelay="100">
-    <l-AccordionItem title="Slide right">Panel content.</l-AccordionItem>
-  </l-Accordion>
+  <l-accordion transition="slide-right" transitionDelay="100">
+    <l-accordion-item title="Slide right">Panel content.</l-accordion-item>
+  </l-accordion>
 
-  <l-Accordion transition="zoom">
-    <l-AccordionItem title="Zoom">Panel content.</l-AccordionItem>
-  </l-Accordion>
+  <l-accordion transition="zoom">
+    <l-accordion-item title="Zoom">Panel content.</l-accordion-item>
+  </l-accordion>
 
-  <l-Accordion transition="blur">
-    <l-AccordionItem title="Blur">Panel content.</l-AccordionItem>
-  </l-Accordion>
+  <l-accordion transition="blur">
+    <l-accordion-item title="Blur">Panel content.</l-accordion-item>
+  </l-accordion>
 
-  <l-Accordion transition="drop" transitionDuration="700">
-    <l-AccordionItem title="Drop">Panel content.</l-AccordionItem>
-  </l-Accordion>
+  <l-accordion transition="drop" transitionDuration="700">
+    <l-accordion-item title="Drop">Panel content.</l-accordion-item>
+  </l-accordion>
 
-  <l-Accordion>
-    <l-AccordionItem title="First" transition="slide-up">Panel content.</l-AccordionItem>
-    <l-AccordionItem title="Second" transition="slide-up" transitionDelay="100">Panel content.</l-AccordionItem>
-    <l-AccordionItem title="Third" transition="slide-up" transitionDelay="200">Panel content.</l-AccordionItem>
-  </l-Accordion>
+  <l-accordion>
+    <l-accordion-item title="First" transition="slide-up">Panel content.</l-accordion-item>
+    <l-accordion-item title="Second" transition="slide-up" transitionDelay="100">Panel content.</l-accordion-item>
+    <l-accordion-item title="Third" transition="slide-up" transitionDelay="200">Panel content.</l-accordion-item>
+  </l-accordion>
 
-  <l-Accordion hoverEffect="lift">
-    <l-AccordionItem title="Lift">Panel content.</l-AccordionItem>
-  </l-Accordion>
+  <l-accordion hoverEffect="lift">
+    <l-accordion-item title="Lift">Panel content.</l-accordion-item>
+  </l-accordion>
 
-  <l-Accordion hoverEffect="glow">
-    <l-AccordionItem title="Glow">Panel content.</l-AccordionItem>
-  </l-Accordion>
+  <l-accordion hoverEffect="glow">
+    <l-accordion-item title="Glow">Panel content.</l-accordion-item>
+  </l-accordion>
 
-  <l-Accordion hoverEffect="shine">
-    <l-AccordionItem title="Shine">Panel content.</l-AccordionItem>
-  </l-Accordion>
+  <l-accordion hoverEffect="shine">
+    <l-accordion-item title="Shine">Panel content.</l-accordion-item>
+  </l-accordion>
 </template>
 
 <script setup lang="ts">
@@ -481,47 +481,47 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Accordion transition="fade">
-      <l-AccordionItem title="Fade">Panel content.</l-AccordionItem>
-    </l-Accordion>
+    <l-accordion transition="fade">
+      <l-accordion-item title="Fade">Panel content.</l-accordion-item>
+    </l-accordion>
 
-    <l-Accordion transition="slide-up">
-      <l-AccordionItem title="Slide up">Panel content.</l-AccordionItem>
-    </l-Accordion>
+    <l-accordion transition="slide-up">
+      <l-accordion-item title="Slide up">Panel content.</l-accordion-item>
+    </l-accordion>
 
-    <l-Accordion transition="slide-right" transitionDelay="100">
-      <l-AccordionItem title="Slide right">Panel content.</l-AccordionItem>
-    </l-Accordion>
+    <l-accordion transition="slide-right" transitionDelay="100">
+      <l-accordion-item title="Slide right">Panel content.</l-accordion-item>
+    </l-accordion>
 
-    <l-Accordion transition="zoom">
-      <l-AccordionItem title="Zoom">Panel content.</l-AccordionItem>
-    </l-Accordion>
+    <l-accordion transition="zoom">
+      <l-accordion-item title="Zoom">Panel content.</l-accordion-item>
+    </l-accordion>
 
-    <l-Accordion transition="blur">
-      <l-AccordionItem title="Blur">Panel content.</l-AccordionItem>
-    </l-Accordion>
+    <l-accordion transition="blur">
+      <l-accordion-item title="Blur">Panel content.</l-accordion-item>
+    </l-accordion>
 
-    <l-Accordion transition="drop" transitionDuration="700">
-      <l-AccordionItem title="Drop">Panel content.</l-AccordionItem>
-    </l-Accordion>
+    <l-accordion transition="drop" transitionDuration="700">
+      <l-accordion-item title="Drop">Panel content.</l-accordion-item>
+    </l-accordion>
 
-    <l-Accordion>
-      <l-AccordionItem title="First" transition="slide-up">Panel content.</l-AccordionItem>
-      <l-AccordionItem title="Second" transition="slide-up" transitionDelay="100">Panel content.</l-AccordionItem>
-      <l-AccordionItem title="Third" transition="slide-up" transitionDelay="200">Panel content.</l-AccordionItem>
-    </l-Accordion>
+    <l-accordion>
+      <l-accordion-item title="First" transition="slide-up">Panel content.</l-accordion-item>
+      <l-accordion-item title="Second" transition="slide-up" transitionDelay="100">Panel content.</l-accordion-item>
+      <l-accordion-item title="Third" transition="slide-up" transitionDelay="200">Panel content.</l-accordion-item>
+    </l-accordion>
 
-    <l-Accordion hoverEffect="lift">
-      <l-AccordionItem title="Lift">Panel content.</l-AccordionItem>
-    </l-Accordion>
+    <l-accordion hoverEffect="lift">
+      <l-accordion-item title="Lift">Panel content.</l-accordion-item>
+    </l-accordion>
 
-    <l-Accordion hoverEffect="glow">
-      <l-AccordionItem title="Glow">Panel content.</l-AccordionItem>
-    </l-Accordion>
+    <l-accordion hoverEffect="glow">
+      <l-accordion-item title="Glow">Panel content.</l-accordion-item>
+    </l-accordion>
 
-    <l-Accordion hoverEffect="shine">
-      <l-AccordionItem title="Shine">Panel content.</l-AccordionItem>
-    </l-Accordion>
+    <l-accordion hoverEffect="shine">
+      <l-accordion-item title="Shine">Panel content.</l-accordion-item>
+    </l-accordion>
   \`,
 })
 export class AppComponent {}`,

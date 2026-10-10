@@ -28,17 +28,17 @@ export default function NotificationShowcase() {
               react: `<Notification title="New comment" icon="mail">
   Alex left a comment on your document.
 </Notification>`,
-              js: `<l-Notification title="New comment" icon="mail">
+              js: `<l-notification title="New comment" icon="mail">
   Alex left a comment on your document.
-</l-Notification>
+</l-notification>
 
 <script type="module">import "lojee-ui/elements";</script>`,
-              vue: `<l-Notification title="New comment" icon="mail">
+              vue: `<l-notification title="New comment" icon="mail">
   Alex left a comment on your document.
-</l-Notification>`,
-              angular: `<l-Notification title="New comment" icon="mail">
+</l-notification>`,
+              angular: `<l-notification title="New comment" icon="mail">
   Alex left a comment on your document.
-</l-Notification>`,
+</l-notification>`,
             }}
           />
         </section>
@@ -53,17 +53,17 @@ export default function NotificationShowcase() {
               react: `<Notification title="New follower" unread>
   Jordan started following you.
 </Notification>`,
-              js: `<l-Notification title="New follower" unread>
+              js: `<l-notification title="New follower" unread>
   Jordan started following you.
-</l-Notification>
+</l-notification>
 
 <script type="module">import "lojee-ui/elements";</script>`,
-              vue: `<l-Notification title="New follower" unread>
+              vue: `<l-notification title="New follower" unread>
   Jordan started following you.
-</l-Notification>`,
-              angular: `<l-Notification title="New follower" unread>
+</l-notification>`,
+              angular: `<l-notification title="New follower" unread>
   Jordan started following you.
-</l-Notification>`,
+</l-notification>`,
             }}
           />
         </section>
@@ -78,17 +78,17 @@ export default function NotificationShowcase() {
               react: `<Notification title="Deploy finished" timestamp="2m ago">
   Your latest deploy to production finished successfully.
 </Notification>`,
-              js: `<l-Notification title="Deploy finished" timestamp="2m ago">
+              js: `<l-notification title="Deploy finished" timestamp="2m ago">
   Your latest deploy to production finished successfully.
-</l-Notification>
+</l-notification>
 
 <script type="module">import "lojee-ui/elements";</script>`,
-              vue: `<l-Notification title="Deploy finished" timestamp="2m ago">
+              vue: `<l-notification title="Deploy finished" timestamp="2m ago">
   Your latest deploy to production finished successfully.
-</l-Notification>`,
-              angular: `<l-Notification title="Deploy finished" timestamp="2m ago">
+</l-notification>`,
+              angular: `<l-notification title="Deploy finished" timestamp="2m ago">
   Your latest deploy to production finished successfully.
-</l-Notification>`,
+</l-notification>`,
             }}
           />
         </section>
@@ -123,29 +123,29 @@ export default function NotificationShowcase() {
 >
   Priya invited you to join the "Design" team.
 </Notification>`,
-              js: `<l-Notification title="Team invite" timestamp="10m ago" unread>
+              js: `<l-notification title="Team invite" timestamp="10m ago" unread>
   Priya invited you to join the "Design" team.
   <div slot="actions">
-    <l-Button size="sm" label="Accept"></l-Button>
-    <l-Button size="sm" variant="outline" label="Decline"></l-Button>
+    <l-button size="sm" label="Accept"></l-button>
+    <l-button size="sm" variant="outline" label="Decline"></l-button>
   </div>
-</l-Notification>
+</l-notification>
 
 <script type="module">import "lojee-ui/elements";</script>`,
-              vue: `<l-Notification title="Team invite" timestamp="10m ago" unread>
+              vue: `<l-notification title="Team invite" timestamp="10m ago" unread>
   Priya invited you to join the "Design" team.
   <div slot="actions">
-    <l-Button size="sm" label="Accept" />
-    <l-Button size="sm" variant="outline" label="Decline" />
+    <l-button size="sm" label="Accept" />
+    <l-button size="sm" variant="outline" label="Decline" />
   </div>
-</l-Notification>`,
-              angular: `<l-Notification title="Team invite" timestamp="10m ago" unread>
+</l-notification>`,
+              angular: `<l-notification title="Team invite" timestamp="10m ago" unread>
   Priya invited you to join the "Design" team.
   <div slot="actions">
-    <l-Button size="sm" label="Accept"></l-Button>
-    <l-Button size="sm" variant="outline" label="Decline"></l-Button>
+    <l-button size="sm" label="Accept"></l-button>
+    <l-button size="sm" variant="outline" label="Decline"></l-button>
   </div>
-</l-Notification>`,
+</l-notification>`,
             }}
           />
         </section>
@@ -174,9 +174,9 @@ export default function NotificationShowcase() {
     You're using 92% of your available storage.
   </Notification>
 )}`,
-              js: `<l-Notification title="Storage almost full" id="storage-notification">
+              js: `<l-notification title="Storage almost full" id="storage-notification">
   You're using 92% of your available storage.
-</l-Notification>
+</l-notification>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -185,9 +185,9 @@ export default function NotificationShowcase() {
     .addEventListener("dismiss", (e) => { e.target.remove(); });
 </script>`,
               vue: `<template>
-  <l-Notification v-if="visible" title="Storage almost full" @dismiss="visible = false">
+  <l-notification v-if="visible" title="Storage almost full" @dismiss="visible = false">
     You're using 92% of your available storage.
-  </l-Notification>
+  </l-notification>
 </template>
 
 <script setup lang="ts">
@@ -196,9 +196,9 @@ import "lojee-ui/elements";
 
 const visible = ref(true);
 </script>`,
-              angular: `<l-Notification *ngIf="visible" title="Storage almost full" (dismiss)="visible = false">
+              angular: `<l-notification *ngIf="visible" title="Storage almost full" (dismiss)="visible = false">
   You're using 92% of your available storage.
-</l-Notification>`,
+</l-notification>`,
             }}
           />
         </section>
@@ -234,37 +234,37 @@ const visible = ref(true);
 <Notification title="Glow" hoverEffect="glow">New activity</Notification>
 <Notification title="Shine" hoverEffect="shine">New activity</Notification>
 <Notification title="Tilt" hoverEffect="tilt">New activity</Notification>`,
-              js: `<l-Notification title="Fade" transition="fade">New activity</l-Notification>
-<l-Notification title="Slide up" transition="slide-up">New activity</l-Notification>
-<l-Notification title="Slide right" transition="slide-right" transitionDelay="100">New activity</l-Notification>
-<l-Notification title="Zoom" transition="zoom">New activity</l-Notification>
-<l-Notification title="Flip" transition="flip">New activity</l-Notification>
-<l-Notification title="Blur" transition="blur">New activity</l-Notification>
-<l-Notification title="Bounce" transition="bounce">New activity</l-Notification>
-<l-Notification title="Drop" transition="drop" transitionDuration="700">New activity</l-Notification>
+              js: `<l-notification title="Fade" transition="fade">New activity</l-notification>
+<l-notification title="Slide up" transition="slide-up">New activity</l-notification>
+<l-notification title="Slide right" transition="slide-right" transitionDelay="100">New activity</l-notification>
+<l-notification title="Zoom" transition="zoom">New activity</l-notification>
+<l-notification title="Flip" transition="flip">New activity</l-notification>
+<l-notification title="Blur" transition="blur">New activity</l-notification>
+<l-notification title="Bounce" transition="bounce">New activity</l-notification>
+<l-notification title="Drop" transition="drop" transitionDuration="700">New activity</l-notification>
 
-<l-Notification title="Lift" hoverEffect="lift">New activity</l-Notification>
-<l-Notification title="Glow" hoverEffect="glow">New activity</l-Notification>
-<l-Notification title="Shine" hoverEffect="shine">New activity</l-Notification>
-<l-Notification title="Tilt" hoverEffect="tilt">New activity</l-Notification>
+<l-notification title="Lift" hoverEffect="lift">New activity</l-notification>
+<l-notification title="Glow" hoverEffect="glow">New activity</l-notification>
+<l-notification title="Shine" hoverEffect="shine">New activity</l-notification>
+<l-notification title="Tilt" hoverEffect="tilt">New activity</l-notification>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-Notification title="Fade" transition="fade">New activity</l-Notification>
-  <l-Notification title="Slide up" transition="slide-up">New activity</l-Notification>
-  <l-Notification title="Slide right" transition="slide-right" transitionDelay="100">New activity</l-Notification>
-  <l-Notification title="Zoom" transition="zoom">New activity</l-Notification>
-  <l-Notification title="Flip" transition="flip">New activity</l-Notification>
-  <l-Notification title="Blur" transition="blur">New activity</l-Notification>
-  <l-Notification title="Bounce" transition="bounce">New activity</l-Notification>
-  <l-Notification title="Drop" transition="drop" transitionDuration="700">New activity</l-Notification>
+  <l-notification title="Fade" transition="fade">New activity</l-notification>
+  <l-notification title="Slide up" transition="slide-up">New activity</l-notification>
+  <l-notification title="Slide right" transition="slide-right" transitionDelay="100">New activity</l-notification>
+  <l-notification title="Zoom" transition="zoom">New activity</l-notification>
+  <l-notification title="Flip" transition="flip">New activity</l-notification>
+  <l-notification title="Blur" transition="blur">New activity</l-notification>
+  <l-notification title="Bounce" transition="bounce">New activity</l-notification>
+  <l-notification title="Drop" transition="drop" transitionDuration="700">New activity</l-notification>
 
-  <l-Notification title="Lift" hoverEffect="lift">New activity</l-Notification>
-  <l-Notification title="Glow" hoverEffect="glow">New activity</l-Notification>
-  <l-Notification title="Shine" hoverEffect="shine">New activity</l-Notification>
-  <l-Notification title="Tilt" hoverEffect="tilt">New activity</l-Notification>
+  <l-notification title="Lift" hoverEffect="lift">New activity</l-notification>
+  <l-notification title="Glow" hoverEffect="glow">New activity</l-notification>
+  <l-notification title="Shine" hoverEffect="shine">New activity</l-notification>
+  <l-notification title="Tilt" hoverEffect="tilt">New activity</l-notification>
 </template>
 
 <script setup lang="ts">
@@ -279,19 +279,19 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Notification title="Fade" transition="fade">New activity</l-Notification>
-    <l-Notification title="Slide up" transition="slide-up">New activity</l-Notification>
-    <l-Notification title="Slide right" transition="slide-right" transitionDelay="100">New activity</l-Notification>
-    <l-Notification title="Zoom" transition="zoom">New activity</l-Notification>
-    <l-Notification title="Flip" transition="flip">New activity</l-Notification>
-    <l-Notification title="Blur" transition="blur">New activity</l-Notification>
-    <l-Notification title="Bounce" transition="bounce">New activity</l-Notification>
-    <l-Notification title="Drop" transition="drop" transitionDuration="700">New activity</l-Notification>
+    <l-notification title="Fade" transition="fade">New activity</l-notification>
+    <l-notification title="Slide up" transition="slide-up">New activity</l-notification>
+    <l-notification title="Slide right" transition="slide-right" transitionDelay="100">New activity</l-notification>
+    <l-notification title="Zoom" transition="zoom">New activity</l-notification>
+    <l-notification title="Flip" transition="flip">New activity</l-notification>
+    <l-notification title="Blur" transition="blur">New activity</l-notification>
+    <l-notification title="Bounce" transition="bounce">New activity</l-notification>
+    <l-notification title="Drop" transition="drop" transitionDuration="700">New activity</l-notification>
 
-    <l-Notification title="Lift" hoverEffect="lift">New activity</l-Notification>
-    <l-Notification title="Glow" hoverEffect="glow">New activity</l-Notification>
-    <l-Notification title="Shine" hoverEffect="shine">New activity</l-Notification>
-    <l-Notification title="Tilt" hoverEffect="tilt">New activity</l-Notification>
+    <l-notification title="Lift" hoverEffect="lift">New activity</l-notification>
+    <l-notification title="Glow" hoverEffect="glow">New activity</l-notification>
+    <l-notification title="Shine" hoverEffect="shine">New activity</l-notification>
+    <l-notification title="Tilt" hoverEffect="tilt">New activity</l-notification>
   \`,
 })
 export class AppComponent {}`,

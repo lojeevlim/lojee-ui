@@ -48,7 +48,7 @@ export default function ListPlayground() {
   { label: "Archive", icon: "folder" },
 ]`;
   const listAttrs = `variant="${variant}"${motion.attrs}${ordered ? ` ordered="true"` : ""}${showHeader ? ` header="${headerText || "Files"}"` : ""}`;
-  const htmlMarkup = `<l-List ${listAttrs}></l-List>
+  const htmlMarkup = `<l-list ${listAttrs}></l-list>
 
 <script type="module">
   document.querySelector("l-list").items = ${itemsLiteral.replace(/\n/g, "\n  ")};
@@ -58,7 +58,7 @@ export default function ListPlayground() {
     react: code,
     js: `${htmlMarkup.replace('<script type="module">', '<script type="module">\n  import "lojee-ui/elements";\n')}`,
     vue: `<template>
-  <l-List ${listAttrs} :items.prop="items" />
+  <l-list ${listAttrs} :items.prop="items" />
 </template>
 
 <script setup lang="ts">
@@ -73,7 +73,7 @@ import "lojee-ui/elements";
   selector: "app-list",
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  template: \`<l-List ${listAttrs} [items]="items"></l-List>\`,
+  template: \`<l-list ${listAttrs} [items]="items"></l-list>\`,
 })
 export class ListComponent {
   items = ${itemsLiteral.replace(/\n/g, "\n  ")};

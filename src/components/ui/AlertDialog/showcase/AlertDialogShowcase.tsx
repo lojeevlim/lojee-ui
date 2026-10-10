@@ -57,11 +57,11 @@ export default function AlertDialogShowcase() {
   description="Your changes will be applied immediately."
   onConfirm={() => { /* persist */ }}
 />`,
-              js: `<l-Button label="Open confirmation" id="open-confirm-btn"></l-Button>
-<l-AlertDialog
+              js: `<l-button label="Open confirmation" id="open-confirm-btn"></l-button>
+<l-alert-dialog
   id="save-dialog"
   heading="Save changes?"
-  description="Your changes will be applied immediately."></l-AlertDialog>
+  description="Your changes will be applied immediately."></l-alert-dialog>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -76,8 +76,8 @@ export default function AlertDialogShowcase() {
   });
 </script>`,
               vue: `<template>
-  <l-Button label="Open confirmation" @click="open = true" />
-  <l-AlertDialog
+  <l-button label="Open confirmation" @click="open = true" />
+  <l-alert-dialog
     :open="open"
     heading="Save changes?"
     description="Your changes will be applied immediately."
@@ -105,8 +105,8 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Button label="Open confirmation" (click)="open = true" />
-    <l-AlertDialog
+    <l-button label="Open confirmation" (click)="open = true" />
+    <l-alert-dialog
       [open]="open"
       heading="Save changes?"
       description="Your changes will be applied immediately."
@@ -150,12 +150,12 @@ export class AlertDialogShowcaseComponent {
   confirmLabel="Delete"
   onConfirm={() => { /* delete */ }}
 />`,
-              js: `<l-AlertDialog
+              js: `<l-alert-dialog
   id="delete-dialog"
   variant="destructive"
   heading="Delete item?"
   description="This will permanently remove the item. This action cannot be undone."
-  confirmLabel="Delete"></l-AlertDialog>
+  confirmLabel="Delete"></l-alert-dialog>
 
 <script type="module">
   const dialog = document.getElementById("delete-dialog");
@@ -166,7 +166,7 @@ export class AlertDialogShowcaseComponent {
   });
 </script>`,
               vue: `<template>
-  <l-AlertDialog
+  <l-alert-dialog
     :open="open"
     variant="destructive"
     heading="Delete item?"
@@ -177,7 +177,7 @@ export class AlertDialogShowcaseComponent {
   />
 </template>`,
               angular: `<!-- reuses AlertDialogShowcaseComponent from above -->
-<l-AlertDialog
+<l-alert-dialog
   [open]="open"
   variant="destructive"
   heading="Delete item?"
@@ -213,12 +213,12 @@ export class AlertDialogShowcaseComponent {
   cancelLabel="Stay"
   onConfirm={() => { /* navigate away */ }}
 />`,
-              js: `<l-AlertDialog
+              js: `<l-alert-dialog
   id="leave-dialog"
   heading="Leave without saving?"
   description="You have unsaved changes that will be lost."
   confirmLabel="Leave"
-  cancelLabel="Stay"></l-AlertDialog>
+  cancelLabel="Stay"></l-alert-dialog>
 
 <script type="module">
   const dialog = document.getElementById("leave-dialog");
@@ -229,7 +229,7 @@ export class AlertDialogShowcaseComponent {
   });
 </script>`,
               vue: `<template>
-  <l-AlertDialog
+  <l-alert-dialog
     :open="open"
     heading="Leave without saving?"
     description="You have unsaved changes that will be lost."
@@ -240,7 +240,7 @@ export class AlertDialogShowcaseComponent {
   />
 </template>`,
               angular: `<!-- reuses AlertDialogShowcaseComponent from above -->
-<l-AlertDialog
+<l-alert-dialog
   [open]="open"
   heading="Leave without saving?"
   description="You have unsaved changes that will be lost."
@@ -289,8 +289,8 @@ export class AlertDialogShowcaseComponent {
   description="Your edits will be lost."
   ${trReact}
 />`,
-              js: `<l-Button label="Open alert dialog" id="open-tr-btn"></l-Button>
-<l-AlertDialog id="tr-overlay" heading="Discard changes?" description="Your edits will be lost." ${trHtml}></l-AlertDialog>
+              js: `<l-button label="Open alert dialog" id="open-tr-btn"></l-button>
+<l-alert-dialog id="tr-overlay" heading="Discard changes?" description="Your edits will be lost." ${trHtml}></l-alert-dialog>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -302,15 +302,15 @@ export class AlertDialogShowcaseComponent {
   overlay.addEventListener("close", () => { overlay.open = false; });
 </script>`,
               vue: `<template>
-  <l-Button label="Open alert dialog" @click="open = true"></l-Button>
-  <l-AlertDialog
+  <l-button label="Open alert dialog" @click="open = true"></l-button>
+  <l-alert-dialog
     :open="open"
     heading="Discard changes?"
     description="Your edits will be lost."
     ${trHtml}
     @close="open = false"
     @confirm="open = false"
-  ></l-AlertDialog>
+  ></l-alert-dialog>
 </template>
 
 <script setup lang="ts">
@@ -328,15 +328,15 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Button label="Open alert dialog" (click)="open = true"></l-Button>
-    <l-AlertDialog
+    <l-button label="Open alert dialog" (click)="open = true"></l-button>
+    <l-alert-dialog
       [open]="open"
       heading="Discard changes?"
       description="Your edits will be lost."
       ${trHtml}
       (close)="open = false"
       (confirm)="open = false"
-    ></l-AlertDialog>
+    ></l-alert-dialog>
   \`,
 })
 export class AppComponent {

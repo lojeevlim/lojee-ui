@@ -39,9 +39,9 @@ export default function FooterPlayground() {
 
   const bottomValue = copyright || "© 2026 Lojee, Inc. All rights reserved.";
   const variantAttr = (effColor ? ` color="${effColor}"` : "") + motion.attrs;
-  const body = "Lojee";
+  const body = "<h4>Lojee</h4>\n  <p>Build interfaces faster with a small, themeable component library.</p>";
   const code = `<Footer bottom="${bottomValue}"${variantAttr}>\n  ${body}\n</Footer>`;
-  const htmlMarkup = `<l-Footer bottom="${bottomValue}"${variantAttr}>\n  ${body}\n</l-Footer>`;
+  const htmlMarkup = `<l-footer bottom="${bottomValue}"${variantAttr}>\n  ${body}\n</l-footer>`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,

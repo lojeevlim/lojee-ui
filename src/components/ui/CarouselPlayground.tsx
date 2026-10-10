@@ -58,7 +58,7 @@ export default function CarouselPlayground() {
 
   const codeVariants: CodeBlockVariants = {
     react: code,
-    js: `<l-Carousel id="carousel-demo"${attrs}></l-Carousel>
+    js: `<l-carousel id="carousel-demo"${attrs}></l-carousel>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -69,13 +69,13 @@ export default function CarouselPlayground() {
   el.slides = slides;
 </script>`,
     vue: `<template>
-  <l-Carousel :slides="slides"${attrs} />
+  <l-carousel :slides="slides"${attrs} />
 </template>
 
 <script setup lang="ts">
 const slides = ${slidesData};
 </script>`,
-    angular: `<l-Carousel [slides]="slides"${attrs} />
+    angular: `<l-carousel [slides]="slides"${attrs} />
 
 slides = ${slidesData};`,
   };

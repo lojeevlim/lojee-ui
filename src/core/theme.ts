@@ -27,30 +27,75 @@ const EXTRA_ACCENTS = [
   { name: "Taupe", base: "taupe" }
 ] as const;
 
-/** Hand-picked preset colors ThemeSwitcher offers after the named palettes — each applies as a custom (hex) accent. */
+/** Fruit names for the built-in accent palettes (what ThemeSwitcher shows). The keys stay the palette names, so `accent="blue"`, `data-accent="blue"` and saved choices keep working. */
+const FRUIT_NAMES = {
+  slate: "Blackcurrant",
+  gray: "Pear",
+  indigo: "Plum",
+  violet: "Grape",
+  blue: "Blueberry",
+  cyan: "Honeyberry",
+  emerald: "Kiwi",
+  teal: "Melon",
+  amber: "Mango",
+  orange: "Orange",
+  rose: "Cherry",
+  pink: "Peach",
+  red: "Strawberry",
+  lime: "Lime",
+  green: "Apple",
+  sky: "Bilberry",
+  fuchsia: "Dragon Fruit",
+  purple: "Acai",
+  yellow: "Lemon",
+  stone: "Date",
+  zinc: "Quince",
+  neutral: "Coconut",
+  mauve: "Fig",
+  mist: "Lychee",
+  olive: "Olive",
+  taupe: "Tamarind",
+} as const;
+
+/** Hand-picked fruit colors ThemeSwitcher offers after the named palettes — each applies as a custom (hex) accent. Add a fruit by adding a line (names and hex values should be unique). */
 export const PRESET_ACCENTS: readonly { name: string; hex: string }[] = [
-  { name: "Coral", hex: "#ff6b6b" },
+  { name: "Watermelon", hex: "#ff6b6b" },
   { name: "Tangerine", hex: "#ff8a3d" },
-  { name: "Gold", hex: "#f5b700" },
-  { name: "Moss", hex: "#6a994e" },
-  { name: "Forest", hex: "#2d6a4f" },
-  { name: "Mint", hex: "#2ecc9a" },
-  { name: "Aqua", hex: "#14b8c4" },
-  { name: "Ocean", hex: "#1f7ae0" },
-  { name: "Royal", hex: "#4a56e2" },
-  { name: "Midnight", hex: "#1b2a49" },
-  { name: "Lavender", hex: "#9b8cf0" },
-  { name: "Grape", hex: "#7b2cbf" },
-  { name: "Orchid", hex: "#d45fd0" },
+  { name: "Banana", hex: "#f5b700" },
+  { name: "Green Grape", hex: "#6a994e" },
+  { name: "Avocado", hex: "#2d6a4f" },
+  { name: "Honeydew", hex: "#2ecc9a" },
+  { name: "Sea Grape", hex: "#14b8c4" },
+  { name: "Bluecurrant", hex: "#1f7ae0" },
+  { name: "Maqui", hex: "#4a56e2" },
+  { name: "Blackberry", hex: "#1b2a49" },
+  { name: "Passionfruit", hex: "#9b8cf0" },
+  { name: "Concord Grape", hex: "#7b2cbf" },
+  { name: "Mangosteen", hex: "#d45fd0" },
   { name: "Raspberry", hex: "#d6336c" },
-  { name: "Crimson", hex: "#d90429" },
-  { name: "Wine", hex: "#8a1c4b" },
-  { name: "Cocoa", hex: "#7a4b2a" },
-  { name: "Sand", hex: "#c8a97e" },
+  { name: "Pomegranate", hex: "#d90429" },
+  { name: "Black Cherry", hex: "#8a1c4b" },
+  { name: "Cacao", hex: "#7a4b2a" },
+  { name: "Jackfruit", hex: "#c8a97e" },
+  { name: "Cranberry", hex: "#9e1b32" },
+  { name: "Lingonberry", hex: "#b5223e" },
+  { name: "Boysenberry", hex: "#6b2a5e" },
+  { name: "Guava", hex: "#f28b82" },
+  { name: "Grapefruit", hex: "#f4727a" },
+  { name: "Nectarine", hex: "#ff8c5a" },
+  { name: "Persimmon", hex: "#ec5800" },
+  { name: "Papaya", hex: "#ff9f45" },
+  { name: "Cantaloupe", hex: "#ffb26b" },
+  { name: "Apricot", hex: "#fbac5a" },
+  { name: "Kumquat", hex: "#f5a623" },
+  { name: "Pineapple", hex: "#f2cc3a" },
+  { name: "Starfruit", hex: "#d9e04a" },
+  { name: "Pomelo", hex: "#b9d65b" },
+  { name: "Soursop", hex: "#8fbf6a" },
 ];
 
-/** Every built-in accent, in the order ThemeSwitcher lists them. */
-export const ACCENTS: readonly { name: string; base: AccentName }[] = [...COLORS, ...EXTRA_ACCENTS];
+/** Every built-in accent, in the order ThemeSwitcher lists them, under its fruit name. */
+export const ACCENTS: readonly { name: string; base: AccentName }[] = [...COLORS, ...EXTRA_ACCENTS].map((c) => ({ name: FRUIT_NAMES[c.base], base: c.base }));
 
 export type AccentName = (typeof COLORS)[number]["base"] | (typeof EXTRA_ACCENTS)[number]["base"];
 

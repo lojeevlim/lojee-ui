@@ -21,8 +21,8 @@ const bound = (v: string) => v.replace(/'/g, "\\'").replace(/"/g, "'");
 
 /**
  * The plain JS / Vue / Angular versions of an `<App>` example. They mirror the React structure one to one:
- * `<l-Theme-Provider>` wraps `<l-App>`, which holds `<l-Top>` (the Navbar, with `<l-Side-Toggle>` as its brand),
- * `<l-Side>` (the Sidebar), `<l-Main>` and `<l-Foot>` (the Footer) — the same Top / Side / Main / Foot as React.
+ * `<l-theme-provider>` wraps `<l-app>`, which holds `<l-top>` (the Navbar, with `<l-side-toggle>` as its brand),
+ * `<l-side>` (the Sidebar), `<l-main>` and `<l-foot>` (the Footer) — the same Top / Side / Main / Foot as React.
  */
 export function appCodeVariants(react: string, opts: AppCodeOptions = {}): CodeBlockVariants {
   const layout = opts.layout ?? DEFAULT_LAYOUT;
@@ -44,15 +44,15 @@ export function appCodeVariants(react: string, opts: AppCodeOptions = {}): CodeB
   const has = (section: AppSection) => !(opts.hidden ?? []).includes(section);
   const sections = (navAttr: string, sideAttr: string, indent: string) =>
     [
-      ...(has("top") ? [`<l-Top>`, `  <l-Navbar${navAttr}><l-Side-Toggle slot="brand"></l-Side-Toggle></l-Navbar>`, `</l-Top>`] : []),
-      ...(has("side") ? [`<l-Side>`, `  <l-Sidebar width="210"${sideAttr}></l-Sidebar>`, `</l-Side>`] : []),
-      `<l-Main>`,
-      `  <l-Button color="accent" label="Solid"></l-Button>`,
-      `  <l-Button color="accent" variant="outline" label="Outline"></l-Button>`,
-      `  <l-Button color="accent" variant="soft" label="Soft"></l-Button>`,
-      `  <l-Button variant="solid" color="accent" size="lg" animation="sweep" icon="plus" label="Click me"></l-Button>`,
-      `</l-Main>`,
-      ...(has("footer") ? [`<l-Foot>`, `  <l-Footer bottom="© 2026 Lojee, Inc. All rights reserved."></l-Footer>`, `</l-Foot>`] : []),
+      ...(has("top") ? [`<l-top>`, `  <l-navbar${navAttr}><l-side-toggle slot="brand"></l-side-toggle></l-navbar>`, `</l-top>`] : []),
+      ...(has("side") ? [`<l-side>`, `  <l-sidebar width="210"${sideAttr}></l-sidebar>`, `</l-side>`] : []),
+      `<l-main>`,
+      `  <l-button color="accent" label="Solid"></l-button>`,
+      `  <l-button color="accent" variant="outline" label="Outline"></l-button>`,
+      `  <l-button color="accent" variant="soft" label="Soft"></l-button>`,
+      `  <l-button variant="solid" color="accent" size="lg" animation="sweep" icon="plus" label="Click me"></l-button>`,
+      `</l-main>`,
+      ...(has("footer") ? [`<l-foot>`, `  <l-footer bottom="© 2026 Lojee, Inc. All rights reserved."></l-footer>`, `</l-foot>`] : []),
     ]
       .map((l) => indent + l)
       .join("\n");
@@ -61,11 +61,11 @@ export function appCodeVariants(react: string, opts: AppCodeOptions = {}): CodeB
 
   return {
     react,
-    js: `<l-Theme-Provider ${providerAttrs}>
-  <l-App id="app"${appAttrs}>
+    js: `<l-theme-provider ${providerAttrs}>
+  <l-app id="app"${appAttrs}>
 ${sections(' id="nav"', ' id="side"', "    ")}
-  </l-App>
-</l-Theme-Provider>
+  </l-app>
+</l-theme-provider>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -73,11 +73,11 @@ ${customLayout ? `\n  document.getElementById("app").layout = ${layoutLiteral};`
 ${needsItems ? `  const items = ${ITEMS};\n${itemLines}` : ""}
 </script>`,
     vue: `<template>
-  <l-Theme-Provider ${providerAttrs}>
-    <l-App${appAttrs}${customLayout ? ` :layout="${bound(layoutFlat)}"` : ""}>
+  <l-theme-provider ${providerAttrs}>
+    <l-app${appAttrs}${customLayout ? ` :layout="${bound(layoutFlat)}"` : ""}>
 ${sections(' :items="items"', ' :items="items"', "      ")}
-    </l-App>
-  </l-Theme-Provider>
+    </l-app>
+  </l-theme-provider>
 </template>
 
 <script setup lang="ts">
@@ -92,11 +92,11 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Theme-Provider ${providerAttrs}>
-      <l-App${appAttrs}${customLayout ? ` [layout]="${bound(layoutFlat)}"` : ""}>
+    <l-theme-provider ${providerAttrs}>
+      <l-app${appAttrs}${customLayout ? ` [layout]="${bound(layoutFlat)}"` : ""}>
 ${sections(' [items]="items"', ' [items]="items"', "        ")}
-      </l-App>
-    </l-Theme-Provider>
+      </l-app>
+    </l-theme-provider>
   \`,
 })
 export class AppComponent {${needsItems ? `\n  items = ${ITEMS};` : ""}

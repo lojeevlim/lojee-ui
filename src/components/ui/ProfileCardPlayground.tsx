@@ -73,10 +73,10 @@ export default function ProfileCardPlayground() {
   const code = `<ProfileCard name="${nameValue}"${roleAttr}${bioAttr}${colorAttr}${statsBlock}${actionsBlockJsx} />`;
 
   const actionsSlotHtml = showActions
-    ? `\n  <div slot="actions" class="flex items-center gap-2 w-full">\n    <l-Button label="Follow" class="flex-1"></l-Button>\n    <l-Button variant="outline" label="Message" class="flex-1"></l-Button>\n  </div>`
+    ? `\n  <div slot="actions" class="flex items-center gap-2 w-full">\n    <l-button label="Follow" class="flex-1"></l-button>\n    <l-button variant="outline" label="Message" class="flex-1"></l-button>\n  </div>`
     : "";
-  const htmlOpenTag = `<l-ProfileCard${showStats ? ` id="profile-card"` : ""} name="${nameValue}"${roleAttr}${bioAttr}${colorAttr}>`;
-  const htmlMarkup = actionsSlotHtml || showStats ? `${htmlOpenTag}${actionsSlotHtml}\n</l-ProfileCard>` : `<l-ProfileCard name="${nameValue}"${roleAttr}${bioAttr}${colorAttr} />`;
+  const htmlOpenTag = `<l-profile-card${showStats ? ` id="profile-card"` : ""} name="${nameValue}"${roleAttr}${bioAttr}${colorAttr}>`;
+  const htmlMarkup = actionsSlotHtml || showStats ? `${htmlOpenTag}${actionsSlotHtml}\n</l-profile-card>` : `<l-profile-card name="${nameValue}"${roleAttr}${bioAttr}${colorAttr} />`;
   const htmlScript = showStats
     ? `\n\n<script type="module">
   import "lojee-ui/elements";
@@ -91,11 +91,11 @@ export default function ProfileCardPlayground() {
 
   const vueMarkup = showStats
     ? `<template>
-  <l-ProfileCard name="${nameValue}"${roleAttr}${bioAttr}${colorAttr} :stats="stats">${
+  <l-profile-card name="${nameValue}"${roleAttr}${bioAttr}${colorAttr} :stats="stats">${
         showActions
-          ? `\n    <div slot="actions" class="flex items-center gap-2 w-full">\n      <l-Button label="Follow" class="flex-1"></l-Button>\n      <l-Button variant="outline" label="Message" class="flex-1"></l-Button>\n    </div>\n  `
+          ? `\n    <div slot="actions" class="flex items-center gap-2 w-full">\n      <l-button label="Follow" class="flex-1"></l-button>\n      <l-button variant="outline" label="Message" class="flex-1"></l-button>\n    </div>\n  `
           : ""
-      }</l-ProfileCard>
+      }</l-profile-card>
 </template>
 
 <script setup lang="ts">
@@ -106,11 +106,11 @@ const stats = [
 ];
 </script>`
     : `<template>
-  <l-ProfileCard name="${nameValue}"${roleAttr}${bioAttr}${colorAttr} />
+  <l-profile-card name="${nameValue}"${roleAttr}${bioAttr}${colorAttr} />
 </template>`;
 
-  const angularMarkup = `<l-ProfileCard name="${nameValue}"${roleAttr}${bioAttr}${colorAttr}${showStats ? ` [stats]="stats"` : ""}>${actionsSlotHtml}
-</l-ProfileCard>${
+  const angularMarkup = `<l-profile-card name="${nameValue}"${roleAttr}${bioAttr}${colorAttr}${showStats ? ` [stats]="stats"` : ""}>${actionsSlotHtml}
+</l-profile-card>${
     showStats
       ? `\n\nstats = [\n  { label: "Followers", value: "2,481" },\n  { label: "Following", value: "312" },\n  { label: "Posts", value: "48" },\n];`
       : ""

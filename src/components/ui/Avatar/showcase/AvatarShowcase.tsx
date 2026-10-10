@@ -26,13 +26,13 @@ export default function AvatarShowcase() {
           <CodeBlock
             variants={{
               react: `<Avatar size="md" initials="AB" color="indigo" />`,
-              js: `<l-Avatar size="md" initials="AB" color="indigo"></l-Avatar>
+              js: `<l-avatar size="md" initials="AB" color="indigo"></l-avatar>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-Avatar size="md" initials="AB" color="indigo" />
+  <l-avatar size="md" initials="AB" color="indigo" />
 </template>
 
 <script setup lang="ts">
@@ -46,7 +46,7 @@ import "lojee-ui/elements";
   selector: "app-avatar-showcase",
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  template: \`<l-Avatar size="md" initials="AB" color="indigo" />\`,
+  template: \`<l-avatar size="md" initials="AB" color="indigo" />\`,
 })
 export class AvatarShowcaseComponent {}`,
             }}
@@ -63,12 +63,12 @@ export class AvatarShowcaseComponent {}`,
           <CodeBlock
             variants={{
               react: `<Avatar src="/me.jpg" initials="LL" alt="Lojee Lim" />`,
-              js: `<l-Avatar src="/me.jpg" initials="LL" alt="Lojee Lim"></l-Avatar>`,
+              js: `<l-avatar src="/me.jpg" initials="LL" alt="Lojee Lim"></l-avatar>`,
               vue: `<template>
-  <l-Avatar src="/me.jpg" initials="LL" alt="Lojee Lim" />
+  <l-avatar src="/me.jpg" initials="LL" alt="Lojee Lim" />
 </template>`,
               angular: `<!-- reuses AvatarShowcaseComponent from above -->
-<l-Avatar src="/me.jpg" initials="LL" alt="Lojee Lim" />`,
+<l-avatar src="/me.jpg" initials="LL" alt="Lojee Lim" />`,
             }}
           />
         </section>
@@ -84,12 +84,12 @@ export class AvatarShowcaseComponent {}`,
           <CodeBlock
             variants={{
               react: `<Avatar initials="ON" status="online" />`,
-              js: `<l-Avatar initials="ON" status="online"></l-Avatar>`,
+              js: `<l-avatar initials="ON" status="online"></l-avatar>`,
               vue: `<template>
-  <l-Avatar initials="ON" status="online" />
+  <l-avatar initials="ON" status="online" />
 </template>`,
               angular: `<!-- reuses AvatarShowcaseComponent from above -->
-<l-Avatar initials="ON" status="online" />`,
+<l-avatar initials="ON" status="online" />`,
             }}
           />
         </section>
@@ -103,12 +103,12 @@ export class AvatarShowcaseComponent {}`,
           <CodeBlock
             variants={{
               react: `<Avatar initials="SQ" shape="square" />`,
-              js: `<l-Avatar initials="SQ" shape="square"></l-Avatar>`,
+              js: `<l-avatar initials="SQ" shape="square"></l-avatar>`,
               vue: `<template>
-  <l-Avatar initials="SQ" shape="square" />
+  <l-avatar initials="SQ" shape="square" />
 </template>`,
               angular: `<!-- reuses AvatarShowcaseComponent from above -->
-<l-Avatar initials="SQ" shape="square" />`,
+<l-avatar initials="SQ" shape="square" />`,
             }}
           />
         </section>
@@ -130,24 +130,24 @@ export class AvatarShowcaseComponent {}`,
   <Avatar initials="BB" color="rose" />
   <Avatar initials="CC" color="emerald" />
 </AvatarGroup>`,
-              js: `<l-AvatarGroup>
-  <l-Avatar initials="AA" color="indigo"></l-Avatar>
-  <l-Avatar initials="BB" color="rose"></l-Avatar>
-  <l-Avatar initials="CC" color="emerald"></l-Avatar>
-</l-AvatarGroup>`,
+              js: `<l-avatar-group>
+  <l-avatar initials="AA" color="indigo"></l-avatar>
+  <l-avatar initials="BB" color="rose"></l-avatar>
+  <l-avatar initials="CC" color="emerald"></l-avatar>
+</l-avatar-group>`,
               vue: `<template>
-  <l-AvatarGroup>
-    <l-Avatar initials="AA" color="indigo" />
-    <l-Avatar initials="BB" color="rose" />
-    <l-Avatar initials="CC" color="emerald" />
-  </l-AvatarGroup>
+  <l-avatar-group>
+    <l-avatar initials="AA" color="indigo" />
+    <l-avatar initials="BB" color="rose" />
+    <l-avatar initials="CC" color="emerald" />
+  </l-avatar-group>
 </template>`,
               angular: `<!-- reuses AvatarShowcaseComponent from above -->
-<l-AvatarGroup>
-  <l-Avatar initials="AA" color="indigo" />
-  <l-Avatar initials="BB" color="rose" />
-  <l-Avatar initials="CC" color="emerald" />
-</l-AvatarGroup>`,
+<l-avatar-group>
+  <l-avatar initials="AA" color="indigo" />
+  <l-avatar initials="BB" color="rose" />
+  <l-avatar initials="CC" color="emerald" />
+</l-avatar-group>`,
             }}
           />
         </section>
@@ -184,39 +184,39 @@ export class AvatarShowcaseComponent {}`,
 <Avatar hoverEffect="ring" initials="RI" color="violet" />
 <Avatar hoverEffect="glow" initials="GL" color="violet" />
 <Avatar hoverEffect="shine" initials="SH" color="violet" />`,
-              js: `<l-Avatar transition="fade" initials="FD" color="indigo"></l-Avatar>
-<l-Avatar transition="slide-up" initials="SU" color="indigo"></l-Avatar>
-<l-Avatar transition="slide-right" transitionDelay="100" initials="SR" color="indigo"></l-Avatar>
-<l-Avatar transition="zoom" initials="ZM" color="indigo"></l-Avatar>
-<l-Avatar transition="flip" initials="FL" color="indigo"></l-Avatar>
-<l-Avatar transition="blur" initials="BL" color="indigo"></l-Avatar>
-<l-Avatar transition="bounce" initials="BN" color="indigo"></l-Avatar>
-<l-Avatar transition="drop" transitionDuration="700" initials="DR" color="indigo"></l-Avatar>
+              js: `<l-avatar transition="fade" initials="FD" color="indigo"></l-avatar>
+<l-avatar transition="slide-up" initials="SU" color="indigo"></l-avatar>
+<l-avatar transition="slide-right" transitionDelay="100" initials="SR" color="indigo"></l-avatar>
+<l-avatar transition="zoom" initials="ZM" color="indigo"></l-avatar>
+<l-avatar transition="flip" initials="FL" color="indigo"></l-avatar>
+<l-avatar transition="blur" initials="BL" color="indigo"></l-avatar>
+<l-avatar transition="bounce" initials="BN" color="indigo"></l-avatar>
+<l-avatar transition="drop" transitionDuration="700" initials="DR" color="indigo"></l-avatar>
 
-<l-Avatar hoverEffect="lift" initials="LI" color="violet"></l-Avatar>
-<l-Avatar hoverEffect="scale" initials="SC" color="violet"></l-Avatar>
-<l-Avatar hoverEffect="ring" initials="RI" color="violet"></l-Avatar>
-<l-Avatar hoverEffect="glow" initials="GL" color="violet"></l-Avatar>
-<l-Avatar hoverEffect="shine" initials="SH" color="violet"></l-Avatar>
+<l-avatar hoverEffect="lift" initials="LI" color="violet"></l-avatar>
+<l-avatar hoverEffect="scale" initials="SC" color="violet"></l-avatar>
+<l-avatar hoverEffect="ring" initials="RI" color="violet"></l-avatar>
+<l-avatar hoverEffect="glow" initials="GL" color="violet"></l-avatar>
+<l-avatar hoverEffect="shine" initials="SH" color="violet"></l-avatar>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-Avatar transition="fade" initials="FD" color="indigo"></l-Avatar>
-  <l-Avatar transition="slide-up" initials="SU" color="indigo"></l-Avatar>
-  <l-Avatar transition="slide-right" transitionDelay="100" initials="SR" color="indigo"></l-Avatar>
-  <l-Avatar transition="zoom" initials="ZM" color="indigo"></l-Avatar>
-  <l-Avatar transition="flip" initials="FL" color="indigo"></l-Avatar>
-  <l-Avatar transition="blur" initials="BL" color="indigo"></l-Avatar>
-  <l-Avatar transition="bounce" initials="BN" color="indigo"></l-Avatar>
-  <l-Avatar transition="drop" transitionDuration="700" initials="DR" color="indigo"></l-Avatar>
+  <l-avatar transition="fade" initials="FD" color="indigo"></l-avatar>
+  <l-avatar transition="slide-up" initials="SU" color="indigo"></l-avatar>
+  <l-avatar transition="slide-right" transitionDelay="100" initials="SR" color="indigo"></l-avatar>
+  <l-avatar transition="zoom" initials="ZM" color="indigo"></l-avatar>
+  <l-avatar transition="flip" initials="FL" color="indigo"></l-avatar>
+  <l-avatar transition="blur" initials="BL" color="indigo"></l-avatar>
+  <l-avatar transition="bounce" initials="BN" color="indigo"></l-avatar>
+  <l-avatar transition="drop" transitionDuration="700" initials="DR" color="indigo"></l-avatar>
 
-  <l-Avatar hoverEffect="lift" initials="LI" color="violet"></l-Avatar>
-  <l-Avatar hoverEffect="scale" initials="SC" color="violet"></l-Avatar>
-  <l-Avatar hoverEffect="ring" initials="RI" color="violet"></l-Avatar>
-  <l-Avatar hoverEffect="glow" initials="GL" color="violet"></l-Avatar>
-  <l-Avatar hoverEffect="shine" initials="SH" color="violet"></l-Avatar>
+  <l-avatar hoverEffect="lift" initials="LI" color="violet"></l-avatar>
+  <l-avatar hoverEffect="scale" initials="SC" color="violet"></l-avatar>
+  <l-avatar hoverEffect="ring" initials="RI" color="violet"></l-avatar>
+  <l-avatar hoverEffect="glow" initials="GL" color="violet"></l-avatar>
+  <l-avatar hoverEffect="shine" initials="SH" color="violet"></l-avatar>
 </template>
 
 <script setup lang="ts">
@@ -231,20 +231,20 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Avatar transition="fade" initials="FD" color="indigo"></l-Avatar>
-    <l-Avatar transition="slide-up" initials="SU" color="indigo"></l-Avatar>
-    <l-Avatar transition="slide-right" transitionDelay="100" initials="SR" color="indigo"></l-Avatar>
-    <l-Avatar transition="zoom" initials="ZM" color="indigo"></l-Avatar>
-    <l-Avatar transition="flip" initials="FL" color="indigo"></l-Avatar>
-    <l-Avatar transition="blur" initials="BL" color="indigo"></l-Avatar>
-    <l-Avatar transition="bounce" initials="BN" color="indigo"></l-Avatar>
-    <l-Avatar transition="drop" transitionDuration="700" initials="DR" color="indigo"></l-Avatar>
+    <l-avatar transition="fade" initials="FD" color="indigo"></l-avatar>
+    <l-avatar transition="slide-up" initials="SU" color="indigo"></l-avatar>
+    <l-avatar transition="slide-right" transitionDelay="100" initials="SR" color="indigo"></l-avatar>
+    <l-avatar transition="zoom" initials="ZM" color="indigo"></l-avatar>
+    <l-avatar transition="flip" initials="FL" color="indigo"></l-avatar>
+    <l-avatar transition="blur" initials="BL" color="indigo"></l-avatar>
+    <l-avatar transition="bounce" initials="BN" color="indigo"></l-avatar>
+    <l-avatar transition="drop" transitionDuration="700" initials="DR" color="indigo"></l-avatar>
 
-    <l-Avatar hoverEffect="lift" initials="LI" color="violet"></l-Avatar>
-    <l-Avatar hoverEffect="scale" initials="SC" color="violet"></l-Avatar>
-    <l-Avatar hoverEffect="ring" initials="RI" color="violet"></l-Avatar>
-    <l-Avatar hoverEffect="glow" initials="GL" color="violet"></l-Avatar>
-    <l-Avatar hoverEffect="shine" initials="SH" color="violet"></l-Avatar>
+    <l-avatar hoverEffect="lift" initials="LI" color="violet"></l-avatar>
+    <l-avatar hoverEffect="scale" initials="SC" color="violet"></l-avatar>
+    <l-avatar hoverEffect="ring" initials="RI" color="violet"></l-avatar>
+    <l-avatar hoverEffect="glow" initials="GL" color="violet"></l-avatar>
+    <l-avatar hoverEffect="shine" initials="SH" color="violet"></l-avatar>
   \`,
 })
 export class AppComponent {}`,
@@ -274,27 +274,27 @@ export class AppComponent {}`,
 <Avatar initials="FL" color="indigo" animation="float" />
 <Avatar initials="WG" color="indigo" animation="wiggle" />
 <Avatar initials="BS" color="violet" animation="border-spin" pulseColor="violet" pulseGradientTo="cyan" shape="square" />`,
-              js: `<l-Avatar initials="GL" color="indigo" animation="glow"></l-Avatar>
-<l-Avatar initials="PL" color="indigo" animation="pulse"></l-Avatar>
-<l-Avatar initials="GP" color="rose" animation="pulse" pulseColor="rose" pulseGradientTo="amber" status="online"></l-Avatar>
-<l-Avatar initials="SW" color="indigo" animation="sweep"></l-Avatar>
-<l-Avatar initials="BN" color="indigo" animation="bounce"></l-Avatar>
-<l-Avatar initials="FL" color="indigo" animation="float"></l-Avatar>
-<l-Avatar initials="WG" color="indigo" animation="wiggle"></l-Avatar>
-<l-Avatar initials="BS" color="violet" animation="border-spin" pulseColor="violet" pulseGradientTo="cyan" shape="square"></l-Avatar>
+              js: `<l-avatar initials="GL" color="indigo" animation="glow"></l-avatar>
+<l-avatar initials="PL" color="indigo" animation="pulse"></l-avatar>
+<l-avatar initials="GP" color="rose" animation="pulse" pulseColor="rose" pulseGradientTo="amber" status="online"></l-avatar>
+<l-avatar initials="SW" color="indigo" animation="sweep"></l-avatar>
+<l-avatar initials="BN" color="indigo" animation="bounce"></l-avatar>
+<l-avatar initials="FL" color="indigo" animation="float"></l-avatar>
+<l-avatar initials="WG" color="indigo" animation="wiggle"></l-avatar>
+<l-avatar initials="BS" color="violet" animation="border-spin" pulseColor="violet" pulseGradientTo="cyan" shape="square"></l-avatar>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-Avatar initials="GL" color="indigo" animation="glow"></l-Avatar>
-  <l-Avatar initials="PL" color="indigo" animation="pulse"></l-Avatar>
-  <l-Avatar initials="GP" color="rose" animation="pulse" pulseColor="rose" pulseGradientTo="amber" status="online"></l-Avatar>
-  <l-Avatar initials="SW" color="indigo" animation="sweep"></l-Avatar>
-  <l-Avatar initials="BN" color="indigo" animation="bounce"></l-Avatar>
-  <l-Avatar initials="FL" color="indigo" animation="float"></l-Avatar>
-  <l-Avatar initials="WG" color="indigo" animation="wiggle"></l-Avatar>
-  <l-Avatar initials="BS" color="violet" animation="border-spin" pulseColor="violet" pulseGradientTo="cyan" shape="square"></l-Avatar>
+  <l-avatar initials="GL" color="indigo" animation="glow"></l-avatar>
+  <l-avatar initials="PL" color="indigo" animation="pulse"></l-avatar>
+  <l-avatar initials="GP" color="rose" animation="pulse" pulseColor="rose" pulseGradientTo="amber" status="online"></l-avatar>
+  <l-avatar initials="SW" color="indigo" animation="sweep"></l-avatar>
+  <l-avatar initials="BN" color="indigo" animation="bounce"></l-avatar>
+  <l-avatar initials="FL" color="indigo" animation="float"></l-avatar>
+  <l-avatar initials="WG" color="indigo" animation="wiggle"></l-avatar>
+  <l-avatar initials="BS" color="violet" animation="border-spin" pulseColor="violet" pulseGradientTo="cyan" shape="square"></l-avatar>
 </template>
 
 <script setup lang="ts">
@@ -309,14 +309,14 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Avatar initials="GL" color="indigo" animation="glow"></l-Avatar>
-    <l-Avatar initials="PL" color="indigo" animation="pulse"></l-Avatar>
-    <l-Avatar initials="GP" color="rose" animation="pulse" pulseColor="rose" pulseGradientTo="amber" status="online"></l-Avatar>
-    <l-Avatar initials="SW" color="indigo" animation="sweep"></l-Avatar>
-    <l-Avatar initials="BN" color="indigo" animation="bounce"></l-Avatar>
-    <l-Avatar initials="FL" color="indigo" animation="float"></l-Avatar>
-    <l-Avatar initials="WG" color="indigo" animation="wiggle"></l-Avatar>
-    <l-Avatar initials="BS" color="violet" animation="border-spin" pulseColor="violet" pulseGradientTo="cyan" shape="square"></l-Avatar>
+    <l-avatar initials="GL" color="indigo" animation="glow"></l-avatar>
+    <l-avatar initials="PL" color="indigo" animation="pulse"></l-avatar>
+    <l-avatar initials="GP" color="rose" animation="pulse" pulseColor="rose" pulseGradientTo="amber" status="online"></l-avatar>
+    <l-avatar initials="SW" color="indigo" animation="sweep"></l-avatar>
+    <l-avatar initials="BN" color="indigo" animation="bounce"></l-avatar>
+    <l-avatar initials="FL" color="indigo" animation="float"></l-avatar>
+    <l-avatar initials="WG" color="indigo" animation="wiggle"></l-avatar>
+    <l-avatar initials="BS" color="violet" animation="border-spin" pulseColor="violet" pulseGradientTo="cyan" shape="square"></l-avatar>
   \`,
 })
 export class AppComponent {}`,

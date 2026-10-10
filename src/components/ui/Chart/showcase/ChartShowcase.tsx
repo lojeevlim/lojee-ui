@@ -61,7 +61,7 @@ export default function ChartShowcase() {
 ${REVENUE_CODE}
   ]}
 />`,
-              js: `<l-Chart id="chart-bar" type="bar"></l-Chart>
+              js: `<l-chart id="chart-bar" type="bar"></l-chart>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -71,7 +71,7 @@ ${REVENUE_CODE}
   ];
 </script>`,
               vue: `<template>
-  <l-Chart :data="data" type="bar" />
+  <l-chart :data="data" type="bar" />
 </template>
 
 <script setup lang="ts">
@@ -79,7 +79,7 @@ const data = [
 ${REVENUE_CODE}
 ];
 </script>`,
-              angular: `<l-Chart [data]="data" type="bar" />
+              angular: `<l-chart [data]="data" type="bar" />
 
 data = [
 ${REVENUE_CODE}
@@ -102,7 +102,7 @@ ${REVENUE_CODE}
 ${REVENUE_CODE}
   ]}
 />`,
-              js: `<l-Chart id="chart-line" type="line" color="emerald"></l-Chart>
+              js: `<l-chart id="chart-line" type="line" color="emerald"></l-chart>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -112,7 +112,7 @@ ${REVENUE_CODE}
   ];
 </script>`,
               vue: `<template>
-  <l-Chart :data="data" type="line" color="emerald" />
+  <l-chart :data="data" type="line" color="emerald" />
 </template>
 
 <script setup lang="ts">
@@ -120,7 +120,7 @@ const data = [
 ${REVENUE_CODE}
 ];
 </script>`,
-              angular: `<l-Chart [data]="data" type="line" color="emerald" />
+              angular: `<l-chart [data]="data" type="line" color="emerald" />
 
 data = [
 ${REVENUE_CODE}
@@ -142,7 +142,7 @@ ${REVENUE_CODE}
 ${TRAFFIC_CODE}
   ]}
 />`,
-              js: `<l-Chart id="chart-donut" type="donut"></l-Chart>
+              js: `<l-chart id="chart-donut" type="donut"></l-chart>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -152,7 +152,7 @@ ${TRAFFIC_CODE}
   ];
 </script>`,
               vue: `<template>
-  <l-Chart :data="data" type="donut" />
+  <l-chart :data="data" type="donut" />
 </template>
 
 <script setup lang="ts">
@@ -160,7 +160,7 @@ const data = [
 ${TRAFFIC_CODE}
 ];
 </script>`,
-              angular: `<l-Chart [data]="data" type="donut" />
+              angular: `<l-chart [data]="data" type="donut" />
 
 data = [
 ${TRAFFIC_CODE}
@@ -191,16 +191,16 @@ ${TRAFFIC_CODE}
 
 {/* Any of the 12 palette colors work: slate, gray, indigo, violet, blue,
     cyan, emerald, teal, amber, orange, rose, pink. */}`,
-              js: `<l-Chart id="chart-color" type="bar" color="rose"></l-Chart>
+              js: `<l-chart id="chart-color" type="bar" color="rose"></l-chart>
 
 <script type="module">
   import "lojee-ui/elements";
   document.getElementById("chart-color").data = data;
 </script>`,
               vue: `<template>
-  <l-Chart :data="data" type="bar" color="rose" />
+  <l-chart :data="data" type="bar" color="rose" />
 </template>`,
-              angular: `<l-Chart [data]="data" type="bar" color="rose" />`,
+              angular: `<l-chart [data]="data" type="bar" color="rose" />`,
             }}
           />
         </section>
@@ -217,9 +217,9 @@ ${TRAFFIC_CODE}
               react: `<Chart variant="values" data={revenue} />
 <Chart variant="values" type="line" color="emerald" data={revenue} />
 <Chart variant="values" type="donut" data={traffic} />`,
-              js: `<l-Chart id="chart-bar" variant="values"></l-Chart>
-<l-Chart id="chart-line" type="line" color="emerald" variant="values"></l-Chart>
-<l-Chart id="chart-donut" type="donut" variant="values"></l-Chart>
+              js: `<l-chart id="chart-bar" variant="values"></l-chart>
+<l-chart id="chart-line" type="line" color="emerald" variant="values"></l-chart>
+<l-chart id="chart-donut" type="donut" variant="values"></l-chart>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -235,9 +235,9 @@ ${TRAFFIC_CODE}
   ];
 </script>`,
               vue: `<template>
-  <l-Chart :data="revenue" variant="values"></l-Chart>
-  <l-Chart type="line" :data="revenue" color="emerald" variant="values"></l-Chart>
-  <l-Chart type="donut" :data="traffic" variant="values"></l-Chart>
+  <l-chart :data="revenue" variant="values"></l-chart>
+  <l-chart type="line" :data="revenue" color="emerald" variant="values"></l-chart>
+  <l-chart type="donut" :data="traffic" variant="values"></l-chart>
 </template>
 
 <script setup lang="ts">
@@ -250,9 +250,9 @@ const traffic = [
 ${TRAFFIC_CODE}
 ];
 </script>`,
-              angular: `<l-Chart [data]="revenue" variant="values"></l-Chart>
-<l-Chart [data]="revenue" type="line" color="emerald" variant="values"></l-Chart>
-<l-Chart [data]="traffic" type="donut" variant="values"></l-Chart>
+              angular: `<l-chart [data]="revenue" variant="values"></l-chart>
+<l-chart [data]="revenue" type="line" color="emerald" variant="values"></l-chart>
+<l-chart [data]="traffic" type="donut" variant="values"></l-chart>
 
 // component class
 revenue = [
@@ -280,11 +280,11 @@ ${TRAFFIC_CODE}
 
 {/* Turn it off */}
 <Chart countUp={false} data={revenue} />`,
-              js: `<l-Chart id="chart-bar"></l-Chart>
-<l-Chart id="chart-line" type="line" color="emerald"></l-Chart>
-<l-Chart id="chart-donut" type="donut" count-up-duration="2000"></l-Chart>
+              js: `<l-chart id="chart-bar"></l-chart>
+<l-chart id="chart-line" type="line" color="emerald"></l-chart>
+<l-chart id="chart-donut" type="donut" count-up-duration="2000"></l-chart>
 <!-- Turn it off -->
-<l-Chart id="chart-static" count-up="false"></l-Chart>
+<l-chart id="chart-static" count-up="false"></l-chart>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -300,9 +300,9 @@ ${TRAFFIC_CODE}
   ];
 </script>`,
               vue: `<template>
-  <l-Chart :data="revenue"></l-Chart>
-  <l-Chart type="line" :data="revenue" color="emerald"></l-Chart>
-  <l-Chart type="donut" :data="traffic" count-up-duration="2000"></l-Chart>
+  <l-chart :data="revenue"></l-chart>
+  <l-chart type="line" :data="revenue" color="emerald"></l-chart>
+  <l-chart type="donut" :data="traffic" count-up-duration="2000"></l-chart>
 </template>
 
 <script setup lang="ts">
@@ -315,9 +315,9 @@ const traffic = [
 ${TRAFFIC_CODE}
 ];
 </script>`,
-              angular: `<l-Chart [data]="revenue"></l-Chart>
-<l-Chart [data]="revenue" type="line" color="emerald"></l-Chart>
-<l-Chart [data]="traffic" type="donut" count-up-duration="2000"></l-Chart>
+              angular: `<l-chart [data]="revenue"></l-chart>
+<l-chart [data]="revenue" type="line" color="emerald"></l-chart>
+<l-chart [data]="traffic" type="donut" count-up-duration="2000"></l-chart>
 
 revenue = [
 ${REVENUE_CODE}
@@ -363,20 +363,20 @@ ${TRAFFIC_CODE}
 <Chart type="bar" data={data} hoverEffect="glow" />
 <Chart type="bar" data={data} hoverEffect="shine" />
 <Chart type="bar" data={data} hoverEffect="tilt" />`,
-              js: `<l-Chart type="bar" transition="fade"></l-Chart>
-<l-Chart type="bar" transition="slide-up"></l-Chart>
-<l-Chart type="bar" transition="slide-right" transitionDelay="100"></l-Chart>
-<l-Chart type="bar" transition="zoom"></l-Chart>
+              js: `<l-chart type="bar" transition="fade"></l-chart>
+<l-chart type="bar" transition="slide-up"></l-chart>
+<l-chart type="bar" transition="slide-right" transitionDelay="100"></l-chart>
+<l-chart type="bar" transition="zoom"></l-chart>
 
-<l-Chart type="bar" transition="flip"></l-Chart>
-<l-Chart type="bar" transition="blur"></l-Chart>
-<l-Chart type="bar" transition="bounce"></l-Chart>
-<l-Chart type="bar" transition="drop" transitionDuration="700"></l-Chart>
+<l-chart type="bar" transition="flip"></l-chart>
+<l-chart type="bar" transition="blur"></l-chart>
+<l-chart type="bar" transition="bounce"></l-chart>
+<l-chart type="bar" transition="drop" transitionDuration="700"></l-chart>
 
-<l-Chart type="bar" hoverEffect="lift"></l-Chart>
-<l-Chart type="bar" hoverEffect="glow"></l-Chart>
-<l-Chart type="bar" hoverEffect="shine"></l-Chart>
-<l-Chart type="bar" hoverEffect="tilt"></l-Chart>
+<l-chart type="bar" hoverEffect="lift"></l-chart>
+<l-chart type="bar" hoverEffect="glow"></l-chart>
+<l-chart type="bar" hoverEffect="shine"></l-chart>
+<l-chart type="bar" hoverEffect="tilt"></l-chart>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -391,20 +391,20 @@ ${TRAFFIC_CODE}
   });
 </script>`,
               vue: `<template>
-  <l-Chart :data="data" type="bar" transition="fade"></l-Chart>
-  <l-Chart :data="data" type="bar" transition="slide-up"></l-Chart>
-  <l-Chart :data="data" type="bar" transition="slide-right" transitionDelay="100"></l-Chart>
-  <l-Chart :data="data" type="bar" transition="zoom"></l-Chart>
+  <l-chart :data="data" type="bar" transition="fade"></l-chart>
+  <l-chart :data="data" type="bar" transition="slide-up"></l-chart>
+  <l-chart :data="data" type="bar" transition="slide-right" transitionDelay="100"></l-chart>
+  <l-chart :data="data" type="bar" transition="zoom"></l-chart>
 
-  <l-Chart :data="data" type="bar" transition="flip"></l-Chart>
-  <l-Chart :data="data" type="bar" transition="blur"></l-Chart>
-  <l-Chart :data="data" type="bar" transition="bounce"></l-Chart>
-  <l-Chart :data="data" type="bar" transition="drop" transitionDuration="700"></l-Chart>
+  <l-chart :data="data" type="bar" transition="flip"></l-chart>
+  <l-chart :data="data" type="bar" transition="blur"></l-chart>
+  <l-chart :data="data" type="bar" transition="bounce"></l-chart>
+  <l-chart :data="data" type="bar" transition="drop" transitionDuration="700"></l-chart>
 
-  <l-Chart :data="data" type="bar" hoverEffect="lift"></l-Chart>
-  <l-Chart :data="data" type="bar" hoverEffect="glow"></l-Chart>
-  <l-Chart :data="data" type="bar" hoverEffect="shine"></l-Chart>
-  <l-Chart :data="data" type="bar" hoverEffect="tilt"></l-Chart>
+  <l-chart :data="data" type="bar" hoverEffect="lift"></l-chart>
+  <l-chart :data="data" type="bar" hoverEffect="glow"></l-chart>
+  <l-chart :data="data" type="bar" hoverEffect="shine"></l-chart>
+  <l-chart :data="data" type="bar" hoverEffect="tilt"></l-chart>
 </template>
 
 <script setup lang="ts">
@@ -425,20 +425,20 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Chart [data]="data" type="bar" transition="fade"></l-Chart>
-    <l-Chart [data]="data" type="bar" transition="slide-up"></l-Chart>
-    <l-Chart [data]="data" type="bar" transition="slide-right" transitionDelay="100"></l-Chart>
-    <l-Chart [data]="data" type="bar" transition="zoom"></l-Chart>
+    <l-chart [data]="data" type="bar" transition="fade"></l-chart>
+    <l-chart [data]="data" type="bar" transition="slide-up"></l-chart>
+    <l-chart [data]="data" type="bar" transition="slide-right" transitionDelay="100"></l-chart>
+    <l-chart [data]="data" type="bar" transition="zoom"></l-chart>
 
-    <l-Chart [data]="data" type="bar" transition="flip"></l-Chart>
-    <l-Chart [data]="data" type="bar" transition="blur"></l-Chart>
-    <l-Chart [data]="data" type="bar" transition="bounce"></l-Chart>
-    <l-Chart [data]="data" type="bar" transition="drop" transitionDuration="700"></l-Chart>
+    <l-chart [data]="data" type="bar" transition="flip"></l-chart>
+    <l-chart [data]="data" type="bar" transition="blur"></l-chart>
+    <l-chart [data]="data" type="bar" transition="bounce"></l-chart>
+    <l-chart [data]="data" type="bar" transition="drop" transitionDuration="700"></l-chart>
 
-    <l-Chart [data]="data" type="bar" hoverEffect="lift"></l-Chart>
-    <l-Chart [data]="data" type="bar" hoverEffect="glow"></l-Chart>
-    <l-Chart [data]="data" type="bar" hoverEffect="shine"></l-Chart>
-    <l-Chart [data]="data" type="bar" hoverEffect="tilt"></l-Chart>
+    <l-chart [data]="data" type="bar" hoverEffect="lift"></l-chart>
+    <l-chart [data]="data" type="bar" hoverEffect="glow"></l-chart>
+    <l-chart [data]="data" type="bar" hoverEffect="shine"></l-chart>
+    <l-chart [data]="data" type="bar" hoverEffect="tilt"></l-chart>
   \`,
 })
 export class AppComponent {

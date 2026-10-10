@@ -32,9 +32,9 @@ export default function RatingShowcase() {
             react: `const [value, setValue] = useState(3);
 
 <Rating value={value} onChange={setValue} />`,
-            html: `<l-Rating id="rating" value="3"></l-Rating>`,
-            vueHtml: `<l-Rating :value="value" @change="value = $event.detail"></l-Rating>`,
-            angularHtml: `<l-Rating [value]="value" (change)="value = $event.detail"></l-Rating>`,
+            html: `<l-rating id="rating" value="3"></l-rating>`,
+            vueHtml: `<l-rating :value="value" @change="value = $event.detail"></l-rating>`,
+            angularHtml: `<l-rating [value]="value" (change)="value = $event.detail"></l-rating>`,
             script: `document.getElementById("rating").addEventListener("change", (e) => console.log(e.detail)); // number`,
             vueScript: `const value = ref(3);`,
             angularClass: `value = 3;`,
@@ -52,12 +52,12 @@ export default function RatingShowcase() {
           variants={wcCode({
             react: `<Rating value={3.5} allowHalf />
 <Rating value={7} max={10} size="sm" />`,
-            html: `<l-Rating value="3.5" allow-half="true"></l-Rating>
-<l-Rating value="7" max="10" size="sm"></l-Rating>`,
-            vueHtml: `<l-Rating :value="3.5" :allow-half="true"></l-Rating>
-<l-Rating :value="7" :max="10" size="sm"></l-Rating>`,
-            angularHtml: `<l-Rating [value]="3.5" [allowHalf]="true"></l-Rating>
-<l-Rating [value]="7" [max]="10" size="sm"></l-Rating>`,
+            html: `<l-rating value="3.5" allow-half="true"></l-rating>
+<l-rating value="7" max="10" size="sm"></l-rating>`,
+            vueHtml: `<l-rating :value="3.5" :allow-half="true"></l-rating>
+<l-rating :value="7" :max="10" size="sm"></l-rating>`,
+            angularHtml: `<l-rating [value]="3.5" [allowHalf]="true"></l-rating>
+<l-rating [value]="7" [max]="10" size="sm"></l-rating>`,
           })}
         />
       </section>
@@ -73,12 +73,12 @@ export default function RatingShowcase() {
           variants={wcCode({
             react: `<Rating value={4.5} allowHalf readOnly />
 <Rating value={4} readOnly size="lg" />`,
-            html: `<l-Rating value="4.5" allow-half="true" read-only="true"></l-Rating>
-<l-Rating value="4" read-only="true" size="lg"></l-Rating>`,
-            vueHtml: `<l-Rating :value="4.5" :allow-half="true" :read-only="true"></l-Rating>
-<l-Rating :value="4" :read-only="true" size="lg"></l-Rating>`,
-            angularHtml: `<l-Rating [value]="4.5" [allowHalf]="true" [readOnly]="true"></l-Rating>
-<l-Rating [value]="4" [readOnly]="true" size="lg"></l-Rating>`,
+            html: `<l-rating value="4.5" allow-half="true" read-only="true"></l-rating>
+<l-rating value="4" read-only="true" size="lg"></l-rating>`,
+            vueHtml: `<l-rating :value="4.5" :allow-half="true" :read-only="true"></l-rating>
+<l-rating :value="4" :read-only="true" size="lg"></l-rating>`,
+            angularHtml: `<l-rating [value]="4.5" [allowHalf]="true" [readOnly]="true"></l-rating>
+<l-rating [value]="4" [readOnly]="true" size="lg"></l-rating>`,
           })}
         />
       </section>

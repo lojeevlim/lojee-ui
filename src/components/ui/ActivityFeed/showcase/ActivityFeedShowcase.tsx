@@ -104,7 +104,7 @@ export default function ActivityFeedShowcase() {
 ${BASIC_ITEMS_CODE}
   ]}
 />`,
-              js: `<l-ActivityFeed id="activity-feed-basic"></l-ActivityFeed>
+              js: `<l-activity-feed id="activity-feed-basic"></l-activity-feed>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -114,7 +114,7 @@ ${BASIC_ITEMS_CODE}
   ];
 </script>`,
               vue: `<template>
-  <l-ActivityFeed :items="items" />
+  <l-activity-feed :items="items" />
 </template>
 
 <script setup lang="ts">
@@ -132,7 +132,7 @@ import "lojee-ui/elements";
   selector: "app-root",
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  template: \`<l-ActivityFeed [items]="items" />\`,
+  template: \`<l-activity-feed [items]="items" />\`,
 })
 export class AppComponent {
   items = [
@@ -157,7 +157,7 @@ ${BASIC_ITEMS_CODE}
 ${ICON_ITEMS_CODE}
   ]}
 />`,
-              js: `<l-ActivityFeed id="activity-feed-icons"></l-ActivityFeed>
+              js: `<l-activity-feed id="activity-feed-icons"></l-activity-feed>
 
 <script type="module">
   document.getElementById("activity-feed-icons").items = [
@@ -165,7 +165,7 @@ ${ICON_ITEMS_CODE}
   ];
 </script>`,
               vue: `<template>
-  <l-ActivityFeed :items="items" />
+  <l-activity-feed :items="items" />
 </template>
 
 <script setup lang="ts">
@@ -179,7 +179,7 @@ ${ICON_ITEMS_CODE}
 ];
 
 // app.component.html
-<l-ActivityFeed [items]="items" />`,
+<l-activity-feed [items]="items" />`,
             }}
           />
         </section>
@@ -199,7 +199,7 @@ ${ICON_ITEMS_CODE}
 ${ICON_ITEMS_CODE}
   ]}
 />`,
-              js: `<l-ActivityFeed id="activity-feed-compact" compact></l-ActivityFeed>
+              js: `<l-activity-feed id="activity-feed-compact" compact></l-activity-feed>
 
 <script type="module">
   document.getElementById("activity-feed-compact").items = [
@@ -207,7 +207,7 @@ ${ICON_ITEMS_CODE}
   ];
 </script>`,
               vue: `<template>
-  <l-ActivityFeed :items="items" compact />
+  <l-activity-feed :items="items" compact />
 </template>
 
 <script setup lang="ts">
@@ -221,7 +221,7 @@ ${ICON_ITEMS_CODE}
 ];
 
 // app.component.html
-<l-ActivityFeed [items]="items" compact />`,
+<l-activity-feed [items]="items" compact />`,
             }}
           />
         </section>
@@ -246,10 +246,10 @@ ${ICON_ITEMS_CODE}
 <ActivityFeed items={items} transition="slide-up" />
 <ActivityFeed items={items} transition="slide-right" transitionDelay={100} />
 <ActivityFeed items={items} transition="drop" transitionDuration={700} />`,
-              js: `<l-ActivityFeed transition="fade"></l-ActivityFeed>
-<l-ActivityFeed transition="slide-up"></l-ActivityFeed>
-<l-ActivityFeed transition="slide-right" transitionDelay="100"></l-ActivityFeed>
-<l-ActivityFeed transition="drop" transitionDuration="700"></l-ActivityFeed>
+              js: `<l-activity-feed transition="fade"></l-activity-feed>
+<l-activity-feed transition="slide-up"></l-activity-feed>
+<l-activity-feed transition="slide-right" transitionDelay="100"></l-activity-feed>
+<l-activity-feed transition="drop" transitionDuration="700"></l-activity-feed>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -262,10 +262,10 @@ ${ICON_ITEMS_CODE}
   document.querySelectorAll("l-ActivityFeed").forEach((el) => (el.items = items));
 </script>`,
               vue: `<template>
-  <l-ActivityFeed :items="items" transition="fade"></l-ActivityFeed>
-  <l-ActivityFeed :items="items" transition="slide-up"></l-ActivityFeed>
-  <l-ActivityFeed :items="items" transition="slide-right" transitionDelay="100"></l-ActivityFeed>
-  <l-ActivityFeed :items="items" transition="drop" transitionDuration="700"></l-ActivityFeed>
+  <l-activity-feed :items="items" transition="fade"></l-activity-feed>
+  <l-activity-feed :items="items" transition="slide-up"></l-activity-feed>
+  <l-activity-feed :items="items" transition="slide-right" transitionDelay="100"></l-activity-feed>
+  <l-activity-feed :items="items" transition="drop" transitionDuration="700"></l-activity-feed>
 </template>
 
 <script setup lang="ts">
@@ -286,10 +286,10 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-ActivityFeed [items]="items" transition="fade"></l-ActivityFeed>
-    <l-ActivityFeed [items]="items" transition="slide-up"></l-ActivityFeed>
-    <l-ActivityFeed [items]="items" transition="slide-right" transitionDelay="100"></l-ActivityFeed>
-    <l-ActivityFeed [items]="items" transition="drop" transitionDuration="700"></l-ActivityFeed>
+    <l-activity-feed [items]="items" transition="fade"></l-activity-feed>
+    <l-activity-feed [items]="items" transition="slide-up"></l-activity-feed>
+    <l-activity-feed [items]="items" transition="slide-right" transitionDelay="100"></l-activity-feed>
+    <l-activity-feed [items]="items" transition="drop" transitionDuration="700"></l-activity-feed>
   \`,
 })
 export class AppComponent {

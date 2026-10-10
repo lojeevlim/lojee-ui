@@ -62,9 +62,9 @@ export default function GridViewShowcase() {
           <CodeBlock
             variants={{
               react: `const items = ${ITEMS_CODE};\n\nconst sortOptions = ${SORT_CODE};\n\n<GridView items={items} sortOptions={sortOptions} searchPlaceholder="Search documents" />`,
-              js: `<l-GridView id="docs" search-placeholder="Search documents"></l-GridView>\n\n<script type="module">\n  import "lojee-ui/elements";\n\n  const el = document.getElementById("docs");\n  el.items = ${ITEMS_CODE.replace(/\n/g, "\n  ")};\n  el.sortOptions = ${SORT_CODE.replace(/\n/g, "\n  ")};\n</script>`,
-              vue: `<template>\n  <l-GridView :items="items" :sortOptions="sortOptions" search-placeholder="Search documents" />\n</template>\n\n<script setup lang="ts">\nimport "lojee-ui/elements";\n\nconst items = ${ITEMS_CODE};\n\nconst sortOptions = ${SORT_CODE};\n</script>`,
-              angular: `<l-GridView [items]="items" [sortOptions]="sortOptions" search-placeholder="Search documents"></l-GridView>\n\n// component class\nitems = ${ITEMS_CODE};\n\nsortOptions = ${SORT_CODE};`,
+              js: `<l-grid-view id="docs" search-placeholder="Search documents"></l-grid-view>\n\n<script type="module">\n  import "lojee-ui/elements";\n\n  const el = document.getElementById("docs");\n  el.items = ${ITEMS_CODE.replace(/\n/g, "\n  ")};\n  el.sortOptions = ${SORT_CODE.replace(/\n/g, "\n  ")};\n</script>`,
+              vue: `<template>\n  <l-grid-view :items="items" :sortOptions="sortOptions" search-placeholder="Search documents" />\n</template>\n\n<script setup lang="ts">\nimport "lojee-ui/elements";\n\nconst items = ${ITEMS_CODE};\n\nconst sortOptions = ${SORT_CODE};\n</script>`,
+              angular: `<l-grid-view [items]="items" [sortOptions]="sortOptions" search-placeholder="Search documents"></l-grid-view>\n\n// component class\nitems = ${ITEMS_CODE};\n\nsortOptions = ${SORT_CODE};`,
             }}
           />
         </section>
@@ -75,9 +75,9 @@ export default function GridViewShowcase() {
           <CodeBlock
             variants={{
               react: `<GridView items={items} view="list" searchable={false} onViewChange={(view) => console.log(view)} />`,
-              js: `<l-GridView id="docs" view="list" searchable="false"></l-GridView>\n\n<script type="module">\n  const el = document.getElementById("docs");\n  el.items = items;\n  el.addEventListener("viewchange", (e) => console.log(e.detail)); // "grid" | "list"\n</script>`,
-              vue: `<l-GridView :items="items" view="list" searchable="false" @viewchange="(e) => console.log(e.detail)" />`,
-              angular: `<l-GridView [items]="items" view="list" searchable="false" (viewchange)="onView($event)"></l-GridView>\n\nonView(e: CustomEvent) {\n  console.log(e.detail); // "grid" | "list"\n}`,
+              js: `<l-grid-view id="docs" view="list" searchable="false"></l-grid-view>\n\n<script type="module">\n  const el = document.getElementById("docs");\n  el.items = items;\n  el.addEventListener("viewchange", (e) => console.log(e.detail)); // "grid" | "list"\n</script>`,
+              vue: `<l-grid-view :items="items" view="list" searchable="false" @viewchange="(e) => console.log(e.detail)" />`,
+              angular: `<l-grid-view [items]="items" view="list" searchable="false" (viewchange)="onView($event)"></l-grid-view>\n\nonView(e: CustomEvent) {\n  console.log(e.detail); // "grid" | "list"\n}`,
             }}
           />
         </section>
@@ -91,9 +91,9 @@ export default function GridViewShowcase() {
           <CodeBlock
             variants={{
               react: `<GridView\n  items={items}\n  variant="draggable"\n  onReorder={(items) => setItems(items)}\n/>`,
-              js: `<l-GridView id="docs" variant="draggable"></l-GridView>\n\n<script type="module">\n  import "lojee-ui/elements";\n\n  const el = document.getElementById("docs");\n  el.items = items;\n  el.addEventListener("reorder", (e) => console.log(e.detail)); // items in the new order\n</script>`,
-              vue: `<template>\n  <l-GridView :items="items" variant="draggable" @reorder="(e) => (items = e.detail)" />\n</template>`,
-              angular: `<l-GridView [items]="items" variant="draggable" (reorder)="onReorder($event)"></l-GridView>\n\nonReorder(e: CustomEvent) {\n  this.items = e.detail; // items in the new order\n}`,
+              js: `<l-grid-view id="docs" variant="draggable"></l-grid-view>\n\n<script type="module">\n  import "lojee-ui/elements";\n\n  const el = document.getElementById("docs");\n  el.items = items;\n  el.addEventListener("reorder", (e) => console.log(e.detail)); // items in the new order\n</script>`,
+              vue: `<template>\n  <l-grid-view :items="items" variant="draggable" @reorder="(e) => (items = e.detail)" />\n</template>`,
+              angular: `<l-grid-view [items]="items" variant="draggable" (reorder)="onReorder($event)"></l-grid-view>\n\nonReorder(e: CustomEvent) {\n  this.items = e.detail; // items in the new order\n}`,
             }}
           />
         </section>
@@ -112,9 +112,9 @@ export default function GridViewShowcase() {
           <CodeBlock
             variants={{
               react: `const actions = ${ACTIONS_CODE};\n\n<GridView\n  items={items}\n  actions={actions}\n  createLabel="Create document"\n  onAction={({ action, item }) => console.log(action.value, item)}\n  onCreate={() => console.log("create")}\n/>`,
-              js: `<l-GridView id="docs" create-label="Create document"></l-GridView>\n\n<script type="module">\n  import "lojee-ui/elements";\n\n  const el = document.getElementById("docs");\n  el.items = items;\n  el.actions = ${ACTIONS_CODE.replace(/\n/g, "\n  ")};\n  el.addEventListener("action", (e) => console.log(e.detail.action.value, e.detail.item));\n  el.addEventListener("create", () => console.log("create"));\n</script>`,
-              vue: `<template>\n  <l-GridView :items="items" :actions="actions" create-label="Create document" @action="onAction" @create="onCreate" />\n</template>\n\n<script setup lang="ts">\nconst actions = ${ACTIONS_CODE};\n\nfunction onAction(e: CustomEvent) {\n  console.log(e.detail.action.value, e.detail.item);\n}\nfunction onCreate() {\n  console.log("create");\n}\n</script>`,
-              angular: `<l-GridView [items]="items" [actions]="actions" create-label="Create document" (action)="onAction($event)" (create)="onCreate()"></l-GridView>\n\n// component class\nactions = ${ACTIONS_CODE};\n\nonAction(e: CustomEvent) {\n  console.log(e.detail.action.value, e.detail.item);\n}\nonCreate() {\n  console.log("create");\n}`,
+              js: `<l-grid-view id="docs" create-label="Create document"></l-grid-view>\n\n<script type="module">\n  import "lojee-ui/elements";\n\n  const el = document.getElementById("docs");\n  el.items = items;\n  el.actions = ${ACTIONS_CODE.replace(/\n/g, "\n  ")};\n  el.addEventListener("action", (e) => console.log(e.detail.action.value, e.detail.item));\n  el.addEventListener("create", () => console.log("create"));\n</script>`,
+              vue: `<template>\n  <l-grid-view :items="items" :actions="actions" create-label="Create document" @action="onAction" @create="onCreate" />\n</template>\n\n<script setup lang="ts">\nconst actions = ${ACTIONS_CODE};\n\nfunction onAction(e: CustomEvent) {\n  console.log(e.detail.action.value, e.detail.item);\n}\nfunction onCreate() {\n  console.log("create");\n}\n</script>`,
+              angular: `<l-grid-view [items]="items" [actions]="actions" create-label="Create document" (action)="onAction($event)" (create)="onCreate()"></l-grid-view>\n\n// component class\nactions = ${ACTIONS_CODE};\n\nonAction(e: CustomEvent) {\n  console.log(e.detail.action.value, e.detail.item);\n}\nonCreate() {\n  console.log("create");\n}`,
             }}
           />
         </section>
@@ -137,9 +137,9 @@ export default function GridViewShowcase() {
           <CodeBlock
             variants={{
               react: `<GridView items={items} loading={isLoading} skeletonCount={3} />`,
-              js: `<l-GridView id="docs" loading="true" skeleton-count="3"></l-GridView>`,
-              vue: `<l-GridView :items="items" :loading="isLoading" skeleton-count="3" />`,
-              angular: `<l-GridView [items]="items" [loading]="isLoading" skeleton-count="3"></l-GridView>`,
+              js: `<l-grid-view id="docs" loading="true" skeleton-count="3"></l-grid-view>`,
+              vue: `<l-grid-view :items="items" :loading="isLoading" skeleton-count="3" />`,
+              angular: `<l-grid-view [items]="items" [loading]="isLoading" skeleton-count="3"></l-grid-view>`,
             }}
           />
         </section>
@@ -155,9 +155,9 @@ export default function GridViewShowcase() {
           <CodeBlock
             variants={{
               react: `<GridView items={items} transition="slide-up" />`,
-              js: `<l-GridView transition="slide-up"></l-GridView>`,
-              vue: `<l-GridView :items="items" transition="slide-up" />`,
-              angular: `<l-GridView [items]="items" transition="slide-up"></l-GridView>`,
+              js: `<l-grid-view transition="slide-up"></l-grid-view>`,
+              vue: `<l-grid-view :items="items" transition="slide-up" />`,
+              angular: `<l-grid-view [items]="items" transition="slide-up"></l-grid-view>`,
             }}
           />
         </section>

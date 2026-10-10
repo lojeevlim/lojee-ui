@@ -36,10 +36,10 @@ export default function SignupFormPlayground() {
   onSubmit={(values) => console.log(values)}
 />`;
 
-  const htmlMarkup = `<l-SignupForm title="${titleValue}"${descriptionAttr.replace(
+  const htmlMarkup = `<l-signup-form title="${titleValue}"${descriptionAttr.replace(
     "\n ",
     " "
-  )} submitLabel="${submitLabelValue}"${motion.attrs}></l-SignupForm>`;
+  )} submitLabel="${submitLabelValue}"${motion.attrs}></l-signup-form>`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,

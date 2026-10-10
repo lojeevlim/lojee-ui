@@ -49,7 +49,7 @@ export default function TimelinePlayground() {
 ${SAMPLE_ITEMS_CODE}
   ]}
 />`,
-    js: `<l-Timeline id="timeline-demo"${attrStr}></l-Timeline>
+    js: `<l-timeline id="timeline-demo"${attrStr}></l-timeline>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -59,7 +59,7 @@ ${SAMPLE_ITEMS_CODE}
   ];
 </script>`,
     vue: `<template>
-  <l-Timeline :items="items"${attrStr} />
+  <l-timeline :items="items"${attrStr} />
 </template>
 
 <script setup lang="ts">
@@ -67,7 +67,7 @@ const items = [
 ${SAMPLE_ITEMS_CODE}
 ];
 </script>`,
-    angular: `<l-Timeline [items]="items"${attrStr} />
+    angular: `<l-timeline [items]="items"${attrStr} />
 
 items = [
 ${SAMPLE_ITEMS_CODE}

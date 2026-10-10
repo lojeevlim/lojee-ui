@@ -37,21 +37,21 @@ export default function GridShowcase() {
   <div>Item 2</div>
   <div>Item 3</div>
 </Grid>`,
-              js: `<l-Grid cols="3">
+              js: `<l-grid cols="3">
   <div>Item 1</div>
   <div>Item 2</div>
   <div>Item 3</div>
-</l-Grid>
+</l-grid>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-Grid cols="3">
+  <l-grid cols="3">
     <div>Item 1</div>
     <div>Item 2</div>
     <div>Item 3</div>
-  </l-Grid>
+  </l-grid>
 </template>
 
 <script setup lang="ts">
@@ -66,11 +66,11 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Grid cols="3">
+    <l-grid cols="3">
       <div>Item 1</div>
       <div>Item 2</div>
       <div>Item 3</div>
-    </l-Grid>
+    </l-grid>
   \`,
 })
 export class AppComponent {}`,
@@ -95,12 +95,12 @@ export class AppComponent {}`,
           <CodeBlock
             variants={{
               react: `<Grid cols={4} gap="lg">...</Grid>`,
-              js: `<l-Grid cols="4" gap="lg">...</l-Grid>`,
+              js: `<l-grid cols="4" gap="lg">...</l-grid>`,
               vue: `<template>
-  <l-Grid cols="4" gap="lg">...</l-Grid>
+  <l-grid cols="4" gap="lg">...</l-grid>
 </template>`,
               angular: `<!-- reuses the AppComponent from above -->
-<l-Grid cols="4" gap="lg">...</l-Grid>`,
+<l-grid cols="4" gap="lg">...</l-grid>`,
             }}
           />
         </section>
@@ -151,51 +151,51 @@ export class AppComponent {}`,
   <div>Item 2</div>
   <div>Item 3</div>
 </Grid>`,
-              js: `<l-Grid cols="3" transition="fade">
+              js: `<l-grid cols="3" transition="fade">
   <div>Item 1</div>
   <div>Item 2</div>
   <div>Item 3</div>
-</l-Grid>
-<l-Grid cols="3" transition="slide-up">
+</l-grid>
+<l-grid cols="3" transition="slide-up">
   <div>Item 1</div>
   <div>Item 2</div>
   <div>Item 3</div>
-</l-Grid>
-<l-Grid cols="3" transition="zoom" transitionDelay="100">
+</l-grid>
+<l-grid cols="3" transition="zoom" transitionDelay="100">
   <div>Item 1</div>
   <div>Item 2</div>
   <div>Item 3</div>
-</l-Grid>
-<l-Grid cols="3" transition="blur" transitionDuration="700">
+</l-grid>
+<l-grid cols="3" transition="blur" transitionDuration="700">
   <div>Item 1</div>
   <div>Item 2</div>
   <div>Item 3</div>
-</l-Grid>
+</l-grid>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-Grid cols="3" transition="fade">
+  <l-grid cols="3" transition="fade">
     <div>Item 1</div>
     <div>Item 2</div>
     <div>Item 3</div>
-  </l-Grid>
-  <l-Grid cols="3" transition="slide-up">
+  </l-grid>
+  <l-grid cols="3" transition="slide-up">
     <div>Item 1</div>
     <div>Item 2</div>
     <div>Item 3</div>
-  </l-Grid>
-  <l-Grid cols="3" transition="zoom" transitionDelay="100">
+  </l-grid>
+  <l-grid cols="3" transition="zoom" transitionDelay="100">
     <div>Item 1</div>
     <div>Item 2</div>
     <div>Item 3</div>
-  </l-Grid>
-  <l-Grid cols="3" transition="blur" transitionDuration="700">
+  </l-grid>
+  <l-grid cols="3" transition="blur" transitionDuration="700">
     <div>Item 1</div>
     <div>Item 2</div>
     <div>Item 3</div>
-  </l-Grid>
+  </l-grid>
 </template>
 
 <script setup lang="ts">
@@ -210,26 +210,26 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Grid cols="3" transition="fade">
+    <l-grid cols="3" transition="fade">
       <div>Item 1</div>
       <div>Item 2</div>
       <div>Item 3</div>
-    </l-Grid>
-    <l-Grid cols="3" transition="slide-up">
+    </l-grid>
+    <l-grid cols="3" transition="slide-up">
       <div>Item 1</div>
       <div>Item 2</div>
       <div>Item 3</div>
-    </l-Grid>
-    <l-Grid cols="3" transition="zoom" transitionDelay="100">
+    </l-grid>
+    <l-grid cols="3" transition="zoom" transitionDelay="100">
       <div>Item 1</div>
       <div>Item 2</div>
       <div>Item 3</div>
-    </l-Grid>
-    <l-Grid cols="3" transition="blur" transitionDuration="700">
+    </l-grid>
+    <l-grid cols="3" transition="blur" transitionDuration="700">
       <div>Item 1</div>
       <div>Item 2</div>
       <div>Item 3</div>
-    </l-Grid>
+    </l-grid>
   \`,
 })
 export class AppComponent {}`,

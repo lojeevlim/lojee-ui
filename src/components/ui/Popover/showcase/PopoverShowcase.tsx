@@ -36,17 +36,17 @@ export default function PopoverShowcase() {
               react: `<Popover content="Popover on top" position="top">
   <Button variant="outline" label="Top" />
 </Popover>`,
-              js: `<l-Popover content="Popover on top" position="top">
-  <l-Button variant="outline" label="Top"></l-Button>
-</l-Popover>
+              js: `<l-popover content="Popover on top" position="top">
+  <l-button variant="outline" label="Top"></l-button>
+</l-popover>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-Popover content="Popover on top" position="top">
-    <l-Button variant="outline" label="Top" />
-  </l-Popover>
+  <l-popover content="Popover on top" position="top">
+    <l-button variant="outline" label="Top" />
+  </l-popover>
 </template>
 
 <script setup lang="ts">
@@ -61,9 +61,9 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Popover content="Popover on top" position="top">
-      <l-Button variant="outline" label="Top" />
-    </l-Popover>
+    <l-popover content="Popover on top" position="top">
+      <l-button variant="outline" label="Top" />
+    </l-popover>
   \`,
 })
 export class PopoverShowcaseComponent {}`,
@@ -109,35 +109,35 @@ export class PopoverShowcaseComponent {}`,
 >
   <Button icon="plus" label="Invite" />
 </Popover>`,
-              js: `<l-Popover position="right">
-  <l-Button icon="plus" label="Invite"></l-Button>
+              js: `<l-popover position="right">
+  <l-button icon="plus" label="Invite"></l-button>
   <div slot="content" class="w-56">
     <p class="text-sm font-semibold text-fg">Invite a teammate</p>
     <p class="mt-1 text-xs text-fg-subtle">They'll get an email invite to join this workspace.</p>
     <input type="email" placeholder="name@company.com" />
-    <l-Button class="mt-3 w-full" size="sm" label="Send invite"></l-Button>
+    <l-button class="mt-3 w-full" size="sm" label="Send invite"></l-button>
   </div>
-</l-Popover>`,
+</l-popover>`,
               vue: `<template>
-  <l-Popover position="right">
-    <l-Button icon="plus" label="Invite" />
+  <l-popover position="right">
+    <l-button icon="plus" label="Invite" />
     <div slot="content" class="w-56">
       <p class="text-sm font-semibold text-fg">Invite a teammate</p>
       <p class="mt-1 text-xs text-fg-subtle">They'll get an email invite to join this workspace.</p>
       <input type="email" placeholder="name@company.com" />
-      <l-Button class="mt-3 w-full" size="sm" label="Send invite" />
+      <l-button class="mt-3 w-full" size="sm" label="Send invite" />
     </div>
-  </l-Popover>
+  </l-popover>
 </template>`,
-              angular: `<l-Popover position="right">
-  <l-Button icon="plus" label="Invite" />
+              angular: `<l-popover position="right">
+  <l-button icon="plus" label="Invite" />
   <div slot="content" class="w-56">
     <p class="text-sm font-semibold text-fg">Invite a teammate</p>
     <p class="mt-1 text-xs text-fg-subtle">They'll get an email invite to join this workspace.</p>
     <input type="email" placeholder="name@company.com" />
-    <l-Button class="mt-3 w-full" size="sm" label="Send invite" />
+    <l-button class="mt-3 w-full" size="sm" label="Send invite" />
   </div>
-</l-Popover>`,
+</l-popover>`,
             }}
           />
         </section>
@@ -189,57 +189,57 @@ export class PopoverShowcaseComponent {}`,
 <Popover transition="drop" transitionDuration={700} content="Hello from the popover">
   <Button variant="outline" label="Drop" />
 </Popover>`,
-              js: `<l-Popover transition="fade" content="Hello from the popover">
-  <l-Button variant="outline" label="Fade"></l-Button>
-</l-Popover>
+              js: `<l-popover transition="fade" content="Hello from the popover">
+  <l-button variant="outline" label="Fade"></l-button>
+</l-popover>
 
-<l-Popover transition="slide-up" content="Hello from the popover">
-  <l-Button variant="outline" label="Slide up"></l-Button>
-</l-Popover>
+<l-popover transition="slide-up" content="Hello from the popover">
+  <l-button variant="outline" label="Slide up"></l-button>
+</l-popover>
 
-<l-Popover transition="zoom" transitionDelay="100" content="Hello from the popover">
-  <l-Button variant="outline" label="Zoom"></l-Button>
-</l-Popover>
+<l-popover transition="zoom" transitionDelay="100" content="Hello from the popover">
+  <l-button variant="outline" label="Zoom"></l-button>
+</l-popover>
 
-<l-Popover transition="flip" content="Hello from the popover">
-  <l-Button variant="outline" label="Flip"></l-Button>
-</l-Popover>
+<l-popover transition="flip" content="Hello from the popover">
+  <l-button variant="outline" label="Flip"></l-button>
+</l-popover>
 
-<l-Popover transition="blur" content="Hello from the popover">
-  <l-Button variant="outline" label="Blur"></l-Button>
-</l-Popover>
+<l-popover transition="blur" content="Hello from the popover">
+  <l-button variant="outline" label="Blur"></l-button>
+</l-popover>
 
-<l-Popover transition="drop" transitionDuration="700" content="Hello from the popover">
-  <l-Button variant="outline" label="Drop"></l-Button>
-</l-Popover>
+<l-popover transition="drop" transitionDuration="700" content="Hello from the popover">
+  <l-button variant="outline" label="Drop"></l-button>
+</l-popover>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-Popover transition="fade" content="Hello from the popover">
-    <l-Button variant="outline" label="Fade"></l-Button>
-  </l-Popover>
+  <l-popover transition="fade" content="Hello from the popover">
+    <l-button variant="outline" label="Fade"></l-button>
+  </l-popover>
 
-  <l-Popover transition="slide-up" content="Hello from the popover">
-    <l-Button variant="outline" label="Slide up"></l-Button>
-  </l-Popover>
+  <l-popover transition="slide-up" content="Hello from the popover">
+    <l-button variant="outline" label="Slide up"></l-button>
+  </l-popover>
 
-  <l-Popover transition="zoom" transitionDelay="100" content="Hello from the popover">
-    <l-Button variant="outline" label="Zoom"></l-Button>
-  </l-Popover>
+  <l-popover transition="zoom" transitionDelay="100" content="Hello from the popover">
+    <l-button variant="outline" label="Zoom"></l-button>
+  </l-popover>
 
-  <l-Popover transition="flip" content="Hello from the popover">
-    <l-Button variant="outline" label="Flip"></l-Button>
-  </l-Popover>
+  <l-popover transition="flip" content="Hello from the popover">
+    <l-button variant="outline" label="Flip"></l-button>
+  </l-popover>
 
-  <l-Popover transition="blur" content="Hello from the popover">
-    <l-Button variant="outline" label="Blur"></l-Button>
-  </l-Popover>
+  <l-popover transition="blur" content="Hello from the popover">
+    <l-button variant="outline" label="Blur"></l-button>
+  </l-popover>
 
-  <l-Popover transition="drop" transitionDuration="700" content="Hello from the popover">
-    <l-Button variant="outline" label="Drop"></l-Button>
-  </l-Popover>
+  <l-popover transition="drop" transitionDuration="700" content="Hello from the popover">
+    <l-button variant="outline" label="Drop"></l-button>
+  </l-popover>
 </template>
 
 <script setup lang="ts">
@@ -254,29 +254,29 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Popover transition="fade" content="Hello from the popover">
-      <l-Button variant="outline" label="Fade"></l-Button>
-    </l-Popover>
+    <l-popover transition="fade" content="Hello from the popover">
+      <l-button variant="outline" label="Fade"></l-button>
+    </l-popover>
 
-    <l-Popover transition="slide-up" content="Hello from the popover">
-      <l-Button variant="outline" label="Slide up"></l-Button>
-    </l-Popover>
+    <l-popover transition="slide-up" content="Hello from the popover">
+      <l-button variant="outline" label="Slide up"></l-button>
+    </l-popover>
 
-    <l-Popover transition="zoom" transitionDelay="100" content="Hello from the popover">
-      <l-Button variant="outline" label="Zoom"></l-Button>
-    </l-Popover>
+    <l-popover transition="zoom" transitionDelay="100" content="Hello from the popover">
+      <l-button variant="outline" label="Zoom"></l-button>
+    </l-popover>
 
-    <l-Popover transition="flip" content="Hello from the popover">
-      <l-Button variant="outline" label="Flip"></l-Button>
-    </l-Popover>
+    <l-popover transition="flip" content="Hello from the popover">
+      <l-button variant="outline" label="Flip"></l-button>
+    </l-popover>
 
-    <l-Popover transition="blur" content="Hello from the popover">
-      <l-Button variant="outline" label="Blur"></l-Button>
-    </l-Popover>
+    <l-popover transition="blur" content="Hello from the popover">
+      <l-button variant="outline" label="Blur"></l-button>
+    </l-popover>
 
-    <l-Popover transition="drop" transitionDuration="700" content="Hello from the popover">
-      <l-Button variant="outline" label="Drop"></l-Button>
-    </l-Popover>
+    <l-popover transition="drop" transitionDuration="700" content="Hello from the popover">
+      <l-button variant="outline" label="Drop"></l-button>
+    </l-popover>
   \`,
 })
 export class AppComponent {}`,

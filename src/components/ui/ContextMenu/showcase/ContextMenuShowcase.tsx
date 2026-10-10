@@ -51,14 +51,14 @@ export default function ContextMenuShowcase() {
 >
   <div>Right-click here</div>
 </ContextMenu>`,
-              js: `<l-ContextMenu>
+              js: `<l-context-menu>
   <div slot="menu">
-    <l-DropdownMenuItem icon="copy" id="copy-item">Copy</l-DropdownMenuItem>
-    <l-DropdownMenuItem icon="pencil" id="rename-item">Rename</l-DropdownMenuItem>
-    <l-DropdownMenuItem icon="trash-2" danger id="delete-item">Delete</l-DropdownMenuItem>
+    <l-dropdown-menu-item icon="copy" id="copy-item">Copy</l-dropdown-menu-item>
+    <l-dropdown-menu-item icon="pencil" id="rename-item">Rename</l-dropdown-menu-item>
+    <l-dropdown-menu-item icon="trash-2" danger id="delete-item">Delete</l-dropdown-menu-item>
   </div>
   <div>Right-click here</div>
-</l-ContextMenu>
+</l-context-menu>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -68,14 +68,14 @@ export default function ContextMenuShowcase() {
   document.getElementById("delete-item").addEventListener("click", () => remove());
 </script>`,
               vue: `<template>
-  <l-ContextMenu>
+  <l-context-menu>
     <div slot="menu">
-      <l-DropdownMenuItem icon="copy" @click="copy">Copy</l-DropdownMenuItem>
-      <l-DropdownMenuItem icon="pencil" @click="rename">Rename</l-DropdownMenuItem>
-      <l-DropdownMenuItem icon="trash-2" danger @click="remove">Delete</l-DropdownMenuItem>
+      <l-dropdown-menu-item icon="copy" @click="copy">Copy</l-dropdown-menu-item>
+      <l-dropdown-menu-item icon="pencil" @click="rename">Rename</l-dropdown-menu-item>
+      <l-dropdown-menu-item icon="trash-2" danger @click="remove">Delete</l-dropdown-menu-item>
     </div>
     <div>Right-click here</div>
-  </l-ContextMenu>
+  </l-context-menu>
 </template>
 
 <script setup lang="ts">
@@ -90,14 +90,14 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-ContextMenu>
+    <l-context-menu>
       <div slot="menu">
-        <l-DropdownMenuItem icon="copy" (click)="copy()">Copy</l-DropdownMenuItem>
-        <l-DropdownMenuItem icon="pencil" (click)="rename()">Rename</l-DropdownMenuItem>
-        <l-DropdownMenuItem icon="trash-2" danger (click)="remove()">Delete</l-DropdownMenuItem>
+        <l-dropdown-menu-item icon="copy" (click)="copy()">Copy</l-dropdown-menu-item>
+        <l-dropdown-menu-item icon="pencil" (click)="rename()">Rename</l-dropdown-menu-item>
+        <l-dropdown-menu-item icon="trash-2" danger (click)="remove()">Delete</l-dropdown-menu-item>
       </div>
       <div>Right-click here</div>
-    </l-ContextMenu>
+    </l-context-menu>
   \`,
 })
 export class ContextMenuShowcaseComponent {
@@ -240,105 +240,105 @@ export class ContextMenuShowcaseComponent {
 >
   <div>Drop — right-click</div>
 </ContextMenu>`,
-              js: `<l-ContextMenu transition="fade">
+              js: `<l-context-menu transition="fade">
   <div slot="menu">
-    <l-DropdownMenuItem icon="copy">Copy</l-DropdownMenuItem>
-    <l-DropdownMenuItem icon="pencil">Rename</l-DropdownMenuItem>
+    <l-dropdown-menu-item icon="copy">Copy</l-dropdown-menu-item>
+    <l-dropdown-menu-item icon="pencil">Rename</l-dropdown-menu-item>
   </div>
   <div>Fade — right-click</div>
-</l-ContextMenu>
+</l-context-menu>
 
-<l-ContextMenu transition="slide-up">
+<l-context-menu transition="slide-up">
   <div slot="menu">
-    <l-DropdownMenuItem icon="copy">Copy</l-DropdownMenuItem>
-    <l-DropdownMenuItem icon="pencil">Rename</l-DropdownMenuItem>
+    <l-dropdown-menu-item icon="copy">Copy</l-dropdown-menu-item>
+    <l-dropdown-menu-item icon="pencil">Rename</l-dropdown-menu-item>
   </div>
   <div>Slide up — right-click</div>
-</l-ContextMenu>
+</l-context-menu>
 
-<l-ContextMenu transition="zoom" transitionDelay="100">
+<l-context-menu transition="zoom" transitionDelay="100">
   <div slot="menu">
-    <l-DropdownMenuItem icon="copy">Copy</l-DropdownMenuItem>
-    <l-DropdownMenuItem icon="pencil">Rename</l-DropdownMenuItem>
+    <l-dropdown-menu-item icon="copy">Copy</l-dropdown-menu-item>
+    <l-dropdown-menu-item icon="pencil">Rename</l-dropdown-menu-item>
   </div>
   <div>Zoom — right-click</div>
-</l-ContextMenu>
+</l-context-menu>
 
-<l-ContextMenu transition="flip">
+<l-context-menu transition="flip">
   <div slot="menu">
-    <l-DropdownMenuItem icon="copy">Copy</l-DropdownMenuItem>
-    <l-DropdownMenuItem icon="pencil">Rename</l-DropdownMenuItem>
+    <l-dropdown-menu-item icon="copy">Copy</l-dropdown-menu-item>
+    <l-dropdown-menu-item icon="pencil">Rename</l-dropdown-menu-item>
   </div>
   <div>Flip — right-click</div>
-</l-ContextMenu>
+</l-context-menu>
 
-<l-ContextMenu transition="blur">
+<l-context-menu transition="blur">
   <div slot="menu">
-    <l-DropdownMenuItem icon="copy">Copy</l-DropdownMenuItem>
-    <l-DropdownMenuItem icon="pencil">Rename</l-DropdownMenuItem>
+    <l-dropdown-menu-item icon="copy">Copy</l-dropdown-menu-item>
+    <l-dropdown-menu-item icon="pencil">Rename</l-dropdown-menu-item>
   </div>
   <div>Blur — right-click</div>
-</l-ContextMenu>
+</l-context-menu>
 
-<l-ContextMenu transition="drop" transitionDuration="700">
+<l-context-menu transition="drop" transitionDuration="700">
   <div slot="menu">
-    <l-DropdownMenuItem icon="copy">Copy</l-DropdownMenuItem>
-    <l-DropdownMenuItem icon="pencil">Rename</l-DropdownMenuItem>
+    <l-dropdown-menu-item icon="copy">Copy</l-dropdown-menu-item>
+    <l-dropdown-menu-item icon="pencil">Rename</l-dropdown-menu-item>
   </div>
   <div>Drop — right-click</div>
-</l-ContextMenu>
+</l-context-menu>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-ContextMenu transition="fade">
+  <l-context-menu transition="fade">
     <div slot="menu">
-      <l-DropdownMenuItem icon="copy">Copy</l-DropdownMenuItem>
-      <l-DropdownMenuItem icon="pencil">Rename</l-DropdownMenuItem>
+      <l-dropdown-menu-item icon="copy">Copy</l-dropdown-menu-item>
+      <l-dropdown-menu-item icon="pencil">Rename</l-dropdown-menu-item>
     </div>
     <div>Fade — right-click</div>
-  </l-ContextMenu>
+  </l-context-menu>
 
-  <l-ContextMenu transition="slide-up">
+  <l-context-menu transition="slide-up">
     <div slot="menu">
-      <l-DropdownMenuItem icon="copy">Copy</l-DropdownMenuItem>
-      <l-DropdownMenuItem icon="pencil">Rename</l-DropdownMenuItem>
+      <l-dropdown-menu-item icon="copy">Copy</l-dropdown-menu-item>
+      <l-dropdown-menu-item icon="pencil">Rename</l-dropdown-menu-item>
     </div>
     <div>Slide up — right-click</div>
-  </l-ContextMenu>
+  </l-context-menu>
 
-  <l-ContextMenu transition="zoom" transitionDelay="100">
+  <l-context-menu transition="zoom" transitionDelay="100">
     <div slot="menu">
-      <l-DropdownMenuItem icon="copy">Copy</l-DropdownMenuItem>
-      <l-DropdownMenuItem icon="pencil">Rename</l-DropdownMenuItem>
+      <l-dropdown-menu-item icon="copy">Copy</l-dropdown-menu-item>
+      <l-dropdown-menu-item icon="pencil">Rename</l-dropdown-menu-item>
     </div>
     <div>Zoom — right-click</div>
-  </l-ContextMenu>
+  </l-context-menu>
 
-  <l-ContextMenu transition="flip">
+  <l-context-menu transition="flip">
     <div slot="menu">
-      <l-DropdownMenuItem icon="copy">Copy</l-DropdownMenuItem>
-      <l-DropdownMenuItem icon="pencil">Rename</l-DropdownMenuItem>
+      <l-dropdown-menu-item icon="copy">Copy</l-dropdown-menu-item>
+      <l-dropdown-menu-item icon="pencil">Rename</l-dropdown-menu-item>
     </div>
     <div>Flip — right-click</div>
-  </l-ContextMenu>
+  </l-context-menu>
 
-  <l-ContextMenu transition="blur">
+  <l-context-menu transition="blur">
     <div slot="menu">
-      <l-DropdownMenuItem icon="copy">Copy</l-DropdownMenuItem>
-      <l-DropdownMenuItem icon="pencil">Rename</l-DropdownMenuItem>
+      <l-dropdown-menu-item icon="copy">Copy</l-dropdown-menu-item>
+      <l-dropdown-menu-item icon="pencil">Rename</l-dropdown-menu-item>
     </div>
     <div>Blur — right-click</div>
-  </l-ContextMenu>
+  </l-context-menu>
 
-  <l-ContextMenu transition="drop" transitionDuration="700">
+  <l-context-menu transition="drop" transitionDuration="700">
     <div slot="menu">
-      <l-DropdownMenuItem icon="copy">Copy</l-DropdownMenuItem>
-      <l-DropdownMenuItem icon="pencil">Rename</l-DropdownMenuItem>
+      <l-dropdown-menu-item icon="copy">Copy</l-dropdown-menu-item>
+      <l-dropdown-menu-item icon="pencil">Rename</l-dropdown-menu-item>
     </div>
     <div>Drop — right-click</div>
-  </l-ContextMenu>
+  </l-context-menu>
 </template>
 
 <script setup lang="ts">
@@ -353,53 +353,53 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-ContextMenu transition="fade">
+    <l-context-menu transition="fade">
       <div slot="menu">
-        <l-DropdownMenuItem icon="copy">Copy</l-DropdownMenuItem>
-        <l-DropdownMenuItem icon="pencil">Rename</l-DropdownMenuItem>
+        <l-dropdown-menu-item icon="copy">Copy</l-dropdown-menu-item>
+        <l-dropdown-menu-item icon="pencil">Rename</l-dropdown-menu-item>
       </div>
       <div>Fade — right-click</div>
-    </l-ContextMenu>
+    </l-context-menu>
 
-    <l-ContextMenu transition="slide-up">
+    <l-context-menu transition="slide-up">
       <div slot="menu">
-        <l-DropdownMenuItem icon="copy">Copy</l-DropdownMenuItem>
-        <l-DropdownMenuItem icon="pencil">Rename</l-DropdownMenuItem>
+        <l-dropdown-menu-item icon="copy">Copy</l-dropdown-menu-item>
+        <l-dropdown-menu-item icon="pencil">Rename</l-dropdown-menu-item>
       </div>
       <div>Slide up — right-click</div>
-    </l-ContextMenu>
+    </l-context-menu>
 
-    <l-ContextMenu transition="zoom" transitionDelay="100">
+    <l-context-menu transition="zoom" transitionDelay="100">
       <div slot="menu">
-        <l-DropdownMenuItem icon="copy">Copy</l-DropdownMenuItem>
-        <l-DropdownMenuItem icon="pencil">Rename</l-DropdownMenuItem>
+        <l-dropdown-menu-item icon="copy">Copy</l-dropdown-menu-item>
+        <l-dropdown-menu-item icon="pencil">Rename</l-dropdown-menu-item>
       </div>
       <div>Zoom — right-click</div>
-    </l-ContextMenu>
+    </l-context-menu>
 
-    <l-ContextMenu transition="flip">
+    <l-context-menu transition="flip">
       <div slot="menu">
-        <l-DropdownMenuItem icon="copy">Copy</l-DropdownMenuItem>
-        <l-DropdownMenuItem icon="pencil">Rename</l-DropdownMenuItem>
+        <l-dropdown-menu-item icon="copy">Copy</l-dropdown-menu-item>
+        <l-dropdown-menu-item icon="pencil">Rename</l-dropdown-menu-item>
       </div>
       <div>Flip — right-click</div>
-    </l-ContextMenu>
+    </l-context-menu>
 
-    <l-ContextMenu transition="blur">
+    <l-context-menu transition="blur">
       <div slot="menu">
-        <l-DropdownMenuItem icon="copy">Copy</l-DropdownMenuItem>
-        <l-DropdownMenuItem icon="pencil">Rename</l-DropdownMenuItem>
+        <l-dropdown-menu-item icon="copy">Copy</l-dropdown-menu-item>
+        <l-dropdown-menu-item icon="pencil">Rename</l-dropdown-menu-item>
       </div>
       <div>Blur — right-click</div>
-    </l-ContextMenu>
+    </l-context-menu>
 
-    <l-ContextMenu transition="drop" transitionDuration="700">
+    <l-context-menu transition="drop" transitionDuration="700">
       <div slot="menu">
-        <l-DropdownMenuItem icon="copy">Copy</l-DropdownMenuItem>
-        <l-DropdownMenuItem icon="pencil">Rename</l-DropdownMenuItem>
+        <l-dropdown-menu-item icon="copy">Copy</l-dropdown-menu-item>
+        <l-dropdown-menu-item icon="pencil">Rename</l-dropdown-menu-item>
       </div>
       <div>Drop — right-click</div>
-    </l-ContextMenu>
+    </l-context-menu>
   \`,
 })
 export class AppComponent {}`,

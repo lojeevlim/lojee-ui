@@ -56,13 +56,13 @@ export default function CalendarShowcase() {
           <CodeBlock
             variants={{
               react: `<Calendar />`,
-              js: `<l-Calendar ></l-Calendar>
+              js: `<l-calendar ></l-calendar>
 
 <script type="module">import "lojee-ui/elements";</script>`,
               vue: `<template>
-  <l-Calendar />
+  <l-calendar />
 </template>`,
-              angular: `<l-Calendar></l-Calendar>`,
+              angular: `<l-calendar></l-calendar>`,
             }}
           />
         </section>
@@ -82,7 +82,7 @@ export default function CalendarShowcase() {
     { date: "2026-06-20", label: "Planning", color: "amber" },
   ]}
 />`,
-              js: `<l-Calendar id="calendar-events"></l-Calendar>
+              js: `<l-calendar id="calendar-events"></l-calendar>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -95,7 +95,7 @@ export default function CalendarShowcase() {
   ];
 </script>`,
               vue: `<template>
-  <l-Calendar :events="events" />
+  <l-calendar :events="events" />
 </template>
 
 <script setup lang="ts">
@@ -106,7 +106,7 @@ const events = [
   { date: "2026-06-20", label: "Planning", color: "amber" },
 ];
 </script>`,
-              angular: `<l-Calendar [events]="events"></l-Calendar>
+              angular: `<l-calendar [events]="events"></l-calendar>
 
 events = [
   { date: "2026-06-05", label: "Team sync", color: "indigo" },
@@ -131,7 +131,7 @@ events = [
               react: `const [selected, setSelected] = useState();
 
 <Calendar selected={selected} onSelect={setSelected} />`,
-              js: `<l-Calendar id="calendar-controlled"></l-Calendar>
+              js: `<l-calendar id="calendar-controlled"></l-calendar>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -142,14 +142,14 @@ events = [
   });
 </script>`,
               vue: `<template>
-  <l-Calendar :selected="selected" @select="selected = $event" />
+  <l-calendar :selected="selected" @select="selected = $event" />
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue";
 const selected = ref();
 </script>`,
-              angular: `<l-Calendar [selected]="selected" (select)="selected = $event"></l-Calendar>
+              angular: `<l-calendar [selected]="selected" (select)="selected = $event"></l-calendar>
 
 selected?: string;`,
             }}
@@ -301,19 +301,19 @@ open = false;`,
               react: `<Calendar color="emerald" />
 <Calendar color="rose" />
 <Calendar color="amber" />`,
-              js: `<l-Calendar color="emerald"></l-Calendar>
-<l-Calendar color="rose"></l-Calendar>
-<l-Calendar color="amber"></l-Calendar>
+              js: `<l-calendar color="emerald"></l-calendar>
+<l-calendar color="rose"></l-calendar>
+<l-calendar color="amber"></l-calendar>
 
 <script type="module">import "lojee-ui/elements";</script>`,
               vue: `<template>
-  <l-Calendar color="emerald" />
-  <l-Calendar color="rose" />
-  <l-Calendar color="amber" />
+  <l-calendar color="emerald" />
+  <l-calendar color="rose" />
+  <l-calendar color="amber" />
 </template>`,
-              angular: `<l-Calendar color="emerald"></l-Calendar>
-<l-Calendar color="rose"></l-Calendar>
-<l-Calendar color="amber"></l-Calendar>`,
+              angular: `<l-calendar color="emerald"></l-calendar>
+<l-calendar color="rose"></l-calendar>
+<l-calendar color="amber"></l-calendar>`,
             }}
           />
         </section>
@@ -350,37 +350,37 @@ open = false;`,
 <Calendar hoverEffect="lift" />
 <Calendar hoverEffect="glow" />
 <Calendar hoverEffect="shine" />`,
-              js: `<l-Calendar transition="fade"></l-Calendar>
-<l-Calendar transition="slide-up"></l-Calendar>
-<l-Calendar transition="slide-right" transitionDelay="100"></l-Calendar>
-<l-Calendar transition="zoom"></l-Calendar>
+              js: `<l-calendar transition="fade"></l-calendar>
+<l-calendar transition="slide-up"></l-calendar>
+<l-calendar transition="slide-right" transitionDelay="100"></l-calendar>
+<l-calendar transition="zoom"></l-calendar>
 
-<l-Calendar transition="flip"></l-Calendar>
-<l-Calendar transition="blur"></l-Calendar>
-<l-Calendar transition="bounce"></l-Calendar>
-<l-Calendar transition="drop" transitionDuration="700"></l-Calendar>
+<l-calendar transition="flip"></l-calendar>
+<l-calendar transition="blur"></l-calendar>
+<l-calendar transition="bounce"></l-calendar>
+<l-calendar transition="drop" transitionDuration="700"></l-calendar>
 
-<l-Calendar hoverEffect="lift"></l-Calendar>
-<l-Calendar hoverEffect="glow"></l-Calendar>
-<l-Calendar hoverEffect="shine"></l-Calendar>
+<l-calendar hoverEffect="lift"></l-calendar>
+<l-calendar hoverEffect="glow"></l-calendar>
+<l-calendar hoverEffect="shine"></l-calendar>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-Calendar transition="fade"></l-Calendar>
-  <l-Calendar transition="slide-up"></l-Calendar>
-  <l-Calendar transition="slide-right" transitionDelay="100"></l-Calendar>
-  <l-Calendar transition="zoom"></l-Calendar>
+  <l-calendar transition="fade"></l-calendar>
+  <l-calendar transition="slide-up"></l-calendar>
+  <l-calendar transition="slide-right" transitionDelay="100"></l-calendar>
+  <l-calendar transition="zoom"></l-calendar>
 
-  <l-Calendar transition="flip"></l-Calendar>
-  <l-Calendar transition="blur"></l-Calendar>
-  <l-Calendar transition="bounce"></l-Calendar>
-  <l-Calendar transition="drop" transitionDuration="700"></l-Calendar>
+  <l-calendar transition="flip"></l-calendar>
+  <l-calendar transition="blur"></l-calendar>
+  <l-calendar transition="bounce"></l-calendar>
+  <l-calendar transition="drop" transitionDuration="700"></l-calendar>
 
-  <l-Calendar hoverEffect="lift"></l-Calendar>
-  <l-Calendar hoverEffect="glow"></l-Calendar>
-  <l-Calendar hoverEffect="shine"></l-Calendar>
+  <l-calendar hoverEffect="lift"></l-calendar>
+  <l-calendar hoverEffect="glow"></l-calendar>
+  <l-calendar hoverEffect="shine"></l-calendar>
 </template>
 
 <script setup lang="ts">
@@ -395,19 +395,19 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Calendar transition="fade"></l-Calendar>
-    <l-Calendar transition="slide-up"></l-Calendar>
-    <l-Calendar transition="slide-right" transitionDelay="100"></l-Calendar>
-    <l-Calendar transition="zoom"></l-Calendar>
+    <l-calendar transition="fade"></l-calendar>
+    <l-calendar transition="slide-up"></l-calendar>
+    <l-calendar transition="slide-right" transitionDelay="100"></l-calendar>
+    <l-calendar transition="zoom"></l-calendar>
 
-    <l-Calendar transition="flip"></l-Calendar>
-    <l-Calendar transition="blur"></l-Calendar>
-    <l-Calendar transition="bounce"></l-Calendar>
-    <l-Calendar transition="drop" transitionDuration="700"></l-Calendar>
+    <l-calendar transition="flip"></l-calendar>
+    <l-calendar transition="blur"></l-calendar>
+    <l-calendar transition="bounce"></l-calendar>
+    <l-calendar transition="drop" transitionDuration="700"></l-calendar>
 
-    <l-Calendar hoverEffect="lift"></l-Calendar>
-    <l-Calendar hoverEffect="glow"></l-Calendar>
-    <l-Calendar hoverEffect="shine"></l-Calendar>
+    <l-calendar hoverEffect="lift"></l-calendar>
+    <l-calendar hoverEffect="glow"></l-calendar>
+    <l-calendar hoverEffect="shine"></l-calendar>
   \`,
 })
 export class AppComponent {}`,

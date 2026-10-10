@@ -51,20 +51,20 @@ export default function AlertShowcase() {
 <Alert variant="success" title="Saved">Your changes have been saved.</Alert>
 <Alert variant="warning" title="Careful">This action may have unintended side effects.</Alert>
 <Alert variant="error" title="Something went wrong">We couldn't process your request. Please try again.</Alert>`,
-              js: `<l-Alert variant="info" title="Heads up">This is an informational message.</l-Alert>
-<l-Alert variant="success" title="Saved">Your changes have been saved.</l-Alert>
-<l-Alert variant="warning" title="Careful">This action may have unintended side effects.</l-Alert>
-<l-Alert variant="error" title="Something went wrong">We couldn't process your request. Please try again.</l-Alert>
+              js: `<l-alert variant="info" title="Heads up">This is an informational message.</l-alert>
+<l-alert variant="success" title="Saved">Your changes have been saved.</l-alert>
+<l-alert variant="warning" title="Careful">This action may have unintended side effects.</l-alert>
+<l-alert variant="error" title="Something went wrong">We couldn't process your request. Please try again.</l-alert>
 
 <script type="module">import "lojee-ui/elements";</script>`,
-              vue: `<l-Alert variant="info" title="Heads up">This is an informational message.</l-Alert>
-<l-Alert variant="success" title="Saved">Your changes have been saved.</l-Alert>
-<l-Alert variant="warning" title="Careful">This action may have unintended side effects.</l-Alert>
-<l-Alert variant="error" title="Something went wrong">We couldn't process your request. Please try again.</l-Alert>`,
-              angular: `<l-Alert variant="info" title="Heads up">This is an informational message.</l-Alert>
-<l-Alert variant="success" title="Saved">Your changes have been saved.</l-Alert>
-<l-Alert variant="warning" title="Careful">This action may have unintended side effects.</l-Alert>
-<l-Alert variant="error" title="Something went wrong">We couldn't process your request. Please try again.</l-Alert>`,
+              vue: `<l-alert variant="info" title="Heads up">This is an informational message.</l-alert>
+<l-alert variant="success" title="Saved">Your changes have been saved.</l-alert>
+<l-alert variant="warning" title="Careful">This action may have unintended side effects.</l-alert>
+<l-alert variant="error" title="Something went wrong">We couldn't process your request. Please try again.</l-alert>`,
+              angular: `<l-alert variant="info" title="Heads up">This is an informational message.</l-alert>
+<l-alert variant="success" title="Saved">Your changes have been saved.</l-alert>
+<l-alert variant="warning" title="Careful">This action may have unintended side effects.</l-alert>
+<l-alert variant="error" title="Something went wrong">We couldn't process your request. Please try again.</l-alert>`,
             }}
           />
         </section>
@@ -75,11 +75,11 @@ export default function AlertShowcase() {
           <CodeBlock
             variants={{
               react: `<Alert variant="info">A new version is available. Refresh to update.</Alert>`,
-              js: `<l-Alert variant="info">A new version is available. Refresh to update.</l-Alert>
+              js: `<l-alert variant="info">A new version is available. Refresh to update.</l-alert>
 
 <script type="module">import "lojee-ui/elements";</script>`,
-              vue: `<l-Alert variant="info">A new version is available. Refresh to update.</l-Alert>`,
-              angular: `<l-Alert variant="info">A new version is available. Refresh to update.</l-Alert>`,
+              vue: `<l-alert variant="info">A new version is available. Refresh to update.</l-alert>`,
+              angular: `<l-alert variant="info">A new version is available. Refresh to update.</l-alert>`,
             }}
           />
         </section>
@@ -108,9 +108,9 @@ export default function AlertShowcase() {
     You have unsaved changes that will be lost if you navigate away.
   </Alert>
 )}`,
-              js: `<l-Alert variant="warning" title="Unsaved changes" closable id="unsaved-alert">
+              js: `<l-alert variant="warning" title="Unsaved changes" closable id="unsaved-alert">
   You have unsaved changes that will be lost if you navigate away.
-</l-Alert>
+</l-alert>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -119,7 +119,7 @@ export default function AlertShowcase() {
     .addEventListener("close", (e) => { e.target.remove(); });
 </script>`,
               vue: `<template>
-  <l-Alert
+  <l-alert
     v-if="visible"
     variant="warning"
     title="Unsaved changes"
@@ -127,7 +127,7 @@ export default function AlertShowcase() {
     @close="visible = false"
   >
     You have unsaved changes that will be lost if you navigate away.
-  </l-Alert>
+  </l-alert>
 </template>
 
 <script setup lang="ts">
@@ -136,7 +136,7 @@ import "lojee-ui/elements";
 
 const visible = ref(true);
 </script>`,
-              angular: `<l-Alert
+              angular: `<l-alert
   *ngIf="visible"
   variant="warning"
   title="Unsaved changes"
@@ -144,7 +144,7 @@ const visible = ref(true);
   (close)="visible = false"
 >
   You have unsaved changes that will be lost if you navigate away.
-</l-Alert>`,
+</l-alert>`,
             }}
           />
         </section>
@@ -167,26 +167,26 @@ const visible = ref(true);
 <Alert variant="info" title="No icon" icon={false}>
   This alert renders without a leading icon.
 </Alert>`,
-              js: `<l-Alert variant="info" title="New feature" icon="bell">
+              js: `<l-alert variant="info" title="New feature" icon="bell">
   We just shipped keyboard shortcuts. Press "?" to see them.
-</l-Alert>
-<l-Alert variant="info" title="No icon" icon="false">
+</l-alert>
+<l-alert variant="info" title="No icon" icon="false">
   This alert renders without a leading icon.
-</l-Alert>
+</l-alert>
 
 <script type="module">import "lojee-ui/elements";</script>`,
-              vue: `<l-Alert variant="info" title="New feature" icon="bell">
+              vue: `<l-alert variant="info" title="New feature" icon="bell">
   We just shipped keyboard shortcuts. Press "?" to see them.
-</l-Alert>
-<l-Alert variant="info" title="No icon" :icon="false">
+</l-alert>
+<l-alert variant="info" title="No icon" :icon="false">
   This alert renders without a leading icon.
-</l-Alert>`,
-              angular: `<l-Alert variant="info" title="New feature" icon="bell">
+</l-alert>`,
+              angular: `<l-alert variant="info" title="New feature" icon="bell">
   We just shipped keyboard shortcuts. Press "?" to see them.
-</l-Alert>
-<l-Alert variant="info" title="No icon" [icon]="false">
+</l-alert>
+<l-alert variant="info" title="No icon" [icon]="false">
   This alert renders without a leading icon.
-</l-Alert>`,
+</l-alert>`,
             }}
           />
         </section>
@@ -215,9 +215,9 @@ const visible = ref(true);
 >
   This alert's border, background, and icon pick up custom colors via classNames.
 </Alert>`,
-              js: `<l-Alert id="styled-alert" variant="info" heading="Styled alert">
+              js: `<l-alert id="styled-alert" variant="info" heading="Styled alert">
   This alert's border, background, and icon pick up custom colors via classNames.
-</l-Alert>
+</l-alert>
 
 <script type="module">
   document.getElementById("styled-alert").classNames = {
@@ -226,9 +226,9 @@ const visible = ref(true);
   };
 </script>`,
               vue: `<template>
-  <l-Alert variant="info" heading="Styled alert" :classNames="alertClassNames">
+  <l-alert variant="info" heading="Styled alert" :classNames="alertClassNames">
     This alert's border, background, and icon pick up custom colors via classNames.
-  </l-Alert>
+  </l-alert>
 </template>
 
 <script setup lang="ts">
@@ -237,9 +237,9 @@ const alertClassNames = {
   icon: "text-indigo-500",
 };
 </script>`,
-              angular: `<l-Alert variant="info" heading="Styled alert" [classNames]="alertClassNames">
+              angular: `<l-alert variant="info" heading="Styled alert" [classNames]="alertClassNames">
   This alert's border, background, and icon pick up custom colors via classNames.
-</l-Alert>
+</l-alert>
 
 alertClassNames = {
   root: "border-indigo-200 bg-indigo-50 text-indigo-900 dark:border-indigo-900 dark:bg-indigo-950/40 dark:text-indigo-200",
@@ -280,37 +280,37 @@ alertClassNames = {
 <Alert variant="accent" title="Glow" hoverEffect="glow">Theme-colored alert.</Alert>
 <Alert variant="accent" title="Shine" hoverEffect="shine">Theme-colored alert.</Alert>
 <Alert variant="accent" title="Tilt" hoverEffect="tilt">Theme-colored alert.</Alert>`,
-              js: `<l-Alert variant="accent" heading="Fade" transition="fade">Theme-colored alert.</l-Alert>
-<l-Alert variant="accent" heading="Slide up" transition="slide-up">Theme-colored alert.</l-Alert>
-<l-Alert variant="accent" heading="Slide right" transition="slide-right" transitionDelay="100">Theme-colored alert.</l-Alert>
-<l-Alert variant="accent" heading="Zoom" transition="zoom">Theme-colored alert.</l-Alert>
-<l-Alert variant="accent" heading="Flip" transition="flip">Theme-colored alert.</l-Alert>
-<l-Alert variant="accent" heading="Blur" transition="blur">Theme-colored alert.</l-Alert>
-<l-Alert variant="accent" heading="Bounce" transition="bounce">Theme-colored alert.</l-Alert>
-<l-Alert variant="accent" heading="Drop" transition="drop" transitionDuration="700">Theme-colored alert.</l-Alert>
+              js: `<l-alert variant="accent" heading="Fade" transition="fade">Theme-colored alert.</l-alert>
+<l-alert variant="accent" heading="Slide up" transition="slide-up">Theme-colored alert.</l-alert>
+<l-alert variant="accent" heading="Slide right" transition="slide-right" transitionDelay="100">Theme-colored alert.</l-alert>
+<l-alert variant="accent" heading="Zoom" transition="zoom">Theme-colored alert.</l-alert>
+<l-alert variant="accent" heading="Flip" transition="flip">Theme-colored alert.</l-alert>
+<l-alert variant="accent" heading="Blur" transition="blur">Theme-colored alert.</l-alert>
+<l-alert variant="accent" heading="Bounce" transition="bounce">Theme-colored alert.</l-alert>
+<l-alert variant="accent" heading="Drop" transition="drop" transitionDuration="700">Theme-colored alert.</l-alert>
 
-<l-Alert variant="accent" heading="Lift" hoverEffect="lift">Theme-colored alert.</l-Alert>
-<l-Alert variant="accent" heading="Glow" hoverEffect="glow">Theme-colored alert.</l-Alert>
-<l-Alert variant="accent" heading="Shine" hoverEffect="shine">Theme-colored alert.</l-Alert>
-<l-Alert variant="accent" heading="Tilt" hoverEffect="tilt">Theme-colored alert.</l-Alert>
+<l-alert variant="accent" heading="Lift" hoverEffect="lift">Theme-colored alert.</l-alert>
+<l-alert variant="accent" heading="Glow" hoverEffect="glow">Theme-colored alert.</l-alert>
+<l-alert variant="accent" heading="Shine" hoverEffect="shine">Theme-colored alert.</l-alert>
+<l-alert variant="accent" heading="Tilt" hoverEffect="tilt">Theme-colored alert.</l-alert>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-Alert variant="accent" heading="Fade" transition="fade">Theme-colored alert.</l-Alert>
-  <l-Alert variant="accent" heading="Slide up" transition="slide-up">Theme-colored alert.</l-Alert>
-  <l-Alert variant="accent" heading="Slide right" transition="slide-right" transitionDelay="100">Theme-colored alert.</l-Alert>
-  <l-Alert variant="accent" heading="Zoom" transition="zoom">Theme-colored alert.</l-Alert>
-  <l-Alert variant="accent" heading="Flip" transition="flip">Theme-colored alert.</l-Alert>
-  <l-Alert variant="accent" heading="Blur" transition="blur">Theme-colored alert.</l-Alert>
-  <l-Alert variant="accent" heading="Bounce" transition="bounce">Theme-colored alert.</l-Alert>
-  <l-Alert variant="accent" heading="Drop" transition="drop" transitionDuration="700">Theme-colored alert.</l-Alert>
+  <l-alert variant="accent" heading="Fade" transition="fade">Theme-colored alert.</l-alert>
+  <l-alert variant="accent" heading="Slide up" transition="slide-up">Theme-colored alert.</l-alert>
+  <l-alert variant="accent" heading="Slide right" transition="slide-right" transitionDelay="100">Theme-colored alert.</l-alert>
+  <l-alert variant="accent" heading="Zoom" transition="zoom">Theme-colored alert.</l-alert>
+  <l-alert variant="accent" heading="Flip" transition="flip">Theme-colored alert.</l-alert>
+  <l-alert variant="accent" heading="Blur" transition="blur">Theme-colored alert.</l-alert>
+  <l-alert variant="accent" heading="Bounce" transition="bounce">Theme-colored alert.</l-alert>
+  <l-alert variant="accent" heading="Drop" transition="drop" transitionDuration="700">Theme-colored alert.</l-alert>
 
-  <l-Alert variant="accent" heading="Lift" hoverEffect="lift">Theme-colored alert.</l-Alert>
-  <l-Alert variant="accent" heading="Glow" hoverEffect="glow">Theme-colored alert.</l-Alert>
-  <l-Alert variant="accent" heading="Shine" hoverEffect="shine">Theme-colored alert.</l-Alert>
-  <l-Alert variant="accent" heading="Tilt" hoverEffect="tilt">Theme-colored alert.</l-Alert>
+  <l-alert variant="accent" heading="Lift" hoverEffect="lift">Theme-colored alert.</l-alert>
+  <l-alert variant="accent" heading="Glow" hoverEffect="glow">Theme-colored alert.</l-alert>
+  <l-alert variant="accent" heading="Shine" hoverEffect="shine">Theme-colored alert.</l-alert>
+  <l-alert variant="accent" heading="Tilt" hoverEffect="tilt">Theme-colored alert.</l-alert>
 </template>
 
 <script setup lang="ts">
@@ -325,19 +325,19 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Alert variant="accent" heading="Fade" transition="fade">Theme-colored alert.</l-Alert>
-    <l-Alert variant="accent" heading="Slide up" transition="slide-up">Theme-colored alert.</l-Alert>
-    <l-Alert variant="accent" heading="Slide right" transition="slide-right" transitionDelay="100">Theme-colored alert.</l-Alert>
-    <l-Alert variant="accent" heading="Zoom" transition="zoom">Theme-colored alert.</l-Alert>
-    <l-Alert variant="accent" heading="Flip" transition="flip">Theme-colored alert.</l-Alert>
-    <l-Alert variant="accent" heading="Blur" transition="blur">Theme-colored alert.</l-Alert>
-    <l-Alert variant="accent" heading="Bounce" transition="bounce">Theme-colored alert.</l-Alert>
-    <l-Alert variant="accent" heading="Drop" transition="drop" transitionDuration="700">Theme-colored alert.</l-Alert>
+    <l-alert variant="accent" heading="Fade" transition="fade">Theme-colored alert.</l-alert>
+    <l-alert variant="accent" heading="Slide up" transition="slide-up">Theme-colored alert.</l-alert>
+    <l-alert variant="accent" heading="Slide right" transition="slide-right" transitionDelay="100">Theme-colored alert.</l-alert>
+    <l-alert variant="accent" heading="Zoom" transition="zoom">Theme-colored alert.</l-alert>
+    <l-alert variant="accent" heading="Flip" transition="flip">Theme-colored alert.</l-alert>
+    <l-alert variant="accent" heading="Blur" transition="blur">Theme-colored alert.</l-alert>
+    <l-alert variant="accent" heading="Bounce" transition="bounce">Theme-colored alert.</l-alert>
+    <l-alert variant="accent" heading="Drop" transition="drop" transitionDuration="700">Theme-colored alert.</l-alert>
 
-    <l-Alert variant="accent" heading="Lift" hoverEffect="lift">Theme-colored alert.</l-Alert>
-    <l-Alert variant="accent" heading="Glow" hoverEffect="glow">Theme-colored alert.</l-Alert>
-    <l-Alert variant="accent" heading="Shine" hoverEffect="shine">Theme-colored alert.</l-Alert>
-    <l-Alert variant="accent" heading="Tilt" hoverEffect="tilt">Theme-colored alert.</l-Alert>
+    <l-alert variant="accent" heading="Lift" hoverEffect="lift">Theme-colored alert.</l-alert>
+    <l-alert variant="accent" heading="Glow" hoverEffect="glow">Theme-colored alert.</l-alert>
+    <l-alert variant="accent" heading="Shine" hoverEffect="shine">Theme-colored alert.</l-alert>
+    <l-alert variant="accent" heading="Tilt" hoverEffect="tilt">Theme-colored alert.</l-alert>
   \`,
 })
 export class AppComponent {}`,
@@ -369,27 +369,27 @@ export class AppComponent {}`,
 <Alert variant="info" title="Bounce" animation="bounce">Bounce</Alert>
 <Alert variant="success" title="Float" animation="float">Float</Alert>
 <Alert variant="warning" title="Wiggle" animation="wiggle">Wiggle</Alert>`,
-              js: `<l-Alert variant="info" heading="Glow" animation="glow">A soft breathing glow.</l-Alert>
-<l-Alert variant="success" heading="Pulse" animation="pulse">An expanding ring in the alert's own color.</l-Alert>
-<l-Alert variant="error" heading="Gradient pulse" animation="pulse" pulseColor="rose" pulseGradientTo="amber">A gradient pulse ring.</l-Alert>
-<l-Alert variant="warning" heading="Sweep" animation="sweep">A light streak gliding across.</l-Alert>
-<l-Alert variant="info" heading="Border spin" animation="border-spin" pulseColor="blue" pulseGradientTo="cyan">A rotating gradient border.</l-Alert>
-<l-Alert variant="info" heading="Bounce" animation="bounce">Bounce</l-Alert>
-<l-Alert variant="success" heading="Float" animation="float">Float</l-Alert>
-<l-Alert variant="warning" heading="Wiggle" animation="wiggle">Wiggle</l-Alert>
+              js: `<l-alert variant="info" heading="Glow" animation="glow">A soft breathing glow.</l-alert>
+<l-alert variant="success" heading="Pulse" animation="pulse">An expanding ring in the alert's own color.</l-alert>
+<l-alert variant="error" heading="Gradient pulse" animation="pulse" pulseColor="rose" pulseGradientTo="amber">A gradient pulse ring.</l-alert>
+<l-alert variant="warning" heading="Sweep" animation="sweep">A light streak gliding across.</l-alert>
+<l-alert variant="info" heading="Border spin" animation="border-spin" pulseColor="blue" pulseGradientTo="cyan">A rotating gradient border.</l-alert>
+<l-alert variant="info" heading="Bounce" animation="bounce">Bounce</l-alert>
+<l-alert variant="success" heading="Float" animation="float">Float</l-alert>
+<l-alert variant="warning" heading="Wiggle" animation="wiggle">Wiggle</l-alert>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-Alert variant="info" heading="Glow" animation="glow">A soft breathing glow.</l-Alert>
-  <l-Alert variant="success" heading="Pulse" animation="pulse">An expanding ring in the alert's own color.</l-Alert>
-  <l-Alert variant="error" heading="Gradient pulse" animation="pulse" pulseColor="rose" pulseGradientTo="amber">A gradient pulse ring.</l-Alert>
-  <l-Alert variant="warning" heading="Sweep" animation="sweep">A light streak gliding across.</l-Alert>
-  <l-Alert variant="info" heading="Border spin" animation="border-spin" pulseColor="blue" pulseGradientTo="cyan">A rotating gradient border.</l-Alert>
-  <l-Alert variant="info" heading="Bounce" animation="bounce">Bounce</l-Alert>
-  <l-Alert variant="success" heading="Float" animation="float">Float</l-Alert>
-  <l-Alert variant="warning" heading="Wiggle" animation="wiggle">Wiggle</l-Alert>
+  <l-alert variant="info" heading="Glow" animation="glow">A soft breathing glow.</l-alert>
+  <l-alert variant="success" heading="Pulse" animation="pulse">An expanding ring in the alert's own color.</l-alert>
+  <l-alert variant="error" heading="Gradient pulse" animation="pulse" pulseColor="rose" pulseGradientTo="amber">A gradient pulse ring.</l-alert>
+  <l-alert variant="warning" heading="Sweep" animation="sweep">A light streak gliding across.</l-alert>
+  <l-alert variant="info" heading="Border spin" animation="border-spin" pulseColor="blue" pulseGradientTo="cyan">A rotating gradient border.</l-alert>
+  <l-alert variant="info" heading="Bounce" animation="bounce">Bounce</l-alert>
+  <l-alert variant="success" heading="Float" animation="float">Float</l-alert>
+  <l-alert variant="warning" heading="Wiggle" animation="wiggle">Wiggle</l-alert>
 </template>
 
 <script setup lang="ts">
@@ -404,14 +404,14 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Alert variant="info" heading="Glow" animation="glow">A soft breathing glow.</l-Alert>
-    <l-Alert variant="success" heading="Pulse" animation="pulse">An expanding ring in the alert's own color.</l-Alert>
-    <l-Alert variant="error" heading="Gradient pulse" animation="pulse" pulseColor="rose" pulseGradientTo="amber">A gradient pulse ring.</l-Alert>
-    <l-Alert variant="warning" heading="Sweep" animation="sweep">A light streak gliding across.</l-Alert>
-    <l-Alert variant="info" heading="Border spin" animation="border-spin" pulseColor="blue" pulseGradientTo="cyan">A rotating gradient border.</l-Alert>
-    <l-Alert variant="info" heading="Bounce" animation="bounce">Bounce</l-Alert>
-    <l-Alert variant="success" heading="Float" animation="float">Float</l-Alert>
-    <l-Alert variant="warning" heading="Wiggle" animation="wiggle">Wiggle</l-Alert>
+    <l-alert variant="info" heading="Glow" animation="glow">A soft breathing glow.</l-alert>
+    <l-alert variant="success" heading="Pulse" animation="pulse">An expanding ring in the alert's own color.</l-alert>
+    <l-alert variant="error" heading="Gradient pulse" animation="pulse" pulseColor="rose" pulseGradientTo="amber">A gradient pulse ring.</l-alert>
+    <l-alert variant="warning" heading="Sweep" animation="sweep">A light streak gliding across.</l-alert>
+    <l-alert variant="info" heading="Border spin" animation="border-spin" pulseColor="blue" pulseGradientTo="cyan">A rotating gradient border.</l-alert>
+    <l-alert variant="info" heading="Bounce" animation="bounce">Bounce</l-alert>
+    <l-alert variant="success" heading="Float" animation="float">Float</l-alert>
+    <l-alert variant="warning" heading="Wiggle" animation="wiggle">Wiggle</l-alert>
   \`,
 })
 export class AppComponent {}`,

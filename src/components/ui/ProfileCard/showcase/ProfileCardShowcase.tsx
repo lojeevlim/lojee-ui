@@ -32,27 +32,27 @@ export default function ProfileCardShowcase() {
   bio="Building accessible, joyful interfaces. Previously at Figma and Notion."
   avatarInitials="PN"
 />`,
-              js: `<l-ProfileCard
+              js: `<l-profile-card
   name="Priya Nair"
   role="Product Designer at Lojee"
   bio="Building accessible, joyful interfaces. Previously at Figma and Notion."
-  avatarInitials="PN"></l-ProfileCard>
+  avatarInitials="PN"></l-profile-card>
 
 <script type="module">import "lojee-ui/elements";</script>`,
               vue: `<template>
-  <l-ProfileCard
+  <l-profile-card
     name="Priya Nair"
     role="Product Designer at Lojee"
     bio="Building accessible, joyful interfaces. Previously at Figma and Notion."
     avatarInitials="PN"
   />
 </template>`,
-              angular: `<l-ProfileCard
+              angular: `<l-profile-card
   name="Priya Nair"
   role="Product Designer at Lojee"
   bio="Building accessible, joyful interfaces. Previously at Figma and Notion."
   avatarInitials="PN"
-></l-ProfileCard>`,
+></l-profile-card>`,
             }}
           />
         </section>
@@ -83,7 +83,7 @@ export default function ProfileCardShowcase() {
     { label: "Posts", value: "48" },
   ]}
 />`,
-              js: `<l-ProfileCard id="profile-card" name="Priya Nair" role="Product Designer at Lojee" avatarInitials="PN"></l-ProfileCard>
+              js: `<l-profile-card id="profile-card" name="Priya Nair" role="Product Designer at Lojee" avatarInitials="PN"></l-profile-card>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -95,7 +95,7 @@ export default function ProfileCardShowcase() {
   ];
 </script>`,
               vue: `<template>
-  <l-ProfileCard name="Priya Nair" role="Product Designer at Lojee" avatarInitials="PN" :stats="stats" />
+  <l-profile-card name="Priya Nair" role="Product Designer at Lojee" avatarInitials="PN" :stats="stats" />
 </template>
 
 <script setup lang="ts">
@@ -105,7 +105,7 @@ const stats = [
   { label: "Posts", value: "48" },
 ];
 </script>`,
-              angular: `<l-ProfileCard name="Priya Nair" role="Product Designer at Lojee" avatarInitials="PN" [stats]="stats"></l-ProfileCard>
+              angular: `<l-profile-card name="Priya Nair" role="Product Designer at Lojee" avatarInitials="PN" [stats]="stats"></l-profile-card>
 
 stats = [
   { label: "Followers", value: "2,481" },
@@ -146,28 +146,28 @@ stats = [
     </>
   }
 />`,
-              js: `<l-ProfileCard name="Priya Nair" role="Product Designer at Lojee" avatarInitials="PN">
+              js: `<l-profile-card name="Priya Nair" role="Product Designer at Lojee" avatarInitials="PN">
   <div slot="actions" class="flex items-center gap-2 w-full">
-    <l-Button label="Follow" class="flex-1"></l-Button>
-    <l-Button variant="outline" label="Message" class="flex-1"></l-Button>
+    <l-button label="Follow" class="flex-1"></l-button>
+    <l-button variant="outline" label="Message" class="flex-1"></l-button>
   </div>
-</l-ProfileCard>
+</l-profile-card>
 
 <script type="module">import "lojee-ui/elements";</script>`,
               vue: `<template>
-  <l-ProfileCard name="Priya Nair" role="Product Designer at Lojee" avatarInitials="PN">
+  <l-profile-card name="Priya Nair" role="Product Designer at Lojee" avatarInitials="PN">
     <div slot="actions">
-      <l-Button label="Follow" class="flex-1" />
-      <l-Button variant="outline" label="Message" class="flex-1" />
+      <l-button label="Follow" class="flex-1" />
+      <l-button variant="outline" label="Message" class="flex-1" />
     </div>
-  </l-ProfileCard>
+  </l-profile-card>
 </template>`,
-              angular: `<l-ProfileCard name="Priya Nair" role="Product Designer at Lojee" avatarInitials="PN">
+              angular: `<l-profile-card name="Priya Nair" role="Product Designer at Lojee" avatarInitials="PN">
   <div slot="actions" class="flex items-center gap-2 w-full">
-    <l-Button label="Follow" class="flex-1" />
-    <l-Button variant="outline" label="Message" class="flex-1" />
+    <l-button label="Follow" class="flex-1" />
+    <l-button variant="outline" label="Message" class="flex-1" />
   </div>
-</l-ProfileCard>`,
+</l-profile-card>`,
             }}
           />
         </section>
@@ -184,19 +184,19 @@ stats = [
               react: `<ProfileCard name="Priya Nair" role="Design" avatarInitials="PN" color="indigo" />
 <ProfileCard name="Alex Chen" role="Engineering" avatarInitials="AC" color="emerald" />
 <ProfileCard name="Marcus Lee" role="Marketing" avatarInitials="ML" color="rose" />`,
-              js: `<l-ProfileCard name="Priya Nair" role="Design" avatarInitials="PN" color="indigo"></l-ProfileCard>
-<l-ProfileCard name="Alex Chen" role="Engineering" avatarInitials="AC" color="emerald"></l-ProfileCard>
-<l-ProfileCard name="Marcus Lee" role="Marketing" avatarInitials="ML" color="rose"></l-ProfileCard>
+              js: `<l-profile-card name="Priya Nair" role="Design" avatarInitials="PN" color="indigo"></l-profile-card>
+<l-profile-card name="Alex Chen" role="Engineering" avatarInitials="AC" color="emerald"></l-profile-card>
+<l-profile-card name="Marcus Lee" role="Marketing" avatarInitials="ML" color="rose"></l-profile-card>
 
 <script type="module">import "lojee-ui/elements";</script>`,
               vue: `<template>
-  <l-ProfileCard name="Priya Nair" role="Design" avatarInitials="PN" color="indigo" />
-  <l-ProfileCard name="Alex Chen" role="Engineering" avatarInitials="AC" color="emerald" />
-  <l-ProfileCard name="Marcus Lee" role="Marketing" avatarInitials="ML" color="rose" />
+  <l-profile-card name="Priya Nair" role="Design" avatarInitials="PN" color="indigo" />
+  <l-profile-card name="Alex Chen" role="Engineering" avatarInitials="AC" color="emerald" />
+  <l-profile-card name="Marcus Lee" role="Marketing" avatarInitials="ML" color="rose" />
 </template>`,
-              angular: `<l-ProfileCard name="Priya Nair" role="Design" avatarInitials="PN" color="indigo"></l-ProfileCard>
-<l-ProfileCard name="Alex Chen" role="Engineering" avatarInitials="AC" color="emerald"></l-ProfileCard>
-<l-ProfileCard name="Marcus Lee" role="Marketing" avatarInitials="ML" color="rose"></l-ProfileCard>`,
+              angular: `<l-profile-card name="Priya Nair" role="Design" avatarInitials="PN" color="indigo"></l-profile-card>
+<l-profile-card name="Alex Chen" role="Engineering" avatarInitials="AC" color="emerald"></l-profile-card>
+<l-profile-card name="Marcus Lee" role="Marketing" avatarInitials="ML" color="rose"></l-profile-card>`,
             }}
           />
         </section>
@@ -227,31 +227,31 @@ stats = [
 <ProfileCard name="Priya Nair" role="lift" avatarInitials="PN" hoverEffect="lift" />
 <ProfileCard name="Marcus Lee" role="glow" avatarInitials="ML" hoverEffect="glow" />
 <ProfileCard name="Ana Souza" role="shine" avatarInitials="AS" hoverEffect="shine" />`,
-              js: `<l-ProfileCard name="Priya Nair" role="fade" avatarInitials="PN" transition="fade"></l-ProfileCard>
-<l-ProfileCard name="Marcus Lee" role="slide-up" avatarInitials="ML" transition="slide-up"></l-ProfileCard>
-<l-ProfileCard name="Ana Souza" role="slide-right" avatarInitials="AS" transition="slide-right" transitionDelay="100"></l-ProfileCard>
-<l-ProfileCard name="Tom Reed" role="zoom" avatarInitials="TR" transition="zoom"></l-ProfileCard>
-<l-ProfileCard name="Lena Fox" role="flip" avatarInitials="LF" transition="flip"></l-ProfileCard>
-<l-ProfileCard name="Kai Wong" role="drop" avatarInitials="KW" transition="drop" transitionDuration="700"></l-ProfileCard>
+              js: `<l-profile-card name="Priya Nair" role="fade" avatarInitials="PN" transition="fade"></l-profile-card>
+<l-profile-card name="Marcus Lee" role="slide-up" avatarInitials="ML" transition="slide-up"></l-profile-card>
+<l-profile-card name="Ana Souza" role="slide-right" avatarInitials="AS" transition="slide-right" transitionDelay="100"></l-profile-card>
+<l-profile-card name="Tom Reed" role="zoom" avatarInitials="TR" transition="zoom"></l-profile-card>
+<l-profile-card name="Lena Fox" role="flip" avatarInitials="LF" transition="flip"></l-profile-card>
+<l-profile-card name="Kai Wong" role="drop" avatarInitials="KW" transition="drop" transitionDuration="700"></l-profile-card>
 
-<l-ProfileCard name="Priya Nair" role="lift" avatarInitials="PN" hoverEffect="lift"></l-ProfileCard>
-<l-ProfileCard name="Marcus Lee" role="glow" avatarInitials="ML" hoverEffect="glow"></l-ProfileCard>
-<l-ProfileCard name="Ana Souza" role="shine" avatarInitials="AS" hoverEffect="shine"></l-ProfileCard>
+<l-profile-card name="Priya Nair" role="lift" avatarInitials="PN" hoverEffect="lift"></l-profile-card>
+<l-profile-card name="Marcus Lee" role="glow" avatarInitials="ML" hoverEffect="glow"></l-profile-card>
+<l-profile-card name="Ana Souza" role="shine" avatarInitials="AS" hoverEffect="shine"></l-profile-card>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-ProfileCard name="Priya Nair" role="fade" avatarInitials="PN" transition="fade"></l-ProfileCard>
-  <l-ProfileCard name="Marcus Lee" role="slide-up" avatarInitials="ML" transition="slide-up"></l-ProfileCard>
-  <l-ProfileCard name="Ana Souza" role="slide-right" avatarInitials="AS" transition="slide-right" transitionDelay="100"></l-ProfileCard>
-  <l-ProfileCard name="Tom Reed" role="zoom" avatarInitials="TR" transition="zoom"></l-ProfileCard>
-  <l-ProfileCard name="Lena Fox" role="flip" avatarInitials="LF" transition="flip"></l-ProfileCard>
-  <l-ProfileCard name="Kai Wong" role="drop" avatarInitials="KW" transition="drop" transitionDuration="700"></l-ProfileCard>
+  <l-profile-card name="Priya Nair" role="fade" avatarInitials="PN" transition="fade"></l-profile-card>
+  <l-profile-card name="Marcus Lee" role="slide-up" avatarInitials="ML" transition="slide-up"></l-profile-card>
+  <l-profile-card name="Ana Souza" role="slide-right" avatarInitials="AS" transition="slide-right" transitionDelay="100"></l-profile-card>
+  <l-profile-card name="Tom Reed" role="zoom" avatarInitials="TR" transition="zoom"></l-profile-card>
+  <l-profile-card name="Lena Fox" role="flip" avatarInitials="LF" transition="flip"></l-profile-card>
+  <l-profile-card name="Kai Wong" role="drop" avatarInitials="KW" transition="drop" transitionDuration="700"></l-profile-card>
 
-  <l-ProfileCard name="Priya Nair" role="lift" avatarInitials="PN" hoverEffect="lift"></l-ProfileCard>
-  <l-ProfileCard name="Marcus Lee" role="glow" avatarInitials="ML" hoverEffect="glow"></l-ProfileCard>
-  <l-ProfileCard name="Ana Souza" role="shine" avatarInitials="AS" hoverEffect="shine"></l-ProfileCard>
+  <l-profile-card name="Priya Nair" role="lift" avatarInitials="PN" hoverEffect="lift"></l-profile-card>
+  <l-profile-card name="Marcus Lee" role="glow" avatarInitials="ML" hoverEffect="glow"></l-profile-card>
+  <l-profile-card name="Ana Souza" role="shine" avatarInitials="AS" hoverEffect="shine"></l-profile-card>
 </template>
 
 <script setup lang="ts">
@@ -266,16 +266,16 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-ProfileCard name="Priya Nair" role="fade" avatarInitials="PN" transition="fade"></l-ProfileCard>
-    <l-ProfileCard name="Marcus Lee" role="slide-up" avatarInitials="ML" transition="slide-up"></l-ProfileCard>
-    <l-ProfileCard name="Ana Souza" role="slide-right" avatarInitials="AS" transition="slide-right" transitionDelay="100"></l-ProfileCard>
-    <l-ProfileCard name="Tom Reed" role="zoom" avatarInitials="TR" transition="zoom"></l-ProfileCard>
-    <l-ProfileCard name="Lena Fox" role="flip" avatarInitials="LF" transition="flip"></l-ProfileCard>
-    <l-ProfileCard name="Kai Wong" role="drop" avatarInitials="KW" transition="drop" transitionDuration="700"></l-ProfileCard>
+    <l-profile-card name="Priya Nair" role="fade" avatarInitials="PN" transition="fade"></l-profile-card>
+    <l-profile-card name="Marcus Lee" role="slide-up" avatarInitials="ML" transition="slide-up"></l-profile-card>
+    <l-profile-card name="Ana Souza" role="slide-right" avatarInitials="AS" transition="slide-right" transitionDelay="100"></l-profile-card>
+    <l-profile-card name="Tom Reed" role="zoom" avatarInitials="TR" transition="zoom"></l-profile-card>
+    <l-profile-card name="Lena Fox" role="flip" avatarInitials="LF" transition="flip"></l-profile-card>
+    <l-profile-card name="Kai Wong" role="drop" avatarInitials="KW" transition="drop" transitionDuration="700"></l-profile-card>
 
-    <l-ProfileCard name="Priya Nair" role="lift" avatarInitials="PN" hoverEffect="lift"></l-ProfileCard>
-    <l-ProfileCard name="Marcus Lee" role="glow" avatarInitials="ML" hoverEffect="glow"></l-ProfileCard>
-    <l-ProfileCard name="Ana Souza" role="shine" avatarInitials="AS" hoverEffect="shine"></l-ProfileCard>
+    <l-profile-card name="Priya Nair" role="lift" avatarInitials="PN" hoverEffect="lift"></l-profile-card>
+    <l-profile-card name="Marcus Lee" role="glow" avatarInitials="ML" hoverEffect="glow"></l-profile-card>
+    <l-profile-card name="Ana Souza" role="shine" avatarInitials="AS" hoverEffect="shine"></l-profile-card>
   \`,
 })
 export class AppComponent {}`,
@@ -301,23 +301,23 @@ export class AppComponent {}`,
 <ProfileCard name="Tom Reed" role="Sweep" avatarInitials="TR" color="blue" animation="sweep" />
 <ProfileCard name="Lena Fox" role="Float" avatarInitials="LF" color="violet" animation="float" />
 <ProfileCard name="Kai Wong" role="Border spin" avatarInitials="KW" animation="border-spin" pulseColor="violet" pulseGradientTo="cyan" />`,
-              js: `<l-ProfileCard name="Priya Nair" role="Glow" avatarInitials="PN" animation="glow"></l-ProfileCard>
-<l-ProfileCard name="Marcus Lee" role="Pulse" avatarInitials="ML" color="emerald" animation="pulse"></l-ProfileCard>
-<l-ProfileCard name="Ana Souza" role="Gradient pulse" avatarInitials="AS" color="rose" animation="pulse" pulseColor="rose" pulseGradientTo="amber"></l-ProfileCard>
-<l-ProfileCard name="Tom Reed" role="Sweep" avatarInitials="TR" color="blue" animation="sweep"></l-ProfileCard>
-<l-ProfileCard name="Lena Fox" role="Float" avatarInitials="LF" color="violet" animation="float"></l-ProfileCard>
-<l-ProfileCard name="Kai Wong" role="Border spin" avatarInitials="KW" animation="border-spin" pulseColor="violet" pulseGradientTo="cyan"></l-ProfileCard>
+              js: `<l-profile-card name="Priya Nair" role="Glow" avatarInitials="PN" animation="glow"></l-profile-card>
+<l-profile-card name="Marcus Lee" role="Pulse" avatarInitials="ML" color="emerald" animation="pulse"></l-profile-card>
+<l-profile-card name="Ana Souza" role="Gradient pulse" avatarInitials="AS" color="rose" animation="pulse" pulseColor="rose" pulseGradientTo="amber"></l-profile-card>
+<l-profile-card name="Tom Reed" role="Sweep" avatarInitials="TR" color="blue" animation="sweep"></l-profile-card>
+<l-profile-card name="Lena Fox" role="Float" avatarInitials="LF" color="violet" animation="float"></l-profile-card>
+<l-profile-card name="Kai Wong" role="Border spin" avatarInitials="KW" animation="border-spin" pulseColor="violet" pulseGradientTo="cyan"></l-profile-card>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-ProfileCard name="Priya Nair" role="Glow" avatarInitials="PN" animation="glow"></l-ProfileCard>
-  <l-ProfileCard name="Marcus Lee" role="Pulse" avatarInitials="ML" color="emerald" animation="pulse"></l-ProfileCard>
-  <l-ProfileCard name="Ana Souza" role="Gradient pulse" avatarInitials="AS" color="rose" animation="pulse" pulseColor="rose" pulseGradientTo="amber"></l-ProfileCard>
-  <l-ProfileCard name="Tom Reed" role="Sweep" avatarInitials="TR" color="blue" animation="sweep"></l-ProfileCard>
-  <l-ProfileCard name="Lena Fox" role="Float" avatarInitials="LF" color="violet" animation="float"></l-ProfileCard>
-  <l-ProfileCard name="Kai Wong" role="Border spin" avatarInitials="KW" animation="border-spin" pulseColor="violet" pulseGradientTo="cyan"></l-ProfileCard>
+  <l-profile-card name="Priya Nair" role="Glow" avatarInitials="PN" animation="glow"></l-profile-card>
+  <l-profile-card name="Marcus Lee" role="Pulse" avatarInitials="ML" color="emerald" animation="pulse"></l-profile-card>
+  <l-profile-card name="Ana Souza" role="Gradient pulse" avatarInitials="AS" color="rose" animation="pulse" pulseColor="rose" pulseGradientTo="amber"></l-profile-card>
+  <l-profile-card name="Tom Reed" role="Sweep" avatarInitials="TR" color="blue" animation="sweep"></l-profile-card>
+  <l-profile-card name="Lena Fox" role="Float" avatarInitials="LF" color="violet" animation="float"></l-profile-card>
+  <l-profile-card name="Kai Wong" role="Border spin" avatarInitials="KW" animation="border-spin" pulseColor="violet" pulseGradientTo="cyan"></l-profile-card>
 </template>
 
 <script setup lang="ts">
@@ -332,12 +332,12 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-ProfileCard name="Priya Nair" role="Glow" avatarInitials="PN" animation="glow"></l-ProfileCard>
-    <l-ProfileCard name="Marcus Lee" role="Pulse" avatarInitials="ML" color="emerald" animation="pulse"></l-ProfileCard>
-    <l-ProfileCard name="Ana Souza" role="Gradient pulse" avatarInitials="AS" color="rose" animation="pulse" pulseColor="rose" pulseGradientTo="amber"></l-ProfileCard>
-    <l-ProfileCard name="Tom Reed" role="Sweep" avatarInitials="TR" color="blue" animation="sweep"></l-ProfileCard>
-    <l-ProfileCard name="Lena Fox" role="Float" avatarInitials="LF" color="violet" animation="float"></l-ProfileCard>
-    <l-ProfileCard name="Kai Wong" role="Border spin" avatarInitials="KW" animation="border-spin" pulseColor="violet" pulseGradientTo="cyan"></l-ProfileCard>
+    <l-profile-card name="Priya Nair" role="Glow" avatarInitials="PN" animation="glow"></l-profile-card>
+    <l-profile-card name="Marcus Lee" role="Pulse" avatarInitials="ML" color="emerald" animation="pulse"></l-profile-card>
+    <l-profile-card name="Ana Souza" role="Gradient pulse" avatarInitials="AS" color="rose" animation="pulse" pulseColor="rose" pulseGradientTo="amber"></l-profile-card>
+    <l-profile-card name="Tom Reed" role="Sweep" avatarInitials="TR" color="blue" animation="sweep"></l-profile-card>
+    <l-profile-card name="Lena Fox" role="Float" avatarInitials="LF" color="violet" animation="float"></l-profile-card>
+    <l-profile-card name="Kai Wong" role="Border spin" avatarInitials="KW" animation="border-spin" pulseColor="violet" pulseGradientTo="cyan"></l-profile-card>
   \`,
 })
 export class AppComponent {}`,

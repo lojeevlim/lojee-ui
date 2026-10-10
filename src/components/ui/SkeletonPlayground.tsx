@@ -34,7 +34,7 @@ export default function SkeletonPlayground() {
   return (
     <PlaygroundLayout
       preview={preview}
-      variants={wcCode({ react: `<Skeleton${attrs} />`, html: `<l-Skeleton${htmlAttrs}></l-Skeleton>` })}
+      variants={wcCode({ react: `<Skeleton${attrs} />`, html: `<l-skeleton${htmlAttrs}></l-skeleton>` })}
     >
       <OptionGroup label="Variant" options={VARIANTS} value={variant} onChange={setVariant} />
       <OptionGroup label="Animation" options={ANIMATIONS} value={animation} onChange={setAnimation} />

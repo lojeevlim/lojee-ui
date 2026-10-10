@@ -159,7 +159,7 @@ export default function SidebarPlayground() {
 
   const codeVariants: CodeBlockVariants = {
     react: code,
-    js: `<l-Sidebar id="app-sidebar"${widthAttrHtml}${collapsedAttrHtml}${variantAttr}${colorAttr}${collapsibleAttrHtml}${showLabelHtml}${speedAttrsHtml}${defaultActiveItemAttrHtml}${borderWidthAttrHtml}${motionAttrs}${tooltipAttrs} header="${headerText}" header-icon="zap" footer="Jordan Diaz"></l-Sidebar>
+    js: `<l-sidebar id="app-sidebar"${widthAttrHtml}${collapsedAttrHtml}${variantAttr}${colorAttr}${collapsibleAttrHtml}${showLabelHtml}${speedAttrsHtml}${defaultActiveItemAttrHtml}${borderWidthAttrHtml}${motionAttrs}${tooltipAttrs} header="${headerText}" header-icon="zap" footer="Jordan Diaz"></l-sidebar>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -169,7 +169,7 @@ export default function SidebarPlayground() {
   sidebar.addEventListener("activeitemchange", (e) => console.log(e.detail));
 </script>`,
     vue: `<template>
-  <l-Sidebar${widthAttrHtml}${collapsedAttrVue}${variantAttr}${colorAttr}${collapsibleAttrVue}${showLabelHtml}${speedAttrsHtml}${defaultActiveItemAttrHtml}${borderWidthAttrHtml}${motionAttrs}${tooltipAttrs} header="${headerText}" header-icon="zap" footer="Jordan Diaz" :items="items" @activeitemchange="(e) => console.log(e.detail)" />
+  <l-sidebar${widthAttrHtml}${collapsedAttrVue}${variantAttr}${colorAttr}${collapsibleAttrVue}${showLabelHtml}${speedAttrsHtml}${defaultActiveItemAttrHtml}${borderWidthAttrHtml}${motionAttrs}${tooltipAttrs} header="${headerText}" header-icon="zap" footer="Jordan Diaz" :items="items" @activeitemchange="(e) => console.log(e.detail)" />
 </template>
 
 <script setup lang="ts">
@@ -185,7 +185,7 @@ import "lojee-ui/elements";
   selector: "app-root",
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  template: \`<l-Sidebar${widthAttrHtml}${collapsedAttrAngular}${variantAttr}${colorAttr}${collapsibleAttrAngular}${showLabelHtml}${speedAttrsHtml}${defaultActiveItemAttrHtml}${borderWidthAttrHtml}${motionAttrs}${tooltipAttrs} header="${headerText}" header-icon="zap" footer="Jordan Diaz" [items]="items" (activeitemchange)="onActiveItemChange($event.detail)" />\`,
+  template: \`<l-sidebar${widthAttrHtml}${collapsedAttrAngular}${variantAttr}${colorAttr}${collapsibleAttrAngular}${showLabelHtml}${speedAttrsHtml}${defaultActiveItemAttrHtml}${borderWidthAttrHtml}${motionAttrs}${tooltipAttrs} header="${headerText}" header-icon="zap" footer="Jordan Diaz" [items]="items" (activeitemchange)="onActiveItemChange($event.detail)" />\`,
 })
 export class AppComponent {
   items = ${itemsLiteral};

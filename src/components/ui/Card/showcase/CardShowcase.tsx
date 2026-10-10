@@ -56,21 +56,21 @@ export default function CardShowcase() {
 <Card variant="soft">Soft</Card>
 <Card variant="ghost">Ghost</Card>
 <Card variant="glass">Glass</Card>`,
-              js: `<l-Card variant="outline">Outline</l-Card>
-<l-Card variant="elevated">Elevated</l-Card>
-<l-Card variant="soft">Soft</l-Card>
-<l-Card variant="ghost">Ghost</l-Card>
-<l-Card variant="glass">Glass</l-Card>
+              js: `<l-card variant="outline">Outline</l-card>
+<l-card variant="elevated">Elevated</l-card>
+<l-card variant="soft">Soft</l-card>
+<l-card variant="ghost">Ghost</l-card>
+<l-card variant="glass">Glass</l-card>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-Card variant="outline">Outline</l-Card>
-  <l-Card variant="elevated">Elevated</l-Card>
-  <l-Card variant="soft">Soft</l-Card>
-  <l-Card variant="ghost">Ghost</l-Card>
-  <l-Card variant="glass">Glass</l-Card>
+  <l-card variant="outline">Outline</l-card>
+  <l-card variant="elevated">Elevated</l-card>
+  <l-card variant="soft">Soft</l-card>
+  <l-card variant="ghost">Ghost</l-card>
+  <l-card variant="glass">Glass</l-card>
 </template>
 
 <script setup lang="ts">
@@ -85,11 +85,11 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Card variant="outline">Outline</l-Card>
-    <l-Card variant="elevated">Elevated</l-Card>
-    <l-Card variant="soft">Soft</l-Card>
-    <l-Card variant="ghost">Ghost</l-Card>
-    <l-Card variant="glass">Glass</l-Card>
+    <l-card variant="outline">Outline</l-card>
+    <l-card variant="elevated">Elevated</l-card>
+    <l-card variant="soft">Soft</l-card>
+    <l-card variant="ghost">Ghost</l-card>
+    <l-card variant="glass">Glass</l-card>
   \`,
 })
 export class AppComponent {}`,
@@ -118,17 +118,17 @@ export class AppComponent {}`,
               react: `<Card variant="glass" lighting="hover">Hover me</Card>
 <Card variant="glass" lighting="press">Press me</Card>
 <Card variant="glass" lighting="scroll">Scroll to center</Card>`,
-              js: `<l-Card variant="glass" lighting="hover">Hover me</l-Card>
-<l-Card variant="glass" lighting="press">Press me</l-Card>
-<l-Card variant="glass" lighting="scroll">Scroll to center</l-Card>
+              js: `<l-card variant="glass" lighting="hover">Hover me</l-card>
+<l-card variant="glass" lighting="press">Press me</l-card>
+<l-card variant="glass" lighting="scroll">Scroll to center</l-card>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-Card variant="glass" lighting="hover">Hover me</l-Card>
-  <l-Card variant="glass" lighting="press">Press me</l-Card>
-  <l-Card variant="glass" lighting="scroll">Scroll to center</l-Card>
+  <l-card variant="glass" lighting="hover">Hover me</l-card>
+  <l-card variant="glass" lighting="press">Press me</l-card>
+  <l-card variant="glass" lighting="scroll">Scroll to center</l-card>
 </template>
 
 <script setup lang="ts">
@@ -143,9 +143,9 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Card variant="glass" lighting="hover">Hover me</l-Card>
-    <l-Card variant="glass" lighting="press">Press me</l-Card>
-    <l-Card variant="glass" lighting="scroll">Scroll to center</l-Card>
+    <l-card variant="glass" lighting="hover">Hover me</l-card>
+    <l-card variant="glass" lighting="press">Press me</l-card>
+    <l-card variant="glass" lighting="scroll">Scroll to center</l-card>
   \`,
 })
 export class AppComponent {}`,
@@ -165,15 +165,15 @@ export class AppComponent {}`,
             variants={{
               react: `<Card padding="sm">Small</Card>
 <Card padding="lg">Large</Card>`,
-              js: `<l-Card padding="sm">Small</l-Card>
-<l-Card padding="lg">Large</l-Card>`,
+              js: `<l-card padding="sm">Small</l-card>
+<l-card padding="lg">Large</l-card>`,
               vue: `<template>
-  <l-Card padding="sm">Small</l-Card>
-  <l-Card padding="lg">Large</l-Card>
+  <l-card padding="sm">Small</l-card>
+  <l-card padding="lg">Large</l-card>
 </template>`,
               angular: `<!-- reuses the AppComponent from above -->
-<l-Card padding="sm">Small</l-Card>
-<l-Card padding="lg">Large</l-Card>`,
+<l-card padding="sm">Small</l-card>
+<l-card padding="lg">Large</l-card>`,
             }}
           />
         </section>
@@ -189,12 +189,12 @@ export class AppComponent {}`,
           <CodeBlock
             variants={{
               react: `<Card hoverable>Hover me</Card>`,
-              js: `<l-Card hoverable>Hover me</l-Card>`,
+              js: `<l-card hoverable>Hover me</l-card>`,
               vue: `<template>
-  <l-Card hoverable>Hover me</l-Card>
+  <l-card hoverable>Hover me</l-card>
 </template>`,
               angular: `<!-- reuses the AppComponent from above -->
-<l-Card hoverable>Hover me</l-Card>`,
+<l-card hoverable>Hover me</l-card>`,
             }}
           />
         </section>
@@ -212,18 +212,18 @@ export class AppComponent {}`,
 >
   Your subscription renews monthly and includes unlimited seats.
 </Card>`,
-              js: `<l-Card title="Plan details" footer="Updated 2 days ago">
+              js: `<l-card title="Plan details" footer="Updated 2 days ago">
   Your subscription renews monthly and includes unlimited seats.
-</l-Card>`,
+</l-card>`,
               vue: `<template>
-  <l-Card title="Plan details" footer="Updated 2 days ago">
+  <l-card title="Plan details" footer="Updated 2 days ago">
     Your subscription renews monthly and includes unlimited seats.
-  </l-Card>
+  </l-card>
 </template>`,
               angular: `<!-- reuses the AppComponent from above -->
-<l-Card title="Plan details" footer="Updated 2 days ago">
+<l-card title="Plan details" footer="Updated 2 days ago">
   Your subscription renews monthly and includes unlimited seats.
-</l-Card>`,
+</l-card>`,
             }}
           />
         </section>
@@ -259,37 +259,37 @@ export class AppComponent {}`,
 <Card hoverEffect="glow">Glow</Card>
 <Card hoverEffect="shine">Shine</Card>
 <Card hoverEffect="tilt">Tilt</Card>`,
-              js: `<l-Card transition="fade">Fade</l-Card>
-<l-Card transition="slide-up">Slide up</l-Card>
-<l-Card transition="slide-right" transitionDelay="100">Slide right</l-Card>
-<l-Card transition="zoom">Zoom</l-Card>
-<l-Card transition="flip">Flip</l-Card>
-<l-Card transition="blur">Blur</l-Card>
-<l-Card transition="bounce">Bounce</l-Card>
-<l-Card transition="drop" transitionDuration="700">Drop</l-Card>
+              js: `<l-card transition="fade">Fade</l-card>
+<l-card transition="slide-up">Slide up</l-card>
+<l-card transition="slide-right" transitionDelay="100">Slide right</l-card>
+<l-card transition="zoom">Zoom</l-card>
+<l-card transition="flip">Flip</l-card>
+<l-card transition="blur">Blur</l-card>
+<l-card transition="bounce">Bounce</l-card>
+<l-card transition="drop" transitionDuration="700">Drop</l-card>
 
-<l-Card hoverEffect="lift">Lift</l-Card>
-<l-Card hoverEffect="glow">Glow</l-Card>
-<l-Card hoverEffect="shine">Shine</l-Card>
-<l-Card hoverEffect="tilt">Tilt</l-Card>
+<l-card hoverEffect="lift">Lift</l-card>
+<l-card hoverEffect="glow">Glow</l-card>
+<l-card hoverEffect="shine">Shine</l-card>
+<l-card hoverEffect="tilt">Tilt</l-card>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-Card transition="fade">Fade</l-Card>
-  <l-Card transition="slide-up">Slide up</l-Card>
-  <l-Card transition="slide-right" transitionDelay="100">Slide right</l-Card>
-  <l-Card transition="zoom">Zoom</l-Card>
-  <l-Card transition="flip">Flip</l-Card>
-  <l-Card transition="blur">Blur</l-Card>
-  <l-Card transition="bounce">Bounce</l-Card>
-  <l-Card transition="drop" transitionDuration="700">Drop</l-Card>
+  <l-card transition="fade">Fade</l-card>
+  <l-card transition="slide-up">Slide up</l-card>
+  <l-card transition="slide-right" transitionDelay="100">Slide right</l-card>
+  <l-card transition="zoom">Zoom</l-card>
+  <l-card transition="flip">Flip</l-card>
+  <l-card transition="blur">Blur</l-card>
+  <l-card transition="bounce">Bounce</l-card>
+  <l-card transition="drop" transitionDuration="700">Drop</l-card>
 
-  <l-Card hoverEffect="lift">Lift</l-Card>
-  <l-Card hoverEffect="glow">Glow</l-Card>
-  <l-Card hoverEffect="shine">Shine</l-Card>
-  <l-Card hoverEffect="tilt">Tilt</l-Card>
+  <l-card hoverEffect="lift">Lift</l-card>
+  <l-card hoverEffect="glow">Glow</l-card>
+  <l-card hoverEffect="shine">Shine</l-card>
+  <l-card hoverEffect="tilt">Tilt</l-card>
 </template>
 
 <script setup lang="ts">
@@ -304,19 +304,19 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Card transition="fade">Fade</l-Card>
-    <l-Card transition="slide-up">Slide up</l-Card>
-    <l-Card transition="slide-right" transitionDelay="100">Slide right</l-Card>
-    <l-Card transition="zoom">Zoom</l-Card>
-    <l-Card transition="flip">Flip</l-Card>
-    <l-Card transition="blur">Blur</l-Card>
-    <l-Card transition="bounce">Bounce</l-Card>
-    <l-Card transition="drop" transitionDuration="700">Drop</l-Card>
+    <l-card transition="fade">Fade</l-card>
+    <l-card transition="slide-up">Slide up</l-card>
+    <l-card transition="slide-right" transitionDelay="100">Slide right</l-card>
+    <l-card transition="zoom">Zoom</l-card>
+    <l-card transition="flip">Flip</l-card>
+    <l-card transition="blur">Blur</l-card>
+    <l-card transition="bounce">Bounce</l-card>
+    <l-card transition="drop" transitionDuration="700">Drop</l-card>
 
-    <l-Card hoverEffect="lift">Lift</l-Card>
-    <l-Card hoverEffect="glow">Glow</l-Card>
-    <l-Card hoverEffect="shine">Shine</l-Card>
-    <l-Card hoverEffect="tilt">Tilt</l-Card>
+    <l-card hoverEffect="lift">Lift</l-card>
+    <l-card hoverEffect="glow">Glow</l-card>
+    <l-card hoverEffect="shine">Shine</l-card>
+    <l-card hoverEffect="tilt">Tilt</l-card>
   \`,
 })
 export class AppComponent {}`,
@@ -346,27 +346,27 @@ export class AppComponent {}`,
 <Card animation="float" variant="elevated">Float</Card>
 <Card animation="wiggle">Wiggle</Card>
 <Card animation="border-spin" pulseColor="violet" pulseGradientTo="cyan">Border spin</Card>`,
-              js: `<l-Card animation="glow">Glow</l-Card>
-<l-Card animation="pulse">Pulse</l-Card>
-<l-Card animation="pulse" pulseColor="rose" pulseGradientTo="amber">Gradient pulse</l-Card>
-<l-Card animation="sweep">Sweep</l-Card>
-<l-Card animation="bounce">Bounce</l-Card>
-<l-Card animation="float" variant="elevated">Float</l-Card>
-<l-Card animation="wiggle">Wiggle</l-Card>
-<l-Card animation="border-spin" pulseColor="violet" pulseGradientTo="cyan">Border spin</l-Card>
+              js: `<l-card animation="glow">Glow</l-card>
+<l-card animation="pulse">Pulse</l-card>
+<l-card animation="pulse" pulseColor="rose" pulseGradientTo="amber">Gradient pulse</l-card>
+<l-card animation="sweep">Sweep</l-card>
+<l-card animation="bounce">Bounce</l-card>
+<l-card animation="float" variant="elevated">Float</l-card>
+<l-card animation="wiggle">Wiggle</l-card>
+<l-card animation="border-spin" pulseColor="violet" pulseGradientTo="cyan">Border spin</l-card>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-Card animation="glow">Glow</l-Card>
-  <l-Card animation="pulse">Pulse</l-Card>
-  <l-Card animation="pulse" pulseColor="rose" pulseGradientTo="amber">Gradient pulse</l-Card>
-  <l-Card animation="sweep">Sweep</l-Card>
-  <l-Card animation="bounce">Bounce</l-Card>
-  <l-Card animation="float" variant="elevated">Float</l-Card>
-  <l-Card animation="wiggle">Wiggle</l-Card>
-  <l-Card animation="border-spin" pulseColor="violet" pulseGradientTo="cyan">Border spin</l-Card>
+  <l-card animation="glow">Glow</l-card>
+  <l-card animation="pulse">Pulse</l-card>
+  <l-card animation="pulse" pulseColor="rose" pulseGradientTo="amber">Gradient pulse</l-card>
+  <l-card animation="sweep">Sweep</l-card>
+  <l-card animation="bounce">Bounce</l-card>
+  <l-card animation="float" variant="elevated">Float</l-card>
+  <l-card animation="wiggle">Wiggle</l-card>
+  <l-card animation="border-spin" pulseColor="violet" pulseGradientTo="cyan">Border spin</l-card>
 </template>
 
 <script setup lang="ts">
@@ -381,14 +381,14 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Card animation="glow">Glow</l-Card>
-    <l-Card animation="pulse">Pulse</l-Card>
-    <l-Card animation="pulse" pulseColor="rose" pulseGradientTo="amber">Gradient pulse</l-Card>
-    <l-Card animation="sweep">Sweep</l-Card>
-    <l-Card animation="bounce">Bounce</l-Card>
-    <l-Card animation="float" variant="elevated">Float</l-Card>
-    <l-Card animation="wiggle">Wiggle</l-Card>
-    <l-Card animation="border-spin" pulseColor="violet" pulseGradientTo="cyan">Border spin</l-Card>
+    <l-card animation="glow">Glow</l-card>
+    <l-card animation="pulse">Pulse</l-card>
+    <l-card animation="pulse" pulseColor="rose" pulseGradientTo="amber">Gradient pulse</l-card>
+    <l-card animation="sweep">Sweep</l-card>
+    <l-card animation="bounce">Bounce</l-card>
+    <l-card animation="float" variant="elevated">Float</l-card>
+    <l-card animation="wiggle">Wiggle</l-card>
+    <l-card animation="border-spin" pulseColor="violet" pulseGradientTo="cyan">Border spin</l-card>
   \`,
 })
 export class AppComponent {}`,

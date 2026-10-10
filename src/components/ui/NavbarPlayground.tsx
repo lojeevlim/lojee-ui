@@ -121,11 +121,11 @@ export default function NavbarPlayground() {
   // through a plain HTML attribute string.
   const codeVariants: CodeBlockVariants = {
     react: code,
-    js: `<l-Navbar id="app-navbar"${brandAttr}${stickyAttr}${borderedAttrHtml}${variantAttr}${colorAttr}${borderWidthAttrHtml}${defaultActiveItemAttrHtml}${motionAttrs}>
+    js: `<l-navbar id="app-navbar"${brandAttr}${stickyAttr}${borderedAttrHtml}${variantAttr}${colorAttr}${borderWidthAttrHtml}${defaultActiveItemAttrHtml}${motionAttrs}>
   <div slot="actions">
-    <l-Avatar initials="JD" size="sm"></l-Avatar>
+    <l-avatar initials="JD" size="sm"></l-avatar>
   </div>
-</l-Navbar>
+</l-navbar>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -138,11 +138,11 @@ export default function NavbarPlayground() {
   <!-- l-Navbar is a native custom element, not a Vue component — Vue's own #slotName shorthand only
        resolves for actual Vue components, so a real light-DOM slot="actions" is what projects here,
        same plain attribute vanilla JS/Angular use below. -->
-  <l-Navbar${brandAttr}${stickyAttr}${borderedAttrHtml}${variantAttr}${colorAttr}${borderWidthAttrHtml}${defaultActiveItemAttrHtml}${motionAttrs} :items="items" @activeitemchange="(e) => console.log(e.detail)">
+  <l-navbar${brandAttr}${stickyAttr}${borderedAttrHtml}${variantAttr}${colorAttr}${borderWidthAttrHtml}${defaultActiveItemAttrHtml}${motionAttrs} :items="items" @activeitemchange="(e) => console.log(e.detail)">
     <div slot="actions">
-      <l-Avatar initials="JD" size="sm" />
+      <l-avatar initials="JD" size="sm" />
     </div>
-  </l-Navbar>
+  </l-navbar>
 </template>
 
 <script setup lang="ts">
@@ -158,11 +158,11 @@ import "lojee-ui/elements";
   selector: "app-root",
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  template: \`<l-Navbar${brandAttr}${stickyAttr}${borderedAttrHtml}${variantAttr}${colorAttr}${borderWidthAttrHtml}${defaultActiveItemAttrHtml}${motionAttrs} [items]="items" (activeitemchange)="onActiveItemChange($event.detail)">
+  template: \`<l-navbar${brandAttr}${stickyAttr}${borderedAttrHtml}${variantAttr}${colorAttr}${borderWidthAttrHtml}${defaultActiveItemAttrHtml}${motionAttrs} [items]="items" (activeitemchange)="onActiveItemChange($event.detail)">
     <div slot="actions">
-      <l-Avatar initials="JD" size="sm" />
+      <l-avatar initials="JD" size="sm" />
     </div>
-  </l-Navbar>\`,
+  </l-navbar>\`,
 })
 export class AppComponent {
   items = ${itemsLiteral};

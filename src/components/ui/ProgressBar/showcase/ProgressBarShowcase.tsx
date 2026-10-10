@@ -25,17 +25,17 @@ export default function ProgressBarShowcase() {
               react: `<ProgressBar value={40} size="sm" />
 <ProgressBar value={60} size="md" />
 <ProgressBar value={80} size="lg" />`,
-              js: `<l-ProgressBar value="40" size="sm"></l-ProgressBar>
-<l-ProgressBar value="60" size="md"></l-ProgressBar>
-<l-ProgressBar value="80" size="lg"></l-ProgressBar>
+              js: `<l-progress-bar value="40" size="sm"></l-progress-bar>
+<l-progress-bar value="60" size="md"></l-progress-bar>
+<l-progress-bar value="80" size="lg"></l-progress-bar>
 
 <script type="module">import "lojee-ui/elements";</script>`,
-              vue: `<l-ProgressBar value="40" size="sm" />
-<l-ProgressBar value="60" size="md" />
-<l-ProgressBar value="80" size="lg" />`,
-              angular: `<l-ProgressBar value="40" size="sm" />
-<l-ProgressBar value="60" size="md" />
-<l-ProgressBar value="80" size="lg" />`,
+              vue: `<l-progress-bar value="40" size="sm" />
+<l-progress-bar value="60" size="md" />
+<l-progress-bar value="80" size="lg" />`,
+              angular: `<l-progress-bar value="40" size="sm" />
+<l-progress-bar value="60" size="md" />
+<l-progress-bar value="80" size="lg" />`,
             }}
           />
         </section>
@@ -52,17 +52,17 @@ export default function ProgressBarShowcase() {
               react: `<ProgressBar value={70} />
 <ProgressBar value={55} />
 <ProgressBar value={30} />`,
-              js: `<l-ProgressBar value="70"></l-ProgressBar>
-<l-ProgressBar value="55"></l-ProgressBar>
-<l-ProgressBar value="30"></l-ProgressBar>
+              js: `<l-progress-bar value="70"></l-progress-bar>
+<l-progress-bar value="55"></l-progress-bar>
+<l-progress-bar value="30"></l-progress-bar>
 
 <script type="module">import "lojee-ui/elements";</script>`,
-              vue: `<l-ProgressBar value="70" />
-<l-ProgressBar value="55" />
-<l-ProgressBar value="30" />`,
-              angular: `<l-ProgressBar value="70" />
-<l-ProgressBar value="55" />
-<l-ProgressBar value="30" />`,
+              vue: `<l-progress-bar value="70" />
+<l-progress-bar value="55" />
+<l-progress-bar value="30" />`,
+              angular: `<l-progress-bar value="70" />
+<l-progress-bar value="55" />
+<l-progress-bar value="30" />`,
             }}
           />
         </section>
@@ -73,11 +73,11 @@ export default function ProgressBarShowcase() {
           <CodeBlock
             variants={{
               react: `<ProgressBar value={65} striped />`,
-              js: `<l-ProgressBar value="65" striped></l-ProgressBar>
+              js: `<l-progress-bar value="65" striped></l-progress-bar>
 
 <script type="module">import "lojee-ui/elements";</script>`,
-              vue: `<l-ProgressBar value="65" striped />`,
-              angular: `<l-ProgressBar value="65" striped />`,
+              vue: `<l-progress-bar value="65" striped />`,
+              angular: `<l-progress-bar value="65" striped />`,
             }}
           />
         </section>
@@ -88,11 +88,11 @@ export default function ProgressBarShowcase() {
           <CodeBlock
             variants={{
               react: `<ProgressBar indeterminate />`,
-              js: `<l-ProgressBar indeterminate></l-ProgressBar>
+              js: `<l-progress-bar indeterminate></l-progress-bar>
 
 <script type="module">import "lojee-ui/elements";</script>`,
-              vue: `<l-ProgressBar indeterminate />`,
-              angular: `<l-ProgressBar indeterminate />`,
+              vue: `<l-progress-bar indeterminate />`,
+              angular: `<l-progress-bar indeterminate />`,
             }}
           />
         </section>
@@ -103,11 +103,11 @@ export default function ProgressBarShowcase() {
           <CodeBlock
             variants={{
               react: `<ProgressBar value={45} showLabel />`,
-              js: `<l-ProgressBar value="45" showLabel></l-ProgressBar>
+              js: `<l-progress-bar value="45" showLabel></l-progress-bar>
 
 <script type="module">import "lojee-ui/elements";</script>`,
-              vue: `<l-ProgressBar value="45" showLabel />`,
-              angular: `<l-ProgressBar value="45" showLabel />`,
+              vue: `<l-progress-bar value="45" showLabel />`,
+              angular: `<l-progress-bar value="45" showLabel />`,
             }}
           />
         </section>
@@ -130,23 +130,23 @@ export default function ProgressBarShowcase() {
 <ProgressBar value={60} transition="zoom" />
 <ProgressBar value={60} transition="blur" />
 <ProgressBar value={60} transition="drop" transitionDuration={700} />`,
-              js: `<l-ProgressBar value="60" transition="fade"></l-ProgressBar>
-<l-ProgressBar value="60" transition="slide-down"></l-ProgressBar>
-<l-ProgressBar value="60" transition="slide-right" transitionDelay="100"></l-ProgressBar>
-<l-ProgressBar value="60" transition="zoom"></l-ProgressBar>
-<l-ProgressBar value="60" transition="blur"></l-ProgressBar>
-<l-ProgressBar value="60" transition="drop" transitionDuration="700"></l-ProgressBar>
+              js: `<l-progress-bar value="60" transition="fade"></l-progress-bar>
+<l-progress-bar value="60" transition="slide-down"></l-progress-bar>
+<l-progress-bar value="60" transition="slide-right" transitionDelay="100"></l-progress-bar>
+<l-progress-bar value="60" transition="zoom"></l-progress-bar>
+<l-progress-bar value="60" transition="blur"></l-progress-bar>
+<l-progress-bar value="60" transition="drop" transitionDuration="700"></l-progress-bar>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-ProgressBar value="60" transition="fade"></l-ProgressBar>
-  <l-ProgressBar value="60" transition="slide-down"></l-ProgressBar>
-  <l-ProgressBar value="60" transition="slide-right" transitionDelay="100"></l-ProgressBar>
-  <l-ProgressBar value="60" transition="zoom"></l-ProgressBar>
-  <l-ProgressBar value="60" transition="blur"></l-ProgressBar>
-  <l-ProgressBar value="60" transition="drop" transitionDuration="700"></l-ProgressBar>
+  <l-progress-bar value="60" transition="fade"></l-progress-bar>
+  <l-progress-bar value="60" transition="slide-down"></l-progress-bar>
+  <l-progress-bar value="60" transition="slide-right" transitionDelay="100"></l-progress-bar>
+  <l-progress-bar value="60" transition="zoom"></l-progress-bar>
+  <l-progress-bar value="60" transition="blur"></l-progress-bar>
+  <l-progress-bar value="60" transition="drop" transitionDuration="700"></l-progress-bar>
 </template>
 
 <script setup lang="ts">
@@ -161,12 +161,12 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-ProgressBar value="60" transition="fade"></l-ProgressBar>
-    <l-ProgressBar value="60" transition="slide-down"></l-ProgressBar>
-    <l-ProgressBar value="60" transition="slide-right" transitionDelay="100"></l-ProgressBar>
-    <l-ProgressBar value="60" transition="zoom"></l-ProgressBar>
-    <l-ProgressBar value="60" transition="blur"></l-ProgressBar>
-    <l-ProgressBar value="60" transition="drop" transitionDuration="700"></l-ProgressBar>
+    <l-progress-bar value="60" transition="fade"></l-progress-bar>
+    <l-progress-bar value="60" transition="slide-down"></l-progress-bar>
+    <l-progress-bar value="60" transition="slide-right" transitionDelay="100"></l-progress-bar>
+    <l-progress-bar value="60" transition="zoom"></l-progress-bar>
+    <l-progress-bar value="60" transition="blur"></l-progress-bar>
+    <l-progress-bar value="60" transition="drop" transitionDuration="700"></l-progress-bar>
   \`,
 })
 export class AppComponent {}`,

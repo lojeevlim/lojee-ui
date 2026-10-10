@@ -49,11 +49,11 @@ export default function NavbarShowcase() {
   ]}
   actions={<Avatar initials="JD" size="sm" />}
 />`,
-              js: `<l-Navbar id="basic-navbar" brand="App">
+              js: `<l-navbar id="basic-navbar" brand="App">
   <div slot="actions">
-    <l-Avatar initials="JD" size="sm"></l-Avatar>
+    <l-avatar initials="JD" size="sm"></l-avatar>
   </div>
-</l-Navbar>
+</l-navbar>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -68,11 +68,11 @@ export default function NavbarShowcase() {
   <!-- l-Navbar is a native custom element, not a Vue component — Vue's own #slotName shorthand only
        resolves for actual Vue components, so a real light-DOM slot="actions" projects here instead,
        same plain attribute vanilla JS/Angular use above. -->
-  <l-Navbar brand="App" :items="items">
+  <l-navbar brand="App" :items="items">
     <div slot="actions">
-      <l-Avatar initials="JD" size="sm" />
+      <l-avatar initials="JD" size="sm" />
     </div>
-  </l-Navbar>
+  </l-navbar>
 </template>
 
 <script setup lang="ts">
@@ -85,11 +85,11 @@ const items = [
 ];
 </script>`,
               angular: `<!-- app.component.html -->
-<l-Navbar brand="App" [items]="items">
+<l-navbar brand="App" [items]="items">
   <div slot="actions">
-    <l-Avatar initials="JD" size="sm"></l-Avatar>
+    <l-avatar initials="JD" size="sm"></l-avatar>
   </div>
-</l-Navbar>`,
+</l-navbar>`,
             }}
           />
         </section>
@@ -122,7 +122,7 @@ const items = [
     { label: "Team", href: "/team" },
   ]}
 />`,
-              js: `<l-Navbar id="active-navbar" brand="App" default-active-item="Dashboard"></l-Navbar>
+              js: `<l-navbar id="active-navbar" brand="App" default-active-item="Dashboard"></l-navbar>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -136,7 +136,7 @@ const items = [
   navbar.addEventListener("activeitemchange", (e) => console.log(e.detail));
 </script>`,
               vue: `<template>
-  <l-Navbar
+  <l-navbar
     brand="App"
     default-active-item="Dashboard"
     :items="items"
@@ -153,7 +153,7 @@ const items = [
   { label: "Team", href: "/team" },
 ];
 </script>`,
-              angular: `<l-Navbar
+              angular: `<l-navbar
   brand="App"
   default-active-item="Dashboard"
   [items]="items"
@@ -199,10 +199,10 @@ onActiveItemChange(item: unknown) {
   </div>
 </div>`,
               js: `<div class="h-64 overflow-y-auto">
-  <l-Navbar sticky brand="App">
-    <l-Button variant="ghost" label="Home"></l-Button>
-    <l-Button variant="ghost" label="Products"></l-Button>
-  </l-Navbar>
+  <l-navbar sticky brand="App">
+    <l-button variant="ghost" label="Home"></l-button>
+    <l-button variant="ghost" label="Products"></l-button>
+  </l-navbar>
   <div class="p-6 space-y-4">
     <!-- rows -->
   </div>
@@ -211,20 +211,20 @@ onActiveItemChange(item: unknown) {
 <script type="module">import "lojee-ui/elements";</script>`,
               vue: `<template>
   <div class="h-64 overflow-y-auto">
-    <l-Navbar sticky brand="App">
-      <l-Button variant="ghost" label="Home" />
-      <l-Button variant="ghost" label="Products" />
-    </l-Navbar>
+    <l-navbar sticky brand="App">
+      <l-button variant="ghost" label="Home" />
+      <l-button variant="ghost" label="Products" />
+    </l-navbar>
     <div class="p-6 space-y-4">
       <p v-for="(row, i) in rows" :key="i">{{ row }}</p>
     </div>
   </div>
 </template>`,
               angular: `<div class="h-64 overflow-y-auto">
-  <l-Navbar sticky brand="App">
-    <l-Button variant="ghost" label="Home"></l-Button>
-    <l-Button variant="ghost" label="Products"></l-Button>
-  </l-Navbar>
+  <l-navbar sticky brand="App">
+    <l-button variant="ghost" label="Home"></l-button>
+    <l-button variant="ghost" label="Products"></l-button>
+  </l-navbar>
   <div class="p-6 space-y-4">
     <p *ngFor="let row of rows">{{ row }}</p>
   </div>
@@ -310,7 +310,7 @@ onActiveItemChange(item: unknown) {
       shadow-only, no border.
     variant="minimal"  — no background/border at all, blends into the page.
     variant="gradient" — a left-to-right gradient built from \`color\` (600 → 700). */}`,
-              js: `<l-Navbar id="variants-navbar" variant="dark"></l-Navbar>
+              js: `<l-navbar id="variants-navbar" variant="dark"></l-navbar>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -328,9 +328,9 @@ onActiveItemChange(item: unknown) {
   <!-- l-Navbar is a native custom element, not a Vue component — Vue's own #slotName shorthand only
        resolves for actual Vue components, so a real light-DOM slot="brand" projects here instead
        (or just the plain brand="App" attribute works fine too, when no custom styling is needed). -->
-  <l-Navbar variant="dark" :items="items">
+  <l-navbar variant="dark" :items="items">
     <div slot="brand"><span class="text-white">App</span></div>
-  </l-Navbar>
+  </l-navbar>
 
   <!-- "bordered"/"elevated" — detached-panel looks; their backdrop is built in, no extra
        markup needed. "minimal" — no background/border at all, blends into the page. -->
@@ -346,9 +346,9 @@ const items = [
 </script>`,
               angular: `<!-- "bordered"/"elevated" — detached-panel looks; their backdrop is built in, no extra
      markup needed. "minimal" — no background/border at all, blends into the page. -->
-<l-Navbar variant="dark" [items]="items">
+<l-navbar variant="dark" [items]="items">
   <div slot="brand"><span class="text-white">App</span></div>
-</l-Navbar>
+</l-navbar>
 
 items = [
   { label: "Home", active: true },
@@ -383,10 +383,10 @@ items = [
   <Button variant="ghost" label="Home" className="text-indigo-700 hover:bg-indigo-100 dark:text-indigo-300 dark:hover:bg-indigo-900/40" />
   <Button variant="ghost" label="Products" className="text-indigo-700 hover:bg-indigo-100 dark:text-indigo-300 dark:hover:bg-indigo-900/40" />
 </Navbar>`,
-              js: `<l-Navbar brand="App" id="indigo-navbar">
-  <l-Button variant="ghost" label="Home" class="text-indigo-700 hover:bg-indigo-100 dark:text-indigo-300 dark:hover:bg-indigo-900/40"></l-Button>
-  <l-Button variant="ghost" label="Products" class="text-indigo-700 hover:bg-indigo-100 dark:text-indigo-300 dark:hover:bg-indigo-900/40"></l-Button>
-</l-Navbar>
+              js: `<l-navbar brand="App" id="indigo-navbar">
+  <l-button variant="ghost" label="Home" class="text-indigo-700 hover:bg-indigo-100 dark:text-indigo-300 dark:hover:bg-indigo-900/40"></l-button>
+  <l-button variant="ghost" label="Products" class="text-indigo-700 hover:bg-indigo-100 dark:text-indigo-300 dark:hover:bg-indigo-900/40"></l-button>
+</l-navbar>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -397,19 +397,19 @@ items = [
   };
 </script>`,
               vue: `<template>
-  <l-Navbar brand="App" :classNames="navbarClassNames">
-    <l-Button variant="ghost" label="Home" class="text-indigo-700 hover:bg-indigo-100 dark:text-indigo-300 dark:hover:bg-indigo-900/40" />
-    <l-Button variant="ghost" label="Products" class="text-indigo-700 hover:bg-indigo-100 dark:text-indigo-300 dark:hover:bg-indigo-900/40" />
-  </l-Navbar>
+  <l-navbar brand="App" :classNames="navbarClassNames">
+    <l-button variant="ghost" label="Home" class="text-indigo-700 hover:bg-indigo-100 dark:text-indigo-300 dark:hover:bg-indigo-900/40" />
+    <l-button variant="ghost" label="Products" class="text-indigo-700 hover:bg-indigo-100 dark:text-indigo-300 dark:hover:bg-indigo-900/40" />
+  </l-navbar>
 </template>
 
 <script setup lang="ts">
 const navbarClassNames = { root: "bg-indigo-50 dark:bg-indigo-950/40", brand: "text-indigo-900 dark:text-indigo-200" };
 </script>`,
-              angular: `<l-Navbar brand="App" [classNames]="navbarClassNames">
-  <l-Button variant="ghost" label="Home" class="text-indigo-700 hover:bg-indigo-100 dark:text-indigo-300 dark:hover:bg-indigo-900/40"></l-Button>
-  <l-Button variant="ghost" label="Products" class="text-indigo-700 hover:bg-indigo-100 dark:text-indigo-300 dark:hover:bg-indigo-900/40"></l-Button>
-</l-Navbar>
+              angular: `<l-navbar brand="App" [classNames]="navbarClassNames">
+  <l-button variant="ghost" label="Home" class="text-indigo-700 hover:bg-indigo-100 dark:text-indigo-300 dark:hover:bg-indigo-900/40"></l-button>
+  <l-button variant="ghost" label="Products" class="text-indigo-700 hover:bg-indigo-100 dark:text-indigo-300 dark:hover:bg-indigo-900/40"></l-button>
+</l-navbar>
 
 navbarClassNames = { root: "bg-indigo-50 dark:bg-indigo-950/40", brand: "text-indigo-900 dark:text-indigo-200" };`,
             }}
@@ -448,16 +448,16 @@ navbarClassNames = { root: "bg-indigo-50 dark:bg-indigo-950/40", brand: "text-in
 <Navbar brand="Lift" items={items} hoverEffect="lift" />
 <Navbar brand="Glow" items={items} hoverEffect="glow" />
 <Navbar brand="Shine" items={items} hoverEffect="shine" />`,
-              js: `<l-Navbar class="transition-demo" brand="Fade" transition="fade"></l-Navbar>
-<l-Navbar class="transition-demo" brand="Slide down" transition="slide-down"></l-Navbar>
-<l-Navbar class="transition-demo" brand="Slide right" transition="slide-right" transitionDelay="100"></l-Navbar>
-<l-Navbar class="transition-demo" brand="Zoom" transition="zoom"></l-Navbar>
-<l-Navbar class="transition-demo" brand="Blur" transition="blur"></l-Navbar>
-<l-Navbar class="transition-demo" brand="Drop" transition="drop" transitionDuration="700"></l-Navbar>
+              js: `<l-navbar class="transition-demo" brand="Fade" transition="fade"></l-navbar>
+<l-navbar class="transition-demo" brand="Slide down" transition="slide-down"></l-navbar>
+<l-navbar class="transition-demo" brand="Slide right" transition="slide-right" transitionDelay="100"></l-navbar>
+<l-navbar class="transition-demo" brand="Zoom" transition="zoom"></l-navbar>
+<l-navbar class="transition-demo" brand="Blur" transition="blur"></l-navbar>
+<l-navbar class="transition-demo" brand="Drop" transition="drop" transitionDuration="700"></l-navbar>
 
-<l-Navbar class="transition-demo" brand="Lift" hoverEffect="lift"></l-Navbar>
-<l-Navbar class="transition-demo" brand="Glow" hoverEffect="glow"></l-Navbar>
-<l-Navbar class="transition-demo" brand="Shine" hoverEffect="shine"></l-Navbar>
+<l-navbar class="transition-demo" brand="Lift" hoverEffect="lift"></l-navbar>
+<l-navbar class="transition-demo" brand="Glow" hoverEffect="glow"></l-navbar>
+<l-navbar class="transition-demo" brand="Shine" hoverEffect="shine"></l-navbar>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -469,16 +469,16 @@ navbarClassNames = { root: "bg-indigo-50 dark:bg-indigo-950/40", brand: "text-in
   document.querySelectorAll(".transition-demo").forEach((el) => (el.items = items));
 </script>`,
               vue: `<template>
-  <l-Navbar :items="items" brand="Fade" transition="fade"></l-Navbar>
-  <l-Navbar :items="items" brand="Slide down" transition="slide-down"></l-Navbar>
-  <l-Navbar :items="items" brand="Slide right" transition="slide-right" transitionDelay="100"></l-Navbar>
-  <l-Navbar :items="items" brand="Zoom" transition="zoom"></l-Navbar>
-  <l-Navbar :items="items" brand="Blur" transition="blur"></l-Navbar>
-  <l-Navbar :items="items" brand="Drop" transition="drop" transitionDuration="700"></l-Navbar>
+  <l-navbar :items="items" brand="Fade" transition="fade"></l-navbar>
+  <l-navbar :items="items" brand="Slide down" transition="slide-down"></l-navbar>
+  <l-navbar :items="items" brand="Slide right" transition="slide-right" transitionDelay="100"></l-navbar>
+  <l-navbar :items="items" brand="Zoom" transition="zoom"></l-navbar>
+  <l-navbar :items="items" brand="Blur" transition="blur"></l-navbar>
+  <l-navbar :items="items" brand="Drop" transition="drop" transitionDuration="700"></l-navbar>
 
-  <l-Navbar :items="items" brand="Lift" hoverEffect="lift"></l-Navbar>
-  <l-Navbar :items="items" brand="Glow" hoverEffect="glow"></l-Navbar>
-  <l-Navbar :items="items" brand="Shine" hoverEffect="shine"></l-Navbar>
+  <l-navbar :items="items" brand="Lift" hoverEffect="lift"></l-navbar>
+  <l-navbar :items="items" brand="Glow" hoverEffect="glow"></l-navbar>
+  <l-navbar :items="items" brand="Shine" hoverEffect="shine"></l-navbar>
 </template>
 
 <script setup lang="ts">
@@ -498,16 +498,16 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Navbar [items]="items" brand="Fade" transition="fade"></l-Navbar>
-    <l-Navbar [items]="items" brand="Slide down" transition="slide-down"></l-Navbar>
-    <l-Navbar [items]="items" brand="Slide right" transition="slide-right" transitionDelay="100"></l-Navbar>
-    <l-Navbar [items]="items" brand="Zoom" transition="zoom"></l-Navbar>
-    <l-Navbar [items]="items" brand="Blur" transition="blur"></l-Navbar>
-    <l-Navbar [items]="items" brand="Drop" transition="drop" transitionDuration="700"></l-Navbar>
+    <l-navbar [items]="items" brand="Fade" transition="fade"></l-navbar>
+    <l-navbar [items]="items" brand="Slide down" transition="slide-down"></l-navbar>
+    <l-navbar [items]="items" brand="Slide right" transition="slide-right" transitionDelay="100"></l-navbar>
+    <l-navbar [items]="items" brand="Zoom" transition="zoom"></l-navbar>
+    <l-navbar [items]="items" brand="Blur" transition="blur"></l-navbar>
+    <l-navbar [items]="items" brand="Drop" transition="drop" transitionDuration="700"></l-navbar>
 
-    <l-Navbar [items]="items" brand="Lift" hoverEffect="lift"></l-Navbar>
-    <l-Navbar [items]="items" brand="Glow" hoverEffect="glow"></l-Navbar>
-    <l-Navbar [items]="items" brand="Shine" hoverEffect="shine"></l-Navbar>
+    <l-navbar [items]="items" brand="Lift" hoverEffect="lift"></l-navbar>
+    <l-navbar [items]="items" brand="Glow" hoverEffect="glow"></l-navbar>
+    <l-navbar [items]="items" brand="Shine" hoverEffect="shine"></l-navbar>
   \`,
 })
 export class AppComponent {

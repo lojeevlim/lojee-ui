@@ -30,13 +30,13 @@ export default function DatePickerShowcase() {
           <CodeBlock
             variants={{
               react: `<DatePicker />`,
-              js: `<l-DatePicker ></l-DatePicker>
+              js: `<l-date-picker ></l-date-picker>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-DatePicker />
+  <l-date-picker />
 </template>
 
 <script setup lang="ts">
@@ -54,7 +54,7 @@ import "lojee-ui/elements";
 export class AppComponent {}
 
 <!-- app.component.html -->
-<l-DatePicker />`,
+<l-date-picker />`,
             }}
           />
         </section>
@@ -80,18 +80,18 @@ export class AppComponent {}
               react: `<DatePicker variant="outline" />
 <DatePicker variant="filled" />
 <DatePicker variant="underline" />`,
-              js: `<l-DatePicker variant="outline"></l-DatePicker>
-<l-DatePicker variant="filled"></l-DatePicker>
-<l-DatePicker variant="underline"></l-DatePicker>`,
+              js: `<l-date-picker variant="outline"></l-date-picker>
+<l-date-picker variant="filled"></l-date-picker>
+<l-date-picker variant="underline"></l-date-picker>`,
               vue: `<template>
-  <l-DatePicker variant="outline" />
-  <l-DatePicker variant="filled" />
-  <l-DatePicker variant="underline" />
+  <l-date-picker variant="outline" />
+  <l-date-picker variant="filled" />
+  <l-date-picker variant="underline" />
 </template>`,
               angular: `<!-- app.component.html -->
-<l-DatePicker variant="outline" />
-<l-DatePicker variant="filled" />
-<l-DatePicker variant="underline" />`,
+<l-date-picker variant="outline" />
+<l-date-picker variant="filled" />
+<l-date-picker variant="underline" />`,
             }}
           />
         </section>
@@ -106,12 +106,12 @@ export class AppComponent {}
           <CodeBlock
             variants={{
               react: `<DatePicker size="sm" />`,
-              js: `<l-DatePicker size="sm"></l-DatePicker>`,
+              js: `<l-date-picker size="sm"></l-date-picker>`,
               vue: `<template>
-  <l-DatePicker size="sm" />
+  <l-date-picker size="sm" />
 </template>`,
               angular: `<!-- app.component.html -->
-<l-DatePicker size="sm" />`,
+<l-date-picker size="sm" />`,
             }}
           />
         </section>
@@ -126,7 +126,7 @@ export class AppComponent {}
               react: `const [value, setValue] = useState("2026-06-15");
 
 <DatePicker value={value} onChange={(e) => setValue(e.target.value)} onClear={() => setValue("")} />`,
-              js: `<l-DatePicker id="date-field"></l-DatePicker>
+              js: `<l-date-picker id="date-field"></l-date-picker>
 
 <script type="module">
   const picker = document.getElementById("date-field");
@@ -139,7 +139,7 @@ export class AppComponent {}
   });
 </script>`,
               vue: `<template>
-  <l-DatePicker :value="value" @input="value = $event.target.value" @clear="value = ''" />
+  <l-date-picker :value="value" @input="value = $event.target.value" @clear="value = ''" />
 </template>
 
 <script setup lang="ts">
@@ -151,7 +151,7 @@ const value = ref("2026-06-15");
 value = "2026-06-15";
 
 <!-- app.component.html -->
-<l-DatePicker [value]="value" (input)="value = $event.target.value" (clear)="value = ''" />`,
+<l-date-picker [value]="value" (input)="value = $event.target.value" (clear)="value = ''" />`,
             }}
           />
         </section>
@@ -164,12 +164,12 @@ value = "2026-06-15";
           <CodeBlock
             variants={{
               react: `<DatePicker invalid />`,
-              js: `<l-DatePicker invalid></l-DatePicker>`,
+              js: `<l-date-picker invalid></l-date-picker>`,
               vue: `<template>
-  <l-DatePicker invalid />
+  <l-date-picker invalid />
 </template>`,
               angular: `<!-- app.component.html -->
-<l-DatePicker invalid />`,
+<l-date-picker invalid />`,
             }}
           />
         </section>
@@ -182,12 +182,12 @@ value = "2026-06-15";
           <CodeBlock
             variants={{
               react: `<DatePicker disabled />`,
-              js: `<l-DatePicker disabled></l-DatePicker>`,
+              js: `<l-date-picker disabled></l-date-picker>`,
               vue: `<template>
-  <l-DatePicker disabled />
+  <l-date-picker disabled />
 </template>`,
               angular: `<!-- app.component.html -->
-<l-DatePicker disabled />`,
+<l-date-picker disabled />`,
             }}
           />
         </section>
@@ -210,7 +210,7 @@ value = "2026-06-15";
 const [end, setEnd] = useState("2026-06-14");
 
 <DateRangePicker startValue={start} endValue={end} onStartChange={setStart} onEndChange={setEnd} />`,
-              js: `<l-DateRangePicker id="range-picker"></l-DateRangePicker>
+              js: `<l-date-range-picker id="range-picker"></l-date-range-picker>
 
 <script type="module">
   const range = document.getElementById("range-picker");
@@ -224,7 +224,7 @@ const [end, setEnd] = useState("2026-06-14");
   });
 </script>`,
               vue: `<template>
-  <l-DateRangePicker
+  <l-date-range-picker
     :startValue="start"
     :endValue="end"
     @startchange="start = $event.detail"
@@ -243,7 +243,7 @@ start = "2026-06-01";
 end = "2026-06-14";
 
 <!-- app.component.html -->
-<l-DateRangePicker
+<l-date-range-picker
   [startValue]="start"
   [endValue]="end"
   (startchange)="start = $event.detail"
@@ -283,7 +283,7 @@ end = "2026-06-14";
     { label: "This month", range: ["2026-06-01", "2026-06-30"] },
   ]}
 />`,
-              js: `<l-DateRangePicker id="preset-range-picker" variant="filled"></l-DateRangePicker>
+              js: `<l-date-range-picker id="preset-range-picker" variant="filled"></l-date-range-picker>
 
 <script type="module">
   const rangeWithPresets = document.getElementById("preset-range-picker");
@@ -302,7 +302,7 @@ end = "2026-06-14";
   });
 </script>`,
               vue: `<template>
-  <l-DateRangePicker
+  <l-date-range-picker
     :startValue="start"
     :endValue="end"
     variant="filled"
@@ -333,7 +333,7 @@ presets = [
 ];
 
 <!-- app.component.html -->
-<l-DateRangePicker
+<l-date-range-picker
   [startValue]="start"
   [endValue]="end"
   variant="filled"
@@ -374,35 +374,35 @@ presets = [
 <DatePicker hoverEffect="lift" />
 <DatePicker hoverEffect="glow" />
 <DatePicker hoverEffect="ring" />`,
-              js: `<l-DatePicker transition="fade"></l-DatePicker>
-<l-DatePicker transition="slide-up"></l-DatePicker>
-<l-DatePicker transition="slide-right" transitionDelay="100"></l-DatePicker>
-<l-DatePicker transition="zoom"></l-DatePicker>
-<l-DatePicker transition="flip"></l-DatePicker>
-<l-DatePicker transition="blur"></l-DatePicker>
-<l-DatePicker transition="bounce"></l-DatePicker>
-<l-DatePicker transition="drop" transitionDuration="700"></l-DatePicker>
+              js: `<l-date-picker transition="fade"></l-date-picker>
+<l-date-picker transition="slide-up"></l-date-picker>
+<l-date-picker transition="slide-right" transitionDelay="100"></l-date-picker>
+<l-date-picker transition="zoom"></l-date-picker>
+<l-date-picker transition="flip"></l-date-picker>
+<l-date-picker transition="blur"></l-date-picker>
+<l-date-picker transition="bounce"></l-date-picker>
+<l-date-picker transition="drop" transitionDuration="700"></l-date-picker>
 
-<l-DatePicker hoverEffect="lift"></l-DatePicker>
-<l-DatePicker hoverEffect="glow"></l-DatePicker>
-<l-DatePicker hoverEffect="ring"></l-DatePicker>
+<l-date-picker hoverEffect="lift"></l-date-picker>
+<l-date-picker hoverEffect="glow"></l-date-picker>
+<l-date-picker hoverEffect="ring"></l-date-picker>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-DatePicker transition="fade"></l-DatePicker>
-  <l-DatePicker transition="slide-up"></l-DatePicker>
-  <l-DatePicker transition="slide-right" transitionDelay="100"></l-DatePicker>
-  <l-DatePicker transition="zoom"></l-DatePicker>
-  <l-DatePicker transition="flip"></l-DatePicker>
-  <l-DatePicker transition="blur"></l-DatePicker>
-  <l-DatePicker transition="bounce"></l-DatePicker>
-  <l-DatePicker transition="drop" transitionDuration="700"></l-DatePicker>
+  <l-date-picker transition="fade"></l-date-picker>
+  <l-date-picker transition="slide-up"></l-date-picker>
+  <l-date-picker transition="slide-right" transitionDelay="100"></l-date-picker>
+  <l-date-picker transition="zoom"></l-date-picker>
+  <l-date-picker transition="flip"></l-date-picker>
+  <l-date-picker transition="blur"></l-date-picker>
+  <l-date-picker transition="bounce"></l-date-picker>
+  <l-date-picker transition="drop" transitionDuration="700"></l-date-picker>
 
-  <l-DatePicker hoverEffect="lift"></l-DatePicker>
-  <l-DatePicker hoverEffect="glow"></l-DatePicker>
-  <l-DatePicker hoverEffect="ring"></l-DatePicker>
+  <l-date-picker hoverEffect="lift"></l-date-picker>
+  <l-date-picker hoverEffect="glow"></l-date-picker>
+  <l-date-picker hoverEffect="ring"></l-date-picker>
 </template>
 
 <script setup lang="ts">
@@ -417,18 +417,18 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-DatePicker transition="fade"></l-DatePicker>
-    <l-DatePicker transition="slide-up"></l-DatePicker>
-    <l-DatePicker transition="slide-right" transitionDelay="100"></l-DatePicker>
-    <l-DatePicker transition="zoom"></l-DatePicker>
-    <l-DatePicker transition="flip"></l-DatePicker>
-    <l-DatePicker transition="blur"></l-DatePicker>
-    <l-DatePicker transition="bounce"></l-DatePicker>
-    <l-DatePicker transition="drop" transitionDuration="700"></l-DatePicker>
+    <l-date-picker transition="fade"></l-date-picker>
+    <l-date-picker transition="slide-up"></l-date-picker>
+    <l-date-picker transition="slide-right" transitionDelay="100"></l-date-picker>
+    <l-date-picker transition="zoom"></l-date-picker>
+    <l-date-picker transition="flip"></l-date-picker>
+    <l-date-picker transition="blur"></l-date-picker>
+    <l-date-picker transition="bounce"></l-date-picker>
+    <l-date-picker transition="drop" transitionDuration="700"></l-date-picker>
 
-    <l-DatePicker hoverEffect="lift"></l-DatePicker>
-    <l-DatePicker hoverEffect="glow"></l-DatePicker>
-    <l-DatePicker hoverEffect="ring"></l-DatePicker>
+    <l-date-picker hoverEffect="lift"></l-date-picker>
+    <l-date-picker hoverEffect="glow"></l-date-picker>
+    <l-date-picker hoverEffect="ring"></l-date-picker>
   \`,
 })
 export class AppComponent {}`,

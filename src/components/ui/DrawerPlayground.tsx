@@ -31,10 +31,10 @@ export default function DrawerPlayground() {
   // `open` is controlled visibility, so it's a DOM property set from the
   // trigger click (matches ModalShowcase.tsx's pattern) rather than a baked
   // literal; `position`/`heading` stay plain snapshot attributes.
-  const htmlMarkup = `<l-Button label="Open drawer" id="open-drawer-btn" />
-<l-Drawer id="drawer" position="${position}" heading="${title || "Drawer title"}"${motion.attrs}>
+  const htmlMarkup = `<l-button label="Open drawer" id="open-drawer-btn" />
+<l-drawer id="drawer" position="${position}" heading="${title || "Drawer title"}"${motion.attrs}>
   <p>This is the drawer body content.</p>
-</l-Drawer>`;
+</l-drawer>`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,
@@ -49,10 +49,10 @@ export default function DrawerPlayground() {
   drawer.addEventListener("close", () => { drawer.open = false; });
 </script>`,
     vue: `<template>
-  <l-Button label="Open drawer" @click="open = true" />
-  <l-Drawer :open="open" position="${position}" heading="${title || "Drawer title"}"${motion.attrs} @close="open = false">
+  <l-button label="Open drawer" @click="open = true" />
+  <l-drawer :open="open" position="${position}" heading="${title || "Drawer title"}"${motion.attrs} @close="open = false">
     <p>This is the drawer body content.</p>
-  </l-Drawer>
+  </l-drawer>
 </template>
 
 <script setup lang="ts">
@@ -62,10 +62,10 @@ import "lojee-ui/elements";
 const open = ref(false);
 </script>`,
     angular: `<!-- app.component.html -->
-<l-Button label="Open drawer" (click)="open = true" />
-<l-Drawer [open]="open" position="${position}" heading="${title || "Drawer title"}"${motion.attrs} (close)="open = false">
+<l-button label="Open drawer" (click)="open = true" />
+<l-drawer [open]="open" position="${position}" heading="${title || "Drawer title"}"${motion.attrs} (close)="open = false">
   <p>This is the drawer body content.</p>
-</l-Drawer>`,
+</l-drawer>`,
   };
 
   return (
