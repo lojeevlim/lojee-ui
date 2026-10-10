@@ -247,7 +247,11 @@ export function Navbar({
   });
   useEffect(() => {
     if (typeof window === "undefined") return;
-    const syncToUrl = () => setSelectedLabel(findActiveLabel(itemsRef.current ?? [], window.location.pathname));
+    // Only follow the URL when it matches a link: an `href="#"` click elsewhere on the page fires `popstate` without matching anything.
+    const syncToUrl = () => {
+      const match = findActiveLabel(itemsRef.current ?? [], window.location.pathname);
+      if (match !== undefined) setSelectedLabel(match);
+    };
     window.addEventListener("popstate", syncToUrl);
     return () => window.removeEventListener("popstate", syncToUrl);
   }, []);

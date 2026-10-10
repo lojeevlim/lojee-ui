@@ -25,13 +25,13 @@ export default function SpinnerShowcase() {
           <CodeBlock
             variants={{
               react: `<Spinner size="md" />`,
-              js: `<l-Spinner size="md"></l-Spinner>
+              js: `<l-spinner size="md"></l-spinner>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-Spinner size="md" />
+  <l-spinner size="md" />
 </template>
 
 <script setup lang="ts">
@@ -45,7 +45,7 @@ import "lojee-ui/elements";
   selector: "app-spinner-showcase",
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  template: \`<l-Spinner size="md" />\`,
+  template: \`<l-spinner size="md" />\`,
 })
 export class SpinnerShowcaseComponent {}`,
             }}
@@ -64,12 +64,12 @@ export class SpinnerShowcaseComponent {}`,
           <CodeBlock
             variants={{
               react: `<Spinner color="indigo" />`,
-              js: `<l-Spinner color="indigo"></l-Spinner>`,
+              js: `<l-spinner color="indigo"></l-spinner>`,
               vue: `<template>
-  <l-Spinner color="indigo" />
+  <l-spinner color="indigo" />
 </template>`,
               angular: `<!-- reuses SpinnerShowcaseComponent from above -->
-<l-Spinner color="indigo" />`,
+<l-spinner color="indigo" />`,
             }}
           />
         </section>
@@ -105,24 +105,24 @@ export class SpinnerShowcaseComponent {}`,
 <Spinner variant="ring" color="indigo" />
 <Spinner variant="bars" color="indigo" />
 <Spinner variant="pulse" color="indigo" />`,
-              js: `<l-Spinner variant="circle" color="indigo"></l-Spinner>
-<l-Spinner variant="dots" color="indigo"></l-Spinner>
-<l-Spinner variant="ring" color="indigo"></l-Spinner>
-<l-Spinner variant="bars" color="indigo"></l-Spinner>
-<l-Spinner variant="pulse" color="indigo"></l-Spinner>`,
+              js: `<l-spinner variant="circle" color="indigo"></l-spinner>
+<l-spinner variant="dots" color="indigo"></l-spinner>
+<l-spinner variant="ring" color="indigo"></l-spinner>
+<l-spinner variant="bars" color="indigo"></l-spinner>
+<l-spinner variant="pulse" color="indigo"></l-spinner>`,
               vue: `<template>
-  <l-Spinner variant="circle" color="indigo" />
-  <l-Spinner variant="dots" color="indigo" />
-  <l-Spinner variant="ring" color="indigo" />
-  <l-Spinner variant="bars" color="indigo" />
-  <l-Spinner variant="pulse" color="indigo" />
+  <l-spinner variant="circle" color="indigo" />
+  <l-spinner variant="dots" color="indigo" />
+  <l-spinner variant="ring" color="indigo" />
+  <l-spinner variant="bars" color="indigo" />
+  <l-spinner variant="pulse" color="indigo" />
 </template>`,
               angular: `<!-- reuses SpinnerShowcaseComponent from above -->
-<l-Spinner variant="circle" color="indigo" />
-<l-Spinner variant="dots" color="indigo" />
-<l-Spinner variant="ring" color="indigo" />
-<l-Spinner variant="bars" color="indigo" />
-<l-Spinner variant="pulse" color="indigo" />`,
+<l-spinner variant="circle" color="indigo" />
+<l-spinner variant="dots" color="indigo" />
+<l-spinner variant="ring" color="indigo" />
+<l-spinner variant="bars" color="indigo" />
+<l-spinner variant="pulse" color="indigo" />`,
             }}
           />
         </section>
@@ -145,23 +145,23 @@ export class SpinnerShowcaseComponent {}`,
 <Spinner variant="bars" transition="bounce" />
 <Spinner variant="pulse" transition="slide-up" transitionDelay={100} />
 <Spinner variant="circle" transition="drop" transitionDuration={700} />`,
-              js: `<l-Spinner variant="circle" transition="fade"></l-Spinner>
-<l-Spinner variant="dots" transition="zoom"></l-Spinner>
-<l-Spinner variant="ring" transition="blur"></l-Spinner>
-<l-Spinner variant="bars" transition="bounce"></l-Spinner>
-<l-Spinner variant="pulse" transition="slide-up" transitionDelay="100"></l-Spinner>
-<l-Spinner variant="circle" transition="drop" transitionDuration="700"></l-Spinner>
+              js: `<l-spinner variant="circle" transition="fade"></l-spinner>
+<l-spinner variant="dots" transition="zoom"></l-spinner>
+<l-spinner variant="ring" transition="blur"></l-spinner>
+<l-spinner variant="bars" transition="bounce"></l-spinner>
+<l-spinner variant="pulse" transition="slide-up" transitionDelay="100"></l-spinner>
+<l-spinner variant="circle" transition="drop" transitionDuration="700"></l-spinner>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-Spinner variant="circle" transition="fade"></l-Spinner>
-  <l-Spinner variant="dots" transition="zoom"></l-Spinner>
-  <l-Spinner variant="ring" transition="blur"></l-Spinner>
-  <l-Spinner variant="bars" transition="bounce"></l-Spinner>
-  <l-Spinner variant="pulse" transition="slide-up" transitionDelay="100"></l-Spinner>
-  <l-Spinner variant="circle" transition="drop" transitionDuration="700"></l-Spinner>
+  <l-spinner variant="circle" transition="fade"></l-spinner>
+  <l-spinner variant="dots" transition="zoom"></l-spinner>
+  <l-spinner variant="ring" transition="blur"></l-spinner>
+  <l-spinner variant="bars" transition="bounce"></l-spinner>
+  <l-spinner variant="pulse" transition="slide-up" transitionDelay="100"></l-spinner>
+  <l-spinner variant="circle" transition="drop" transitionDuration="700"></l-spinner>
 </template>
 
 <script setup lang="ts">
@@ -176,12 +176,12 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Spinner variant="circle" transition="fade"></l-Spinner>
-    <l-Spinner variant="dots" transition="zoom"></l-Spinner>
-    <l-Spinner variant="ring" transition="blur"></l-Spinner>
-    <l-Spinner variant="bars" transition="bounce"></l-Spinner>
-    <l-Spinner variant="pulse" transition="slide-up" transitionDelay="100"></l-Spinner>
-    <l-Spinner variant="circle" transition="drop" transitionDuration="700"></l-Spinner>
+    <l-spinner variant="circle" transition="fade"></l-spinner>
+    <l-spinner variant="dots" transition="zoom"></l-spinner>
+    <l-spinner variant="ring" transition="blur"></l-spinner>
+    <l-spinner variant="bars" transition="bounce"></l-spinner>
+    <l-spinner variant="pulse" transition="slide-up" transitionDelay="100"></l-spinner>
+    <l-spinner variant="circle" transition="drop" transitionDuration="700"></l-spinner>
   \`,
 })
 export class AppComponent {}`,

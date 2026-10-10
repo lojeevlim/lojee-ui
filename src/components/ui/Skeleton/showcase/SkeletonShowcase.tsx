@@ -25,9 +25,9 @@ export default function SkeletonShowcase() {
             react: `<Skeleton variant="circle" size={48} />
 <Skeleton lines={3} />
 <Skeleton variant="rect" height={96} />`,
-            html: `<l-Skeleton variant="circle" size="48"></l-Skeleton>
-<l-Skeleton lines="3"></l-Skeleton>
-<l-Skeleton variant="rect" height="96"></l-Skeleton>`,
+            html: `<l-skeleton variant="circle" size="48"></l-skeleton>
+<l-skeleton lines="3"></l-skeleton>
+<l-skeleton variant="rect" height="96"></l-skeleton>`,
           })}
         />
       </section>
@@ -55,7 +55,7 @@ export default function SkeletonShowcase() {
         <CodeBlock
           variants={wcCode({
             react: `<Skeleton variant="rect" animation="shimmer" />`,
-            html: `<l-Skeleton variant="rect" animation="shimmer"></l-Skeleton>`,
+            html: `<l-skeleton variant="rect" animation="shimmer"></l-skeleton>`,
           })}
         />
       </section>
@@ -84,22 +84,22 @@ export default function SkeletonShowcase() {
   <Card>…</Card>
 )}`,
             html: `<div id="card-loading">
-  <l-Skeleton variant="rect" height="140" animation="shimmer"></l-Skeleton>
-  <l-Skeleton variant="circle" size="36" animation="shimmer"></l-Skeleton>
-  <l-Skeleton lines="2" animation="shimmer"></l-Skeleton>
+  <l-skeleton variant="rect" height="140" animation="shimmer"></l-skeleton>
+  <l-skeleton variant="circle" size="36" animation="shimmer"></l-skeleton>
+  <l-skeleton lines="2" animation="shimmer"></l-skeleton>
 </div>`,
             vueHtml: `<div v-if="loading">
-  <l-Skeleton variant="rect" height="140" animation="shimmer"></l-Skeleton>
-  <l-Skeleton variant="circle" size="36" animation="shimmer"></l-Skeleton>
-  <l-Skeleton lines="2" animation="shimmer"></l-Skeleton>
+  <l-skeleton variant="rect" height="140" animation="shimmer"></l-skeleton>
+  <l-skeleton variant="circle" size="36" animation="shimmer"></l-skeleton>
+  <l-skeleton lines="2" animation="shimmer"></l-skeleton>
 </div>
-<l-Card v-else>…</l-Card>`,
+<l-card v-else>…</l-card>`,
             angularHtml: `<div *ngIf="loading; else loaded">
-  <l-Skeleton variant="rect" height="140" animation="shimmer"></l-Skeleton>
-  <l-Skeleton variant="circle" size="36" animation="shimmer"></l-Skeleton>
-  <l-Skeleton lines="2" animation="shimmer"></l-Skeleton>
+  <l-skeleton variant="rect" height="140" animation="shimmer"></l-skeleton>
+  <l-skeleton variant="circle" size="36" animation="shimmer"></l-skeleton>
+  <l-skeleton lines="2" animation="shimmer"></l-skeleton>
 </div>
-<ng-template #loaded><l-Card>…</l-Card></ng-template>`,
+<ng-template #loaded><l-card>…</l-card></ng-template>`,
             script: `// remove the placeholder when the data arrives
 document.getElementById("card-loading").remove();`,
             vueScript: `const loading = ref(true);`,

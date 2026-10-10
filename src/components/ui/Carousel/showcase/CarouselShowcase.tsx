@@ -38,7 +38,7 @@ export default function CarouselShowcase() {
     <div className="flex h-48 items-center justify-center bg-rose-100 text-rose-700 dark:bg-rose-950/50 dark:text-rose-300">Slide 3</div>,
   ]}
 />`,
-              js: `<l-Carousel id="basic-carousel"></l-Carousel>
+              js: `<l-carousel id="basic-carousel"></l-carousel>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -46,7 +46,7 @@ export default function CarouselShowcase() {
   document.getElementById("basic-carousel").slides = ["Slide 1", "Slide 2", "Slide 3"];
 </script>`,
               vue: `<template>
-  <l-Carousel :slides="slides" />
+  <l-carousel :slides="slides" />
 </template>
 
 <script setup lang="ts">
@@ -62,7 +62,7 @@ import "lojee-ui/elements";
   selector: "app-root",
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  template: \`<l-Carousel [slides]="slides" />\`,
+  template: \`<l-carousel [slides]="slides" />\`,
 })
 export class AppComponent {
   slides = ["Slide 1", "Slide 2", "Slide 3"];
@@ -95,13 +95,13 @@ export class AppComponent {
     <div className="flex h-48 items-center justify-center bg-orange-100 text-orange-700 dark:bg-orange-950/50 dark:text-orange-300">Slide 4</div>,
   ]}
 />`,
-              js: `<l-Carousel id="autoplay-carousel" autoPlay intervalMs="2500"></l-Carousel>
+              js: `<l-carousel id="autoplay-carousel" autoPlay intervalMs="2500"></l-carousel>
 
 <script type="module">
   document.getElementById("autoplay-carousel").slides = ["Slide 1", "Slide 2", "Slide 3", "Slide 4"];
 </script>`,
               vue: `<template>
-  <l-Carousel :slides="slides" autoPlay intervalMs="2500" />
+  <l-carousel :slides="slides" autoPlay intervalMs="2500" />
 </template>
 
 <script setup lang="ts">
@@ -111,7 +111,7 @@ const slides = ["Slide 1", "Slide 2", "Slide 3", "Slide 4"];
 slides = ["Slide 1", "Slide 2", "Slide 3", "Slide 4"];
 
 // app.component.html
-<l-Carousel [slides]="slides" autoPlay intervalMs="2500" />`,
+<l-carousel [slides]="slides" autoPlay intervalMs="2500" />`,
             }}
           />
         </section>
@@ -134,13 +134,13 @@ slides = ["Slide 1", "Slide 2", "Slide 3", "Slide 4"];
     <div className="flex h-48 items-center justify-center bg-pink-100 text-pink-700 dark:bg-pink-950/50 dark:text-pink-300">Slide 2</div>,
   ]}
 />`,
-              js: `<l-Carousel id="dots-carousel" showArrows="false"></l-Carousel>
+              js: `<l-carousel id="dots-carousel" showArrows="false"></l-carousel>
 
 <script type="module">
   document.getElementById("dots-carousel").slides = ["Slide 1", "Slide 2"];
 </script>`,
               vue: `<template>
-  <l-Carousel :slides="slides" showArrows="false" />
+  <l-carousel :slides="slides" showArrows="false" />
 </template>
 
 <script setup lang="ts">
@@ -150,7 +150,7 @@ const slides = ["Slide 1", "Slide 2"];
 slides = ["Slide 1", "Slide 2"];
 
 // app.component.html
-<l-Carousel [slides]="slides" showArrows="false" />`,
+<l-carousel [slides]="slides" showArrows="false" />`,
             }}
           />
         </section>
@@ -204,16 +204,16 @@ slides = ["Slide 1", "Slide 2"];
 <Carousel slides={slides} hoverEffect="lift" />
 <Carousel slides={slides} hoverEffect="glow" />
 <Carousel slides={slides} hoverEffect="shine" />`,
-              js: `<l-Carousel transition="fade"></l-Carousel>
-<l-Carousel transition="slide-up"></l-Carousel>
-<l-Carousel transition="slide-right" transitionDelay="100"></l-Carousel>
-<l-Carousel transition="zoom"></l-Carousel>
-<l-Carousel transition="blur"></l-Carousel>
-<l-Carousel transition="drop" transitionDuration="700"></l-Carousel>
+              js: `<l-carousel transition="fade"></l-carousel>
+<l-carousel transition="slide-up"></l-carousel>
+<l-carousel transition="slide-right" transitionDelay="100"></l-carousel>
+<l-carousel transition="zoom"></l-carousel>
+<l-carousel transition="blur"></l-carousel>
+<l-carousel transition="drop" transitionDuration="700"></l-carousel>
 
-<l-Carousel hoverEffect="lift"></l-Carousel>
-<l-Carousel hoverEffect="glow"></l-Carousel>
-<l-Carousel hoverEffect="shine"></l-Carousel>
+<l-carousel hoverEffect="lift"></l-carousel>
+<l-carousel hoverEffect="glow"></l-carousel>
+<l-carousel hoverEffect="shine"></l-carousel>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -222,16 +222,16 @@ slides = ["Slide 1", "Slide 2"];
   document.querySelectorAll("l-Carousel").forEach((el) => (el.slides = slides));
 </script>`,
               vue: `<template>
-  <l-Carousel :slides="slides" transition="fade"></l-Carousel>
-  <l-Carousel :slides="slides" transition="slide-up"></l-Carousel>
-  <l-Carousel :slides="slides" transition="slide-right" transitionDelay="100"></l-Carousel>
-  <l-Carousel :slides="slides" transition="zoom"></l-Carousel>
-  <l-Carousel :slides="slides" transition="blur"></l-Carousel>
-  <l-Carousel :slides="slides" transition="drop" transitionDuration="700"></l-Carousel>
+  <l-carousel :slides="slides" transition="fade"></l-carousel>
+  <l-carousel :slides="slides" transition="slide-up"></l-carousel>
+  <l-carousel :slides="slides" transition="slide-right" transitionDelay="100"></l-carousel>
+  <l-carousel :slides="slides" transition="zoom"></l-carousel>
+  <l-carousel :slides="slides" transition="blur"></l-carousel>
+  <l-carousel :slides="slides" transition="drop" transitionDuration="700"></l-carousel>
 
-  <l-Carousel :slides="slides" hoverEffect="lift"></l-Carousel>
-  <l-Carousel :slides="slides" hoverEffect="glow"></l-Carousel>
-  <l-Carousel :slides="slides" hoverEffect="shine"></l-Carousel>
+  <l-carousel :slides="slides" hoverEffect="lift"></l-carousel>
+  <l-carousel :slides="slides" hoverEffect="glow"></l-carousel>
+  <l-carousel :slides="slides" hoverEffect="shine"></l-carousel>
 </template>
 
 <script setup lang="ts">
@@ -248,16 +248,16 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Carousel [slides]="slides" transition="fade"></l-Carousel>
-    <l-Carousel [slides]="slides" transition="slide-up"></l-Carousel>
-    <l-Carousel [slides]="slides" transition="slide-right" transitionDelay="100"></l-Carousel>
-    <l-Carousel [slides]="slides" transition="zoom"></l-Carousel>
-    <l-Carousel [slides]="slides" transition="blur"></l-Carousel>
-    <l-Carousel [slides]="slides" transition="drop" transitionDuration="700"></l-Carousel>
+    <l-carousel [slides]="slides" transition="fade"></l-carousel>
+    <l-carousel [slides]="slides" transition="slide-up"></l-carousel>
+    <l-carousel [slides]="slides" transition="slide-right" transitionDelay="100"></l-carousel>
+    <l-carousel [slides]="slides" transition="zoom"></l-carousel>
+    <l-carousel [slides]="slides" transition="blur"></l-carousel>
+    <l-carousel [slides]="slides" transition="drop" transitionDuration="700"></l-carousel>
 
-    <l-Carousel [slides]="slides" hoverEffect="lift"></l-Carousel>
-    <l-Carousel [slides]="slides" hoverEffect="glow"></l-Carousel>
-    <l-Carousel [slides]="slides" hoverEffect="shine"></l-Carousel>
+    <l-carousel [slides]="slides" hoverEffect="lift"></l-carousel>
+    <l-carousel [slides]="slides" hoverEffect="glow"></l-carousel>
+    <l-carousel [slides]="slides" hoverEffect="shine"></l-carousel>
   \`,
 })
 export class AppComponent {

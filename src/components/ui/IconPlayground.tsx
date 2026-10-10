@@ -26,7 +26,7 @@ export default function IconPlayground() {
   const code = `<Icon name="${name}" size={${size}}${colorClass !== "text-fg" ? ` className="${colorClass}"` : ""} />`;
 
   // Custom-element markup for the current configuration.
-  const htmlMarkup = `<l-Icon name="${name}" size="${size}"${
+  const htmlMarkup = `<l-icon name="${name}" size="${size}"${
     colorClass !== "text-fg" ? ` className="${colorClass}"` : ""
   } />`;
 

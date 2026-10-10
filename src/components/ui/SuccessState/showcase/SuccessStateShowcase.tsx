@@ -21,11 +21,11 @@ export default function SuccessStateShowcase() {
           <CodeBlock
             variants={{
               react: `<SuccessState />`,
-              js: `<l-SuccessState ></l-SuccessState>
+              js: `<l-success-state ></l-success-state>
 
 <script type="module">import "lojee-ui/elements";</script>`,
-              vue: `<l-SuccessState />`,
-              angular: `<l-SuccessState />`,
+              vue: `<l-success-state />`,
+              angular: `<l-success-state />`,
             }}
           />
         </section>
@@ -36,13 +36,13 @@ export default function SuccessStateShowcase() {
           <CodeBlock
             variants={{
               react: `<SuccessState>\n  Your payment was processed successfully.\n</SuccessState>`,
-              js: `<l-SuccessState>
+              js: `<l-success-state>
   Your payment was processed successfully.
-</l-SuccessState>
+</l-success-state>
 
 <script type="module">import "lojee-ui/elements";</script>`,
-              vue: `<l-SuccessState>\n  Your payment was processed successfully.\n</l-SuccessState>`,
-              angular: `<l-SuccessState>\n  Your payment was processed successfully.\n</l-SuccessState>`,
+              vue: `<l-success-state>\n  Your payment was processed successfully.\n</l-success-state>`,
+              angular: `<l-success-state>\n  Your payment was processed successfully.\n</l-success-state>`,
             }}
           />
         </section>
@@ -60,10 +60,10 @@ export default function SuccessStateShowcase() {
 >
   Your account has been created successfully.
 </SuccessState>`,
-              js: `<l-SuccessState title="You're all set">
+              js: `<l-success-state title="You're all set">
   Your account has been created successfully.
-  <l-Button slot="action" label="View details" id="view-details-btn"></l-Button>
-</l-SuccessState>
+  <l-button slot="action" label="View details" id="view-details-btn"></l-button>
+</l-success-state>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -73,10 +73,10 @@ export default function SuccessStateShowcase() {
   });
 </script>`,
               vue: `<template>
-  <l-SuccessState title="You're all set">
+  <l-success-state title="You're all set">
     Your account has been created successfully.
-    <l-Button slot="action" label="View details" @click="handleViewDetails" />
-  </l-SuccessState>
+    <l-button slot="action" label="View details" @click="handleViewDetails" />
+  </l-success-state>
 </template>
 
 <script setup lang="ts">
@@ -87,10 +87,10 @@ const handleViewDetails = () => {
 };
 </script>`,
               angular: `<!-- app.component.html -->
-<l-SuccessState title="You're all set">
+<l-success-state title="You're all set">
   Your account has been created successfully.
-  <l-Button slot="action" label="View details" (click)="handleViewDetails()" />
-</l-SuccessState>`,
+  <l-button slot="action" label="View details" (click)="handleViewDetails()" />
+</l-success-state>`,
             }}
           />
         </section>
@@ -101,13 +101,13 @@ const handleViewDetails = () => {
           <CodeBlock
             variants={{
               react: `<SuccessState title="Changes saved">\n  Your changes have been saved and applied.\n</SuccessState>`,
-              js: `<l-SuccessState title="Changes saved">
+              js: `<l-success-state title="Changes saved">
   Your changes have been saved and applied.
-</l-SuccessState>
+</l-success-state>
 
 <script type="module">import "lojee-ui/elements";</script>`,
-              vue: `<l-SuccessState title="Changes saved">\n  Your changes have been saved and applied.\n</l-SuccessState>`,
-              angular: `<l-SuccessState title="Changes saved">\n  Your changes have been saved and applied.\n</l-SuccessState>`,
+              vue: `<l-success-state title="Changes saved">\n  Your changes have been saved and applied.\n</l-success-state>`,
+              angular: `<l-success-state title="Changes saved">\n  Your changes have been saved and applied.\n</l-success-state>`,
             }}
           />
         </section>
@@ -134,27 +134,27 @@ const handleViewDetails = () => {
 <SuccessState title="Blur" transition="blur" />
 <SuccessState title="Bounce" transition="bounce" />
 <SuccessState title="Drop" transition="drop" transitionDuration={700} />`,
-              js: `<l-SuccessState title="Fade" transition="fade"></l-SuccessState>
-<l-SuccessState title="Slide up" transition="slide-up"></l-SuccessState>
-<l-SuccessState title="Slide right" transition="slide-right" transitionDelay="100"></l-SuccessState>
-<l-SuccessState title="Zoom" transition="zoom"></l-SuccessState>
-<l-SuccessState title="Flip" transition="flip"></l-SuccessState>
-<l-SuccessState title="Blur" transition="blur"></l-SuccessState>
-<l-SuccessState title="Bounce" transition="bounce"></l-SuccessState>
-<l-SuccessState title="Drop" transition="drop" transitionDuration="700"></l-SuccessState>
+              js: `<l-success-state title="Fade" transition="fade"></l-success-state>
+<l-success-state title="Slide up" transition="slide-up"></l-success-state>
+<l-success-state title="Slide right" transition="slide-right" transitionDelay="100"></l-success-state>
+<l-success-state title="Zoom" transition="zoom"></l-success-state>
+<l-success-state title="Flip" transition="flip"></l-success-state>
+<l-success-state title="Blur" transition="blur"></l-success-state>
+<l-success-state title="Bounce" transition="bounce"></l-success-state>
+<l-success-state title="Drop" transition="drop" transitionDuration="700"></l-success-state>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-SuccessState title="Fade" transition="fade"></l-SuccessState>
-  <l-SuccessState title="Slide up" transition="slide-up"></l-SuccessState>
-  <l-SuccessState title="Slide right" transition="slide-right" transitionDelay="100"></l-SuccessState>
-  <l-SuccessState title="Zoom" transition="zoom"></l-SuccessState>
-  <l-SuccessState title="Flip" transition="flip"></l-SuccessState>
-  <l-SuccessState title="Blur" transition="blur"></l-SuccessState>
-  <l-SuccessState title="Bounce" transition="bounce"></l-SuccessState>
-  <l-SuccessState title="Drop" transition="drop" transitionDuration="700"></l-SuccessState>
+  <l-success-state title="Fade" transition="fade"></l-success-state>
+  <l-success-state title="Slide up" transition="slide-up"></l-success-state>
+  <l-success-state title="Slide right" transition="slide-right" transitionDelay="100"></l-success-state>
+  <l-success-state title="Zoom" transition="zoom"></l-success-state>
+  <l-success-state title="Flip" transition="flip"></l-success-state>
+  <l-success-state title="Blur" transition="blur"></l-success-state>
+  <l-success-state title="Bounce" transition="bounce"></l-success-state>
+  <l-success-state title="Drop" transition="drop" transitionDuration="700"></l-success-state>
 </template>
 
 <script setup lang="ts">
@@ -169,14 +169,14 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-SuccessState title="Fade" transition="fade"></l-SuccessState>
-    <l-SuccessState title="Slide up" transition="slide-up"></l-SuccessState>
-    <l-SuccessState title="Slide right" transition="slide-right" transitionDelay="100"></l-SuccessState>
-    <l-SuccessState title="Zoom" transition="zoom"></l-SuccessState>
-    <l-SuccessState title="Flip" transition="flip"></l-SuccessState>
-    <l-SuccessState title="Blur" transition="blur"></l-SuccessState>
-    <l-SuccessState title="Bounce" transition="bounce"></l-SuccessState>
-    <l-SuccessState title="Drop" transition="drop" transitionDuration="700"></l-SuccessState>
+    <l-success-state title="Fade" transition="fade"></l-success-state>
+    <l-success-state title="Slide up" transition="slide-up"></l-success-state>
+    <l-success-state title="Slide right" transition="slide-right" transitionDelay="100"></l-success-state>
+    <l-success-state title="Zoom" transition="zoom"></l-success-state>
+    <l-success-state title="Flip" transition="flip"></l-success-state>
+    <l-success-state title="Blur" transition="blur"></l-success-state>
+    <l-success-state title="Bounce" transition="bounce"></l-success-state>
+    <l-success-state title="Drop" transition="drop" transitionDuration="700"></l-success-state>
   \`,
 })
 export class AppComponent {}`,

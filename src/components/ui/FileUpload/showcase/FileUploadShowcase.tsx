@@ -21,7 +21,7 @@ export default function FileUploadShowcase() {
           <CodeBlock
             variants={{
               react: `<FileUpload onFilesSelected={(files) => console.log(files)} />`,
-              js: `<l-FileUpload id="file-upload"></l-FileUpload>
+              js: `<l-file-upload id="file-upload"></l-file-upload>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -30,7 +30,7 @@ export default function FileUploadShowcase() {
     .addEventListener("filesselected", (e) => console.log(e.detail));
 </script>`,
               vue: `<template>
-  <l-FileUpload @filesselected="(e) => console.log(e.detail)" />
+  <l-file-upload @filesselected="(e) => console.log(e.detail)" />
 </template>
 
 <script setup lang="ts">
@@ -52,7 +52,7 @@ export class AppComponent {
 }
 
 <!-- app.component.html -->
-<l-FileUpload (filesselected)="onFilesSelected($event)" />`,
+<l-file-upload (filesselected)="onFilesSelected($event)" />`,
             }}
           />
         </section>
@@ -75,14 +75,14 @@ export class AppComponent {
   multiple
   onFilesSelected={(files) => console.log(files)}
 />`,
-              js: `<l-FileUpload id="photo-upload" label="Upload product photos" accept="image/*" multiple></l-FileUpload>
+              js: `<l-file-upload id="photo-upload" label="Upload product photos" accept="image/*" multiple></l-file-upload>
 
 <script type="module">
   document.getElementById("photo-upload")
     .addEventListener("filesselected", (e) => console.log(e.detail));
 </script>`,
               vue: `<template>
-  <l-FileUpload
+  <l-file-upload
     label="Upload product photos"
     accept="image/*"
     multiple
@@ -90,7 +90,7 @@ export class AppComponent {
   />
 </template>`,
               angular: `<!-- app.component.html — reuses the onFilesSelected method from AppComponent above -->
-<l-FileUpload
+<l-file-upload
   label="Upload product photos"
   accept="image/*"
   multiple
@@ -129,35 +129,35 @@ export class AppComponent {
 <FileUpload hoverEffect="lift" />
 <FileUpload hoverEffect="glow" />
 <FileUpload hoverEffect="ring" />`,
-              js: `<l-FileUpload transition="fade"></l-FileUpload>
-<l-FileUpload transition="slide-up"></l-FileUpload>
-<l-FileUpload transition="slide-right" transitionDelay="100"></l-FileUpload>
-<l-FileUpload transition="zoom"></l-FileUpload>
-<l-FileUpload transition="flip"></l-FileUpload>
-<l-FileUpload transition="blur"></l-FileUpload>
-<l-FileUpload transition="bounce"></l-FileUpload>
-<l-FileUpload transition="drop" transitionDuration="700"></l-FileUpload>
+              js: `<l-file-upload transition="fade"></l-file-upload>
+<l-file-upload transition="slide-up"></l-file-upload>
+<l-file-upload transition="slide-right" transitionDelay="100"></l-file-upload>
+<l-file-upload transition="zoom"></l-file-upload>
+<l-file-upload transition="flip"></l-file-upload>
+<l-file-upload transition="blur"></l-file-upload>
+<l-file-upload transition="bounce"></l-file-upload>
+<l-file-upload transition="drop" transitionDuration="700"></l-file-upload>
 
-<l-FileUpload hoverEffect="lift"></l-FileUpload>
-<l-FileUpload hoverEffect="glow"></l-FileUpload>
-<l-FileUpload hoverEffect="ring"></l-FileUpload>
+<l-file-upload hoverEffect="lift"></l-file-upload>
+<l-file-upload hoverEffect="glow"></l-file-upload>
+<l-file-upload hoverEffect="ring"></l-file-upload>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-FileUpload transition="fade"></l-FileUpload>
-  <l-FileUpload transition="slide-up"></l-FileUpload>
-  <l-FileUpload transition="slide-right" transitionDelay="100"></l-FileUpload>
-  <l-FileUpload transition="zoom"></l-FileUpload>
-  <l-FileUpload transition="flip"></l-FileUpload>
-  <l-FileUpload transition="blur"></l-FileUpload>
-  <l-FileUpload transition="bounce"></l-FileUpload>
-  <l-FileUpload transition="drop" transitionDuration="700"></l-FileUpload>
+  <l-file-upload transition="fade"></l-file-upload>
+  <l-file-upload transition="slide-up"></l-file-upload>
+  <l-file-upload transition="slide-right" transitionDelay="100"></l-file-upload>
+  <l-file-upload transition="zoom"></l-file-upload>
+  <l-file-upload transition="flip"></l-file-upload>
+  <l-file-upload transition="blur"></l-file-upload>
+  <l-file-upload transition="bounce"></l-file-upload>
+  <l-file-upload transition="drop" transitionDuration="700"></l-file-upload>
 
-  <l-FileUpload hoverEffect="lift"></l-FileUpload>
-  <l-FileUpload hoverEffect="glow"></l-FileUpload>
-  <l-FileUpload hoverEffect="ring"></l-FileUpload>
+  <l-file-upload hoverEffect="lift"></l-file-upload>
+  <l-file-upload hoverEffect="glow"></l-file-upload>
+  <l-file-upload hoverEffect="ring"></l-file-upload>
 </template>
 
 <script setup lang="ts">
@@ -172,18 +172,18 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-FileUpload transition="fade"></l-FileUpload>
-    <l-FileUpload transition="slide-up"></l-FileUpload>
-    <l-FileUpload transition="slide-right" transitionDelay="100"></l-FileUpload>
-    <l-FileUpload transition="zoom"></l-FileUpload>
-    <l-FileUpload transition="flip"></l-FileUpload>
-    <l-FileUpload transition="blur"></l-FileUpload>
-    <l-FileUpload transition="bounce"></l-FileUpload>
-    <l-FileUpload transition="drop" transitionDuration="700"></l-FileUpload>
+    <l-file-upload transition="fade"></l-file-upload>
+    <l-file-upload transition="slide-up"></l-file-upload>
+    <l-file-upload transition="slide-right" transitionDelay="100"></l-file-upload>
+    <l-file-upload transition="zoom"></l-file-upload>
+    <l-file-upload transition="flip"></l-file-upload>
+    <l-file-upload transition="blur"></l-file-upload>
+    <l-file-upload transition="bounce"></l-file-upload>
+    <l-file-upload transition="drop" transitionDuration="700"></l-file-upload>
 
-    <l-FileUpload hoverEffect="lift"></l-FileUpload>
-    <l-FileUpload hoverEffect="glow"></l-FileUpload>
-    <l-FileUpload hoverEffect="ring"></l-FileUpload>
+    <l-file-upload hoverEffect="lift"></l-file-upload>
+    <l-file-upload hoverEffect="glow"></l-file-upload>
+    <l-file-upload hoverEffect="ring"></l-file-upload>
   \`,
 })
 export class AppComponent {}`,

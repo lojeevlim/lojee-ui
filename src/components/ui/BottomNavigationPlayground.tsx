@@ -72,7 +72,7 @@ export default function BottomNavigationPlayground() {
 ${itemsCode}
   ]}
 />`,
-    js: `<l-BottomNavigation id="bottom-nav-demo"${attrStr}></l-BottomNavigation>
+    js: `<l-bottom-navigation id="bottom-nav-demo"${attrStr}></l-bottom-navigation>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -85,7 +85,7 @@ ${itemsCode}
   el.items = items;
 </script>`,
     vue: `<template>
-  <l-BottomNavigation :items="items"${attrStr} />
+  <l-bottom-navigation :items="items"${attrStr} />
 </template>
 
 <script setup lang="ts">
@@ -93,7 +93,7 @@ const items = [
 ${itemsCode}
 ];
 </script>`,
-    angular: `<l-BottomNavigation [items]="items"${attrStr} />
+    angular: `<l-bottom-navigation [items]="items"${attrStr} />
 
 items = [
 ${itemsCode}

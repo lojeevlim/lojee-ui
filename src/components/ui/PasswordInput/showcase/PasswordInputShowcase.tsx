@@ -26,7 +26,7 @@ export default function PasswordInputShowcase() {
               react: `const [password, setPassword] = useState("");
 
 <PasswordInput value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" />`,
-              js: `<l-PasswordInput id="password" placeholder="Password"></l-PasswordInput>
+              js: `<l-password-input id="password" placeholder="Password"></l-password-input>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -36,7 +36,7 @@ export default function PasswordInputShowcase() {
   password.addEventListener("input", (e) => { /* e.target.value */ });
 </script>`,
               vue: `<template>
-  <l-PasswordInput :value="password" @input="password = $event.target.value" placeholder="Password" />
+  <l-password-input :value="password" @input="password = $event.target.value" placeholder="Password" />
 </template>
 
 <script setup lang="ts">
@@ -54,7 +54,7 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-PasswordInput [value]="password" (input)="password = $any($event.target).value" placeholder="Password" />
+    <l-password-input [value]="password" (input)="password = $any($event.target).value" placeholder="Password" />
   \`,
 })
 export class AppComponent {
@@ -76,18 +76,18 @@ export class AppComponent {
               react: `<PasswordInput size="sm" placeholder="Small" />
 <PasswordInput size="md" placeholder="Medium" />
 <PasswordInput size="lg" placeholder="Large" />`,
-              js: `<l-PasswordInput size="sm" placeholder="Small"></l-PasswordInput>
-<l-PasswordInput size="md" placeholder="Medium"></l-PasswordInput>
-<l-PasswordInput size="lg" placeholder="Large"></l-PasswordInput>`,
+              js: `<l-password-input size="sm" placeholder="Small"></l-password-input>
+<l-password-input size="md" placeholder="Medium"></l-password-input>
+<l-password-input size="lg" placeholder="Large"></l-password-input>`,
               vue: `<template>
-  <l-PasswordInput size="sm" placeholder="Small" />
-  <l-PasswordInput size="md" placeholder="Medium" />
-  <l-PasswordInput size="lg" placeholder="Large" />
+  <l-password-input size="sm" placeholder="Small" />
+  <l-password-input size="md" placeholder="Medium" />
+  <l-password-input size="lg" placeholder="Large" />
 </template>`,
               angular: `<!-- app.component.html — same AppComponent as above -->
-<l-PasswordInput size="sm" placeholder="Small" />
-<l-PasswordInput size="md" placeholder="Medium" />
-<l-PasswordInput size="lg" placeholder="Large" />`,
+<l-password-input size="sm" placeholder="Small" />
+<l-password-input size="md" placeholder="Medium" />
+<l-password-input size="lg" placeholder="Large" />`,
             }}
           />
         </section>
@@ -100,9 +100,9 @@ export class AppComponent {
           <CodeBlock
             variants={{
               react: `<PasswordInput invalid defaultValue="short" placeholder="Password" />`,
-              js: `<l-PasswordInput invalid placeholder="Password"></l-PasswordInput>`,
-              vue: `<l-PasswordInput invalid placeholder="Password" />`,
-              angular: `<l-PasswordInput invalid placeholder="Password" />`,
+              js: `<l-password-input invalid placeholder="Password"></l-password-input>`,
+              vue: `<l-password-input invalid placeholder="Password" />`,
+              angular: `<l-password-input invalid placeholder="Password" />`,
             }}
           />
         </section>
@@ -115,9 +115,9 @@ export class AppComponent {
           <CodeBlock
             variants={{
               react: `<PasswordInput disabled placeholder="Disabled" />`,
-              js: `<l-PasswordInput disabled placeholder="Disabled"></l-PasswordInput>`,
-              vue: `<l-PasswordInput disabled placeholder="Disabled" />`,
-              angular: `<l-PasswordInput disabled placeholder="Disabled" />`,
+              js: `<l-password-input disabled placeholder="Disabled"></l-password-input>`,
+              vue: `<l-password-input disabled placeholder="Disabled" />`,
+              angular: `<l-password-input disabled placeholder="Disabled" />`,
             }}
           />
         </section>
@@ -155,35 +155,35 @@ export class AppComponent {
 <PasswordInput hoverEffect="lift" placeholder="Password" />
 <PasswordInput hoverEffect="glow" placeholder="Password" />
 <PasswordInput hoverEffect="ring" placeholder="Password" />`,
-              js: `<l-PasswordInput transition="fade" placeholder="Password"></l-PasswordInput>
-<l-PasswordInput transition="slide-up" placeholder="Password"></l-PasswordInput>
-<l-PasswordInput transition="slide-right" transitionDelay="100" placeholder="Password"></l-PasswordInput>
-<l-PasswordInput transition="zoom" placeholder="Password"></l-PasswordInput>
-<l-PasswordInput transition="flip" placeholder="Password"></l-PasswordInput>
-<l-PasswordInput transition="blur" placeholder="Password"></l-PasswordInput>
-<l-PasswordInput transition="bounce" placeholder="Password"></l-PasswordInput>
-<l-PasswordInput transition="drop" transitionDuration="700" placeholder="Password"></l-PasswordInput>
+              js: `<l-password-input transition="fade" placeholder="Password"></l-password-input>
+<l-password-input transition="slide-up" placeholder="Password"></l-password-input>
+<l-password-input transition="slide-right" transitionDelay="100" placeholder="Password"></l-password-input>
+<l-password-input transition="zoom" placeholder="Password"></l-password-input>
+<l-password-input transition="flip" placeholder="Password"></l-password-input>
+<l-password-input transition="blur" placeholder="Password"></l-password-input>
+<l-password-input transition="bounce" placeholder="Password"></l-password-input>
+<l-password-input transition="drop" transitionDuration="700" placeholder="Password"></l-password-input>
 
-<l-PasswordInput hoverEffect="lift" placeholder="Password"></l-PasswordInput>
-<l-PasswordInput hoverEffect="glow" placeholder="Password"></l-PasswordInput>
-<l-PasswordInput hoverEffect="ring" placeholder="Password"></l-PasswordInput>
+<l-password-input hoverEffect="lift" placeholder="Password"></l-password-input>
+<l-password-input hoverEffect="glow" placeholder="Password"></l-password-input>
+<l-password-input hoverEffect="ring" placeholder="Password"></l-password-input>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-PasswordInput transition="fade" placeholder="Password"></l-PasswordInput>
-  <l-PasswordInput transition="slide-up" placeholder="Password"></l-PasswordInput>
-  <l-PasswordInput transition="slide-right" transitionDelay="100" placeholder="Password"></l-PasswordInput>
-  <l-PasswordInput transition="zoom" placeholder="Password"></l-PasswordInput>
-  <l-PasswordInput transition="flip" placeholder="Password"></l-PasswordInput>
-  <l-PasswordInput transition="blur" placeholder="Password"></l-PasswordInput>
-  <l-PasswordInput transition="bounce" placeholder="Password"></l-PasswordInput>
-  <l-PasswordInput transition="drop" transitionDuration="700" placeholder="Password"></l-PasswordInput>
+  <l-password-input transition="fade" placeholder="Password"></l-password-input>
+  <l-password-input transition="slide-up" placeholder="Password"></l-password-input>
+  <l-password-input transition="slide-right" transitionDelay="100" placeholder="Password"></l-password-input>
+  <l-password-input transition="zoom" placeholder="Password"></l-password-input>
+  <l-password-input transition="flip" placeholder="Password"></l-password-input>
+  <l-password-input transition="blur" placeholder="Password"></l-password-input>
+  <l-password-input transition="bounce" placeholder="Password"></l-password-input>
+  <l-password-input transition="drop" transitionDuration="700" placeholder="Password"></l-password-input>
 
-  <l-PasswordInput hoverEffect="lift" placeholder="Password"></l-PasswordInput>
-  <l-PasswordInput hoverEffect="glow" placeholder="Password"></l-PasswordInput>
-  <l-PasswordInput hoverEffect="ring" placeholder="Password"></l-PasswordInput>
+  <l-password-input hoverEffect="lift" placeholder="Password"></l-password-input>
+  <l-password-input hoverEffect="glow" placeholder="Password"></l-password-input>
+  <l-password-input hoverEffect="ring" placeholder="Password"></l-password-input>
 </template>
 
 <script setup lang="ts">
@@ -198,18 +198,18 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-PasswordInput transition="fade" placeholder="Password"></l-PasswordInput>
-    <l-PasswordInput transition="slide-up" placeholder="Password"></l-PasswordInput>
-    <l-PasswordInput transition="slide-right" transitionDelay="100" placeholder="Password"></l-PasswordInput>
-    <l-PasswordInput transition="zoom" placeholder="Password"></l-PasswordInput>
-    <l-PasswordInput transition="flip" placeholder="Password"></l-PasswordInput>
-    <l-PasswordInput transition="blur" placeholder="Password"></l-PasswordInput>
-    <l-PasswordInput transition="bounce" placeholder="Password"></l-PasswordInput>
-    <l-PasswordInput transition="drop" transitionDuration="700" placeholder="Password"></l-PasswordInput>
+    <l-password-input transition="fade" placeholder="Password"></l-password-input>
+    <l-password-input transition="slide-up" placeholder="Password"></l-password-input>
+    <l-password-input transition="slide-right" transitionDelay="100" placeholder="Password"></l-password-input>
+    <l-password-input transition="zoom" placeholder="Password"></l-password-input>
+    <l-password-input transition="flip" placeholder="Password"></l-password-input>
+    <l-password-input transition="blur" placeholder="Password"></l-password-input>
+    <l-password-input transition="bounce" placeholder="Password"></l-password-input>
+    <l-password-input transition="drop" transitionDuration="700" placeholder="Password"></l-password-input>
 
-    <l-PasswordInput hoverEffect="lift" placeholder="Password"></l-PasswordInput>
-    <l-PasswordInput hoverEffect="glow" placeholder="Password"></l-PasswordInput>
-    <l-PasswordInput hoverEffect="ring" placeholder="Password"></l-PasswordInput>
+    <l-password-input hoverEffect="lift" placeholder="Password"></l-password-input>
+    <l-password-input hoverEffect="glow" placeholder="Password"></l-password-input>
+    <l-password-input hoverEffect="ring" placeholder="Password"></l-password-input>
   \`,
 })
 export class AppComponent {}`,

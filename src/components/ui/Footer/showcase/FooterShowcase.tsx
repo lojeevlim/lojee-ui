@@ -43,22 +43,22 @@ export default function FooterShowcase() {
   <h4>Lojee</h4>
   <p>Build interfaces faster with a small, themeable component library.</p>
 </Footer>`,
-              js: `<l-Footer bottom="${COPY}">
+              js: `<l-footer bottom="${COPY}">
   <h4>Lojee</h4>
   <p>Build interfaces faster with a small, themeable component library.</p>
-</l-Footer>
+</l-footer>
 
 <script type="module">import "lojee-ui/elements";</script>`,
               vue: `<template>
-  <l-Footer bottom="${COPY}">
+  <l-footer bottom="${COPY}">
     <h4>Lojee</h4>
     <p>Build interfaces faster with a small, themeable component library.</p>
-  </l-Footer>
+  </l-footer>
 </template>`,
-              angular: `<l-Footer bottom="${COPY}">
+              angular: `<l-footer bottom="${COPY}">
   <h4>Lojee</h4>
   <p>Build interfaces faster with a small, themeable component library.</p>
-</l-Footer>`,
+</l-footer>`,
             }}
           />
         </section>
@@ -77,20 +77,50 @@ export default function FooterShowcase() {
           </div>
           <CodeBlock
             variants={{
-              react: `<Footer bottom="${COPY}">Lojee</Footer>
-<Footer color="accent" bottom="${COPY}">Lojee</Footer>
-<Footer color="emerald" bottom="${COPY}">Lojee</Footer>
-<Footer color="#7c3aed" bottom="${COPY}">Lojee</Footer>`,
-              js: `<l-Footer bottom="${COPY}">Lojee</l-Footer>
-<l-Footer color="accent" bottom="${COPY}">Lojee</l-Footer>
-<l-Footer color="emerald" bottom="${COPY}">Lojee</l-Footer>
-<l-Footer color="#7c3aed" bottom="${COPY}">Lojee</l-Footer>
+              react: `<Footer bottom="${COPY}">
+  <h4>Lojee</h4>
+  <p>Build interfaces faster with a small, themeable component library.</p>
+</Footer>
+<Footer color="accent" bottom="${COPY}">
+  <h4>Lojee</h4>
+  <p>Build interfaces faster with a small, themeable component library.</p>
+</Footer>
+<Footer color="emerald" bottom="${COPY}">
+  <h4>Lojee</h4>
+  <p>Build interfaces faster with a small, themeable component library.</p>
+</Footer>
+<Footer color="#7c3aed" bottom="${COPY}">
+  <h4>Lojee</h4>
+  <p>Build interfaces faster with a small, themeable component library.</p>
+</Footer>`,
+              js: `<l-footer bottom="${COPY}">
+  <h4>Lojee</h4>
+  <p>Build interfaces faster with a small, themeable component library.</p>
+</l-footer>
+<l-footer color="accent" bottom="${COPY}">
+  <h4>Lojee</h4>
+  <p>Build interfaces faster with a small, themeable component library.</p>
+</l-footer>
+<l-footer color="emerald" bottom="${COPY}">
+  <h4>Lojee</h4>
+  <p>Build interfaces faster with a small, themeable component library.</p>
+</l-footer>
+<l-footer color="#7c3aed" bottom="${COPY}">
+  <h4>Lojee</h4>
+  <p>Build interfaces faster with a small, themeable component library.</p>
+</l-footer>
 
 <script type="module">import "lojee-ui/elements";</script>`,
               vue: `<template>
-  <l-Footer color="emerald" bottom="${COPY}">Lojee</l-Footer>
+  <l-footer color="emerald" bottom="${COPY}">
+    <h4>Lojee</h4>
+    <p>Build interfaces faster with a small, themeable component library.</p>
+  </l-footer>
 </template>`,
-              angular: `<l-Footer color="emerald" bottom="${COPY}">Lojee</l-Footer>`,
+              angular: `<l-footer color="emerald" bottom="${COPY}">
+  <h4>Lojee</h4>
+  <p>Build interfaces faster with a small, themeable component library.</p>
+</l-footer>`,
             }}
           />
         </section>
@@ -103,13 +133,13 @@ export default function FooterShowcase() {
           <CodeBlock
             variants={{
               react: `<Footer bottom="${COPY}" />`,
-              js: `<l-Footer bottom="${COPY}"></l-Footer>
+              js: `<l-footer bottom="${COPY}"></l-footer>
 
 <script type="module">import "lojee-ui/elements";</script>`,
               vue: `<template>
-  <l-Footer bottom="${COPY}"></l-Footer>
+  <l-footer bottom="${COPY}"></l-footer>
 </template>`,
-              angular: `<l-Footer bottom="${COPY}"></l-Footer>`,
+              angular: `<l-footer bottom="${COPY}"></l-footer>`,
             }}
           />
         </section>
@@ -132,23 +162,23 @@ export default function FooterShowcase() {
 <Footer bottom="Zoom" transition="zoom" />
 <Footer bottom="Blur" transition="blur" />
 <Footer bottom="Drop" transition="drop" transitionDuration={700} />`,
-              js: `<l-Footer bottom="Fade" transition="fade"></l-Footer>
-<l-Footer bottom="Slide down" transition="slide-down"></l-Footer>
-<l-Footer bottom="Slide right" transition="slide-right" transitionDelay="100"></l-Footer>
-<l-Footer bottom="Zoom" transition="zoom"></l-Footer>
-<l-Footer bottom="Blur" transition="blur"></l-Footer>
-<l-Footer bottom="Drop" transition="drop" transitionDuration="700"></l-Footer>
+              js: `<l-footer bottom="Fade" transition="fade"></l-footer>
+<l-footer bottom="Slide down" transition="slide-down"></l-footer>
+<l-footer bottom="Slide right" transition="slide-right" transitionDelay="100"></l-footer>
+<l-footer bottom="Zoom" transition="zoom"></l-footer>
+<l-footer bottom="Blur" transition="blur"></l-footer>
+<l-footer bottom="Drop" transition="drop" transitionDuration="700"></l-footer>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-Footer bottom="Fade" transition="fade"></l-Footer>
-  <l-Footer bottom="Slide down" transition="slide-down"></l-Footer>
-  <l-Footer bottom="Slide right" transition="slide-right" transitionDelay="100"></l-Footer>
-  <l-Footer bottom="Zoom" transition="zoom"></l-Footer>
-  <l-Footer bottom="Blur" transition="blur"></l-Footer>
-  <l-Footer bottom="Drop" transition="drop" transitionDuration="700"></l-Footer>
+  <l-footer bottom="Fade" transition="fade"></l-footer>
+  <l-footer bottom="Slide down" transition="slide-down"></l-footer>
+  <l-footer bottom="Slide right" transition="slide-right" transitionDelay="100"></l-footer>
+  <l-footer bottom="Zoom" transition="zoom"></l-footer>
+  <l-footer bottom="Blur" transition="blur"></l-footer>
+  <l-footer bottom="Drop" transition="drop" transitionDuration="700"></l-footer>
 </template>
 
 <script setup lang="ts">
@@ -163,12 +193,12 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Footer bottom="Fade" transition="fade"></l-Footer>
-    <l-Footer bottom="Slide down" transition="slide-down"></l-Footer>
-    <l-Footer bottom="Slide right" transition="slide-right" transitionDelay="100"></l-Footer>
-    <l-Footer bottom="Zoom" transition="zoom"></l-Footer>
-    <l-Footer bottom="Blur" transition="blur"></l-Footer>
-    <l-Footer bottom="Drop" transition="drop" transitionDuration="700"></l-Footer>
+    <l-footer bottom="Fade" transition="fade"></l-footer>
+    <l-footer bottom="Slide down" transition="slide-down"></l-footer>
+    <l-footer bottom="Slide right" transition="slide-right" transitionDelay="100"></l-footer>
+    <l-footer bottom="Zoom" transition="zoom"></l-footer>
+    <l-footer bottom="Blur" transition="blur"></l-footer>
+    <l-footer bottom="Drop" transition="drop" transitionDuration="700"></l-footer>
   \`,
 })
 export class AppComponent {}`,

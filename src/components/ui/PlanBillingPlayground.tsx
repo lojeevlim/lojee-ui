@@ -86,7 +86,7 @@ export default function PlanBillingPlayground() {
   ].filter(Boolean);
   const code = `<PlanBilling\n  ${lines.join("\n  ")}\n/>`;
   const planAttrs = ` plan-name="${planName || "Pro"}" price="${total}"${interval !== "month" ? ` interval="${interval}"` : ""}${currency && currency !== "$" ? ` currency="${currency}"` : ""}${status !== "active" ? ` status="${status}"` : ""}${color !== "accent" ? ` color="${color}"` : ""}${showDetails ? ` next-billing-date="Nov 3, 2026"` : ""}${showAction && actionLabel && actionLabel !== "Select Plan" ? ` action-label="${actionLabel}"` : ""}${motion.attrs}`;
-  const htmlMarkup = `<l-PlanBilling${planAttrs}></l-PlanBilling>
+  const htmlMarkup = `<l-plan-billing${planAttrs}></l-plan-billing>
 
 <script type="module">
   const plan = document.querySelector("l-plan-billing");

@@ -38,7 +38,7 @@ export default function RangeSliderShowcase() {
               react: `const [value, setValue] = useState<[number, number]>([20, 70]);
 
 <RangeSlider value={value} onChange={setValue} />`,
-              js: `<l-RangeSlider id="range"></l-RangeSlider>
+              js: `<l-range-slider id="range"></l-range-slider>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -50,7 +50,7 @@ export default function RangeSliderShowcase() {
   });
 </script>`,
               vue: `<template>
-  <l-RangeSlider :value="value" @change="value = $event.detail" />
+  <l-range-slider :value="value" @change="value = $event.detail" />
 </template>
 
 <script setup lang="ts">
@@ -73,7 +73,7 @@ export class AppComponent {
 }
 
 <!-- app.component.html -->
-<l-RangeSlider [value]="value" (change)="value = $event.detail" />`,
+<l-range-slider [value]="value" (change)="value = $event.detail" />`,
             }}
           />
         </section>
@@ -86,7 +86,7 @@ export class AppComponent {
           <CodeBlock
             variants={{
               react: `<RangeSlider value={value} onChange={setValue} color="indigo" showValue />`,
-              js: `<l-RangeSlider id="range-colored" color="indigo" showValue></l-RangeSlider>
+              js: `<l-range-slider id="range-colored" color="indigo" showValue></l-range-slider>
 
 <script type="module">
   const rangeColored = document.getElementById("range-colored");
@@ -96,10 +96,10 @@ export class AppComponent {
   });
 </script>`,
               vue: `<template>
-  <l-RangeSlider :value="value" color="indigo" showValue @change="value = $event.detail" />
+  <l-range-slider :value="value" color="indigo" showValue @change="value = $event.detail" />
 </template>`,
               angular: `<!-- app.component.html — reuses the same AppComponent class, with value initialized to [30, 80] -->
-<l-RangeSlider [value]="value" color="indigo" showValue (change)="value = $event.detail" />`,
+<l-range-slider [value]="value" color="indigo" showValue (change)="value = $event.detail" />`,
             }}
           />
         </section>
@@ -117,14 +117,14 @@ export class AppComponent {
           <CodeBlock
             variants={{
               react: `<RangeSlider size="lg" value={value} onChange={setValue} />`,
-              js: `<l-RangeSlider id="range" size="lg"></l-RangeSlider>
+              js: `<l-range-slider id="range" size="lg"></l-range-slider>
 
 <script type="module">
   import "lojee-ui/elements";
   document.querySelector("#range").value = [20, 70];
 </script>`,
-              vue: `<l-RangeSlider :value="[20, 70]" size="lg" />`,
-              angular: `<l-RangeSlider [value]="[20, 70]" size="lg" />`,
+              vue: `<l-range-slider :value="[20, 70]" size="lg" />`,
+              angular: `<l-range-slider [value]="[20, 70]" size="lg" />`,
             }}
           />
         </section>
@@ -144,9 +144,9 @@ export class AppComponent {
               react: `<RangeSlider thumbVariant="circle" size="lg" value={value} onChange={setValue} />
 
 // thumbVariant: "pill" (default) | "circle" | "bar" | "solid"`,
-              js: `<l-RangeSlider id="range" thumbVariant="circle" size="lg"></l-RangeSlider>`,
-              vue: `<l-RangeSlider :value="[20, 70]" thumbVariant="circle" size="lg" />`,
-              angular: `<l-RangeSlider [value]="[20, 70]" thumbVariant="circle" size="lg" />`,
+              js: `<l-range-slider id="range" thumbVariant="circle" size="lg"></l-range-slider>`,
+              vue: `<l-range-slider :value="[20, 70]" thumbVariant="circle" size="lg" />`,
+              angular: `<l-range-slider [value]="[20, 70]" thumbVariant="circle" size="lg" />`,
             }}
           />
         </section>
@@ -164,9 +164,9 @@ export class AppComponent {
           <CodeBlock
             variants={{
               react: `<RangeSlider showValue valuePlacement="thumb" thumbVariant="circle" size="lg" value={value} onChange={setValue} />`,
-              js: `<l-RangeSlider id="range" showValue="true" valuePlacement="thumb" size="lg"></l-RangeSlider>`,
-              vue: `<l-RangeSlider :value="[20, 70]" showValue="true" valuePlacement="thumb" size="lg" />`,
-              angular: `<l-RangeSlider [value]="[20, 70]" showValue="true" valuePlacement="thumb" size="lg" />`,
+              js: `<l-range-slider id="range" showValue="true" valuePlacement="thumb" size="lg"></l-range-slider>`,
+              vue: `<l-range-slider :value="[20, 70]" showValue="true" valuePlacement="thumb" size="lg" />`,
+              angular: `<l-range-slider [value]="[20, 70]" showValue="true" valuePlacement="thumb" size="lg" />`,
             }}
           />
         </section>
@@ -193,7 +193,7 @@ export class AppComponent {
   onChange={setValue}
   showValue
 />`,
-              js: `<l-RangeSlider id="price-range" min="0" max="1000" step="10" showValue></l-RangeSlider>
+              js: `<l-range-slider id="price-range" min="0" max="1000" step="10" showValue></l-range-slider>
 
 <script type="module">
   const priceRange = document.getElementById("price-range");
@@ -203,7 +203,7 @@ export class AppComponent {
   });
 </script>`,
               vue: `<template>
-  <l-RangeSlider
+  <l-range-slider
     :value="value"
     min="0"
     max="1000"
@@ -213,7 +213,7 @@ export class AppComponent {
   />
 </template>`,
               angular: `<!-- app.component.html — reuses the same AppComponent class, with value initialized to [200, 750] -->
-<l-RangeSlider
+<l-range-slider
   [value]="value"
   min="0"
   max="1000"
@@ -252,16 +252,16 @@ export class AppComponent {
 <RangeSlider hoverEffect="lift" value={[20, 70]} />
 <RangeSlider hoverEffect="scale" value={[20, 70]} />
 <RangeSlider hoverEffect="glow" value={[20, 70]} />`,
-              js: `<l-RangeSlider transition="fade"></l-RangeSlider>
-<l-RangeSlider transition="slide-up"></l-RangeSlider>
-<l-RangeSlider transition="slide-right" transitionDelay="100"></l-RangeSlider>
-<l-RangeSlider transition="zoom"></l-RangeSlider>
-<l-RangeSlider transition="flip"></l-RangeSlider>
-<l-RangeSlider transition="blur"></l-RangeSlider>
+              js: `<l-range-slider transition="fade"></l-range-slider>
+<l-range-slider transition="slide-up"></l-range-slider>
+<l-range-slider transition="slide-right" transitionDelay="100"></l-range-slider>
+<l-range-slider transition="zoom"></l-range-slider>
+<l-range-slider transition="flip"></l-range-slider>
+<l-range-slider transition="blur"></l-range-slider>
 
-<l-RangeSlider hoverEffect="lift"></l-RangeSlider>
-<l-RangeSlider hoverEffect="scale"></l-RangeSlider>
-<l-RangeSlider hoverEffect="glow"></l-RangeSlider>
+<l-range-slider hoverEffect="lift"></l-range-slider>
+<l-range-slider hoverEffect="scale"></l-range-slider>
+<l-range-slider hoverEffect="glow"></l-range-slider>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -272,16 +272,16 @@ export class AppComponent {
   });
 </script>`,
               vue: `<template>
-  <l-RangeSlider :value="value" transition="fade"></l-RangeSlider>
-  <l-RangeSlider :value="value" transition="slide-up"></l-RangeSlider>
-  <l-RangeSlider :value="value" transition="slide-right" transitionDelay="100"></l-RangeSlider>
-  <l-RangeSlider :value="value" transition="zoom"></l-RangeSlider>
-  <l-RangeSlider :value="value" transition="flip"></l-RangeSlider>
-  <l-RangeSlider :value="value" transition="blur"></l-RangeSlider>
+  <l-range-slider :value="value" transition="fade"></l-range-slider>
+  <l-range-slider :value="value" transition="slide-up"></l-range-slider>
+  <l-range-slider :value="value" transition="slide-right" transitionDelay="100"></l-range-slider>
+  <l-range-slider :value="value" transition="zoom"></l-range-slider>
+  <l-range-slider :value="value" transition="flip"></l-range-slider>
+  <l-range-slider :value="value" transition="blur"></l-range-slider>
 
-  <l-RangeSlider :value="value" hoverEffect="lift"></l-RangeSlider>
-  <l-RangeSlider :value="value" hoverEffect="scale"></l-RangeSlider>
-  <l-RangeSlider :value="value" hoverEffect="glow"></l-RangeSlider>
+  <l-range-slider :value="value" hoverEffect="lift"></l-range-slider>
+  <l-range-slider :value="value" hoverEffect="scale"></l-range-slider>
+  <l-range-slider :value="value" hoverEffect="glow"></l-range-slider>
 </template>
 
 <script setup lang="ts">
@@ -298,16 +298,16 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-RangeSlider [value]="value" transition="fade"></l-RangeSlider>
-    <l-RangeSlider [value]="value" transition="slide-up"></l-RangeSlider>
-    <l-RangeSlider [value]="value" transition="slide-right" transitionDelay="100"></l-RangeSlider>
-    <l-RangeSlider [value]="value" transition="zoom"></l-RangeSlider>
-    <l-RangeSlider [value]="value" transition="flip"></l-RangeSlider>
-    <l-RangeSlider [value]="value" transition="blur"></l-RangeSlider>
+    <l-range-slider [value]="value" transition="fade"></l-range-slider>
+    <l-range-slider [value]="value" transition="slide-up"></l-range-slider>
+    <l-range-slider [value]="value" transition="slide-right" transitionDelay="100"></l-range-slider>
+    <l-range-slider [value]="value" transition="zoom"></l-range-slider>
+    <l-range-slider [value]="value" transition="flip"></l-range-slider>
+    <l-range-slider [value]="value" transition="blur"></l-range-slider>
 
-    <l-RangeSlider [value]="value" hoverEffect="lift"></l-RangeSlider>
-    <l-RangeSlider [value]="value" hoverEffect="scale"></l-RangeSlider>
-    <l-RangeSlider [value]="value" hoverEffect="glow"></l-RangeSlider>
+    <l-range-slider [value]="value" hoverEffect="lift"></l-range-slider>
+    <l-range-slider [value]="value" hoverEffect="scale"></l-range-slider>
+    <l-range-slider [value]="value" hoverEffect="glow"></l-range-slider>
   \`,
 })
 export class AppComponent {

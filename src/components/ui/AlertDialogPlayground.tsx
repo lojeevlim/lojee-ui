@@ -45,8 +45,8 @@ export default function AlertDialogPlayground() {
   // attributes. `l-alert-dialog` has no slots — the description prop is
   // omitted entirely when empty, same as the react code above.
   const descriptionAttr = description ? ` description="${description}"` : "";
-  const htmlMarkup = `<l-Button label="Open alert dialog" id="open-alert-btn" />
-<l-AlertDialog id="alert-dialog" variant="${variant}" heading="${title || "Are you sure?"}"${descriptionAttr}${motion.attrs} />`;
+  const htmlMarkup = `<l-button label="Open alert dialog" id="open-alert-btn" />
+<l-alert-dialog id="alert-dialog" variant="${variant}" heading="${title || "Are you sure?"}"${descriptionAttr}${motion.attrs} />`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,
@@ -62,8 +62,8 @@ export default function AlertDialogPlayground() {
   dialog.addEventListener("confirm", () => { dialog.open = false; });
 </script>`,
     vue: `<template>
-  <l-Button label="Open alert dialog" @click="open = true" />
-  <l-AlertDialog
+  <l-button label="Open alert dialog" @click="open = true" />
+  <l-alert-dialog
     :open="open"
     variant="${variant}"
     heading="${title || "Are you sure?"}"${description ? `\n    description="${description}"` : ""}${motion.attrs}
@@ -79,8 +79,8 @@ import "lojee-ui/elements";
 const open = ref(false);
 </script>`,
     angular: `<!-- app.component.html -->
-<l-Button label="Open alert dialog" (click)="open = true" />
-<l-AlertDialog
+<l-button label="Open alert dialog" (click)="open = true" />
+<l-alert-dialog
   [open]="open"
   variant="${variant}"
   heading="${title || "Are you sure?"}"${description ? `\n  description="${description}"` : ""}${motion.attrs}

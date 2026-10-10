@@ -36,7 +36,7 @@ export default function SearchInputShowcase() {
   onClear={() => setQuery("")}
   placeholder="Search…"
 />`,
-              js: `<l-SearchInput id="search" placeholder="Search…"></l-SearchInput>
+              js: `<l-search-input id="search" placeholder="Search…"></l-search-input>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -47,7 +47,7 @@ export default function SearchInputShowcase() {
   search.addEventListener("clear", () => { search.value = ""; });
 </script>`,
               vue: `<template>
-  <l-SearchInput
+  <l-search-input
     :value="query"
     @input="query = $event.target.value"
     @clear="query = ''"
@@ -70,7 +70,7 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-SearchInput
+    <l-search-input
       [value]="query"
       (input)="query = $any($event.target).value"
       (clear)="query = ''"
@@ -97,18 +97,18 @@ export class AppComponent {
               react: `<SearchInput size="sm" placeholder="Small" />
 <SearchInput size="md" placeholder="Medium" />
 <SearchInput size="lg" placeholder="Large" />`,
-              js: `<l-SearchInput size="sm" placeholder="Small"></l-SearchInput>
-<l-SearchInput size="md" placeholder="Medium"></l-SearchInput>
-<l-SearchInput size="lg" placeholder="Large"></l-SearchInput>`,
+              js: `<l-search-input size="sm" placeholder="Small"></l-search-input>
+<l-search-input size="md" placeholder="Medium"></l-search-input>
+<l-search-input size="lg" placeholder="Large"></l-search-input>`,
               vue: `<template>
-  <l-SearchInput size="sm" placeholder="Small" />
-  <l-SearchInput size="md" placeholder="Medium" />
-  <l-SearchInput size="lg" placeholder="Large" />
+  <l-search-input size="sm" placeholder="Small" />
+  <l-search-input size="md" placeholder="Medium" />
+  <l-search-input size="lg" placeholder="Large" />
 </template>`,
               angular: `<!-- app.component.html — same AppComponent as above -->
-<l-SearchInput size="sm" placeholder="Small" />
-<l-SearchInput size="md" placeholder="Medium" />
-<l-SearchInput size="lg" placeholder="Large" />`,
+<l-search-input size="sm" placeholder="Small" />
+<l-search-input size="md" placeholder="Medium" />
+<l-search-input size="lg" placeholder="Large" />`,
             }}
           />
         </section>
@@ -121,9 +121,9 @@ export class AppComponent {
           <CodeBlock
             variants={{
               react: `<SearchInput disabled placeholder="Disabled" />`,
-              js: `<l-SearchInput disabled placeholder="Disabled"></l-SearchInput>`,
-              vue: `<l-SearchInput disabled placeholder="Disabled" />`,
-              angular: `<l-SearchInput disabled placeholder="Disabled" />`,
+              js: `<l-search-input disabled placeholder="Disabled"></l-search-input>`,
+              vue: `<l-search-input disabled placeholder="Disabled" />`,
+              angular: `<l-search-input disabled placeholder="Disabled" />`,
             }}
           />
         </section>
@@ -157,35 +157,35 @@ export class AppComponent {
 <SearchInput hoverEffect="lift" placeholder="Search…" />
 <SearchInput hoverEffect="glow" placeholder="Search…" />
 <SearchInput hoverEffect="ring" placeholder="Search…" />`,
-              js: `<l-SearchInput transition="fade" placeholder="Search…"></l-SearchInput>
-<l-SearchInput transition="slide-up" placeholder="Search…"></l-SearchInput>
-<l-SearchInput transition="slide-right" transitionDelay="100" placeholder="Search…"></l-SearchInput>
-<l-SearchInput transition="zoom" placeholder="Search…"></l-SearchInput>
-<l-SearchInput transition="flip" placeholder="Search…"></l-SearchInput>
-<l-SearchInput transition="blur" placeholder="Search…"></l-SearchInput>
-<l-SearchInput transition="bounce" placeholder="Search…"></l-SearchInput>
-<l-SearchInput transition="drop" transitionDuration="700" placeholder="Search…"></l-SearchInput>
+              js: `<l-search-input transition="fade" placeholder="Search…"></l-search-input>
+<l-search-input transition="slide-up" placeholder="Search…"></l-search-input>
+<l-search-input transition="slide-right" transitionDelay="100" placeholder="Search…"></l-search-input>
+<l-search-input transition="zoom" placeholder="Search…"></l-search-input>
+<l-search-input transition="flip" placeholder="Search…"></l-search-input>
+<l-search-input transition="blur" placeholder="Search…"></l-search-input>
+<l-search-input transition="bounce" placeholder="Search…"></l-search-input>
+<l-search-input transition="drop" transitionDuration="700" placeholder="Search…"></l-search-input>
 
-<l-SearchInput hoverEffect="lift" placeholder="Search…"></l-SearchInput>
-<l-SearchInput hoverEffect="glow" placeholder="Search…"></l-SearchInput>
-<l-SearchInput hoverEffect="ring" placeholder="Search…"></l-SearchInput>
+<l-search-input hoverEffect="lift" placeholder="Search…"></l-search-input>
+<l-search-input hoverEffect="glow" placeholder="Search…"></l-search-input>
+<l-search-input hoverEffect="ring" placeholder="Search…"></l-search-input>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-SearchInput transition="fade" placeholder="Search…"></l-SearchInput>
-  <l-SearchInput transition="slide-up" placeholder="Search…"></l-SearchInput>
-  <l-SearchInput transition="slide-right" transitionDelay="100" placeholder="Search…"></l-SearchInput>
-  <l-SearchInput transition="zoom" placeholder="Search…"></l-SearchInput>
-  <l-SearchInput transition="flip" placeholder="Search…"></l-SearchInput>
-  <l-SearchInput transition="blur" placeholder="Search…"></l-SearchInput>
-  <l-SearchInput transition="bounce" placeholder="Search…"></l-SearchInput>
-  <l-SearchInput transition="drop" transitionDuration="700" placeholder="Search…"></l-SearchInput>
+  <l-search-input transition="fade" placeholder="Search…"></l-search-input>
+  <l-search-input transition="slide-up" placeholder="Search…"></l-search-input>
+  <l-search-input transition="slide-right" transitionDelay="100" placeholder="Search…"></l-search-input>
+  <l-search-input transition="zoom" placeholder="Search…"></l-search-input>
+  <l-search-input transition="flip" placeholder="Search…"></l-search-input>
+  <l-search-input transition="blur" placeholder="Search…"></l-search-input>
+  <l-search-input transition="bounce" placeholder="Search…"></l-search-input>
+  <l-search-input transition="drop" transitionDuration="700" placeholder="Search…"></l-search-input>
 
-  <l-SearchInput hoverEffect="lift" placeholder="Search…"></l-SearchInput>
-  <l-SearchInput hoverEffect="glow" placeholder="Search…"></l-SearchInput>
-  <l-SearchInput hoverEffect="ring" placeholder="Search…"></l-SearchInput>
+  <l-search-input hoverEffect="lift" placeholder="Search…"></l-search-input>
+  <l-search-input hoverEffect="glow" placeholder="Search…"></l-search-input>
+  <l-search-input hoverEffect="ring" placeholder="Search…"></l-search-input>
 </template>
 
 <script setup lang="ts">
@@ -200,18 +200,18 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-SearchInput transition="fade" placeholder="Search…"></l-SearchInput>
-    <l-SearchInput transition="slide-up" placeholder="Search…"></l-SearchInput>
-    <l-SearchInput transition="slide-right" transitionDelay="100" placeholder="Search…"></l-SearchInput>
-    <l-SearchInput transition="zoom" placeholder="Search…"></l-SearchInput>
-    <l-SearchInput transition="flip" placeholder="Search…"></l-SearchInput>
-    <l-SearchInput transition="blur" placeholder="Search…"></l-SearchInput>
-    <l-SearchInput transition="bounce" placeholder="Search…"></l-SearchInput>
-    <l-SearchInput transition="drop" transitionDuration="700" placeholder="Search…"></l-SearchInput>
+    <l-search-input transition="fade" placeholder="Search…"></l-search-input>
+    <l-search-input transition="slide-up" placeholder="Search…"></l-search-input>
+    <l-search-input transition="slide-right" transitionDelay="100" placeholder="Search…"></l-search-input>
+    <l-search-input transition="zoom" placeholder="Search…"></l-search-input>
+    <l-search-input transition="flip" placeholder="Search…"></l-search-input>
+    <l-search-input transition="blur" placeholder="Search…"></l-search-input>
+    <l-search-input transition="bounce" placeholder="Search…"></l-search-input>
+    <l-search-input transition="drop" transitionDuration="700" placeholder="Search…"></l-search-input>
 
-    <l-SearchInput hoverEffect="lift" placeholder="Search…"></l-SearchInput>
-    <l-SearchInput hoverEffect="glow" placeholder="Search…"></l-SearchInput>
-    <l-SearchInput hoverEffect="ring" placeholder="Search…"></l-SearchInput>
+    <l-search-input hoverEffect="lift" placeholder="Search…"></l-search-input>
+    <l-search-input hoverEffect="glow" placeholder="Search…"></l-search-input>
+    <l-search-input hoverEffect="ring" placeholder="Search…"></l-search-input>
   \`,
 })
 export class AppComponent {}`,

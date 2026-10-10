@@ -76,7 +76,7 @@ export default function VideoPlayground() {
   const plain = (n: string, v: string) => `${n}="${v}"`;
   const vue = (n: string, v: string) => `:${n}="${v}"`;
   const angular = (n: string, v: string) => `[${n.replace(/-(\w)/g, (_, c: string) => c.toUpperCase())}]="${v}"`;
-  const tag = (attrs: string) => `<l-Video src="${CODE_URLS[source]}" label="Sample video"${attrs}></l-Video>`;
+  const tag = (attrs: string) => `<l-video src="${CODE_URLS[source]}" label="Sample video"${attrs}></l-video>`;
 
   const codeVariants: CodeBlockVariants = {
     react: `<Video src="${CODE_URLS[source]}" label="Sample video"${reactAttrs} />`,

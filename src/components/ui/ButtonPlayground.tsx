@@ -217,7 +217,7 @@ export default function ButtonPlayground() {
   const htmlMarkup = (() => {
     if (layout === "icon") {
       const shapeAttr = shape !== "default" ? ` shape="${shape}"` : "";
-      return `<l-Button icon="${iconKey}" iconOnly variant="${variant}" color="${color}" size="${size}"${anim.attrs}${motion.attrs}${shapeAttr} label="${label || "Icon button"}" />`;
+      return `<l-button icon="${iconKey}" iconOnly variant="${variant}" color="${color}" size="${size}"${anim.attrs}${motion.attrs}${shapeAttr} label="${label || "Icon button"}" />`;
     }
     if (layout === "group") {
       const shapeAttr = shape !== "default" ? ` shape="${shape}"` : "";
@@ -233,14 +233,14 @@ export default function ButtonPlayground() {
         const itemsCode = menuItems
           .map((item) => {
             const iconAttr = item.icon ? ` icon="${item.icon}"` : "";
-            return `  <l-SplitButtonMenuItem${iconAttr}>${item.label}</l-SplitButtonMenuItem>`;
+            return `  <l-split-button-menu-item${iconAttr}>${item.label}</l-split-button-menu-item>`;
           })
           .join("\n");
-        return `<l-SplitButton\n  icon="check"\n  label="${label || "Approve"}"\n  color="${color}"\n  size="${size}"${shapeAttr}${menuIconAttr}${motion.attrs}\n>\n${itemsCode}\n</l-SplitButton>`;
+        return `<l-split-button\n  icon="check"\n  label="${label || "Approve"}"\n  color="${color}"\n  size="${size}"${shapeAttr}${menuIconAttr}${motion.attrs}\n>\n${itemsCode}\n</l-split-button>`;
       }
-      return `<l-SplitButton icon="check" label="${label || "Approve"}" color="${color}" size="${size}"${shapeAttr}${menuIconAttr}${motion.attrs} />`;
+      return `<l-split-button icon="check" label="${label || "Approve"}" color="${color}" size="${size}"${shapeAttr}${menuIconAttr}${motion.attrs} />`;
     }
-    return `<l-Button variant="${variant}" color="${color}"${
+    return `<l-button variant="${variant}" color="${color}"${
       variant === "gradient" ? ` gradientTo="${gradientTo}"${gradientDirection !== "to-right" ? ` gradientDirection="${gradientDirection}"` : ""}` : ""
     } size="${size}"${anim.attrs}${motion.attrs}${shape !== "default" ? ` shape="${shape}"` : ""}${showIcon ? ` icon="${iconKey}"` : ""}${
       showIcon && iconPosition === "right" ? ` iconPosition="right"` : ""

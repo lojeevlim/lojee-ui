@@ -60,7 +60,7 @@ export default function ChatBoxShowcase() {
   subtitle="Usually replies instantly"
   onSend={(text) => console.log(text)}
 />`,
-              `<l-ChatBox heading="Lojee AI" subtitle="Usually replies instantly"></l-ChatBox>
+              `<l-chat-box heading="Lojee AI" subtitle="Usually replies instantly"></l-chat-box>
 <script type="module">
   const chat = document.querySelector("l-chat-box");
   chat.defaultMessages = [{ id: 1, role: "assistant", content: "Hi! Ask me anything." }];
@@ -125,7 +125,7 @@ async function ask(text: string) {
 }
 
 <ChatBox messages={messages} thinking={thinking ? "Reading the docs" : undefined} onSend={ask} />`,
-              `<l-ChatBox></l-ChatBox>
+              `<l-chat-box></l-chat-box>
 <script type="module">
   const chat = document.querySelector("l-chat-box");
   const messages = [];
@@ -208,7 +208,7 @@ export class ChatComponent {
               `<ChatBox variant="outline" defaultMessages={messages} />
 <ChatBox variant="flat" defaultMessages={messages} />
 <ChatBox variant="compact" defaultMessages={messages} />`,
-              `<l-ChatBox variant="flat"></l-ChatBox>`
+              `<l-chat-box variant="flat"></l-chat-box>`
             )}
           />
         </section>
@@ -223,8 +223,8 @@ export class ChatComponent {
             variants={variants(
               `<ChatBox thinking="Searching the docs" thinkingVariant="shimmer" />
 <ChatBox thinking thinkingVariant="orb" />`,
-              `<l-ChatBox thinking="Searching the docs" thinking-variant="shimmer"></l-ChatBox>
-<l-ChatBox thinking="true" thinking-variant="orb"></l-ChatBox>`
+              `<l-chat-box thinking="Searching the docs" thinking-variant="shimmer"></l-chat-box>
+<l-chat-box thinking="true" thinking-variant="orb"></l-chat-box>`
             )}
           />
         </section>

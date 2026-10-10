@@ -19,11 +19,11 @@ export default function LoadingStateShowcase() {
           <CodeBlock
             variants={{
               react: `<LoadingState />`,
-              js: `<l-LoadingState ></l-LoadingState>
+              js: `<l-loading-state ></l-loading-state>
 
 <script type="module">import "lojee-ui/elements";</script>`,
-              vue: `<l-LoadingState />`,
-              angular: `<l-LoadingState />`,
+              vue: `<l-loading-state />`,
+              angular: `<l-loading-state />`,
             }}
           />
         </section>
@@ -34,13 +34,13 @@ export default function LoadingStateShowcase() {
           <CodeBlock
             variants={{
               react: `<LoadingState title="Fetching your data">\n  This should only take a moment.\n</LoadingState>`,
-              js: `<l-LoadingState title="Fetching your data">
+              js: `<l-loading-state title="Fetching your data">
   This should only take a moment.
-</l-LoadingState>
+</l-loading-state>
 
 <script type="module">import "lojee-ui/elements";</script>`,
-              vue: `<l-LoadingState title="Fetching your data">\n  This should only take a moment.\n</l-LoadingState>`,
-              angular: `<l-LoadingState title="Fetching your data">\n  This should only take a moment.\n</l-LoadingState>`,
+              vue: `<l-loading-state title="Fetching your data">\n  This should only take a moment.\n</l-loading-state>`,
+              angular: `<l-loading-state title="Fetching your data">\n  This should only take a moment.\n</l-loading-state>`,
             }}
           />
         </section>
@@ -57,17 +57,17 @@ export default function LoadingStateShowcase() {
               react: `<LoadingState size="sm" title="Loading" />
 <LoadingState size="md" title="Loading" />
 <LoadingState size="lg" title="Loading" />`,
-              js: `<l-LoadingState size="sm" title="Loading"></l-LoadingState>
-<l-LoadingState size="md" title="Loading"></l-LoadingState>
-<l-LoadingState size="lg" title="Loading"></l-LoadingState>
+              js: `<l-loading-state size="sm" title="Loading"></l-loading-state>
+<l-loading-state size="md" title="Loading"></l-loading-state>
+<l-loading-state size="lg" title="Loading"></l-loading-state>
 
 <script type="module">import "lojee-ui/elements";</script>`,
-              vue: `<l-LoadingState size="sm" title="Loading" />
-<l-LoadingState size="md" title="Loading" />
-<l-LoadingState size="lg" title="Loading" />`,
-              angular: `<l-LoadingState size="sm" title="Loading" />
-<l-LoadingState size="md" title="Loading" />
-<l-LoadingState size="lg" title="Loading" />`,
+              vue: `<l-loading-state size="sm" title="Loading" />
+<l-loading-state size="md" title="Loading" />
+<l-loading-state size="lg" title="Loading" />`,
+              angular: `<l-loading-state size="sm" title="Loading" />
+<l-loading-state size="md" title="Loading" />
+<l-loading-state size="lg" title="Loading" />`,
             }}
           />
         </section>
@@ -94,27 +94,27 @@ export default function LoadingStateShowcase() {
 <LoadingState title="Blur" transition="blur" />
 <LoadingState title="Bounce" transition="bounce" />
 <LoadingState title="Drop" transition="drop" transitionDuration={700} />`,
-              js: `<l-LoadingState title="Fade" transition="fade"></l-LoadingState>
-<l-LoadingState title="Slide up" transition="slide-up"></l-LoadingState>
-<l-LoadingState title="Slide right" transition="slide-right" transitionDelay="100"></l-LoadingState>
-<l-LoadingState title="Zoom" transition="zoom"></l-LoadingState>
-<l-LoadingState title="Flip" transition="flip"></l-LoadingState>
-<l-LoadingState title="Blur" transition="blur"></l-LoadingState>
-<l-LoadingState title="Bounce" transition="bounce"></l-LoadingState>
-<l-LoadingState title="Drop" transition="drop" transitionDuration="700"></l-LoadingState>
+              js: `<l-loading-state title="Fade" transition="fade"></l-loading-state>
+<l-loading-state title="Slide up" transition="slide-up"></l-loading-state>
+<l-loading-state title="Slide right" transition="slide-right" transitionDelay="100"></l-loading-state>
+<l-loading-state title="Zoom" transition="zoom"></l-loading-state>
+<l-loading-state title="Flip" transition="flip"></l-loading-state>
+<l-loading-state title="Blur" transition="blur"></l-loading-state>
+<l-loading-state title="Bounce" transition="bounce"></l-loading-state>
+<l-loading-state title="Drop" transition="drop" transitionDuration="700"></l-loading-state>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-LoadingState title="Fade" transition="fade"></l-LoadingState>
-  <l-LoadingState title="Slide up" transition="slide-up"></l-LoadingState>
-  <l-LoadingState title="Slide right" transition="slide-right" transitionDelay="100"></l-LoadingState>
-  <l-LoadingState title="Zoom" transition="zoom"></l-LoadingState>
-  <l-LoadingState title="Flip" transition="flip"></l-LoadingState>
-  <l-LoadingState title="Blur" transition="blur"></l-LoadingState>
-  <l-LoadingState title="Bounce" transition="bounce"></l-LoadingState>
-  <l-LoadingState title="Drop" transition="drop" transitionDuration="700"></l-LoadingState>
+  <l-loading-state title="Fade" transition="fade"></l-loading-state>
+  <l-loading-state title="Slide up" transition="slide-up"></l-loading-state>
+  <l-loading-state title="Slide right" transition="slide-right" transitionDelay="100"></l-loading-state>
+  <l-loading-state title="Zoom" transition="zoom"></l-loading-state>
+  <l-loading-state title="Flip" transition="flip"></l-loading-state>
+  <l-loading-state title="Blur" transition="blur"></l-loading-state>
+  <l-loading-state title="Bounce" transition="bounce"></l-loading-state>
+  <l-loading-state title="Drop" transition="drop" transitionDuration="700"></l-loading-state>
 </template>
 
 <script setup lang="ts">
@@ -129,14 +129,14 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-LoadingState title="Fade" transition="fade"></l-LoadingState>
-    <l-LoadingState title="Slide up" transition="slide-up"></l-LoadingState>
-    <l-LoadingState title="Slide right" transition="slide-right" transitionDelay="100"></l-LoadingState>
-    <l-LoadingState title="Zoom" transition="zoom"></l-LoadingState>
-    <l-LoadingState title="Flip" transition="flip"></l-LoadingState>
-    <l-LoadingState title="Blur" transition="blur"></l-LoadingState>
-    <l-LoadingState title="Bounce" transition="bounce"></l-LoadingState>
-    <l-LoadingState title="Drop" transition="drop" transitionDuration="700"></l-LoadingState>
+    <l-loading-state title="Fade" transition="fade"></l-loading-state>
+    <l-loading-state title="Slide up" transition="slide-up"></l-loading-state>
+    <l-loading-state title="Slide right" transition="slide-right" transitionDelay="100"></l-loading-state>
+    <l-loading-state title="Zoom" transition="zoom"></l-loading-state>
+    <l-loading-state title="Flip" transition="flip"></l-loading-state>
+    <l-loading-state title="Blur" transition="blur"></l-loading-state>
+    <l-loading-state title="Bounce" transition="bounce"></l-loading-state>
+    <l-loading-state title="Drop" transition="drop" transitionDuration="700"></l-loading-state>
   \`,
 })
 export class AppComponent {}`,

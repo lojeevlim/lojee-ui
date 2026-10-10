@@ -60,8 +60,8 @@ export default function DatePickerPlayground() {
 
   const htmlMarkup =
     layout === "range"
-      ? `<l-DateRangePicker size="${size}"${wcOptionalAttrs} startValue="${start}" endValue="${end}" />`
-      : `<l-DatePicker size="${size}"${wcOptionalAttrs} />`;
+      ? `<l-date-range-picker size="${size}"${wcOptionalAttrs} startValue="${start}" endValue="${end}" />`
+      : `<l-date-picker size="${size}"${wcOptionalAttrs} />`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,

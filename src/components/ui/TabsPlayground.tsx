@@ -51,7 +51,7 @@ export default function TabsPlayground() {
 
   const codeVariants: CodeBlockVariants = {
     react: code,
-    js: `<l-Tabs id="tabs-demo" ${attrs}></l-Tabs>
+    js: `<l-tabs id="tabs-demo" ${attrs}></l-tabs>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -64,7 +64,7 @@ ${tabsData}
   el.tabs = tabs;
 </script>`,
     vue: `<template>
-  <l-Tabs :tabs="tabs" ${attrs} />
+  <l-tabs :tabs="tabs" ${attrs} />
 </template>
 
 <script setup lang="ts">
@@ -72,7 +72,7 @@ const tabs = [
 ${tabsData}
 ];
 </script>`,
-    angular: `<l-Tabs [tabs]="tabs" ${attrs} />
+    angular: `<l-tabs [tabs]="tabs" ${attrs} />
 
 tabs = [
 ${tabsData}

@@ -23,7 +23,7 @@ const menuCode = (id: string, attr: string) => ({
   ${attr}
   items={${ITEMS_CODE.replace(/\n/g, "\n  ")}}
 />`,
-  js: `<l-NavigationMenu id="${id}" ${attr}></l-NavigationMenu>
+  js: `<l-navigation-menu id="${id}" ${attr}></l-navigation-menu>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -31,7 +31,7 @@ const menuCode = (id: string, attr: string) => ({
   document.getElementById("${id}").items = ${ITEMS_CODE.replace(/\n/g, "\n  ")};
 </script>`,
   vue: `<template>
-  <l-NavigationMenu :items="items" ${attr} />
+  <l-navigation-menu :items="items" ${attr} />
 </template>
 
 <script setup lang="ts">
@@ -39,7 +39,7 @@ import "lojee-ui/elements";
 
 const items = ${ITEMS_CODE};
 </script>`,
-  angular: `<l-NavigationMenu [items]="items" ${attr}></l-NavigationMenu>
+  angular: `<l-navigation-menu [items]="items" ${attr}></l-navigation-menu>
 
 items = ${ITEMS_CODE};`,
 });
@@ -79,7 +79,7 @@ export default function NavigationMenuShowcase() {
     { label: "Contact", href: "#" },
   ]}
 />`,
-              js: `<l-NavigationMenu id="nav-menu-basic"></l-NavigationMenu>
+              js: `<l-navigation-menu id="nav-menu-basic"></l-navigation-menu>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -93,7 +93,7 @@ export default function NavigationMenuShowcase() {
   ];
 </script>`,
               vue: `<template>
-  <l-NavigationMenu :items="items" />
+  <l-navigation-menu :items="items" />
 </template>
 
 <script setup lang="ts">
@@ -115,7 +115,7 @@ import "lojee-ui/elements";
   selector: "app-root",
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  template: \`<l-NavigationMenu [items]="items" />\`,
+  template: \`<l-navigation-menu [items]="items" />\`,
 })
 export class AppComponent {
   items = [
@@ -185,7 +185,7 @@ export class AppComponent {
     { label: "Settings", href: "#" },
   ]}
 />`,
-              js: `<l-NavigationMenu id="nav-menu-vertical" orientation="vertical"></l-NavigationMenu>
+              js: `<l-navigation-menu id="nav-menu-vertical" orientation="vertical"></l-navigation-menu>
 
 <script type="module">
   document.getElementById("nav-menu-vertical").items = [
@@ -196,7 +196,7 @@ export class AppComponent {
   ];
 </script>`,
               vue: `<template>
-  <l-NavigationMenu :items="items" orientation="vertical" />
+  <l-navigation-menu :items="items" orientation="vertical" />
 </template>
 
 <script setup lang="ts">
@@ -216,7 +216,7 @@ items = [
 ];
 
 // app.component.html
-<l-NavigationMenu [items]="items" orientation="vertical" />`,
+<l-navigation-menu [items]="items" orientation="vertical" />`,
             }}
           />
         </section>
@@ -241,7 +241,7 @@ items = [
     { label: "Profile", href: "#", icon: "user" },
   ]}
 />`,
-              js: `<l-NavigationMenu id="nav-menu-icons"></l-NavigationMenu>
+              js: `<l-navigation-menu id="nav-menu-icons"></l-navigation-menu>
 
 <script type="module">
   document.getElementById("nav-menu-icons").items = [
@@ -252,7 +252,7 @@ items = [
   ];
 </script>`,
               vue: `<template>
-  <l-NavigationMenu :items="items" />
+  <l-navigation-menu :items="items" />
 </template>
 
 <script setup lang="ts">
@@ -272,7 +272,7 @@ items = [
 ];
 
 // app.component.html
-<l-NavigationMenu [items]="items" />`,
+<l-navigation-menu [items]="items" />`,
             }}
           />
         </section>
@@ -303,7 +303,7 @@ items = [
 
 {/* No state needed to highlight the clicked item — and an item's href is also matched
     against the current URL on load and on back/forward. */}`,
-              js: `<l-NavigationMenu id="nav-menu-callback"></l-NavigationMenu>
+              js: `<l-navigation-menu id="nav-menu-callback"></l-navigation-menu>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -319,7 +319,7 @@ items = [
   });
 </script>`,
               vue: `<template>
-  <l-NavigationMenu :items="items" @activeitemchange="onChange" />
+  <l-navigation-menu :items="items" @activeitemchange="onChange" />
 </template>
 
 <script setup lang="ts">
@@ -335,7 +335,7 @@ function onChange(e: CustomEvent) {
   console.log("Active:", e.detail.label);
 }
 </script>`,
-              angular: `<l-NavigationMenu [items]="items" (activeitemchange)="onChange($event)"></l-NavigationMenu>
+              angular: `<l-navigation-menu [items]="items" (activeitemchange)="onChange($event)"></l-navigation-menu>
 
 items = [
   { label: "Home", href: "/", active: true },
@@ -399,7 +399,7 @@ onChange(e: CustomEvent) {
     { label: "Security", icon: "lock", content: <SecurityPanel /> },
   ]}
 />`,
-              js: `<l-NavigationMenu id="settings-nav" orientation="vertical"></l-NavigationMenu>
+              js: `<l-navigation-menu id="settings-nav" orientation="vertical"></l-navigation-menu>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -411,7 +411,7 @@ onChange(e: CustomEvent) {
   ];
 </script>`,
               vue: `<template>
-  <l-NavigationMenu :items="items" orientation="vertical" />
+  <l-navigation-menu :items="items" orientation="vertical" />
 </template>
 
 <script setup lang="ts">
@@ -421,7 +421,7 @@ const items = [
   { label: "Security", icon: "lock", content: "Manage your password and two-factor authentication." },
 ];
 </script>`,
-              angular: `<l-NavigationMenu [items]="items" orientation="vertical"></l-NavigationMenu>
+              angular: `<l-navigation-menu [items]="items" orientation="vertical"></l-navigation-menu>
 
 items = [
   { label: "Profile", icon: "user", content: "Update your name, photo, and public details." },
@@ -452,7 +452,7 @@ items = [
     { label: "Settings", href: "#" },
   ]}
 />`,
-              js: `<l-NavigationMenu id="nav-menu-disabled"></l-NavigationMenu>
+              js: `<l-navigation-menu id="nav-menu-disabled"></l-navigation-menu>
 
 <script type="module">
   document.getElementById("nav-menu-disabled").items = [
@@ -463,7 +463,7 @@ items = [
   ];
 </script>`,
               vue: `<template>
-  <l-NavigationMenu :items="items" />
+  <l-navigation-menu :items="items" />
 </template>
 
 <script setup lang="ts">
@@ -483,7 +483,7 @@ items = [
 ];
 
 // app.component.html
-<l-NavigationMenu [items]="items" />`,
+<l-navigation-menu [items]="items" />`,
             }}
           />
         </section>
@@ -521,16 +521,16 @@ items = [
 <NavigationMenu items={items} hoverEffect="lift" />
 <NavigationMenu items={items} hoverEffect="glow" />
 <NavigationMenu items={items} hoverEffect="shine" />`,
-              js: `<l-NavigationMenu class="transition-demo" transition="fade"></l-NavigationMenu>
-<l-NavigationMenu class="transition-demo" transition="slide-down"></l-NavigationMenu>
-<l-NavigationMenu class="transition-demo" transition="slide-right" transitionDelay="100"></l-NavigationMenu>
-<l-NavigationMenu class="transition-demo" transition="zoom"></l-NavigationMenu>
-<l-NavigationMenu class="transition-demo" transition="blur"></l-NavigationMenu>
-<l-NavigationMenu class="transition-demo" transition="drop" transitionDuration="700"></l-NavigationMenu>
+              js: `<l-navigation-menu class="transition-demo" transition="fade"></l-navigation-menu>
+<l-navigation-menu class="transition-demo" transition="slide-down"></l-navigation-menu>
+<l-navigation-menu class="transition-demo" transition="slide-right" transitionDelay="100"></l-navigation-menu>
+<l-navigation-menu class="transition-demo" transition="zoom"></l-navigation-menu>
+<l-navigation-menu class="transition-demo" transition="blur"></l-navigation-menu>
+<l-navigation-menu class="transition-demo" transition="drop" transitionDuration="700"></l-navigation-menu>
 
-<l-NavigationMenu class="transition-demo" hoverEffect="lift"></l-NavigationMenu>
-<l-NavigationMenu class="transition-demo" hoverEffect="glow"></l-NavigationMenu>
-<l-NavigationMenu class="transition-demo" hoverEffect="shine"></l-NavigationMenu>
+<l-navigation-menu class="transition-demo" hoverEffect="lift"></l-navigation-menu>
+<l-navigation-menu class="transition-demo" hoverEffect="glow"></l-navigation-menu>
+<l-navigation-menu class="transition-demo" hoverEffect="shine"></l-navigation-menu>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -543,16 +543,16 @@ items = [
   document.querySelectorAll(".transition-demo").forEach((el) => (el.items = items));
 </script>`,
               vue: `<template>
-  <l-NavigationMenu :items="items" transition="fade"></l-NavigationMenu>
-  <l-NavigationMenu :items="items" transition="slide-down"></l-NavigationMenu>
-  <l-NavigationMenu :items="items" transition="slide-right" transitionDelay="100"></l-NavigationMenu>
-  <l-NavigationMenu :items="items" transition="zoom"></l-NavigationMenu>
-  <l-NavigationMenu :items="items" transition="blur"></l-NavigationMenu>
-  <l-NavigationMenu :items="items" transition="drop" transitionDuration="700"></l-NavigationMenu>
+  <l-navigation-menu :items="items" transition="fade"></l-navigation-menu>
+  <l-navigation-menu :items="items" transition="slide-down"></l-navigation-menu>
+  <l-navigation-menu :items="items" transition="slide-right" transitionDelay="100"></l-navigation-menu>
+  <l-navigation-menu :items="items" transition="zoom"></l-navigation-menu>
+  <l-navigation-menu :items="items" transition="blur"></l-navigation-menu>
+  <l-navigation-menu :items="items" transition="drop" transitionDuration="700"></l-navigation-menu>
 
-  <l-NavigationMenu :items="items" hoverEffect="lift"></l-NavigationMenu>
-  <l-NavigationMenu :items="items" hoverEffect="glow"></l-NavigationMenu>
-  <l-NavigationMenu :items="items" hoverEffect="shine"></l-NavigationMenu>
+  <l-navigation-menu :items="items" hoverEffect="lift"></l-navigation-menu>
+  <l-navigation-menu :items="items" hoverEffect="glow"></l-navigation-menu>
+  <l-navigation-menu :items="items" hoverEffect="shine"></l-navigation-menu>
 </template>
 
 <script setup lang="ts">
@@ -573,16 +573,16 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-NavigationMenu [items]="items" transition="fade"></l-NavigationMenu>
-    <l-NavigationMenu [items]="items" transition="slide-down"></l-NavigationMenu>
-    <l-NavigationMenu [items]="items" transition="slide-right" transitionDelay="100"></l-NavigationMenu>
-    <l-NavigationMenu [items]="items" transition="zoom"></l-NavigationMenu>
-    <l-NavigationMenu [items]="items" transition="blur"></l-NavigationMenu>
-    <l-NavigationMenu [items]="items" transition="drop" transitionDuration="700"></l-NavigationMenu>
+    <l-navigation-menu [items]="items" transition="fade"></l-navigation-menu>
+    <l-navigation-menu [items]="items" transition="slide-down"></l-navigation-menu>
+    <l-navigation-menu [items]="items" transition="slide-right" transitionDelay="100"></l-navigation-menu>
+    <l-navigation-menu [items]="items" transition="zoom"></l-navigation-menu>
+    <l-navigation-menu [items]="items" transition="blur"></l-navigation-menu>
+    <l-navigation-menu [items]="items" transition="drop" transitionDuration="700"></l-navigation-menu>
 
-    <l-NavigationMenu [items]="items" hoverEffect="lift"></l-NavigationMenu>
-    <l-NavigationMenu [items]="items" hoverEffect="glow"></l-NavigationMenu>
-    <l-NavigationMenu [items]="items" hoverEffect="shine"></l-NavigationMenu>
+    <l-navigation-menu [items]="items" hoverEffect="lift"></l-navigation-menu>
+    <l-navigation-menu [items]="items" hoverEffect="glow"></l-navigation-menu>
+    <l-navigation-menu [items]="items" hoverEffect="shine"></l-navigation-menu>
   \`,
 })
 export class AppComponent {

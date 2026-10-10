@@ -81,7 +81,7 @@ export default function CommandMenuShowcase() {
 
 <CommandMenu open={open} onClose={() => setOpen(false)} items={items} />`,
               js: `<button id="open-command-menu-btn">Search commands…</button>
-<l-CommandMenu id="cmd-menu"></l-CommandMenu>
+<l-command-menu id="cmd-menu"></l-command-menu>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -104,7 +104,7 @@ export default function CommandMenuShowcase() {
 </script>`,
               vue: `<template>
   <button @click="open = true">Search commands…</button>
-  <l-CommandMenu :open="open" :items="items" @close="open = false" />
+  <l-command-menu :open="open" :items="items" @close="open = false" />
 </template>
 
 <script setup lang="ts">
@@ -133,7 +133,7 @@ import "lojee-ui/elements";
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
     <button (click)="open = true">Search commands…</button>
-    <l-CommandMenu [open]="open" [items]="items" (close)="open = false" />
+    <l-command-menu [open]="open" [items]="items" (close)="open = false" />
   \`,
 })
 export class CommandMenuShowcaseComponent {
@@ -187,8 +187,8 @@ const items: CommandMenuItem[] = [
 
 <Button label="Open command menu" onClick={() => setOpen(true)} />
 <CommandMenu open={open} onClose={() => setOpen(false)} items={items} ${trReact} />`,
-              js: `<l-Button label="Open command menu" id="open-tr-btn"></l-Button>
-<l-CommandMenu id="tr-overlay" ${trHtml}></l-CommandMenu>
+              js: `<l-button label="Open command menu" id="open-tr-btn"></l-button>
+<l-command-menu id="tr-overlay" ${trHtml}></l-command-menu>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -204,8 +204,8 @@ const items: CommandMenuItem[] = [
   overlay.addEventListener("close", () => { overlay.open = false; });
 </script>`,
               vue: `<template>
-  <l-Button label="Open command menu" @click="open = true"></l-Button>
-  <l-CommandMenu :open="open" :items="items" ${trHtml} @close="open = false"></l-CommandMenu>
+  <l-button label="Open command menu" @click="open = true"></l-button>
+  <l-command-menu :open="open" :items="items" ${trHtml} @close="open = false"></l-command-menu>
 </template>
 
 <script setup lang="ts">
@@ -228,8 +228,8 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Button label="Open command menu" (click)="open = true"></l-Button>
-    <l-CommandMenu [open]="open" [items]="items" ${trHtml} (close)="open = false"></l-CommandMenu>
+    <l-button label="Open command menu" (click)="open = true"></l-button>
+    <l-command-menu [open]="open" [items]="items" ${trHtml} (close)="open = false"></l-command-menu>
   \`,
 })
 export class AppComponent {

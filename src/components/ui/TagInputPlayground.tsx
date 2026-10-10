@@ -54,9 +54,9 @@ export default function TagInputPlayground() {
       preview={preview}
       variants={wcCode({
         react: `<TagInput${react} />`,
-        html: `<l-Tag-Input${html(plain)}></l-Tag-Input>`,
-        vueHtml: `<l-Tag-Input${html(vue)}></l-Tag-Input>`,
-        angularHtml: `<l-Tag-Input${html(ng)}></l-Tag-Input>`,
+        html: `<l-tag-input${html(plain)}></l-tag-input>`,
+        vueHtml: `<l-tag-input${html(vue)}></l-tag-input>`,
+        angularHtml: `<l-tag-input${html(ng)}></l-tag-input>`,
       })}
     >
       <ColorSwatches label="Color" value={color} onChange={setColor} />

@@ -47,10 +47,10 @@ export default function SheetShowcase() {
 <Sheet open={open} onClose={() => setOpen(false)} title="Sheet title">
   <p>This is a basic bottom sheet.</p>
 </Sheet>`,
-              js: `<l-Button label="Open sheet" id="open-sheet-btn"></l-Button>
-<l-Sheet id="basic-sheet" heading="Sheet title">
+              js: `<l-button label="Open sheet" id="open-sheet-btn"></l-button>
+<l-sheet id="basic-sheet" heading="Sheet title">
   <p>This is a basic bottom sheet.</p>
-</l-Sheet>
+</l-sheet>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -61,10 +61,10 @@ export default function SheetShowcase() {
   sheet.addEventListener("close", () => { sheet.open = false; });
 </script>`,
               vue: `<template>
-  <l-Button label="Open sheet" @click="open = true" />
-  <l-Sheet :open="open" heading="Sheet title" @close="open = false">
+  <l-button label="Open sheet" @click="open = true" />
+  <l-sheet :open="open" heading="Sheet title" @close="open = false">
     <p>This is a basic bottom sheet.</p>
-  </l-Sheet>
+  </l-sheet>
 </template>
 
 <script setup lang="ts">
@@ -82,10 +82,10 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Button label="Open sheet" (click)="open = true" />
-    <l-Sheet [open]="open" heading="Sheet title" (close)="open = false">
+    <l-button label="Open sheet" (click)="open = true" />
+    <l-sheet [open]="open" heading="Sheet title" (close)="open = false">
       <p>This is a basic bottom sheet.</p>
-    </l-Sheet>
+    </l-sheet>
   \`,
 })
 export class SheetShowcaseComponent {
@@ -119,29 +119,29 @@ export class SheetShowcaseComponent {
     {items.map((item) => <p key={item.id}>{item.text}</p>)}
   </div>
 </Sheet>`,
-              js: `<l-Sheet id="terms-sheet" heading="Terms & conditions">
+              js: `<l-sheet id="terms-sheet" heading="Terms & conditions">
   <div>
     <!-- items -->
   </div>
-</l-Sheet>
+</l-sheet>
 
 <script type="module">
   const sheet = document.getElementById("terms-sheet");
   sheet.addEventListener("close", () => { sheet.open = false; });
 </script>`,
               vue: `<template>
-  <l-Sheet :open="open" heading="Terms & conditions" @close="open = false">
+  <l-sheet :open="open" heading="Terms & conditions" @close="open = false">
     <div>
       <p v-for="item in items" :key="item.id">{{ item.text }}</p>
     </div>
-  </l-Sheet>
+  </l-sheet>
 </template>`,
               angular: `<!-- reuses SheetShowcaseComponent from above -->
-<l-Sheet [open]="open" heading="Terms & conditions" (close)="open = false">
+<l-sheet [open]="open" heading="Terms & conditions" (close)="open = false">
   <div>
     <p *ngFor="let item of items">{{ item.text }}</p>
   </div>
-</l-Sheet>`,
+</l-sheet>`,
             }}
           />
         </section>
@@ -172,10 +172,10 @@ export class SheetShowcaseComponent {
 <Sheet open={open} onClose={() => setOpen(false)} title="Transition" ${trReact}>
   <p>A transition replaces the sheet's default slide-up.</p>
 </Sheet>`,
-              js: `<l-Button label="Open sheet" id="open-tr-btn"></l-Button>
-<l-Sheet id="tr-overlay" heading="Transition" ${trHtml}>
+              js: `<l-button label="Open sheet" id="open-tr-btn"></l-button>
+<l-sheet id="tr-overlay" heading="Transition" ${trHtml}>
   <p>A transition replaces the sheet's default slide-up.</p>
-</l-Sheet>
+</l-sheet>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -186,10 +186,10 @@ export class SheetShowcaseComponent {
   overlay.addEventListener("close", () => { overlay.open = false; });
 </script>`,
               vue: `<template>
-  <l-Button label="Open sheet" @click="open = true"></l-Button>
-  <l-Sheet :open="open" heading="Transition" ${trHtml} @close="open = false">
+  <l-button label="Open sheet" @click="open = true"></l-button>
+  <l-sheet :open="open" heading="Transition" ${trHtml} @close="open = false">
     <p>A transition replaces the sheet's default slide-up.</p>
-  </l-Sheet>
+  </l-sheet>
 </template>
 
 <script setup lang="ts">
@@ -207,10 +207,10 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Button label="Open sheet" (click)="open = true"></l-Button>
-    <l-Sheet [open]="open" heading="Transition" ${trHtml} (close)="open = false">
+    <l-button label="Open sheet" (click)="open = true"></l-button>
+    <l-sheet [open]="open" heading="Transition" ${trHtml} (close)="open = false">
       <p>A transition replaces the sheet's default slide-up.</p>
-    </l-Sheet>
+    </l-sheet>
   \`,
 })
 export class AppComponent {

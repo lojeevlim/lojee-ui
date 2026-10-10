@@ -39,7 +39,7 @@ export default function MultiSelectShowcase() {
               react: `const [value, setValue] = useState<string[]>(["banana"]);
 
 <MultiSelect options={options} value={value} onChange={setValue} placeholder="Select fruits..." />`,
-              js: `<l-MultiSelect id="fruit-select" placeholder="Select fruits..."></l-MultiSelect>
+              js: `<l-multi-select id="fruit-select" placeholder="Select fruits..."></l-multi-select>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -61,7 +61,7 @@ export default function MultiSelectShowcase() {
   });
 </script>`,
               vue: `<template>
-  <l-MultiSelect :options="options" :value="value" placeholder="Select fruits..." @change="value = $event.detail" />
+  <l-multi-select :options="options" :value="value" placeholder="Select fruits..." @change="value = $event.detail" />
 </template>
 
 <script setup lang="ts">
@@ -100,7 +100,7 @@ export class AppComponent {
 }
 
 <!-- app.component.html -->
-<l-MultiSelect [options]="options" [value]="value" placeholder="Select fruits..." (change)="value = $event.detail" />`,
+<l-multi-select [options]="options" [value]="value" placeholder="Select fruits..." (change)="value = $event.detail" />`,
             }}
           />
         </section>
@@ -118,7 +118,7 @@ export class AppComponent {
           <CodeBlock
             variants={{
               react: `<MultiSelect options={options} value={value} onChange={setValue} color="violet" />`,
-              js: `<l-MultiSelect id="colored-select" color="violet"></l-MultiSelect>
+              js: `<l-multi-select id="colored-select" color="violet"></l-multi-select>
 
 <script type="module">
   const select = document.getElementById("colored-select");
@@ -129,10 +129,10 @@ export class AppComponent {
   });
 </script>`,
               vue: `<template>
-  <l-MultiSelect :options="options" :value="value" color="violet" @change="value = $event.detail" />
+  <l-multi-select :options="options" :value="value" color="violet" @change="value = $event.detail" />
 </template>`,
               angular: `<!-- app.component.html — same AppComponent class as above -->
-<l-MultiSelect [options]="options" [value]="value" color="violet" (change)="value = $event.detail" />`,
+<l-multi-select [options]="options" [value]="value" color="violet" (change)="value = $event.detail" />`,
             }}
           />
         </section>
@@ -145,7 +145,7 @@ export class AppComponent {
           <CodeBlock
             variants={{
               react: `<MultiSelect options={options} value={[]} onChange={setValue} placeholder="Nothing selected yet" />`,
-              js: `<l-MultiSelect id="empty-select" placeholder="Nothing selected yet"></l-MultiSelect>
+              js: `<l-multi-select id="empty-select" placeholder="Nothing selected yet"></l-multi-select>
 
 <script type="module">
   const select = document.getElementById("empty-select");
@@ -156,10 +156,10 @@ export class AppComponent {
   });
 </script>`,
               vue: `<template>
-  <l-MultiSelect :options="options" :value="[]" placeholder="Nothing selected yet" @change="value = $event.detail" />
+  <l-multi-select :options="options" :value="[]" placeholder="Nothing selected yet" @change="value = $event.detail" />
 </template>`,
               angular: `<!-- app.component.html — same AppComponent class as above -->
-<l-MultiSelect [options]="options" [value]="[]" placeholder="Nothing selected yet" (change)="value = $event.detail" />`,
+<l-multi-select [options]="options" [value]="[]" placeholder="Nothing selected yet" (change)="value = $event.detail" />`,
             }}
           />
         </section>
@@ -190,15 +190,15 @@ export class AppComponent {
 <MultiSelect options={options} value={value} onChange={setValue} placeholder="Select fruits..." hoverEffect="lift" />
 <MultiSelect options={options} value={value} onChange={setValue} placeholder="Select fruits..." hoverEffect="glow" />
 <MultiSelect options={options} value={value} onChange={setValue} placeholder="Select fruits..." hoverEffect="ring" />`,
-              js: `<l-MultiSelect placeholder="Select fruits..." transition="fade"></l-MultiSelect>
-<l-MultiSelect placeholder="Select fruits..." transition="slide-up"></l-MultiSelect>
-<l-MultiSelect placeholder="Select fruits..." transition="zoom"></l-MultiSelect>
-<l-MultiSelect placeholder="Select fruits..." transition="flip"></l-MultiSelect>
-<l-MultiSelect placeholder="Select fruits..." transition="slide-right" transitionDelay="100"></l-MultiSelect>
-<l-MultiSelect placeholder="Select fruits..." transition="bounce" transitionDuration="700"></l-MultiSelect>
-<l-MultiSelect placeholder="Select fruits..." hoverEffect="lift"></l-MultiSelect>
-<l-MultiSelect placeholder="Select fruits..." hoverEffect="glow"></l-MultiSelect>
-<l-MultiSelect placeholder="Select fruits..." hoverEffect="ring"></l-MultiSelect>
+              js: `<l-multi-select placeholder="Select fruits..." transition="fade"></l-multi-select>
+<l-multi-select placeholder="Select fruits..." transition="slide-up"></l-multi-select>
+<l-multi-select placeholder="Select fruits..." transition="zoom"></l-multi-select>
+<l-multi-select placeholder="Select fruits..." transition="flip"></l-multi-select>
+<l-multi-select placeholder="Select fruits..." transition="slide-right" transitionDelay="100"></l-multi-select>
+<l-multi-select placeholder="Select fruits..." transition="bounce" transitionDuration="700"></l-multi-select>
+<l-multi-select placeholder="Select fruits..." hoverEffect="lift"></l-multi-select>
+<l-multi-select placeholder="Select fruits..." hoverEffect="glow"></l-multi-select>
+<l-multi-select placeholder="Select fruits..." hoverEffect="ring"></l-multi-select>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -218,15 +218,15 @@ export class AppComponent {
   });
 </script>`,
               vue: `<template>
-  <l-MultiSelect :options="options" :value="value" placeholder="Select fruits..." transition="fade"></l-MultiSelect>
-  <l-MultiSelect :options="options" :value="value" placeholder="Select fruits..." transition="slide-up"></l-MultiSelect>
-  <l-MultiSelect :options="options" :value="value" placeholder="Select fruits..." transition="zoom"></l-MultiSelect>
-  <l-MultiSelect :options="options" :value="value" placeholder="Select fruits..." transition="flip"></l-MultiSelect>
-  <l-MultiSelect :options="options" :value="value" placeholder="Select fruits..." transition="slide-right" transitionDelay="100"></l-MultiSelect>
-  <l-MultiSelect :options="options" :value="value" placeholder="Select fruits..." transition="bounce" transitionDuration="700"></l-MultiSelect>
-  <l-MultiSelect :options="options" :value="value" placeholder="Select fruits..." hoverEffect="lift"></l-MultiSelect>
-  <l-MultiSelect :options="options" :value="value" placeholder="Select fruits..." hoverEffect="glow"></l-MultiSelect>
-  <l-MultiSelect :options="options" :value="value" placeholder="Select fruits..." hoverEffect="ring"></l-MultiSelect>
+  <l-multi-select :options="options" :value="value" placeholder="Select fruits..." transition="fade"></l-multi-select>
+  <l-multi-select :options="options" :value="value" placeholder="Select fruits..." transition="slide-up"></l-multi-select>
+  <l-multi-select :options="options" :value="value" placeholder="Select fruits..." transition="zoom"></l-multi-select>
+  <l-multi-select :options="options" :value="value" placeholder="Select fruits..." transition="flip"></l-multi-select>
+  <l-multi-select :options="options" :value="value" placeholder="Select fruits..." transition="slide-right" transitionDelay="100"></l-multi-select>
+  <l-multi-select :options="options" :value="value" placeholder="Select fruits..." transition="bounce" transitionDuration="700"></l-multi-select>
+  <l-multi-select :options="options" :value="value" placeholder="Select fruits..." hoverEffect="lift"></l-multi-select>
+  <l-multi-select :options="options" :value="value" placeholder="Select fruits..." hoverEffect="glow"></l-multi-select>
+  <l-multi-select :options="options" :value="value" placeholder="Select fruits..." hoverEffect="ring"></l-multi-select>
 </template>
 
 <script setup lang="ts">
@@ -251,15 +251,15 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-MultiSelect [options]="options" [value]="value" placeholder="Select fruits..." transition="fade"></l-MultiSelect>
-    <l-MultiSelect [options]="options" [value]="value" placeholder="Select fruits..." transition="slide-up"></l-MultiSelect>
-    <l-MultiSelect [options]="options" [value]="value" placeholder="Select fruits..." transition="zoom"></l-MultiSelect>
-    <l-MultiSelect [options]="options" [value]="value" placeholder="Select fruits..." transition="flip"></l-MultiSelect>
-    <l-MultiSelect [options]="options" [value]="value" placeholder="Select fruits..." transition="slide-right" transitionDelay="100"></l-MultiSelect>
-    <l-MultiSelect [options]="options" [value]="value" placeholder="Select fruits..." transition="bounce" transitionDuration="700"></l-MultiSelect>
-    <l-MultiSelect [options]="options" [value]="value" placeholder="Select fruits..." hoverEffect="lift"></l-MultiSelect>
-    <l-MultiSelect [options]="options" [value]="value" placeholder="Select fruits..." hoverEffect="glow"></l-MultiSelect>
-    <l-MultiSelect [options]="options" [value]="value" placeholder="Select fruits..." hoverEffect="ring"></l-MultiSelect>
+    <l-multi-select [options]="options" [value]="value" placeholder="Select fruits..." transition="fade"></l-multi-select>
+    <l-multi-select [options]="options" [value]="value" placeholder="Select fruits..." transition="slide-up"></l-multi-select>
+    <l-multi-select [options]="options" [value]="value" placeholder="Select fruits..." transition="zoom"></l-multi-select>
+    <l-multi-select [options]="options" [value]="value" placeholder="Select fruits..." transition="flip"></l-multi-select>
+    <l-multi-select [options]="options" [value]="value" placeholder="Select fruits..." transition="slide-right" transitionDelay="100"></l-multi-select>
+    <l-multi-select [options]="options" [value]="value" placeholder="Select fruits..." transition="bounce" transitionDuration="700"></l-multi-select>
+    <l-multi-select [options]="options" [value]="value" placeholder="Select fruits..." hoverEffect="lift"></l-multi-select>
+    <l-multi-select [options]="options" [value]="value" placeholder="Select fruits..." hoverEffect="glow"></l-multi-select>
+    <l-multi-select [options]="options" [value]="value" placeholder="Select fruits..." hoverEffect="ring"></l-multi-select>
   \`,
 })
 export class AppComponent {

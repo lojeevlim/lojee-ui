@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Menu } from "lucide-react";
-import { App, Top, Side, Main, Foot, type MainPadding } from "../components/ui/AppLayout/App";
+import { App, Top, Side, Main, Foot, type MainPadding, type MainMargin, type MainRounded } from "../components/ui/AppLayout/App";
 import { useAppLayout } from "../components/ui/AppLayout/appLayoutContext";
 import { ThemeProvider } from "../components/ui/Theme/ThemeProvider";
 import type { AppTheme, GridLayout } from "../components/ui/AppLayout/appLayout";
@@ -66,16 +66,24 @@ function pageAccent(): Accent | undefined {
  * (which assign themselves to the matching slots below). With no `theme` / `accent` / `active-variant` it follows the page's own theme (<html data-*>). */
 export function AppElement({ theme, accent, design, activeVariant, layout, collapseBelow }: AppElementProps) {
   const ref = useRef<HTMLSpanElement>(null);
-  const [mainPadding, setMainPadding] = useState<MainPadding | undefined>();
-  // `<l-main padding="lg">`: the panel belongs to <Main> inside this shadow root, so mirror the child's attribute.
+  const [mainProps, setMainProps] = useState<{ padding?: MainPadding; margin?: MainMargin; rounded?: MainRounded }>({});
+  // `<l-main padding="lg" margin="sm" rounded="2xl">`: the panel belongs to <Main> inside this shadow root, so mirror the child's attributes.
   useEffect(() => {
     const root = ref.current?.getRootNode();
     const host = root instanceof ShadowRoot ? root.host : null;
     if (!host) return;
-    const sync = () => setMainPadding((host.querySelector(":scope > l-main")?.getAttribute("padding") as MainPadding | null) ?? undefined);
+    const sync = () => {
+      const el = host.querySelector(":scope > l-main");
+      const next = {
+        padding: (el?.getAttribute("padding") as MainPadding | null) ?? undefined,
+        margin: (el?.getAttribute("margin") as MainMargin | null) ?? undefined,
+        rounded: (el?.getAttribute("rounded") as MainRounded | null) ?? undefined,
+      };
+      setMainProps((prev) => (prev.padding === next.padding && prev.margin === next.margin && prev.rounded === next.rounded ? prev : next));
+    };
     sync();
     const obs = new MutationObserver(sync);
-    obs.observe(host, { childList: true, attributes: true, attributeFilter: ["padding"], subtree: true });
+    obs.observe(host, { childList: true, attributes: true, attributeFilter: ["padding", "margin", "rounded"], subtree: true });
     return () => obs.disconnect();
   }, []);
 
@@ -97,7 +105,7 @@ export function AppElement({ theme, accent, design, activeVariant, layout, colla
       <Side>
         <slot name="side" />
       </Side>
-      <Main padding={mainPadding}>
+      <Main padding={mainProps.padding} margin={mainProps.margin} rounded={mainProps.rounded}>
         <slot />
       </Main>
       <Foot>

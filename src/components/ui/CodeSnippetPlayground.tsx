@@ -33,9 +33,9 @@ export default function CodeSnippetPlayground() {
       preview={preview}
       variants={wcCode({
         react: `<CodeSnippet code={source}${react} />`,
-        html: `<l-Code-Snippet id="snippet"${html}></l-Code-Snippet>`,
-        vueHtml: `<l-Code-Snippet :code="source"${html.replace(' line-numbers="true"', ' :line-numbers="true"').replace(' copyable="false"', ' :copyable="false"')}></l-Code-Snippet>`,
-        angularHtml: `<l-Code-Snippet [code]="source"${html.replace(' line-numbers="true"', ' [lineNumbers]="true"').replace(' copyable="false"', ' [copyable]="false"')}></l-Code-Snippet>`,
+        html: `<l-code-snippet id="snippet"${html}></l-code-snippet>`,
+        vueHtml: `<l-code-snippet :code="source"${html.replace(' line-numbers="true"', ' :line-numbers="true"').replace(' copyable="false"', ' :copyable="false"')}></l-code-snippet>`,
+        angularHtml: `<l-code-snippet [code]="source"${html.replace(' line-numbers="true"', ' [lineNumbers]="true"').replace(' copyable="false"', ' [copyable]="false"')}></l-code-snippet>`,
         script: `document.getElementById("snippet").code = 'import { Button } from "lojee-ui";';`,
       })}
     >

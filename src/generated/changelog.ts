@@ -2,8 +2,35 @@
 export interface ChangelogCommit { sha: string; short: string; date: string; author: string; email: string; subject: string; body: string }
 
 export const PACKAGE_VERSION = "0.1.0-alpha.14";
-export const CHANGELOG_GENERATED_AT = "2026-10-08T14:47:11.360Z";
+export const CHANGELOG_GENERATED_AT = "2026-10-10T15:11:57.708Z";
 export const CHANGELOG: ChangelogCommit[] = [
+  {
+    "sha": "42b22a25680b71c0eaa8a1563aa802c1f508eefd",
+    "short": "42b22a2",
+    "date": "2026-10-10T23:10:08+08:00",
+    "author": "lojeevlim",
+    "email": "lojeevlim@gmail.com",
+    "subject": "Update app layout, Main, ThemeSwitcher and theme; convert remaining tags",
+    "body": ""
+  },
+  {
+    "sha": "c66b192f092c2cd7d84459439a7642faaca17efe",
+    "short": "c66b192",
+    "date": "2026-10-10T23:07:54+08:00",
+    "author": "lojeevlim",
+    "email": "lojeevlim@gmail.com",
+    "subject": "Fix l-* custom element tags, nav active state, landing/footer examples",
+    "body": "- register every multi-word element under its dash-less alias so\n<l-BottomNavigation> (HTML lowercases tag names) resolves\n- rewrite code examples to kebab-case tags (<l-bottom-navigation>)\n- Sidebar/Navbar: ignore popstate that matches no item (href=\"#\" clicks\ncleared the active row)\n- landing navbar: accent icons, no hover underline\n- Footer showcase/playground code include heading and tagline"
+  },
+  {
+    "sha": "cf10eb672e582ffd77738a210487ad1bd7771dc7",
+    "short": "cf10eb6",
+    "date": "2026-10-08T23:43:06+08:00",
+    "author": "lojeevlim",
+    "email": "lojeevlim@gmail.com",
+    "subject": "Landing: navbar scroll glow, bottom fade, hero card tweaks, Raspberry accent",
+    "body": "- Navbar: bottom glow while scrolling, forming from the middle\n- Landing: fixed bottom fade that takes the theme colour while scrolling (dark)\n- Hero: Select cards no longer clipped, DatePicker invalid border removed,\npressed card lights up itself, light shadow on heading hover\n- Main: small fade at top and bottom edges\n- Perf: pause decorative animations while scrolling (scrollState)\n- Site default accent is now Raspberry\n- Docs: \"Scroll to center\" spelling"
+  },
   {
     "sha": "649038fca77a2587db7214bfa2255e0c9b8a3d45",
     "short": "649038f",

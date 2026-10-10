@@ -111,7 +111,16 @@ import { Thinking } from "../components/ui/Thinking/Thinking";
 // clicks. Only callbacks with no native DOM equivalent (SplitButton's menu
 // trigger, Modal's close request) go through r2wc's `events` bridge.
 
-customElements.define(
+// Docs and framework templates write these tags in PascalCase (`<l-BottomNavigation>`), but HTML lowercases tag names, so the
+// browser looks for `l-bottomnavigation` — not the kebab-case `l-bottom-navigation`. Every multi-word element is therefore also
+// registered under its dash-less name, so both spellings work.
+function defineElement(tag: string, ctor: CustomElementConstructor) {
+  customElements.define(tag, ctor);
+  const alias = `l-${tag.slice(2).replace(/-/g, "")}`;
+  if (alias !== tag && !customElements.get(alias)) customElements.define(alias, class extends ctor {});
+}
+
+defineElement(
   "l-button",
   r2wc(withTailwind(Button), {
     shadow: "open",
@@ -144,7 +153,7 @@ customElements.define(
   })
 );
 
-customElements.define(
+defineElement(
   "l-split-button",
   r2wc(withTailwind(SplitButton), {
     shadow: "open",
@@ -171,7 +180,7 @@ customElements.define(
 // <l-split-button-menu-item icon="trash-2">Delete</l-split-button-menu-item>
 // — project into its dropdown via the native <slot>, same as
 // <l-segment-button> does inside <l-button-group>.
-customElements.define(
+defineElement(
   "l-split-button-menu-item",
   r2wc(withTailwind(SplitButtonMenuItem), {
     shadow: "open",
@@ -182,7 +191,7 @@ customElements.define(
   })
 );
 
-customElements.define(
+defineElement(
   "l-button-group",
   // `onitemclick="…"` also works as an inline handler attribute (see inline-events.ts)
   withInlineEvents(
@@ -195,7 +204,7 @@ customElements.define(
   )
 );
 
-customElements.define(
+defineElement(
   "l-segment-button",
   r2wc(withTailwind(SegmentButton), {
     shadow: "open",
@@ -210,7 +219,7 @@ customElements.define(
   })
 );
 
-customElements.define(
+defineElement(
   "l-modal",
   r2wc(withUpdate(withTailwind(ModalElement), { onClose: () => false }), {
     shadow: "open",
@@ -228,7 +237,7 @@ customElements.define(
   })
 );
 
-customElements.define(
+defineElement(
   "l-badge",
   r2wc(withTailwind(Badge), {
     shadow: "open",
@@ -250,7 +259,7 @@ customElements.define(
   })
 );
 
-customElements.define(
+defineElement(
   "l-avatar",
   r2wc(withTailwind(Avatar), {
     shadow: "open",
@@ -273,12 +282,12 @@ customElements.define(
   })
 );
 
-customElements.define(
+defineElement(
   "l-avatar-group",
   r2wc(withTailwind(AvatarGroup), { shadow: "open", props: { transition: "string", transitionDuration: "number", transitionDelay: "number" } })
 );
 
-customElements.define(
+defineElement(
   "l-icon",
   r2wc(withTailwind(Icon), {
     shadow: "open",
@@ -286,7 +295,7 @@ customElements.define(
   })
 );
 
-customElements.define(
+defineElement(
   "l-spinner",
   r2wc(withTailwind(Spinner), {
     shadow: "open",
@@ -294,7 +303,7 @@ customElements.define(
   })
 );
 
-customElements.define(
+defineElement(
   "l-divider",
   r2wc(withTailwind(Divider), {
     shadow: "open",
@@ -303,7 +312,7 @@ customElements.define(
   })
 );
 
-customElements.define(
+defineElement(
   "l-tooltip",
   r2wc(withTailwind(Tooltip), {
     shadow: "open",
@@ -311,7 +320,7 @@ customElements.define(
   })
 );
 
-customElements.define(
+defineElement(
   "l-card",
   r2wc(withTailwind(withSlots(Card, { footer: "footer", children: "" })), {
     shadow: "open",
@@ -319,7 +328,7 @@ customElements.define(
   })
 );
 
-customElements.define(
+defineElement(
   "l-container",
   r2wc(withTailwind(Container), {
     shadow: "open",
@@ -327,7 +336,7 @@ customElements.define(
   })
 );
 
-customElements.define(
+defineElement(
   "l-section",
   r2wc(withTailwind(Section), {
     shadow: "open",
@@ -335,7 +344,7 @@ customElements.define(
   })
 );
 
-customElements.define(
+defineElement(
   "l-grid",
   r2wc(withTailwind(Grid), {
     shadow: "open",
@@ -343,7 +352,7 @@ customElements.define(
   })
 );
 
-customElements.define(
+defineElement(
   "l-list",
   r2wc(withTailwind(withSlots(List, { header: "header" })), {
     shadow: "open",
@@ -353,7 +362,7 @@ customElements.define(
 
 // Light-DOM children of <l-list> — projected via the native <slot>, same as
 // <l-segment-button> inside <l-button-group>.
-customElements.define(
+defineElement(
   "l-list-item",
   r2wc(withTailwind(ListItem), {
     shadow: "open",
@@ -361,12 +370,12 @@ customElements.define(
   })
 );
 
-customElements.define(
+defineElement(
   "l-breadcrumbs",
   r2wc(withTailwind(Breadcrumbs), { shadow: "open", props: { color: "string", variant: "string", transition: "string", transitionDuration: "number", transitionDelay: "number" } })
 );
 
-customElements.define(
+defineElement(
   "l-breadcrumb-item",
   r2wc(withTailwind(BreadcrumbItem), {
     shadow: "open",
@@ -374,7 +383,7 @@ customElements.define(
   })
 );
 
-customElements.define(
+defineElement(
   "l-accordion",
   r2wc(withTailwind(Accordion), { shadow: "open", props: { className: "string", transition: "string", transitionDuration: "number", transitionDelay: "number", hoverEffect: "string" } })
 );
@@ -382,7 +391,7 @@ customElements.define(
 // Same-`name` <l-accordion-item> siblings become mutually exclusive via the
 // browser's native <details name> behavior — no JS coordination needed, so
 // this works identically whether wrapped as a Web Component or not.
-customElements.define(
+defineElement(
   "l-accordion-item",
   r2wc(withUpdate(withTailwind(AccordionItem), ["onOpenChange"]), {
     shadow: "open",
@@ -403,7 +412,7 @@ customElements.define(
 // columns/data are plain data (no functions when set as a JSON attribute
 // string; set the `columns`/`data` DOM properties directly with real
 // objects/functions instead of attributes for the `render` callback to work).
-customElements.define(
+defineElement(
   "l-table",
   r2wc(withUpdate(withTailwind(TableElement), ["onSelectionChange"]), {
     shadow: "open",
@@ -442,7 +451,7 @@ customElements.define(
   })
 );
 
-customElements.define(
+defineElement(
   "l-pagination",
   r2wc(withUpdate(withTailwind(Pagination), ["onPageChange"]), {
     shadow: "open",
@@ -453,7 +462,7 @@ customElements.define(
 
 // `tabs` has no native DOM equivalent (it's data, not children) — set the
 // `tabs` DOM property directly with a real array, same caveat as Table above.
-customElements.define(
+defineElement(
   "l-tabs",
   r2wc(withUpdate(withTailwind(Tabs), ["onChange"]), {
     shadow: "open",
@@ -462,7 +471,7 @@ customElements.define(
   })
 );
 
-customElements.define(
+defineElement(
   "l-carousel",
   r2wc(withUpdate(withTailwind(Carousel), ["onChange"]), {
     shadow: "open",
@@ -471,7 +480,7 @@ customElements.define(
   })
 );
 
-customElements.define(
+defineElement(
   "l-input",
   r2wc(withFormEvents(withTailwind(Input), { mirror: true }), {
     shadow: "open",
@@ -496,7 +505,7 @@ customElements.define(
   })
 );
 
-customElements.define(
+defineElement(
   "l-textarea",
   r2wc(withFormEvents(withTailwind(Textarea), { mirror: true }), {
     shadow: "open",
@@ -519,7 +528,7 @@ customElements.define(
   })
 );
 
-customElements.define(
+defineElement(
   "l-label",
   r2wc(withTailwind(Label), {
     shadow: "open",
@@ -527,7 +536,7 @@ customElements.define(
   })
 );
 
-customElements.define(
+defineElement(
   "l-search-input",
   r2wc(withFormEvents(withTailwind(SearchInput), { mirror: true }), {
     shadow: "open",
@@ -537,7 +546,7 @@ customElements.define(
   })
 );
 
-customElements.define(
+defineElement(
   "l-checkbox",
   r2wc(withFormEvents(withTailwind(Checkbox), { mirror: true }), {
     shadow: "open",
@@ -559,7 +568,7 @@ customElements.define(
   })
 );
 
-customElements.define(
+defineElement(
   "l-radio",
   r2wc(withFormEvents(withTailwind(Radio), { mirror: true }), {
     shadow: "open",
@@ -583,7 +592,7 @@ customElements.define(
 
 // Pure layout wrapper — same-`name` <l-radio> siblings are natively
 // mutually exclusive via the browser, no JS coordination needed.
-customElements.define(
+defineElement(
   "l-radio-group",
   r2wc(withTailwind(RadioGroup), {
     shadow: "open",
@@ -591,7 +600,7 @@ customElements.define(
   })
 );
 
-customElements.define(
+defineElement(
   "l-switch",
   r2wc(withFormEvents(withTailwind(Switch), { mirror: true }), {
     shadow: "open",
@@ -613,7 +622,7 @@ customElements.define(
   })
 );
 
-customElements.define(
+defineElement(
   "l-select",
   r2wc(withFormEvents(withTailwind(Select), { mirror: true }), {
     shadow: "open",
@@ -636,7 +645,7 @@ customElements.define(
   })
 );
 
-customElements.define(
+defineElement(
   "l-date-picker",
   r2wc(withFormEvents(withTailwind(DatePicker), { mirror: true }), {
     shadow: "open",
@@ -649,7 +658,7 @@ customElements.define(
 // startValue/endValue are a pair, not a single native input value — set the
 // `startValue`/`endValue` DOM properties directly, and listen for the
 // bridged "startchange"/"endchange" events instead of a native input event.
-customElements.define(
+defineElement(
   "l-date-range-picker",
   r2wc(withTailwind(DateRangePicker), {
     shadow: "open",
@@ -672,7 +681,7 @@ customElements.define(
   })
 );
 
-customElements.define(
+defineElement(
   "l-time-picker",
   r2wc(withFormEvents(withTailwind(TimePicker), { mirror: true }), {
     shadow: "open",
@@ -681,7 +690,7 @@ customElements.define(
   })
 );
 
-customElements.define(
+defineElement(
   "l-slider",
   r2wc(withFormEvents(withTailwind(Slider), { mirror: true }), {
     shadow: "open",
@@ -709,7 +718,7 @@ customElements.define(
 // `value` DOM property directly with a real [number, number], and listen for
 // the bridged "change" event (detail = the new tuple) instead of a native
 // input/change event.
-customElements.define(
+defineElement(
   "l-range-slider",
   r2wc(withFormEvents(withUpdate(withTailwind(RangeSlider), ["onChange"]), { update: false }), {
     shadow: "open",
@@ -736,7 +745,7 @@ customElements.define(
 // options/value are plain data — set the `options`/`value` DOM properties
 // directly with real arrays for full control; listen for the bridged
 // "change" event (detail = string[]) instead of a native change event.
-customElements.define(
+defineElement(
   "l-multi-select",
   r2wc(withUpdate(withTailwind(MultiSelect), ["onChange"]), {
     shadow: "open",
@@ -745,7 +754,7 @@ customElements.define(
   })
 );
 
-customElements.define(
+defineElement(
   "l-combobox",
   r2wc(withFormEvents(withUpdate(withTailwind(Combobox), ["onChange"]), { update: false }), {
     shadow: "open",
@@ -755,7 +764,7 @@ customElements.define(
   })
 );
 
-customElements.define(
+defineElement(
   "l-file-upload",
   r2wc(withFormEvents(withTailwind(FileUpload)), {
     shadow: "open",
@@ -765,7 +774,7 @@ customElements.define(
   })
 );
 
-customElements.define(
+defineElement(
   "l-alert-dialog",
   r2wc(withUpdate(withTailwind(withSlots(AlertDialogElement, { description: "" })), { onClose: () => false }), {
     shadow: "open",
@@ -774,7 +783,7 @@ customElements.define(
   })
 );
 
-customElements.define(
+defineElement(
   "l-drawer",
   r2wc(withUpdate(withTailwind(DrawerElement), { onClose: () => false }), {
     shadow: "open",
@@ -783,7 +792,7 @@ customElements.define(
   })
 );
 
-customElements.define(
+defineElement(
   "l-sheet",
   r2wc(withUpdate(withTailwind(SheetElement), { onClose: () => false }), {
     shadow: "open",
@@ -792,7 +801,7 @@ customElements.define(
   })
 );
 
-customElements.define(
+defineElement(
   "l-popover",
   r2wc(withUpdate(withTailwind(Popover), ["onOpenChange"]), {
     shadow: "open",
@@ -801,7 +810,7 @@ customElements.define(
   })
 );
 
-customElements.define(
+defineElement(
   "l-dropdown-menu",
   r2wc(withUpdate(withTailwind(DropdownMenu), ["onOpenChange"]), {
     shadow: "open",
@@ -815,7 +824,7 @@ customElements.define(
 // trigger and plain (default-slotted) <l-dropdown-menu-item> children for
 // the menu itself — project via named/default <slot>s, same idea as
 // <l-split-button-menu-item> inside <l-split-button>.
-customElements.define(
+defineElement(
   "l-dropdown-menu-item",
   r2wc(withTailwind(DropdownMenuItem), {
     shadow: "open",
@@ -823,14 +832,14 @@ customElements.define(
   })
 );
 
-customElements.define(
+defineElement(
   "l-context-menu",
   r2wc(withUpdate(withTailwind(ContextMenu), ["onOpenChange"]), { shadow: "open", props: { open: "boolean", transition: "string", transitionDuration: "number", transitionDelay: "number" }, events: { onUpdate: {}, onOpenChange: {} } })
 );
 
 // `items` is plain data — set the `items` DOM property directly with a real
 // array (including onSelect callbacks) for full control.
-customElements.define(
+defineElement(
   "l-command-menu",
   r2wc(withUpdate(withTailwind(CommandMenu), { onClose: () => false }), {
     shadow: "open",
@@ -839,7 +848,7 @@ customElements.define(
   })
 );
 
-customElements.define(
+defineElement(
   "l-alert",
   r2wc(withTailwind(withSlots(AlertElement, { children: "" })), {
     shadow: "open",
@@ -862,7 +871,7 @@ customElements.define(
   })
 );
 
-customElements.define(
+defineElement(
   "l-toast",
   r2wc(withUpdate(withTailwind(withSlots(ToastElement, { children: "" })), { onClose: () => false }), {
     shadow: "open",
@@ -882,7 +891,7 @@ customElements.define(
   })
 );
 
-customElements.define(
+defineElement(
   "l-notification",
   r2wc(withTailwind(withSlots(Notification, { children: "", actions: "actions" })), {
     shadow: "open",
@@ -891,7 +900,7 @@ customElements.define(
   })
 );
 
-customElements.define(
+defineElement(
   "l-progress-bar",
   r2wc(withTailwind(ProgressBar), {
     shadow: "open",
@@ -910,7 +919,7 @@ customElements.define(
   })
 );
 
-customElements.define(
+defineElement(
   "l-empty-state",
   r2wc(withTailwind(withSlots(EmptyStateElement, { description: "", action: "action" })), {
     shadow: "open",
@@ -918,7 +927,7 @@ customElements.define(
   })
 );
 
-customElements.define(
+defineElement(
   "l-error-state",
   r2wc(withTailwind(withSlots(ErrorStateElement, { description: "", action: "action" })), {
     shadow: "open",
@@ -926,7 +935,7 @@ customElements.define(
   })
 );
 
-customElements.define(
+defineElement(
   "l-success-state",
   r2wc(withTailwind(withSlots(SuccessStateElement, { description: "", action: "action" })), {
     shadow: "open",
@@ -934,7 +943,7 @@ customElements.define(
   })
 );
 
-customElements.define(
+defineElement(
   "l-loading-state",
   r2wc(withTailwind(withSlots(LoadingStateElement, { description: "", action: "action" })), {
     shadow: "open",
@@ -947,7 +956,7 @@ customElements.define(
 // that slot unconditionally so the latter actually works standalone, with no `brand` attribute needed
 // at all. `actions`/menu-items are ReactNode-only (arbitrary composed markup, not reducible to a single
 // string) and project via `<slot name="actions">`/the default `<slot>` the same way.
-customElements.define(
+defineElement(
   "l-navbar",
   r2wc(withHostBlock(withTailwind(Navbar)), {
     shadow: "open",
@@ -975,7 +984,7 @@ customElements.define(
 // reads `l-sidebar`'s own `collapsed` (Navbar has no single "dark" flag either, just 7 variant names —
 // same reasoning as that element's own comment) — pass them directly, matching the parent `l-navbar`'s
 // `variant`/`color`.
-customElements.define(
+defineElement(
   "l-navbar-item",
   r2wc(withHostBlock(withTailwind(NavbarItem)), {
     shadow: "open",
@@ -996,7 +1005,7 @@ customElements.define(
   })
 );
 
-customElements.define(
+defineElement(
   "l-sidebar",
   r2wc(withUpdate(withHostBlock(withTailwind(Sidebar)), ["onActiveItemChange"]), {
     shadow: "open",
@@ -1035,7 +1044,7 @@ customElements.define(
 // elements) and mirrors that element's own `collapsed` attribute, which r2wc always keeps reflected
 // on it. `variant`/`color`/`dark` have no such attribute to read on Sidebar (color isn't boolean,
 // and Sidebar has no single "dark" flag, just 7 variant names), so those still need passing directly.
-customElements.define(
+defineElement(
   "l-sidebar-menu-item",
   r2wc(withHostBlock(withTailwind(SidebarMenuItem)), {
     shadow: "open",
@@ -1060,7 +1069,7 @@ customElements.define(
   })
 );
 
-customElements.define(
+defineElement(
   "l-header",
   r2wc(withHostBlock(withTailwind(withSlots(HeaderElement, { breadcrumbs: "breadcrumbs", description: "description", actions: "actions" }))), {
     shadow: "open",
@@ -1068,14 +1077,14 @@ customElements.define(
   })
 );
 
-customElements.define(
+defineElement(
   "l-footer",
   r2wc(withHostBlock(withTailwind(withSlots(Footer, { children: "", bottom: "bottom" }))), { shadow: "open", props: { bottom: "string", color: "string", transition: "string", transitionDuration: "number", transitionDelay: "number" } })
 );
 
 // `items` is plain data (label/href/icon/active/disabled) — set the `items`
 // DOM property directly with a real array, same as Tabs' `tabs`.
-customElements.define(
+defineElement(
   "l-navigation-menu",
   r2wc(withUpdate(withTailwind(NavigationMenu), ["onActiveItemChange"]), {
     shadow: "open",
@@ -1087,7 +1096,7 @@ customElements.define(
   })
 );
 
-customElements.define(
+defineElement(
   "l-bottom-navigation",
   r2wc(withUpdate(withTailwind(BottomNavigation), ["onActiveItemChange", "onItemClick", "onFabClick"]), {
     shadow: "open",
@@ -1096,7 +1105,7 @@ customElements.define(
   })
 );
 
-customElements.define(
+defineElement(
   "l-stepper",
   r2wc(withUpdate(withTailwind(Stepper), ["onStepChange"]), {
     shadow: "open",
@@ -1124,7 +1133,7 @@ customElements.define(
 
 // `actions` is plain data ({ icon, label, badge?, href? }[]) — set the `actions` DOM property with a real array. The
 // bar's free-form parts are slots: `leading`, the default slot (center) and `trailing`.
-customElements.define(
+defineElement(
   "l-top-bar",
   r2wc(withHostBlock(withTailwind(TopBarElement)), {
     shadow: "open",
@@ -1159,12 +1168,12 @@ customElements.define(
 
 // `<l-stepper-item step="1">…</l-stepper-item>` inside `<l-stepper>` — shown only while that step is current
 // (step="complete" for the finished state). Coordinates with its parent through the DOM; see stepper-item.tsx.
-customElements.define(
+defineElement(
   "l-stepper-item",
   r2wc(withHostBlock(withTailwind(StepperItemElement)), { shadow: "open", props: { step: "string" } })
 );
 
-customElements.define(
+defineElement(
   "l-timeline",
   r2wc(withTailwind(Timeline), {
     shadow: "open",
@@ -1172,7 +1181,7 @@ customElements.define(
   })
 );
 
-customElements.define(
+defineElement(
   "l-stat",
   r2wc(withTailwind(Stat), {
     shadow: "open",
@@ -1196,7 +1205,7 @@ customElements.define(
   })
 );
 
-customElements.define(
+defineElement(
   "l-chart",
   r2wc(withTailwind(Chart), {
     shadow: "open",
@@ -1206,7 +1215,7 @@ customElements.define(
 
 // `nodes` / `edges` are plain data — set them as DOM properties with real arrays. `autoPlay` is JSON so it accepts both
 // `true` and a number of milliseconds.
-customElements.define(
+defineElement(
   "l-flow-diagram",
   r2wc(withHostBlock(withTailwind(FlowDiagram)), {
     shadow: "open",
@@ -1248,7 +1257,7 @@ customElements.define(
   })
 );
 
-customElements.define(
+defineElement(
   "l-calendar",
   r2wc(withUpdate(withTailwind(Calendar), ["onSelect"]), {
     shadow: "open",
@@ -1283,7 +1292,7 @@ customElements.define(
   })
 );
 
-customElements.define(
+defineElement(
   "l-details-list",
   r2wc(withTailwind(DetailsList), {
     shadow: "open",
@@ -1291,7 +1300,7 @@ customElements.define(
   })
 );
 
-customElements.define(
+defineElement(
   "l-grid-view",
   r2wc(withTailwind(GridView), {
     shadow: "open",
@@ -1324,7 +1333,7 @@ customElements.define(
   })
 );
 
-customElements.define(
+defineElement(
   "l-activity-feed",
   r2wc(withTailwind(ActivityFeed), {
     shadow: "open",
@@ -1332,7 +1341,7 @@ customElements.define(
   })
 );
 
-customElements.define(
+defineElement(
   "l-profile-card",
   r2wc(withTailwind(withSlots(ProfileCard, { actions: "actions" })), {
     shadow: "open",
@@ -1355,7 +1364,7 @@ customElements.define(
   })
 );
 
-customElements.define(
+defineElement(
   "l-user-menu",
   r2wc(withTailwind(UserMenu), {
     shadow: "open",
@@ -1375,7 +1384,7 @@ customElements.define(
   })
 );
 
-customElements.define(
+defineElement(
   "l-password-input",
   r2wc(withFormEvents(withTailwind(PasswordInput), { mirror: true }), {
     shadow: "open",
@@ -1384,7 +1393,7 @@ customElements.define(
   })
 );
 
-customElements.define(
+defineElement(
   "l-login-form",
   r2wc(withTailwind(withSlots(LoginForm, { footer: "footer" })), {
     shadow: "open",
@@ -1403,7 +1412,7 @@ customElements.define(
   })
 );
 
-customElements.define(
+defineElement(
   "l-signup-form",
   r2wc(withTailwind(withSlots(SignupForm, { footer: "footer" })), {
     shadow: "open",
@@ -1412,7 +1421,7 @@ customElements.define(
   })
 );
 
-customElements.define(
+defineElement(
   "l-profile-settings",
   r2wc(withTailwind(ProfileSettings), {
     shadow: "open",
@@ -1421,7 +1430,7 @@ customElements.define(
   })
 );
 
-customElements.define(
+defineElement(
   "l-account-settings",
   r2wc(withTailwind(AccountSettings), {
     shadow: "open",
@@ -1432,7 +1441,7 @@ customElements.define(
 
 // A MapLibre map. Markers and routes are plain data (`markers`, `routes` — set them as DOM properties with real arrays);
 // it is full width and 480px tall unless you set `width` / `height` (e.g. height="600" or "60vh"). MapLibre loads on demand the first time a map shows.
-customElements.define(
+defineElement(
   "l-map",
   r2wc(withHostBlock(withTailwind(MapElement)), {
     shadow: "open",
@@ -1466,7 +1475,7 @@ customElements.define(
 
 // App shell: <l-app> containing <l-top>, <l-side>, <l-main> and <l-foot>. Put <l-side-toggle> in the navbar's `brand`
 // slot for the mobile drawer button. Without `theme` / `accent` / `active-variant` it follows the page's theme.
-customElements.define(
+defineElement(
   "l-app",
   r2wc(withHostBlock(withTailwind(AppElement)), {
     shadow: "open",
@@ -1475,15 +1484,15 @@ customElements.define(
 );
 
 // Theme menu (light/dark, accent, active-item style) — changes the page theme on <html> by itself, no provider needed.
-customElements.define(
+defineElement(
   "l-theme-switcher",
   r2wc(withTailwind(ThemeSwitcher), { shadow: "open", props: { open: "boolean", mode: "string", accent: "string", activeVariant: "string", design: "string", align: "string", showDesign: "boolean", showActiveItems: "boolean", showAccent: "boolean", showCustom: "boolean", customAccentLabel: "string", transition: "string", transitionDuration: "number", transitionDelay: "number", hoverEffect: "string" }, events: { onModeChange: {}, onAccentChange: {}, onActiveVariantChange: {}, onDesignChange: {}, onOpenChange: {} } })
 );
 
-customElements.define("l-side-toggle", r2wc(withTailwind(SideToggleElement), { shadow: "open", props: { label: "string" } }));
+defineElement("l-side-toggle", r2wc(withTailwind(SideToggleElement), { shadow: "open", props: { label: "string" } }));
 
 // Theme provider: sets data-theme / data-accent on <html> (or only on its own subtree with `isolated`).
-customElements.define(
+defineElement(
   "l-theme-provider",
   r2wc(withHostBlock(withTailwind(ThemeProviderElement)), {
     shadow: "open",
@@ -1505,7 +1514,7 @@ customElements.define(
 defineAppSections();
 
 // Media. `fallback` is a slot: `<span slot="fallback">…</span>` replaces the placeholder shown when loading fails.
-customElements.define(
+defineElement(
   "l-image",
   r2wc(withHostBlock(withTailwind(withSlots(Image, { fallback: "fallback" }))), {
     shadow: "open",
@@ -1532,7 +1541,7 @@ customElements.define(
   })
 );
 
-customElements.define(
+defineElement(
   "l-video",
   r2wc(withHostBlock(withTailwind(withSlots(Video, { fallback: "fallback" }))), {
     shadow: "open",
@@ -1567,7 +1576,7 @@ customElements.define(
 );
 
 // Loading placeholder.
-customElements.define(
+defineElement(
   "l-skeleton",
   r2wc(withHostBlock(withTailwind(Skeleton)), {
     shadow: "open",
@@ -1577,7 +1586,7 @@ customElements.define(
 
 // Inputs. Each keeps its own value (so it works with nothing wired up) and also follows the `value` attribute / property;
 // `change` carries the new value in `event.detail`.
-customElements.define(
+defineElement(
   "l-tag-input",
   r2wc(withFormEvents(withUpdate(withHostBlock(withTailwind(TagInput)), ["onChange"]), { update: false }), {
     shadow: "open",
@@ -1587,7 +1596,7 @@ customElements.define(
   })
 );
 
-customElements.define(
+defineElement(
   "l-number-input",
   r2wc(withFormEvents(withUpdate(withHostBlock(withTailwind(NumberInput)), ["onChange"]), { update: false }), {
     shadow: "open",
@@ -1597,7 +1606,7 @@ customElements.define(
   })
 );
 
-customElements.define(
+defineElement(
   "l-otp-input",
   r2wc(withFormEvents(withUpdate(withHostBlock(withTailwind(OtpInput)), ["onChange"]), { update: false }), {
     shadow: "open",
@@ -1610,7 +1619,7 @@ customElements.define(
   })
 );
 
-customElements.define(
+defineElement(
   "l-rating",
   r2wc(withUpdate(withHostBlock(withTailwind(Rating)), ["onChange"]), {
     shadow: "open",
@@ -1619,7 +1628,7 @@ customElements.define(
   })
 );
 
-customElements.define(
+defineElement(
   "l-color-picker",
   r2wc(withFormEvents(withUpdate(withHostBlock(withTailwind(ColorPicker)), ["onChange"]), { update: false }), {
     shadow: "open",
@@ -1630,7 +1639,7 @@ customElements.define(
 );
 
 // Code.
-customElements.define(
+defineElement(
   "l-copy-button",
   r2wc(withTailwind(CopyButton), {
     shadow: "open",
@@ -1639,7 +1648,7 @@ customElements.define(
   })
 );
 
-customElements.define(
+defineElement(
   "l-code-snippet",
   r2wc(withHostBlock(withTailwind(CodeSnippetElement)), {
     shadow: "open",
@@ -1647,7 +1656,7 @@ customElements.define(
   })
 );
 
-customElements.define(
+defineElement(
   "l-thinking",
   r2wc(withTailwind(Thinking), {
     shadow: "open",
@@ -1655,7 +1664,7 @@ customElements.define(
   })
 );
 
-customElements.define(
+defineElement(
   "l-iframe",
   r2wc(withHostBlock(withTailwind(Iframe)), {
     shadow: "open",
@@ -1679,7 +1688,7 @@ customElements.define(
   })
 );
 
-customElements.define(
+defineElement(
   "l-chat-box",
   r2wc(withHostBlock(withTailwind(ChatBox)), {
     shadow: "open",
@@ -1707,7 +1716,7 @@ customElements.define(
   })
 );
 
-customElements.define(
+defineElement(
   "l-plan-billing",
   r2wc(withHostBlock(withTailwind(PlanBilling)), {
     shadow: "open",

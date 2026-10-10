@@ -21,11 +21,11 @@ export default function EmptyStateShowcase() {
           <CodeBlock
             variants={{
               react: `<EmptyState title="No items yet" />`,
-              js: `<l-EmptyState title="No items yet"></l-EmptyState>
+              js: `<l-empty-state title="No items yet"></l-empty-state>
 
 <script type="module">import "lojee-ui/elements";</script>`,
-              vue: `<l-EmptyState title="No items yet" />`,
-              angular: `<l-EmptyState title="No items yet" />`,
+              vue: `<l-empty-state title="No items yet" />`,
+              angular: `<l-empty-state title="No items yet" />`,
             }}
           />
         </section>
@@ -36,13 +36,13 @@ export default function EmptyStateShowcase() {
           <CodeBlock
             variants={{
               react: `<EmptyState title="No projects">\n  Create your first project to get started.\n</EmptyState>`,
-              js: `<l-EmptyState title="No projects">
+              js: `<l-empty-state title="No projects">
   Create your first project to get started.
-</l-EmptyState>
+</l-empty-state>
 
 <script type="module">import "lojee-ui/elements";</script>`,
-              vue: `<l-EmptyState title="No projects">\n  Create your first project to get started.\n</l-EmptyState>`,
-              angular: `<l-EmptyState title="No projects">\n  Create your first project to get started.\n</l-EmptyState>`,
+              vue: `<l-empty-state title="No projects">\n  Create your first project to get started.\n</l-empty-state>`,
+              angular: `<l-empty-state title="No projects">\n  Create your first project to get started.\n</l-empty-state>`,
             }}
           />
         </section>
@@ -57,13 +57,13 @@ export default function EmptyStateShowcase() {
           <CodeBlock
             variants={{
               react: `<EmptyState title="No results found" icon="search">\n  Try adjusting your filters.\n</EmptyState>`,
-              js: `<l-EmptyState title="No results found" icon="search">
+              js: `<l-empty-state title="No results found" icon="search">
   Try adjusting your filters.
-</l-EmptyState>
+</l-empty-state>
 
 <script type="module">import "lojee-ui/elements";</script>`,
-              vue: `<l-EmptyState title="No results found" icon="search">\n  Try adjusting your filters.\n</l-EmptyState>`,
-              angular: `<l-EmptyState title="No results found" icon="search">\n  Try adjusting your filters.\n</l-EmptyState>`,
+              vue: `<l-empty-state title="No results found" icon="search">\n  Try adjusting your filters.\n</l-empty-state>`,
+              angular: `<l-empty-state title="No results found" icon="search">\n  Try adjusting your filters.\n</l-empty-state>`,
             }}
           />
         </section>
@@ -84,10 +84,10 @@ export default function EmptyStateShowcase() {
 >
   Get started by creating your first item.
 </EmptyState>`,
-              js: `<l-EmptyState title="No items yet" icon="folder">
+              js: `<l-empty-state title="No items yet" icon="folder">
   Get started by creating your first item.
-  <l-Button slot="action" label="Add item" id="add-item-btn"></l-Button>
-</l-EmptyState>
+  <l-button slot="action" label="Add item" id="add-item-btn"></l-button>
+</l-empty-state>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -97,10 +97,10 @@ export default function EmptyStateShowcase() {
   });
 </script>`,
               vue: `<template>
-  <l-EmptyState title="No items yet" icon="folder">
+  <l-empty-state title="No items yet" icon="folder">
     Get started by creating your first item.
-    <l-Button slot="action" label="Add item" @click="handleAdd" />
-  </l-EmptyState>
+    <l-button slot="action" label="Add item" @click="handleAdd" />
+  </l-empty-state>
 </template>
 
 <script setup lang="ts">
@@ -111,10 +111,10 @@ const handleAdd = () => {
 };
 </script>`,
               angular: `<!-- app.component.html -->
-<l-EmptyState title="No items yet" icon="folder">
+<l-empty-state title="No items yet" icon="folder">
   Get started by creating your first item.
-  <l-Button slot="action" label="Add item" (click)="handleAdd()" />
-</l-EmptyState>`,
+  <l-button slot="action" label="Add item" (click)="handleAdd()" />
+</l-empty-state>`,
             }}
           />
         </section>
@@ -141,27 +141,27 @@ const handleAdd = () => {
 <EmptyState title="Blur" transition="blur" />
 <EmptyState title="Bounce" transition="bounce" />
 <EmptyState title="Drop" transition="drop" transitionDuration={700} />`,
-              js: `<l-EmptyState title="Fade" transition="fade"></l-EmptyState>
-<l-EmptyState title="Slide up" transition="slide-up"></l-EmptyState>
-<l-EmptyState title="Slide right" transition="slide-right" transitionDelay="100"></l-EmptyState>
-<l-EmptyState title="Zoom" transition="zoom"></l-EmptyState>
-<l-EmptyState title="Flip" transition="flip"></l-EmptyState>
-<l-EmptyState title="Blur" transition="blur"></l-EmptyState>
-<l-EmptyState title="Bounce" transition="bounce"></l-EmptyState>
-<l-EmptyState title="Drop" transition="drop" transitionDuration="700"></l-EmptyState>
+              js: `<l-empty-state title="Fade" transition="fade"></l-empty-state>
+<l-empty-state title="Slide up" transition="slide-up"></l-empty-state>
+<l-empty-state title="Slide right" transition="slide-right" transitionDelay="100"></l-empty-state>
+<l-empty-state title="Zoom" transition="zoom"></l-empty-state>
+<l-empty-state title="Flip" transition="flip"></l-empty-state>
+<l-empty-state title="Blur" transition="blur"></l-empty-state>
+<l-empty-state title="Bounce" transition="bounce"></l-empty-state>
+<l-empty-state title="Drop" transition="drop" transitionDuration="700"></l-empty-state>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-EmptyState title="Fade" transition="fade"></l-EmptyState>
-  <l-EmptyState title="Slide up" transition="slide-up"></l-EmptyState>
-  <l-EmptyState title="Slide right" transition="slide-right" transitionDelay="100"></l-EmptyState>
-  <l-EmptyState title="Zoom" transition="zoom"></l-EmptyState>
-  <l-EmptyState title="Flip" transition="flip"></l-EmptyState>
-  <l-EmptyState title="Blur" transition="blur"></l-EmptyState>
-  <l-EmptyState title="Bounce" transition="bounce"></l-EmptyState>
-  <l-EmptyState title="Drop" transition="drop" transitionDuration="700"></l-EmptyState>
+  <l-empty-state title="Fade" transition="fade"></l-empty-state>
+  <l-empty-state title="Slide up" transition="slide-up"></l-empty-state>
+  <l-empty-state title="Slide right" transition="slide-right" transitionDelay="100"></l-empty-state>
+  <l-empty-state title="Zoom" transition="zoom"></l-empty-state>
+  <l-empty-state title="Flip" transition="flip"></l-empty-state>
+  <l-empty-state title="Blur" transition="blur"></l-empty-state>
+  <l-empty-state title="Bounce" transition="bounce"></l-empty-state>
+  <l-empty-state title="Drop" transition="drop" transitionDuration="700"></l-empty-state>
 </template>
 
 <script setup lang="ts">
@@ -176,14 +176,14 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-EmptyState title="Fade" transition="fade"></l-EmptyState>
-    <l-EmptyState title="Slide up" transition="slide-up"></l-EmptyState>
-    <l-EmptyState title="Slide right" transition="slide-right" transitionDelay="100"></l-EmptyState>
-    <l-EmptyState title="Zoom" transition="zoom"></l-EmptyState>
-    <l-EmptyState title="Flip" transition="flip"></l-EmptyState>
-    <l-EmptyState title="Blur" transition="blur"></l-EmptyState>
-    <l-EmptyState title="Bounce" transition="bounce"></l-EmptyState>
-    <l-EmptyState title="Drop" transition="drop" transitionDuration="700"></l-EmptyState>
+    <l-empty-state title="Fade" transition="fade"></l-empty-state>
+    <l-empty-state title="Slide up" transition="slide-up"></l-empty-state>
+    <l-empty-state title="Slide right" transition="slide-right" transitionDelay="100"></l-empty-state>
+    <l-empty-state title="Zoom" transition="zoom"></l-empty-state>
+    <l-empty-state title="Flip" transition="flip"></l-empty-state>
+    <l-empty-state title="Blur" transition="blur"></l-empty-state>
+    <l-empty-state title="Bounce" transition="bounce"></l-empty-state>
+    <l-empty-state title="Drop" transition="drop" transitionDuration="700"></l-empty-state>
   \`,
 })
 export class AppComponent {}`,

@@ -55,11 +55,11 @@ export default function ToastPlayground() {
   position="${position}"${titleAttr}${durationAttr}${motion.attrs}
 >${body}</Toast>`;
 
-  const htmlMarkup = `<l-Toast id="toast" variant="${variant}" position="${position}"${titleAttr}${durationAttrHtml}${motion.attrs}>${body}</l-Toast>`;
+  const htmlMarkup = `<l-toast id="toast" variant="${variant}" position="${position}"${titleAttr}${durationAttrHtml}${motion.attrs}>${body}</l-toast>`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,
-    js: `<l-Button label="Show toast" id="show-toast-btn"></l-Button>
+    js: `<l-button label="Show toast" id="show-toast-btn"></l-button>
 ${htmlMarkup}
 
 <script type="module">
@@ -71,13 +71,13 @@ ${htmlMarkup}
   toast.addEventListener("close", () => { toast.open = false; });
 </script>`,
     vue: `<template>
-  <l-Button label="Show toast" @click="open = true" />
-  <l-Toast
+  <l-button label="Show toast" @click="open = true" />
+  <l-toast
     :open="open"
     variant="${variant}"
     position="${position}"${titleAttr}${duration !== 4000 ? `\n    :duration="${duration}"` : ""}${motion.attrs}
     @close="open = false"
-  >${body}</l-Toast>
+  >${body}</l-toast>
 </template>
 
 <script setup lang="ts">
@@ -87,13 +87,13 @@ import "lojee-ui/elements";
 const open = ref(false);
 </script>`,
     angular: `<!-- app.component.html -->
-<l-Button label="Show toast" (click)="open = true" />
-<l-Toast
+<l-button label="Show toast" (click)="open = true" />
+<l-toast
   [open]="open"
   variant="${variant}"
   position="${position}"${titleAttr}${duration !== 4000 ? `\n  [duration]="${duration}"` : ""}${motion.attrs}
   (close)="open = false"
->${body}</l-Toast>`,
+>${body}</l-toast>`,
   };
 
   return (

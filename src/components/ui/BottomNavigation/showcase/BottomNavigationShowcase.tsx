@@ -20,7 +20,7 @@ const ITEMS_CODE = `[
 // Same snippet in every language, with one extra attribute on the bar.
 const barCode = (id: string, attr: string) => ({
   react: `<BottomNavigation\n  ${attr}\n  items={${ITEMS_CODE.replace(/\n/g, "\n  ")}}\n/>`,
-  js: `<l-BottomNavigation id="${id}" ${attr}></l-BottomNavigation>
+  js: `<l-bottom-navigation id="${id}" ${attr}></l-bottom-navigation>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -28,7 +28,7 @@ const barCode = (id: string, attr: string) => ({
   document.getElementById("${id}").items = ${ITEMS_CODE.replace(/\n/g, "\n  ")};
 </script>`,
   vue: `<template>
-  <l-BottomNavigation :items="items" ${attr} />
+  <l-bottom-navigation :items="items" ${attr} />
 </template>
 
 <script setup lang="ts">
@@ -36,7 +36,7 @@ import "lojee-ui/elements";
 
 const items = ${ITEMS_CODE};
 </script>`,
-  angular: `<l-BottomNavigation [items]="items" ${attr}></l-BottomNavigation>
+  angular: `<l-bottom-navigation [items]="items" ${attr}></l-bottom-navigation>
 
 items = ${ITEMS_CODE};`,
 });
@@ -93,7 +93,7 @@ export default function BottomNavigationShowcase() {
     { icon: "user", label: "Profile" },
   ]}
 />`,
-              js: `<l-BottomNavigation id="bottom-nav-basic"></l-BottomNavigation>
+              js: `<l-bottom-navigation id="bottom-nav-basic"></l-bottom-navigation>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -106,7 +106,7 @@ export default function BottomNavigationShowcase() {
   ];
 </script>`,
               vue: `<template>
-  <l-BottomNavigation :items="items" />
+  <l-bottom-navigation :items="items" />
 </template>
 
 <script setup lang="ts">
@@ -127,7 +127,7 @@ import "lojee-ui/elements";
   selector: "app-root",
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  template: \`<l-BottomNavigation [items]="items" />\`,
+  template: \`<l-bottom-navigation [items]="items" />\`,
 })
 export class AppComponent {
   items = [
@@ -195,7 +195,7 @@ export class AppComponent {
   onItemClick={(item, index) => console.log("clicked", item.label, index)}  // every tab click
   onFabClick={() => console.log("floating button")}  // with fabIcon
 />`,
-              js: `<l-BottomNavigation id="bottom-nav-callback"></l-BottomNavigation>
+              js: `<l-bottom-navigation id="bottom-nav-callback"></l-bottom-navigation>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -207,7 +207,7 @@ export class AppComponent {
   bar.addEventListener("fabclick", () => console.log("Floating button")); // with fabIcon
 </script>`,
               vue: `<template>
-  <l-BottomNavigation :items="items" @activeitemchange="onChange" />
+  <l-bottom-navigation :items="items" @activeitemchange="onChange" />
 </template>
 
 <script setup lang="ts">
@@ -219,7 +219,7 @@ function onChange(e: CustomEvent) {
   console.log("Active:", e.detail.label);
 }
 </script>`,
-              angular: `<l-BottomNavigation [items]="items" (activeitemchange)="onChange($event)"></l-BottomNavigation>
+              angular: `<l-bottom-navigation [items]="items" (activeitemchange)="onChange($event)"></l-bottom-navigation>
 
 items = ${ITEMS_CODE};
 
@@ -243,7 +243,7 @@ onChange(e: CustomEvent) {
     { icon: "user", label: "Profile", href: "/profile" },
   ]}
 />`,
-              js: `<l-BottomNavigation id="bottom-nav-links"></l-BottomNavigation>
+              js: `<l-bottom-navigation id="bottom-nav-links"></l-bottom-navigation>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -255,7 +255,7 @@ onChange(e: CustomEvent) {
   ];
 </script>`,
               vue: `<template>
-  <l-BottomNavigation :items="items" />
+  <l-bottom-navigation :items="items" />
 </template>
 
 <script setup lang="ts">
@@ -267,7 +267,7 @@ const items = [
   { icon: "user", label: "Profile", href: "/profile" },
 ];
 </script>`,
-              angular: `<l-BottomNavigation [items]="items"></l-BottomNavigation>
+              angular: `<l-bottom-navigation [items]="items"></l-bottom-navigation>
 
 items = [
   { icon: "home", label: "Home", href: "/" },
@@ -302,7 +302,7 @@ items = [
     { icon: "user", label: "Profile" },
   ]}
 />`,
-              js: `<l-BottomNavigation id="icon-nav" iconOnly="true"></l-BottomNavigation>
+              js: `<l-bottom-navigation id="icon-nav" iconOnly="true"></l-bottom-navigation>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -314,8 +314,8 @@ items = [
     { icon: "user", label: "Profile" },
   ];
 </script>`,
-              vue: `<l-BottomNavigation :items="items" iconOnly="true" />`,
-              angular: `<l-BottomNavigation [items]="items" iconOnly="true" />`,
+              vue: `<l-bottom-navigation :items="items" iconOnly="true" />`,
+              angular: `<l-bottom-navigation [items]="items" iconOnly="true" />`,
             }}
           />
         </section>
@@ -350,7 +350,7 @@ items = [
     { icon: "user", label: "Profile" },
   ]}
 />`,
-              js: `<l-BottomNavigation id="fab-nav" fabIcon="plus" fabLabel="Add"></l-BottomNavigation>
+              js: `<l-bottom-navigation id="fab-nav" fabIcon="plus" fabLabel="Add"></l-bottom-navigation>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -365,7 +365,7 @@ items = [
   nav.addEventListener("fabclick", () => console.log("add"));
 </script>`,
               vue: `<template>
-  <l-BottomNavigation :items="items" fabIcon="plus" fabLabel="Add" @fabclick="onAdd" />
+  <l-bottom-navigation :items="items" fabIcon="plus" fabLabel="Add" @fabclick="onAdd" />
 </template>
 
 <script setup lang="ts">
@@ -379,7 +379,7 @@ const items = [
 ];
 const onAdd = () => console.log("add");
 </script>`,
-              angular: `<l-BottomNavigation [items]="items" fabIcon="plus" fabLabel="Add" (fabclick)="onAdd()"></l-BottomNavigation>
+              angular: `<l-bottom-navigation [items]="items" fabIcon="plus" fabLabel="Add" (fabclick)="onAdd()"></l-bottom-navigation>
 
 items = [
   { icon: "home", label: "Home", active: true },
@@ -414,7 +414,7 @@ items = [
     { icon: "user", label: "Profile" },
   ]}
 />`,
-              js: `<l-BottomNavigation id="bottom-nav-badge"></l-BottomNavigation>
+              js: `<l-bottom-navigation id="bottom-nav-badge"></l-bottom-navigation>
 
 <script type="module">
   document.getElementById("bottom-nav-badge").items = [
@@ -425,7 +425,7 @@ items = [
   ];
 </script>`,
               vue: `<template>
-  <l-BottomNavigation :items="items" />
+  <l-bottom-navigation :items="items" />
 </template>
 
 <script setup lang="ts">
@@ -445,7 +445,7 @@ items = [
 ];
 
 // app.component.html
-<l-BottomNavigation [items]="items" />`,
+<l-bottom-navigation [items]="items" />`,
             }}
           />
         </section>
@@ -485,16 +485,16 @@ items = [
 <BottomNavigation items={items} hoverEffect="lift" />
 <BottomNavigation items={items} hoverEffect="glow" />
 <BottomNavigation items={items} hoverEffect="shine" />`,
-              js: `<l-BottomNavigation class="transition-demo" transition="fade"></l-BottomNavigation>
-<l-BottomNavigation class="transition-demo" transition="slide-down"></l-BottomNavigation>
-<l-BottomNavigation class="transition-demo" transition="slide-right" transitionDelay="100"></l-BottomNavigation>
-<l-BottomNavigation class="transition-demo" transition="zoom"></l-BottomNavigation>
-<l-BottomNavigation class="transition-demo" transition="blur"></l-BottomNavigation>
-<l-BottomNavigation class="transition-demo" transition="drop" transitionDuration="700"></l-BottomNavigation>
+              js: `<l-bottom-navigation class="transition-demo" transition="fade"></l-bottom-navigation>
+<l-bottom-navigation class="transition-demo" transition="slide-down"></l-bottom-navigation>
+<l-bottom-navigation class="transition-demo" transition="slide-right" transitionDelay="100"></l-bottom-navigation>
+<l-bottom-navigation class="transition-demo" transition="zoom"></l-bottom-navigation>
+<l-bottom-navigation class="transition-demo" transition="blur"></l-bottom-navigation>
+<l-bottom-navigation class="transition-demo" transition="drop" transitionDuration="700"></l-bottom-navigation>
 
-<l-BottomNavigation class="transition-demo" hoverEffect="lift"></l-BottomNavigation>
-<l-BottomNavigation class="transition-demo" hoverEffect="glow"></l-BottomNavigation>
-<l-BottomNavigation class="transition-demo" hoverEffect="shine"></l-BottomNavigation>
+<l-bottom-navigation class="transition-demo" hoverEffect="lift"></l-bottom-navigation>
+<l-bottom-navigation class="transition-demo" hoverEffect="glow"></l-bottom-navigation>
+<l-bottom-navigation class="transition-demo" hoverEffect="shine"></l-bottom-navigation>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -508,16 +508,16 @@ items = [
   document.querySelectorAll(".transition-demo").forEach((el) => (el.items = items));
 </script>`,
               vue: `<template>
-  <l-BottomNavigation :items="items" transition="fade"></l-BottomNavigation>
-  <l-BottomNavigation :items="items" transition="slide-down"></l-BottomNavigation>
-  <l-BottomNavigation :items="items" transition="slide-right" transitionDelay="100"></l-BottomNavigation>
-  <l-BottomNavigation :items="items" transition="zoom"></l-BottomNavigation>
-  <l-BottomNavigation :items="items" transition="blur"></l-BottomNavigation>
-  <l-BottomNavigation :items="items" transition="drop" transitionDuration="700"></l-BottomNavigation>
+  <l-bottom-navigation :items="items" transition="fade"></l-bottom-navigation>
+  <l-bottom-navigation :items="items" transition="slide-down"></l-bottom-navigation>
+  <l-bottom-navigation :items="items" transition="slide-right" transitionDelay="100"></l-bottom-navigation>
+  <l-bottom-navigation :items="items" transition="zoom"></l-bottom-navigation>
+  <l-bottom-navigation :items="items" transition="blur"></l-bottom-navigation>
+  <l-bottom-navigation :items="items" transition="drop" transitionDuration="700"></l-bottom-navigation>
 
-  <l-BottomNavigation :items="items" hoverEffect="lift"></l-BottomNavigation>
-  <l-BottomNavigation :items="items" hoverEffect="glow"></l-BottomNavigation>
-  <l-BottomNavigation :items="items" hoverEffect="shine"></l-BottomNavigation>
+  <l-bottom-navigation :items="items" hoverEffect="lift"></l-bottom-navigation>
+  <l-bottom-navigation :items="items" hoverEffect="glow"></l-bottom-navigation>
+  <l-bottom-navigation :items="items" hoverEffect="shine"></l-bottom-navigation>
 </template>
 
 <script setup lang="ts">
@@ -539,16 +539,16 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-BottomNavigation [items]="items" transition="fade"></l-BottomNavigation>
-    <l-BottomNavigation [items]="items" transition="slide-down"></l-BottomNavigation>
-    <l-BottomNavigation [items]="items" transition="slide-right" transitionDelay="100"></l-BottomNavigation>
-    <l-BottomNavigation [items]="items" transition="zoom"></l-BottomNavigation>
-    <l-BottomNavigation [items]="items" transition="blur"></l-BottomNavigation>
-    <l-BottomNavigation [items]="items" transition="drop" transitionDuration="700"></l-BottomNavigation>
+    <l-bottom-navigation [items]="items" transition="fade"></l-bottom-navigation>
+    <l-bottom-navigation [items]="items" transition="slide-down"></l-bottom-navigation>
+    <l-bottom-navigation [items]="items" transition="slide-right" transitionDelay="100"></l-bottom-navigation>
+    <l-bottom-navigation [items]="items" transition="zoom"></l-bottom-navigation>
+    <l-bottom-navigation [items]="items" transition="blur"></l-bottom-navigation>
+    <l-bottom-navigation [items]="items" transition="drop" transitionDuration="700"></l-bottom-navigation>
 
-    <l-BottomNavigation [items]="items" hoverEffect="lift"></l-BottomNavigation>
-    <l-BottomNavigation [items]="items" hoverEffect="glow"></l-BottomNavigation>
-    <l-BottomNavigation [items]="items" hoverEffect="shine"></l-BottomNavigation>
+    <l-bottom-navigation [items]="items" hoverEffect="lift"></l-bottom-navigation>
+    <l-bottom-navigation [items]="items" hoverEffect="glow"></l-bottom-navigation>
+    <l-bottom-navigation [items]="items" hoverEffect="shine"></l-bottom-navigation>
   \`,
 })
 export class AppComponent {

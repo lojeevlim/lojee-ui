@@ -53,17 +53,17 @@ export default function AccordionPlayground() {
   // value, so a bare attribute would silently parse to false. Same-`name`
   // <AccordionItem> siblings stay mutually exclusive via the native
   // <details name> behavior, so this works identically in plain HTML too.
-  const htmlMarkup = `<l-Accordion${motion.attrs}>
-  <l-AccordionItem${name ? ` name="${name}"` : ""} title="Section one" defaultOpen>
+  const htmlMarkup = `<l-accordion${motion.attrs}>
+  <l-accordion-item${name ? ` name="${name}"` : ""} title="Section one" defaultOpen>
     Content for section one.
-  </l-AccordionItem>
-  <l-AccordionItem${name ? ` name="${name}"` : ""} title="Section two">
+  </l-accordion-item>
+  <l-accordion-item${name ? ` name="${name}"` : ""} title="Section two">
     Content for section two.
-  </l-AccordionItem>
-  <l-AccordionItem${name ? ` name="${name}"` : ""} title="Section three">
+  </l-accordion-item>
+  <l-accordion-item${name ? ` name="${name}"` : ""} title="Section three">
     Content for section three.
-  </l-AccordionItem>
-</l-Accordion>`;
+  </l-accordion-item>
+</l-accordion>`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,

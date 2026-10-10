@@ -28,9 +28,9 @@ export default function OtpInputShowcase() {
         <CodeBlock
           variants={wcCode({
             react: `<OtpInput onComplete={(code) => verify(code)} />`,
-            html: `<l-Otp-Input id="otp"></l-Otp-Input>`,
-            vueHtml: `<l-Otp-Input @complete="verify($event.detail)"></l-Otp-Input>`,
-            angularHtml: `<l-Otp-Input (complete)="verify($event.detail)"></l-Otp-Input>`,
+            html: `<l-otp-input id="otp"></l-otp-input>`,
+            vueHtml: `<l-otp-input @complete="verify($event.detail)"></l-otp-input>`,
+            angularHtml: `<l-otp-input (complete)="verify($event.detail)"></l-otp-input>`,
             script: `document.getElementById("otp").addEventListener("complete", (e) => verify(e.detail)); // string`,
             vueScript: `const verify = (code: string) => console.log(code);`,
             angularClass: `verify(code: string) {
@@ -50,8 +50,8 @@ export default function OtpInputShowcase() {
           variants={wcCode({
             react: `<OtpInput length={4} />
 <OtpInput length={8} type="alphanumeric" size="sm" />`,
-            html: `<l-Otp-Input length="4"></l-Otp-Input>
-<l-Otp-Input length="8" type="alphanumeric" size="sm"></l-Otp-Input>`,
+            html: `<l-otp-input length="4"></l-otp-input>
+<l-otp-input length="8" type="alphanumeric" size="sm"></l-otp-input>`,
           })}
         />
       </section>
@@ -68,15 +68,15 @@ export default function OtpInputShowcase() {
             react: `<OtpInput mask />
 <OtpInput invalid />
 <OtpInput disabled />`,
-            html: `<l-Otp-Input mask="true"></l-Otp-Input>
-<l-Otp-Input invalid="true"></l-Otp-Input>
-<l-Otp-Input disabled="true"></l-Otp-Input>`,
-            vueHtml: `<l-Otp-Input :mask="true"></l-Otp-Input>
-<l-Otp-Input :invalid="true"></l-Otp-Input>
-<l-Otp-Input :disabled="true"></l-Otp-Input>`,
-            angularHtml: `<l-Otp-Input [mask]="true"></l-Otp-Input>
-<l-Otp-Input [invalid]="true"></l-Otp-Input>
-<l-Otp-Input [disabled]="true"></l-Otp-Input>`,
+            html: `<l-otp-input mask="true"></l-otp-input>
+<l-otp-input invalid="true"></l-otp-input>
+<l-otp-input disabled="true"></l-otp-input>`,
+            vueHtml: `<l-otp-input :mask="true"></l-otp-input>
+<l-otp-input :invalid="true"></l-otp-input>
+<l-otp-input :disabled="true"></l-otp-input>`,
+            angularHtml: `<l-otp-input [mask]="true"></l-otp-input>
+<l-otp-input [invalid]="true"></l-otp-input>
+<l-otp-input [disabled]="true"></l-otp-input>`,
           })}
         />
       </section>

@@ -28,19 +28,19 @@ export default function StatShowcase() {
 <Stat label="Active Users" value="12,483" icon="users" countUp />
 <Stat label="Conversion Rate" value="3.42%" icon="activity" countUp countUpDuration={2000} />
 <Stat label="Uptime" value="99.9%" icon="clock" countUp />`,
-              js: `<l-Stat label="Revenue" value="$48,290" icon="zap" count-up></l-Stat>
-<l-Stat label="Active Users" value="12,483" icon="users" count-up></l-Stat>
-<l-Stat label="Conversion Rate" value="3.42%" icon="activity" count-up count-up-duration="2000"></l-Stat>
-<l-Stat label="Uptime" value="99.9%" icon="clock" count-up></l-Stat>
+              js: `<l-stat label="Revenue" value="$48,290" icon="zap" count-up></l-stat>
+<l-stat label="Active Users" value="12,483" icon="users" count-up></l-stat>
+<l-stat label="Conversion Rate" value="3.42%" icon="activity" count-up count-up-duration="2000"></l-stat>
+<l-stat label="Uptime" value="99.9%" icon="clock" count-up></l-stat>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-Stat label="Revenue" value="$48,290" icon="zap" count-up></l-Stat>
-  <l-Stat label="Active Users" value="12,483" icon="users" count-up></l-Stat>
-  <l-Stat label="Conversion Rate" value="3.42%" icon="activity" count-up count-up-duration="2000"></l-Stat>
-  <l-Stat label="Uptime" value="99.9%" icon="clock" count-up></l-Stat>
+  <l-stat label="Revenue" value="$48,290" icon="zap" count-up></l-stat>
+  <l-stat label="Active Users" value="12,483" icon="users" count-up></l-stat>
+  <l-stat label="Conversion Rate" value="3.42%" icon="activity" count-up count-up-duration="2000"></l-stat>
+  <l-stat label="Uptime" value="99.9%" icon="clock" count-up></l-stat>
 </template>
 
 <script setup lang="ts">
@@ -55,10 +55,10 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Stat label="Revenue" value="$48,290" icon="zap" count-up></l-Stat>
-    <l-Stat label="Active Users" value="12,483" icon="users" count-up></l-Stat>
-    <l-Stat label="Conversion Rate" value="3.42%" icon="activity" count-up count-up-duration="2000"></l-Stat>
-    <l-Stat label="Uptime" value="99.9%" icon="clock" count-up></l-Stat>
+    <l-stat label="Revenue" value="$48,290" icon="zap" count-up></l-stat>
+    <l-stat label="Active Users" value="12,483" icon="users" count-up></l-stat>
+    <l-stat label="Conversion Rate" value="3.42%" icon="activity" count-up count-up-duration="2000"></l-stat>
+    <l-stat label="Uptime" value="99.9%" icon="clock" count-up></l-stat>
   \`,
 })
 export class AppComponent {}`,
@@ -82,28 +82,28 @@ export class AppComponent {}`,
   <Stat label="Conversion Rate" value="3.42%" />
   <Stat label="Churn Rate" value="1.08%" />
 </Grid>`,
-              js: `<l-Grid cols="4" gap="md">
-  <l-Stat label="Revenue" value="$48,290"></l-Stat>
-  <l-Stat label="Active Users" value="12,483"></l-Stat>
-  <l-Stat label="Conversion Rate" value="3.42%"></l-Stat>
-  <l-Stat label="Churn Rate" value="1.08%"></l-Stat>
-</l-Grid>
+              js: `<l-grid cols="4" gap="md">
+  <l-stat label="Revenue" value="$48,290"></l-stat>
+  <l-stat label="Active Users" value="12,483"></l-stat>
+  <l-stat label="Conversion Rate" value="3.42%"></l-stat>
+  <l-stat label="Churn Rate" value="1.08%"></l-stat>
+</l-grid>
 
 <script type="module">import "lojee-ui/elements";</script>`,
               vue: `<template>
-  <l-Grid cols="4" gap="md">
-    <l-Stat label="Revenue" value="$48,290" />
-    <l-Stat label="Active Users" value="12,483" />
-    <l-Stat label="Conversion Rate" value="3.42%" />
-    <l-Stat label="Churn Rate" value="1.08%" />
-  </l-Grid>
+  <l-grid cols="4" gap="md">
+    <l-stat label="Revenue" value="$48,290" />
+    <l-stat label="Active Users" value="12,483" />
+    <l-stat label="Conversion Rate" value="3.42%" />
+    <l-stat label="Churn Rate" value="1.08%" />
+  </l-grid>
 </template>`,
-              angular: `<l-Grid cols="4" gap="md">
-  <l-Stat label="Revenue" value="$48,290" />
-  <l-Stat label="Active Users" value="12,483" />
-  <l-Stat label="Conversion Rate" value="3.42%" />
-  <l-Stat label="Churn Rate" value="1.08%" />
-</l-Grid>`,
+              angular: `<l-grid cols="4" gap="md">
+  <l-stat label="Revenue" value="$48,290" />
+  <l-stat label="Active Users" value="12,483" />
+  <l-stat label="Conversion Rate" value="3.42%" />
+  <l-stat label="Churn Rate" value="1.08%" />
+</l-grid>`,
             }}
           />
         </section>
@@ -122,16 +122,16 @@ export class AppComponent {}`,
             variants={{
               react: `<Stat label="Revenue" value="$48,290" change="12.5%" trend="up" />
 <Stat label="Churn Rate" value="1.08%" change="0.3%" trend="down" />`,
-              js: `<l-Stat label="Revenue" value="$48,290" change="12.5%" trend="up"></l-Stat>
-<l-Stat label="Churn Rate" value="1.08%" change="0.3%" trend="down"></l-Stat>
+              js: `<l-stat label="Revenue" value="$48,290" change="12.5%" trend="up"></l-stat>
+<l-stat label="Churn Rate" value="1.08%" change="0.3%" trend="down"></l-stat>
 
 <script type="module">import "lojee-ui/elements";</script>`,
               vue: `<template>
-  <l-Stat label="Revenue" value="$48,290" change="12.5%" trend="up" />
-  <l-Stat label="Churn Rate" value="1.08%" change="0.3%" trend="down" />
+  <l-stat label="Revenue" value="$48,290" change="12.5%" trend="up" />
+  <l-stat label="Churn Rate" value="1.08%" change="0.3%" trend="down" />
 </template>`,
-              angular: `<l-Stat label="Revenue" value="$48,290" change="12.5%" trend="up" />
-<l-Stat label="Churn Rate" value="1.08%" change="0.3%" trend="down" />`,
+              angular: `<l-stat label="Revenue" value="$48,290" change="12.5%" trend="up" />
+<l-stat label="Churn Rate" value="1.08%" change="0.3%" trend="down" />`,
             }}
           />
         </section>
@@ -154,13 +154,13 @@ export class AppComponent {}`,
   icon="zap"
   color="indigo"
 />`,
-              js: `<l-Stat label="Revenue" value="$48,290" change="12.5%" trend="up" icon="zap" color="indigo"></l-Stat>
+              js: `<l-stat label="Revenue" value="$48,290" change="12.5%" trend="up" icon="zap" color="indigo"></l-stat>
 
 <script type="module">import "lojee-ui/elements";</script>`,
               vue: `<template>
-  <l-Stat label="Revenue" value="$48,290" change="12.5%" trend="up" icon="zap" color="indigo" />
+  <l-stat label="Revenue" value="$48,290" change="12.5%" trend="up" icon="zap" color="indigo" />
 </template>`,
-              angular: `<l-Stat label="Revenue" value="$48,290" change="12.5%" trend="up" icon="zap" color="indigo" />`,
+              angular: `<l-stat label="Revenue" value="$48,290" change="12.5%" trend="up" icon="zap" color="indigo" />`,
             }}
           />
         </section>
@@ -178,11 +178,11 @@ export class AppComponent {}`,
           <CodeBlock
             variants={{
               react: `<Stat label="Violet" value="256" icon="zap" color="violet" />`,
-              js: `<l-Stat label="Violet" value="256" icon="zap" color="violet"></l-Stat>`,
+              js: `<l-stat label="Violet" value="256" icon="zap" color="violet"></l-stat>`,
               vue: `<template>
-  <l-Stat label="Violet" value="256" icon="zap" color="violet" />
+  <l-stat label="Violet" value="256" icon="zap" color="violet" />
 </template>`,
-              angular: `<l-Stat label="Violet" value="256" icon="zap" color="violet" />`,
+              angular: `<l-stat label="Violet" value="256" icon="zap" color="violet" />`,
             }}
           />
         </section>
@@ -218,37 +218,37 @@ export class AppComponent {}`,
 <Stat hoverEffect="glow" label="Glow" value="$48,290" icon="zap" />
 <Stat hoverEffect="shine" label="Shine" value="$48,290" icon="zap" />
 <Stat hoverEffect="tilt" label="Tilt" value="$48,290" icon="zap" />`,
-              js: `<l-Stat transition="fade" label="Fade" value="48290" icon="zap"></l-Stat>
-<l-Stat transition="slide-up" label="Slide up" value="12483" icon="users"></l-Stat>
-<l-Stat transition="slide-right" transitionDelay="100" label="Slide right" value="3420" icon="activity"></l-Stat>
-<l-Stat transition="zoom" label="Zoom" value="1080" icon="clock"></l-Stat>
-<l-Stat transition="flip" label="Flip" value="9120" icon="zap"></l-Stat>
-<l-Stat transition="blur" label="Blur" value="842" icon="users"></l-Stat>
-<l-Stat transition="bounce" label="Bounce" value="97" icon="activity"></l-Stat>
-<l-Stat transition="drop" transitionDuration="700" label="Drop" value="24" icon="clock"></l-Stat>
+              js: `<l-stat transition="fade" label="Fade" value="48290" icon="zap"></l-stat>
+<l-stat transition="slide-up" label="Slide up" value="12483" icon="users"></l-stat>
+<l-stat transition="slide-right" transitionDelay="100" label="Slide right" value="3420" icon="activity"></l-stat>
+<l-stat transition="zoom" label="Zoom" value="1080" icon="clock"></l-stat>
+<l-stat transition="flip" label="Flip" value="9120" icon="zap"></l-stat>
+<l-stat transition="blur" label="Blur" value="842" icon="users"></l-stat>
+<l-stat transition="bounce" label="Bounce" value="97" icon="activity"></l-stat>
+<l-stat transition="drop" transitionDuration="700" label="Drop" value="24" icon="clock"></l-stat>
 
-<l-Stat hoverEffect="lift" label="Lift" value="$48,290" icon="zap"></l-Stat>
-<l-Stat hoverEffect="glow" label="Glow" value="$48,290" icon="zap"></l-Stat>
-<l-Stat hoverEffect="shine" label="Shine" value="$48,290" icon="zap"></l-Stat>
-<l-Stat hoverEffect="tilt" label="Tilt" value="$48,290" icon="zap"></l-Stat>
+<l-stat hoverEffect="lift" label="Lift" value="$48,290" icon="zap"></l-stat>
+<l-stat hoverEffect="glow" label="Glow" value="$48,290" icon="zap"></l-stat>
+<l-stat hoverEffect="shine" label="Shine" value="$48,290" icon="zap"></l-stat>
+<l-stat hoverEffect="tilt" label="Tilt" value="$48,290" icon="zap"></l-stat>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-Stat transition="fade" label="Fade" value="48290" icon="zap"></l-Stat>
-  <l-Stat transition="slide-up" label="Slide up" value="12483" icon="users"></l-Stat>
-  <l-Stat transition="slide-right" transitionDelay="100" label="Slide right" value="3420" icon="activity"></l-Stat>
-  <l-Stat transition="zoom" label="Zoom" value="1080" icon="clock"></l-Stat>
-  <l-Stat transition="flip" label="Flip" value="9120" icon="zap"></l-Stat>
-  <l-Stat transition="blur" label="Blur" value="842" icon="users"></l-Stat>
-  <l-Stat transition="bounce" label="Bounce" value="97" icon="activity"></l-Stat>
-  <l-Stat transition="drop" transitionDuration="700" label="Drop" value="24" icon="clock"></l-Stat>
+  <l-stat transition="fade" label="Fade" value="48290" icon="zap"></l-stat>
+  <l-stat transition="slide-up" label="Slide up" value="12483" icon="users"></l-stat>
+  <l-stat transition="slide-right" transitionDelay="100" label="Slide right" value="3420" icon="activity"></l-stat>
+  <l-stat transition="zoom" label="Zoom" value="1080" icon="clock"></l-stat>
+  <l-stat transition="flip" label="Flip" value="9120" icon="zap"></l-stat>
+  <l-stat transition="blur" label="Blur" value="842" icon="users"></l-stat>
+  <l-stat transition="bounce" label="Bounce" value="97" icon="activity"></l-stat>
+  <l-stat transition="drop" transitionDuration="700" label="Drop" value="24" icon="clock"></l-stat>
 
-  <l-Stat hoverEffect="lift" label="Lift" value="$48,290" icon="zap"></l-Stat>
-  <l-Stat hoverEffect="glow" label="Glow" value="$48,290" icon="zap"></l-Stat>
-  <l-Stat hoverEffect="shine" label="Shine" value="$48,290" icon="zap"></l-Stat>
-  <l-Stat hoverEffect="tilt" label="Tilt" value="$48,290" icon="zap"></l-Stat>
+  <l-stat hoverEffect="lift" label="Lift" value="$48,290" icon="zap"></l-stat>
+  <l-stat hoverEffect="glow" label="Glow" value="$48,290" icon="zap"></l-stat>
+  <l-stat hoverEffect="shine" label="Shine" value="$48,290" icon="zap"></l-stat>
+  <l-stat hoverEffect="tilt" label="Tilt" value="$48,290" icon="zap"></l-stat>
 </template>
 
 <script setup lang="ts">
@@ -263,19 +263,19 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Stat transition="fade" label="Fade" value="48290" icon="zap"></l-Stat>
-    <l-Stat transition="slide-up" label="Slide up" value="12483" icon="users"></l-Stat>
-    <l-Stat transition="slide-right" transitionDelay="100" label="Slide right" value="3420" icon="activity"></l-Stat>
-    <l-Stat transition="zoom" label="Zoom" value="1080" icon="clock"></l-Stat>
-    <l-Stat transition="flip" label="Flip" value="9120" icon="zap"></l-Stat>
-    <l-Stat transition="blur" label="Blur" value="842" icon="users"></l-Stat>
-    <l-Stat transition="bounce" label="Bounce" value="97" icon="activity"></l-Stat>
-    <l-Stat transition="drop" transitionDuration="700" label="Drop" value="24" icon="clock"></l-Stat>
+    <l-stat transition="fade" label="Fade" value="48290" icon="zap"></l-stat>
+    <l-stat transition="slide-up" label="Slide up" value="12483" icon="users"></l-stat>
+    <l-stat transition="slide-right" transitionDelay="100" label="Slide right" value="3420" icon="activity"></l-stat>
+    <l-stat transition="zoom" label="Zoom" value="1080" icon="clock"></l-stat>
+    <l-stat transition="flip" label="Flip" value="9120" icon="zap"></l-stat>
+    <l-stat transition="blur" label="Blur" value="842" icon="users"></l-stat>
+    <l-stat transition="bounce" label="Bounce" value="97" icon="activity"></l-stat>
+    <l-stat transition="drop" transitionDuration="700" label="Drop" value="24" icon="clock"></l-stat>
 
-    <l-Stat hoverEffect="lift" label="Lift" value="$48,290" icon="zap"></l-Stat>
-    <l-Stat hoverEffect="glow" label="Glow" value="$48,290" icon="zap"></l-Stat>
-    <l-Stat hoverEffect="shine" label="Shine" value="$48,290" icon="zap"></l-Stat>
-    <l-Stat hoverEffect="tilt" label="Tilt" value="$48,290" icon="zap"></l-Stat>
+    <l-stat hoverEffect="lift" label="Lift" value="$48,290" icon="zap"></l-stat>
+    <l-stat hoverEffect="glow" label="Glow" value="$48,290" icon="zap"></l-stat>
+    <l-stat hoverEffect="shine" label="Shine" value="$48,290" icon="zap"></l-stat>
+    <l-stat hoverEffect="tilt" label="Tilt" value="$48,290" icon="zap"></l-stat>
   \`,
 })
 export class AppComponent {}`,
@@ -305,27 +305,27 @@ export class AppComponent {}`,
 <Stat label="Float" value="842" icon="users" animation="float" />
 <Stat label="Wiggle" value="97%" icon="activity" animation="wiggle" />
 <Stat label="Border spin" value="24h" icon="clock" animation="border-spin" pulseColor="violet" pulseGradientTo="cyan" />`,
-              js: `<l-Stat label="Glow" value="$48,290" icon="zap" animation="glow"></l-Stat>
-<l-Stat label="Pulse" value="12,483" icon="users" animation="pulse"></l-Stat>
-<l-Stat label="Gradient pulse" value="3.42%" icon="activity" color="rose" animation="pulse" pulseColor="rose" pulseGradientTo="amber"></l-Stat>
-<l-Stat label="Sweep" value="1.08%" icon="activity" animation="sweep"></l-Stat>
-<l-Stat label="Bounce" value="$9,120" icon="zap" animation="bounce"></l-Stat>
-<l-Stat label="Float" value="842" icon="users" animation="float"></l-Stat>
-<l-Stat label="Wiggle" value="97%" icon="activity" animation="wiggle"></l-Stat>
-<l-Stat label="Border spin" value="24h" icon="clock" animation="border-spin" pulseColor="violet" pulseGradientTo="cyan"></l-Stat>
+              js: `<l-stat label="Glow" value="$48,290" icon="zap" animation="glow"></l-stat>
+<l-stat label="Pulse" value="12,483" icon="users" animation="pulse"></l-stat>
+<l-stat label="Gradient pulse" value="3.42%" icon="activity" color="rose" animation="pulse" pulseColor="rose" pulseGradientTo="amber"></l-stat>
+<l-stat label="Sweep" value="1.08%" icon="activity" animation="sweep"></l-stat>
+<l-stat label="Bounce" value="$9,120" icon="zap" animation="bounce"></l-stat>
+<l-stat label="Float" value="842" icon="users" animation="float"></l-stat>
+<l-stat label="Wiggle" value="97%" icon="activity" animation="wiggle"></l-stat>
+<l-stat label="Border spin" value="24h" icon="clock" animation="border-spin" pulseColor="violet" pulseGradientTo="cyan"></l-stat>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-Stat label="Glow" value="$48,290" icon="zap" animation="glow"></l-Stat>
-  <l-Stat label="Pulse" value="12,483" icon="users" animation="pulse"></l-Stat>
-  <l-Stat label="Gradient pulse" value="3.42%" icon="activity" color="rose" animation="pulse" pulseColor="rose" pulseGradientTo="amber"></l-Stat>
-  <l-Stat label="Sweep" value="1.08%" icon="activity" animation="sweep"></l-Stat>
-  <l-Stat label="Bounce" value="$9,120" icon="zap" animation="bounce"></l-Stat>
-  <l-Stat label="Float" value="842" icon="users" animation="float"></l-Stat>
-  <l-Stat label="Wiggle" value="97%" icon="activity" animation="wiggle"></l-Stat>
-  <l-Stat label="Border spin" value="24h" icon="clock" animation="border-spin" pulseColor="violet" pulseGradientTo="cyan"></l-Stat>
+  <l-stat label="Glow" value="$48,290" icon="zap" animation="glow"></l-stat>
+  <l-stat label="Pulse" value="12,483" icon="users" animation="pulse"></l-stat>
+  <l-stat label="Gradient pulse" value="3.42%" icon="activity" color="rose" animation="pulse" pulseColor="rose" pulseGradientTo="amber"></l-stat>
+  <l-stat label="Sweep" value="1.08%" icon="activity" animation="sweep"></l-stat>
+  <l-stat label="Bounce" value="$9,120" icon="zap" animation="bounce"></l-stat>
+  <l-stat label="Float" value="842" icon="users" animation="float"></l-stat>
+  <l-stat label="Wiggle" value="97%" icon="activity" animation="wiggle"></l-stat>
+  <l-stat label="Border spin" value="24h" icon="clock" animation="border-spin" pulseColor="violet" pulseGradientTo="cyan"></l-stat>
 </template>
 
 <script setup lang="ts">
@@ -340,14 +340,14 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Stat label="Glow" value="$48,290" icon="zap" animation="glow"></l-Stat>
-    <l-Stat label="Pulse" value="12,483" icon="users" animation="pulse"></l-Stat>
-    <l-Stat label="Gradient pulse" value="3.42%" icon="activity" color="rose" animation="pulse" pulseColor="rose" pulseGradientTo="amber"></l-Stat>
-    <l-Stat label="Sweep" value="1.08%" icon="activity" animation="sweep"></l-Stat>
-    <l-Stat label="Bounce" value="$9,120" icon="zap" animation="bounce"></l-Stat>
-    <l-Stat label="Float" value="842" icon="users" animation="float"></l-Stat>
-    <l-Stat label="Wiggle" value="97%" icon="activity" animation="wiggle"></l-Stat>
-    <l-Stat label="Border spin" value="24h" icon="clock" animation="border-spin" pulseColor="violet" pulseGradientTo="cyan"></l-Stat>
+    <l-stat label="Glow" value="$48,290" icon="zap" animation="glow"></l-stat>
+    <l-stat label="Pulse" value="12,483" icon="users" animation="pulse"></l-stat>
+    <l-stat label="Gradient pulse" value="3.42%" icon="activity" color="rose" animation="pulse" pulseColor="rose" pulseGradientTo="amber"></l-stat>
+    <l-stat label="Sweep" value="1.08%" icon="activity" animation="sweep"></l-stat>
+    <l-stat label="Bounce" value="$9,120" icon="zap" animation="bounce"></l-stat>
+    <l-stat label="Float" value="842" icon="users" animation="float"></l-stat>
+    <l-stat label="Wiggle" value="97%" icon="activity" animation="wiggle"></l-stat>
+    <l-stat label="Border spin" value="24h" icon="clock" animation="border-spin" pulseColor="violet" pulseGradientTo="cyan"></l-stat>
   \`,
 })
 export class AppComponent {}`,

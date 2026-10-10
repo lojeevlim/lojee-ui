@@ -115,7 +115,7 @@ const data = ${jsLiteral(RENDER_DATA)};
 
 <Table variant="lined" columns={columns} data={data} />`,
               js: `<!-- A Web Component can't take a render function. Use the built-in column types: -->
-<l-Table id="members" variant="lined"></l-Table>
+<l-table id="members" variant="lined"></l-table>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -133,7 +133,7 @@ const data = ${jsLiteral(RENDER_DATA)};
 </script>`,
               vue: `<template>
   <!-- Built-in column types work from a Web Component; a render function does not -->
-  <l-Table variant="lined" :columns="columns" :data="data"></l-Table>
+  <l-table variant="lined" :columns="columns" :data="data"></l-table>
 </template>
 
 <script setup lang="ts">
@@ -150,7 +150,7 @@ const data = [
 ];
 </script>`,
               angular: `<!-- Built-in column types work from a Web Component; a render function does not -->
-<l-Table variant="lined" [columns]="columns" [data]="data"></l-Table>
+<l-table variant="lined" [columns]="columns" [data]="data"></l-table>
 
 // component class
 columns = [

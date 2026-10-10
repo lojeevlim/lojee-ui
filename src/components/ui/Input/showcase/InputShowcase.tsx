@@ -39,17 +39,17 @@ export default function InputShowcase() {
               react: `<Input size="sm" placeholder="Small" />
 <Input size="md" placeholder="Medium" />
 <Input size="lg" placeholder="Large" />`,
-              js: `<l-Input size="sm" placeholder="Small"></l-Input>
-<l-Input size="md" placeholder="Medium"></l-Input>
-<l-Input size="lg" placeholder="Large"></l-Input>
+              js: `<l-input size="sm" placeholder="Small"></l-input>
+<l-input size="md" placeholder="Medium"></l-input>
+<l-input size="lg" placeholder="Large"></l-input>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-Input size="sm" placeholder="Small" />
-  <l-Input size="md" placeholder="Medium" />
-  <l-Input size="lg" placeholder="Large" />
+  <l-input size="sm" placeholder="Small" />
+  <l-input size="md" placeholder="Medium" />
+  <l-input size="lg" placeholder="Large" />
 </template>
 
 <script setup lang="ts">
@@ -64,9 +64,9 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Input size="sm" placeholder="Small" />
-    <l-Input size="md" placeholder="Medium" />
-    <l-Input size="lg" placeholder="Large" />
+    <l-input size="sm" placeholder="Small" />
+    <l-input size="md" placeholder="Medium" />
+    <l-input size="lg" placeholder="Large" />
   \`,
 })
 export class AppComponent {}`,
@@ -105,24 +105,24 @@ export class AppComponent {}`,
 <Input variant="underline" placeholder="Underline" />
 <Input variant="soft" placeholder="Soft" />
 <Input variant="plain" placeholder="Plain" />`,
-              js: `<l-Input variant="outline" placeholder="Outline"></l-Input>
-<l-Input variant="filled" placeholder="Filled"></l-Input>
-<l-Input variant="underline" placeholder="Underline"></l-Input>
-<l-Input variant="soft" placeholder="Soft"></l-Input>
-<l-Input variant="plain" placeholder="Plain"></l-Input>`,
+              js: `<l-input variant="outline" placeholder="Outline"></l-input>
+<l-input variant="filled" placeholder="Filled"></l-input>
+<l-input variant="underline" placeholder="Underline"></l-input>
+<l-input variant="soft" placeholder="Soft"></l-input>
+<l-input variant="plain" placeholder="Plain"></l-input>`,
               vue: `<template>
-  <l-Input variant="outline" placeholder="Outline" />
-  <l-Input variant="filled" placeholder="Filled" />
-  <l-Input variant="underline" placeholder="Underline" />
-  <l-Input variant="soft" placeholder="Soft" />
-  <l-Input variant="plain" placeholder="Plain" />
+  <l-input variant="outline" placeholder="Outline" />
+  <l-input variant="filled" placeholder="Filled" />
+  <l-input variant="underline" placeholder="Underline" />
+  <l-input variant="soft" placeholder="Soft" />
+  <l-input variant="plain" placeholder="Plain" />
 </template>`,
               angular: `<!-- app.component.html — same AppComponent as above -->
-<l-Input variant="outline" placeholder="Outline" />
-<l-Input variant="filled" placeholder="Filled" />
-<l-Input variant="underline" placeholder="Underline" />
-<l-Input variant="soft" placeholder="Soft" />
-<l-Input variant="plain" placeholder="Plain" />`,
+<l-input variant="outline" placeholder="Outline" />
+<l-input variant="filled" placeholder="Filled" />
+<l-input variant="underline" placeholder="Underline" />
+<l-input variant="soft" placeholder="Soft" />
+<l-input variant="plain" placeholder="Plain" />`,
             }}
           />
         </section>
@@ -139,18 +139,18 @@ export class AppComponent {}`,
               react: `<Input leadingIcon="mail" placeholder="Email address" />
 <Input trailingIcon="eye" type="password" placeholder="Password" />
 <Input leadingIcon="user" trailingIcon="circle-check" placeholder="Username" />`,
-              js: `<l-Input leadingIcon="mail" placeholder="Email address"></l-Input>
-<l-Input trailingIcon="eye" type="password" placeholder="Password"></l-Input>
-<l-Input leadingIcon="user" trailingIcon="circle-check" placeholder="Username"></l-Input>`,
+              js: `<l-input leadingIcon="mail" placeholder="Email address"></l-input>
+<l-input trailingIcon="eye" type="password" placeholder="Password"></l-input>
+<l-input leadingIcon="user" trailingIcon="circle-check" placeholder="Username"></l-input>`,
               vue: `<template>
-  <l-Input leadingIcon="mail" placeholder="Email address" />
-  <l-Input trailingIcon="eye" type="password" placeholder="Password" />
-  <l-Input leadingIcon="user" trailingIcon="circle-check" placeholder="Username" />
+  <l-input leadingIcon="mail" placeholder="Email address" />
+  <l-input trailingIcon="eye" type="password" placeholder="Password" />
+  <l-input leadingIcon="user" trailingIcon="circle-check" placeholder="Username" />
 </template>`,
               angular: `<!-- app.component.html — same AppComponent as above -->
-<l-Input leadingIcon="mail" placeholder="Email address" />
-<l-Input trailingIcon="eye" type="password" placeholder="Password" />
-<l-Input leadingIcon="user" trailingIcon="circle-check" placeholder="Username" />`,
+<l-input leadingIcon="mail" placeholder="Email address" />
+<l-input trailingIcon="eye" type="password" placeholder="Password" />
+<l-input leadingIcon="user" trailingIcon="circle-check" placeholder="Username" />`,
             }}
           />
         </section>
@@ -163,9 +163,9 @@ export class AppComponent {}`,
           <CodeBlock
             variants={{
               react: `<Input invalid defaultValue="not-an-email" leadingIcon="mail" />`,
-              js: `<l-Input invalid value="not-an-email" leadingIcon="mail"></l-Input>`,
-              vue: `<l-Input invalid value="not-an-email" leadingIcon="mail" />`,
-              angular: `<l-Input invalid value="not-an-email" leadingIcon="mail" />`,
+              js: `<l-input invalid value="not-an-email" leadingIcon="mail"></l-input>`,
+              vue: `<l-input invalid value="not-an-email" leadingIcon="mail" />`,
+              angular: `<l-input invalid value="not-an-email" leadingIcon="mail" />`,
             }}
           />
         </section>
@@ -196,7 +196,7 @@ const isInvalidEmail = email.length > 0 && !email.includes("@");
   onChange={(e) => setEmail(e.target.value)}
   placeholder="Type something…"
 />`,
-              js: `<l-Input id="email-input" size="md" placeholder="Type something…"></l-Input>
+              js: `<l-input id="email-input" size="md" placeholder="Type something…"></l-input>
 <p id="email-error" class="hidden">Must contain an "@".</p>
 
 <script type="module">
@@ -211,7 +211,7 @@ const isInvalidEmail = email.length > 0 && !email.includes("@");
   });
 </script>`,
               vue: `<template>
-  <l-Input
+  <l-input
     size="md"
     :invalid="isInvalidEmail"
     :value="email"
@@ -237,7 +237,7 @@ onEmailInput(e: Event) {
 }
 
 <!-- app.component.html -->
-<l-Input
+<l-input
   size="md"
   [invalid]="isInvalidEmail"
   [value]="email"
@@ -257,9 +257,9 @@ onEmailInput(e: Event) {
           <CodeBlock
             variants={{
               react: `<Input disabled placeholder="Disabled" />`,
-              js: `<l-Input disabled placeholder="Disabled"></l-Input>`,
-              vue: `<l-Input disabled placeholder="Disabled" />`,
-              angular: `<l-Input disabled placeholder="Disabled" />`,
+              js: `<l-input disabled placeholder="Disabled"></l-input>`,
+              vue: `<l-input disabled placeholder="Disabled" />`,
+              angular: `<l-input disabled placeholder="Disabled" />`,
             }}
           />
         </section>
@@ -299,39 +299,39 @@ onEmailInput(e: Event) {
 <Input hoverEffect="glow" placeholder="Glow" />
 <Input hoverEffect="ring" placeholder="Ring" />
 <Input hoverEffect="shine" leadingIcon="search" placeholder="Shine (needs an icon)" />`,
-              js: `<l-Input transition="fade" placeholder="Fade"></l-Input>
-<l-Input transition="slide-up" placeholder="Slide up"></l-Input>
-<l-Input transition="slide-right" transitionDelay="100" placeholder="Slide right"></l-Input>
-<l-Input transition="zoom" placeholder="Zoom"></l-Input>
-<l-Input transition="flip" placeholder="Flip"></l-Input>
-<l-Input transition="blur" placeholder="Blur"></l-Input>
-<l-Input transition="bounce" placeholder="Bounce"></l-Input>
-<l-Input transition="drop" transitionDuration="700" placeholder="Drop"></l-Input>
+              js: `<l-input transition="fade" placeholder="Fade"></l-input>
+<l-input transition="slide-up" placeholder="Slide up"></l-input>
+<l-input transition="slide-right" transitionDelay="100" placeholder="Slide right"></l-input>
+<l-input transition="zoom" placeholder="Zoom"></l-input>
+<l-input transition="flip" placeholder="Flip"></l-input>
+<l-input transition="blur" placeholder="Blur"></l-input>
+<l-input transition="bounce" placeholder="Bounce"></l-input>
+<l-input transition="drop" transitionDuration="700" placeholder="Drop"></l-input>
 
-<l-Input hoverEffect="lift" placeholder="Lift"></l-Input>
-<l-Input hoverEffect="scale" placeholder="Scale"></l-Input>
-<l-Input hoverEffect="glow" placeholder="Glow"></l-Input>
-<l-Input hoverEffect="ring" placeholder="Ring"></l-Input>
-<l-Input hoverEffect="shine" leadingIcon="search" placeholder="Shine (needs an icon)"></l-Input>
+<l-input hoverEffect="lift" placeholder="Lift"></l-input>
+<l-input hoverEffect="scale" placeholder="Scale"></l-input>
+<l-input hoverEffect="glow" placeholder="Glow"></l-input>
+<l-input hoverEffect="ring" placeholder="Ring"></l-input>
+<l-input hoverEffect="shine" leadingIcon="search" placeholder="Shine (needs an icon)"></l-input>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-Input transition="fade" placeholder="Fade"></l-Input>
-  <l-Input transition="slide-up" placeholder="Slide up"></l-Input>
-  <l-Input transition="slide-right" transitionDelay="100" placeholder="Slide right"></l-Input>
-  <l-Input transition="zoom" placeholder="Zoom"></l-Input>
-  <l-Input transition="flip" placeholder="Flip"></l-Input>
-  <l-Input transition="blur" placeholder="Blur"></l-Input>
-  <l-Input transition="bounce" placeholder="Bounce"></l-Input>
-  <l-Input transition="drop" transitionDuration="700" placeholder="Drop"></l-Input>
+  <l-input transition="fade" placeholder="Fade"></l-input>
+  <l-input transition="slide-up" placeholder="Slide up"></l-input>
+  <l-input transition="slide-right" transitionDelay="100" placeholder="Slide right"></l-input>
+  <l-input transition="zoom" placeholder="Zoom"></l-input>
+  <l-input transition="flip" placeholder="Flip"></l-input>
+  <l-input transition="blur" placeholder="Blur"></l-input>
+  <l-input transition="bounce" placeholder="Bounce"></l-input>
+  <l-input transition="drop" transitionDuration="700" placeholder="Drop"></l-input>
 
-  <l-Input hoverEffect="lift" placeholder="Lift"></l-Input>
-  <l-Input hoverEffect="scale" placeholder="Scale"></l-Input>
-  <l-Input hoverEffect="glow" placeholder="Glow"></l-Input>
-  <l-Input hoverEffect="ring" placeholder="Ring"></l-Input>
-  <l-Input hoverEffect="shine" leadingIcon="search" placeholder="Shine (needs an icon)"></l-Input>
+  <l-input hoverEffect="lift" placeholder="Lift"></l-input>
+  <l-input hoverEffect="scale" placeholder="Scale"></l-input>
+  <l-input hoverEffect="glow" placeholder="Glow"></l-input>
+  <l-input hoverEffect="ring" placeholder="Ring"></l-input>
+  <l-input hoverEffect="shine" leadingIcon="search" placeholder="Shine (needs an icon)"></l-input>
 </template>
 
 <script setup lang="ts">
@@ -346,20 +346,20 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Input transition="fade" placeholder="Fade"></l-Input>
-    <l-Input transition="slide-up" placeholder="Slide up"></l-Input>
-    <l-Input transition="slide-right" transitionDelay="100" placeholder="Slide right"></l-Input>
-    <l-Input transition="zoom" placeholder="Zoom"></l-Input>
-    <l-Input transition="flip" placeholder="Flip"></l-Input>
-    <l-Input transition="blur" placeholder="Blur"></l-Input>
-    <l-Input transition="bounce" placeholder="Bounce"></l-Input>
-    <l-Input transition="drop" transitionDuration="700" placeholder="Drop"></l-Input>
+    <l-input transition="fade" placeholder="Fade"></l-input>
+    <l-input transition="slide-up" placeholder="Slide up"></l-input>
+    <l-input transition="slide-right" transitionDelay="100" placeholder="Slide right"></l-input>
+    <l-input transition="zoom" placeholder="Zoom"></l-input>
+    <l-input transition="flip" placeholder="Flip"></l-input>
+    <l-input transition="blur" placeholder="Blur"></l-input>
+    <l-input transition="bounce" placeholder="Bounce"></l-input>
+    <l-input transition="drop" transitionDuration="700" placeholder="Drop"></l-input>
 
-    <l-Input hoverEffect="lift" placeholder="Lift"></l-Input>
-    <l-Input hoverEffect="scale" placeholder="Scale"></l-Input>
-    <l-Input hoverEffect="glow" placeholder="Glow"></l-Input>
-    <l-Input hoverEffect="ring" placeholder="Ring"></l-Input>
-    <l-Input hoverEffect="shine" leadingIcon="search" placeholder="Shine (needs an icon)"></l-Input>
+    <l-input hoverEffect="lift" placeholder="Lift"></l-input>
+    <l-input hoverEffect="scale" placeholder="Scale"></l-input>
+    <l-input hoverEffect="glow" placeholder="Glow"></l-input>
+    <l-input hoverEffect="ring" placeholder="Ring"></l-input>
+    <l-input hoverEffect="shine" leadingIcon="search" placeholder="Shine (needs an icon)"></l-input>
   \`,
 })
 export class AppComponent {}`,
@@ -438,7 +438,7 @@ export class AppComponent {
 
 // or uncontrolled: it keeps its own value, you read it when you need it
 <Input defaultValue="Ada" onChange={(e) => save(e.target.value)} />`,
-              js: `<l-Input value="Ada"></l-Input>
+              js: `<l-input value="Ada"></l-input>
 
 <script type="module">
   import "lojee-ui/elements";

@@ -25,17 +25,17 @@ export default function BadgeShowcase() {
               react: `<Badge variant="solid" label="Solid" />
 <Badge variant="outline" label="Outline" />
 <Badge variant="soft" label="Soft" />`,
-              js: `<l-Badge variant="solid" label="Solid"></l-Badge>
-<l-Badge variant="outline" label="Outline"></l-Badge>
-<l-Badge variant="soft" label="Soft"></l-Badge>
+              js: `<l-badge variant="solid" label="Solid"></l-badge>
+<l-badge variant="outline" label="Outline"></l-badge>
+<l-badge variant="soft" label="Soft"></l-badge>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-Badge variant="solid" label="Solid" />
-  <l-Badge variant="outline" label="Outline" />
-  <l-Badge variant="soft" label="Soft" />
+  <l-badge variant="solid" label="Solid" />
+  <l-badge variant="outline" label="Outline" />
+  <l-badge variant="soft" label="Soft" />
 </template>
 
 <script setup lang="ts">
@@ -50,9 +50,9 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Badge variant="solid" label="Solid" />
-    <l-Badge variant="outline" label="Outline" />
-    <l-Badge variant="soft" label="Soft" />
+    <l-badge variant="solid" label="Solid" />
+    <l-badge variant="outline" label="Outline" />
+    <l-badge variant="soft" label="Soft" />
   \`,
 })
 export class BadgeShowcaseComponent {}`,
@@ -74,18 +74,18 @@ export class BadgeShowcaseComponent {}`,
               react: `<Badge color="indigo" label="Indigo" />
 <Badge color="emerald" label="Emerald" />
 <Badge color="rose" label="Rose" />`,
-              js: `<l-Badge color="indigo" label="Indigo"></l-Badge>
-<l-Badge color="emerald" label="Emerald"></l-Badge>
-<l-Badge color="rose" label="Rose"></l-Badge>`,
+              js: `<l-badge color="indigo" label="Indigo"></l-badge>
+<l-badge color="emerald" label="Emerald"></l-badge>
+<l-badge color="rose" label="Rose"></l-badge>`,
               vue: `<template>
-  <l-Badge color="indigo" label="Indigo" />
-  <l-Badge color="emerald" label="Emerald" />
-  <l-Badge color="rose" label="Rose" />
+  <l-badge color="indigo" label="Indigo" />
+  <l-badge color="emerald" label="Emerald" />
+  <l-badge color="rose" label="Rose" />
 </template>`,
               angular: `<!-- reuses BadgeShowcaseComponent from above -->
-<l-Badge color="indigo" label="Indigo" />
-<l-Badge color="emerald" label="Emerald" />
-<l-Badge color="rose" label="Rose" />`,
+<l-badge color="indigo" label="Indigo" />
+<l-badge color="emerald" label="Emerald" />
+<l-badge color="rose" label="Rose" />`,
             }}
           />
         </section>
@@ -104,21 +104,21 @@ export class BadgeShowcaseComponent {}`,
 <Badge size="sm" label="Small" />
 <Badge size="md" label="Medium" />
 <Badge size="lg" label="Large" />`,
-              js: `<l-Badge size="xs" label="Extra small"></l-Badge>
-<l-Badge size="sm" label="Small"></l-Badge>
-<l-Badge size="md" label="Medium"></l-Badge>
-<l-Badge size="lg" label="Large"></l-Badge>`,
+              js: `<l-badge size="xs" label="Extra small"></l-badge>
+<l-badge size="sm" label="Small"></l-badge>
+<l-badge size="md" label="Medium"></l-badge>
+<l-badge size="lg" label="Large"></l-badge>`,
               vue: `<template>
-  <l-Badge size="xs" label="Extra small" />
-  <l-Badge size="sm" label="Small" />
-  <l-Badge size="md" label="Medium" />
-  <l-Badge size="lg" label="Large" />
+  <l-badge size="xs" label="Extra small" />
+  <l-badge size="sm" label="Small" />
+  <l-badge size="md" label="Medium" />
+  <l-badge size="lg" label="Large" />
 </template>`,
               angular: `<!-- reuses BadgeShowcaseComponent from above -->
-<l-Badge size="xs" label="Extra small" />
-<l-Badge size="sm" label="Small" />
-<l-Badge size="md" label="Medium" />
-<l-Badge size="lg" label="Large" />`,
+<l-badge size="xs" label="Extra small" />
+<l-badge size="sm" label="Small" />
+<l-badge size="md" label="Medium" />
+<l-badge size="lg" label="Large" />`,
             }}
           />
         </section>
@@ -133,12 +133,12 @@ export class BadgeShowcaseComponent {}`,
           <CodeBlock
             variants={{
               react: `<Badge icon="check" color="emerald" label="Verified" />`,
-              js: `<l-Badge icon="check" color="emerald" label="Verified"></l-Badge>`,
+              js: `<l-badge icon="check" color="emerald" label="Verified"></l-badge>`,
               vue: `<template>
-  <l-Badge icon="check" color="emerald" label="Verified" />
+  <l-badge icon="check" color="emerald" label="Verified" />
 </template>`,
               angular: `<!-- reuses BadgeShowcaseComponent from above -->
-<l-Badge icon="check" color="emerald" label="Verified" />`,
+<l-badge icon="check" color="emerald" label="Verified" />`,
             }}
           />
         </section>
@@ -153,12 +153,12 @@ export class BadgeShowcaseComponent {}`,
           <CodeBlock
             variants={{
               react: `<Badge dot color="emerald" label="Online" />`,
-              js: `<l-Badge dot color="emerald" label="Online"></l-Badge>`,
+              js: `<l-badge dot color="emerald" label="Online"></l-badge>`,
               vue: `<template>
-  <l-Badge dot color="emerald" label="Online" />
+  <l-badge dot color="emerald" label="Online" />
 </template>`,
               angular: `<!-- reuses BadgeShowcaseComponent from above -->
-<l-Badge dot color="emerald" label="Online" />`,
+<l-badge dot color="emerald" label="Online" />`,
             }}
           />
         </section>
@@ -195,39 +195,39 @@ export class BadgeShowcaseComponent {}`,
 <Badge hoverEffect="glow" label="Glow" />
 <Badge hoverEffect="shine" label="Shine" />
 <Badge hoverEffect="tilt" label="Tilt" />`,
-              js: `<l-Badge transition="fade" label="Fade"></l-Badge>
-<l-Badge transition="slide-up" variant="solid" label="Slide up"></l-Badge>
-<l-Badge transition="slide-right" transitionDelay="100" label="Slide right"></l-Badge>
-<l-Badge transition="zoom" variant="solid" label="Zoom"></l-Badge>
-<l-Badge transition="flip" label="Flip"></l-Badge>
-<l-Badge transition="blur" variant="solid" label="Blur"></l-Badge>
-<l-Badge transition="bounce" label="Bounce"></l-Badge>
-<l-Badge transition="drop" transitionDuration="700" variant="solid" label="Drop"></l-Badge>
+              js: `<l-badge transition="fade" label="Fade"></l-badge>
+<l-badge transition="slide-up" variant="solid" label="Slide up"></l-badge>
+<l-badge transition="slide-right" transitionDelay="100" label="Slide right"></l-badge>
+<l-badge transition="zoom" variant="solid" label="Zoom"></l-badge>
+<l-badge transition="flip" label="Flip"></l-badge>
+<l-badge transition="blur" variant="solid" label="Blur"></l-badge>
+<l-badge transition="bounce" label="Bounce"></l-badge>
+<l-badge transition="drop" transitionDuration="700" variant="solid" label="Drop"></l-badge>
 
-<l-Badge hoverEffect="lift" label="Lift"></l-Badge>
-<l-Badge hoverEffect="scale" label="Scale"></l-Badge>
-<l-Badge hoverEffect="glow" label="Glow"></l-Badge>
-<l-Badge hoverEffect="shine" label="Shine"></l-Badge>
-<l-Badge hoverEffect="tilt" label="Tilt"></l-Badge>
+<l-badge hoverEffect="lift" label="Lift"></l-badge>
+<l-badge hoverEffect="scale" label="Scale"></l-badge>
+<l-badge hoverEffect="glow" label="Glow"></l-badge>
+<l-badge hoverEffect="shine" label="Shine"></l-badge>
+<l-badge hoverEffect="tilt" label="Tilt"></l-badge>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-Badge transition="fade" label="Fade"></l-Badge>
-  <l-Badge transition="slide-up" variant="solid" label="Slide up"></l-Badge>
-  <l-Badge transition="slide-right" transitionDelay="100" label="Slide right"></l-Badge>
-  <l-Badge transition="zoom" variant="solid" label="Zoom"></l-Badge>
-  <l-Badge transition="flip" label="Flip"></l-Badge>
-  <l-Badge transition="blur" variant="solid" label="Blur"></l-Badge>
-  <l-Badge transition="bounce" label="Bounce"></l-Badge>
-  <l-Badge transition="drop" transitionDuration="700" variant="solid" label="Drop"></l-Badge>
+  <l-badge transition="fade" label="Fade"></l-badge>
+  <l-badge transition="slide-up" variant="solid" label="Slide up"></l-badge>
+  <l-badge transition="slide-right" transitionDelay="100" label="Slide right"></l-badge>
+  <l-badge transition="zoom" variant="solid" label="Zoom"></l-badge>
+  <l-badge transition="flip" label="Flip"></l-badge>
+  <l-badge transition="blur" variant="solid" label="Blur"></l-badge>
+  <l-badge transition="bounce" label="Bounce"></l-badge>
+  <l-badge transition="drop" transitionDuration="700" variant="solid" label="Drop"></l-badge>
 
-  <l-Badge hoverEffect="lift" label="Lift"></l-Badge>
-  <l-Badge hoverEffect="scale" label="Scale"></l-Badge>
-  <l-Badge hoverEffect="glow" label="Glow"></l-Badge>
-  <l-Badge hoverEffect="shine" label="Shine"></l-Badge>
-  <l-Badge hoverEffect="tilt" label="Tilt"></l-Badge>
+  <l-badge hoverEffect="lift" label="Lift"></l-badge>
+  <l-badge hoverEffect="scale" label="Scale"></l-badge>
+  <l-badge hoverEffect="glow" label="Glow"></l-badge>
+  <l-badge hoverEffect="shine" label="Shine"></l-badge>
+  <l-badge hoverEffect="tilt" label="Tilt"></l-badge>
 </template>
 
 <script setup lang="ts">
@@ -242,20 +242,20 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Badge transition="fade" label="Fade"></l-Badge>
-    <l-Badge transition="slide-up" variant="solid" label="Slide up"></l-Badge>
-    <l-Badge transition="slide-right" transitionDelay="100" label="Slide right"></l-Badge>
-    <l-Badge transition="zoom" variant="solid" label="Zoom"></l-Badge>
-    <l-Badge transition="flip" label="Flip"></l-Badge>
-    <l-Badge transition="blur" variant="solid" label="Blur"></l-Badge>
-    <l-Badge transition="bounce" label="Bounce"></l-Badge>
-    <l-Badge transition="drop" transitionDuration="700" variant="solid" label="Drop"></l-Badge>
+    <l-badge transition="fade" label="Fade"></l-badge>
+    <l-badge transition="slide-up" variant="solid" label="Slide up"></l-badge>
+    <l-badge transition="slide-right" transitionDelay="100" label="Slide right"></l-badge>
+    <l-badge transition="zoom" variant="solid" label="Zoom"></l-badge>
+    <l-badge transition="flip" label="Flip"></l-badge>
+    <l-badge transition="blur" variant="solid" label="Blur"></l-badge>
+    <l-badge transition="bounce" label="Bounce"></l-badge>
+    <l-badge transition="drop" transitionDuration="700" variant="solid" label="Drop"></l-badge>
 
-    <l-Badge hoverEffect="lift" label="Lift"></l-Badge>
-    <l-Badge hoverEffect="scale" label="Scale"></l-Badge>
-    <l-Badge hoverEffect="glow" label="Glow"></l-Badge>
-    <l-Badge hoverEffect="shine" label="Shine"></l-Badge>
-    <l-Badge hoverEffect="tilt" label="Tilt"></l-Badge>
+    <l-badge hoverEffect="lift" label="Lift"></l-badge>
+    <l-badge hoverEffect="scale" label="Scale"></l-badge>
+    <l-badge hoverEffect="glow" label="Glow"></l-badge>
+    <l-badge hoverEffect="shine" label="Shine"></l-badge>
+    <l-badge hoverEffect="tilt" label="Tilt"></l-badge>
   \`,
 })
 export class AppComponent {}`,
@@ -287,29 +287,29 @@ export class AppComponent {}`,
 <Badge animation="wiggle" label="Wiggle" />
 <Badge animation="border-spin" pulseColor="violet" pulseGradientTo="cyan" label="Border spin" />
 <Badge dot animation="pulse" color="emerald" label="Online" />`,
-              js: `<l-Badge animation="glow" label="Glow"></l-Badge>
-<l-Badge animation="pulse" label="Pulse"></l-Badge>
-<l-Badge animation="pulse" variant="solid" pulseColor="rose" pulseGradientTo="amber" label="Gradient pulse"></l-Badge>
-<l-Badge animation="sweep" variant="solid" label="Sweep"></l-Badge>
-<l-Badge animation="bounce" label="Bounce"></l-Badge>
-<l-Badge animation="float" label="Float"></l-Badge>
-<l-Badge animation="wiggle" label="Wiggle"></l-Badge>
-<l-Badge animation="border-spin" pulseColor="violet" pulseGradientTo="cyan" label="Border spin"></l-Badge>
-<l-Badge dot animation="pulse" color="emerald" label="Online"></l-Badge>
+              js: `<l-badge animation="glow" label="Glow"></l-badge>
+<l-badge animation="pulse" label="Pulse"></l-badge>
+<l-badge animation="pulse" variant="solid" pulseColor="rose" pulseGradientTo="amber" label="Gradient pulse"></l-badge>
+<l-badge animation="sweep" variant="solid" label="Sweep"></l-badge>
+<l-badge animation="bounce" label="Bounce"></l-badge>
+<l-badge animation="float" label="Float"></l-badge>
+<l-badge animation="wiggle" label="Wiggle"></l-badge>
+<l-badge animation="border-spin" pulseColor="violet" pulseGradientTo="cyan" label="Border spin"></l-badge>
+<l-badge dot animation="pulse" color="emerald" label="Online"></l-badge>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-Badge animation="glow" label="Glow"></l-Badge>
-  <l-Badge animation="pulse" label="Pulse"></l-Badge>
-  <l-Badge animation="pulse" variant="solid" pulseColor="rose" pulseGradientTo="amber" label="Gradient pulse"></l-Badge>
-  <l-Badge animation="sweep" variant="solid" label="Sweep"></l-Badge>
-  <l-Badge animation="bounce" label="Bounce"></l-Badge>
-  <l-Badge animation="float" label="Float"></l-Badge>
-  <l-Badge animation="wiggle" label="Wiggle"></l-Badge>
-  <l-Badge animation="border-spin" pulseColor="violet" pulseGradientTo="cyan" label="Border spin"></l-Badge>
-  <l-Badge dot animation="pulse" color="emerald" label="Online"></l-Badge>
+  <l-badge animation="glow" label="Glow"></l-badge>
+  <l-badge animation="pulse" label="Pulse"></l-badge>
+  <l-badge animation="pulse" variant="solid" pulseColor="rose" pulseGradientTo="amber" label="Gradient pulse"></l-badge>
+  <l-badge animation="sweep" variant="solid" label="Sweep"></l-badge>
+  <l-badge animation="bounce" label="Bounce"></l-badge>
+  <l-badge animation="float" label="Float"></l-badge>
+  <l-badge animation="wiggle" label="Wiggle"></l-badge>
+  <l-badge animation="border-spin" pulseColor="violet" pulseGradientTo="cyan" label="Border spin"></l-badge>
+  <l-badge dot animation="pulse" color="emerald" label="Online"></l-badge>
 </template>
 
 <script setup lang="ts">
@@ -324,15 +324,15 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Badge animation="glow" label="Glow"></l-Badge>
-    <l-Badge animation="pulse" label="Pulse"></l-Badge>
-    <l-Badge animation="pulse" variant="solid" pulseColor="rose" pulseGradientTo="amber" label="Gradient pulse"></l-Badge>
-    <l-Badge animation="sweep" variant="solid" label="Sweep"></l-Badge>
-    <l-Badge animation="bounce" label="Bounce"></l-Badge>
-    <l-Badge animation="float" label="Float"></l-Badge>
-    <l-Badge animation="wiggle" label="Wiggle"></l-Badge>
-    <l-Badge animation="border-spin" pulseColor="violet" pulseGradientTo="cyan" label="Border spin"></l-Badge>
-    <l-Badge dot animation="pulse" color="emerald" label="Online"></l-Badge>
+    <l-badge animation="glow" label="Glow"></l-badge>
+    <l-badge animation="pulse" label="Pulse"></l-badge>
+    <l-badge animation="pulse" variant="solid" pulseColor="rose" pulseGradientTo="amber" label="Gradient pulse"></l-badge>
+    <l-badge animation="sweep" variant="solid" label="Sweep"></l-badge>
+    <l-badge animation="bounce" label="Bounce"></l-badge>
+    <l-badge animation="float" label="Float"></l-badge>
+    <l-badge animation="wiggle" label="Wiggle"></l-badge>
+    <l-badge animation="border-spin" pulseColor="violet" pulseGradientTo="cyan" label="Border spin"></l-badge>
+    <l-badge dot animation="pulse" color="emerald" label="Online"></l-badge>
   \`,
 })
 export class AppComponent {}`,

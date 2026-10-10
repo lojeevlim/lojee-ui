@@ -24,13 +24,13 @@ export default function SliderShowcase() {
           <CodeBlock
             variants={{
               react: `<Slider defaultValue={40} />`,
-              js: `<l-Slider value="40"></l-Slider>
+              js: `<l-slider value="40"></l-slider>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-Slider value="40" />
+  <l-slider value="40" />
 </template>
 
 <script setup lang="ts">
@@ -48,7 +48,7 @@ import "lojee-ui/elements";
 export class AppComponent {}
 
 <!-- app.component.html -->
-<l-Slider value="40" />`,
+<l-slider value="40" />`,
             }}
           />
         </section>
@@ -61,12 +61,12 @@ export class AppComponent {}
           <CodeBlock
             variants={{
               react: `<Slider defaultValue={65} showValue />`,
-              js: `<l-Slider value="65" showValue></l-Slider>`,
+              js: `<l-slider value="65" showValue></l-slider>`,
               vue: `<template>
-  <l-Slider value="65" showValue />
+  <l-slider value="65" showValue />
 </template>`,
               angular: `<!-- app.component.html -->
-<l-Slider value="65" showValue />`,
+<l-slider value="65" showValue />`,
             }}
           />
         </section>
@@ -81,12 +81,12 @@ export class AppComponent {}
           <CodeBlock
             variants={{
               react: `<Slider defaultValue={30} color="indigo" showValue />`,
-              js: `<l-Slider value="30" color="indigo" showValue></l-Slider>`,
+              js: `<l-slider value="30" color="indigo" showValue></l-slider>`,
               vue: `<template>
-  <l-Slider value="30" color="indigo" showValue />
+  <l-slider value="30" color="indigo" showValue />
 </template>`,
               angular: `<!-- app.component.html -->
-<l-Slider value="30" color="indigo" showValue />`,
+<l-slider value="30" color="indigo" showValue />`,
             }}
           />
         </section>
@@ -106,9 +106,9 @@ export class AppComponent {}
               react: `<Slider size="sm" />
 <Slider size="md" />
 <Slider size="lg" />`,
-              js: `<l-Slider size="lg" value="45"></l-Slider>`,
-              vue: `<l-Slider size="lg" value="45" />`,
-              angular: `<l-Slider size="lg" value="45" />`,
+              js: `<l-slider size="lg" value="45"></l-slider>`,
+              vue: `<l-slider size="lg" value="45" />`,
+              angular: `<l-slider size="lg" value="45" />`,
             }}
           />
         </section>
@@ -128,9 +128,9 @@ export class AppComponent {}
               react: `<Slider thumbVariant="circle" size="lg" />
 
 // thumbVariant: "pill" (default) | "circle" | "bar" | "solid"`,
-              js: `<l-Slider thumbVariant="circle" size="lg" value="55"></l-Slider>`,
-              vue: `<l-Slider thumbVariant="circle" size="lg" value="55" />`,
-              angular: `<l-Slider thumbVariant="circle" size="lg" value="55" />`,
+              js: `<l-slider thumbVariant="circle" size="lg" value="55"></l-slider>`,
+              vue: `<l-slider thumbVariant="circle" size="lg" value="55" />`,
+              angular: `<l-slider thumbVariant="circle" size="lg" value="55" />`,
             }}
           />
         </section>
@@ -150,9 +150,9 @@ export class AppComponent {}
               react: `<Slider showValue valuePlacement="thumb" thumbVariant="circle" size="lg" />
 
 // thumbVariant: "pill" (default) | "circle" | "bar" | "solid"`,
-              js: `<l-Slider showValue="true" valuePlacement="thumb" size="lg" value="40"></l-Slider>`,
-              vue: `<l-Slider showValue="true" valuePlacement="thumb" size="lg" value="40" />`,
-              angular: `<l-Slider showValue="true" valuePlacement="thumb" size="lg" value="40" />`,
+              js: `<l-slider showValue="true" valuePlacement="thumb" size="lg" value="40"></l-slider>`,
+              vue: `<l-slider showValue="true" valuePlacement="thumb" size="lg" value="40" />`,
+              angular: `<l-slider showValue="true" valuePlacement="thumb" size="lg" value="40" />`,
             }}
           />
         </section>
@@ -167,12 +167,12 @@ export class AppComponent {}
           <CodeBlock
             variants={{
               react: `<Slider min={0} max={10} step={1} defaultValue={5} showValue />`,
-              js: `<l-Slider min="0" max="10" step="1" value="5" showValue></l-Slider>`,
+              js: `<l-slider min="0" max="10" step="1" value="5" showValue></l-slider>`,
               vue: `<template>
-  <l-Slider min="0" max="10" step="1" value="5" showValue />
+  <l-slider min="0" max="10" step="1" value="5" showValue />
 </template>`,
               angular: `<!-- app.component.html -->
-<l-Slider min="0" max="10" step="1" value="5" showValue />`,
+<l-slider min="0" max="10" step="1" value="5" showValue />`,
             }}
           />
         </section>
@@ -185,12 +185,12 @@ export class AppComponent {}
           <CodeBlock
             variants={{
               react: `<Slider defaultValue={40} disabled />`,
-              js: `<l-Slider value="40" disabled></l-Slider>`,
+              js: `<l-slider value="40" disabled></l-slider>`,
               vue: `<template>
-  <l-Slider value="40" disabled />
+  <l-slider value="40" disabled />
 </template>`,
               angular: `<!-- app.component.html -->
-<l-Slider value="40" disabled />`,
+<l-slider value="40" disabled />`,
             }}
           />
         </section>
@@ -222,31 +222,31 @@ export class AppComponent {}
 <Slider hoverEffect="lift" defaultValue={40} />
 <Slider hoverEffect="scale" defaultValue={40} />
 <Slider hoverEffect="glow" defaultValue={40} />`,
-              js: `<l-Slider transition="fade" value="40"></l-Slider>
-<l-Slider transition="slide-up" value="40"></l-Slider>
-<l-Slider transition="slide-right" transitionDelay="100" value="40"></l-Slider>
-<l-Slider transition="zoom" value="40"></l-Slider>
-<l-Slider transition="flip" value="40"></l-Slider>
-<l-Slider transition="blur" value="40"></l-Slider>
+              js: `<l-slider transition="fade" value="40"></l-slider>
+<l-slider transition="slide-up" value="40"></l-slider>
+<l-slider transition="slide-right" transitionDelay="100" value="40"></l-slider>
+<l-slider transition="zoom" value="40"></l-slider>
+<l-slider transition="flip" value="40"></l-slider>
+<l-slider transition="blur" value="40"></l-slider>
 
-<l-Slider hoverEffect="lift" value="40"></l-Slider>
-<l-Slider hoverEffect="scale" value="40"></l-Slider>
-<l-Slider hoverEffect="glow" value="40"></l-Slider>
+<l-slider hoverEffect="lift" value="40"></l-slider>
+<l-slider hoverEffect="scale" value="40"></l-slider>
+<l-slider hoverEffect="glow" value="40"></l-slider>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-Slider transition="fade" value="40"></l-Slider>
-  <l-Slider transition="slide-up" value="40"></l-Slider>
-  <l-Slider transition="slide-right" transitionDelay="100" value="40"></l-Slider>
-  <l-Slider transition="zoom" value="40"></l-Slider>
-  <l-Slider transition="flip" value="40"></l-Slider>
-  <l-Slider transition="blur" value="40"></l-Slider>
+  <l-slider transition="fade" value="40"></l-slider>
+  <l-slider transition="slide-up" value="40"></l-slider>
+  <l-slider transition="slide-right" transitionDelay="100" value="40"></l-slider>
+  <l-slider transition="zoom" value="40"></l-slider>
+  <l-slider transition="flip" value="40"></l-slider>
+  <l-slider transition="blur" value="40"></l-slider>
 
-  <l-Slider hoverEffect="lift" value="40"></l-Slider>
-  <l-Slider hoverEffect="scale" value="40"></l-Slider>
-  <l-Slider hoverEffect="glow" value="40"></l-Slider>
+  <l-slider hoverEffect="lift" value="40"></l-slider>
+  <l-slider hoverEffect="scale" value="40"></l-slider>
+  <l-slider hoverEffect="glow" value="40"></l-slider>
 </template>
 
 <script setup lang="ts">
@@ -261,16 +261,16 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Slider transition="fade" value="40"></l-Slider>
-    <l-Slider transition="slide-up" value="40"></l-Slider>
-    <l-Slider transition="slide-right" transitionDelay="100" value="40"></l-Slider>
-    <l-Slider transition="zoom" value="40"></l-Slider>
-    <l-Slider transition="flip" value="40"></l-Slider>
-    <l-Slider transition="blur" value="40"></l-Slider>
+    <l-slider transition="fade" value="40"></l-slider>
+    <l-slider transition="slide-up" value="40"></l-slider>
+    <l-slider transition="slide-right" transitionDelay="100" value="40"></l-slider>
+    <l-slider transition="zoom" value="40"></l-slider>
+    <l-slider transition="flip" value="40"></l-slider>
+    <l-slider transition="blur" value="40"></l-slider>
 
-    <l-Slider hoverEffect="lift" value="40"></l-Slider>
-    <l-Slider hoverEffect="scale" value="40"></l-Slider>
-    <l-Slider hoverEffect="glow" value="40"></l-Slider>
+    <l-slider hoverEffect="lift" value="40"></l-slider>
+    <l-slider hoverEffect="scale" value="40"></l-slider>
+    <l-slider hoverEffect="glow" value="40"></l-slider>
   \`,
 })
 export class AppComponent {}`,

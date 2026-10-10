@@ -33,9 +33,9 @@ export default function OtpInputPlayground() {
       preview={preview}
       variants={wcCode({
         react: `<OtpInput${common.replace(/ length="(\d+)"/, " length={$1}")}${mask === "on" ? " mask" : ""}${invalid === "on" ? " invalid" : ""}${disabled === "on" ? " disabled" : ""} onComplete={(code) => verify(code)} />`,
-        html: `<l-Otp-Input${common}${flags((n) => `${n}="true"`)}></l-Otp-Input>`,
-        vueHtml: `<l-Otp-Input${common}${flags((n) => `:${n}="true"`)} @complete="verify($event.detail)"></l-Otp-Input>`,
-        angularHtml: `<l-Otp-Input${common}${flags((n) => `[${n}]="true"`)} (complete)="verify($event.detail)"></l-Otp-Input>`,
+        html: `<l-otp-input${common}${flags((n) => `${n}="true"`)}></l-otp-input>`,
+        vueHtml: `<l-otp-input${common}${flags((n) => `:${n}="true"`)} @complete="verify($event.detail)"></l-otp-input>`,
+        angularHtml: `<l-otp-input${common}${flags((n) => `[${n}]="true"`)} (complete)="verify($event.detail)"></l-otp-input>`,
       })}
     >
       <OptionGroup label="Length" options={LENGTHS} value={length} onChange={setLength} />

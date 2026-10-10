@@ -29,21 +29,21 @@ export default function ContainerShowcase() {
 <Container size="lg">...</Container>
 <Container size="xl">...</Container>
 <Container size="full">...</Container>`,
-              js: `<l-Container size="sm">...</l-Container>
-<l-Container size="md">...</l-Container>
-<l-Container size="lg">...</l-Container>
-<l-Container size="xl">...</l-Container>
-<l-Container size="full">...</l-Container>
+              js: `<l-container size="sm">...</l-container>
+<l-container size="md">...</l-container>
+<l-container size="lg">...</l-container>
+<l-container size="xl">...</l-container>
+<l-container size="full">...</l-container>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-Container size="sm">...</l-Container>
-  <l-Container size="md">...</l-Container>
-  <l-Container size="lg">...</l-Container>
-  <l-Container size="xl">...</l-Container>
-  <l-Container size="full">...</l-Container>
+  <l-container size="sm">...</l-container>
+  <l-container size="md">...</l-container>
+  <l-container size="lg">...</l-container>
+  <l-container size="xl">...</l-container>
+  <l-container size="full">...</l-container>
 </template>
 
 <script setup lang="ts">
@@ -58,11 +58,11 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Container size="sm">...</l-Container>
-    <l-Container size="md">...</l-Container>
-    <l-Container size="lg">...</l-Container>
-    <l-Container size="xl">...</l-Container>
-    <l-Container size="full">...</l-Container>
+    <l-container size="sm">...</l-container>
+    <l-container size="md">...</l-container>
+    <l-container size="lg">...</l-container>
+    <l-container size="xl">...</l-container>
+    <l-container size="full">...</l-container>
   \`,
 })
 export class AppComponent {}`,
@@ -87,12 +87,12 @@ export class AppComponent {}`,
           <CodeBlock
             variants={{
               react: `<Container size="sm" padded={false}>...</Container>`,
-              js: `<l-Container size="sm" padded="false">...</l-Container>`,
+              js: `<l-container size="sm" padded="false">...</l-container>`,
               vue: `<template>
-  <l-Container size="sm" padded="false">...</l-Container>
+  <l-container size="sm" padded="false">...</l-container>
 </template>`,
               angular: `<!-- reuses the AppComponent from above -->
-<l-Container size="sm" padded="false">...</l-Container>`,
+<l-container size="sm" padded="false">...</l-container>`,
             }}
           />
         </section>
@@ -111,19 +111,19 @@ export class AppComponent {}`,
 <Container transition="slide-up">...</Container>
 <Container transition="zoom" transitionDelay={100}>...</Container>
 <Container transition="blur" transitionDuration={700}>...</Container>`,
-              js: `<l-Container transition="fade">...</l-Container>
-<l-Container transition="slide-up">...</l-Container>
-<l-Container transition="zoom" transitionDelay="100">...</l-Container>
-<l-Container transition="blur" transitionDuration="700">...</l-Container>
+              js: `<l-container transition="fade">...</l-container>
+<l-container transition="slide-up">...</l-container>
+<l-container transition="zoom" transitionDelay="100">...</l-container>
+<l-container transition="blur" transitionDuration="700">...</l-container>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-Container transition="fade">...</l-Container>
-  <l-Container transition="slide-up">...</l-Container>
-  <l-Container transition="zoom" transitionDelay="100">...</l-Container>
-  <l-Container transition="blur" transitionDuration="700">...</l-Container>
+  <l-container transition="fade">...</l-container>
+  <l-container transition="slide-up">...</l-container>
+  <l-container transition="zoom" transitionDelay="100">...</l-container>
+  <l-container transition="blur" transitionDuration="700">...</l-container>
 </template>
 
 <script setup lang="ts">
@@ -138,10 +138,10 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Container transition="fade">...</l-Container>
-    <l-Container transition="slide-up">...</l-Container>
-    <l-Container transition="zoom" transitionDelay="100">...</l-Container>
-    <l-Container transition="blur" transitionDuration="700">...</l-Container>
+    <l-container transition="fade">...</l-container>
+    <l-container transition="slide-up">...</l-container>
+    <l-container transition="zoom" transitionDelay="100">...</l-container>
+    <l-container transition="blur" transitionDuration="700">...</l-container>
   \`,
 })
 export class AppComponent {}`,

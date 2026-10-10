@@ -47,7 +47,7 @@ export default function InputPlayground() {
   // Vue/Angular templates (plain attributes, no bindings needed for a static
   // snapshot); the "js" variant just adds the one-time module import a plain
   // HTML page needs to actually load the `<l-*>` definitions.
-  const htmlMarkup = `<l-Input size="${size}"${variant !== "outline" ? ` variant="${variant}"` : ""}${invalid ? ` invalid` : ""}${disabled ? ` disabled` : ""}${
+  const htmlMarkup = `<l-input size="${size}"${variant !== "outline" ? ` variant="${variant}"` : ""}${invalid ? ` invalid` : ""}${disabled ? ` disabled` : ""}${
     leadingIcon !== "none" ? ` leadingIcon="${leadingIcon}"` : ""
   }${motion.attrs} placeholder="${placeholder || "Type something…"}" />`;
 

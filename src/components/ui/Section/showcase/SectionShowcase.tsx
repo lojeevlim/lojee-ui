@@ -27,17 +27,17 @@ export default function SectionShowcase() {
               react: `<Section spacing="sm">...</Section>
 <Section spacing="md">...</Section>
 <Section spacing="lg">...</Section>`,
-              js: `<l-Section spacing="sm">...</l-Section>
-<l-Section spacing="md">...</l-Section>
-<l-Section spacing="lg">...</l-Section>
+              js: `<l-section spacing="sm">...</l-section>
+<l-section spacing="md">...</l-section>
+<l-section spacing="lg">...</l-section>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-Section spacing="sm">...</l-Section>
-  <l-Section spacing="md">...</l-Section>
-  <l-Section spacing="lg">...</l-Section>
+  <l-section spacing="sm">...</l-section>
+  <l-section spacing="md">...</l-section>
+  <l-section spacing="lg">...</l-section>
 </template>
 
 <script setup lang="ts">
@@ -52,9 +52,9 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Section spacing="sm">...</l-Section>
-    <l-Section spacing="md">...</l-Section>
-    <l-Section spacing="lg">...</l-Section>
+    <l-section spacing="sm">...</l-section>
+    <l-section spacing="md">...</l-section>
+    <l-section spacing="lg">...</l-section>
   \`,
 })
 export class AppComponent {}`,
@@ -74,18 +74,18 @@ export class AppComponent {}`,
               react: `<Section title="Team members" subtitle="Manage who has access to this workspace.">
   ...
 </Section>`,
-              js: `<l-Section title="Team members" subtitle="Manage who has access to this workspace.">
+              js: `<l-section title="Team members" subtitle="Manage who has access to this workspace.">
   ...
-</l-Section>`,
+</l-section>`,
               vue: `<template>
-  <l-Section title="Team members" subtitle="Manage who has access to this workspace.">
+  <l-section title="Team members" subtitle="Manage who has access to this workspace.">
     ...
-  </l-Section>
+  </l-section>
 </template>`,
               angular: `<!-- reuses the AppComponent from above -->
-<l-Section title="Team members" subtitle="Manage who has access to this workspace.">
+<l-section title="Team members" subtitle="Manage who has access to this workspace.">
   ...
-</l-Section>`,
+</l-section>`,
             }}
           />
         </section>
@@ -104,19 +104,19 @@ export class AppComponent {}`,
 <Section spacing="sm" transition="slide-up" title="Slide up">...</Section>
 <Section spacing="sm" transition="zoom" transitionDelay={100}>...</Section>
 <Section spacing="sm" transition="blur" transitionDuration={700}>...</Section>`,
-              js: `<l-Section spacing="sm" transition="fade">...</l-Section>
-<l-Section spacing="sm" transition="slide-up" title="Slide up">...</l-Section>
-<l-Section spacing="sm" transition="zoom" transitionDelay="100">...</l-Section>
-<l-Section spacing="sm" transition="blur" transitionDuration="700">...</l-Section>
+              js: `<l-section spacing="sm" transition="fade">...</l-section>
+<l-section spacing="sm" transition="slide-up" title="Slide up">...</l-section>
+<l-section spacing="sm" transition="zoom" transitionDelay="100">...</l-section>
+<l-section spacing="sm" transition="blur" transitionDuration="700">...</l-section>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-Section spacing="sm" transition="fade">...</l-Section>
-  <l-Section spacing="sm" transition="slide-up" title="Slide up">...</l-Section>
-  <l-Section spacing="sm" transition="zoom" transitionDelay="100">...</l-Section>
-  <l-Section spacing="sm" transition="blur" transitionDuration="700">...</l-Section>
+  <l-section spacing="sm" transition="fade">...</l-section>
+  <l-section spacing="sm" transition="slide-up" title="Slide up">...</l-section>
+  <l-section spacing="sm" transition="zoom" transitionDelay="100">...</l-section>
+  <l-section spacing="sm" transition="blur" transitionDuration="700">...</l-section>
 </template>
 
 <script setup lang="ts">
@@ -131,10 +131,10 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Section spacing="sm" transition="fade">...</l-Section>
-    <l-Section spacing="sm" transition="slide-up" title="Slide up">...</l-Section>
-    <l-Section spacing="sm" transition="zoom" transitionDelay="100">...</l-Section>
-    <l-Section spacing="sm" transition="blur" transitionDuration="700">...</l-Section>
+    <l-section spacing="sm" transition="fade">...</l-section>
+    <l-section spacing="sm" transition="slide-up" title="Slide up">...</l-section>
+    <l-section spacing="sm" transition="zoom" transitionDelay="100">...</l-section>
+    <l-section spacing="sm" transition="blur" transitionDuration="700">...</l-section>
   \`,
 })
 export class AppComponent {}`,

@@ -37,12 +37,12 @@ export default function DropdownMenuShowcase() {
   <DropdownMenuItem icon="copy" onClick={() => duplicate()}>Duplicate</DropdownMenuItem>
   <DropdownMenuItem icon="trash-2" danger onClick={() => remove()}>Delete</DropdownMenuItem>
 </DropdownMenu>`,
-              js: `<l-DropdownMenu id="actions-menu">
-  <l-Button slot="trigger" variant="outline" icon="more-horizontal" iconOnly label="Actions"></l-Button>
-  <l-DropdownMenuItem icon="pencil" id="edit-item">Edit</l-DropdownMenuItem>
-  <l-DropdownMenuItem icon="copy" id="duplicate-item">Duplicate</l-DropdownMenuItem>
-  <l-DropdownMenuItem icon="trash-2" danger id="delete-item">Delete</l-DropdownMenuItem>
-</l-DropdownMenu>
+              js: `<l-dropdown-menu id="actions-menu">
+  <l-button slot="trigger" variant="outline" icon="more-horizontal" iconOnly label="Actions"></l-button>
+  <l-dropdown-menu-item icon="pencil" id="edit-item">Edit</l-dropdown-menu-item>
+  <l-dropdown-menu-item icon="copy" id="duplicate-item">Duplicate</l-dropdown-menu-item>
+  <l-dropdown-menu-item icon="trash-2" danger id="delete-item">Delete</l-dropdown-menu-item>
+</l-dropdown-menu>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -52,12 +52,12 @@ export default function DropdownMenuShowcase() {
   document.getElementById("delete-item").addEventListener("click", () => remove());
 </script>`,
               vue: `<template>
-  <l-DropdownMenu>
-    <l-Button slot="trigger" variant="outline" icon="more-horizontal" iconOnly label="Actions" />
-    <l-DropdownMenuItem icon="pencil" @click="edit">Edit</l-DropdownMenuItem>
-    <l-DropdownMenuItem icon="copy" @click="duplicate">Duplicate</l-DropdownMenuItem>
-    <l-DropdownMenuItem icon="trash-2" danger @click="remove">Delete</l-DropdownMenuItem>
-  </l-DropdownMenu>
+  <l-dropdown-menu>
+    <l-button slot="trigger" variant="outline" icon="more-horizontal" iconOnly label="Actions" />
+    <l-dropdown-menu-item icon="pencil" @click="edit">Edit</l-dropdown-menu-item>
+    <l-dropdown-menu-item icon="copy" @click="duplicate">Duplicate</l-dropdown-menu-item>
+    <l-dropdown-menu-item icon="trash-2" danger @click="remove">Delete</l-dropdown-menu-item>
+  </l-dropdown-menu>
 </template>
 
 <script setup lang="ts">
@@ -72,12 +72,12 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-DropdownMenu>
-      <l-Button slot="trigger" variant="outline" icon="more-horizontal" iconOnly label="Actions" />
-      <l-DropdownMenuItem icon="pencil" (click)="edit()">Edit</l-DropdownMenuItem>
-      <l-DropdownMenuItem icon="copy" (click)="duplicate()">Duplicate</l-DropdownMenuItem>
-      <l-DropdownMenuItem icon="trash-2" danger (click)="remove()">Delete</l-DropdownMenuItem>
-    </l-DropdownMenu>
+    <l-dropdown-menu>
+      <l-button slot="trigger" variant="outline" icon="more-horizontal" iconOnly label="Actions" />
+      <l-dropdown-menu-item icon="pencil" (click)="edit()">Edit</l-dropdown-menu-item>
+      <l-dropdown-menu-item icon="copy" (click)="duplicate()">Duplicate</l-dropdown-menu-item>
+      <l-dropdown-menu-item icon="trash-2" danger (click)="remove()">Delete</l-dropdown-menu-item>
+    </l-dropdown-menu>
   \`,
 })
 export class DropdownMenuShowcaseComponent {
@@ -111,32 +111,32 @@ export class DropdownMenuShowcaseComponent {
   <DropdownMenuItem icon="share-2" onClick={() => share()}>Share</DropdownMenuItem>
   <DropdownMenuItem disabled>Archived</DropdownMenuItem>
 </DropdownMenu>`,
-              js: `<l-DropdownMenu align="end">
-  <l-Button slot="trigger" icon="chevron-down" label="Options"></l-Button>
-  <l-DropdownMenuItem icon="settings" id="settings-item">Settings</l-DropdownMenuItem>
-  <l-DropdownMenuItem icon="share-2" id="share-item">Share</l-DropdownMenuItem>
-  <l-DropdownMenuItem disabled>Archived</l-DropdownMenuItem>
-</l-DropdownMenu>
+              js: `<l-dropdown-menu align="end">
+  <l-button slot="trigger" icon="chevron-down" label="Options"></l-button>
+  <l-dropdown-menu-item icon="settings" id="settings-item">Settings</l-dropdown-menu-item>
+  <l-dropdown-menu-item icon="share-2" id="share-item">Share</l-dropdown-menu-item>
+  <l-dropdown-menu-item disabled>Archived</l-dropdown-menu-item>
+</l-dropdown-menu>
 
 <script type="module">
   document.getElementById("settings-item").addEventListener("click", () => openSettings());
   document.getElementById("share-item").addEventListener("click", () => share());
 </script>`,
               vue: `<template>
-  <l-DropdownMenu align="end">
-    <l-Button slot="trigger" icon="chevron-down" label="Options" />
-    <l-DropdownMenuItem icon="settings" @click="openSettings">Settings</l-DropdownMenuItem>
-    <l-DropdownMenuItem icon="share-2" @click="share">Share</l-DropdownMenuItem>
-    <l-DropdownMenuItem disabled>Archived</l-DropdownMenuItem>
-  </l-DropdownMenu>
+  <l-dropdown-menu align="end">
+    <l-button slot="trigger" icon="chevron-down" label="Options" />
+    <l-dropdown-menu-item icon="settings" @click="openSettings">Settings</l-dropdown-menu-item>
+    <l-dropdown-menu-item icon="share-2" @click="share">Share</l-dropdown-menu-item>
+    <l-dropdown-menu-item disabled>Archived</l-dropdown-menu-item>
+  </l-dropdown-menu>
 </template>`,
               angular: `<!-- reuses DropdownMenuShowcaseComponent from above -->
-<l-DropdownMenu align="end">
-  <l-Button slot="trigger" icon="chevron-down" label="Options" />
-  <l-DropdownMenuItem icon="settings" (click)="openSettings()">Settings</l-DropdownMenuItem>
-  <l-DropdownMenuItem icon="share-2" (click)="share()">Share</l-DropdownMenuItem>
-  <l-DropdownMenuItem disabled>Archived</l-DropdownMenuItem>
-</l-DropdownMenu>`,
+<l-dropdown-menu align="end">
+  <l-button slot="trigger" icon="chevron-down" label="Options" />
+  <l-dropdown-menu-item icon="settings" (click)="openSettings()">Settings</l-dropdown-menu-item>
+  <l-dropdown-menu-item icon="share-2" (click)="share()">Share</l-dropdown-menu-item>
+  <l-dropdown-menu-item disabled>Archived</l-dropdown-menu-item>
+</l-dropdown-menu>`,
             }}
           />
         </section>
@@ -200,81 +200,81 @@ export class DropdownMenuShowcaseComponent {
   <DropdownMenuItem icon="pencil">Edit</DropdownMenuItem>
   <DropdownMenuItem icon="copy">Duplicate</DropdownMenuItem>
 </DropdownMenu>`,
-              js: `<l-DropdownMenu transition="fade">
-  <l-Button slot="trigger" variant="outline" icon="chevron-down" label="Fade"></l-Button>
-  <l-DropdownMenuItem icon="pencil">Edit</l-DropdownMenuItem>
-  <l-DropdownMenuItem icon="copy">Duplicate</l-DropdownMenuItem>
-</l-DropdownMenu>
+              js: `<l-dropdown-menu transition="fade">
+  <l-button slot="trigger" variant="outline" icon="chevron-down" label="Fade"></l-button>
+  <l-dropdown-menu-item icon="pencil">Edit</l-dropdown-menu-item>
+  <l-dropdown-menu-item icon="copy">Duplicate</l-dropdown-menu-item>
+</l-dropdown-menu>
 
-<l-DropdownMenu transition="slide-up">
-  <l-Button slot="trigger" variant="outline" icon="chevron-down" label="Slide up"></l-Button>
-  <l-DropdownMenuItem icon="pencil">Edit</l-DropdownMenuItem>
-  <l-DropdownMenuItem icon="copy">Duplicate</l-DropdownMenuItem>
-</l-DropdownMenu>
+<l-dropdown-menu transition="slide-up">
+  <l-button slot="trigger" variant="outline" icon="chevron-down" label="Slide up"></l-button>
+  <l-dropdown-menu-item icon="pencil">Edit</l-dropdown-menu-item>
+  <l-dropdown-menu-item icon="copy">Duplicate</l-dropdown-menu-item>
+</l-dropdown-menu>
 
-<l-DropdownMenu transition="zoom" transitionDelay="100">
-  <l-Button slot="trigger" variant="outline" icon="chevron-down" label="Zoom"></l-Button>
-  <l-DropdownMenuItem icon="pencil">Edit</l-DropdownMenuItem>
-  <l-DropdownMenuItem icon="copy">Duplicate</l-DropdownMenuItem>
-</l-DropdownMenu>
+<l-dropdown-menu transition="zoom" transitionDelay="100">
+  <l-button slot="trigger" variant="outline" icon="chevron-down" label="Zoom"></l-button>
+  <l-dropdown-menu-item icon="pencil">Edit</l-dropdown-menu-item>
+  <l-dropdown-menu-item icon="copy">Duplicate</l-dropdown-menu-item>
+</l-dropdown-menu>
 
-<l-DropdownMenu transition="flip">
-  <l-Button slot="trigger" variant="outline" icon="chevron-down" label="Flip"></l-Button>
-  <l-DropdownMenuItem icon="pencil">Edit</l-DropdownMenuItem>
-  <l-DropdownMenuItem icon="copy">Duplicate</l-DropdownMenuItem>
-</l-DropdownMenu>
+<l-dropdown-menu transition="flip">
+  <l-button slot="trigger" variant="outline" icon="chevron-down" label="Flip"></l-button>
+  <l-dropdown-menu-item icon="pencil">Edit</l-dropdown-menu-item>
+  <l-dropdown-menu-item icon="copy">Duplicate</l-dropdown-menu-item>
+</l-dropdown-menu>
 
-<l-DropdownMenu transition="blur">
-  <l-Button slot="trigger" variant="outline" icon="chevron-down" label="Blur"></l-Button>
-  <l-DropdownMenuItem icon="pencil">Edit</l-DropdownMenuItem>
-  <l-DropdownMenuItem icon="copy">Duplicate</l-DropdownMenuItem>
-</l-DropdownMenu>
+<l-dropdown-menu transition="blur">
+  <l-button slot="trigger" variant="outline" icon="chevron-down" label="Blur"></l-button>
+  <l-dropdown-menu-item icon="pencil">Edit</l-dropdown-menu-item>
+  <l-dropdown-menu-item icon="copy">Duplicate</l-dropdown-menu-item>
+</l-dropdown-menu>
 
-<l-DropdownMenu transition="drop" transitionDuration="700">
-  <l-Button slot="trigger" variant="outline" icon="chevron-down" label="Drop"></l-Button>
-  <l-DropdownMenuItem icon="pencil">Edit</l-DropdownMenuItem>
-  <l-DropdownMenuItem icon="copy">Duplicate</l-DropdownMenuItem>
-</l-DropdownMenu>
+<l-dropdown-menu transition="drop" transitionDuration="700">
+  <l-button slot="trigger" variant="outline" icon="chevron-down" label="Drop"></l-button>
+  <l-dropdown-menu-item icon="pencil">Edit</l-dropdown-menu-item>
+  <l-dropdown-menu-item icon="copy">Duplicate</l-dropdown-menu-item>
+</l-dropdown-menu>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-DropdownMenu transition="fade">
-    <l-Button slot="trigger" variant="outline" icon="chevron-down" label="Fade"></l-Button>
-    <l-DropdownMenuItem icon="pencil">Edit</l-DropdownMenuItem>
-    <l-DropdownMenuItem icon="copy">Duplicate</l-DropdownMenuItem>
-  </l-DropdownMenu>
+  <l-dropdown-menu transition="fade">
+    <l-button slot="trigger" variant="outline" icon="chevron-down" label="Fade"></l-button>
+    <l-dropdown-menu-item icon="pencil">Edit</l-dropdown-menu-item>
+    <l-dropdown-menu-item icon="copy">Duplicate</l-dropdown-menu-item>
+  </l-dropdown-menu>
 
-  <l-DropdownMenu transition="slide-up">
-    <l-Button slot="trigger" variant="outline" icon="chevron-down" label="Slide up"></l-Button>
-    <l-DropdownMenuItem icon="pencil">Edit</l-DropdownMenuItem>
-    <l-DropdownMenuItem icon="copy">Duplicate</l-DropdownMenuItem>
-  </l-DropdownMenu>
+  <l-dropdown-menu transition="slide-up">
+    <l-button slot="trigger" variant="outline" icon="chevron-down" label="Slide up"></l-button>
+    <l-dropdown-menu-item icon="pencil">Edit</l-dropdown-menu-item>
+    <l-dropdown-menu-item icon="copy">Duplicate</l-dropdown-menu-item>
+  </l-dropdown-menu>
 
-  <l-DropdownMenu transition="zoom" transitionDelay="100">
-    <l-Button slot="trigger" variant="outline" icon="chevron-down" label="Zoom"></l-Button>
-    <l-DropdownMenuItem icon="pencil">Edit</l-DropdownMenuItem>
-    <l-DropdownMenuItem icon="copy">Duplicate</l-DropdownMenuItem>
-  </l-DropdownMenu>
+  <l-dropdown-menu transition="zoom" transitionDelay="100">
+    <l-button slot="trigger" variant="outline" icon="chevron-down" label="Zoom"></l-button>
+    <l-dropdown-menu-item icon="pencil">Edit</l-dropdown-menu-item>
+    <l-dropdown-menu-item icon="copy">Duplicate</l-dropdown-menu-item>
+  </l-dropdown-menu>
 
-  <l-DropdownMenu transition="flip">
-    <l-Button slot="trigger" variant="outline" icon="chevron-down" label="Flip"></l-Button>
-    <l-DropdownMenuItem icon="pencil">Edit</l-DropdownMenuItem>
-    <l-DropdownMenuItem icon="copy">Duplicate</l-DropdownMenuItem>
-  </l-DropdownMenu>
+  <l-dropdown-menu transition="flip">
+    <l-button slot="trigger" variant="outline" icon="chevron-down" label="Flip"></l-button>
+    <l-dropdown-menu-item icon="pencil">Edit</l-dropdown-menu-item>
+    <l-dropdown-menu-item icon="copy">Duplicate</l-dropdown-menu-item>
+  </l-dropdown-menu>
 
-  <l-DropdownMenu transition="blur">
-    <l-Button slot="trigger" variant="outline" icon="chevron-down" label="Blur"></l-Button>
-    <l-DropdownMenuItem icon="pencil">Edit</l-DropdownMenuItem>
-    <l-DropdownMenuItem icon="copy">Duplicate</l-DropdownMenuItem>
-  </l-DropdownMenu>
+  <l-dropdown-menu transition="blur">
+    <l-button slot="trigger" variant="outline" icon="chevron-down" label="Blur"></l-button>
+    <l-dropdown-menu-item icon="pencil">Edit</l-dropdown-menu-item>
+    <l-dropdown-menu-item icon="copy">Duplicate</l-dropdown-menu-item>
+  </l-dropdown-menu>
 
-  <l-DropdownMenu transition="drop" transitionDuration="700">
-    <l-Button slot="trigger" variant="outline" icon="chevron-down" label="Drop"></l-Button>
-    <l-DropdownMenuItem icon="pencil">Edit</l-DropdownMenuItem>
-    <l-DropdownMenuItem icon="copy">Duplicate</l-DropdownMenuItem>
-  </l-DropdownMenu>
+  <l-dropdown-menu transition="drop" transitionDuration="700">
+    <l-button slot="trigger" variant="outline" icon="chevron-down" label="Drop"></l-button>
+    <l-dropdown-menu-item icon="pencil">Edit</l-dropdown-menu-item>
+    <l-dropdown-menu-item icon="copy">Duplicate</l-dropdown-menu-item>
+  </l-dropdown-menu>
 </template>
 
 <script setup lang="ts">
@@ -289,41 +289,41 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-DropdownMenu transition="fade">
-      <l-Button slot="trigger" variant="outline" icon="chevron-down" label="Fade"></l-Button>
-      <l-DropdownMenuItem icon="pencil">Edit</l-DropdownMenuItem>
-      <l-DropdownMenuItem icon="copy">Duplicate</l-DropdownMenuItem>
-    </l-DropdownMenu>
+    <l-dropdown-menu transition="fade">
+      <l-button slot="trigger" variant="outline" icon="chevron-down" label="Fade"></l-button>
+      <l-dropdown-menu-item icon="pencil">Edit</l-dropdown-menu-item>
+      <l-dropdown-menu-item icon="copy">Duplicate</l-dropdown-menu-item>
+    </l-dropdown-menu>
 
-    <l-DropdownMenu transition="slide-up">
-      <l-Button slot="trigger" variant="outline" icon="chevron-down" label="Slide up"></l-Button>
-      <l-DropdownMenuItem icon="pencil">Edit</l-DropdownMenuItem>
-      <l-DropdownMenuItem icon="copy">Duplicate</l-DropdownMenuItem>
-    </l-DropdownMenu>
+    <l-dropdown-menu transition="slide-up">
+      <l-button slot="trigger" variant="outline" icon="chevron-down" label="Slide up"></l-button>
+      <l-dropdown-menu-item icon="pencil">Edit</l-dropdown-menu-item>
+      <l-dropdown-menu-item icon="copy">Duplicate</l-dropdown-menu-item>
+    </l-dropdown-menu>
 
-    <l-DropdownMenu transition="zoom" transitionDelay="100">
-      <l-Button slot="trigger" variant="outline" icon="chevron-down" label="Zoom"></l-Button>
-      <l-DropdownMenuItem icon="pencil">Edit</l-DropdownMenuItem>
-      <l-DropdownMenuItem icon="copy">Duplicate</l-DropdownMenuItem>
-    </l-DropdownMenu>
+    <l-dropdown-menu transition="zoom" transitionDelay="100">
+      <l-button slot="trigger" variant="outline" icon="chevron-down" label="Zoom"></l-button>
+      <l-dropdown-menu-item icon="pencil">Edit</l-dropdown-menu-item>
+      <l-dropdown-menu-item icon="copy">Duplicate</l-dropdown-menu-item>
+    </l-dropdown-menu>
 
-    <l-DropdownMenu transition="flip">
-      <l-Button slot="trigger" variant="outline" icon="chevron-down" label="Flip"></l-Button>
-      <l-DropdownMenuItem icon="pencil">Edit</l-DropdownMenuItem>
-      <l-DropdownMenuItem icon="copy">Duplicate</l-DropdownMenuItem>
-    </l-DropdownMenu>
+    <l-dropdown-menu transition="flip">
+      <l-button slot="trigger" variant="outline" icon="chevron-down" label="Flip"></l-button>
+      <l-dropdown-menu-item icon="pencil">Edit</l-dropdown-menu-item>
+      <l-dropdown-menu-item icon="copy">Duplicate</l-dropdown-menu-item>
+    </l-dropdown-menu>
 
-    <l-DropdownMenu transition="blur">
-      <l-Button slot="trigger" variant="outline" icon="chevron-down" label="Blur"></l-Button>
-      <l-DropdownMenuItem icon="pencil">Edit</l-DropdownMenuItem>
-      <l-DropdownMenuItem icon="copy">Duplicate</l-DropdownMenuItem>
-    </l-DropdownMenu>
+    <l-dropdown-menu transition="blur">
+      <l-button slot="trigger" variant="outline" icon="chevron-down" label="Blur"></l-button>
+      <l-dropdown-menu-item icon="pencil">Edit</l-dropdown-menu-item>
+      <l-dropdown-menu-item icon="copy">Duplicate</l-dropdown-menu-item>
+    </l-dropdown-menu>
 
-    <l-DropdownMenu transition="drop" transitionDuration="700">
-      <l-Button slot="trigger" variant="outline" icon="chevron-down" label="Drop"></l-Button>
-      <l-DropdownMenuItem icon="pencil">Edit</l-DropdownMenuItem>
-      <l-DropdownMenuItem icon="copy">Duplicate</l-DropdownMenuItem>
-    </l-DropdownMenu>
+    <l-dropdown-menu transition="drop" transitionDuration="700">
+      <l-button slot="trigger" variant="outline" icon="chevron-down" label="Drop"></l-button>
+      <l-dropdown-menu-item icon="pencil">Edit</l-dropdown-menu-item>
+      <l-dropdown-menu-item icon="copy">Duplicate</l-dropdown-menu-item>
+    </l-dropdown-menu>
   \`,
 })
 export class AppComponent {}`,

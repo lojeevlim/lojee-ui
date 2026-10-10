@@ -1,4 +1,4 @@
-export { App, Top, Side, Main, Foot, SideToggle, type AppProps, type MainProps, type MainPadding } from "./App";
+export { App, Top, Side, Main, Foot, SideToggle, type AppProps, type MainProps, type MainPadding, type MainMargin, type MainRounded } from "./App";
 export { useAppLayout } from "./appLayoutContext";
 export {
   APP_SECTIONS,

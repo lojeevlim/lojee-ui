@@ -21,13 +21,13 @@ export default function TextareaShowcase() {
           <CodeBlock
             variants={{
               react: `<Textarea placeholder="Write something…" />`,
-              js: `<l-Textarea placeholder="Write something…"></l-Textarea>
+              js: `<l-textarea placeholder="Write something…"></l-textarea>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-Textarea placeholder="Write something…" />
+  <l-textarea placeholder="Write something…" />
 </template>
 
 <script setup lang="ts">
@@ -42,7 +42,7 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Textarea placeholder="Write something…" />
+    <l-textarea placeholder="Write something…" />
   \`,
 })
 export class AppComponent {}`,
@@ -64,18 +64,18 @@ export class AppComponent {}`,
               react: `<Textarea resize="none" placeholder="resize: none" />
 <Textarea resize="vertical" placeholder="resize: vertical" />
 <Textarea resize="both" placeholder="resize: both" />`,
-              js: `<l-Textarea resize="none" placeholder="resize: none"></l-Textarea>
-<l-Textarea resize="vertical" placeholder="resize: vertical"></l-Textarea>
-<l-Textarea resize="both" placeholder="resize: both"></l-Textarea>`,
+              js: `<l-textarea resize="none" placeholder="resize: none"></l-textarea>
+<l-textarea resize="vertical" placeholder="resize: vertical"></l-textarea>
+<l-textarea resize="both" placeholder="resize: both"></l-textarea>`,
               vue: `<template>
-  <l-Textarea resize="none" placeholder="resize: none" />
-  <l-Textarea resize="vertical" placeholder="resize: vertical" />
-  <l-Textarea resize="both" placeholder="resize: both" />
+  <l-textarea resize="none" placeholder="resize: none" />
+  <l-textarea resize="vertical" placeholder="resize: vertical" />
+  <l-textarea resize="both" placeholder="resize: both" />
 </template>`,
               angular: `<!-- app.component.html — same AppComponent as above -->
-<l-Textarea resize="none" placeholder="resize: none" />
-<l-Textarea resize="vertical" placeholder="resize: vertical" />
-<l-Textarea resize="both" placeholder="resize: both" />`,
+<l-textarea resize="none" placeholder="resize: none" />
+<l-textarea resize="vertical" placeholder="resize: vertical" />
+<l-textarea resize="both" placeholder="resize: both" />`,
             }}
           />
         </section>
@@ -88,9 +88,9 @@ export class AppComponent {}`,
           <CodeBlock
             variants={{
               react: `<Textarea invalid defaultValue="Too short" />`,
-              js: `<l-Textarea invalid value="Too short"></l-Textarea>`,
-              vue: `<l-Textarea invalid value="Too short" />`,
-              angular: `<l-Textarea invalid value="Too short" />`,
+              js: `<l-textarea invalid value="Too short"></l-textarea>`,
+              vue: `<l-textarea invalid value="Too short" />`,
+              angular: `<l-textarea invalid value="Too short" />`,
             }}
           />
         </section>
@@ -103,9 +103,9 @@ export class AppComponent {}`,
           <CodeBlock
             variants={{
               react: `<Textarea disabled placeholder="Disabled" />`,
-              js: `<l-Textarea disabled placeholder="Disabled"></l-Textarea>`,
-              vue: `<l-Textarea disabled placeholder="Disabled" />`,
-              angular: `<l-Textarea disabled placeholder="Disabled" />`,
+              js: `<l-textarea disabled placeholder="Disabled"></l-textarea>`,
+              vue: `<l-textarea disabled placeholder="Disabled" />`,
+              angular: `<l-textarea disabled placeholder="Disabled" />`,
             }}
           />
         </section>
@@ -137,31 +137,31 @@ export class AppComponent {}`,
 <Textarea hoverEffect="lift" placeholder="Lift" />
 <Textarea hoverEffect="scale" placeholder="Scale" />
 <Textarea hoverEffect="glow" placeholder="Glow" />`,
-              js: `<l-Textarea transition="fade" placeholder="Fade"></l-Textarea>
-<l-Textarea transition="slide-up" placeholder="Slide up"></l-Textarea>
-<l-Textarea transition="slide-right" transitionDelay="100" placeholder="Slide right"></l-Textarea>
-<l-Textarea transition="zoom" placeholder="Zoom"></l-Textarea>
-<l-Textarea transition="flip" placeholder="Flip"></l-Textarea>
-<l-Textarea transition="blur" placeholder="Blur"></l-Textarea>
+              js: `<l-textarea transition="fade" placeholder="Fade"></l-textarea>
+<l-textarea transition="slide-up" placeholder="Slide up"></l-textarea>
+<l-textarea transition="slide-right" transitionDelay="100" placeholder="Slide right"></l-textarea>
+<l-textarea transition="zoom" placeholder="Zoom"></l-textarea>
+<l-textarea transition="flip" placeholder="Flip"></l-textarea>
+<l-textarea transition="blur" placeholder="Blur"></l-textarea>
 
-<l-Textarea hoverEffect="lift" placeholder="Lift"></l-Textarea>
-<l-Textarea hoverEffect="scale" placeholder="Scale"></l-Textarea>
-<l-Textarea hoverEffect="glow" placeholder="Glow"></l-Textarea>
+<l-textarea hoverEffect="lift" placeholder="Lift"></l-textarea>
+<l-textarea hoverEffect="scale" placeholder="Scale"></l-textarea>
+<l-textarea hoverEffect="glow" placeholder="Glow"></l-textarea>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-Textarea transition="fade" placeholder="Fade"></l-Textarea>
-  <l-Textarea transition="slide-up" placeholder="Slide up"></l-Textarea>
-  <l-Textarea transition="slide-right" transitionDelay="100" placeholder="Slide right"></l-Textarea>
-  <l-Textarea transition="zoom" placeholder="Zoom"></l-Textarea>
-  <l-Textarea transition="flip" placeholder="Flip"></l-Textarea>
-  <l-Textarea transition="blur" placeholder="Blur"></l-Textarea>
+  <l-textarea transition="fade" placeholder="Fade"></l-textarea>
+  <l-textarea transition="slide-up" placeholder="Slide up"></l-textarea>
+  <l-textarea transition="slide-right" transitionDelay="100" placeholder="Slide right"></l-textarea>
+  <l-textarea transition="zoom" placeholder="Zoom"></l-textarea>
+  <l-textarea transition="flip" placeholder="Flip"></l-textarea>
+  <l-textarea transition="blur" placeholder="Blur"></l-textarea>
 
-  <l-Textarea hoverEffect="lift" placeholder="Lift"></l-Textarea>
-  <l-Textarea hoverEffect="scale" placeholder="Scale"></l-Textarea>
-  <l-Textarea hoverEffect="glow" placeholder="Glow"></l-Textarea>
+  <l-textarea hoverEffect="lift" placeholder="Lift"></l-textarea>
+  <l-textarea hoverEffect="scale" placeholder="Scale"></l-textarea>
+  <l-textarea hoverEffect="glow" placeholder="Glow"></l-textarea>
 </template>
 
 <script setup lang="ts">
@@ -176,16 +176,16 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Textarea transition="fade" placeholder="Fade"></l-Textarea>
-    <l-Textarea transition="slide-up" placeholder="Slide up"></l-Textarea>
-    <l-Textarea transition="slide-right" transitionDelay="100" placeholder="Slide right"></l-Textarea>
-    <l-Textarea transition="zoom" placeholder="Zoom"></l-Textarea>
-    <l-Textarea transition="flip" placeholder="Flip"></l-Textarea>
-    <l-Textarea transition="blur" placeholder="Blur"></l-Textarea>
+    <l-textarea transition="fade" placeholder="Fade"></l-textarea>
+    <l-textarea transition="slide-up" placeholder="Slide up"></l-textarea>
+    <l-textarea transition="slide-right" transitionDelay="100" placeholder="Slide right"></l-textarea>
+    <l-textarea transition="zoom" placeholder="Zoom"></l-textarea>
+    <l-textarea transition="flip" placeholder="Flip"></l-textarea>
+    <l-textarea transition="blur" placeholder="Blur"></l-textarea>
 
-    <l-Textarea hoverEffect="lift" placeholder="Lift"></l-Textarea>
-    <l-Textarea hoverEffect="scale" placeholder="Scale"></l-Textarea>
-    <l-Textarea hoverEffect="glow" placeholder="Glow"></l-Textarea>
+    <l-textarea hoverEffect="lift" placeholder="Lift"></l-textarea>
+    <l-textarea hoverEffect="scale" placeholder="Scale"></l-textarea>
+    <l-textarea hoverEffect="glow" placeholder="Glow"></l-textarea>
   \`,
 })
 export class AppComponent {}`,

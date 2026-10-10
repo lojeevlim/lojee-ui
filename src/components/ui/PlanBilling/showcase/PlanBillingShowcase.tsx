@@ -45,7 +45,7 @@ export default function PlanBillingShowcase() {
     { label: "Storage", used: 46, limit: 50, unit: "GB" },
   ]}
 />`,
-              `<l-PlanBilling plan-name="Pro" price="29" description="For growing teams"></l-PlanBilling>
+              `<l-plan-billing plan-name="Pro" price="29" description="For growing teams"></l-plan-billing>
 <script type="module">
   const plan = document.querySelector("l-plan-billing");
   plan.features = ["Unlimited projects", "50 GB storage", "Priority support", "Custom domains"];
@@ -116,7 +116,7 @@ export class PlanComponent {
   onCancel={cancelPlan}
   hoverEffect="lift"
 />`,
-              `<l-PlanBilling plan-name="Business" price="99" status="trial" next-billing-date="Nov 3, 2026" action-label="Start free trial" hover-effect="lift"></l-PlanBilling>
+              `<l-plan-billing plan-name="Business" price="99" status="trial" next-billing-date="Nov 3, 2026" action-label="Start free trial" hover-effect="lift"></l-plan-billing>
 <script type="module">
   const plan = document.querySelector("l-plan-billing");
   plan.paymentMethod = { brand: "Visa", last4: "4242", expires: "08/27" };
@@ -181,8 +181,8 @@ export class PlanComponent {
             variants={variants(
               `<PlanBilling planName="Team" price={49} color="emerald" … />
 <PlanBilling planName="Studio" price={79} color="#e11d89" … />`,
-              `<l-PlanBilling plan-name="Team" price="49" color="emerald"></l-PlanBilling>
-<l-PlanBilling plan-name="Studio" price="79" color="#e11d89"></l-PlanBilling>`
+              `<l-plan-billing plan-name="Team" price="49" color="emerald"></l-plan-billing>
+<l-plan-billing plan-name="Studio" price="79" color="#e11d89"></l-plan-billing>`
             )}
           />
         </section>
@@ -197,8 +197,8 @@ export class PlanComponent {
             variants={variants(
               `<PlanBilling planName="Pro" price={1499} currency="₱" />
 <PlanBilling planName="Pro" price={29} currency="EUR" interval="year" />`,
-              `<l-PlanBilling plan-name="Pro" price="1499" currency="₱"></l-PlanBilling>
-<l-PlanBilling plan-name="Pro" price="29" currency="EUR" interval="year"></l-PlanBilling>`
+              `<l-plan-billing plan-name="Pro" price="1499" currency="₱"></l-plan-billing>
+<l-plan-billing plan-name="Pro" price="29" currency="EUR" interval="year"></l-plan-billing>`
             )}
           />
         </section>
@@ -213,8 +213,8 @@ export class PlanComponent {
             variants={variants(
               `<PlanBilling planName="Free" price="Free" features={["3 projects", "1 GB storage"]} />
 <PlanBilling planName="Pro" price={29} status="past-due" nextBillingDate="Overdue since Oct 28" onAction={fixPayment} actionLabel="Update payment" />`,
-              `<l-PlanBilling plan-name="Free" price="Free"></l-PlanBilling>
-<l-PlanBilling plan-name="Pro" price="29" status="past-due" next-billing-date="Overdue since Oct 28"></l-PlanBilling>`
+              `<l-plan-billing plan-name="Free" price="Free"></l-plan-billing>
+<l-plan-billing plan-name="Pro" price="29" status="past-due" next-billing-date="Overdue since Oct 28"></l-plan-billing>`
             )}
           />
         </section>

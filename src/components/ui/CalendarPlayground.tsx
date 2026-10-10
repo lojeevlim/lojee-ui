@@ -61,7 +61,7 @@ export default function CalendarPlayground() {
   ${range ? "onRangeSelect={({ start, end }) => console.log(start, end)}" : "onSelect={(date) => console.log(date)}"}${variant === "modal" ? "\n  onConfirm={(date) => console.log(\"confirmed\", date)}" : ""}
 />`;
 
-  const htmlOpenTag = `<l-Calendar${colorAttr}${showEvents ? ` id="calendar-demo"` : ""}></l-Calendar>`;
+  const htmlOpenTag = `<l-calendar${colorAttr}${showEvents ? ` id="calendar-demo"` : ""}></l-calendar>`;
   const htmlMarkup = showEvents
     ? `${htmlOpenTag}
 
@@ -72,13 +72,13 @@ export default function CalendarPlayground() {
 ${SAMPLE_EVENTS_CODE}
   ];
 </script>`
-    : `<l-Calendar${colorAttr}></l-Calendar>
+    : `<l-calendar${colorAttr}></l-calendar>
 
 <script type="module">import "lojee-ui/elements";</script>`;
 
   const vueMarkup = showEvents
     ? `<template>
-  <l-Calendar${colorAttr} :events="events" />
+  <l-calendar${colorAttr} :events="events" />
 </template>
 
 <script setup lang="ts">
@@ -87,16 +87,16 @@ ${SAMPLE_EVENTS_CODE}
 ];
 </script>`
     : `<template>
-  <l-Calendar${colorAttr} />
+  <l-calendar${colorAttr} />
 </template>`;
 
   const angularMarkup = showEvents
-    ? `<l-Calendar${colorAttr} [events]="events"></l-Calendar>
+    ? `<l-calendar${colorAttr} [events]="events"></l-calendar>
 
 events = [
 ${SAMPLE_EVENTS_CODE}
 ];`
-    : `<l-Calendar${colorAttr}></l-Calendar>`;
+    : `<l-calendar${colorAttr}></l-calendar>`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,

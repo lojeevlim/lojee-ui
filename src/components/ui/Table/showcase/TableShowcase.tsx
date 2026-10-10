@@ -231,7 +231,7 @@ export default function TableShowcase() {
 ];
 
 <Table variant="lined" columns={columns} data={people} />`,
-              js: `<l-Table variant="lined" id="basic-table"></l-Table>
+              js: `<l-table variant="lined" id="basic-table"></l-table>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -250,7 +250,7 @@ export default function TableShowcase() {
   ];
 </script>`,
               vue: `<template>
-  <l-Table variant="lined" :columns="columns" :data="people" />
+  <l-table variant="lined" :columns="columns" :data="people" />
 </template>
 
 <script setup lang="ts">
@@ -277,7 +277,7 @@ import "lojee-ui/elements";
   selector: "app-root",
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  template: \`<l-Table variant="lined" [columns]="columns" [data]="people" />\`,
+  template: \`<l-table variant="lined" [columns]="columns" [data]="people" />\`,
 })
 export class AppComponent {
   columns = [
@@ -309,7 +309,7 @@ export class AppComponent {
 const data = ${DATA_CODE};
 
 <Table variant="lined" columns={columns} data={data} />`,
-              js: `<l-Table id="accounts" variant="lined"></l-Table>
+              js: `<l-table id="accounts" variant="lined"></l-table>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -319,7 +319,7 @@ const data = ${DATA_CODE};
   table.data = ${indentBlock(DATA_CODE, 2)};
 </script>`,
               vue: `<template>
-  <l-Table variant="lined" :columns="columns" :data="data"></l-Table>
+  <l-table variant="lined" :columns="columns" :data="data"></l-table>
 </template>
 
 <script setup lang="ts">
@@ -329,7 +329,7 @@ const columns = ${COLUMNS_CODE};
 
 const data = ${DATA_CODE};
 </script>`,
-              angular: `<l-Table variant="lined" [columns]="columns" [data]="data"></l-Table>
+              angular: `<l-table variant="lined" [columns]="columns" [data]="data"></l-table>
 
 // component class
 columns = ${COLUMNS_CODE};
@@ -361,7 +361,7 @@ const [keys, setKeys] = useState<(string | number)[]>(["alice"]);
   columns={columns}
   data={data}
 />`,
-              js: `<l-Table id="people" variant="lined" selectable="true" row-key="id"></l-Table>
+              js: `<l-table id="people" variant="lined" selectable="true" row-key="id"></l-table>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -375,7 +375,7 @@ const [keys, setKeys] = useState<(string | number)[]>(["alice"]);
   });
 </script>`,
               vue: `<template>
-  <l-Table
+  <l-table
     variant="lined"
     :selectable="true"
     row-key="id"
@@ -383,7 +383,7 @@ const [keys, setKeys] = useState<(string | number)[]>(["alice"]);
     :data="data"
     :selected="keys"
     @selectionchange="keys = $event.detail.keys"
-  ></l-Table>
+  ></l-table>
 </template>
 
 <script setup lang="ts">
@@ -395,7 +395,7 @@ const data = ${DATA_CODE};
 
 const keys = ref(["alice"]);
 </script>`,
-              angular: `<l-Table
+              angular: `<l-table
   variant="lined"
   [selectable]="true"
   rowKey="id"
@@ -403,7 +403,7 @@ const keys = ref(["alice"]);
   [data]="data"
   [selected]="keys"
   (selectionchange)="keys = $event.detail.keys"
-></l-Table>
+></l-table>
 
 // component class
 columns = ${COLUMNS_CODE};
@@ -427,7 +427,7 @@ keys: (string | number)[] = ["alice"];`,
 
 {/* Start as a grid and control it yourself */}
 <Table variant="lined" view="grid" columns={columns} data={data} />`,
-              js: `<l-Table id="orders" variant="lined" view-toggle="true"></l-Table>
+              js: `<l-table id="orders" variant="lined" view-toggle="true"></l-table>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -438,9 +438,9 @@ keys: (string | number)[] = ["alice"];`,
   table.addEventListener("viewchange", (e) => console.log(e.detail)); // "table" | "grid"
 </script>`,
               vue: `<template>
-  <l-Table variant="lined" view-toggle="true" :columns="columns" :data="data" @viewchange="(e) => console.log(e.detail)"></l-Table>
+  <l-table variant="lined" view-toggle="true" :columns="columns" :data="data" @viewchange="(e) => console.log(e.detail)"></l-table>
 </template>`,
-              angular: `<l-Table variant="lined" view-toggle="true" [columns]="columns" [data]="data" (viewchange)="onView($event)"></l-Table>
+              angular: `<l-table variant="lined" view-toggle="true" [columns]="columns" [data]="data" (viewchange)="onView($event)"></l-table>
 
 onView(e: CustomEvent) {
   console.log(e.detail); // "table" | "grid"
@@ -461,7 +461,7 @@ onView(e: CustomEvent) {
 const data = ${jsLiteral(ORDERS_FOR_CODE)};
 
 <Table variant="lined" columns={columns} data={data} />`,
-              js: `<l-Table id="orders" variant="lined"></l-Table>
+              js: `<l-table id="orders" variant="lined"></l-table>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -471,7 +471,7 @@ const data = ${jsLiteral(ORDERS_FOR_CODE)};
   table.data = ${indentBlock(jsLiteral(ORDERS_FOR_CODE), 2)};
 </script>`,
               vue: `<template>
-  <l-Table variant="lined" :columns="columns" :data="data"></l-Table>
+  <l-table variant="lined" :columns="columns" :data="data"></l-table>
 </template>
 
 <script setup lang="ts">
@@ -481,7 +481,7 @@ const columns = ${ORDER_COLUMNS_CODE};
 
 const data = ${jsLiteral(ORDERS_FOR_CODE)};
 </script>`,
-              angular: `<l-Table variant="lined" [columns]="columns" [data]="data"></l-Table>
+              angular: `<l-table variant="lined" [columns]="columns" [data]="data"></l-table>
 
 // component class
 columns = ${ORDER_COLUMNS_CODE};
@@ -503,7 +503,7 @@ data = ${jsLiteral(ORDERS_FOR_CODE)};`,
 
 // or keep the columns and scroll sideways (the default)
 <Table variant="lined" responsive="scroll" columns={columns} data={data} />`,
-              js: `<l-Table id="orders" variant="lined" responsive="stack"></l-Table>
+              js: `<l-table id="orders" variant="lined" responsive="stack"></l-table>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -518,7 +518,7 @@ data = ${jsLiteral(ORDERS_FOR_CODE)};`,
   table.data = data;
 </script>`,
               vue: `<template>
-  <l-Table variant="lined" :columns="columns" :data="data"></l-Table>
+  <l-table variant="lined" :columns="columns" :data="data"></l-table>
 </template>
 
 <script setup lang="ts">
@@ -531,7 +531,7 @@ const columns = [
   { key: "placed", header: "Placed", type: "date" },
 ];
 </script>`,
-              angular: `<l-Table variant="lined" [columns]="columns" [data]="data"></l-Table>
+              angular: `<l-table variant="lined" [columns]="columns" [data]="data"></l-table>
 
 // component class
 columns = [
@@ -561,7 +561,7 @@ columns = [
   data={data}
   onSortChange={(sort) => console.log(sort)} // { key, direction } | null
 />`,
-              js: `<l-Table id="sortable" variant="lined"></l-Table>
+              js: `<l-table id="sortable" variant="lined"></l-table>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -576,7 +576,7 @@ columns = [
   table.addEventListener("sortchange", (e) => console.log(e.detail)); // { key, direction } | null
 </script>`,
               vue: `<template>
-  <l-Table variant="lined" :columns="columns" :data="data" @sortchange="onSort"></l-Table>
+  <l-table variant="lined" :columns="columns" :data="data" @sortchange="onSort"></l-table>
 </template>
 
 <script setup lang="ts">
@@ -589,7 +589,7 @@ const columns = [
 ];
 const onSort = (e: CustomEvent) => console.log(e.detail);
 </script>`,
-              angular: `<l-Table variant="lined" [columns]="columns" [data]="data" (sortchange)="onSort($event)"></l-Table>
+              angular: `<l-table variant="lined" [columns]="columns" [data]="data" (sortchange)="onSort($event)"></l-table>
 
 // component class
 columns = [
@@ -610,7 +610,7 @@ onSort(e: CustomEvent) {
           <CodeBlock
             variants={{
               react: `<Table variant="lined" columns={columns} data={people} striped />`,
-              js: `<l-Table variant="lined" id="striped-table" striped></l-Table>
+              js: `<l-table variant="lined" id="striped-table" striped></l-table>
 
 <script type="module">
   const table = document.getElementById("striped-table");
@@ -618,10 +618,10 @@ onSort(e: CustomEvent) {
   table.data = people;
 </script>`,
               vue: `<template>
-  <l-Table variant="lined" :columns="columns" :data="people" striped />
+  <l-table variant="lined" :columns="columns" :data="people" striped />
 </template>`,
               angular: `<!-- reuses the AppComponent from above -->
-<l-Table variant="lined" [columns]="columns" [data]="people" striped />`,
+<l-table variant="lined" [columns]="columns" [data]="people" striped />`,
             }}
           />
         </section>
@@ -632,7 +632,7 @@ onSort(e: CustomEvent) {
           <CodeBlock
             variants={{
               react: `<Table variant="lined" columns={columns} data={people} bordered />`,
-              js: `<l-Table variant="lined" id="bordered-table" bordered></l-Table>
+              js: `<l-table variant="lined" id="bordered-table" bordered></l-table>
 
 <script type="module">
   const table = document.getElementById("bordered-table");
@@ -640,10 +640,10 @@ onSort(e: CustomEvent) {
   table.data = people;
 </script>`,
               vue: `<template>
-  <l-Table variant="lined" :columns="columns" :data="people" bordered />
+  <l-table variant="lined" :columns="columns" :data="people" bordered />
 </template>`,
               angular: `<!-- reuses the AppComponent from above -->
-<l-Table variant="lined" [columns]="columns" [data]="people" bordered />`,
+<l-table variant="lined" [columns]="columns" [data]="people" bordered />`,
             }}
           />
         </section>
@@ -658,8 +658,8 @@ onSort(e: CustomEvent) {
             variants={{
               react: `<Table variant="lined" columns={columns} data={people} size="sm" bordered />
 <Table variant="lined" columns={columns} data={people} size="lg" bordered />`,
-              js: `<l-Table variant="lined" id="table-sm" size="sm" bordered></l-Table>
-<l-Table variant="lined" id="table-lg" size="lg" bordered></l-Table>
+              js: `<l-table variant="lined" id="table-sm" size="sm" bordered></l-table>
+<l-table variant="lined" id="table-lg" size="lg" bordered></l-table>
 
 <script type="module">
   document.getElementById("table-sm").columns = columns;
@@ -668,12 +668,12 @@ onSort(e: CustomEvent) {
   document.getElementById("table-lg").data = people;
 </script>`,
               vue: `<template>
-  <l-Table variant="lined" :columns="columns" :data="people" size="sm" bordered />
-  <l-Table variant="lined" :columns="columns" :data="people" size="lg" bordered />
+  <l-table variant="lined" :columns="columns" :data="people" size="sm" bordered />
+  <l-table variant="lined" :columns="columns" :data="people" size="lg" bordered />
 </template>`,
               angular: `<!-- reuses the AppComponent from above -->
-<l-Table variant="lined" [columns]="columns" [data]="people" size="sm" bordered />
-<l-Table variant="lined" [columns]="columns" [data]="people" size="lg" bordered />`,
+<l-table variant="lined" [columns]="columns" [data]="people" size="sm" bordered />
+<l-table variant="lined" [columns]="columns" [data]="people" size="lg" bordered />`,
             }}
           />
         </section>
@@ -695,7 +695,7 @@ onSort(e: CustomEvent) {
 ];
 
 <Table variant="lined" columns={columns} data={people} striped />`,
-              js: `<l-Table variant="lined" id="status-table" striped></l-Table>
+              js: `<l-table variant="lined" id="status-table" striped></l-table>
 
 <script type="module">
   const columns = [
@@ -717,7 +717,7 @@ onSort(e: CustomEvent) {
   table.data = people;
 </script>`,
               vue: `<template>
-  <l-Table variant="lined" :columns="columns" :data="people" striped />
+  <l-table variant="lined" :columns="columns" :data="people" striped />
 </template>
 
 <script setup lang="ts">
@@ -732,7 +732,7 @@ const columns = [
   },
 ];
 </script>`,
-              angular: `<l-Table variant="lined" [columns]="columns" [data]="people" striped></l-Table>
+              angular: `<l-table variant="lined" [columns]="columns" [data]="people" striped></l-table>
 
 columns = [
   { key: "name", header: "Name" },
@@ -776,7 +776,7 @@ columns = [
 <Table variant="lined" columns={columns} data={rows} loading={loading} skeletonRows={4} />
 
 // e.g. setLoading(true); await fetchRows(); setLoading(false);`,
-              js: `<l-Table variant="lined" id="loading-table" loading skeletonRows="4"></l-Table>
+              js: `<l-table variant="lined" id="loading-table" loading skeletonRows="4"></l-table>
 
 <script type="module">
   const el = document.getElementById("loading-table");
@@ -789,7 +789,7 @@ columns = [
   el.loading = false;
 </script>`,
               vue: `<template>
-  <l-Table variant="lined" :columns="columns" :data="rows" :loading="loading" skeletonRows="4" />
+  <l-table variant="lined" :columns="columns" :data="rows" :loading="loading" skeletonRows="4" />
 </template>
 
 <script setup lang="ts">
@@ -797,7 +797,7 @@ import { ref } from "vue";
 const loading = ref(true);
 const rows = ref([]);
 </script>`,
-              angular: `<l-Table variant="lined" [columns]="columns" [data]="rows" [loading]="loading" skeletonRows="4"></l-Table>
+              angular: `<l-table variant="lined" [columns]="columns" [data]="rows" [loading]="loading" skeletonRows="4"></l-table>
 
 loading = true;
 rows = [];`,
@@ -811,7 +811,7 @@ rows = [];`,
           <CodeBlock
             variants={{
               react: `<Table variant="lined" columns={columns} data={people} actions={actions} actionsVariant="menu" />`,
-              js: `<l-Table variant="lined" id="menu-table" actions-variant="menu"></l-Table>
+              js: `<l-table variant="lined" id="menu-table" actions-variant="menu"></l-table>
 
 <script type="module">
   const el = document.getElementById("menu-table");
@@ -819,8 +819,8 @@ rows = [];`,
   el.data = people;
   el.actions = actions;
 </script>`,
-              vue: `<l-Table variant="lined" :columns="columns" :data="people" :actions="actions" actions-variant="menu" />`,
-              angular: `<l-Table variant="lined" [columns]="columns" [data]="people" [actions]="actions" actions-variant="menu"></l-Table>`,
+              vue: `<l-table variant="lined" :columns="columns" :data="people" :actions="actions" actions-variant="menu" />`,
+              angular: `<l-table variant="lined" [columns]="columns" [data]="people" [actions]="actions" actions-variant="menu"></l-table>`,
             }}
           />
         </section>
@@ -863,7 +863,7 @@ rows = [];`,
   onAction={(action, row) => console.log(action.value, row)}
   onDataChange={(rows) => setPeople(rows)}
 />`,
-              js: `<l-Table variant="lined" id="actions-table"></l-Table>
+              js: `<l-table variant="lined" id="actions-table"></l-table>
 
 <script type="module">
   const el = document.getElementById("actions-table");
@@ -880,7 +880,7 @@ rows = [];`,
   el.addEventListener("datachange", (e) => console.log(e.detail));
 </script>`,
               vue: `<template>
-  <l-Table variant="lined" :columns="columns" :data="people" :actions="actions" @action="onAction" @datachange="onDataChange" />
+  <l-table variant="lined" :columns="columns" :data="people" :actions="actions" @action="onAction" @datachange="onDataChange" />
 </template>
 
 <script setup lang="ts">
@@ -901,7 +901,7 @@ function onDataChange(e) {
   console.log(e.detail);
 }
 </script>`,
-              angular: `<l-Table variant="lined" [columns]="columns" [data]="people" [actions]="actions" (action)="onAction($event)" (datachange)="onDataChange($event)"></l-Table>
+              angular: `<l-table variant="lined" [columns]="columns" [data]="people" [actions]="actions" (action)="onAction($event)" (datachange)="onDataChange($event)"></l-table>
 
 actions = [
   { label: "Edit", icon: "pencil", value: "edit" },
@@ -943,10 +943,10 @@ onDataChange(e) {
 <Table variant="lined" columns={columns} data={people} transition="slide-up" />
 <Table variant="lined" columns={columns} data={people} transition="zoom" transitionDelay={100} />
 <Table variant="lined" columns={columns} data={people} transition="blur" transitionDuration={700} />`,
-              js: `<l-Table variant="lined" id="t1" transition="fade"></l-Table>
-<l-Table variant="lined" id="t2" transition="slide-up"></l-Table>
-<l-Table variant="lined" id="t3" transition="zoom" transitionDelay="100"></l-Table>
-<l-Table variant="lined" id="t4" transition="blur" transitionDuration="700"></l-Table>
+              js: `<l-table variant="lined" id="t1" transition="fade"></l-table>
+<l-table variant="lined" id="t2" transition="slide-up"></l-table>
+<l-table variant="lined" id="t3" transition="zoom" transitionDelay="100"></l-table>
+<l-table variant="lined" id="t4" transition="blur" transitionDuration="700"></l-table>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -969,10 +969,10 @@ onDataChange(e) {
   }
 </script>`,
               vue: `<template>
-  <l-Table variant="lined" :columns="columns" :data="people" transition="fade"></l-Table>
-  <l-Table variant="lined" :columns="columns" :data="people" transition="slide-up"></l-Table>
-  <l-Table variant="lined" :columns="columns" :data="people" transition="zoom" transitionDelay="100"></l-Table>
-  <l-Table variant="lined" :columns="columns" :data="people" transition="blur" transitionDuration="700"></l-Table>
+  <l-table variant="lined" :columns="columns" :data="people" transition="fade"></l-table>
+  <l-table variant="lined" :columns="columns" :data="people" transition="slide-up"></l-table>
+  <l-table variant="lined" :columns="columns" :data="people" transition="zoom" transitionDelay="100"></l-table>
+  <l-table variant="lined" :columns="columns" :data="people" transition="blur" transitionDuration="700"></l-table>
 </template>
 
 <script setup lang="ts">
@@ -999,10 +999,10 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Table variant="lined" [columns]="columns" [data]="people" transition="fade"></l-Table>
-    <l-Table variant="lined" [columns]="columns" [data]="people" transition="slide-up"></l-Table>
-    <l-Table variant="lined" [columns]="columns" [data]="people" transition="zoom" transitionDelay="100"></l-Table>
-    <l-Table variant="lined" [columns]="columns" [data]="people" transition="blur" transitionDuration="700"></l-Table>
+    <l-table variant="lined" [columns]="columns" [data]="people" transition="fade"></l-table>
+    <l-table variant="lined" [columns]="columns" [data]="people" transition="slide-up"></l-table>
+    <l-table variant="lined" [columns]="columns" [data]="people" transition="zoom" transitionDelay="100"></l-table>
+    <l-table variant="lined" [columns]="columns" [data]="people" transition="blur" transitionDuration="700"></l-table>
   \`,
 })
 export class AppComponent {
