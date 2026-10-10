@@ -32,9 +32,9 @@ export default function TagInputShowcase() {
             react: `const [tags, setTags] = useState(["react", "design"]);
 
 <TagInput value={tags} onChange={setTags} />`,
-            html: `<l-Tag-Input id="tags" placeholder="Add a tag…"></l-Tag-Input>`,
-            vueHtml: `<l-Tag-Input :value="tags" @change="tags = $event.detail"></l-Tag-Input>`,
-            angularHtml: `<l-Tag-Input [value]="tags" (change)="tags = $event.detail"></l-Tag-Input>`,
+            html: `<l-tag-input id="tags" placeholder="Add a tag…"></l-tag-input>`,
+            vueHtml: `<l-tag-input :value="tags" @change="tags = $event.detail"></l-tag-input>`,
+            angularHtml: `<l-tag-input [value]="tags" (change)="tags = $event.detail"></l-tag-input>`,
             script: `const el = document.getElementById("tags");
 el.value = ["react", "design"];
 el.addEventListener("change", (e) => console.log(e.detail)); // string[]`,
@@ -54,12 +54,12 @@ el.addEventListener("change", (e) => console.log(e.detail)); // string[]`,
           variants={wcCode({
             react: `<TagInput maxTags={3} />
 <TagInput allowDuplicates />`,
-            html: `<l-Tag-Input max-tags="3"></l-Tag-Input>
-<l-Tag-Input allow-duplicates="true"></l-Tag-Input>`,
-            vueHtml: `<l-Tag-Input :max-tags="3"></l-Tag-Input>
-<l-Tag-Input :allow-duplicates="true"></l-Tag-Input>`,
-            angularHtml: `<l-Tag-Input [maxTags]="3"></l-Tag-Input>
-<l-Tag-Input [allowDuplicates]="true"></l-Tag-Input>`,
+            html: `<l-tag-input max-tags="3"></l-tag-input>
+<l-tag-input allow-duplicates="true"></l-tag-input>`,
+            vueHtml: `<l-tag-input :max-tags="3"></l-tag-input>
+<l-tag-input :allow-duplicates="true"></l-tag-input>`,
+            angularHtml: `<l-tag-input [maxTags]="3"></l-tag-input>
+<l-tag-input [allowDuplicates]="true"></l-tag-input>`,
           })}
         />
       </section>
@@ -76,15 +76,15 @@ el.addEventListener("change", (e) => console.log(e.detail)); // string[]`,
             react: `<TagInput color="rose" />
 <TagInput invalid />
 <TagInput disabled />`,
-            html: `<l-Tag-Input color="rose"></l-Tag-Input>
-<l-Tag-Input invalid="true"></l-Tag-Input>
-<l-Tag-Input disabled="true"></l-Tag-Input>`,
-            vueHtml: `<l-Tag-Input color="rose"></l-Tag-Input>
-<l-Tag-Input :invalid="true"></l-Tag-Input>
-<l-Tag-Input :disabled="true"></l-Tag-Input>`,
-            angularHtml: `<l-Tag-Input color="rose"></l-Tag-Input>
-<l-Tag-Input [invalid]="true"></l-Tag-Input>
-<l-Tag-Input [disabled]="true"></l-Tag-Input>`,
+            html: `<l-tag-input color="rose"></l-tag-input>
+<l-tag-input invalid="true"></l-tag-input>
+<l-tag-input disabled="true"></l-tag-input>`,
+            vueHtml: `<l-tag-input color="rose"></l-tag-input>
+<l-tag-input :invalid="true"></l-tag-input>
+<l-tag-input :disabled="true"></l-tag-input>`,
+            angularHtml: `<l-tag-input color="rose"></l-tag-input>
+<l-tag-input [invalid]="true"></l-tag-input>
+<l-tag-input [disabled]="true"></l-tag-input>`,
           })}
         />
       </section>

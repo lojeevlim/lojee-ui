@@ -74,7 +74,7 @@ export default function SidebarShowcase() {
     { label: "Settings", icon: "settings" },
   ]}
 />`,
-              js: `<l-Sidebar id="basic-sidebar"></l-Sidebar>
+              js: `<l-sidebar id="basic-sidebar"></l-sidebar>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -87,7 +87,7 @@ export default function SidebarShowcase() {
   ];
 </script>`,
               vue: `<template>
-  <l-Sidebar :items="items" />
+  <l-sidebar :items="items" />
 </template>
 
 <script setup lang="ts">
@@ -108,7 +108,7 @@ import "lojee-ui/elements";
   selector: "app-root",
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  template: \`<l-Sidebar [items]="items" />\`,
+  template: \`<l-sidebar [items]="items" />\`,
 })
 export class AppComponent {
   items = [
@@ -153,7 +153,7 @@ export class AppComponent {
     { label: "Settings", icon: "settings", path: "/settings" },
   ]}
 />`,
-              js: `<l-Sidebar id="active-item-sidebar" default-active-item="Dashboard"></l-Sidebar>
+              js: `<l-sidebar id="active-item-sidebar" default-active-item="Dashboard"></l-sidebar>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -168,7 +168,7 @@ export class AppComponent {
   sidebar.addEventListener("activeitemchange", (e) => console.log(e.detail));
 </script>`,
               vue: `<template>
-  <l-Sidebar default-active-item="Dashboard" :items="items" @activeitemchange="(e) => console.log(e.detail)" />
+  <l-sidebar default-active-item="Dashboard" :items="items" @activeitemchange="(e) => console.log(e.detail)" />
 </template>
 
 <script setup lang="ts">
@@ -189,7 +189,7 @@ import "lojee-ui/elements";
   selector: "app-root",
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  template: \`<l-Sidebar default-active-item="Dashboard" [items]="items" (activeitemchange)="onActiveItemChange($event.detail)" />\`,
+  template: \`<l-sidebar default-active-item="Dashboard" [items]="items" (activeitemchange)="onActiveItemChange($event.detail)" />\`,
 })
 export class AppComponent {
   items = [
@@ -226,7 +226,7 @@ export class AppComponent {
     { label: "Settings", icon: "settings" },
   ]}
 />`,
-              js: `<l-Sidebar id="header-footer-sidebar" header="Lojee Inc" header-icon="zap" footer="Jordan Diaz"></l-Sidebar>
+              js: `<l-sidebar id="header-footer-sidebar" header="Lojee Inc" header-icon="zap" footer="Jordan Diaz"></l-sidebar>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -239,7 +239,7 @@ export class AppComponent {
   ];
 </script>`,
               vue: `<template>
-  <l-Sidebar header="Lojee Inc" header-icon="zap" footer="Jordan Diaz" :items="items" />
+  <l-sidebar header="Lojee Inc" header-icon="zap" footer="Jordan Diaz" :items="items" />
 </template>
 
 <script setup lang="ts">
@@ -260,7 +260,7 @@ import "lojee-ui/elements";
   selector: "app-root",
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  template: \`<l-Sidebar header="Lojee Inc" header-icon="zap" footer="Jordan Diaz" [items]="items" />\`,
+  template: \`<l-sidebar header="Lojee Inc" header-icon="zap" footer="Jordan Diaz" [items]="items" />\`,
 })
 export class AppComponent {
   items = [
@@ -326,7 +326,7 @@ export class AppComponent {
     },
   ]}
 />`,
-              js: `<l-Sidebar id="categories-sidebar" collapsible="true" header="Lojee Inc" header-icon="zap" footer="Jordan Diaz"></l-Sidebar>
+              js: `<l-sidebar id="categories-sidebar" collapsible="true" header="Lojee Inc" header-icon="zap" footer="Jordan Diaz"></l-sidebar>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -349,7 +349,7 @@ export class AppComponent {
   ];
 </script>`,
               vue: `<template>
-  <l-Sidebar :collapsible="true" header="Lojee Inc" header-icon="zap" footer="Jordan Diaz" :items="items" />
+  <l-sidebar :collapsible="true" header="Lojee Inc" header-icon="zap" footer="Jordan Diaz" :items="items" />
 </template>
 
 <script setup lang="ts">
@@ -380,7 +380,7 @@ import "lojee-ui/elements";
   selector: "app-root",
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  template: \`<l-Sidebar [collapsible]="true" header="Lojee Inc" header-icon="zap" footer="Jordan Diaz" [items]="items" />\`,
+  template: \`<l-sidebar [collapsible]="true" header="Lojee Inc" header-icon="zap" footer="Jordan Diaz" [items]="items" />\`,
 })
 export class AppComponent {
   items = [
@@ -474,7 +474,7 @@ export class AppComponent {
       shadow-only, no border.
     variant="minimal"  — no background/border at all, blends into the page.
     variant="gradient" — a top-to-bottom gradient built from \`color\` (600 → 700). */}`,
-              js: `<l-Sidebar id="variants-sidebar" variant="dark" header="Lojee Inc" footer="Jordan Diaz"></l-Sidebar>
+              js: `<l-sidebar id="variants-sidebar" variant="dark" header="Lojee Inc" footer="Jordan Diaz"></l-sidebar>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -491,7 +491,7 @@ export class AppComponent {
      markup needed — just give them a height inside a sized parent, e.g. height="100%".
      "minimal" — no background/border at all, blends into the page. -->`,
               vue: `<template>
-  <l-Sidebar variant="dark" header="Lojee Inc" footer="Jordan Diaz" :items="items" />
+  <l-sidebar variant="dark" header="Lojee Inc" footer="Jordan Diaz" :items="items" />
 
   <!-- "bordered"/"elevated" — detached-panel looks; their backdrop is built in, no extra
        markup needed — just give them a height inside a sized parent, e.g. height="100%".
@@ -519,7 +519,7 @@ import "lojee-ui/elements";
   selector: "app-root",
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  template: \`<l-Sidebar variant="dark" header="Lojee Inc" footer="Jordan Diaz" [items]="items" />\`,
+  template: \`<l-sidebar variant="dark" header="Lojee Inc" footer="Jordan Diaz" [items]="items" />\`,
 })
 export class AppComponent {
   items = [
@@ -587,7 +587,7 @@ export class AppComponent {
     { label: "Team", icon: "users" },
   ]}
 />`,
-              js: `<l-Sidebar id="colors-sidebar" color="indigo" collapsible="true" header="Lojee Inc"></l-Sidebar>
+              js: `<l-sidebar id="colors-sidebar" color="indigo" collapsible="true" header="Lojee Inc"></l-sidebar>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -599,7 +599,7 @@ export class AppComponent {
   ];
 </script>`,
               vue: `<template>
-  <l-Sidebar color="indigo" :collapsible="true" header="Lojee Inc" :items="items" />
+  <l-sidebar color="indigo" :collapsible="true" header="Lojee Inc" :items="items" />
 </template>
 
 <script setup lang="ts">
@@ -619,7 +619,7 @@ import "lojee-ui/elements";
   selector: "app-root",
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  template: \`<l-Sidebar color="indigo" [collapsible]="true" header="Lojee Inc" [items]="items" />\`,
+  template: \`<l-sidebar color="indigo" [collapsible]="true" header="Lojee Inc" [items]="items" />\`,
 })
 export class AppComponent {
   items = [
@@ -652,9 +652,9 @@ export class AppComponent {
   tooltipTransitionDuration={700}
   items={items}
 />`,
-              js: `<l-Sidebar collapsible="true" tooltipTransition="slide-left" tooltipTransitionDuration="700"></l-Sidebar>`,
-              vue: `<l-Sidebar :collapsible="true" tooltipTransition="slide-left" :tooltipTransitionDuration="700" :items="items" />`,
-              angular: `<l-Sidebar [collapsible]="true" tooltipTransition="slide-left" [tooltipTransitionDuration]="700" [items]="items" />`,
+              js: `<l-sidebar collapsible="true" tooltipTransition="slide-left" tooltipTransitionDuration="700"></l-sidebar>`,
+              vue: `<l-sidebar :collapsible="true" tooltipTransition="slide-left" :tooltipTransitionDuration="700" :items="items" />`,
+              angular: `<l-sidebar [collapsible]="true" tooltipTransition="slide-left" [tooltipTransitionDuration]="700" [items]="items" />`,
             }}
           />
         </section>
@@ -691,7 +691,7 @@ export class AppComponent {
     the collapsed state, e.g.:
     const [collapsed, setCollapsed] = useState(false);
     <Sidebar collapsible collapsed={collapsed} onCollapsedChange={setCollapsed} ... /> */}`,
-              js: `<l-Sidebar id="app-sidebar" collapsible="true" header="Lojee Inc" header-icon="zap"></l-Sidebar>
+              js: `<l-sidebar id="app-sidebar" collapsible="true" header="Lojee Inc" header-icon="zap"></l-sidebar>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -702,7 +702,7 @@ export class AppComponent {
   ];
 </script>`,
               vue: `<template>
-  <l-Sidebar :collapsible="true" header="Lojee Inc" header-icon="zap" :items="items" />
+  <l-sidebar :collapsible="true" header="Lojee Inc" header-icon="zap" :items="items" />
 </template>
 
 <script setup lang="ts">
@@ -721,7 +721,7 @@ import "lojee-ui/elements";
   selector: "app-root",
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  template: \`<l-Sidebar [collapsible]="true" header="Lojee Inc" header-icon="zap" [items]="items" />\`,
+  template: \`<l-sidebar [collapsible]="true" header="Lojee Inc" header-icon="zap" [items]="items" />\`,
 })
 export class AppComponent {
   items = [
@@ -760,11 +760,11 @@ export class AppComponent {
 <Sidebar collapsible collapseSpeed="slow" header="Lojee Inc" headerIcon="zap" items={items} />
 
 <Sidebar collapsible collapseSpeed={800} items={items} />`,
-              js: `<l-Sidebar id="app-sidebar" collapsible="true" collapse-speed="slow" header="Lojee Inc" header-icon="zap"></l-Sidebar>`,
+              js: `<l-sidebar id="app-sidebar" collapsible="true" collapse-speed="slow" header="Lojee Inc" header-icon="zap"></l-sidebar>`,
               vue: `<template>
-  <l-Sidebar :collapsible="true" collapse-speed="slow" header="Lojee Inc" header-icon="zap" :items="items" />
+  <l-sidebar :collapsible="true" collapse-speed="slow" header="Lojee Inc" header-icon="zap" :items="items" />
 </template>`,
-              angular: `template: \`<l-Sidebar [collapsible]="true" collapse-speed="slow" header="Lojee Inc" header-icon="zap" [items]="items" />\`,`,
+              angular: `template: \`<l-sidebar [collapsible]="true" collapse-speed="slow" header="Lojee Inc" header-icon="zap" [items]="items" />\`,`,
             }}
           />
         </section>
@@ -794,12 +794,12 @@ export class AppComponent {
 <Sidebar items={items} transition="blur" />
 <Sidebar items={items} transition="bounce" transitionDelay={100} />
 <Sidebar items={items} transition="drop" transitionDuration={700} />`,
-              js: `<l-Sidebar class="transition-demo" transition="fade"></l-Sidebar>
-<l-Sidebar class="transition-demo" transition="slide-right"></l-Sidebar>
-<l-Sidebar class="transition-demo" transition="zoom"></l-Sidebar>
-<l-Sidebar class="transition-demo" transition="blur"></l-Sidebar>
-<l-Sidebar class="transition-demo" transition="bounce" transitionDelay="100"></l-Sidebar>
-<l-Sidebar class="transition-demo" transition="drop" transitionDuration="700"></l-Sidebar>
+              js: `<l-sidebar class="transition-demo" transition="fade"></l-sidebar>
+<l-sidebar class="transition-demo" transition="slide-right"></l-sidebar>
+<l-sidebar class="transition-demo" transition="zoom"></l-sidebar>
+<l-sidebar class="transition-demo" transition="blur"></l-sidebar>
+<l-sidebar class="transition-demo" transition="bounce" transitionDelay="100"></l-sidebar>
+<l-sidebar class="transition-demo" transition="drop" transitionDuration="700"></l-sidebar>
 
 
 <script type="module">
@@ -814,12 +814,12 @@ export class AppComponent {
   document.querySelectorAll(".transition-demo").forEach((el) => (el.items = items));
 </script>`,
               vue: `<template>
-  <l-Sidebar :items="items" transition="fade"></l-Sidebar>
-  <l-Sidebar :items="items" transition="slide-right"></l-Sidebar>
-  <l-Sidebar :items="items" transition="zoom"></l-Sidebar>
-  <l-Sidebar :items="items" transition="blur"></l-Sidebar>
-  <l-Sidebar :items="items" transition="bounce" transitionDelay="100"></l-Sidebar>
-  <l-Sidebar :items="items" transition="drop" transitionDuration="700"></l-Sidebar>
+  <l-sidebar :items="items" transition="fade"></l-sidebar>
+  <l-sidebar :items="items" transition="slide-right"></l-sidebar>
+  <l-sidebar :items="items" transition="zoom"></l-sidebar>
+  <l-sidebar :items="items" transition="blur"></l-sidebar>
+  <l-sidebar :items="items" transition="bounce" transitionDelay="100"></l-sidebar>
+  <l-sidebar :items="items" transition="drop" transitionDuration="700"></l-sidebar>
 
 </template>
 
@@ -842,12 +842,12 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Sidebar [items]="items" transition="fade"></l-Sidebar>
-    <l-Sidebar [items]="items" transition="slide-right"></l-Sidebar>
-    <l-Sidebar [items]="items" transition="zoom"></l-Sidebar>
-    <l-Sidebar [items]="items" transition="blur"></l-Sidebar>
-    <l-Sidebar [items]="items" transition="bounce" transitionDelay="100"></l-Sidebar>
-    <l-Sidebar [items]="items" transition="drop" transitionDuration="700"></l-Sidebar>
+    <l-sidebar [items]="items" transition="fade"></l-sidebar>
+    <l-sidebar [items]="items" transition="slide-right"></l-sidebar>
+    <l-sidebar [items]="items" transition="zoom"></l-sidebar>
+    <l-sidebar [items]="items" transition="blur"></l-sidebar>
+    <l-sidebar [items]="items" transition="bounce" transitionDelay="100"></l-sidebar>
+    <l-sidebar [items]="items" transition="drop" transitionDuration="700"></l-sidebar>
 
   \`,
 })

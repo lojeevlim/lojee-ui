@@ -170,10 +170,8 @@ function Nav({ groups, onStart }: { groups: typeof COMPONENT_MENU; onStart: () =
               ["About", "/about", "info"],
             ].map(([label, to, icon]) => (
               <button key={label} type="button" onClick={() => navigate(to)} className="group/nav relative inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm text-fg-muted transition-[background-color,color,transform] duration-300 ease-out hover:-translate-y-px hover:bg-surface-muted hover:text-fg focus-visible:text-fg">
-                <span className="inline-flex transition-transform duration-300 ease-out group-hover/nav:-rotate-6 group-hover/nav:scale-110"><Icon name={icon} size={15} /></span>
+                <span className="inline-flex text-accent-600 transition-transform duration-300 ease-out group-hover/nav:-rotate-6 group-hover/nav:scale-110 dark:text-accent-400"><Icon name={icon} size={15} /></span>
                 {label}
-                {/* Underline that slides in from the left when the pointer arrives, and out to the right when it leaves. */}
-                <span aria-hidden="true" className="pointer-events-none absolute inset-x-3 bottom-0.5 h-0.5 origin-left scale-x-0 rounded-full bg-accent-500 transition-transform duration-300 ease-out group-hover/nav:scale-x-100" />
               </button>
             ))}
           </nav>

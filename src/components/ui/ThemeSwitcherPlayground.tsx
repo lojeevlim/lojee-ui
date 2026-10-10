@@ -53,23 +53,23 @@ export default function ThemeSwitcherPlayground() {
     react: `<ThemeProvider${providerProps}>
   <ThemeSwitcher${reactAttrs} />
 </ThemeProvider>`,
-    js: `<l-Theme-Provider default-mode="${themeMode}" default-accent="${themeAccent}"${themeDesign !== DEFAULT_DESIGN ? ` default-design="${themeDesign}"` : ""}>
-  <l-Theme-Switcher${htmlAttrs((n) => `${n}="false"`)}></l-Theme-Switcher>
-</l-Theme-Provider>
+    js: `<l-theme-provider default-mode="${themeMode}" default-accent="${themeAccent}"${themeDesign !== DEFAULT_DESIGN ? ` default-design="${themeDesign}"` : ""}>
+  <l-theme-switcher${htmlAttrs((n) => `${n}="false"`)}></l-theme-switcher>
+</l-theme-provider>
 
 <script type="module">import "lojee-ui/elements";</script>`,
     vue: `<template>
-  <l-Theme-Provider default-mode="${themeMode}" default-accent="${themeAccent}"${themeDesign !== DEFAULT_DESIGN ? ` default-design="${themeDesign}"` : ""}>
-    <l-Theme-Switcher${htmlAttrs((n) => `:${n}="false"`)}></l-Theme-Switcher>
-  </l-Theme-Provider>
+  <l-theme-provider default-mode="${themeMode}" default-accent="${themeAccent}"${themeDesign !== DEFAULT_DESIGN ? ` default-design="${themeDesign}"` : ""}>
+    <l-theme-switcher${htmlAttrs((n) => `:${n}="false"`)}></l-theme-switcher>
+  </l-theme-provider>
 </template>
 
 <script setup lang="ts">
 import "lojee-ui/elements";
 </script>`,
-    angular: `<l-Theme-Provider default-mode="${themeMode}" default-accent="${themeAccent}"${themeDesign !== DEFAULT_DESIGN ? ` default-design="${themeDesign}"` : ""}>
-  <l-Theme-Switcher${htmlAttrs((n) => `[${n.replace(/-(\w)/g, (_, c: string) => c.toUpperCase())}]="false"`)}></l-Theme-Switcher>
-</l-Theme-Provider>`,
+    angular: `<l-theme-provider default-mode="${themeMode}" default-accent="${themeAccent}"${themeDesign !== DEFAULT_DESIGN ? ` default-design="${themeDesign}"` : ""}>
+  <l-theme-switcher${htmlAttrs((n) => `[${n.replace(/-(\w)/g, (_, c: string) => c.toUpperCase())}]="false"`)}></l-theme-switcher>
+</l-theme-provider>`,
   };
 
   return (

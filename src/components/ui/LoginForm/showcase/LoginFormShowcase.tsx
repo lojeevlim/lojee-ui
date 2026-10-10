@@ -35,7 +35,7 @@ export default function LoginFormShowcase() {
               react: `const [values, setValues] = useState(null);
 
 <LoginForm onSubmit={setValues} />`,
-              js: `<l-LoginForm id="login"></l-LoginForm>
+              js: `<l-login-form id="login"></l-login-form>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -45,7 +45,7 @@ export default function LoginFormShowcase() {
   });
 </script>`,
               vue: `<template>
-  <l-LoginForm @submit="onSubmit" />
+  <l-login-form @submit="onSubmit" />
 </template>
 
 <script setup lang="ts">
@@ -53,7 +53,7 @@ function onSubmit(values) {
   console.log(values);
 }
 </script>`,
-              angular: `<l-LoginForm (submit)="onSubmit($event)"></l-LoginForm>
+              angular: `<l-login-form (submit)="onSubmit($event)"></l-login-form>
 
 onSubmit(values) {
   console.log(values);
@@ -87,21 +87,21 @@ onSubmit(values) {
     </p>
   }
 />`,
-              js: `<l-LoginForm>
+              js: `<l-login-form>
   <p slot="footer">Don't have an account? <a href="/signup">Sign up</a></p>
-</l-LoginForm>
+</l-login-form>
 
 <script type="module">import "lojee-ui/elements";</script>`,
               vue: `<template>
-  <l-LoginForm>
+  <l-login-form>
     <div slot="footer">
       <p>Don't have an account? <a href="/signup">Sign up</a></p>
     </div>
-  </l-LoginForm>
+  </l-login-form>
 </template>`,
-              angular: `<l-LoginForm>
+              angular: `<l-login-form>
   <p slot="footer">Don't have an account? <a href="/signup">Sign up</a></p>
-</l-LoginForm>`,
+</l-login-form>`,
             }}
           />
         </section>
@@ -116,11 +116,11 @@ onSubmit(values) {
           <CodeBlock
             variants={{
               react: `<LoginForm showRemember={false} showForgotPassword={false} />`,
-              js: `<l-LoginForm showRemember="false" showForgotPassword="false"></l-LoginForm>
+              js: `<l-login-form showRemember="false" showForgotPassword="false"></l-login-form>
 
 <script type="module">import "lojee-ui/elements";</script>`,
-              vue: `<l-LoginForm :showRemember="false" :showForgotPassword="false" />`,
-              angular: `<l-LoginForm [showRemember]="false" [showForgotPassword]="false"></l-LoginForm>`,
+              vue: `<l-login-form :showRemember="false" :showForgotPassword="false" />`,
+              angular: `<l-login-form [showRemember]="false" [showForgotPassword]="false"></l-login-form>`,
             }}
           />
         </section>
@@ -145,23 +145,23 @@ onSubmit(values) {
 <LoginForm transition="flip" transitionDuration={700} />
 <LoginForm hoverEffect="lift" />
 <LoginForm hoverEffect="glow" />`,
-              js: `<l-LoginForm transition="fade"></l-LoginForm>
-<l-LoginForm transition="slide-up"></l-LoginForm>
-<l-LoginForm transition="zoom" transitionDelay="100"></l-LoginForm>
-<l-LoginForm transition="flip" transitionDuration="700"></l-LoginForm>
-<l-LoginForm hoverEffect="lift"></l-LoginForm>
-<l-LoginForm hoverEffect="glow"></l-LoginForm>
+              js: `<l-login-form transition="fade"></l-login-form>
+<l-login-form transition="slide-up"></l-login-form>
+<l-login-form transition="zoom" transitionDelay="100"></l-login-form>
+<l-login-form transition="flip" transitionDuration="700"></l-login-form>
+<l-login-form hoverEffect="lift"></l-login-form>
+<l-login-form hoverEffect="glow"></l-login-form>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-LoginForm transition="fade"></l-LoginForm>
-  <l-LoginForm transition="slide-up"></l-LoginForm>
-  <l-LoginForm transition="zoom" transitionDelay="100"></l-LoginForm>
-  <l-LoginForm transition="flip" transitionDuration="700"></l-LoginForm>
-  <l-LoginForm hoverEffect="lift"></l-LoginForm>
-  <l-LoginForm hoverEffect="glow"></l-LoginForm>
+  <l-login-form transition="fade"></l-login-form>
+  <l-login-form transition="slide-up"></l-login-form>
+  <l-login-form transition="zoom" transitionDelay="100"></l-login-form>
+  <l-login-form transition="flip" transitionDuration="700"></l-login-form>
+  <l-login-form hoverEffect="lift"></l-login-form>
+  <l-login-form hoverEffect="glow"></l-login-form>
 </template>
 
 <script setup lang="ts">
@@ -176,12 +176,12 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-LoginForm transition="fade"></l-LoginForm>
-    <l-LoginForm transition="slide-up"></l-LoginForm>
-    <l-LoginForm transition="zoom" transitionDelay="100"></l-LoginForm>
-    <l-LoginForm transition="flip" transitionDuration="700"></l-LoginForm>
-    <l-LoginForm hoverEffect="lift"></l-LoginForm>
-    <l-LoginForm hoverEffect="glow"></l-LoginForm>
+    <l-login-form transition="fade"></l-login-form>
+    <l-login-form transition="slide-up"></l-login-form>
+    <l-login-form transition="zoom" transitionDelay="100"></l-login-form>
+    <l-login-form transition="flip" transitionDuration="700"></l-login-form>
+    <l-login-form hoverEffect="lift"></l-login-form>
+    <l-login-form hoverEffect="glow"></l-login-form>
   \`,
 })
 export class AppComponent {}`,

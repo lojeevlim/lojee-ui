@@ -46,14 +46,14 @@ export default function ContextMenuPlayground() {
   // named `slot="menu"` wrapping the `<DropdownMenuItem>` children; the
   // target area is the default slot. `danger` needs the explicit "true"
   // string since a bare boolean attribute parses to false.
-  const htmlMarkup = `<l-ContextMenu${motion.attrs}>
+  const htmlMarkup = `<l-context-menu${motion.attrs}>
   <div slot="menu">
-    <l-DropdownMenuItem icon="copy">Copy</l-DropdownMenuItem>
-    <l-DropdownMenuItem icon="pencil">Rename</l-DropdownMenuItem>
-    <l-DropdownMenuItem icon="trash-2" danger>Delete</l-DropdownMenuItem>
+    <l-dropdown-menu-item icon="copy">Copy</l-dropdown-menu-item>
+    <l-dropdown-menu-item icon="pencil">Rename</l-dropdown-menu-item>
+    <l-dropdown-menu-item icon="trash-2" danger>Delete</l-dropdown-menu-item>
   </div>
   <div>Right-click here</div>
-</l-ContextMenu>`;
+</l-context-menu>`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,

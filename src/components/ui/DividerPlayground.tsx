@@ -59,7 +59,7 @@ export default function DividerPlayground() {
   ]
     .filter(Boolean)
     .join(" ");
-  const htmlMarkup = htmlAttrs || motion.attrs ? `<l-Divider${htmlAttrs ? ` ${htmlAttrs}` : ""}${motion.attrs} />` : `<l-Divider />`;
+  const htmlMarkup = htmlAttrs || motion.attrs ? `<l-divider${htmlAttrs ? ` ${htmlAttrs}` : ""}${motion.attrs} />` : `<l-divider />`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,

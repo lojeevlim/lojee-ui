@@ -44,7 +44,7 @@ export default function ThinkingPlayground() {
     (showElapsed ? " showElapsed" : "") +
     motion.attrs;
   const code = `<Thinking${useSteps ? `\n  steps={${JSON.stringify(STEPS)}}\n ` : ""}${attrs} />`;
-  const htmlMarkup = `<l-Thinking${useSteps ? ` steps='${JSON.stringify(STEPS)}'` : ""}${attrs} />`;
+  const htmlMarkup = `<l-thinking${useSteps ? ` steps='${JSON.stringify(STEPS)}'` : ""}${attrs} />`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,

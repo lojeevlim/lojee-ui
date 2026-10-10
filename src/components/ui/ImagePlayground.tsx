@@ -41,7 +41,7 @@ export default function ImagePlayground() {
     (caption ? ` caption="${caption}"` : "") +
     motion.attrs;
 
-  const markup = `<l-Image src="${codeSrc}" alt="Sample picture"${attrs}></l-Image>`;
+  const markup = `<l-image src="${codeSrc}" alt="Sample picture"${attrs}></l-image>`;
   const codeVariants: CodeBlockVariants = {
     react: `<Image src="${codeSrc}" alt="Sample picture"${attrs} />`,
     js: `${markup}\n\n<script type="module">import "lojee-ui/elements";</script>`,

@@ -34,7 +34,7 @@ import "lojee-ui/elements";
 import "lojee-ui/elements";
 
 <l-button color="accent" label="Save" (click)="save()"></l-button>`,
-  js: `<l-Button color="accent" label="Save"/>
+  js: `<l-button color="accent" label="Save"/>
 
 <script type="module">
   import "lojee-ui/elements";

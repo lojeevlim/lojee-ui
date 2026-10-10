@@ -26,7 +26,7 @@ export default function IframeShowcase() {
           <CodeBlock
             variants={variants(
               `<Iframe src="https://example.com" title="Example page" height={260} />`,
-              `<l-Iframe src="https://example.com" title="Example page" height="260"></l-Iframe>`
+              `<l-iframe src="https://example.com" title="Example page" height="260"></l-iframe>`
             )}
           />
         </section>
@@ -39,7 +39,7 @@ export default function IframeShowcase() {
           <CodeBlock
             variants={variants(
               `<Iframe src="https://example.com" title="Example page" ratio="video" showAddress />`,
-              `<l-Iframe src="https://example.com" title="Example page" ratio="video" show-address="true"></l-Iframe>`
+              `<l-iframe src="https://example.com" title="Example page" ratio="video" show-address="true"></l-iframe>`
             )}
           />
         </section>
@@ -68,7 +68,7 @@ export default function IframeShowcase() {
   bordered={false}
   showLoader={false}
 />`,
-              `<l-Iframe
+              `<l-iframe
   src="https://example.com"
   title="Example page"
   height="200"
@@ -76,7 +76,7 @@ export default function IframeShowcase() {
   allow="fullscreen"
   bordered="false"
   show-loader="false"
-></l-Iframe>`
+></l-iframe>`
             )}
           />
         </section>

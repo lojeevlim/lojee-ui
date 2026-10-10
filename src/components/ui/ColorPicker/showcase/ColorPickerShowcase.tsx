@@ -33,9 +33,9 @@ export default function ColorPickerShowcase() {
             react: `const [color, setColor] = useState("#6366f1");
 
 <ColorPicker value={color} onChange={setColor} />`,
-            html: `<l-Color-Picker id="color" value="#6366f1"></l-Color-Picker>`,
-            vueHtml: `<l-Color-Picker :value="color" @change="color = $event.detail"></l-Color-Picker>`,
-            angularHtml: `<l-Color-Picker [value]="color" (change)="color = $event.detail"></l-Color-Picker>`,
+            html: `<l-color-picker id="color" value="#6366f1"></l-color-picker>`,
+            vueHtml: `<l-color-picker :value="color" @change="color = $event.detail"></l-color-picker>`,
+            angularHtml: `<l-color-picker [value]="color" (change)="color = $event.detail"></l-color-picker>`,
             script: `document.getElementById("color").addEventListener("change", (e) => console.log(e.detail)); // "#rrggbb"`,
             vueScript: `const color = ref("#6366f1");`,
             angularClass: `color = "#6366f1";`,
@@ -53,12 +53,12 @@ export default function ColorPickerShowcase() {
           variants={wcCode({
             react: `<ColorPicker presets={["#0ea5e9", "#22c55e", "#f59e0b", "#ef4444"]} />
 <ColorPicker showInput={false} />`,
-            html: `<l-Color-Picker id="brand"></l-Color-Picker>
-<l-Color-Picker show-input="false"></l-Color-Picker>`,
-            vueHtml: `<l-Color-Picker :presets="['#0ea5e9', '#22c55e', '#f59e0b', '#ef4444']"></l-Color-Picker>
-<l-Color-Picker :show-input="false"></l-Color-Picker>`,
-            angularHtml: `<l-Color-Picker [presets]="['#0ea5e9', '#22c55e', '#f59e0b', '#ef4444']"></l-Color-Picker>
-<l-Color-Picker [showInput]="false"></l-Color-Picker>`,
+            html: `<l-color-picker id="brand"></l-color-picker>
+<l-color-picker show-input="false"></l-color-picker>`,
+            vueHtml: `<l-color-picker :presets="['#0ea5e9', '#22c55e', '#f59e0b', '#ef4444']"></l-color-picker>
+<l-color-picker :show-input="false"></l-color-picker>`,
+            angularHtml: `<l-color-picker [presets]="['#0ea5e9', '#22c55e', '#f59e0b', '#ef4444']"></l-color-picker>
+<l-color-picker [showInput]="false"></l-color-picker>`,
             script: `document.getElementById("brand").presets = ["#0ea5e9", "#22c55e", "#f59e0b", "#ef4444"];`,
           })}
         />

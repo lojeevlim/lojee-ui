@@ -23,7 +23,7 @@ export default function SpinnerPlayground() {
   );
   const code = `<Spinner variant="${variant}" size="${size}" color="${color}"${motion.attrs} />`;
 
-  const htmlMarkup = `<l-Spinner variant="${variant}" size="${size}" color="${color}"${motion.attrs} />`;
+  const htmlMarkup = `<l-spinner variant="${variant}" size="${size}" color="${color}"${motion.attrs} />`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,

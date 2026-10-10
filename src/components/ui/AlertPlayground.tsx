@@ -52,9 +52,9 @@ export default function AlertPlayground() {
   ${description || "This is an informational message."}
 </Alert>`;
 
-  const htmlMarkup = `<l-Alert variant="${variant}"${anim.attrs}${motion.attrs}${titleAttr}${closableAttr}>
+  const htmlMarkup = `<l-alert variant="${variant}"${anim.attrs}${motion.attrs}${titleAttr}${closableAttr}>
   ${description || "This is an informational message."}
-</l-Alert>`;
+</l-alert>`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,

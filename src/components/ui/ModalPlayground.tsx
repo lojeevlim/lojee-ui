@@ -29,10 +29,10 @@ export default function ModalPlayground() {
   // DOM property from a trigger click rather than baked as a literal
   // attribute, matching ModalShowcase.tsx's pattern; every other prop
   // (heading here) stays a plain snapshot attribute.
-  const htmlMarkup = `<l-Button label="Open modal" id="open-modal-btn" />
-<l-Modal id="modal" heading="${title || "Modal title"}"${motion.attrs}>
+  const htmlMarkup = `<l-button label="Open modal" id="open-modal-btn" />
+<l-modal id="modal" heading="${title || "Modal title"}"${motion.attrs}>
   <p>This is the modal body content.</p>
-</l-Modal>`;
+</l-modal>`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,
@@ -47,10 +47,10 @@ export default function ModalPlayground() {
   modal.addEventListener("close", () => { modal.open = false; });
 </script>`,
     vue: `<template>
-  <l-Button label="Open modal" @click="open = true" />
-  <l-Modal :open="open" heading="${title || "Modal title"}"${motion.attrs} @close="open = false">
+  <l-button label="Open modal" @click="open = true" />
+  <l-modal :open="open" heading="${title || "Modal title"}"${motion.attrs} @close="open = false">
     <p>This is the modal body content.</p>
-  </l-Modal>
+  </l-modal>
 </template>
 
 <script setup lang="ts">
@@ -60,10 +60,10 @@ import "lojee-ui/elements";
 const open = ref(false);
 </script>`,
     angular: `<!-- app.component.html -->
-<l-Button label="Open modal" (click)="open = true" />
-<l-Modal [open]="open" heading="${title || "Modal title"}"${motion.attrs} (close)="open = false">
+<l-button label="Open modal" (click)="open = true" />
+<l-modal [open]="open" heading="${title || "Modal title"}"${motion.attrs} (close)="open = false">
   <p>This is the modal body content.</p>
-</l-Modal>`,
+</l-modal>`,
   };
 
   return (

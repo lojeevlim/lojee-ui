@@ -45,7 +45,7 @@ export default function SearchInputPlayground() {
   // Vue/Angular templates (plain attributes, no bindings needed for a static
   // snapshot); the "js" variant just adds the one-time module import a plain
   // HTML page needs to actually load the `<l-*>` definitions.
-  const htmlMarkup = `<l-SearchInput size="${size}"${
+  const htmlMarkup = `<l-search-input size="${size}"${
     disabled ? ` disabled` : ""
   }${motion.attrs} value="${value}" placeholder="Search…" />`;
 

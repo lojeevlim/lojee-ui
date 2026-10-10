@@ -63,7 +63,7 @@ export default function ActivityFeedPlayground() {
 ${itemsCode}
   ]}
 />`,
-    js: `<l-ActivityFeed id="activity-feed-demo"${compactAttr}></l-ActivityFeed>
+    js: `<l-activity-feed id="activity-feed-demo"${compactAttr}></l-activity-feed>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -73,7 +73,7 @@ ${itemsCode}
   ];
 </script>`,
     vue: `<template>
-  <l-ActivityFeed :items="items"${compactAttr} />
+  <l-activity-feed :items="items"${compactAttr} />
 </template>
 
 <script setup lang="ts">
@@ -81,7 +81,7 @@ const items = [
 ${itemsCode}
 ];
 </script>`,
-    angular: `<l-ActivityFeed [items]="items"${compactAttr} />
+    angular: `<l-activity-feed [items]="items"${compactAttr} />
 
 items = [
 ${itemsCode}

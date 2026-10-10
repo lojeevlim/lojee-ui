@@ -90,10 +90,10 @@ export default function ToastShowcase() {
 <Toast open={open} onClose={() => setOpen(false)} variant="success" title="Success">
   This is a success toast notification.
 </Toast>`,
-              js: `<l-Button label="Success" id="open-toast-btn"></l-Button>
-<l-Toast id="success-toast" variant="success" title="Success">
+              js: `<l-button label="Success" id="open-toast-btn"></l-button>
+<l-toast id="success-toast" variant="success" title="Success">
   This is a success toast notification.
-</l-Toast>
+</l-toast>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -104,10 +104,10 @@ export default function ToastShowcase() {
   toast.addEventListener("close", () => { toast.open = false; });
 </script>`,
               vue: `<template>
-  <l-Button label="Success" @click="open = true" />
-  <l-Toast :open="open" variant="success" title="Success" @close="open = false">
+  <l-button label="Success" @click="open = true" />
+  <l-toast :open="open" variant="success" title="Success" @close="open = false">
     This is a success toast notification.
-  </l-Toast>
+  </l-toast>
 </template>
 
 <script setup lang="ts">
@@ -117,10 +117,10 @@ import "lojee-ui/elements";
 const open = ref(false);
 </script>`,
               angular: `<!-- app.component.html -->
-<l-Button label="Success" (click)="open = true" />
-<l-Toast [open]="open" variant="success" title="Success" (close)="open = false">
+<l-button label="Success" (click)="open = true" />
+<l-toast [open]="open" variant="success" title="Success" (close)="open = false">
   This is a success toast notification.
-</l-Toast>`,
+</l-toast>`,
             }}
           />
         </section>
@@ -154,20 +154,20 @@ const open = ref(false);
               react: `<Toast open={open} onClose={() => setOpen(false)} position="top-center" title="Positioned toast">
   Anchored to top-center.
 </Toast>`,
-              js: `<l-Toast id="positioned-toast" position="top-center" title="Positioned toast">
+              js: `<l-toast id="positioned-toast" position="top-center" title="Positioned toast">
   Anchored to top-center.
-</l-Toast>
+</l-toast>
 
 <script type="module">
   const toast = document.getElementById("positioned-toast");
   toast.addEventListener("close", () => { toast.open = false; });
 </script>`,
-              vue: `<l-Toast :open="open" position="top-center" title="Positioned toast" @close="open = false">
+              vue: `<l-toast :open="open" position="top-center" title="Positioned toast" @close="open = false">
   Anchored to top-center.
-</l-Toast>`,
-              angular: `<l-Toast [open]="open" position="top-center" title="Positioned toast" (close)="open = false">
+</l-toast>`,
+              angular: `<l-toast [open]="open" position="top-center" title="Positioned toast" (close)="open = false">
   Anchored to top-center.
-</l-Toast>`,
+</l-toast>`,
             }}
           />
         </section>
@@ -191,20 +191,20 @@ const open = ref(false);
               react: `<Toast open={open} onClose={() => setOpen(false)} variant="warning" title="Action required" duration={0}>
   This toast stays open until you dismiss it.
 </Toast>`,
-              js: `<l-Toast id="persistent-toast" variant="warning" title="Action required" duration="0">
+              js: `<l-toast id="persistent-toast" variant="warning" title="Action required" duration="0">
   This toast stays open until you dismiss it.
-</l-Toast>
+</l-toast>
 
 <script type="module">
   const toast = document.getElementById("persistent-toast");
   toast.addEventListener("close", () => { toast.open = false; });
 </script>`,
-              vue: `<l-Toast :open="open" variant="warning" title="Action required" :duration="0" @close="open = false">
+              vue: `<l-toast :open="open" variant="warning" title="Action required" :duration="0" @close="open = false">
   This toast stays open until you dismiss it.
-</l-Toast>`,
-              angular: `<l-Toast [open]="open" variant="warning" title="Action required" [duration]="0" (close)="open = false">
+</l-toast>`,
+              angular: `<l-toast [open]="open" variant="warning" title="Action required" [duration]="0" (close)="open = false">
   This toast stays open until you dismiss it.
-</l-Toast>`,
+</l-toast>`,
             }}
           />
         </section>
@@ -243,10 +243,10 @@ const open = ref(false);
 <Toast open={open} onClose={() => setOpen(false)} variant="success" title="Saved" ${trReact}>
   Your changes have been saved.
 </Toast>`,
-              js: `<l-Button label="Show toast" id="open-tr-btn"></l-Button>
-<l-Toast id="tr-overlay" variant="success" title="Saved" ${trHtml}>
+              js: `<l-button label="Show toast" id="open-tr-btn"></l-button>
+<l-toast id="tr-overlay" variant="success" title="Saved" ${trHtml}>
   Your changes have been saved.
-</l-Toast>
+</l-toast>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -257,10 +257,10 @@ const open = ref(false);
   overlay.addEventListener("close", () => { overlay.open = false; });
 </script>`,
               vue: `<template>
-  <l-Button label="Show toast" @click="open = true"></l-Button>
-  <l-Toast :open="open" variant="success" title="Saved" ${trHtml} @close="open = false">
+  <l-button label="Show toast" @click="open = true"></l-button>
+  <l-toast :open="open" variant="success" title="Saved" ${trHtml} @close="open = false">
     Your changes have been saved.
-  </l-Toast>
+  </l-toast>
 </template>
 
 <script setup lang="ts">
@@ -278,10 +278,10 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Button label="Show toast" (click)="open = true"></l-Button>
-    <l-Toast [open]="open" variant="success" title="Saved" ${trHtml} (close)="open = false">
+    <l-button label="Show toast" (click)="open = true"></l-button>
+    <l-toast [open]="open" variant="success" title="Saved" ${trHtml} (close)="open = false">
       Your changes have been saved.
-    </l-Toast>
+    </l-toast>
   \`,
 })
 export class AppComponent {

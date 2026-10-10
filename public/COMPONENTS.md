@@ -659,9 +659,9 @@ Minimal use in each target (from the first docs example, *Variants*):
 ```
 **Plain HTML / JavaScript**
 ```html
-<l-Badge variant="solid" label="Solid"></l-Badge>
-<l-Badge variant="outline" label="Outline"></l-Badge>
-<l-Badge variant="soft" label="Soft"></l-Badge>
+<l-badge variant="solid" label="Solid"></l-badge>
+<l-badge variant="outline" label="Outline"></l-badge>
+<l-badge variant="soft" label="Soft"></l-badge>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -862,7 +862,7 @@ Minimal use in each target (from the first docs example, *Sizes*):
 ```
 **Plain HTML / JavaScript**
 ```html
-<l-Avatar size="md" initials="AB" color="indigo"></l-Avatar>
+<l-avatar size="md" initials="AB" color="indigo"></l-avatar>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -1118,7 +1118,7 @@ Minimal use in each target (from the first docs example, *Sizes*):
 ```
 **Plain HTML / JavaScript**
 ```html
-<l-Spinner size="md"></l-Spinner>
+<l-spinner size="md"></l-spinner>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -1285,7 +1285,7 @@ Minimal use in each target (from the first docs example, *Plain*):
 ```
 **Plain HTML / JavaScript**
 ```html
-<l-Divider ></l-Divider>
+<l-divider ></l-divider>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -1473,11 +1473,11 @@ Minimal use in each target (from the first docs example, *Variants*):
 ```
 **Plain HTML / JavaScript**
 ```html
-<l-Card variant="outline">Outline</l-Card>
-<l-Card variant="elevated">Elevated</l-Card>
-<l-Card variant="soft">Soft</l-Card>
-<l-Card variant="ghost">Ghost</l-Card>
-<l-Card variant="glass">Glass</l-Card>
+<l-card variant="outline">Outline</l-card>
+<l-card variant="elevated">Elevated</l-card>
+<l-card variant="soft">Soft</l-card>
+<l-card variant="ghost">Ghost</l-card>
+<l-card variant="glass">Glass</l-card>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -1647,11 +1647,11 @@ Minimal use in each target (from the first docs example, *Sizes*):
 ```
 **Plain HTML / JavaScript**
 ```html
-<l-Container size="sm">...</l-Container>
-<l-Container size="md">...</l-Container>
-<l-Container size="lg">...</l-Container>
-<l-Container size="xl">...</l-Container>
-<l-Container size="full">...</l-Container>
+<l-container size="sm">...</l-container>
+<l-container size="md">...</l-container>
+<l-container size="lg">...</l-container>
+<l-container size="xl">...</l-container>
+<l-container size="full">...</l-container>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -1796,9 +1796,9 @@ Minimal use in each target (from the first docs example, *Spacing*):
 ```
 **Plain HTML / JavaScript**
 ```html
-<l-Section spacing="sm">...</l-Section>
-<l-Section spacing="md">...</l-Section>
-<l-Section spacing="lg">...</l-Section>
+<l-section spacing="sm">...</l-section>
+<l-section spacing="md">...</l-section>
+<l-section spacing="lg">...</l-section>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -1941,11 +1941,11 @@ Minimal use in each target (from the first docs example, *Columns*):
 ```
 **Plain HTML / JavaScript**
 ```html
-<l-Grid cols="3">
+<l-grid cols="3">
   <div>Item 1</div>
   <div>Item 2</div>
   <div>Item 3</div>
-</l-Grid>
+</l-grid>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -2134,7 +2134,7 @@ Minimal use in each target (from the first docs example, *Plain*):
 ```
 **Plain HTML / JavaScript**
 ```html
-<l-List variant="plain" items='["Overview","Settings","Billing"]'></l-List>
+<l-list variant="plain" items='["Overview","Settings","Billing"]'></l-list>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -2338,12 +2338,12 @@ Minimal use in each target (from the first docs example, *Standalone item*):
 ```
 **Plain HTML / JavaScript**
 ```html
-<l-Accordion>
-  <l-AccordionItem title="What is lojee-ui?" defaultOpen>
+<l-accordion>
+  <l-accordion-item title="What is lojee-ui?" defaultOpen>
     A React + TypeScript + Tailwind component library that also ships as
     framework-agnostic Web Components.
-  </l-AccordionItem>
-</l-Accordion>
+  </l-accordion-item>
+</l-accordion>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -2542,7 +2542,7 @@ Minimal use in each target (from the first docs example, *Basic*):
 ```
 **Plain HTML / JavaScript**
 ```html
-<l-Carousel id="basic-carousel"></l-Carousel>
+<l-carousel id="basic-carousel"></l-carousel>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -2747,7 +2747,7 @@ Minimal use in each target (from the first docs example, *Basic*):
 ```
 **Plain HTML / JavaScript**
 ```html
-<l-Image src="/photos/landscape.jpg" alt="A mountain lake at sunrise"></l-Image>
+<l-image src="/photos/landscape.jpg" alt="A mountain lake at sunrise"></l-image>
 
 <script type="module">import "lojee-ui/elements";</script>
 ```
@@ -2933,7 +2933,7 @@ Minimal use in each target (from the first docs example, *Basic*):
 ```
 **Plain HTML / JavaScript**
 ```html
-<l-Video src="/media/intro.mp4" label="Product intro"></l-Video>
+<l-video src="/media/intro.mp4" label="Product intro"></l-video>
 
 <script type="module">import "lojee-ui/elements";</script>
 ```
@@ -3548,9 +3548,9 @@ Minimal use in each target (from the first docs example, *Sizes*):
 ```
 **Plain HTML / JavaScript**
 ```html
-<l-Input size="sm" placeholder="Small"></l-Input>
-<l-Input size="md" placeholder="Medium"></l-Input>
-<l-Input size="lg" placeholder="Large"></l-Input>
+<l-input size="sm" placeholder="Small"></l-input>
+<l-input size="md" placeholder="Medium"></l-input>
+<l-input size="lg" placeholder="Large"></l-input>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -3750,7 +3750,7 @@ Minimal use in each target (from the first docs example, *Basic*):
 ```
 **Plain HTML / JavaScript**
 ```html
-<l-Textarea placeholder="Write something…"></l-Textarea>
+<l-textarea placeholder="Write something…"></l-textarea>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -3923,8 +3923,8 @@ Minimal use in each target (from the first docs example, *Plain*):
 ```
 **Plain HTML / JavaScript**
 ```html
-<l-Label htmlFor="email">Email address</l-Label>
-<l-Input id="email" placeholder="you@example.com"></l-Input>
+<l-label htmlFor="email">Email address</l-label>
+<l-input id="email" placeholder="you@example.com"></l-input>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -4101,8 +4101,8 @@ Minimal use in each target (from the first docs example, *Default*):
 ```
 **Plain HTML / JavaScript**
 ```html
-<l-Checkbox ></l-Checkbox>
-<l-Checkbox defaultChecked></l-Checkbox>
+<l-checkbox ></l-checkbox>
+<l-checkbox defaultChecked></l-checkbox>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -4325,11 +4325,11 @@ Minimal use in each target (from the first docs example, *Vertical group*):
 ```
 **Plain HTML / JavaScript**
 ```html
-<l-RadioGroup>
-  <l-Radio name="plan" label="Free" defaultChecked></l-Radio>
-  <l-Radio name="plan" label="Pro"></l-Radio>
-  <l-Radio name="plan" label="Enterprise"></l-Radio>
-</l-RadioGroup>
+<l-radio-group>
+  <l-radio name="plan" label="Free" defaultChecked></l-radio>
+  <l-radio name="plan" label="Pro"></l-radio>
+  <l-radio name="plan" label="Enterprise"></l-radio>
+</l-radio-group>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -4545,8 +4545,8 @@ Minimal use in each target (from the first docs example, *Default*):
 ```
 **Plain HTML / JavaScript**
 ```html
-<l-Switch ></l-Switch>
-<l-Switch defaultChecked></l-Switch>
+<l-switch ></l-switch>
+<l-switch defaultChecked></l-switch>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -4731,7 +4731,7 @@ Minimal use in each target (from the first docs example, *Placeholder*):
 ```
 **Plain HTML / JavaScript**
 ```html
-<l-Select id="fruit-select" placeholder="Choose a fruit"></l-Select>
+<l-select id="fruit-select" placeholder="Choose a fruit"></l-select>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -4904,7 +4904,7 @@ const [value, setValue] = useState<string[]>(["banana"]);
 ```
 **Plain HTML / JavaScript**
 ```html
-<l-MultiSelect id="fruit-select" placeholder="Select fruits..."></l-MultiSelect>
+<l-multi-select id="fruit-select" placeholder="Select fruits..."></l-multi-select>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -5084,7 +5084,7 @@ const [value, setValue] = useState<string | undefined>("manila");
 ```
 **Plain HTML / JavaScript**
 ```html
-<l-Combobox id="city-combobox" placeholder="Search a city..."></l-Combobox>
+<l-combobox id="city-combobox" placeholder="Search a city..."></l-combobox>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -5323,7 +5323,7 @@ Minimal use in each target (from the first docs example, *Basic*):
 ```
 **Plain HTML / JavaScript**
 ```html
-<l-DatePicker ></l-DatePicker>
+<l-date-picker ></l-date-picker>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -5504,7 +5504,7 @@ Minimal use in each target (from the first docs example, *Basic*):
 ```
 **Plain HTML / JavaScript**
 ```html
-<l-TimePicker ></l-TimePicker>
+<l-time-picker ></l-time-picker>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -5683,7 +5683,7 @@ Minimal use in each target (from the first docs example, *Default*):
 ```
 **Plain HTML / JavaScript**
 ```html
-<l-FileUpload id="file-upload"></l-FileUpload>
+<l-file-upload id="file-upload"></l-file-upload>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -5873,7 +5873,7 @@ const [query, setQuery] = useState("");
 ```
 **Plain HTML / JavaScript**
 ```html
-<l-SearchInput id="search" placeholder="Search…"></l-SearchInput>
+<l-search-input id="search" placeholder="Search…"></l-search-input>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -6080,7 +6080,7 @@ const [password, setPassword] = useState("");
 ```
 **Plain HTML / JavaScript**
 ```html
-<l-PasswordInput id="password" placeholder="Password"></l-PasswordInput>
+<l-password-input id="password" placeholder="Password"></l-password-input>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -6286,7 +6286,7 @@ Minimal use in each target (from the first docs example, *Basic*):
 ```
 **Plain HTML / JavaScript**
 ```html
-<l-Slider value="40"></l-Slider>
+<l-slider value="40"></l-slider>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -6470,7 +6470,7 @@ const [value, setValue] = useState<[number, number]>([20, 70]);
 ```
 **Plain HTML / JavaScript**
 ```html
-<l-RangeSlider id="range"></l-RangeSlider>
+<l-range-slider id="range"></l-range-slider>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -7493,10 +7493,10 @@ const [open, setOpen] = useState(false);
 ```
 **Plain HTML / JavaScript**
 ```html
-<l-Button label="Open ${position} drawer" id="open-drawer-btn"></l-Button>
-<l-Drawer id="edge-drawer" position="${position}" heading="${position} drawer">
+<l-button label="Open ${position} drawer" id="open-drawer-btn"></l-button>
+<l-drawer id="edge-drawer" position="${position}" heading="${position} drawer">
   <p>This drawer slid in from the ${position} edge.</p>
-</l-Drawer>
+</l-drawer>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -7662,10 +7662,10 @@ const [open, setOpen] = useState(false);
 ```
 **Plain HTML / JavaScript**
 ```html
-<l-Button label="Open sheet" id="open-sheet-btn"></l-Button>
-<l-Sheet id="basic-sheet" heading="Sheet title">
+<l-button label="Open sheet" id="open-sheet-btn"></l-button>
+<l-sheet id="basic-sheet" heading="Sheet title">
   <p>This is a basic bottom sheet.</p>
-</l-Sheet>
+</l-sheet>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -7828,9 +7828,9 @@ Minimal use in each target (from the first docs example, *Positions*):
 ```
 **Plain HTML / JavaScript**
 ```html
-<l-Popover content="Popover on top" position="top">
-  <l-Button variant="outline" label="Top"></l-Button>
-</l-Popover>
+<l-popover content="Popover on top" position="top">
+  <l-button variant="outline" label="Top"></l-button>
+</l-popover>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -8035,12 +8035,12 @@ Minimal use in each target (from the first docs example, *Basic menu*):
 ```
 **Plain HTML / JavaScript**
 ```html
-<l-DropdownMenu id="actions-menu">
-  <l-Button slot="trigger" variant="outline" icon="more-horizontal" iconOnly label="Actions"></l-Button>
-  <l-DropdownMenuItem icon="pencil" id="edit-item">Edit</l-DropdownMenuItem>
-  <l-DropdownMenuItem icon="copy" id="duplicate-item">Duplicate</l-DropdownMenuItem>
-  <l-DropdownMenuItem icon="trash-2" danger id="delete-item">Delete</l-DropdownMenuItem>
-</l-DropdownMenu>
+<l-dropdown-menu id="actions-menu">
+  <l-button slot="trigger" variant="outline" icon="more-horizontal" iconOnly label="Actions"></l-button>
+  <l-dropdown-menu-item icon="pencil" id="edit-item">Edit</l-dropdown-menu-item>
+  <l-dropdown-menu-item icon="copy" id="duplicate-item">Duplicate</l-dropdown-menu-item>
+  <l-dropdown-menu-item icon="trash-2" danger id="delete-item">Delete</l-dropdown-menu-item>
+</l-dropdown-menu>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -8229,14 +8229,14 @@ Minimal use in each target (from the first docs example, *Basic usage*):
 ```
 **Plain HTML / JavaScript**
 ```html
-<l-ContextMenu>
+<l-context-menu>
   <div slot="menu">
-    <l-DropdownMenuItem icon="copy" id="copy-item">Copy</l-DropdownMenuItem>
-    <l-DropdownMenuItem icon="pencil" id="rename-item">Rename</l-DropdownMenuItem>
-    <l-DropdownMenuItem icon="trash-2" danger id="delete-item">Delete</l-DropdownMenuItem>
+    <l-dropdown-menu-item icon="copy" id="copy-item">Copy</l-dropdown-menu-item>
+    <l-dropdown-menu-item icon="pencil" id="rename-item">Rename</l-dropdown-menu-item>
+    <l-dropdown-menu-item icon="trash-2" danger id="delete-item">Delete</l-dropdown-menu-item>
   </div>
   <div>Right-click here</div>
-</l-ContextMenu>
+</l-context-menu>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -8431,7 +8431,7 @@ const items: CommandMenuItem[] = [
 **Plain HTML / JavaScript**
 ```html
 <button id="open-command-menu-btn">Search commands…</button>
-<l-CommandMenu id="cmd-menu"></l-CommandMenu>
+<l-command-menu id="cmd-menu"></l-command-menu>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -8625,11 +8625,11 @@ const [open, setOpen] = useState(false);
 ```
 **Plain HTML / JavaScript**
 ```html
-<l-Button label="Open confirmation" id="open-confirm-btn"></l-Button>
-<l-AlertDialog
+<l-button label="Open confirmation" id="open-confirm-btn"></l-button>
+<l-alert-dialog
   id="save-dialog"
   heading="Save changes?"
-  description="Your changes will be applied immediately."></l-AlertDialog>
+  description="Your changes will be applied immediately."></l-alert-dialog>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -8834,9 +8834,9 @@ Minimal use in each target (from the first docs example, *Positions*):
 ```
 **Plain HTML / JavaScript**
 ```html
-<l-Tooltip content="Tooltip on top" position="top">
-  <l-Button variant="outline" label="Top"></l-Button>
-</l-Tooltip>
+<l-tooltip content="Tooltip on top" position="top">
+  <l-button variant="outline" label="Top"></l-button>
+</l-tooltip>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -9038,10 +9038,10 @@ Minimal use in each target (from the first docs example, *Variants*):
 ```
 **Plain HTML / JavaScript**
 ```html
-<l-Alert variant="info" title="Heads up">This is an informational message.</l-Alert>
-<l-Alert variant="success" title="Saved">Your changes have been saved.</l-Alert>
-<l-Alert variant="warning" title="Careful">This action may have unintended side effects.</l-Alert>
-<l-Alert variant="error" title="Something went wrong">We couldn't process your request. Please try again.</l-Alert>
+<l-alert variant="info" title="Heads up">This is an informational message.</l-alert>
+<l-alert variant="success" title="Saved">Your changes have been saved.</l-alert>
+<l-alert variant="warning" title="Careful">This action may have unintended side effects.</l-alert>
+<l-alert variant="error" title="Something went wrong">We couldn't process your request. Please try again.</l-alert>
 
 <script type="module">import "lojee-ui/elements";</script>
 ```
@@ -9242,10 +9242,10 @@ const [open, setOpen] = useState(false);
 ```
 **Plain HTML / JavaScript**
 ```html
-<l-Button label="Success" id="open-toast-btn"></l-Button>
-<l-Toast id="success-toast" variant="success" title="Success">
+<l-button label="Success" id="open-toast-btn"></l-button>
+<l-toast id="success-toast" variant="success" title="Success">
   This is a success toast notification.
-</l-Toast>
+</l-toast>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -9416,9 +9416,9 @@ Minimal use in each target (from the first docs example, *Basic*):
 ```
 **Plain HTML / JavaScript**
 ```html
-<l-Notification title="New comment" icon="mail">
+<l-notification title="New comment" icon="mail">
   Alex left a comment on your document.
-</l-Notification>
+</l-notification>
 
 <script type="module">import "lojee-ui/elements";</script>
 ```
@@ -9724,9 +9724,9 @@ Minimal use in each target (from the first docs example, *Sizes*):
 ```
 **Plain HTML / JavaScript**
 ```html
-<l-ProgressBar value="40" size="sm"></l-ProgressBar>
-<l-ProgressBar value="60" size="md"></l-ProgressBar>
-<l-ProgressBar value="80" size="lg"></l-ProgressBar>
+<l-progress-bar value="40" size="sm"></l-progress-bar>
+<l-progress-bar value="60" size="md"></l-progress-bar>
+<l-progress-bar value="80" size="lg"></l-progress-bar>
 
 <script type="module">import "lojee-ui/elements";</script>
 ```
@@ -9887,7 +9887,7 @@ Minimal use in each target (from the first docs example, *Basic*):
 ```
 **Plain HTML / JavaScript**
 ```html
-<l-EmptyState title="No items yet"></l-EmptyState>
+<l-empty-state title="No items yet"></l-empty-state>
 
 <script type="module">import "lojee-ui/elements";</script>
 ```
@@ -10055,7 +10055,7 @@ Minimal use in each target (from the first docs example, *Basic*):
 ```
 **Plain HTML / JavaScript**
 ```html
-<l-ErrorState ></l-ErrorState>
+<l-error-state ></l-error-state>
 
 <script type="module">import "lojee-ui/elements";</script>
 ```
@@ -10221,7 +10221,7 @@ Minimal use in each target (from the first docs example, *Basic*):
 ```
 **Plain HTML / JavaScript**
 ```html
-<l-SuccessState ></l-SuccessState>
+<l-success-state ></l-success-state>
 
 <script type="module">import "lojee-ui/elements";</script>
 ```
@@ -10388,7 +10388,7 @@ Minimal use in each target (from the first docs example, *Basic*):
 ```
 **Plain HTML / JavaScript**
 ```html
-<l-LoadingState ></l-LoadingState>
+<l-loading-state ></l-loading-state>
 
 <script type="module">import "lojee-ui/elements";</script>
 ```
@@ -10765,11 +10765,11 @@ Minimal use in each target (from the first docs example, *Basic*):
 ```
 **Plain HTML / JavaScript**
 ```html
-<l-Navbar id="basic-navbar" brand="App">
+<l-navbar id="basic-navbar" brand="App">
   <div slot="actions">
-    <l-Avatar initials="JD" size="sm"></l-Avatar>
+    <l-avatar initials="JD" size="sm"></l-avatar>
   </div>
-</l-Navbar>
+</l-navbar>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -11112,7 +11112,7 @@ Minimal use in each target (from the first docs example, *Basic*):
 ```
 **Plain HTML / JavaScript**
 ```html
-<l-Sidebar id="basic-sidebar"></l-Sidebar>
+<l-sidebar id="basic-sidebar"></l-sidebar>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -11609,7 +11609,7 @@ Minimal use in each target (from the first docs example, *Basic*):
 ```
 **Plain HTML / JavaScript**
 ```html
-<l-Header heading="Team settings" description="Manage members, roles, and billing for your workspace."></l-Header>
+<l-header heading="Team settings" description="Manage members, roles, and billing for your workspace."></l-header>
 
 <script type="module">import "lojee-ui/elements";</script>
 ```
@@ -11799,10 +11799,10 @@ Minimal use in each target (from the first docs example, *Basic*):
 ```
 **Plain HTML / JavaScript**
 ```html
-<l-Footer bottom="${COPY}">
+<l-footer bottom="${COPY}">
   <h4>Lojee</h4>
   <p>Build interfaces faster with a small, themeable component library.</p>
-</l-Footer>
+</l-footer>
 
 <script type="module">import "lojee-ui/elements";</script>
 ```
@@ -11826,10 +11826,22 @@ Some text above a copyright line.
 Pick the fill with color — any built-in color (accent follows the theme) or a custom CSS color such as #7c3aed. Without it the footer is a soft neutral surface.
 
 ```tsx
-<Footer bottom="${COPY}">Lojee</Footer>
-<Footer color="accent" bottom="${COPY}">Lojee</Footer>
-<Footer color="emerald" bottom="${COPY}">Lojee</Footer>
-<Footer color="#7c3aed" bottom="${COPY}">Lojee</Footer>
+<Footer bottom="${COPY}">
+  <h4>Lojee</h4>
+  <p>Build interfaces faster with a small, themeable component library.</p>
+</Footer>
+<Footer color="accent" bottom="${COPY}">
+  <h4>Lojee</h4>
+  <p>Build interfaces faster with a small, themeable component library.</p>
+</Footer>
+<Footer color="emerald" bottom="${COPY}">
+  <h4>Lojee</h4>
+  <p>Build interfaces faster with a small, themeable component library.</p>
+</Footer>
+<Footer color="#7c3aed" bottom="${COPY}">
+  <h4>Lojee</h4>
+  <p>Build interfaces faster with a small, themeable component library.</p>
+</Footer>
 ```
 
 #### Bottom bar only
@@ -11976,7 +11988,7 @@ Minimal use in each target (from the first docs example, *Basic*):
 ```
 **Plain HTML / JavaScript**
 ```html
-<l-NavigationMenu id="nav-menu-basic"></l-NavigationMenu>
+<l-navigation-menu id="nav-menu-basic"></l-navigation-menu>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -12205,7 +12217,7 @@ Minimal use in each target (from the first docs example, *Basic*):
 ```
 **Plain HTML / JavaScript**
 ```html
-<l-BottomNavigation id="bottom-nav-basic"></l-BottomNavigation>
+<l-bottom-navigation id="bottom-nav-basic"></l-bottom-navigation>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -12415,7 +12427,7 @@ Minimal use in each target (from the first docs example, *Basic*):
 ```
 **Plain HTML / JavaScript**
 ```html
-<l-Tabs id="basic-tabs"></l-Tabs>
+<l-tabs id="basic-tabs"></l-tabs>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -12653,7 +12665,7 @@ Minimal use in each target (from the first docs example, *Basic*):
 ```
 **Plain HTML / JavaScript**
 ```html
-<l-Stepper id="stepper-basic" current-step="2"></l-Stepper>
+<l-stepper id="stepper-basic" current-step="2"></l-stepper>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -12912,10 +12924,10 @@ Minimal use in each target (from the first docs example, *Basic*):
 ```
 **Plain HTML / JavaScript**
 ```html
-<l-Breadcrumbs>
-  <l-BreadcrumbItem href="/">Home</l-BreadcrumbItem>
-  <l-BreadcrumbItem>Settings</l-BreadcrumbItem>
-</l-Breadcrumbs>
+<l-breadcrumbs>
+  <l-breadcrumb-item href="/">Home</l-breadcrumb-item>
+  <l-breadcrumb-item>Settings</l-breadcrumb-item>
+</l-breadcrumbs>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -13124,7 +13136,7 @@ const [page, setPage] = useState(1);
 ```
 **Plain HTML / JavaScript**
 ```html
-<l-Pagination id="basic-pagination" totalPages="5"></l-Pagination>
+<l-pagination id="basic-pagination" totalPages="5"></l-pagination>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -13233,6 +13245,8 @@ The page area of an App: a rounded surface that follows the light/dark theme, fl
 | `children` | `ReactNode` | — | — |
 | `className` | `string` | — | Extra class names for the panel, e.g. `p-0` or `rounded-none` to override a default. |
 | `padding` | `MainPadding` | `"md"` | Space between the panel's edge and its content, on all four sides: "none" \| "sm" (24px) \| "md" (32px) \| "lg" (48px) \| "xl" (80px) (default: "md"). |
+| `margin` | `MainMargin` | `"md"` | Space between the panel and the App's edges: "none" \| "sm" (4px) \| "md" (8px, 12px from the md breakpoint) \| "lg" (16px, 24px) \| "xl" (24px, 40px) (default: "md"). |
+| `rounded` | `MainRounded` | `"xl"` | Corner radius of the panel: "none" \| "sm" \| "md" \| "lg" \| "xl" \| "2xl" \| "3xl" (default: "xl"). |
 
 ### Main · 3. Events
 
@@ -13281,15 +13295,15 @@ Minimal use in each target (from the first docs example, *Basic*):
 ```
 **Plain HTML / JavaScript**
 ```html
-<l-Theme-Provider default-mode="light">
-  <l-App>
-    <l-Top>…</l-Top>
-    <l-Side>…</l-Side>
-    <l-Main>
+<l-theme-provider default-mode="light">
+  <l-app>
+    <l-top>…</l-top>
+    <l-side>…</l-side>
+    <l-main>
       <my-dashboard></my-dashboard>
-    </l-Main>
-  </l-App>
-</l-Theme-Provider>
+    </l-main>
+  </l-app>
+</l-theme-provider>
 
 <script type="module">import "lojee-ui/elements";</script>
 ```
@@ -13317,6 +13331,18 @@ The built-in look: rounded corners, a theme-aware background, and an inset from 
 <Main padding="lg">…</Main>
 ```
 
+#### Margin
+
+```tsx
+<Main margin="lg">…</Main>
+```
+
+#### Rounded
+
+```tsx
+<Main rounded="3xl">…</Main>
+```
+
 #### Overriding the defaults
 
 Every default is overridable with a class: drop the panel look for a page that wants the bare background, or change the radius.
@@ -13333,7 +13359,7 @@ Every default is overridable with a class: drop the panel look for a page that w
 ### Main · 12. Accessibility
 
 - ARIA roles used: none beyond native element semantics.
-- ARIA attributes set by the component: none.
+- ARIA attributes set by the component: `aria-hidden`.
 - Keyboard: native keyboard behavior of the underlying element (Tab to focus, Enter / Space to activate).
 - Focus: uses the browser focus outline / the underlying control's ring.
 - Motion: inherits the library's reduced-motion handling for transitions.
@@ -13590,7 +13616,7 @@ Minimal use in each target (from the first docs example, *Basic*):
 ```
 **Plain HTML / JavaScript**
 ```html
-<l-Theme-Switcher></l-Theme-Switcher>
+<l-theme-switcher></l-theme-switcher>
 
 <script type="module">import "lojee-ui/elements";</script>
 ```
@@ -13984,7 +14010,7 @@ const columns = [
 ```
 **Plain HTML / JavaScript**
 ```html
-<l-Table variant="lined" id="basic-table"></l-Table>
+<l-table variant="lined" id="basic-table"></l-table>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -14209,7 +14235,7 @@ const items = ${ITEMS_CODE};\n\nconst sortOptions = ${SORT_CODE};\n\n<GridView i
 ```
 **Plain HTML / JavaScript**
 ```html
-<l-GridView id="docs" search-placeholder="Search documents"></l-GridView>\n\n<script type="module">\n  import "lojee-ui/elements";\n\n  const el = document.getElementById("docs");\n  el.items = ${ITEMS_CODE.replace(/\n/g, "\n  ")};\n  el.sortOptions = ${SORT_CODE.replace(/\n/g, "\n  ")};\n</script>
+<l-grid-view id="docs" search-placeholder="Search documents"></l-grid-view>\n\n<script type="module">\n  import "lojee-ui/elements";\n\n  const el = document.getElementById("docs");\n  el.items = ${ITEMS_CODE.replace(/\n/g, "\n  ")};\n  el.sortOptions = ${SORT_CODE.replace(/\n/g, "\n  ")};\n</script>
 ```
 Vue and Angular use the same `<l-*>` tag and attributes — see the framework templates in §1.3.
 
@@ -14355,7 +14381,7 @@ Minimal use in each target (from the first docs example, *Basic*):
 ```
 **Plain HTML / JavaScript**
 ```html
-<l-Timeline id="timeline-basic"></l-Timeline>
+<l-timeline id="timeline-basic"></l-timeline>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -14558,10 +14584,10 @@ Minimal use in each target (from the first docs example, *Count up*):
 ```
 **Plain HTML / JavaScript**
 ```html
-<l-Stat label="Revenue" value="$48,290" icon="zap" count-up></l-Stat>
-<l-Stat label="Active Users" value="12,483" icon="users" count-up></l-Stat>
-<l-Stat label="Conversion Rate" value="3.42%" icon="activity" count-up count-up-duration="2000"></l-Stat>
-<l-Stat label="Uptime" value="99.9%" icon="clock" count-up></l-Stat>
+<l-stat label="Revenue" value="$48,290" icon="zap" count-up></l-stat>
+<l-stat label="Active Users" value="12,483" icon="users" count-up></l-stat>
+<l-stat label="Conversion Rate" value="3.42%" icon="activity" count-up count-up-duration="2000"></l-stat>
+<l-stat label="Uptime" value="99.9%" icon="clock" count-up></l-stat>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -14754,7 +14780,7 @@ ${REVENUE_CODE}
 ```
 **Plain HTML / JavaScript**
 ```html
-<l-Chart id="chart-bar" type="bar"></l-Chart>
+<l-chart id="chart-bar" type="bar"></l-chart>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -14972,7 +14998,7 @@ Minimal use in each target (from the first docs example, *Basic*):
 ```
 **Plain HTML / JavaScript**
 ```html
-<l-Calendar ></l-Calendar>
+<l-calendar ></l-calendar>
 
 <script type="module">import "lojee-ui/elements";</script>
 ```
@@ -15146,7 +15172,7 @@ ${BASIC_ITEMS_CODE}
 ```
 **Plain HTML / JavaScript**
 ```html
-<l-ActivityFeed id="activity-feed-basic"></l-ActivityFeed>
+<l-activity-feed id="activity-feed-basic"></l-activity-feed>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -15309,7 +15335,7 @@ Minimal use in each target (from the first docs example, *Basic*):
 ```
 **Plain HTML / JavaScript**
 ```html
-<l-DetailsList id="events"></l-DetailsList>\n\n<script type="module">\n  import "lojee-ui/elements";\n\n  document.getElementById("events").items = ${lit(EVENTS)};\n</script>
+<l-details-list id="events"></l-details-list>\n\n<script type="module">\n  import "lojee-ui/elements";\n\n  document.getElementById("events").items = ${lit(EVENTS)};\n</script>
 ```
 Vue and Angular use the same `<l-*>` tag and attributes — see the framework templates in §1.3.
 
@@ -16259,11 +16285,11 @@ Minimal use in each target (from the first docs example, *Basic*):
 ```
 **Plain HTML / JavaScript**
 ```html
-<l-ProfileCard
+<l-profile-card
   name="Priya Nair"
   role="Product Designer at Lojee"
   bio="Building accessible, joyful interfaces. Previously at Figma and Notion."
-  avatarInitials="PN"></l-ProfileCard>
+  avatarInitials="PN"></l-profile-card>
 
 <script type="module">import "lojee-ui/elements";</script>
 ```
@@ -16467,7 +16493,7 @@ Minimal use in each target (from the first docs example, *Basic*):
 ```
 **Plain HTML / JavaScript**
 ```html
-<l-UserMenu id="user-menu" name="Jordan Diaz" email="jordan@lojee.io" avatarInitials="JD"></l-UserMenu>
+<l-user-menu id="user-menu" name="Jordan Diaz" email="jordan@lojee.io" avatarInitials="JD"></l-user-menu>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -16663,7 +16689,7 @@ const [values, setValues] = useState(null);
 ```
 **Plain HTML / JavaScript**
 ```html
-<l-LoginForm id="login"></l-LoginForm>
+<l-login-form id="login"></l-login-form>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -16830,7 +16856,7 @@ const [values, setValues] = useState(null);
 ```
 **Plain HTML / JavaScript**
 ```html
-<l-SignupForm id="signup"></l-SignupForm>
+<l-signup-form id="signup"></l-signup-form>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -17006,7 +17032,7 @@ const [notifications, setNotifications] = useState([
 ```
 **Plain HTML / JavaScript**
 ```html
-<l-AccountSettings id="account-settings" email="jordan@lojee.io"></l-AccountSettings>
+<l-account-settings id="account-settings" email="jordan@lojee.io"></l-account-settings>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -17170,7 +17196,7 @@ const [saved, setSaved] = useState(null);
 ```
 **Plain HTML / JavaScript**
 ```html
-<l-ProfileSettings id="profile-settings" avatarInitials="JD"></l-ProfileSettings>
+<l-profile-settings id="profile-settings" avatarInitials="JD"></l-profile-settings>
 
 <script type="module">
   import "lojee-ui/elements";

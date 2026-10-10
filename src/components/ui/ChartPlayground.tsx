@@ -58,7 +58,7 @@ export default function ChartPlayground() {
 ${SAMPLE_DATA_CODE}
   ]}
 />`,
-    js: `<l-Chart id="chart-demo"${typeAttr}${variantAttr}${colorAttr}${showLabelsAttrHtml}${countUpAttrHtml}${motion.attrs}></l-Chart>
+    js: `<l-chart id="chart-demo"${typeAttr}${variantAttr}${colorAttr}${showLabelsAttrHtml}${countUpAttrHtml}${motion.attrs}></l-chart>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -68,7 +68,7 @@ ${SAMPLE_DATA_CODE}
   ];
 </script>`,
     vue: `<template>
-  <l-Chart :data="data"${typeAttr}${variantAttr}${colorAttr}${showLabelsAttrHtml}${countUpAttrHtml}${motion.attrs} />
+  <l-chart :data="data"${typeAttr}${variantAttr}${colorAttr}${showLabelsAttrHtml}${countUpAttrHtml}${motion.attrs} />
 </template>
 
 <script setup lang="ts">
@@ -76,7 +76,7 @@ const data = [
 ${SAMPLE_DATA_CODE}
 ];
 </script>`,
-    angular: `<l-Chart [data]="data"${typeAttr}${variantAttr}${colorAttr}${showLabelsAttrHtml}${countUpAttrHtml}${motion.attrs} />
+    angular: `<l-chart [data]="data"${typeAttr}${variantAttr}${colorAttr}${showLabelsAttrHtml}${countUpAttrHtml}${motion.attrs} />
 
 data = [
 ${SAMPLE_DATA_CODE}

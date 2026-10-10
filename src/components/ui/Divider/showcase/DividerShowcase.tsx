@@ -25,13 +25,13 @@ export default function DividerShowcase() {
           <CodeBlock
             variants={{
               react: `<Divider />`,
-              js: `<l-Divider ></l-Divider>
+              js: `<l-divider ></l-divider>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-Divider />
+  <l-divider />
 </template>
 
 <script setup lang="ts">
@@ -45,7 +45,7 @@ import "lojee-ui/elements";
   selector: "app-divider-showcase",
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  template: \`<l-Divider />\`,
+  template: \`<l-divider />\`,
 })
 export class DividerShowcaseComponent {}`,
             }}
@@ -58,12 +58,12 @@ export class DividerShowcaseComponent {}`,
           <CodeBlock
             variants={{
               react: `<Divider label="OR" />`,
-              js: `<l-Divider label="OR"></l-Divider>`,
+              js: `<l-divider label="OR"></l-divider>`,
               vue: `<template>
-  <l-Divider label="OR" />
+  <l-divider label="OR" />
 </template>`,
               angular: `<!-- reuses DividerShowcaseComponent from above -->
-<l-Divider label="OR" />`,
+<l-divider label="OR" />`,
             }}
           />
         </section>
@@ -78,12 +78,12 @@ export class DividerShowcaseComponent {}`,
           <CodeBlock
             variants={{
               react: `<Divider orientation="vertical" />`,
-              js: `<l-Divider orientation="vertical"></l-Divider>`,
+              js: `<l-divider orientation="vertical"></l-divider>`,
               vue: `<template>
-  <l-Divider orientation="vertical" />
+  <l-divider orientation="vertical" />
 </template>`,
               angular: `<!-- reuses DividerShowcaseComponent from above -->
-<l-Divider orientation="vertical" />`,
+<l-divider orientation="vertical" />`,
             }}
           />
         </section>
@@ -97,12 +97,12 @@ export class DividerShowcaseComponent {}`,
           <CodeBlock
             variants={{
               react: `<Divider color="indigo" label="Indigo" />`,
-              js: `<l-Divider color="indigo" label="Indigo"></l-Divider>`,
+              js: `<l-divider color="indigo" label="Indigo"></l-divider>`,
               vue: `<template>
-  <l-Divider color="indigo" label="Indigo" />
+  <l-divider color="indigo" label="Indigo" />
 </template>`,
               angular: `<!-- reuses DividerShowcaseComponent from above -->
-<l-Divider color="indigo" label="Indigo" />`,
+<l-divider color="indigo" label="Indigo" />`,
             }}
           />
         </section>
@@ -150,7 +150,7 @@ export class DividerShowcaseComponent {}`,
 </div>`,
               js: `<div class="flex">
   <div id="left-panel" style="width: 180px">...</div>
-  <l-Divider id="resize-divider" orientation="vertical" resizable></l-Divider>
+  <l-divider id="resize-divider" orientation="vertical" resizable></l-divider>
   <div class="flex-1">...</div>
 </div>
 
@@ -164,7 +164,7 @@ export class DividerShowcaseComponent {}`,
               vue: `<template>
   <div class="flex">
     <div :style="{ width: leftWidth + 'px' }">...</div>
-    <l-Divider
+    <l-divider
       orientation="vertical"
       resizable
       @resize="leftWidth += $event.detail"
@@ -181,7 +181,7 @@ const leftWidth = ref(180);
               angular: `<!-- reuses DividerShowcaseComponent from above -->
 <div class="flex">
   <div [style.width.px]="leftWidth">...</div>
-  <l-Divider
+  <l-divider
     orientation="vertical"
     resizable
     (resize)="leftWidth = leftWidth + $event.detail"
@@ -217,11 +217,11 @@ const leftWidth = ref(180);
 <Divider orientation="vertical" resizable handleVariant="dots" />
 
 // handleVariant: "grip" (default) | "dots" | "arrows" | "circle" | "bar" | "pill"`,
-              js: `<l-Divider resizable="true" handleVariant="arrows"></l-Divider>
+              js: `<l-divider resizable="true" handleVariant="arrows"></l-divider>
 
 <script type="module">import "lojee-ui/elements";</script>`,
-              vue: `<l-Divider resizable="true" handleVariant="arrows" />`,
-              angular: `<l-Divider resizable="true" handleVariant="arrows"></l-Divider>`,
+              vue: `<l-divider resizable="true" handleVariant="arrows" />`,
+              angular: `<l-divider resizable="true" handleVariant="arrows"></l-divider>`,
             }}
           />
         </section>
@@ -249,29 +249,29 @@ const leftWidth = ref(180);
 <Divider label="blur" transition="blur" />
 <Divider label="bounce" transition="bounce" />
 <Divider label="drop" transition="drop" transitionDuration={700} />`,
-              js: `<l-Divider label="fade" transition="fade"></l-Divider>
-<l-Divider label="slide-up" transition="slide-up"></l-Divider>
-<l-Divider label="slide-right" transition="slide-right" transitionDelay="100"></l-Divider>
-<l-Divider label="zoom" transition="zoom"></l-Divider>
+              js: `<l-divider label="fade" transition="fade"></l-divider>
+<l-divider label="slide-up" transition="slide-up"></l-divider>
+<l-divider label="slide-right" transition="slide-right" transitionDelay="100"></l-divider>
+<l-divider label="zoom" transition="zoom"></l-divider>
 
-<l-Divider label="flip" transition="flip"></l-Divider>
-<l-Divider label="blur" transition="blur"></l-Divider>
-<l-Divider label="bounce" transition="bounce"></l-Divider>
-<l-Divider label="drop" transition="drop" transitionDuration="700"></l-Divider>
+<l-divider label="flip" transition="flip"></l-divider>
+<l-divider label="blur" transition="blur"></l-divider>
+<l-divider label="bounce" transition="bounce"></l-divider>
+<l-divider label="drop" transition="drop" transitionDuration="700"></l-divider>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-Divider label="fade" transition="fade"></l-Divider>
-  <l-Divider label="slide-up" transition="slide-up"></l-Divider>
-  <l-Divider label="slide-right" transition="slide-right" transitionDelay="100"></l-Divider>
-  <l-Divider label="zoom" transition="zoom"></l-Divider>
+  <l-divider label="fade" transition="fade"></l-divider>
+  <l-divider label="slide-up" transition="slide-up"></l-divider>
+  <l-divider label="slide-right" transition="slide-right" transitionDelay="100"></l-divider>
+  <l-divider label="zoom" transition="zoom"></l-divider>
 
-  <l-Divider label="flip" transition="flip"></l-Divider>
-  <l-Divider label="blur" transition="blur"></l-Divider>
-  <l-Divider label="bounce" transition="bounce"></l-Divider>
-  <l-Divider label="drop" transition="drop" transitionDuration="700"></l-Divider>
+  <l-divider label="flip" transition="flip"></l-divider>
+  <l-divider label="blur" transition="blur"></l-divider>
+  <l-divider label="bounce" transition="bounce"></l-divider>
+  <l-divider label="drop" transition="drop" transitionDuration="700"></l-divider>
 </template>
 
 <script setup lang="ts">
@@ -286,15 +286,15 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Divider label="fade" transition="fade"></l-Divider>
-    <l-Divider label="slide-up" transition="slide-up"></l-Divider>
-    <l-Divider label="slide-right" transition="slide-right" transitionDelay="100"></l-Divider>
-    <l-Divider label="zoom" transition="zoom"></l-Divider>
+    <l-divider label="fade" transition="fade"></l-divider>
+    <l-divider label="slide-up" transition="slide-up"></l-divider>
+    <l-divider label="slide-right" transition="slide-right" transitionDelay="100"></l-divider>
+    <l-divider label="zoom" transition="zoom"></l-divider>
 
-    <l-Divider label="flip" transition="flip"></l-Divider>
-    <l-Divider label="blur" transition="blur"></l-Divider>
-    <l-Divider label="bounce" transition="bounce"></l-Divider>
-    <l-Divider label="drop" transition="drop" transitionDuration="700"></l-Divider>
+    <l-divider label="flip" transition="flip"></l-divider>
+    <l-divider label="blur" transition="blur"></l-divider>
+    <l-divider label="bounce" transition="bounce"></l-divider>
+    <l-divider label="drop" transition="drop" transitionDuration="700"></l-divider>
   \`,
 })
 export class AppComponent {}`,

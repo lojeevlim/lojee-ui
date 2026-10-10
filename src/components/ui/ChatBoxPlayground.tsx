@@ -83,7 +83,7 @@ export default function ChatBoxPlayground() {
   ${lines.join("\n  ")}
 />`;
   const htmlAttrs = `${title ? ` heading="${title}"` : ""}${subtitle ? ` subtitle="${subtitle}"` : ""}${placeholder ? ` placeholder="${placeholder}"` : ""}${variant !== "bubble" ? ` variant="${variant}"` : ""}${color !== "accent" ? ` color="${color}"` : ""}${thinking ? ` thinking="${thinkingText || "true"}"` : ""}${thinking && thinkingVariant !== "dots" ? ` thinking-variant="${thinkingVariant}"` : ""}${thinking && elapsed ? ' thinking-elapsed="true"' : ""}${disabled ? ' disabled="true"' : ""}${height !== 440 ? ` height="${height}"` : ""}${motion.attrs}`;
-  const htmlMarkup = `<l-ChatBox${htmlAttrs}></l-ChatBox>`;
+  const htmlMarkup = `<l-chat-box${htmlAttrs}></l-chat-box>`;
   const htmlScript = `const chat = document.querySelector("l-chat-box");
 ${thinking && useSteps ? `chat.thinkingSteps = ${JSON.stringify(THINKING_STEPS)};\n` : ""}chat.defaultMessages = [{ id: 1, role: "assistant", content: "Hi! Ask me anything." }];
 chat.addEventListener("send", (e) => console.log(e.detail)); // the text`;

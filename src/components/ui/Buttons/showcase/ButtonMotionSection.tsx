@@ -54,43 +54,43 @@ export function ButtonMotionSection() {
 <Button hoverEffect="ring" label="Ring" />
 <Button hoverEffect="glow" label="Glow" />
 <Button hoverEffect="shine" label="Shine" />`,
-            js: `<l-Button transition="fade" label="Fade"></l-Button>
-<l-Button transition="slide-up" label="Slide up"></l-Button>
-<l-Button transition="slide-right" transitionDelay="100" label="Slide right"></l-Button>
-<l-Button transition="zoom" label="Zoom"></l-Button>
-<l-Button transition="flip" label="Flip"></l-Button>
-<l-Button transition="blur" label="Blur"></l-Button>
-<l-Button transition="bounce" label="Bounce"></l-Button>
-<l-Button transition="drop" transitionDuration="700" label="Drop"></l-Button>
+            js: `<l-button transition="fade" label="Fade"></l-button>
+<l-button transition="slide-up" label="Slide up"></l-button>
+<l-button transition="slide-right" transitionDelay="100" label="Slide right"></l-button>
+<l-button transition="zoom" label="Zoom"></l-button>
+<l-button transition="flip" label="Flip"></l-button>
+<l-button transition="blur" label="Blur"></l-button>
+<l-button transition="bounce" label="Bounce"></l-button>
+<l-button transition="drop" transitionDuration="700" label="Drop"></l-button>
 
-<l-Button hoverEffect="lift" label="Lift"></l-Button>
-<l-Button hoverEffect="scale" label="Scale"></l-Button>
-<l-Button hoverEffect="press" label="Press"></l-Button>
-<l-Button hoverEffect="tilt" label="Tilt"></l-Button>
-<l-Button hoverEffect="ring" label="Ring"></l-Button>
-<l-Button hoverEffect="glow" label="Glow"></l-Button>
-<l-Button hoverEffect="shine" label="Shine"></l-Button>
+<l-button hoverEffect="lift" label="Lift"></l-button>
+<l-button hoverEffect="scale" label="Scale"></l-button>
+<l-button hoverEffect="press" label="Press"></l-button>
+<l-button hoverEffect="tilt" label="Tilt"></l-button>
+<l-button hoverEffect="ring" label="Ring"></l-button>
+<l-button hoverEffect="glow" label="Glow"></l-button>
+<l-button hoverEffect="shine" label="Shine"></l-button>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
             vue: `<template>
-  <l-Button transition="fade" label="Fade"></l-Button>
-  <l-Button transition="slide-up" label="Slide up"></l-Button>
-  <l-Button transition="slide-right" transitionDelay="100" label="Slide right"></l-Button>
-  <l-Button transition="zoom" label="Zoom"></l-Button>
-  <l-Button transition="flip" label="Flip"></l-Button>
-  <l-Button transition="blur" label="Blur"></l-Button>
-  <l-Button transition="bounce" label="Bounce"></l-Button>
-  <l-Button transition="drop" transitionDuration="700" label="Drop"></l-Button>
+  <l-button transition="fade" label="Fade"></l-button>
+  <l-button transition="slide-up" label="Slide up"></l-button>
+  <l-button transition="slide-right" transitionDelay="100" label="Slide right"></l-button>
+  <l-button transition="zoom" label="Zoom"></l-button>
+  <l-button transition="flip" label="Flip"></l-button>
+  <l-button transition="blur" label="Blur"></l-button>
+  <l-button transition="bounce" label="Bounce"></l-button>
+  <l-button transition="drop" transitionDuration="700" label="Drop"></l-button>
 
-  <l-Button hoverEffect="lift" label="Lift"></l-Button>
-  <l-Button hoverEffect="scale" label="Scale"></l-Button>
-  <l-Button hoverEffect="press" label="Press"></l-Button>
-  <l-Button hoverEffect="tilt" label="Tilt"></l-Button>
-  <l-Button hoverEffect="ring" label="Ring"></l-Button>
-  <l-Button hoverEffect="glow" label="Glow"></l-Button>
-  <l-Button hoverEffect="shine" label="Shine"></l-Button>
+  <l-button hoverEffect="lift" label="Lift"></l-button>
+  <l-button hoverEffect="scale" label="Scale"></l-button>
+  <l-button hoverEffect="press" label="Press"></l-button>
+  <l-button hoverEffect="tilt" label="Tilt"></l-button>
+  <l-button hoverEffect="ring" label="Ring"></l-button>
+  <l-button hoverEffect="glow" label="Glow"></l-button>
+  <l-button hoverEffect="shine" label="Shine"></l-button>
 </template>
 
 <script setup lang="ts">
@@ -105,22 +105,22 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Button transition="fade" label="Fade"></l-Button>
-    <l-Button transition="slide-up" label="Slide up"></l-Button>
-    <l-Button transition="slide-right" transitionDelay="100" label="Slide right"></l-Button>
-    <l-Button transition="zoom" label="Zoom"></l-Button>
-    <l-Button transition="flip" label="Flip"></l-Button>
-    <l-Button transition="blur" label="Blur"></l-Button>
-    <l-Button transition="bounce" label="Bounce"></l-Button>
-    <l-Button transition="drop" transitionDuration="700" label="Drop"></l-Button>
+    <l-button transition="fade" label="Fade"></l-button>
+    <l-button transition="slide-up" label="Slide up"></l-button>
+    <l-button transition="slide-right" transitionDelay="100" label="Slide right"></l-button>
+    <l-button transition="zoom" label="Zoom"></l-button>
+    <l-button transition="flip" label="Flip"></l-button>
+    <l-button transition="blur" label="Blur"></l-button>
+    <l-button transition="bounce" label="Bounce"></l-button>
+    <l-button transition="drop" transitionDuration="700" label="Drop"></l-button>
 
-    <l-Button hoverEffect="lift" label="Lift"></l-Button>
-    <l-Button hoverEffect="scale" label="Scale"></l-Button>
-    <l-Button hoverEffect="press" label="Press"></l-Button>
-    <l-Button hoverEffect="tilt" label="Tilt"></l-Button>
-    <l-Button hoverEffect="ring" label="Ring"></l-Button>
-    <l-Button hoverEffect="glow" label="Glow"></l-Button>
-    <l-Button hoverEffect="shine" label="Shine"></l-Button>
+    <l-button hoverEffect="lift" label="Lift"></l-button>
+    <l-button hoverEffect="scale" label="Scale"></l-button>
+    <l-button hoverEffect="press" label="Press"></l-button>
+    <l-button hoverEffect="tilt" label="Tilt"></l-button>
+    <l-button hoverEffect="ring" label="Ring"></l-button>
+    <l-button hoverEffect="glow" label="Glow"></l-button>
+    <l-button hoverEffect="shine" label="Shine"></l-button>
   \`,
 })
 export class AppComponent {}`,
@@ -172,37 +172,37 @@ export class AppComponent {}`,
 <Button animation="tail" label="Tail" />
 <Button animation={["particles", "tail"]} label="Particles + tail" />
 <Button animation={["particles", "tail", "pulse"]} variant="soft" label="Particles + tail + pulse" />`,
-              js: `<l-Button animation="glow" label="Glow"></l-Button>
-<l-Button animation="pulse" label="Pulse"></l-Button>
-<l-Button animation="pulse" pulseColor="rose" pulseGradientTo="amber" label="Gradient pulse"></l-Button>
-<l-Button animation="sweep" label="Sweep"></l-Button>
-<l-Button animation="bounce" label="Bounce"></l-Button>
-<l-Button animation="float" variant="outline" label="Float"></l-Button>
-<l-Button animation="wiggle" label="Wiggle"></l-Button>
-<l-Button animation="border-spin" pulseColor="violet" pulseGradientTo="cyan" variant="soft" label="Border spin"></l-Button>
-<l-Button animation="particles" label="Particles"></l-Button>
-<l-Button animation="particles" pulseColor="rose" variant="outline" label="Particles · rose"></l-Button>
-<l-Button animation="tail" label="Tail"></l-Button>
-<l-Button animation="particles tail" label="Particles + tail"></l-Button>
-<l-Button animation="particles tail pulse" variant="soft" label="Particles + tail + pulse"></l-Button>
+              js: `<l-button animation="glow" label="Glow"></l-button>
+<l-button animation="pulse" label="Pulse"></l-button>
+<l-button animation="pulse" pulseColor="rose" pulseGradientTo="amber" label="Gradient pulse"></l-button>
+<l-button animation="sweep" label="Sweep"></l-button>
+<l-button animation="bounce" label="Bounce"></l-button>
+<l-button animation="float" variant="outline" label="Float"></l-button>
+<l-button animation="wiggle" label="Wiggle"></l-button>
+<l-button animation="border-spin" pulseColor="violet" pulseGradientTo="cyan" variant="soft" label="Border spin"></l-button>
+<l-button animation="particles" label="Particles"></l-button>
+<l-button animation="particles" pulseColor="rose" variant="outline" label="Particles · rose"></l-button>
+<l-button animation="tail" label="Tail"></l-button>
+<l-button animation="particles tail" label="Particles + tail"></l-button>
+<l-button animation="particles tail pulse" variant="soft" label="Particles + tail + pulse"></l-button>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-Button animation="glow" label="Glow"></l-Button>
-  <l-Button animation="pulse" label="Pulse"></l-Button>
-  <l-Button animation="pulse" pulseColor="rose" pulseGradientTo="amber" label="Gradient pulse"></l-Button>
-  <l-Button animation="sweep" label="Sweep"></l-Button>
-  <l-Button animation="bounce" label="Bounce"></l-Button>
-  <l-Button animation="float" variant="outline" label="Float"></l-Button>
-  <l-Button animation="wiggle" label="Wiggle"></l-Button>
-  <l-Button animation="border-spin" pulseColor="violet" pulseGradientTo="cyan" variant="soft" label="Border spin"></l-Button>
-  <l-Button animation="particles" label="Particles"></l-Button>
-  <l-Button animation="particles" pulseColor="rose" variant="outline" label="Particles · rose"></l-Button>
-  <l-Button animation="tail" label="Tail"></l-Button>
-  <l-Button animation="particles tail" label="Particles + tail"></l-Button>
-  <l-Button animation="particles tail pulse" variant="soft" label="Particles + tail + pulse"></l-Button>
+  <l-button animation="glow" label="Glow"></l-button>
+  <l-button animation="pulse" label="Pulse"></l-button>
+  <l-button animation="pulse" pulseColor="rose" pulseGradientTo="amber" label="Gradient pulse"></l-button>
+  <l-button animation="sweep" label="Sweep"></l-button>
+  <l-button animation="bounce" label="Bounce"></l-button>
+  <l-button animation="float" variant="outline" label="Float"></l-button>
+  <l-button animation="wiggle" label="Wiggle"></l-button>
+  <l-button animation="border-spin" pulseColor="violet" pulseGradientTo="cyan" variant="soft" label="Border spin"></l-button>
+  <l-button animation="particles" label="Particles"></l-button>
+  <l-button animation="particles" pulseColor="rose" variant="outline" label="Particles · rose"></l-button>
+  <l-button animation="tail" label="Tail"></l-button>
+  <l-button animation="particles tail" label="Particles + tail"></l-button>
+  <l-button animation="particles tail pulse" variant="soft" label="Particles + tail + pulse"></l-button>
 </template>
 
 <script setup lang="ts">
@@ -217,19 +217,19 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Button animation="glow" label="Glow"></l-Button>
-    <l-Button animation="pulse" label="Pulse"></l-Button>
-    <l-Button animation="pulse" pulseColor="rose" pulseGradientTo="amber" label="Gradient pulse"></l-Button>
-    <l-Button animation="sweep" label="Sweep"></l-Button>
-    <l-Button animation="bounce" label="Bounce"></l-Button>
-    <l-Button animation="float" variant="outline" label="Float"></l-Button>
-    <l-Button animation="wiggle" label="Wiggle"></l-Button>
-    <l-Button animation="border-spin" pulseColor="violet" pulseGradientTo="cyan" variant="soft" label="Border spin"></l-Button>
-    <l-Button animation="particles" label="Particles"></l-Button>
-    <l-Button animation="particles" pulseColor="rose" variant="outline" label="Particles · rose"></l-Button>
-    <l-Button animation="tail" label="Tail"></l-Button>
-    <l-Button animation="particles tail" label="Particles + tail"></l-Button>
-    <l-Button animation="particles tail pulse" variant="soft" label="Particles + tail + pulse"></l-Button>
+    <l-button animation="glow" label="Glow"></l-button>
+    <l-button animation="pulse" label="Pulse"></l-button>
+    <l-button animation="pulse" pulseColor="rose" pulseGradientTo="amber" label="Gradient pulse"></l-button>
+    <l-button animation="sweep" label="Sweep"></l-button>
+    <l-button animation="bounce" label="Bounce"></l-button>
+    <l-button animation="float" variant="outline" label="Float"></l-button>
+    <l-button animation="wiggle" label="Wiggle"></l-button>
+    <l-button animation="border-spin" pulseColor="violet" pulseGradientTo="cyan" variant="soft" label="Border spin"></l-button>
+    <l-button animation="particles" label="Particles"></l-button>
+    <l-button animation="particles" pulseColor="rose" variant="outline" label="Particles · rose"></l-button>
+    <l-button animation="tail" label="Tail"></l-button>
+    <l-button animation="particles tail" label="Particles + tail"></l-button>
+    <l-button animation="particles tail pulse" variant="soft" label="Particles + tail + pulse"></l-button>
   \`,
 })
 export class AppComponent {}`,

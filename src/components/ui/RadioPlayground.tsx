@@ -44,14 +44,14 @@ ${OPTIONS.map(
   // Vue/Angular templates (plain attributes, no bindings needed for a static
   // snapshot); the "js" variant just adds the one-time module import a plain
   // HTML page needs to actually load the `<l-*>` definitions.
-  const htmlMarkup = `<l-RadioGroup orientation="${orientation}"${motion.attrs}>
+  const htmlMarkup = `<l-radio-group orientation="${orientation}"${motion.attrs}>
 ${OPTIONS.map(
   (option) =>
-    `  <l-Radio name="playground" color="${color}" label="${option}"${
+    `  <l-radio name="playground" color="${color}" label="${option}"${
       option === selected ? ` defaultChecked` : ""
     } />`
 ).join("\n")}
-</l-RadioGroup>`;
+</l-radio-group>`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,

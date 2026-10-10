@@ -24,17 +24,17 @@ export default function ImageShowcase() {
         <CodeBlock
           variants={{
             react: `<Image src="/photos/landscape.jpg" alt="A mountain lake at sunrise" />`,
-            js: `<l-Image src="/photos/landscape.jpg" alt="A mountain lake at sunrise"></l-Image>
+            js: `<l-image src="/photos/landscape.jpg" alt="A mountain lake at sunrise"></l-image>
 
 <script type="module">import "lojee-ui/elements";</script>`,
             vue: `<template>
-  <l-Image src="/photos/landscape.jpg" alt="A mountain lake at sunrise"></l-Image>
+  <l-image src="/photos/landscape.jpg" alt="A mountain lake at sunrise"></l-image>
 </template>
 
 <script setup lang="ts">
 import "lojee-ui/elements";
 </script>`,
-            angular: `<l-Image src="/photos/landscape.jpg" alt="A mountain lake at sunrise"></l-Image>`,
+            angular: `<l-image src="/photos/landscape.jpg" alt="A mountain lake at sunrise"></l-image>`,
           }}
         />
       </section>
@@ -55,14 +55,14 @@ import "lojee-ui/elements";
           variants={{
             react: `<Image src={src} alt="" ratio="16/9" fit="cover" />
 <Image src={src} alt="" ratio="1/1" fit="contain" />`,
-            js: `<l-Image src="/photo.jpg" alt="" ratio="16/9" fit="cover"></l-Image>
-<l-Image src="/photo.jpg" alt="" ratio="1/1" fit="contain"></l-Image>`,
+            js: `<l-image src="/photo.jpg" alt="" ratio="16/9" fit="cover"></l-image>
+<l-image src="/photo.jpg" alt="" ratio="1/1" fit="contain"></l-image>`,
             vue: `<template>
-  <l-Image src="/photo.jpg" alt="" ratio="16/9" fit="cover"></l-Image>
-  <l-Image src="/photo.jpg" alt="" ratio="1/1" fit="contain"></l-Image>
+  <l-image src="/photo.jpg" alt="" ratio="16/9" fit="cover"></l-image>
+  <l-image src="/photo.jpg" alt="" ratio="1/1" fit="contain"></l-image>
 </template>`,
-            angular: `<l-Image src="/photo.jpg" alt="" ratio="16/9" fit="cover"></l-Image>
-<l-Image src="/photo.jpg" alt="" ratio="1/1" fit="contain"></l-Image>`,
+            angular: `<l-image src="/photo.jpg" alt="" ratio="16/9" fit="cover"></l-image>
+<l-image src="/photo.jpg" alt="" ratio="1/1" fit="contain"></l-image>`,
           }}
         />
       </section>
@@ -79,11 +79,11 @@ import "lojee-ui/elements";
         <CodeBlock
           variants={{
             react: `<Image src={src} alt="" ratio="1/1" rounded="full" />`,
-            js: `<l-Image src="/avatar.jpg" alt="" ratio="1/1" rounded="full"></l-Image>`,
+            js: `<l-image src="/avatar.jpg" alt="" ratio="1/1" rounded="full"></l-image>`,
             vue: `<template>
-  <l-Image src="/avatar.jpg" alt="" ratio="1/1" rounded="full"></l-Image>
+  <l-image src="/avatar.jpg" alt="" ratio="1/1" rounded="full"></l-image>
 </template>`,
-            angular: `<l-Image src="/avatar.jpg" alt="" ratio="1/1" rounded="full"></l-Image>`,
+            angular: `<l-image src="/avatar.jpg" alt="" ratio="1/1" rounded="full"></l-image>`,
           }}
         />
       </section>
@@ -104,23 +104,23 @@ import "lojee-ui/elements";
           variants={{
             react: `<Image src="/missing.jpg" alt="Missing picture" ratio="4/3" />
 <Image src="/missing.jpg" alt="Missing picture" ratio="4/3" fallback={<span>No preview yet</span>} />`,
-            js: `<l-Image src="/missing.jpg" alt="Missing picture" ratio="4/3"></l-Image>
+            js: `<l-image src="/missing.jpg" alt="Missing picture" ratio="4/3"></l-image>
 
-<l-Image src="/missing.jpg" alt="Missing picture" ratio="4/3">
+<l-image src="/missing.jpg" alt="Missing picture" ratio="4/3">
   <span slot="fallback">No preview yet</span>
-</l-Image>`,
+</l-image>`,
             vue: `<template>
-  <l-Image src="/missing.jpg" alt="Missing picture" ratio="4/3"></l-Image>
+  <l-image src="/missing.jpg" alt="Missing picture" ratio="4/3"></l-image>
 
-  <l-Image src="/missing.jpg" alt="Missing picture" ratio="4/3">
+  <l-image src="/missing.jpg" alt="Missing picture" ratio="4/3">
     <span slot="fallback">No preview yet</span>
-  </l-Image>
+  </l-image>
 </template>`,
-            angular: `<l-Image src="/missing.jpg" alt="Missing picture" ratio="4/3"></l-Image>
+            angular: `<l-image src="/missing.jpg" alt="Missing picture" ratio="4/3"></l-image>
 
-<l-Image src="/missing.jpg" alt="Missing picture" ratio="4/3">
+<l-image src="/missing.jpg" alt="Missing picture" ratio="4/3">
   <span slot="fallback">No preview yet</span>
-</l-Image>`,
+</l-image>`,
           }}
         />
       </section>
@@ -138,7 +138,7 @@ import "lojee-ui/elements";
   onLoad={() => console.log("loaded")}
   onError={() => console.log("failed")}
 />`,
-            js: `<l-Image id="hero" src="/hero.jpg" alt="Hero" loading="eager"></l-Image>
+            js: `<l-image id="hero" src="/hero.jpg" alt="Hero" loading="eager"></l-image>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -148,7 +148,7 @@ import "lojee-ui/elements";
   img.addEventListener("error", () => console.log("failed"));
 </script>`,
             vue: `<template>
-  <l-Image src="/hero.jpg" alt="Hero" loading="eager" @load="onLoad" @error="onError"></l-Image>
+  <l-image src="/hero.jpg" alt="Hero" loading="eager" @load="onLoad" @error="onError"></l-image>
 </template>
 
 <script setup lang="ts">
@@ -157,7 +157,7 @@ import "lojee-ui/elements";
 const onLoad = () => console.log("loaded");
 const onError = () => console.log("failed");
 </script>`,
-            angular: `<l-Image src="/hero.jpg" alt="Hero" loading="eager" (load)="onLoad()" (error)="onError()"></l-Image>`,
+            angular: `<l-image src="/hero.jpg" alt="Hero" loading="eager" (load)="onLoad()" (error)="onError()"></l-image>`,
           }}
         />
       </section>
@@ -173,14 +173,14 @@ const onError = () => console.log("failed");
           variants={{
             react: `<Image src={src} alt="" ratio="4/3" transition="zoom" />
 <Image src={src} alt="" ratio="4/3" transition="slide-up" hoverEffect="lift" />`,
-            js: `<l-Image src="/photo.jpg" alt="" ratio="4/3" transition="zoom"></l-Image>
-<l-Image src="/photo.jpg" alt="" ratio="4/3" transition="slide-up" hover-effect="lift"></l-Image>`,
+            js: `<l-image src="/photo.jpg" alt="" ratio="4/3" transition="zoom"></l-image>
+<l-image src="/photo.jpg" alt="" ratio="4/3" transition="slide-up" hover-effect="lift"></l-image>`,
             vue: `<template>
-  <l-Image src="/photo.jpg" alt="" ratio="4/3" transition="zoom"></l-Image>
-  <l-Image src="/photo.jpg" alt="" ratio="4/3" transition="slide-up" hover-effect="lift"></l-Image>
+  <l-image src="/photo.jpg" alt="" ratio="4/3" transition="zoom"></l-image>
+  <l-image src="/photo.jpg" alt="" ratio="4/3" transition="slide-up" hover-effect="lift"></l-image>
 </template>`,
-            angular: `<l-Image src="/photo.jpg" alt="" ratio="4/3" transition="zoom"></l-Image>
-<l-Image src="/photo.jpg" alt="" ratio="4/3" transition="slide-up" hover-effect="lift"></l-Image>`,
+            angular: `<l-image src="/photo.jpg" alt="" ratio="4/3" transition="zoom"></l-image>
+<l-image src="/photo.jpg" alt="" ratio="4/3" transition="slide-up" hover-effect="lift"></l-image>`,
           }}
         />
       </section>

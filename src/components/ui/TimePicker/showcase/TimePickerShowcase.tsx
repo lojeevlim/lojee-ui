@@ -21,13 +21,13 @@ export default function TimePickerShowcase() {
           <CodeBlock
             variants={{
               react: `<TimePicker />`,
-              js: `<l-TimePicker ></l-TimePicker>
+              js: `<l-time-picker ></l-time-picker>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-TimePicker />
+  <l-time-picker />
 </template>
 
 <script setup lang="ts">
@@ -45,7 +45,7 @@ import "lojee-ui/elements";
 export class AppComponent {}
 
 <!-- app.component.html -->
-<l-TimePicker />`,
+<l-time-picker />`,
             }}
           />
         </section>
@@ -60,12 +60,12 @@ export class AppComponent {}
           <CodeBlock
             variants={{
               react: `<TimePicker size="sm" />`,
-              js: `<l-TimePicker size="sm"></l-TimePicker>`,
+              js: `<l-time-picker size="sm"></l-time-picker>`,
               vue: `<template>
-  <l-TimePicker size="sm" />
+  <l-time-picker size="sm" />
 </template>`,
               angular: `<!-- app.component.html -->
-<l-TimePicker size="sm" />`,
+<l-time-picker size="sm" />`,
             }}
           />
         </section>
@@ -78,12 +78,12 @@ export class AppComponent {}
           <CodeBlock
             variants={{
               react: `<TimePicker invalid />`,
-              js: `<l-TimePicker invalid></l-TimePicker>`,
+              js: `<l-time-picker invalid></l-time-picker>`,
               vue: `<template>
-  <l-TimePicker invalid />
+  <l-time-picker invalid />
 </template>`,
               angular: `<!-- app.component.html -->
-<l-TimePicker invalid />`,
+<l-time-picker invalid />`,
             }}
           />
         </section>
@@ -96,12 +96,12 @@ export class AppComponent {}
           <CodeBlock
             variants={{
               react: `<TimePicker disabled />`,
-              js: `<l-TimePicker disabled></l-TimePicker>`,
+              js: `<l-time-picker disabled></l-time-picker>`,
               vue: `<template>
-  <l-TimePicker disabled />
+  <l-time-picker disabled />
 </template>`,
               angular: `<!-- app.component.html -->
-<l-TimePicker disabled />`,
+<l-time-picker disabled />`,
             }}
           />
         </section>
@@ -135,35 +135,35 @@ export class AppComponent {}
 <TimePicker hoverEffect="lift" />
 <TimePicker hoverEffect="glow" />
 <TimePicker hoverEffect="ring" />`,
-              js: `<l-TimePicker transition="fade"></l-TimePicker>
-<l-TimePicker transition="slide-up"></l-TimePicker>
-<l-TimePicker transition="slide-right" transitionDelay="100"></l-TimePicker>
-<l-TimePicker transition="zoom"></l-TimePicker>
-<l-TimePicker transition="flip"></l-TimePicker>
-<l-TimePicker transition="blur"></l-TimePicker>
-<l-TimePicker transition="bounce"></l-TimePicker>
-<l-TimePicker transition="drop" transitionDuration="700"></l-TimePicker>
+              js: `<l-time-picker transition="fade"></l-time-picker>
+<l-time-picker transition="slide-up"></l-time-picker>
+<l-time-picker transition="slide-right" transitionDelay="100"></l-time-picker>
+<l-time-picker transition="zoom"></l-time-picker>
+<l-time-picker transition="flip"></l-time-picker>
+<l-time-picker transition="blur"></l-time-picker>
+<l-time-picker transition="bounce"></l-time-picker>
+<l-time-picker transition="drop" transitionDuration="700"></l-time-picker>
 
-<l-TimePicker hoverEffect="lift"></l-TimePicker>
-<l-TimePicker hoverEffect="glow"></l-TimePicker>
-<l-TimePicker hoverEffect="ring"></l-TimePicker>
+<l-time-picker hoverEffect="lift"></l-time-picker>
+<l-time-picker hoverEffect="glow"></l-time-picker>
+<l-time-picker hoverEffect="ring"></l-time-picker>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-TimePicker transition="fade"></l-TimePicker>
-  <l-TimePicker transition="slide-up"></l-TimePicker>
-  <l-TimePicker transition="slide-right" transitionDelay="100"></l-TimePicker>
-  <l-TimePicker transition="zoom"></l-TimePicker>
-  <l-TimePicker transition="flip"></l-TimePicker>
-  <l-TimePicker transition="blur"></l-TimePicker>
-  <l-TimePicker transition="bounce"></l-TimePicker>
-  <l-TimePicker transition="drop" transitionDuration="700"></l-TimePicker>
+  <l-time-picker transition="fade"></l-time-picker>
+  <l-time-picker transition="slide-up"></l-time-picker>
+  <l-time-picker transition="slide-right" transitionDelay="100"></l-time-picker>
+  <l-time-picker transition="zoom"></l-time-picker>
+  <l-time-picker transition="flip"></l-time-picker>
+  <l-time-picker transition="blur"></l-time-picker>
+  <l-time-picker transition="bounce"></l-time-picker>
+  <l-time-picker transition="drop" transitionDuration="700"></l-time-picker>
 
-  <l-TimePicker hoverEffect="lift"></l-TimePicker>
-  <l-TimePicker hoverEffect="glow"></l-TimePicker>
-  <l-TimePicker hoverEffect="ring"></l-TimePicker>
+  <l-time-picker hoverEffect="lift"></l-time-picker>
+  <l-time-picker hoverEffect="glow"></l-time-picker>
+  <l-time-picker hoverEffect="ring"></l-time-picker>
 </template>
 
 <script setup lang="ts">
@@ -178,18 +178,18 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-TimePicker transition="fade"></l-TimePicker>
-    <l-TimePicker transition="slide-up"></l-TimePicker>
-    <l-TimePicker transition="slide-right" transitionDelay="100"></l-TimePicker>
-    <l-TimePicker transition="zoom"></l-TimePicker>
-    <l-TimePicker transition="flip"></l-TimePicker>
-    <l-TimePicker transition="blur"></l-TimePicker>
-    <l-TimePicker transition="bounce"></l-TimePicker>
-    <l-TimePicker transition="drop" transitionDuration="700"></l-TimePicker>
+    <l-time-picker transition="fade"></l-time-picker>
+    <l-time-picker transition="slide-up"></l-time-picker>
+    <l-time-picker transition="slide-right" transitionDelay="100"></l-time-picker>
+    <l-time-picker transition="zoom"></l-time-picker>
+    <l-time-picker transition="flip"></l-time-picker>
+    <l-time-picker transition="blur"></l-time-picker>
+    <l-time-picker transition="bounce"></l-time-picker>
+    <l-time-picker transition="drop" transitionDuration="700"></l-time-picker>
 
-    <l-TimePicker hoverEffect="lift"></l-TimePicker>
-    <l-TimePicker hoverEffect="glow"></l-TimePicker>
-    <l-TimePicker hoverEffect="ring"></l-TimePicker>
+    <l-time-picker hoverEffect="lift"></l-time-picker>
+    <l-time-picker hoverEffect="glow"></l-time-picker>
+    <l-time-picker hoverEffect="ring"></l-time-picker>
   \`,
 })
 export class AppComponent {}`,

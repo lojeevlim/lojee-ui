@@ -38,25 +38,25 @@ export function ButtonSection() {
 <Button variant="link" label="Link"/>
 <Button variant="dashed" label="Dashed"/>
 <Button variant="glass" label="Glass"/>`,
-            js: `<l-Button variant="solid" label="Solid"></l-Button>
-<l-Button variant="outline" label="Outline"></l-Button>
-<l-Button variant="ghost" label="Ghost"></l-Button>
-<l-Button variant="soft" label="Soft"></l-Button>
-<l-Button variant="link" label="Link"></l-Button>
-<l-Button variant="dashed" label="Dashed"></l-Button>
-<l-Button variant="glass" label="Glass"></l-Button>
+            js: `<l-button variant="solid" label="Solid"></l-button>
+<l-button variant="outline" label="Outline"></l-button>
+<l-button variant="ghost" label="Ghost"></l-button>
+<l-button variant="soft" label="Soft"></l-button>
+<l-button variant="link" label="Link"></l-button>
+<l-button variant="dashed" label="Dashed"></l-button>
+<l-button variant="glass" label="Glass"></l-button>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
             vue: `<template>
-  <l-Button variant="solid" label="Solid" />
-  <l-Button variant="outline" label="Outline" />
-  <l-Button variant="ghost" label="Ghost" />
-  <l-Button variant="soft" label="Soft" />
-  <l-Button variant="link" label="Link" />
-  <l-Button variant="dashed" label="Dashed" />
-  <l-Button variant="glass" label="Glass" />
+  <l-button variant="solid" label="Solid" />
+  <l-button variant="outline" label="Outline" />
+  <l-button variant="ghost" label="Ghost" />
+  <l-button variant="soft" label="Soft" />
+  <l-button variant="link" label="Link" />
+  <l-button variant="dashed" label="Dashed" />
+  <l-button variant="glass" label="Glass" />
 </template>
 
 <script setup lang="ts">
@@ -71,13 +71,13 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Button variant="solid" label="Solid" />
-    <l-Button variant="outline" label="Outline" />
-    <l-Button variant="ghost" label="Ghost" />
-    <l-Button variant="soft" label="Soft" />
-    <l-Button variant="link" label="Link" />
-    <l-Button variant="dashed" label="Dashed" />
-    <l-Button variant="glass" label="Glass" />
+    <l-button variant="solid" label="Solid" />
+    <l-button variant="outline" label="Outline" />
+    <l-button variant="ghost" label="Ghost" />
+    <l-button variant="soft" label="Soft" />
+    <l-button variant="link" label="Link" />
+    <l-button variant="dashed" label="Dashed" />
+    <l-button variant="glass" label="Glass" />
   \`,
 })
 export class ButtonShowcaseComponent {}`,
@@ -100,17 +100,17 @@ export class ButtonShowcaseComponent {}`,
             react: `<Button variant="glass" lighting="hover" label="Hover me" />
 <Button variant="glass" lighting="press" label="Press me" />
 <Button variant="glass" lighting="scroll" label="Scroll to center" />`,
-            js: `<l-Button variant="glass" lighting="hover" label="Hover me"></l-Button>
-<l-Button variant="glass" lighting="press" label="Press me"></l-Button>
-<l-Button variant="glass" lighting="scroll" label="Scroll to center"></l-Button>
+            js: `<l-button variant="glass" lighting="hover" label="Hover me"></l-button>
+<l-button variant="glass" lighting="press" label="Press me"></l-button>
+<l-button variant="glass" lighting="scroll" label="Scroll to center"></l-button>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
             vue: `<template>
-  <l-Button variant="glass" lighting="hover" label="Hover me" />
-  <l-Button variant="glass" lighting="press" label="Press me" />
-  <l-Button variant="glass" lighting="scroll" label="Scroll to center" />
+  <l-button variant="glass" lighting="hover" label="Hover me" />
+  <l-button variant="glass" lighting="press" label="Press me" />
+  <l-button variant="glass" lighting="scroll" label="Scroll to center" />
 </template>
 
 <script setup lang="ts">
@@ -125,9 +125,9 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Button variant="glass" lighting="hover" label="Hover me" />
-    <l-Button variant="glass" lighting="press" label="Press me" />
-    <l-Button variant="glass" lighting="scroll" label="Scroll to center" />
+    <l-button variant="glass" lighting="hover" label="Hover me" />
+    <l-button variant="glass" lighting="press" label="Press me" />
+    <l-button variant="glass" lighting="scroll" label="Scroll to center" />
   \`,
 })
 export class ButtonShowcaseComponent {}`,
@@ -158,27 +158,27 @@ export class ButtonShowcaseComponent {}`,
 <Button size="lg" label="Large" />
 <Button size="xl" label="Extra large" />
 <Button size="full" label="Full Width" />`,
-            js: `<l-Button size="xs" label="Extra small"></l-Button>
-<l-Button size="sm" label="Small"></l-Button>
-<l-Button size="md" label="Medium"></l-Button>
-<l-Button size="lg" label="Large"></l-Button>
-<l-Button size="xl" label="Extra large"></l-Button>
-<l-Button size="full" label="Full Width"></l-Button>`,
+            js: `<l-button size="xs" label="Extra small"></l-button>
+<l-button size="sm" label="Small"></l-button>
+<l-button size="md" label="Medium"></l-button>
+<l-button size="lg" label="Large"></l-button>
+<l-button size="xl" label="Extra large"></l-button>
+<l-button size="full" label="Full Width"></l-button>`,
             vue: `<template>
-  <l-Button size="xs" label="Extra small" />
-  <l-Button size="sm" label="Small" />
-  <l-Button size="md" label="Medium" />
-  <l-Button size="lg" label="Large" />
-  <l-Button size="xl" label="Extra large" />
-  <l-Button size="full" label="Full Width" />
+  <l-button size="xs" label="Extra small" />
+  <l-button size="sm" label="Small" />
+  <l-button size="md" label="Medium" />
+  <l-button size="lg" label="Large" />
+  <l-button size="xl" label="Extra large" />
+  <l-button size="full" label="Full Width" />
 </template>`,
             angular: `<!-- reuses ButtonShowcaseComponent from above -->
-<l-Button size="xs" label="Extra small" />
-<l-Button size="sm" label="Small" />
-<l-Button size="md" label="Medium" />
-<l-Button size="lg" label="Large" />
-<l-Button size="xl" label="Extra large" />
-<l-Button size="full" label="Full Width" />`,
+<l-button size="xs" label="Extra small" />
+<l-button size="sm" label="Small" />
+<l-button size="md" label="Medium" />
+<l-button size="lg" label="Large" />
+<l-button size="xl" label="Extra large" />
+<l-button size="full" label="Full Width" />`,
           }}
         />
       </section>
@@ -208,24 +208,24 @@ export class ButtonShowcaseComponent {}`,
 <Button color="${activeColor}" variant="ghost" label="Ghost" />
 <Button color="${activeColor}" variant="soft" label="Soft" />
 <Button color="${activeColor}" variant="link" label="Link" />`,
-            js: `<l-Button color="${activeColor}" variant="solid" label="Solid"></l-Button>
-<l-Button color="${activeColor}" variant="outline" label="Outline"></l-Button>
-<l-Button color="${activeColor}" variant="ghost" label="Ghost"></l-Button>
-<l-Button color="${activeColor}" variant="soft" label="Soft"></l-Button>
-<l-Button color="${activeColor}" variant="link" label="Link"></l-Button>`,
+            js: `<l-button color="${activeColor}" variant="solid" label="Solid"></l-button>
+<l-button color="${activeColor}" variant="outline" label="Outline"></l-button>
+<l-button color="${activeColor}" variant="ghost" label="Ghost"></l-button>
+<l-button color="${activeColor}" variant="soft" label="Soft"></l-button>
+<l-button color="${activeColor}" variant="link" label="Link"></l-button>`,
             vue: `<template>
-  <l-Button color="${activeColor}" variant="solid" label="Solid" />
-  <l-Button color="${activeColor}" variant="outline" label="Outline" />
-  <l-Button color="${activeColor}" variant="ghost" label="Ghost" />
-  <l-Button color="${activeColor}" variant="soft" label="Soft" />
-  <l-Button color="${activeColor}" variant="link" label="Link" />
+  <l-button color="${activeColor}" variant="solid" label="Solid" />
+  <l-button color="${activeColor}" variant="outline" label="Outline" />
+  <l-button color="${activeColor}" variant="ghost" label="Ghost" />
+  <l-button color="${activeColor}" variant="soft" label="Soft" />
+  <l-button color="${activeColor}" variant="link" label="Link" />
 </template>`,
             angular: `<!-- reuses ButtonShowcaseComponent from above -->
-<l-Button color="${activeColor}" variant="solid" label="Solid" />
-<l-Button color="${activeColor}" variant="outline" label="Outline" />
-<l-Button color="${activeColor}" variant="ghost" label="Ghost" />
-<l-Button color="${activeColor}" variant="soft" label="Soft" />
-<l-Button color="${activeColor}" variant="link" label="Link" />`,
+<l-button color="${activeColor}" variant="solid" label="Solid" />
+<l-button color="${activeColor}" variant="outline" label="Outline" />
+<l-button color="${activeColor}" variant="ghost" label="Ghost" />
+<l-button color="${activeColor}" variant="soft" label="Soft" />
+<l-button color="${activeColor}" variant="link" label="Link" />`,
           }}
         />
       </section>
@@ -245,21 +245,21 @@ export class ButtonShowcaseComponent {}`,
 <Button variant="gradient" color="rose" label="Upgrade to Pro" />
 <Button variant="gradient" color="emerald" label="Claim offer" />
 <Button variant="gradient" color="blue" label="Try for free" />`,
-            js: `<l-Button variant="gradient" color="indigo" icon="arrow-right" iconPosition="right" label="Get started"></l-Button>
-<l-Button variant="gradient" color="rose" label="Upgrade to Pro"></l-Button>
-<l-Button variant="gradient" color="emerald" label="Claim offer"></l-Button>
-<l-Button variant="gradient" color="blue" label="Try for free"></l-Button>`,
+            js: `<l-button variant="gradient" color="indigo" icon="arrow-right" iconPosition="right" label="Get started"></l-button>
+<l-button variant="gradient" color="rose" label="Upgrade to Pro"></l-button>
+<l-button variant="gradient" color="emerald" label="Claim offer"></l-button>
+<l-button variant="gradient" color="blue" label="Try for free"></l-button>`,
             vue: `<template>
-  <l-Button variant="gradient" color="indigo" icon="arrow-right" iconPosition="right" label="Get started" />
-  <l-Button variant="gradient" color="rose" label="Upgrade to Pro" />
-  <l-Button variant="gradient" color="emerald" label="Claim offer" />
-  <l-Button variant="gradient" color="blue" label="Try for free" />
+  <l-button variant="gradient" color="indigo" icon="arrow-right" iconPosition="right" label="Get started" />
+  <l-button variant="gradient" color="rose" label="Upgrade to Pro" />
+  <l-button variant="gradient" color="emerald" label="Claim offer" />
+  <l-button variant="gradient" color="blue" label="Try for free" />
 </template>`,
             angular: `<!-- reuses ButtonShowcaseComponent from above -->
-<l-Button variant="gradient" color="indigo" icon="arrow-right" iconPosition="right" label="Get started" />
-<l-Button variant="gradient" color="rose" label="Upgrade to Pro" />
-<l-Button variant="gradient" color="emerald" label="Claim offer" />
-<l-Button variant="gradient" color="blue" label="Try for free" />`,
+<l-button variant="gradient" color="indigo" icon="arrow-right" iconPosition="right" label="Get started" />
+<l-button variant="gradient" color="rose" label="Upgrade to Pro" />
+<l-button variant="gradient" color="emerald" label="Claim offer" />
+<l-button variant="gradient" color="blue" label="Try for free" />`,
           }}
         />
       </section>
@@ -281,21 +281,21 @@ export class ButtonShowcaseComponent {}`,
 <Button icon="download" iconPosition="right" variant="outline" label="Download" />
 <Button icon="arrow-right" iconPosition="right" variant="ghost" label="Continue" />
 <Button color="rose" variant="outline" icon="trash-2" label="Delete" />`,
-            js: `<l-Button icon="plus" variant="solid" label="New item"></l-Button>
-<l-Button icon="download" iconPosition="right" variant="outline" label="Download"></l-Button>
-<l-Button icon="arrow-right" iconPosition="right" variant="ghost" label="Continue"></l-Button>
-<l-Button color="rose" variant="outline" icon="trash-2" label="Delete"></l-Button>`,
+            js: `<l-button icon="plus" variant="solid" label="New item"></l-button>
+<l-button icon="download" iconPosition="right" variant="outline" label="Download"></l-button>
+<l-button icon="arrow-right" iconPosition="right" variant="ghost" label="Continue"></l-button>
+<l-button color="rose" variant="outline" icon="trash-2" label="Delete"></l-button>`,
             vue: `<template>
-  <l-Button icon="plus" variant="solid" label="New item" />
-  <l-Button icon="download" iconPosition="right" variant="outline" label="Download" />
-  <l-Button icon="arrow-right" iconPosition="right" variant="ghost" label="Continue" />
-  <l-Button color="rose" variant="outline" icon="trash-2" label="Delete" />
+  <l-button icon="plus" variant="solid" label="New item" />
+  <l-button icon="download" iconPosition="right" variant="outline" label="Download" />
+  <l-button icon="arrow-right" iconPosition="right" variant="ghost" label="Continue" />
+  <l-button color="rose" variant="outline" icon="trash-2" label="Delete" />
 </template>`,
             angular: `<!-- reuses ButtonShowcaseComponent from above -->
-<l-Button icon="plus" variant="solid" label="New item" />
-<l-Button icon="download" iconPosition="right" variant="outline" label="Download" />
-<l-Button icon="arrow-right" iconPosition="right" variant="ghost" label="Continue" />
-<l-Button color="rose" variant="outline" icon="trash-2" label="Delete" />`,
+<l-button icon="plus" variant="solid" label="New item" />
+<l-button icon="download" iconPosition="right" variant="outline" label="Download" />
+<l-button icon="arrow-right" iconPosition="right" variant="ghost" label="Continue" />
+<l-button color="rose" variant="outline" icon="trash-2" label="Delete" />`,
           }}
         />
       </section>
@@ -321,21 +321,21 @@ export class ButtonShowcaseComponent {}`,
 <Button icon="mail" iconOnly variant="soft" color="indigo" shape="pill" label="Mail" />
 <Button icon="bell" iconOnly variant="soft" color="rose" shape="pill" badge={3} label="Notifications" />
 <Button icon="plus" iconOnly variant="solid" color="emerald" shape="square" label="Add" />`,
-            js: `<l-Button icon="settings" iconOnly variant="ghost" shape="pill" label="Settings"></l-Button>
-<l-Button icon="mail" iconOnly variant="soft" color="indigo" shape="pill" label="Mail"></l-Button>
-<l-Button icon="bell" iconOnly variant="soft" color="rose" shape="pill" badge="3" label="Notifications"></l-Button>
-<l-Button icon="plus" iconOnly variant="solid" color="emerald" shape="square" label="Add"></l-Button>`,
+            js: `<l-button icon="settings" iconOnly variant="ghost" shape="pill" label="Settings"></l-button>
+<l-button icon="mail" iconOnly variant="soft" color="indigo" shape="pill" label="Mail"></l-button>
+<l-button icon="bell" iconOnly variant="soft" color="rose" shape="pill" badge="3" label="Notifications"></l-button>
+<l-button icon="plus" iconOnly variant="solid" color="emerald" shape="square" label="Add"></l-button>`,
             vue: `<template>
-  <l-Button icon="settings" iconOnly variant="ghost" shape="pill" label="Settings" />
-  <l-Button icon="mail" iconOnly variant="soft" color="indigo" shape="pill" label="Mail" />
-  <l-Button icon="bell" iconOnly variant="soft" color="rose" shape="pill" badge="3" label="Notifications" />
-  <l-Button icon="plus" iconOnly variant="solid" color="emerald" shape="square" label="Add" />
+  <l-button icon="settings" iconOnly variant="ghost" shape="pill" label="Settings" />
+  <l-button icon="mail" iconOnly variant="soft" color="indigo" shape="pill" label="Mail" />
+  <l-button icon="bell" iconOnly variant="soft" color="rose" shape="pill" badge="3" label="Notifications" />
+  <l-button icon="plus" iconOnly variant="solid" color="emerald" shape="square" label="Add" />
 </template>`,
             angular: `<!-- reuses ButtonShowcaseComponent from above -->
-<l-Button icon="settings" iconOnly variant="ghost" shape="pill" label="Settings" />
-<l-Button icon="mail" iconOnly variant="soft" color="indigo" shape="pill" label="Mail" />
-<l-Button icon="bell" iconOnly variant="soft" color="rose" shape="pill" badge="3" label="Notifications" />
-<l-Button icon="plus" iconOnly variant="solid" color="emerald" shape="square" label="Add" />`,
+<l-button icon="settings" iconOnly variant="ghost" shape="pill" label="Settings" />
+<l-button icon="mail" iconOnly variant="soft" color="indigo" shape="pill" label="Mail" />
+<l-button icon="bell" iconOnly variant="soft" color="rose" shape="pill" badge="3" label="Notifications" />
+<l-button icon="plus" iconOnly variant="solid" color="emerald" shape="square" label="Add" />`,
           }}
         />
       </section>
@@ -361,9 +361,9 @@ export class ButtonShowcaseComponent {}`,
             react: `<Button label="Default — hover me" />
 <Button disabled label="Disabled" />
 <Button loading={isSaving} onClick={handleSave} label={isSaving ? "Saving…" : "Save changes"} />`,
-            js: `<l-Button label="Default — hover me"></l-Button>
-<l-Button disabled label="Disabled"></l-Button>
-<l-Button id="save-btn" label="Save changes"></l-Button>
+            js: `<l-button label="Default — hover me"></l-button>
+<l-button disabled label="Disabled"></l-button>
+<l-button id="save-btn" label="Save changes"></l-button>
 
 <script type="module">
   const saveBtn = document.getElementById("save-btn");
@@ -377,18 +377,18 @@ export class ButtonShowcaseComponent {}`,
   });
 </script>`,
             vue: `<template>
-  <l-Button label="Default — hover me" />
-  <l-Button disabled label="Disabled" />
-  <l-Button
+  <l-button label="Default — hover me" />
+  <l-button disabled label="Disabled" />
+  <l-button
     :loading="isSaving"
     :label="isSaving ? 'Saving…' : 'Save changes'"
     @click="handleSave"
   />
 </template>`,
             angular: `<!-- reuses ButtonShowcaseComponent from above -->
-<l-Button label="Default — hover me" />
-<l-Button disabled label="Disabled" />
-<l-Button
+<l-button label="Default — hover me" />
+<l-button disabled label="Disabled" />
+<l-button
   [loading]="isSaving"
   [label]="isSaving ? 'Saving…' : 'Save changes'"
   (click)="handleSave()"
@@ -410,18 +410,18 @@ export class ButtonShowcaseComponent {}`,
             react: `<Button shape="default" label="Default" />
 <Button shape="pill" label="Pill" />
 <Button shape="square" label="Square" />`,
-            js: `<l-Button shape="default" label="Default"></l-Button>
-<l-Button shape="pill" label="Pill"></l-Button>
-<l-Button shape="square" label="Square"></l-Button>`,
+            js: `<l-button shape="default" label="Default"></l-button>
+<l-button shape="pill" label="Pill"></l-button>
+<l-button shape="square" label="Square"></l-button>`,
             vue: `<template>
-  <l-Button shape="default" label="Default" />
-  <l-Button shape="pill" label="Pill" />
-  <l-Button shape="square" label="Square" />
+  <l-button shape="default" label="Default" />
+  <l-button shape="pill" label="Pill" />
+  <l-button shape="square" label="Square" />
 </template>`,
             angular: `<!-- reuses ButtonShowcaseComponent from above -->
-<l-Button shape="default" label="Default" />
-<l-Button shape="pill" label="Pill" />
-<l-Button shape="square" label="Square" />`,
+<l-button shape="default" label="Default" />
+<l-button shape="pill" label="Pill" />
+<l-button shape="square" label="Square" />`,
           }}
         />
       </section>
@@ -463,27 +463,27 @@ export class ButtonShowcaseComponent {}`,
 // Target an internal part with classNames — icon, badge (Button also has "root")
 <Button icon="heart" color="rose" variant="soft" label="Liked" classNames={{ icon: "fill-rose-600 text-rose-600" }} />
 <Button icon="bell" iconOnly shape="pill" badge={5} label="Notifications" classNames={{ badge: "bg-indigo-600" }} />`,
-            js: `<l-Button class="rounded-full ring-2 ring-offset-2 ring-indigo-500" label="Custom root"></l-Button>
-<l-Button id="liked-btn" icon="heart" color="rose" variant="soft" label="Liked"></l-Button>
-<l-Button id="notif-btn" icon="bell" iconOnly shape="pill" badge="5" label="Notifications"></l-Button>
+            js: `<l-button class="rounded-full ring-2 ring-offset-2 ring-indigo-500" label="Custom root"></l-button>
+<l-button id="liked-btn" icon="heart" color="rose" variant="soft" label="Liked"></l-button>
+<l-button id="notif-btn" icon="bell" iconOnly shape="pill" badge="5" label="Notifications"></l-button>
 
 <script type="module">
   document.getElementById("liked-btn").classNames = { icon: "fill-rose-600 text-rose-600" };
   document.getElementById("notif-btn").classNames = { badge: "bg-indigo-600" };
 </script>`,
             vue: `<template>
-  <l-Button class="rounded-full ring-2 ring-offset-2 ring-indigo-500" label="Custom root" />
-  <l-Button icon="heart" color="rose" variant="soft" label="Liked" :classNames="likedClassNames" />
-  <l-Button icon="bell" iconOnly shape="pill" badge="5" label="Notifications" :classNames="notifClassNames" />
+  <l-button class="rounded-full ring-2 ring-offset-2 ring-indigo-500" label="Custom root" />
+  <l-button icon="heart" color="rose" variant="soft" label="Liked" :classNames="likedClassNames" />
+  <l-button icon="bell" iconOnly shape="pill" badge="5" label="Notifications" :classNames="notifClassNames" />
 </template>
 
 <script setup lang="ts">
 const likedClassNames = { icon: "fill-rose-600 text-rose-600" };
 const notifClassNames = { badge: "bg-indigo-600" };
 </script>`,
-            angular: `<l-Button class="rounded-full ring-2 ring-offset-2 ring-indigo-500" label="Custom root" />
-<l-Button icon="heart" color="rose" variant="soft" label="Liked" [classNames]="likedClassNames" />
-<l-Button icon="bell" iconOnly shape="pill" badge="5" label="Notifications" [classNames]="notifClassNames" />
+            angular: `<l-button class="rounded-full ring-2 ring-offset-2 ring-indigo-500" label="Custom root" />
+<l-button icon="heart" color="rose" variant="soft" label="Liked" [classNames]="likedClassNames" />
+<l-button icon="bell" iconOnly shape="pill" badge="5" label="Notifications" [classNames]="notifClassNames" />
 
 likedClassNames = { icon: "fill-rose-600 text-rose-600" };
 notifClassNames = { badge: "bg-indigo-600" };`,

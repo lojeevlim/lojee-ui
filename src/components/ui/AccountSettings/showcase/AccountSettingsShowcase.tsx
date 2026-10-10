@@ -53,7 +53,7 @@ export default function AccountSettingsShowcase() {
   onNotificationsChange={setNotifications}
   onDeleteAccount={() => deleteAccount()}
 />`,
-              js: `<l-AccountSettings id="account-settings" email="jordan@lojee.io"></l-AccountSettings>
+              js: `<l-account-settings id="account-settings" email="jordan@lojee.io"></l-account-settings>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -69,7 +69,7 @@ export default function AccountSettingsShowcase() {
   el.addEventListener("deleteAccount", () => { /* confirm + delete */ });
 </script>`,
               vue: `<template>
-  <l-AccountSettings
+  <l-account-settings
     email="jordan@lojee.io"
     :notifications="notifications"
     @emailChange="onEmailChange"
@@ -89,14 +89,14 @@ function onEmailChange(email) { /* save */ }
 function onPasswordChange(current, next) { /* change */ }
 function onDeleteAccount() { /* confirm + delete */ }
 </script>`,
-              angular: `<l-AccountSettings
+              angular: `<l-account-settings
   email="jordan@lojee.io"
   [notifications]="notifications"
   (emailChange)="onEmailChange($event)"
   (passwordChange)="onPasswordChange($event)"
   (notificationsChange)="notifications = $event"
   (deleteAccount)="onDeleteAccount()"
-></l-AccountSettings>
+></l-account-settings>
 
 notifications = [
   { key: "product", label: "Product updates", enabled: true },
@@ -139,23 +139,23 @@ onDeleteAccount() { /* confirm + delete */ }`,
 <AccountSettings transition="flip" transitionDuration={700} />
 <AccountSettings hoverEffect="lift" />
 <AccountSettings hoverEffect="glow" />`,
-              js: `<l-AccountSettings transition="fade"></l-AccountSettings>
-<l-AccountSettings transition="slide-up"></l-AccountSettings>
-<l-AccountSettings transition="zoom" transitionDelay="100"></l-AccountSettings>
-<l-AccountSettings transition="flip" transitionDuration="700"></l-AccountSettings>
-<l-AccountSettings hoverEffect="lift"></l-AccountSettings>
-<l-AccountSettings hoverEffect="glow"></l-AccountSettings>
+              js: `<l-account-settings transition="fade"></l-account-settings>
+<l-account-settings transition="slide-up"></l-account-settings>
+<l-account-settings transition="zoom" transitionDelay="100"></l-account-settings>
+<l-account-settings transition="flip" transitionDuration="700"></l-account-settings>
+<l-account-settings hoverEffect="lift"></l-account-settings>
+<l-account-settings hoverEffect="glow"></l-account-settings>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-AccountSettings transition="fade"></l-AccountSettings>
-  <l-AccountSettings transition="slide-up"></l-AccountSettings>
-  <l-AccountSettings transition="zoom" transitionDelay="100"></l-AccountSettings>
-  <l-AccountSettings transition="flip" transitionDuration="700"></l-AccountSettings>
-  <l-AccountSettings hoverEffect="lift"></l-AccountSettings>
-  <l-AccountSettings hoverEffect="glow"></l-AccountSettings>
+  <l-account-settings transition="fade"></l-account-settings>
+  <l-account-settings transition="slide-up"></l-account-settings>
+  <l-account-settings transition="zoom" transitionDelay="100"></l-account-settings>
+  <l-account-settings transition="flip" transitionDuration="700"></l-account-settings>
+  <l-account-settings hoverEffect="lift"></l-account-settings>
+  <l-account-settings hoverEffect="glow"></l-account-settings>
 </template>
 
 <script setup lang="ts">
@@ -170,12 +170,12 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-AccountSettings transition="fade"></l-AccountSettings>
-    <l-AccountSettings transition="slide-up"></l-AccountSettings>
-    <l-AccountSettings transition="zoom" transitionDelay="100"></l-AccountSettings>
-    <l-AccountSettings transition="flip" transitionDuration="700"></l-AccountSettings>
-    <l-AccountSettings hoverEffect="lift"></l-AccountSettings>
-    <l-AccountSettings hoverEffect="glow"></l-AccountSettings>
+    <l-account-settings transition="fade"></l-account-settings>
+    <l-account-settings transition="slide-up"></l-account-settings>
+    <l-account-settings transition="zoom" transitionDelay="100"></l-account-settings>
+    <l-account-settings transition="flip" transitionDuration="700"></l-account-settings>
+    <l-account-settings hoverEffect="lift"></l-account-settings>
+    <l-account-settings hoverEffect="glow"></l-account-settings>
   \`,
 })
 export class AppComponent {}`,

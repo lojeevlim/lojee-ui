@@ -106,13 +106,13 @@ export default function HeaderPlayground() {
   // treatment ModalShowcase.tsx/AlertDialogShowcase.tsx give their `title`
   // prop. `actions` is projected as light-DOM content via slot="actions".
   const htmlMarkup = showActions
-    ? `<l-Header heading="${titleValue}"${descriptionAttr}${variantAttrHtml}${colorAttr}${borderWidthAttrHtml}${motionAttr}>
+    ? `<l-header heading="${titleValue}"${descriptionAttr}${variantAttrHtml}${colorAttr}${borderWidthAttrHtml}${motionAttr}>
   <div slot="actions">
-    <l-Button variant="outline" label="Import" />
-    <l-Button label="New project" />
+    <l-button variant="outline" label="Import" />
+    <l-button label="New project" />
   </div>
-</l-Header>`
-    : `<l-Header heading="${titleValue}"${descriptionAttr}${variantAttrHtml}${colorAttr}${borderWidthAttrHtml}${motionAttr} />`;
+</l-header>`
+    : `<l-header heading="${titleValue}"${descriptionAttr}${variantAttrHtml}${colorAttr}${borderWidthAttrHtml}${motionAttr} />`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,

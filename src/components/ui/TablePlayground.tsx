@@ -199,7 +199,7 @@ const data = ${dedent(dataCode)};`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,
-    js: `<l-Table id="people-table" ${attrs}></l-Table>
+    js: `<l-table id="people-table" ${attrs}></l-table>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -211,13 +211,13 @@ ${jsData}${rowActions ? `\n${actionsData}` : ""}
   el.data = data;${selectEvent}${rowActions ? `\n  el.actions = actions;\n  el.addEventListener("action", (e) => console.log(e.detail.action, e.detail.row));` : ""}
 </script>`,
     vue: `<template>
-  <l-Table :columns="columns" :data="data" ${attrs}${rowActions ? ' :actions="actions" @action="onAction"' : ""} />
+  <l-table :columns="columns" :data="data" ${attrs}${rowActions ? ' :actions="actions" @action="onAction"' : ""} />
 </template>
 
 <script setup lang="ts">
 ${topData}${rowActions ? `\nconst actions = ${ACTIONS_JSON};\n\nfunction onAction(e) {\n  console.log(e.detail.action, e.detail.row);\n}` : ""}
 </script>`,
-    angular: `<l-Table [columns]="columns" [data]="data" ${attrs}${rowActions ? ' [actions]="actions" (action)="onAction($event)"' : ""} />
+    angular: `<l-table [columns]="columns" [data]="data" ${attrs}${rowActions ? ' [actions]="actions" (action)="onAction($event)"' : ""} />
 
 ${topData}${rowActions ? `\nactions = ${ACTIONS_JSON};\n\nonAction(e) {\n  console.log(e.detail.action, e.detail.row);\n}` : ""}`,
   };

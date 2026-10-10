@@ -81,9 +81,9 @@ export default function GridViewPlayground() {
 
   const codeVariants: CodeBlockVariants = {
     react: `${decls}\n\n<GridView${attrs}${motion.attrs}\n  items={items}${reactProps}\n/>`,
-    js: `<l-GridView id="grid-demo" ${w}></l-GridView>\n\n<script type="module">\n  import "lojee-ui/elements";\n\n${decls.replace(/^/gm, "  ")}\n\n  const el = document.getElementById("grid-demo");\n  el.items = items;${jsAssign}\n</script>`,
-    vue: `<template>\n  <l-GridView :items="items"${vueBind} ${w} />\n</template>\n\n<script setup lang="ts">\nimport "lojee-ui/elements";\n\n${decls}\n</script>`,
-    angular: `<l-GridView [items]="items"${ngBind} ${w}></l-GridView>\n\n// component class\n${decls.replace(/^const (\w+) =/gm, "$1 =")}`,
+    js: `<l-grid-view id="grid-demo" ${w}></l-grid-view>\n\n<script type="module">\n  import "lojee-ui/elements";\n\n${decls.replace(/^/gm, "  ")}\n\n  const el = document.getElementById("grid-demo");\n  el.items = items;${jsAssign}\n</script>`,
+    vue: `<template>\n  <l-grid-view :items="items"${vueBind} ${w} />\n</template>\n\n<script setup lang="ts">\nimport "lojee-ui/elements";\n\n${decls}\n</script>`,
+    angular: `<l-grid-view [items]="items"${ngBind} ${w}></l-grid-view>\n\n// component class\n${decls.replace(/^const (\w+) =/gm, "$1 =")}`,
   };
 
   const chip = (on: boolean, set: (v: boolean) => void, label: string) => (

@@ -49,10 +49,10 @@ export default function ModalShowcase() {
 <Modal open={open} onClose={() => setOpen(false)} title="Basic modal">
   <p>This is a basic modal with some simple content.</p>
 </Modal>`,
-              js: `<l-Button label="Open modal" id="open-modal-btn"></l-Button>
-<l-Modal id="basic-modal" heading="Basic modal">
+              js: `<l-button label="Open modal" id="open-modal-btn"></l-button>
+<l-modal id="basic-modal" heading="Basic modal">
   <p>This is a basic modal with some simple content.</p>
-</l-Modal>
+</l-modal>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -63,10 +63,10 @@ export default function ModalShowcase() {
   modal.addEventListener("close", () => { modal.open = false; });
 </script>`,
               vue: `<template>
-  <l-Button label="Open modal" @click="open = true" />
-  <l-Modal :open="open" heading="Basic modal" @close="open = false">
+  <l-button label="Open modal" @click="open = true" />
+  <l-modal :open="open" heading="Basic modal" @close="open = false">
     <p>This is a basic modal with some simple content.</p>
-  </l-Modal>
+  </l-modal>
 </template>
 
 <script setup lang="ts">
@@ -76,10 +76,10 @@ import "lojee-ui/elements";
 const open = ref(false);
 </script>`,
               angular: `<!-- app.component.html -->
-<l-Button label="Open modal" (click)="open = true" />
-<l-Modal [open]="open" heading="Basic modal" (close)="open = false">
+<l-button label="Open modal" (click)="open = true" />
+<l-modal [open]="open" heading="Basic modal" (close)="open = false">
   <p>This is a basic modal with some simple content.</p>
-</l-Modal>`,
+</l-modal>`,
             }}
           />
         </section>
@@ -104,28 +104,28 @@ const open = ref(false);
     {paragraphs.map((p, i) => <p key={i}>{p}</p>)}
   </div>
 </Modal>`,
-              js: `<l-Modal id="terms-modal" heading="Terms & conditions">
+              js: `<l-modal id="terms-modal" heading="Terms & conditions">
   <div class="space-y-4">
     <!-- paragraphs -->
   </div>
-</l-Modal>
+</l-modal>
 
 <script type="module">
   const modal = document.getElementById("terms-modal");
   modal.addEventListener("close", () => { modal.open = false; });
 </script>`,
               vue: `<template>
-  <l-Modal :open="open" heading="Terms & conditions" @close="open = false">
+  <l-modal :open="open" heading="Terms & conditions" @close="open = false">
     <div class="space-y-4">
       <p v-for="(p, i) in paragraphs" :key="i">{{ p }}</p>
     </div>
-  </l-Modal>
+  </l-modal>
 </template>`,
-              angular: `<l-Modal [open]="open" heading="Terms & conditions" (close)="open = false">
+              angular: `<l-modal [open]="open" heading="Terms & conditions" (close)="open = false">
   <div class="space-y-4">
     <p *ngFor="let p of paragraphs">{{ p }}</p>
   </div>
-</l-Modal>`,
+</l-modal>`,
             }}
           />
         </section>
@@ -161,10 +161,10 @@ const open = ref(false);
 >
   <p>This modal's header and body pick up custom colors via classNames.</p>
 </Modal>`,
-              js: `<l-Button label="Open styled modal" id="open-styled-modal-btn"></l-Button>
-<l-Modal id="styled-modal" heading="Styled modal">
+              js: `<l-button label="Open styled modal" id="open-styled-modal-btn"></l-button>
+<l-modal id="styled-modal" heading="Styled modal">
   <p>This modal's header and body pick up custom colors via classNames.</p>
-</l-Modal>
+</l-modal>
 
 <script type="module">
   const modal = document.getElementById("styled-modal");
@@ -179,10 +179,10 @@ const open = ref(false);
   modal.addEventListener("close", () => { modal.open = false; });
 </script>`,
               vue: `<template>
-  <l-Button label="Open styled modal" @click="open = true" />
-  <l-Modal :open="open" heading="Styled modal" :classNames="modalClassNames" @close="open = false">
+  <l-button label="Open styled modal" @click="open = true" />
+  <l-modal :open="open" heading="Styled modal" :classNames="modalClassNames" @close="open = false">
     <p>This modal's header and body pick up custom colors via classNames.</p>
-  </l-Modal>
+  </l-modal>
 </template>
 
 <script setup lang="ts">
@@ -196,10 +196,10 @@ const modalClassNames = {
   body: "bg-indigo-50/40",
 };
 </script>`,
-              angular: `<l-Button label="Open styled modal" (click)="open = true" />
-<l-Modal [open]="open" heading="Styled modal" [classNames]="modalClassNames" (close)="open = false">
+              angular: `<l-button label="Open styled modal" (click)="open = true" />
+<l-modal [open]="open" heading="Styled modal" [classNames]="modalClassNames" (close)="open = false">
   <p>This modal's header and body pick up custom colors via classNames.</p>
-</l-Modal>
+</l-modal>
 
 modalClassNames = {
   root: "max-w-md",
@@ -237,10 +237,10 @@ modalClassNames = {
 <Modal open={open} onClose={() => setOpen(false)} title="Transition" ${trReact}>
   <p>The modal and its backdrop enter and exit with the chosen transition.</p>
 </Modal>`,
-              js: `<l-Button label="Open modal" id="open-tr-btn"></l-Button>
-<l-Modal id="tr-overlay" heading="Transition" ${trHtml}>
+              js: `<l-button label="Open modal" id="open-tr-btn"></l-button>
+<l-modal id="tr-overlay" heading="Transition" ${trHtml}>
   <p>The modal and its backdrop enter and exit with the chosen transition.</p>
-</l-Modal>
+</l-modal>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -251,10 +251,10 @@ modalClassNames = {
   overlay.addEventListener("close", () => { overlay.open = false; });
 </script>`,
               vue: `<template>
-  <l-Button label="Open modal" @click="open = true"></l-Button>
-  <l-Modal :open="open" heading="Transition" ${trHtml} @close="open = false">
+  <l-button label="Open modal" @click="open = true"></l-button>
+  <l-modal :open="open" heading="Transition" ${trHtml} @close="open = false">
     <p>The modal and its backdrop enter and exit with the chosen transition.</p>
-  </l-Modal>
+  </l-modal>
 </template>
 
 <script setup lang="ts">
@@ -272,10 +272,10 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Button label="Open modal" (click)="open = true"></l-Button>
-    <l-Modal [open]="open" heading="Transition" ${trHtml} (close)="open = false">
+    <l-button label="Open modal" (click)="open = true"></l-button>
+    <l-modal [open]="open" heading="Transition" ${trHtml} (close)="open = false">
       <p>The modal and its backdrop enter and exit with the chosen transition.</p>
-    </l-Modal>
+    </l-modal>
   \`,
 })
 export class AppComponent {

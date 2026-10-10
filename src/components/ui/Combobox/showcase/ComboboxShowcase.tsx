@@ -39,7 +39,7 @@ export default function ComboboxShowcase() {
               react: `const [value, setValue] = useState<string | undefined>("manila");
 
 <Combobox options={options} value={value} onChange={setValue} placeholder="Search a city..." />`,
-              js: `<l-Combobox id="city-combobox" placeholder="Search a city..."></l-Combobox>
+              js: `<l-combobox id="city-combobox" placeholder="Search a city..."></l-combobox>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -63,7 +63,7 @@ export default function ComboboxShowcase() {
   });
 </script>`,
               vue: `<template>
-  <l-Combobox :options="options" :value="value" placeholder="Search a city..." @change="value = $event.detail" />
+  <l-combobox :options="options" :value="value" placeholder="Search a city..." @change="value = $event.detail" />
 </template>
 
 <script setup lang="ts">
@@ -106,7 +106,7 @@ export class AppComponent {
 }
 
 <!-- app.component.html -->
-<l-Combobox [options]="options" [value]="value" placeholder="Search a city..." (change)="value = $event.detail" />`,
+<l-combobox [options]="options" [value]="value" placeholder="Search a city..." (change)="value = $event.detail" />`,
             }}
           />
         </section>
@@ -119,7 +119,7 @@ export class AppComponent {
           <CodeBlock
             variants={{
               react: `<Combobox options={options} value={undefined} onChange={setValue} placeholder="Search a city..." />`,
-              js: `<l-Combobox id="city-combobox-empty" placeholder="Search a city..."></l-Combobox>
+              js: `<l-combobox id="city-combobox-empty" placeholder="Search a city..."></l-combobox>
 
 <script type="module">
   const combobox = document.getElementById("city-combobox-empty");
@@ -129,10 +129,10 @@ export class AppComponent {
   });
 </script>`,
               vue: `<template>
-  <l-Combobox :options="options" placeholder="Search a city..." @change="value = $event.detail" />
+  <l-combobox :options="options" placeholder="Search a city..." @change="value = $event.detail" />
 </template>`,
               angular: `<!-- app.component.html — same AppComponent class as above, value left undefined -->
-<l-Combobox [options]="options" placeholder="Search a city..." (change)="value = $event.detail" />`,
+<l-combobox [options]="options" placeholder="Search a city..." (change)="value = $event.detail" />`,
             }}
           />
         </section>
@@ -163,15 +163,15 @@ export class AppComponent {
 <Combobox options={options} value={value} onChange={setValue} placeholder="Search a city..." hoverEffect="lift" />
 <Combobox options={options} value={value} onChange={setValue} placeholder="Search a city..." hoverEffect="glow" />
 <Combobox options={options} value={value} onChange={setValue} placeholder="Search a city..." hoverEffect="ring" />`,
-              js: `<l-Combobox placeholder="Search a city..." transition="fade"></l-Combobox>
-<l-Combobox placeholder="Search a city..." transition="slide-up"></l-Combobox>
-<l-Combobox placeholder="Search a city..." transition="zoom"></l-Combobox>
-<l-Combobox placeholder="Search a city..." transition="flip"></l-Combobox>
-<l-Combobox placeholder="Search a city..." transition="slide-right" transitionDelay="100"></l-Combobox>
-<l-Combobox placeholder="Search a city..." transition="bounce" transitionDuration="700"></l-Combobox>
-<l-Combobox placeholder="Search a city..." hoverEffect="lift"></l-Combobox>
-<l-Combobox placeholder="Search a city..." hoverEffect="glow"></l-Combobox>
-<l-Combobox placeholder="Search a city..." hoverEffect="ring"></l-Combobox>
+              js: `<l-combobox placeholder="Search a city..." transition="fade"></l-combobox>
+<l-combobox placeholder="Search a city..." transition="slide-up"></l-combobox>
+<l-combobox placeholder="Search a city..." transition="zoom"></l-combobox>
+<l-combobox placeholder="Search a city..." transition="flip"></l-combobox>
+<l-combobox placeholder="Search a city..." transition="slide-right" transitionDelay="100"></l-combobox>
+<l-combobox placeholder="Search a city..." transition="bounce" transitionDuration="700"></l-combobox>
+<l-combobox placeholder="Search a city..." hoverEffect="lift"></l-combobox>
+<l-combobox placeholder="Search a city..." hoverEffect="glow"></l-combobox>
+<l-combobox placeholder="Search a city..." hoverEffect="ring"></l-combobox>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -193,15 +193,15 @@ export class AppComponent {
   });
 </script>`,
               vue: `<template>
-  <l-Combobox :options="options" :value="value" placeholder="Search a city..." transition="fade"></l-Combobox>
-  <l-Combobox :options="options" :value="value" placeholder="Search a city..." transition="slide-up"></l-Combobox>
-  <l-Combobox :options="options" :value="value" placeholder="Search a city..." transition="zoom"></l-Combobox>
-  <l-Combobox :options="options" :value="value" placeholder="Search a city..." transition="flip"></l-Combobox>
-  <l-Combobox :options="options" :value="value" placeholder="Search a city..." transition="slide-right" transitionDelay="100"></l-Combobox>
-  <l-Combobox :options="options" :value="value" placeholder="Search a city..." transition="bounce" transitionDuration="700"></l-Combobox>
-  <l-Combobox :options="options" :value="value" placeholder="Search a city..." hoverEffect="lift"></l-Combobox>
-  <l-Combobox :options="options" :value="value" placeholder="Search a city..." hoverEffect="glow"></l-Combobox>
-  <l-Combobox :options="options" :value="value" placeholder="Search a city..." hoverEffect="ring"></l-Combobox>
+  <l-combobox :options="options" :value="value" placeholder="Search a city..." transition="fade"></l-combobox>
+  <l-combobox :options="options" :value="value" placeholder="Search a city..." transition="slide-up"></l-combobox>
+  <l-combobox :options="options" :value="value" placeholder="Search a city..." transition="zoom"></l-combobox>
+  <l-combobox :options="options" :value="value" placeholder="Search a city..." transition="flip"></l-combobox>
+  <l-combobox :options="options" :value="value" placeholder="Search a city..." transition="slide-right" transitionDelay="100"></l-combobox>
+  <l-combobox :options="options" :value="value" placeholder="Search a city..." transition="bounce" transitionDuration="700"></l-combobox>
+  <l-combobox :options="options" :value="value" placeholder="Search a city..." hoverEffect="lift"></l-combobox>
+  <l-combobox :options="options" :value="value" placeholder="Search a city..." hoverEffect="glow"></l-combobox>
+  <l-combobox :options="options" :value="value" placeholder="Search a city..." hoverEffect="ring"></l-combobox>
 </template>
 
 <script setup lang="ts">
@@ -228,15 +228,15 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Combobox [options]="options" [value]="value" placeholder="Search a city..." transition="fade"></l-Combobox>
-    <l-Combobox [options]="options" [value]="value" placeholder="Search a city..." transition="slide-up"></l-Combobox>
-    <l-Combobox [options]="options" [value]="value" placeholder="Search a city..." transition="zoom"></l-Combobox>
-    <l-Combobox [options]="options" [value]="value" placeholder="Search a city..." transition="flip"></l-Combobox>
-    <l-Combobox [options]="options" [value]="value" placeholder="Search a city..." transition="slide-right" transitionDelay="100"></l-Combobox>
-    <l-Combobox [options]="options" [value]="value" placeholder="Search a city..." transition="bounce" transitionDuration="700"></l-Combobox>
-    <l-Combobox [options]="options" [value]="value" placeholder="Search a city..." hoverEffect="lift"></l-Combobox>
-    <l-Combobox [options]="options" [value]="value" placeholder="Search a city..." hoverEffect="glow"></l-Combobox>
-    <l-Combobox [options]="options" [value]="value" placeholder="Search a city..." hoverEffect="ring"></l-Combobox>
+    <l-combobox [options]="options" [value]="value" placeholder="Search a city..." transition="fade"></l-combobox>
+    <l-combobox [options]="options" [value]="value" placeholder="Search a city..." transition="slide-up"></l-combobox>
+    <l-combobox [options]="options" [value]="value" placeholder="Search a city..." transition="zoom"></l-combobox>
+    <l-combobox [options]="options" [value]="value" placeholder="Search a city..." transition="flip"></l-combobox>
+    <l-combobox [options]="options" [value]="value" placeholder="Search a city..." transition="slide-right" transitionDelay="100"></l-combobox>
+    <l-combobox [options]="options" [value]="value" placeholder="Search a city..." transition="bounce" transitionDuration="700"></l-combobox>
+    <l-combobox [options]="options" [value]="value" placeholder="Search a city..." hoverEffect="lift"></l-combobox>
+    <l-combobox [options]="options" [value]="value" placeholder="Search a city..." hoverEffect="glow"></l-combobox>
+    <l-combobox [options]="options" [value]="value" placeholder="Search a city..." hoverEffect="ring"></l-combobox>
   \`,
 })
 export class AppComponent {

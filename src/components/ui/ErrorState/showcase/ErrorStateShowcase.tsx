@@ -21,11 +21,11 @@ export default function ErrorStateShowcase() {
           <CodeBlock
             variants={{
               react: `<ErrorState />`,
-              js: `<l-ErrorState ></l-ErrorState>
+              js: `<l-error-state ></l-error-state>
 
 <script type="module">import "lojee-ui/elements";</script>`,
-              vue: `<l-ErrorState />`,
-              angular: `<l-ErrorState />`,
+              vue: `<l-error-state />`,
+              angular: `<l-error-state />`,
             }}
           />
         </section>
@@ -36,13 +36,13 @@ export default function ErrorStateShowcase() {
           <CodeBlock
             variants={{
               react: `<ErrorState>\n  We couldn't load your data. Please try again.\n</ErrorState>`,
-              js: `<l-ErrorState>
+              js: `<l-error-state>
   We couldn't load your data. Please try again.
-</l-ErrorState>
+</l-error-state>
 
 <script type="module">import "lojee-ui/elements";</script>`,
-              vue: `<l-ErrorState>\n  We couldn't load your data. Please try again.\n</l-ErrorState>`,
-              angular: `<l-ErrorState>\n  We couldn't load your data. Please try again.\n</l-ErrorState>`,
+              vue: `<l-error-state>\n  We couldn't load your data. Please try again.\n</l-error-state>`,
+              angular: `<l-error-state>\n  We couldn't load your data. Please try again.\n</l-error-state>`,
             }}
           />
         </section>
@@ -61,10 +61,10 @@ export default function ErrorStateShowcase() {
 >
   We couldn't load your data. Please try again.
 </ErrorState>`,
-              js: `<l-ErrorState>
+              js: `<l-error-state>
   We couldn't load your data. Please try again.
-  <l-Button slot="action" variant="destructive" icon="refresh-cw" label="Retry" id="retry-btn"></l-Button>
-</l-ErrorState>
+  <l-button slot="action" variant="destructive" icon="refresh-cw" label="Retry" id="retry-btn"></l-button>
+</l-error-state>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -74,10 +74,10 @@ export default function ErrorStateShowcase() {
   });
 </script>`,
               vue: `<template>
-  <l-ErrorState>
+  <l-error-state>
     We couldn't load your data. Please try again.
-    <l-Button slot="action" variant="destructive" icon="refresh-cw" label="Retry" @click="handleRetry" />
-  </l-ErrorState>
+    <l-button slot="action" variant="destructive" icon="refresh-cw" label="Retry" @click="handleRetry" />
+  </l-error-state>
 </template>
 
 <script setup lang="ts">
@@ -88,10 +88,10 @@ const handleRetry = () => {
 };
 </script>`,
               angular: `<!-- app.component.html -->
-<l-ErrorState>
+<l-error-state>
   We couldn't load your data. Please try again.
-  <l-Button slot="action" variant="destructive" icon="refresh-cw" label="Retry" (click)="handleRetry()" />
-</l-ErrorState>`,
+  <l-button slot="action" variant="destructive" icon="refresh-cw" label="Retry" (click)="handleRetry()" />
+</l-error-state>`,
             }}
           />
         </section>
@@ -106,13 +106,13 @@ const handleRetry = () => {
           <CodeBlock
             variants={{
               react: `<ErrorState title="Connection lost" icon="triangle-alert">\n  Check your internet connection and try again.\n</ErrorState>`,
-              js: `<l-ErrorState title="Connection lost" icon="triangle-alert">
+              js: `<l-error-state title="Connection lost" icon="triangle-alert">
   Check your internet connection and try again.
-</l-ErrorState>
+</l-error-state>
 
 <script type="module">import "lojee-ui/elements";</script>`,
-              vue: `<l-ErrorState title="Connection lost" icon="triangle-alert">\n  Check your internet connection and try again.\n</l-ErrorState>`,
-              angular: `<l-ErrorState title="Connection lost" icon="triangle-alert">\n  Check your internet connection and try again.\n</l-ErrorState>`,
+              vue: `<l-error-state title="Connection lost" icon="triangle-alert">\n  Check your internet connection and try again.\n</l-error-state>`,
+              angular: `<l-error-state title="Connection lost" icon="triangle-alert">\n  Check your internet connection and try again.\n</l-error-state>`,
             }}
           />
         </section>
@@ -139,27 +139,27 @@ const handleRetry = () => {
 <ErrorState title="Blur" transition="blur" />
 <ErrorState title="Bounce" transition="bounce" />
 <ErrorState title="Drop" transition="drop" transitionDuration={700} />`,
-              js: `<l-ErrorState title="Fade" transition="fade"></l-ErrorState>
-<l-ErrorState title="Slide up" transition="slide-up"></l-ErrorState>
-<l-ErrorState title="Slide right" transition="slide-right" transitionDelay="100"></l-ErrorState>
-<l-ErrorState title="Zoom" transition="zoom"></l-ErrorState>
-<l-ErrorState title="Flip" transition="flip"></l-ErrorState>
-<l-ErrorState title="Blur" transition="blur"></l-ErrorState>
-<l-ErrorState title="Bounce" transition="bounce"></l-ErrorState>
-<l-ErrorState title="Drop" transition="drop" transitionDuration="700"></l-ErrorState>
+              js: `<l-error-state title="Fade" transition="fade"></l-error-state>
+<l-error-state title="Slide up" transition="slide-up"></l-error-state>
+<l-error-state title="Slide right" transition="slide-right" transitionDelay="100"></l-error-state>
+<l-error-state title="Zoom" transition="zoom"></l-error-state>
+<l-error-state title="Flip" transition="flip"></l-error-state>
+<l-error-state title="Blur" transition="blur"></l-error-state>
+<l-error-state title="Bounce" transition="bounce"></l-error-state>
+<l-error-state title="Drop" transition="drop" transitionDuration="700"></l-error-state>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-ErrorState title="Fade" transition="fade"></l-ErrorState>
-  <l-ErrorState title="Slide up" transition="slide-up"></l-ErrorState>
-  <l-ErrorState title="Slide right" transition="slide-right" transitionDelay="100"></l-ErrorState>
-  <l-ErrorState title="Zoom" transition="zoom"></l-ErrorState>
-  <l-ErrorState title="Flip" transition="flip"></l-ErrorState>
-  <l-ErrorState title="Blur" transition="blur"></l-ErrorState>
-  <l-ErrorState title="Bounce" transition="bounce"></l-ErrorState>
-  <l-ErrorState title="Drop" transition="drop" transitionDuration="700"></l-ErrorState>
+  <l-error-state title="Fade" transition="fade"></l-error-state>
+  <l-error-state title="Slide up" transition="slide-up"></l-error-state>
+  <l-error-state title="Slide right" transition="slide-right" transitionDelay="100"></l-error-state>
+  <l-error-state title="Zoom" transition="zoom"></l-error-state>
+  <l-error-state title="Flip" transition="flip"></l-error-state>
+  <l-error-state title="Blur" transition="blur"></l-error-state>
+  <l-error-state title="Bounce" transition="bounce"></l-error-state>
+  <l-error-state title="Drop" transition="drop" transitionDuration="700"></l-error-state>
 </template>
 
 <script setup lang="ts">
@@ -174,14 +174,14 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-ErrorState title="Fade" transition="fade"></l-ErrorState>
-    <l-ErrorState title="Slide up" transition="slide-up"></l-ErrorState>
-    <l-ErrorState title="Slide right" transition="slide-right" transitionDelay="100"></l-ErrorState>
-    <l-ErrorState title="Zoom" transition="zoom"></l-ErrorState>
-    <l-ErrorState title="Flip" transition="flip"></l-ErrorState>
-    <l-ErrorState title="Blur" transition="blur"></l-ErrorState>
-    <l-ErrorState title="Bounce" transition="bounce"></l-ErrorState>
-    <l-ErrorState title="Drop" transition="drop" transitionDuration="700"></l-ErrorState>
+    <l-error-state title="Fade" transition="fade"></l-error-state>
+    <l-error-state title="Slide up" transition="slide-up"></l-error-state>
+    <l-error-state title="Slide right" transition="slide-right" transitionDelay="100"></l-error-state>
+    <l-error-state title="Zoom" transition="zoom"></l-error-state>
+    <l-error-state title="Flip" transition="flip"></l-error-state>
+    <l-error-state title="Blur" transition="blur"></l-error-state>
+    <l-error-state title="Bounce" transition="bounce"></l-error-state>
+    <l-error-state title="Drop" transition="drop" transitionDuration="700"></l-error-state>
   \`,
 })
 export class AppComponent {}`,

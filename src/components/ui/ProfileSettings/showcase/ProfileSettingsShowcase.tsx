@@ -41,7 +41,7 @@ export default function ProfileSettingsShowcase() {
   defaultValues={{ name: "Jordan Diaz", username: "jordandiaz", bio: "Product designer building lojee-ui." }}
   onSave={setSaved}
 />`,
-              js: `<l-ProfileSettings id="profile-settings" avatarInitials="JD"></l-ProfileSettings>
+              js: `<l-profile-settings id="profile-settings" avatarInitials="JD"></l-profile-settings>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -51,14 +51,14 @@ export default function ProfileSettingsShowcase() {
   el.addEventListener("save", (e) => { /* e.detail */ });
 </script>`,
               vue: `<template>
-  <l-ProfileSettings avatarInitials="JD" :defaultValues="defaults" @save="onSave" />
+  <l-profile-settings avatarInitials="JD" :defaultValues="defaults" @save="onSave" />
 </template>
 
 <script setup lang="ts">
 const defaults = { name: "Jordan Diaz", username: "jordandiaz", bio: "Product designer building lojee-ui." };
 function onSave(values) { /* values */ }
 </script>`,
-              angular: `<l-ProfileSettings avatarInitials="JD" [defaultValues]="defaults" (save)="onSave($event)"></l-ProfileSettings>
+              angular: `<l-profile-settings avatarInitials="JD" [defaultValues]="defaults" (save)="onSave($event)"></l-profile-settings>
 
 defaults = { name: "Jordan Diaz", username: "jordandiaz", bio: "Product designer building lojee-ui." };
 onSave(values) { /* values */ }`,
@@ -78,9 +78,9 @@ onSave(values) { /* values */ }`,
           <CodeBlock
             variants={{
               react: `<ProfileSettings avatarInitials="AC" defaultValues={{ name: "Alex Chen", username: "alexchen" }} saveLabel="Update profile" />`,
-              js: `<l-ProfileSettings avatarInitials="AC" saveLabel="Update profile"></l-ProfileSettings>`,
-              vue: `<l-ProfileSettings avatarInitials="AC" saveLabel="Update profile" />`,
-              angular: `<l-ProfileSettings avatarInitials="AC" saveLabel="Update profile"></l-ProfileSettings>`,
+              js: `<l-profile-settings avatarInitials="AC" saveLabel="Update profile"></l-profile-settings>`,
+              vue: `<l-profile-settings avatarInitials="AC" saveLabel="Update profile" />`,
+              angular: `<l-profile-settings avatarInitials="AC" saveLabel="Update profile"></l-profile-settings>`,
             }}
           />
         </section>
@@ -105,23 +105,23 @@ onSave(values) { /* values */ }`,
 <ProfileSettings transition="flip" transitionDuration={700} avatarInitials="JD" />
 <ProfileSettings hoverEffect="lift" avatarInitials="JD" />
 <ProfileSettings hoverEffect="glow" avatarInitials="JD" />`,
-              js: `<l-ProfileSettings transition="fade" avatarInitials="JD"></l-ProfileSettings>
-<l-ProfileSettings transition="slide-up" avatarInitials="JD"></l-ProfileSettings>
-<l-ProfileSettings transition="zoom" transitionDelay="100" avatarInitials="JD"></l-ProfileSettings>
-<l-ProfileSettings transition="flip" transitionDuration="700" avatarInitials="JD"></l-ProfileSettings>
-<l-ProfileSettings hoverEffect="lift" avatarInitials="JD"></l-ProfileSettings>
-<l-ProfileSettings hoverEffect="glow" avatarInitials="JD"></l-ProfileSettings>
+              js: `<l-profile-settings transition="fade" avatarInitials="JD"></l-profile-settings>
+<l-profile-settings transition="slide-up" avatarInitials="JD"></l-profile-settings>
+<l-profile-settings transition="zoom" transitionDelay="100" avatarInitials="JD"></l-profile-settings>
+<l-profile-settings transition="flip" transitionDuration="700" avatarInitials="JD"></l-profile-settings>
+<l-profile-settings hoverEffect="lift" avatarInitials="JD"></l-profile-settings>
+<l-profile-settings hoverEffect="glow" avatarInitials="JD"></l-profile-settings>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-ProfileSettings transition="fade" avatarInitials="JD"></l-ProfileSettings>
-  <l-ProfileSettings transition="slide-up" avatarInitials="JD"></l-ProfileSettings>
-  <l-ProfileSettings transition="zoom" transitionDelay="100" avatarInitials="JD"></l-ProfileSettings>
-  <l-ProfileSettings transition="flip" transitionDuration="700" avatarInitials="JD"></l-ProfileSettings>
-  <l-ProfileSettings hoverEffect="lift" avatarInitials="JD"></l-ProfileSettings>
-  <l-ProfileSettings hoverEffect="glow" avatarInitials="JD"></l-ProfileSettings>
+  <l-profile-settings transition="fade" avatarInitials="JD"></l-profile-settings>
+  <l-profile-settings transition="slide-up" avatarInitials="JD"></l-profile-settings>
+  <l-profile-settings transition="zoom" transitionDelay="100" avatarInitials="JD"></l-profile-settings>
+  <l-profile-settings transition="flip" transitionDuration="700" avatarInitials="JD"></l-profile-settings>
+  <l-profile-settings hoverEffect="lift" avatarInitials="JD"></l-profile-settings>
+  <l-profile-settings hoverEffect="glow" avatarInitials="JD"></l-profile-settings>
 </template>
 
 <script setup lang="ts">
@@ -136,12 +136,12 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-ProfileSettings transition="fade" avatarInitials="JD"></l-ProfileSettings>
-    <l-ProfileSettings transition="slide-up" avatarInitials="JD"></l-ProfileSettings>
-    <l-ProfileSettings transition="zoom" transitionDelay="100" avatarInitials="JD"></l-ProfileSettings>
-    <l-ProfileSettings transition="flip" transitionDuration="700" avatarInitials="JD"></l-ProfileSettings>
-    <l-ProfileSettings hoverEffect="lift" avatarInitials="JD"></l-ProfileSettings>
-    <l-ProfileSettings hoverEffect="glow" avatarInitials="JD"></l-ProfileSettings>
+    <l-profile-settings transition="fade" avatarInitials="JD"></l-profile-settings>
+    <l-profile-settings transition="slide-up" avatarInitials="JD"></l-profile-settings>
+    <l-profile-settings transition="zoom" transitionDelay="100" avatarInitials="JD"></l-profile-settings>
+    <l-profile-settings transition="flip" transitionDuration="700" avatarInitials="JD"></l-profile-settings>
+    <l-profile-settings hoverEffect="lift" avatarInitials="JD"></l-profile-settings>
+    <l-profile-settings hoverEffect="glow" avatarInitials="JD"></l-profile-settings>
   \`,
 })
 export class AppComponent {}`,

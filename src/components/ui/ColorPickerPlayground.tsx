@@ -23,9 +23,9 @@ export default function ColorPickerPlayground() {
       preview={preview}
       variants={wcCode({
         react: `<ColorPicker${input === "off" ? " showInput={false}" : ""}${presets === "off" ? " presets={[]}" : ""}${disabled === "on" ? " disabled" : ""} onChange={(color) => console.log(color)} />`,
-        html: `<l-Color-Picker${input === "off" ? ' show-input="false"' : ""}${disabled === "on" ? ' disabled="true"' : ""}></l-Color-Picker>`,
-        vueHtml: `<l-Color-Picker${input === "off" ? ' :show-input="false"' : ""}${presets === "off" ? ' :presets="[]"' : ""}${disabled === "on" ? ' :disabled="true"' : ""} @change="color = $event.detail"></l-Color-Picker>`,
-        angularHtml: `<l-Color-Picker${input === "off" ? ' [showInput]="false"' : ""}${presets === "off" ? ' [presets]="[]"' : ""}${disabled === "on" ? ' [disabled]="true"' : ""} (change)="color = $event.detail"></l-Color-Picker>`,
+        html: `<l-color-picker${input === "off" ? ' show-input="false"' : ""}${disabled === "on" ? ' disabled="true"' : ""}></l-color-picker>`,
+        vueHtml: `<l-color-picker${input === "off" ? ' :show-input="false"' : ""}${presets === "off" ? ' :presets="[]"' : ""}${disabled === "on" ? ' :disabled="true"' : ""} @change="color = $event.detail"></l-color-picker>`,
+        angularHtml: `<l-color-picker${input === "off" ? ' [showInput]="false"' : ""}${presets === "off" ? ' [presets]="[]"' : ""}${disabled === "on" ? ' [disabled]="true"' : ""} (change)="color = $event.detail"></l-color-picker>`,
         script: presets === "off" ? `document.querySelector("l-color-picker").presets = [];` : undefined,
       })}
     >

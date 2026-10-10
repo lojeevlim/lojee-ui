@@ -42,10 +42,10 @@ export default function EmptyStatePlayground() {
     : `<EmptyState ${titleAttr}${iconAttr}${motion.attrs} />`;
 
   const htmlMarkup = hasBody
-    ? `<l-EmptyState ${titleAttr}${iconAttr}${motion.attrs}>${description ? `\n  ${description}` : ""}${
-        showAction ? `\n  <l-Button slot="action" label="Add item" id="add-item-btn" />` : ""
-      }\n</l-EmptyState>`
-    : `<l-EmptyState ${titleAttr}${iconAttr}${motion.attrs} />`;
+    ? `<l-empty-state ${titleAttr}${iconAttr}${motion.attrs}>${description ? `\n  ${description}` : ""}${
+        showAction ? `\n  <l-button slot="action" label="Add item" id="add-item-btn" />` : ""
+      }\n</l-empty-state>`
+    : `<l-empty-state ${titleAttr}${iconAttr}${motion.attrs} />`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,

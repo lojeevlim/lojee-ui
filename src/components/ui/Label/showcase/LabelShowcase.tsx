@@ -22,15 +22,15 @@ export default function LabelShowcase() {
             variants={{
               react: `<Label htmlFor="email">Email address</Label>
 <Input id="email" placeholder="you@example.com" />`,
-              js: `<l-Label htmlFor="email">Email address</l-Label>
-<l-Input id="email" placeholder="you@example.com"></l-Input>
+              js: `<l-label htmlFor="email">Email address</l-label>
+<l-input id="email" placeholder="you@example.com"></l-input>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-Label htmlFor="email">Email address</l-Label>
-  <l-Input id="email" placeholder="you@example.com" />
+  <l-label htmlFor="email">Email address</l-label>
+  <l-input id="email" placeholder="you@example.com" />
 </template>
 
 <script setup lang="ts">
@@ -45,8 +45,8 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Label htmlFor="email">Email address</l-Label>
-    <l-Input id="email" placeholder="you@example.com" />
+    <l-label htmlFor="email">Email address</l-label>
+    <l-input id="email" placeholder="you@example.com" />
   \`,
 })
 export class AppComponent {}`,
@@ -66,15 +66,15 @@ export class AppComponent {}`,
             variants={{
               react: `<Label htmlFor="name" required>Full name</Label>
 <Input id="name" placeholder="Jane Doe" />`,
-              js: `<l-Label htmlFor="name" required>Full name</l-Label>
-<l-Input id="name" placeholder="Jane Doe"></l-Input>`,
+              js: `<l-label htmlFor="name" required>Full name</l-label>
+<l-input id="name" placeholder="Jane Doe"></l-input>`,
               vue: `<template>
-  <l-Label htmlFor="name" required>Full name</l-Label>
-  <l-Input id="name" placeholder="Jane Doe" />
+  <l-label htmlFor="name" required>Full name</l-label>
+  <l-input id="name" placeholder="Jane Doe" />
 </template>`,
               angular: `<!-- app.component.html — same AppComponent as above -->
-<l-Label htmlFor="name" required>Full name</l-Label>
-<l-Input id="name" placeholder="Jane Doe" />`,
+<l-label htmlFor="name" required>Full name</l-label>
+<l-input id="name" placeholder="Jane Doe" />`,
             }}
           />
         </section>
@@ -101,27 +101,27 @@ export class AppComponent {}`,
 <Label transition="blur">Blur</Label>
 <Label transition="bounce">Bounce</Label>
 <Label transition="drop" transitionDuration={700}>Drop</Label>`,
-              js: `<l-Label transition="fade">Fade</l-Label>
-<l-Label transition="slide-up">Slide up</l-Label>
-<l-Label transition="slide-right" transitionDelay="100">Slide right</l-Label>
-<l-Label transition="zoom">Zoom</l-Label>
-<l-Label transition="flip">Flip</l-Label>
-<l-Label transition="blur">Blur</l-Label>
-<l-Label transition="bounce">Bounce</l-Label>
-<l-Label transition="drop" transitionDuration="700">Drop</l-Label>
+              js: `<l-label transition="fade">Fade</l-label>
+<l-label transition="slide-up">Slide up</l-label>
+<l-label transition="slide-right" transitionDelay="100">Slide right</l-label>
+<l-label transition="zoom">Zoom</l-label>
+<l-label transition="flip">Flip</l-label>
+<l-label transition="blur">Blur</l-label>
+<l-label transition="bounce">Bounce</l-label>
+<l-label transition="drop" transitionDuration="700">Drop</l-label>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-Label transition="fade">Fade</l-Label>
-  <l-Label transition="slide-up">Slide up</l-Label>
-  <l-Label transition="slide-right" transitionDelay="100">Slide right</l-Label>
-  <l-Label transition="zoom">Zoom</l-Label>
-  <l-Label transition="flip">Flip</l-Label>
-  <l-Label transition="blur">Blur</l-Label>
-  <l-Label transition="bounce">Bounce</l-Label>
-  <l-Label transition="drop" transitionDuration="700">Drop</l-Label>
+  <l-label transition="fade">Fade</l-label>
+  <l-label transition="slide-up">Slide up</l-label>
+  <l-label transition="slide-right" transitionDelay="100">Slide right</l-label>
+  <l-label transition="zoom">Zoom</l-label>
+  <l-label transition="flip">Flip</l-label>
+  <l-label transition="blur">Blur</l-label>
+  <l-label transition="bounce">Bounce</l-label>
+  <l-label transition="drop" transitionDuration="700">Drop</l-label>
 </template>
 
 <script setup lang="ts">
@@ -136,14 +136,14 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Label transition="fade">Fade</l-Label>
-    <l-Label transition="slide-up">Slide up</l-Label>
-    <l-Label transition="slide-right" transitionDelay="100">Slide right</l-Label>
-    <l-Label transition="zoom">Zoom</l-Label>
-    <l-Label transition="flip">Flip</l-Label>
-    <l-Label transition="blur">Blur</l-Label>
-    <l-Label transition="bounce">Bounce</l-Label>
-    <l-Label transition="drop" transitionDuration="700">Drop</l-Label>
+    <l-label transition="fade">Fade</l-label>
+    <l-label transition="slide-up">Slide up</l-label>
+    <l-label transition="slide-right" transitionDelay="100">Slide right</l-label>
+    <l-label transition="zoom">Zoom</l-label>
+    <l-label transition="flip">Flip</l-label>
+    <l-label transition="blur">Blur</l-label>
+    <l-label transition="bounce">Bounce</l-label>
+    <l-label transition="drop" transitionDuration="700">Drop</l-label>
   \`,
 })
 export class AppComponent {}`,

@@ -37,9 +37,9 @@ export default function DetailsListPlayground() {
   const attrs = (exclusive ? " exclusive" : "") + motion.attrs;
   const codeVariants: CodeBlockVariants = {
     react: `<DetailsList${attrs}\n  items={${ITEMS_CODE.replace(/\n/g, "\n  ")}}\n/>`,
-    js: `<l-DetailsList id="details-demo"${exclusive ? ' exclusive="true"' : ""}${motion.attrs}></l-DetailsList>\n\n<script type="module">\n  import "lojee-ui/elements";\n\n  document.getElementById("details-demo").items = ${ITEMS_CODE.replace(/\n/g, "\n  ")};\n</script>`,
-    vue: `<template>\n  <l-DetailsList :items="items"${exclusive ? ' exclusive="true"' : ""}${motion.attrs} />\n</template>\n\n<script setup lang="ts">\nconst items = ${ITEMS_CODE};\n</script>`,
-    angular: `<l-DetailsList [items]="items"${exclusive ? ' exclusive="true"' : ""}${motion.attrs}></l-DetailsList>\n\n// component class\nitems = ${ITEMS_CODE};`,
+    js: `<l-details-list id="details-demo"${exclusive ? ' exclusive="true"' : ""}${motion.attrs}></l-details-list>\n\n<script type="module">\n  import "lojee-ui/elements";\n\n  document.getElementById("details-demo").items = ${ITEMS_CODE.replace(/\n/g, "\n  ")};\n</script>`,
+    vue: `<template>\n  <l-details-list :items="items"${exclusive ? ' exclusive="true"' : ""}${motion.attrs} />\n</template>\n\n<script setup lang="ts">\nconst items = ${ITEMS_CODE};\n</script>`,
+    angular: `<l-details-list [items]="items"${exclusive ? ' exclusive="true"' : ""}${motion.attrs}></l-details-list>\n\n// component class\nitems = ${ITEMS_CODE};`,
   };
 
   return (

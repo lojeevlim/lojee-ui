@@ -32,9 +32,9 @@ export default function NumberInputShowcase() {
             react: `const [qty, setQty] = useState<number | undefined>(2);
 
 <NumberInput value={qty} onChange={setQty} min={0} max={10} />`,
-            html: `<l-Number-Input id="qty" value="2" min="0" max="10"></l-Number-Input>`,
-            vueHtml: `<l-Number-Input :value="qty" min="0" max="10" @change="qty = $event.detail"></l-Number-Input>`,
-            angularHtml: `<l-Number-Input [value]="qty" min="0" max="10" (change)="qty = $event.detail"></l-Number-Input>`,
+            html: `<l-number-input id="qty" value="2" min="0" max="10"></l-number-input>`,
+            vueHtml: `<l-number-input :value="qty" min="0" max="10" @change="qty = $event.detail"></l-number-input>`,
+            angularHtml: `<l-number-input [value]="qty" min="0" max="10" (change)="qty = $event.detail"></l-number-input>`,
             script: `document.getElementById("qty").addEventListener("change", (e) => console.log(e.detail)); // number | undefined`,
             vueScript: `const qty = ref<number | undefined>(2);`,
             angularClass: `qty: number | undefined = 2;`,
@@ -52,8 +52,8 @@ export default function NumberInputShowcase() {
           variants={wcCode({
             react: `<NumberInput value={5} step={5} min={0} />
 <NumberInput value={9.99} step={0.01} precision={2} min={0} />`,
-            html: `<l-Number-Input value="5" step="5" min="0"></l-Number-Input>
-<l-Number-Input value="9.99" step="0.01" precision="2" min="0"></l-Number-Input>`,
+            html: `<l-number-input value="5" step="5" min="0"></l-number-input>
+<l-number-input value="9.99" step="0.01" precision="2" min="0"></l-number-input>`,
           })}
         />
       </section>
@@ -73,18 +73,18 @@ export default function NumberInputShowcase() {
 <NumberInput size="lg" />
 <NumberInput invalid />
 <NumberInput disabled />`,
-            html: `<l-Number-Input size="sm"></l-Number-Input>
-<l-Number-Input size="lg"></l-Number-Input>
-<l-Number-Input invalid="true"></l-Number-Input>
-<l-Number-Input disabled="true"></l-Number-Input>`,
-            vueHtml: `<l-Number-Input size="sm"></l-Number-Input>
-<l-Number-Input size="lg"></l-Number-Input>
-<l-Number-Input :invalid="true"></l-Number-Input>
-<l-Number-Input :disabled="true"></l-Number-Input>`,
-            angularHtml: `<l-Number-Input size="sm"></l-Number-Input>
-<l-Number-Input size="lg"></l-Number-Input>
-<l-Number-Input [invalid]="true"></l-Number-Input>
-<l-Number-Input [disabled]="true"></l-Number-Input>`,
+            html: `<l-number-input size="sm"></l-number-input>
+<l-number-input size="lg"></l-number-input>
+<l-number-input invalid="true"></l-number-input>
+<l-number-input disabled="true"></l-number-input>`,
+            vueHtml: `<l-number-input size="sm"></l-number-input>
+<l-number-input size="lg"></l-number-input>
+<l-number-input :invalid="true"></l-number-input>
+<l-number-input :disabled="true"></l-number-input>`,
+            angularHtml: `<l-number-input size="sm"></l-number-input>
+<l-number-input size="lg"></l-number-input>
+<l-number-input [invalid]="true"></l-number-input>
+<l-number-input [disabled]="true"></l-number-input>`,
           })}
         />
       </section>

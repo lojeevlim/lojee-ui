@@ -22,11 +22,11 @@ export default function HeaderShowcase() {
           <CodeBlock
             variants={{
               react: `<Header title="Team settings" description="Manage members, roles, and billing for your workspace." />`,
-              js: `<l-Header heading="Team settings" description="Manage members, roles, and billing for your workspace."></l-Header>
+              js: `<l-header heading="Team settings" description="Manage members, roles, and billing for your workspace."></l-header>
 
 <script type="module">import "lojee-ui/elements";</script>`,
-              vue: `<l-Header heading="Team settings" description="Manage members, roles, and billing for your workspace." />`,
-              angular: `<l-Header heading="Team settings" description="Manage members, roles, and billing for your workspace." />`,
+              vue: `<l-header heading="Team settings" description="Manage members, roles, and billing for your workspace." />`,
+              angular: `<l-header heading="Team settings" description="Manage members, roles, and billing for your workspace." />`,
             }}
           />
         </section>
@@ -55,28 +55,28 @@ export default function HeaderShowcase() {
     </>
   }
 />`,
-              js: `<l-Header heading="Projects" description="All projects across your workspace.">
+              js: `<l-header heading="Projects" description="All projects across your workspace.">
   <div slot="actions">
-    <l-Button variant="outline" label="Import"></l-Button>
-    <l-Button label="New project"></l-Button>
+    <l-button variant="outline" label="Import"></l-button>
+    <l-button label="New project"></l-button>
   </div>
-</l-Header>
+</l-header>
 
 <script type="module">import "lojee-ui/elements";</script>`,
               vue: `<template>
-  <l-Header heading="Projects" description="All projects across your workspace.">
+  <l-header heading="Projects" description="All projects across your workspace.">
     <div slot="actions">
-      <l-Button variant="outline" label="Import" />
-      <l-Button label="New project" />
+      <l-button variant="outline" label="Import" />
+      <l-button label="New project" />
     </div>
-  </l-Header>
+  </l-header>
 </template>`,
-              angular: `<l-Header heading="Projects" description="All projects across your workspace.">
+              angular: `<l-header heading="Projects" description="All projects across your workspace.">
   <div slot="actions">
-    <l-Button variant="outline" label="Import" />
-    <l-Button label="New project" />
+    <l-button variant="outline" label="Import" />
+    <l-button label="New project" />
   </div>
-</l-Header>`,
+</l-header>`,
             }}
           />
         </section>
@@ -178,22 +178,22 @@ export default function HeaderShowcase() {
       but shadow-only, no border.
     variant="minimal"  — no background/border at all, blends into the page.
     variant="gradient" — a left-to-right gradient built from \`color\` (600 → 700). */}`,
-              js: `<l-Header heading="Team settings" description="Manage members, roles, and billing for your workspace." variant="dark">
+              js: `<l-header heading="Team settings" description="Manage members, roles, and billing for your workspace." variant="dark">
   <div slot="actions">
-    <l-Button label="New project"></l-Button>
+    <l-button label="New project"></l-button>
   </div>
-</l-Header>
+</l-header>
 
 <script type="module">import "lojee-ui/elements";</script>
 
 <!-- "bordered"/"elevated" — detached-panel looks; their backdrop is built in, no extra
      markup needed. "minimal" — no background/border at all, blends into the page. -->`,
               vue: `<template>
-  <l-Header heading="Team settings" description="Manage members, roles, and billing for your workspace." variant="dark">
+  <l-header heading="Team settings" description="Manage members, roles, and billing for your workspace." variant="dark">
     <div slot="actions">
-      <l-Button label="New project" />
+      <l-button label="New project" />
     </div>
-  </l-Header>
+  </l-header>
 
   <!-- "bordered"/"elevated" — detached-panel looks; their backdrop is built in, no extra
        markup needed. "minimal" — no background/border at all, blends into the page. -->
@@ -204,11 +204,11 @@ import "lojee-ui/elements";
 </script>`,
               angular: `<!-- "bordered"/"elevated" — detached-panel looks; their backdrop is built in, no extra
      markup needed. "minimal" — no background/border at all, blends into the page. -->
-<l-Header heading="Team settings" description="Manage members, roles, and billing for your workspace." variant="dark">
+<l-header heading="Team settings" description="Manage members, roles, and billing for your workspace." variant="dark">
   <div slot="actions">
-    <l-Button label="New project" />
+    <l-button label="New project" />
   </div>
-</l-Header>`,
+</l-header>`,
             }}
           />
         </section>
@@ -241,37 +241,37 @@ import "lojee-ui/elements";
   title="Lojee Website Redesign"
   description="Created by Jordan Diaz on Sep 12."
 />`,
-              js: `<l-Header heading="Lojee Website Redesign" description="Created by Jordan Diaz on Sep 12.">
+              js: `<l-header heading="Lojee Website Redesign" description="Created by Jordan Diaz on Sep 12.">
   <div slot="breadcrumbs">
-    <l-Breadcrumbs>
-      <l-BreadcrumbItem href="#" icon="home">Home</l-BreadcrumbItem>
-      <l-BreadcrumbItem href="#">Projects</l-BreadcrumbItem>
-      <l-BreadcrumbItem>Lojee Website Redesign</l-BreadcrumbItem>
-    </l-Breadcrumbs>
+    <l-breadcrumbs>
+      <l-breadcrumb-item href="#" icon="home">Home</l-breadcrumb-item>
+      <l-breadcrumb-item href="#">Projects</l-breadcrumb-item>
+      <l-breadcrumb-item>Lojee Website Redesign</l-breadcrumb-item>
+    </l-breadcrumbs>
   </div>
-</l-Header>
+</l-header>
 
 <script type="module">import "lojee-ui/elements";</script>`,
               vue: `<template>
-  <l-Header heading="Lojee Website Redesign" description="Created by Jordan Diaz on Sep 12.">
+  <l-header heading="Lojee Website Redesign" description="Created by Jordan Diaz on Sep 12.">
     <div slot="breadcrumbs">
-      <l-Breadcrumbs>
-        <l-BreadcrumbItem href="#" icon="home">Home</l-BreadcrumbItem>
-        <l-BreadcrumbItem href="#">Projects</l-BreadcrumbItem>
-        <l-BreadcrumbItem>Lojee Website Redesign</l-BreadcrumbItem>
-      </l-Breadcrumbs>
+      <l-breadcrumbs>
+        <l-breadcrumb-item href="#" icon="home">Home</l-breadcrumb-item>
+        <l-breadcrumb-item href="#">Projects</l-breadcrumb-item>
+        <l-breadcrumb-item>Lojee Website Redesign</l-breadcrumb-item>
+      </l-breadcrumbs>
     </div>
-  </l-Header>
+  </l-header>
 </template>`,
-              angular: `<l-Header heading="Lojee Website Redesign" description="Created by Jordan Diaz on Sep 12.">
+              angular: `<l-header heading="Lojee Website Redesign" description="Created by Jordan Diaz on Sep 12.">
   <div slot="breadcrumbs">
-    <l-Breadcrumbs>
-      <l-BreadcrumbItem href="#" icon="home">Home</l-BreadcrumbItem>
-      <l-BreadcrumbItem href="#">Projects</l-BreadcrumbItem>
-      <l-BreadcrumbItem>Lojee Website Redesign</l-BreadcrumbItem>
-    </l-Breadcrumbs>
+    <l-breadcrumbs>
+      <l-breadcrumb-item href="#" icon="home">Home</l-breadcrumb-item>
+      <l-breadcrumb-item href="#">Projects</l-breadcrumb-item>
+      <l-breadcrumb-item>Lojee Website Redesign</l-breadcrumb-item>
+    </l-breadcrumbs>
   </div>
-</l-Header>`,
+</l-header>`,
             }}
           />
         </section>
@@ -294,23 +294,23 @@ import "lojee-ui/elements";
 <Header title="Zoom" description="Enter transition" transition="zoom" />
 <Header title="Blur" description="Enter transition" transition="blur" />
 <Header title="Drop" description="Enter transition" transition="drop" transitionDuration={700} />`,
-              js: `<l-Header heading="Fade" description="Enter transition" transition="fade"></l-Header>
-<l-Header heading="Slide down" description="Enter transition" transition="slide-down"></l-Header>
-<l-Header heading="Slide right" description="Enter transition" transition="slide-right" transitionDelay="100"></l-Header>
-<l-Header heading="Zoom" description="Enter transition" transition="zoom"></l-Header>
-<l-Header heading="Blur" description="Enter transition" transition="blur"></l-Header>
-<l-Header heading="Drop" description="Enter transition" transition="drop" transitionDuration="700"></l-Header>
+              js: `<l-header heading="Fade" description="Enter transition" transition="fade"></l-header>
+<l-header heading="Slide down" description="Enter transition" transition="slide-down"></l-header>
+<l-header heading="Slide right" description="Enter transition" transition="slide-right" transitionDelay="100"></l-header>
+<l-header heading="Zoom" description="Enter transition" transition="zoom"></l-header>
+<l-header heading="Blur" description="Enter transition" transition="blur"></l-header>
+<l-header heading="Drop" description="Enter transition" transition="drop" transitionDuration="700"></l-header>
 
 <script type="module">
   import "lojee-ui/elements";
 </script>`,
               vue: `<template>
-  <l-Header heading="Fade" description="Enter transition" transition="fade"></l-Header>
-  <l-Header heading="Slide down" description="Enter transition" transition="slide-down"></l-Header>
-  <l-Header heading="Slide right" description="Enter transition" transition="slide-right" transitionDelay="100"></l-Header>
-  <l-Header heading="Zoom" description="Enter transition" transition="zoom"></l-Header>
-  <l-Header heading="Blur" description="Enter transition" transition="blur"></l-Header>
-  <l-Header heading="Drop" description="Enter transition" transition="drop" transitionDuration="700"></l-Header>
+  <l-header heading="Fade" description="Enter transition" transition="fade"></l-header>
+  <l-header heading="Slide down" description="Enter transition" transition="slide-down"></l-header>
+  <l-header heading="Slide right" description="Enter transition" transition="slide-right" transitionDelay="100"></l-header>
+  <l-header heading="Zoom" description="Enter transition" transition="zoom"></l-header>
+  <l-header heading="Blur" description="Enter transition" transition="blur"></l-header>
+  <l-header heading="Drop" description="Enter transition" transition="drop" transitionDuration="700"></l-header>
 </template>
 
 <script setup lang="ts">
@@ -325,12 +325,12 @@ import "lojee-ui/elements";
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: \`
-    <l-Header heading="Fade" description="Enter transition" transition="fade"></l-Header>
-    <l-Header heading="Slide down" description="Enter transition" transition="slide-down"></l-Header>
-    <l-Header heading="Slide right" description="Enter transition" transition="slide-right" transitionDelay="100"></l-Header>
-    <l-Header heading="Zoom" description="Enter transition" transition="zoom"></l-Header>
-    <l-Header heading="Blur" description="Enter transition" transition="blur"></l-Header>
-    <l-Header heading="Drop" description="Enter transition" transition="drop" transitionDuration="700"></l-Header>
+    <l-header heading="Fade" description="Enter transition" transition="fade"></l-header>
+    <l-header heading="Slide down" description="Enter transition" transition="slide-down"></l-header>
+    <l-header heading="Slide right" description="Enter transition" transition="slide-right" transitionDelay="100"></l-header>
+    <l-header heading="Zoom" description="Enter transition" transition="zoom"></l-header>
+    <l-header heading="Blur" description="Enter transition" transition="blur"></l-header>
+    <l-header heading="Drop" description="Enter transition" transition="drop" transitionDuration="700"></l-header>
   \`,
 })
 export class AppComponent {}`,
