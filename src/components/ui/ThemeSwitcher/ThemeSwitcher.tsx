@@ -341,16 +341,17 @@ export function ThemeSwitcher({
   );
 }
 
-/** The accent as a name for the trigger: a built-in accent's name, a preset's name ("Coral"), else the custom label — never a raw hex. */
+/** The accent as a name for the trigger: a built-in accent's fruit name, a preset's name ("Watermelon"), else the custom label — never a raw hex. */
 function accentLabel(accent: Accent, customLabel: string): string {
-  if (!isHexColor(accent)) return accent;
+  if (!isHexColor(accent)) return ACCENTS.find((c) => c.base === accent)?.name ?? accent;
   const hex = normalizeHex(accent);
   return PRESET_ACCENTS.find((p) => normalizeHex(p.hex) === hex)?.name ?? customLabel;
 }
 
 /** "Custom" accent: a row that opens the browser's color picker; every pick applies at once. */
 function CustomAccentRow({ accent, mode, label, onPick }: { accent: Accent; mode: string; label: string; onPick: (hex: Accent) => void }) {
-  const active = isHexColor(accent);
+  // Checked only for a colour that is not one of the named fruits / presets (a preset is a hex too, but has its own row).
+  const active = isHexColor(accent) && !PRESET_ACCENTS.some((p) => normalizeHex(p.hex) === normalizeHex(accent));
   const [draft, setDraft] = useState("#7c3aed");
   const shown = active ? normalizeHex(accent) : draft;
   return (

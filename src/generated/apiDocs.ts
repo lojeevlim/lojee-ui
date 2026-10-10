@@ -145,6 +145,20 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "required": false,
             "description": "Space between the panel's edge and its content, on all four sides: \"none\" | \"sm\" (24px) | \"md\" (32px) | \"lg\" (48px) | \"xl\" (80px) (default: \"md\").",
             "default": "\"md\""
+          },
+          {
+            "name": "margin",
+            "type": "MainMargin",
+            "required": false,
+            "description": "Space between the panel and the App's edges: \"none\" | \"sm\" (4px) | \"md\" (8px, 12px from the md breakpoint) | \"lg\" (16px, 24px) | \"xl\" (24px, 40px) (default: \"md\").",
+            "default": "\"md\""
+          },
+          {
+            "name": "rounded",
+            "type": "MainRounded",
+            "required": false,
+            "description": "Corner radius of the panel: \"none\" | \"sm\" | \"md\" | \"lg\" | \"xl\" | \"2xl\" | \"3xl\" (default: \"xl\").",
+            "default": "\"xl\""
           }
         ],
         "element": null
@@ -152,7 +166,9 @@ export const API_DOCS: Record<string, ApiDoc> = {
     ],
     "hooks": [],
     "types": {
-      "MainPadding": "\"none\" | \"sm\" | \"md\" | \"lg\" | \"xl\""
+      "MainPadding": "\"none\" | \"sm\" | \"md\" | \"lg\" | \"xl\"",
+      "MainMargin": "\"none\" | \"sm\" | \"md\" | \"lg\" | \"xl\"",
+      "MainRounded": "\"none\" | \"sm\" | \"md\" | \"lg\" | \"xl\" | \"2xl\" | \"3xl\""
     },
     "dataTypes": []
   },

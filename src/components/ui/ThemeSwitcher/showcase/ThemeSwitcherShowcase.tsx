@@ -24,17 +24,17 @@ export default function ThemeSwitcherShowcase() {
         <CodeBlock
           variants={{
             react: `<ThemeSwitcher />`,
-            js: `<l-Theme-Switcher></l-Theme-Switcher>
+            js: `<l-theme-switcher></l-theme-switcher>
 
 <script type="module">import "lojee-ui/elements";</script>`,
             vue: `<template>
-  <l-Theme-Switcher></l-Theme-Switcher>
+  <l-theme-switcher></l-theme-switcher>
 </template>
 
 <script setup lang="ts">
 import "lojee-ui/elements";
 </script>`,
-            angular: `<l-Theme-Switcher></l-Theme-Switcher>`,
+            angular: `<l-theme-switcher></l-theme-switcher>`,
           }}
         />
       </section>
@@ -49,20 +49,20 @@ import "lojee-ui/elements";
           variants={{
             react: `<ThemeSwitcher showActiveItems={false} align="start" />
 <ThemeSwitcher showActiveItems={false} showAccent={false} />`,
-            js: `<l-Theme-Switcher show-active-items="false" align="start"></l-Theme-Switcher>
-<l-Theme-Switcher show-active-items="false" show-accent="false"></l-Theme-Switcher>
+            js: `<l-theme-switcher show-active-items="false" align="start"></l-theme-switcher>
+<l-theme-switcher show-active-items="false" show-accent="false"></l-theme-switcher>
 
 <script type="module">import "lojee-ui/elements";</script>`,
             vue: `<template>
-  <l-Theme-Switcher :show-active-items="false" align="start"></l-Theme-Switcher>
-  <l-Theme-Switcher :show-active-items="false" :show-accent="false"></l-Theme-Switcher>
+  <l-theme-switcher :show-active-items="false" align="start"></l-theme-switcher>
+  <l-theme-switcher :show-active-items="false" :show-accent="false"></l-theme-switcher>
 </template>
 
 <script setup lang="ts">
 import "lojee-ui/elements";
 </script>`,
-            angular: `<l-Theme-Switcher [showActiveItems]="false" align="start"></l-Theme-Switcher>
-<l-Theme-Switcher [showActiveItems]="false" [showAccent]="false"></l-Theme-Switcher>`,
+            angular: `<l-theme-switcher [showActiveItems]="false" align="start"></l-theme-switcher>
+<l-theme-switcher [showActiveItems]="false" [showAccent]="false"></l-theme-switcher>`,
           }}
         />
       </section>
@@ -87,23 +87,23 @@ import "lojee-ui/elements";
             react: `<ThemeSwitcher align="start" />
 <ThemeSwitcher align="center" />
 <ThemeSwitcher align="end" />`,
-            js: `<l-Theme-Switcher align="start"></l-Theme-Switcher>
-<l-Theme-Switcher align="center"></l-Theme-Switcher>
-<l-Theme-Switcher align="end"></l-Theme-Switcher>
+            js: `<l-theme-switcher align="start"></l-theme-switcher>
+<l-theme-switcher align="center"></l-theme-switcher>
+<l-theme-switcher align="end"></l-theme-switcher>
 
 <script type="module">import "lojee-ui/elements";</script>`,
             vue: `<template>
-  <l-Theme-Switcher align="start"></l-Theme-Switcher>
-  <l-Theme-Switcher align="center"></l-Theme-Switcher>
-  <l-Theme-Switcher align="end"></l-Theme-Switcher>
+  <l-theme-switcher align="start"></l-theme-switcher>
+  <l-theme-switcher align="center"></l-theme-switcher>
+  <l-theme-switcher align="end"></l-theme-switcher>
 </template>
 
 <script setup lang="ts">
 import "lojee-ui/elements";
 </script>`,
-            angular: `<l-Theme-Switcher align="start"></l-Theme-Switcher>
-<l-Theme-Switcher align="center"></l-Theme-Switcher>
-<l-Theme-Switcher align="end"></l-Theme-Switcher>`,
+            angular: `<l-theme-switcher align="start"></l-theme-switcher>
+<l-theme-switcher align="center"></l-theme-switcher>
+<l-theme-switcher align="end"></l-theme-switcher>`,
           }}
         />
       </section>
@@ -115,14 +115,14 @@ import "lojee-ui/elements";
             react: `const [mode, setMode] = useState<"light" | "dark">("light");
 
 <ThemeSwitcher mode={mode} onModeChange={setMode} showAccent={false} showActiveItems={false} />`,
-            js: `<l-Theme-Switcher id="switcher" show-accent="false" show-active-items="false"></l-Theme-Switcher>
+            js: `<l-theme-switcher id="switcher" show-accent="false" show-active-items="false"></l-theme-switcher>
 
-<!-- <l-Theme-Switcher> reads and writes the page theme on <html> (data-theme / data-accent / data-active-variant),
+<!-- <l-theme-switcher> reads and writes the page theme on <html> (data-theme / data-accent / data-active-variant),
      and remembers the choice in localStorage. -->`,
-            vue: `<!-- <l-Theme-Switcher> reads and writes the page theme on <html>; no v-model needed. -->
-<l-Theme-Switcher :show-accent="false" :show-active-items="false"></l-Theme-Switcher>`,
-            angular: `<!-- <l-Theme-Switcher> reads and writes the page theme on <html>; no binding needed. -->
-<l-Theme-Switcher [showAccent]="false" [showActiveItems]="false"></l-Theme-Switcher>`,
+            vue: `<!-- <l-theme-switcher> reads and writes the page theme on <html>; no v-model needed. -->
+<l-theme-switcher :show-accent="false" :show-active-items="false"></l-theme-switcher>`,
+            angular: `<!-- <l-theme-switcher> reads and writes the page theme on <html>; no binding needed. -->
+<l-theme-switcher [showAccent]="false" [showActiveItems]="false"></l-theme-switcher>`,
           }}
         />
       </section>

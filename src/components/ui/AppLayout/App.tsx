@@ -133,7 +133,7 @@ export function Side({ children, className }: SectionProps) {
   );
 }
 
-export { Main, type MainProps, type MainPadding } from "../Main/Main";
+export { Main, type MainProps, type MainPadding, type MainMargin, type MainRounded } from "../Main/Main";
 
 /** The bottom section. Put the library's `<Footer>` (or anything else) inside it. */
 export function Foot({ children, className }: SectionProps) {
