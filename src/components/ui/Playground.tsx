@@ -1,5 +1,5 @@
 import type { ComponentType } from "react";
-import ButtonPlayground from "./ButtonPlayground";
+import ButtonPlayground, { ButtonGroupPlayground, SplitButtonPlayground } from "./ButtonPlayground";
 import BadgePlayground from "./BadgePlayground";
 import AvatarPlayground from "./AvatarPlayground";
 import IconPlayground from "./IconPlayground";
@@ -97,6 +97,8 @@ export interface PlaygroundProps {
 
 const PLAYGROUNDS: Record<string, ComponentType> = {
   Buttons: ButtonPlayground,
+  "Button Groups": ButtonGroupPlayground,
+  "Split Button": SplitButtonPlayground,
   Badges: BadgePlayground,
   Avatars: AvatarPlayground,
   Icons: IconPlayground,

@@ -1,10 +1,22 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import type { MouseEventHandler, ReactNode } from "react";
 import type { ColorVariant, ColorName, Shape, Size } from "../../../core/tokens";
 import { cx, shapeClasses } from "../../../core/tokens";
-import { Button } from "./Button";
+import { Button } from "../Buttons/Button";
 import { motionClass, motionState, motionStyle, DEFAULT_TRANSITION_MS, type TransitionVariant, type HoverEffect } from "../../../core/motion";
 import { usePresence } from "../../../core/usePresence";
+import { useOpen } from "../../../core/useOpen";
+
+export type SplitButtonAlign = "start" | "center" | "end" | "left" | "right";
+
+// Same names as ThemeSwitcher's `align` ("left" / "right" also work, as start / end).
+const MENU_ALIGN: Record<SplitButtonAlign, string> = {
+  start: "left-0",
+  left: "left-0",
+  center: "left-1/2 -translate-x-1/2",
+  end: "right-0",
+  right: "right-0",
+};
 
 export interface SplitButtonProps {
   /** Icon name, e.g. "check" — see src/core/icons.ts for the available set. */
@@ -39,6 +51,12 @@ export interface SplitButtonProps {
    * `overflow-hidden`, so the divider between them stays a straight edge.
    */
   shape?: Shape;
+  /** Where the dropdown menu (which always opens below the button) lines up with it: "start" (left edges together), "center", or "end" (right edges together). "left" / "right" also work, as start / end. Default: "end". */
+  align?: SplitButtonAlign;
+  /** Controlled open state of the menu — omit to let the trigger open and close it. Handy to keep the menu showing in docs or screenshots. */
+  open?: boolean;
+  /** Called when the menu asks to open or close (the trigger, selecting an item, a click outside, Escape). */
+  onOpenChange?: (open: boolean) => void;
   /** Disables both the main button and the chevron trigger (default: false). */
   disabled?: boolean;
   /** Enter transition for the button group — also the enter/exit transition for the menu panel: "fade" | "slide-up" | "slide-down" | "slide-left" | "slide-right" | "zoom" | "zoom-out" | "flip" | "blur" | "bounce" | "rotate" | "drop" | "skew" (default: none). Respects `prefers-reduced-motion`. */
@@ -73,6 +91,9 @@ export function SplitButton({
   color = "accent",
   size = "md",
   shape = "default",
+  align = "end",
+  open: openProp,
+  onOpenChange,
   disabled = false,
   className,
   classNames,
@@ -81,7 +102,7 @@ export function SplitButton({
   transitionDelay,
   hoverEffect,
 }: SplitButtonProps) {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useOpen(openProp, onOpenChange);
   const rootRef = useRef<HTMLDivElement>(null);
   const hasMenu = children != null;
   // With a `transition` the menu stays mounted for the exit; without one it unmounts immediately, as before.
@@ -103,7 +124,7 @@ export function SplitButton({
       document.removeEventListener("mousedown", handlePointerDown);
       window.removeEventListener("keydown", handleKey);
     };
-  }, [open]);
+  }, [open, setOpen]);
 
   return (
     <div ref={rootRef} className="relative inline-block">
@@ -163,14 +184,16 @@ export function SplitButton({
           // never closes the menu, with no extra handling needed.
           onClick={() => setOpen(false)}
           className={cx(
-            "absolute right-0 z-10 mt-1.5 min-w-[10rem] overflow-hidden rounded-lg border border-border bg-surface py-1 shadow-lg",
+            "absolute z-10 mt-1.5 min-w-[10rem] overflow-hidden rounded-lg border border-border bg-surface py-1 shadow-lg",
+            MENU_ALIGN[align] ?? MENU_ALIGN.end,
             motionClass(transition),
             classNames?.menu
           )}
           style={motionStyle(transitionDuration)}
           {...motionState(open)}
         >
-          <slot>{children}</slot>
+          {/* Named, so a Web Component's <l-split-button-menu-item>s (which assign themselves slot="menu") never land in the main button's own <slot>. */}
+          <slot name="menu">{children}</slot>
         </div>
       )}
     </div>

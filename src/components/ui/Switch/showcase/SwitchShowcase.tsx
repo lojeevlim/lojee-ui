@@ -58,6 +58,54 @@ export class AppComponent {}`,
         </section>
 
         <section>
+          <SectionLabel sub="iconOn and iconOff put an icon inside the thumb — any name from the icon set. The two cross-fade with a quarter turn as the switch flips.">With icons</SectionLabel>
+          <Row>
+            <Switch iconOn="check" iconOff="x" defaultChecked />
+            <Switch iconOn="moon" iconOff="sun" label="Dark mode" />
+            <Switch iconOn="lock" iconOff="lock-open" size="lg" color="emerald" defaultChecked />
+            <Switch iconOn="bell-ring" iconOff="bell" size="sm" />
+          </Row>
+          <CodeBlock
+            variants={{
+              react: `<Switch iconOn="check" iconOff="x" defaultChecked />
+<Switch iconOn="moon" iconOff="sun" label="Dark mode" />
+<Switch iconOn="lock" iconOff="lock-open" size="lg" color="emerald" defaultChecked />`,
+              js: `<l-switch icon-on="check" icon-off="x" checked="true"></l-switch>
+<l-switch icon-on="moon" icon-off="sun" label="Dark mode"></l-switch>
+<l-switch icon-on="lock" icon-off="lock-open" size="lg" color="emerald" checked="true"></l-switch>
+
+<script type="module">
+  import "lojee-ui/elements";
+</script>`,
+              vue: `<template>
+  <l-switch icon-on="check" icon-off="x" :checked="true" />
+  <l-switch icon-on="moon" icon-off="sun" label="Dark mode" />
+  <l-switch icon-on="lock" icon-off="lock-open" size="lg" color="emerald" :checked="true" />
+</template>
+
+<script setup lang="ts">
+import "lojee-ui/elements";
+</script>`,
+              angular: `// app.component.ts
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import "lojee-ui/elements";
+
+@Component({
+  selector: "app-root",
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  template: \`
+    <l-switch icon-on="check" icon-off="x" [checked]="true" />
+    <l-switch icon-on="moon" icon-off="sun" label="Dark mode" />
+    <l-switch icon-on="lock" icon-off="lock-open" size="lg" color="emerald" [checked]="true" />
+  \`,
+})
+export class AppComponent {}`,
+            }}
+          />
+        </section>
+
+        <section>
           <SectionLabel sub="sm, md, lg.">Sizes</SectionLabel>
           <Row>
             <Switch size="sm" defaultChecked />
@@ -125,15 +173,15 @@ export class AppComponent {}`,
             variants={{
               react: `<Switch disabled />
 <Switch disabled defaultChecked />`,
-              js: `<l-switch disabled></l-switch>
-<l-switch disabled defaultChecked></l-switch>`,
+              js: `<l-switch disabled="true"></l-switch>
+<l-switch disabled="true" defaultChecked></l-switch>`,
               vue: `<template>
-  <l-switch disabled />
-  <l-switch disabled defaultChecked />
+  <l-switch disabled="true" />
+  <l-switch disabled="true" defaultChecked />
 </template>`,
               angular: `<!-- app.component.html — same AppComponent as above -->
-<l-switch disabled />
-<l-switch disabled defaultChecked />`,
+<l-switch disabled="true" />
+<l-switch disabled="true" defaultChecked />`,
             }}
           />
         </section>

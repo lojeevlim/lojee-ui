@@ -42,7 +42,7 @@ export default function OtpInputShowcase() {
 
       <section className="mt-10 space-y-3">
         <SectionLabel sub={'`length` sets the number of boxes (default 6); `type` is "numeric" (digits only, default) or "alphanumeric".'}>Length and type</SectionLabel>
-        <div className="space-y-3">
+        <div className="flex flex-col items-start gap-5">
           <OtpInput length={4} />
           <OtpInput length={8} type="alphanumeric" size="sm" />
         </div>
@@ -58,7 +58,7 @@ export default function OtpInputShowcase() {
 
       <section className="mt-10 space-y-3">
         <SectionLabel sub="`mask` shows dots instead of the characters, `invalid` draws red borders (e.g. after a wrong code) and `disabled` locks it.">Mask and states</SectionLabel>
-        <div className="space-y-3">
+        <div className="flex flex-col items-start gap-5">
           <OtpInput mask value="1234" />
           <OtpInput invalid value="123456" />
           <OtpInput disabled value="12" />

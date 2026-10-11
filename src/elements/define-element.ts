@@ -12,12 +12,28 @@ const kebab = (name: string) => name.replace(/([a-z0-9])([A-Z])/g, (_, a: string
 export const r2wc = ((component: unknown, options: Options) => {
   const Base = (baseR2wc as unknown as (c: unknown, o: Options) => CustomElementConstructor)(component, options);
   const props = options.props;
-  const bools = new Set(Array.isArray(props) ? [] : Object.entries(props ?? {}).filter(([, type]) => type === "boolean").map(([name]) => kebab(name)));
+  const boolProps = Array.isArray(props) ? [] : Object.entries(props ?? {}).filter(([, type]) => type === "boolean").map(([name]) => name);
+  const bools = new Set(boolProps.map(kebab));
   if (bools.size === 0) return Base;
-  return class extends (Base as unknown as typeof HTMLElement) {
+  const Wrapped = class extends (Base as unknown as typeof HTMLElement) {
     attributeChangedCallback(name: string, oldValue: string | null, value: string | null) {
       const parent = Base.prototype as { attributeChangedCallback?: (n: string, o: string | null, v: string | null) => void };
       parent.attributeChangedCallback?.call(this, name, oldValue, bools.has(name) && value === "" ? "true" : value);
     }
   };
+  // The same rule for the DOM property: a static attribute in a Vue / Angular template (`<l-x disabled="true">`) is set as `el.disabled = ""`, which
+  // plain r2wc stringifies to "false". Treat "" and "true" as true and "false" as false, like the attribute does.
+  for (const name of boolProps) {
+    const base = Object.getOwnPropertyDescriptor(Base.prototype, name);
+    if (!base?.set) continue;
+    Object.defineProperty(Wrapped.prototype, name, {
+      enumerable: true,
+      configurable: true,
+      get: base.get,
+      set(value: unknown) {
+        base.set!.call(this, typeof value === "string" ? value !== "false" : value);
+      },
+    });
+  }
+  return Wrapped;
 }) as unknown as typeof baseR2wc;

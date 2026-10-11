@@ -6,6 +6,7 @@ import CodeBlock from "../../CodeBlock";
 import { SectionLabel, TransitionPreview } from "../../ShowcaseHelpers";
 
 const BASIC_ITEMS: NavbarItemSpec[] = [{ label: "Home", active: true }, { label: "Products" }, { label: "Pricing" }];
+const SCROLL_ITEMS: NavbarItemSpec[] = [{ label: "Home" }, { label: "Products" }];
 const ACTIVE_LINK_ITEMS: NavbarItemSpec[] = [
   { label: "Dashboard", href: "/dashboard" },
   { label: "Projects", href: "/projects" },
@@ -17,6 +18,14 @@ const ACTIVE_LINK_ITEMS: NavbarItemSpec[] = [
 const VARIANT_ITEMS: NavbarItemSpec[] = [{ label: "Home", active: true }, { label: "Products" }];
 
 const TR_ITEMS: NavbarItemSpec[] = [{ label: "Home", active: true }, { label: "Products" }];
+
+// `icon` is any name from src/core/icons.ts; `tooltip` helps when labels are hidden on small screens.
+const ICON_ITEMS: NavbarItemSpec[] = [
+  { label: "Home", icon: "home", active: true },
+  { label: "Projects", icon: "folder" },
+  { label: "Team", icon: "users" },
+  { label: "Settings", icon: "settings" },
+];
 
 export default function NavbarShowcase() {
   const [activeLabel, setActiveLabel] = useState<string | undefined>(undefined);
@@ -173,16 +182,100 @@ onActiveItemChange(item: unknown) {
         </section>
 
         <section>
+          <SectionLabel sub="Give each item an icon (any name from the icon set). Combine with hoverEffect for animated links, and with tooltip for icon-only hints.">Items with icons</SectionLabel>
+          <div className="space-y-4">
+            <div className="overflow-hidden rounded-lg border border-border">
+              <Navbar brand="App" items={ICON_ITEMS} actions={<Avatar initials="JD" size="sm" />} />
+            </div>
+            <div className="overflow-hidden rounded-lg border border-border">
+              <Navbar brand="App" variant="dark" items={ICON_ITEMS} hoverEffect="lift" />
+            </div>
+            <div className="overflow-hidden rounded-lg border border-border">
+              <Navbar brand="App" variant="gradient" items={ICON_ITEMS} hoverEffect="glow" />
+            </div>
+          </div>
+          <CodeBlock
+            variants={{
+              react: `const items = [
+  { label: "Home", icon: "home", active: true },
+  { label: "Projects", icon: "folder" },
+  { label: "Team", icon: "users" },
+  { label: "Settings", icon: "settings" },
+];
+
+<Navbar brand="App" items={items} />
+<Navbar brand="App" variant="dark" items={items} hoverEffect="lift" />
+<Navbar brand="App" variant="gradient" items={items} hoverEffect="glow" />`,
+              js: `<l-navbar id="nav" brand="App" hover-effect="lift"></l-navbar>
+
+<script type="module">
+  import "lojee-ui/elements";
+  document.getElementById("nav").items = [
+    { label: "Home", icon: "home", active: true },
+    { label: "Projects", icon: "folder" },
+    { label: "Team", icon: "users" },
+    { label: "Settings", icon: "settings" },
+  ];
+</script>`,
+              vue: `<script setup>
+const items = [
+  { label: "Home", icon: "home", active: true },
+  { label: "Projects", icon: "folder" },
+  { label: "Team", icon: "users" },
+  { label: "Settings", icon: "settings" },
+];
+</script>
+
+<template>
+  <l-navbar brand="App" :items="items" />
+  <l-navbar brand="App" variant="dark" :items="items" hover-effect="lift" />
+  <l-navbar brand="App" variant="gradient" :items="items" hover-effect="glow" />
+</template>`,
+              angular: `<l-navbar brand="App" [items]="items"></l-navbar>
+<l-navbar brand="App" variant="dark" [items]="items" hover-effect="lift"></l-navbar>
+<l-navbar brand="App" variant="gradient" [items]="items" hover-effect="glow"></l-navbar>`,
+            }}
+          />
+        </section>
+
+        <section>
+          <SectionLabel sub={'itemsAlign places the link row: "left" next to the brand (default), "center" centered in the bar, or "right" next to the actions.'}>Items alignment</SectionLabel>
+          <div className="space-y-4">
+            {(
+              [
+                ["left", "Left — next to the brand (default)"],
+                ["center", "Center — centered between the brand and the actions"],
+                ["right", "Right — next to the actions"],
+              ] as const
+            ).map(([align, label]) => (
+              <div key={align}>
+                <p className="mb-1.5 text-sm font-medium text-fg-muted">{label}</p>
+                <div className="overflow-hidden rounded-lg border border-border">
+                  <Navbar brand="App" itemsAlign={align} items={ICON_ITEMS} actions={<Avatar initials="JD" size="sm" />} />
+                </div>
+              </div>
+            ))}
+          </div>
+          <CodeBlock
+            variants={{
+              react: `<Navbar brand="App" itemsAlign="center" items={items} actions={<Avatar initials="JD" size="sm" />} />
+// "left" | "center" | "right"`,
+              js: `<l-navbar id="nav" brand="App" items-align="center"></l-navbar>
+<script>document.getElementById("nav").items = items;</script>`,
+              vue: `<l-navbar brand="App" items-align="center" :items="items" />`,
+              angular: `<l-navbar brand="App" items-align="center" [items]="items"></l-navbar>`,
+            }}
+          />
+        </section>
+
+        <section>
           <SectionLabel sub="Set sticky so the bar pins to the top of its scroll container.">Sticky</SectionLabel>
           <div className="h-64 overflow-y-auto rounded-lg border border-border">
-            <Navbar sticky brand="App">
-              <Button variant="ghost" label="Home" />
-              <Button variant="ghost" label="Products" />
-            </Navbar>
+            <Navbar sticky scrollBackground brand="App" items={SCROLL_ITEMS} />
             <div className="space-y-4 p-6">
               {Array.from({ length: 8 }).map((_, i) => (
                 <p key={i} className="text-sm text-fg-subtle">
-                  Scroll to see the navbar stick to the top of this container. Row {i + 1}.
+                  Scroll to see the navbar stick to the top (transparent until you scroll). Row {i + 1}.
                 </p>
               ))}
             </div>
@@ -190,47 +283,138 @@ onActiveItemChange(item: unknown) {
           <CodeBlock
             variants={{
               react: `<div className="h-64 overflow-y-auto">
-  <Navbar sticky brand="App">
-    <Button variant="ghost" label="Home" />
-    <Button variant="ghost" label="Products" />
-  </Navbar>
+  <Navbar
+    sticky
+    scrollBackground
+    brand="App"
+    items={[{ label: "Home" }, { label: "Products" }]}
+  />
   <div className="p-6 space-y-4">
     {rows.map((row, i) => <p key={i}>{row}</p>)}
   </div>
 </div>`,
               js: `<div class="h-64 overflow-y-auto">
-  <l-navbar sticky brand="App">
-    <l-button variant="ghost" label="Home"></l-button>
-    <l-button variant="ghost" label="Products"></l-button>
-  </l-navbar>
+  <l-navbar id="nav" sticky scroll-background brand="App"></l-navbar>
   <div class="p-6 space-y-4">
     <!-- rows -->
   </div>
 </div>
 
-<script type="module">import "lojee-ui/elements";</script>`,
+<script type="module">
+  import "lojee-ui/elements";
+  document.getElementById("nav").items = [{ label: "Home" }, { label: "Products" }];
+</script>`,
               vue: `<template>
   <div class="h-64 overflow-y-auto">
-    <l-navbar sticky brand="App">
-      <l-button variant="ghost" label="Home" />
-      <l-button variant="ghost" label="Products" />
-    </l-navbar>
+    <l-navbar sticky scroll-background brand="App" :items="items" />
     <div class="p-6 space-y-4">
       <p v-for="(row, i) in rows" :key="i">{{ row }}</p>
     </div>
   </div>
-</template>`,
+</template>
+
+<script setup>
+const items = [{ label: "Home" }, { label: "Products" }];
+</script>`,
               angular: `<div class="h-64 overflow-y-auto">
-  <l-navbar sticky brand="App">
-    <l-button variant="ghost" label="Home"></l-button>
-    <l-button variant="ghost" label="Products"></l-button>
-  </l-navbar>
+  <l-navbar sticky scroll-background brand="App" [items]="items"></l-navbar>
   <div class="p-6 space-y-4">
     <p *ngFor="let row of rows">{{ row }}</p>
   </div>
 </div>`,
             }}
           />
+        </section>
+
+        <section>
+          <SectionLabel sub="scrollBackground: transparent at the top, solid once the page scrolls.">Scroll background</SectionLabel>
+          <div className="h-64 overflow-y-auto rounded-lg border border-border">
+            <Navbar sticky scrollBackground brand="App" items={SCROLL_ITEMS} />
+            <div className="space-y-4 p-6">
+              {Array.from({ length: 10 }).map((_, i) => (
+                <p key={i} className="text-sm text-fg-subtle">Scroll down: the bar fills in. Row {i + 1}.</p>
+              ))}
+            </div>
+          </div>
+          <CodeBlock
+            variants={{
+              react: `<Navbar
+  sticky
+  scrollBackground
+  brand="App"
+  items={[{ label: "Home" }, { label: "Products" }]}
+/>`,
+              js: `<l-navbar id="nav" sticky scroll-background brand="App"></l-navbar>
+
+<script type="module">
+  import "lojee-ui/elements";
+  document.getElementById("nav").items = [{ label: "Home" }, { label: "Products" }];
+</script>`,
+              vue: `<template>
+  <l-navbar sticky scroll-background brand="App" :items="items" />
+</template>
+
+<script setup>
+const items = [{ label: "Home" }, { label: "Products" }];
+</script>`,
+              angular: `<l-navbar sticky scroll-background brand="App" [items]="items"></l-navbar>`,
+            }}
+          />
+        </section>
+
+        <section>
+          <SectionLabel sub="scrollGlow: an accent glow runs along the bottom edge while scrolling, then fades out.">Scroll glow</SectionLabel>
+          <div className="h-64 overflow-y-auto rounded-lg border border-border">
+            <Navbar sticky scrollGlow brand="App" items={SCROLL_ITEMS} />
+            <div className="space-y-4 p-6">
+              {Array.from({ length: 10 }).map((_, i) => (
+                <p key={i} className="text-sm text-fg-subtle">Scroll to see the glow. Row {i + 1}.</p>
+              ))}
+            </div>
+          </div>
+          <CodeBlock
+            variants={{
+              react: `<Navbar sticky scrollGlow brand="App" items={items} />`,
+              js: `<l-navbar id="nav" sticky scroll-glow brand="App"></l-navbar>
+<script>document.getElementById("nav").items = items;</script>`,
+              vue: `<l-navbar sticky scroll-glow brand="App" :items="items" />`,
+              angular: `<l-navbar sticky scroll-glow brand="App" [items]="items"></l-navbar>`,
+            }}
+          />
+        </section>
+
+        <section>
+          <SectionLabel sub="Give scrollGlow an effect name to change how the glow animates: spread (default), fade, rainbow, particles.">Scroll glow effects</SectionLabel>
+          <div className="space-y-4">
+            {(
+              [
+                ["spread", "Spread — grows from the center outward (default)"],
+                ["fade", "Fade — the whole line fades in and out"],
+                ["rainbow", "Rainbow — multi-color line that spreads"],
+                ["particles", "Particles — sparks fall from the edge while scrolling"],
+              ] as const
+            ).map(([effect, label]) => (
+              <div key={effect}>
+                <p className="mb-1.5 text-sm font-medium text-fg-muted">{label}</p>
+                <div className="h-56 overflow-y-auto rounded-lg border border-border">
+                <Navbar sticky scrollGlow={effect} brand={effect} items={SCROLL_ITEMS} />
+                <div className="space-y-4 p-6">
+                  {Array.from({ length: 10 }).map((_, i) => (
+                    <p key={i} className="text-sm text-fg-subtle">Scroll to see the {effect} glow. Row {i + 1}.</p>
+                  ))}
+                </div>
+                </div>
+                <CodeBlock
+                  variants={{
+                    react: effect === "spread" ? `<Navbar sticky scrollGlow brand="App" items={items} />\n// same as scrollGlow="spread"` : `<Navbar sticky scrollGlow="${effect}" brand="App" items={items} />`,
+                    js: `<l-navbar id="nav" sticky ${effect === "spread" ? "scroll-glow" : `scroll-glow="${effect}"`} brand="App"></l-navbar>\n<script>document.getElementById("nav").items = items;</script>`,
+                    vue: `<l-navbar sticky ${effect === "spread" ? "scroll-glow" : `scroll-glow="${effect}"`} brand="App" :items="items" />`,
+                    angular: `<l-navbar sticky ${effect === "spread" ? "scroll-glow" : `scroll-glow="${effect}"`} brand="App" [items]="items"></l-navbar>`,
+                  }}
+                />
+              </div>
+            ))}
+          </div>
         </section>
 
         <section>

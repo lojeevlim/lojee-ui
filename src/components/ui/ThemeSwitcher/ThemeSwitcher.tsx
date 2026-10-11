@@ -1,5 +1,5 @@
-import { useContext, useEffect, useRef, useState } from "react";
-import { Check, ChevronDown } from "lucide-react";
+import { useContext, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { Check, ChevronDown, Moon, Sun } from "lucide-react";
 import {
   THEME_MODES,
   THEME_STORAGE_KEYS,
@@ -112,6 +112,7 @@ function useStandaloneTheme(enabled: boolean) {
 }
 
 // Literal class strings so Tailwind can see them.
+export type ThemeSwitcherVariant = "menu" | "toggle" | "segmented";
 export type ThemeSwitcherAlign = "start" | "center" | "end" | "left" | "right";
 
 // The dropdown always opens below the button; `align` is where along the button's bottom edge it lines up (start / center /
@@ -140,6 +141,8 @@ export interface ThemeSwitcherProps {
   onActiveVariantChange?: (variant: ActiveVariant) => void;
   /** Called when a design is picked (the theme is still applied unless you control it with the matching prop). */
   onDesignChange?: (design: DesignName) => void;
+  /** How the light/dark choice is shown: "menu" — the dropdown with every section (default) | "toggle" — one icon button that flips light and dark (mode only) | "segmented" — inline button groups for mode, design and active-item style plus accent color dots, no dropdown; `showDesign`, `showActiveItems`, `showAccent` and `showCustom` trim them. `align` only applies to "menu". */
+  variant?: ThemeSwitcherVariant;
   /** Where the dropdown (which always opens below the button) lines up with the button: "start" (left edges together), "center", or "end" (right edges together). "left" / "right" also work, as start / end. Default: "end". */
   align?: ThemeSwitcherAlign;
   /** Show the "Design" section — Bento or Clay (default: true). */
@@ -180,6 +183,7 @@ export function ThemeSwitcher({
   onAccentChange,
   onActiveVariantChange,
   onDesignChange,
+  variant = "menu",
   align = "end",
   showDesign = true,
   showActiveItems = true,
@@ -236,6 +240,67 @@ export function ThemeSwitcher({
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps -- setOpen only closes over state setters and the latest onOpenChange; re-subscribing on every render would be wasteful
   }, [open]);
+
+  const MODE_ICON = { light: Sun, dark: Moon } as const;
+  if (variant === "toggle") {
+    const next = mode === "dark" ? "light" : "dark";
+    return (
+      <button
+        type="button"
+        aria-label={`Switch to ${next} mode`}
+        title={`Switch to ${next} mode`}
+        onClick={() => setMode(next)}
+        className={`inline-flex items-center justify-center rounded-md border border-border bg-surface p-2 text-fg-muted transition-colors hover:bg-surface-muted hover:text-fg focus:outline-none focus:ring-2 focus:ring-fg/10 ${motionClass(transition, hoverEffect) ?? ""} ${className ?? ""}`}
+        style={motionStyle(transitionDuration, transitionDelay)}
+      >
+        {/* Both icons stay mounted: the outgoing one spins and shrinks away while the incoming one spins in. */}
+        <span className="relative block size-4">
+          {(["light", "dark"] as const).map((m) => {
+            const Icon = MODE_ICON[m];
+            const shown = mode === m;
+            return (
+              <Icon
+                key={m}
+                size={16}
+                aria-hidden
+                className={`absolute inset-0 transition-all duration-150 ease-[cubic-bezier(.22,1,.36,1)] motion-reduce:transition-none ${
+                  shown ? "rotate-0 scale-100 opacity-100" : m === "dark" ? "-rotate-90 scale-50 opacity-0" : "rotate-90 scale-50 opacity-0"
+                }`}
+              />
+            );
+          })}
+        </span>
+      </button>
+    );
+  }
+  if (variant === "segmented") {
+    return (
+      <div
+        className={`inline-flex flex-wrap items-center gap-x-4 gap-y-2 ${motionClass(transition, hoverEffect) ?? ""} ${className ?? ""}`}
+        style={motionStyle(transitionDuration, transitionDelay)}
+      >
+        <SegmentedGroup
+          label="Theme mode"
+          value={mode}
+          onChange={setMode}
+          options={THEME_MODES.map(({ value, label }) => ({ value, label, icon: MODE_ICON[value] }))}
+        />
+        {showDesign && <SegmentedGroup label="Design" value={design} onChange={setDesign} options={DESIGNS.map(({ value, label }) => ({ value, label }))} />}
+        {showActiveItems && <SegmentedGroup label="Active items" value={activeVariant} onChange={setActiveVariant} options={ACTIVE_VARIANTS.map(({ value, label }) => ({ value, label }))} />}
+        {showAccent && (
+          <div role="radiogroup" aria-label="Accent" className="flex flex-wrap items-center gap-1.5">
+            {ACCENTS.map((c) => (
+              <AccentDot key={c.base} label={c.name} color={accentShade(c.base, 600)} active={accent === c.base} onSelect={() => setAccent(c.base)} />
+            ))}
+            {PRESET_ACCENTS.map((c) => (
+              <AccentDot key={c.hex} label={c.name} color={c.hex} active={isHexColor(accent) && normalizeHex(accent) === normalizeHex(c.hex)} onSelect={() => setAccent(c.hex)} />
+            ))}
+            {showCustom && <CustomAccentDot accent={accent} label={customAccentLabel} onPick={setAccent} />}
+          </div>
+        )}
+      </div>
+    );
+  }
 
   return (
     <div ref={rootRef} className={`relative ${className ?? ""}`}>
@@ -338,6 +403,94 @@ export function ThemeSwitcher({
         </div>
       )}
     </div>
+  );
+}
+
+/** A Light | Dark style button group — one pill with the chosen option raised. */
+function SegmentedGroup<T extends string>({ label, value, onChange, options }: { label: string; value: T; onChange: (v: T) => void; options: { value: T; label: string; icon?: typeof Sun }[] }) {
+  const rootRef = useRef<HTMLDivElement>(null);
+  const [pill, setPill] = useState<{ left: number; width: number } | null>(null);
+  const [ready, setReady] = useState(false);
+  // A pill slides under the chosen option instead of the highlight jumping; it is placed without animating the first time.
+  useLayoutEffect(() => {
+    const el = rootRef.current?.querySelector<HTMLElement>('[aria-checked="true"]');
+    if (el) setPill({ left: el.offsetLeft, width: el.offsetWidth });
+    const id = requestAnimationFrame(() => setReady(true));
+    return () => cancelAnimationFrame(id);
+  }, [value, options.length]);
+  return (
+    <div ref={rootRef} role="radiogroup" aria-label={label} className="relative inline-flex items-center gap-0.5 rounded-lg border border-border bg-surface-muted p-0.5">
+      {pill && (
+        <span
+          aria-hidden
+          className={`pointer-events-none absolute inset-y-0.5 rounded-md bg-surface shadow-sm motion-reduce:transition-none ${ready ? "transition-[left,width] duration-150 ease-[cubic-bezier(.22,1,.36,1)]" : ""}`}
+          style={{ left: pill.left, width: pill.width }}
+        />
+      )}
+      {options.map(({ value: v, label: text, icon: Icon }) => {
+        const active = value === v;
+        return (
+          <button
+            key={v}
+            type="button"
+            role="radio"
+            aria-checked={active}
+            onClick={() => onChange(v)}
+            className={`relative z-10 inline-flex items-center gap-1.5 rounded-md px-2.5 py-1 text-sm transition-colors duration-150 focus:outline-none focus-visible:ring-2 focus-visible:ring-fg/20 ${
+              active ? "text-fg" : "text-fg-muted hover:text-fg"
+            }`}
+          >
+            {Icon && <Icon size={14} />}
+            <span className={Icon ? "max-sm:hidden" : undefined}>{text}</span>
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+/** One accent as a round color dot; the chosen one gets a ring. */
+function AccentDot({ label, color, active, onSelect }: { label: string; color: string; active: boolean; onSelect: () => void }) {
+  return (
+    <button
+      type="button"
+      role="radio"
+      aria-checked={active}
+      aria-label={label}
+      title={label}
+      onClick={onSelect}
+      className={`size-5 rounded-full border border-black/10 transition-[transform,box-shadow] duration-150 hover:scale-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-fg/30 ${
+        active ? "ring-2 ring-fg ring-offset-2 ring-offset-surface" : ""
+      }`}
+      style={{ backgroundColor: color }}
+    />
+  );
+}
+
+/** The "Custom" dot: opens the browser's color picker and applies every pick at once. */
+function CustomAccentDot({ accent, label, onPick }: { accent: Accent; label: string; onPick: (hex: Accent) => void }) {
+  const active = isHexColor(accent) && !PRESET_ACCENTS.some((p) => normalizeHex(p.hex) === normalizeHex(accent));
+  const [draft, setDraft] = useState("#7c3aed");
+  const shown = active ? normalizeHex(accent) : draft;
+  return (
+    <label
+      title={label}
+      className={`relative size-5 cursor-pointer rounded-full border border-black/10 transition-[transform,box-shadow] duration-150 focus-within:ring-2 focus-within:ring-fg/30 hover:scale-110 ${
+        active ? "ring-2 ring-fg ring-offset-2 ring-offset-surface" : ""
+      }`}
+      style={{ background: active ? shown : "conic-gradient(red, yellow, lime, aqua, blue, magenta, red)" }}
+    >
+      <input
+        type="color"
+        aria-label={label}
+        value={shown}
+        onChange={(e) => {
+          setDraft(e.target.value);
+          onPick(e.target.value);
+        }}
+        className="sr-only"
+      />
+    </label>
   );
 }
 

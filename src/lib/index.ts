@@ -11,13 +11,13 @@
 
 export { ANIMATED_VARIANTS, parseAnimated, type AnimatedVariant, type AnimatedProp } from "../core/animated";
 export { Button, type ButtonProps, type GradientDirection } from "../components/ui/Buttons/Button";
-export { SplitButton, type SplitButtonProps } from "../components/ui/Buttons/SplitButton";
+export { SplitButton, type SplitButtonProps } from "../components/ui/SplitButton/SplitButton";
 export {
   SplitButtonMenuItem,
   type SplitButtonMenuItemProps,
-} from "../components/ui/Buttons/SplitButtonMenuItem";
-export { ButtonGroup, type ButtonGroupProps, type ButtonGroupItemClick } from "../components/ui/Buttons/ButtonGroup";
-export { SegmentButton, type SegmentButtonProps } from "../components/ui/Buttons/SegmentButton";
+} from "../components/ui/SplitButton/SplitButtonMenuItem";
+export { ButtonGroup, type ButtonGroupProps, type ButtonGroupItemClick } from "../components/ui/ButtonGroup/ButtonGroup";
+export { SegmentButton, type SegmentButtonProps } from "../components/ui/ButtonGroup/SegmentButton";
 export { default as Modal, type ModalProps } from "../components/ui/Modal";
 export { Badge, type BadgeProps, type BadgeVariant, type BadgeSize } from "../components/ui/Badge/Badge";
 export {

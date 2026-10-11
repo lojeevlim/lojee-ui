@@ -3,16 +3,14 @@ import type { LucideIcon } from "lucide-react";
 import { Plus, Settings, Mail, Bell, Download, ArrowRight, ChevronDown, MoreVertical, MoreHorizontal, X } from "lucide-react";
 import {
   Button,
-  SplitButton,
-  SplitButtonMenuItem,
-  ButtonGroup,
-  SegmentButton,
   defaultGradientPartner,
   type GradientDirection,
   type ButtonVariant,
   type Size,
   type Shape,
 } from "./Buttons";
+import { SplitButton, SplitButtonMenuItem } from "./SplitButton";
+import { ButtonGroup, SegmentButton } from "./ButtonGroup";
 import { OptionGroup, ColorSwatches, PlaygroundLayout, AppWindowFrame, AppWindowBody } from "./PlaygroundHelpers";
 import { cx } from "./playgroundUtils";
 import type { CodeBlockVariants } from "./CodeBlock";
@@ -34,8 +32,7 @@ const DIRECTION_LABELS: Record<GradientDirection, string> = {
   "to-tl": "↖ Up left",
 };
 const SEGMENTS = ["One", "Two", "Three"];
-const LAYOUTS = ["single", "icon", "group", "split"] as const;
-type Layout = (typeof LAYOUTS)[number];
+type Layout = "single" | "icon" | "group" | "split";
 const LAYOUT_LABELS: Record<Layout, string> = {
   single: "Button",
   icon: "Icon only",
@@ -78,7 +75,8 @@ const INITIAL_MENU_ITEMS: MenuItemDraft[] = [
   { label: "Delete", icon: "trash-2" },
 ];
 
-export default function ButtonPlayground() {
+/** The Button page's playground (single and icon-only); the Button Groups and Split Button pages pass their own `layouts`. */
+export default function ButtonPlayground({ layouts = ["single", "icon"] }: { layouts?: readonly Layout[] }) {
   const anim = useAnimation();
   const motion = useMotion();
   const [variant, setVariant] = useState<ButtonVariant>("solid");
@@ -90,7 +88,8 @@ export default function ButtonPlayground() {
   const [size, setSize] = useState<Size>("lg");
   const [shape, setShape] = useState<Shape>("default");
   const [label, setLabel] = useState("Click me");
-  const [layout, setLayout] = useState<Layout>("single");
+  const [layout, setLayout] = useState<Layout>(layouts[0]);
+  const [align, setAlign] = useState<"start" | "center" | "end">("end");
   const [iconKey, setIconKey] = useState("plus");
   const [iconPosition, setIconPosition] = useState<"left" | "right">("left");
   const [menuIconKey, setMenuIconKey] = useState("chevron-down");
@@ -146,6 +145,7 @@ export default function ButtonPlayground() {
           color={color}
           size={size}
           shape={shape}
+          align={align}
           menuIcon={menuIconKey}
         >
           {menuItems.length > 0
@@ -191,7 +191,7 @@ export default function ButtonPlayground() {
     }
     if (layout === "split") {
       const shapeAttr = shape !== "default" ? ` shape="${shape}"` : "";
-      const menuIconAttr = menuIconKey !== "chevron-down" ? ` menuIcon="${menuIconKey}"` : "";
+      const menuIconAttr = (menuIconKey !== "chevron-down" ? ` menuIcon="${menuIconKey}"` : "") + (align !== "end" ? ` align="${align}"` : "");
       if (menuItems.length > 0) {
         const itemsCode = menuItems
           .map((item) => {
@@ -275,7 +275,7 @@ export default function ButtonPlayground() {
           />
         </div>
 
-        <OptionGroup label="Layout" options={LAYOUTS} value={layout} onChange={setLayout} render={(o) => LAYOUT_LABELS[o]} />
+        {layouts.length > 1 && <OptionGroup label="Layout" options={layouts} value={layout} onChange={setLayout} render={(o) => LAYOUT_LABELS[o]} />}
 
         {layout === "single" && (
           <OptionGroup
@@ -333,6 +333,8 @@ export default function ButtonPlayground() {
         )}
 
         <OptionGroup label="Shape" options={SHAPES} value={shape} onChange={setShape} />
+
+        {layout === "split" && <OptionGroup label="Dropdown align" options={["start", "center", "end"] as const} value={align} onChange={setAlign} />}
 
         {layout === "split" && (
           <div>
@@ -421,4 +423,12 @@ export default function ButtonPlayground() {
         {motion.controls}
     </PlaygroundLayout>
   );
+}
+
+export function ButtonGroupPlayground() {
+  return <ButtonPlayground layouts={["group"]} />;
+}
+
+export function SplitButtonPlayground() {
+  return <ButtonPlayground layouts={["split"]} />;
 }

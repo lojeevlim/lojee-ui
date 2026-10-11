@@ -474,6 +474,50 @@
   transform: translateX(-120%);
 }
 
+/* Navbar `scrollGlow` effects. */
+@keyframes lojee-nav-sweep {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(300%);
+  }
+}
+
+@keyframes lojee-nav-particle {
+  0% {
+    transform: translate(0, 0) scale(0.4);
+    opacity: 0;
+  }
+  10% {
+    opacity: var(--lojee-peak, 1);
+    transform: translate(0, calc(var(--lojee-dy, 26px) * 0.08)) scale(1.15);
+  }
+  35% {
+    transform: translate(calc(var(--lojee-dx, 0px) * 0.4 + var(--lojee-sway, 0px)), calc(var(--lojee-dy, 26px) * 0.4)) scale(1);
+  }
+  55% {
+    opacity: calc(var(--lojee-peak, 1) * 0.8);
+  }
+  70% {
+    transform: translate(calc(var(--lojee-dx, 0px) * 0.75 - var(--lojee-sway, 0px)), calc(var(--lojee-dy, 26px) * 0.75)) scale(0.8);
+  }
+  100% {
+    transform: translate(var(--lojee-dx, 0px), var(--lojee-dy, 26px)) scale(0.15);
+    opacity: 0;
+  }
+}
+
+@keyframes lojee-nav-pulse {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
 @keyframes lojee-anim-pulse {
   0% {
     box-shadow:

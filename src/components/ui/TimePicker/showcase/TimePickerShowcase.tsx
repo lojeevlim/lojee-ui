@@ -96,12 +96,12 @@ export class AppComponent {}
           <CodeBlock
             variants={{
               react: `<TimePicker disabled />`,
-              js: `<l-time-picker disabled></l-time-picker>`,
+              js: `<l-time-picker disabled="true"></l-time-picker>`,
               vue: `<template>
-  <l-time-picker disabled />
+  <l-time-picker disabled="true" />
 </template>`,
               angular: `<!-- app.component.html -->
-<l-time-picker disabled />`,
+<l-time-picker disabled="true" />`,
             }}
           />
         </section>

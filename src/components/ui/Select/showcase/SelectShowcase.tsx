@@ -148,10 +148,10 @@ export class AppComponent {
           <CodeBlock
             variants={{
               react: `<Select options={options} placeholder="Choose a fruit" disabled />`,
-              js: `<l-select placeholder="Choose a fruit" disabled></l-select>
+              js: `<l-select placeholder="Choose a fruit" disabled="true"></l-select>
 <!-- .options set via DOM property assignment — see the Placeholder example above -->`,
-              vue: `<l-select :options="options" placeholder="Choose a fruit" disabled />`,
-              angular: `<l-select [options]="options" placeholder="Choose a fruit" disabled />`,
+              vue: `<l-select :options="options" placeholder="Choose a fruit" disabled="true" />`,
+              angular: `<l-select [options]="options" placeholder="Choose a fruit" disabled="true" />`,
             }}
           />
         </section>

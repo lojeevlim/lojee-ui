@@ -79,7 +79,7 @@ const registerSf = ts.createSourceFile("register.tsx", registerSrc, ts.ScriptTar
 const elements = [];
 const keyName = (n, sf) => (ts.isStringLiteral(n) || ts.isNoSubstitutionTemplateLiteral(n) ? n.text : n.getText(sf));
 function visit(node) {
-  if (ts.isCallExpression(node) && node.expression.getText(registerSf) === "customElements.define" && node.arguments.length >= 2) {
+  if (ts.isCallExpression(node) && ["customElements.define", "defineElement"].includes(node.expression.getText(registerSf)) && node.arguments.length >= 2) {
     const tag = node.arguments[0].text;
     const r2 = node.arguments[1];
     if (ts.isCallExpression(r2)) {

@@ -106,6 +106,57 @@ export class ButtonGroupShowcaseComponent {
 }`,
         }}
       />
+
+      <div className="mt-8">
+        <SectionLabel sub="selectable lets the group keep its own selection: the clicked segment turns active in the theme color and the others clear — no active state to manage. defaultActive picks the segment that starts selected.">
+          Selectable group
+        </SectionLabel>
+        <div className="flex flex-col items-start gap-4">
+          <ButtonGroup selectable defaultActive={1}>
+            <SegmentButton>Day</SegmentButton>
+            <SegmentButton>Week</SegmentButton>
+            <SegmentButton>Month</SegmentButton>
+            <SegmentButton>Year</SegmentButton>
+          </ButtonGroup>
+          <ButtonGroup selectable defaultActive={0}>
+            <SegmentButton icon="align-left" aria-label="Align left" />
+            <SegmentButton icon="align-center" aria-label="Align center" />
+            <SegmentButton icon="align-right" aria-label="Align right" />
+          </ButtonGroup>
+        </div>
+        <CodeBlock
+          variants={{
+            react: `<ButtonGroup selectable defaultActive={1}>
+  <SegmentButton>Day</SegmentButton>
+  <SegmentButton>Week</SegmentButton>
+  <SegmentButton>Month</SegmentButton>
+  <SegmentButton>Year</SegmentButton>
+</ButtonGroup>`,
+            js: `<l-button-group selectable="true" default-active="1">
+  <l-segment-button>Day</l-segment-button>
+  <l-segment-button>Week</l-segment-button>
+  <l-segment-button>Month</l-segment-button>
+  <l-segment-button>Year</l-segment-button>
+</l-button-group>
+
+<script type="module">import "lojee-ui/elements";</script>`,
+            vue: `<template>
+  <l-button-group :selectable="true" :default-active="1">
+    <l-segment-button>Day</l-segment-button>
+    <l-segment-button>Week</l-segment-button>
+    <l-segment-button>Month</l-segment-button>
+    <l-segment-button>Year</l-segment-button>
+  </l-button-group>
+</template>`,
+            angular: `<l-button-group selectable="true" default-active="1">
+  <l-segment-button>Day</l-segment-button>
+  <l-segment-button>Week</l-segment-button>
+  <l-segment-button>Month</l-segment-button>
+  <l-segment-button>Year</l-segment-button>
+</l-button-group>`,
+          }}
+        />
+      </div>
     </section>
   );
 }

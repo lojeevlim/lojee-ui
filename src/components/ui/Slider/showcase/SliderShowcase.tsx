@@ -185,12 +185,12 @@ export class AppComponent {}
           <CodeBlock
             variants={{
               react: `<Slider defaultValue={40} disabled />`,
-              js: `<l-slider value="40" disabled></l-slider>`,
+              js: `<l-slider value="40" disabled="true"></l-slider>`,
               vue: `<template>
-  <l-slider value="40" disabled />
+  <l-slider value="40" disabled="true" />
 </template>`,
               angular: `<!-- app.component.html -->
-<l-slider value="40" disabled />`,
+<l-slider value="40" disabled="true" />`,
             }}
           />
         </section>

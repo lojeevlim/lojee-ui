@@ -17,6 +17,7 @@ import { spotlight, useCountUp, useInView } from "./hooks";
 import Logo from "../layouts/Logo";
 import { ThemeSwitcher } from "../ui/ThemeSwitcher/ThemeSwitcher";
 import { Button } from "../ui/Buttons/Button";
+import { Navbar } from "../ui/Navbar/Navbar";
 import { Badge } from "../ui/Badge/Badge";
 import { Tooltip } from "../ui/Tooltip/Tooltip";
 import { Icon } from "../ui/Icons/Icon";
@@ -103,29 +104,6 @@ function Section({ eyebrow, title, body, children }: { eyebrow: string; title: s
 
 function Nav({ groups, onStart }: { groups: typeof COMPONENT_MENU; onStart: () => void }) {
   const navigate = useNavigate();
-  const [scrolled, setScrolled] = useState(false);
-  // The bottom border glows while the page is scrolling and fades away again once scrolling stops.
-  const [glow, setGlow] = useState(false);
-  useEffect(() => {
-    let idle = 0;
-    const onScroll = () => {
-      const past = window.scrollY > 0;
-      setScrolled(past);
-      if (!past) {
-        setGlow(false);
-        return;
-      }
-      setGlow(true);
-      window.clearTimeout(idle);
-      idle = window.setTimeout(() => setGlow(false), 600);
-    };
-    setScrolled(window.scrollY > 0);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      window.clearTimeout(idle);
-    };
-  }, []);
   const reduce = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   // Phones only: a short "Change theme" hint on the theme switcher, once per page load (like the docs Playground button's hint).
   const [isMobile, setIsMobile] = useState(() => window.matchMedia("(max-width: 767px)").matches);
@@ -144,50 +122,49 @@ function Nav({ groups, onStart }: { groups: typeof COMPONENT_MENU; onStart: () =
       window.clearTimeout(hide);
     };
   }, []);
+  // The shared Navbar does the sticky bar itself: transparent at the top, solid once the page scrolls, and the
+  // accent glow along the bottom edge while scrolling. Only the content (logo, links, actions) is landing-specific.
   return (
-      <header
-        className={`sticky top-0 z-50 border-b border-transparent ${scrolled ? "bg-surface" : "bg-transparent"}`}
-        style={{ transition: "background-color 90ms linear" }}
-      >
-        {/* The glow forms at the middle of the bottom edge, spreads out sideways and fades toward both ends. */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-0"
-          style={{ opacity: glow ? 1 : 0, transform: glow ? "scaleX(1)" : "scaleX(0.15)", transition: glow ? "opacity 400ms ease, transform 900ms ease-out" : "opacity 600ms ease, transform 900ms ease-in" }}
-        >
-          <div className="absolute inset-x-0 -bottom-px h-px" style={{ background: "linear-gradient(to right, transparent, var(--color-accent-500) 50%, transparent)" }} />
-          <div className="absolute inset-x-0 top-0 h-5" style={{ background: "radial-gradient(ellipse 50% 100% at 50% 0, color-mix(in srgb, var(--color-accent-500) 45%, transparent), transparent)" }} />
-        </div>
-        <div className="mx-auto flex h-16 max-w-6xl items-center gap-3 px-5">
-          <button type="button" onClick={() => window.scrollTo({ top: 0, behavior: reduce() ? "auto" : "smooth" })} className="group" aria-label="lojeeUI — back to top">
-            <Logo className="[&_svg]:transition-transform [&_svg]:duration-300 group-hover:[&_svg]:rotate-6 group-hover:[&_svg]:scale-105" />
-          </button>
-          <nav className="ml-6 hidden items-center gap-1 md:flex">
-            {[
-              ["Docs", pathFor("docs", "Introduction"), "book-open"],
-              ["Components", pathFor("components", groups[0].items![0].label), "shapes"],
-              ["Changelog", pathFor("docs", "Changelog"), "clock"],
-              ["About", "/about", "info"],
-            ].map(([label, to, icon]) => (
-              <button key={label} type="button" onClick={() => navigate(to)} className="group/nav relative inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm text-fg-muted transition-[background-color,color,transform] duration-300 ease-out hover:-translate-y-px hover:bg-surface-muted hover:text-fg focus-visible:text-fg">
-                <span className="inline-flex text-accent-600 transition-transform duration-300 ease-out group-hover/nav:-rotate-6 group-hover/nav:scale-110 dark:text-accent-400"><Icon name={icon} size={15} /></span>
-                {label}
-              </button>
-            ))}
-          </nav>
-          <div className="ml-auto flex items-center gap-2">
-            {isMobile ? (
-              <Tooltip content="Change theme" position="bottom" color="accent" open={themeHint}>
-                <ThemeSwitcher align="center"  transition="blur"  />
-              </Tooltip>
-            ) : (
+    <Navbar
+      sticky
+      bordered={false}
+      scrollBackground
+      scrollGlow
+      // Keeps the old centered `max-w-6xl` content width at any viewport.
+      className="px-5 md:px-[max(1.25rem,calc((100vw-72rem)/2+1.25rem))]"
+      brand={
+        <button type="button" onClick={() => window.scrollTo({ top: 0, behavior: reduce() ? "auto" : "smooth" })} className="group" aria-label="lojeeUI — back to top">
+          <Logo className="[&_svg]:transition-transform [&_svg]:duration-300 group-hover:[&_svg]:rotate-6 group-hover:[&_svg]:scale-105" />
+        </button>
+      }
+      actions={
+        <>
+          {isMobile ? (
+            <Tooltip content="Change theme" position="bottom" color="accent" open={themeHint}>
               <ThemeSwitcher align="center"  transition="blur"  />
-            )}
-            <Button variant="ghost" size="sm" icon="git-branch" label="GitHub" onClick={() => window.open(REPO_URL, "_blank", "noopener")} />
-            <Button size="sm" label="Get Started" onClick={onStart} />
-          </div>
-        </div>
-      </header>
+            </Tooltip>
+          ) : (
+            <ThemeSwitcher align="center"  transition="blur"  />
+          )}
+          <Button variant="ghost" size="sm" icon="git-branch" label="GitHub" onClick={() => window.open(REPO_URL, "_blank", "noopener")} />
+          <Button size="sm" label="Get Started" onClick={onStart} />
+        </>
+      }
+    >
+      <div className="hidden items-center gap-1 md:flex">
+        {[
+          ["Docs", pathFor("docs", "Introduction"), "book-open"],
+          ["Components", pathFor("components", groups[0].items![0].label), "shapes"],
+          ["Changelog", pathFor("docs", "Changelog"), "clock"],
+          ["About", "/about", "info"],
+        ].map(([label, to, icon]) => (
+          <button key={label} type="button" onClick={() => navigate(to)} className="group/nav relative inline-flex items-center gap-1.5 rounded-md px-3 py-1.5 text-sm text-fg-muted transition-[background-color,color,transform] duration-300 ease-out hover:-translate-y-px hover:bg-surface-muted hover:text-fg focus-visible:text-fg">
+            <span className="inline-flex text-accent-600 transition-transform duration-300 ease-out group-hover/nav:-rotate-6 group-hover/nav:scale-110 dark:text-accent-400"><Icon name={icon} size={15} /></span>
+            {label}
+          </button>
+        ))}
+      </div>
+    </Navbar>
   );
 }
 

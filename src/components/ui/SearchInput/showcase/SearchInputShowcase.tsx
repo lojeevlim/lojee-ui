@@ -121,9 +121,9 @@ export class AppComponent {
           <CodeBlock
             variants={{
               react: `<SearchInput disabled placeholder="Disabled" />`,
-              js: `<l-search-input disabled placeholder="Disabled"></l-search-input>`,
-              vue: `<l-search-input disabled placeholder="Disabled" />`,
-              angular: `<l-search-input disabled placeholder="Disabled" />`,
+              js: `<l-search-input disabled="true" placeholder="Disabled"></l-search-input>`,
+              vue: `<l-search-input disabled="true" placeholder="Disabled" />`,
+              angular: `<l-search-input disabled="true" placeholder="Disabled" />`,
             }}
           />
         </section>

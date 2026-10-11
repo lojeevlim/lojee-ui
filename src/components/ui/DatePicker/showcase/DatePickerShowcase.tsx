@@ -182,12 +182,12 @@ value = "2026-06-15";
           <CodeBlock
             variants={{
               react: `<DatePicker disabled />`,
-              js: `<l-date-picker disabled></l-date-picker>`,
+              js: `<l-date-picker disabled="true"></l-date-picker>`,
               vue: `<template>
-  <l-date-picker disabled />
+  <l-date-picker disabled="true" />
 </template>`,
               angular: `<!-- app.component.html -->
-<l-date-picker disabled />`,
+<l-date-picker disabled="true" />`,
             }}
           />
         </section>

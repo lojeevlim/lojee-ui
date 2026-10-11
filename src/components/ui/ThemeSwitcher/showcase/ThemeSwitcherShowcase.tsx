@@ -40,6 +40,35 @@ import "lojee-ui/elements";
       </section>
 
       <section className="mt-10">
+        <SectionLabel sub={'`variant` swaps the dropdown for controls that are always visible: "toggle" is one icon button that flips light and dark, "segmented" shows mode, design and active-item buttons plus accent color dots inline. Neither opens a menu.'}>Toggle and segmented</SectionLabel>
+        <div className="flex flex-col items-start gap-6">
+          <ThemeSwitcher variant="toggle" />
+          <ThemeSwitcher variant="segmented" />
+          <ThemeSwitcher variant="segmented" showActiveItems={false} showCustom={false} />
+        </div>
+        <CodeBlock
+          variants={{
+            react: `<ThemeSwitcher variant="toggle" />
+<ThemeSwitcher variant="segmented" />
+<ThemeSwitcher variant="segmented" showActiveItems={false} showCustom={false} />`,
+            js: `<l-theme-switcher variant="toggle"></l-theme-switcher>
+<l-theme-switcher variant="segmented"></l-theme-switcher>
+<l-theme-switcher variant="segmented" show-active-items="false" show-custom="false"></l-theme-switcher>
+
+<script type="module">import "lojee-ui/elements";</script>`,
+            vue: `<template>
+  <l-theme-switcher variant="toggle" />
+  <l-theme-switcher variant="segmented" />
+  <l-theme-switcher variant="segmented" :show-active-items="false" :show-custom="false" />
+</template>`,
+            angular: `<l-theme-switcher variant="toggle"></l-theme-switcher>
+<l-theme-switcher variant="segmented"></l-theme-switcher>
+<l-theme-switcher variant="segmented" [attr.show-active-items]="false" [attr.show-custom]="false"></l-theme-switcher>`,
+          }}
+        />
+      </section>
+
+      <section className="mt-10">
         <SectionLabel sub="showAccent and showActiveItems trim the menu; align picks the edge it lines up with.">Trimmed menus</SectionLabel>
         <div className="flex min-h-[60px] flex-wrap items-start gap-4">
           <ThemeSwitcher showActiveItems={false} align="start" />

@@ -212,18 +212,18 @@ export class AppComponent {}`,
 </Accordion>`,
               js: `<l-accordion>
   <l-accordion-item title="Available section">This one opens normally.</l-accordion-item>
-  <l-accordion-item title="Locked section" disabled>This content is unavailable.</l-accordion-item>
+  <l-accordion-item title="Locked section" disabled="true">This content is unavailable.</l-accordion-item>
 </l-accordion>`,
               vue: `<template>
   <l-accordion>
     <l-accordion-item title="Available section">This one opens normally.</l-accordion-item>
-    <l-accordion-item title="Locked section" disabled>This content is unavailable.</l-accordion-item>
+    <l-accordion-item title="Locked section" disabled="true">This content is unavailable.</l-accordion-item>
   </l-accordion>
 </template>`,
               angular: `<!-- reuses the AppComponent from above -->
 <l-accordion>
   <l-accordion-item title="Available section">This one opens normally.</l-accordion-item>
-  <l-accordion-item title="Locked section" disabled>This content is unavailable.</l-accordion-item>
+  <l-accordion-item title="Locked section" disabled="true">This content is unavailable.</l-accordion-item>
 </l-accordion>`,
             }}
           />

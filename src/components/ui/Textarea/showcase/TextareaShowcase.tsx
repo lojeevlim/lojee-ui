@@ -103,9 +103,9 @@ export class AppComponent {}`,
           <CodeBlock
             variants={{
               react: `<Textarea disabled placeholder="Disabled" />`,
-              js: `<l-textarea disabled placeholder="Disabled"></l-textarea>`,
-              vue: `<l-textarea disabled placeholder="Disabled" />`,
-              angular: `<l-textarea disabled placeholder="Disabled" />`,
+              js: `<l-textarea disabled="true" placeholder="Disabled"></l-textarea>`,
+              vue: `<l-textarea disabled="true" placeholder="Disabled" />`,
+              angular: `<l-textarea disabled="true" placeholder="Disabled" />`,
             }}
           />
         </section>

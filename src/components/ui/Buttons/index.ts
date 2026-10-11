@@ -1,8 +1,8 @@
 export { Button, type ButtonProps, type GradientDirection } from "./Button";
-export { SplitButton, type SplitButtonProps } from "./SplitButton";
-export { SplitButtonMenuItem, type SplitButtonMenuItemProps } from "./SplitButtonMenuItem";
-export { ButtonGroup, type ButtonGroupProps, type ButtonGroupItemClick } from "./ButtonGroup";
-export { SegmentButton, type SegmentButtonProps } from "./SegmentButton";
+export { SplitButton, type SplitButtonProps } from "../SplitButton/SplitButton";
+export { SplitButtonMenuItem, type SplitButtonMenuItemProps } from "../SplitButton/SplitButtonMenuItem";
+export { ButtonGroup, type ButtonGroupProps, type ButtonGroupItemClick } from "../ButtonGroup/ButtonGroup";
+export { SegmentButton, type SegmentButtonProps } from "../ButtonGroup/SegmentButton";
 export { default } from "./showcase/ButtonShowcase";
 
 export {

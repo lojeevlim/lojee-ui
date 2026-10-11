@@ -45,3 +45,33 @@ export function withSlots<Props extends object>(Component: ComponentType<Props>,
     );
   };
 }
+
+/**
+ * Removes whitespace-only text nodes from the custom element's own children. A default `<slot>` that has any assigned node — even a
+ * blank text node left by the page's indentation — shows that instead of its fallback, so a component that keeps a fallback label in a
+ * default slot of its own (like the main button of `<l-split-button>`) would lose it as soon as items are nested inside the element.
+ */
+export function withTrimmedHost<Props extends object>(Component: ComponentType<Props>) {
+  return function WithTrimmedHost(props: Props) {
+    const ref = useRef<HTMLSpanElement>(null);
+    useEffect(() => {
+      const root = ref.current?.getRootNode();
+      const host = root instanceof ShadowRoot ? root.host : null;
+      if (!host) return;
+      const trim = () =>
+        Array.from(host.childNodes).forEach((n) => {
+          if (n.nodeType === Node.TEXT_NODE && !n.textContent?.trim()) n.remove();
+        });
+      trim();
+      const obs = new MutationObserver(trim);
+      obs.observe(host, { childList: true });
+      return () => obs.disconnect();
+    }, []);
+    return (
+      <>
+        <span ref={ref} hidden />
+        <Component {...props} />
+      </>
+    );
+  };
+}

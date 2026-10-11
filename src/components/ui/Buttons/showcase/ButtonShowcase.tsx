@@ -1,6 +1,4 @@
 import { ButtonSection } from "./ButtonSection";
-import { ButtonGroupSection } from "./ButtonGroupSection";
-import { SplitButtonSection } from "./SplitButtonSection";
 import { ButtonMotionSection } from "./ButtonMotionSection";
 
 export default function ButtonShowcase() {
@@ -15,8 +13,6 @@ export default function ButtonShowcase() {
         </div>
 
         <ButtonSection />
-        <ButtonGroupSection />
-        <SplitButtonSection />
         <ButtonMotionSection />
       </div>
     </div>

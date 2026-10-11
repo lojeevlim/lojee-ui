@@ -1,4 +1,4 @@
-import type { ButtonHTMLAttributes, MouseEventHandler } from "react";
+import type { ButtonHTMLAttributes, CSSProperties, MouseEventHandler } from "react";
 import { colorClasses, cx, isColorName, nonInteractive, type ColorName } from "../../../core/tokens";
 import { ACTIVE_ITEM_TRANSITION, activeMarker } from "../../../core/activeVariant";
 import { getIcon } from "../../../core/icons";
@@ -50,21 +50,24 @@ export function SegmentButton({
   const Icon = getIcon(icon);
   const named = isColorName(color);
   const activeClass = named ? nonInteractive((colorClasses[color] || colorClasses.slate).solid) : "text-white";
+  // The marker carries the `--ac` accent variable the theme's outline / soft active styles read, so its `style` has to be the merged one
+  // (a separate `style` prop after it would drop `--ac`, leaving those variants with no color — white fill, black text).
+  const ownStyle: CSSProperties = { ...(active && !named ? { backgroundColor: color } : {}), ...style, ...motionStyle(transitionDuration, transitionDelay) };
+  const marker = active ? activeMarker("fill", color, named, false, ownStyle) : { style: ownStyle };
   return (
     <button
       type={type}
       onClick={onClick}
       aria-pressed={active}
-      {...(active && activeMarker("fill", color, named))}
+      {...marker}
       className={cx(
-        "inline-flex items-center gap-1.5 px-3 py-2 text-sm font-medium",
+        "inline-flex items-center gap-1.5 rounded-l-[var(--seg-r-left,0px)] rounded-r-[var(--seg-r-right,0px)] px-3 py-2 text-sm font-medium",
         ACTIVE_ITEM_TRANSITION,
         active ? activeClass : "bg-surface text-fg-muted hover:bg-surface-muted",
         motionClass(transition, hoverEffect),
         className,
         classNames?.root
       )}
-      style={{ ...(active && !named ? { backgroundColor: color } : {}), ...style, ...motionStyle(transitionDuration, transitionDelay) }}
       {...rest}
     >
       {/* eslint-disable-next-line react-hooks/static-components -- see comment above `const Icon` */}

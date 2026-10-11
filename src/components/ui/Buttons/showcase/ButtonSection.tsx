@@ -362,7 +362,7 @@ export class ButtonShowcaseComponent {}`,
 <Button disabled label="Disabled" />
 <Button loading={isSaving} onClick={handleSave} label={isSaving ? "Saving…" : "Save changes"} />`,
             js: `<l-button label="Default — hover me"></l-button>
-<l-button disabled label="Disabled"></l-button>
+<l-button disabled="true" label="Disabled"></l-button>
 <l-button id="save-btn" label="Save changes"></l-button>
 
 <script type="module">
@@ -378,7 +378,7 @@ export class ButtonShowcaseComponent {}`,
 </script>`,
             vue: `<template>
   <l-button label="Default — hover me" />
-  <l-button disabled label="Disabled" />
+  <l-button disabled="true" label="Disabled" />
   <l-button
     :loading="isSaving"
     :label="isSaving ? 'Saving…' : 'Save changes'"
@@ -387,7 +387,7 @@ export class ButtonShowcaseComponent {}`,
 </template>`,
             angular: `<!-- reuses ButtonShowcaseComponent from above -->
 <l-button label="Default — hover me" />
-<l-button disabled label="Disabled" />
+<l-button disabled="true" label="Disabled" />
 <l-button
   [loading]="isSaving"
   [label]="isSaving ? 'Saving…' : 'Save changes'"

@@ -42,6 +42,12 @@ function firstArgType(rawType: string): string | null {
   return colon >= 0 ? arg.slice(colon + 1).trim() : arg;
 }
 
+/** React compound children that the Web Component takes as a named slot on the parent element instead. */
+const SLOT_NOTE: Record<string, string> = {
+  SidebarHeader: "Use <l-sidebar-header> inside <l-sidebar> for custom header content (or the header / header-icon attributes for a plain label).",
+  SidebarFooter: "Use <l-sidebar-footer> inside <l-sidebar> for custom footer content (or the footer attribute for a plain label).",
+};
+
 interface Row {
   key: string;
   /** How you write it in the selected language. */
@@ -70,6 +76,20 @@ function eventName(framework: CodeFramework, event: string): string {
 
 /** The React JSDoc talks about callbacks ("Called with the click event when …"); a DOM event just "fires". */
 const domDescription = (d: string | undefined) => (d ?? "").replace(/^Called (?:with (?:the click event|no arguments) )?when/i, "Fires when");
+
+/** The React JSDoc names props and callbacks the React way (`scrollGlowDuration`, `onActiveItemChange`, `className`); in the other
+ * languages the same `code` references are rewritten to how that language writes them (an attribute, `:binding`, `[binding]`,
+ * `@event`, `(event)`), and "Called when" becomes "Fires when". */
+function localize(framework: CodeFramework, c: ApiComponent, text: string | undefined): string {
+  const t = text ?? "";
+  const el = c.element;
+  if (framework === "react" || !el || !t) return t;
+  const names: Record<string, string> = { className: "class" };
+  for (const [prop, type] of Object.entries(el.props)) names[prop] = bind(framework, prop, type).name;
+  for (const x of el.extraProps) names[x.name] = bind(framework, x.name, x.type).name;
+  for (const ev of el.events) names[ev.callback] = eventName(framework, ev.event);
+  return t.replace(/`([A-Za-z][A-Za-z0-9]*)`/g, (m, id: string) => (id in names ? `\`${names[id]}\`` : m)).replace(/\bCalled (?:with [^,.]*? )?when\b/g, "Fires when");
+}
 
 interface EventItem {
   cb: ApiProp | undefined;
@@ -106,8 +126,8 @@ function buildRows(framework: CodeFramework, c: ApiComponent): { props: Row[]; e
   if (!el) return { props: [], events: [], reactOnly: [] };
   const exposed = plain.filter((p) => p.name in el.props);
   const props: Row[] = [
-    ...exposed.map((p): Row => ({ key: p.name, ...bind(framework, p.name, el.props[p.name]), type: p.type, default: p.default, description: p.description, required: p.required })),
-    ...el.extraProps.map((x): Row => ({ key: x.name, ...bind(framework, x.name, x.type), type: x.type === "json" ? "object" : x.type, default: null, description: x.description, required: false })),
+    ...exposed.map((p): Row => ({ key: p.name, ...bind(framework, p.name, el.props[p.name]), type: p.type, default: p.default, description: localize(framework, c, p.description), required: p.required })),
+    ...el.extraProps.map((x): Row => ({ key: x.name, ...bind(framework, x.name, x.type), type: x.type === "json" ? "object" : x.type, default: null, description: localize(framework, c, x.description), required: false })),
   ];
   const events = eventItems(framework, c).map(({ cb, callback, event, native }): Row => {
     const arg = cb ? firstArgType(cb.type) : null;
@@ -117,7 +137,7 @@ function buildRows(framework: CodeFramework, c: ApiComponent): { props: Row[]; e
       kind: native ? "DOM event" : "CustomEvent",
       type: native ? "MouseEvent" : arg ? `event.detail: ${arg}` : "event.detail: —",
       default: null,
-      description: native ? domDescription(cb?.description) : cb?.description ?? "",
+      description: native ? domDescription(cb?.description) : localize(framework, c, cb?.description),
       required: false,
     };
   });
@@ -273,7 +293,7 @@ function EventDetails({ framework, c, doc }: { framework: CodeFramework; c: ApiC
     const example = eventExample(framework, c, callback, event, cb, native);
     return {
       title: isReact ? callback : eventName(framework, event),
-      description: native ? domDescription(cb?.description) : cb?.description,
+      description: native ? domDescription(cb?.description) : localize(framework, c, cb?.description),
       content: (
               <div className="space-y-3">
           <div className="text-sm text-fg-muted">
@@ -463,9 +483,11 @@ export default function ApiReference({ name }: { name: string }) {
         return (
           <div key={c.name} className="space-y-3">
             <h3 className="font-mono text-base font-semibold text-fg">{heading}</h3>
-            {!isReact && !c.element && (
+            {!isReact && (!c.element || SLOT_NOTE[c.name]) && (
               <p className="text-sm text-fg-subtle">
-                {doc.dataTypes.some((d) => d.via) ? (
+                {SLOT_NOTE[c.name] ? (
+                  SLOT_NOTE[c.name]
+                ) : doc.dataTypes.some((d) => d.via) ? (
                   <>
                     Not a separate element — in Vue, Angular and plain JS use the <code className="font-mono text-fg">{doc.dataTypes.find((d) => d.via)?.via}</code> property of <code className="font-mono text-fg">&lt;l-map&gt;</code>; the data shape is below.
                   </>

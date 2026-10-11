@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { PREVIEW_PAGE_BG } from "./playgroundUtils";
-import { Navbar, type NavbarVariant } from "./Navbar/Navbar";
+import { Navbar, type NavbarVariant, type NavbarScrollGlowEffect, type NavbarItemsAlign } from "./Navbar/Navbar";
 import { Avatar } from "./Avatar/Avatar";
 import { OptionGroup, GradientColorSwatches, PlaygroundLayout, AppWindowFrame } from "./PlaygroundHelpers";
 import { cx } from "../../core/tokens";
@@ -15,6 +15,8 @@ const VARIANTS: NavbarVariant[] = ["light", "dark", "bordered", "elevated", "min
 // NavbarItem directly requires (same split as Sidebar's own `items`/`SidebarMenuItem`). None of these
 // set `active` themselves, so Navbar's own self-managed selection kicks in — click a link below to
 // see it (tracked here only to show the "Active" readout, not required for it to work).
+const ITEMS_ALIGNS: NavbarItemsAlign[] = ["left", "center", "right"];
+const GLOW_EFFECTS: NavbarScrollGlowEffect[] = ["spread", "fade", "rainbow", "particles"];
 const NAV_ITEMS = [{ label: "Home" }, { label: "Products" }];
 const DEFAULT_ACTIVE_OPTIONS = ["none", ...NAV_ITEMS.map((item) => item.label)];
 
@@ -23,6 +25,11 @@ export default function NavbarPlayground() {
   const [brand, setBrand] = useState("App");
   const [sticky, setSticky] = useState(false);
   const [bordered, setBordered] = useState(true);
+  // Scroll animations — scroll inside the preview to see them (they work with a sticky bar).
+  const [itemsAlign, setItemsAlign] = useState<NavbarItemsAlign>("left");
+  const [scrollBackground, setScrollBackground] = useState(false);
+  const [scrollGlow, setScrollGlow] = useState(false);
+  const [scrollGlowEffect, setScrollGlowEffect] = useState<NavbarScrollGlowEffect>("spread");
   const [variant, setVariant] = useState<NavbarVariant>("light");
   const [color, setColor] = useState<string>("accent");
   const [gradientTo, setGradientTo] = useState<string>("violet");
@@ -50,6 +57,9 @@ export default function NavbarPlayground() {
       {...motion.props}
       brand={brand ? <span className={onDark ? "text-white" : undefined}>{brand}</span> : undefined}
       sticky={sticky}
+      itemsAlign={itemsAlign}
+      scrollBackground={scrollBackground}
+      scrollGlow={scrollGlow ? scrollGlowEffect : false}
       bordered={bordered}
       variant={variant}
       color={color}
@@ -79,7 +89,7 @@ export default function NavbarPlayground() {
       <div className={cx("min-h-56 flex-1 overflow-y-auto", isMinimal ? `${PREVIEW_PAGE_BG} p-3` : PREVIEW_PAGE_BG)}>
         {navbar}
         <div className={cx("space-y-3", !isMinimal && "p-4")}>
-          {Array.from({ length: 8 }).map((_, i) => (
+          {Array.from({ length: 14 }).map((_, i) => (
             <p key={i} className="text-sm text-fg-subtle">
               Scroll row {i + 1}
             </p>
@@ -91,6 +101,11 @@ export default function NavbarPlayground() {
 
   const brandAttr = brand ? ` brand="${brand}"` : "";
   const stickyAttr = sticky ? " sticky" : "";
+  const alignAttrJsx = itemsAlign !== "left" ? ` itemsAlign="${itemsAlign}"` : "";
+  const alignAttrHtml = itemsAlign !== "left" ? ` items-align="${itemsAlign}"` : "";
+  const scrollEffectAttr = scrollGlow && scrollGlowEffect !== "spread";
+  const scrollAttrsJsx = `${scrollBackground ? " scrollBackground" : ""}${scrollGlow ? (scrollEffectAttr ? ` scrollGlow="${scrollGlowEffect}"` : " scrollGlow") : ""}`;
+  const scrollAttrsHtml = `${scrollBackground ? " scroll-background" : ""}${scrollGlow ? (scrollEffectAttr ? ` scroll-glow="${scrollGlowEffect}"` : " scroll-glow") : ""}`;
   const borderedAttrJsx = bordered ? "" : " bordered={false}";
   const borderedAttrHtml = bordered ? "" : ` bordered="false"`;
   const variantAttr = variant !== "light" ? ` variant="${variant}"` : "";
@@ -106,7 +121,7 @@ export default function NavbarPlayground() {
   const motionAttrs = motion.attrs;
   const defaultActiveItemAttrHtml = defaultActiveItemValue ? ` default-active-item="${defaultActiveItemValue}"` : "";
 
-  const code = `<Navbar${brandAttr}${stickyAttr}${borderedAttrJsx}${variantAttr}${colorAttr}${borderWidthAttrJsx}${defaultActiveItemAttrJsx}${motionAttrs}
+  const code = `<Navbar${brandAttr}${stickyAttr}${alignAttrJsx}${scrollAttrsJsx}${borderedAttrJsx}${variantAttr}${colorAttr}${borderWidthAttrJsx}${defaultActiveItemAttrJsx}${motionAttrs}
   onActiveItemChange={(item) => console.log(item)}
   items={${itemsLiteral}}
   actions={<Avatar initials="JD" size="sm" />}
@@ -121,7 +136,7 @@ export default function NavbarPlayground() {
   // through a plain HTML attribute string.
   const codeVariants: CodeBlockVariants = {
     react: code,
-    js: `<l-navbar id="app-navbar"${brandAttr}${stickyAttr}${borderedAttrHtml}${variantAttr}${colorAttr}${borderWidthAttrHtml}${defaultActiveItemAttrHtml}${motionAttrs}>
+    js: `<l-navbar id="app-navbar"${brandAttr}${stickyAttr}${alignAttrHtml}${scrollAttrsHtml}${borderedAttrHtml}${variantAttr}${colorAttr}${borderWidthAttrHtml}${defaultActiveItemAttrHtml}${motionAttrs}>
   <div slot="actions">
     <l-avatar initials="JD" size="sm"></l-avatar>
   </div>
@@ -138,7 +153,7 @@ export default function NavbarPlayground() {
   <!-- l-Navbar is a native custom element, not a Vue component — Vue's own #slotName shorthand only
        resolves for actual Vue components, so a real light-DOM slot="actions" is what projects here,
        same plain attribute vanilla JS/Angular use below. -->
-  <l-navbar${brandAttr}${stickyAttr}${borderedAttrHtml}${variantAttr}${colorAttr}${borderWidthAttrHtml}${defaultActiveItemAttrHtml}${motionAttrs} :items="items" @activeitemchange="(e) => console.log(e.detail)">
+  <l-navbar${brandAttr}${stickyAttr}${alignAttrHtml}${scrollAttrsHtml}${borderedAttrHtml}${variantAttr}${colorAttr}${borderWidthAttrHtml}${defaultActiveItemAttrHtml}${motionAttrs} :items="items" @activeitemchange="(e) => console.log(e.detail)">
     <div slot="actions">
       <l-avatar initials="JD" size="sm" />
     </div>
@@ -158,7 +173,7 @@ import "lojee-ui/elements";
   selector: "app-root",
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  template: \`<l-navbar${brandAttr}${stickyAttr}${borderedAttrHtml}${variantAttr}${colorAttr}${borderWidthAttrHtml}${defaultActiveItemAttrHtml}${motionAttrs} [items]="items" (activeitemchange)="onActiveItemChange($event.detail)">
+  template: \`<l-navbar${brandAttr}${stickyAttr}${alignAttrHtml}${scrollAttrsHtml}${borderedAttrHtml}${variantAttr}${colorAttr}${borderWidthAttrHtml}${defaultActiveItemAttrHtml}${motionAttrs} [items]="items" (activeitemchange)="onActiveItemChange($event.detail)">
     <div slot="actions">
       <l-avatar initials="JD" size="sm" />
     </div>
@@ -183,6 +198,7 @@ export class AppComponent {
           placeholder="App"
         />
       </div>
+      <OptionGroup label="Items align" options={ITEMS_ALIGNS} value={itemsAlign} onChange={setItemsAlign} />
       <OptionGroup label="Variant" options={VARIANTS} value={variant} onChange={setVariant} />
       {showBorderWidthControl && (
         <div>
@@ -229,12 +245,37 @@ export class AppComponent {
             Bordered
           </label>
         </div>
+        <div className="flex items-center gap-4">
+          <label className="flex items-center gap-2 text-xs font-medium text-fg-subtle">
+            <input
+              type="checkbox"
+              checked={scrollBackground}
+              onChange={(e) => {
+                setScrollBackground(e.target.checked);
+                if (e.target.checked) setSticky(true);
+              }}
+            />
+            Scroll background
+          </label>
+          <label className="flex items-center gap-2 text-xs font-medium text-fg-subtle">
+            <input
+              type="checkbox"
+              checked={scrollGlow}
+              onChange={(e) => {
+                setScrollGlow(e.target.checked);
+                if (e.target.checked) setSticky(true);
+              }}
+            />
+            Scroll glow
+          </label>
+        </div>
         {activeLabel != null && (
           <p className="text-xs font-medium text-fg-subtle">
             Active: <span className="text-fg-muted">{activeLabel}</span>
           </p>
         )}
       </div>
+      {scrollGlow && <OptionGroup label="Scroll glow effect" options={GLOW_EFFECTS} value={scrollGlowEffect} onChange={setScrollGlowEffect} />}
       {motion.controls}
     </PlaygroundLayout>
   );

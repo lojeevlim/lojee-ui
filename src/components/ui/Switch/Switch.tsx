@@ -1,5 +1,6 @@
 import type { ChangeEventHandler, FocusEventHandler, FormEventHandler, InputHTMLAttributes, ReactNode } from "react";
 import { cx, type ColorName } from "../../../core/tokens";
+import { Icon } from "../Icons/Icon";
 import { motionClass, motionStyle, type TransitionVariant, type HoverEffect } from "../../../core/motion";
 
 export type SwitchSize = "sm" | "md" | "lg";
@@ -17,6 +18,10 @@ export interface SwitchProps extends Omit<InputHTMLAttributes<HTMLInputElement>,
   label?: ReactNode;
   /** Switch size: "sm", "md" or "lg" (default: "md"). */
   size?: SwitchSize;
+  /** Icon name shown inside the thumb while the switch is on (named `iconOn`, not `onIcon`: Vue reads any `on…` attribute as an event listener), e.g. "check" or "moon" — see src/core/icons.ts for the available set (default: none). */
+  iconOn?: string;
+  /** Icon name shown inside the thumb while the switch is off, e.g. "x" or "sun" (default: none). */
+  iconOff?: string;
   /** "On" track color (default: accent — follows the theme). */
   color?: ColorName;
   /** Enter transition: "fade" | "slide-up" | "slide-down" | "slide-left" | "slide-right" | "zoom" | "zoom-out" | "flip" | "blur" | "bounce" | "rotate" | "drop" | "skew" (default: none). Respects `prefers-reduced-motion`. */
@@ -34,6 +39,7 @@ export interface SwitchProps extends Omit<InputHTMLAttributes<HTMLInputElement>,
     root?: string;
     track?: string;
     thumb?: string;
+    icon?: string;
     label?: string;
   };
 }
@@ -50,6 +56,8 @@ const THUMB_SIZE: Record<SwitchSize, string> = {
   lg: "h-6 w-6",
 };
 
+const ICON_PX: Record<SwitchSize, number> = { sm: 10, md: 12, lg: 14 };
+
 const ON_BG: Record<ColorName, string> = {
   slate: "peer-checked:bg-slate-900 dark:peer-checked:bg-slate-500",
   gray: "peer-checked:bg-gray-600",
@@ -64,6 +72,23 @@ const ON_BG: Record<ColorName, string> = {
   orange: "peer-checked:bg-orange-600",
   rose: "peer-checked:bg-rose-600",
   pink: "peer-checked:bg-pink-600",
+};
+
+// The thumb is white, so the "on" icon takes the switch's own color — never white-on-white.
+const ON_ICON: Record<ColorName, string> = {
+  slate: "text-slate-800",
+  gray: "text-gray-700",
+  indigo: "text-indigo-600",
+  accent: "text-accent-600",
+  violet: "text-violet-600",
+  blue: "text-blue-600",
+  cyan: "text-cyan-600",
+  emerald: "text-emerald-600",
+  teal: "text-teal-600",
+  amber: "text-amber-600",
+  orange: "text-orange-600",
+  rose: "text-rose-600",
+  pink: "text-pink-600",
 };
 
 const RING: Record<ColorName, string> = {
@@ -82,7 +107,7 @@ const RING: Record<ColorName, string> = {
   pink: "peer-focus-visible:ring-pink-500/30",
 };
 
-export function Switch({ label, size = "md", color = "accent", transition, transitionDuration, transitionDelay, hoverEffect, className, classNames, ...rest }: SwitchProps) {
+export function Switch({ label, iconOn, iconOff, size = "md", color = "accent", transition, transitionDuration, transitionDelay, hoverEffect, className, classNames, ...rest }: SwitchProps) {
   return (
     <label
       className={cx(
@@ -115,6 +140,33 @@ export function Switch({ label, size = "md", color = "accent", transition, trans
             classNames?.thumb
           )}
         />
+        {/* The icons are siblings of the input too (not children of the thumb), so the same `peer-checked:` that slides the thumb also
+            swaps them (`shadow-none!` because the Clay design puts a shadow on every sibling span of a switch input) — each rides along with the thumb and cross-fades with a quarter turn. */}
+        {iconOff && (
+          <span
+            aria-hidden
+            className={cx(
+              "pointer-events-none absolute top-0.5 left-0.5 flex items-center justify-center text-slate-600 shadow-none! transition-all duration-200 peer-checked:translate-x-full peer-checked:rotate-90 peer-checked:scale-50 peer-checked:opacity-0",
+              THUMB_SIZE[size],
+              classNames?.icon
+            )}
+          >
+            <Icon name={iconOff} size={ICON_PX[size]} />
+          </span>
+        )}
+        {iconOn && (
+          <span
+            aria-hidden
+            className={cx(
+              "pointer-events-none absolute top-0.5 left-0.5 flex shadow-none! -rotate-90 scale-50 items-center justify-center opacity-0 transition-all duration-200 peer-checked:translate-x-full peer-checked:rotate-0 peer-checked:scale-100 peer-checked:opacity-100",
+              ON_ICON[color],
+              THUMB_SIZE[size],
+              classNames?.icon
+            )}
+          >
+            <Icon name={iconOn} size={ICON_PX[size]} />
+          </span>
+        )}
       </span>
       {label && <span className={classNames?.label}>{label}</span>}
     </label>

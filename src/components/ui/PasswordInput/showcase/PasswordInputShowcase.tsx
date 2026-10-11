@@ -115,9 +115,9 @@ export class AppComponent {
           <CodeBlock
             variants={{
               react: `<PasswordInput disabled placeholder="Disabled" />`,
-              js: `<l-password-input disabled placeholder="Disabled"></l-password-input>`,
-              vue: `<l-password-input disabled placeholder="Disabled" />`,
-              angular: `<l-password-input disabled placeholder="Disabled" />`,
+              js: `<l-password-input disabled="true" placeholder="Disabled"></l-password-input>`,
+              vue: `<l-password-input disabled="true" placeholder="Disabled" />`,
+              angular: `<l-password-input disabled="true" placeholder="Disabled" />`,
             }}
           />
         </section>

@@ -16,6 +16,8 @@ export function defineAppSections() {
           if (slot) this.slot = slot;
           this.style.display = "block";
           this.style.minWidth = "0";
+          // The side cell has a definite height; fill it so a `height="100%"` sidebar inside doesn't overflow and scroll away.
+          if (tag === "l-side") this.style.height = "100%";
         }
       }
     );

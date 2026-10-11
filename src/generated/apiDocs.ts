@@ -69,7 +69,19 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-app",
+          "props": {
+            "theme": "string",
+            "accent": "string",
+            "design": "string",
+            "activeVariant": "string",
+            "layout": "json",
+            "collapseBelow": "string"
+          },
+          "extraProps": [],
+          "events": []
+        }
       },
       {
         "name": "Section",
@@ -299,7 +311,36 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-image",
+          "props": {
+            "src": "string",
+            "alt": "string",
+            "width": "string",
+            "height": "string",
+            "ratio": "string",
+            "fit": "string",
+            "rounded": "string",
+            "loading": "string",
+            "borderless": "boolean",
+            "caption": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
+          },
+          "extraProps": [],
+          "events": [
+            {
+              "callback": "onLoad",
+              "event": "load"
+            },
+            {
+              "callback": "onError",
+              "event": "error"
+            }
+          ]
+        }
       }
     ],
     "hooks": [],
@@ -498,7 +539,52 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-video",
+          "props": {
+            "src": "string",
+            "sources": "json",
+            "poster": "string",
+            "label": "string",
+            "controls": "boolean",
+            "autoPlay": "boolean",
+            "muted": "boolean",
+            "loop": "boolean",
+            "playsInline": "boolean",
+            "preload": "string",
+            "ratio": "string",
+            "fit": "string",
+            "rounded": "string",
+            "caption": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
+          },
+          "extraProps": [],
+          "events": [
+            {
+              "callback": "onPlay",
+              "event": "play"
+            },
+            {
+              "callback": "onPause",
+              "event": "pause"
+            },
+            {
+              "callback": "onEnded",
+              "event": "ended"
+            },
+            {
+              "callback": "onLoad",
+              "event": "load"
+            },
+            {
+              "callback": "onError",
+              "event": "error"
+            }
+          ]
+        }
       }
     ],
     "hooks": [],
@@ -592,7 +678,22 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-skeleton",
+          "props": {
+            "variant": "string",
+            "width": "string",
+            "height": "string",
+            "size": "number",
+            "lines": "number",
+            "animation": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number"
+          },
+          "extraProps": [],
+          "events": []
+        }
       }
     ],
     "hooks": [],
@@ -699,7 +800,41 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-tag-input",
+          "props": {
+            "value": "json",
+            "placeholder": "string",
+            "maxTags": "number",
+            "allowDuplicates": "boolean",
+            "color": "string",
+            "invalid": "boolean",
+            "disabled": "boolean"
+          },
+          "extraProps": [],
+          "events": [
+            {
+              "callback": "onUpdate",
+              "event": "update"
+            },
+            {
+              "callback": "onInput",
+              "event": "input"
+            },
+            {
+              "callback": "onFocus",
+              "event": "focus"
+            },
+            {
+              "callback": "onInvalid",
+              "event": "invalid"
+            },
+            {
+              "callback": "onChange",
+              "event": "change"
+            }
+          ]
+        }
       }
     ],
     "hooks": [],
@@ -817,7 +952,43 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-number-input",
+          "props": {
+            "value": "number",
+            "min": "number",
+            "max": "number",
+            "step": "number",
+            "precision": "number",
+            "placeholder": "string",
+            "size": "string",
+            "invalid": "boolean",
+            "disabled": "boolean"
+          },
+          "extraProps": [],
+          "events": [
+            {
+              "callback": "onUpdate",
+              "event": "update"
+            },
+            {
+              "callback": "onInput",
+              "event": "input"
+            },
+            {
+              "callback": "onFocus",
+              "event": "focus"
+            },
+            {
+              "callback": "onInvalid",
+              "event": "invalid"
+            },
+            {
+              "callback": "onChange",
+              "event": "change"
+            }
+          ]
+        }
       }
     ],
     "hooks": [],
@@ -937,7 +1108,46 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-otp-input",
+          "props": {
+            "length": "number",
+            "value": "string",
+            "type": "string",
+            "mask": "boolean",
+            "autoFocus": "boolean",
+            "size": "string",
+            "invalid": "boolean",
+            "disabled": "boolean"
+          },
+          "extraProps": [],
+          "events": [
+            {
+              "callback": "onUpdate",
+              "event": "update"
+            },
+            {
+              "callback": "onInput",
+              "event": "input"
+            },
+            {
+              "callback": "onFocus",
+              "event": "focus"
+            },
+            {
+              "callback": "onInvalid",
+              "event": "invalid"
+            },
+            {
+              "callback": "onChange",
+              "event": "change"
+            },
+            {
+              "callback": "onComplete",
+              "event": "complete"
+            }
+          ]
+        }
       }
     ],
     "hooks": [],
@@ -1016,7 +1226,28 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-rating",
+          "props": {
+            "value": "number",
+            "max": "number",
+            "allowHalf": "boolean",
+            "readOnly": "boolean",
+            "size": "string",
+            "label": "string"
+          },
+          "extraProps": [],
+          "events": [
+            {
+              "callback": "onUpdate",
+              "event": "update"
+            },
+            {
+              "callback": "onChange",
+              "event": "change"
+            }
+          ]
+        }
       }
     ],
     "hooks": [],
@@ -1101,7 +1332,38 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-color-picker",
+          "props": {
+            "value": "string",
+            "presets": "json",
+            "showInput": "boolean",
+            "disabled": "boolean"
+          },
+          "extraProps": [],
+          "events": [
+            {
+              "callback": "onUpdate",
+              "event": "update"
+            },
+            {
+              "callback": "onInput",
+              "event": "input"
+            },
+            {
+              "callback": "onFocus",
+              "event": "focus"
+            },
+            {
+              "callback": "onInvalid",
+              "event": "invalid"
+            },
+            {
+              "callback": "onChange",
+              "event": "change"
+            }
+          ]
+        }
       }
     ],
     "hooks": [],
@@ -1163,7 +1425,24 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-code-snippet",
+          "props": {
+            "code": "string",
+            "language": "string",
+            "heading": "string",
+            "lineNumbers": "boolean",
+            "copyable": "boolean"
+          },
+          "extraProps": [
+            {
+              "name": "heading",
+              "type": "string",
+              "description": "Text shown as the title. Named `heading` here because `title` is a native HTMLElement attribute."
+            }
+          ],
+          "events": []
+        }
       },
       {
         "name": "CopyButton",
@@ -1218,7 +1497,23 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-copy-button",
+          "props": {
+            "text": "string",
+            "label": "string",
+            "copiedLabel": "string",
+            "iconOnly": "boolean",
+            "resetAfter": "number"
+          },
+          "extraProps": [],
+          "events": [
+            {
+              "callback": "onCopy",
+              "event": "copy"
+            }
+          ]
+        }
       }
     ],
     "hooks": [],
@@ -1285,6 +1580,13 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "required": false,
             "description": "Called when a design is picked (the theme is still applied unless you control it with the matching prop).",
             "default": null
+          },
+          {
+            "name": "variant",
+            "type": "ThemeSwitcherVariant",
+            "required": false,
+            "description": "How the light/dark choice is shown: \"menu\" — the dropdown with every section (default) | \"toggle\" — one icon button that flips light and dark (mode only) | \"segmented\" — inline button groups for mode, design and active-item style plus accent color dots, no dropdown; `showDesign`, `showActiveItems`, `showAccent` and `showCustom` trim them. `align` only applies to \"menu\".",
+            "default": "\"menu\""
           },
           {
             "name": "align",
@@ -1378,11 +1680,55 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-theme-switcher",
+          "props": {
+            "open": "boolean",
+            "variant": "string",
+            "mode": "string",
+            "accent": "string",
+            "activeVariant": "string",
+            "design": "string",
+            "align": "string",
+            "showDesign": "boolean",
+            "showActiveItems": "boolean",
+            "showAccent": "boolean",
+            "showCustom": "boolean",
+            "customAccentLabel": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
+          },
+          "extraProps": [],
+          "events": [
+            {
+              "callback": "onModeChange",
+              "event": "modechange"
+            },
+            {
+              "callback": "onAccentChange",
+              "event": "accentchange"
+            },
+            {
+              "callback": "onActiveVariantChange",
+              "event": "activevariantchange"
+            },
+            {
+              "callback": "onDesignChange",
+              "event": "designchange"
+            },
+            {
+              "callback": "onOpenChange",
+              "event": "openchange"
+            }
+          ]
+        }
       }
     ],
     "hooks": [],
     "types": {
+      "ThemeSwitcherVariant": "\"menu\" | \"toggle\" | \"segmented\"",
       "ThemeSwitcherAlign": "\"start\" | \"center\" | \"end\" | \"left\" | \"right\""
     },
     "dataTypes": []
@@ -1589,8 +1935,45 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
-      },
+        "element": {
+          "tag": "l-button",
+          "props": {
+            "animation": "string",
+            "pulseColor": "string",
+            "pulseGradientTo": "string",
+            "variant": "string",
+            "lighting": "string",
+            "color": "string",
+            "gradientTo": "string",
+            "gradientDirection": "string",
+            "size": "string",
+            "shape": "string",
+            "disabled": "boolean",
+            "loading": "boolean",
+            "icon": "string",
+            "iconOnly": "boolean",
+            "iconPosition": "string",
+            "label": "string",
+            "badge": "string",
+            "type": "string",
+            "className": "string",
+            "classNames": "json",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
+          },
+          "extraProps": [],
+          "events": []
+        }
+      }
+    ],
+    "hooks": [],
+    "types": {},
+    "dataTypes": []
+  },
+  "Button Groups": {
+    "components": [
       {
         "name": "ButtonGroup",
         "props": [
@@ -1607,6 +1990,20 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "required": false,
             "description": "Corner treatment for the whole group (default keeps the built-in rounded-lg look). Individual segments stay square themselves — the group's outer container does the rounding, via `overflow-hidden`.",
             "default": "\"default\""
+          },
+          {
+            "name": "selectable",
+            "type": "boolean",
+            "required": false,
+            "description": "The group keeps its own selection: a click marks that segment active (in the theme color) and clears the others — no `active` state to manage (default: false). Leave it off for independent toggles such as Bold / Italic.",
+            "default": "false"
+          },
+          {
+            "name": "defaultActive",
+            "type": "number",
+            "required": false,
+            "description": "`selectable` only: which segment starts active, by position from 0 (default: none).",
+            "default": null
           },
           {
             "name": "onItemClick",
@@ -1658,7 +2055,12 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-button-group",
+          "props": {},
+          "extraProps": [],
+          "events": []
+        }
       },
       {
         "name": "SegmentButton",
@@ -1727,8 +2129,34 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
-      },
+        "element": {
+          "tag": "l-segment-button",
+          "props": {
+            "icon": "string",
+            "active": "boolean",
+            "disabled": "boolean",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
+          },
+          "extraProps": [
+            {
+              "name": "disabled",
+              "type": "boolean",
+              "description": "Standard HTML attribute, passed straight to the underlying control."
+            }
+          ],
+          "events": []
+        }
+      }
+    ],
+    "hooks": [],
+    "types": {},
+    "dataTypes": []
+  },
+  "Split Button": {
+    "components": [
       {
         "name": "SplitButton",
         "props": [
@@ -1810,6 +2238,27 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": "\"default\""
           },
           {
+            "name": "align",
+            "type": "SplitButtonAlign",
+            "required": false,
+            "description": "Where the dropdown menu (which always opens below the button) lines up with it: \"start\" (left edges together), \"center\", or \"end\" (right edges together). \"left\" / \"right\" also work, as start / end. Default: \"end\".",
+            "default": "\"end\""
+          },
+          {
+            "name": "open",
+            "type": "boolean",
+            "required": false,
+            "description": "Controlled open state of the menu — omit to let the trigger open and close it. Handy to keep the menu showing in docs or screenshots.",
+            "default": null
+          },
+          {
+            "name": "onOpenChange",
+            "type": "(open: boolean) => void",
+            "required": false,
+            "description": "Called when the menu asks to open or close (the trigger, selecting an item, a click outside, Escape).",
+            "default": null
+          },
+          {
             "name": "disabled",
             "type": "boolean",
             "required": false,
@@ -1859,7 +2308,37 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-split-button",
+          "props": {
+            "icon": "string",
+            "label": "string",
+            "menuLabel": "string",
+            "menuIcon": "string",
+            "align": "string",
+            "open": "boolean",
+            "variant": "string",
+            "color": "string",
+            "size": "string",
+            "shape": "string",
+            "disabled": "boolean",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
+          },
+          "extraProps": [],
+          "events": [
+            {
+              "callback": "onMenuClick",
+              "event": "menuclick"
+            },
+            {
+              "callback": "onOpenChange",
+              "event": "openchange"
+            }
+          ]
+        }
       },
       {
         "name": "SplitButtonMenuItem",
@@ -1900,11 +2379,18 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-split-button-menu-item",
+          "props": {},
+          "extraProps": [],
+          "events": []
+        }
       }
     ],
     "hooks": [],
-    "types": {},
+    "types": {
+      "SplitButtonAlign": "\"start\" | \"center\" | \"end\" | \"left\" | \"right\""
+    },
     "dataTypes": []
   },
   "Badges": {
@@ -2025,7 +2511,26 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-badge",
+          "props": {
+            "animation": "string",
+            "pulseColor": "string",
+            "pulseGradientTo": "string",
+            "variant": "string",
+            "color": "string",
+            "size": "string",
+            "icon": "string",
+            "dot": "boolean",
+            "label": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
+          },
+          "extraProps": [],
+          "events": []
+        }
       }
     ],
     "hooks": [],
@@ -2153,7 +2658,27 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-avatar",
+          "props": {
+            "animation": "string",
+            "pulseColor": "string",
+            "pulseGradientTo": "string",
+            "src": "string",
+            "alt": "string",
+            "initials": "string",
+            "size": "string",
+            "shape": "string",
+            "status": "string",
+            "color": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
+          },
+          "extraProps": [],
+          "events": []
+        }
       },
       {
         "name": "AvatarGroup",
@@ -2201,7 +2726,16 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-avatar-group",
+          "props": {
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number"
+          },
+          "extraProps": [],
+          "events": []
+        }
       }
     ],
     "hooks": [],
@@ -2239,7 +2773,16 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-icon",
+          "props": {
+            "name": "string",
+            "size": "number",
+            "className": "string"
+          },
+          "extraProps": [],
+          "events": []
+        }
       }
     ],
     "hooks": [],
@@ -2315,7 +2858,20 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-spinner",
+          "props": {
+            "size": "string",
+            "color": "string",
+            "variant": "string",
+            "label": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number"
+          },
+          "extraProps": [],
+          "events": []
+        }
       }
     ],
     "hooks": [],
@@ -2422,7 +2978,27 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-divider",
+          "props": {
+            "orientation": "string",
+            "label": "string",
+            "color": "string",
+            "resizable": "boolean",
+            "handleVariant": "string",
+            "step": "number",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number"
+          },
+          "extraProps": [],
+          "events": [
+            {
+              "callback": "onResize",
+              "event": "resize"
+            }
+          ]
+        }
       }
     ],
     "hooks": [],
@@ -2550,7 +3126,26 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-card",
+          "props": {
+            "variant": "string",
+            "lighting": "string",
+            "padding": "string",
+            "hoverable": "boolean",
+            "title": "string",
+            "footer": "string",
+            "animation": "string",
+            "pulseColor": "string",
+            "pulseGradientTo": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
+          },
+          "extraProps": [],
+          "events": []
+        }
       }
     ],
     "hooks": [],
@@ -2629,7 +3224,19 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-container",
+          "props": {
+            "size": "string",
+            "centered": "boolean",
+            "padded": "boolean",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number"
+          },
+          "extraProps": [],
+          "events": []
+        }
       }
     ],
     "hooks": [],
@@ -2707,7 +3314,19 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-section",
+          "props": {
+            "title": "string",
+            "subtitle": "string",
+            "spacing": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number"
+          },
+          "extraProps": [],
+          "events": []
+        }
       }
     ],
     "hooks": [],
@@ -2778,7 +3397,18 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-grid",
+          "props": {
+            "cols": "number",
+            "gap": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number"
+          },
+          "extraProps": [],
+          "events": []
+        }
       }
     ],
     "hooks": [],
@@ -2864,7 +3494,21 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-list",
+          "props": {
+            "ordered": "boolean",
+            "variant": "string",
+            "header": "string",
+            "items": "json",
+            "className": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number"
+          },
+          "extraProps": [],
+          "events": []
+        }
       },
       {
         "name": "ListItem",
@@ -2933,7 +3577,20 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-list-item",
+          "props": {
+            "icon": "string",
+            "tooltip": "boolean",
+            "tooltipPosition": "string",
+            "classNames": "json",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number"
+          },
+          "extraProps": [],
+          "events": []
+        }
       }
     ],
     "hooks": [],
@@ -3159,7 +3816,61 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-table",
+          "props": {
+            "columns": "json",
+            "data": "json",
+            "variant": "string",
+            "responsive": "string",
+            "view": "string",
+            "viewToggle": "boolean",
+            "size": "string",
+            "selectable": "boolean",
+            "selected": "json",
+            "rowKey": "string",
+            "hoverable": "boolean",
+            "emptyMessage": "string",
+            "striped": "boolean",
+            "bordered": "boolean",
+            "loading": "boolean",
+            "skeletonRows": "number",
+            "actions": "json",
+            "actionsHeader": "string",
+            "actionsVariant": "string",
+            "builtInActions": "boolean",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number"
+          },
+          "extraProps": [],
+          "events": [
+            {
+              "callback": "onUpdate",
+              "event": "update"
+            },
+            {
+              "callback": "onAction",
+              "event": "action"
+            },
+            {
+              "callback": "onDataChange",
+              "event": "datachange"
+            },
+            {
+              "callback": "onSelectionChange",
+              "event": "selectionchange"
+            },
+            {
+              "callback": "onSortChange",
+              "event": "sortchange"
+            },
+            {
+              "callback": "onViewChange",
+              "event": "viewchange"
+            }
+          ]
+        }
       }
     ],
     "hooks": [],
@@ -3587,7 +4298,18 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-accordion",
+          "props": {
+            "className": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
+          },
+          "extraProps": [],
+          "events": []
+        }
       },
       {
         "name": "AccordionItem",
@@ -3677,7 +4399,31 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-accordion-item",
+          "props": {
+            "open": "boolean",
+            "title": "string",
+            "name": "string",
+            "defaultOpen": "boolean",
+            "disabled": "boolean",
+            "classNames": "json",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number"
+          },
+          "extraProps": [],
+          "events": [
+            {
+              "callback": "onUpdate",
+              "event": "update"
+            },
+            {
+              "callback": "onOpenChange",
+              "event": "openchange"
+            }
+          ]
+        }
       }
     ],
     "hooks": [],
@@ -3760,7 +4506,29 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-tabs",
+          "props": {
+            "index": "number",
+            "tabs": "json",
+            "defaultIndex": "number",
+            "color": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number"
+          },
+          "extraProps": [],
+          "events": [
+            {
+              "callback": "onUpdate",
+              "event": "update"
+            },
+            {
+              "callback": "onChange",
+              "event": "change"
+            }
+          ]
+        }
       }
     ],
     "hooks": [],
@@ -3808,7 +4576,17 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-breadcrumb-item",
+          "props": {
+            "href": "string",
+            "icon": "string",
+            "className": "string",
+            "classNames": "json"
+          },
+          "extraProps": [],
+          "events": []
+        }
       },
       {
         "name": "Breadcrumbs",
@@ -3870,7 +4648,18 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-breadcrumbs",
+          "props": {
+            "color": "string",
+            "variant": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number"
+          },
+          "extraProps": [],
+          "events": []
+        }
       }
     ],
     "hooks": [],
@@ -3955,7 +4744,29 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-pagination",
+          "props": {
+            "page": "number",
+            "totalPages": "number",
+            "siblingCount": "number",
+            "color": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number"
+          },
+          "extraProps": [],
+          "events": [
+            {
+              "callback": "onUpdate",
+              "event": "update"
+            },
+            {
+              "callback": "onPageChange",
+              "event": "pagechange"
+            }
+          ]
+        }
       }
     ],
     "hooks": [],
@@ -4059,7 +4870,32 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-carousel",
+          "props": {
+            "index": "number",
+            "slides": "json",
+            "autoPlay": "boolean",
+            "intervalMs": "number",
+            "showArrows": "boolean",
+            "showDots": "boolean",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
+          },
+          "extraProps": [],
+          "events": [
+            {
+              "callback": "onUpdate",
+              "event": "update"
+            },
+            {
+              "callback": "onChange",
+              "event": "change"
+            }
+          ]
+        }
       }
     ],
     "hooks": [],
@@ -4177,7 +5013,76 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-input",
+          "props": {
+            "value": "string",
+            "placeholder": "string",
+            "disabled": "boolean",
+            "required": "boolean",
+            "name": "string",
+            "type": "string",
+            "size": "string",
+            "variant": "string",
+            "invalid": "boolean",
+            "leadingIcon": "string",
+            "trailingIcon": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
+          },
+          "extraProps": [
+            {
+              "name": "value",
+              "type": "string",
+              "description": "Standard HTML attribute, passed straight to the underlying control."
+            },
+            {
+              "name": "placeholder",
+              "type": "string",
+              "description": "Standard HTML attribute, passed straight to the underlying control."
+            },
+            {
+              "name": "disabled",
+              "type": "boolean",
+              "description": "Standard HTML attribute, passed straight to the underlying control."
+            },
+            {
+              "name": "required",
+              "type": "boolean",
+              "description": "Standard HTML attribute, passed straight to the underlying control."
+            },
+            {
+              "name": "name",
+              "type": "string",
+              "description": "Standard HTML attribute, passed straight to the underlying control."
+            },
+            {
+              "name": "type",
+              "type": "string",
+              "description": "Standard HTML attribute, passed straight to the underlying control."
+            }
+          ],
+          "events": [
+            {
+              "callback": "onUpdate",
+              "event": "update"
+            },
+            {
+              "callback": "onInput",
+              "event": "input"
+            },
+            {
+              "callback": "onFocus",
+              "event": "focus"
+            },
+            {
+              "callback": "onInvalid",
+              "event": "invalid"
+            }
+          ]
+        }
       }
     ],
     "hooks": [],
@@ -4283,7 +5188,74 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-textarea",
+          "props": {
+            "value": "string",
+            "placeholder": "string",
+            "disabled": "boolean",
+            "required": "boolean",
+            "name": "string",
+            "rows": "number",
+            "variant": "string",
+            "invalid": "boolean",
+            "resize": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
+          },
+          "extraProps": [
+            {
+              "name": "value",
+              "type": "string",
+              "description": "Standard HTML attribute, passed straight to the underlying control."
+            },
+            {
+              "name": "placeholder",
+              "type": "string",
+              "description": "Standard HTML attribute, passed straight to the underlying control."
+            },
+            {
+              "name": "disabled",
+              "type": "boolean",
+              "description": "Standard HTML attribute, passed straight to the underlying control."
+            },
+            {
+              "name": "required",
+              "type": "boolean",
+              "description": "Standard HTML attribute, passed straight to the underlying control."
+            },
+            {
+              "name": "name",
+              "type": "string",
+              "description": "Standard HTML attribute, passed straight to the underlying control."
+            },
+            {
+              "name": "rows",
+              "type": "number",
+              "description": "Standard HTML attribute, passed straight to the underlying control."
+            }
+          ],
+          "events": [
+            {
+              "callback": "onUpdate",
+              "event": "update"
+            },
+            {
+              "callback": "onInput",
+              "event": "input"
+            },
+            {
+              "callback": "onFocus",
+              "event": "focus"
+            },
+            {
+              "callback": "onInvalid",
+              "event": "invalid"
+            }
+          ]
+        }
       }
     ],
     "hooks": [],
@@ -4347,7 +5319,24 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-label",
+          "props": {
+            "htmlFor": "string",
+            "required": "boolean",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number"
+          },
+          "extraProps": [
+            {
+              "name": "htmlFor",
+              "type": "string",
+              "description": "Standard HTML attribute, passed straight to the underlying control."
+            }
+          ],
+          "events": []
+        }
       }
     ],
     "hooks": [],
@@ -4444,7 +5433,73 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-checkbox",
+          "props": {
+            "required": "boolean",
+            "checked": "boolean",
+            "defaultChecked": "boolean",
+            "disabled": "boolean",
+            "name": "string",
+            "value": "string",
+            "color": "string",
+            "label": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
+          },
+          "extraProps": [
+            {
+              "name": "required",
+              "type": "boolean",
+              "description": "Standard HTML attribute, passed straight to the underlying control."
+            },
+            {
+              "name": "checked",
+              "type": "boolean",
+              "description": "Standard HTML attribute, passed straight to the underlying control."
+            },
+            {
+              "name": "defaultChecked",
+              "type": "boolean",
+              "description": "Standard HTML attribute, passed straight to the underlying control."
+            },
+            {
+              "name": "disabled",
+              "type": "boolean",
+              "description": "Standard HTML attribute, passed straight to the underlying control."
+            },
+            {
+              "name": "name",
+              "type": "string",
+              "description": "Standard HTML attribute, passed straight to the underlying control."
+            },
+            {
+              "name": "value",
+              "type": "string",
+              "description": "Standard HTML attribute, passed straight to the underlying control."
+            }
+          ],
+          "events": [
+            {
+              "callback": "onUpdate",
+              "event": "update"
+            },
+            {
+              "callback": "onInput",
+              "event": "input"
+            },
+            {
+              "callback": "onFocus",
+              "event": "focus"
+            },
+            {
+              "callback": "onInvalid",
+              "event": "invalid"
+            }
+          ]
+        }
       }
     ],
     "hooks": [],
@@ -4541,7 +5596,73 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-radio",
+          "props": {
+            "required": "boolean",
+            "checked": "boolean",
+            "defaultChecked": "boolean",
+            "disabled": "boolean",
+            "name": "string",
+            "value": "string",
+            "color": "string",
+            "label": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
+          },
+          "extraProps": [
+            {
+              "name": "required",
+              "type": "boolean",
+              "description": "Standard HTML attribute, passed straight to the underlying control."
+            },
+            {
+              "name": "checked",
+              "type": "boolean",
+              "description": "Standard HTML attribute, passed straight to the underlying control."
+            },
+            {
+              "name": "defaultChecked",
+              "type": "boolean",
+              "description": "Standard HTML attribute, passed straight to the underlying control."
+            },
+            {
+              "name": "disabled",
+              "type": "boolean",
+              "description": "Standard HTML attribute, passed straight to the underlying control."
+            },
+            {
+              "name": "name",
+              "type": "string",
+              "description": "Standard HTML attribute, passed straight to the underlying control."
+            },
+            {
+              "name": "value",
+              "type": "string",
+              "description": "Standard HTML attribute, passed straight to the underlying control."
+            }
+          ],
+          "events": [
+            {
+              "callback": "onUpdate",
+              "event": "update"
+            },
+            {
+              "callback": "onInput",
+              "event": "input"
+            },
+            {
+              "callback": "onFocus",
+              "event": "focus"
+            },
+            {
+              "callback": "onInvalid",
+              "event": "invalid"
+            }
+          ]
+        }
       },
       {
         "name": "RadioGroup",
@@ -4603,7 +5724,18 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-radio-group",
+          "props": {
+            "orientation": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
+          },
+          "extraProps": [],
+          "events": []
+        }
       }
     ],
     "hooks": [],
@@ -4660,6 +5792,20 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": "\"md\""
           },
           {
+            "name": "iconOn",
+            "type": "string",
+            "required": false,
+            "description": "Icon name shown inside the thumb while the switch is on (named `iconOn`, not `onIcon`: Vue reads any `on…` attribute as an event listener), e.g. \"check\" or \"moon\" — see src/core/icons.ts for the available set (default: none).",
+            "default": null
+          },
+          {
+            "name": "iconOff",
+            "type": "string",
+            "required": false,
+            "description": "Icon name shown inside the thumb while the switch is off, e.g. \"x\" or \"sun\" (default: none).",
+            "default": null
+          },
+          {
             "name": "color",
             "type": "ColorName",
             "required": false,
@@ -4703,13 +5849,76 @@ export const API_DOCS: Record<string, ApiDoc> = {
           },
           {
             "name": "classNames",
-            "type": "{ root?: string; track?: string; thumb?: string; label?: string; }",
+            "type": "{ root?: string; track?: string; thumb?: string; icon?: string; label?: string; }",
             "required": false,
             "description": "Per-part class overrides — merged after (and win over) the built-in styling.",
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-switch",
+          "props": {
+            "required": "boolean",
+            "checked": "boolean",
+            "defaultChecked": "boolean",
+            "disabled": "boolean",
+            "name": "string",
+            "size": "string",
+            "color": "string",
+            "label": "string",
+            "iconOn": "string",
+            "iconOff": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
+          },
+          "extraProps": [
+            {
+              "name": "required",
+              "type": "boolean",
+              "description": "Standard HTML attribute, passed straight to the underlying control."
+            },
+            {
+              "name": "checked",
+              "type": "boolean",
+              "description": "Standard HTML attribute, passed straight to the underlying control."
+            },
+            {
+              "name": "defaultChecked",
+              "type": "boolean",
+              "description": "Standard HTML attribute, passed straight to the underlying control."
+            },
+            {
+              "name": "disabled",
+              "type": "boolean",
+              "description": "Standard HTML attribute, passed straight to the underlying control."
+            },
+            {
+              "name": "name",
+              "type": "string",
+              "description": "Standard HTML attribute, passed straight to the underlying control."
+            }
+          ],
+          "events": [
+            {
+              "callback": "onUpdate",
+              "event": "update"
+            },
+            {
+              "callback": "onInput",
+              "event": "input"
+            },
+            {
+              "callback": "onFocus",
+              "event": "focus"
+            },
+            {
+              "callback": "onInvalid",
+              "event": "invalid"
+            }
+          ]
+        }
       }
     ],
     "hooks": [],
@@ -4801,7 +6010,64 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-select",
+          "props": {
+            "required": "boolean",
+            "name": "string",
+            "options": "json",
+            "value": "string",
+            "placeholder": "string",
+            "icon": "string",
+            "size": "string",
+            "invalid": "boolean",
+            "disabled": "boolean",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
+          },
+          "extraProps": [
+            {
+              "name": "required",
+              "type": "boolean",
+              "description": "Standard HTML attribute, passed straight to the underlying control."
+            },
+            {
+              "name": "name",
+              "type": "string",
+              "description": "Standard HTML attribute, passed straight to the underlying control."
+            },
+            {
+              "name": "value",
+              "type": "string",
+              "description": "Standard HTML attribute, passed straight to the underlying control."
+            },
+            {
+              "name": "disabled",
+              "type": "boolean",
+              "description": "Standard HTML attribute, passed straight to the underlying control."
+            }
+          ],
+          "events": [
+            {
+              "callback": "onUpdate",
+              "event": "update"
+            },
+            {
+              "callback": "onInput",
+              "event": "input"
+            },
+            {
+              "callback": "onFocus",
+              "event": "focus"
+            },
+            {
+              "callback": "onInvalid",
+              "event": "invalid"
+            }
+          ]
+        }
       }
     ],
     "hooks": [],
@@ -4893,7 +6159,30 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-multi-select",
+          "props": {
+            "options": "json",
+            "value": "json",
+            "placeholder": "string",
+            "color": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
+          },
+          "extraProps": [],
+          "events": [
+            {
+              "callback": "onUpdate",
+              "event": "update"
+            },
+            {
+              "callback": "onChange",
+              "event": "change"
+            }
+          ]
+        }
       }
     ],
     "hooks": [],
@@ -4997,7 +6286,41 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-combobox",
+          "props": {
+            "options": "json",
+            "value": "string",
+            "placeholder": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
+          },
+          "extraProps": [],
+          "events": [
+            {
+              "callback": "onUpdate",
+              "event": "update"
+            },
+            {
+              "callback": "onInput",
+              "event": "input"
+            },
+            {
+              "callback": "onFocus",
+              "event": "focus"
+            },
+            {
+              "callback": "onInvalid",
+              "event": "invalid"
+            },
+            {
+              "callback": "onChange",
+              "event": "change"
+            }
+          ]
+        }
       }
     ],
     "hooks": [],
@@ -5108,7 +6431,66 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-date-picker",
+          "props": {
+            "required": "boolean",
+            "name": "string",
+            "value": "string",
+            "size": "string",
+            "variant": "string",
+            "invalid": "boolean",
+            "disabled": "boolean",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
+          },
+          "extraProps": [
+            {
+              "name": "required",
+              "type": "boolean",
+              "description": "Standard HTML attribute, passed straight to the underlying control."
+            },
+            {
+              "name": "name",
+              "type": "string",
+              "description": "Standard HTML attribute, passed straight to the underlying control."
+            },
+            {
+              "name": "value",
+              "type": "string",
+              "description": "Standard HTML attribute, passed straight to the underlying control."
+            },
+            {
+              "name": "disabled",
+              "type": "boolean",
+              "description": "Standard HTML attribute, passed straight to the underlying control."
+            }
+          ],
+          "events": [
+            {
+              "callback": "onUpdate",
+              "event": "update"
+            },
+            {
+              "callback": "onInput",
+              "event": "input"
+            },
+            {
+              "callback": "onFocus",
+              "event": "focus"
+            },
+            {
+              "callback": "onInvalid",
+              "event": "invalid"
+            },
+            {
+              "callback": "onClear",
+              "event": "clear"
+            }
+          ]
+        }
       },
       {
         "name": "DateRangePicker",
@@ -5233,10 +6615,44 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-date-range-picker",
+          "props": {
+            "startValue": "string",
+            "endValue": "string",
+            "min": "string",
+            "max": "string",
+            "size": "string",
+            "variant": "string",
+            "invalid": "boolean",
+            "disabled": "boolean",
+            "presets": "json",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
+          },
+          "extraProps": [],
+          "events": [
+            {
+              "callback": "onStartChange",
+              "event": "startchange"
+            },
+            {
+              "callback": "onEndChange",
+              "event": "endchange"
+            }
+          ]
+        }
       }
     ],
-    "hooks": [],
+    "hooks": [
+      {
+        "name": "useDismiss",
+        "signature": "useDismiss(open: boolean, rootRef: RefObject<HTMLElement | null>, close: () => void)",
+        "description": "Closes a field's dropdown panel on a press outside `rootRef` or on Escape. `composedPath` keeps it working inside a shadow root."
+      }
+    ],
     "types": {
       "DatePickerSize": "\"sm\" | \"md\" | \"lg\"",
       "DatePickerVariant": "\"outline\" | \"filled\" | \"underline\""
@@ -5333,7 +6749,61 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-time-picker",
+          "props": {
+            "required": "boolean",
+            "name": "string",
+            "value": "string",
+            "size": "string",
+            "invalid": "boolean",
+            "disabled": "boolean",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
+          },
+          "extraProps": [
+            {
+              "name": "required",
+              "type": "boolean",
+              "description": "Standard HTML attribute, passed straight to the underlying control."
+            },
+            {
+              "name": "name",
+              "type": "string",
+              "description": "Standard HTML attribute, passed straight to the underlying control."
+            },
+            {
+              "name": "value",
+              "type": "string",
+              "description": "Standard HTML attribute, passed straight to the underlying control."
+            },
+            {
+              "name": "disabled",
+              "type": "boolean",
+              "description": "Standard HTML attribute, passed straight to the underlying control."
+            }
+          ],
+          "events": [
+            {
+              "callback": "onUpdate",
+              "event": "update"
+            },
+            {
+              "callback": "onInput",
+              "event": "input"
+            },
+            {
+              "callback": "onFocus",
+              "event": "focus"
+            },
+            {
+              "callback": "onInvalid",
+              "event": "invalid"
+            }
+          ]
+        }
       }
     ],
     "hooks": [],
@@ -5404,7 +6874,58 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-file-upload",
+          "props": {
+            "label": "string",
+            "accept": "string",
+            "multiple": "boolean",
+            "disabled": "boolean",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
+          },
+          "extraProps": [
+            {
+              "name": "accept",
+              "type": "string",
+              "description": "Standard HTML attribute, passed straight to the underlying control."
+            },
+            {
+              "name": "multiple",
+              "type": "boolean",
+              "description": "Standard HTML attribute, passed straight to the underlying control."
+            },
+            {
+              "name": "disabled",
+              "type": "boolean",
+              "description": "Standard HTML attribute, passed straight to the underlying control."
+            }
+          ],
+          "events": [
+            {
+              "callback": "onUpdate",
+              "event": "update"
+            },
+            {
+              "callback": "onInput",
+              "event": "input"
+            },
+            {
+              "callback": "onFocus",
+              "event": "focus"
+            },
+            {
+              "callback": "onInvalid",
+              "event": "invalid"
+            },
+            {
+              "callback": "onFilesSelected",
+              "event": "filesselected"
+            }
+          ]
+        }
       }
     ],
     "hooks": [],
@@ -5508,7 +7029,71 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-search-input",
+          "props": {
+            "required": "boolean",
+            "name": "string",
+            "value": "string",
+            "placeholder": "string",
+            "size": "string",
+            "variant": "string",
+            "disabled": "boolean",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
+          },
+          "extraProps": [
+            {
+              "name": "required",
+              "type": "boolean",
+              "description": "Standard HTML attribute, passed straight to the underlying control."
+            },
+            {
+              "name": "name",
+              "type": "string",
+              "description": "Standard HTML attribute, passed straight to the underlying control."
+            },
+            {
+              "name": "value",
+              "type": "string",
+              "description": "Standard HTML attribute, passed straight to the underlying control."
+            },
+            {
+              "name": "placeholder",
+              "type": "string",
+              "description": "Standard HTML attribute, passed straight to the underlying control."
+            },
+            {
+              "name": "disabled",
+              "type": "boolean",
+              "description": "Standard HTML attribute, passed straight to the underlying control."
+            }
+          ],
+          "events": [
+            {
+              "callback": "onUpdate",
+              "event": "update"
+            },
+            {
+              "callback": "onInput",
+              "event": "input"
+            },
+            {
+              "callback": "onFocus",
+              "event": "focus"
+            },
+            {
+              "callback": "onInvalid",
+              "event": "invalid"
+            },
+            {
+              "callback": "onClear",
+              "event": "clear"
+            }
+          ]
+        }
       }
     ],
     "hooks": [],
@@ -5628,7 +7213,70 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-slider",
+          "props": {
+            "value": "string",
+            "min": "number",
+            "max": "number",
+            "step": "number",
+            "color": "string",
+            "size": "string",
+            "thumbVariant": "string",
+            "valuePlacement": "string",
+            "showValue": "boolean",
+            "disabled": "boolean",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
+          },
+          "extraProps": [
+            {
+              "name": "value",
+              "type": "string",
+              "description": "Standard HTML attribute, passed straight to the underlying control."
+            },
+            {
+              "name": "min",
+              "type": "number",
+              "description": "Standard HTML attribute, passed straight to the underlying control."
+            },
+            {
+              "name": "max",
+              "type": "number",
+              "description": "Standard HTML attribute, passed straight to the underlying control."
+            },
+            {
+              "name": "step",
+              "type": "number",
+              "description": "Standard HTML attribute, passed straight to the underlying control."
+            },
+            {
+              "name": "disabled",
+              "type": "boolean",
+              "description": "Standard HTML attribute, passed straight to the underlying control."
+            }
+          ],
+          "events": [
+            {
+              "callback": "onUpdate",
+              "event": "update"
+            },
+            {
+              "callback": "onInput",
+              "event": "input"
+            },
+            {
+              "callback": "onFocus",
+              "event": "focus"
+            },
+            {
+              "callback": "onInvalid",
+              "event": "invalid"
+            }
+          ]
+        }
       }
     ],
     "hooks": [],
@@ -5778,7 +7426,47 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-range-slider",
+          "props": {
+            "value": "json",
+            "min": "number",
+            "max": "number",
+            "step": "number",
+            "color": "string",
+            "size": "string",
+            "thumbVariant": "string",
+            "valuePlacement": "string",
+            "showValue": "boolean",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
+          },
+          "extraProps": [],
+          "events": [
+            {
+              "callback": "onUpdate",
+              "event": "update"
+            },
+            {
+              "callback": "onInput",
+              "event": "input"
+            },
+            {
+              "callback": "onFocus",
+              "event": "focus"
+            },
+            {
+              "callback": "onInvalid",
+              "event": "invalid"
+            },
+            {
+              "callback": "onChange",
+              "event": "change"
+            }
+          ]
+        }
       }
     ],
     "hooks": [],
@@ -5861,7 +7549,36 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-modal",
+          "props": {
+            "open": "boolean",
+            "heading": "string",
+            "className": "string",
+            "classNames": "json",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
+          },
+          "extraProps": [
+            {
+              "name": "heading",
+              "type": "string",
+              "description": "Text shown as the title. Named `heading` here because `title` is a native HTMLElement attribute."
+            }
+          ],
+          "events": [
+            {
+              "callback": "onUpdate",
+              "event": "update"
+            },
+            {
+              "callback": "onClose",
+              "event": "close"
+            }
+          ]
+        }
       }
     ],
     "hooks": [],
@@ -5958,7 +7675,36 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-drawer",
+          "props": {
+            "open": "boolean",
+            "heading": "string",
+            "position": "string",
+            "size": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
+          },
+          "extraProps": [
+            {
+              "name": "heading",
+              "type": "string",
+              "description": "Text shown as the title. Named `heading` here because `title` is a native HTMLElement attribute."
+            }
+          ],
+          "events": [
+            {
+              "callback": "onUpdate",
+              "event": "update"
+            },
+            {
+              "callback": "onClose",
+              "event": "close"
+            }
+          ]
+        }
       }
     ],
     "hooks": [],
@@ -6043,7 +7789,34 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-sheet",
+          "props": {
+            "open": "boolean",
+            "heading": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
+          },
+          "extraProps": [
+            {
+              "name": "heading",
+              "type": "string",
+              "description": "Text shown as the title. Named `heading` here because `title` is a native HTMLElement attribute."
+            }
+          ],
+          "events": [
+            {
+              "callback": "onUpdate",
+              "event": "update"
+            },
+            {
+              "callback": "onClose",
+              "event": "close"
+            }
+          ]
+        }
       }
     ],
     "hooks": [],
@@ -6126,7 +7899,28 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-popover",
+          "props": {
+            "open": "boolean",
+            "content": "string",
+            "position": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number"
+          },
+          "extraProps": [],
+          "events": [
+            {
+              "callback": "onUpdate",
+              "event": "update"
+            },
+            {
+              "callback": "onOpenChange",
+              "event": "openchange"
+            }
+          ]
+        }
       }
     ],
     "hooks": [],
@@ -6211,7 +8005,27 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-dropdown-menu",
+          "props": {
+            "open": "boolean",
+            "align": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number"
+          },
+          "extraProps": [],
+          "events": [
+            {
+              "callback": "onUpdate",
+              "event": "update"
+            },
+            {
+              "callback": "onOpenChange",
+              "event": "openchange"
+            }
+          ]
+        }
       },
       {
         "name": "DropdownMenuItem",
@@ -6266,7 +8080,16 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-dropdown-menu-item",
+          "props": {
+            "icon": "string",
+            "disabled": "boolean",
+            "danger": "boolean"
+          },
+          "extraProps": [],
+          "events": []
+        }
       }
     ],
     "hooks": [],
@@ -6344,7 +8167,26 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-context-menu",
+          "props": {
+            "open": "boolean",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number"
+          },
+          "extraProps": [],
+          "events": [
+            {
+              "callback": "onUpdate",
+              "event": "update"
+            },
+            {
+              "callback": "onOpenChange",
+              "event": "openchange"
+            }
+          ]
+        }
       }
     ],
     "hooks": [],
@@ -6420,7 +8262,28 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-command-menu",
+          "props": {
+            "open": "boolean",
+            "items": "json",
+            "placeholder": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number"
+          },
+          "extraProps": [],
+          "events": [
+            {
+              "callback": "onUpdate",
+              "event": "update"
+            },
+            {
+              "callback": "onClose",
+              "event": "close"
+            }
+          ]
+        }
       }
     ],
     "hooks": [],
@@ -6531,7 +8394,42 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-alert-dialog",
+          "props": {
+            "open": "boolean",
+            "heading": "string",
+            "description": "string",
+            "variant": "string",
+            "confirmLabel": "string",
+            "cancelLabel": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
+          },
+          "extraProps": [
+            {
+              "name": "heading",
+              "type": "string",
+              "description": "Text shown as the title. Named `heading` here because `title` is a native HTMLElement attribute."
+            }
+          ],
+          "events": [
+            {
+              "callback": "onUpdate",
+              "event": "update"
+            },
+            {
+              "callback": "onClose",
+              "event": "close"
+            },
+            {
+              "callback": "onConfirm",
+              "event": "confirm"
+            }
+          ]
+        }
       }
     ],
     "hooks": [],
@@ -6637,7 +8535,22 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-tooltip",
+          "props": {
+            "content": "string",
+            "position": "string",
+            "size": "string",
+            "delayMs": "number",
+            "color": "string",
+            "open": "boolean",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number"
+          },
+          "extraProps": [],
+          "events": []
+        }
       }
     ],
     "hooks": [],
@@ -6757,7 +8670,37 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-alert",
+          "props": {
+            "animation": "string",
+            "pulseColor": "string",
+            "pulseGradientTo": "string",
+            "variant": "string",
+            "heading": "string",
+            "icon": "string",
+            "closable": "boolean",
+            "className": "string",
+            "classNames": "json",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
+          },
+          "extraProps": [
+            {
+              "name": "heading",
+              "type": "string",
+              "description": "Text shown as the title. Named `heading` here because `title` is a native HTMLElement attribute."
+            }
+          ],
+          "events": [
+            {
+              "callback": "onClose",
+              "event": "close"
+            }
+          ]
+        }
       }
     ],
     "hooks": [],
@@ -6870,7 +8813,38 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-toast",
+          "props": {
+            "open": "boolean",
+            "variant": "string",
+            "heading": "string",
+            "duration": "number",
+            "position": "string",
+            "icon": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
+          },
+          "extraProps": [
+            {
+              "name": "heading",
+              "type": "string",
+              "description": "Text shown as the title. Named `heading` here because `title` is a native HTMLElement attribute."
+            }
+          ],
+          "events": [
+            {
+              "callback": "onUpdate",
+              "event": "update"
+            },
+            {
+              "callback": "onClose",
+              "event": "close"
+            }
+          ]
+        }
       }
     ],
     "hooks": [],
@@ -6977,7 +8951,25 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-notification",
+          "props": {
+            "icon": "string",
+            "timestamp": "string",
+            "unread": "boolean",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
+          },
+          "extraProps": [],
+          "events": [
+            {
+              "callback": "onDismiss",
+              "event": "dismiss"
+            }
+          ]
+        }
       }
     ],
     "hooks": [],
@@ -7074,7 +9066,23 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-progress-bar",
+          "props": {
+            "value": "number",
+            "max": "number",
+            "size": "string",
+            "color": "string",
+            "showLabel": "boolean",
+            "striped": "boolean",
+            "indeterminate": "boolean",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number"
+          },
+          "extraProps": [],
+          "events": []
+        }
       }
     ],
     "hooks": [],
@@ -7152,7 +9160,24 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-empty-state",
+          "props": {
+            "icon": "string",
+            "heading": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number"
+          },
+          "extraProps": [
+            {
+              "name": "heading",
+              "type": "string",
+              "description": "Text shown as the title. Named `heading` here because `title` is a native HTMLElement attribute."
+            }
+          ],
+          "events": []
+        }
       }
     ],
     "hooks": [],
@@ -7228,7 +9253,24 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-error-state",
+          "props": {
+            "icon": "string",
+            "heading": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number"
+          },
+          "extraProps": [
+            {
+              "name": "heading",
+              "type": "string",
+              "description": "Text shown as the title. Named `heading` here because `title` is a native HTMLElement attribute."
+            }
+          ],
+          "events": []
+        }
       }
     ],
     "hooks": [],
@@ -7304,7 +9346,24 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-success-state",
+          "props": {
+            "icon": "string",
+            "heading": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number"
+          },
+          "extraProps": [
+            {
+              "name": "heading",
+              "type": "string",
+              "description": "Text shown as the title. Named `heading` here because `title` is a native HTMLElement attribute."
+            }
+          ],
+          "events": []
+        }
       }
     ],
     "hooks": [],
@@ -7373,7 +9432,24 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-loading-state",
+          "props": {
+            "heading": "string",
+            "size": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number"
+          },
+          "extraProps": [
+            {
+              "name": "heading",
+              "type": "string",
+              "description": "Text shown as the title. Named `heading` here because `title` is a native HTMLElement attribute."
+            }
+          ],
+          "events": []
+        }
       }
     ],
     "hooks": [],
@@ -7507,6 +9583,41 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           },
           {
+            "name": "scrollBackground",
+            "type": "boolean",
+            "required": false,
+            "description": "Transparent while at the top, switching to the variant's solid background once scrolled past `scrollThreshold` (default: false). Applies to \"light\"/\"dark\"/\"gradient\"/\"bordered\"/\"elevated\". Works with page scroll or an inner scroll container.",
+            "default": "false"
+          },
+          {
+            "name": "scrollGlow",
+            "type": "boolean | NavbarScrollGlowEffect",
+            "required": false,
+            "description": "Shows an accent glow along the bottom edge while scrolling, fading out `scrollGlowDuration` ms after scrolling stops (default: false). Only shown once scrolled past `scrollThreshold`. `true` (or a bare `scroll-glow`) is \"spread\"; pass an effect name to pick how it animates: \"spread\" grows from the center outward | \"fade\" fades the whole line in and out | \"sweep\" a light travels along the edge | \"pulse\" breathes while scrolling | \"rainbow\" a multi-color line that spreads from the center | \"particles\" the spread glow plus sparks falling from the edge.",
+            "default": "false"
+          },
+          {
+            "name": "itemsAlign",
+            "type": "NavbarItemsAlign",
+            "required": false,
+            "description": "Where the link row sits in the bar: \"left\" next to the brand (default) | \"center\" centered between brand and actions | \"right\" next to the actions.",
+            "default": "\"left\""
+          },
+          {
+            "name": "scrollThreshold",
+            "type": "number",
+            "required": false,
+            "description": "Pixels scrolled before `scrollBackground`/`scrollGlow` kick in (default: 0).",
+            "default": "0"
+          },
+          {
+            "name": "scrollGlowDuration",
+            "type": "number",
+            "required": false,
+            "description": "How long after scrolling stops the glow fades away, in ms (default: 600).",
+            "default": "600"
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -7521,7 +9632,37 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-navbar",
+          "props": {
+            "brand": "string",
+            "sticky": "boolean",
+            "bordered": "boolean",
+            "variant": "string",
+            "color": "string",
+            "gradientTo": "string",
+            "gradientDirection": "string",
+            "borderWidth": "number",
+            "items": "json",
+            "defaultActiveItem": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string",
+            "scrollBackground": "boolean",
+            "scrollGlow": "string",
+            "itemsAlign": "string",
+            "scrollThreshold": "number",
+            "scrollGlowDuration": "number"
+          },
+          "extraProps": [],
+          "events": [
+            {
+              "callback": "onActiveItemChange",
+              "event": "activeitemchange"
+            }
+          ]
+        }
       },
       {
         "name": "NavbarItem",
@@ -7646,11 +9787,31 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-navbar-item",
+          "props": {
+            "icon": "string",
+            "href": "string",
+            "active": "boolean",
+            "disabled": "boolean",
+            "dark": "boolean",
+            "vividActive": "boolean",
+            "color": "string",
+            "activeStyle": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
+          },
+          "extraProps": [],
+          "events": []
+        }
       }
     ],
     "hooks": [],
     "types": {
+      "NavbarItemsAlign": "\"left\" | \"center\" | \"right\"",
+      "NavbarScrollGlowEffect": "\"spread\" | \"fade\" | \"sweep\" | \"pulse\" | \"rainbow\" | \"particles\"",
       "NavbarVariant": "\"light\" | \"dark\" | \"bordered\" | \"elevated\" | \"minimal\" | \"gradient\""
     },
     "dataTypes": []
@@ -7850,7 +10011,51 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-top-bar",
+          "props": {
+            "title": "string",
+            "subtitle": "string",
+            "back": "boolean",
+            "backLabel": "string",
+            "menu": "boolean",
+            "menuLabel": "string",
+            "search": "boolean",
+            "searchPlaceholder": "string",
+            "actions": "json",
+            "variant": "string",
+            "color": "string",
+            "size": "string",
+            "sticky": "boolean",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
+          },
+          "extraProps": [],
+          "events": [
+            {
+              "callback": "onBack",
+              "event": "back"
+            },
+            {
+              "callback": "onMenuClick",
+              "event": "menuclick"
+            },
+            {
+              "callback": "onSearch",
+              "event": "search"
+            },
+            {
+              "callback": "onSearchChange",
+              "event": "searchchange"
+            },
+            {
+              "callback": "onActionClick",
+              "event": "actionclick"
+            }
+          ]
+        }
       }
     ],
     "hooks": [],
@@ -8104,7 +10309,57 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-flow-diagram",
+          "props": {
+            "nodes": "json",
+            "edges": "json",
+            "direction": "string",
+            "variant": "string",
+            "curve": "string",
+            "color": "string",
+            "packets": "boolean",
+            "speed": "number",
+            "animated": "boolean",
+            "arrows": "boolean",
+            "interactive": "boolean",
+            "activeNode": "string",
+            "defaultActiveNode": "string",
+            "autoPlay": "json",
+            "grid": "boolean",
+            "captionTop": "string",
+            "captionBottom": "string",
+            "nodeWidth": "number",
+            "nodeHeight": "number",
+            "gap": "number",
+            "spacing": "number",
+            "label": "string",
+            "movable": "boolean",
+            "editable": "boolean",
+            "zoomable": "boolean",
+            "toolbarPosition": "string",
+            "nodeTypes": "json"
+          },
+          "extraProps": [],
+          "events": [
+            {
+              "callback": "onNodeMove",
+              "event": "nodemove"
+            },
+            {
+              "callback": "onDiagramChange",
+              "event": "diagramchange"
+            },
+            {
+              "callback": "onNodeClick",
+              "event": "nodeclick"
+            },
+            {
+              "callback": "onNodeHover",
+              "event": "nodehover"
+            }
+          ]
+        }
       },
       {
         "name": "FlowToolbar",
@@ -8416,7 +10671,59 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-map",
+          "props": {
+            "center": "json",
+            "zoom": "number",
+            "pitch": "number",
+            "bearing": "number",
+            "mapStyle": "string",
+            "controls": "json",
+            "markers": "json",
+            "routes": "json",
+            "fitBounds": "boolean",
+            "fitPadding": "number",
+            "interactive": "boolean",
+            "width": "string",
+            "height": "string"
+          },
+          "extraProps": [],
+          "events": [
+            {
+              "callback": "onLoad",
+              "event": "load"
+            },
+            {
+              "callback": "onStyleChange",
+              "event": "stylechange"
+            },
+            {
+              "callback": "onMove",
+              "event": "move"
+            },
+            {
+              "callback": "onMapClick",
+              "event": "mapclick"
+            },
+            {
+              "callback": "onMarkerClick",
+              "event": "markerclick"
+            },
+            {
+              "callback": "onMarkerDragEnd",
+              "event": "markerdragend"
+            },
+            {
+              "callback": "onRouteClick",
+              "event": "routeclick"
+            },
+            {
+              "callback": "onRouteLoad",
+              "event": "routeload"
+            }
+          ]
+        }
       },
       {
         "name": "MapControls",
@@ -9027,7 +11334,12 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-sidebar-header",
+          "props": {},
+          "extraProps": [],
+          "events": []
+        }
       },
       {
         "name": "SidebarFooter",
@@ -9040,7 +11352,12 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-sidebar-footer",
+          "props": {},
+          "extraProps": [],
+          "events": []
+        }
       },
       {
         "name": "Sidebar",
@@ -9249,7 +11566,49 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-sidebar",
+          "props": {
+            "width": "number",
+            "height": "string",
+            "collapsed": "boolean",
+            "variant": "string",
+            "color": "string",
+            "gradientTo": "string",
+            "gradientDirection": "string",
+            "collapsible": "boolean",
+            "header": "string",
+            "headerIcon": "string",
+            "footer": "string",
+            "items": "json",
+            "defaultActiveItem": "string",
+            "borderWidth": "number",
+            "sticky": "boolean",
+            "showLabel": "boolean",
+            "collapseSpeed": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "tooltipTransition": "string",
+            "tooltipTransitionDuration": "number",
+            "tooltipColor": "string"
+          },
+          "extraProps": [],
+          "events": [
+            {
+              "callback": "onUpdate",
+              "event": "update"
+            },
+            {
+              "callback": "onCollapsedChange",
+              "event": "collapsedchange"
+            },
+            {
+              "callback": "onActiveItemChange",
+              "event": "activeitemchange"
+            }
+          ]
+        }
       },
       {
         "name": "SidebarMenuItem",
@@ -9409,7 +11768,29 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-sidebar-menu-item",
+          "props": {
+            "icon": "string",
+            "href": "string",
+            "active": "boolean",
+            "disabled": "boolean",
+            "collapsed": "boolean",
+            "dark": "boolean",
+            "vividActive": "boolean",
+            "color": "string",
+            "showLabel": "boolean",
+            "tooltipPosition": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "tooltipTransition": "string",
+            "tooltipTransitionDuration": "number",
+            "tooltipColor": "string"
+          },
+          "extraProps": [],
+          "events": []
+        }
       }
     ],
     "hooks": [],
@@ -9523,7 +11904,28 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-header",
+          "props": {
+            "heading": "string",
+            "variant": "string",
+            "color": "string",
+            "gradientTo": "string",
+            "gradientDirection": "string",
+            "borderWidth": "number",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number"
+          },
+          "extraProps": [
+            {
+              "name": "heading",
+              "type": "string",
+              "description": "Text shown as the title. Named `heading` here because `title` is a native HTMLElement attribute."
+            }
+          ],
+          "events": []
+        }
       }
     ],
     "hooks": [],
@@ -9594,7 +11996,18 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-footer",
+          "props": {
+            "bottom": "string",
+            "color": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number"
+          },
+          "extraProps": [],
+          "events": []
+        }
       }
     ],
     "hooks": [],
@@ -9698,7 +12111,35 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-navigation-menu",
+          "props": {
+            "items": "json",
+            "orientation": "string",
+            "color": "string",
+            "variant": "string",
+            "defaultActiveItem": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
+          },
+          "extraProps": [],
+          "events": [
+            {
+              "callback": "onUpdate",
+              "event": "update"
+            },
+            {
+              "callback": "onChange",
+              "event": "change"
+            },
+            {
+              "callback": "onActiveItemChange",
+              "event": "activeitemchange"
+            }
+          ]
+        }
       }
     ],
     "hooks": [],
@@ -9825,7 +12266,41 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-bottom-navigation",
+          "props": {
+            "items": "json",
+            "color": "string",
+            "variant": "string",
+            "iconOnly": "boolean",
+            "fabIcon": "string",
+            "fabLabel": "string",
+            "defaultActiveItem": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
+          },
+          "extraProps": [],
+          "events": [
+            {
+              "callback": "onUpdate",
+              "event": "update"
+            },
+            {
+              "callback": "onActiveItemChange",
+              "event": "activeitemchange"
+            },
+            {
+              "callback": "onItemClick",
+              "event": "itemclick"
+            },
+            {
+              "callback": "onFabClick",
+              "event": "fabclick"
+            }
+          ]
+        }
       }
     ],
     "hooks": [],
@@ -9985,7 +12460,38 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-stepper",
+          "props": {
+            "steps": "json",
+            "currentStep": "number",
+            "defaultStep": "number",
+            "orientation": "string",
+            "color": "string",
+            "navigation": "boolean",
+            "sections": "boolean",
+            "clickable": "boolean",
+            "backLabel": "string",
+            "nextLabel": "string",
+            "finishLabel": "string",
+            "completedContent": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
+          },
+          "extraProps": [],
+          "events": [
+            {
+              "callback": "onUpdate",
+              "event": "update"
+            },
+            {
+              "callback": "onStepChange",
+              "event": "stepchange"
+            }
+          ]
+        }
       },
       {
         "name": "StepperItem",
@@ -10012,7 +12518,14 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-stepper-item",
+          "props": {
+            "step": "string"
+          },
+          "extraProps": [],
+          "events": []
+        }
       }
     ],
     "hooks": [
@@ -10083,7 +12596,18 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-timeline",
+          "props": {
+            "items": "json",
+            "orientation": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number"
+          },
+          "extraProps": [],
+          "events": []
+        }
       }
     ],
     "hooks": [],
@@ -10217,7 +12741,28 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-stat",
+          "props": {
+            "countUp": "boolean",
+            "countUpDuration": "number",
+            "label": "string",
+            "value": "string",
+            "change": "string",
+            "trend": "string",
+            "icon": "string",
+            "color": "string",
+            "animation": "string",
+            "pulseColor": "string",
+            "pulseGradientTo": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
+          },
+          "extraProps": [],
+          "events": []
+        }
       }
     ],
     "hooks": [],
@@ -10330,7 +12875,25 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-chart",
+          "props": {
+            "countUp": "boolean",
+            "countUpDuration": "number",
+            "data": "json",
+            "type": "string",
+            "variant": "string",
+            "height": "number",
+            "color": "string",
+            "showLabels": "boolean",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
+          },
+          "extraProps": [],
+          "events": []
+        }
       }
     ],
     "hooks": [],
@@ -10528,7 +13091,60 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-calendar",
+          "props": {
+            "month": "string",
+            "selected": "string",
+            "defaultSelected": "string",
+            "selectionMode": "string",
+            "selectedRange": "json",
+            "defaultRange": "json",
+            "events": "json",
+            "color": "string",
+            "variant": "string",
+            "title": "string",
+            "open": "boolean",
+            "footer": "boolean",
+            "confirmLabel": "string",
+            "cancelLabel": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
+          },
+          "extraProps": [],
+          "events": [
+            {
+              "callback": "onUpdate",
+              "event": "update"
+            },
+            {
+              "callback": "onSelect",
+              "event": "select"
+            },
+            {
+              "callback": "onRangeSelect",
+              "event": "rangeselect"
+            },
+            {
+              "callback": "onMonthChange",
+              "event": "monthchange"
+            },
+            {
+              "callback": "onConfirm",
+              "event": "confirm"
+            },
+            {
+              "callback": "onCancel",
+              "event": "cancel"
+            },
+            {
+              "callback": "onClose",
+              "event": "close"
+            }
+          ]
+        }
       }
     ],
     "hooks": [],
@@ -10593,7 +13209,18 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-activity-feed",
+          "props": {
+            "items": "json",
+            "compact": "boolean",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number"
+          },
+          "extraProps": [],
+          "events": []
+        }
       }
     ],
     "hooks": [],
@@ -10774,7 +13401,54 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-grid-view",
+          "props": {
+            "items": "json",
+            "view": "string",
+            "variant": "string",
+            "viewToggle": "boolean",
+            "searchable": "boolean",
+            "searchPlaceholder": "string",
+            "sortOptions": "json",
+            "actions": "json",
+            "createLabel": "string",
+            "minItemWidth": "number",
+            "loading": "boolean",
+            "skeletonCount": "number",
+            "emptyMessage": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number"
+          },
+          "extraProps": [],
+          "events": [
+            {
+              "callback": "onViewChange",
+              "event": "viewchange"
+            },
+            {
+              "callback": "onReorder",
+              "event": "reorder"
+            },
+            {
+              "callback": "onItemClick",
+              "event": "itemclick"
+            },
+            {
+              "callback": "onAction",
+              "event": "action"
+            },
+            {
+              "callback": "onCreate",
+              "event": "create"
+            },
+            {
+              "callback": "onSearchChange",
+              "event": "searchchange"
+            }
+          ]
+        }
       }
     ],
     "hooks": [],
@@ -10839,7 +13513,18 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-details-list",
+          "props": {
+            "items": "json",
+            "exclusive": "boolean",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number"
+          },
+          "extraProps": [],
+          "events": []
+        }
       }
     ],
     "hooks": [],
@@ -10971,7 +13656,27 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-profile-card",
+          "props": {
+            "animation": "string",
+            "pulseColor": "string",
+            "pulseGradientTo": "string",
+            "name": "string",
+            "role": "string",
+            "bio": "string",
+            "avatarSrc": "string",
+            "avatarInitials": "string",
+            "stats": "json",
+            "color": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
+          },
+          "extraProps": [],
+          "events": []
+        }
       }
     ],
     "hooks": [],
@@ -11075,7 +13780,28 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-user-menu",
+          "props": {
+            "name": "string",
+            "email": "string",
+            "avatarSrc": "string",
+            "avatarInitials": "string",
+            "items": "json",
+            "align": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
+          },
+          "extraProps": [],
+          "events": [
+            {
+              "callback": "onItemSelect",
+              "event": "itemselect"
+            }
+          ]
+        }
       }
     ],
     "hooks": [],
@@ -11179,7 +13905,56 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-password-input",
+          "props": {
+            "required": "boolean",
+            "name": "string",
+            "size": "string",
+            "variant": "string",
+            "invalid": "boolean",
+            "disabled": "boolean",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
+          },
+          "extraProps": [
+            {
+              "name": "required",
+              "type": "boolean",
+              "description": "Standard HTML attribute, passed straight to the underlying control."
+            },
+            {
+              "name": "name",
+              "type": "string",
+              "description": "Standard HTML attribute, passed straight to the underlying control."
+            },
+            {
+              "name": "disabled",
+              "type": "boolean",
+              "description": "Standard HTML attribute, passed straight to the underlying control."
+            }
+          ],
+          "events": [
+            {
+              "callback": "onUpdate",
+              "event": "update"
+            },
+            {
+              "callback": "onInput",
+              "event": "input"
+            },
+            {
+              "callback": "onFocus",
+              "event": "focus"
+            },
+            {
+              "callback": "onInvalid",
+              "event": "invalid"
+            }
+          ]
+        }
       }
     ],
     "hooks": [],
@@ -11292,7 +14067,31 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-login-form",
+          "props": {
+            "title": "string",
+            "description": "string",
+            "submitLabel": "string",
+            "showRemember": "boolean",
+            "showForgotPassword": "boolean",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
+          },
+          "extraProps": [],
+          "events": [
+            {
+              "callback": "onSubmit",
+              "event": "submit"
+            },
+            {
+              "callback": "onForgotPassword",
+              "event": "forgotpassword"
+            }
+          ]
+        }
       }
     ],
     "hooks": [],
@@ -11389,7 +14188,26 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-signup-form",
+          "props": {
+            "title": "string",
+            "description": "string",
+            "submitLabel": "string",
+            "mismatchError": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
+          },
+          "extraProps": [],
+          "events": [
+            {
+              "callback": "onSubmit",
+              "event": "submit"
+            }
+          ]
+        }
       }
     ],
     "hooks": [],
@@ -11486,7 +14304,30 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-profile-settings",
+          "props": {
+            "defaultValues": "json",
+            "avatarSrc": "string",
+            "avatarInitials": "string",
+            "saveLabel": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
+          },
+          "extraProps": [],
+          "events": [
+            {
+              "callback": "onSave",
+              "event": "save"
+            },
+            {
+              "callback": "onAvatarChange",
+              "event": "avatarchange"
+            }
+          ]
+        }
       }
     ],
     "hooks": [],
@@ -11653,7 +14494,40 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-plan-billing",
+          "props": {
+            "planName": "string",
+            "price": "string",
+            "currency": "string",
+            "interval": "string",
+            "description": "string",
+            "status": "string",
+            "features": "json",
+            "usage": "json",
+            "nextBillingDate": "string",
+            "paymentMethod": "json",
+            "color": "string",
+            "actionLabel": "string",
+            "cancelLabel": "string",
+            "cancelIcon": "string",
+            "hoverEffect": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number"
+          },
+          "extraProps": [],
+          "events": [
+            {
+              "callback": "onAction",
+              "event": "action"
+            },
+            {
+              "callback": "onCancel",
+              "event": "cancel"
+            }
+          ]
+        }
       }
     ],
     "hooks": [],
@@ -11787,7 +14661,32 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-iframe",
+          "props": {
+            "src": "string",
+            "title": "string",
+            "height": "string",
+            "ratio": "string",
+            "sandbox": "string",
+            "allow": "string",
+            "loading": "string",
+            "referrerPolicy": "string",
+            "bordered": "boolean",
+            "showLoader": "boolean",
+            "showAddress": "boolean",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number"
+          },
+          "extraProps": [],
+          "events": [
+            {
+              "callback": "onLoad",
+              "event": "load"
+            }
+          ]
+        }
       }
     ],
     "hooks": [],
@@ -11956,7 +14855,36 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-chat-box",
+          "props": {
+            "messages": "json",
+            "defaultMessages": "json",
+            "variant": "string",
+            "thinking": "string",
+            "thinkingVariant": "string",
+            "thinkingSteps": "json",
+            "thinkingElapsed": "boolean",
+            "suggestions": "json",
+            "placeholder": "string",
+            "disabled": "boolean",
+            "height": "string",
+            "heading": "string",
+            "subtitle": "string",
+            "color": "string",
+            "emptyText": "string",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number"
+          },
+          "extraProps": [],
+          "events": [
+            {
+              "callback": "onSend",
+              "event": "send"
+            }
+          ]
+        }
       }
     ],
     "hooks": [],
@@ -12056,7 +14984,23 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-thinking",
+          "props": {
+            "label": "string",
+            "variant": "string",
+            "size": "string",
+            "color": "string",
+            "steps": "json",
+            "stepInterval": "number",
+            "showElapsed": "boolean",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number"
+          },
+          "extraProps": [],
+          "events": []
+        }
       }
     ],
     "hooks": [],
@@ -12156,7 +15100,36 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           }
         ],
-        "element": null
+        "element": {
+          "tag": "l-account-settings",
+          "props": {
+            "email": "string",
+            "notifications": "json",
+            "transition": "string",
+            "transitionDuration": "number",
+            "transitionDelay": "number",
+            "hoverEffect": "string"
+          },
+          "extraProps": [],
+          "events": [
+            {
+              "callback": "onEmailChange",
+              "event": "emailchange"
+            },
+            {
+              "callback": "onPasswordChange",
+              "event": "passwordchange"
+            },
+            {
+              "callback": "onNotificationsChange",
+              "event": "notificationschange"
+            },
+            {
+              "callback": "onDeleteAccount",
+              "event": "deleteaccount"
+            }
+          ]
+        }
       }
     ],
     "hooks": [],

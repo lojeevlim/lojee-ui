@@ -12,7 +12,7 @@
 
 **Components by category**
 
-- **Basic Components** — [Buttons](#buttons) · [Badges](#badges) · [Avatars](#avatars) · [Icons](#icons) · [Spinners](#spinners) · [Dividers](#dividers)
+- **Basic Components** — [Buttons](#buttons) · [Button Groups](#button-groups) · [Split Button](#split-button) · [Badges](#badges) · [Avatars](#avatars) · [Icons](#icons) · [Spinners](#spinners) · [Dividers](#dividers)
 - **Layout & Content** — [Cards](#cards) · [Containers](#containers) · [Sections](#sections) · [Grids](#grids) · [Lists](#lists) · [Accordions](#accordions) · [Carousels](#carousels) · [Images](#images) · [Videos](#videos) · [Code Snippet](#code-snippet) · [Iframe](#iframe) · [Chat Box](#chat-box)
 - **Forms & Inputs** — [Input](#input) · [Textarea](#textarea) · [Label](#label) · [Checkbox](#checkbox) · [Radio Group](#radio-group) · [Switch / Toggle](#switch-toggle) · [Select](#select) · [Multi Select](#multi-select) · [Combobox](#combobox) · [Date Picker](#date-picker) · [Time Picker](#time-picker) · [File Upload](#file-upload) · [Search Input](#search-input) · [Password Input](#password-input) · [Slider](#slider) · [Range Slider](#range-slider) · [Tag Input](#tag-input) · [Number Input](#number-input) · [OTP Input](#otp-input) · [Rating](#rating) · [Color Picker](#color-picker)
 - **Overlays** — [Modal / Dialog](#modal-dialog) · [Drawer](#drawer) · [Sheet](#sheet) · [Popover](#popover) · [Dropdown Menu](#dropdown-menu) · [Context Menu](#context-menu) · [Command Menu](#command-menu) · [Alert Dialog](#alert-dialog) · [Tooltip](#tooltip)
@@ -179,13 +179,14 @@ Each section: **1 Overview · 2 Props and Interfaces · 3 Events · 4 Variants �
 
 ## Buttons
 
-*Category: Basic Components.* Exports: `Button`, `ButtonGroup`, `SegmentButton`, `SplitButton`, `SplitButtonMenuItem`.
+*Category: Basic Components.* Exports: `Button`.
 
 ### Buttons · 1. Component Overview
 
 Variants, sizes, colors and states — all built with Tailwind utility classes.
 
-- React: `import { Button } from "lojee-ui"` · `import { ButtonGroup } from "lojee-ui"` · `import { SegmentButton } from "lojee-ui"` · `import { SplitButton } from "lojee-ui"` · `import { SplitButtonMenuItem } from "lojee-ui"`
+- React: `import { Button } from "lojee-ui"`
+- Web Component: `<l-button>` (after `import "lojee-ui/elements"`)
 
 ### Buttons · 2. Props and Interfaces
 
@@ -220,73 +221,11 @@ Variants, sizes, colors and states — all built with Tailwind utility classes.
 
 Also accepts the shared motion props `transition`, `transitionDuration`, `transitionDelay`, `hoverEffect` — see §1.7.
 
-#### `ButtonGroup`
-
-| Prop | Type | Default | Description |
-| --- | --- | --- | --- |
-| `children` **required** | `ReactNode` | — | The buttons (e.g. `Button` or `SegmentButton`) to join into one connected group. |
-| `shape` | `Shape` | `"default"` | Corner treatment for the whole group (default keeps the built-in rounded-lg look). Individual segments stay square themselves — the group's outer container does the rounding, via `overflow-hidden`. |
-| `onItemClick` | `(item: ButtonGroupItemClick) => void` | — | Called when one of the group's buttons is clicked, with its `index` and `label` — one handler for the whole group instead of one per button. Not called for a disabled button. |
-| `className` | `string` | — | Extra class names applied to the root element. |
-| `classNames` | `{ root?: string; }` | — | Per-part class overrides — merged after (and win over) the built-in styling. |
-
-Also accepts the shared motion props `transition`, `transitionDuration`, `transitionDelay`, `hoverEffect` — see §1.7.
-
-#### `SegmentButton`
-
-| Prop | Type | Default | Description |
-| --- | --- | --- | --- |
-| `icon` | `string` | — | Icon name, e.g. "bold" — see src/core/icons.ts for the available set. |
-| `active` | `boolean` | `false` | Whether this segment is currently selected/pressed — highlights it and sets `aria-pressed` (default: false); controlled by the parent. |
-| `onClick` | `MouseEventHandler<HTMLButtonElement>` | — | Called with the click event when the segment is clicked. |
-| `color` | `ColorName \| (string & {})` | `"accent"` | Highlight color when active — same palette as Button (default: accent — follows the theme). Inactive segments stay neutral. |
-| `classNames` | `{ root?: string; icon?: string; }` | — | Per-part class overrides — merged after (and win over) the built-in styling. |
-
-Also accepts the shared motion props `transition`, `transitionDuration`, `transitionDelay`, `hoverEffect` — see §1.7.
-
-#### `SplitButton`
-
-| Prop | Type | Default | Description |
-| --- | --- | --- | --- |
-| `icon` | `string` | — | Icon name, e.g. "check" — see src/core/icons.ts for the available set. |
-| `label` **required** | `string` | — | Text of the main action button (also used to build the default menu accessible name). |
-| `onClick` | `MouseEventHandler<HTMLButtonElement>` | — | Called with the click event when the main action button is clicked. |
-| `onMenuClick` | `MouseEventHandler<HTMLButtonElement>` | — | Called with the click event when the chevron trigger is clicked, before the menu (if any) toggles. |
-| `menuLabel` | `string` | — | Accessible name for the chevron trigger; defaults to `${label} options`. |
-| `menuIcon` | `string` | `"chevron-down"` | Icon for the dropdown trigger — see src/core/icons.ts for the available set (default: "chevron-down"). |
-| `children` | `ReactNode` | — | Dropdown content — one or more `SplitButtonMenuItem` children. When present, clicking the trigger opens a menu listing them instead of (or in addition to, if `onMenuClick` is also set) just firing a click callback. Closes on selecting an item, outside click, or Escape. |
-| `variant` | `ColorVariant` | `"solid"` | Visual style shared by both halves: "solid", "outline", "ghost", "soft", "link" or "dashed" (default: "solid"). |
-| `color` | `ColorName \| (string & {})` | `"accent"` | Button color: a built-in `ColorName` (default: "accent", which follows the theme accent) or any CSS color such as "#8b5cf6". |
-| `size` | `Size` | `"md"` | "xs" \| "sm" \| "md" \| "lg" \| "xl" \| "full" (default: "md"). |
-| `shape` | `Shape` | `"default"` | Corner treatment for the whole group (default keeps the built-in rounded-lg look). The two inner buttons always render as `shape="square"` themselves — the group's outer container does the rounding, via `overflow-hidden`, so the divider between them stays a straight edge. |
-| `disabled` | `boolean` | `false` | Disables both the main button and the chevron trigger (default: false). |
-| `className` | `string` | — | Extra class names applied to the button group element. |
-| `classNames` | `{ root?: string; divider?: string; mainButton?: string; menuButton?: string; menu?: string; }` | — | Per-part class overrides — merged after (and win over) the built-in styling. |
-
-Also accepts the shared motion props `transition`, `transitionDuration`, `transitionDelay`, `hoverEffect` — see §1.7.
-
-#### `SplitButtonMenuItem`
-
-| Prop | Type | Default | Description |
-| --- | --- | --- | --- |
-| `icon` | `string` | — | Icon name, e.g. "trash-2" — see src/core/icons.ts for the available set. |
-| `children` **required** | `ReactNode` | — | The menu item's label content. |
-| `onClick` | `() => void` | — | Called with no arguments when the item is clicked; the parent menu then closes. |
-| `disabled` | `boolean` | `false` | Disables the item so it can't be clicked and doesn't close the menu (default: false). |
-| `className` | `string` | — | Extra class names applied to the item's button element. |
-
-**Native attributes:** these components also accept every standard attribute of the underlying `<button>` (e.g. `id`, `name`, `value`, `defaultValue`, `placeholder`, `disabled`, `required`, `readOnly`, `min`/`max`/`step`, `aria-*`, `onChange`/`onFocus`/`onBlur`) — they are spread onto it.
-
 ### Buttons · 3. Events
 
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
 | `Button` | `onClick` | `MouseEventHandler<HTMLButtonElement>` | — (React only) | Called with the click event when the button is clicked (not fired while disabled or loading). |
-| `ButtonGroup` | `onItemClick` | `(item: ButtonGroupItemClick) => void` | — (React only) | Called when one of the group's buttons is clicked, with its `index` and `label` — one handler for the whole group instead of one per button. Not called for a disabled button. |
-| `SegmentButton` | `onClick` | `MouseEventHandler<HTMLButtonElement>` | — (React only) | Called with the click event when the segment is clicked. |
-| `SplitButton` | `onClick` | `MouseEventHandler<HTMLButtonElement>` | — (React only) | Called with the click event when the main action button is clicked. |
-| `SplitButton` | `onMenuClick` | `MouseEventHandler<HTMLButtonElement>` | — (React only) | Called with the click event when the chevron trigger is clicked, before the menu (if any) toggles. |
-| `SplitButtonMenuItem` | `onClick` | `() => void` | — (React only) | Called with no arguments when the item is clicked; the parent menu then closes. |
 
 ### Buttons · 4. Variants
 
@@ -295,9 +234,6 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 | `Button` | `variant` | `ButtonVariant` | `"solid"` | Visual style: "solid", "outline", "ghost", "soft", "link", "dashed", "destructive", "destructive-soft", "destructive-outline", "gradient" or "glass" (default: "solid"). |
 | `Button` | `shape` | `Shape` | `"default"` | "default" (size-based rounding), "pill" or "square" (default: "default"). |
 | `Button` | `type` | `button`, `submit`, `reset` | `"button"` | Native button type: "button", "submit" or "reset" (default: "button"). |
-| `ButtonGroup` | `shape` | `Shape` | `"default"` | Corner treatment for the whole group (default keeps the built-in rounded-lg look). Individual segments stay square themselves — the group's outer container does the rounding, via `overflow-hidden`. |
-| `SplitButton` | `variant` | `ColorVariant` | `"solid"` | Visual style shared by both halves: "solid", "outline", "ghost", "soft", "link" or "dashed" (default: "solid"). |
-| `SplitButton` | `shape` | `Shape` | `"default"` | Corner treatment for the whole group (default keeps the built-in rounded-lg look). The two inner buttons always render as `shape="square"` themselves — the group's outer container does the rounding, via `overflow-hidden`, so the divider between them stays a straight edge. |
 
 ### Buttons · 5. Colors and Theming
 
@@ -306,8 +242,6 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 | `Button` | `pulseColor` | `slate`, `gray`, `indigo`, `violet`, `blue`, `cyan`, `emerald`, `teal`, `amber`, `orange`, `rose`, `pink`, `accent` | — | Color of the animation (pulse ring, glow, spinning border): a `ColorName` or any CSS color (default: the component's own color). |
 | `Button` | `color` | `slate`, `gray`, `indigo`, `violet`, `blue`, `cyan`, `emerald`, `teal`, `amber`, `orange`, `rose`, `pink`, `accent` | `"accent"` | Button color: a built-in `ColorName` (default: "accent", which follows the theme accent) or any CSS color such as "#8b5cf6"; ignored by the destructive variants. |
 | `Button` | `gradientTo` | `slate`, `gray`, `indigo`, `violet`, `blue`, `cyan`, `emerald`, `teal`, `amber`, `orange`, `rose`, `pink`, `accent` | — | Second color for the gradient variant: a `ColorName` or any CSS color such as "#ec4899" (defaults to a matching preset partner). |
-| `SegmentButton` | `color` | `slate`, `gray`, `indigo`, `violet`, `blue`, `cyan`, `emerald`, `teal`, `amber`, `orange`, `rose`, `pink`, `accent` | `"accent"` | Highlight color when active — same palette as Button (default: accent — follows the theme). Inactive segments stay neutral. |
-| `SplitButton` | `color` | `slate`, `gray`, `indigo`, `violet`, `blue`, `cyan`, `emerald`, `teal`, `amber`, `orange`, `rose`, `pink`, `accent` | `"accent"` | Button color: a built-in `ColorName` (default: "accent", which follows the theme accent) or any CSS color such as "#8b5cf6". |
 
 Follows the global theme (§1.4): it recolors with the accent, switches with light / dark mode, and takes the Claymorphism look when `data-design="clay"` is set.
 
@@ -316,20 +250,14 @@ Follows the global theme (§1.4): it recolors with the accent, switches with lig
 | Component | Prop | Values | Default | Notes |
 | --- | --- | --- | --- | --- |
 | `Button` | `size` | `Size` | `"md"` | "xs" \| "sm" \| "md" \| "lg" \| "xl" \| "full" (full width) (default: "md"). |
-| `SplitButton` | `size` | `Size` | `"md"` | "xs" \| "sm" \| "md" \| "lg" \| "xl" \| "full" (default: "md"). |
 
 ### Buttons · 7. Component States
-
-Native states also work: `disabled`, `required`, `readOnly` (spread onto the underlying element).
 
 | Component | Prop | Type | Default | Effect |
 | --- | --- | --- | --- | --- |
 | `Button` | `disabled` | `boolean` | `false` | Disables the button and dims it (default: false). |
 | `Button` | `loading` | `boolean` | `false` | Shows a spinner in place of the icon and disables the button while true (default: false). |
 | `Button` | `iconOnly` | `boolean` | `false` | Render as an icon-only button (no visible text) — label becomes the accessible name. |
-| `SegmentButton` | `active` | `boolean` | `false` | Whether this segment is currently selected/pressed — highlights it and sets `aria-pressed` (default: false); controlled by the parent. |
-| `SplitButton` | `disabled` | `boolean` | `false` | Disables both the main button and the chevron trigger (default: false). |
-| `SplitButtonMenuItem` | `disabled` | `boolean` | `false` | Disables the item so it can't be clicked and doesn't close the menu (default: false). |
 
 Standard visual states: default · hover · focus-visible (ring) · active/pressed · disabled (dimmed, not focusable) · loading (spinner, blocks clicks).
 
@@ -339,70 +267,87 @@ Standard visual states: default · hover · focus-visible (ring) · active/press
 | --- | --- | --- | --- |
 | `Button` | `badge` | `ReactNode` | Small overlay badge, e.g. a notification count. |
 | `Button` | `children` | `ReactNode` | Button content; takes precedence over `label` when both are given. |
-| `ButtonGroup` | `children` | `ReactNode` | The buttons (e.g. `Button` or `SegmentButton`) to join into one connected group. |
-| `SplitButton` | `children` | `ReactNode` | Dropdown content — one or more `SplitButtonMenuItem` children. When present, clicking the trigger opens a menu listing them instead of (or in addition to, if `onMenuClick` is also set) just firing a click callback. Closes on selecting an item, outside click, or Escape. |
-| `SplitButtonMenuItem` | `children` | `ReactNode` | The menu item's label content. |
 
 In a Web Component, the element's light-DOM text/children go into the default slot; a prop that accepts a node (e.g. `header`, `footer`) can usually also be filled with a child carrying `slot="<name>"`.
 
 ### Buttons · 9. Framework Interfaces
 
-- `Button`: React only (no standalone Web Component — used through its parent).
-- `ButtonGroup`: React only (no standalone Web Component — used through its parent).
-- `SegmentButton`: React only (no standalone Web Component — used through its parent).
-- `SplitButton`: React only (no standalone Web Component — used through its parent).
-- `SplitButtonMenuItem`: React only (no standalone Web Component — used through its parent).
-Minimal use in each target (from the first docs example, *Button groups*):
+**`Button`** → `<l-button>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `animation` | `animation` | string |
+| `pulseColor` | `pulse-color` | string |
+| `pulseGradientTo` | `pulse-gradient-to` | string |
+| `variant` | `variant` | string |
+| `lighting` | `lighting` | string |
+| `color` | `color` | string |
+| `gradientTo` | `gradient-to` | string |
+| `gradientDirection` | `gradient-direction` | string |
+| `size` | `size` | string |
+| `shape` | `shape` | string |
+| `disabled` | `disabled` | boolean |
+| `loading` | `loading` | boolean |
+| `icon` | `icon` | string |
+| `iconOnly` | `icon-only` | boolean |
+| `iconPosition` | `icon-position` | string |
+| `label` | `label` | string |
+| `badge` | `badge` | string |
+| `type` | `type` | string |
+| `className` | `class-name` | string |
+| `classNames` | `class-names` | json (JSON string or object property) |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+| `hoverEffect` | `hover-effect` | string |
+
+Minimal use in each target (from the first docs example, *Transitions*):
 
 **React**
 ```tsx
-<ButtonGroup>
-  <SegmentButton icon="align-left" active={align === "left"} onClick={() => setAlign("left")} />
-  <SegmentButton icon="align-center" active={align === "center"} onClick={() => setAlign("center")} />
-  <SegmentButton icon="align-right" active={align === "right"} onClick={() => setAlign("right")} />
-</ButtonGroup>
+<Button transition="fade" label="Fade" />
+<Button transition="slide-up" label="Slide up" />
+<Button transition="slide-right" transitionDelay={100} label="Slide right" />
+<Button transition="zoom" label="Zoom" />
+<Button transition="flip" label="Flip" />
+<Button transition="blur" label="Blur" />
+<Button transition="bounce" label="Bounce" />
+<Button transition="drop" transitionDuration={700} label="Drop" />
 
-{/* One handler for the whole group instead of one onClick per button */}
-<ButtonGroup onItemClick={({ index, label }) => console.log(index, label)}>
-  <SegmentButton>Day</SegmentButton>
-  <SegmentButton>Week</SegmentButton>
-  <SegmentButton>Month</SegmentButton>
-</ButtonGroup>
+<Button hoverEffect="lift" label="Lift" />
+<Button hoverEffect="scale" label="Scale" />
+<Button hoverEffect="press" label="Press" />
+<Button hoverEffect="tilt" label="Tilt" />
+<Button hoverEffect="ring" label="Ring" />
+<Button hoverEffect="glow" label="Glow" />
+<Button hoverEffect="shine" label="Shine" />
 ```
 **Plain HTML / JavaScript**
 ```html
-<!-- One handler on the group. event.detail is { index, label } of the clicked button;
-     "this" is the group, so it can mark the clicked segment active — no ids needed. -->
-<l-button-group onitemclick="[...this.children].forEach((b, i) => (b.active = i === event.detail.index))">
-  <l-segment-button icon="align-left" active></l-segment-button>
-  <l-segment-button icon="align-center"></l-segment-button>
-  <l-segment-button icon="align-right"></l-segment-button>
-</l-button-group>
+<l-button transition="fade" label="Fade"></l-button>
+<l-button transition="slide-up" label="Slide up"></l-button>
+<l-button transition="slide-right" transitionDelay="100" label="Slide right"></l-button>
+<l-button transition="zoom" label="Zoom"></l-button>
+<l-button transition="flip" label="Flip"></l-button>
+<l-button transition="blur" label="Blur"></l-button>
+<l-button transition="bounce" label="Bounce"></l-button>
+<l-button transition="drop" transitionDuration="700" label="Drop"></l-button>
 
-<script type="module">import "lojee-ui/elements";</script>
+<l-button hoverEffect="lift" label="Lift"></l-button>
+<l-button hoverEffect="scale" label="Scale"></l-button>
+<l-button hoverEffect="press" label="Press"></l-button>
+<l-button hoverEffect="tilt" label="Tilt"></l-button>
+<l-button hoverEffect="ring" label="Ring"></l-button>
+<l-button hoverEffect="glow" label="Glow"></l-button>
+<l-button hoverEffect="shine" label="Shine"></l-button>
+
+<script type="module">
+  import "lojee-ui/elements";
+</script>
 ```
 Vue and Angular use the same `<l-*>` tag and attributes — see the framework templates in §1.3.
 
 ### Buttons · 10. Complete Usage Examples
-
-#### Button groups
-
-Grouped actions and a segmented toolbar control.
-
-```tsx
-<ButtonGroup>
-  <SegmentButton icon="align-left" active={align === "left"} onClick={() => setAlign("left")} />
-  <SegmentButton icon="align-center" active={align === "center"} onClick={() => setAlign("center")} />
-  <SegmentButton icon="align-right" active={align === "right"} onClick={() => setAlign("right")} />
-</ButtonGroup>
-
-{/* One handler for the whole group instead of one onClick per button */}
-<ButtonGroup onItemClick={({ index, label }) => console.log(index, label)}>
-  <SegmentButton>Day</SegmentButton>
-  <SegmentButton>Week</SegmentButton>
-  <SegmentButton>Month</SegmentButton>
-</ButtonGroup>
-```
 
 #### Transitions
 
@@ -469,20 +414,33 @@ Dark mode only: the glass frame lights up like a backlight in the button's colou
 <Button variant="glass" lighting="scroll" label="Scroll to center" />
 ```
 
-_11 more examples are on the docs page._
+#### Sizes
+
+From compact (xs) to prominent (xl), plus a full-width stretch.
+
+```tsx
+<Button size="xs" label="Extra small" />
+<Button size="sm" label="Small" />
+<Button size="md" label="Medium" />
+<Button size="lg" label="Large" />
+<Button size="xl" label="Extra large" />
+<Button size="full" label="Full Width" />
+```
+
+_7 more examples are on the docs page._
 
 ### Buttons · 11. Component Composition
 
-- Built from `Button`, `ButtonGroup`, `SegmentButton`, `SplitButton`, `SplitButtonMenuItem` — use them together as shown in the examples above.
+- Standalone: drop it into any layout (Card, Section, Grid, Container, App shell) or inside forms and overlays.
 
 ### Buttons · 12. Accessibility
 
-- ARIA roles used: `menu`, `menuitem`.
-- ARIA attributes set by the component: `aria-expanded`, `aria-haspopup`, `aria-label`, `aria-pressed`.
-- Keyboard: has keyboard handling (e.g. Escape / arrow keys) — see the docs page for the exact keys.
+- ARIA roles used: none beyond native element semantics.
+- ARIA attributes set by the component: `aria-expanded`, `aria-haspopup`, `aria-label`.
+- Keyboard: native keyboard behavior of the underlying element (Tab to focus, Enter / Space to activate).
 - Focus: uses the browser focus outline / the underlying control's ring.
 - Motion: respects `prefers-reduced-motion`.
-- Labelling props: `label`, `label`.
+- Labelling props: `label`.
 
 ### Buttons · 13. Responsive Behavior
 
@@ -491,7 +449,404 @@ _11 more examples are on the docs page._
 
 ### Buttons · 14. Customization
 
-- `className` adds classes to the root; `classNames` overrides individual parts — `Button`: `root`, `icon`, `badge` · `ButtonGroup`: `root` · `SegmentButton`: `root`, `icon` · `SplitButton`: `root`, `divider`, `mainButton`, `menuButton`, `menu`. Conflicting Tailwind utilities passed here win (tailwind-merge).
+- `className` adds classes to the root; `classNames` overrides individual parts — `Button`: `root`, `icon`, `badge`. Conflicting Tailwind utilities passed here win (tailwind-merge).
+- Recolor with `color`; restyle globally with the theme tokens or `data-design="clay"`.
+- Motion: `transition`, `transitionDuration`, `transitionDelay`, `hoverEffect`.
+
+## Button Groups
+
+*Category: Basic Components.* Exports: `ButtonGroup`, `SegmentButton`.
+
+### Button Groups · 1. Component Overview
+
+Related buttons joined into one control — a toolbar of actions or a segmented choice.
+
+- React: `import { ButtonGroup } from "lojee-ui"` · `import { SegmentButton } from "lojee-ui"`
+- Web Component: `<l-button-group>` · `<l-segment-button>` (after `import "lojee-ui/elements"`)
+
+### Button Groups · 2. Props and Interfaces
+
+#### `ButtonGroup`
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `children` **required** | `ReactNode` | — | The buttons (e.g. `Button` or `SegmentButton`) to join into one connected group. |
+| `shape` | `Shape` | `"default"` | Corner treatment for the whole group (default keeps the built-in rounded-lg look). Individual segments stay square themselves — the group's outer container does the rounding, via `overflow-hidden`. |
+| `selectable` | `boolean` | `false` | The group keeps its own selection: a click marks that segment active (in the theme color) and clears the others — no `active` state to manage (default: false). Leave it off for independent toggles such as Bold / Italic. |
+| `defaultActive` | `number` | — | `selectable` only: which segment starts active, by position from 0 (default: none). |
+| `onItemClick` | `(item: ButtonGroupItemClick) => void` | — | Called when one of the group's buttons is clicked, with its `index` and `label` — one handler for the whole group instead of one per button. Not called for a disabled button. |
+| `className` | `string` | — | Extra class names applied to the root element. |
+| `classNames` | `{ root?: string; }` | — | Per-part class overrides — merged after (and win over) the built-in styling. |
+
+Also accepts the shared motion props `transition`, `transitionDuration`, `transitionDelay`, `hoverEffect` — see §1.7.
+
+#### `SegmentButton`
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `icon` | `string` | — | Icon name, e.g. "bold" — see src/core/icons.ts for the available set. |
+| `active` | `boolean` | `false` | Whether this segment is currently selected/pressed — highlights it and sets `aria-pressed` (default: false); controlled by the parent. |
+| `onClick` | `MouseEventHandler<HTMLButtonElement>` | — | Called with the click event when the segment is clicked. |
+| `color` | `ColorName \| (string & {})` | `"accent"` | Highlight color when active — same palette as Button (default: accent — follows the theme). Inactive segments stay neutral. |
+| `classNames` | `{ root?: string; icon?: string; }` | — | Per-part class overrides — merged after (and win over) the built-in styling. |
+
+Also accepts the shared motion props `transition`, `transitionDuration`, `transitionDelay`, `hoverEffect` — see §1.7.
+
+**Native attributes:** these components also accept every standard attribute of the underlying `<button>` (e.g. `id`, `name`, `value`, `defaultValue`, `placeholder`, `disabled`, `required`, `readOnly`, `min`/`max`/`step`, `aria-*`, `onChange`/`onFocus`/`onBlur`) — they are spread onto it.
+
+### Button Groups · 3. Events
+
+| Component | React callback | Signature | Web Component event | Description |
+| --- | --- | --- | --- | --- |
+| `ButtonGroup` | `onItemClick` | `(item: ButtonGroupItemClick) => void` | — (React only) | Called when one of the group's buttons is clicked, with its `index` and `label` — one handler for the whole group instead of one per button. Not called for a disabled button. |
+| `SegmentButton` | `onClick` | `MouseEventHandler<HTMLButtonElement>` | — (React only) | Called with the click event when the segment is clicked. |
+
+### Button Groups · 4. Variants
+
+| Component | Prop | Values | Default | Notes |
+| --- | --- | --- | --- | --- |
+| `ButtonGroup` | `shape` | `Shape` | `"default"` | Corner treatment for the whole group (default keeps the built-in rounded-lg look). Individual segments stay square themselves — the group's outer container does the rounding, via `overflow-hidden`. |
+
+### Button Groups · 5. Colors and Theming
+
+| Component | Prop | Values | Default | Notes |
+| --- | --- | --- | --- | --- |
+| `SegmentButton` | `color` | `slate`, `gray`, `indigo`, `violet`, `blue`, `cyan`, `emerald`, `teal`, `amber`, `orange`, `rose`, `pink`, `accent` | `"accent"` | Highlight color when active — same palette as Button (default: accent — follows the theme). Inactive segments stay neutral. |
+
+Follows the global theme (§1.4): it recolors with the accent, switches with light / dark mode, and takes the Claymorphism look when `data-design="clay"` is set.
+
+### Button Groups · 6. Sizes
+
+_No size prop — it sizes to its container / content (see `className` to constrain it)._
+
+### Button Groups · 7. Component States
+
+Native states also work: `disabled`, `required`, `readOnly` (spread onto the underlying element).
+
+| Component | Prop | Type | Default | Effect |
+| --- | --- | --- | --- | --- |
+| `SegmentButton` | `active` | `boolean` | `false` | Whether this segment is currently selected/pressed — highlights it and sets `aria-pressed` (default: false); controlled by the parent. |
+
+Standard visual states: default · hover · focus-visible (ring) · active/pressed.
+
+### Button Groups · 8. Slots / Children / Content
+
+| Component | React prop | Type | Description |
+| --- | --- | --- | --- |
+| `ButtonGroup` | `children` | `ReactNode` | The buttons (e.g. `Button` or `SegmentButton`) to join into one connected group. |
+
+Web Component extras (slots and plain HTML attributes accepted by the `<l-*>` tag in addition to the props above):
+
+| Component | Name | Type | Description |
+| --- | --- | --- | --- |
+| `SegmentButton` | `disabled` | `boolean` | Standard HTML attribute, passed straight to the underlying control. |
+
+In a Web Component, the element's light-DOM text/children go into the default slot; a prop that accepts a node (e.g. `header`, `footer`) can usually also be filled with a child carrying `slot="<name>"`.
+
+### Button Groups · 9. Framework Interfaces
+
+**`ButtonGroup`** → `<l-button-group>`
+
+**`SegmentButton`** → `<l-segment-button>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `icon` | `icon` | string |
+| `active` | `active` | boolean |
+| `disabled` | `disabled` | boolean |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+| `hoverEffect` | `hover-effect` | string |
+
+Minimal use in each target (from the first docs example, *Button groups*):
+
+**React**
+```tsx
+<ButtonGroup>
+  <SegmentButton icon="align-left" active={align === "left"} onClick={() => setAlign("left")} />
+  <SegmentButton icon="align-center" active={align === "center"} onClick={() => setAlign("center")} />
+  <SegmentButton icon="align-right" active={align === "right"} onClick={() => setAlign("right")} />
+</ButtonGroup>
+
+{/* One handler for the whole group instead of one onClick per button */}
+<ButtonGroup onItemClick={({ index, label }) => console.log(index, label)}>
+  <SegmentButton>Day</SegmentButton>
+  <SegmentButton>Week</SegmentButton>
+  <SegmentButton>Month</SegmentButton>
+</ButtonGroup>
+```
+**Plain HTML / JavaScript**
+```html
+<!-- One handler on the group. event.detail is { index, label } of the clicked button;
+     "this" is the group, so it can mark the clicked segment active — no ids needed. -->
+<l-button-group onitemclick="[...this.children].forEach((b, i) => (b.active = i === event.detail.index))">
+  <l-segment-button icon="align-left" active></l-segment-button>
+  <l-segment-button icon="align-center"></l-segment-button>
+  <l-segment-button icon="align-right"></l-segment-button>
+</l-button-group>
+
+<script type="module">import "lojee-ui/elements";</script>
+```
+Vue and Angular use the same `<l-*>` tag and attributes — see the framework templates in §1.3.
+
+### Button Groups · 10. Complete Usage Examples
+
+#### Button groups
+
+Grouped actions and a segmented toolbar control.
+
+```tsx
+<ButtonGroup>
+  <SegmentButton icon="align-left" active={align === "left"} onClick={() => setAlign("left")} />
+  <SegmentButton icon="align-center" active={align === "center"} onClick={() => setAlign("center")} />
+  <SegmentButton icon="align-right" active={align === "right"} onClick={() => setAlign("right")} />
+</ButtonGroup>
+
+{/* One handler for the whole group instead of one onClick per button */}
+<ButtonGroup onItemClick={({ index, label }) => console.log(index, label)}>
+  <SegmentButton>Day</SegmentButton>
+  <SegmentButton>Week</SegmentButton>
+  <SegmentButton>Month</SegmentButton>
+</ButtonGroup>
+```
+
+#### Selectable group
+
+selectable lets the group keep its own selection: the clicked segment turns active in the theme color and the others clear — no active state to manage. defaultActive picks the segment that starts selected.
+
+```tsx
+<ButtonGroup selectable defaultActive={1}>
+  <SegmentButton>Day</SegmentButton>
+  <SegmentButton>Week</SegmentButton>
+  <SegmentButton>Month</SegmentButton>
+  <SegmentButton>Year</SegmentButton>
+</ButtonGroup>
+```
+
+### Button Groups · 11. Component Composition
+
+- Built from `ButtonGroup`, `SegmentButton` — use them together as shown in the examples above.
+
+### Button Groups · 12. Accessibility
+
+- ARIA roles used: none beyond native element semantics.
+- ARIA attributes set by the component: `aria-label`, `aria-pressed`.
+- Keyboard: native keyboard behavior of the underlying element (Tab to focus, Enter / Space to activate).
+- Focus: uses the browser focus outline / the underlying control's ring.
+- Motion: respects `prefers-reduced-motion`.
+
+### Button Groups · 13. Responsive Behavior
+
+- No breakpoint-specific rules — it is fluid and adapts to its container width.
+- Mobile-first; touch targets keep a comfortable minimum size.
+
+### Button Groups · 14. Customization
+
+- `className` adds classes to the root; `classNames` overrides individual parts — `ButtonGroup`: `root` · `SegmentButton`: `root`, `icon`. Conflicting Tailwind utilities passed here win (tailwind-merge).
+- Recolor with the theme accent; restyle globally with the theme tokens or `data-design="clay"`.
+- Motion: `transition`, `transitionDuration`, `transitionDelay`, `hoverEffect`.
+
+## Split Button
+
+*Category: Basic Components.* Exports: `SplitButton`, `SplitButtonMenuItem`.
+
+### Split Button · 1. Component Overview
+
+A primary action paired with a dropdown of related actions.
+
+- React: `import { SplitButton } from "lojee-ui"` · `import { SplitButtonMenuItem } from "lojee-ui"`
+- Web Component: `<l-split-button>` · `<l-split-button-menu-item>` (after `import "lojee-ui/elements"`)
+
+### Split Button · 2. Props and Interfaces
+
+#### `SplitButton`
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `icon` | `string` | — | Icon name, e.g. "check" — see src/core/icons.ts for the available set. |
+| `label` **required** | `string` | — | Text of the main action button (also used to build the default menu accessible name). |
+| `onClick` | `MouseEventHandler<HTMLButtonElement>` | — | Called with the click event when the main action button is clicked. |
+| `onMenuClick` | `MouseEventHandler<HTMLButtonElement>` | — | Called with the click event when the chevron trigger is clicked, before the menu (if any) toggles. |
+| `menuLabel` | `string` | — | Accessible name for the chevron trigger; defaults to `${label} options`. |
+| `menuIcon` | `string` | `"chevron-down"` | Icon for the dropdown trigger — see src/core/icons.ts for the available set (default: "chevron-down"). |
+| `children` | `ReactNode` | — | Dropdown content — one or more `SplitButtonMenuItem` children. When present, clicking the trigger opens a menu listing them instead of (or in addition to, if `onMenuClick` is also set) just firing a click callback. Closes on selecting an item, outside click, or Escape. |
+| `variant` | `ColorVariant` | `"solid"` | Visual style shared by both halves: "solid", "outline", "ghost", "soft", "link" or "dashed" (default: "solid"). |
+| `color` | `ColorName \| (string & {})` | `"accent"` | Button color: a built-in `ColorName` (default: "accent", which follows the theme accent) or any CSS color such as "#8b5cf6". |
+| `size` | `Size` | `"md"` | "xs" \| "sm" \| "md" \| "lg" \| "xl" \| "full" (default: "md"). |
+| `shape` | `Shape` | `"default"` | Corner treatment for the whole group (default keeps the built-in rounded-lg look). The two inner buttons always render as `shape="square"` themselves — the group's outer container does the rounding, via `overflow-hidden`, so the divider between them stays a straight edge. |
+| `align` | `SplitButtonAlign` | `"end"` | Where the dropdown menu (which always opens below the button) lines up with it: "start" (left edges together), "center", or "end" (right edges together). "left" / "right" also work, as start / end. Default: "end". |
+| `open` | `boolean` | — | Controlled open state of the menu — omit to let the trigger open and close it. Handy to keep the menu showing in docs or screenshots. |
+| `onOpenChange` | `(open: boolean) => void` | — | Called when the menu asks to open or close (the trigger, selecting an item, a click outside, Escape). |
+| `disabled` | `boolean` | `false` | Disables both the main button and the chevron trigger (default: false). |
+| `className` | `string` | — | Extra class names applied to the button group element. |
+| `classNames` | `{ root?: string; divider?: string; mainButton?: string; menuButton?: string; menu?: string; }` | — | Per-part class overrides — merged after (and win over) the built-in styling. |
+
+Also accepts the shared motion props `transition`, `transitionDuration`, `transitionDelay`, `hoverEffect` — see §1.7.
+
+#### `SplitButtonMenuItem`
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `icon` | `string` | — | Icon name, e.g. "trash-2" — see src/core/icons.ts for the available set. |
+| `children` **required** | `ReactNode` | — | The menu item's label content. |
+| `onClick` | `() => void` | — | Called with no arguments when the item is clicked; the parent menu then closes. |
+| `disabled` | `boolean` | `false` | Disables the item so it can't be clicked and doesn't close the menu (default: false). |
+| `className` | `string` | — | Extra class names applied to the item's button element. |
+
+### Split Button · 3. Events
+
+| Component | React callback | Signature | Web Component event | Description |
+| --- | --- | --- | --- | --- |
+| `SplitButton` | `onClick` | `MouseEventHandler<HTMLButtonElement>` | — (React only) | Called with the click event when the main action button is clicked. |
+| `SplitButton` | `onMenuClick` | `MouseEventHandler<HTMLButtonElement>` | `menuclick` (CustomEvent, payload in `detail`) | Called with the click event when the chevron trigger is clicked, before the menu (if any) toggles. |
+| `SplitButton` | `onOpenChange` | `(open: boolean) => void` | `openchange` (CustomEvent, payload in `detail`) | Called when the menu asks to open or close (the trigger, selecting an item, a click outside, Escape). |
+| `SplitButtonMenuItem` | `onClick` | `() => void` | — (React only) | Called with no arguments when the item is clicked; the parent menu then closes. |
+
+### Split Button · 4. Variants
+
+| Component | Prop | Values | Default | Notes |
+| --- | --- | --- | --- | --- |
+| `SplitButton` | `variant` | `ColorVariant` | `"solid"` | Visual style shared by both halves: "solid", "outline", "ghost", "soft", "link" or "dashed" (default: "solid"). |
+| `SplitButton` | `shape` | `Shape` | `"default"` | Corner treatment for the whole group (default keeps the built-in rounded-lg look). The two inner buttons always render as `shape="square"` themselves — the group's outer container does the rounding, via `overflow-hidden`, so the divider between them stays a straight edge. |
+| `SplitButton` | `align` | `start`, `center`, `end`, `left`, `right` | `"end"` | Where the dropdown menu (which always opens below the button) lines up with it: "start" (left edges together), "center", or "end" (right edges together). "left" / "right" also work, as start / end. Default: "end". |
+
+### Split Button · 5. Colors and Theming
+
+| Component | Prop | Values | Default | Notes |
+| --- | --- | --- | --- | --- |
+| `SplitButton` | `color` | `slate`, `gray`, `indigo`, `violet`, `blue`, `cyan`, `emerald`, `teal`, `amber`, `orange`, `rose`, `pink`, `accent` | `"accent"` | Button color: a built-in `ColorName` (default: "accent", which follows the theme accent) or any CSS color such as "#8b5cf6". |
+
+Follows the global theme (§1.4): it recolors with the accent, switches with light / dark mode, and takes the Claymorphism look when `data-design="clay"` is set.
+
+### Split Button · 6. Sizes
+
+| Component | Prop | Values | Default | Notes |
+| --- | --- | --- | --- | --- |
+| `SplitButton` | `size` | `Size` | `"md"` | "xs" \| "sm" \| "md" \| "lg" \| "xl" \| "full" (default: "md"). |
+
+### Split Button · 7. Component States
+
+| Component | Prop | Type | Default | Effect |
+| --- | --- | --- | --- | --- |
+| `SplitButton` | `open` | `boolean` | — | Controlled open state of the menu — omit to let the trigger open and close it. Handy to keep the menu showing in docs or screenshots. |
+| `SplitButton` | `disabled` | `boolean` | `false` | Disables both the main button and the chevron trigger (default: false). |
+| `SplitButtonMenuItem` | `disabled` | `boolean` | `false` | Disables the item so it can't be clicked and doesn't close the menu (default: false). |
+
+Standard visual states: default · hover · focus-visible (ring) · active/pressed · disabled (dimmed, not focusable).
+
+### Split Button · 8. Slots / Children / Content
+
+| Component | React prop | Type | Description |
+| --- | --- | --- | --- |
+| `SplitButton` | `children` | `ReactNode` | Dropdown content — one or more `SplitButtonMenuItem` children. When present, clicking the trigger opens a menu listing them instead of (or in addition to, if `onMenuClick` is also set) just firing a click callback. Closes on selecting an item, outside click, or Escape. |
+| `SplitButtonMenuItem` | `children` | `ReactNode` | The menu item's label content. |
+
+In a Web Component, the element's light-DOM text/children go into the default slot; a prop that accepts a node (e.g. `header`, `footer`) can usually also be filled with a child carrying `slot="<name>"`.
+
+### Split Button · 9. Framework Interfaces
+
+**`SplitButton`** → `<l-split-button>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `icon` | `icon` | string |
+| `label` | `label` | string |
+| `menuLabel` | `menu-label` | string |
+| `menuIcon` | `menu-icon` | string |
+| `align` | `align` | string |
+| `open` | `open` | boolean |
+| `variant` | `variant` | string |
+| `color` | `color` | string |
+| `size` | `size` | string |
+| `shape` | `shape` | string |
+| `disabled` | `disabled` | boolean |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+| `hoverEffect` | `hover-effect` | string |
+
+**`SplitButtonMenuItem`** → `<l-split-button-menu-item>`
+
+Minimal use in each target (from the first docs example, *Split button*):
+
+**React**
+```tsx
+<SplitButton icon="check" label="Approve" />
+```
+**Plain HTML / JavaScript**
+```html
+<l-split-button icon="check" label="Approve"></l-split-button>
+
+<script type="module">
+  import "lojee-ui/elements";
+</script>
+```
+Vue and Angular use the same `<l-*>` tag and attributes — see the framework templates in §1.3.
+
+### Split Button · 10. Complete Usage Examples
+
+#### Split button
+
+A primary action paired with a dropdown trigger.
+
+```tsx
+<SplitButton icon="check" label="Approve" />
+```
+
+#### Shapes & dropdown icon
+
+shape controls the group's outer corners; menuIcon swaps the dropdown trigger's icon.
+
+```tsx
+<SplitButton icon="check" label="Approve" shape="default" />
+<SplitButton icon="check" label="Approve" shape="pill" />
+<SplitButton icon="check" label="Approve" shape="square" />
+<SplitButton icon="download" label="Export" menuIcon="more-vertical" />
+```
+
+#### Dropdown options
+
+Dropdown options are SplitButtonMenuItem children — click the trigger to open the menu; closes on selection, outside click, or Escape.
+
+```tsx
+<SplitButton icon="download" label="Export">
+  <SplitButtonMenuItem icon="file" onClick={() => exportAs("pdf")}>Export as PDF</SplitButtonMenuItem>
+  <SplitButtonMenuItem icon="list" onClick={() => exportAs("csv")}>Export as CSV</SplitButtonMenuItem>
+  <SplitButtonMenuItem icon="image" onClick={() => exportAs("png")}>Export as PNG</SplitButtonMenuItem>
+  <SplitButtonMenuItem disabled>Cancel</SplitButtonMenuItem>
+</SplitButton>
+```
+
+#### Dropdown alignment
+
+```tsx
+<SplitButton icon="download" label="Export" align="start">…</SplitButton>
+<SplitButton icon="download" label="Export" align="center">…</SplitButton>
+<SplitButton icon="download" label="Export" align="end">…</SplitButton> {/* default */}
+```
+
+### Split Button · 11. Component Composition
+
+- Built from `SplitButton`, `SplitButtonMenuItem` — use them together as shown in the examples above.
+
+### Split Button · 12. Accessibility
+
+- ARIA roles used: `menu`, `menuitem`.
+- ARIA attributes set by the component: `aria-expanded`, `aria-haspopup`, `aria-label`.
+- Keyboard: has keyboard handling (e.g. Escape / arrow keys) — see the docs page for the exact keys.
+- Focus: uses the browser focus outline / the underlying control's ring.
+- Motion: respects `prefers-reduced-motion`.
+- Labelling props: `label`.
+
+### Split Button · 13. Responsive Behavior
+
+- No breakpoint-specific rules — it is fluid and adapts to its container width.
+- Mobile-first; touch targets keep a comfortable minimum size.
+
+### Split Button · 14. Customization
+
+- `className` adds classes to the root; `classNames` overrides individual parts — `SplitButton`: `root`, `divider`, `mainButton`, `menuButton`, `menu`. Conflicting Tailwind utilities passed here win (tailwind-merge).
 - Recolor with `color`; restyle globally with the theme tokens or `data-design="clay"`.
 - Motion: `transition`, `transitionDuration`, `transitionDelay`, `hoverEffect`.
 
@@ -504,6 +859,7 @@ _11 more examples are on the docs page._
 Small status/label pills — solid, outline, and soft, in every color.
 
 - React: `import { Badge } from "lojee-ui"`
+- Web Component: `<l-badge>` (after `import "lojee-ui/elements"`)
 
 ### Badges · 2. Props and Interfaces
 
@@ -567,7 +923,24 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 ### Badges · 9. Framework Interfaces
 
-- `Badge`: React only (no standalone Web Component).
+**`Badge`** → `<l-badge>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `animation` | `animation` | string |
+| `pulseColor` | `pulse-color` | string |
+| `pulseGradientTo` | `pulse-gradient-to` | string |
+| `variant` | `variant` | string |
+| `color` | `color` | string |
+| `size` | `size` | string |
+| `icon` | `icon` | string |
+| `dot` | `dot` | boolean |
+| `label` | `label` | string |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+| `hoverEffect` | `hover-effect` | string |
+
 Minimal use in each target (from the first docs example, *Variants*):
 
 **React**
@@ -672,6 +1045,7 @@ _2 more examples are on the docs page._
 User images with an initials fallback, status indicator, and grouping.
 
 - React: `import { Avatar } from "lojee-ui"` · `import { AvatarGroup } from "lojee-ui"`
+- Web Component: `<l-avatar>` · `<l-avatar-group>` (after `import "lojee-ui/elements"`)
 
 ### Avatars · 2. Props and Interfaces
 
@@ -745,8 +1119,33 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 ### Avatars · 9. Framework Interfaces
 
-- `Avatar`: React only (no standalone Web Component — used through its parent).
-- `AvatarGroup`: React only (no standalone Web Component — used through its parent).
+**`Avatar`** → `<l-avatar>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `animation` | `animation` | string |
+| `pulseColor` | `pulse-color` | string |
+| `pulseGradientTo` | `pulse-gradient-to` | string |
+| `src` | `src` | string |
+| `alt` | `alt` | string |
+| `initials` | `initials` | string |
+| `size` | `size` | string |
+| `shape` | `shape` | string |
+| `status` | `status` | string |
+| `color` | `color` | string |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+| `hoverEffect` | `hover-effect` | string |
+
+**`AvatarGroup`** → `<l-avatar-group>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+
 Minimal use in each target (from the first docs example, *Sizes*):
 
 **React**
@@ -843,6 +1242,7 @@ _2 more examples are on the docs page._
 A curated subset of the  Lucide icon library   — click one to copy its name. Used as a plain string via  icon="name" on any component that supports an icon prop. Need one that isn't here? Browse the full set at  lucide.dev/icons .
 
 - React: `import { Icon } from "lojee-ui"`
+- Web Component: `<l-icon>` (after `import "lojee-ui/elements"`)
 
 ### Icons · 2. Props and Interfaces
 
@@ -886,7 +1286,13 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 ### Icons · 9. Framework Interfaces
 
-- `Icon`: React only (no standalone Web Component).
+**`Icon`** → `<l-icon>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `name` | `name` | string |
+| `size` | `size` | number |
+| `className` | `class-name` | string |
 
 ### Icons · 10. Complete Usage Examples
 
@@ -929,6 +1335,7 @@ import { Icon } from "lojee-ui";
 Inline loading indicators — five variants, from a spinning icon to a pulsing dot.
 
 - React: `import { Spinner } from "lojee-ui"`
+- Web Component: `<l-spinner>` (after `import "lojee-ui/elements"`)
 
 ### Spinners · 2. Props and Interfaces
 
@@ -983,7 +1390,18 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 ### Spinners · 9. Framework Interfaces
 
-- `Spinner`: React only (no standalone Web Component).
+**`Spinner`** → `<l-spinner>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `size` | `size` | string |
+| `color` | `color` | string |
+| `variant` | `variant` | string |
+| `label` | `label` | string |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+
 Minimal use in each target (from the first docs example, *Sizes*):
 
 **React**
@@ -1076,6 +1494,7 @@ Enter transitions via `transition` (with `transitionDuration` / `transitionDelay
 A plain rule, one with centered label text, or a draggable resize handle.
 
 - React: `import { Divider } from "lojee-ui"`
+- Web Component: `<l-divider>` (after `import "lojee-ui/elements"`)
 
 ### Dividers · 2. Props and Interfaces
 
@@ -1100,7 +1519,7 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
-| `Divider` | `onResize` | `(deltaPx: number) => void` | — (React only) | Called with the pointer/keyboard movement in px (positive = right/down). |
+| `Divider` | `onResize` | `(deltaPx: number) => void` | `resize` (CustomEvent, payload in `detail`) | Called with the pointer/keyboard movement in px (positive = right/down). |
 
 ### Dividers · 4. Variants
 
@@ -1136,7 +1555,20 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 ### Dividers · 9. Framework Interfaces
 
-- `Divider`: React only (no standalone Web Component).
+**`Divider`** → `<l-divider>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `orientation` | `orientation` | string |
+| `label` | `label` | string |
+| `color` | `color` | string |
+| `resizable` | `resizable` | boolean |
+| `handleVariant` | `handle-variant` | string |
+| `step` | `step` | number |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+
 Minimal use in each target (from the first docs example, *Plain*):
 
 **React**
@@ -1240,6 +1672,7 @@ _2 more examples are on the docs page._
 A surface for grouping related content, with optional title and footer.
 
 - React: `import { Card } from "lojee-ui"`
+- Web Component: `<l-card>` (after `import "lojee-ui/elements"`)
 
 ### Cards · 2. Props and Interfaces
 
@@ -1302,7 +1735,24 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 ### Cards · 9. Framework Interfaces
 
-- `Card`: React only (no standalone Web Component).
+**`Card`** → `<l-card>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `variant` | `variant` | string |
+| `lighting` | `lighting` | string |
+| `padding` | `padding` | string |
+| `hoverable` | `hoverable` | boolean |
+| `title` | `title` | string |
+| `footer` | `footer` | string |
+| `animation` | `animation` | string |
+| `pulseColor` | `pulse-color` | string |
+| `pulseGradientTo` | `pulse-gradient-to` | string |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+| `hoverEffect` | `hover-effect` | string |
+
 Minimal use in each target (from the first docs example, *Variants*):
 
 **React**
@@ -1415,6 +1865,7 @@ _2 more examples are on the docs page._
 A centered, max-width wrapper for page content.
 
 - React: `import { Container } from "lojee-ui"`
+- Web Component: `<l-container>` (after `import "lojee-ui/elements"`)
 
 ### Containers · 2. Props and Interfaces
 
@@ -1465,7 +1916,17 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 ### Containers · 9. Framework Interfaces
 
-- `Container`: React only (no standalone Web Component).
+**`Container`** → `<l-container>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `size` | `size` | string |
+| `centered` | `centered` | boolean |
+| `padded` | `padded` | boolean |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+
 Minimal use in each target (from the first docs example, *Sizes*):
 
 **React**
@@ -1555,6 +2016,7 @@ Enter transitions via `transition` (with `transitionDuration` / `transitionDelay
 Vertical rhythm for stacked page sections, with an optional title/subtitle header.
 
 - React: `import { Section } from "lojee-ui"`
+- Web Component: `<l-section>` (after `import "lojee-ui/elements"`)
 
 ### Sections · 2. Props and Interfaces
 
@@ -1605,7 +2067,17 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 ### Sections · 9. Framework Interfaces
 
-- `Section`: React only (no standalone Web Component).
+**`Section`** → `<l-section>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `title` | `title` | string |
+| `subtitle` | `subtitle` | string |
+| `spacing` | `spacing` | string |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+
 Minimal use in each target (from the first docs example, *Spacing*):
 
 **React**
@@ -1691,6 +2163,7 @@ Enter transitions via `transition` (with `transitionDuration` / `transitionDelay
 A responsive CSS grid for laying out cards, items, or tiles.
 
 - React: `import { Grid } from "lojee-ui"`
+- Web Component: `<l-grid>` (after `import "lojee-ui/elements"`)
 
 ### Grids · 2. Props and Interfaces
 
@@ -1738,7 +2211,16 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 ### Grids · 9. Framework Interfaces
 
-- `Grid`: React only (no standalone Web Component).
+**`Grid`** → `<l-grid>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `cols` | `cols` | number |
+| `gap` | `gap` | string |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+
 Minimal use in each target (from the first docs example, *Columns*):
 
 **React**
@@ -1844,6 +2326,7 @@ Enter transitions via `transition` (with `transitionDuration` / `transitionDelay
 A simple ordered or unordered list, with optional dividers, borders, and item icons.
 
 - React: `import { List } from "lojee-ui"` · `import { ListItem } from "lojee-ui"`
+- Web Component: `<l-list>` · `<l-list-item>` (after `import "lojee-ui/elements"`)
 
 ### Lists · 2. Props and Interfaces
 
@@ -1910,8 +2393,31 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 ### Lists · 9. Framework Interfaces
 
-- `List`: React only (no standalone Web Component — used through its parent).
-- `ListItem`: React only (no standalone Web Component — used through its parent).
+**`List`** → `<l-list>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `ordered` | `ordered` | boolean |
+| `variant` | `variant` | string |
+| `header` | `header` | string |
+| `items` | `items` | json (JSON string or object property) |
+| `className` | `class-name` | string |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+
+**`ListItem`** → `<l-list-item>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `icon` | `icon` | string |
+| `tooltip` | `tooltip` | boolean |
+| `tooltipPosition` | `tooltip-position` | string |
+| `classNames` | `class-names` | json (JSON string or object property) |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+
 Minimal use in each target (from the first docs example, *Plain*):
 
 **React**
@@ -2017,6 +2523,7 @@ _3 more examples are on the docs page._
 Collapsible panels built on native <details>/<summary> — zero JS state.
 
 - React: `import { Accordion } from "lojee-ui"` · `import { AccordionItem } from "lojee-ui"`
+- Web Component: `<l-accordion>` · `<l-accordion-item>` (after `import "lojee-ui/elements"`)
 
 ### Accordions · 2. Props and Interfaces
 
@@ -2050,7 +2557,8 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
-| `AccordionItem` | `onOpenChange` | `(open: boolean) => void` | — (React only) | Called with the new open state whenever the item expands or collapses (the web component's `openchange` / `update` event, detail = true \| false). |
+| `AccordionItem` | `onOpenChange` | `(open: boolean) => void` | `openchange` (CustomEvent, payload in `detail`) | Called with the new open state whenever the item expands or collapses (the web component's `openchange` / `update` event, detail = true \| false). |
+| `AccordionItem` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
 
 ### Accordions · 4. Variants
 
@@ -2085,8 +2593,30 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 ### Accordions · 9. Framework Interfaces
 
-- `Accordion`: React only (no standalone Web Component — used through its parent).
-- `AccordionItem`: React only (no standalone Web Component — used through its parent).
+**`Accordion`** → `<l-accordion>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `className` | `class-name` | string |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+| `hoverEffect` | `hover-effect` | string |
+
+**`AccordionItem`** → `<l-accordion-item>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `open` | `open` | boolean |
+| `title` | `title` | string |
+| `name` | `name` | string |
+| `defaultOpen` | `default-open` | boolean |
+| `disabled` | `disabled` | boolean |
+| `classNames` | `class-names` | json (JSON string or object property) |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+
 Minimal use in each target (from the first docs example, *Standalone item*):
 
 **React**
@@ -2220,6 +2750,7 @@ _1 more examples are on the docs page._
 A self-contained, data-driven slideshow with arrows and dots.
 
 - React: `import { Carousel } from "lojee-ui"`
+- Web Component: `<l-carousel>` (after `import "lojee-ui/elements"`)
 
 ### Carousels · 2. Props and Interfaces
 
@@ -2243,7 +2774,8 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
-| `Carousel` | `onChange` | `(index: number) => void` | — (React only) | Called with the new slide index whenever the slide changes — the arrows, a dot, autoplay (the web component's `change` / `update` event, detail = the index). |
+| `Carousel` | `onChange` | `(index: number) => void` | `change` (CustomEvent, payload in `detail`) | Called with the new slide index whenever the slide changes — the arrows, a dot, autoplay (the web component's `change` / `update` event, detail = the index). |
+| `Carousel` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
 
 ### Carousels · 4. Variants
 
@@ -2273,7 +2805,21 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 ### Carousels · 9. Framework Interfaces
 
-- `Carousel`: React only (no standalone Web Component).
+**`Carousel`** → `<l-carousel>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `index` | `index` | number |
+| `slides` | `slides` | json (JSON string or object property) |
+| `autoPlay` | `auto-play` | boolean |
+| `intervalMs` | `interval-ms` | number |
+| `showArrows` | `show-arrows` | boolean |
+| `showDots` | `show-dots` | boolean |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+| `hoverEffect` | `hover-effect` | string |
+
 Minimal use in each target (from the first docs example, *Basic*):
 
 **React**
@@ -2400,6 +2946,7 @@ const slides = [
 A picture with the details handled for you: it loads lazily, shows a shimmer while it loads, fades in, falls back gracefully if it can&apos;t be loaded, and sits in a frame of a fixed shape.
 
 - React: `import { Image } from "lojee-ui"`
+- Web Component: `<l-image>` (after `import "lojee-ui/elements"`)
 
 ### Images · 2. Props and Interfaces
 
@@ -2429,8 +2976,8 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
-| `Image` | `onLoad` | `() => void` | — (React only) | Called once the image has loaded. |
-| `Image` | `onError` | `() => void` | — (React only) | Called when the image fails to load. |
+| `Image` | `onLoad` | `() => void` | `load` (CustomEvent, payload in `detail`) | Called once the image has loaded. |
+| `Image` | `onError` | `() => void` | `error` (CustomEvent, payload in `detail`) | Called when the image fails to load. |
 
 ### Images · 4. Variants
 
@@ -2465,7 +3012,25 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 ### Images · 9. Framework Interfaces
 
-- `Image`: React only (no standalone Web Component).
+**`Image`** → `<l-image>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `src` | `src` | string |
+| `alt` | `alt` | string |
+| `width` | `width` | string |
+| `height` | `height` | string |
+| `ratio` | `ratio` | string |
+| `fit` | `fit` | string |
+| `rounded` | `rounded` | string |
+| `loading` | `loading` | string |
+| `borderless` | `borderless` | boolean |
+| `caption` | `caption` | string |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+| `hoverEffect` | `hover-effect` | string |
+
 Minimal use in each target (from the first docs example, *Basic*):
 
 **React**
@@ -2558,6 +3123,7 @@ _1 more examples are on the docs page._
 Plays a video file or a YouTube / Vimeo link in a frame of a fixed shape, with the controls, formats, poster and error handling taken care of.
 
 - React: `import { Video } from "lojee-ui"`
+- Web Component: `<l-video>` (after `import "lojee-ui/elements"`)
 
 ### Videos · 2. Props and Interfaces
 
@@ -2594,11 +3160,11 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
-| `Video` | `onPlay` | `() => void` | — (React only) | Called when playback starts or resumes (files only). |
-| `Video` | `onPause` | `() => void` | — (React only) | Called when playback is paused (files only). |
-| `Video` | `onEnded` | `() => void` | — (React only) | Called when the video reaches the end (files only). |
-| `Video` | `onLoad` | `(duration: number) => void` | — (React only) | Called once the video's length is known, with its duration in seconds (files only). |
-| `Video` | `onError` | `() => void` | — (React only) | Called when the video can't be loaded or played (files only). |
+| `Video` | `onPlay` | `() => void` | `play` (CustomEvent, payload in `detail`) | Called when playback starts or resumes (files only). |
+| `Video` | `onPause` | `() => void` | `pause` (CustomEvent, payload in `detail`) | Called when playback is paused (files only). |
+| `Video` | `onEnded` | `() => void` | `ended` (CustomEvent, payload in `detail`) | Called when the video reaches the end (files only). |
+| `Video` | `onLoad` | `(duration: number) => void` | `load` (CustomEvent, payload in `detail`) | Called once the video's length is known, with its duration in seconds (files only). |
+| `Video` | `onError` | `() => void` | `error` (CustomEvent, payload in `detail`) | Called when the video can't be loaded or played (files only). |
 
 ### Videos · 4. Variants
 
@@ -2628,7 +3194,29 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 ### Videos · 9. Framework Interfaces
 
-- `Video`: React only (no standalone Web Component).
+**`Video`** → `<l-video>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `src` | `src` | string |
+| `sources` | `sources` | json (JSON string or object property) |
+| `poster` | `poster` | string |
+| `label` | `label` | string |
+| `controls` | `controls` | boolean |
+| `autoPlay` | `auto-play` | boolean |
+| `muted` | `muted` | boolean |
+| `loop` | `loop` | boolean |
+| `playsInline` | `plays-inline` | boolean |
+| `preload` | `preload` | string |
+| `ratio` | `ratio` | string |
+| `fit` | `fit` | string |
+| `rounded` | `rounded` | string |
+| `caption` | `caption` | string |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+| `hoverEffect` | `hover-effect` | string |
+
 Minimal use in each target (from the first docs example, *Basic*):
 
 **React**
@@ -2727,6 +3315,7 @@ _1 more examples are on the docs page._
 A code block with an optional file name and language, line numbers, syntax colouring and a copy button — plus the copy button on its own.
 
 - React: `import { CodeSnippet } from "lojee-ui"` · `import { CopyButton } from "lojee-ui"`
+- Web Component: `<l-code-snippet>` · `<l-copy-button>` (after `import "lojee-ui/elements"`)
 
 ### Code Snippet · 2. Props and Interfaces
 
@@ -2758,7 +3347,7 @@ A code block with an optional file name and language, line numbers, syntax colou
 
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
-| `CopyButton` | `onCopy` | `(text: string) => void` | — (React only) | Called after the text was copied. |
+| `CopyButton` | `onCopy` | `(text: string) => void` | `copy` (CustomEvent, payload in `detail`) | Called after the text was copied. |
 
 ### Code Snippet · 4. Variants
 
@@ -2782,14 +3371,36 @@ Standard visual states: default · hover · focus-visible (ring) · active/press
 
 ### Code Snippet · 8. Slots / Children / Content
 
-_No children or slots — it is configured entirely through props._
+Web Component extras (slots and plain HTML attributes accepted by the `<l-*>` tag in addition to the props above):
+
+| Component | Name | Type | Description |
+| --- | --- | --- | --- |
+| `CodeSnippet` | `heading` | `string` | Text shown as the title. Named `heading` here because `title` is a native HTMLElement attribute. |
 
 In a Web Component, the element's light-DOM text/children go into the default slot; a prop that accepts a node (e.g. `header`, `footer`) can usually also be filled with a child carrying `slot="<name>"`.
 
 ### Code Snippet · 9. Framework Interfaces
 
-- `CodeSnippet`: React only (no standalone Web Component — used through its parent).
-- `CopyButton`: React only (no standalone Web Component — used through its parent).
+**`CodeSnippet`** → `<l-code-snippet>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `code` | `code` | string |
+| `language` | `language` | string |
+| `heading` | `heading` | string |
+| `lineNumbers` | `line-numbers` | boolean |
+| `copyable` | `copyable` | boolean |
+
+**`CopyButton`** → `<l-copy-button>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `text` | `text` | string |
+| `label` | `label` | string |
+| `copiedLabel` | `copied-label` | string |
+| `iconOnly` | `icon-only` | boolean |
+| `resetAfter` | `reset-after` | number |
+
 Minimal use in each target (from the first docs example, *Basic*):
 
 **React**
@@ -2860,6 +3471,7 @@ Vue and Angular use the same `<l-*>` tag and attributes — see the framework te
 Embed another page in a frame — with a loading spinner, a fixed height or aspect ratio, sandbox and permission props, and an optional address bar. Some sites refuse to be embedded and show a blank frame.
 
 - React: `import { Iframe } from "lojee-ui"`
+- Web Component: `<l-iframe>` (after `import "lojee-ui/elements"`)
 
 ### Iframe · 2. Props and Interfaces
 
@@ -2888,7 +3500,7 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
-| `Iframe` | `onLoad` | `() => void` | — (React only) | Called when the embedded page has finished loading. |
+| `Iframe` | `onLoad` | `() => void` | `load` (CustomEvent, payload in `detail`) | Called when the embedded page has finished loading. |
 
 ### Iframe · 4. Variants
 
@@ -2921,7 +3533,24 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 ### Iframe · 9. Framework Interfaces
 
-- `Iframe`: React only (no standalone Web Component).
+**`Iframe`** → `<l-iframe>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `src` | `src` | string |
+| `title` | `title` | string |
+| `height` | `height` | string |
+| `ratio` | `ratio` | string |
+| `sandbox` | `sandbox` | string |
+| `allow` | `allow` | string |
+| `loading` | `loading` | string |
+| `referrerPolicy` | `referrer-policy` | string |
+| `bordered` | `bordered` | boolean |
+| `showLoader` | `show-loader` | boolean |
+| `showAddress` | `show-address` | boolean |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
 
 ### Iframe · 10. Complete Usage Examples
 
@@ -2964,6 +3593,7 @@ import { Iframe } from "lojee-ui";
 A chat thread with a message box — user and assistant bubbles, system notes, a "thinking" bubble and auto-scroll. Enter sends.
 
 - React: `import { ChatBox } from "lojee-ui"`
+- Web Component: `<l-chat-box>` (after `import "lojee-ui/elements"`)
 
 ### Chat Box · 2. Props and Interfaces
 
@@ -2997,7 +3627,7 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
-| `ChatBox` | `onSend` | `(text: string) => void` | — (React only) | Called with the trimmed text when the user presses Enter or the send button. |
+| `ChatBox` | `onSend` | `(text: string) => void` | `send` (CustomEvent, payload in `detail`) | Called with the trimmed text when the user presses Enter or the send button. |
 
 ### Chat Box · 4. Variants
 
@@ -3037,7 +3667,28 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 ### Chat Box · 9. Framework Interfaces
 
-- `ChatBox`: React only (no standalone Web Component).
+**`ChatBox`** → `<l-chat-box>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `messages` | `messages` | json (JSON string or object property) |
+| `defaultMessages` | `default-messages` | json (JSON string or object property) |
+| `variant` | `variant` | string |
+| `thinking` | `thinking` | string |
+| `thinkingVariant` | `thinking-variant` | string |
+| `thinkingSteps` | `thinking-steps` | json (JSON string or object property) |
+| `thinkingElapsed` | `thinking-elapsed` | boolean |
+| `suggestions` | `suggestions` | json (JSON string or object property) |
+| `placeholder` | `placeholder` | string |
+| `disabled` | `disabled` | boolean |
+| `height` | `height` | string |
+| `heading` | `heading` | string |
+| `subtitle` | `subtitle` | string |
+| `color` | `color` | string |
+| `emptyText` | `empty-text` | string |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
 
 ### Chat Box · 10. Complete Usage Examples
 
@@ -3082,6 +3733,7 @@ import { ChatBox } from "lojee-ui";
 A text input wrapping the native <input> element.
 
 - React: `import { Input } from "lojee-ui"`
+- Web Component: `<l-input>` (after `import "lojee-ui/elements"`)
 
 ### Input · 2. Props and Interfaces
 
@@ -3110,9 +3762,10 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
 | `Input` | `onChange` | `ChangeEventHandler<HTMLInputElement>` | — (React only) | The value was committed — the native change event (the web component's `update` event, detail = the new value). |
-| `Input` | `onInput` | `FormEventHandler<HTMLInputElement>` | — (React only) | Called as the user edits — the native input event (the web component's `input` event, detail = the current value). |
-| `Input` | `onFocus` | `FocusEventHandler<HTMLInputElement>` | — (React only) | Called when the field gains focus — the native focus event (the web component's `focus` event). |
-| `Input` | `onInvalid` | `FormEventHandler<HTMLInputElement>` | — (React only) | Called when the field fails validation (e.g. `required` and empty) — the native invalid event (the web component's `invalid` event, detail = the message). |
+| `Input` | `onInput` | `FormEventHandler<HTMLInputElement>` | `input` (CustomEvent, payload in `detail`) | Called as the user edits — the native input event (the web component's `input` event, detail = the current value). |
+| `Input` | `onFocus` | `FocusEventHandler<HTMLInputElement>` | `focus` (CustomEvent, payload in `detail`) | Called when the field gains focus — the native focus event (the web component's `focus` event). |
+| `Input` | `onInvalid` | `FormEventHandler<HTMLInputElement>` | `invalid` (CustomEvent, payload in `detail`) | Called when the field fails validation (e.g. `required` and empty) — the native invalid event (the web component's `invalid` event, detail = the message). |
+| `Input` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
 
 ### Input · 4. Variants
 
@@ -3142,13 +3795,41 @@ Standard visual states: default · hover · focus-visible (ring) · active/press
 
 ### Input · 8. Slots / Children / Content
 
-_No children or slots — it is configured entirely through props._
+Web Component extras (slots and plain HTML attributes accepted by the `<l-*>` tag in addition to the props above):
+
+| Component | Name | Type | Description |
+| --- | --- | --- | --- |
+| `Input` | `value` | `string` | Standard HTML attribute, passed straight to the underlying control. |
+| `Input` | `placeholder` | `string` | Standard HTML attribute, passed straight to the underlying control. |
+| `Input` | `disabled` | `boolean` | Standard HTML attribute, passed straight to the underlying control. |
+| `Input` | `required` | `boolean` | Standard HTML attribute, passed straight to the underlying control. |
+| `Input` | `name` | `string` | Standard HTML attribute, passed straight to the underlying control. |
+| `Input` | `type` | `string` | Standard HTML attribute, passed straight to the underlying control. |
 
 In a Web Component, the element's light-DOM text/children go into the default slot; a prop that accepts a node (e.g. `header`, `footer`) can usually also be filled with a child carrying `slot="<name>"`.
 
 ### Input · 9. Framework Interfaces
 
-- `Input`: React only (no standalone Web Component).
+**`Input`** → `<l-input>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `value` | `value` | string |
+| `placeholder` | `placeholder` | string |
+| `disabled` | `disabled` | boolean |
+| `required` | `required` | boolean |
+| `name` | `name` | string |
+| `type` | `type` | string |
+| `size` | `size` | string |
+| `variant` | `variant` | string |
+| `invalid` | `invalid` | boolean |
+| `leadingIcon` | `leading-icon` | string |
+| `trailingIcon` | `trailing-icon` | string |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+| `hoverEffect` | `hover-effect` | string |
+
 Minimal use in each target (from the first docs example, *Sizes*):
 
 **React**
@@ -3262,6 +3943,7 @@ _4 more examples are on the docs page._
 A multi-line text input wrapping the native <textarea> element.
 
 - React: `import { Textarea } from "lojee-ui"`
+- Web Component: `<l-textarea>` (after `import "lojee-ui/elements"`)
 
 ### Textarea · 2. Props and Interfaces
 
@@ -3288,9 +3970,10 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
 | `Textarea` | `onChange` | `ChangeEventHandler<HTMLTextAreaElement>` | — (React only) | The value was committed — the native change event (the web component's `update` event, detail = the new value). |
-| `Textarea` | `onInput` | `FormEventHandler<HTMLTextAreaElement>` | — (React only) | Called as the user edits — the native input event (the web component's `input` event, detail = the current value). |
-| `Textarea` | `onFocus` | `FocusEventHandler<HTMLTextAreaElement>` | — (React only) | Called when the field gains focus — the native focus event (the web component's `focus` event). |
-| `Textarea` | `onInvalid` | `FormEventHandler<HTMLTextAreaElement>` | — (React only) | Called when the field fails validation (e.g. `required` and empty) — the native invalid event (the web component's `invalid` event, detail = the message). |
+| `Textarea` | `onInput` | `FormEventHandler<HTMLTextAreaElement>` | `input` (CustomEvent, payload in `detail`) | Called as the user edits — the native input event (the web component's `input` event, detail = the current value). |
+| `Textarea` | `onFocus` | `FocusEventHandler<HTMLTextAreaElement>` | `focus` (CustomEvent, payload in `detail`) | Called when the field gains focus — the native focus event (the web component's `focus` event). |
+| `Textarea` | `onInvalid` | `FormEventHandler<HTMLTextAreaElement>` | `invalid` (CustomEvent, payload in `detail`) | Called when the field fails validation (e.g. `required` and empty) — the native invalid event (the web component's `invalid` event, detail = the message). |
+| `Textarea` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
 
 ### Textarea · 4. Variants
 
@@ -3318,13 +4001,39 @@ Standard visual states: default · hover · focus-visible (ring) · active/press
 
 ### Textarea · 8. Slots / Children / Content
 
-_No children or slots — it is configured entirely through props._
+Web Component extras (slots and plain HTML attributes accepted by the `<l-*>` tag in addition to the props above):
+
+| Component | Name | Type | Description |
+| --- | --- | --- | --- |
+| `Textarea` | `value` | `string` | Standard HTML attribute, passed straight to the underlying control. |
+| `Textarea` | `placeholder` | `string` | Standard HTML attribute, passed straight to the underlying control. |
+| `Textarea` | `disabled` | `boolean` | Standard HTML attribute, passed straight to the underlying control. |
+| `Textarea` | `required` | `boolean` | Standard HTML attribute, passed straight to the underlying control. |
+| `Textarea` | `name` | `string` | Standard HTML attribute, passed straight to the underlying control. |
+| `Textarea` | `rows` | `number` | Standard HTML attribute, passed straight to the underlying control. |
 
 In a Web Component, the element's light-DOM text/children go into the default slot; a prop that accepts a node (e.g. `header`, `footer`) can usually also be filled with a child carrying `slot="<name>"`.
 
 ### Textarea · 9. Framework Interfaces
 
-- `Textarea`: React only (no standalone Web Component).
+**`Textarea`** → `<l-textarea>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `value` | `value` | string |
+| `placeholder` | `placeholder` | string |
+| `disabled` | `disabled` | boolean |
+| `required` | `required` | boolean |
+| `name` | `name` | string |
+| `rows` | `rows` | number |
+| `variant` | `variant` | string |
+| `invalid` | `invalid` | boolean |
+| `resize` | `resize` | string |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+| `hoverEffect` | `hover-effect` | string |
+
 Minimal use in each target (from the first docs example, *Basic*):
 
 **React**
@@ -3428,6 +4137,7 @@ _1 more examples are on the docs page._
 A form field label wrapping the native <label> element.
 
 - React: `import { Label } from "lojee-ui"`
+- Web Component: `<l-label>` (after `import "lojee-ui/elements"`)
 
 ### Label · 2. Props and Interfaces
 
@@ -3476,11 +4186,26 @@ Standard visual states: default · hover · focus-visible (ring) · active/press
 | --- | --- | --- | --- |
 | `Label` | `children` | `ReactNode` | Label text/content. |
 
+Web Component extras (slots and plain HTML attributes accepted by the `<l-*>` tag in addition to the props above):
+
+| Component | Name | Type | Description |
+| --- | --- | --- | --- |
+| `Label` | `htmlFor` | `string` | Standard HTML attribute, passed straight to the underlying control. |
+
 In a Web Component, the element's light-DOM text/children go into the default slot; a prop that accepts a node (e.g. `header`, `footer`) can usually also be filled with a child carrying `slot="<name>"`.
 
 ### Label · 9. Framework Interfaces
 
-- `Label`: React only (no standalone Web Component).
+**`Label`** → `<l-label>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `htmlFor` | `html-for` | string |
+| `required` | `required` | boolean |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+
 Minimal use in each target (from the first docs example, *Plain*):
 
 **React**
@@ -3566,6 +4291,7 @@ Enter transitions via `transition` (with `transitionDuration` / `transitionDelay
 A styled wrapper around a native checkbox input — fully keyboard/screen-reader operable.
 
 - React: `import { Checkbox } from "lojee-ui"`
+- Web Component: `<l-checkbox>` (after `import "lojee-ui/elements"`)
 
 ### Checkbox · 2. Props and Interfaces
 
@@ -3591,9 +4317,10 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
 | `Checkbox` | `onChange` | `ChangeEventHandler<HTMLInputElement>` | — (React only) | The value was committed — the native change event (the web component's `update` event, detail = the new value). |
-| `Checkbox` | `onInput` | `FormEventHandler<HTMLInputElement>` | — (React only) | Called as the user edits — the native input event (the web component's `input` event, detail = the current value). |
-| `Checkbox` | `onFocus` | `FocusEventHandler<HTMLInputElement>` | — (React only) | Called when the field gains focus — the native focus event (the web component's `focus` event). |
-| `Checkbox` | `onInvalid` | `FormEventHandler<HTMLInputElement>` | — (React only) | Called when the field fails validation (e.g. `required` and empty) — the native invalid event (the web component's `invalid` event, detail = the message). |
+| `Checkbox` | `onInput` | `FormEventHandler<HTMLInputElement>` | `input` (CustomEvent, payload in `detail`) | Called as the user edits — the native input event (the web component's `input` event, detail = the current value). |
+| `Checkbox` | `onFocus` | `FocusEventHandler<HTMLInputElement>` | `focus` (CustomEvent, payload in `detail`) | Called when the field gains focus — the native focus event (the web component's `focus` event). |
+| `Checkbox` | `onInvalid` | `FormEventHandler<HTMLInputElement>` | `invalid` (CustomEvent, payload in `detail`) | Called when the field fails validation (e.g. `required` and empty) — the native invalid event (the web component's `invalid` event, detail = the message). |
+| `Checkbox` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
 
 ### Checkbox · 4. Variants
 
@@ -3625,11 +4352,38 @@ Standard visual states: default · hover · focus-visible (ring) · active/press
 | --- | --- | --- | --- |
 | `Checkbox` | `label` | `ReactNode` | Text or node shown beside the box; clicking it toggles the checkbox. |
 
+Web Component extras (slots and plain HTML attributes accepted by the `<l-*>` tag in addition to the props above):
+
+| Component | Name | Type | Description |
+| --- | --- | --- | --- |
+| `Checkbox` | `required` | `boolean` | Standard HTML attribute, passed straight to the underlying control. |
+| `Checkbox` | `checked` | `boolean` | Standard HTML attribute, passed straight to the underlying control. |
+| `Checkbox` | `defaultChecked` | `boolean` | Standard HTML attribute, passed straight to the underlying control. |
+| `Checkbox` | `disabled` | `boolean` | Standard HTML attribute, passed straight to the underlying control. |
+| `Checkbox` | `name` | `string` | Standard HTML attribute, passed straight to the underlying control. |
+| `Checkbox` | `value` | `string` | Standard HTML attribute, passed straight to the underlying control. |
+
 In a Web Component, the element's light-DOM text/children go into the default slot; a prop that accepts a node (e.g. `header`, `footer`) can usually also be filled with a child carrying `slot="<name>"`.
 
 ### Checkbox · 9. Framework Interfaces
 
-- `Checkbox`: React only (no standalone Web Component).
+**`Checkbox`** → `<l-checkbox>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `required` | `required` | boolean |
+| `checked` | `checked` | boolean |
+| `defaultChecked` | `default-checked` | boolean |
+| `disabled` | `disabled` | boolean |
+| `name` | `name` | string |
+| `value` | `value` | string |
+| `color` | `color` | string |
+| `label` | `label` | string |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+| `hoverEffect` | `hover-effect` | string |
+
 Minimal use in each target (from the first docs example, *Default*):
 
 **React**
@@ -3734,6 +4488,7 @@ _2 more examples are on the docs page._
 A styled radio input, plus a RadioGroup layout wrapper — exclusivity is native, via a shared `name`.
 
 - React: `import { Radio } from "lojee-ui"` · `import { RadioGroup } from "lojee-ui"`
+- Web Component: `<l-radio>` · `<l-radio-group>` (after `import "lojee-ui/elements"`)
 
 ### Radio Group · 2. Props and Interfaces
 
@@ -3770,9 +4525,10 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
 | `Radio` | `onChange` | `ChangeEventHandler<HTMLInputElement>` | — (React only) | The value was committed — the native change event (the web component's `update` event, detail = the new value). |
-| `Radio` | `onInput` | `FormEventHandler<HTMLInputElement>` | — (React only) | Called as the user edits — the native input event (the web component's `input` event, detail = the current value). |
-| `Radio` | `onFocus` | `FocusEventHandler<HTMLInputElement>` | — (React only) | Called when the field gains focus — the native focus event (the web component's `focus` event). |
-| `Radio` | `onInvalid` | `FormEventHandler<HTMLInputElement>` | — (React only) | Called when the field fails validation (e.g. `required` and empty) — the native invalid event (the web component's `invalid` event, detail = the message). |
+| `Radio` | `onInput` | `FormEventHandler<HTMLInputElement>` | `input` (CustomEvent, payload in `detail`) | Called as the user edits — the native input event (the web component's `input` event, detail = the current value). |
+| `Radio` | `onFocus` | `FocusEventHandler<HTMLInputElement>` | `focus` (CustomEvent, payload in `detail`) | Called when the field gains focus — the native focus event (the web component's `focus` event). |
+| `Radio` | `onInvalid` | `FormEventHandler<HTMLInputElement>` | `invalid` (CustomEvent, payload in `detail`) | Called when the field fails validation (e.g. `required` and empty) — the native invalid event (the web component's `invalid` event, detail = the message). |
+| `Radio` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
 
 ### Radio Group · 4. Variants
 
@@ -3807,12 +4563,48 @@ Standard visual states: default · hover · focus-visible (ring) · active/press
 | `Radio` | `label` | `ReactNode` | Text or node rendered beside the radio; omit for a bare radio. |
 | `RadioGroup` | `children` | `ReactNode` | The `Radio` elements to lay out; give each the same `name` so the browser makes them mutually exclusive. |
 
+Web Component extras (slots and plain HTML attributes accepted by the `<l-*>` tag in addition to the props above):
+
+| Component | Name | Type | Description |
+| --- | --- | --- | --- |
+| `Radio` | `required` | `boolean` | Standard HTML attribute, passed straight to the underlying control. |
+| `Radio` | `checked` | `boolean` | Standard HTML attribute, passed straight to the underlying control. |
+| `Radio` | `defaultChecked` | `boolean` | Standard HTML attribute, passed straight to the underlying control. |
+| `Radio` | `disabled` | `boolean` | Standard HTML attribute, passed straight to the underlying control. |
+| `Radio` | `name` | `string` | Standard HTML attribute, passed straight to the underlying control. |
+| `Radio` | `value` | `string` | Standard HTML attribute, passed straight to the underlying control. |
+
 In a Web Component, the element's light-DOM text/children go into the default slot; a prop that accepts a node (e.g. `header`, `footer`) can usually also be filled with a child carrying `slot="<name>"`.
 
 ### Radio Group · 9. Framework Interfaces
 
-- `Radio`: React only (no standalone Web Component — used through its parent).
-- `RadioGroup`: React only (no standalone Web Component — used through its parent).
+**`Radio`** → `<l-radio>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `required` | `required` | boolean |
+| `checked` | `checked` | boolean |
+| `defaultChecked` | `default-checked` | boolean |
+| `disabled` | `disabled` | boolean |
+| `name` | `name` | string |
+| `value` | `value` | string |
+| `color` | `color` | string |
+| `label` | `label` | string |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+| `hoverEffect` | `hover-effect` | string |
+
+**`RadioGroup`** → `<l-radio-group>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `orientation` | `orientation` | string |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+| `hoverEffect` | `hover-effect` | string |
+
 Minimal use in each target (from the first docs example, *Vertical group*):
 
 **React**
@@ -3941,6 +4733,7 @@ Enter transitions via `transition` (with `transitionDuration` / `transitionDelay
 A styled toggle switch — a native checkbox input under the hood.
 
 - React: `import { Switch } from "lojee-ui"`
+- Web Component: `<l-switch>` (after `import "lojee-ui/elements"`)
 
 ### Switch / Toggle · 2. Props and Interfaces
 
@@ -3954,9 +4747,11 @@ A styled toggle switch — a native checkbox input under the hood.
 | `onInvalid` | `FormEventHandler<HTMLInputElement>` | — | Called when the field fails validation (e.g. `required` and empty) — the native invalid event (the web component's `invalid` event, detail = the message). |
 | `label` | `ReactNode` | — | Text or element shown next to the switch. |
 | `size` | `SwitchSize` | `"md"` | Switch size: "sm", "md" or "lg" (default: "md"). |
+| `iconOn` | `string` | — | Icon name shown inside the thumb while the switch is on (named `iconOn`, not `onIcon`: Vue reads any `on…` attribute as an event listener), e.g. "check" or "moon" — see src/core/icons.ts for the available set (default: none). |
+| `iconOff` | `string` | — | Icon name shown inside the thumb while the switch is off, e.g. "x" or "sun" (default: none). |
 | `color` | `ColorName` | `"accent"` | "On" track color (default: accent — follows the theme). |
 | `className` | `string` | — | Extra class name(s) appended to the root element. |
-| `classNames` | `{ root?: string; track?: string; thumb?: string; label?: string; }` | — | Per-part class overrides — merged after (and win over) the built-in styling. |
+| `classNames` | `{ root?: string; track?: string; thumb?: string; icon?: string; label?: string; }` | — | Per-part class overrides — merged after (and win over) the built-in styling. |
 
 Also accepts the shared motion props `transition`, `transitionDuration`, `transitionDelay`, `hoverEffect` — see §1.7.
 
@@ -3967,9 +4762,10 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
 | `Switch` | `onChange` | `ChangeEventHandler<HTMLInputElement>` | — (React only) | The value was committed — the native change event (the web component's `update` event, detail = the new value). |
-| `Switch` | `onInput` | `FormEventHandler<HTMLInputElement>` | — (React only) | Called as the user edits — the native input event (the web component's `input` event, detail = the current value). |
-| `Switch` | `onFocus` | `FocusEventHandler<HTMLInputElement>` | — (React only) | Called when the field gains focus — the native focus event (the web component's `focus` event). |
-| `Switch` | `onInvalid` | `FormEventHandler<HTMLInputElement>` | — (React only) | Called when the field fails validation (e.g. `required` and empty) — the native invalid event (the web component's `invalid` event, detail = the message). |
+| `Switch` | `onInput` | `FormEventHandler<HTMLInputElement>` | `input` (CustomEvent, payload in `detail`) | Called as the user edits — the native input event (the web component's `input` event, detail = the current value). |
+| `Switch` | `onFocus` | `FocusEventHandler<HTMLInputElement>` | `focus` (CustomEvent, payload in `detail`) | Called when the field gains focus — the native focus event (the web component's `focus` event). |
+| `Switch` | `onInvalid` | `FormEventHandler<HTMLInputElement>` | `invalid` (CustomEvent, payload in `detail`) | Called when the field fails validation (e.g. `required` and empty) — the native invalid event (the web component's `invalid` event, detail = the message). |
+| `Switch` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
 
 ### Switch / Toggle · 4. Variants
 
@@ -4003,11 +4799,39 @@ Standard visual states: default · hover · focus-visible (ring) · active/press
 | --- | --- | --- | --- |
 | `Switch` | `label` | `ReactNode` | Text or element shown next to the switch. |
 
+Web Component extras (slots and plain HTML attributes accepted by the `<l-*>` tag in addition to the props above):
+
+| Component | Name | Type | Description |
+| --- | --- | --- | --- |
+| `Switch` | `required` | `boolean` | Standard HTML attribute, passed straight to the underlying control. |
+| `Switch` | `checked` | `boolean` | Standard HTML attribute, passed straight to the underlying control. |
+| `Switch` | `defaultChecked` | `boolean` | Standard HTML attribute, passed straight to the underlying control. |
+| `Switch` | `disabled` | `boolean` | Standard HTML attribute, passed straight to the underlying control. |
+| `Switch` | `name` | `string` | Standard HTML attribute, passed straight to the underlying control. |
+
 In a Web Component, the element's light-DOM text/children go into the default slot; a prop that accepts a node (e.g. `header`, `footer`) can usually also be filled with a child carrying `slot="<name>"`.
 
 ### Switch / Toggle · 9. Framework Interfaces
 
-- `Switch`: React only (no standalone Web Component).
+**`Switch`** → `<l-switch>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `required` | `required` | boolean |
+| `checked` | `checked` | boolean |
+| `defaultChecked` | `default-checked` | boolean |
+| `disabled` | `disabled` | boolean |
+| `name` | `name` | string |
+| `size` | `size` | string |
+| `color` | `color` | string |
+| `label` | `label` | string |
+| `iconOn` | `icon-on` | string |
+| `iconOff` | `icon-off` | string |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+| `hoverEffect` | `hover-effect` | string |
+
 Minimal use in each target (from the first docs example, *Default*):
 
 **React**
@@ -4035,6 +4859,16 @@ Off and on (defaultChecked).
 ```tsx
 <Switch />
 <Switch defaultChecked />
+```
+
+#### With icons
+
+iconOn and iconOff put an icon inside the thumb — any name from the icon set. The two cross-fade with a quarter turn as the switch flips.
+
+```tsx
+<Switch iconOn="check" iconOff="x" defaultChecked />
+<Switch iconOn="moon" iconOff="sun" label="Dark mode" />
+<Switch iconOn="lock" iconOff="lock-open" size="lg" color="emerald" defaultChecked />
 ```
 
 #### Sizes
@@ -4066,15 +4900,7 @@ Non-interactive via the native disabled attribute.
 <Switch disabled defaultChecked />
 ```
 
-#### With label
-
-An optional label prop rendered alongside the track.
-
-```tsx
-<Switch label="Enable notifications" />
-```
-
-_2 more examples are on the docs page._
+_3 more examples are on the docs page._
 
 ### Switch / Toggle · 11. Component Composition
 
@@ -4083,7 +4909,7 @@ _2 more examples are on the docs page._
 ### Switch / Toggle · 12. Accessibility
 
 - ARIA roles used: `switch`.
-- ARIA attributes set by the component: none.
+- ARIA attributes set by the component: `aria-hidden`.
 - Keyboard: native keyboard behavior of the underlying element (Tab to focus, Enter / Space to activate).
 - Focus: visible focus ring (`focus-visible`).
 - Motion: respects `prefers-reduced-motion`.
@@ -4096,7 +4922,7 @@ _2 more examples are on the docs page._
 
 ### Switch / Toggle · 14. Customization
 
-- `className` adds classes to the root; `classNames` overrides individual parts — `Switch`: `root`, `track`, `thumb`, `label`. Conflicting Tailwind utilities passed here win (tailwind-merge).
+- `className` adds classes to the root; `classNames` overrides individual parts — `Switch`: `root`, `track`, `thumb`, `icon`, `label`. Conflicting Tailwind utilities passed here win (tailwind-merge).
 - Recolor with `color`; restyle globally with the theme tokens or `data-design="clay"`.
 - Motion: `transition`, `transitionDuration`, `transitionDelay`, `hoverEffect`.
 
@@ -4109,6 +4935,7 @@ _2 more examples are on the docs page._
 A styled native select, for accessible and robust dropdowns.
 
 - React: `import { Select } from "lojee-ui"`
+- Web Component: `<l-select>` (after `import "lojee-ui/elements"`)
 
 ### Select · 2. Props and Interfaces
 
@@ -4130,7 +4957,12 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 
 ### Select · 3. Events
 
-_No component-specific events._ Native DOM events (`click`, `input`, `focus`…) bubble from the rendered element as usual.
+| Component | React callback | Signature | Web Component event | Description |
+| --- | --- | --- | --- | --- |
+| `Select` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
+| `Select` | `onInput` | — | `input` (CustomEvent, payload in `detail`) | Fires as the user edits (typing, dragging); `detail` = the current value. React: `onInput`. |
+| `Select` | `onFocus` | — | `focus` (CustomEvent, payload in `detail`) | The control gained focus; `detail` = the current value. React: `onFocus`. |
+| `Select` | `onInvalid` | — | `invalid` (CustomEvent, payload in `detail`) | The control failed validation (e.g. `required` and empty); `detail` = the validation message. React: `onInvalid`. |
 
 ### Select · 4. Variants
 
@@ -4158,13 +4990,37 @@ Standard visual states: default · hover · focus-visible (ring) · active/press
 
 ### Select · 8. Slots / Children / Content
 
-_No children or slots — it is configured entirely through props._
+Web Component extras (slots and plain HTML attributes accepted by the `<l-*>` tag in addition to the props above):
+
+| Component | Name | Type | Description |
+| --- | --- | --- | --- |
+| `Select` | `required` | `boolean` | Standard HTML attribute, passed straight to the underlying control. |
+| `Select` | `name` | `string` | Standard HTML attribute, passed straight to the underlying control. |
+| `Select` | `value` | `string` | Standard HTML attribute, passed straight to the underlying control. |
+| `Select` | `disabled` | `boolean` | Standard HTML attribute, passed straight to the underlying control. |
 
 In a Web Component, the element's light-DOM text/children go into the default slot; a prop that accepts a node (e.g. `header`, `footer`) can usually also be filled with a child carrying `slot="<name>"`.
 
 ### Select · 9. Framework Interfaces
 
-- `Select`: React only (no standalone Web Component).
+**`Select`** → `<l-select>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `required` | `required` | boolean |
+| `name` | `name` | string |
+| `options` | `options` | json (JSON string or object property) |
+| `value` | `value` | string |
+| `placeholder` | `placeholder` | string |
+| `icon` | `icon` | string |
+| `size` | `size` | string |
+| `invalid` | `invalid` | boolean |
+| `disabled` | `disabled` | boolean |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+| `hoverEffect` | `hover-effect` | string |
+
 Minimal use in each target (from the first docs example, *Placeholder*):
 
 **React**
@@ -4268,6 +5124,7 @@ _1 more examples are on the docs page._
 A button trigger showing selected items as removable chips, opening a checkbox-style dropdown listbox on click.
 
 - React: `import { MultiSelect } from "lojee-ui"`
+- Web Component: `<l-multi-select>` (after `import "lojee-ui/elements"`)
 
 ### Multi Select · 2. Props and Interfaces
 
@@ -4289,7 +5146,8 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
-| `MultiSelect` | `onChange` | `(value: string[]) => void` | — (React only) | Called with the new array of selected `value`s whenever an option is toggled or a chip's remove button is clicked; the consumer must store it back into `value`. |
+| `MultiSelect` | `onChange` | `(value: string[]) => void` | `change` (CustomEvent, payload in `detail`) | Called with the new array of selected `value`s whenever an option is toggled or a chip's remove button is clicked; the consumer must store it back into `value`. |
+| `MultiSelect` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
 
 ### Multi Select · 4. Variants
 
@@ -4321,7 +5179,19 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 ### Multi Select · 9. Framework Interfaces
 
-- `MultiSelect`: React only (no standalone Web Component).
+**`MultiSelect`** → `<l-multi-select>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `options` | `options` | json (JSON string or object property) |
+| `value` | `value` | json (JSON string or object property) |
+| `placeholder` | `placeholder` | string |
+| `color` | `color` | string |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+| `hoverEffect` | `hover-effect` | string |
+
 Minimal use in each target (from the first docs example, *Basic*):
 
 **React**
@@ -4434,6 +5304,7 @@ const [value, setValue] = useState<string[]>(["banana"]);
 A single-select text input with a filtered, keyboard-navigable autocomplete dropdown.
 
 - React: `import { Combobox } from "lojee-ui"`
+- Web Component: `<l-combobox>` (after `import "lojee-ui/elements"`)
 
 ### Combobox · 2. Props and Interfaces
 
@@ -4457,10 +5328,11 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
-| `Combobox` | `onChange` | `(value: string) => void` | — (React only) | Called with the chosen option's `value` when the user selects an option by click or Enter. |
-| `Combobox` | `onFocus` | `(e: FocusEvent<HTMLInputElement>) => void` | — (React only) | Called when the field gains focus — the native focus event (the web component's `focus` event, detail = the value). |
-| `Combobox` | `onInput` | `(e: FormEvent<HTMLInputElement>) => void` | — (React only) | Called as the user edits the field — the native input event (the web component's `input` event, detail = the value). |
-| `Combobox` | `onInvalid` | `(e: FormEvent<HTMLInputElement>) => void` | — (React only) | Called when the field fails validation — the native invalid event (the web component's `invalid` event, detail = the message). |
+| `Combobox` | `onChange` | `(value: string) => void` | `change` (CustomEvent, payload in `detail`) | Called with the chosen option's `value` when the user selects an option by click or Enter. |
+| `Combobox` | `onFocus` | `(e: FocusEvent<HTMLInputElement>) => void` | `focus` (CustomEvent, payload in `detail`) | Called when the field gains focus — the native focus event (the web component's `focus` event, detail = the value). |
+| `Combobox` | `onInput` | `(e: FormEvent<HTMLInputElement>) => void` | `input` (CustomEvent, payload in `detail`) | Called as the user edits the field — the native input event (the web component's `input` event, detail = the value). |
+| `Combobox` | `onInvalid` | `(e: FormEvent<HTMLInputElement>) => void` | `invalid` (CustomEvent, payload in `detail`) | Called when the field fails validation — the native invalid event (the web component's `invalid` event, detail = the message). |
+| `Combobox` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
 
 ### Combobox · 4. Variants
 
@@ -4488,7 +5360,18 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 ### Combobox · 9. Framework Interfaces
 
-- `Combobox`: React only (no standalone Web Component).
+**`Combobox`** → `<l-combobox>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `options` | `options` | json (JSON string or object property) |
+| `value` | `value` | string |
+| `placeholder` | `placeholder` | string |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+| `hoverEffect` | `hover-effect` | string |
+
 Minimal use in each target (from the first docs example, *Basic*):
 
 **React**
@@ -4595,6 +5478,7 @@ const [value, setValue] = useState<string | undefined>("manila");
 A styled native date input — the browser's own picker UI handles date selection. Plus a  DateRangePicker for start/end ranges.
 
 - React: `import { DatePicker } from "lojee-ui"` · `import { DateRangePicker } from "lojee-ui"`
+- Web Component: `<l-date-picker>` · `<l-date-range-picker>` (after `import "lojee-ui/elements"`)
 
 ### Date Picker · 2. Props and Interfaces
 
@@ -4637,17 +5521,24 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 
 **Native attributes:** these components also accept every standard attribute of the underlying `<input>` (e.g. `id`, `name`, `value`, `defaultValue`, `placeholder`, `disabled`, `required`, `readOnly`, `min`/`max`/`step`, `aria-*`, `onChange`/`onFocus`/`onBlur`) — they are spread onto it.
 
+#### Hooks
+
+| Hook | Signature | Description |
+| --- | --- | --- |
+| `useDismiss` | `useDismiss(open: boolean, rootRef: RefObject<HTMLElement \| null>, close: () => void)` | Closes a field's dropdown panel on a press outside `rootRef` or on Escape. `composedPath` keeps it working inside a shadow root. |
+
 ### Date Picker · 3. Events
 
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
 | `DatePicker` | `onChange` | `ChangeEventHandler<HTMLInputElement>` | — (React only) | The value was committed — the native change event (the web component's `update` event, detail = the new value). |
-| `DatePicker` | `onInput` | `FormEventHandler<HTMLInputElement>` | — (React only) | Called as the user edits — the native input event (the web component's `input` event, detail = the current value). |
-| `DatePicker` | `onFocus` | `FocusEventHandler<HTMLInputElement>` | — (React only) | Called when the field gains focus — the native focus event (the web component's `focus` event). |
-| `DatePicker` | `onInvalid` | `FormEventHandler<HTMLInputElement>` | — (React only) | Called when the field fails validation (e.g. `required` and empty) — the native invalid event (the web component's `invalid` event, detail = the message). |
-| `DatePicker` | `onClear` | `() => void` | — (React only) | Shows a clear (×) button when `value` is set — only meaningful for controlled usage. |
-| `DateRangePicker` | `onStartChange` | `(value: string) => void` | — (React only) | Fires when the start date changes (or a preset is clicked), with the new yyyy-mm-dd string. |
-| `DateRangePicker` | `onEndChange` | `(value: string) => void` | — (React only) | Fires when the end date changes (or a preset is clicked), with the new yyyy-mm-dd string. |
+| `DatePicker` | `onInput` | `FormEventHandler<HTMLInputElement>` | `input` (CustomEvent, payload in `detail`) | Called as the user edits — the native input event (the web component's `input` event, detail = the current value). |
+| `DatePicker` | `onFocus` | `FocusEventHandler<HTMLInputElement>` | `focus` (CustomEvent, payload in `detail`) | Called when the field gains focus — the native focus event (the web component's `focus` event). |
+| `DatePicker` | `onInvalid` | `FormEventHandler<HTMLInputElement>` | `invalid` (CustomEvent, payload in `detail`) | Called when the field fails validation (e.g. `required` and empty) — the native invalid event (the web component's `invalid` event, detail = the message). |
+| `DatePicker` | `onClear` | `() => void` | `clear` (CustomEvent, payload in `detail`) | Shows a clear (×) button when `value` is set — only meaningful for controlled usage. |
+| `DatePicker` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
+| `DateRangePicker` | `onStartChange` | `(value: string) => void` | `startchange` (CustomEvent, payload in `detail`) | Fires when the start date changes (or a preset is clicked), with the new yyyy-mm-dd string. |
+| `DateRangePicker` | `onEndChange` | `(value: string) => void` | `endchange` (CustomEvent, payload in `detail`) | Fires when the end date changes (or a preset is clicked), with the new yyyy-mm-dd string. |
 
 ### Date Picker · 4. Variants
 
@@ -4681,14 +5572,53 @@ Standard visual states: default · hover · focus-visible (ring) · active/press
 
 ### Date Picker · 8. Slots / Children / Content
 
-_No children or slots — it is configured entirely through props._
+Web Component extras (slots and plain HTML attributes accepted by the `<l-*>` tag in addition to the props above):
+
+| Component | Name | Type | Description |
+| --- | --- | --- | --- |
+| `DatePicker` | `required` | `boolean` | Standard HTML attribute, passed straight to the underlying control. |
+| `DatePicker` | `name` | `string` | Standard HTML attribute, passed straight to the underlying control. |
+| `DatePicker` | `value` | `string` | Standard HTML attribute, passed straight to the underlying control. |
+| `DatePicker` | `disabled` | `boolean` | Standard HTML attribute, passed straight to the underlying control. |
 
 In a Web Component, the element's light-DOM text/children go into the default slot; a prop that accepts a node (e.g. `header`, `footer`) can usually also be filled with a child carrying `slot="<name>"`.
 
 ### Date Picker · 9. Framework Interfaces
 
-- `DatePicker`: React only (no standalone Web Component — used through its parent).
-- `DateRangePicker`: React only (no standalone Web Component — used through its parent).
+**`DatePicker`** → `<l-date-picker>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `required` | `required` | boolean |
+| `name` | `name` | string |
+| `value` | `value` | string |
+| `size` | `size` | string |
+| `variant` | `variant` | string |
+| `invalid` | `invalid` | boolean |
+| `disabled` | `disabled` | boolean |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+| `hoverEffect` | `hover-effect` | string |
+
+**`DateRangePicker`** → `<l-date-range-picker>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `startValue` | `start-value` | string |
+| `endValue` | `end-value` | string |
+| `min` | `min` | string |
+| `max` | `max` | string |
+| `size` | `size` | string |
+| `variant` | `variant` | string |
+| `invalid` | `invalid` | boolean |
+| `disabled` | `disabled` | boolean |
+| `presets` | `presets` | json (JSON string or object property) |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+| `hoverEffect` | `hover-effect` | string |
+
 Minimal use in each target (from the first docs example, *Basic*):
 
 **React**
@@ -4760,8 +5690,8 @@ _4 more examples are on the docs page._
 ### Date Picker · 12. Accessibility
 
 - ARIA roles used: none beyond native element semantics.
-- ARIA attributes set by the component: `aria-label`.
-- Keyboard: native keyboard behavior of the underlying element (Tab to focus, Enter / Space to activate).
+- ARIA attributes set by the component: `aria-expanded`, `aria-label`.
+- Keyboard: has keyboard handling (e.g. Escape / arrow keys) — see the docs page for the exact keys.
 - Focus: uses the browser focus outline / the underlying control's ring.
 - Motion: respects `prefers-reduced-motion`.
 
@@ -4785,6 +5715,7 @@ _4 more examples are on the docs page._
 A styled native time input — the browser's own picker UI handles time selection.
 
 - React: `import { TimePicker } from "lojee-ui"`
+- Web Component: `<l-time-picker>` (after `import "lojee-ui/elements"`)
 
 ### Time Picker · 2. Props and Interfaces
 
@@ -4810,9 +5741,10 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
 | `TimePicker` | `onChange` | `ChangeEventHandler<HTMLInputElement>` | — (React only) | The value was committed — the native change event (the web component's `update` event, detail = the new value). |
-| `TimePicker` | `onInput` | `FormEventHandler<HTMLInputElement>` | — (React only) | Called as the user edits — the native input event (the web component's `input` event, detail = the current value). |
-| `TimePicker` | `onFocus` | `FocusEventHandler<HTMLInputElement>` | — (React only) | Called when the field gains focus — the native focus event (the web component's `focus` event). |
-| `TimePicker` | `onInvalid` | `FormEventHandler<HTMLInputElement>` | — (React only) | Called when the field fails validation (e.g. `required` and empty) — the native invalid event (the web component's `invalid` event, detail = the message). |
+| `TimePicker` | `onInput` | `FormEventHandler<HTMLInputElement>` | `input` (CustomEvent, payload in `detail`) | Called as the user edits — the native input event (the web component's `input` event, detail = the current value). |
+| `TimePicker` | `onFocus` | `FocusEventHandler<HTMLInputElement>` | `focus` (CustomEvent, payload in `detail`) | Called when the field gains focus — the native focus event (the web component's `focus` event). |
+| `TimePicker` | `onInvalid` | `FormEventHandler<HTMLInputElement>` | `invalid` (CustomEvent, payload in `detail`) | Called when the field fails validation (e.g. `required` and empty) — the native invalid event (the web component's `invalid` event, detail = the message). |
+| `TimePicker` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
 
 ### Time Picker · 4. Variants
 
@@ -4840,13 +5772,34 @@ Standard visual states: default · hover · focus-visible (ring) · active/press
 
 ### Time Picker · 8. Slots / Children / Content
 
-_No children or slots — it is configured entirely through props._
+Web Component extras (slots and plain HTML attributes accepted by the `<l-*>` tag in addition to the props above):
+
+| Component | Name | Type | Description |
+| --- | --- | --- | --- |
+| `TimePicker` | `required` | `boolean` | Standard HTML attribute, passed straight to the underlying control. |
+| `TimePicker` | `name` | `string` | Standard HTML attribute, passed straight to the underlying control. |
+| `TimePicker` | `value` | `string` | Standard HTML attribute, passed straight to the underlying control. |
+| `TimePicker` | `disabled` | `boolean` | Standard HTML attribute, passed straight to the underlying control. |
 
 In a Web Component, the element's light-DOM text/children go into the default slot; a prop that accepts a node (e.g. `header`, `footer`) can usually also be filled with a child carrying `slot="<name>"`.
 
 ### Time Picker · 9. Framework Interfaces
 
-- `TimePicker`: React only (no standalone Web Component).
+**`TimePicker`** → `<l-time-picker>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `required` | `required` | boolean |
+| `name` | `name` | string |
+| `value` | `value` | string |
+| `size` | `size` | string |
+| `invalid` | `invalid` | boolean |
+| `disabled` | `disabled` | boolean |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+| `hoverEffect` | `hover-effect` | string |
+
 Minimal use in each target (from the first docs example, *Basic*):
 
 **React**
@@ -4922,8 +5875,8 @@ Enter transitions via `transition` (with `transitionDuration` / `transitionDelay
 
 ### Time Picker · 12. Accessibility
 
-- ARIA roles used: none beyond native element semantics.
-- ARIA attributes set by the component: none.
+- ARIA roles used: `listbox`, `option`.
+- ARIA attributes set by the component: `aria-expanded`, `aria-label`, `aria-selected`.
 - Keyboard: native keyboard behavior of the underlying element (Tab to focus, Enter / Space to activate).
 - Focus: visible focus ring (`focus-visible`).
 - Motion: respects `prefers-reduced-motion`.
@@ -4948,6 +5901,7 @@ Enter transitions via `transition` (with `transitionDuration` / `transitionDelay
 A styled dropzone-style wrapper around a native, visually hidden file input.
 
 - React: `import { FileUpload } from "lojee-ui"`
+- Web Component: `<l-file-upload>` (after `import "lojee-ui/elements"`)
 
 ### File Upload · 2. Props and Interfaces
 
@@ -4968,7 +5922,11 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
-| `FileUpload` | `onFilesSelected` | `(files: FileList \| null) => void` | — (React only) | Fires when the user picks files (via click or drop), with the selected FileList (or null). |
+| `FileUpload` | `onFilesSelected` | `(files: FileList \| null) => void` | `filesselected` (CustomEvent, payload in `detail`) | Fires when the user picks files (via click or drop), with the selected FileList (or null). |
+| `FileUpload` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
+| `FileUpload` | `onInput` | — | `input` (CustomEvent, payload in `detail`) | Fires as the user edits (typing, dragging); `detail` = the current value. React: `onInput`. |
+| `FileUpload` | `onFocus` | — | `focus` (CustomEvent, payload in `detail`) | The control gained focus; `detail` = the current value. React: `onFocus`. |
+| `FileUpload` | `onInvalid` | — | `invalid` (CustomEvent, payload in `detail`) | The control failed validation (e.g. `required` and empty); `detail` = the validation message. React: `onInvalid`. |
 
 ### File Upload · 4. Variants
 
@@ -4996,11 +5954,31 @@ Standard visual states: default · hover · focus-visible (ring) · active/press
 | --- | --- | --- | --- |
 | `FileUpload` | `label` | `ReactNode` | e.g. "Click to upload or drag and drop" — has a sensible default if omitted. |
 
+Web Component extras (slots and plain HTML attributes accepted by the `<l-*>` tag in addition to the props above):
+
+| Component | Name | Type | Description |
+| --- | --- | --- | --- |
+| `FileUpload` | `accept` | `string` | Standard HTML attribute, passed straight to the underlying control. |
+| `FileUpload` | `multiple` | `boolean` | Standard HTML attribute, passed straight to the underlying control. |
+| `FileUpload` | `disabled` | `boolean` | Standard HTML attribute, passed straight to the underlying control. |
+
 In a Web Component, the element's light-DOM text/children go into the default slot; a prop that accepts a node (e.g. `header`, `footer`) can usually also be filled with a child carrying `slot="<name>"`.
 
 ### File Upload · 9. Framework Interfaces
 
-- `FileUpload`: React only (no standalone Web Component).
+**`FileUpload`** → `<l-file-upload>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `label` | `label` | string |
+| `accept` | `accept` | string |
+| `multiple` | `multiple` | boolean |
+| `disabled` | `disabled` | boolean |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+| `hoverEffect` | `hover-effect` | string |
+
 Minimal use in each target (from the first docs example, *Default*):
 
 **React**
@@ -5095,6 +6073,7 @@ Enter transitions via `transition` (with `transitionDuration` / `transitionDelay
 A text input with a leading search icon and a working clear button.
 
 - React: `import { SearchInput } from "lojee-ui"`
+- Web Component: `<l-search-input>` (after `import "lojee-ui/elements"`)
 
 ### Search Input · 2. Props and Interfaces
 
@@ -5121,10 +6100,11 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
 | `SearchInput` | `onChange` | `ChangeEventHandler<HTMLInputElement>` | — (React only) | The value was committed — the native change event (the web component's `update` event, detail = the new value). |
-| `SearchInput` | `onInput` | `FormEventHandler<HTMLInputElement>` | — (React only) | Called as the user edits — the native input event (the web component's `input` event, detail = the current value). |
-| `SearchInput` | `onFocus` | `FocusEventHandler<HTMLInputElement>` | — (React only) | Called when the field gains focus — the native focus event (the web component's `focus` event). |
-| `SearchInput` | `onInvalid` | `FormEventHandler<HTMLInputElement>` | — (React only) | Called when the field fails validation (e.g. `required` and empty) — the native invalid event (the web component's `invalid` event, detail = the message). |
-| `SearchInput` | `onClear` | `() => void` | — (React only) | Called when the clear (x) button is clicked — only rendered when `value` is truthy and this is provided. |
+| `SearchInput` | `onInput` | `FormEventHandler<HTMLInputElement>` | `input` (CustomEvent, payload in `detail`) | Called as the user edits — the native input event (the web component's `input` event, detail = the current value). |
+| `SearchInput` | `onFocus` | `FocusEventHandler<HTMLInputElement>` | `focus` (CustomEvent, payload in `detail`) | Called when the field gains focus — the native focus event (the web component's `focus` event). |
+| `SearchInput` | `onInvalid` | `FormEventHandler<HTMLInputElement>` | `invalid` (CustomEvent, payload in `detail`) | Called when the field fails validation (e.g. `required` and empty) — the native invalid event (the web component's `invalid` event, detail = the message). |
+| `SearchInput` | `onClear` | `() => void` | `clear` (CustomEvent, payload in `detail`) | Called when the clear (x) button is clicked — only rendered when `value` is truthy and this is provided. |
+| `SearchInput` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
 
 ### Search Input · 4. Variants
 
@@ -5152,13 +6132,36 @@ Standard visual states: default · hover · focus-visible (ring) · active/press
 
 ### Search Input · 8. Slots / Children / Content
 
-_No children or slots — it is configured entirely through props._
+Web Component extras (slots and plain HTML attributes accepted by the `<l-*>` tag in addition to the props above):
+
+| Component | Name | Type | Description |
+| --- | --- | --- | --- |
+| `SearchInput` | `required` | `boolean` | Standard HTML attribute, passed straight to the underlying control. |
+| `SearchInput` | `name` | `string` | Standard HTML attribute, passed straight to the underlying control. |
+| `SearchInput` | `value` | `string` | Standard HTML attribute, passed straight to the underlying control. |
+| `SearchInput` | `placeholder` | `string` | Standard HTML attribute, passed straight to the underlying control. |
+| `SearchInput` | `disabled` | `boolean` | Standard HTML attribute, passed straight to the underlying control. |
 
 In a Web Component, the element's light-DOM text/children go into the default slot; a prop that accepts a node (e.g. `header`, `footer`) can usually also be filled with a child carrying `slot="<name>"`.
 
 ### Search Input · 9. Framework Interfaces
 
-- `SearchInput`: React only (no standalone Web Component).
+**`SearchInput`** → `<l-search-input>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `required` | `required` | boolean |
+| `name` | `name` | string |
+| `value` | `value` | string |
+| `placeholder` | `placeholder` | string |
+| `size` | `size` | string |
+| `variant` | `variant` | string |
+| `disabled` | `disabled` | boolean |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+| `hoverEffect` | `hover-effect` | string |
+
 Minimal use in each target (from the first docs example, *Basic*):
 
 **React**
@@ -5284,6 +6287,7 @@ Enter transitions via `transition` (with `transitionDuration` / `transitionDelay
 A password field with a show/hide toggle button.
 
 - React: `import { PasswordInput } from "lojee-ui"`
+- Web Component: `<l-password-input>` (after `import "lojee-ui/elements"`)
 
 ### Password Input · 2. Props and Interfaces
 
@@ -5310,9 +6314,10 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
 | `PasswordInput` | `onChange` | `ChangeEventHandler<HTMLInputElement>` | — (React only) | The value was committed — the native change event (the web component's `update` event, detail = the new value). |
-| `PasswordInput` | `onInput` | `FormEventHandler<HTMLInputElement>` | — (React only) | Called as the user edits — the native input event (the web component's `input` event, detail = the current value). |
-| `PasswordInput` | `onFocus` | `FocusEventHandler<HTMLInputElement>` | — (React only) | Called when the field gains focus — the native focus event (the web component's `focus` event). |
-| `PasswordInput` | `onInvalid` | `FormEventHandler<HTMLInputElement>` | — (React only) | Called when the field fails validation (e.g. `required` and empty) — the native invalid event (the web component's `invalid` event, detail = the message). |
+| `PasswordInput` | `onInput` | `FormEventHandler<HTMLInputElement>` | `input` (CustomEvent, payload in `detail`) | Called as the user edits — the native input event (the web component's `input` event, detail = the current value). |
+| `PasswordInput` | `onFocus` | `FocusEventHandler<HTMLInputElement>` | `focus` (CustomEvent, payload in `detail`) | Called when the field gains focus — the native focus event (the web component's `focus` event). |
+| `PasswordInput` | `onInvalid` | `FormEventHandler<HTMLInputElement>` | `invalid` (CustomEvent, payload in `detail`) | Called when the field fails validation (e.g. `required` and empty) — the native invalid event (the web component's `invalid` event, detail = the message). |
+| `PasswordInput` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
 
 ### Password Input · 4. Variants
 
@@ -5342,13 +6347,33 @@ Standard visual states: default · hover · focus-visible (ring) · active/press
 
 ### Password Input · 8. Slots / Children / Content
 
-_No children or slots — it is configured entirely through props._
+Web Component extras (slots and plain HTML attributes accepted by the `<l-*>` tag in addition to the props above):
+
+| Component | Name | Type | Description |
+| --- | --- | --- | --- |
+| `PasswordInput` | `required` | `boolean` | Standard HTML attribute, passed straight to the underlying control. |
+| `PasswordInput` | `name` | `string` | Standard HTML attribute, passed straight to the underlying control. |
+| `PasswordInput` | `disabled` | `boolean` | Standard HTML attribute, passed straight to the underlying control. |
 
 In a Web Component, the element's light-DOM text/children go into the default slot; a prop that accepts a node (e.g. `header`, `footer`) can usually also be filled with a child carrying `slot="<name>"`.
 
 ### Password Input · 9. Framework Interfaces
 
-- `PasswordInput`: React only (no standalone Web Component).
+**`PasswordInput`** → `<l-password-input>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `required` | `required` | boolean |
+| `name` | `name` | string |
+| `size` | `size` | string |
+| `variant` | `variant` | string |
+| `invalid` | `invalid` | boolean |
+| `disabled` | `disabled` | boolean |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+| `hoverEffect` | `hover-effect` | string |
+
 Minimal use in each target (from the first docs example, *Basic*):
 
 **React**
@@ -5462,6 +6487,7 @@ _1 more examples are on the docs page._
 A styled native range input for a single value.
 
 - React: `import { Slider } from "lojee-ui"`
+- Web Component: `<l-slider>` (after `import "lojee-ui/elements"`)
 
 ### Slider · 2. Props and Interfaces
 
@@ -5490,9 +6516,10 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
 | `Slider` | `onChange` | `ChangeEventHandler<HTMLInputElement>` | — (React only) | The value was committed — the native change event (the web component's `update` event, detail = the new value). |
-| `Slider` | `onInput` | `FormEventHandler<HTMLInputElement>` | — (React only) | Called as the user edits — the native input event (the web component's `input` event, detail = the current value). |
-| `Slider` | `onFocus` | `FocusEventHandler<HTMLInputElement>` | — (React only) | Called when the field gains focus — the native focus event (the web component's `focus` event). |
-| `Slider` | `onInvalid` | `FormEventHandler<HTMLInputElement>` | — (React only) | Called when the field fails validation (e.g. `required` and empty) — the native invalid event (the web component's `invalid` event, detail = the message). |
+| `Slider` | `onInput` | `FormEventHandler<HTMLInputElement>` | `input` (CustomEvent, payload in `detail`) | Called as the user edits — the native input event (the web component's `input` event, detail = the current value). |
+| `Slider` | `onFocus` | `FocusEventHandler<HTMLInputElement>` | `focus` (CustomEvent, payload in `detail`) | Called when the field gains focus — the native focus event (the web component's `focus` event). |
+| `Slider` | `onInvalid` | `FormEventHandler<HTMLInputElement>` | `invalid` (CustomEvent, payload in `detail`) | Called when the field fails validation (e.g. `required` and empty) — the native invalid event (the web component's `invalid` event, detail = the message). |
+| `Slider` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
 
 ### Slider · 4. Variants
 
@@ -5522,13 +6549,39 @@ Standard visual states: default · hover · focus-visible (ring) · active/press
 
 ### Slider · 8. Slots / Children / Content
 
-_No children or slots — it is configured entirely through props._
+Web Component extras (slots and plain HTML attributes accepted by the `<l-*>` tag in addition to the props above):
+
+| Component | Name | Type | Description |
+| --- | --- | --- | --- |
+| `Slider` | `value` | `string` | Standard HTML attribute, passed straight to the underlying control. |
+| `Slider` | `min` | `number` | Standard HTML attribute, passed straight to the underlying control. |
+| `Slider` | `max` | `number` | Standard HTML attribute, passed straight to the underlying control. |
+| `Slider` | `step` | `number` | Standard HTML attribute, passed straight to the underlying control. |
+| `Slider` | `disabled` | `boolean` | Standard HTML attribute, passed straight to the underlying control. |
 
 In a Web Component, the element's light-DOM text/children go into the default slot; a prop that accepts a node (e.g. `header`, `footer`) can usually also be filled with a child carrying `slot="<name>"`.
 
 ### Slider · 9. Framework Interfaces
 
-- `Slider`: React only (no standalone Web Component).
+**`Slider`** → `<l-slider>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `value` | `value` | string |
+| `min` | `min` | number |
+| `max` | `max` | number |
+| `step` | `step` | number |
+| `color` | `color` | string |
+| `size` | `size` | string |
+| `thumbVariant` | `thumb-variant` | string |
+| `valuePlacement` | `value-placement` | string |
+| `showValue` | `show-value` | boolean |
+| `disabled` | `disabled` | boolean |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+| `hoverEffect` | `hover-effect` | string |
+
 Minimal use in each target (from the first docs example, *Basic*):
 
 **React**
@@ -5625,6 +6678,7 @@ _5 more examples are on the docs page._
 A dual-thumb range built from two overlapping native range inputs sharing one track.
 
 - React: `import { RangeSlider } from "lojee-ui"`
+- Web Component: `<l-range-slider>` (after `import "lojee-ui/elements"`)
 
 ### Range Slider · 2. Props and Interfaces
 
@@ -5654,10 +6708,11 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
-| `RangeSlider` | `onChange` | `(value: [number, number]) => void` | — (React only) | Called with the new `[low, high]` tuple whenever either thumb is moved; the consumer must store it back into `value`. |
-| `RangeSlider` | `onFocus` | `(e: FocusEvent<HTMLInputElement>) => void` | — (React only) | Called when the field gains focus — the native focus event (the web component's `focus` event, detail = the value). |
-| `RangeSlider` | `onInput` | `(e: FormEvent<HTMLInputElement>) => void` | — (React only) | Called as the user edits the field — the native input event (the web component's `input` event, detail = the value). |
-| `RangeSlider` | `onInvalid` | `(e: FormEvent<HTMLInputElement>) => void` | — (React only) | Called when the field fails validation — the native invalid event (the web component's `invalid` event, detail = the message). |
+| `RangeSlider` | `onChange` | `(value: [number, number]) => void` | `change` (CustomEvent, payload in `detail`) | Called with the new `[low, high]` tuple whenever either thumb is moved; the consumer must store it back into `value`. |
+| `RangeSlider` | `onFocus` | `(e: FocusEvent<HTMLInputElement>) => void` | `focus` (CustomEvent, payload in `detail`) | Called when the field gains focus — the native focus event (the web component's `focus` event, detail = the value). |
+| `RangeSlider` | `onInput` | `(e: FormEvent<HTMLInputElement>) => void` | `input` (CustomEvent, payload in `detail`) | Called as the user edits the field — the native input event (the web component's `input` event, detail = the value). |
+| `RangeSlider` | `onInvalid` | `(e: FormEvent<HTMLInputElement>) => void` | `invalid` (CustomEvent, payload in `detail`) | Called when the field fails validation — the native invalid event (the web component's `invalid` event, detail = the message). |
+| `RangeSlider` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
 
 ### Range Slider · 4. Variants
 
@@ -5691,7 +6746,24 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 ### Range Slider · 9. Framework Interfaces
 
-- `RangeSlider`: React only (no standalone Web Component).
+**`RangeSlider`** → `<l-range-slider>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `value` | `value` | json (JSON string or object property) |
+| `min` | `min` | number |
+| `max` | `max` | number |
+| `step` | `step` | number |
+| `color` | `color` | string |
+| `size` | `size` | string |
+| `thumbVariant` | `thumb-variant` | string |
+| `valuePlacement` | `value-placement` | string |
+| `showValue` | `show-value` | boolean |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+| `hoverEffect` | `hover-effect` | string |
+
 Minimal use in each target (from the first docs example, *Basic*):
 
 **React**
@@ -5796,6 +6868,7 @@ _2 more examples are on the docs page._
 A text field that turns what you type into removable tags. Enter or a comma adds one; Backspace on an empty field removes the last.
 
 - React: `import { TagInput } from "lojee-ui"`
+- Web Component: `<l-tag-input>` (after `import "lojee-ui/elements"`)
 
 ### Tag Input · 2. Props and Interfaces
 
@@ -5821,10 +6894,11 @@ A text field that turns what you type into removable tags. Enter or a comma adds
 
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
-| `TagInput` | `onChange` | `(tags: string[]) => void` | — (React only) | Called with the full list of tags whenever a tag is added or removed. |
-| `TagInput` | `onFocus` | `(e: FocusEvent<HTMLInputElement>) => void` | — (React only) | Called when the field gains focus — the native focus event (the web component's `focus` event, detail = the value). |
-| `TagInput` | `onInput` | `(e: FormEvent<HTMLInputElement>) => void` | — (React only) | Called as the user edits the field — the native input event (the web component's `input` event, detail = the value). |
-| `TagInput` | `onInvalid` | `(e: FormEvent<HTMLInputElement>) => void` | — (React only) | Called when the field fails validation — the native invalid event (the web component's `invalid` event, detail = the message). |
+| `TagInput` | `onChange` | `(tags: string[]) => void` | `change` (CustomEvent, payload in `detail`) | Called with the full list of tags whenever a tag is added or removed. |
+| `TagInput` | `onFocus` | `(e: FocusEvent<HTMLInputElement>) => void` | `focus` (CustomEvent, payload in `detail`) | Called when the field gains focus — the native focus event (the web component's `focus` event, detail = the value). |
+| `TagInput` | `onInput` | `(e: FormEvent<HTMLInputElement>) => void` | `input` (CustomEvent, payload in `detail`) | Called as the user edits the field — the native input event (the web component's `input` event, detail = the value). |
+| `TagInput` | `onInvalid` | `(e: FormEvent<HTMLInputElement>) => void` | `invalid` (CustomEvent, payload in `detail`) | Called when the field fails validation — the native invalid event (the web component's `invalid` event, detail = the message). |
+| `TagInput` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
 
 ### Tag Input · 4. Variants
 
@@ -5859,7 +6933,18 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 ### Tag Input · 9. Framework Interfaces
 
-- `TagInput`: React only (no standalone Web Component).
+**`TagInput`** → `<l-tag-input>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `value` | `value` | json (JSON string or object property) |
+| `placeholder` | `placeholder` | string |
+| `maxTags` | `max-tags` | number |
+| `allowDuplicates` | `allow-duplicates` | boolean |
+| `color` | `color` | string |
+| `invalid` | `invalid` | boolean |
+| `disabled` | `disabled` | boolean |
+
 Minimal use in each target (from the first docs example, *Basic*):
 
 **React**
@@ -5933,6 +7018,7 @@ const [tags, setTags] = useState(["react", "design"]);
 A number field with − and + buttons, arrow-key stepping and min / max / precision handling.
 
 - React: `import { NumberInput } from "lojee-ui"`
+- Web Component: `<l-number-input>` (after `import "lojee-ui/elements"`)
 
 ### Number Input · 2. Props and Interfaces
 
@@ -5960,10 +7046,11 @@ A number field with − and + buttons, arrow-key stepping and min / max / precis
 
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
-| `NumberInput` | `onChange` | `(value: number \| undefined) => void` | — (React only) | Called with the new number (or undefined when the field is cleared) whenever it changes. |
-| `NumberInput` | `onFocus` | `(e: FocusEvent<HTMLInputElement>) => void` | — (React only) | Called when the field gains focus — the native focus event (the web component's `focus` event, detail = the value). |
-| `NumberInput` | `onInput` | `(e: FormEvent<HTMLInputElement>) => void` | — (React only) | Called as the user edits the field — the native input event (the web component's `input` event, detail = the value). |
-| `NumberInput` | `onInvalid` | `(e: FormEvent<HTMLInputElement>) => void` | — (React only) | Called when the field fails validation — the native invalid event (the web component's `invalid` event, detail = the message). |
+| `NumberInput` | `onChange` | `(value: number \| undefined) => void` | `change` (CustomEvent, payload in `detail`) | Called with the new number (or undefined when the field is cleared) whenever it changes. |
+| `NumberInput` | `onFocus` | `(e: FocusEvent<HTMLInputElement>) => void` | `focus` (CustomEvent, payload in `detail`) | Called when the field gains focus — the native focus event (the web component's `focus` event, detail = the value). |
+| `NumberInput` | `onInput` | `(e: FormEvent<HTMLInputElement>) => void` | `input` (CustomEvent, payload in `detail`) | Called as the user edits the field — the native input event (the web component's `input` event, detail = the value). |
+| `NumberInput` | `onInvalid` | `(e: FormEvent<HTMLInputElement>) => void` | `invalid` (CustomEvent, payload in `detail`) | Called when the field fails validation — the native invalid event (the web component's `invalid` event, detail = the message). |
+| `NumberInput` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
 
 ### Number Input · 4. Variants
 
@@ -5996,7 +7083,20 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 ### Number Input · 9. Framework Interfaces
 
-- `NumberInput`: React only (no standalone Web Component).
+**`NumberInput`** → `<l-number-input>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `value` | `value` | number |
+| `min` | `min` | number |
+| `max` | `max` | number |
+| `step` | `step` | number |
+| `precision` | `precision` | number |
+| `placeholder` | `placeholder` | string |
+| `size` | `size` | string |
+| `invalid` | `invalid` | boolean |
+| `disabled` | `disabled` | boolean |
+
 Minimal use in each target (from the first docs example, *Basic*):
 
 **React**
@@ -6071,6 +7171,7 @@ Three sizes, plus `invalid` and `disabled` states.
 One box per character for verification codes. Typing moves forward, Backspace moves back, and pasting a code fills every box.
 
 - React: `import { OtpInput } from "lojee-ui"`
+- Web Component: `<l-otp-input>` (after `import "lojee-ui/elements"`)
 
 ### OTP Input · 2. Props and Interfaces
 
@@ -6098,11 +7199,12 @@ One box per character for verification codes. Typing moves forward, Backspace mo
 
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
-| `OtpInput` | `onChange` | `(value: string) => void` | — (React only) | Called with the code so far whenever a character is typed, pasted or deleted. |
-| `OtpInput` | `onComplete` | `(value: string) => void` | — (React only) | Called once with the full code when every box is filled. |
-| `OtpInput` | `onFocus` | `(e: FocusEvent<HTMLInputElement>) => void` | — (React only) | Called when the field gains focus — the native focus event (the web component's `focus` event, detail = the value). |
-| `OtpInput` | `onInput` | `(e: FormEvent<HTMLInputElement>) => void` | — (React only) | Called as the user edits the field — the native input event (the web component's `input` event, detail = the value). |
-| `OtpInput` | `onInvalid` | `(e: FormEvent<HTMLInputElement>) => void` | — (React only) | Called when the field fails validation — the native invalid event (the web component's `invalid` event, detail = the message). |
+| `OtpInput` | `onChange` | `(value: string) => void` | `change` (CustomEvent, payload in `detail`) | Called with the code so far whenever a character is typed, pasted or deleted. |
+| `OtpInput` | `onComplete` | `(value: string) => void` | `complete` (CustomEvent, payload in `detail`) | Called once with the full code when every box is filled. |
+| `OtpInput` | `onFocus` | `(e: FocusEvent<HTMLInputElement>) => void` | `focus` (CustomEvent, payload in `detail`) | Called when the field gains focus — the native focus event (the web component's `focus` event, detail = the value). |
+| `OtpInput` | `onInput` | `(e: FormEvent<HTMLInputElement>) => void` | `input` (CustomEvent, payload in `detail`) | Called as the user edits the field — the native input event (the web component's `input` event, detail = the value). |
+| `OtpInput` | `onInvalid` | `(e: FormEvent<HTMLInputElement>) => void` | `invalid` (CustomEvent, payload in `detail`) | Called when the field fails validation — the native invalid event (the web component's `invalid` event, detail = the message). |
+| `OtpInput` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
 
 ### OTP Input · 4. Variants
 
@@ -6138,7 +7240,19 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 ### OTP Input · 9. Framework Interfaces
 
-- `OtpInput`: React only (no standalone Web Component).
+**`OtpInput`** → `<l-otp-input>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `length` | `length` | number |
+| `value` | `value` | string |
+| `type` | `type` | string |
+| `mask` | `mask` | boolean |
+| `autoFocus` | `auto-focus` | boolean |
+| `size` | `size` | string |
+| `invalid` | `invalid` | boolean |
+| `disabled` | `disabled` | boolean |
+
 Minimal use in each target (from the first docs example, *Basic*):
 
 **React**
@@ -6206,6 +7320,7 @@ Vue and Angular use the same `<l-*>` tag and attributes — see the framework te
 A row of stars for showing or giving a rating. Hover to preview, click to set (click the same star again to clear), arrow keys to adjust.
 
 - React: `import { Rating } from "lojee-ui"`
+- Web Component: `<l-rating>` (after `import "lojee-ui/elements"`)
 
 ### Rating · 2. Props and Interfaces
 
@@ -6227,7 +7342,8 @@ A row of stars for showing or giving a rating. Hover to preview, click to set (c
 
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
-| `Rating` | `onChange` | `(value: number) => void` | — (React only) | Called with the new rating when a star is chosen. Choosing the current rating again clears it to 0. |
+| `Rating` | `onChange` | `(value: number) => void` | `change` (CustomEvent, payload in `detail`) | Called with the new rating when a star is chosen. Choosing the current rating again clears it to 0. |
+| `Rating` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
 
 ### Rating · 4. Variants
 
@@ -6259,7 +7375,17 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 ### Rating · 9. Framework Interfaces
 
-- `Rating`: React only (no standalone Web Component).
+**`Rating`** → `<l-rating>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `value` | `value` | number |
+| `max` | `max` | number |
+| `allowHalf` | `allow-half` | boolean |
+| `readOnly` | `read-only` | boolean |
+| `size` | `size` | string |
+| `label` | `label` | string |
+
 Minimal use in each target (from the first docs example, *Basic*):
 
 **React**
@@ -6333,6 +7459,7 @@ const [value, setValue] = useState(3);
 Pick a color from the system picker, a row of presets, or by typing a hex code.
 
 - React: `import { ColorPicker } from "lojee-ui"`
+- Web Component: `<l-color-picker>` (after `import "lojee-ui/elements"`)
 
 ### Color Picker · 2. Props and Interfaces
 
@@ -6355,10 +7482,11 @@ Pick a color from the system picker, a row of presets, or by typing a hex code.
 
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
-| `ColorPicker` | `onChange` | `(color: string) => void` | — (React only) | Called with the new "#rrggbb" color whenever it changes. |
-| `ColorPicker` | `onFocus` | `(e: FocusEvent<HTMLInputElement>) => void` | — (React only) | Called when the field gains focus — the native focus event (the web component's `focus` event, detail = the value). |
-| `ColorPicker` | `onInput` | `(e: FormEvent<HTMLInputElement>) => void` | — (React only) | Called as the user edits the field — the native input event (the web component's `input` event, detail = the value). |
-| `ColorPicker` | `onInvalid` | `(e: FormEvent<HTMLInputElement>) => void` | — (React only) | Called when the field fails validation — the native invalid event (the web component's `invalid` event, detail = the message). |
+| `ColorPicker` | `onChange` | `(color: string) => void` | `change` (CustomEvent, payload in `detail`) | Called with the new "#rrggbb" color whenever it changes. |
+| `ColorPicker` | `onFocus` | `(e: FocusEvent<HTMLInputElement>) => void` | `focus` (CustomEvent, payload in `detail`) | Called when the field gains focus — the native focus event (the web component's `focus` event, detail = the value). |
+| `ColorPicker` | `onInput` | `(e: FormEvent<HTMLInputElement>) => void` | `input` (CustomEvent, payload in `detail`) | Called as the user edits the field — the native input event (the web component's `input` event, detail = the value). |
+| `ColorPicker` | `onInvalid` | `(e: FormEvent<HTMLInputElement>) => void` | `invalid` (CustomEvent, payload in `detail`) | Called when the field fails validation — the native invalid event (the web component's `invalid` event, detail = the message). |
+| `ColorPicker` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
 
 ### Color Picker · 4. Variants
 
@@ -6388,7 +7516,15 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 ### Color Picker · 9. Framework Interfaces
 
-- `ColorPicker`: React only (no standalone Web Component).
+**`ColorPicker`** → `<l-color-picker>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `value` | `value` | string |
+| `presets` | `presets` | json (JSON string or object property) |
+| `showInput` | `show-input` | boolean |
+| `disabled` | `disabled` | boolean |
+
 Minimal use in each target (from the first docs example, *Basic*):
 
 **React**
@@ -6454,6 +7590,7 @@ const [color, setColor] = useState("#6366f1");
 The Modal / Dialog component of the library.
 
 - React: `import { Modal } from "lojee-ui"`
+- Web Component: `<l-modal>` (after `import "lojee-ui/elements"`)
 
 ### Modal / Dialog · 2. Props and Interfaces
 
@@ -6474,7 +7611,8 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
-| `Modal` | `onClose` | `() => void` | — (React only) | Called with no arguments when the user presses Escape, clicks the overlay, or clicks the close button; the consumer should set `open` to false. |
+| `Modal` | `onClose` | `() => void` | `close` (CustomEvent, payload in `detail`) | Called with no arguments when the user presses Escape, clicks the overlay, or clicks the close button; the consumer should set `open` to false. |
+| `Modal` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
 
 ### Modal / Dialog · 4. Variants
 
@@ -6503,11 +7641,28 @@ Standard visual states: default · hover · focus-visible (ring) · active/press
 | `Modal` | `title` | `ReactNode` | Content of the header title, rendered next to the close button. |
 | `Modal` | `children` | `ReactNode` | Body content, rendered in the scrollable area below the header. |
 
+Web Component extras (slots and plain HTML attributes accepted by the `<l-*>` tag in addition to the props above):
+
+| Component | Name | Type | Description |
+| --- | --- | --- | --- |
+| `Modal` | `heading` | `string` | Text shown as the title. Named `heading` here because `title` is a native HTMLElement attribute. |
+
 In a Web Component, the element's light-DOM text/children go into the default slot; a prop that accepts a node (e.g. `header`, `footer`) can usually also be filled with a child carrying `slot="<name>"`.
 
 ### Modal / Dialog · 9. Framework Interfaces
 
-- `Modal`: React only (no standalone Web Component).
+**`Modal`** → `<l-modal>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `open` | `open` | boolean |
+| `heading` | `heading` | string |
+| `className` | `class-name` | string |
+| `classNames` | `class-names` | json (JSON string or object property) |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+| `hoverEffect` | `hover-effect` | string |
 
 ### Modal / Dialog · 10. Complete Usage Examples
 
@@ -6550,6 +7705,7 @@ import { Modal } from "lojee-ui";
 An edge-anchored panel that slides in over the page from any side.
 
 - React: `import { Drawer } from "lojee-ui"`
+- Web Component: `<l-drawer>` (after `import "lojee-ui/elements"`)
 
 ### Drawer · 2. Props and Interfaces
 
@@ -6572,7 +7728,8 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
-| `Drawer` | `onClose` | `() => void` | — (React only) | Fires when the user requests closing (overlay click or close button) — the consumer should set `open` to false. |
+| `Drawer` | `onClose` | `() => void` | `close` (CustomEvent, payload in `detail`) | Fires when the user requests closing (overlay click or close button) — the consumer should set `open` to false. |
+| `Drawer` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
 
 ### Drawer · 4. Variants
 
@@ -6605,11 +7762,29 @@ Standard visual states: default · hover · focus-visible (ring) · active/press
 | `Drawer` | `title` | `ReactNode` | Header title content; shown next to the close button. |
 | `Drawer` | `children` | `ReactNode` | Drawer body content. |
 
+Web Component extras (slots and plain HTML attributes accepted by the `<l-*>` tag in addition to the props above):
+
+| Component | Name | Type | Description |
+| --- | --- | --- | --- |
+| `Drawer` | `heading` | `string` | Text shown as the title. Named `heading` here because `title` is a native HTMLElement attribute. |
+
 In a Web Component, the element's light-DOM text/children go into the default slot; a prop that accepts a node (e.g. `header`, `footer`) can usually also be filled with a child carrying `slot="<name>"`.
 
 ### Drawer · 9. Framework Interfaces
 
-- `Drawer`: React only (no standalone Web Component).
+**`Drawer`** → `<l-drawer>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `open` | `open` | boolean |
+| `heading` | `heading` | string |
+| `position` | `position` | string |
+| `size` | `size` | string |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+| `hoverEffect` | `hover-effect` | string |
+
 Minimal use in each target (from the first docs example, *Position*):
 
 **React**
@@ -6707,6 +7882,7 @@ const [open, setOpen] = useState(false);
 A mobile-style bottom sheet that slides up from the bottom edge.
 
 - React: `import { Sheet } from "lojee-ui"`
+- Web Component: `<l-sheet>` (after `import "lojee-ui/elements"`)
 
 ### Sheet · 2. Props and Interfaces
 
@@ -6727,7 +7903,8 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
-| `Sheet` | `onClose` | `() => void` | — (React only) | Called with no arguments when the user presses Escape, clicks the overlay, or clicks the close button; the consumer should set `open` to false. |
+| `Sheet` | `onClose` | `() => void` | `close` (CustomEvent, payload in `detail`) | Called with no arguments when the user presses Escape, clicks the overlay, or clicks the close button; the consumer should set `open` to false. |
+| `Sheet` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
 
 ### Sheet · 4. Variants
 
@@ -6756,11 +7933,27 @@ Standard visual states: default · hover · focus-visible (ring) · active/press
 | `Sheet` | `title` | `ReactNode` | Content of the header title, rendered next to the close button. |
 | `Sheet` | `children` | `ReactNode` | Body content, rendered in the scrollable area below the header. |
 
+Web Component extras (slots and plain HTML attributes accepted by the `<l-*>` tag in addition to the props above):
+
+| Component | Name | Type | Description |
+| --- | --- | --- | --- |
+| `Sheet` | `heading` | `string` | Text shown as the title. Named `heading` here because `title` is a native HTMLElement attribute. |
+
 In a Web Component, the element's light-DOM text/children go into the default slot; a prop that accepts a node (e.g. `header`, `footer`) can usually also be filled with a child carrying `slot="<name>"`.
 
 ### Sheet · 9. Framework Interfaces
 
-- `Sheet`: React only (no standalone Web Component).
+**`Sheet`** → `<l-sheet>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `open` | `open` | boolean |
+| `heading` | `heading` | string |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+| `hoverEffect` | `hover-effect` | string |
+
 Minimal use in each target (from the first docs example, *Basic*):
 
 **React**
@@ -6860,6 +8053,7 @@ const [open, setOpen] = useState(false);
 Click-triggered floating content, anchored to a trigger element — closes on outside click or Escape.
 
 - React: `import { Popover } from "lojee-ui"`
+- Web Component: `<l-popover>` (after `import "lojee-ui/elements"`)
 
 ### Popover · 2. Props and Interfaces
 
@@ -6881,7 +8075,8 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
-| `Popover` | `onOpenChange` | `(open: boolean) => void` | — (React only) | Called with the new open state whenever it opens or closes — a click, outside click, Escape (the web component's `openchange` / `update` event, detail = true \| false). |
+| `Popover` | `onOpenChange` | `(open: boolean) => void` | `openchange` (CustomEvent, payload in `detail`) | Called with the new open state whenever it opens or closes — a click, outside click, Escape (the web component's `openchange` / `update` event, detail = true \| false). |
+| `Popover` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
 
 ### Popover · 4. Variants
 
@@ -6916,7 +8111,17 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 ### Popover · 9. Framework Interfaces
 
-- `Popover`: React only (no standalone Web Component).
+**`Popover`** → `<l-popover>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `open` | `open` | boolean |
+| `content` | `content` | string |
+| `position` | `position` | string |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+
 Minimal use in each target (from the first docs example, *Positions*):
 
 **React**
@@ -7031,6 +8236,7 @@ Enter/exit transitions via `transition` (with `transitionDuration` / `transition
 A trigger-anchored menu of actions — closes on selection, outside click, or Escape.
 
 - React: `import { DropdownMenu } from "lojee-ui"` · `import { DropdownMenuItem } from "lojee-ui"`
+- Web Component: `<l-dropdown-menu>` · `<l-dropdown-menu-item>` (after `import "lojee-ui/elements"`)
 
 ### Dropdown Menu · 2. Props and Interfaces
 
@@ -7064,7 +8270,8 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
-| `DropdownMenu` | `onOpenChange` | `(open: boolean) => void` | — (React only) | Called with the new open state whenever it opens or closes — a click, outside click, Escape (the web component's `openchange` / `update` event, detail = true \| false). |
+| `DropdownMenu` | `onOpenChange` | `(open: boolean) => void` | `openchange` (CustomEvent, payload in `detail`) | Called with the new open state whenever it opens or closes — a click, outside click, Escape (the web component's `openchange` / `update` event, detail = true \| false). |
+| `DropdownMenu` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
 | `DropdownMenuItem` | `onClick` | `() => void` | — (React only) | Fires when the item is clicked (never for a disabled item); the parent menu closes afterwards. |
 
 ### Dropdown Menu · 4. Variants
@@ -7102,8 +8309,24 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 ### Dropdown Menu · 9. Framework Interfaces
 
-- `DropdownMenu`: React only (no standalone Web Component — used through its parent).
-- `DropdownMenuItem`: React only (no standalone Web Component — used through its parent).
+**`DropdownMenu`** → `<l-dropdown-menu>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `open` | `open` | boolean |
+| `align` | `align` | string |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+
+**`DropdownMenuItem`** → `<l-dropdown-menu-item>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `icon` | `icon` | string |
+| `disabled` | `disabled` | boolean |
+| `danger` | `danger` | boolean |
+
 Minimal use in each target (from the first docs example, *Basic menu*):
 
 **React**
@@ -7228,6 +8451,7 @@ Enter/exit transitions via `transition` (with `transitionDuration` / `transition
 Right-click anywhere on the target area to open a menu at the cursor — closes on selection, outside click, or Escape.
 
 - React: `import { ContextMenu } from "lojee-ui"`
+- Web Component: `<l-context-menu>` (after `import "lojee-ui/elements"`)
 
 ### Context Menu · 2. Props and Interfaces
 
@@ -7248,7 +8472,8 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
-| `ContextMenu` | `onOpenChange` | `(open: boolean) => void` | — (React only) | Called with the new open state whenever it opens or closes — right-click, outside click, Escape (the web component's `openchange` / `update` event, detail = true \| false). |
+| `ContextMenu` | `onOpenChange` | `(open: boolean) => void` | `openchange` (CustomEvent, payload in `detail`) | Called with the new open state whenever it opens or closes — right-click, outside click, Escape (the web component's `openchange` / `update` event, detail = true \| false). |
+| `ContextMenu` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
 
 ### Context Menu · 4. Variants
 
@@ -7281,7 +8506,15 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 ### Context Menu · 9. Framework Interfaces
 
-- `ContextMenu`: React only (no standalone Web Component).
+**`ContextMenu`** → `<l-context-menu>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `open` | `open` | boolean |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+
 Minimal use in each target (from the first docs example, *Basic usage*):
 
 **React**
@@ -7419,6 +8652,7 @@ Enter/exit transitions via `transition` (with `transitionDuration` / `transition
 A searchable, keyboard-navigable command palette overlay — the classic "Cmd+K" pattern.
 
 - React: `import { CommandMenu } from "lojee-ui"`
+- Web Component: `<l-command-menu>` (after `import "lojee-ui/elements"`)
 
 ### Command Menu · 2. Props and Interfaces
 
@@ -7439,7 +8673,8 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
-| `CommandMenu` | `onClose` | `() => void` | — (React only) | Called with no arguments when the menu should close: on Escape, on backdrop click, or after an item is selected. |
+| `CommandMenu` | `onClose` | `() => void` | `close` (CustomEvent, payload in `detail`) | Called with no arguments when the menu should close: on Escape, on backdrop click, or after an item is selected. |
+| `CommandMenu` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
 
 ### Command Menu · 4. Variants
 
@@ -7469,7 +8704,17 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 ### Command Menu · 9. Framework Interfaces
 
-- `CommandMenu`: React only (no standalone Web Component).
+**`CommandMenu`** → `<l-command-menu>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `open` | `open` | boolean |
+| `items` | `items` | json (JSON string or object property) |
+| `placeholder` | `placeholder` | string |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+
 Minimal use in each target (from the first docs example, *Basic usage*):
 
 **React**
@@ -7584,6 +8829,7 @@ const items: CommandMenuItem[] = [
 A focused confirmation dialog with an icon, title, description, and Cancel/Confirm actions.
 
 - React: `import { AlertDialog } from "lojee-ui"`
+- Web Component: `<l-alert-dialog>` (after `import "lojee-ui/elements"`)
 
 ### Alert Dialog · 2. Props and Interfaces
 
@@ -7608,8 +8854,9 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
-| `AlertDialog` | `onClose` | `() => void` | — (React only) | Called with no arguments when the dialog should close: on Cancel, on Confirm (after `onConfirm`), on overlay click, or on Escape. |
-| `AlertDialog` | `onConfirm` | `() => void` | — (React only) | Called with no arguments when the confirm button is clicked, just before `onClose` fires. |
+| `AlertDialog` | `onClose` | `() => void` | `close` (CustomEvent, payload in `detail`) | Called with no arguments when the dialog should close: on Cancel, on Confirm (after `onConfirm`), on overlay click, or on Escape. |
+| `AlertDialog` | `onConfirm` | `() => void` | `confirm` (CustomEvent, payload in `detail`) | Called with no arguments when the confirm button is clicked, just before `onClose` fires. |
+| `AlertDialog` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
 
 ### Alert Dialog · 4. Variants
 
@@ -7640,11 +8887,31 @@ Standard visual states: default · hover · focus-visible (ring) · active/press
 | `AlertDialog` | `title` | `ReactNode` | Dialog heading. |
 | `AlertDialog` | `description` | `ReactNode` | Optional supporting text shown beneath the title. |
 
+Web Component extras (slots and plain HTML attributes accepted by the `<l-*>` tag in addition to the props above):
+
+| Component | Name | Type | Description |
+| --- | --- | --- | --- |
+| `AlertDialog` | `heading` | `string` | Text shown as the title. Named `heading` here because `title` is a native HTMLElement attribute. |
+
 In a Web Component, the element's light-DOM text/children go into the default slot; a prop that accepts a node (e.g. `header`, `footer`) can usually also be filled with a child carrying `slot="<name>"`.
 
 ### Alert Dialog · 9. Framework Interfaces
 
-- `AlertDialog`: React only (no standalone Web Component).
+**`AlertDialog`** → `<l-alert-dialog>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `open` | `open` | boolean |
+| `heading` | `heading` | string |
+| `description` | `description` | string |
+| `variant` | `variant` | string |
+| `confirmLabel` | `confirm-label` | string |
+| `cancelLabel` | `cancel-label` | string |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+| `hoverEffect` | `hover-effect` | string |
+
 Minimal use in each target (from the first docs example, *Default*):
 
 **React**
@@ -7783,6 +9050,7 @@ const [open, setOpen] = useState(false);
 Hover-triggered floating text, positioned via pure CSS — no JS state, no positioning library.
 
 - React: `import { Tooltip } from "lojee-ui"`
+- Web Component: `<l-tooltip>` (after `import "lojee-ui/elements"`)
 
 ### Tooltip · 2. Props and Interfaces
 
@@ -7846,7 +9114,20 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 ### Tooltip · 9. Framework Interfaces
 
-- `Tooltip`: React only (no standalone Web Component).
+**`Tooltip`** → `<l-tooltip>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `content` | `content` | string |
+| `position` | `position` | string |
+| `size` | `size` | string |
+| `delayMs` | `delay-ms` | number |
+| `color` | `color` | string |
+| `open` | `open` | boolean |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+
 Minimal use in each target (from the first docs example, *Positions*):
 
 **React**
@@ -7961,6 +9242,7 @@ _2 more examples are on the docs page._
 An inline, non-dismissing-by-default banner message for surfacing status, feedback, or warnings inline in a page.
 
 - React: `import { Alert } from "lojee-ui"`
+- Web Component: `<l-alert>` (after `import "lojee-ui/elements"`)
 
 ### Alert · 2. Props and Interfaces
 
@@ -7986,7 +9268,7 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
-| `Alert` | `onClose` | `() => void` | — (React only) | Called with no arguments when the dismiss button is clicked. |
+| `Alert` | `onClose` | `() => void` | `close` (CustomEvent, payload in `detail`) | Called with no arguments when the dismiss button is clicked. |
 
 ### Alert · 4. Variants
 
@@ -8021,11 +9303,34 @@ Standard visual states: default · hover · focus-visible (ring) · active/press
 | `Alert` | `title` | `ReactNode` | Optional bold heading shown above the description. |
 | `Alert` | `children` | `ReactNode` | The description/body. |
 
+Web Component extras (slots and plain HTML attributes accepted by the `<l-*>` tag in addition to the props above):
+
+| Component | Name | Type | Description |
+| --- | --- | --- | --- |
+| `Alert` | `heading` | `string` | Text shown as the title. Named `heading` here because `title` is a native HTMLElement attribute. |
+
 In a Web Component, the element's light-DOM text/children go into the default slot; a prop that accepts a node (e.g. `header`, `footer`) can usually also be filled with a child carrying `slot="<name>"`.
 
 ### Alert · 9. Framework Interfaces
 
-- `Alert`: React only (no standalone Web Component).
+**`Alert`** → `<l-alert>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `animation` | `animation` | string |
+| `pulseColor` | `pulse-color` | string |
+| `pulseGradientTo` | `pulse-gradient-to` | string |
+| `variant` | `variant` | string |
+| `heading` | `heading` | string |
+| `icon` | `icon` | string |
+| `closable` | `closable` | boolean |
+| `className` | `class-name` | string |
+| `classNames` | `class-names` | json (JSON string or object property) |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+| `hoverEffect` | `hover-effect` | string |
+
 Minimal use in each target (from the first docs example, *Variants*):
 
 **React**
@@ -8145,6 +9450,7 @@ _2 more examples are on the docs page._
 A transient, fixed-position, auto-dismissing notification. Controlled visibility like Modal/Drawer — render as many as you need for a stack of your own.
 
 - React: `import { Toast } from "lojee-ui"`
+- Web Component: `<l-toast>` (after `import "lojee-ui/elements"`)
 
 ### Toast · 2. Props and Interfaces
 
@@ -8169,7 +9475,8 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
-| `Toast` | `onClose` | `() => void` | — (React only) | Called with no arguments when the toast's close button is pressed or its `duration` elapses — set `open` to false here. |
+| `Toast` | `onClose` | `() => void` | `close` (CustomEvent, payload in `detail`) | Called with no arguments when the toast's close button is pressed or its `duration` elapses — set `open` to false here. |
+| `Toast` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
 
 ### Toast · 4. Variants
 
@@ -8201,11 +9508,31 @@ Standard visual states: default · hover · focus-visible (ring) · active/press
 | `Toast` | `title` | `ReactNode` | Bold heading line shown above the body. |
 | `Toast` | `children` | `ReactNode` | The description/body. |
 
+Web Component extras (slots and plain HTML attributes accepted by the `<l-*>` tag in addition to the props above):
+
+| Component | Name | Type | Description |
+| --- | --- | --- | --- |
+| `Toast` | `heading` | `string` | Text shown as the title. Named `heading` here because `title` is a native HTMLElement attribute. |
+
 In a Web Component, the element's light-DOM text/children go into the default slot; a prop that accepts a node (e.g. `header`, `footer`) can usually also be filled with a child carrying `slot="<name>"`.
 
 ### Toast · 9. Framework Interfaces
 
-- `Toast`: React only (no standalone Web Component).
+**`Toast`** → `<l-toast>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `open` | `open` | boolean |
+| `variant` | `variant` | string |
+| `heading` | `heading` | string |
+| `duration` | `duration` | number |
+| `position` | `position` | string |
+| `icon` | `icon` | string |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+| `hoverEffect` | `hover-effect` | string |
+
 Minimal use in each target (from the first docs example, *Variants*):
 
 **React**
@@ -8315,6 +9642,7 @@ const [open, setOpen] = useState(false);
 A static, richer notification-feed list item, meant to be rendered inside a list, dropdown, or panel you build.
 
 - React: `import { Notification } from "lojee-ui"`
+- Web Component: `<l-notification>` (after `import "lojee-ui/elements"`)
 
 ### Notification · 2. Props and Interfaces
 
@@ -8338,7 +9666,7 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
-| `Notification` | `onDismiss` | `() => void` | — (React only) | Shows a close (x) button when provided. |
+| `Notification` | `onDismiss` | `() => void` | `dismiss` (CustomEvent, payload in `detail`) | Shows a close (x) button when provided. |
 
 ### Notification · 4. Variants
 
@@ -8370,7 +9698,18 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 ### Notification · 9. Framework Interfaces
 
-- `Notification`: React only (no standalone Web Component).
+**`Notification`** → `<l-notification>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `icon` | `icon` | string |
+| `timestamp` | `timestamp` | string |
+| `unread` | `unread` | boolean |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+| `hoverEffect` | `hover-effect` | string |
+
 Minimal use in each target (from the first docs example, *Basic*):
 
 **React**
@@ -8489,6 +9828,7 @@ _1 more examples are on the docs page._
 An AI "thinking" indicator — animated dots, wave bars, an orb or a shimmering label, with optional rotating status lines and a timer.
 
 - React: `import { Thinking } from "lojee-ui"`
+- Web Component: `<l-thinking>` (after `import "lojee-ui/elements"`)
 
 ### Thinking · 2. Props and Interfaces
 
@@ -8546,7 +9886,20 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 ### Thinking · 9. Framework Interfaces
 
-- `Thinking`: React only (no standalone Web Component).
+**`Thinking`** → `<l-thinking>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `label` | `label` | string |
+| `variant` | `variant` | string |
+| `size` | `size` | string |
+| `color` | `color` | string |
+| `steps` | `steps` | json (JSON string or object property) |
+| `stepInterval` | `step-interval` | number |
+| `showElapsed` | `show-elapsed` | boolean |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
 
 ### Thinking · 10. Complete Usage Examples
 
@@ -8590,6 +9943,7 @@ import { Thinking } from "lojee-ui";
 A simple, non-slotted progress indicator for showing determinate or indeterminate progress.
 
 - React: `import { ProgressBar } from "lojee-ui"`
+- Web Component: `<l-progress-bar>` (after `import "lojee-ui/elements"`)
 
 ### Progress Bar · 2. Props and Interfaces
 
@@ -8649,7 +10003,21 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 ### Progress Bar · 9. Framework Interfaces
 
-- `ProgressBar`: React only (no standalone Web Component).
+**`ProgressBar`** → `<l-progress-bar>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `value` | `value` | number |
+| `max` | `max` | number |
+| `size` | `size` | string |
+| `color` | `color` | string |
+| `showLabel` | `show-label` | boolean |
+| `striped` | `striped` | boolean |
+| `indeterminate` | `indeterminate` | boolean |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+
 Minimal use in each target (from the first docs example, *Sizes*):
 
 **React**
@@ -8748,6 +10116,7 @@ _1 more examples are on the docs page._
 A neutral placeholder for a list, table, or section with nothing to show yet — an icon, a title, an optional description, and an optional action.
 
 - React: `import { EmptyState } from "lojee-ui"`
+- Web Component: `<l-empty-state>` (after `import "lojee-ui/elements"`)
 
 ### Empty State · 2. Props and Interfaces
 
@@ -8794,11 +10163,26 @@ Standard visual states: default · hover · focus-visible (ring) · active/press
 | `EmptyState` | `children` | `ReactNode` | The description/body. |
 | `EmptyState` | `action` | `ReactNode` | e.g. a <Button>, rendered below the description. |
 
+Web Component extras (slots and plain HTML attributes accepted by the `<l-*>` tag in addition to the props above):
+
+| Component | Name | Type | Description |
+| --- | --- | --- | --- |
+| `EmptyState` | `heading` | `string` | Text shown as the title. Named `heading` here because `title` is a native HTMLElement attribute. |
+
 In a Web Component, the element's light-DOM text/children go into the default slot; a prop that accepts a node (e.g. `header`, `footer`) can usually also be filled with a child carrying `slot="<name>"`.
 
 ### Empty State · 9. Framework Interfaces
 
-- `EmptyState`: React only (no standalone Web Component).
+**`EmptyState`** → `<l-empty-state>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `icon` | `icon` | string |
+| `heading` | `heading` | string |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+
 Minimal use in each target (from the first docs example, *Basic*):
 
 **React**
@@ -8900,6 +10284,7 @@ Enter transitions via `transition` (with `transitionDuration` / `transitionDelay
 A rose-toned placeholder for a failed data fetch or action — an icon, a title, an optional description, and an optional retry action.
 
 - React: `import { ErrorState } from "lojee-ui"`
+- Web Component: `<l-error-state>` (after `import "lojee-ui/elements"`)
 
 ### Error State · 2. Props and Interfaces
 
@@ -8946,11 +10331,26 @@ Standard visual states: default · hover · focus-visible (ring) · active/press
 | `ErrorState` | `children` | `ReactNode` | The description/body. |
 | `ErrorState` | `action` | `ReactNode` | e.g. a "Retry" <Button>, rendered below the description. |
 
+Web Component extras (slots and plain HTML attributes accepted by the `<l-*>` tag in addition to the props above):
+
+| Component | Name | Type | Description |
+| --- | --- | --- | --- |
+| `ErrorState` | `heading` | `string` | Text shown as the title. Named `heading` here because `title` is a native HTMLElement attribute. |
+
 In a Web Component, the element's light-DOM text/children go into the default slot; a prop that accepts a node (e.g. `header`, `footer`) can usually also be filled with a child carrying `slot="<name>"`.
 
 ### Error State · 9. Framework Interfaces
 
-- `ErrorState`: React only (no standalone Web Component).
+**`ErrorState`** → `<l-error-state>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `icon` | `icon` | string |
+| `heading` | `heading` | string |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+
 Minimal use in each target (from the first docs example, *Basic*):
 
 **React**
@@ -9050,6 +10450,7 @@ Enter transitions via `transition` (with `transitionDuration` / `transitionDelay
 An emerald-toned placeholder for a completed action — an icon, a title, an optional description, and an optional action.
 
 - React: `import { SuccessState } from "lojee-ui"`
+- Web Component: `<l-success-state>` (after `import "lojee-ui/elements"`)
 
 ### Success State · 2. Props and Interfaces
 
@@ -9096,11 +10497,26 @@ Standard visual states: default · hover · focus-visible (ring) · active/press
 | `SuccessState` | `children` | `ReactNode` | The description/body. |
 | `SuccessState` | `action` | `ReactNode` | e.g. a "Continue" <Button>, rendered below the description. |
 
+Web Component extras (slots and plain HTML attributes accepted by the `<l-*>` tag in addition to the props above):
+
+| Component | Name | Type | Description |
+| --- | --- | --- | --- |
+| `SuccessState` | `heading` | `string` | Text shown as the title. Named `heading` here because `title` is a native HTMLElement attribute. |
+
 In a Web Component, the element's light-DOM text/children go into the default slot; a prop that accepts a node (e.g. `header`, `footer`) can usually also be filled with a child carrying `slot="<name>"`.
 
 ### Success State · 9. Framework Interfaces
 
-- `SuccessState`: React only (no standalone Web Component).
+**`SuccessState`** → `<l-success-state>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `icon` | `icon` | string |
+| `heading` | `heading` | string |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+
 Minimal use in each target (from the first docs example, *Basic*):
 
 **React**
@@ -9201,6 +10617,7 @@ Enter transitions via `transition` (with `transitionDuration` / `transitionDelay
 A placeholder for a section that's still loading — a spinner, a title, and an optional description.
 
 - React: `import { LoadingState } from "lojee-ui"`
+- Web Component: `<l-loading-state>` (after `import "lojee-ui/elements"`)
 
 ### Loading State · 2. Props and Interfaces
 
@@ -9247,11 +10664,26 @@ Standard visual states: default · hover · focus-visible (ring) · active/press
 | `LoadingState` | `title` | `ReactNode` | Heading text shown under the spinner (default: "Loading…"). |
 | `LoadingState` | `children` | `ReactNode` | The description/body. |
 
+Web Component extras (slots and plain HTML attributes accepted by the `<l-*>` tag in addition to the props above):
+
+| Component | Name | Type | Description |
+| --- | --- | --- | --- |
+| `LoadingState` | `heading` | `string` | Text shown as the title. Named `heading` here because `title` is a native HTMLElement attribute. |
+
 In a Web Component, the element's light-DOM text/children go into the default slot; a prop that accepts a node (e.g. `header`, `footer`) can usually also be filled with a child carrying `slot="<name>"`.
 
 ### Loading State · 9. Framework Interfaces
 
-- `LoadingState`: React only (no standalone Web Component).
+**`LoadingState`** → `<l-loading-state>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `heading` | `heading` | string |
+| `size` | `size` | string |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+
 Minimal use in each target (from the first docs example, *Basic*):
 
 **React**
@@ -9341,6 +10773,7 @@ Enter transitions via `transition` (with `transitionDuration` / `transitionDelay
 A grey placeholder in the shape of content that is still loading — text lines, a block, or an avatar — so a page doesn&apos;t jump when the real content arrives.
 
 - React: `import { Skeleton } from "lojee-ui"`
+- Web Component: `<l-skeleton>` (after `import "lojee-ui/elements"`)
 
 ### Skeletons · 2. Props and Interfaces
 
@@ -9395,7 +10828,20 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 ### Skeletons · 9. Framework Interfaces
 
-- `Skeleton`: React only (no standalone Web Component).
+**`Skeleton`** → `<l-skeleton>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `variant` | `variant` | string |
+| `width` | `width` | string |
+| `height` | `height` | string |
+| `size` | `size` | number |
+| `lines` | `lines` | number |
+| `animation` | `animation` | string |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+
 Minimal use in each target (from the first docs example, *Shapes*):
 
 **React**
@@ -9472,6 +10918,7 @@ Put several together in the layout of the real thing — a card, a list row, a t
 A top-of-app horizontal navigation bar with a brand, nav links, and right-aligned actions.
 
 - React: `import { Navbar } from "lojee-ui"` · `import { NavbarItem } from "lojee-ui"`
+- Web Component: `<l-navbar>` · `<l-navbar-item>` (after `import "lojee-ui/elements"`)
 
 ### Navbar · 2. Props and Interfaces
 
@@ -9492,6 +10939,11 @@ A top-of-app horizontal navigation bar with a brand, nav links, and right-aligne
 | `gradientTo` | `ColorName \| (string & {})` | — | Second color of the "gradient" variant: a `ColorName` or any CSS color such as "#ec4899" (default: a darker shade of `color`). |
 | `gradientDirection` | `GradientDirection` | `"to-right"` | Direction of the "gradient" variant: "to-right" \| "to-left" \| "to-bottom" \| "to-top" \| "to-br" \| "to-bl" \| "to-tr" \| "to-tl" (default: "to-right"). |
 | `borderWidth` | `number` | — | "bordered"'s own border thickness in px (default: 2). Has no effect on any other variant — every other variant's border (where it has one at all) is a fixed-width neutral divider, not an adjustable, colored one. |
+| `scrollBackground` | `boolean` | `false` | Transparent while at the top, switching to the variant's solid background once scrolled past `scrollThreshold` (default: false). Applies to "light"/"dark"/"gradient"/"bordered"/"elevated". Works with page scroll or an inner scroll container. |
+| `scrollGlow` | `boolean \| NavbarScrollGlowEffect` | `false` | Shows an accent glow along the bottom edge while scrolling, fading out `scrollGlowDuration` ms after scrolling stops (default: false). Only shown once scrolled past `scrollThreshold`. `true` (or a bare `scroll-glow`) is "spread"; pass an effect name to pick how it animates: "spread" grows from the center outward \| "fade" fades the whole line in and out \| "sweep" a light travels along the edge \| "pulse" breathes while scrolling \| "rainbow" a multi-color line that spreads from the center \| "particles" the spread glow plus sparks falling from the edge. |
+| `itemsAlign` | `NavbarItemsAlign` | `"left"` | Where the link row sits in the bar: "left" next to the brand (default) \| "center" centered between brand and actions \| "right" next to the actions. |
+| `scrollThreshold` | `number` | `0` | Pixels scrolled before `scrollBackground`/`scrollGlow` kick in (default: 0). |
+| `scrollGlowDuration` | `number` | `600` | How long after scrolling stops the glow fades away, in ms (default: 600). |
 | `className` | `string` | — | Extra CSS class(es) added to the root element, merged before `classNames.root`. |
 | `classNames` | `{ root?: string; brand?: string; links?: string; actions?: string; }` | — | Per-part class overrides — merged after (and win over) the built-in styling. |
 
@@ -9521,7 +10973,7 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
-| `Navbar` | `onActiveItemChange` | `(item: NavbarItemSpec) => void` | — (React only) | Called with the full `items` row object whenever the active link changes — a click, a URL match on mount/back-forward-navigation, or a row's `active` field changing to point elsewhere. Use this to read which link is active without tracking it yourself. Not called for links composed directly via `children` (only the data-driven `items` shortcut has a "current link" concept). |
+| `Navbar` | `onActiveItemChange` | `(item: NavbarItemSpec) => void` | `activeitemchange` (CustomEvent, payload in `detail`) | Called with the full `items` row object whenever the active link changes — a click, a URL match on mount/back-forward-navigation, or a row's `active` field changing to point elsewhere. Use this to read which link is active without tracking it yourself. Not called for links composed directly via `children` (only the data-driven `items` shortcut has a "current link" concept). |
 | `NavbarItem` | `onClick` | `() => void` | — (React only) | Called with no arguments when the item is clicked. |
 
 ### Navbar · 4. Variants
@@ -9570,8 +11022,47 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 ### Navbar · 9. Framework Interfaces
 
-- `Navbar`: React only (no standalone Web Component — used through its parent).
-- `NavbarItem`: React only (no standalone Web Component — used through its parent).
+**`Navbar`** → `<l-navbar>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `brand` | `brand` | string |
+| `sticky` | `sticky` | boolean |
+| `bordered` | `bordered` | boolean |
+| `variant` | `variant` | string |
+| `color` | `color` | string |
+| `gradientTo` | `gradient-to` | string |
+| `gradientDirection` | `gradient-direction` | string |
+| `borderWidth` | `border-width` | number |
+| `items` | `items` | json (JSON string or object property) |
+| `defaultActiveItem` | `default-active-item` | string |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+| `hoverEffect` | `hover-effect` | string |
+| `scrollBackground` | `scroll-background` | boolean |
+| `scrollGlow` | `scroll-glow` | string |
+| `itemsAlign` | `items-align` | string |
+| `scrollThreshold` | `scroll-threshold` | number |
+| `scrollGlowDuration` | `scroll-glow-duration` | number |
+
+**`NavbarItem`** → `<l-navbar-item>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `icon` | `icon` | string |
+| `href` | `href` | string |
+| `active` | `active` | boolean |
+| `disabled` | `disabled` | boolean |
+| `dark` | `dark` | boolean |
+| `vividActive` | `vivid-active` | boolean |
+| `color` | `color` | string |
+| `activeStyle` | `active-style` | string |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+| `hoverEffect` | `hover-effect` | string |
+
 Minimal use in each target (from the first docs example, *Basic*):
 
 **React**
@@ -9641,59 +11132,49 @@ Leave active unset on every link (the common case) and Navbar determines and man
 />
 ```
 
+#### Items with icons
+
+Give each item an icon (any name from the icon set). Combine with hoverEffect for animated links, and with tooltip for icon-only hints.
+
+```tsx
+const items = [
+  { label: "Home", icon: "home", active: true },
+  { label: "Projects", icon: "folder" },
+  { label: "Team", icon: "users" },
+  { label: "Settings", icon: "settings" },
+];
+
+<Navbar brand="App" items={items} />
+<Navbar brand="App" variant="dark" items={items} hoverEffect="lift" />
+<Navbar brand="App" variant="gradient" items={items} hoverEffect="glow" />
+```
+
+#### Items alignment
+
+```tsx
+<Navbar brand="App" itemsAlign="center" items={items} actions={<Avatar initials="JD" size="sm" />} />
+// "left" | "center" | "right"
+```
+
 #### Sticky
 
 Set sticky so the bar pins to the top of its scroll container.
 
 ```tsx
 <div className="h-64 overflow-y-auto">
-  <Navbar sticky brand="App">
-    <Button variant="ghost" label="Home" />
-    <Button variant="ghost" label="Products" />
-  </Navbar>
+  <Navbar
+    sticky
+    scrollBackground
+    brand="App"
+    items={[{ label: "Home" }, { label: "Products" }]}
+  />
   <div className="p-6 space-y-4">
     {rows.map((row, i) => <p key={i}>{row}</p>)}
   </div>
 </div>
 ```
 
-#### Variants
-
-```tsx
-<Navbar
-  variant="dark"
-  brand={<span className="text-white">App</span>}
-  items={[
-    { label: "Home", active: true },
-    { label: "Products" },
-  ]}
-/>
-
-{/* Also available:
-    variant="bordered" / "elevated" — detached-panel looks (rounded corners, floats
-      inside a page instead of docking full-width). Their backdrop (padding + a neutral background)
-      is built in, so no extra markup is needed. "bordered" is a solid bar on the page surface with a
-      color-tinted border (see `color`/`borderWidth`); "elevated" is the same bar but
-      shadow-only, no border.
-    variant="minimal"  — no background/border at all, blends into the page.
-    variant="gradient" — a left-to-right gradient built from `color` (600 → 700). */}
-```
-
-#### Custom styling
-
-Override the root with className, or target the brand/links/actions slots with classNames.
-
-```tsx
-<Navbar
-  brand="App"
-  classNames={{ root: "bg-indigo-50 dark:bg-indigo-950/40", brand: "text-indigo-900 dark:text-indigo-200" }}
->
-  <Button variant="ghost" label="Home" className="text-indigo-700 hover:bg-indigo-100 dark:text-indigo-300 dark:hover:bg-indigo-900/40" />
-  <Button variant="ghost" label="Products" className="text-indigo-700 hover:bg-indigo-100 dark:text-indigo-300 dark:hover:bg-indigo-900/40" />
-</Navbar>
-```
-
-_1 more examples are on the docs page._
+_5 more examples are on the docs page._
 
 ### Navbar · 11. Component Composition
 
@@ -9729,6 +11210,7 @@ _1 more examples are on the docs page._
 A vertical navigation panel — an app-shell shell for the rest of the library's nav content.
 
 - React: `import { SidebarHeader } from "lojee-ui"` · `import { SidebarFooter } from "lojee-ui"` · `import { Sidebar } from "lojee-ui"` · `import { SidebarMenuItem } from "lojee-ui"`
+- Web Component: `<l-sidebar-header>` · `<l-sidebar-footer>` · `<l-sidebar>` · `<l-sidebar-menu-item>` (after `import "lojee-ui/elements"`)
 
 ### Sidebar · 2. Props and Interfaces
 
@@ -9807,9 +11289,10 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
-| `Sidebar` | `onCollapsedChange` | `(collapsed: boolean) => void` | — (React only) | Called whenever the collapsed state changes — whether toggled by the built-in button in uncontrolled mode, or requested while `collapsed` is a controlled prop. Optional either way; only needed if something outside `Sidebar` cares about the current state. |
-| `Sidebar` | `onActiveItemChange` | `(item: SidebarMenuItemSpec) => void` | — (React only) | Called with the full `items` row object whenever the active row changes — a click, a URL match on mount/back-forward-navigation, or a row's `active` field changing to point elsewhere (see `SidebarMenuItemSpec.active`). Use this to read which item is active without tracking it yourself, e.g. to drive your own router's navigation or to sync active state elsewhere in your app. Not called for rows composed directly via `children` (only the data-driven `items` shortcut has a "current item" concept). |
+| `Sidebar` | `onCollapsedChange` | `(collapsed: boolean) => void` | `collapsedchange` (CustomEvent, payload in `detail`) | Called whenever the collapsed state changes — whether toggled by the built-in button in uncontrolled mode, or requested while `collapsed` is a controlled prop. Optional either way; only needed if something outside `Sidebar` cares about the current state. |
+| `Sidebar` | `onActiveItemChange` | `(item: SidebarMenuItemSpec) => void` | `activeitemchange` (CustomEvent, payload in `detail`) | Called with the full `items` row object whenever the active row changes — a click, a URL match on mount/back-forward-navigation, or a row's `active` field changing to point elsewhere (see `SidebarMenuItemSpec.active`). Use this to read which item is active without tracking it yourself, e.g. to drive your own router's navigation or to sync active state elsewhere in your app. Not called for rows composed directly via `children` (only the data-driven `items` shortcut has a "current item" concept). |
 | `Sidebar` | `onNavigate` | `(path: string, item: SidebarMenuItemSpec) => void` | — (React only) | Called with a row's `path` when it is clicked, so your router can navigate without a page reload (e.g. React Router's `navigate`). Without it, `Sidebar` changes the URL itself with `history.pushState` and fires a `popstate` event, which routers that watch the history pick up — still no reload. Modified clicks (Ctrl/Cmd/Shift, middle button) and paths on another origin keep the browser's normal link behaviour. |
+| `Sidebar` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
 | `SidebarMenuItem` | `onClick` | `(event: React.MouseEvent<HTMLElement>) => void` | — (React only) | Called when the row is clicked, with the click event (not called while `disabled`). |
 
 ### Sidebar · 4. Variants
@@ -9867,10 +11350,59 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 ### Sidebar · 9. Framework Interfaces
 
-- `SidebarHeader`: React only (no standalone Web Component — used through its parent).
-- `SidebarFooter`: React only (no standalone Web Component — used through its parent).
-- `Sidebar`: React only (no standalone Web Component — used through its parent).
-- `SidebarMenuItem`: React only (no standalone Web Component — used through its parent).
+**`SidebarHeader`** → `<l-sidebar-header>`
+
+**`SidebarFooter`** → `<l-sidebar-footer>`
+
+**`Sidebar`** → `<l-sidebar>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `width` | `width` | number |
+| `height` | `height` | string |
+| `collapsed` | `collapsed` | boolean |
+| `variant` | `variant` | string |
+| `color` | `color` | string |
+| `gradientTo` | `gradient-to` | string |
+| `gradientDirection` | `gradient-direction` | string |
+| `collapsible` | `collapsible` | boolean |
+| `header` | `header` | string |
+| `headerIcon` | `header-icon` | string |
+| `footer` | `footer` | string |
+| `items` | `items` | json (JSON string or object property) |
+| `defaultActiveItem` | `default-active-item` | string |
+| `borderWidth` | `border-width` | number |
+| `sticky` | `sticky` | boolean |
+| `showLabel` | `show-label` | boolean |
+| `collapseSpeed` | `collapse-speed` | string |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+| `tooltipTransition` | `tooltip-transition` | string |
+| `tooltipTransitionDuration` | `tooltip-transition-duration` | number |
+| `tooltipColor` | `tooltip-color` | string |
+
+**`SidebarMenuItem`** → `<l-sidebar-menu-item>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `icon` | `icon` | string |
+| `href` | `href` | string |
+| `active` | `active` | boolean |
+| `disabled` | `disabled` | boolean |
+| `collapsed` | `collapsed` | boolean |
+| `dark` | `dark` | boolean |
+| `vividActive` | `vivid-active` | boolean |
+| `color` | `color` | string |
+| `showLabel` | `show-label` | boolean |
+| `tooltipPosition` | `tooltip-position` | string |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+| `tooltipTransition` | `tooltip-transition` | string |
+| `tooltipTransitionDuration` | `tooltip-transition-duration` | number |
+| `tooltipColor` | `tooltip-color` | string |
+
 Minimal use in each target (from the first docs example, *Basic*):
 
 **React**
@@ -9953,66 +11485,57 @@ header/headerIcon and footer are the data-driven shortcut for a workspace name p
 />
 ```
 
-#### Categories
+#### Custom header and footer
 
-Mix { category, items } entries into items for labeled, collapsible section groups — click a heading to toggle it. Defaults open for the first group or one containing an active row; every other group starts closed.
-
-```tsx
-<Sidebar
-  collapsible
-  header="Lojee Inc"
-  headerIcon="zap"
-  footer="Jordan Diaz"
-  items={[
-    {
-      category: "Workspace",
-      items: [
-        { label: "Dashboard", icon: "home", active: true },
-        { label: "Projects", icon: "folder" },
-      ],
-    },
-    {
-      category: "Account",
-      items: [
-        { label: "Team", icon: "users" },
-        { label: "Settings", icon: "settings" },
-      ],
-    },
-  ]}
-/>
-```
-
-#### Variants
+For anything beyond a name and an icon, compose the header and footer yourself. In React, put SidebarHeader / SidebarFooter inside Sidebar; in JS, Vue and Angular, use the l-sidebar-header and l-sidebar-footer elements inside l-sidebar.
 
 ```tsx
-<Sidebar
-  variant="dark"
-  header="Lojee Inc"
-  footer="Jordan Diaz"
-  items={[
-    { label: "Dashboard", icon: "home", active: true },
-    { label: "Projects", icon: "folder" },
-    { label: "Team", icon: "users" },
-    { label: "Settings", icon: "settings" },
-  ]}
-/>
-
-{/* Also available:
-    variant="bordered" / "elevated" — detached-panel looks (rounded corners, floats
-      inside a page instead of docking to a screen edge). Their backdrop (padding + a neutral
-      background) is built in, so no extra markup is needed — just give them a height, e.g.
-      height="100%" inside a sized parent. "bordered" is a solid panel on the page surface with a color-tinted
-      border (see `color`/`borderWidth`); "elevated" is the same solid panel on the page surface but
-      shadow-only, no border.
-    variant="minimal"  — no background/border at all, blends into the page.
-    variant="gradient" — a top-to-bottom gradient built from `color` (600 → 700). */}
+<Sidebar items={items}>
+  <SidebarHeader>
+    <div className="flex items-center gap-2 px-3 py-3 font-semibold">
+      <Icon name="zap" size={18} />
+      Lojee Inc
+    </div>
+  </SidebarHeader>
+  <SidebarFooter>
+    <div className="flex items-center gap-2 px-3 py-3">
+      <Avatar initials="JD" size="sm" />
+      <span>Jordan Diaz</span>
+    </div>
+  </SidebarFooter>
+</Sidebar>
 ```
 
-_5 more examples are on the docs page._
+#### Header and footer with actions
+
+The header and footer take any content — here a brand with a badge on top and action buttons below. Use only the one you need; the other falls back to the header / footer attributes or nothing.
+
+```tsx
+<Sidebar items={items}>
+  <SidebarHeader>
+    <div className="flex items-center justify-between gap-2 px-3 py-3">
+      <span className="flex items-center gap-2 font-semibold">
+        <Icon name="layout-grid" size={18} />
+        Acme
+      </span>
+      <Badge label="Pro" color="accent" size="sm" />
+    </div>
+  </SidebarHeader>
+  <SidebarFooter>
+    <div className="flex gap-2 px-3 py-3">
+      <Button size="sm" variant="outline" label="Help" icon="circle-help" />
+      <Button size="sm" label="Upgrade" />
+    </div>
+  </SidebarFooter>
+</Sidebar>
+```
+
+_7 more examples are on the docs page._
 
 ### Sidebar · 11. Component Composition
 
 - Built from `SidebarHeader`, `SidebarFooter`, `Sidebar`, `SidebarMenuItem` — use them together as shown in the examples above.
+- Combined in its own examples with: `Avatar`, `Badge`, `Button`, `Icon`.
 
 ### Sidebar · 12. Accessibility
 
@@ -10043,6 +11566,7 @@ _5 more examples are on the docs page._
 An app bar for the top of a screen or page: a title (with an optional back button), flexible center content, and a row of icon actions.
 
 - React: `import { TopBar } from "lojee-ui"`
+- Web Component: `<l-top-bar>` (after `import "lojee-ui/elements"`)
 
 ### Top Bar · 2. Props and Interfaces
 
@@ -10080,11 +11604,11 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
-| `TopBar` | `onBack` | `() => void` | — (React only) | Shows a back arrow before the title and calls this when it is pressed. |
-| `TopBar` | `onMenuClick` | `() => void` | — (React only) | Called with no arguments when the built-in menu (hamburger) button is pressed. |
-| `TopBar` | `onSearch` | `(query: string) => void` | — (React only) | Called with the query string when the user presses Enter in the search field. |
-| `TopBar` | `onSearchChange` | `(query: string) => void` | — (React only) | Called with the current query string on every keystroke in the search field. |
-| `TopBar` | `onActionClick` | `(action: TopBarAction, index: number) => void` | — (React only) | Called with the pressed action and its index. |
+| `TopBar` | `onBack` | `() => void` | `back` (CustomEvent, payload in `detail`) | Shows a back arrow before the title and calls this when it is pressed. |
+| `TopBar` | `onMenuClick` | `() => void` | `menuclick` (CustomEvent, payload in `detail`) | Called with no arguments when the built-in menu (hamburger) button is pressed. |
+| `TopBar` | `onSearch` | `(query: string) => void` | `search` (CustomEvent, payload in `detail`) | Called with the query string when the user presses Enter in the search field. |
+| `TopBar` | `onSearchChange` | `(query: string) => void` | `searchchange` (CustomEvent, payload in `detail`) | Called with the current query string on every keystroke in the search field. |
+| `TopBar` | `onActionClick` | `(action: TopBarAction, index: number) => void` | `actionclick` (CustomEvent, payload in `detail`) | Called with the pressed action and its index. |
 
 ### Top Bar · 4. Variants
 
@@ -10128,7 +11652,28 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 ### Top Bar · 9. Framework Interfaces
 
-- `TopBar`: React only (no standalone Web Component).
+**`TopBar`** → `<l-top-bar>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `title` | `title` | string |
+| `subtitle` | `subtitle` | string |
+| `back` | `back` | boolean |
+| `backLabel` | `back-label` | string |
+| `menu` | `menu` | boolean |
+| `menuLabel` | `menu-label` | string |
+| `search` | `search` | boolean |
+| `searchPlaceholder` | `search-placeholder` | string |
+| `actions` | `actions` | json (JSON string or object property) |
+| `variant` | `variant` | string |
+| `color` | `color` | string |
+| `size` | `size` | string |
+| `sticky` | `sticky` | boolean |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+| `hoverEffect` | `hover-effect` | string |
+
 Minimal use in each target (from the first docs example, *Back button*):
 
 **React**
@@ -10269,6 +11814,7 @@ const actions = [
 A page-level header — title, description, and actions, e.g. the bar at the top of a dashboard page.
 
 - React: `import { Header } from "lojee-ui"`
+- Web Component: `<l-header>` (after `import "lojee-ui/elements"`)
 
 ### Header · 2. Props and Interfaces
 
@@ -10328,11 +11874,30 @@ Standard visual states: default · hover · focus-visible (ring) · active/press
 | `Header` | `breadcrumbs` | `ReactNode` | Optional content above the title, e.g. a <Breadcrumbs> trail. |
 | `Header` | `actions` | `ReactNode` | Right-side content — action buttons. |
 
+Web Component extras (slots and plain HTML attributes accepted by the `<l-*>` tag in addition to the props above):
+
+| Component | Name | Type | Description |
+| --- | --- | --- | --- |
+| `Header` | `heading` | `string` | Text shown as the title. Named `heading` here because `title` is a native HTMLElement attribute. |
+
 In a Web Component, the element's light-DOM text/children go into the default slot; a prop that accepts a node (e.g. `header`, `footer`) can usually also be filled with a child carrying `slot="<name>"`.
 
 ### Header · 9. Framework Interfaces
 
-- `Header`: React only (no standalone Web Component).
+**`Header`** → `<l-header>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `heading` | `heading` | string |
+| `variant` | `variant` | string |
+| `color` | `color` | string |
+| `gradientTo` | `gradient-to` | string |
+| `gradientDirection` | `gradient-direction` | string |
+| `borderWidth` | `border-width` | number |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+
 Minimal use in each target (from the first docs example, *Basic*):
 
 **React**
@@ -10457,6 +12022,7 @@ Enter transitions via `transition` (with `transitionDuration` / `transitionDelay
 A site-wide bottom footer with a content area and a copyright bar, in a neutral surface or any color.
 
 - React: `import { Footer } from "lojee-ui"`
+- Web Component: `<l-footer>` (after `import "lojee-ui/elements"`)
 
 ### Footer · 2. Props and Interfaces
 
@@ -10509,7 +12075,16 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 ### Footer · 9. Framework Interfaces
 
-- `Footer`: React only (no standalone Web Component).
+**`Footer`** → `<l-footer>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `bottom` | `bottom` | string |
+| `color` | `color` | string |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+
 Minimal use in each target (from the first docs example, *Basic*):
 
 **React**
@@ -10619,6 +12194,7 @@ Enter transitions via `transition` (with `transitionDuration` / `transitionDelay
 A data-driven row of top-level site nav links with an active-item indicator.
 
 - React: `import { NavigationMenu } from "lojee-ui"`
+- Web Component: `<l-navigation-menu>` (after `import "lojee-ui/elements"`)
 
 ### Navigation Menu · 2. Props and Interfaces
 
@@ -10642,8 +12218,9 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
-| `NavigationMenu` | `onActiveItemChange` | `(item: NavigationMenuItem) => void` | — (React only) | Called with the full item whenever the active item changes — a click, a URL match on mount/back-forward navigation, or an item's `active` field changing to point elsewhere. Same as Sidebar / Navbar. |
-| `NavigationMenu` | `onChange` | `(index: number, item: NavigationMenuItem) => void` | — (React only) | Called whenever a (non-disabled) item is clicked, with its index and data. |
+| `NavigationMenu` | `onActiveItemChange` | `(item: NavigationMenuItem) => void` | `activeitemchange` (CustomEvent, payload in `detail`) | Called with the full item whenever the active item changes — a click, a URL match on mount/back-forward navigation, or an item's `active` field changing to point elsewhere. Same as Sidebar / Navbar. |
+| `NavigationMenu` | `onChange` | `(index: number, item: NavigationMenuItem) => void` | `change` (CustomEvent, payload in `detail`) | Called whenever a (non-disabled) item is clicked, with its index and data. |
+| `NavigationMenu` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
 
 ### Navigation Menu · 4. Variants
 
@@ -10678,7 +12255,20 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 ### Navigation Menu · 9. Framework Interfaces
 
-- `NavigationMenu`: React only (no standalone Web Component).
+**`NavigationMenu`** → `<l-navigation-menu>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `items` | `items` | json (JSON string or object property) |
+| `orientation` | `orientation` | string |
+| `color` | `color` | string |
+| `variant` | `variant` | string |
+| `defaultActiveItem` | `default-active-item` | string |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+| `hoverEffect` | `hover-effect` | string |
+
 Minimal use in each target (from the first docs example, *Basic*):
 
 **React**
@@ -10827,6 +12417,7 @@ _2 more examples are on the docs page._
 A mobile-style bottom tab bar — icon and label per tab, active tab highlighted.
 
 - React: `import { BottomNavigation } from "lojee-ui"`
+- Web Component: `<l-bottom-navigation>` (after `import "lojee-ui/elements"`)
 
 ### Bottom Navigation · 2. Props and Interfaces
 
@@ -10853,9 +12444,10 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
-| `BottomNavigation` | `onActiveItemChange` | `(item: BottomNavigationItem) => void` | — (React only) | Called with the full item whenever the active tab changes — a click, a URL match on mount/back-forward navigation, or an item's `active` field changing to point elsewhere. |
-| `BottomNavigation` | `onItemClick` | `(item: BottomNavigationItem, index: number) => void` | — (React only) | Called on every tab click, with the clicked item and its index — including a click on the tab that is already active (which `onActiveItemChange` does not report). The web component's `itemclick` event (detail = the item). |
-| `BottomNavigation` | `onFabClick` | `() => void` | — (React only) | Called when the floating button is pressed (the web component's `fabclick` event). |
+| `BottomNavigation` | `onActiveItemChange` | `(item: BottomNavigationItem) => void` | `activeitemchange` (CustomEvent, payload in `detail`) | Called with the full item whenever the active tab changes — a click, a URL match on mount/back-forward navigation, or an item's `active` field changing to point elsewhere. |
+| `BottomNavigation` | `onItemClick` | `(item: BottomNavigationItem, index: number) => void` | `itemclick` (CustomEvent, payload in `detail`) | Called on every tab click, with the clicked item and its index — including a click on the tab that is already active (which `onActiveItemChange` does not report). The web component's `itemclick` event (detail = the item). |
+| `BottomNavigation` | `onFabClick` | `() => void` | `fabclick` (CustomEvent, payload in `detail`) | Called when the floating button is pressed (the web component's `fabclick` event). |
+| `BottomNavigation` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
 
 ### Bottom Navigation · 4. Variants
 
@@ -10891,7 +12483,22 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 ### Bottom Navigation · 9. Framework Interfaces
 
-- `BottomNavigation`: React only (no standalone Web Component).
+**`BottomNavigation`** → `<l-bottom-navigation>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `items` | `items` | json (JSON string or object property) |
+| `color` | `color` | string |
+| `variant` | `variant` | string |
+| `iconOnly` | `icon-only` | boolean |
+| `fabIcon` | `fab-icon` | string |
+| `fabLabel` | `fab-label` | string |
+| `defaultActiveItem` | `default-active-item` | string |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+| `hoverEffect` | `hover-effect` | string |
+
 Minimal use in each target (from the first docs example, *Basic*):
 
 **React**
@@ -11036,6 +12643,7 @@ _2 more examples are on the docs page._
 A self-contained, data-driven tabbed panel.
 
 - React: `import { Tabs } from "lojee-ui"`
+- Web Component: `<l-tabs>` (after `import "lojee-ui/elements"`)
 
 ### Tabs · 2. Props and Interfaces
 
@@ -11057,7 +12665,8 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
-| `Tabs` | `onChange` | `(index: number) => void` | — (React only) | Called with the new tab index when the user selects a tab (the web component's `change` / `update` event, detail = the index). |
+| `Tabs` | `onChange` | `(index: number) => void` | `change` (CustomEvent, payload in `detail`) | Called with the new tab index when the user selects a tab (the web component's `change` / `update` event, detail = the index). |
+| `Tabs` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
 
 ### Tabs · 4. Variants
 
@@ -11089,7 +12698,18 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 ### Tabs · 9. Framework Interfaces
 
-- `Tabs`: React only (no standalone Web Component).
+**`Tabs`** → `<l-tabs>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `index` | `index` | number |
+| `tabs` | `tabs` | json (JSON string or object property) |
+| `defaultIndex` | `default-index` | number |
+| `color` | `color` | string |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+
 Minimal use in each target (from the first docs example, *Basic*):
 
 **React**
@@ -11215,6 +12835,7 @@ const tabs = [
 A multi-step progress indicator — numbered circles connected by a line.
 
 - React: `import { Stepper } from "lojee-ui"` · `import { StepperItem } from "lojee-ui"`
+- Web Component: `<l-stepper>` · `<l-stepper-item>` (after `import "lojee-ui/elements"`)
 
 ### Stepper · 2. Props and Interfaces
 
@@ -11260,7 +12881,8 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
-| `Stepper` | `onStepChange` | `(index: number, step: StepperStep \| undefined) => void` | — (React only) | Called with the new index and step whenever the current step changes (a click, Back / Next, `ref`, or the `currentStep` prop). `index === steps.length` means every step is complete. |
+| `Stepper` | `onStepChange` | `(index: number, step: StepperStep \| undefined) => void` | `stepchange` (CustomEvent, payload in `detail`) | Called with the new index and step whenever the current step changes (a click, Back / Next, `ref`, or the `currentStep` prop). `index === steps.length` means every step is complete. |
+| `Stepper` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
 
 ### Stepper · 4. Variants
 
@@ -11297,8 +12919,33 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 ### Stepper · 9. Framework Interfaces
 
-- `Stepper`: React only (no standalone Web Component — used through its parent).
-- `StepperItem`: React only (no standalone Web Component — used through its parent).
+**`Stepper`** → `<l-stepper>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `steps` | `steps` | json (JSON string or object property) |
+| `currentStep` | `current-step` | number |
+| `defaultStep` | `default-step` | number |
+| `orientation` | `orientation` | string |
+| `color` | `color` | string |
+| `navigation` | `navigation` | boolean |
+| `sections` | `sections` | boolean |
+| `clickable` | `clickable` | boolean |
+| `backLabel` | `back-label` | string |
+| `nextLabel` | `next-label` | string |
+| `finishLabel` | `finish-label` | string |
+| `completedContent` | `completed-content` | string |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+| `hoverEffect` | `hover-effect` | string |
+
+**`StepperItem`** → `<l-stepper-item>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `step` | `step` | string |
+
 Minimal use in each target (from the first docs example, *Basic*):
 
 **React**
@@ -11479,6 +13126,7 @@ _4 more examples are on the docs page._
 A navigation trail showing the current page's location in a hierarchy.
 
 - React: `import { BreadcrumbItem } from "lojee-ui"` · `import { Breadcrumbs } from "lojee-ui"`
+- Web Component: `<l-breadcrumb-item>` · `<l-breadcrumbs>` (after `import "lojee-ui/elements"`)
 
 ### Breadcrumbs · 2. Props and Interfaces
 
@@ -11543,8 +13191,25 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 ### Breadcrumbs · 9. Framework Interfaces
 
-- `BreadcrumbItem`: React only (no standalone Web Component — used through its parent).
-- `Breadcrumbs`: React only (no standalone Web Component — used through its parent).
+**`BreadcrumbItem`** → `<l-breadcrumb-item>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `href` | `href` | string |
+| `icon` | `icon` | string |
+| `className` | `class-name` | string |
+| `classNames` | `class-names` | json (JSON string or object property) |
+
+**`Breadcrumbs`** → `<l-breadcrumbs>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `color` | `color` | string |
+| `variant` | `variant` | string |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+
 Minimal use in each target (from the first docs example, *Basic*):
 
 **React**
@@ -11691,6 +13356,7 @@ Enter transitions via `transition` (with `transitionDuration` / `transitionDelay
 A controlled page list with prev/next arrows and ellipsis collapsing.
 
 - React: `import { Pagination } from "lojee-ui"`
+- Web Component: `<l-pagination>` (after `import "lojee-ui/elements"`)
 
 ### Pagination · 2. Props and Interfaces
 
@@ -11712,7 +13378,8 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
-| `Pagination` | `onPageChange` | `(page: number) => void` | — (React only) | Called with the new 1-based page number when a page button, or the previous/next button, is clicked. |
+| `Pagination` | `onPageChange` | `(page: number) => void` | `pagechange` (CustomEvent, payload in `detail`) | Called with the new 1-based page number when a page button, or the previous/next button, is clicked. |
+| `Pagination` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
 
 ### Pagination · 4. Variants
 
@@ -11744,7 +13411,18 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 ### Pagination · 9. Framework Interfaces
 
-- `Pagination`: React only (no standalone Web Component).
+**`Pagination`** → `<l-pagination>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `page` | `page` | number |
+| `totalPages` | `total-pages` | number |
+| `siblingCount` | `sibling-count` | number |
+| `color` | `color` | string |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+
 Minimal use in each target (from the first docs example, *Basic*):
 
 **React**
@@ -12005,6 +13683,7 @@ Every default is overridable with a class: drop the panel look for a page that w
 A themeable app shell: compose Top, Side, Main and Foot (holding a Footer), and the CSS Grid is generated from a layout matrix. Open the Playground to rearrange sections by drag and drop.
 
 - React: `import { App } from "lojee-ui"` · `import { Section } from "lojee-ui"`
+- Web Component: `<l-app>` (after `import "lojee-ui/elements"`)
 
 ### App Layout · 2. Props and Interfaces
 
@@ -12076,7 +13755,17 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 ### App Layout · 9. Framework Interfaces
 
-- `App`: React only (no standalone Web Component — used through its parent).
+**`App`** → `<l-app>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `theme` | `theme` | string |
+| `accent` | `accent` | string |
+| `design` | `design` | string |
+| `activeVariant` | `active-variant` | string |
+| `layout` | `layout` | json (JSON string or object property) |
+| `collapseBelow` | `collapse-below` | string |
+
 - `Section`: React only (no standalone Web Component — used through its parent).
 
 ### App Layout · 10. Complete Usage Examples
@@ -12121,6 +13810,7 @@ import { App } from "lojee-ui";
 The menu the lojee-ui navbar uses: light/dark, the accent color and the active-item style in one dropdown. It changes the app theme by itself — no ThemeProvider and no wiring needed. It writes the theme onto the page, remembers the choice, and restores it on the next visit.
 
 - React: `import { ThemeSwitcher } from "lojee-ui"`
+- Web Component: `<l-theme-switcher>` (after `import "lojee-ui/elements"`)
 
 ### Theme Switcher · 2. Props and Interfaces
 
@@ -12136,6 +13826,7 @@ The menu the lojee-ui navbar uses: light/dark, the accent color and the active-i
 | `onAccentChange` | `(accent: Accent) => void` | — | Called when an accent is picked (the theme is still applied unless you control it with the matching prop). |
 | `onActiveVariantChange` | `(variant: ActiveVariant) => void` | — | Called when an active-item style is picked (the theme is still applied unless you control it with the matching prop). |
 | `onDesignChange` | `(design: DesignName) => void` | — | Called when a design is picked (the theme is still applied unless you control it with the matching prop). |
+| `variant` | `ThemeSwitcherVariant` | `"menu"` | How the light/dark choice is shown: "menu" — the dropdown with every section (default) \| "toggle" — one icon button that flips light and dark (mode only) \| "segmented" — inline button groups for mode, design and active-item style plus accent color dots, no dropdown; `showDesign`, `showActiveItems`, `showAccent` and `showCustom` trim them. `align` only applies to "menu". |
 | `align` | `ThemeSwitcherAlign` | `"end"` | Where the dropdown (which always opens below the button) lines up with the button: "start" (left edges together), "center", or "end" (right edges together). "left" / "right" also work, as start / end. Default: "end". |
 | `showDesign` | `boolean` | `true` | Show the "Design" section — Bento or Clay (default: true). |
 | `showActiveItems` | `boolean` | `true` | Show the "Active items" section (default: true). |
@@ -12152,17 +13843,18 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
-| `ThemeSwitcher` | `onModeChange` | `(mode: ThemeMode) => void` | — (React only) | Called when light/dark is picked (the theme is still applied unless you control it with the matching prop). |
-| `ThemeSwitcher` | `onAccentChange` | `(accent: Accent) => void` | — (React only) | Called when an accent is picked (the theme is still applied unless you control it with the matching prop). |
-| `ThemeSwitcher` | `onActiveVariantChange` | `(variant: ActiveVariant) => void` | — (React only) | Called when an active-item style is picked (the theme is still applied unless you control it with the matching prop). |
-| `ThemeSwitcher` | `onDesignChange` | `(design: DesignName) => void` | — (React only) | Called when a design is picked (the theme is still applied unless you control it with the matching prop). |
-| `ThemeSwitcher` | `onOpenChange` | `(open: boolean) => void` | — (React only) | Called when the menu asks to open or close (the button, a click outside, Escape). |
+| `ThemeSwitcher` | `onModeChange` | `(mode: ThemeMode) => void` | `modechange` (CustomEvent, payload in `detail`) | Called when light/dark is picked (the theme is still applied unless you control it with the matching prop). |
+| `ThemeSwitcher` | `onAccentChange` | `(accent: Accent) => void` | `accentchange` (CustomEvent, payload in `detail`) | Called when an accent is picked (the theme is still applied unless you control it with the matching prop). |
+| `ThemeSwitcher` | `onActiveVariantChange` | `(variant: ActiveVariant) => void` | `activevariantchange` (CustomEvent, payload in `detail`) | Called when an active-item style is picked (the theme is still applied unless you control it with the matching prop). |
+| `ThemeSwitcher` | `onDesignChange` | `(design: DesignName) => void` | `designchange` (CustomEvent, payload in `detail`) | Called when a design is picked (the theme is still applied unless you control it with the matching prop). |
+| `ThemeSwitcher` | `onOpenChange` | `(open: boolean) => void` | `openchange` (CustomEvent, payload in `detail`) | Called when the menu asks to open or close (the button, a click outside, Escape). |
 
 ### Theme Switcher · 4. Variants
 
 | Component | Prop | Values | Default | Notes |
 | --- | --- | --- | --- | --- |
 | `ThemeSwitcher` | `mode` | `light`, `dark` | — | Current mode — omit to use the surrounding `ThemeProvider`. |
+| `ThemeSwitcher` | `variant` | `menu`, `toggle`, `segmented` | `"menu"` | How the light/dark choice is shown: "menu" — the dropdown with every section (default) \| "toggle" — one icon button that flips light and dark (mode only) \| "segmented" — inline button groups for mode, design and active-item style plus accent color dots, no dropdown; `showDesign`, `showActiveItems`, `showAccent` and `showCustom` trim them. `align` only applies to "menu". |
 | `ThemeSwitcher` | `align` | `start`, `center`, `end`, `left`, `right` | `"end"` | Where the dropdown (which always opens below the button) lines up with the button: "start" (left edges together), "center", or "end" (right edges together). "left" / "right" also work, as start / end. Default: "end". |
 
 ### Theme Switcher · 5. Colors and Theming
@@ -12195,7 +13887,27 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 ### Theme Switcher · 9. Framework Interfaces
 
-- `ThemeSwitcher`: React only (no standalone Web Component).
+**`ThemeSwitcher`** → `<l-theme-switcher>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `open` | `open` | boolean |
+| `variant` | `variant` | string |
+| `mode` | `mode` | string |
+| `accent` | `accent` | string |
+| `activeVariant` | `active-variant` | string |
+| `design` | `design` | string |
+| `align` | `align` | string |
+| `showDesign` | `show-design` | boolean |
+| `showActiveItems` | `show-active-items` | boolean |
+| `showAccent` | `show-accent` | boolean |
+| `showCustom` | `show-custom` | boolean |
+| `customAccentLabel` | `custom-accent-label` | string |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+| `hoverEffect` | `hover-effect` | string |
+
 Minimal use in each target (from the first docs example, *Basic*):
 
 **React**
@@ -12218,6 +13930,14 @@ Drop it anywhere — typically in a Navbar's actions. Inside a ThemeProvider it 
 
 ```tsx
 <ThemeSwitcher />
+```
+
+#### Toggle and segmented
+
+```tsx
+<ThemeSwitcher variant="toggle" />
+<ThemeSwitcher variant="segmented" />
+<ThemeSwitcher variant="segmented" showActiveItems={false} showCustom={false} />
 ```
 
 #### Trimmed menus
@@ -12253,7 +13973,7 @@ const [mode, setMode] = useState<"light" | "dark">("light");
 
 ### Theme Switcher · 12. Accessibility
 
-- ARIA roles used: `menu`, `menuitemradio`.
+- ARIA roles used: `radiogroup`, `menu`, `radio`, `menuitemradio`.
 - ARIA attributes set by the component: `aria-checked`, `aria-expanded`, `aria-haspopup`, `aria-hidden`, `aria-label`.
 - Keyboard: has keyboard handling (e.g. Escape / arrow keys) — see the docs page for the exact keys.
 - Focus: visible focus ring (`focus-visible`).
@@ -12281,6 +14001,7 @@ const [mode, setMode] = useState<"light" | "dark">("light");
 A data-driven table — pass columns and rows, no compound children.
 
 - React: `import { Table } from "lojee-ui"`
+- Web Component: `<l-table>` (after `import "lojee-ui/elements"`)
 
 ### Tables · 2. Props and Interfaces
 
@@ -12513,11 +14234,12 @@ total: { value: 1249.5, currency: "EUR" }      // → €1,249.50
 
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
-| `Table` | `onSelectionChange` | `(keys: TableRowKey[], rows: T[]) => void` | — (React only) | Called with the selected keys and rows whenever the selection changes. |
-| `Table` | `onSortChange` | `(sort: TableSort \| null) => void` | — (React only) | Called when a sortable column header is clicked, with the new sort (or null when sorting is cleared). |
-| `Table` | `onViewChange` | `(view: TableView) => void` | — (React only) | Called with "table" or "grid" when the view is switched. |
-| `Table` | `onAction` | `(action: TableAction, row: T) => void` | — (React only) | Called when a row action is clicked, with the action and its row. For built-ins it runs after the change: "delete" gets the removed row, "duplicate" gets the original row, and "edit" fires on Save with the updated row (Cancel and starting an edit don't fire it). |
-| `Table` | `onDataChange` | `(rows: T[]) => void` | — (React only) | Called with the updated rows after a built-in delete, duplicate or edit-save. |
+| `Table` | `onSelectionChange` | `(keys: TableRowKey[], rows: T[]) => void` | `selectionchange` (CustomEvent, payload in `detail`) | Called with the selected keys and rows whenever the selection changes. |
+| `Table` | `onSortChange` | `(sort: TableSort \| null) => void` | `sortchange` (CustomEvent, payload in `detail`) | Called when a sortable column header is clicked, with the new sort (or null when sorting is cleared). |
+| `Table` | `onViewChange` | `(view: TableView) => void` | `viewchange` (CustomEvent, payload in `detail`) | Called with "table" or "grid" when the view is switched. |
+| `Table` | `onAction` | `(action: TableAction, row: T) => void` | `action` (CustomEvent, payload in `detail`) | Called when a row action is clicked, with the action and its row. For built-ins it runs after the change: "delete" gets the removed row, "duplicate" gets the original row, and "edit" fires on Save with the updated row (Cancel and starting an edit don't fire it). |
+| `Table` | `onDataChange` | `(rows: T[]) => void` | `datachange` (CustomEvent, payload in `detail`) | Called with the updated rows after a built-in delete, duplicate or edit-save. |
+| `Table` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
 
 ### Tables · 4. Variants
 
@@ -12554,7 +14276,34 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 ### Tables · 9. Framework Interfaces
 
-- `Table`: React only (no standalone Web Component).
+**`Table`** → `<l-table>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `columns` | `columns` | json (JSON string or object property) |
+| `data` | `data` | json (JSON string or object property) |
+| `variant` | `variant` | string |
+| `responsive` | `responsive` | string |
+| `view` | `view` | string |
+| `viewToggle` | `view-toggle` | boolean |
+| `size` | `size` | string |
+| `selectable` | `selectable` | boolean |
+| `selected` | `selected` | json (JSON string or object property) |
+| `rowKey` | `row-key` | string |
+| `hoverable` | `hoverable` | boolean |
+| `emptyMessage` | `empty-message` | string |
+| `striped` | `striped` | boolean |
+| `bordered` | `bordered` | boolean |
+| `loading` | `loading` | boolean |
+| `skeletonRows` | `skeleton-rows` | number |
+| `actions` | `actions` | json (JSON string or object property) |
+| `actionsHeader` | `actions-header` | string |
+| `actionsVariant` | `actions-variant` | string |
+| `builtInActions` | `built-in-actions` | boolean |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+
 Minimal use in each target (from the first docs example, *Basic*):
 
 **React**
@@ -12691,6 +14440,7 @@ _10 more examples are on the docs page._
 A browsable collection of cards with search, sorting and a grid / list switch. Each card has a title, a status tag, big numbers and labelled details. Data-driven, so it works in React and as a Web Component.
 
 - React: `import { GridView } from "lojee-ui"`
+- Web Component: `<l-grid-view>` (after `import "lojee-ui/elements"`)
 
 ### Grid View · 2. Props and Interfaces
 
@@ -12726,12 +14476,12 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
-| `GridView` | `onViewChange` | `(view: GridViewMode) => void` | — (React only) | Called with "grid" or "list" when the view is switched. |
-| `GridView` | `onReorder` | `(items: GridViewItem[]) => void` | — (React only) | Called with the items in their new order after a drag and drop (or an arrow-key move) in the "draggable" variant. |
-| `GridView` | `onItemClick` | `(item: GridViewItem) => void` | — (React only) | Called with the card when it is clicked. |
-| `GridView` | `onAction` | `(detail: { action: GridViewAction; item: GridViewItem }) => void` | — (React only) | Called with `{ action, item }` when a card-menu entry is chosen. |
-| `GridView` | `onCreate` | `() => void` | — (React only) | Called when the primary button is clicked. |
-| `GridView` | `onSearchChange` | `(query: string) => void` | — (React only) | Called with the text whenever the search box changes. |
+| `GridView` | `onViewChange` | `(view: GridViewMode) => void` | `viewchange` (CustomEvent, payload in `detail`) | Called with "grid" or "list" when the view is switched. |
+| `GridView` | `onReorder` | `(items: GridViewItem[]) => void` | `reorder` (CustomEvent, payload in `detail`) | Called with the items in their new order after a drag and drop (or an arrow-key move) in the "draggable" variant. |
+| `GridView` | `onItemClick` | `(item: GridViewItem) => void` | `itemclick` (CustomEvent, payload in `detail`) | Called with the card when it is clicked. |
+| `GridView` | `onAction` | `(detail: { action: GridViewAction; item: GridViewItem }) => void` | `action` (CustomEvent, payload in `detail`) | Called with `{ action, item }` when a card-menu entry is chosen. |
+| `GridView` | `onCreate` | `() => void` | `create` (CustomEvent, payload in `detail`) | Called when the primary button is clicked. |
+| `GridView` | `onSearchChange` | `(query: string) => void` | `searchchange` (CustomEvent, payload in `detail`) | Called with the text whenever the search box changes. |
 
 ### Grid View · 4. Variants
 
@@ -12764,7 +14514,27 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 ### Grid View · 9. Framework Interfaces
 
-- `GridView`: React only (no standalone Web Component).
+**`GridView`** → `<l-grid-view>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `items` | `items` | json (JSON string or object property) |
+| `view` | `view` | string |
+| `variant` | `variant` | string |
+| `viewToggle` | `view-toggle` | boolean |
+| `searchable` | `searchable` | boolean |
+| `searchPlaceholder` | `search-placeholder` | string |
+| `sortOptions` | `sort-options` | json (JSON string or object property) |
+| `actions` | `actions` | json (JSON string or object property) |
+| `createLabel` | `create-label` | string |
+| `minItemWidth` | `min-item-width` | number |
+| `loading` | `loading` | boolean |
+| `skeletonCount` | `skeleton-count` | number |
+| `emptyMessage` | `empty-message` | string |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+
 Minimal use in each target (from the first docs example, *Basic*):
 
 **React**
@@ -12847,6 +14617,7 @@ _1 more examples are on the docs page._
 A vertical (or horizontal) sequence of events — a connecting line with a marker per item.
 
 - React: `import { Timeline } from "lojee-ui"`
+- Web Component: `<l-timeline>` (after `import "lojee-ui/elements"`)
 
 ### Timeline · 2. Props and Interfaces
 
@@ -12893,7 +14664,16 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 ### Timeline · 9. Framework Interfaces
 
-- `Timeline`: React only (no standalone Web Component).
+**`Timeline`** → `<l-timeline>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `items` | `items` | json (JSON string or object property) |
+| `orientation` | `orientation` | string |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+
 Minimal use in each target (from the first docs example, *Basic*):
 
 **React**
@@ -13020,6 +14800,7 @@ const items = [
 A single metric card — label, value, and an optional trend or icon. Arrange several with Grid.
 
 - React: `import { Stat } from "lojee-ui"`
+- Web Component: `<l-stat>` (after `import "lojee-ui/elements"`)
 
 ### Stats / KPI · 2. Props and Interfaces
 
@@ -13080,7 +14861,26 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 ### Stats / KPI · 9. Framework Interfaces
 
-- `Stat`: React only (no standalone Web Component).
+**`Stat`** → `<l-stat>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `countUp` | `count-up` | boolean |
+| `countUpDuration` | `count-up-duration` | number |
+| `label` | `label` | string |
+| `value` | `value` | string |
+| `change` | `change` | string |
+| `trend` | `trend` | string |
+| `icon` | `icon` | string |
+| `color` | `color` | string |
+| `animation` | `animation` | string |
+| `pulseColor` | `pulse-color` | string |
+| `pulseGradientTo` | `pulse-gradient-to` | string |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+| `hoverEffect` | `hover-effect` | string |
+
 Minimal use in each target (from the first docs example, *Count up*):
 
 **React**
@@ -13196,6 +14996,7 @@ _2 more examples are on the docs page._
 A lightweight, dependency-free chart — bar, line, and donut, rendered as plain inline SVG.
 
 - React: `import { Chart } from "lojee-ui"`
+- Web Component: `<l-chart>` (after `import "lojee-ui/elements"`)
 
 ### Charts · 2. Props and Interfaces
 
@@ -13257,7 +15058,23 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 ### Charts · 9. Framework Interfaces
 
-- `Chart`: React only (no standalone Web Component).
+**`Chart`** → `<l-chart>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `countUp` | `count-up` | boolean |
+| `countUpDuration` | `count-up-duration` | number |
+| `data` | `data` | json (JSON string or object property) |
+| `type` | `type` | string |
+| `variant` | `variant` | string |
+| `height` | `height` | number |
+| `color` | `color` | string |
+| `showLabels` | `show-labels` | boolean |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+| `hoverEffect` | `hover-effect` | string |
+
 Minimal use in each target (from the first docs example, *Bar*):
 
 **React**
@@ -13378,6 +15195,7 @@ _2 more examples are on the docs page._
 A standalone month-grid calendar — day selection, event dots, and month navigation.
 
 - React: `import { Calendar } from "lojee-ui"`
+- Web Component: `<l-calendar>` (after `import "lojee-ui/elements"`)
 
 ### Calendar · 2. Props and Interfaces
 
@@ -13414,12 +15232,13 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
-| `Calendar` | `onMonthChange` | `(month: string) => void` | — (React only) | Called with the first day of the newly shown month as "YYYY-MM-DD" when the user navigates to another month. |
-| `Calendar` | `onSelect` | `(date: string) => void` | — (React only) | Called with the clicked date as "YYYY-MM-DD" when a day is picked (or with "" when the selection is cleared), in single-selection mode. |
-| `Calendar` | `onRangeSelect` | `(range: CalendarRange) => void` | — (React only) | Range mode: called on every click — first with only `start`, then with both `start` and `end`; `{}` when cleared. |
-| `Calendar` | `onClose` | `() => void` | — (React only) | Called when the overlay should close (backdrop click, Escape, Cancel or Select). |
-| `Calendar` | `onConfirm` | `(date: string \| undefined, range?: CalendarRange) => void` | — (React only) | "modal" footer: called when Select is pressed, with the selected date — or, in range mode, `undefined` and the range as the second argument (the Web Component's `confirm` event carries only the first argument, so read the range from the last `rangeselect` event there). |
-| `Calendar` | `onCancel` | `() => void` | — (React only) | "modal" footer: called when Cancel is pressed. |
+| `Calendar` | `onMonthChange` | `(month: string) => void` | `monthchange` (CustomEvent, payload in `detail`) | Called with the first day of the newly shown month as "YYYY-MM-DD" when the user navigates to another month. |
+| `Calendar` | `onSelect` | `(date: string) => void` | `select` (CustomEvent, payload in `detail`) | Called with the clicked date as "YYYY-MM-DD" when a day is picked (or with "" when the selection is cleared), in single-selection mode. |
+| `Calendar` | `onRangeSelect` | `(range: CalendarRange) => void` | `rangeselect` (CustomEvent, payload in `detail`) | Range mode: called on every click — first with only `start`, then with both `start` and `end`; `{}` when cleared. |
+| `Calendar` | `onClose` | `() => void` | `close` (CustomEvent, payload in `detail`) | Called when the overlay should close (backdrop click, Escape, Cancel or Select). |
+| `Calendar` | `onConfirm` | `(date: string \| undefined, range?: CalendarRange) => void` | `confirm` (CustomEvent, payload in `detail`) | "modal" footer: called when Select is pressed, with the selected date — or, in range mode, `undefined` and the range as the second argument (the Web Component's `confirm` event carries only the first argument, so read the range from the last `rangeselect` event there). |
+| `Calendar` | `onCancel` | `() => void` | `cancel` (CustomEvent, payload in `detail`) | "modal" footer: called when Cancel is pressed. |
+| `Calendar` | `onUpdate` | — | `update` (CustomEvent, payload in `detail`) | The value was committed (the native `change`); `detail` = the new value (`true` / `false` for a checkbox or switch, the value `string` / `number` otherwise). React: `onChange`. |
 
 ### Calendar · 4. Variants
 
@@ -13456,7 +15275,29 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 ### Calendar · 9. Framework Interfaces
 
-- `Calendar`: React only (no standalone Web Component).
+**`Calendar`** → `<l-calendar>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `month` | `month` | string |
+| `selected` | `selected` | string |
+| `defaultSelected` | `default-selected` | string |
+| `selectionMode` | `selection-mode` | string |
+| `selectedRange` | `selected-range` | json (JSON string or object property) |
+| `defaultRange` | `default-range` | json (JSON string or object property) |
+| `events` | `events` | json (JSON string or object property) |
+| `color` | `color` | string |
+| `variant` | `variant` | string |
+| `title` | `title` | string |
+| `open` | `open` | boolean |
+| `footer` | `footer` | boolean |
+| `confirmLabel` | `confirm-label` | string |
+| `cancelLabel` | `cancel-label` | string |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+| `hoverEffect` | `hover-effect` | string |
+
 Minimal use in each target (from the first docs example, *Basic*):
 
 **React**
@@ -13572,6 +15413,7 @@ _3 more examples are on the docs page._
 A vertical feed of "who did what" activity entries — an avatar, a sentence, and a timestamp.
 
 - React: `import { ActivityFeed } from "lojee-ui"`
+- Web Component: `<l-activity-feed>` (after `import "lojee-ui/elements"`)
 
 ### Activity Feed · 2. Props and Interfaces
 
@@ -13616,7 +15458,16 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 ### Activity Feed · 9. Framework Interfaces
 
-- `ActivityFeed`: React only (no standalone Web Component).
+**`ActivityFeed`** → `<l-activity-feed>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `items` | `items` | json (JSON string or object property) |
+| `compact` | `compact` | boolean |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+
 Minimal use in each target (from the first docs example, *Basic*):
 
 **React**
@@ -13729,6 +15580,7 @@ const items = [
 An expandable list of rows — a title and summary that open to a description, a fields table and a code sample. Used for event and method references.
 
 - React: `import { DetailsList } from "lojee-ui"`
+- Web Component: `<l-details-list>` (after `import "lojee-ui/elements"`)
 
 ### Details List · 2. Props and Interfaces
 
@@ -13773,7 +15625,16 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 ### Details List · 9. Framework Interfaces
 
-- `DetailsList`: React only (no standalone Web Component).
+**`DetailsList`** → `<l-details-list>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `items` | `items` | json (JSON string or object property) |
+| `exclusive` | `exclusive` | boolean |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+
 Minimal use in each target (from the first docs example, *Basic*):
 
 **React**
@@ -13846,6 +15707,7 @@ exclusive keeps only one row open at a time.
 A data-driven SVG diagram. Give it nodes and edges and it lays itself out in layers, draws animated wires, highlights connections on hover and reports clicks. Six visual variants, three wire styles, two directions.
 
 - React: `import { FlowDiagram } from "lojee-ui"` · `import { FlowToolbar } from "lojee-ui"`
+- Web Component: `<l-flow-diagram>` (after `import "lojee-ui/elements"`)
 
 ### Flow Diagram · 2. Props and Interfaces
 
@@ -13914,10 +15776,10 @@ A data-driven SVG diagram. Give it nodes and edges and it lays itself out in lay
 
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
-| `FlowDiagram` | `onNodeMove` | `(move: { id: string; x: number; y: number }) => void` | — (React only) | Called continuously while a node moves, with its id and its new top-left position in diagram units. |
-| `FlowDiagram` | `onDiagramChange` | `(data: { nodes: FlowNodeData[]; edges: FlowEdgeData[] }) => void` | — (React only) | Editor: called with the full `{ nodes, edges }` after every edit (add, connect, rename, delete, reset). |
-| `FlowDiagram` | `onNodeClick` | `(node: FlowNodeData) => void` | — (React only) | Called with the node when it is clicked or activated with the keyboard. |
-| `FlowDiagram` | `onNodeHover` | `(node: FlowNodeData \| null) => void` | — (React only) | Called with the node when the pointer enters it, and with `null` when it leaves. |
+| `FlowDiagram` | `onNodeMove` | `(move: { id: string; x: number; y: number }) => void` | `nodemove` (CustomEvent, payload in `detail`) | Called continuously while a node moves, with its id and its new top-left position in diagram units. |
+| `FlowDiagram` | `onDiagramChange` | `(data: { nodes: FlowNodeData[]; edges: FlowEdgeData[] }) => void` | `diagramchange` (CustomEvent, payload in `detail`) | Editor: called with the full `{ nodes, edges }` after every edit (add, connect, rename, delete, reset). |
+| `FlowDiagram` | `onNodeClick` | `(node: FlowNodeData) => void` | `nodeclick` (CustomEvent, payload in `detail`) | Called with the node when it is clicked or activated with the keyboard. |
+| `FlowDiagram` | `onNodeHover` | `(node: FlowNodeData \| null) => void` | `nodehover` (CustomEvent, payload in `detail`) | Called with the node when the pointer enters it, and with `null` when it leaves. |
 | `FlowToolbar` | `onTypeChange` | `(key: string) => void` | — (React only) | — |
 | `FlowToolbar` | `onAdd` | `() => void` | — (React only) | — |
 | `FlowToolbar` | `onToggleConnect` | `() => void` | — (React only) | — |
@@ -13961,7 +15823,38 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 ### Flow Diagram · 9. Framework Interfaces
 
-- `FlowDiagram`: React only (no standalone Web Component — used through its parent).
+**`FlowDiagram`** → `<l-flow-diagram>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `nodes` | `nodes` | json (JSON string or object property) |
+| `edges` | `edges` | json (JSON string or object property) |
+| `direction` | `direction` | string |
+| `variant` | `variant` | string |
+| `curve` | `curve` | string |
+| `color` | `color` | string |
+| `packets` | `packets` | boolean |
+| `speed` | `speed` | number |
+| `animated` | `animated` | boolean |
+| `arrows` | `arrows` | boolean |
+| `interactive` | `interactive` | boolean |
+| `activeNode` | `active-node` | string |
+| `defaultActiveNode` | `default-active-node` | string |
+| `autoPlay` | `auto-play` | json (JSON string or object property) |
+| `grid` | `grid` | boolean |
+| `captionTop` | `caption-top` | string |
+| `captionBottom` | `caption-bottom` | string |
+| `nodeWidth` | `node-width` | number |
+| `nodeHeight` | `node-height` | number |
+| `gap` | `gap` | number |
+| `spacing` | `spacing` | number |
+| `label` | `label` | string |
+| `movable` | `movable` | boolean |
+| `editable` | `editable` | boolean |
+| `zoomable` | `zoomable` | boolean |
+| `toolbarPosition` | `toolbar-position` | string |
+| `nodeTypes` | `node-types` | json (JSON string or object property) |
+
 - `FlowToolbar`: React only (no standalone Web Component — used through its parent).
 Minimal use in each target (from the first docs example, *Shapes and tones*):
 
@@ -14107,6 +16000,7 @@ const add = (from) => {
 An interactive vector map built on MapLibre GL with free CARTO basemaps — no API key. It follows the light / dark theme, loads MapLibre only when a map is shown, and works as  <Map> in React and <l-map> in Vue, Angular and plain JS. Compose it with markers and routes, or pass them as data.
 
 - React: `import { Map } from "lojee-ui"` · `import { MapControls } from "lojee-ui"` · `import {  } from "lojee-ui"`
+- Web Component: `<l-map>` (after `import "lojee-ui/elements"`)
 
 ### Map · 2. Props and Interfaces
 
@@ -14175,14 +16069,14 @@ An interactive vector map built on MapLibre GL with free CARTO basemaps — no A
 
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
-| `Map` | `onLoad` | `(map: MapLibre.Map) => void` | — (React only) | Called once the map and its style have loaded, with the MapLibre map instance. |
-| `Map` | `onStyleChange` | `(style: MapStyleName) => void` | — (React only) | Called when the user picks a base map with the "style" control. |
-| `Map` | `onMove` | `(view: MapViewState) => void` | — (React only) | Called when the user finishes moving the map, with the new view. |
-| `Map` | `onMapClick` | `(position: { lng: number; lat: number }) => void` | — (React only) | Called when the map (not a marker or route) is clicked. |
-| `Map` | `onMarkerClick` | `(marker: MapMarkerData) => void` | — (React only) | Called when a data-driven marker is clicked. |
-| `Map` | `onMarkerDragEnd` | `(marker: MapMarkerData, position: { lng: number; lat: number }) => void` | — (React only) | Called with the marker and its new position when a draggable data-driven marker is dropped. |
-| `Map` | `onRouteClick` | `(route: MapRouteData) => void` | — (React only) | Called when a data-driven route is clicked. |
-| `Map` | `onRouteLoad` | `(summary: MapRouteSummary) => void` | — (React only) | Called when a data-driven route's geometry is known, with its length and (for fetched routes) travel time. |
+| `Map` | `onLoad` | `(map: MapLibre.Map) => void` | `load` (CustomEvent, payload in `detail`) | Called once the map and its style have loaded, with the MapLibre map instance. |
+| `Map` | `onStyleChange` | `(style: MapStyleName) => void` | `stylechange` (CustomEvent, payload in `detail`) | Called when the user picks a base map with the "style" control. |
+| `Map` | `onMove` | `(view: MapViewState) => void` | `move` (CustomEvent, payload in `detail`) | Called when the user finishes moving the map, with the new view. |
+| `Map` | `onMapClick` | `(position: { lng: number; lat: number }) => void` | `mapclick` (CustomEvent, payload in `detail`) | Called when the map (not a marker or route) is clicked. |
+| `Map` | `onMarkerClick` | `(marker: MapMarkerData) => void` | `markerclick` (CustomEvent, payload in `detail`) | Called when a data-driven marker is clicked. |
+| `Map` | `onMarkerDragEnd` | `(marker: MapMarkerData, position: { lng: number; lat: number }) => void` | `markerdragend` (CustomEvent, payload in `detail`) | Called with the marker and its new position when a draggable data-driven marker is dropped. |
+| `Map` | `onRouteClick` | `(route: MapRouteData) => void` | `routeclick` (CustomEvent, payload in `detail`) | Called when a data-driven route is clicked. |
+| `Map` | `onRouteLoad` | `(summary: MapRouteSummary) => void` | `routeload` (CustomEvent, payload in `detail`) | Called when a data-driven route's geometry is known, with its length and (for fetched routes) travel time. |
 | `` | `onChange` | `(style: MapStyleName) => void` | — (React only) | — |
 
 ### Map · 4. Variants
@@ -14220,7 +16114,24 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 ### Map · 9. Framework Interfaces
 
-- `Map`: React only (no standalone Web Component — used through its parent).
+**`Map`** → `<l-map>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `center` | `center` | json (JSON string or object property) |
+| `zoom` | `zoom` | number |
+| `pitch` | `pitch` | number |
+| `bearing` | `bearing` | number |
+| `mapStyle` | `map-style` | string |
+| `controls` | `controls` | json (JSON string or object property) |
+| `markers` | `markers` | json (JSON string or object property) |
+| `routes` | `routes` | json (JSON string or object property) |
+| `fitBounds` | `fit-bounds` | boolean |
+| `fitPadding` | `fit-padding` | number |
+| `interactive` | `interactive` | boolean |
+| `width` | `width` | string |
+| `height` | `height` | string |
+
 - `MapControls`: React only (no standalone Web Component — used through its parent).
 - ``: React only (no standalone Web Component — used through its parent).
 
@@ -14589,6 +16500,7 @@ const routes = await fetchRoutes([amsterdam, rotterdam], { alternatives: true })
 A user profile summary — avatar, name, role, bio, and optional stats or actions.
 
 - React: `import { ProfileCard } from "lojee-ui"`
+- Web Component: `<l-profile-card>` (after `import "lojee-ui/elements"`)
 
 ### Profile Card · 2. Props and Interfaces
 
@@ -14649,7 +16561,25 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 ### Profile Card · 9. Framework Interfaces
 
-- `ProfileCard`: React only (no standalone Web Component).
+**`ProfileCard`** → `<l-profile-card>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `animation` | `animation` | string |
+| `pulseColor` | `pulse-color` | string |
+| `pulseGradientTo` | `pulse-gradient-to` | string |
+| `name` | `name` | string |
+| `role` | `role` | string |
+| `bio` | `bio` | string |
+| `avatarSrc` | `avatar-src` | string |
+| `avatarInitials` | `avatar-initials` | string |
+| `stats` | `stats` | json (JSON string or object property) |
+| `color` | `color` | string |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+| `hoverEffect` | `hover-effect` | string |
+
 Minimal use in each target (from the first docs example, *Basic*):
 
 **React**
@@ -14784,6 +16714,7 @@ _1 more examples are on the docs page._
 An avatar-triggered dropdown menu — the classic "click your avatar" pattern, built on top of DropdownMenu.
 
 - React: `import { UserMenu } from "lojee-ui"`
+- Web Component: `<l-user-menu>` (after `import "lojee-ui/elements"`)
 
 ### User Menu · 2. Props and Interfaces
 
@@ -14807,7 +16738,7 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
-| `UserMenu` | `onItemSelect` | `(item: UserMenuItem, index: number) => void` | — (React only) | Called with the clicked item and its index in `items` when the user selects a menu entry. |
+| `UserMenu` | `onItemSelect` | `(item: UserMenuItem, index: number) => void` | `itemselect` (CustomEvent, payload in `detail`) | Called with the clicked item and its index in `items` when the user selects a menu entry. |
 
 ### User Menu · 4. Variants
 
@@ -14837,7 +16768,21 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 ### User Menu · 9. Framework Interfaces
 
-- `UserMenu`: React only (no standalone Web Component).
+**`UserMenu`** → `<l-user-menu>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `name` | `name` | string |
+| `email` | `email` | string |
+| `avatarSrc` | `avatar-src` | string |
+| `avatarInitials` | `avatar-initials` | string |
+| `items` | `items` | json (JSON string or object property) |
+| `align` | `align` | string |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+| `hoverEffect` | `hover-effect` | string |
+
 Minimal use in each target (from the first docs example, *Basic*):
 
 **React**
@@ -14972,6 +16917,7 @@ const items = [
 A ready-to-use login block — email, password, remember-me, and submit — built from this library's own form primitives.
 
 - React: `import { LoginForm } from "lojee-ui"`
+- Web Component: `<l-login-form>` (after `import "lojee-ui/elements"`)
 
 ### Login Form · 2. Props and Interfaces
 
@@ -14996,8 +16942,8 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
-| `LoginForm` | `onSubmit` | `(values: LoginFormValues) => void` | — (React only) | Fires on form submit with `{ email, password, remember }`; the default browser submit is prevented. |
-| `LoginForm` | `onForgotPassword` | `() => void` | — (React only) | Fires when the "Forgot password?" link is clicked, with no arguments. |
+| `LoginForm` | `onSubmit` | `(values: LoginFormValues) => void` | `submit` (CustomEvent, payload in `detail`) | Fires on form submit with `{ email, password, remember }`; the default browser submit is prevented. |
+| `LoginForm` | `onForgotPassword` | `() => void` | `forgotpassword` (CustomEvent, payload in `detail`) | Fires when the "Forgot password?" link is clicked, with no arguments. |
 
 ### Login Form · 4. Variants
 
@@ -15027,7 +16973,20 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 ### Login Form · 9. Framework Interfaces
 
-- `LoginForm`: React only (no standalone Web Component).
+**`LoginForm`** → `<l-login-form>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `title` | `title` | string |
+| `description` | `description` | string |
+| `submitLabel` | `submit-label` | string |
+| `showRemember` | `show-remember` | boolean |
+| `showForgotPassword` | `show-forgot-password` | boolean |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+| `hoverEffect` | `hover-effect` | string |
+
 Minimal use in each target (from the first docs example, *Basic*):
 
 **React**
@@ -15129,6 +17088,7 @@ Enter transitions via `transition` (with `transitionDuration` / `transitionDelay
 A ready-to-use signup block — name, email, password, confirm password, and terms — built from this library's own form primitives.
 
 - React: `import { SignupForm } from "lojee-ui"`
+- Web Component: `<l-signup-form>` (after `import "lojee-ui/elements"`)
 
 ### Signup Form · 2. Props and Interfaces
 
@@ -15151,7 +17111,7 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
-| `SignupForm` | `onSubmit` | `(values: SignupFormValues) => void` | — (React only) | Called with the entered `SignupFormValues` (name, email, password, confirmPassword, agreeTerms) when the form is submitted and the two password fields match. |
+| `SignupForm` | `onSubmit` | `(values: SignupFormValues) => void` | `submit` (CustomEvent, payload in `detail`) | Called with the entered `SignupFormValues` (name, email, password, confirmPassword, agreeTerms) when the form is submitted and the two password fields match. |
 
 ### Signup Form · 4. Variants
 
@@ -15181,7 +17141,19 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 ### Signup Form · 9. Framework Interfaces
 
-- `SignupForm`: React only (no standalone Web Component).
+**`SignupForm`** → `<l-signup-form>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `title` | `title` | string |
+| `description` | `description` | string |
+| `submitLabel` | `submit-label` | string |
+| `mismatchError` | `mismatch-error` | string |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+| `hoverEffect` | `hover-effect` | string |
+
 Minimal use in each target (from the first docs example, *Basic*):
 
 **React**
@@ -15283,6 +17255,7 @@ Enter transitions via `transition` (with `transitionDuration` / `transitionDelay
 Account-level settings — email, password, notification preferences, and account deletion — as three independent sections, each saved on its own.
 
 - React: `import { AccountSettings } from "lojee-ui"`
+- Web Component: `<l-account-settings>` (after `import "lojee-ui/elements"`)
 
 ### Account Settings · 2. Props and Interfaces
 
@@ -15305,10 +17278,10 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
-| `AccountSettings` | `onEmailChange` | `(email: string) => void` | — (React only) | Called with the entered email address when the email section's Save button is submitted. |
-| `AccountSettings` | `onPasswordChange` | `(currentPassword: string, newPassword: string) => void` | — (React only) | Called with `(currentPassword, newPassword)` when the password form is submitted; both fields are cleared afterwards. |
-| `AccountSettings` | `onNotificationsChange` | `(notifications: NotificationPreference[]) => void` | — (React only) | Called with the FULL updated array whenever any one toggle flips. |
-| `AccountSettings` | `onDeleteAccount` | `() => void` | — (React only) | Called when the Delete account button in the danger zone is clicked; no confirmation is shown by the component itself. |
+| `AccountSettings` | `onEmailChange` | `(email: string) => void` | `emailchange` (CustomEvent, payload in `detail`) | Called with the entered email address when the email section's Save button is submitted. |
+| `AccountSettings` | `onPasswordChange` | `(currentPassword: string, newPassword: string) => void` | `passwordchange` (CustomEvent, payload in `detail`) | Called with `(currentPassword, newPassword)` when the password form is submitted; both fields are cleared afterwards. |
+| `AccountSettings` | `onNotificationsChange` | `(notifications: NotificationPreference[]) => void` | `notificationschange` (CustomEvent, payload in `detail`) | Called with the FULL updated array whenever any one toggle flips. |
+| `AccountSettings` | `onDeleteAccount` | `() => void` | `deleteaccount` (CustomEvent, payload in `detail`) | Called when the Delete account button in the danger zone is clicked; no confirmation is shown by the component itself. |
 
 ### Account Settings · 4. Variants
 
@@ -15336,7 +17309,17 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 ### Account Settings · 9. Framework Interfaces
 
-- `AccountSettings`: React only (no standalone Web Component).
+**`AccountSettings`** → `<l-account-settings>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `email` | `email` | string |
+| `notifications` | `notifications` | json (JSON string or object property) |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+| `hoverEffect` | `hover-effect` | string |
+
 Minimal use in each target (from the first docs example, *Basic*):
 
 **React**
@@ -15442,6 +17425,7 @@ Enter transitions via `transition` (with `transitionDuration` / `transitionDelay
 A settings-card block for editing personal profile info — avatar, display name, username, and bio.
 
 - React: `import { ProfileSettings } from "lojee-ui"`
+- Web Component: `<l-profile-settings>` (after `import "lojee-ui/elements"`)
 
 ### Profile Settings · 2. Props and Interfaces
 
@@ -15464,8 +17448,8 @@ Also accepts the shared motion props `transition`, `transitionDuration`, `transi
 
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
-| `ProfileSettings` | `onSave` | `(values: ProfileSettingsValues) => void` | — (React only) | Called with the current `{ name, username, bio }` values when the form is submitted. |
-| `ProfileSettings` | `onAvatarChange` | `() => void` | — (React only) | Fires when "Change photo" is clicked — this component doesn't handle file upload itself. |
+| `ProfileSettings` | `onSave` | `(values: ProfileSettingsValues) => void` | `save` (CustomEvent, payload in `detail`) | Called with the current `{ name, username, bio }` values when the form is submitted. |
+| `ProfileSettings` | `onAvatarChange` | `() => void` | `avatarchange` (CustomEvent, payload in `detail`) | Fires when "Change photo" is clicked — this component doesn't handle file upload itself. |
 
 ### Profile Settings · 4. Variants
 
@@ -15493,7 +17477,19 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 ### Profile Settings · 9. Framework Interfaces
 
-- `ProfileSettings`: React only (no standalone Web Component).
+**`ProfileSettings`** → `<l-profile-settings>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `defaultValues` | `default-values` | json (JSON string or object property) |
+| `avatarSrc` | `avatar-src` | string |
+| `avatarInitials` | `avatar-initials` | string |
+| `saveLabel` | `save-label` | string |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
+| `hoverEffect` | `hover-effect` | string |
+
 Minimal use in each target (from the first docs example, *Basic*):
 
 **React**
@@ -15589,6 +17585,7 @@ Enter transitions via `transition` (with `transitionDuration` / `transitionDelay
 The plan and billing summary of an account — current plan and price, what it includes, usage against its limits, the next charge and the card on file.
 
 - React: `import { PlanBilling } from "lojee-ui"`
+- Web Component: `<l-plan-billing>` (after `import "lojee-ui/elements"`)
 
 ### Plan & Billing · 2. Props and Interfaces
 
@@ -15621,8 +17618,8 @@ Also accepts the shared motion props `hoverEffect`, `transition`, `transitionDur
 
 | Component | React callback | Signature | Web Component event | Description |
 | --- | --- | --- | --- | --- |
-| `PlanBilling` | `onAction` | `() => void` | — (React only) | Called when the action button is pressed; the button is hidden when omitted. |
-| `PlanBilling` | `onCancel` | `() => void` | — (React only) | Called when the cancel icon in the top-right corner is pressed; the icon is hidden when omitted (cancelling stays optional). |
+| `PlanBilling` | `onAction` | `() => void` | `action` (CustomEvent, payload in `detail`) | Called when the action button is pressed; the button is hidden when omitted. |
+| `PlanBilling` | `onCancel` | `() => void` | `cancel` (CustomEvent, payload in `detail`) | Called when the cancel icon in the top-right corner is pressed; the icon is hidden when omitted (cancelling stays optional). |
 
 ### Plan & Billing · 4. Variants
 
@@ -15654,7 +17651,28 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 
 ### Plan & Billing · 9. Framework Interfaces
 
-- `PlanBilling`: React only (no standalone Web Component).
+**`PlanBilling`** → `<l-plan-billing>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `planName` | `plan-name` | string |
+| `price` | `price` | string |
+| `currency` | `currency` | string |
+| `interval` | `interval` | string |
+| `description` | `description` | string |
+| `status` | `status` | string |
+| `features` | `features` | json (JSON string or object property) |
+| `usage` | `usage` | json (JSON string or object property) |
+| `nextBillingDate` | `next-billing-date` | string |
+| `paymentMethod` | `payment-method` | json (JSON string or object property) |
+| `color` | `color` | string |
+| `actionLabel` | `action-label` | string |
+| `cancelLabel` | `cancel-label` | string |
+| `cancelIcon` | `cancel-icon` | string |
+| `hoverEffect` | `hover-effect` | string |
+| `transition` | `transition` | string |
+| `transitionDuration` | `transition-duration` | number |
+| `transitionDelay` | `transition-delay` | number |
 
 ### Plan & Billing · 10. Complete Usage Examples
 
@@ -15696,99 +17714,300 @@ import { PlanBilling } from "lojee-ui";
 
 | Page | Category | React exports | Web Component tags |
 | --- | --- | --- | --- |
-| [Buttons](#buttons) | Basic Components | `Button`, `ButtonGroup`, `SegmentButton`, `SplitButton`, `SplitButtonMenuItem` | — |
-| [Badges](#badges) | Basic Components | `Badge` | — |
-| [Avatars](#avatars) | Basic Components | `Avatar`, `AvatarGroup` | — |
-| [Icons](#icons) | Basic Components | `Icon` | — |
-| [Spinners](#spinners) | Basic Components | `Spinner` | — |
-| [Dividers](#dividers) | Basic Components | `Divider` | — |
-| [Cards](#cards) | Layout & Content | `Card` | — |
-| [Containers](#containers) | Layout & Content | `Container` | — |
-| [Sections](#sections) | Layout & Content | `Section` | — |
-| [Grids](#grids) | Layout & Content | `Grid` | — |
-| [Lists](#lists) | Layout & Content | `List`, `ListItem` | — |
-| [Accordions](#accordions) | Layout & Content | `Accordion`, `AccordionItem` | — |
-| [Carousels](#carousels) | Layout & Content | `Carousel` | — |
-| [Images](#images) | Layout & Content | `Image` | — |
-| [Videos](#videos) | Layout & Content | `Video` | — |
-| [Code Snippet](#code-snippet) | Layout & Content | `CodeSnippet`, `CopyButton` | — |
-| [Iframe](#iframe) | Layout & Content | `Iframe` | — |
-| [Chat Box](#chat-box) | Layout & Content | `ChatBox` | — |
-| [Input](#input) | Forms & Inputs | `Input` | — |
-| [Textarea](#textarea) | Forms & Inputs | `Textarea` | — |
-| [Label](#label) | Forms & Inputs | `Label` | — |
-| [Checkbox](#checkbox) | Forms & Inputs | `Checkbox` | — |
-| [Radio Group](#radio-group) | Forms & Inputs | `Radio`, `RadioGroup` | — |
-| [Switch / Toggle](#switch-toggle) | Forms & Inputs | `Switch` | — |
-| [Select](#select) | Forms & Inputs | `Select` | — |
-| [Multi Select](#multi-select) | Forms & Inputs | `MultiSelect` | — |
-| [Combobox](#combobox) | Forms & Inputs | `Combobox` | — |
-| [Date Picker](#date-picker) | Forms & Inputs | `DatePicker`, `DateRangePicker` | — |
-| [Time Picker](#time-picker) | Forms & Inputs | `TimePicker` | — |
-| [File Upload](#file-upload) | Forms & Inputs | `FileUpload` | — |
-| [Search Input](#search-input) | Forms & Inputs | `SearchInput` | — |
-| [Password Input](#password-input) | Forms & Inputs | `PasswordInput` | — |
-| [Slider](#slider) | Forms & Inputs | `Slider` | — |
-| [Range Slider](#range-slider) | Forms & Inputs | `RangeSlider` | — |
-| [Tag Input](#tag-input) | Forms & Inputs | `TagInput` | — |
-| [Number Input](#number-input) | Forms & Inputs | `NumberInput` | — |
-| [OTP Input](#otp-input) | Forms & Inputs | `OtpInput` | — |
-| [Rating](#rating) | Forms & Inputs | `Rating` | — |
-| [Color Picker](#color-picker) | Forms & Inputs | `ColorPicker` | — |
-| [Modal / Dialog](#modal-dialog) | Overlays | `Modal` | — |
-| [Drawer](#drawer) | Overlays | `Drawer` | — |
-| [Sheet](#sheet) | Overlays | `Sheet` | — |
-| [Popover](#popover) | Overlays | `Popover` | — |
-| [Dropdown Menu](#dropdown-menu) | Overlays | `DropdownMenu`, `DropdownMenuItem` | — |
-| [Context Menu](#context-menu) | Overlays | `ContextMenu` | — |
-| [Command Menu](#command-menu) | Overlays | `CommandMenu` | — |
-| [Alert Dialog](#alert-dialog) | Overlays | `AlertDialog` | — |
-| [Tooltip](#tooltip) | Overlays | `Tooltip` | — |
-| [Alert](#alert) | Feedback | `Alert` | — |
-| [Toast](#toast) | Feedback | `Toast` | — |
-| [Notification](#notification) | Feedback | `Notification` | — |
-| [Thinking](#thinking) | Feedback | `Thinking` | — |
-| [Progress Bar](#progress-bar) | Feedback | `ProgressBar` | — |
-| [Empty State](#empty-state) | Feedback | `EmptyState` | — |
-| [Error State](#error-state) | Feedback | `ErrorState` | — |
-| [Success State](#success-state) | Feedback | `SuccessState` | — |
-| [Loading State](#loading-state) | Feedback | `LoadingState` | — |
-| [Skeletons](#skeletons) | Feedback | `Skeleton` | — |
-| [Navbar](#navbar) | Navigation | `Navbar`, `NavbarItem` | — |
-| [Sidebar](#sidebar) | Navigation | `SidebarHeader`, `SidebarFooter`, `Sidebar`, `SidebarMenuItem` | — |
-| [Top Bar](#top-bar) | Navigation | `TopBar` | — |
-| [Header](#header) | Navigation | `Header` | — |
-| [Footer](#footer) | Navigation | `Footer` | — |
-| [Navigation Menu](#navigation-menu) | Navigation | `NavigationMenu` | — |
-| [Bottom Navigation](#bottom-navigation) | Navigation | `BottomNavigation` | — |
-| [Tabs](#tabs) | Navigation | `Tabs` | — |
-| [Stepper](#stepper) | Navigation | `Stepper`, `StepperItem` | — |
-| [Breadcrumbs](#breadcrumbs) | Navigation | `BreadcrumbItem`, `Breadcrumbs` | — |
-| [Pagination](#pagination) | Navigation | `Pagination` | — |
+| [Buttons](#buttons) | Basic Components | `Button` | `<l-button>` |
+| [Button Groups](#button-groups) | Basic Components | `ButtonGroup`, `SegmentButton` | `<l-button-group>`, `<l-segment-button>` |
+| [Split Button](#split-button) | Basic Components | `SplitButton`, `SplitButtonMenuItem` | `<l-split-button>`, `<l-split-button-menu-item>` |
+| [Badges](#badges) | Basic Components | `Badge` | `<l-badge>` |
+| [Avatars](#avatars) | Basic Components | `Avatar`, `AvatarGroup` | `<l-avatar>`, `<l-avatar-group>` |
+| [Icons](#icons) | Basic Components | `Icon` | `<l-icon>` |
+| [Spinners](#spinners) | Basic Components | `Spinner` | `<l-spinner>` |
+| [Dividers](#dividers) | Basic Components | `Divider` | `<l-divider>` |
+| [Cards](#cards) | Layout & Content | `Card` | `<l-card>` |
+| [Containers](#containers) | Layout & Content | `Container` | `<l-container>` |
+| [Sections](#sections) | Layout & Content | `Section` | `<l-section>` |
+| [Grids](#grids) | Layout & Content | `Grid` | `<l-grid>` |
+| [Lists](#lists) | Layout & Content | `List`, `ListItem` | `<l-list>`, `<l-list-item>` |
+| [Accordions](#accordions) | Layout & Content | `Accordion`, `AccordionItem` | `<l-accordion>`, `<l-accordion-item>` |
+| [Carousels](#carousels) | Layout & Content | `Carousel` | `<l-carousel>` |
+| [Images](#images) | Layout & Content | `Image` | `<l-image>` |
+| [Videos](#videos) | Layout & Content | `Video` | `<l-video>` |
+| [Code Snippet](#code-snippet) | Layout & Content | `CodeSnippet`, `CopyButton` | `<l-code-snippet>`, `<l-copy-button>` |
+| [Iframe](#iframe) | Layout & Content | `Iframe` | `<l-iframe>` |
+| [Chat Box](#chat-box) | Layout & Content | `ChatBox` | `<l-chat-box>` |
+| [Input](#input) | Forms & Inputs | `Input` | `<l-input>` |
+| [Textarea](#textarea) | Forms & Inputs | `Textarea` | `<l-textarea>` |
+| [Label](#label) | Forms & Inputs | `Label` | `<l-label>` |
+| [Checkbox](#checkbox) | Forms & Inputs | `Checkbox` | `<l-checkbox>` |
+| [Radio Group](#radio-group) | Forms & Inputs | `Radio`, `RadioGroup` | `<l-radio>`, `<l-radio-group>` |
+| [Switch / Toggle](#switch-toggle) | Forms & Inputs | `Switch` | `<l-switch>` |
+| [Select](#select) | Forms & Inputs | `Select` | `<l-select>` |
+| [Multi Select](#multi-select) | Forms & Inputs | `MultiSelect` | `<l-multi-select>` |
+| [Combobox](#combobox) | Forms & Inputs | `Combobox` | `<l-combobox>` |
+| [Date Picker](#date-picker) | Forms & Inputs | `DatePicker`, `DateRangePicker` | `<l-date-picker>`, `<l-date-range-picker>` |
+| [Time Picker](#time-picker) | Forms & Inputs | `TimePicker` | `<l-time-picker>` |
+| [File Upload](#file-upload) | Forms & Inputs | `FileUpload` | `<l-file-upload>` |
+| [Search Input](#search-input) | Forms & Inputs | `SearchInput` | `<l-search-input>` |
+| [Password Input](#password-input) | Forms & Inputs | `PasswordInput` | `<l-password-input>` |
+| [Slider](#slider) | Forms & Inputs | `Slider` | `<l-slider>` |
+| [Range Slider](#range-slider) | Forms & Inputs | `RangeSlider` | `<l-range-slider>` |
+| [Tag Input](#tag-input) | Forms & Inputs | `TagInput` | `<l-tag-input>` |
+| [Number Input](#number-input) | Forms & Inputs | `NumberInput` | `<l-number-input>` |
+| [OTP Input](#otp-input) | Forms & Inputs | `OtpInput` | `<l-otp-input>` |
+| [Rating](#rating) | Forms & Inputs | `Rating` | `<l-rating>` |
+| [Color Picker](#color-picker) | Forms & Inputs | `ColorPicker` | `<l-color-picker>` |
+| [Modal / Dialog](#modal-dialog) | Overlays | `Modal` | `<l-modal>` |
+| [Drawer](#drawer) | Overlays | `Drawer` | `<l-drawer>` |
+| [Sheet](#sheet) | Overlays | `Sheet` | `<l-sheet>` |
+| [Popover](#popover) | Overlays | `Popover` | `<l-popover>` |
+| [Dropdown Menu](#dropdown-menu) | Overlays | `DropdownMenu`, `DropdownMenuItem` | `<l-dropdown-menu>`, `<l-dropdown-menu-item>` |
+| [Context Menu](#context-menu) | Overlays | `ContextMenu` | `<l-context-menu>` |
+| [Command Menu](#command-menu) | Overlays | `CommandMenu` | `<l-command-menu>` |
+| [Alert Dialog](#alert-dialog) | Overlays | `AlertDialog` | `<l-alert-dialog>` |
+| [Tooltip](#tooltip) | Overlays | `Tooltip` | `<l-tooltip>` |
+| [Alert](#alert) | Feedback | `Alert` | `<l-alert>` |
+| [Toast](#toast) | Feedback | `Toast` | `<l-toast>` |
+| [Notification](#notification) | Feedback | `Notification` | `<l-notification>` |
+| [Thinking](#thinking) | Feedback | `Thinking` | `<l-thinking>` |
+| [Progress Bar](#progress-bar) | Feedback | `ProgressBar` | `<l-progress-bar>` |
+| [Empty State](#empty-state) | Feedback | `EmptyState` | `<l-empty-state>` |
+| [Error State](#error-state) | Feedback | `ErrorState` | `<l-error-state>` |
+| [Success State](#success-state) | Feedback | `SuccessState` | `<l-success-state>` |
+| [Loading State](#loading-state) | Feedback | `LoadingState` | `<l-loading-state>` |
+| [Skeletons](#skeletons) | Feedback | `Skeleton` | `<l-skeleton>` |
+| [Navbar](#navbar) | Navigation | `Navbar`, `NavbarItem` | `<l-navbar>`, `<l-navbar-item>` |
+| [Sidebar](#sidebar) | Navigation | `SidebarHeader`, `SidebarFooter`, `Sidebar`, `SidebarMenuItem` | `<l-sidebar-header>`, `<l-sidebar-footer>`, `<l-sidebar>`, `<l-sidebar-menu-item>` |
+| [Top Bar](#top-bar) | Navigation | `TopBar` | `<l-top-bar>` |
+| [Header](#header) | Navigation | `Header` | `<l-header>` |
+| [Footer](#footer) | Navigation | `Footer` | `<l-footer>` |
+| [Navigation Menu](#navigation-menu) | Navigation | `NavigationMenu` | `<l-navigation-menu>` |
+| [Bottom Navigation](#bottom-navigation) | Navigation | `BottomNavigation` | `<l-bottom-navigation>` |
+| [Tabs](#tabs) | Navigation | `Tabs` | `<l-tabs>` |
+| [Stepper](#stepper) | Navigation | `Stepper`, `StepperItem` | `<l-stepper>`, `<l-stepper-item>` |
+| [Breadcrumbs](#breadcrumbs) | Navigation | `BreadcrumbItem`, `Breadcrumbs` | `<l-breadcrumb-item>`, `<l-breadcrumbs>` |
+| [Pagination](#pagination) | Navigation | `Pagination` | `<l-pagination>` |
 | [Main](#main) | Navigation | `Main` | — |
-| [App Layout](#app-layout) | App | `App`, `Section` | — |
-| [Theme Switcher](#theme-switcher) | App | `ThemeSwitcher` | — |
-| [Tables](#tables) | Data & Visualization | `Table` | — |
-| [Grid View](#grid-view) | Data & Visualization | `GridView` | — |
-| [Timeline](#timeline) | Data & Visualization | `Timeline` | — |
-| [Stats / KPI](#stats-kpi) | Data & Visualization | `Stat` | — |
-| [Charts](#charts) | Data & Visualization | `Chart` | — |
-| [Calendar](#calendar) | Data & Visualization | `Calendar` | — |
-| [Activity Feed](#activity-feed) | Data & Visualization | `ActivityFeed` | — |
-| [Details List](#details-list) | Data & Visualization | `DetailsList` | — |
-| [Flow Diagram](#flow-diagram) | Diagrams | `FlowDiagram`, `FlowToolbar` | — |
-| [Map](#map) | Maps | `Map`, `MapControls`, `` | — |
+| [App Layout](#app-layout) | App | `App`, `Section` | `<l-app>` |
+| [Theme Switcher](#theme-switcher) | App | `ThemeSwitcher` | `<l-theme-switcher>` |
+| [Tables](#tables) | Data & Visualization | `Table` | `<l-table>` |
+| [Grid View](#grid-view) | Data & Visualization | `GridView` | `<l-grid-view>` |
+| [Timeline](#timeline) | Data & Visualization | `Timeline` | `<l-timeline>` |
+| [Stats / KPI](#stats-kpi) | Data & Visualization | `Stat` | `<l-stat>` |
+| [Charts](#charts) | Data & Visualization | `Chart` | `<l-chart>` |
+| [Calendar](#calendar) | Data & Visualization | `Calendar` | `<l-calendar>` |
+| [Activity Feed](#activity-feed) | Data & Visualization | `ActivityFeed` | `<l-activity-feed>` |
+| [Details List](#details-list) | Data & Visualization | `DetailsList` | `<l-details-list>` |
+| [Flow Diagram](#flow-diagram) | Diagrams | `FlowDiagram`, `FlowToolbar` | `<l-flow-diagram>` |
+| [Map](#map) | Maps | `Map`, `MapControls`, `` | `<l-map>` |
 | [Map Markers](#map-markers) | Maps | `MapMarker` | — |
 | [Map Routes](#map-routes) | Maps | `MapRoute` | — |
-| [Profile Card](#profile-card) | User / Account | `ProfileCard` | — |
-| [User Menu](#user-menu) | User / Account | `UserMenu` | — |
-| [Login Form](#login-form) | User / Account | `LoginForm` | — |
-| [Signup Form](#signup-form) | User / Account | `SignupForm` | — |
-| [Account Settings](#account-settings) | User / Account | `AccountSettings` | — |
-| [Profile Settings](#profile-settings) | User / Account | `ProfileSettings` | — |
-| [Plan & Billing](#plan-billing) | User / Account | `PlanBilling` | — |
+| [Profile Card](#profile-card) | User / Account | `ProfileCard` | `<l-profile-card>` |
+| [User Menu](#user-menu) | User / Account | `UserMenu` | `<l-user-menu>` |
+| [Login Form](#login-form) | User / Account | `LoginForm` | `<l-login-form>` |
+| [Signup Form](#signup-form) | User / Account | `SignupForm` | `<l-signup-form>` |
+| [Account Settings](#account-settings) | User / Account | `AccountSettings` | `<l-account-settings>` |
+| [Profile Settings](#profile-settings) | User / Account | `ProfileSettings` | `<l-profile-settings>` |
+| [Plan & Billing](#plan-billing) | User / Account | `PlanBilling` | `<l-plan-billing>` |
 
 ## 3.2 Web Component events
+
+| Page | Tag | DOM event | React callback |
+| --- | --- | --- | --- |
+| Split Button | `l-split-button` | `menuclick` | `onMenuClick` |
+| Split Button | `l-split-button` | `openchange` | `onOpenChange` |
+| Dividers | `l-divider` | `resize` | `onResize` |
+| Accordions | `l-accordion-item` | `openchange` | `onOpenChange` |
+| Accordions | `l-accordion-item` | `update` | `onUpdate` |
+| Carousels | `l-carousel` | `change` | `onChange` |
+| Carousels | `l-carousel` | `update` | `onUpdate` |
+| Images | `l-image` | `load` | `onLoad` |
+| Images | `l-image` | `error` | `onError` |
+| Videos | `l-video` | `play` | `onPlay` |
+| Videos | `l-video` | `pause` | `onPause` |
+| Videos | `l-video` | `ended` | `onEnded` |
+| Videos | `l-video` | `load` | `onLoad` |
+| Videos | `l-video` | `error` | `onError` |
+| Code Snippet | `l-copy-button` | `copy` | `onCopy` |
+| Iframe | `l-iframe` | `load` | `onLoad` |
+| Chat Box | `l-chat-box` | `send` | `onSend` |
+| Input | `l-input` | `input` | `onInput` |
+| Input | `l-input` | `focus` | `onFocus` |
+| Input | `l-input` | `invalid` | `onInvalid` |
+| Input | `l-input` | `update` | `onUpdate` |
+| Textarea | `l-textarea` | `input` | `onInput` |
+| Textarea | `l-textarea` | `focus` | `onFocus` |
+| Textarea | `l-textarea` | `invalid` | `onInvalid` |
+| Textarea | `l-textarea` | `update` | `onUpdate` |
+| Checkbox | `l-checkbox` | `input` | `onInput` |
+| Checkbox | `l-checkbox` | `focus` | `onFocus` |
+| Checkbox | `l-checkbox` | `invalid` | `onInvalid` |
+| Checkbox | `l-checkbox` | `update` | `onUpdate` |
+| Radio Group | `l-radio` | `input` | `onInput` |
+| Radio Group | `l-radio` | `focus` | `onFocus` |
+| Radio Group | `l-radio` | `invalid` | `onInvalid` |
+| Radio Group | `l-radio` | `update` | `onUpdate` |
+| Switch / Toggle | `l-switch` | `input` | `onInput` |
+| Switch / Toggle | `l-switch` | `focus` | `onFocus` |
+| Switch / Toggle | `l-switch` | `invalid` | `onInvalid` |
+| Switch / Toggle | `l-switch` | `update` | `onUpdate` |
+| Select | `l-select` | `update` | `onUpdate` |
+| Select | `l-select` | `input` | `onInput` |
+| Select | `l-select` | `focus` | `onFocus` |
+| Select | `l-select` | `invalid` | `onInvalid` |
+| Multi Select | `l-multi-select` | `change` | `onChange` |
+| Multi Select | `l-multi-select` | `update` | `onUpdate` |
+| Combobox | `l-combobox` | `change` | `onChange` |
+| Combobox | `l-combobox` | `focus` | `onFocus` |
+| Combobox | `l-combobox` | `input` | `onInput` |
+| Combobox | `l-combobox` | `invalid` | `onInvalid` |
+| Combobox | `l-combobox` | `update` | `onUpdate` |
+| Date Picker | `l-date-picker` | `input` | `onInput` |
+| Date Picker | `l-date-picker` | `focus` | `onFocus` |
+| Date Picker | `l-date-picker` | `invalid` | `onInvalid` |
+| Date Picker | `l-date-picker` | `clear` | `onClear` |
+| Date Picker | `l-date-picker` | `update` | `onUpdate` |
+| Date Picker | `l-date-range-picker` | `startchange` | `onStartChange` |
+| Date Picker | `l-date-range-picker` | `endchange` | `onEndChange` |
+| Time Picker | `l-time-picker` | `input` | `onInput` |
+| Time Picker | `l-time-picker` | `focus` | `onFocus` |
+| Time Picker | `l-time-picker` | `invalid` | `onInvalid` |
+| Time Picker | `l-time-picker` | `update` | `onUpdate` |
+| File Upload | `l-file-upload` | `filesselected` | `onFilesSelected` |
+| File Upload | `l-file-upload` | `update` | `onUpdate` |
+| File Upload | `l-file-upload` | `input` | `onInput` |
+| File Upload | `l-file-upload` | `focus` | `onFocus` |
+| File Upload | `l-file-upload` | `invalid` | `onInvalid` |
+| Search Input | `l-search-input` | `input` | `onInput` |
+| Search Input | `l-search-input` | `focus` | `onFocus` |
+| Search Input | `l-search-input` | `invalid` | `onInvalid` |
+| Search Input | `l-search-input` | `clear` | `onClear` |
+| Search Input | `l-search-input` | `update` | `onUpdate` |
+| Password Input | `l-password-input` | `input` | `onInput` |
+| Password Input | `l-password-input` | `focus` | `onFocus` |
+| Password Input | `l-password-input` | `invalid` | `onInvalid` |
+| Password Input | `l-password-input` | `update` | `onUpdate` |
+| Slider | `l-slider` | `input` | `onInput` |
+| Slider | `l-slider` | `focus` | `onFocus` |
+| Slider | `l-slider` | `invalid` | `onInvalid` |
+| Slider | `l-slider` | `update` | `onUpdate` |
+| Range Slider | `l-range-slider` | `change` | `onChange` |
+| Range Slider | `l-range-slider` | `focus` | `onFocus` |
+| Range Slider | `l-range-slider` | `input` | `onInput` |
+| Range Slider | `l-range-slider` | `invalid` | `onInvalid` |
+| Range Slider | `l-range-slider` | `update` | `onUpdate` |
+| Tag Input | `l-tag-input` | `change` | `onChange` |
+| Tag Input | `l-tag-input` | `focus` | `onFocus` |
+| Tag Input | `l-tag-input` | `input` | `onInput` |
+| Tag Input | `l-tag-input` | `invalid` | `onInvalid` |
+| Tag Input | `l-tag-input` | `update` | `onUpdate` |
+| Number Input | `l-number-input` | `change` | `onChange` |
+| Number Input | `l-number-input` | `focus` | `onFocus` |
+| Number Input | `l-number-input` | `input` | `onInput` |
+| Number Input | `l-number-input` | `invalid` | `onInvalid` |
+| Number Input | `l-number-input` | `update` | `onUpdate` |
+| OTP Input | `l-otp-input` | `change` | `onChange` |
+| OTP Input | `l-otp-input` | `complete` | `onComplete` |
+| OTP Input | `l-otp-input` | `focus` | `onFocus` |
+| OTP Input | `l-otp-input` | `input` | `onInput` |
+| OTP Input | `l-otp-input` | `invalid` | `onInvalid` |
+| OTP Input | `l-otp-input` | `update` | `onUpdate` |
+| Rating | `l-rating` | `change` | `onChange` |
+| Rating | `l-rating` | `update` | `onUpdate` |
+| Color Picker | `l-color-picker` | `change` | `onChange` |
+| Color Picker | `l-color-picker` | `focus` | `onFocus` |
+| Color Picker | `l-color-picker` | `input` | `onInput` |
+| Color Picker | `l-color-picker` | `invalid` | `onInvalid` |
+| Color Picker | `l-color-picker` | `update` | `onUpdate` |
+| Modal / Dialog | `l-modal` | `close` | `onClose` |
+| Modal / Dialog | `l-modal` | `update` | `onUpdate` |
+| Drawer | `l-drawer` | `close` | `onClose` |
+| Drawer | `l-drawer` | `update` | `onUpdate` |
+| Sheet | `l-sheet` | `close` | `onClose` |
+| Sheet | `l-sheet` | `update` | `onUpdate` |
+| Popover | `l-popover` | `openchange` | `onOpenChange` |
+| Popover | `l-popover` | `update` | `onUpdate` |
+| Dropdown Menu | `l-dropdown-menu` | `openchange` | `onOpenChange` |
+| Dropdown Menu | `l-dropdown-menu` | `update` | `onUpdate` |
+| Context Menu | `l-context-menu` | `openchange` | `onOpenChange` |
+| Context Menu | `l-context-menu` | `update` | `onUpdate` |
+| Command Menu | `l-command-menu` | `close` | `onClose` |
+| Command Menu | `l-command-menu` | `update` | `onUpdate` |
+| Alert Dialog | `l-alert-dialog` | `close` | `onClose` |
+| Alert Dialog | `l-alert-dialog` | `confirm` | `onConfirm` |
+| Alert Dialog | `l-alert-dialog` | `update` | `onUpdate` |
+| Alert | `l-alert` | `close` | `onClose` |
+| Toast | `l-toast` | `close` | `onClose` |
+| Toast | `l-toast` | `update` | `onUpdate` |
+| Notification | `l-notification` | `dismiss` | `onDismiss` |
+| Navbar | `l-navbar` | `activeitemchange` | `onActiveItemChange` |
+| Sidebar | `l-sidebar` | `collapsedchange` | `onCollapsedChange` |
+| Sidebar | `l-sidebar` | `activeitemchange` | `onActiveItemChange` |
+| Sidebar | `l-sidebar` | `update` | `onUpdate` |
+| Top Bar | `l-top-bar` | `back` | `onBack` |
+| Top Bar | `l-top-bar` | `menuclick` | `onMenuClick` |
+| Top Bar | `l-top-bar` | `search` | `onSearch` |
+| Top Bar | `l-top-bar` | `searchchange` | `onSearchChange` |
+| Top Bar | `l-top-bar` | `actionclick` | `onActionClick` |
+| Navigation Menu | `l-navigation-menu` | `activeitemchange` | `onActiveItemChange` |
+| Navigation Menu | `l-navigation-menu` | `change` | `onChange` |
+| Navigation Menu | `l-navigation-menu` | `update` | `onUpdate` |
+| Bottom Navigation | `l-bottom-navigation` | `activeitemchange` | `onActiveItemChange` |
+| Bottom Navigation | `l-bottom-navigation` | `itemclick` | `onItemClick` |
+| Bottom Navigation | `l-bottom-navigation` | `fabclick` | `onFabClick` |
+| Bottom Navigation | `l-bottom-navigation` | `update` | `onUpdate` |
+| Tabs | `l-tabs` | `change` | `onChange` |
+| Tabs | `l-tabs` | `update` | `onUpdate` |
+| Stepper | `l-stepper` | `stepchange` | `onStepChange` |
+| Stepper | `l-stepper` | `update` | `onUpdate` |
+| Pagination | `l-pagination` | `pagechange` | `onPageChange` |
+| Pagination | `l-pagination` | `update` | `onUpdate` |
+| Theme Switcher | `l-theme-switcher` | `modechange` | `onModeChange` |
+| Theme Switcher | `l-theme-switcher` | `accentchange` | `onAccentChange` |
+| Theme Switcher | `l-theme-switcher` | `activevariantchange` | `onActiveVariantChange` |
+| Theme Switcher | `l-theme-switcher` | `designchange` | `onDesignChange` |
+| Theme Switcher | `l-theme-switcher` | `openchange` | `onOpenChange` |
+| Tables | `l-table` | `selectionchange` | `onSelectionChange` |
+| Tables | `l-table` | `sortchange` | `onSortChange` |
+| Tables | `l-table` | `viewchange` | `onViewChange` |
+| Tables | `l-table` | `action` | `onAction` |
+| Tables | `l-table` | `datachange` | `onDataChange` |
+| Tables | `l-table` | `update` | `onUpdate` |
+| Grid View | `l-grid-view` | `viewchange` | `onViewChange` |
+| Grid View | `l-grid-view` | `reorder` | `onReorder` |
+| Grid View | `l-grid-view` | `itemclick` | `onItemClick` |
+| Grid View | `l-grid-view` | `action` | `onAction` |
+| Grid View | `l-grid-view` | `create` | `onCreate` |
+| Grid View | `l-grid-view` | `searchchange` | `onSearchChange` |
+| Calendar | `l-calendar` | `monthchange` | `onMonthChange` |
+| Calendar | `l-calendar` | `select` | `onSelect` |
+| Calendar | `l-calendar` | `rangeselect` | `onRangeSelect` |
+| Calendar | `l-calendar` | `close` | `onClose` |
+| Calendar | `l-calendar` | `confirm` | `onConfirm` |
+| Calendar | `l-calendar` | `cancel` | `onCancel` |
+| Calendar | `l-calendar` | `update` | `onUpdate` |
+| Flow Diagram | `l-flow-diagram` | `nodemove` | `onNodeMove` |
+| Flow Diagram | `l-flow-diagram` | `diagramchange` | `onDiagramChange` |
+| Flow Diagram | `l-flow-diagram` | `nodeclick` | `onNodeClick` |
+| Flow Diagram | `l-flow-diagram` | `nodehover` | `onNodeHover` |
+| Map | `l-map` | `load` | `onLoad` |
+| Map | `l-map` | `stylechange` | `onStyleChange` |
+| Map | `l-map` | `move` | `onMove` |
+| Map | `l-map` | `mapclick` | `onMapClick` |
+| Map | `l-map` | `markerclick` | `onMarkerClick` |
+| Map | `l-map` | `markerdragend` | `onMarkerDragEnd` |
+| Map | `l-map` | `routeclick` | `onRouteClick` |
+| Map | `l-map` | `routeload` | `onRouteLoad` |
+| User Menu | `l-user-menu` | `itemselect` | `onItemSelect` |
+| Login Form | `l-login-form` | `submit` | `onSubmit` |
+| Login Form | `l-login-form` | `forgotpassword` | `onForgotPassword` |
+| Signup Form | `l-signup-form` | `submit` | `onSubmit` |
+| Account Settings | `l-account-settings` | `emailchange` | `onEmailChange` |
+| Account Settings | `l-account-settings` | `passwordchange` | `onPasswordChange` |
+| Account Settings | `l-account-settings` | `notificationschange` | `onNotificationsChange` |
+| Account Settings | `l-account-settings` | `deleteaccount` | `onDeleteAccount` |
+| Profile Settings | `l-profile-settings` | `save` | `onSave` |
+| Profile Settings | `l-profile-settings` | `avatarchange` | `onAvatarChange` |
+| Plan & Billing | `l-plan-billing` | `action` | `onAction` |
+| Plan & Billing | `l-plan-billing` | `cancel` | `onCancel` |
 
 ## 3.3 Checklist for generating code with this library
 

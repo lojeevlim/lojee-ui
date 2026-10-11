@@ -1,5 +1,9 @@
 import { useState } from "react";
-import { Sidebar, type SidebarMenuItemSpec, type SidebarProps } from "../Sidebar";
+import { Sidebar, SidebarFooter, SidebarHeader, type SidebarMenuItemSpec, type SidebarProps } from "../Sidebar";
+import { Avatar } from "../../Avatar/Avatar";
+import { Badge } from "../../Badge/Badge";
+import { Button } from "../../Buttons/Button";
+import { Icon } from "../../Icons/Icon";
 import CodeBlock from "../../CodeBlock";
 import { SectionLabel, TransitionPreview } from "../../ShowcaseHelpers";
 
@@ -211,7 +215,7 @@ export class AppComponent {
             With header and footer
           </SectionLabel>
           <div className="h-96 overflow-hidden rounded-lg border border-border">
-            <Sidebar header="Lojee Inc" headerIcon="zap" footer="Jordan Diaz" items={VARIANT_ITEMS} />
+            <Sidebar height="100%" header="Lojee Inc" headerIcon="zap" footer="Jordan Diaz" items={VARIANT_ITEMS} />
           </div>
           <CodeBlock
             variants={{
@@ -275,11 +279,186 @@ export class AppComponent {
         </section>
 
         <section>
+          <SectionLabel sub="For anything beyond a name and an icon, compose the header and footer yourself. In React, put SidebarHeader / SidebarFooter inside Sidebar; in JS, Vue and Angular, use the l-sidebar-header and l-sidebar-footer elements inside l-sidebar.">
+            Custom header and footer
+          </SectionLabel>
+          <div className="h-96 overflow-hidden rounded-lg border border-border">
+            <Sidebar height="100%" items={VARIANT_ITEMS}>
+              <SidebarHeader>
+                <div className="flex items-center gap-2 px-3 py-3 font-semibold text-fg">
+                  <Icon name="zap" size={18} />
+                  Lojee Inc
+                </div>
+              </SidebarHeader>
+              <SidebarFooter>
+                <div className="flex items-center gap-2 px-3 py-3">
+                  <Avatar initials="JD" size="sm" />
+                  <span className="text-sm text-fg-muted">Jordan Diaz</span>
+                </div>
+              </SidebarFooter>
+            </Sidebar>
+          </div>
+          <CodeBlock
+            variants={{
+              react: `<Sidebar items={items}>
+  <SidebarHeader>
+    <div className="flex items-center gap-2 px-3 py-3 font-semibold">
+      <Icon name="zap" size={18} />
+      Lojee Inc
+    </div>
+  </SidebarHeader>
+  <SidebarFooter>
+    <div className="flex items-center gap-2 px-3 py-3">
+      <Avatar initials="JD" size="sm" />
+      <span>Jordan Diaz</span>
+    </div>
+  </SidebarFooter>
+</Sidebar>`,
+              js: `<l-sidebar id="sidebar">
+  <l-sidebar-header>
+    <div class="flex items-center gap-2 px-3 py-3 font-semibold">Lojee Inc</div>
+  </l-sidebar-header>
+  <l-sidebar-footer>
+    <div class="flex items-center gap-2 px-3 py-3">
+      <l-avatar initials="JD" size="sm"></l-avatar>
+      <span>Jordan Diaz</span>
+    </div>
+  </l-sidebar-footer>
+</l-sidebar>
+
+<script type="module">
+  import "lojee-ui/elements";
+  document.getElementById("sidebar").items = items;
+</script>`,
+              vue: `<template>
+  <l-sidebar :items="items">
+    <l-sidebar-header>
+    <div class="flex items-center gap-2 px-3 py-3 font-semibold">Lojee Inc</div>
+  </l-sidebar-header>
+    <l-sidebar-footer>
+      <div class="flex items-center gap-2 px-3 py-3">
+        <l-avatar initials="JD" size="sm" />
+        <span>Jordan Diaz</span>
+      </div>
+    </l-sidebar-footer>
+  </l-sidebar>
+</template>`,
+              angular: `<l-sidebar [items]="items">
+  <l-sidebar-header>
+    <div class="flex items-center gap-2 px-3 py-3 font-semibold">Lojee Inc</div>
+  </l-sidebar-header>
+  <l-sidebar-footer>
+    <div class="flex items-center gap-2 px-3 py-3">
+      <l-avatar initials="JD" size="sm"></l-avatar>
+      <span>Jordan Diaz</span>
+    </div>
+  </l-sidebar-footer>
+</l-sidebar>`,
+            }}
+          />
+        </section>
+
+        <section>
+          <SectionLabel sub="The header and footer take any content — here a brand with a badge on top and action buttons below. Use only the one you need; the other falls back to the header / footer attributes or nothing.">
+            Header and footer with actions
+          </SectionLabel>
+          <div className="h-96 overflow-hidden rounded-lg border border-border">
+            <Sidebar height="100%" items={VARIANT_ITEMS}>
+              <SidebarHeader>
+                <div className="flex items-center justify-between gap-2 px-3 py-3">
+                  <span className="flex items-center gap-2 font-semibold text-fg">
+                    <Icon name="layout-grid" size={18} />
+                    Acme
+                  </span>
+                  <Badge label="Pro" color="accent" size="sm" />
+                </div>
+              </SidebarHeader>
+              <SidebarFooter>
+                <div className="flex gap-2 px-3 py-3">
+                  <Button size="sm" variant="outline" label="Help" icon="circle-help" />
+                  <Button size="sm" label="Upgrade" />
+                </div>
+              </SidebarFooter>
+            </Sidebar>
+          </div>
+          <CodeBlock
+            variants={{
+              react: `<Sidebar items={items}>
+  <SidebarHeader>
+    <div className="flex items-center justify-between gap-2 px-3 py-3">
+      <span className="flex items-center gap-2 font-semibold">
+        <Icon name="layout-grid" size={18} />
+        Acme
+      </span>
+      <Badge label="Pro" color="accent" size="sm" />
+    </div>
+  </SidebarHeader>
+  <SidebarFooter>
+    <div className="flex gap-2 px-3 py-3">
+      <Button size="sm" variant="outline" label="Help" icon="circle-help" />
+      <Button size="sm" label="Upgrade" />
+    </div>
+  </SidebarFooter>
+</Sidebar>`,
+              js: `<l-sidebar id="sidebar">
+  <l-sidebar-header>
+    <div class="flex items-center justify-between gap-2 px-3 py-3">
+      <span class="font-semibold">Acme</span>
+      <l-badge label="Pro" color="accent" size="sm"></l-badge>
+    </div>
+  </l-sidebar-header>
+  <l-sidebar-footer>
+    <div class="flex gap-2 px-3 py-3">
+      <l-button size="sm" variant="outline" label="Help" icon="circle-help"></l-button>
+      <l-button size="sm" label="Upgrade"></l-button>
+    </div>
+  </l-sidebar-footer>
+</l-sidebar>
+
+<script type="module">
+  import "lojee-ui/elements";
+  document.getElementById("sidebar").items = items;
+</script>`,
+              vue: `<template>
+  <l-sidebar :items="items">
+    <l-sidebar-header>
+      <div class="flex items-center justify-between gap-2 px-3 py-3">
+        <span class="font-semibold">Acme</span>
+        <l-badge label="Pro" color="accent" size="sm" />
+      </div>
+    </l-sidebar-header>
+    <l-sidebar-footer>
+      <div class="flex gap-2 px-3 py-3">
+        <l-button size="sm" variant="outline" label="Help" icon="circle-help" />
+        <l-button size="sm" label="Upgrade" />
+      </div>
+    </l-sidebar-footer>
+  </l-sidebar>
+</template>`,
+              angular: `<l-sidebar [items]="items">
+  <l-sidebar-header>
+    <div class="flex items-center justify-between gap-2 px-3 py-3">
+      <span class="font-semibold">Acme</span>
+      <l-badge label="Pro" color="accent" size="sm"></l-badge>
+    </div>
+  </l-sidebar-header>
+  <l-sidebar-footer>
+    <div class="flex gap-2 px-3 py-3">
+      <l-button size="sm" variant="outline" label="Help" icon="circle-help"></l-button>
+      <l-button size="sm" label="Upgrade"></l-button>
+    </div>
+  </l-sidebar-footer>
+</l-sidebar>`,
+            }}
+          />
+        </section>
+
+        <section>
           <SectionLabel sub="Mix { category, items } entries into items for labeled, collapsible section groups — click a heading to toggle it. Defaults open for the first group or one containing an active row; every other group starts closed.">
             Categories
           </SectionLabel>
           <div className="h-96 overflow-hidden rounded-lg border border-border">
-            <Sidebar
+            <Sidebar height="100%"
               collapsible
               header="Lojee Inc"
               headerIcon="zap"
@@ -417,13 +596,13 @@ export class AppComponent {
             <div>
               <p className="mb-1.5 font-mono text-xs text-fg-subtle">light</p>
               <div className="h-72 overflow-hidden rounded-lg border border-border">
-                <Sidebar header="Lojee Inc" footer="Jordan Diaz" items={VARIANT_ITEMS} />
+                <Sidebar height="100%" header="Lojee Inc" footer="Jordan Diaz" items={VARIANT_ITEMS} />
               </div>
             </div>
             <div>
               <p className="mb-1.5 font-mono text-xs text-fg-subtle">dark</p>
               <div className="h-72 overflow-hidden rounded-lg border border-slate-800">
-                <Sidebar variant="dark" header="Lojee Inc" footer="Jordan Diaz" items={VARIANT_ITEMS} />
+                <Sidebar height="100%" variant="dark" header="Lojee Inc" footer="Jordan Diaz" items={VARIANT_ITEMS} />
               </div>
             </div>
             <div>
@@ -447,7 +626,7 @@ export class AppComponent {
             <div>
               <p className="mb-1.5 font-mono text-xs text-fg-subtle">gradient</p>
               <div className="h-72 overflow-hidden rounded-lg">
-                <Sidebar variant="gradient" header="Lojee Inc" footer="Jordan Diaz" items={VARIANT_ITEMS} />
+                <Sidebar height="100%" variant="gradient" header="Lojee Inc" footer="Jordan Diaz" items={VARIANT_ITEMS} />
               </div>
             </div>
           </div>

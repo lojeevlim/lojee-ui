@@ -38,6 +38,11 @@ function darkenHex(hex: string, factor = 0.82): string {
   return `#${[16, 8, 0].map((shift) => channel(shift).toString(16).padStart(2, "0")).join("")}`;
 }
 
+export type NavbarItemsAlign = "left" | "center" | "right";
+
+export type NavbarScrollGlowEffect = "spread" | "fade" | "sweep" | "pulse" | "rainbow" | "particles";
+const SCROLL_GLOW_EFFECTS: NavbarScrollGlowEffect[] = ["spread", "fade", "sweep", "pulse", "rainbow", "particles"];
+
 export type NavbarVariant = "light" | "dark" | "bordered" | "elevated" | "minimal" | "gradient";
 
 /** One link for the `items` shortcut — see `NavbarProps.items`. */
@@ -130,6 +135,16 @@ export interface NavbarProps {
   transitionDelay?: number;
   /** Effect while hovering: "lift" | "scale" | "press" | "tilt" | "ring" | "glow" | "shine" (default: none). Applied to each link of the `items` shortcut (links composed as `children` take their own `hoverEffect`). */
   hoverEffect?: HoverEffect;
+  /** Transparent while at the top, switching to the variant's solid background once scrolled past `scrollThreshold` (default: false). Applies to "light"/"dark"/"gradient"/"bordered"/"elevated". Works with page scroll or an inner scroll container. */
+  scrollBackground?: boolean;
+  /** Shows an accent glow along the bottom edge while scrolling, fading out `scrollGlowDuration` ms after scrolling stops (default: false). Only shown once scrolled past `scrollThreshold`. `true` (or a bare `scroll-glow`) is "spread"; pass an effect name to pick how it animates: "spread" grows from the center outward | "fade" fades the whole line in and out | "sweep" a light travels along the edge | "pulse" breathes while scrolling | "rainbow" a multi-color line that spreads from the center | "particles" the spread glow plus sparks falling from the edge. */
+  scrollGlow?: boolean | NavbarScrollGlowEffect;
+  /** Where the link row sits in the bar: "left" next to the brand (default) | "center" centered between brand and actions | "right" next to the actions. */
+  itemsAlign?: NavbarItemsAlign;
+  /** Pixels scrolled before `scrollBackground`/`scrollGlow` kick in (default: 0). */
+  scrollThreshold?: number;
+  /** How long after scrolling stops the glow fades away, in ms (default: 600). */
+  scrollGlowDuration?: number;
   /** Extra CSS class(es) added to the root element, merged before `classNames.root`. */
   className?: string;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
@@ -213,9 +228,72 @@ export function Navbar({
   transitionDuration,
   transitionDelay,
   hoverEffect,
+  scrollBackground = false,
+  scrollGlow: scrollGlowProp = false,
+  itemsAlign = "left",
+  scrollThreshold = 0,
+  scrollGlowDuration = 600,
   className,
   classNames,
 }: NavbarProps) {
+  // Scroll effects (same idea as the landing page header): `scrolled` flips the background solid, `glow`
+  // is true while the page is actively scrolling and drops back `scrollGlowDuration` ms after it stops.
+  const navRef = useRef<HTMLElement>(null);
+  const [scrolled, setScrolled] = useState(false);
+  const [glow, setGlow] = useState(false);
+  // `scrollGlow` doubles as the effect name; `true`, "" (a bare `scroll-glow` attribute) and unknown values mean "spread".
+  const scrollGlowEffect: NavbarScrollGlowEffect | null =
+    !scrollGlowProp || (scrollGlowProp as string) === "false" ? null : SCROLL_GLOW_EFFECTS.includes(scrollGlowProp as NavbarScrollGlowEffect) ? (scrollGlowProp as NavbarScrollGlowEffect) : "spread";
+  const scrollGlow = scrollGlowEffect !== null;
+  const scrollEffects = scrollBackground || scrollGlow;
+  useEffect(() => {
+    if (!scrollEffects || typeof window === "undefined") return;
+    let idle = 0;
+    let frame = 0;
+    const offsetOf = (target: EventTarget | null) =>
+      target instanceof Element ? target.scrollTop : window.scrollY;
+    // Scroll doesn't bubble but is capturable, so one window listener sees the page and any inner scroll
+    // container. Only react to scrolling that actually contains this navbar — walking up from the nav and
+    // hopping out of the shadow root (via its host) when used as `<l-navbar>`.
+    const contains = (scroller: Element, nav: Node) => {
+      let node: Node | null = nav;
+      while (node) {
+        if (node === scroller) return true;
+        node = node.parentNode ?? (node as ShadowRoot).host ?? null;
+      }
+      return false;
+    };
+    const onScroll = (event: Event) => {
+      const nav = navRef.current;
+      const target = event.target;
+      const isPage = target === document || target === document.documentElement;
+      if (!nav || (!isPage && !(target instanceof Element && contains(target, nav)))) return;
+      const top = offsetOf(isPage ? null : target);
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        const past = top > scrollThreshold;
+        setScrolled(past);
+        window.clearTimeout(idle);
+        if (!past) {
+          setGlow(false);
+          return;
+        }
+        setGlow(true);
+        idle = window.setTimeout(() => setGlow(false), scrollGlowDuration);
+      });
+    };
+    // Initial state for a page that is already scrolled (reload/anchor) — only the window case is knowable here.
+    frame = requestAnimationFrame(() => setScrolled(window.scrollY > scrollThreshold));
+    window.addEventListener("scroll", onScroll, { passive: true, capture: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll, true);
+      cancelAnimationFrame(frame);
+      window.clearTimeout(idle);
+    };
+  }, [scrollEffects, scrollThreshold, scrollGlowDuration]);
+  const reducedMotion = typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+  const transparentTop = scrollBackground && !scrolled;
+
   // Same "detached panel" concept as Sidebar (see its own `isDetachedPanel` for the full reasoning) —
   // "bordered"/"elevated" float as a card with an inset backdrop instead of docking full-width.
   const isDetachedPanel = variant === "bordered" || variant === "elevated";
@@ -345,21 +423,159 @@ export function Navbar({
   const dividerClass = VARIANT_DIVIDER_CLASSES[variant];
   const showDivider = !isDetachedPanel && variant !== "minimal" && bordered && dividerClass != null;
 
+  const scrollStyle: CSSProperties = {
+    ...(transparentTop && { backgroundColor: "transparent", backgroundImage: "none", ...(showDivider && { borderBottomColor: "transparent" }) }),
+    ...(scrollBackground && !reducedMotion && { transition: "background-color 90ms linear, border-color 90ms linear" }),
+  };
+  const glowOn = scrollGlow && glow && !reducedMotion;
+  // These effects grow from the middle of the edge (scaleX) instead of just fading.
+  const glowSpreads = scrollGlowEffect === "spread" || scrollGlowEffect === "rainbow" || scrollGlowEffect === "particles";
+
+  const linksEl = (
+    <div
+      ref={linksRef}
+      className={cx(
+        "relative",
+        // The `items` shortcut lays its links out as equal-width grid columns instead of a plain
+        // flex row — each column sizes to the *widest* link's own content (`auto-cols-fr` with no
+        // other width constraint on this row), not stretched to fill whatever's left of the bar
+        // before `actions`; that would blow the row out far wider than the links actually need
+        // (and, with only one or two short labels, comically so). Freeform `children` keep their
+        // ordinary natural-width flex layout, same as before, whether or not `items` is also given
+        // alongside them.
+        itemRows ? "grid grid-flow-col auto-cols-fr items-center gap-2" : "flex items-center gap-6",
+        classNames?.links
+      )}
+    >
+      {itemRows && pillRect && (
+        <div
+          aria-hidden
+          className={cx(
+            "pointer-events-none absolute inset-y-0 rounded-md transition-[left,width,background-color,box-shadow] duration-200 ease-[cubic-bezier(.4,0,.2,1)]",
+            navbarActiveFillClasses(color, dark, vividActive)
+          )}
+          {...activeMarker("fill", color, colorIsNamed, dark, {
+            left: pillRect.left,
+            width: pillRect.width,
+            ...(!colorIsNamed && !dark && { backgroundColor: color }),
+          })}
+        />
+      )}
+      {itemRows}
+      <slot>{children}</slot>
+    </div>
+  );
+
   const bar = (
     <nav
+      ref={navRef}
       className={cx(
         "flex h-16 items-center justify-between gap-4 px-8",
+        // A sticky nav already anchors the absolutely-positioned glow; `relative` would fight `sticky`.
+        scrollGlow && !(sticky && !isDetachedPanel) && "relative",
         VARIANT_CLASSES[variant],
         isDetachedPanel && borderedAccentClass,
         showDivider && cx("border-b", dividerClass),
-        !isDetachedPanel && (sticky ? "sticky top-0 z-40" : undefined),
+        !isDetachedPanel && (sticky ? "sticky top-0 z-50" : undefined),
         motionClass(transition),
         className,
         classNames?.root
       )}
-      style={{ ...(isDetachedPanel ? borderedAccentStyle : style), ...motionStyle(transitionDuration, transitionDelay) }}
+      style={{ ...(isDetachedPanel ? borderedAccentStyle : style), ...scrollStyle, ...motionStyle(transitionDuration, transitionDelay) }}
     >
-      <div className="flex min-w-0 items-center gap-6">
+      {scrollGlow && (
+        // The glow sits on the bottom edge. Each `scrollGlowEffect` animates it differently — "spread" is the
+        // landing page's own (forms at the middle, spreads sideways, fades toward both ends).
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-0 overflow-visible"
+          style={{
+            opacity: glowOn ? 1 : 0,
+            ...(glowSpreads && { transform: glowOn ? "scaleX(1)" : "scaleX(0.15)" }),
+            transition: reducedMotion
+              ? "none"
+              : glowSpreads
+                ? glowOn ? "opacity 400ms ease, transform 900ms ease-out" : "opacity 600ms ease, transform 900ms ease-in"
+                : glowOn ? "opacity 300ms ease" : "opacity 500ms ease",
+          }}
+        >
+          {scrollGlowEffect === "sweep" ? (
+            <div className="absolute inset-x-0 -bottom-px h-px overflow-hidden">
+              <div
+                className="h-full w-1/3"
+                style={{
+                  background: "linear-gradient(to right, transparent, var(--color-accent-500), transparent)",
+                  boxShadow: "0 0 10px 1px color-mix(in srgb, var(--color-accent-500) 60%, transparent)",
+                  animation: glowOn ? "lojee-nav-sweep 1.1s linear infinite" : "none",
+                }}
+              />
+            </div>
+          ) : (
+            <div
+              style={scrollGlowEffect === "pulse" && glowOn ? { animation: "lojee-nav-pulse 1.2s ease-in-out infinite" } : undefined}
+            >
+              <div
+                className="absolute inset-x-0 -bottom-px h-px"
+                style={{
+                  background:
+                    scrollGlowEffect === "rainbow"
+                      ? "linear-gradient(to right, transparent, #f43f5e 20%, #f59e0b 40%, #10b981 60%, #3b82f6 80%, transparent)"
+                      : scrollGlowEffect === "fade"
+                        ? "var(--color-accent-500)"
+                        : "linear-gradient(to right, transparent, var(--color-accent-500) 50%, transparent)",
+                }}
+              />
+              <div
+                className="absolute inset-x-0 top-0 h-5"
+                style={{
+                  background:
+                    scrollGlowEffect === "rainbow"
+                      ? "linear-gradient(to bottom, color-mix(in srgb, #8b5cf6 35%, transparent), transparent)"
+                      : scrollGlowEffect === "fade"
+                        ? "linear-gradient(to bottom, color-mix(in srgb, var(--color-accent-500) 40%, transparent), transparent)"
+                        : "radial-gradient(ellipse 50% 100% at 50% 0, color-mix(in srgb, var(--color-accent-500) 45%, transparent), transparent)",
+                }}
+              />
+            </div>
+          )}
+          {scrollGlowEffect === "particles" && glowOn && (
+            // A drifting cloud of glowing dust falling from the edge. Every particle gets its own spot (denser
+            // toward the middle, where the glow is strongest), size, sway, fall distance, speed and delay from a
+            // golden-ratio sequence, so it looks random but is stable between renders. Most are tiny bright
+            // points, some mid-size, a few large soft orbs.
+            <div className="absolute inset-x-0 -bottom-px h-0">
+              {Array.from({ length: 48 }).map((_, i) => {
+                const r = (n: number) => ((i + 1) * n) % 1; // pseudo-random 0..1
+                const x = 50 + (r(0.618) - 0.5) * 100 * (0.3 + 0.7 * r(0.414)); // % across the bar
+                const orb = i % 9 === 0;
+                const size = orb ? 5 + r(0.732) * 3 : 1 + r(0.732) * 2.6;
+                const tone = orb ? "var(--color-accent-400)" : i % 5 === 0 ? "#fff" : i % 2 === 0 ? "var(--color-accent-300)" : "var(--color-accent-400)";
+                return (
+                  <span
+                    key={i}
+                    className="absolute bottom-0 rounded-full"
+                    style={
+                      {
+                        left: `${x}%`,
+                        width: size,
+                        height: size,
+                        background: orb ? `radial-gradient(circle, color-mix(in srgb, ${tone} 70%, transparent), transparent 70%)` : tone,
+                        boxShadow: orb ? undefined : `0 0 ${3 + size * 2.5}px ${size / 3}px color-mix(in srgb, var(--color-accent-500) 75%, transparent)`,
+                        "--lojee-dx": `${((r(0.866) - 0.5) * 22).toFixed(1)}px`,
+                        "--lojee-sway": `${((r(0.953) - 0.5) * 8).toFixed(1)}px`,
+                        "--lojee-dy": `${(45 + r(0.139) * 75).toFixed(1)}px`,
+                        "--lojee-peak": orb ? 0.5 : 0.7 + r(0.211) * 0.3,
+                        animation: `lojee-nav-particle ${(1.6 + r(0.529) * 1.8).toFixed(2)}s cubic-bezier(.3,.2,.6,1) ${(r(0.317) * 2).toFixed(2)}s infinite`,
+                      } as CSSProperties
+                    }
+                  />
+                );
+              })}
+            </div>
+          )}
+        </div>
+      )}
+      <div className={cx("flex min-w-0 items-center gap-6", itemsAlign !== "left" && "flex-1 basis-0")}>
         {/* Unconditional, unlike a `brand != null &&` guard — that would skip rendering this `<slot>`
             entirely for the web-component build, and a `<slot>` that was never rendered can never
             receive *anything* projected into it, including a `<div slot="brand">` a non-React consumer
@@ -372,42 +588,13 @@ export function Navbar({
         <div className={cx("flex shrink-0 items-center gap-2 font-semibold", VARIANT_BRAND_TEXT[variant], classNames?.brand)}>
           <slot name="brand">{brand}</slot>
         </div>
-        <div
-          ref={linksRef}
-          className={cx(
-            "relative",
-            // The `items` shortcut lays its links out as equal-width grid columns instead of a plain
-            // flex row — each column sizes to the *widest* link's own content (`auto-cols-fr` with no
-            // other width constraint on this row), not stretched to fill whatever's left of the bar
-            // before `actions`; that would blow the row out far wider than the links actually need
-            // (and, with only one or two short labels, comically so). Freeform `children` keep their
-            // ordinary natural-width flex layout, same as before, whether or not `items` is also given
-            // alongside them.
-            itemRows ? "grid grid-flow-col auto-cols-fr items-center gap-2" : "flex items-center gap-6",
-            classNames?.links
-          )}
-        >
-          {itemRows && pillRect && (
-            <div
-              aria-hidden
-              className={cx(
-                "pointer-events-none absolute inset-y-0 rounded-md transition-[left,width,background-color,box-shadow] duration-200 ease-[cubic-bezier(.4,0,.2,1)]",
-                navbarActiveFillClasses(color, dark, vividActive)
-              )}
-              {...activeMarker("fill", color, colorIsNamed, dark, {
-                left: pillRect.left,
-                width: pillRect.width,
-                ...(!colorIsNamed && !dark && { backgroundColor: color }),
-              })}
-            />
-          )}
-          {itemRows}
-          <slot>{children}</slot>
-        </div>
+        {itemsAlign === "left" && linksEl}
       </div>
+      {/* "center"/"right" place the links as their own row between the brand and the actions instead of next to the brand. */}
+      {itemsAlign !== "left" && linksEl}
       {/* Same reasoning as the `brand` slot above — rendered unconditionally so a non-React
           `<div slot="actions">` actually has a `<slot>` to project into. */}
-      <div className={cx("flex shrink-0 items-center gap-3", classNames?.actions)}>
+      <div className={cx("flex items-center gap-3", itemsAlign === "center" ? "flex-1 basis-0 justify-end" : "shrink-0", classNames?.actions)}>
         <slot name="actions">{actions}</slot>
       </div>
     </nav>
@@ -417,7 +604,7 @@ export function Navbar({
 
   return (
     <div
-      className={cx("p-3", "bg-[color-mix(in_srgb,var(--color-accent-500)_8%,var(--color-surface))]", sticky && "sticky top-0 z-40")}
+      className={cx("p-3", "bg-[color-mix(in_srgb,var(--color-accent-500)_8%,var(--color-surface))]", sticky && "sticky top-0 z-50")}
       style={style}
     >
       {bar}

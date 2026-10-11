@@ -1,5 +1,9 @@
 import { r2wc } from "./define-element";
-import { Button, SplitButton, SplitButtonMenuItem, ButtonGroup, SegmentButton } from "../components/ui/Buttons";
+import { Button } from "../components/ui/Buttons/Button";
+import { SplitButton } from "../components/ui/SplitButton/SplitButton";
+import { SplitButtonMenuItem } from "../components/ui/SplitButton/SplitButtonMenuItem";
+import { ButtonGroup } from "../components/ui/ButtonGroup/ButtonGroup";
+import { SegmentButton } from "../components/ui/ButtonGroup/SegmentButton";
 import {
   ModalElement,
   AlertDialogElement,
@@ -20,7 +24,7 @@ import { TopBarElement } from "./top-bar-element";
 import { TableElement } from "./table-element";
 import { MapElement } from "./map-element";
 import { defineAppSections } from "./app-sections";
-import { withSlots } from "./with-slots";
+import { withSlots, withTrimmedHost } from "./with-slots";
 import { ThemeSwitcher } from "../components/ui/ThemeSwitcher/ThemeSwitcher";
 import { AppElement, SideToggleElement, ThemeProviderElement } from "./app-element";
 import { withInlineEvents } from "./inline-events";
@@ -80,7 +84,8 @@ import { Notification } from "../components/ui/Notification/Notification";
 import { ProgressBar } from "../components/ui/ProgressBar/ProgressBar";
 import { Navbar } from "../components/ui/Navbar/Navbar";
 import { NavbarItem } from "../components/ui/Navbar/NavbarItem";
-import { Sidebar } from "../components/ui/Sidebar/Sidebar";
+import { SidebarElement } from "./sidebar-element";
+import { sidebarRegionClass } from "./sidebar-regions";
 import { SidebarMenuItem } from "../components/ui/Sidebar/SidebarMenuItem";
 import { NavigationMenu } from "../components/ui/NavigationMenu/NavigationMenu";
 import { BottomNavigation } from "../components/ui/BottomNavigation/BottomNavigation";
@@ -111,10 +116,44 @@ import { Thinking } from "../components/ui/Thinking/Thinking";
 // clicks. Only callbacks with no native DOM equivalent (SplitButton's menu
 // trigger, Modal's close request) go through r2wc's `events` bridge.
 
+/** An element that files itself into the named slot of its parent element, so pages never write `slot="…"`. */
+function slotted(ctor: CustomElementConstructor, slot: string): CustomElementConstructor {
+  return class extends ctor {
+    connectedCallback() {
+      this.slot = slot;
+      (ctor.prototype as { connectedCallback?: () => void }).connectedCallback?.call(this);
+    }
+  };
+}
+
+/** A disabled control's inner button / input is inert (`pointer-events-none`, or natively disabled), so a click lands on the custom element
+ * itself — where the page's own `@click` listener still fires. This swallows clicks on the host while it is disabled, before any listener
+ * (or a parent menu closing) sees them. Applied to every element that has a `disabled` prop (see `defineElement`). */
+function blockClicksWhenDisabled(ctor: CustomElementConstructor): CustomElementConstructor {
+  return class extends ctor {
+    connectedCallback() {
+      (ctor.prototype as { connectedCallback?: () => void }).connectedCallback?.call(this);
+      this.addEventListener(
+        "click",
+        (e) => {
+          const flag = (this as unknown as { disabled?: unknown }).disabled;
+          const attr = this.getAttribute("disabled");
+          if (flag === true || flag === "true" || (attr !== null && attr !== "false")) {
+            e.stopImmediatePropagation();
+            e.preventDefault();
+          }
+        },
+        true
+      );
+    }
+  };
+}
+
 // Docs and framework templates write these tags in PascalCase (`<l-BottomNavigation>`), but HTML lowercases tag names, so the
 // browser looks for `l-bottomnavigation` — not the kebab-case `l-bottom-navigation`. Every multi-word element is therefore also
 // registered under its dash-less name, so both spellings work.
 function defineElement(tag: string, ctor: CustomElementConstructor) {
+  if ((ctor as unknown as { observedAttributes?: string[] }).observedAttributes?.includes("disabled")) ctor = blockClicksWhenDisabled(ctor);
   customElements.define(tag, ctor);
   const alias = `l-${tag.slice(2).replace(/-/g, "")}`;
   if (alias !== tag && !customElements.get(alias)) customElements.define(alias, class extends ctor {});
@@ -155,13 +194,17 @@ defineElement(
 
 defineElement(
   "l-split-button",
-  r2wc(withTailwind(SplitButton), {
+  // `<l-split-button-menu-item>` children are light-DOM nodes, not React children — withSlots hands SplitButton a placeholder when the
+  // host has any, so it renders its dropdown (it only does for a non-empty `children`) and the items project through its <slot>.
+  r2wc(withTailwind(withTrimmedHost(withSlots(SplitButton, { children: "menu" }))), {
     shadow: "open",
     props: {
       icon: "string",
       label: "string",
       menuLabel: "string",
       menuIcon: "string",
+      align: "string",
+      open: "boolean",
       variant: "string",
       color: "string",
       size: "string",
@@ -172,7 +215,7 @@ defineElement(
       transitionDelay: "number",
       hoverEffect: "string",
     },
-    events: { onMenuClick: {} }, // dispatches "menuclick"
+    events: { onMenuClick: {}, onOpenChange: {} }, // dispatches "menuclick" and "openchange" (detail = true | false)
   })
 );
 
@@ -182,13 +225,16 @@ defineElement(
 // <l-segment-button> does inside <l-button-group>.
 defineElement(
   "l-split-button-menu-item",
-  r2wc(withTailwind(SplitButtonMenuItem), {
-    shadow: "open",
-    props: {
-      icon: "string",
-      disabled: "boolean",
-    },
-  })
+  slotted(
+    r2wc(withHostBlock(withTailwind(SplitButtonMenuItem)), {
+      shadow: "open",
+      props: {
+        icon: "string",
+        disabled: "boolean",
+      },
+    }),
+    "menu"
+  )
 );
 
 defineElement(
@@ -197,7 +243,7 @@ defineElement(
   withInlineEvents(
     r2wc(withTailwind(ButtonGroup), {
       shadow: "open",
-      props: { transition: "string", transitionDuration: "number", transitionDelay: "number", hoverEffect: "string" },
+      props: { selectable: "boolean", defaultActive: "number", transition: "string", transitionDuration: "number", transitionDelay: "number", hoverEffect: "string" },
       events: { onItemClick: {} }, // dispatches "itemclick", detail = { index, label } of the clicked button
     }),
     ["itemclick"]
@@ -211,6 +257,7 @@ defineElement(
     props: {
       icon: "string",
       active: "boolean",
+      disabled: "boolean",
       transition: "string",
       transitionDuration: "number",
       transitionDelay: "number",
@@ -613,6 +660,8 @@ defineElement(
       size: "string",
       color: "string",
       label: "string",
+      iconOn: "string",
+      iconOff: "string",
       transition: "string",
       transitionDuration: "number",
       transitionDelay: "number",
@@ -973,6 +1022,11 @@ defineElement(
       transitionDuration: "number",
       transitionDelay: "number",
       hoverEffect: "string",
+      scrollBackground: "boolean",
+      scrollGlow: "string",
+      itemsAlign: "string",
+      scrollThreshold: "number",
+      scrollGlowDuration: "number",
     },
     events: {
       onActiveItemChange: {}, // dispatches "activeitemchange", detail = the active item object
@@ -1005,9 +1059,12 @@ defineElement(
   })
 );
 
+defineElement("l-sidebar-header", sidebarRegionClass("header"));
+defineElement("l-sidebar-footer", sidebarRegionClass("footer"));
+
 defineElement(
   "l-sidebar",
-  r2wc(withUpdate(withHostBlock(withTailwind(Sidebar)), ["onActiveItemChange"]), {
+  r2wc(withUpdate(withHostBlock(withTailwind(SidebarElement)), ["onActiveItemChange"]), {
     shadow: "open",
     props: {
       width: "number",
@@ -1477,7 +1534,9 @@ defineElement(
 // slot for the mobile drawer button. Without `theme` / `accent` / `active-variant` it follows the page's theme.
 defineElement(
   "l-app",
-  r2wc(withHostBlock(withTailwind(AppElement)), {
+  // `:host` loses to any height the page sets on <l-app>, so this only supplies the React default (`h-screen`): a fixed-height shell whose
+  // main area scrolls on its own, instead of an auto-height host that grows with its content and scrolls the whole page (taking the navbar and sidebar with it).
+  r2wc(withHostBlock(withTailwind(AppElement), ";height:100vh;overflow:hidden"), {
     shadow: "open",
     props: { theme: "string", accent: "string", design: "string", activeVariant: "string", layout: "json", collapseBelow: "string" },
   })
@@ -1486,7 +1545,7 @@ defineElement(
 // Theme menu (light/dark, accent, active-item style) — changes the page theme on <html> by itself, no provider needed.
 defineElement(
   "l-theme-switcher",
-  r2wc(withTailwind(ThemeSwitcher), { shadow: "open", props: { open: "boolean", mode: "string", accent: "string", activeVariant: "string", design: "string", align: "string", showDesign: "boolean", showActiveItems: "boolean", showAccent: "boolean", showCustom: "boolean", customAccentLabel: "string", transition: "string", transitionDuration: "number", transitionDelay: "number", hoverEffect: "string" }, events: { onModeChange: {}, onAccentChange: {}, onActiveVariantChange: {}, onDesignChange: {}, onOpenChange: {} } })
+  r2wc(withTailwind(ThemeSwitcher), { shadow: "open", props: { open: "boolean", variant: "string", mode: "string", accent: "string", activeVariant: "string", design: "string", align: "string", showDesign: "boolean", showActiveItems: "boolean", showAccent: "boolean", showCustom: "boolean", customAccentLabel: "string", transition: "string", transitionDuration: "number", transitionDelay: "number", hoverEffect: "string" }, events: { onModeChange: {}, onAccentChange: {}, onActiveVariantChange: {}, onDesignChange: {}, onOpenChange: {} } })
 );
 
 defineElement("l-side-toggle", r2wc(withTailwind(SideToggleElement), { shadow: "open", props: { label: "string" } }));

@@ -1,7 +1,9 @@
-import type { ChangeEventHandler, FocusEventHandler, FormEventHandler, InputHTMLAttributes } from "react";
+import { useRef, useState, type ChangeEventHandler, type FocusEventHandler, type FormEventHandler, type InputHTMLAttributes } from "react";
 import { cx } from "../../../core/tokens";
 import { motionClass, motionStyle, type TransitionVariant, type HoverEffect } from "../../../core/motion";
 import { Icon } from "../Icons/Icon";
+import { Calendar } from "../Calendar/Calendar";
+import { commitInputValue, useDismiss } from "./fieldPopover";
 
 export type DatePickerSize = "sm" | "md" | "lg";
 export type DatePickerVariant = "outline" | "filled" | "underline";
@@ -67,8 +69,21 @@ export function DatePicker({
   ...rest
 }: DatePickerProps) {
   const showClear = !!rest.value && !!onClear;
+  const rootRef = useRef<HTMLSpanElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [open, setOpen] = useState(false);
+  // Tracks the field's value (typed, picked, or set by the parent) so the panel can show it without reading the DOM during render.
+  const [typed, setTyped] = useState(String(rest.value ?? rest.defaultValue ?? ""));
+  const value = rest.value !== undefined ? String(rest.value) : typed;
+  const { onChange, onInput, ...inputRest } = rest;
+  useDismiss(open, rootRef, () => setOpen(false));
+  const pick = (date: string) => {
+    commitInputValue(inputRef.current, date);
+    setOpen(false);
+  };
   return (
     <span
+      ref={rootRef}
       className={cx(
         "group relative inline-flex w-full items-center text-fg outline-none transition-colors",
         VARIANT_CLASSES[variant],
@@ -88,22 +103,52 @@ export function DatePicker({
         )}
       />
       <input
+        ref={inputRef}
         type="date"
         className={cx(
-          "w-full bg-transparent outline-none disabled:cursor-not-allowed disabled:opacity-50",
+          // The browser's own calendar popup is replaced by the Calendar panel below, so its indicator is hidden.
+          "w-full bg-transparent pr-10 outline-none disabled:cursor-not-allowed disabled:opacity-50 [&::-webkit-calendar-picker-indicator]:hidden",
           SIZE_CLASSES[size],
-          showClear && "pr-8",
+          showClear && "pr-16",
           classNames?.input
         )}
-        {...rest}
+        {...inputRest}
+        onChange={(e) => {
+          setTyped(e.target.value);
+          onChange?.(e);
+        }}
+        onInput={(e) => {
+          setTyped((e.target as HTMLInputElement).value);
+          onInput?.(e);
+        }}
       />
+      <button
+        type="button"
+        disabled={rest.disabled}
+        onClick={() => setOpen((o) => !o)}
+        aria-label="Open calendar"
+        aria-expanded={open}
+        className="absolute right-2 rounded p-1 text-fg-subtle transition-colors hover:bg-surface-muted hover:text-fg disabled:pointer-events-none disabled:opacity-50"
+      >
+        <Icon name="calendar" size={ICON_PX[size]} />
+      </button>
+      {open && (
+        <div className="absolute left-0 top-full z-50 mt-1.5 w-max rounded-xl border border-border bg-surface p-3 shadow-xl">
+          <Calendar
+            footer
+            month={value || undefined}
+            selected={value || undefined}
+            onSelect={pick}
+          />
+        </div>
+      )}
       {showClear && (
         <button
           type="button"
           onClick={onClear}
           aria-label="Clear date"
           className={cx(
-            "absolute right-2.5 rounded p-0.5 text-fg-subtle transition-colors hover:bg-surface-muted hover:text-fg-muted",
+            "absolute right-9 rounded p-0.5 text-fg-subtle transition-colors hover:bg-surface-muted hover:text-fg-muted",
             classNames?.clearButton
           )}
         >

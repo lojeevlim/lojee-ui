@@ -26,6 +26,16 @@ export const COMPONENT_MENU: Menu[]  = [
             },
 
             {
+                icon: "layout-grid",
+                label: "Button Groups",
+            },
+
+            {
+                icon: "chevron-down",
+                label: "Split Button",
+            },
+
+            {
                 icon: "badge",
                 label: "Badges",
             },

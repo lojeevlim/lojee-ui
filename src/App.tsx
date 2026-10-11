@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState, type ComponentType } from 'react'
 import { useParams, useNavigate, Navigate } from 'react-router-dom'
 import ButtonShowcase, { Button } from './components/ui/Buttons'
+import ButtonGroupShowcase from './components/ui/ButtonGroup'
+import SplitButtonShowcase from './components/ui/SplitButton'
 import BadgeShowcase from './components/ui/Badge'
 import AvatarShowcase from './components/ui/Avatar'
 import IconsShowcase from './components/ui/Icons'
@@ -129,6 +131,8 @@ const SHOWCASES: Record<string, ComponentType> = {
   'Code Snippet': CodeSnippetShowcase,
   'Theme Switcher': ThemeSwitcherShowcase,
   Buttons: ButtonShowcase,
+  'Button Groups': ButtonGroupShowcase,
+  'Split Button': SplitButtonShowcase,
   Badges: BadgeShowcase,
   Avatars: AvatarShowcase,
   Icons: IconsShowcase,
@@ -235,7 +239,7 @@ function PlaygroundFab({ open, onOpen }: { open: boolean; onOpen: () => void }) 
     }
   }, [])
   return (
-    <div className="fixed bottom-4 right-4 z-30 flex flex-col items-end gap-3 md:bottom-6 md:right-6">
+    <div className="fixed bottom-4 right-4 z-[60] flex flex-col items-end gap-3 md:bottom-6 md:right-6">
       {/* A short "Try it live" hint appears after the page settles and fades away again (it is also the button's hover tooltip). */}
       <Tooltip content="Try it live — tweak props" position="top" color="accent" open={hint && !open}>
         <Button

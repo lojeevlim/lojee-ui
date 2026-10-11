@@ -98,15 +98,15 @@ export class AppComponent {}`,
             variants={{
               react: `<Checkbox disabled />
 <Checkbox disabled defaultChecked />`,
-              js: `<l-checkbox disabled></l-checkbox>
-<l-checkbox disabled defaultChecked></l-checkbox>`,
+              js: `<l-checkbox disabled="true"></l-checkbox>
+<l-checkbox disabled="true" defaultChecked></l-checkbox>`,
               vue: `<template>
-  <l-checkbox disabled />
-  <l-checkbox disabled defaultChecked />
+  <l-checkbox disabled="true" />
+  <l-checkbox disabled="true" defaultChecked />
 </template>`,
               angular: `<!-- app.component.html — same AppComponent as above -->
-<l-checkbox disabled />
-<l-checkbox disabled defaultChecked />`,
+<l-checkbox disabled="true" />
+<l-checkbox disabled="true" defaultChecked />`,
             }}
           />
         </section>

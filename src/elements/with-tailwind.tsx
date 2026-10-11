@@ -63,11 +63,11 @@ function useHtmlTheme() {
  * outer box from inside its own shadow tree. A no-op outside a shadow root
  * (plain React usage), since `:host` matches nothing there.
  */
-export function withHostBlock<Props extends object>(Component: ComponentType<Props>) {
+export function withHostBlock<Props extends object>(Component: ComponentType<Props>, extraHostCss = "") {
   return function WithHostBlock(props: Props) {
     return (
       <>
-        <style>{":host{display:block}"}</style>
+        <style>{`:host{display:block${extraHostCss}}`}</style>
         <Component {...props} />
       </>
     );

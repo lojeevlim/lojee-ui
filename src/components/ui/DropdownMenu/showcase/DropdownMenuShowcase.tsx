@@ -115,7 +115,7 @@ export class DropdownMenuShowcaseComponent {
   <l-button slot="trigger" icon="chevron-down" label="Options"></l-button>
   <l-dropdown-menu-item icon="settings" id="settings-item">Settings</l-dropdown-menu-item>
   <l-dropdown-menu-item icon="share-2" id="share-item">Share</l-dropdown-menu-item>
-  <l-dropdown-menu-item disabled>Archived</l-dropdown-menu-item>
+  <l-dropdown-menu-item disabled="true">Archived</l-dropdown-menu-item>
 </l-dropdown-menu>
 
 <script type="module">
@@ -127,7 +127,7 @@ export class DropdownMenuShowcaseComponent {
     <l-button slot="trigger" icon="chevron-down" label="Options" />
     <l-dropdown-menu-item icon="settings" @click="openSettings">Settings</l-dropdown-menu-item>
     <l-dropdown-menu-item icon="share-2" @click="share">Share</l-dropdown-menu-item>
-    <l-dropdown-menu-item disabled>Archived</l-dropdown-menu-item>
+    <l-dropdown-menu-item disabled="true">Archived</l-dropdown-menu-item>
   </l-dropdown-menu>
 </template>`,
               angular: `<!-- reuses DropdownMenuShowcaseComponent from above -->
@@ -135,7 +135,7 @@ export class DropdownMenuShowcaseComponent {
   <l-button slot="trigger" icon="chevron-down" label="Options" />
   <l-dropdown-menu-item icon="settings" (click)="openSettings()">Settings</l-dropdown-menu-item>
   <l-dropdown-menu-item icon="share-2" (click)="share()">Share</l-dropdown-menu-item>
-  <l-dropdown-menu-item disabled>Archived</l-dropdown-menu-item>
+  <l-dropdown-menu-item disabled="true">Archived</l-dropdown-menu-item>
 </l-dropdown-menu>`,
             }}
           />

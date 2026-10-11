@@ -257,9 +257,9 @@ onEmailInput(e: Event) {
           <CodeBlock
             variants={{
               react: `<Input disabled placeholder="Disabled" />`,
-              js: `<l-input disabled placeholder="Disabled"></l-input>`,
-              vue: `<l-input disabled placeholder="Disabled" />`,
-              angular: `<l-input disabled placeholder="Disabled" />`,
+              js: `<l-input disabled="true" placeholder="Disabled"></l-input>`,
+              vue: `<l-input disabled="true" placeholder="Disabled" />`,
+              angular: `<l-input disabled="true" placeholder="Disabled" />`,
             }}
           />
         </section>

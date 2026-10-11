@@ -38,7 +38,7 @@ import tailwindCssSource from "../index.css?inline";
 // even get introduced — registers it as the lowest-priority layer of all,
 // so those later-declared layers correctly win, same as `@property`'s
 // initial-value would.
-const propertyDefaults = [...tailwindCssSource.matchAll(/@property (--tw-[a-z0-9-]+)\{[^}]*?initial-value:\s*([^;}]+)[;}]/g)]
+const propertyDefaults = [...tailwindCssSource.matchAll(/@property (--tw-[a-z0-9-]+)\s*\{[^}]*?initial-value:\s*([^;}]+)[;}]/g)]
   .map(([, name, value]) => {
     value = value.trim();
     // `--tw-ring-offset-width`'s `@property` declares it `<length>`-typed, which is what lets Tailwind
