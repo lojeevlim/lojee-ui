@@ -19,7 +19,7 @@ export function SidebarElement(props: SidebarProps) {
     if (!host) return;
     if (host.closest("l-side")) {
       setInSide(true);
-      host.style.height = "100%";
+      (host as HTMLElement).style.height = "100%";
     }
     const sync = () => {
       const has = (name: string) => Array.from(host.children).some((n) => n.getAttribute("slot") === name);
