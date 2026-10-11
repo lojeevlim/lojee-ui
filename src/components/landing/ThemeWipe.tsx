@@ -47,12 +47,19 @@ const LAYOUT: GridLayout = [
   ["side", "main"],
 ];
 
+// Without a sidebar (small screens) the top bar sits above the main panel.
+const LAYOUT_NO_SIDE: GridLayout = [["top"], ["main"]];
+
+/** How the sidebar is shown, by the width of the preview: a full sidebar on large screens, the icon-only rail on medium ones, none on small ones. */
+type SideMode = "full" | "rail" | "none";
+const sideModeFor = (width: number): SideMode => (width >= 900 ? "full" : width >= 560 ? "rail" : "none");
+
 /** One full dashboard, laid out by the library's own App component (Top / Side / Main). It is drawn once per look. */
-function Dashboard({ stage, onExplore }: { stage: Stage; onExplore: () => void }) {
+function Dashboard({ stage, onExplore, side }: { stage: Stage; onExplore: () => void; side: SideMode }) {
   return (
-    <App theme={stage.mode} accent={stage.accent} design={stage.design} activeVariant={stage.items} layout={LAYOUT} className="h-full">
+    <App theme={stage.mode} accent={stage.accent} design={stage.design} activeVariant={stage.items} layout={side === "none" ? LAYOUT_NO_SIDE : LAYOUT} className="h-full">
       <Top>
-        <div className="@md:-ml-3">
+        <div className={side === "none" ? "" : "-ml-3"}>
         <Navbar
           variant="elevated"
           brand="Overview"
@@ -67,11 +74,12 @@ function Dashboard({ stage, onExplore }: { stage: Stage; onExplore: () => void }
         </div>
       </Top>
 
+      {side !== "none" && (
       <Side>
         <Sidebar
           height="100%"
           variant="elevated"
-          collapsible
+          collapsed={side === "rail"}
           header="Admin panel"
           headerIcon="layout-dashboard"
           footer="Jordan Diaz"
@@ -85,9 +93,10 @@ function Dashboard({ stage, onExplore }: { stage: Stage; onExplore: () => void }
           ]}
         />
       </Side>
+      )}
 
       {/* the margins are set so the sidebar, navbar and panel all sit the same distance (12px) from the frame on every side, and the same distance from each other */}
-      <Main padding="sm" margin="lg" rounded="2xl" className="!ml-3 !mt-1 !mr-3 !mb-3 @md:!ml-0">
+      <Main padding="sm" margin="lg" rounded="2xl" className={`!mt-1 !mr-3 !mb-3 ${side === "none" ? "!ml-3" : "!ml-0"}`}>
         <div className="grid gap-4 md:grid-cols-[1fr_13.5rem]">
           <div className="flex min-w-0 flex-col gap-3">
             <div className="flex flex-col items-center px-2 pt-2 text-center">
@@ -102,9 +111,9 @@ function Dashboard({ stage, onExplore }: { stage: Stage; onExplore: () => void }
               </div>
             </div>
             <div className="grid grid-cols-3 gap-2 md:gap-3">
-              <Stat label="Components" value="93+" icon="box" className="!p-3 md:!p-5" classNames={{ label: "truncate text-[11px] md:text-sm", icon: "!mb-2 md:!mb-3" }} />
-              <Stat label="Frameworks" value="4" icon="shapes" color="violet" className="!p-3 md:!p-5" classNames={{ label: "truncate text-[11px] md:text-sm", icon: "!mb-2 md:!mb-3" }} />
-              <Stat label="Accents" value="59" icon="palette" color="pink" className="!p-3 md:!p-5" classNames={{ label: "truncate text-[11px] md:text-sm", icon: "!mb-2 md:!mb-3" }} />
+              <Stat label="Components" value="93+" icon="box" className="!p-2 md:!p-5" classNames={{ label: "truncate text-[10px] md:text-sm", icon: "!mb-2 md:!mb-3" }} />
+              <Stat label="Frameworks" value="4" icon="shapes" color="violet" className="!p-2 md:!p-5" classNames={{ label: "truncate text-[10px] md:text-sm", icon: "!mb-2 md:!mb-3" }} />
+              <Stat label="Accents" value="59" icon="palette" color="pink" className="!p-2 md:!p-5" classNames={{ label: "truncate text-[10px] md:text-sm", icon: "!mb-2 md:!mb-3" }} />
             </div>
             <Card variant="soft" padding="sm" className="mt-3" title={<span className="text-xs font-semibold opacity-70">Controls</span>}>
               <div className="flex flex-wrap items-center justify-around gap-3">
@@ -188,6 +197,18 @@ export default function ThemeWipe() {
   const layer0 = useRef<HTMLDivElement>(null);
   const layer1 = useRef<HTMLDivElement>(null);
   const layers = [layer0, layer1];
+  // The sidebar mode follows the width of the preview. It lives here, shared by both layers, so they never differ mid-wipe.
+  const frame = useRef<HTMLDivElement>(null);
+  const [side, setSide] = useState<SideMode>("full");
+  useEffect(() => {
+    const el = frame.current;
+    if (!el) return;
+    const measure = () => setSide(sideModeFor(el.clientWidth));
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
   const [step, setStep] = useState(0);
   const stepRef = useRef(0);
   const [active, setActive] = useState(0);
@@ -270,11 +291,11 @@ export default function ThemeWipe() {
       <div ref={track} style={{ height: `${(STAGES.length - 1) * 90 + 60}vh` }}>
         <div ref={pinned} className="sticky mx-auto max-w-5xl" style={{ top: STICKY_TOP }}>
           <Reveal delay={160} className="lp-theme-in">
-          <div data-theme-wipe="" className="relative h-[34rem] overflow-hidden rounded-3xl border border-border bg-surface-muted shadow-xl shadow-black/5 md:h-[35rem]">
+          <div ref={frame} data-theme-wipe="" className="relative h-[34rem] overflow-hidden rounded-3xl border border-border bg-surface-muted shadow-xl shadow-black/5 md:h-[35rem]">
             {[0, 1].map((k) => (
               <div key={k} ref={layers[k]} className="absolute inset-3 overflow-hidden rounded-2xl">
                 <ShadowIsland attrs={layerProps(STAGES[stageOf(k)])} className="absolute left-0 top-0" style={{ width: `${100 / SCALE}%`, height: `${100 / SCALE}%`, transform: `scale(${SCALE})`, transformOrigin: "0 0" }}>
-                  <Dashboard stage={STAGES[stageOf(k)]} onExplore={explore} />
+                  <Dashboard stage={STAGES[stageOf(k)]} onExplore={explore} side={side} />
                 </ShadowIsland>
               </div>
             ))}
