@@ -11,6 +11,7 @@ const FLOW_NODES = FRAMEWORK_FLOW.nodes.map((n) => ({ ...n, logo: LOGOS[n.id ===
 
 type Fw = "react" | "vue" | "angular" | "js";
 
+
 const FRAMEWORKS: { key: Fw; label: string }[] = [
   { key: "react", label: "React" },
   { key: "vue", label: "Vue" },
@@ -42,8 +43,14 @@ import "lojee-ui/elements";
 };
 
 /** Schematic: one React component → Web Component → every framework, with packets flowing along the wires. */
-export default function FrameworkFlow() {
-  const [fw, setFw] = useState<Fw>("react");
+export default function FrameworkFlow({ scrollFw }: { scrollFw?: Fw } = {}) {
+  const [fw, setFw] = useState<Fw>(scrollFw ?? "react");
+  // When the page drives it (the pinned section steps through the frameworks as you scroll), follow; hovering or clicking still switches it in between.
+  const [prevScrollFw, setPrevScrollFw] = useState(scrollFw);
+  if (scrollFw !== prevScrollFw) {
+    setPrevScrollFw(scrollFw);
+    if (scrollFw) setFw(scrollFw);
+  }
   // Flowing packets run in SMIL on the main thread, so only animate while the diagram is on screen.
   const [lightRef, lightAttrs] = useGlassLighting<HTMLDivElement>("scroll"); // the glass frame lights up (dark mode) while the card is well inside the viewport
   const [onScreen, setOnScreen] = useState(false);

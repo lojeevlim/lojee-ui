@@ -2,7 +2,7 @@ import { startTransition, useEffect, useRef, useState, type ReactNode } from "re
 import { Card } from "../ui/Card/Card";
 
 // Every hero card is the same size: the same height, and the width most of them asked for (w-80; anything wider was always capped to it, so it is the majority), so the reels read as tidy rows.
-const CARD_WIDTH = "w-80";
+const CARD_WIDTH = "w-60 sm:w-80"; // narrower on phones so more than one card fits on screen (the content scales down to fit, see Fit)
 const MIN_SCALE = 0.5;
 
 /** Shrinks content that is taller or wider than its box (never below MIN_SCALE) so big components fit a small card; short content is left alone. */
@@ -126,7 +126,7 @@ export function HeroCard({ name, children, overflowVisible = false }: { name: st
         variant="glass"
         lighting="press"
         padding="none"
-        className={`${CARD_WIDTH} pointer-events-auto flex h-52 flex-col !rounded-2xl !p-4 shadow-lg shadow-black/5 before:!rounded-[calc(var(--radius-2xl)+10px)] before:!backdrop-blur-none`}
+        className={`${CARD_WIDTH} pointer-events-auto flex h-44 flex-col !rounded-2xl !p-3 sm:h-52 sm:!p-4 shadow-lg shadow-black/5 before:!rounded-[calc(var(--radius-2xl)+10px)] before:!backdrop-blur-none`}
         classNames={{ body: "flex min-h-0 flex-1 flex-col" }}
       >
         <p className="relative mb-3 shrink-0 font-mono text-[10px] uppercase tracking-wider text-fg-subtle">{name}</p>

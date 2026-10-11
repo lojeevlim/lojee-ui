@@ -99,6 +99,18 @@
   opacity: 1;
   transform: none;
 }
+/* A bigger entrance for the pinned theme preview: it rises, scales up and comes into focus as the section arrives. */
+[data-reveal].lp-theme-in {
+  transform: translateY(56px) scale(0.94);
+  filter: blur(10px);
+  transform-origin: 50% 0;
+  transition: opacity 0.9s cubic-bezier(0.2, 0.7, 0.2, 1), transform 1s cubic-bezier(0.2, 0.7, 0.2, 1), filter 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition-delay: var(--d, 0ms);
+}
+[data-reveal][data-shown="true"].lp-theme-in {
+  transform: none;
+  filter: none;
+}
 
 .lp-enter { animation: lp-enter 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both; animation-delay: var(--d, 0ms); }
 
@@ -113,7 +125,7 @@
 @media (prefers-reduced-motion: reduce) {
   .lp-shimmer-text, .lp-aurora, .lp-beam, .lp-float-a, .lp-float-b, .lp-float-c, .lp-dash, .lp-ping, .lp-marquee, .lp-marquee-rev, .lp-enter { animation: none; }
   .lp-draw { animation: none; stroke-dashoffset: 0; }
-  [data-reveal] { opacity: 1; transform: none; transition: none; }
+  [data-reveal], [data-reveal].lp-theme-in { opacity: 1; transform: none; filter: none; transition: none; }
 }
 
 /* Offscreen sections skip layout and paint until they are near the viewport. */
@@ -159,13 +171,35 @@
 [data-theme="dark"] .lp-stat-num .lp-clay-shaded { filter: drop-shadow(0 0 7px color-mix(in srgb, var(--color-accent-400) 75%, transparent)) drop-shadow(0 0 20px color-mix(in srgb, var(--color-accent-400) 50%, transparent)); }
 .lp-stat-num .lp-clay-ink { background-color: var(--color-accent-500); }
 [data-theme="dark"] .lp-stat-num .lp-clay-ink { background-color: var(--color-accent-300); }
+/* Premium hero headline: a soft top-to-bottom ink on the plain words, and a slowly drifting accent gradient on "themeable" with a glow. */
+.lp-ink {
+  background-image: linear-gradient(180deg, var(--color-fg) 35%, color-mix(in srgb, var(--color-fg) 68%, var(--color-surface)));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.lp-premium-word {
+  background-image: linear-gradient(105deg, var(--color-accent-500) 0%, var(--color-accent-700) 38%, var(--color-accent-400) 62%, var(--color-accent-600) 100%);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 8px 20px color-mix(in srgb, var(--color-accent-500) 32%, transparent));
+}
+[data-theme="dark"] .lp-premium-word {
+  background-image: linear-gradient(105deg, var(--color-accent-300) 0%, var(--color-accent-500) 40%, var(--color-accent-200) 65%, var(--color-accent-400) 100%);
+  filter: drop-shadow(0 0 22px color-mix(in srgb, var(--color-accent-500) 45%, transparent));
+}
+/* The word "themeable" in the old hero: clay lettering in the theme accent instead of the near-black ink. */
+.lp-clay-ink.lp-clay-accent { background-color: var(--color-accent-600); }
+[data-theme="dark"] .lp-clay-ink.lp-clay-accent { background-color: var(--color-accent-400); }
 .lp-trail-probe { color: var(--color-accent-500); }
 [data-theme="dark"] .lp-trail-probe { color: color-mix(in srgb, white 55%, var(--color-accent-300)); }
 /* Dark mode: the spotlight glows like a light shining on the letters. */
 [data-theme="dark"] .lp-clay-win { filter: url(#lp-clay-spot) drop-shadow(0 0 4px color-mix(in srgb, var(--color-accent-400) 22%, transparent)) brightness(1); }
 /* Dark mode, before the pointer first moves: the hero's cursor glow (normally centred behind the heading) is pinned to the very top instead, so nothing glows around the heading itself. */
 [data-theme="dark"] .lp-glow[data-rest] {
-  background: radial-gradient(460px 200px at 50% 0, color-mix(in srgb, var(--color-accent-500) 26%, transparent), transparent 100%);
+  background: radial-gradient(460px 200px at 50% 0, color-mix(in srgb, var(--color-accent-500) 14%, transparent), transparent 100%);
 }
 @keyframes lp-rest-dust {
   0% { opacity: 0; transform: translate(0, 0) scale(0.6); }
@@ -254,3 +288,47 @@ h1.lp-clay-text:hover > .lp-clay-shaded { filter: url(#lp-clay-letters) drop-sha
 
 /* While the page scrolls, the live cards in the hero reels hold their own animations still (pulses, progress bars, shimmer) so the frame goes to scrolling. */
 :root[data-scrolling] [data-hero-track] * { animation-play-state: paused !important; }
+
+
+/* ---- Hero backdrop: wedges of accent light from both sides, a glowing two-part pill. ---- */
+
+/* The right wedge is a mirror image of the left one. The mirror lives on the wrapper so the effects on the svg below happen in the wedge's own (unmirrored) space. */
+/* Hero text scroll transition: the headline and subtitle drift up, blur and fade as --sp (set on the hero section) goes 0 -> 1; the subtitle leaves a little sooner. */
+/* Rounded display face for the hero headline (Nunito is loaded in index.html; the rest are system rounded fallbacks). */
+.lp-round { font-family: "Nunito", ui-rounded, "SF Pro Rounded", "Varela Round", system-ui, sans-serif; }
+.lp-scroll-h { transform: translateY(calc(var(--sp, 0) * -36px)) scale(calc(1 - var(--sp, 0) * 0.04)); opacity: calc(1 - var(--sp, 0) * 1.15); filter: blur(calc(var(--sp, 0) * 5px)); will-change: transform, opacity; }
+.lp-scroll-p { transform: translateY(calc(var(--sp, 0) * -52px)); opacity: calc(1 - var(--sp, 0) * 1.5); filter: blur(calc(var(--sp, 0) * 6px)); will-change: transform, opacity; }
+.lp-scroll-b { transform: translateY(calc(var(--sp, 0) * -68px)); opacity: calc(1 - var(--sp, 0) * 1.8); filter: blur(calc(var(--sp, 0) * 6px)); will-change: transform, opacity; }
+.lp-scroll-c { transform: translateY(calc(var(--sp, 0) * -84px)); opacity: calc(1 - var(--sp, 0) * 2.1); filter: blur(calc(var(--sp, 0) * 6px)); will-change: transform, opacity; }
+@media (prefers-reduced-motion: reduce) { .lp-scroll-h, .lp-scroll-p, .lp-scroll-b, .lp-scroll-c { transform: none; opacity: 1; filter: none; } }
+/* Motes on the wedges: small points of light drawn from the outer edge toward the tip. The wrapper is a size container so the travel (--dx / --dy, in % of the wedge box) can be expressed in cqw / cqh. */
+.lp-wedge-wrap { container-type: size; }
+.lp-wedge-motes { transform-origin: 86% 50%; transform: scale(calc(1 + var(--sp, 0) * 1.1)); opacity: calc(1 - var(--sp, 0) * var(--sp, 0) * 0.8); }
+.lp-mote { position: absolute; border-radius: 9999px; background: var(--color-accent-200); box-shadow: 0 0 6px 1px color-mix(in srgb, var(--color-accent-300) 70%, transparent); opacity: 0; animation: lp-mote-drift linear infinite; /* Scrolling pushes every mote further along its path toward the tip (and a little bigger), on top of its own drift; the individual translate / scale properties compose with the animated transform. */ translate: calc(var(--dx) * var(--sp, 0) * 0.55cqw) calc(var(--dy) * var(--sp, 0) * 0.55cqh); scale: calc(1 + var(--sp, 0) * 0.9); transition: translate .12s linear, scale .12s linear; }
+[data-theme="light"] .lp-mote { background: var(--color-accent-500); box-shadow: 0 0 5px 1px color-mix(in srgb, var(--color-accent-400) 55%, transparent); }
+@keyframes lp-mote-drift {
+  0% { transform: translate(0, 0); opacity: 0; }
+  18% { opacity: 0.9; }
+  70% { opacity: 0.8; }
+  100% { transform: translate(calc(var(--dx) * 1cqw), calc(var(--dy) * 1cqh)); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) { .lp-wedge-motes { display: none; } }
+.lp-wedge-right { transform: scaleX(-1); }
+/* Scroll effect (--sp is 0 at the top of the page and 1 once the hero has scrolled away): the light spreads out from the tip, growing and thinning, brightens a little at first, and fades. */
+.lp-wedge {
+  transform-origin: 86% 50%;
+  transform: scale(calc(1 + var(--sp, 0) * 1.1));
+  opacity: calc(1 - var(--sp, 0) * var(--sp, 0) * 0.95);
+  filter: brightness(calc(1)) drop-shadow(0 0 40px color-mix(in srgb, var(--color-accent-500) 18%, transparent));
+  transition: transform 0.12s linear, opacity 0.12s linear;
+}
+/* The wedges fade in when the page arrives. */
+.lp-wedge-wrap { animation: lp-wedge-fade 1.8s ease-out both; }
+@keyframes lp-wedge-fade { from { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .lp-wedge-wrap { animation: none; } .lp-wedge { transform: none; opacity: 1; filter: none; transition: none; } }
+[data-theme="light"] .lp-wedge { filter: saturate(1.1) brightness(0.99); }
+
+.lp-pill {
+  background: linear-gradient(120deg, color-mix(in srgb, var(--color-accent-400) 70%, transparent), color-mix(in srgb, var(--color-accent-400) 12%, transparent) 55%, color-mix(in srgb, var(--color-accent-300) 55%, transparent));
+  box-shadow: 0 0 22px color-mix(in srgb, var(--color-accent-500) 22%, transparent);
+}

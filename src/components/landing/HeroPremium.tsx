@@ -1,5 +1,5 @@
 import { isScrolling } from "./scrollState";
-import { cloneElement, isValidElement, memo, useEffect, useRef, useState, type PointerEvent, type ReactNode } from "react";
+import { cloneElement, isValidElement, memo, useEffect, useRef, useState, type MutableRefObject, type PointerEvent, type ReactNode } from "react";
 import { HeroCard as Card } from "./HeroCard";
 import { BASIC_REELS } from "./heroCardsBasic";
 import { FORMS_REELS } from "./heroCardsForms";
@@ -95,9 +95,11 @@ const INTERACTIVE = "input,textarea,select,button,a,label,[role='slider'],[role=
  * One reel of cards. It glides on its own (`dir` -1 = left, 1 = right), pauses while the pointer is over it, and can be
  * dragged left / right with the mouse or a finger — releasing keeps a little momentum before it settles back into gliding.
  */
-const Reel = memo(function Reel({ items, dir, speed }: { items: ReactNode[]; dir: 1 | -1; speed: number }) {
+const LINKED_TRAVEL = 4200; // px a linked reel moves over the whole scroll range
+
+const Reel = memo(function Reel({ items, dir, speed, progress }: { items: ReactNode[]; dir: 1 | -1; speed: number; progress?: MutableRefObject<number> }) {
   const track = useRef<HTMLDivElement>(null);
-  const st = useRef({ x: 0, target: 0, auto: 1, vel: 0, pressed: false, drag: false, moved: false, startX: 0, startPos: 0, lastX: 0, lastT: 0, id: -1 });
+  const st = useRef({ x: 0, raw: 0, target: 0, auto: 1, vel: 0, pressed: false, drag: false, moved: false, startX: 0, startPos: 0, lastX: 0, lastT: 0, id: -1 });
   const [grabbing, setGrabbing] = useState(false);
 
   useEffect(() => {
@@ -118,7 +120,7 @@ const Reel = memo(function Reel({ items, dir, speed }: { items: ReactNode[]; dir
       if (period > 0) half = period;
       if (half > 0 && !placed) {
         placed = true;
-        st.current.x = st.current.target = st.current.startPos = -half / 2;
+        st.current.x = st.current.raw = st.current.target = st.current.startPos = -half / 2;
       }
     };
     measure();
@@ -130,10 +132,15 @@ const Reel = memo(function Reel({ items, dir, speed }: { items: ReactNode[]; dir
       const dt = Math.min(64, now - last);
       last = now;
       // The gliding speed eases to a stop when the reel is pressed, dragged or the page is scrolling (so scrolling has the frame budget to itself) and eases back up after the release, so nothing starts or stops with a jolt.
-      const goal = t.pressed || t.drag || reduce || isScrolling() ? 0 : 1;
+      const goal = progress || t.pressed || t.drag || reduce || isScrolling() ? 0 : 1;
       t.auto += (goal - t.auto) * (1 - Math.exp(-dt / 220));
       if (Math.abs(goal - t.auto) < 0.002) t.auto = goal;
-      if (t.drag) {
+      if (progress && half > 0) {
+        // Scroll-linked: no gliding of its own — the position follows the page's scroll progress (easing toward it), and wraps like the glide does.
+        const want = -half / 2 - dir * progress.current * Math.min(half, LINKED_TRAVEL);
+        t.raw += (want - t.raw) * (1 - Math.exp(-dt / 140));
+        t.x = ((t.raw % half) - half) % half;
+      } else if (t.drag) {
         // While dragging, the reel follows the pointer through a short ease instead of snapping to every pointer event, which smooths out jittery input.
         t.x += (t.target - t.x) * (1 - Math.exp(-dt / 55));
       } else {
@@ -176,12 +183,13 @@ const Reel = memo(function Reel({ items, dir, speed }: { items: ReactNode[]; dir
       io.disconnect();
       ro.disconnect();
     };
-  }, [dir, speed, items.length]);
+  }, [dir, speed, items.length, progress]);
 
   const onDown = (e: PointerEvent<HTMLDivElement>) => {
     if (e.pointerType === "mouse" && e.button !== 0) return;
     // The reel keeps gliding while the pointer merely hovers it; pressing (a click, or a hold to drag) stops it until the button is released.
     st.current.pressed = true;
+    if (progress) return; // scroll-linked reels are not dragged
     if ((e.target as HTMLElement).closest(INTERACTIVE)) return; // let inputs, sliders and buttons work normally
     const t = st.current;
     t.drag = true;
@@ -224,7 +232,7 @@ const Reel = memo(function Reel({ items, dir, speed }: { items: ReactNode[]; dir
     <div
       ref={track}
       data-hero-track
-      className={`relative z-30 flex h-52 w-max gap-8 pr-8 will-change-transform select-none [touch-action:pan-y] ${grabbing ? "pointer-events-none [&_[data-hero-card]]:!scale-100" : "pointer-events-auto"}`}
+      className={`relative z-30 flex h-44 w-max gap-9 pr-9 sm:h-52 sm:gap-8 sm:pr-8 will-change-transform select-none [touch-action:pan-y] ${grabbing ? "pointer-events-none [&_[data-hero-card]]:!scale-100" : "pointer-events-auto"}`}
       onPointerDown={onDown}
       onPointerMove={onMove}
       onPointerUp={onUp}
@@ -255,13 +263,13 @@ const ALL_CARDS: ReactNode[] = [...ROW_1, ...ROW_2, ...ROW_3, ...BASIC_REELS.fla
 const REELS: ReactNode[][] = [0, 1].map((r) => ALL_CARDS.filter((_, i) => i % 2 === r));
 
 /** Premium hero stage: two reels of live, interactive components gliding left, under a light beam. */
-export default function HeroPremium() {
+export default function HeroPremium({ progress }: { progress?: MutableRefObject<number> } = {}) {
   return (
     <div className="relative mt-2 text-left">
       <div className="lp-beam pointer-events-none absolute -top-24 left-1/2 -z-10 h-72 w-[70%] -translate-x-1/2" aria-hidden="true" />
-      <div className="pointer-events-none -my-32 flex flex-col gap-8 overflow-x-clip overflow-y-visible bg-transparent py-[9.5rem] [mask-image:linear-gradient(to_right,transparent,#000_8%,#000_92%,transparent)]">
-        <Reel items={REELS[0]} dir={-1} speed={0.045} />
-        <Reel items={REELS[1]} dir={1} speed={0.036} />
+      <div className="pointer-events-none -my-32 flex flex-col gap-9 overflow-x-clip overflow-y-visible bg-transparent py-[9.5rem] sm:gap-8 [mask-image:linear-gradient(to_right,transparent,#000_8%,#000_92%,transparent)]">
+        <Reel items={REELS[0]} dir={-1} speed={0.045} progress={progress} />
+        <Reel items={REELS[1]} dir={1} speed={0.036} progress={progress} />
       </div>
     </div>
   );
