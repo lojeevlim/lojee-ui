@@ -44,6 +44,7 @@ import { AvatarGroup } from "../components/ui/Avatar/AvatarGroup";
 import { Icon } from "../components/ui/Icons/Icon";
 import { Spinner } from "../components/ui/Spinner/Spinner";
 import { Divider } from "../components/ui/Divider/Divider";
+import { AppBackgroundElement } from "./app-background-element";
 import { Tooltip } from "../components/ui/Tooltip/Tooltip";
 import { Card } from "../components/ui/Card/Card";
 import { Container } from "../components/ui/Container/Container";
@@ -356,6 +357,14 @@ defineElement(
     shadow: "open",
     props: { orientation: "string", label: "string", color: "string", resizable: "boolean", handleVariant: "string", step: "number", transition: "string", transitionDuration: "number", transitionDelay: "number" },
     events: { onResize: {} }, // dispatches "resize", detail = delta px
+  })
+);
+
+defineElement(
+  "l-app-background",
+  r2wc(withHostBlock(withTailwind(AppBackgroundElement)), {
+    shadow: "open",
+    props: { variant: "string", animated: "boolean", hover: "boolean", side: "string", motes: "boolean", progress: "number", scrollFade: "boolean", width: "string", className: "string" },
   })
 );
 

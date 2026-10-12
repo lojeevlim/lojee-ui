@@ -435,6 +435,11 @@ export const COMPONENT_MENU: Menu[]  = [
             },
 
             {
+                icon: "sparkles",
+                label: "App Background",
+            },
+
+            {
                 icon: "palette",
                 label: "Theme Switcher",
             },

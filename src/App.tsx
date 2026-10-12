@@ -8,6 +8,7 @@ import AvatarShowcase from './components/ui/Avatar'
 import IconsShowcase from './components/ui/Icons'
 import SpinnerShowcase from './components/ui/Spinner'
 import DividerShowcase from './components/ui/Divider'
+import AppBackgroundShowcase from './components/ui/AppBackground'
 import TooltipShowcase from './components/ui/Tooltip'
 import { Tooltip } from './components/ui/Tooltip/Tooltip'
 import CardShowcase from './components/ui/Card'
@@ -119,6 +120,7 @@ const SHOWCASES: Record<string, ComponentType> = {
   'Data Binding': DataBindingShowcase,
   Changelog: ChangelogShowcase,
   'App Layout': AppShowcase,
+  'App Background': AppBackgroundShowcase,
   Main: MainShowcase,
   Images: ImageShowcase,
   Videos: VideoShowcase,

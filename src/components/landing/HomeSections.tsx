@@ -9,6 +9,7 @@ import { Button } from "../ui/Buttons/Button";
 import { Badge } from "../ui/Badge/Badge";
 import { CodeSnippet } from "../ui/CodeSnippet/CodeSnippet";
 import { Switch } from "../ui/Switch/Switch";
+import { AppBackground } from "../ui/AppBackground/AppBackground";
 import { Card } from "../ui/Card/Card";
 import { Input } from "../ui/Input/Input";
 import { pathFor } from "../../core/routes";
@@ -61,119 +62,12 @@ export function Heading({ eyebrow, title, body }: { eyebrow?: string; title: str
 const SECTION = "mx-auto max-w-6xl px-5 py-16 md:py-24";
 
 /* ------------------------------------------------------------------------------------------------------------------ Hero */
-/** One of the two glowing wedges that point in from the sides of the hero (the right one is this, mirrored). The fill follows the theme accent. */
-// Motes drifting along each wedge: they start spread across the wide outer edge and are drawn toward the tip, dimming out as they reach it. Positions are in % of the wedge box (see .lp-mote in landing.css); the numbers are fixed so server and client markup match.
-const MOTES = Array.from({ length: 36 }, (_, i) => {
-  const r = (k: number) => {
-    const v = Math.sin((i + 1) * 12.9898 + k * 78.233) * 43758.5453;
-    return v - Math.floor(v);
-  };
-  const x0 = r(1) * 14;
-  // The wedge's top and bottom edges at x0, so a mote always starts inside the shape (viewBox 400x900, edges from y 50 / 850 at x 0 to y 372 / 528 at x 318).
-  const edge = ((x0 * 4) / 318) * 322;
-  const top = (50 + edge) / 9 + 3;
-  const bottom = (850 - edge) / 9 - 3;
-  const y0 = top + r(2) * (bottom - top);
-  const tx = 70 + r(3) * 9;
-  const ty = 47 + r(4) * 6;
-  return { x0, y0, dx: tx - x0, dy: ty - y0, size: 2 + r(5) * 2.5, dur: 5 + r(6) * 4, delay: -r(7) * 9 };
-});
-
-function Wedge({ side }: { side: "left" | "right" }) {
-  const id = `hw-${side}`;
-  const d = "M0 50 L318 372 Q392 450 318 528 L0 850 Z";
-  return (
-    <div className={`lp-wedge-wrap pointer-events-none absolute top-0 h-full w-[24%] opacity-40 md:w-[23%] md:opacity-100 ${side === "left" ? "left-0" : "lp-wedge-right right-0"}`}>
-      <div className="lp-wedge-motes absolute inset-0" aria-hidden="true">
-        {MOTES.map((m, i) => (
-          <span
-            key={i}
-            className="lp-mote"
-            style={{ left: `${m.x0}%`, top: `${m.y0}%`, width: m.size, height: m.size, "--dx": m.dx, "--dy": m.dy, animationDuration: `${m.dur}s`, animationDelay: `${m.delay}s` } as React.CSSProperties}
-          />
-        ))}
-      </div>
-      <svg viewBox="0 0 400 900" preserveAspectRatio="none" aria-hidden="true" className="lp-wedge h-full w-full overflow-visible">
-        <defs>
-          {/* Body: dark and transparent at the outer edge, warming through the accent toward the tip. */}
-          <linearGradient id={`${id}-fill`} x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0" style={{ stopColor: "var(--color-accent-950)", stopOpacity: 0 }} />
-            <stop offset="0.38" style={{ stopColor: "var(--color-accent-900)", stopOpacity: 0.1 }} />
-            <stop offset="0.68" style={{ stopColor: "var(--color-accent-600)", stopOpacity: 0.36 }} />
-            <stop offset="0.9" style={{ stopColor: "var(--color-accent-400)", stopOpacity: 0.78 }} />
-            <stop offset="1" style={{ stopColor: "var(--color-accent-300)", stopOpacity: 0.92 }} />
-          </linearGradient>
-          {/* Volume: lit from above, shaded below, so the wedge reads as a solid, slightly rounded form rather than a flat shape. */}
-          <linearGradient id={`${id}-volume`} x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" style={{ stopColor: "var(--color-accent-100)", stopOpacity: 0.3 }} />
-            <stop offset="0.42" style={{ stopColor: "var(--color-accent-200)", stopOpacity: 0 }} />
-            <stop offset="0.58" style={{ stopColor: "var(--color-accent-950)", stopOpacity: 0 }} />
-            <stop offset="1" style={{ stopColor: "var(--color-accent-950)", stopOpacity: 0.4 }} />
-          </linearGradient>
-          {/* The core of light at the tip, and a wider bloom that spills past it into the page. */}
-          <radialGradient id={`${id}-core`} cx="0.5" cy="0.5" r="0.5">
-            <stop offset="0" style={{ stopColor: "var(--color-accent-100)", stopOpacity: 0.95 }} />
-            <stop offset="0.4" style={{ stopColor: "var(--color-accent-300)", stopOpacity: 0.6 }} />
-            <stop offset="1" style={{ stopColor: "var(--color-accent-400)", stopOpacity: 0 }} />
-          </radialGradient>
-          <radialGradient id={`${id}-bloom`} cx="0.5" cy="0.5" r="0.5">
-            <stop offset="0" style={{ stopColor: "var(--color-accent-400)", stopOpacity: 0.42 }} />
-            <stop offset="0.55" style={{ stopColor: "var(--color-accent-500)", stopOpacity: 0.14 }} />
-            <stop offset="1" style={{ stopColor: "var(--color-accent-500)", stopOpacity: 0 }} />
-          </radialGradient>
-          <clipPath id={`${id}-clip`}>
-            <path d={d} />
-          </clipPath>
-        </defs>
-        <ellipse cx="338" cy="450" rx="230" ry="300" fill={`url(#${id}-bloom)`} />
-        <path d={d} fill={`url(#${id}-fill)`} />
-        <path d={d} fill={`url(#${id}-volume)`} />
-        <g clipPath={`url(#${id}-clip)`}>
-          <ellipse cx="318" cy="450" rx="150" ry="190" fill={`url(#${id}-core)`} />
-        </g>
-      </svg>
-    </div>
-  );
-}
-
-/** The hero's backdrop: two wedges of accent light pointing in from the sides. */
-function HeroArt() {
-  const art = useRef<HTMLDivElement>(null);
-  // Scroll effect: as the page scrolls past the hero (--sp 0 -> 1) the wedges ease outward, brighten at first and fade away (see .lp-wedge in landing.css).
-  useEffect(() => {
-    const el = art.current;
-    const host = el?.parentElement;
-    if (!el || !host) return;
-    let raf = 0;
-    const update = () => {
-      raf = 0;
-      const h = el.getBoundingClientRect().height || 1;
-      host.style.setProperty("--sp", Math.min(1, Math.max(0, window.scrollY / (h * 0.85))).toFixed(3));
-    };
-    const onScroll = () => {
-      if (!raf) raf = requestAnimationFrame(update);
-    };
-    update();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => {
-      cancelAnimationFrame(raf);
-      window.removeEventListener("scroll", onScroll);
-    };
-  }, []);
-  return (
-    <div ref={art} aria-hidden="true" data-hero-art="" className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
-      <Wedge side="left" />
-      <Wedge side="right" />
-      <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-surface to-transparent" />
-    </div>
-  );
-}
-
 export function Hero() {
   const navigate = useNavigate();
   return (
-    <section className="relative isolate overflow-hidden">
-      <HeroArt />
+    // scrollFade sets --sp on the root as the page scrolls past: the glow fades with it and the hero text below drifts up with it (.lp-scroll-*).
+    <AppBackground scrollFade>
+      <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-40 bg-gradient-to-t from-surface to-transparent" />
       <div className="mx-auto flex min-h-[36rem] max-w-5xl flex-col items-center justify-center px-5 pb-16 pt-20 text-center max-[480px]:[zoom:0.82] md:min-h-[42rem] md:pb-24 md:pt-24">
         <Reveal>
           <button type="button" onClick={() => navigate(pathFor("docs", "Changelog"))} className="lp-pill group relative inline-flex items-center rounded-full p-px text-xs">
@@ -211,7 +105,7 @@ export function Hero() {
           </div>
         </Reveal>
       </div>
-    </section>
+    </AppBackground>
   );
 }
 
@@ -505,8 +399,9 @@ function TypedCode({ snippets }: { snippets: TypedSnippet[] }) {
       raf = 0;
       const r = el.getBoundingClientRect();
       const vh = window.innerHeight || 1;
-      // 0 when the block's top enters the bottom of the screen, 1 once its top has risen to the middle (so it finishes while still fully in view).
-      const p = reduce ? 1 : Math.min(1, Math.max(0, (vh * 0.92 - r.top) / (vh * 0.5 + 40)));
+      // Driven by the block's centre: 0 while its centre is down at 85% of the screen, 1 once its centre reaches the middle of the screen.
+      const mid = r.top + r.height / 2;
+      const p = reduce ? 1 : Math.min(1, Math.max(0, (vh * 0.85 - mid) / (vh * 0.35)));
       setTyped(Math.round(p * total));
     };
     const onScroll = () => {

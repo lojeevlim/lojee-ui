@@ -81,7 +81,7 @@ Vue, Angular or plain HTML:
 | Overlays | Modal, Drawer, Sheet, Popover, DropdownMenu, ContextMenu, CommandMenu, AlertDialog, Tooltip |
 | Feedback | Alert, Toast, Notification, Thinking, ProgressBar, EmptyState, ErrorState, SuccessState, LoadingState, Skeleton |
 | Navigation | Navbar, Sidebar, TopBar, Header, Footer, NavigationMenu, BottomNavigation, Tabs, Stepper, Breadcrumbs, Pagination |
-| App | AppLayout (`App`, `Top`, `Side`, `Main`, `Footer`), ThemeSwitcher |
+| App | AppLayout (`App`, `Top`, `Side`, `Main`, `Footer`), ThemeSwitcher, AppBackground |
 | Data & Visualization | Table, GridView, DetailsList, Timeline, Stat, Chart, Calendar, ActivityFeed, FlowDiagram |
 | Maps | Map, MapMarker, MapRoute, MapControls |
 | User / Account | ProfileCard, UserMenu, LoginForm, SignupForm, AccountSettings, ProfileSettings, PlanBilling |

@@ -2,8 +2,17 @@
 export interface ChangelogCommit { sha: string; short: string; date: string; author: string; email: string; subject: string; body: string }
 
 export const PACKAGE_VERSION = "0.1.0-alpha.16";
-export const CHANGELOG_GENERATED_AT = "2026-10-11T14:07:09.936Z";
+export const CHANGELOG_GENERATED_AT = "2026-10-12T03:07:02.694Z";
 export const CHANGELOG: ChangelogCommit[] = [
+  {
+    "sha": "3efdb8723ee261257226e3259a8b3889763c7089",
+    "short": "3efdb87",
+    "date": "2026-10-11T22:16:26+08:00",
+    "author": "lojeevlim",
+    "email": "lojeevlim@gmail.com",
+    "subject": "Make the theme preview sidebar responsive",
+    "body": "- Large screens show the expanded sidebar, medium screens the collapsed icon rail, small screens no sidebar\n- The mode is chosen from the preview width and shared by both wipe layers so they never differ\n- Remove the collapse toggle; tighten stat cards on small screens"
+  },
   {
     "sha": "e5f7fc6f6713ae432ca624cb8215620ac3a06d36",
     "short": "e5f7fc6",

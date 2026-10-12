@@ -5,6 +5,7 @@ import AvatarPlayground from "./AvatarPlayground";
 import IconPlayground from "./IconPlayground";
 import SpinnerPlayground from "./SpinnerPlayground";
 import DividerPlayground from "./DividerPlayground";
+import AppBackgroundPlayground from "./AppBackgroundPlayground";
 import TooltipPlayground from "./TooltipPlayground";
 import CardPlayground from "./CardPlayground";
 import ContainerPlayground from "./ContainerPlayground";
@@ -104,6 +105,7 @@ const PLAYGROUNDS: Record<string, ComponentType> = {
   Icons: IconPlayground,
   Spinners: SpinnerPlayground,
   Dividers: DividerPlayground,
+  "App Background": AppBackgroundPlayground,
   Cards: CardPlayground,
   Containers: ContainerPlayground,
   Sections: SectionPlayground,

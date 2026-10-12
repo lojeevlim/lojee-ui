@@ -120,6 +120,107 @@ export const API_DOCS: Record<string, ApiDoc> = {
     },
     "dataTypes": []
   },
+  "App Background": {
+    "components": [
+      {
+        "name": "AppBackground",
+        "props": [
+          {
+            "name": "variant",
+            "type": "AppBackgroundVariant",
+            "required": false,
+            "description": "Which background to draw (default: \"side-glow\"): \"side-glow\", \"top-glow\", \"bottom-glow\", \"pinch-glow\", \"horizon\", \"aurora\", \"spotlight\", \"mesh\", \"vortex\", \"embers\", \"waves\", \"grid\" or \"dots\".",
+            "default": "\"side-glow\""
+          },
+          {
+            "name": "animated",
+            "type": "boolean",
+            "required": false,
+            "description": "Let the background move: drifting blobs, rising embers, flowing waves (default: true). Always off for users who prefer reduced motion.",
+            "default": "true"
+          },
+          {
+            "name": "side",
+            "type": "AppBackgroundSide",
+            "required": false,
+            "description": "\"side-glow\" only: which edge(s) the light comes in from — \"both\" (default), \"left\" or \"right\".",
+            "default": "\"both\""
+          },
+          {
+            "name": "motes",
+            "type": "boolean",
+            "required": false,
+            "description": "Glow variants (\"side-glow\", \"top-glow\", \"bottom-glow\", \"pinch-glow\", \"embers\"): small points of light drifting through the light (default: true).",
+            "default": "true"
+          },
+          {
+            "name": "progress",
+            "type": "number",
+            "required": false,
+            "description": "Fade amount from 0 (fully shown) to 1 (gone); \"side-glow\" also spreads out from the tip as it fades. Controlled by you — e.g. from a scroll position. When omitted, the value is inherited from a `--sp` CSS variable on an ancestor (so a parent can drive it), and is 0 if there is none.",
+            "default": null
+          },
+          {
+            "name": "hover",
+            "type": "boolean",
+            "required": false,
+            "description": "Reacts to the pointer, only around the pointer (default: true). Embers swell and glow as the pointer comes near; horizon releases sparks; moving the pointer through any variant bends it like smoke a hand is passed through (motes and all), and it flows back. On top of that horizon releases sparks, embers swell near the pointer, and grid and dots follow it. Off for users who prefer reduced motion.",
+            "default": "true"
+          },
+          {
+            "name": "scrollFade",
+            "type": "boolean",
+            "required": false,
+            "description": "Fades the light out by itself as the page scrolls past it (default: false). Ignored when `progress` is set.",
+            "default": "false"
+          },
+          {
+            "name": "width",
+            "type": "string",
+            "required": false,
+            "description": "\"side-glow\", \"top-glow\", \"bottom-glow\": thickness of each wedge as a share of the container, e.g. \"23%\" (default: 23% for side-glow, 38% for top / bottom; a little less on small screens).",
+            "default": null
+          },
+          {
+            "name": "className",
+            "type": "string",
+            "required": false,
+            "description": "Extra class name(s) applied to the root element — give it a size, a background color, padding…",
+            "default": null
+          },
+          {
+            "name": "children",
+            "type": "ReactNode",
+            "required": false,
+            "description": "Content drawn on top of the background. The root is already `relative isolate overflow-hidden`, so there is nothing else to add.",
+            "default": null
+          }
+        ],
+        "element": {
+          "tag": "l-app-background",
+          "props": {
+            "variant": "string",
+            "animated": "boolean",
+            "hover": "boolean",
+            "side": "string",
+            "motes": "boolean",
+            "progress": "number",
+            "scrollFade": "boolean",
+            "width": "string",
+            "className": "string"
+          },
+          "extraProps": [],
+          "events": []
+        }
+      }
+    ],
+    "hooks": [],
+    "types": {
+      "AppBackgroundSide": "\"left\" | \"right\" | \"both\"",
+      "AppBackgroundVariant": "| \"side-glow\" | \"top-glow\" | \"bottom-glow\" | \"pinch-glow\" | \"horizon\" | \"aurora\" | \"spotlight\" | \"mesh\" | \"vortex\" | \"embers\" | \"waves\" | \"grid\" | \"dots\""
+    },
+    "dataTypes": []
+  },
   "Main": {
     "components": [
       {
