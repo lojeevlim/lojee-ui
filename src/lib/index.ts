@@ -32,6 +32,7 @@ export { Icon, type IconProps } from "../components/ui/Icons/Icon";
 export { getIcon, ICONS, ICON_NAMES } from "../components/ui/Icons/registry";
 export { Spinner, type SpinnerProps, type SpinnerSize, type SpinnerVariant } from "../components/ui/Spinner/Spinner";
 export { Divider, type DividerProps, type DividerOrientation } from "../components/ui/Divider/Divider";
+export { useSmokeBend, type SmokeBendOptions } from "../components/ui/AppBackground/useSmokeBend";
 export { APP_BACKGROUND_VARIANTS } from "../components/ui/AppBackground/variants";
 export { AppBackground, type AppBackgroundProps, type AppBackgroundSide, type AppBackgroundVariant } from "../components/ui/AppBackground/AppBackground";
 export { DotScroll, type DotScrollProps, type DotScrollAxis } from "../components/ui/DotScroll/DotScroll";

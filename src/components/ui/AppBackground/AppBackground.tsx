@@ -1,4 +1,5 @@
 import { useEffect, useId, useRef } from "react";
+import { useSmokeBend } from "./useSmokeBend";
 import type { CSSProperties, PointerEvent, ReactNode } from "react";
 import { cx } from "../../../core/tokens";
 
@@ -192,7 +193,7 @@ const WAVES = [
 // Variants whose hover effect is made of little elements spawned along the pointer path: sparks off the horizon.
 const FX_KIND: Partial<Record<AppBackgroundVariant, "spark">> = { horizon: "spark" };
 
-// Variants that behave like smoke under the pointer: the pointer leaves a "wake" (a small vector field, see wakePush below) that an SVG displacement filter uses to bend the
+// Variants that behave like smoke under the pointer: the pointer leaves a "wake" (a small vector field, see useSmokeBend) that an SVG displacement filter uses to bend the
 // picture, and the wake fades away so the smoke flows back. The filter is only attached while the wake is alive.
 const WAKE_VARIANTS: AppBackgroundVariant[] = ["side-glow", "top-glow", "bottom-glow", "pinch-glow", "horizon", "aurora", "spotlight", "mesh", "vortex", "embers", "waves", "grid", "dots"]; // every variant
 // The glows sit right at the edges of the box (and are transparent there), so the push does not need to ease out toward the edges for them.
@@ -219,7 +220,7 @@ function spawnSpark(layer: HTMLElement, x: number, y: number) {
 }
 
 /**
- * The bend a pointer leaves when it rests in the light, held still: runs the same push and decay as the pointer's wake (see wakePush below) until it settles, and returns it as a
+ * The bend a pointer leaves when it rests in the light, held still: runs the same push and decay as the pointer's wake (see useSmokeBend) until it settles, and returns it as a
  * small PNG data URL for an SVG displacement filter. (cx, cy) is where the pointer rests, as a share of the box. It is made once per size, so showing it costs nothing per frame.
  */
 function restingBendUrl(cx: number, cy: number): string {
@@ -432,100 +433,10 @@ export function AppBackground({ variant = "side-glow", animated = true, hover = 
   const pos = useRef({ x: 0, y: 0, inside: false, sx: 0, sy: 0, t: 0, n: 0 });
   const fxKind = FX_KIND[variant];
   const bg = useRef<HTMLDivElement>(null);
-  const wakeImg = useRef<SVGFEImageElement>(null);
-  const wakeId = `${useId().replace(/[^a-zA-Z0-9]/g, "")}wake`;
   const wakeOn = hover && WAKE_VARIANTS.includes(variant);
-  const wake = useRef<{ gw: number; gh: number; vx: Float32Array; vy: Float32Array; edge: Float32Array; canvas: HTMLCanvasElement; ctx: CanvasRenderingContext2D; img: ImageData; raf: number } | null>(null);
   const reduceMotion = () => typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  // The wake: one vector per cell of a small grid (64 wide), drawn into a tiny canvas that the SVG filter reads as its displacement map. Each frame it decays a little, so the bend relaxes back
-  // smoothly. The loop (and the filter itself) only runs while there is something left to relax, so a still pointer or an idle page costs nothing. The map is redrawn on every frame so the
-  // bend follows the pointer without any stepping; it is kept this small to make each frame cheap. The background keeps moving (particles and all) while it is bent.
-  const wakeTick = (now: number) => {
-    const w = wake.current;
-    const layer = bg.current;
-    if (!w || !layer) return;
-    w.raf = 0;
-    const p = pos.current;
-    if (p.inside && now - p.t < 450) wakePush(p.x, p.y, 0, 0, 0.07, false); // a hand resting in the smoke keeps a gap open for a moment
-    const { vx, vy, edge, img } = w;
-    let energy = 0;
-    for (let i = 0; i < vx.length; i++) {
-      const a = vx[i];
-      const b = vy[i];
-      if (a === 0 && b === 0) continue;
-      vx[i] = a * 0.945;
-      vy[i] = b * 0.945;
-      const m = Math.abs(vx[i]) + Math.abs(vy[i]);
-      if (m < 0.006) vx[i] = vy[i] = 0;
-      else if (m > energy) energy = m;
-    }
-    // draw the field (the filter samples from where the smoke came from, so the encoded vector points the opposite way to the push)
-    for (let i = 0; i < vx.length; i++) {
-      img.data[i * 4] = 127.5 - vx[i] * edge[i] * 127.5;
-      img.data[i * 4 + 1] = 127.5 - vy[i] * edge[i] * 127.5;
-      img.data[i * 4 + 2] = 128;
-      img.data[i * 4 + 3] = 255;
-    }
-    w.ctx.putImageData(img, 0, 0);
-    const url = w.canvas.toDataURL();
-    wakeImg.current?.setAttribute("href", url);
-    wakeImg.current?.setAttributeNS("http://www.w3.org/1999/xlink", "href", url);
-    if (energy > 0.03) w.raf = requestAnimationFrame(wakeTick);
-    else layer.style.filter = "";
-  };
-  function wakePush(x: number, y: number, dx: number, dy: number, radial: number, schedule = true) {
-    const el = root.current;
-    const layer = bg.current;
-    if (!el || !layer) return;
-    const W = el.clientWidth || 1;
-    const H = el.clientHeight || 1;
-    let w = wake.current;
-    const gh0 = Math.max(32, Math.round((64 * H) / W));
-    if (!w || Math.abs(w.gh - gh0) > 2) {
-      const gw = 64;
-      const gh = gh0;
-      const canvas = document.createElement("canvas");
-      canvas.width = gw;
-      canvas.height = gh;
-      const ctx = canvas.getContext("2d");
-      if (!ctx) return;
-      // the push eases to nothing toward the edges, so the filter never samples from outside the box (which would leave a gap)
-      const edge = new Float32Array(gw * gh);
-      const ex = EDGE_LIGHT.includes(variant) ? 0.025 : 0.1;
-      const ey = EDGE_LIGHT.includes(variant) ? 0.03 : 0.14;
-      for (let j = 0; j < gh; j++) for (let i = 0; i < gw; i++) edge[j * gw + i] = Math.min(1, Math.min(i, gw - 1 - i) / (gw * ex), Math.min(j, gh - 1 - j) / (gh * ey));
-      w = wake.current = { gw, gh, vx: new Float32Array(gw * gh), vy: new Float32Array(gw * gh), edge, canvas, ctx, img: ctx.createImageData(gw, gh), raf: 0 };
-    }
-    const { gw, gh, vx, vy } = w;
-    const gx = (x / W) * gw;
-    const gy = (y / H) * gh;
-    const sigma = gw * 0.12;
-    const speed = Math.hypot(dx, dy);
-    const mx = speed ? dx / speed : 0;
-    const my = speed ? dy / speed : 0;
-    const drag = Math.min(1, speed / 26) * 0.55;
-    const aspect = W / gw / (H / gh); // cells are not square on screen
-    const x0 = Math.max(0, Math.floor(gx - sigma * 3));
-    const x1 = Math.min(gw - 1, Math.ceil(gx + sigma * 3));
-    const y0 = Math.max(0, Math.floor(gy - sigma * 3));
-    const y1 = Math.min(gh - 1, Math.ceil(gy + sigma * 3));
-    for (let j = y0; j <= y1; j++) {
-      for (let i = x0; i <= x1; i++) {
-        const ddx = i - gx;
-        const ddy = (j - gy) * aspect;
-        const d2 = ddx * ddx + ddy * ddy;
-        const wt = Math.exp(-d2 / (2 * sigma * sigma));
-        const d = Math.sqrt(d2) || 1;
-        const k = j * gw + i;
-        const rad = radial * Math.min(1, d / (sigma * 0.7)); // no push right at the centre, where its direction is undefined (it would pinch to a point)
-        vx[k] = Math.max(-1, Math.min(1, vx[k] + wt * (mx * drag + (ddx / d) * rad)));
-        vy[k] = Math.max(-1, Math.min(1, vy[k] + wt * (my * drag + (ddy / d) * rad)));
-      }
-    }
-    if (!layer.style.filter) layer.style.filter = `url(#${wakeId})`;
-    if (schedule && !w.raf) w.raf = requestAnimationFrame(wakeTick);
-  }
+  // The smoke bend (see useSmokeBend): the pointer leaves a wake that bends the background layer, and it flows back.
+  const bend = useSmokeBend({ enabled: wakeOn, target: bg, region: root, edgeLight: EDGE_LIGHT.includes(variant), soft: HARD_EDGES.includes(variant) });
   const emit = (x: number) => {
     const layer = fx.current;
     const el = root.current;
@@ -540,6 +451,7 @@ export function AppBackground({ variant = "side-glow", animated = true, hover = 
     const el = root.current;
     if (!hover || !el || raf.current) return;
     const { clientX, clientY } = e;
+    const stamp = e.timeStamp;
     raf.current = requestAnimationFrame(() => {
       raf.current = 0;
       const r = el.getBoundingClientRect();
@@ -557,7 +469,7 @@ export function AppBackground({ variant = "side-glow", animated = true, hover = 
         el.style.setProperty("--my", `${((y / (r.height || 1)) * 100).toFixed(1)}%`);
       }
       if (!reduceMotion()) {
-        if (wakeOn && p.sx && Math.hypot(dx, dy) > 1.5) wakePush(x, y, dx, dy, 0.06);
+        if (wakeOn && p.sx) bend.push(x, y, dx, dy, stamp);
         if (fxKind && Math.hypot(dx, dy) >= 20) emit(x);
       }
       p.sx = x;
@@ -588,6 +500,7 @@ export function AppBackground({ variant = "side-glow", animated = true, hover = 
     const el = root.current;
     pos.current.inside = false;
     pos.current.sx = 0;
+    bend.leave();
     if (!el) return;
     cancelAnimationFrame(raf.current);
     raf.current = 0;
@@ -603,12 +516,6 @@ export function AppBackground({ variant = "side-glow", animated = true, hover = 
     return () => window.clearInterval(id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hover, fxKind]);
-  useEffect(
-    () => () => {
-      if (wake.current) cancelAnimationFrame(wake.current.raf);
-    },
-    []
-  );
   const style = progress !== undefined ? ({ "--sp": Math.min(1, Math.max(0, progress)) } as CSSProperties) : undefined;
   return (
     <div ref={root} data-app-background={variant} data-app-bg-static={animated ? undefined : ""} data-app-bg-hover={hover ? "" : undefined} onPointerMove={hover ? onMove : undefined} onPointerEnter={hover ? onEnter : undefined} onPointerLeave={hover ? onLeave : undefined} style={style} className={cx("relative isolate min-h-56 overflow-hidden bg-surface", className)}>
@@ -616,17 +523,7 @@ export function AppBackground({ variant = "side-glow", animated = true, hover = 
         <Layers variant={variant} side={side} motes={motes} width={width} holdUrl={holdUrl} />
         {hover && fxKind && <span ref={fx} className="lojee-bg-fx" />}
       </div>
-      {wakeOn && (
-        <svg width="0" height="0" aria-hidden="true" className="absolute">
-          <defs>
-            <filter id={wakeId} x="0" y="0" width="1" height="1" primitiveUnits="objectBoundingBox" colorInterpolationFilters="sRGB">
-              <feImage ref={wakeImg} x="0" y="0" width="1" height="1" preserveAspectRatio="none" result="m0" />
-              {HARD_EDGES.includes(variant) && <feGaussianBlur in="m0" stdDeviation="0.011 0.02" result="map" />}
-              <feDisplacementMap in="SourceGraphic" in2={HARD_EDGES.includes(variant) ? "map" : "m0"} scale="0.28" xChannelSelector="R" yChannelSelector="G" />
-            </filter>
-          </defs>
-        </svg>
-      )}
+      {bend.filter}
       <slot>{children}</slot>
     </div>
   );

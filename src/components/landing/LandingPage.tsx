@@ -89,16 +89,22 @@ export default function LandingPage() {
   const start = () => navigate(pathFor("docs", "Installation"));
   // Bottom fade: always on as a plain fade; while the page is being scrolled (and ~600ms after) it picks up the theme colour in dark mode, then eases back to plain.
   const [scrollTint, setScrollTint] = useState(false);
+  // At the very bottom of the page the fade is taken away, so the footer's last line is crisp instead of sitting under it.
+  const [atBottom, setAtBottom] = useState(false);
   useEffect(() => {
     let idle = 0;
     const onScroll = () => {
+      setAtBottom(window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4);
       setScrollTint(true);
       window.clearTimeout(idle);
       idle = window.setTimeout(() => setScrollTint(false), 600);
     };
     window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
+    onScroll();
     return () => {
       window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
       window.clearTimeout(idle);
     };
   }, []);
@@ -108,7 +114,7 @@ export default function LandingPage() {
       {/* One fade along the bottom edge of the viewport: the page melts into its background colour. In dark mode that colour eases toward the theme colour while scrolling and back after. */}
       <div
         aria-hidden="true"
-        className="pointer-events-none fixed inset-x-0 bottom-0 z-40 h-36 bg-surface [-webkit-mask-image:linear-gradient(to_top,#000_0%,rgb(0_0_0/0.92)_12%,rgb(0_0_0/0.7)_28%,rgb(0_0_0/0.42)_46%,rgb(0_0_0/0.18)_66%,rgb(0_0_0/0.05)_84%,transparent_100%)] [mask-image:linear-gradient(to_top,#000_0%,rgb(0_0_0/0.92)_12%,rgb(0_0_0/0.7)_28%,rgb(0_0_0/0.42)_46%,rgb(0_0_0/0.18)_66%,rgb(0_0_0/0.05)_84%,transparent_100%)]"
+        className={`pointer-events-none fixed inset-x-0 bottom-0 z-40 h-36 bg-surface transition-opacity duration-300 ${atBottom ? "opacity-0" : "opacity-100"} [-webkit-mask-image:linear-gradient(to_top,#000_0%,rgb(0_0_0/0.92)_12%,rgb(0_0_0/0.7)_28%,rgb(0_0_0/0.42)_46%,rgb(0_0_0/0.18)_66%,rgb(0_0_0/0.05)_84%,transparent_100%)] [mask-image:linear-gradient(to_top,#000_0%,rgb(0_0_0/0.92)_12%,rgb(0_0_0/0.7)_28%,rgb(0_0_0/0.42)_46%,rgb(0_0_0/0.18)_66%,rgb(0_0_0/0.05)_84%,transparent_100%)]`}
       >
         {/* Dark mode: the theme colour, faded in while scrolling and out after. A separate layer on top of the plain surface fade, so the base never animates (no light flash on reload while the theme is applied). */}
         <div

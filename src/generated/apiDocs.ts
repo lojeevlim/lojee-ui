@@ -214,7 +214,13 @@ export const API_DOCS: Record<string, ApiDoc> = {
         }
       }
     ],
-    "hooks": [],
+    "hooks": [
+      {
+        "name": "useSmokeBend",
+        "signature": "useSmokeBend({ enabled, target, region, edgeLight = false, soft = false, smooth = false }: SmokeBendOptions): { filter: ReactNode; push: (x: number, y: number, dx: number, dy: number, time: number) => void; leave: () => void }",
+        "description": "The \"smoke\" hover bend of AppBackground, as a hook so anything can use it. While the pointer moves over `region` it leaves a wake (a small field of push vectors) that an SVG displacement filter on `target` uses to bend it like smoke a hand passes through; the wake fades, so the target flows back. The loop and the filter only run while something is left to relax. Returns `filter` (render it once, anywhere: an invisible <svg>), `push` (call it with the pointer's position in `region` and how far it moved since last time) and `leave` (call it when the pointer leaves). Times are the pointer events' timeStamp."
+      }
+    ],
     "types": {
       "AppBackgroundSide": "\"left\" | \"right\" | \"both\"",
       "AppBackgroundVariant": "| \"side-glow\" | \"top-glow\" | \"bottom-glow\" | \"pinch-glow\" | \"horizon\" | \"aurora\" | \"spotlight\" | \"mesh\" | \"vortex\" | \"embers\" | \"waves\" | \"grid\" | \"dots\""

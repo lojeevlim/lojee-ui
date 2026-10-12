@@ -111,7 +111,7 @@ function Dashboard({ stage, onExplore, side }: { stage: Stage; onExplore: () => 
               </div>
             </div>
             <div className="grid grid-cols-3 gap-2 md:gap-3">
-              <Stat label="Components" value="93+" icon="box" className="!p-2 md:!p-5" classNames={{ label: "truncate text-[10px] md:text-sm", icon: "!mb-2 md:!mb-3" }} />
+              <Stat label="Components" value="94+" icon="box" className="!p-2 md:!p-5" classNames={{ label: "truncate text-[10px] md:text-sm", icon: "!mb-2 md:!mb-3" }} />
               <Stat label="Frameworks" value="4" icon="shapes" color="violet" className="!p-2 md:!p-5" classNames={{ label: "truncate text-[10px] md:text-sm", icon: "!mb-2 md:!mb-3" }} />
               <Stat label="Accents" value="59" icon="palette" color="pink" className="!p-2 md:!p-5" classNames={{ label: "truncate text-[10px] md:text-sm", icon: "!mb-2 md:!mb-3" }} />
             </div>

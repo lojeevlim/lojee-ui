@@ -1,8 +1,9 @@
-import { lazy, useEffect, useRef, useState, type ReactNode } from "react";
+import { lazy, useEffect, useRef, useState, type PointerEvent, type ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
 import Reveal from "./Reveal";
 import LazyOnView from "./LazyOnView";
 import { useStepSnap } from "./useStepSnap";
+import { useSmokeBend } from "../ui/AppBackground/useSmokeBend";
 import Logo from "../layouts/Logo";
 import { Icon } from "../ui/Icons/Icon";
 import { Button } from "../ui/Buttons/Button";
@@ -64,6 +65,24 @@ const SECTION = "mx-auto max-w-6xl px-5 py-16 md:py-24";
 /* ------------------------------------------------------------------------------------------------------------------ Hero */
 export function Hero() {
   const navigate = useNavigate();
+  // The headline bends like smoke under the pointer, the same hover as AppBackground's (see useSmokeBend).
+  const title = useRef<HTMLHeadingElement>(null);
+  const last = useRef<[number, number] | null>(null);
+  const bend = useSmokeBend({ enabled: true, target: title, region: title, soft: true, smooth: true });
+  const onTitleMove = (e: PointerEvent<HTMLHeadingElement>) => {
+    const el = title.current;
+    if (!el || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const r = el.getBoundingClientRect();
+    const x = e.clientX - r.left;
+    const y = e.clientY - r.top;
+    const p = last.current;
+    last.current = [x, y];
+    if (p) bend.push(x, y, x - p[0], y - p[1], e.timeStamp);
+  };
+  const onTitleLeave = () => {
+    last.current = null;
+    bend.leave();
+  };
   return (
     // scrollFade sets --sp on the root as the page scrolls past: the glow fades with it and the hero text below drifts up with it (.lp-scroll-*).
     <AppBackground variant="pinch-glow" scrollFade>
@@ -82,10 +101,11 @@ export function Hero() {
           </button>
         </Reveal>
         <Reveal delay={60}>
-          <h1 className="lp-scroll-h lp-round mx-auto mt-7 max-w-4xl text-balance text-[2.6rem] font-black leading-[1.06] tracking-[-0.02em] sm:text-6xl md:text-7xl">
+          <h1 ref={title} onPointerMove={onTitleMove} onPointerLeave={onTitleLeave} className="lp-scroll-h lp-round mx-auto mt-7 max-w-4xl text-balance text-[2.6rem] font-black leading-[1.06] tracking-[-0.02em] sm:text-6xl md:text-7xl">
             <span className="lp-ink">Beautiful by default.</span>{" "}
             <span className="lp-premium-word">Themeable</span>{" "}
             <span className="lp-ink">by design.</span>
+            {bend.filter}
           </h1>
         </Reveal>
         <Reveal delay={80}>
@@ -502,7 +522,7 @@ export function SiteFooter() {
       </div>
       <div className="border-t border-border">
         <p className="mx-auto max-w-6xl px-5 py-5 text-sm text-fg-subtle">
-          Made with <span className="text-rose-500" aria-label="love">♥</span> by Lojee · © 2026 · MIT
+          Made with <span className="text-rose-500" aria-label="love">♥</span> by Lojee · © 2026
         </p>
       </div>
     </footer>
