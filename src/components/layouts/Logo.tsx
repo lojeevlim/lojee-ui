@@ -1,17 +1,17 @@
+import { useId, useMemo } from "react";
 import { cx } from "../../core/tokens";
+import { logoMarkMarkup } from "../../core/logoMark";
 
-/** The lojeeUI mark: a stacked "L" with a dot (the "j" of lojee) on the theme accent color. */
+const COLORS = ["400", "500", "600", "700"].map((n) => `var(--color-accent-${n})`);
+
+/**
+ * The lojeeUI mark: "Beautiful by default. Themeable by design."
+ * Four clay petals in a pinwheel, each a step of the accent scale, so every theme recolors the whole mark. The artwork lives in core/logoMark.ts, shared with the tab icon.
+ */
 export function LogoMark({ size = 32, className }: { size?: number; className?: string }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 32 32" fill="none" role="img" aria-label="lojeeUI" className={cx("shrink-0", className)}>
-      <rect width="32" height="32" rx="9" fill="var(--color-accent-600)" />
-      <rect x="0.5" y="0.5" width="31" height="31" rx="8.5" stroke="white" strokeOpacity="0.18" />
-      {/* the L */}
-      <path d="M10 7.5a1.5 1.5 0 0 1 3 0V19h8.5a1.5 1.5 0 0 1 0 3H11.5A1.5 1.5 0 0 1 10 20.5v-13Z" fill="white" />
-      {/* the dot */}
-      <circle cx="21" cy="10.5" r="2.5" fill="white" fillOpacity="0.85" />
-    </svg>
-  );
+  const id = useId().replace(/[^a-zA-Z0-9]/g, "");
+  const markup = useMemo(() => logoMarkMarkup(COLORS, `lm${id}`), [id]);
+  return <svg width={size} height={size} viewBox="0 0 32 32" fill="none" role="img" aria-label="lojeeUI" className={cx("shrink-0", className)} dangerouslySetInnerHTML={{ __html: markup }} />;
 }
 
 /** Mark plus the "lojeeUI" wordmark. */

@@ -2,8 +2,35 @@
 export interface ChangelogCommit { sha: string; short: string; date: string; author: string; email: string; subject: string; body: string }
 
 export const PACKAGE_VERSION = "0.1.0-alpha.16";
-export const CHANGELOG_GENERATED_AT = "2026-10-12T03:07:02.694Z";
+export const CHANGELOG_GENERATED_AT = "2026-10-12T15:35:43.080Z";
 export const CHANGELOG: ChangelogCommit[] = [
+  {
+    "sha": "7e0e55770f72b40f8d59e81def0f7c73a4984e15",
+    "short": "7e0e557",
+    "date": "2026-10-12T17:37:18+08:00",
+    "author": "lojeevlim",
+    "email": "lojeevlim@gmail.com",
+    "subject": "Hero headline smoke-bend hover, extract useSmokeBend, fix landing footer",
+    "body": "- Extract AppBackground's smoke-bend hover into a reusable useSmokeBend hook (exported)\nand use it on the hero headline.\n- Fade out the fixed bottom fade at the end of the page so the footer is crisp.\n- Footer: drop the MIT mention; theme preview stat: 93+ -> 94+."
+  },
+  {
+    "sha": "bebdc808a334c5dc84a77f7df2b8998b5a4b3d1a",
+    "short": "bebdc80",
+    "date": "2026-10-12T17:17:54+08:00",
+    "author": "lojeevlim",
+    "email": "lojeevlim@gmail.com",
+    "subject": "Refine AppBackground: built-in surface and min height, fixed-shape pinch-glow, whiter-free aurora",
+    "body": "- AppBackground root now includes bg-surface and min-h-56 (className overrides); examples\nand the landing hero updated accordingly.\n- pinch-glow keeps its proportions at any width, with 110 particles following its curve.\n- aurora no longer has the pale white-grey blobs."
+  },
+  {
+    "sha": "c1634be9a2237299ccaa468797c1e70bdcb631b9",
+    "short": "c1634be",
+    "date": "2026-10-12T16:45:42+08:00",
+    "author": "lojeevlim",
+    "email": "lojeevlim@gmail.com",
+    "subject": "Add AppBackground component with 12 variants and smoke-bend hover",
+    "body": "AppBackground is a reusable container (relative isolate overflow-hidden) that draws\na decorative background behind its children. Variants: side-glow, top-glow,\nbottom-glow, pinch-glow, horizon, aurora, spotlight, mesh, vortex, embers, waves,\ngrid, dots. Every variant follows the theme accent and bends like smoke under the\npointer; embers swell and horizon releases sparks.\nAlso exposes it as <l-app-background>, adds a docs page and playground, makes the\nGet started code type out as it reaches the screen centre, and uses AppBackground\nas the landing hero container."
+  },
   {
     "sha": "3efdb8723ee261257226e3259a8b3889763c7089",
     "short": "3efdb87",

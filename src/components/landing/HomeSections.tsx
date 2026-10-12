@@ -1,6 +1,7 @@
 import { lazy, useEffect, useRef, useState, type PointerEvent, type ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
 import Reveal from "./Reveal";
+import { useCountUp, useInView } from "./hooks";
 import LazyOnView from "./LazyOnView";
 import { useStepSnap } from "./useStepSnap";
 import { useSmokeBend } from "../ui/AppBackground/useSmokeBend";
@@ -86,8 +87,8 @@ export function Hero() {
   return (
     // scrollFade sets --sp on the root as the page scrolls past: the glow fades with it and the hero text below drifts up with it (.lp-scroll-*).
     <AppBackground variant="pinch-glow" scrollFade>
-      <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-40 bg-gradient-to-t from-surface to-transparent" />
-      <div className="mx-auto flex min-h-[36rem] max-w-5xl flex-col items-center justify-center px-5 pb-16 pt-20 text-center max-[480px]:[zoom:0.82] md:min-h-[42rem] md:pb-24 md:pt-24">
+      <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-16 bg-gradient-to-t from-surface to-transparent md:h-40" />
+      <div className="mx-auto flex min-h-[36rem] max-w-5xl flex-col items-center justify-center px-5 pb-72 pt-20 text-center max-[480px]:[zoom:0.82] sm:pb-16 md:min-h-[42rem] md:pb-24 md:pt-24">
         <Reveal>
           <button type="button" onClick={() => navigate(pathFor("docs", "Changelog"))} className="lp-pill group relative inline-flex items-center rounded-full p-px text-xs">
             <span className="relative z-10 inline-flex items-center gap-1.5 rounded-full border border-border bg-surface-muted py-1.5 pl-2.5 pr-3 font-semibold text-fg">
@@ -137,22 +138,68 @@ const BENEFITS: { icon: string; title: string; body: string }[] = [
   { icon: "palette", title: "Themeable by design", body: "Light, dark, a dozen accents and two design languages through CSS variables — even inside shadow roots." },
 ];
 
+// The section pins to the screen and scroll stops moving the page while the benefits light up one by one: card i lights at LIGHT_AT[i] (share of the pinned scroll) and the scroll settles just after each one.
+const LIGHT_AT = BENEFITS.map((_, i) => 0.08 + i * 0.2);
+const LIGHT_REST = [...LIGHT_AT.map((t) => t + 0.06), 1];
+
 export function Why() {
+  const track = useRef<HTMLDivElement>(null);
+  const stage = useRef<HTMLDivElement>(null);
+  const [lit, setLit] = useState(0);
+  useStepSnap(track, stage, LIGHT_REST);
+  useEffect(() => {
+    const el = track.current;
+    const card = stage.current;
+    if (!el || !card) return;
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const r = el.getBoundingClientRect();
+      const top = parseFloat(getComputedStyle(card).top) || 0;
+      const span = Math.max(1, r.height - card.offsetHeight);
+      const p = Math.min(1, Math.max(0, (top - r.top) / span));
+      setLit(LIGHT_AT.filter((t) => p >= t).length);
+    };
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, []);
   return (
-    <section className={SECTION}>
-      <Heading eyebrow="Why lojee-ui" title="Tailwind is great. Repeating it everywhere is not." body="lojee-ui keeps Tailwind v4 under the hood and gives you the finished, accessible components on top." />
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {BENEFITS.map((b, i) => (
-          <Reveal key={b.title} delay={i * 70}>
-            <div className="h-full rounded-2xl border border-border bg-surface-muted p-6">
-              <span className="mb-4 inline-flex size-10 items-center justify-center rounded-xl bg-accent-600/10 text-accent-600 dark:text-accent-400">
-                <Icon name={b.icon} size={20} />
-              </span>
-              <h3 className="text-base font-bold text-fg">{b.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-fg-muted">{b.body}</p>
+    <section>
+      <div ref={track} style={{ height: "calc(100svh - 4rem + 170vh)" }}>
+        <div ref={stage} className="sticky top-16 flex min-h-[calc(100svh-4rem)] items-center">
+          <div className="mx-auto w-full max-w-6xl px-5 py-10 max-sm:py-6 max-sm:[zoom:0.8]">
+            <Heading eyebrow="Why lojee-ui" title="Tailwind is great. Repeating it everywhere is not." body="lojee-ui keeps Tailwind v4 under the hood and gives you the finished, accessible components on top." />
+            <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
+              {BENEFITS.map((b, i) => {
+                const on = i < lit;
+                return (
+                  <div
+                    key={b.title}
+                    data-lit={on ? "" : undefined}
+                    className={`h-full rounded-2xl border p-4 transition-all duration-500 sm:p-6 ${on ? "border-accent-500/50 bg-surface-muted shadow-[0_0_32px_-6px_var(--color-accent-500)]" : "border-border bg-surface-muted opacity-60"}`}
+                  >
+                    <span
+                      className={`mb-3 inline-flex size-10 items-center justify-center rounded-xl transition-all duration-500 sm:mb-4 ${on ? "scale-110 bg-accent-600 text-white shadow-[0_0_22px_2px_var(--color-accent-500)]" : "bg-accent-600/10 text-fg-subtle"}`}
+                    >
+                      <Icon name={b.icon} size={20} />
+                    </span>
+                    <h3 className="text-sm font-bold text-fg sm:text-base">{b.title}</h3>
+                    <p className="mt-1.5 text-xs leading-relaxed text-fg-muted sm:mt-2 sm:text-sm">{b.body}</p>
+                  </div>
+                );
+              })}
             </div>
-          </Reveal>
-        ))}
+          </div>
+        </div>
       </div>
     </section>
   );
@@ -187,60 +234,119 @@ const countClasses = (code: string) => [...code.matchAll(/class(?:Name)?="([^"]*
 const countTags = (code: string) => (code.match(/<[A-Za-z]/g) ?? []).length;
 const pct = (a: number, b: number) => Math.round(((a - b) / a) * 100);
 
+/** The percentage cards under the comparison: each number counts up from 0 the first time the row scrolls into view. */
+function CutStats({ stats }: { stats: { value: number; label: string }[] }) {
+  const [ref, seen] = useInView<HTMLDivElement>(0.4);
+  return (
+    <div ref={ref} className="mx-auto grid max-w-xl grid-cols-2 gap-4 text-center">
+      {stats.map((x) => (
+        <CutStat key={x.label} {...x} active={seen} />
+      ))}
+    </div>
+  );
+}
+
+function CutStat({ value, label, active }: { value: number; label: string; active: boolean }) {
+  const n = useCountUp(value, active, 1600);
+  return (
+    <div className="rounded-2xl border border-border bg-surface-muted p-5">
+      <p className="text-4xl font-black tabular-nums text-accent-600 dark:text-accent-400" aria-label={`${value}% ${label}`}>
+        {n}%
+      </p>
+      <p className="mt-1 text-sm text-fg-muted">{label}</p>
+    </div>
+  );
+}
+
+// The section pins to the screen and the scroll "writes" the code: TYPING_END is the share of the pinned scroll it takes to write it all, and the output fades up once that is done.
+const TYPING_END = 0.8;
+
 export function CodeCompare() {
+  const track = useRef<HTMLDivElement>(null);
+  const stage = useRef<HTMLDivElement>(null);
   const [lojee, setLojee] = useState(false);
+  const [written, setWritten] = useState(0); // 0..1: how much of the code has been written
   const classCut = pct(countClasses(PLAIN), countClasses(LOJEE));
   const tagCut = pct(countTags(PLAIN), countTags(LOJEE));
-  const code = lojee ? LOJEE : PLAIN;
+  useEffect(() => {
+    const el = track.current;
+    const card = stage.current;
+    if (!el || !card) return;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const r = el.getBoundingClientRect();
+      const top = parseFloat(getComputedStyle(card).top) || 0;
+      const span = Math.max(1, r.height - card.offsetHeight);
+      const p = Math.min(1, Math.max(0, (top - r.top) / span));
+      setWritten(reduce ? 1 : Math.min(1, p / TYPING_END));
+    };
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, []);
+  const full = lojee ? LOJEE : PLAIN;
+  const n = Math.round(written * full.length);
+  const done = written >= 1;
+  const code = done ? full : full.slice(0, n) + (n > 0 ? "▍" : "");
   return (
-    <section className={SECTION}>
-      <Heading eyebrow="Less to write" title="The same card, a fraction of the code" body="A profile form written with plain Tailwind classes, and again with lojee-ui. Flip the switch to compare the code and what it renders. Counted from the code shown." />
-      <div className="mb-6 flex items-center justify-center gap-4">
-        <span className={`text-sm font-semibold transition-colors ${lojee ? "text-fg-subtle" : "text-fg"}`}>Tailwind</span>
-        <Switch aria-label="Show the lojee-ui version" size="lg" checked={lojee} onChange={(e) => setLojee(e.target.checked)} />
-        <span className={`text-sm font-semibold transition-colors ${lojee ? "text-fg" : "text-fg-subtle"}`}>lojee-ui</span>
-      </div>
-      <div className="grid items-start gap-4 lg:grid-cols-[1.4fr_1fr]">
-        <div className="min-w-0">
-          <div className="mb-2 flex h-7 items-center justify-between">
-            <span className="text-xs font-semibold uppercase tracking-wide text-fg-subtle">Code</span>
-            <Badge label={`${countClasses(code)} class names · ${countTags(code)} elements`} size="sm" />
-          </div>
-          {/* A fixed height (the Tailwind code is the tall one), so flipping the switch never moves the page. */}
-          <CodeSnippet code={code} language={lojee ? "tsx" : "html"} title={lojee ? "lojee-ui" : "Tailwind CSS"} classNames={{ root: "h-[26rem]" }} />
-        </div>
-        <div className="min-w-0">
-          <div className="mb-2 flex h-7 items-center">
-            <span className="text-xs font-semibold uppercase tracking-wide text-fg-subtle">Output</span>
-          </div>
-          <div className="flex h-[26rem] items-center justify-center rounded-2xl border border-border bg-surface-muted p-6">
-            {lojee ? (
-              <div className="w-full max-w-sm">
-                <Card title="Profile" variant="outline">
-                  <div className="space-y-3">
-                    <Input placeholder="Your name" />
-                    <div>
-                      <Switch label="Email updates" />
-                    </div>
-                    <Button label="Save" />
-                  </div>
-                </Card>
+    <section>
+      <div ref={track} style={{ height: "calc(100svh - 4rem + 150vh)" }}>
+        <div ref={stage} className="sticky top-16 flex min-h-[calc(100svh-4rem)] items-center">
+          <div className="mx-auto w-full max-w-6xl px-5 py-6 max-lg:[zoom:0.75] md:py-8 [@media(min-width:1024px)_and_(max-height:820px)]:[zoom:0.88]">
+            <Heading eyebrow="Less to write" title="The same card, a fraction of the code" body="A profile form written with plain Tailwind classes, and again with lojee-ui. Flip the switch to compare the code and what it renders. Counted from the code shown." />
+            <div className="mb-6 flex items-center justify-center gap-4 max-lg:mb-3">
+              <span className={`text-sm font-semibold transition-colors ${lojee ? "text-fg-subtle" : "text-fg"}`}>Tailwind</span>
+              <Switch aria-label="Show the lojee-ui version" size="lg" checked={lojee} onChange={(e) => setLojee(e.target.checked)} />
+              <span className={`text-sm font-semibold transition-colors ${lojee ? "text-fg" : "text-fg-subtle"}`}>lojee-ui</span>
+            </div>
+            <div className="grid items-start gap-4 max-lg:gap-2 lg:grid-cols-[1.4fr_1fr]">
+              <div className="min-w-0">
+                <div className="mb-2 flex h-7 items-center justify-between max-lg:mb-1 max-lg:h-6">
+                  <span className="text-xs font-semibold uppercase tracking-wide text-fg-subtle">Code</span>
+                  <Badge label={`${countClasses(full)} class names · ${countTags(full)} elements`} size="sm" />
+                </div>
+                {/* A fixed height (the Tailwind code is the tall one), so flipping the switch never moves the page. */}
+                <CodeSnippet code={code} language={lojee ? "tsx" : "html"} title={lojee ? "lojee-ui" : "Tailwind CSS"} classNames={{ root: "h-[19rem] lg:h-[22.5rem]", code: "p-3 text-[10px] leading-[1.35] lg:p-4 lg:text-[11px] lg:leading-[1.4]" }} />
               </div>
-            ) : (
-              <div className="w-full max-w-sm" dangerouslySetInnerHTML={{ __html: PLAIN }} />
-            )}
+              {/* The output fades up once the code is fully written. */}
+              <div className={`min-w-0 transition-all duration-700 ease-out ${done ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-6 opacity-0"}`} aria-hidden={!done}>
+                <div className="mb-2 flex h-7 items-center max-lg:mb-1 max-lg:h-6">
+                  <span className="text-xs font-semibold uppercase tracking-wide text-fg-subtle">Output</span>
+                </div>
+                <div className="flex h-[13.5rem] items-center justify-center rounded-2xl border border-border bg-surface-muted p-6 max-lg:p-3 lg:h-[22.5rem]">
+                  {lojee ? (
+                    <div className="w-full max-w-sm">
+                      <Card title="Profile" variant="outline">
+                        <div className="space-y-3">
+                          <Input placeholder="Your name" />
+                          <div>
+                            <Switch label="Email updates" />
+                          </div>
+                          <Button label="Save" />
+                        </div>
+                      </Card>
+                    </div>
+                  ) : (
+                    <div className="w-full max-w-sm" dangerouslySetInnerHTML={{ __html: PLAIN }} />
+                  )}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-      <div className="mx-auto mt-8 grid max-w-xl grid-cols-2 gap-4 text-center">
-        <div className="rounded-2xl border border-border bg-surface-muted p-5">
-          <p className="text-4xl font-black text-accent-600 dark:text-accent-400">{classCut}%</p>
-          <p className="mt-1 text-sm text-fg-muted">fewer class names</p>
-        </div>
-        <div className="rounded-2xl border border-border bg-surface-muted p-5">
-          <p className="text-4xl font-black text-accent-600 dark:text-accent-400">{tagCut}%</p>
-          <p className="mt-1 text-sm text-fg-muted">fewer elements</p>
-        </div>
+      <div className="mx-auto max-w-6xl px-5 pb-16 md:pb-24">
+        <CutStats stats={[{ value: classCut, label: "fewer class names" }, { value: tagCut, label: "fewer elements" }]} />
       </div>
     </section>
   );

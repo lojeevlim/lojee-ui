@@ -18,7 +18,7 @@
 - **Overlays** — [Modal / Dialog](#modal-dialog) · [Drawer](#drawer) · [Sheet](#sheet) · [Popover](#popover) · [Dropdown Menu](#dropdown-menu) · [Context Menu](#context-menu) · [Command Menu](#command-menu) · [Alert Dialog](#alert-dialog) · [Tooltip](#tooltip)
 - **Feedback** — [Alert](#alert) · [Toast](#toast) · [Notification](#notification) · [Thinking](#thinking) · [Progress Bar](#progress-bar) · [Empty State](#empty-state) · [Error State](#error-state) · [Success State](#success-state) · [Loading State](#loading-state) · [Skeletons](#skeletons)
 - **Navigation** — [Navbar](#navbar) · [Sidebar](#sidebar) · [Top Bar](#top-bar) · [Header](#header) · [Footer](#footer) · [Navigation Menu](#navigation-menu) · [Bottom Navigation](#bottom-navigation) · [Tabs](#tabs) · [Stepper](#stepper) · [Breadcrumbs](#breadcrumbs) · [Pagination](#pagination) · [Main](#main)
-- **App** — [App Layout](#app-layout) · [Theme Switcher](#theme-switcher)
+- **App** — [App Layout](#app-layout) · [App Background](#app-background) · [Theme Switcher](#theme-switcher)
 - **Data & Visualization** — [Tables](#tables) · [Grid View](#grid-view) · [Timeline](#timeline) · [Stats / KPI](#stats-kpi) · [Charts](#charts) · [Calendar](#calendar) · [Activity Feed](#activity-feed) · [Details List](#details-list)
 - **Diagrams** — [Flow Diagram](#flow-diagram)
 - **Maps** — [Map](#map) · [Map Markers](#map-markers) · [Map Routes](#map-routes)
@@ -13801,6 +13801,168 @@ import { App } from "lojee-ui";
 - Recolor with the theme accent; restyle globally with the theme tokens or `data-design="clay"`.
 - Motion: no per-component motion props.
 
+## App Background
+
+*Category: App.* Exports: `AppBackground`.
+
+### App Background · 1. Component Overview
+
+A decorative background for an app, page or section, in {APP_BACKGROUND_VARIANTS.length} designs. It is the container: put your content inside and it sits on top. Hover any of them: the light bends around the pointer like smoke and flows back. Every design follows the theme accent and light / dark mode.
+
+- React: `import { AppBackground } from "lojee-ui"`
+- Web Component: `<l-app-background>` (after `import "lojee-ui/elements"`)
+
+### App Background · 2. Props and Interfaces
+
+#### `AppBackground`
+
+| Prop | Type | Default | Description |
+| --- | --- | --- | --- |
+| `variant` | `AppBackgroundVariant` | `"side-glow"` | Which background to draw (default: "side-glow"): "side-glow", "top-glow", "bottom-glow", "pinch-glow", "horizon", "aurora", "spotlight", "mesh", "vortex", "embers", "waves", "grid" or "dots". |
+| `animated` | `boolean` | `true` | Let the background move: drifting blobs, rising embers, flowing waves (default: true). Always off for users who prefer reduced motion. |
+| `side` | `AppBackgroundSide` | `"both"` | "side-glow" only: which edge(s) the light comes in from — "both" (default), "left" or "right". |
+| `motes` | `boolean` | `true` | Glow variants ("side-glow", "top-glow", "bottom-glow", "pinch-glow", "embers"): small points of light drifting through the light (default: true). |
+| `progress` | `number` | — | Fade amount from 0 (fully shown) to 1 (gone); "side-glow" also spreads out from the tip as it fades. Controlled by you — e.g. from a scroll position. When omitted, the value is inherited from a `--sp` CSS variable on an ancestor (so a parent can drive it), and is 0 if there is none. |
+| `hover` | `boolean` | `true` | Reacts to the pointer, only around the pointer (default: true). Embers swell and glow as the pointer comes near; horizon releases sparks; moving the pointer through any variant bends it like smoke a hand is passed through (motes and all), and it flows back. On top of that horizon releases sparks, embers swell near the pointer, and grid and dots follow it. Off for users who prefer reduced motion. |
+| `scrollFade` | `boolean` | `false` | Fades the light out by itself as the page scrolls past it (default: false). Ignored when `progress` is set. |
+| `width` | `string` | — | "side-glow", "top-glow", "bottom-glow": thickness of each wedge as a share of the container, e.g. "23%" (default: 23% for side-glow, 38% for top / bottom; a little less on small screens). |
+| `className` | `string` | — | Extra class name(s) applied to the root element — give it a size, a background color, padding… (it already has `bg-surface` and `min-h-56`) |
+| `children` | `ReactNode` | — | Content drawn on top of the background. The root is already `relative isolate overflow-hidden bg-surface min-h-56`, so there is nothing else to add. |
+
+#### Hooks
+
+| Hook | Signature | Description |
+| --- | --- | --- |
+| `useSmokeBend` | `useSmokeBend({ enabled, target, region, edgeLight = false, soft = false, smooth = false }: SmokeBendOptions): { filter: ReactNode; push: (x: number, y: number, dx: number, dy: number, time: number) => void; leave: () => void }` | The "smoke" hover bend of AppBackground, as a hook so anything can use it. While the pointer moves over `region` it leaves a wake (a small field of push vectors) that an SVG displacement filter on `target` uses to bend it like smoke a hand passes through; the wake fades, so the target flows back. The loop and the filter only run while something is left to relax. Returns `filter` (render it once, anywhere: an invisible <svg>), `push` (call it with the pointer's position in `region` and how far it moved since last time) and `leave` (call it when the pointer leaves). Times are the pointer events' timeStamp. |
+
+### App Background · 3. Events
+
+_No component-specific events._ Native DOM events (`click`, `input`, `focus`…) bubble from the rendered element as usual.
+
+### App Background · 4. Variants
+
+| Component | Prop | Values | Default | Notes |
+| --- | --- | --- | --- | --- |
+| `AppBackground` | `variant` | `AppBackgroundVariant` | `"side-glow"` | Which background to draw (default: "side-glow"): "side-glow", "top-glow", "bottom-glow", "pinch-glow", "horizon", "aurora", "spotlight", "mesh", "vortex", "embers", "waves", "grid" or "dots". |
+
+### App Background · 5. Colors and Theming
+
+Follows the global theme (§1.4): it recolors with the accent, switches with light / dark mode, and takes the Claymorphism look when `data-design="clay"` is set. It has no color prop of its own.
+
+### App Background · 6. Sizes
+
+| Component | Prop | Values | Default | Notes |
+| --- | --- | --- | --- | --- |
+| `AppBackground` | `width` | `string` | — | "side-glow", "top-glow", "bottom-glow": thickness of each wedge as a share of the container, e.g. "23%" (default: 23% for side-glow, 38% for top / bottom; a little less on small screens). |
+
+### App Background · 7. Component States
+
+| Component | Prop | Type | Default | Effect |
+| --- | --- | --- | --- | --- |
+| `AppBackground` | `animated` | `boolean` | `true` | Let the background move: drifting blobs, rising embers, flowing waves (default: true). Always off for users who prefer reduced motion. |
+
+Standard visual states: default · hover · focus-visible (ring) · active/pressed.
+
+### App Background · 8. Slots / Children / Content
+
+| Component | React prop | Type | Description |
+| --- | --- | --- | --- |
+| `AppBackground` | `children` | `ReactNode` | Content drawn on top of the background. The root is already `relative isolate overflow-hidden bg-surface min-h-56`, so there is nothing else to add. |
+
+In a Web Component, the element's light-DOM text/children go into the default slot; a prop that accepts a node (e.g. `header`, `footer`) can usually also be filled with a child carrying `slot="<name>"`.
+
+### App Background · 9. Framework Interfaces
+
+**`AppBackground`** → `<l-app-background>`
+
+| React prop | HTML attribute | Attribute type |
+| --- | --- | --- |
+| `variant` | `variant` | string |
+| `animated` | `animated` | boolean |
+| `hover` | `hover` | boolean |
+| `side` | `side` | string |
+| `motes` | `motes` | boolean |
+| `progress` | `progress` | number |
+| `scrollFade` | `scroll-fade` | boolean |
+| `width` | `width` | string |
+| `className` | `class-name` | string |
+
+Minimal use in each target (from the first docs example, *Basic usage*):
+
+**React**
+```tsx
+<AppBackground variant="aurora" className="flex items-center justify-center">
+  <h1>Content sits on top</h1>
+</AppBackground>
+```
+**Plain HTML / JavaScript**
+```html
+<l-app-background variant="aurora">
+  <h1>Content sits on top</h1>
+</l-app-background>
+
+<script type="module">
+  import "lojee-ui/elements";
+</script>
+```
+Vue and Angular use the same `<l-*>` tag and attributes — see the framework templates in §1.3.
+
+### App Background · 10. Complete Usage Examples
+
+#### Basic usage
+
+The root is already relative, isolated and clipped, with a surface background and a minimum height. Put your content inside; className overrides any of it (for example a taller height or a different color).
+
+```tsx
+<AppBackground variant="aurora" className="flex items-center justify-center">
+  <h1>Content sits on top</h1>
+</AppBackground>
+```
+
+#### Options
+
+Pick a variant, then try the options. Side only applies to side-glow; motes to the glows with points of light and embers.
+
+```tsx
+<AppBackground${react ?
+```
+
+#### Fade on scroll
+
+With scrollFade the background eases out as the page scrolls past it, and a --sp CSS variable (0 to 1) is set on the root for your own content to use. Or drive it yourself with progress (0 = shown, 1 = gone).
+
+```tsx
+<AppBackground scrollFade>
+  <h1 style={{ opacity: "calc(1 - var(--sp) * 1.2)" }}>Fades with the page</h1>
+</AppBackground>
+
+{/* or drive it from your own state */}
+<AppBackground progress={scrollProgress} />
+```
+
+### App Background · 11. Component Composition
+
+- Standalone: drop it into any layout (Card, Section, Grid, Container, App shell) or inside forms and overlays.
+
+### App Background · 12. Accessibility
+
+- ARIA roles used: none beyond native element semantics.
+- ARIA attributes set by the component: `aria-hidden`.
+- Keyboard: native keyboard behavior of the underlying element (Tab to focus, Enter / Space to activate).
+- Focus: uses the browser focus outline / the underlying control's ring.
+- Motion: respects `prefers-reduced-motion`.
+
+### App Background · 13. Responsive Behavior
+
+- Breakpoint modifiers in its source: `md`.
+- Mobile-first; touch targets keep a comfortable minimum size.
+
+### App Background · 14. Customization
+
+- `className` adds classes to the root; `classNames` overrides individual parts. Conflicting Tailwind utilities passed here win (tailwind-merge).
+- Recolor with the theme accent; restyle globally with the theme tokens or `data-design="clay"`.
+- Motion: no per-component motion props.
+
 ## Theme Switcher
 
 *Category: App.* Exports: `ThemeSwitcher`.
@@ -17787,6 +17949,7 @@ import { PlanBilling } from "lojee-ui";
 | [Pagination](#pagination) | Navigation | `Pagination` | `<l-pagination>` |
 | [Main](#main) | Navigation | `Main` | — |
 | [App Layout](#app-layout) | App | `App`, `Section` | `<l-app>` |
+| [App Background](#app-background) | App | `AppBackground` | `<l-app-background>` |
 | [Theme Switcher](#theme-switcher) | App | `ThemeSwitcher` | `<l-theme-switcher>` |
 | [Tables](#tables) | Data & Visualization | `Table` | `<l-table>` |
 | [Grid View](#grid-view) | Data & Visualization | `GridView` | `<l-grid-view>` |

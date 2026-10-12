@@ -1,9 +1,9 @@
-// Keeps the browser-tab icon in the theme's accent color: the logo tile is redrawn with `--color-accent-600` whenever the
+// Keeps the browser-tab icon in the theme's accent color: the logo petals are redrawn with the `--color-accent-*` stops whenever the
 // accent (or mode) changes on <html>. Browser-only; call once at startup.
 
-const GLYPH =
-  '<path d="M10 7.5a1.5 1.5 0 0 1 3 0V19h8.5a1.5 1.5 0 0 1 0 3H11.5A1.5 1.5 0 0 1 10 20.5v-13Z" fill="#fff"/>' +
-  '<circle cx="21" cy="10.5" r="2.5" fill="#fff" fill-opacity="0.85"/>';
+import { logoMarkMarkup } from "./logoMark";
+
+const SHADES = [400, 500, 600, 700];
 
 // Any CSS color (the palette is oklch) as an #rrggbb string, resolved by the browser itself via a 1px canvas.
 function toHex(color: string): string | null {
@@ -29,14 +29,17 @@ export function syncFaviconWithTheme(): () => void {
   link.type = "image/svg+xml";
   let last = "";
   const apply = () => {
-    const raw = getComputedStyle(root).getPropertyValue("--color-accent-600").trim();
-    const hex = raw ? toHex(raw) : null;
-    if (!hex || hex === last) return;
-    last = hex;
-    const svg =
-      `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">` +
-      `<rect width="32" height="32" rx="9" fill="${hex}"/>` +
-      `<rect x="0.5" y="0.5" width="31" height="31" rx="8.5" stroke="#fff" stroke-opacity="0.18"/>${GLYPH}</svg>`;
+    const style = getComputedStyle(root);
+    const stop = (n: number) => {
+      const raw = style.getPropertyValue(`--color-accent-${n}`).trim();
+      return raw ? toHex(raw) : null;
+    };
+    const colors = SHADES.map(stop);
+    if (colors.some((c) => !c)) return;
+    const key = colors.join();
+    if (key === last) return;
+    last = key;
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">${logoMarkMarkup(colors as string[], "f")}</svg>`;
     link!.href = "data:image/svg+xml," + encodeURIComponent(svg);
   };
   apply();

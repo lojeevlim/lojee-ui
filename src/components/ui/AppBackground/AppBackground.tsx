@@ -78,9 +78,9 @@ function Wedge({ edge, motes, width, className, shape: showShape = true, even = 
   const id = `lojee-glow-${edge}${even ? "-even" : ""}`; // (ids are shared page-wide, so the evenly shaded copy needs its own)
   const v = edge === "top" || edge === "bottom";
   const shape = v ? SHAPE_V : SHAPE_H;
-  const place = { left: "top-0 left-0 h-full w-[24%] md:w-[23%]", right: "lojee-glow-right top-0 right-0 h-full w-[24%] md:w-[23%]", top: "left-0 top-0 w-full h-[34%] md:h-[38%]", bottom: "lojee-glow-bottom bottom-0 left-0 w-full h-[34%] md:h-[38%]" }[edge];
+  const place = { left: "top-0 left-0 h-full w-[36%] md:w-[23%]", right: "lojee-glow-right top-0 right-0 h-full w-[36%] md:w-[23%]", top: "left-0 top-0 w-full h-[32%] md:h-[38%]", bottom: "lojee-glow-bottom bottom-0 left-0 w-full h-[32%] md:h-[38%]" }[edge];
   return (
-    <div className={cx("lojee-glow-wrap pointer-events-none absolute opacity-40 md:opacity-100", className ?? place)} style={width ? (v ? { height: width } : { width }) : undefined}>
+    <div className={cx("lojee-glow-wrap pointer-events-none absolute opacity-80 md:opacity-100", className ?? place)} style={width ? (v ? { height: width } : { width }) : undefined}>
       {motes && (
         <div className={cx("lojee-glow-motes absolute inset-0", v && "lojee-glow-v")} aria-hidden="true">
           {MOTES.map((m, i) => (

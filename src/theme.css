@@ -2478,6 +2478,11 @@ body[data-design="clay"] {
   height: 38%;
   container-type: size;
   pointer-events: none;
+  /* scroll fade: the particles widen with the dome as it spreads out, and fade like it does */
+  transform-origin: 50% 100%;
+  transform: scaleX(calc(1 + var(--sp, 0) * 1.1));
+  opacity: calc(1 - var(--sp, 0) * var(--sp, 0) * 0.95);
+  transition: transform 0.12s linear, opacity 0.12s linear;
 }
 .lojee-pinch-mote {
   position: absolute;
@@ -2543,4 +2548,52 @@ body[data-design="clay"] {
   width: min(100cqw, 320cqh);
   aspect-ratio: 604 / 288;
   translate: -50% 0;
+}
+
+/* ---- AppBackground on phones ----
+   The designs are drawn for wide boxes; in a narrow, tall one their percentage-based shapes stretch into thin columns, so the ones that need it are re-proportioned here. */
+@media (max-width: 639px) {
+  /* aurora: round-ish blobs (sized by width) instead of tall columns */
+  .lojee-bg-blob {
+    height: auto;
+    aspect-ratio: 1 / 1.1;
+  }
+  .lojee-bg-blob:nth-child(1) { right: -10%; top: -6%; width: 90%; }
+  .lojee-bg-blob:nth-child(2) { right: -20%; top: 14%; width: 80%; }
+  .lojee-bg-blob:nth-child(3) { left: -20%; top: 30%; width: 90%; }
+  .lojee-bg-blob:nth-child(4) { left: -10%; top: 6%; width: 70%; }
+  .lojee-bg-blob:nth-child(5) { left: 20%; top: 46%; width: 70%; }
+  .lojee-bg-blob:nth-child(6) { right: -10%; top: 62%; width: 80%; }
+  .lojee-bg-blob:nth-child(7) { left: 10%; top: -12%; width: 70%; }
+  /* spotlight: a wider, stronger cone */
+  .lojee-bg-spot {
+    background:
+      radial-gradient(ellipse 100% 42% at 50% -6%, color-mix(in srgb, var(--color-accent-400) 60%, transparent), transparent 72%),
+      conic-gradient(from 180deg at 50% -4%, transparent 140deg, color-mix(in srgb, var(--color-accent-300) 34%, transparent) 168deg, color-mix(in srgb, var(--color-accent-300) 34%, transparent) 192deg, transparent 220deg);
+  }
+  /* mesh: bigger pools so the whole box carries colour */
+  .lojee-bg-mesh {
+    background:
+      radial-gradient(ellipse 90% 40% at 0% 6%, color-mix(in srgb, var(--color-accent-500) 48%, transparent), transparent 72%),
+      radial-gradient(ellipse 80% 36% at 100% 30%, color-mix(in srgb, var(--color-accent-300) 38%, transparent), transparent 72%),
+      radial-gradient(ellipse 90% 40% at 100% 100%, color-mix(in srgb, var(--color-accent-600) 44%, transparent), transparent 72%),
+      radial-gradient(ellipse 80% 36% at 0% 74%, color-mix(in srgb, var(--color-accent-400) 32%, transparent), transparent 72%);
+    background-size: 120% 120%;
+  }
+  /* grid / dots: finer cells, and the pattern reaches further out */
+  .lojee-bg-grid { background-size: 32px 32px; }
+  .lojee-bg-dots { background-size: 18px 18px; }
+  /* waves: a capped height so they do not turn into steep ridges in a tall box */
+  .lojee-bg-wave { height: min(46%, 190px); }
+  .lojee-bg-wave-2 { height: min(38%, 155px); }
+  .lojee-bg-wave-3 { height: min(30%, 120px); }
+  /* horizon / embers: the glow is wider than the box, so give it more height */
+  .lojee-bg-embers-glow { height: 42%; }
+}
+
+/* "pinch-glow" on phones: the dome is drawn wider than the box (the sides are clipped) so it is big enough to read in a narrow one */
+@media (max-width: 639px) {
+  .lojee-pinch-box {
+    width: min(180cqw, 320cqh);
+  }
 }
