@@ -66,7 +66,7 @@ export function Hero() {
   const navigate = useNavigate();
   return (
     // scrollFade sets --sp on the root as the page scrolls past: the glow fades with it and the hero text below drifts up with it (.lp-scroll-*).
-    <AppBackground scrollFade>
+    <AppBackground variant="pinch-glow" scrollFade>
       <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-40 bg-gradient-to-t from-surface to-transparent" />
       <div className="mx-auto flex min-h-[36rem] max-w-5xl flex-col items-center justify-center px-5 pb-16 pt-20 text-center max-[480px]:[zoom:0.82] md:min-h-[42rem] md:pb-24 md:pt-24">
         <Reveal>

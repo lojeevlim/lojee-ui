@@ -43,9 +43,9 @@ export interface AppBackgroundProps {
   scrollFade?: boolean;
   /** "side-glow", "top-glow", "bottom-glow": thickness of each wedge as a share of the container, e.g. "23%" (default: 23% for side-glow, 38% for top / bottom; a little less on small screens). */
   width?: string;
-  /** Extra class name(s) applied to the root element — give it a size, a background color, padding… */
+  /** Extra class name(s) applied to the root element — give it a size, a background color, padding… (it already has `bg-surface` and `min-h-56`) */
   className?: string;
-  /** Content drawn on top of the background. The root is already `relative isolate overflow-hidden`, so there is nothing else to add. */
+  /** Content drawn on top of the background. The root is already `relative isolate overflow-hidden bg-surface min-h-56`, so there is nothing else to add. */
   children?: ReactNode;
 }
 
@@ -159,7 +159,7 @@ const px = (v: number, k: number, i: number) => `${(rnd(i, k) * v).toFixed(2)}`;
 // each point as an offset from where the particle starts.
 const PINCH_CURVE_OUT = [[6, 100], [12, 66], [21, 24], [35, -26], [49.5, -52]]; // the left half of the outside of the curve (the right half is its mirror image)
 const PINCH_CURVE_IN = [[17, 100], [19, 70], [27, 30], [40, -20], [49.5, -46]]; // and of the inside
-const PINCH_SIDE_MOTES = range(44).map((i) => {
+const PINCH_SIDE_MOTES = range(110).map((i) => {
   const left = i % 2 === 0;
   const w = 0.2 + rnd(i, 10) * 0.6; // where across the glowing band it travels: 0 is its inner edge, 1 its outer edge, so it always stays inside the rounded body
   const j = () => (rnd(i, 8) - 0.5) * 1.6; // a little scatter around its line
@@ -173,7 +173,7 @@ const PINCH_SIDE_MOTES = range(44).map((i) => {
   const [x0, y0] = pts[0];
   const off = (k: number) => [pts[k][0] - x0, pts[k][1] - y0];
   const [a1, a2, a3, a4] = [off(1), off(2), off(3), off(4)];
-  return { x: x0, y: y0, a1, a2, a3, a4, size: 1 + rnd(i, 5) * 1.3, dur: 5.5 + rnd(i, 6) * 4, delay: -rnd(i, 7) * 10 };
+  return { x: x0, y: y0, a1, a2, a3, a4, size: 2 + rnd(i, 5) * 2.6, dur: 5.5 + rnd(i, 6) * 4, delay: -rnd(i, 7) * 10 };
 });
 const EMBERS = range(34).map((i) => ({ x: px(100, 1, i), size: 2 + rnd(i, 2) * 2.5, dur: 6 + rnd(i, 3) * 7, delay: -rnd(i, 4) * 12, sway: Math.round((rnd(i, 5) - 0.5) * 120) }));
 
@@ -313,7 +313,8 @@ function Layers({ variant, side, motes, width, holdUrl }: { variant: AppBackgrou
       return <Wedge edge="bottom" motes={motes} width={width} />;
     case "pinch-glow":
       return (
-        <div className="lojee-bg-layer">
+        <div className="lojee-bg-layer lojee-bg-pinch">
+          <div className="lojee-pinch-box">
           {/* bottom-glow, bent the way a pointer resting in the light would bend it: the wedge shape alone goes through the filter (it is still, so it is drawn once) and the drifting motes stay unfiltered, which keeps them smooth */}
           {holdUrl && (
             <svg width="0" height="0" aria-hidden="true" className="absolute">
@@ -340,6 +341,7 @@ function Layers({ variant, side, motes, width, holdUrl }: { variant: AppBackgrou
               ))}
             </div>
           )}
+          </div>
         </div>
       );
     case "horizon":
@@ -397,7 +399,7 @@ function Layers({ variant, side, motes, width, holdUrl }: { variant: AppBackgrou
  * A decorative background for an app, page or section, in a dozen designs — glowing light from the sides, top or bottom, a horizon, an aurora,
  * a spotlight, a mesh, a vortex, rising embers, waves, a grid or dots… Every variant follows the theme accent and light / dark mode.
  *
- * It is the container: the root is `relative isolate overflow-hidden`, the background sits behind and your `children` sit on top. Size and colour it with `className`.
+ * It is the container: the root is `relative isolate overflow-hidden` with a `bg-surface` background and a `min-h-56` height, the background sits behind and your `children` sit on top. Override any of that with `className` (it is merged, so e.g. `h-96 bg-black` wins).
  */
 export function AppBackground({ variant = "side-glow", animated = true, hover = true, side = "both", motes = true, progress, scrollFade = false, width, className, children }: AppBackgroundProps) {
   const root = useRef<HTMLDivElement>(null);
@@ -609,7 +611,7 @@ export function AppBackground({ variant = "side-glow", animated = true, hover = 
   );
   const style = progress !== undefined ? ({ "--sp": Math.min(1, Math.max(0, progress)) } as CSSProperties) : undefined;
   return (
-    <div ref={root} data-app-background={variant} data-app-bg-static={animated ? undefined : ""} data-app-bg-hover={hover ? "" : undefined} onPointerMove={hover ? onMove : undefined} onPointerEnter={hover ? onEnter : undefined} onPointerLeave={hover ? onLeave : undefined} style={style} className={cx("relative isolate overflow-hidden", className)}>
+    <div ref={root} data-app-background={variant} data-app-bg-static={animated ? undefined : ""} data-app-bg-hover={hover ? "" : undefined} onPointerMove={hover ? onMove : undefined} onPointerEnter={hover ? onEnter : undefined} onPointerLeave={hover ? onLeave : undefined} style={style} className={cx("relative isolate min-h-56 overflow-hidden bg-surface", className)}>
       <div ref={bg} aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
         <Layers variant={variant} side={side} motes={motes} width={width} holdUrl={holdUrl} />
         {hover && fxKind && <span ref={fx} className="lojee-bg-fx" />}

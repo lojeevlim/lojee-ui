@@ -2083,7 +2083,7 @@ body[data-design="clay"] {
   top: -22%;
   width: 76%;
   height: 96%;
-  background: radial-gradient(closest-side, var(--color-accent-300) 0, color-mix(in srgb, var(--color-accent-300) 78%, transparent) 22%, color-mix(in srgb, var(--color-accent-300) 42%, transparent) 46%, color-mix(in srgb, var(--color-accent-300) 14%, transparent) 72%, transparent 100%);
+  background: radial-gradient(closest-side, var(--color-accent-500) 0, color-mix(in srgb, var(--color-accent-500) 78%, transparent) 22%, color-mix(in srgb, var(--color-accent-500) 42%, transparent) 46%, color-mix(in srgb, var(--color-accent-500) 14%, transparent) 72%, transparent 100%);
   animation-duration: 23s;
   animation-delay: -6s;
 }
@@ -2119,7 +2119,7 @@ body[data-design="clay"] {
   top: 40%;
   width: 52%;
   height: 66%;
-  background: radial-gradient(closest-side, var(--color-accent-200) 0, color-mix(in srgb, var(--color-accent-200) 78%, transparent) 22%, color-mix(in srgb, var(--color-accent-200) 42%, transparent) 46%, color-mix(in srgb, var(--color-accent-200) 14%, transparent) 72%, transparent 100%);
+  background: radial-gradient(closest-side, var(--color-accent-600) 0, color-mix(in srgb, var(--color-accent-600) 78%, transparent) 22%, color-mix(in srgb, var(--color-accent-600) 42%, transparent) 46%, color-mix(in srgb, var(--color-accent-600) 14%, transparent) 72%, transparent 100%);
   animation-duration: 19s;
   animation-delay: -14s;
 }
@@ -2483,7 +2483,7 @@ body[data-design="clay"] {
   position: absolute;
   border-radius: 9999px;
   background: var(--color-accent-100);
-  box-shadow: 0 0 5px 1px color-mix(in srgb, var(--color-accent-300) 75%, transparent);
+  box-shadow: 0 0 7px 1px color-mix(in srgb, var(--color-accent-300) 80%, transparent);
   opacity: 0;
   animation: lojee-pinch-climb linear infinite;
 }
@@ -2529,4 +2529,18 @@ body[data-design="clay"] {
 /* the background layer is its own paint region, so the hover bend (an SVG filter that repaints it) never forces the page around it to repaint */
 [data-app-background] > div[aria-hidden="true"] {
   contain: layout paint;
+}
+
+/* "pinch-glow" keeps its shape at every size: the dome, its bend and its particles live in a box with fixed proportions (the ones they were designed in: 604 x 288) that is as wide as the
+   background allows, but never so wide that the dome and its glow would not fit in its height. It sits centred on the bottom edge, so it only scales, it never stretches. */
+.lojee-bg-pinch {
+  container-type: size;
+}
+.lojee-pinch-box {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: min(100cqw, 320cqh);
+  aspect-ratio: 604 / 288;
+  translate: -50% 0;
 }

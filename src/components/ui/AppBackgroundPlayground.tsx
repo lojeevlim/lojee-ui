@@ -34,7 +34,7 @@ export default function AppBackgroundPlayground() {
 
   const preview = (
     <AppWindowFrame>
-      <AppBackground variant={variant} side={side} animated={animated} hover={hover} motes={motes} progress={progress} className="flex min-h-[260px] flex-1 items-center justify-center bg-surface">
+      <AppBackground variant={variant} side={side} animated={animated} hover={hover} motes={motes} progress={progress} className="flex min-h-[260px] flex-1 items-center justify-center">
         <div className="text-center">
           <p className="text-lg font-semibold text-fg">{variant}</p>
           <p className="mt-1 text-xs text-fg-subtle">Content sits on top of the background</p>
@@ -53,7 +53,7 @@ export default function AppBackgroundPlayground() {
   ]
     .filter(Boolean)
     .join(" ");
-  const code = `<AppBackground${attrs ? ` ${attrs}` : ""} className="h-72 bg-surface">\n  {/* your content */}\n</AppBackground>`;
+  const code = `<AppBackground${attrs ? ` ${attrs}` : ""}>\n  {/* your content */}\n</AppBackground>`;
 
   // Boolean props on the custom element need an explicit ="true" / ="false" (a bare attribute reads as false).
   const htmlAttrs = [
@@ -66,7 +66,7 @@ export default function AppBackgroundPlayground() {
   ]
     .filter(Boolean)
     .join(" ");
-  const htmlMarkup = `<l-app-background${htmlAttrs ? ` ${htmlAttrs}` : ""} style="height: 18rem">\n  <!-- your content -->\n</l-app-background>`;
+  const htmlMarkup = `<l-app-background${htmlAttrs ? ` ${htmlAttrs}` : ""}>\n  <!-- your content -->\n</l-app-background>`;
 
   const codeVariants: CodeBlockVariants = {
     react: code,

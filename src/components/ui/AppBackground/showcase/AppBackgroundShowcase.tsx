@@ -71,16 +71,16 @@ export default function AppBackgroundShowcase() {
       </div>
 
       <section>
-        <SectionLabel sub="The root is already relative, isolated and clipped (relative isolate overflow-hidden). Give it a size and a background color with className, and put your content inside.">Basic usage</SectionLabel>
-        <AppBackground variant="aurora" className="flex h-56 items-center justify-center rounded-2xl border border-border bg-surface">
+        <SectionLabel sub="The root is already relative, isolated and clipped, with a surface background and a minimum height. Put your content inside; className overrides any of it (for example a taller height or a different color).">Basic usage</SectionLabel>
+        <AppBackground variant="aurora" className="flex items-center justify-center rounded-2xl border border-border">
           <p className="text-lg font-semibold text-fg">Content sits on top</p>
         </AppBackground>
         <CodeBlock
           variants={{
-            react: `<AppBackground variant="aurora" className="flex h-56 items-center justify-center bg-surface">
+            react: `<AppBackground variant="aurora" className="flex items-center justify-center">
   <h1>Content sits on top</h1>
 </AppBackground>`,
-            js: `<l-app-background variant="aurora" style="height: 14rem">
+            js: `<l-app-background variant="aurora">
   <h1>Content sits on top</h1>
 </l-app-background>
 
@@ -88,7 +88,7 @@ export default function AppBackgroundShowcase() {
   import "lojee-ui/elements";
 </script>`,
             vue: `<template>
-  <l-app-background variant="aurora" style="height: 14rem">
+  <l-app-background variant="aurora">
     <h1>Content sits on top</h1>
   </l-app-background>
 </template>
@@ -104,7 +104,7 @@ import "lojee-ui/elements";
   selector: "app-background-demo",
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  template: \`<l-app-background variant="aurora" style="height: 14rem">
+  template: \`<l-app-background variant="aurora">
     <h1>Content sits on top</h1>
   </l-app-background>\`,
 })
@@ -119,7 +119,7 @@ export class BackgroundDemoComponent {}`,
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {g.variants.map((v) => (
               <div key={v}>
-                <AppBackground variant={v} className="flex h-44 items-center justify-center rounded-2xl border border-border bg-surface">
+                <AppBackground variant={v} className="flex items-center justify-center rounded-2xl border border-border">
                   <p className="text-sm font-semibold text-fg">{v}</p>
                 </AppBackground>
                 <p className="mt-2 text-xs text-fg-subtle">{DESCRIPTIONS[v]}</p>
@@ -160,15 +160,15 @@ export class BackgroundDemoComponent {}`,
             <input type="range" min={0} max={1} step={0.01} value={progress} onChange={(e) => setProgress(Number(e.target.value))} aria-label="Fade amount" />
           </label>
         </div>
-        <AppBackground variant={variant} side={side} animated={animated} hover={hover} motes={motes} progress={progress} className="flex h-72 items-center justify-center rounded-2xl border border-border bg-surface">
+        <AppBackground variant={variant} side={side} animated={animated} hover={hover} motes={motes} progress={progress} className="flex min-h-72 items-center justify-center rounded-2xl border border-border">
           <p className="text-lg font-semibold text-fg">{variant}</p>
         </AppBackground>
         <CodeBlock
           variants={{
-            react: `<AppBackground${react ? ` ${react}` : ""} className="h-72 bg-surface">\n  {/* your content */}\n</AppBackground>`,
-            js: `<l-app-background${wc ? ` ${wc}` : ""} style="height: 18rem">\n  <!-- your content -->\n</l-app-background>`,
-            vue: `<template>\n  <l-app-background${wc ? ` ${wc}` : ""} style="height: 18rem">\n    <!-- your content -->\n  </l-app-background>\n</template>`,
-            angular: `<!-- reuses BackgroundDemoComponent from above -->\n<l-app-background${wc ? ` ${wc}` : ""} style="height: 18rem">\n  <!-- your content -->\n</l-app-background>`,
+            react: `<AppBackground${react ? ` ${react}` : ""}>\n  {/* your content */}\n</AppBackground>`,
+            js: `<l-app-background${wc ? ` ${wc}` : ""}>\n  <!-- your content -->\n</l-app-background>`,
+            vue: `<template>\n  <l-app-background${wc ? ` ${wc}` : ""}>\n    <!-- your content -->\n  </l-app-background>\n</template>`,
+            angular: `<!-- reuses BackgroundDemoComponent from above -->\n<l-app-background${wc ? ` ${wc}` : ""}>\n  <!-- your content -->\n</l-app-background>`,
           }}
         />
       </section>

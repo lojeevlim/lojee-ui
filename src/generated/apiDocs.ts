@@ -185,14 +185,14 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "name": "className",
             "type": "string",
             "required": false,
-            "description": "Extra class name(s) applied to the root element — give it a size, a background color, padding…",
+            "description": "Extra class name(s) applied to the root element — give it a size, a background color, padding… (it already has `bg-surface` and `min-h-56`)",
             "default": null
           },
           {
             "name": "children",
             "type": "ReactNode",
             "required": false,
-            "description": "Content drawn on top of the background. The root is already `relative isolate overflow-hidden`, so there is nothing else to add.",
+            "description": "Content drawn on top of the background. The root is already `relative isolate overflow-hidden bg-surface min-h-56`, so there is nothing else to add.",
             "default": null
           }
         ],
