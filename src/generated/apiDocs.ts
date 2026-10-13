@@ -6103,6 +6103,20 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           },
           {
+            "name": "onOpenChange",
+            "type": "(open: boolean) => void",
+            "required": false,
+            "description": "Called whenever the list opens or closes, with the new open state.",
+            "default": null
+          },
+          {
+            "name": "onSelect",
+            "type": "(value: string, option: SelectOption) => void",
+            "required": false,
+            "description": "Called when the user picks an option from the list (also fires when re-picking the current value, unlike `onChange`).",
+            "default": null
+          },
+          {
             "name": "className",
             "type": "string",
             "required": false,
@@ -6172,6 +6186,10 @@ export const API_DOCS: Record<string, ApiDoc> = {
             {
               "callback": "onInvalid",
               "event": "invalid"
+            },
+            {
+              "callback": "onOpenChange",
+              "event": "openchange"
             }
           ]
         }

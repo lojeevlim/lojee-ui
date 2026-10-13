@@ -2,8 +2,17 @@
 export interface ChangelogCommit { sha: string; short: string; date: string; author: string; email: string; subject: string; body: string }
 
 export const PACKAGE_VERSION = "0.1.0-alpha.16";
-export const CHANGELOG_GENERATED_AT = "2026-10-12T15:35:43.080Z";
+export const CHANGELOG_GENERATED_AT = "2026-10-13T14:01:51.086Z";
 export const CHANGELOG: ChangelogCommit[] = [
+  {
+    "sha": "04016af4117f3777c464a80346aafb24bad6a62a",
+    "short": "04016af",
+    "date": "2026-10-13T00:16:03+08:00",
+    "author": "lojeevlim",
+    "email": "lojeevlim@gmail.com",
+    "subject": "Clay petal logo, mobile AppBackground, pinned landing sections",
+    "body": "- New four-petal clay logo mark following the accent scale; artwork shared by Logo, runtime favicon and favicon.svg via core/logoMark.ts\n- AppBackground: phone-only tweaks for glows, aurora, spotlight, mesh, waves, grid and dots\n- pinch-glow: particles widen with the dome as it fades on scroll\n- Landing: bigger hero dome on phones; \"Why lojee-ui\" pins and lights the benefits one by one; \"Less to write\" pins and writes the code with scroll, then fades in the output; the percentage cards count up\n- Regenerated COMPONENTS.md and changelog"
+  },
   {
     "sha": "7e0e55770f72b40f8d59e81def0f7c73a4984e15",
     "short": "7e0e557",

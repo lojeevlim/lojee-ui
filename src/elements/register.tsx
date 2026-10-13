@@ -699,7 +699,7 @@ defineElement(
       transitionDelay: "number",
       hoverEffect: "string",
     },
-    events: { ...FORM_EVENTS },
+    events: { ...FORM_EVENTS, onOpenChange: {} }, // onOpenChange dispatches "openchange" (detail = true | false)
   })
 );
 

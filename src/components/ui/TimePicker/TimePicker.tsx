@@ -108,7 +108,7 @@ export function TimePicker({ size = "md", invalid = false, className, classNames
     commitInputValue(inputRef.current, toValue(t.hour, t.minute, t.pm));
   };
   return (
-    <span ref={rootRef} className={cx("relative inline-flex w-full items-center", motionClass(transition, hoverEffect), className, classNames?.root)} style={motionStyle(transitionDuration, transitionDelay)}>
+    <span ref={rootRef} className={cx("relative inline-flex w-full items-center", open && "z-50", motionClass(transition, hoverEffect), className, classNames?.root)} style={motionStyle(transitionDuration, transitionDelay)}>
       <Icon
         name="clock"
         size={ICON_PX[size]}

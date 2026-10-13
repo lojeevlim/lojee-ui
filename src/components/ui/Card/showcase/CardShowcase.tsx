@@ -1,20 +1,6 @@
 import { Card } from "../Card";
-import { Badge } from "../../Badge/Badge";
 import CodeBlock from "../../CodeBlock";
 import { SectionLabel, Row, TransitionPreview } from "../../ShowcaseHelpers";
-
-// A "Coming soon" tag pinned to the corner of a demo whose variant is not released yet.
-function Soon({ children }: { children: React.ReactNode }) {
-  return (
-    <span className="relative mr-4 mt-4 inline-flex">
-      {children}
-      {/* Amber Badge; its own ring (a surface-colored outline that follows the badge's corners) keeps it distinct from the card underneath. */}
-      <span className="pointer-events-none absolute -right-3 -top-[18px] z-10">
-        <Badge variant="solid" color="amber" size="xs" label="Coming soon" className="ring-2 ring-surface" />
-      </span>
-    </span>
-  );
-}
 
 export default function CardShowcase() {
   return (
@@ -46,7 +32,7 @@ export default function CardShowcase() {
             </div>
             <div>
               <p className="mb-1.5 font-mono text-xs text-fg-subtle">glass</p>
-              <Soon><Card variant="glass">Glass</Card></Soon>
+              <Card variant="glass">Glass</Card>
             </div>
           </Row>
           <CodeBlock

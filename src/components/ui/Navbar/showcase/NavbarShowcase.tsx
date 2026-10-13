@@ -182,16 +182,16 @@ onActiveItemChange(item: unknown) {
         </section>
 
         <section>
-          <SectionLabel sub="Give each item an icon (any name from the icon set). Combine with hoverEffect for animated links, and with tooltip for icon-only hints.">Items with icons</SectionLabel>
+          <SectionLabel sub="Give each item an icon (any name from the icon set). Combine with tooltip for icon-only hints.">Items with icons</SectionLabel>
           <div className="space-y-4">
             <div className="overflow-hidden rounded-lg border border-border">
               <Navbar brand="App" items={ICON_ITEMS} actions={<Avatar initials="JD" size="sm" />} />
             </div>
             <div className="overflow-hidden rounded-lg border border-border">
-              <Navbar brand="App" variant="dark" items={ICON_ITEMS} hoverEffect="lift" />
+              <Navbar brand="App" variant="dark" items={ICON_ITEMS} />
             </div>
             <div className="overflow-hidden rounded-lg border border-border">
-              <Navbar brand="App" variant="gradient" items={ICON_ITEMS} hoverEffect="glow" />
+              <Navbar brand="App" variant="gradient" items={ICON_ITEMS} />
             </div>
           </div>
           <CodeBlock
@@ -204,9 +204,9 @@ onActiveItemChange(item: unknown) {
 ];
 
 <Navbar brand="App" items={items} />
-<Navbar brand="App" variant="dark" items={items} hoverEffect="lift" />
-<Navbar brand="App" variant="gradient" items={items} hoverEffect="glow" />`,
-              js: `<l-navbar id="nav" brand="App" hover-effect="lift"></l-navbar>
+<Navbar brand="App" variant="dark" items={items} />
+<Navbar brand="App" variant="gradient" items={items} />`,
+              js: `<l-navbar id="nav" brand="App"></l-navbar>
 
 <script type="module">
   import "lojee-ui/elements";
@@ -228,12 +228,12 @@ const items = [
 
 <template>
   <l-navbar brand="App" :items="items" />
-  <l-navbar brand="App" variant="dark" :items="items" hover-effect="lift" />
-  <l-navbar brand="App" variant="gradient" :items="items" hover-effect="glow" />
+  <l-navbar brand="App" variant="dark" :items="items" />
+  <l-navbar brand="App" variant="gradient" :items="items" />
 </template>`,
               angular: `<l-navbar brand="App" [items]="items"></l-navbar>
-<l-navbar brand="App" variant="dark" [items]="items" hover-effect="lift"></l-navbar>
-<l-navbar brand="App" variant="gradient" [items]="items" hover-effect="glow"></l-navbar>`,
+<l-navbar brand="App" variant="dark" [items]="items"></l-navbar>
+<l-navbar brand="App" variant="gradient" [items]="items"></l-navbar>`,
             }}
           />
         </section>
@@ -629,8 +629,8 @@ navbarClassNames = { root: "bg-indigo-50 dark:bg-indigo-950/40", brand: "text-in
 <Navbar brand="Blur" items={items} transition="blur" />
 <Navbar brand="Drop" items={items} transition="drop" transitionDuration={700} />
 
-<Navbar brand="Lift" items={items} hoverEffect="lift" />
-<Navbar brand="Glow" items={items} hoverEffect="glow" />
+<Navbar brand="Lift" items={items} />
+<Navbar brand="Glow" items={items} />
 <Navbar brand="Shine" items={items} hoverEffect="shine" />`,
               js: `<l-navbar class="transition-demo" brand="Fade" transition="fade"></l-navbar>
 <l-navbar class="transition-demo" brand="Slide down" transition="slide-down"></l-navbar>

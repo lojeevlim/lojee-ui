@@ -86,6 +86,7 @@ export function DatePicker({
       ref={rootRef}
       className={cx(
         "group relative inline-flex w-full items-center text-fg outline-none transition-colors",
+        open && "z-50",
         VARIANT_CLASSES[variant],
         invalid && INVALID_CLASSES,
         motionClass(transition, hoverEffect),
