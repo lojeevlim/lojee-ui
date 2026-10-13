@@ -6110,7 +6110,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": null
           },
           {
-            "name": "onSelect",
+            "name": "onOptionSelect",
             "type": "(value: string, option: SelectOption) => void",
             "required": false,
             "description": "Called when the user picks an option from the list (also fires when re-picking the current value, unlike `onChange`).",

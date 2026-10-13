@@ -2,8 +2,26 @@
 export interface ChangelogCommit { sha: string; short: string; date: string; author: string; email: string; subject: string; body: string }
 
 export const PACKAGE_VERSION = "0.1.0-alpha.16";
-export const CHANGELOG_GENERATED_AT = "2026-10-13T14:01:51.086Z";
+export const CHANGELOG_GENERATED_AT = "2026-10-13T14:11:03.072Z";
 export const CHANGELOG: ChangelogCommit[] = [
+  {
+    "sha": "25682cea8c8f0976043415a14fc5cfd56e1c4e92",
+    "short": "25682ce",
+    "date": "2026-10-13T22:11:02+08:00",
+    "author": "dev-lojee-zen",
+    "email": "lojeevlim@gmail.com",
+    "subject": "Rename Select onSelect to onOptionSelect to avoid clashing with the native handler type",
+    "body": "Regenerated API docs, COMPONENTS.md and changelog."
+  },
+  {
+    "sha": "dc04dc94e31537ed3857514bc29816a3771b1f8e",
+    "short": "dc04dc9",
+    "date": "2026-10-13T22:05:35+08:00",
+    "author": "dev-lojee-zen",
+    "email": "lojeevlim@gmail.com",
+    "subject": "Select onOpenChange/onSelect events, picker z-index, drop Card glass badge",
+    "body": "- Select: onOpenChange (web component: \"openchange\") and onSelect props; onKeyDown now reaches the trigger button\n- DatePicker/TimePicker: raise root to z-50 while open so the popup stays above neighbours\n- Navbar \"Items with icons\": remove hoverEffect from the demos and code samples\n- Card showcase: remove the \"Coming soon\" badge from the glass variant\n- Regenerated API docs and changelog"
+  },
   {
     "sha": "04016af4117f3777c464a80346aafb24bad6a62a",
     "short": "04016af",

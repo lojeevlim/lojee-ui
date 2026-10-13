@@ -36,7 +36,7 @@ export interface SelectProps extends Omit<SelectHTMLAttributes<HTMLSelectElement
   /** Called whenever the list opens or closes, with the new open state. */
   onOpenChange?: (open: boolean) => void;
   /** Called when the user picks an option from the list (also fires when re-picking the current value, unlike `onChange`). */
-  onSelect?: (value: string, option: SelectOption) => void;
+  onOptionSelect?: (value: string, option: SelectOption) => void;
   /** Extra CSS class(es) added to the root element, merged before `classNames.root`. */
   className?: string;
   /** Per-part class overrides — merged after (and win over) the built-in styling. */
@@ -82,7 +82,7 @@ export function Select({
   onBlur,
   onKeyDown: onKeyDownProp,
   onOpenChange,
-  onSelect,
+  onOptionSelect,
   "aria-label": ariaLabel,
   "aria-labelledby": ariaLabelledBy,
   "aria-describedby": ariaDescribedBy,
@@ -158,7 +158,7 @@ export function Select({
       sel.dispatchEvent(new Event("change", { bubbles: true })); // React's onChange (and native listeners) fire from this
     }
     setOpen(false);
-    onSelect?.(o.value, o);
+    onOptionSelect?.(o.value, o);
     (rootRef.current?.querySelector("button[aria-haspopup]") as HTMLElement | null)?.focus();
   };
 
