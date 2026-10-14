@@ -3,7 +3,7 @@ import { isScrolling } from "./scrollState";
 
 type Dust = { x: number; y: number; vx: number; vy: number; life: number; decay: number; size: number };
 
-const MAX_DUST = 140;
+const MAX_DUST = 60;
 /** Where the trail shows: the hero card reels and the hero heading. */
 const ZONES = "[data-hero-track], .lp-clay-text";
 /** Controls keep their own cursor and no trail. */
@@ -51,10 +51,8 @@ export default function ParticleTrail() {
       ctx.setTransform(f.dpr, 0, 0, f.dpr, 0, 0);
       ctx.clearRect(0, 0, f.w, f.h);
       ctx.fillStyle = f.color;
-      // Dark mode: the dust reads as light: additive blending plus a soft halo in its own colour.
+      // Dark mode: the dust reads as light: additive blending plus a faint halo in its own colour.
       ctx.globalCompositeOperation = f.glow ? "lighter" : "source-over";
-      ctx.shadowColor = f.color;
-      ctx.shadowBlur = f.glow ? 14 : 0;
       for (let i = f.dust.length - 1; i >= 0; i--) {
         const d = f.dust[i];
         d.life -= d.decay * dt;
@@ -63,12 +61,19 @@ export default function ParticleTrail() {
         d.y += d.vy * dt;
         ctx.globalAlpha = d.life * 0.9;
         ctx.beginPath();
-        ctx.arc(d.x, d.y, d.size * (0.4 + d.life * 0.6), 0, Math.PI * 2);
+        const rad = d.size * (0.4 + d.life * 0.6);
+        ctx.arc(d.x, d.y, rad, 0, Math.PI * 2);
         ctx.fill();
+        // Dark mode halo: a second, larger, faint circle (a canvas shadowBlur per particle was far too slow).
+        if (f.glow) {
+          ctx.globalAlpha = d.life * 0.2;
+          ctx.beginPath();
+          ctx.arc(d.x, d.y, rad * 2.6, 0, Math.PI * 2);
+          ctx.fill();
+        }
       }
       ctx.globalAlpha = 1;
       ctx.globalCompositeOperation = "source-over";
-      ctx.shadowBlur = 0;
       f.raf = f.on || f.dust.length ? requestAnimationFrame(loop) : 0;
       if (!f.raf) f.last = 0;
     };

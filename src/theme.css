@@ -616,7 +616,7 @@
   margin: calc(var(--sz, 4px) / -2) 0 0 calc(var(--sz, 4px) / -2);
   border-radius: 9999px;
   background: var(--lojee-anim-from);
-  box-shadow: 0 0 8px 2px color-mix(in srgb, var(--lojee-anim-from) 70%, transparent);
+  box-shadow: 0 0 4px 1px color-mix(in srgb, var(--lojee-anim-from) 70%, transparent);
   opacity: 0;
 }
 /* Clicking sends out ONE pulse, the same as the dotted scrollbar's end burst: a ripple ring grows out of the element and the specks fly out. */
@@ -780,6 +780,9 @@
   .lojee-anim-particles[data-scrolling] .lojee-anim-spark {
     animation: lojee-anim-spark-trail 0.7s ease-out infinite;
     animation-delay: calc(var(--d, 0s) * 0.25);
+  }
+  .lojee-anim-particles[data-offscreen] .lojee-anim-spark {
+    animation: none;
   }
 }
 
@@ -1903,7 +1906,7 @@ body[data-design="clay"] {
   opacity: 0;
   background:
     radial-gradient(circle 230px at var(--lx, 50%) var(--ly, 50%), color-mix(in srgb, var(--color-accent-300) calc(var(--li, 0) * 36%), transparent), color-mix(in srgb, var(--color-accent-500) calc(var(--li, 0) * 13%), transparent) 50%, transparent 100%);
-  mix-blend-mode: screen;
+  will-change: opacity;
 }
 [data-theme="dark"] [data-spill] > [data-hero-spill] { opacity: 1; }
 /* The glowing (pressed) card lights up a little itself too, not just the cards around it: a soft wash of the theme colour, brightest toward the middle, over its face. */
@@ -1912,6 +1915,16 @@ body[data-design="clay"] {
   opacity: 1;
   transition-duration: 0.15s;
   background: radial-gradient(ellipse 75% 70% at 50% 45%, color-mix(in srgb, var(--color-accent-300) 20%, transparent), color-mix(in srgb, var(--color-accent-500) 8%, transparent) 60%, transparent 100%);
+}
+
+/* Hero cards: the press glow fades faster and leaves the (already disabled) backdrop blur out of the transition. */
+[data-hero-card] [data-lighting]::before {
+  transition: background-color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+}
+/* No backdrop blur/saturate on a pressed hero card: re-filtering whatever moves behind it on every frame is what froze weaker machines. */
+[data-hero-card] [data-lighting]:active::before {
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
 }
 
 /* Landing hero cards: no hover effect; a press (click / touch) sinks the card into the clay well. */

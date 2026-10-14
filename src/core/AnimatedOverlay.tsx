@@ -55,7 +55,7 @@ function usePageScroll(ref: React.RefObject<HTMLElement | null>) {
 
 // A fixed crowd of ambient particles, laid out once: each starts on the element's edge (an ellipse around it), drifts outward along its own
 // direction and distance, and has its own size and delay. Deterministic (no Math.random), so server and client render the same markup.
-const AMBIENT = 120;
+const AMBIENT = 16;
 const rand = (i: number, k: number) => {
   const x = Math.sin(i * 12.9898 + k * 78.233) * 43758.5453;
   return x - Math.floor(x);
@@ -78,6 +78,17 @@ const AMBIENT_SPARKS = Array.from({ length: AMBIENT }, (_, i) => {
 function ParticlesOverlay() {
   const ref = useRef<HTMLSpanElement>(null);
   usePageScroll(ref);
+  // Offscreen overlays stop animating entirely (data-offscreen), so only the particles you can actually see cost anything.
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || typeof IntersectionObserver === "undefined") return;
+    const io = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) el.removeAttribute("data-offscreen");
+      else el.setAttribute("data-offscreen", "");
+    });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
   useEffect(() => {
     const host = ref.current?.parentElement;
     const el = ref.current;
@@ -86,7 +97,7 @@ function ParticlesOverlay() {
     // A click sends out ONE pulse, like the dotted scrollbar's end burst: a ripple ring expands from the element while a crowd of particles flies
     // out of its edge. Each particle is a short-lived element with its own start point on the element's edge,
     // direction, distance, size and delay (set as CSS variables), removed once its animation has played.
-    const BURST = 70;
+    const BURST = 24;
     const onClick = () => {
       const r = host.getBoundingClientRect();
       for (let i = 0; i < BURST; i++) {

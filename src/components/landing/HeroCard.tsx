@@ -54,15 +54,22 @@ const SPILL_FADE = 450;
  * gradient from that point, so only the part of the card facing the glowing one is lit. After the release the light eases out over SPILL_FADE ms.
  */
 function spillLight(source: HTMLElement) {
-  const cards = [...document.querySelectorAll<HTMLElement>("[data-hero-card], [data-spill-target]")].filter((el) => el !== source);
+  // Only cards that are on screen can be lit (the reels hold hundreds of off-screen ones), so they are skipped entirely.
+  const cards = [...document.querySelectorAll<HTMLElement>("[data-hero-card], [data-spill-target]")].filter((el) => {
+    if (el === source) return false;
+    const r = el.getBoundingClientRect();
+    return r.right > 0 && r.left < window.innerWidth;
+  });
+  const lit = new Set<HTMLElement>();
   let held = true;
   let releasedAt = 0;
-  let raf = 0;
   const frame = (now: number) => {
     const fade = held ? 1 : 1 - (now - releasedAt) / SPILL_FADE;
+    // All reads first, then all writes, so the browser lays out once per frame instead of once per card.
     const s = source.getBoundingClientRect();
-    for (const el of cards) {
-      const r = el.getBoundingClientRect();
+    const rects = cards.map((el) => el.getBoundingClientRect());
+    cards.forEach((el, i) => {
+      const r = rects[i];
       let k = 0;
       if (fade > 0 && r.right > 0 && r.left < window.innerWidth) {
         // The light leaves the glowing card at the point of its frame nearest to this card's centre.
@@ -75,13 +82,19 @@ function spillLight(source: HTMLElement) {
         if (k > 0) {
           el.style.setProperty("--lx", `${(lx - r.left).toFixed(0)}px`);
           el.style.setProperty("--ly", `${(ly - r.top).toFixed(0)}px`);
-          el.style.setProperty("--li", k.toFixed(3));
+          el.style.setProperty("--li", k.toFixed(2));
         }
       }
-      if (k > 0) el.setAttribute("data-spill", "");
-      else el.removeAttribute("data-spill");
-    }
-    if (held || fade > 0) raf = requestAnimationFrame(frame);
+      if (k > 0) {
+        if (!lit.has(el)) {
+          lit.add(el);
+          el.setAttribute("data-spill", "");
+        }
+      } else if (lit.delete(el)) {
+        el.removeAttribute("data-spill");
+      }
+    });
+    if (held || fade > 0) requestAnimationFrame(frame);
   };
   const release = () => {
     held = false;
@@ -91,8 +104,7 @@ function spillLight(source: HTMLElement) {
   };
   window.addEventListener("pointerup", release);
   window.addEventListener("pointercancel", release);
-  cancelAnimationFrame(raf);
-  raf = requestAnimationFrame(frame);
+  requestAnimationFrame(frame);
 }
 
 /** One captioned, live component inside the hero reel, drawn with the library's own glass `Card`, whose `lighting` prop lights its frame in dark mode. Every card has the same width, so the `w` prop is accepted for older call sites but no longer changes anything. */

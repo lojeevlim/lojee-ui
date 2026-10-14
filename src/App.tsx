@@ -253,7 +253,7 @@ function PlaygroundFab({ open, onOpen }: { open: boolean; onOpen: () => void }) 
           shape="pill"
           hoverEffect="tilt"
           icon="play-circle"
-          animation={["particles", "sweep"]} 
+          animation="sweep" 
         />
       </Tooltip>
     </div>
