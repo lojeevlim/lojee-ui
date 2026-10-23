@@ -8,7 +8,7 @@ export const CHANGELOG: ChangelogCommit[] = [
     "sha": "d75a5b7e754621d734737d7464103a0b1873fcc5",
     "short": "d75a5b7",
     "date": "2026-10-13T23:17:48+08:00",
-    "author": "dev-lojee-zen",
+    "author": "lojeevlim",
     "email": "lojeevlim@gmail.com",
     "subject": "Update changelog.ts",
     "body": ""
@@ -17,7 +17,7 @@ export const CHANGELOG: ChangelogCommit[] = [
     "sha": "10252a7d35c98f67598285efa166240e1d73af4f",
     "short": "10252a7",
     "date": "2026-10-13T22:11:21+08:00",
-    "author": "dev-lojee-zen",
+    "author": "lojeevlim",
     "email": "lojeevlim@gmail.com",
     "subject": "Rename Select onSelect to onOptionSelect to avoid clashing with the native handler type",
     "body": "Regenerated API docs, COMPONENTS.md and changelog."
@@ -26,7 +26,7 @@ export const CHANGELOG: ChangelogCommit[] = [
     "sha": "dc04dc94e31537ed3857514bc29816a3771b1f8e",
     "short": "dc04dc9",
     "date": "2026-10-13T22:05:35+08:00",
-    "author": "dev-lojee-zen",
+    "author": "lojeevlim",
     "email": "lojeevlim@gmail.com",
     "subject": "Select onOpenChange/onSelect events, picker z-index, drop Card glass badge",
     "body": "- Select: onOpenChange (web component: \"openchange\") and onSelect props; onKeyDown now reaches the trigger button\n- DatePicker/TimePicker: raise root to z-50 while open so the popup stays above neighbours\n- Navbar \"Items with icons\": remove hoverEffect from the demos and code samples\n- Card showcase: remove the \"Coming soon\" badge from the glass variant\n- Regenerated API docs and changelog"
@@ -1178,7 +1178,7 @@ export const CHANGELOG: ChangelogCommit[] = [
     "sha": "25682cea8c8f0976043415a14fc5cfd56e1c4e92",
     "short": "25682ce",
     "date": "2026-10-13T22:11:02+08:00",
-    "author": "dev-lojee-zen",
+    "author": "lojeevlim",
     "email": "lojeevlim@gmail.com",
     "subject": "Rename Select onSelect to onOptionSelect to avoid clashing with the native handler type",
     "body": "Regenerated API docs, COMPONENTS.md and changelog."

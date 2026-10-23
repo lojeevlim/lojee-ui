@@ -9638,6 +9638,13 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": "false"
           },
           {
+            "name": "collapsible",
+            "type": "boolean",
+            "required": false,
+            "description": "Inside an `<App>`: while the App is collapsed (narrow screens) show a menu toggle in the brand area that opens the sidebar drawer, so only the toggle is visible there (default: false). React only, and only inside an `<App>` — it has no effect outside one, while the App isn't collapsed, or on the `<l-navbar>` web component (use `<l-side-toggle>` there).",
+            "default": "false"
+          },
+          {
             "name": "bordered",
             "type": "boolean",
             "required": false,
@@ -11600,6 +11607,13 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "default": "false"
           },
           {
+            "name": "toggleTooltip",
+            "type": "boolean",
+            "required": false,
+            "description": "Show a tooltip (\"Expand sidebar\" / \"Collapse sidebar\") on the built-in `collapsible` toggle button. Default: false.",
+            "default": "false"
+          },
+          {
             "name": "onCollapsedChange",
             "type": "(collapsed: boolean) => void",
             "required": false,
@@ -11702,6 +11716,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "gradientTo": "string",
             "gradientDirection": "string",
             "collapsible": "boolean",
+            "toggleTooltip": "boolean",
             "header": "string",
             "headerIcon": "string",
             "footer": "string",

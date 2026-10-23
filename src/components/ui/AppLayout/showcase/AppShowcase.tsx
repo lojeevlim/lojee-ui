@@ -88,17 +88,19 @@ export default function AppShowcase() {
           </div>
           <CodeBlock
             variants={appCodeVariants(
-              `<ThemeProvider defaultMode="${mode}" defaultAccent="${accent}"${activeVariant === "solid" ? "" : ` defaultActiveVariant="${activeVariant}"`}>
+              `import { ThemeProvider, App, AppTop, AppSide, AppMain, AppFoot, AppSideToggle, Navbar, Sidebar, Footer, Button } from "lojee-ui";
+
+<ThemeProvider defaultMode="${mode}" defaultAccent="${accent}"${activeVariant === "solid" ? "" : ` defaultActiveVariant="${activeVariant}"`}>
   <App>
-    <Top><Navbar brand={<SideToggle />} items={[{ label: "Overview" }]} /></Top>
-    <Side><Sidebar width={210} items={[{ label: "Dashboard", icon: "home" }]} /></Side>
-    <Main>
+    <AppTop><Navbar brand={<AppSideToggle />} items={[{ label: "Overview" }]} /></AppTop>
+    <AppSide><Sidebar width={210} items={[{ label: "Dashboard", icon: "home" }]} /></AppSide>
+    <AppMain>
       <Button color="accent" label="Solid" />
       <Button color="accent" variant="outline" label="Outline" />
       <Button color="accent" variant="soft" label="Soft" />
       <Button variant="solid" color="accent" size="lg" animation="sweep" icon="plus" label="Click me" />
-    </Main>
-    <Foot><Footer bottom="© 2026 Lojee, Inc. All rights reserved." /></Foot>
+    </AppMain>
+    <AppFoot><Footer bottom="© 2026 Lojee, Inc. All rights reserved." /></AppFoot>
   </App>
 </ThemeProvider>`,
               { mode, accent, activeVariant }
@@ -126,13 +128,15 @@ export default function AppShowcase() {
           </div>
           <CodeBlock
             variants={appCodeVariants(
-              `// Wrap your app once — every App (and every component inside) follows it.
+              `import { ThemeProvider, App, AppTop, AppSide, AppMain, AppFoot, AppSideToggle, Navbar, Sidebar, Footer, Button } from "lojee-ui";
+
+// Wrap your app once — every App (and every component inside) follows it.
 <ThemeProvider defaultMode="dark" defaultAccent="emerald">
   <App>
-    <Top><Navbar brand={<SideToggle />} items={[{ label: "Overview" }]} /></Top>
-    <Side><Sidebar width={210} items={[{ label: "Dashboard", icon: "home" }]} /></Side>
-    <Main><Dashboard /></Main>
-    <Foot><Footer bottom="© 2026 Lojee, Inc. All rights reserved." /></Foot>
+    <AppTop><Navbar brand={<AppSideToggle />} items={[{ label: "Overview" }]} /></AppTop>
+    <AppSide><Sidebar width={210} items={[{ label: "Dashboard", icon: "home" }]} /></AppSide>
+    <AppMain><Dashboard /></AppMain>
+    <AppFoot><Footer bottom="© 2026 Lojee, Inc. All rights reserved." /></AppFoot>
   </App>
 </ThemeProvider>
 
@@ -173,13 +177,15 @@ export default function AppShowcase() {
           </div>
           <CodeBlock
             variants={appCodeVariants(
-              `<App collapseBelow="md">
-  <Top>
-    <Navbar brand={<SideToggle />} />
-  </Top>
-  <Side>
+              `import { App, AppTop, AppSide, AppSideToggle, Navbar, Sidebar } from "lojee-ui";
+
+<App collapseBelow="md">
+  <AppTop>
+    <Navbar brand={<AppSideToggle />} />
+  </AppTop>
+  <AppSide>
     <Sidebar width={210} />
-  </Side>
+  </AppSide>
   ...
 </App>`,
               { collapseBelow: "28rem" }

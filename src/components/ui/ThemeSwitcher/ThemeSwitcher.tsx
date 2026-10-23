@@ -25,6 +25,7 @@ import { motionClass, motionState, motionStyle, DEFAULT_TRANSITION_MS, type Tran
 import { usePresence } from "../../../core/usePresence";
 import { DotScroll } from "../DotScroll/DotScroll";
 import { ACTIVE_VARIANTS, DEFAULT_ACTIVE_VARIANT, isActiveVariant, type ActiveVariant } from "../../../core/activeVariant";
+import { POPUP_Z_CLASS } from "../../../core/tooltipPortal";
 
 const MODE_LABEL = Object.fromEntries(THEME_MODES.map((m) => [m.value, m.label])) as Record<ThemeMode, string>;
 
@@ -322,7 +323,7 @@ export function ThemeSwitcher({
         <div
           role="menu"
           aria-label="Theme"
-          className={`absolute top-full mt-2 ${placement} z-50 w-56 overflow-clip rounded-lg border border-border bg-surface-raised shadow-lg ${motionClass(transition) ?? ""}`}
+          className={`absolute top-full mt-2 ${placement} ${POPUP_Z_CLASS} w-56 overflow-clip rounded-lg border border-border bg-surface-raised shadow-lg ${motionClass(transition) ?? ""}`}
           style={motionStyle(transitionDuration, transitionDelay)}
           {...motionState(open)}
         >

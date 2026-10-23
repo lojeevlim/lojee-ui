@@ -22,7 +22,7 @@ const bound = (v: string) => v.replace(/'/g, "\\'").replace(/"/g, "'");
 /**
  * The plain JS / Vue / Angular versions of an `<App>` example. They mirror the React structure one to one:
  * `<l-theme-provider>` wraps `<l-app>`, which holds `<l-top>` (the Navbar, with `<l-side-toggle>` as its brand),
- * `<l-side>` (the Sidebar), `<l-main>` and `<l-foot>` (the Footer) — the same Top / Side / Main / Foot as React.
+ * `<l-side>` (the Sidebar), `<l-main>` and `<l-foot>` (the Footer) — the same AppTop / AppSide / AppMain / AppFoot as React.
  */
 export function appCodeVariants(react: string, opts: AppCodeOptions = {}): CodeBlockVariants {
   const layout = opts.layout ?? DEFAULT_LAYOUT;

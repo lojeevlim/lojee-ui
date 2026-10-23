@@ -49,12 +49,14 @@ export default function MainShowcase() {
         <Frame />
         <CodeBlock
           variants={{
-            react: `<App>
-  <Top>…</Top>
-  <Side>…</Side>
-  <Main>
+            react: `import { App, AppTop, AppSide, AppMain } from "lojee-ui";
+
+<App>
+  <AppTop>…</AppTop>
+  <AppSide>…</AppSide>
+  <AppMain>
     <Dashboard />
-  </Main>
+  </AppMain>
 </App>`,
             js: `<l-theme-provider default-mode="light">
   <l-app>
@@ -111,7 +113,9 @@ import "lojee-ui/elements";
         </div>
         <CodeBlock
           variants={{
-            react: `<Main padding="lg">…</Main>`,
+            react: `import { AppMain } from "lojee-ui";
+
+<AppMain padding="lg">…</AppMain>`,
             js: `<l-main padding="lg">…</l-main>
 
 <script type="module">import "lojee-ui/elements";</script>`,
@@ -141,7 +145,9 @@ import "lojee-ui/elements";
         </div>
         <CodeBlock
           variants={{
-            react: `<Main margin="lg">…</Main>`,
+            react: `import { AppMain } from "lojee-ui";
+
+<AppMain margin="lg">…</AppMain>`,
             js: `<l-main margin="lg">…</l-main>
 
 <script type="module">import "lojee-ui/elements";</script>`,
@@ -169,7 +175,9 @@ import "lojee-ui/elements";
         </div>
         <CodeBlock
           variants={{
-            react: `<Main rounded="3xl">…</Main>`,
+            react: `import { AppMain } from "lojee-ui";
+
+<AppMain rounded="3xl">…</AppMain>`,
             js: `<l-main rounded="3xl">…</l-main>
 
 <script type="module">import "lojee-ui/elements";</script>`,
@@ -209,8 +217,10 @@ import "lojee-ui/elements";
         </div>
         <CodeBlock
           variants={{
-            react: `<Main className="rounded-none">…</Main>
-<Main className="m-0 bg-transparent">…</Main>`,
+            react: `import { AppMain } from "lojee-ui";
+
+<AppMain className="rounded-none">…</AppMain>
+<AppMain className="m-0 bg-transparent">…</AppMain>`,
             js: `<l-main class="rounded-none">…</l-main>`,
             vue: `<template>
   <l-main class="rounded-none">…</l-main>

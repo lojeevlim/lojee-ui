@@ -162,7 +162,7 @@ Icons are referenced **by name** (a string like `"mail"`, `"arrow-right"`, `"sea
 
 ## 1.12 Composition patterns
 
-- **Layout shell:** `<App>` with `<Top>` (Navbar), `<Side>` (Sidebar), `<Main>`, `<Footer>` — a CSS-grid shell generated from a matrix `layout` prop; `<SideToggle>` opens the drawer on small screens.
+- **Layout shell:** `<App>` with `<AppTop>` (Navbar), `<AppSide>` (Sidebar), `<AppMain>`, `<AppFoot>` — a CSS-grid shell generated from a matrix `layout` prop; `<SideToggle>` opens the drawer on small screens.
 - **Forms:** `Label` + `Input`/`Textarea`/`Select`/`Checkbox`/`Radio`/`Switch` … inside a Card; submit with `Button`; ready-made `LoginForm`, `SignupForm`, `ProfileSettings`, `AccountSettings`, `PlanBilling`.
 - **Overlays:** `Modal` / `Drawer` / `Sheet` / `AlertDialog` / `Popover` take an `open` flag and `onClose`; place other components inside.
 - **Feedback:** `Alert`, `Toast`/`Notification`, `ProgressBar`, `Skeleton`, `LoadingState`/`EmptyState`/`ErrorState`/`SuccessState`.
@@ -10937,6 +10937,7 @@ A top-of-app horizontal navigation bar with a brand, nav links, and right-aligne
 | `defaultActiveItem` | `string` | — | Only an initial default for the `items` shortcut (see `NavbarItemSpec.active` for the full seed-vs-lock distinction) — which link starts selected when nothing else (a matching `href`, an `active: true` entry) already determines it. |
 | `onActiveItemChange` | `(item: NavbarItemSpec) => void` | — | Called with the full `items` row object whenever the active link changes — a click, a URL match on mount/back-forward-navigation, or a row's `active` field changing to point elsewhere. Use this to read which link is active without tracking it yourself. Not called for links composed directly via `children` (only the data-driven `items` shortcut has a "current link" concept). |
 | `sticky` | `boolean` | `false` | Sticks to the top of its scroll container (default: false). |
+| `collapsible` | `boolean` | `false` | Inside an `<App>`: while the App is collapsed (narrow screens) show a menu toggle in the brand area that opens the sidebar drawer, so only the toggle is visible there (default: false). React only, and only inside an `<App>` — it has no effect outside one, while the App isn't collapsed, or on the `<l-navbar>` web component (use `<l-side-toggle>` there). |
 | `bordered` | `boolean` | `true` | Bottom border (default: true) — only meaningful for "light"/"dark"/"gradient". Has no effect on "minimal" (never shows a border, by design — the whole point of that one) or on the detached-panel variants "bordered"/"elevated", each of which controls its own border entirely through `variant` itself (see below), not this toggle. |
 | `variant` | `NavbarVariant` | `"light"` | Visual theme (default: "light"): - "bordered"/"elevated" both float as a detached card instead of docking full-width to the page — kept as separate names since each still has its own distinct bar look on top of that shared shape: "bordered" has a thick `color`-tinted border, shadow, and rounded corners (see `color`/`borderWidth`); "elevated" has that same shadow and rounded corners but no border — depth from the shadow alone, Material-bar style. Both are self-contained — an inset backdrop is included automatically (padding + a light tint of the theme accent) so the bar always reads correctly (rounded corners) with no wrapper markup needed on your end. - "dark" — a deep shade of the theme accent (accent-950), brand text (and, by inheritance, any plain text/links) switches to white. - "minimal" — no background/border at all, blends into the page. - "gradient" — a left-to-right gradient built from `color` (600 → 700). |
 | `color` | `ColorName \| (string & {})` | `"accent"` | Accent color (default: "accent" — follows the theme accent) — one of the built-in ColorNames, or any other CSS color value (e.g. "#7c3aed" from a color-wheel picker) for a fully custom accent, unconstrained by the fixed palette. For "gradient" it's the gradient itself (600→700-equivalent; a custom hex gets a programmatically darkened second stop); for "bordered" it tints the bar's own border (has no effect on "elevated", which has no border to tint). Has no effect on "light"/"dark"/"minimal". |
@@ -11006,6 +11007,7 @@ _No size prop — it sizes to its container / content (see `className` to constr
 | Component | Prop | Type | Default | Effect |
 | --- | --- | --- | --- | --- |
 | `Navbar` | `sticky` | `boolean` | `false` | Sticks to the top of its scroll container (default: false). |
+| `Navbar` | `collapsible` | `boolean` | `false` | Inside an `<App>`: while the App is collapsed (narrow screens) show a menu toggle in the brand area that opens the sidebar drawer, so only the toggle is visible there (default: false). React only, and only inside an `<App>` — it has no effect outside one, while the App isn't collapsed, or on the `<l-navbar>` web component (use `<l-side-toggle>` there). |
 | `Navbar` | `bordered` | `boolean` | `true` | Bottom border (default: true) — only meaningful for "light"/"dark"/"gradient". Has no effect on "minimal" (never shows a border, by design — the whole point of that one) or on the detached-panel variants "bordered"/"elevated", each of which controls its own border entirely through `variant` itself (see below), not this toggle. |
 | `NavbarItem` | `active` | `boolean` | — | Highlights this as the current page/section (default: false). |
 | `NavbarItem` | `disabled` | `boolean` | — | Prevents interaction and dims the item (default: false). |
@@ -11250,6 +11252,7 @@ A vertical navigation panel — an app-shell shell for the rest of the library's
 | `gradientDirection` | `GradientDirection` | `"to-bottom"` | Direction of the "gradient" variant: "to-right" \| "to-left" \| "to-bottom" \| "to-top" \| "to-br" \| "to-bl" \| "to-tr" \| "to-tl" (default: "to-bottom"). |
 | `borderWidth` | `number` | — | "bordered"'s own border thickness in px (default: 2). Has no effect on any other variant — "elevated" has no border at all (shadow-only), and every other variant's border is a fixed-width neutral divider, not an adjustable, colored one. |
 | `collapsible` | `boolean` | `false` | Shows a built-in collapse/expand toggle button, inline at the start of the header row (with a divider before any `<SidebarHeader>` content) — while collapsed it takes over that row on its own. Works standalone with no other props needed — `Sidebar` tracks its own collapsed state internally unless you pass `collapsed` yourself (see above). |
+| `toggleTooltip` | `boolean` | `false` | Show a tooltip ("Expand sidebar" / "Collapse sidebar") on the built-in `collapsible` toggle button. Default: false. |
 | `onCollapsedChange` | `(collapsed: boolean) => void` | — | Called whenever the collapsed state changes — whether toggled by the built-in button in uncontrolled mode, or requested while `collapsed` is a controlled prop. Optional either way; only needed if something outside `Sidebar` cares about the current state. |
 | `onActiveItemChange` | `(item: SidebarMenuItemSpec) => void` | — | Called with the full `items` row object whenever the active row changes — a click, a URL match on mount/back-forward-navigation, or a row's `active` field changing to point elsewhere (see `SidebarMenuItemSpec.active`). Use this to read which item is active without tracking it yourself, e.g. to drive your own router's navigation or to sync active state elsewhere in your app. Not called for rows composed directly via `children` (only the data-driven `items` shortcut has a "current item" concept). |
 | `onNavigate` | `(path: string, item: SidebarMenuItemSpec) => void` | — | Called with a row's `path` when it is clicked, so your router can navigate without a page reload (e.g. React Router's `navigate`). Without it, `Sidebar` changes the URL itself with `history.pushState` and fires a `popstate` event, which routers that watch the history pick up — still no reload. Modified clicks (Ctrl/Cmd/Shift, middle button) and paths on another origin keep the browser's normal link behaviour. |
@@ -11370,6 +11373,7 @@ In a Web Component, the element's light-DOM text/children go into the default sl
 | `gradientTo` | `gradient-to` | string |
 | `gradientDirection` | `gradient-direction` | string |
 | `collapsible` | `collapsible` | boolean |
+| `toggleTooltip` | `toggle-tooltip` | boolean |
 | `header` | `header` | string |
 | `headerIcon` | `header-icon` | string |
 | `footer` | `footer` | string |
@@ -13586,12 +13590,14 @@ Minimal use in each target (from the first docs example, *Basic*):
 
 **React**
 ```tsx
+import { App, AppTop, AppSide, AppMain } from "lojee-ui";
+
 <App>
-  <Top>…</Top>
-  <Side>…</Side>
-  <Main>
+  <AppTop>…</AppTop>
+  <AppSide>…</AppSide>
+  <AppMain>
     <Dashboard />
-  </Main>
+  </AppMain>
 </App>
 ```
 **Plain HTML / JavaScript**
@@ -13617,31 +13623,39 @@ Vue and Angular use the same `<l-*>` tag and attributes — see the framework te
 The built-in look: rounded corners, a theme-aware background, and an inset from the App's edges. It fills the area given by the App's layout and scrolls when its content is taller.
 
 ```tsx
+import { App, AppTop, AppSide, AppMain } from "lojee-ui";
+
 <App>
-  <Top>…</Top>
-  <Side>…</Side>
-  <Main>
+  <AppTop>…</AppTop>
+  <AppSide>…</AppSide>
+  <AppMain>
     <Dashboard />
-  </Main>
+  </AppMain>
 </App>
 ```
 
 #### Padding
 
 ```tsx
-<Main padding="lg">…</Main>
+import { AppMain } from "lojee-ui";
+
+<AppMain padding="lg">…</AppMain>
 ```
 
 #### Margin
 
 ```tsx
-<Main margin="lg">…</Main>
+import { AppMain } from "lojee-ui";
+
+<AppMain margin="lg">…</AppMain>
 ```
 
 #### Rounded
 
 ```tsx
-<Main rounded="3xl">…</Main>
+import { AppMain } from "lojee-ui";
+
+<AppMain rounded="3xl">…</AppMain>
 ```
 
 #### Overriding the defaults
@@ -13649,8 +13663,10 @@ The built-in look: rounded corners, a theme-aware background, and an inset from 
 Every default is overridable with a class: drop the panel look for a page that wants the bare background, or change the radius.
 
 ```tsx
-<Main className="rounded-none">…</Main>
-<Main className="m-0 bg-transparent">…</Main>
+import { AppMain } from "lojee-ui";
+
+<AppMain className="rounded-none">…</AppMain>
+<AppMain className="m-0 bg-transparent">…</AppMain>
 ```
 
 ### Main · 11. Component Composition

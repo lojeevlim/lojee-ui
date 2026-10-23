@@ -4,6 +4,7 @@ import { cx } from "../../../core/tokens";
 import { Icon } from "../Icons/Icon";
 import { DotScroll } from "../DotScroll/DotScroll";
 import { usePresence } from "../../../core/usePresence";
+import { POPUP_Z_CLASS } from "../../../core/tooltipPortal";
 import { motionClass, motionState, motionStyle, DEFAULT_TRANSITION_MS, type TransitionVariant, type HoverEffect } from "../../../core/motion";
 
 export interface SelectOption {
@@ -247,7 +248,7 @@ export function Select({
           role="listbox"
           viewportClassName="py-1"
           className={cx(
-            "absolute left-0 top-full z-20 mt-1 max-h-60 w-full overflow-hidden rounded-lg border border-border bg-surface text-fg shadow-lg in-data-[design=clay]:rounded-3xl in-data-[design=clay]:border-transparent",
+            `absolute left-0 top-full ${POPUP_Z_CLASS} mt-1 max-h-60 w-full overflow-hidden rounded-lg border border-border bg-surface text-fg shadow-lg in-data-[design=clay]:rounded-3xl in-data-[design=clay]:border-transparent`,
             motionClass(transition),
             classNames?.menu
           )}

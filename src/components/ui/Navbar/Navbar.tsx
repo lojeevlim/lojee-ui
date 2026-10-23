@@ -3,6 +3,8 @@ import type { CSSProperties, ReactNode } from "react";
 import { linearGradient, type GradientDirection } from "../../../core/gradient";
 import { cx, isColorName, type ColorName } from "../../../core/tokens";
 import { NavbarItem } from "./NavbarItem";
+import { SideToggle } from "../AppLayout/App";
+import { useAppLayout } from "../AppLayout/appLayoutContext";
 import { Tooltip } from "../Tooltip/Tooltip";
 import { navbarActiveFillClasses } from "./navbarActiveStyles";
 import { activeMarker } from "../../../core/activeVariant";
@@ -93,6 +95,10 @@ export interface NavbarProps {
   onActiveItemChange?: (item: NavbarItemSpec) => void;
   /** Sticks to the top of its scroll container (default: false). */
   sticky?: boolean;
+  /** Inside an `<App>`: while the App is collapsed (narrow screens) show a menu toggle in the brand area that opens
+   * the sidebar drawer, so only the toggle is visible there (default: false). React only, and only inside an `<App>` — it has no effect outside one, while the App isn't
+   * collapsed, or on the `<l-navbar>` web component (use `<l-side-toggle>` there). */
+  collapsible?: boolean;
   /** Bottom border (default: true) — only meaningful for "light"/"dark"/"gradient". Has no effect on
    * "minimal" (never shows a border, by design — the whole point of that one) or on the detached-panel
    * variants "bordered"/"elevated", each of which controls its own border entirely through
@@ -218,6 +224,7 @@ export function Navbar({
   defaultActiveItem,
   onActiveItemChange,
   sticky = false,
+  collapsible = false,
   bordered = true,
   variant = "light",
   color = "accent",
@@ -238,6 +245,7 @@ export function Navbar({
 }: NavbarProps) {
   // Scroll effects (same idea as the landing page header): `scrolled` flips the background solid, `glow`
   // is true while the page is actively scrolling and drops back `scrollGlowDuration` ms after it stops.
+  const { isCollapsed } = useAppLayout();
   const navRef = useRef<HTMLElement>(null);
   const [scrolled, setScrolled] = useState(false);
   const [glow, setGlow] = useState(false);
@@ -586,6 +594,7 @@ export function Navbar({
             at all without inspecting real DOM assignment (React has no way to know, at render time,
             whether a light-DOM node will later get projected here). */}
         <div className={cx("flex shrink-0 items-center gap-2 font-semibold", VARIANT_BRAND_TEXT[variant], classNames?.brand)}>
+          {collapsible && isCollapsed && <SideToggle />}
           <slot name="brand">{brand}</slot>
         </div>
         {itemsAlign === "left" && linksEl}

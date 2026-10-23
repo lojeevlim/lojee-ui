@@ -56,28 +56,30 @@ export default function AppLayoutPlayground() {
 
   const activeProp = (activeVariant === "solid" ? "" : ` defaultActiveVariant="${activeVariant}"`) + (design === "bento" ? "" : ` defaultDesign="${design}"`);
 
-  const topCode = `    <Top>
-      <Navbar brand={<SideToggle />} items={[{ label: "Overview" }, { label: "Reports" }]} />
-    </Top>
+  const topCode = `    <AppTop>
+      <Navbar brand={<AppSideToggle />} items={[{ label: "Overview" }, { label: "Reports" }]} />
+    </AppTop>
 `;
-  const sideCode = `    <Side>
+  const sideCode = `    <AppSide>
       <Sidebar width={210} items={[{ label: "Dashboard", icon: "home" }]} />
-    </Side>
+    </AppSide>
 `;
-  const footCode = `    <Foot>
+  const footCode = `    <AppFoot>
       <Footer bottom="© 2026 Lojee, Inc. All rights reserved." />
-    </Foot>
+    </AppFoot>
 `;
-  const mainCode = `    <Main>
+  const mainCode = `    <AppMain>
       <Button color="accent" label="Solid" />
       <Button color="accent" variant="outline" label="Outline" />
       <Button color="accent" variant="soft" label="Soft" />
       <Button variant="solid" color="accent" size="lg" animation="sweep" icon="plus" label="Click me" />
-    </Main>
+    </AppMain>
 `;
   const parts = [has("top") && topCode, has("side") && sideCode, mainCode, has("footer") && footCode].filter(Boolean).join("\n");
 
-  const code = `<ThemeProvider defaultMode="${theme}" defaultAccent="${accent}"${activeProp}>
+  const code = `import { ThemeProvider, App, AppTop, AppSide, AppMain, AppFoot, AppSideToggle, Navbar, Sidebar, Footer, Button } from "lojee-ui";
+
+<ThemeProvider defaultMode="${theme}" defaultAccent="${accent}"${activeProp}>
   ${appTag.replace(/\n/g, "\n  ")}
 ${parts}  </App>
 </ThemeProvider>`;

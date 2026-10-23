@@ -4,6 +4,7 @@ import { cx } from "../../../core/tokens";
 import { motionClass, motionState, motionStyle, DEFAULT_TRANSITION_MS, type TransitionVariant } from "../../../core/motion";
 import { useOpen } from "../../../core/useOpen";
 import { usePresence } from "../../../core/usePresence";
+import { POPUP_Z_CLASS } from "../../../core/tooltipPortal";
 
 export type DropdownMenuAlign = "start" | "end";
 
@@ -84,7 +85,7 @@ export function DropdownMenu({
           // never closes the menu, with no extra handling needed.
           onClick={() => setOpen(false)}
           className={cx(
-            "absolute z-10 mt-1.5 min-w-[10rem] overflow-hidden rounded-lg border border-border bg-surface py-1 shadow-lg",
+            `absolute ${POPUP_Z_CLASS} mt-1.5 min-w-[10rem] overflow-hidden rounded-lg border border-border bg-surface py-1 shadow-lg`,
             align === "end" ? "right-0" : "left-0",
             motionClass(transition),
             classNames?.menu

@@ -55,6 +55,7 @@ export default function SidebarPlayground() {
   const [gradientTo, setGradientTo] = useState<string>("violet");
   const [gradientDirection, setGradientDirection] = useState<GradientDirection>("to-bottom");
   const [collapsible, setCollapsible] = useState(true);
+  const [toggleTooltip, setToggleTooltip] = useState(false);
   const [defaultActiveItem, setDefaultActiveItem] = useState("none");
   const [borderWidth, setBorderWidth] = useState(2);
   const [activeLabel, setActiveLabel] = useState<string | undefined>(undefined);
@@ -90,6 +91,7 @@ export default function SidebarPlayground() {
             gradientTo={variant === "gradient" ? gradientTo : undefined}
             gradientDirection={variant === "gradient" ? gradientDirection : undefined}
             collapsible={collapsible}
+            toggleTooltip={toggleTooltip}
             onCollapsedChange={setCollapsed}
             onActiveItemChange={(item) => setActiveLabel(item.label)}
             header={headerText}
@@ -115,18 +117,18 @@ export default function SidebarPlayground() {
   const baseColorAttr = color !== "accent" ? ` color="${color}"` : "";
   const gradientAttr = variant === "gradient" ? ` gradientTo="${gradientTo}"${gradientDirection !== "to-bottom" ? ` gradientDirection="${gradientDirection}"` : ""}` : "";
   const colorAttr = `${baseColorAttr}${gradientAttr}`;
-  const collapsibleAttr = collapsible ? " collapsible" : "";
+  const collapsibleAttr = `${collapsible ? " collapsible" : ""}${toggleTooltip ? " toggleTooltip" : ""}`;
   // `collapsed`/`collapsible` are boolean props — a bare attribute (no `="..."`) parses as an empty
   // string, which r2wc's boolean coercion reads as false, so every non-JSX target needs an explicit
   // truthy value instead. Vue/Angular already bind `items` via `:items`/`[items]`, so the same
   // binding syntax (not a plain string attribute) is used here too, for consistency within each
   // sample and because it sets the real boolean prop directly rather than relying on string parsing.
   const collapsedAttrHtml = collapsed ? ' collapsed="true"' : "";
-  const collapsibleAttrHtml = collapsible ? ' collapsible="true"' : "";
+  const collapsibleAttrHtml = `${collapsible ? ' collapsible="true"' : ""}${toggleTooltip ? ' toggleTooltip="true"' : ""}`;
   const collapsedAttrVue = collapsed ? ' :collapsed="true"' : "";
-  const collapsibleAttrVue = collapsible ? ' :collapsible="true"' : "";
+  const collapsibleAttrVue = `${collapsible ? ' :collapsible="true"' : ""}${toggleTooltip ? ' :toggleTooltip="true"' : ""}`;
   const collapsedAttrAngular = collapsed ? ' [collapsed]="true"' : "";
-  const collapsibleAttrAngular = collapsible ? ' [collapsible]="true"' : "";
+  const collapsibleAttrAngular = `${collapsible ? ' [collapsible]="true"' : ""}${toggleTooltip ? ' [toggleTooltip]="true"' : ""}`;
   const itemsLiteral = `[\n${NAV_ITEMS.map((item) => `    { label: "${item.label}", icon: "${item.icon}" },`).join("\n")}\n  ]`;
   const defaultActiveItemAttrJsx = defaultActiveItemValue ? ` defaultActiveItem="${defaultActiveItemValue}"` : "";
   const defaultActiveItemAttrHtml = defaultActiveItemValue ? ` default-active-item="${defaultActiveItemValue}"` : "";
@@ -257,6 +259,10 @@ export class AppComponent {
         <label className="flex items-center gap-2 text-xs font-medium text-fg-subtle">
           <input type="checkbox" checked={collapsible} onChange={(e) => setCollapsible(e.target.checked)} />
           Collapsible
+        </label>
+        <label className="flex items-center gap-2 text-xs font-medium text-fg-subtle">
+          <input type="checkbox" checked={toggleTooltip} onChange={(e) => setToggleTooltip(e.target.checked)} />
+          Toggle tooltip
         </label>
         <label className="flex items-center gap-2 text-xs font-medium text-fg-subtle">
           <input type="checkbox" checked={collapsed} onChange={(e) => setCollapsed(e.target.checked)} />

@@ -1,5 +1,5 @@
-// Demo-only sample content for the App Layout playground and showcase — the real <App>, <Top>, <Side>,
-// <Main> and <Foot> composed with existing Navbar / Sidebar / Footer components (no separate mock).
+// Demo-only sample content for the App Layout playground and showcase — the real <App>, <AppTop>, <AppSide>,
+// <AppMain> and <AppFoot> composed with existing Navbar / Sidebar / Footer components (no separate mock).
 import { Button } from "../Buttons/Button";
 import { Navbar } from "../Navbar/Navbar";
 import { Sidebar } from "../Sidebar/Sidebar";

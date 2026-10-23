@@ -10,6 +10,10 @@ export type TooltipPortalPosition = "top" | "bottom" | "left" | "right";
 // look high enough in isolation.
 export const TOOLTIP_PORTAL_Z_CLASS = "z-[200]";
 
+// Popup menus (Select, DropdownMenu, ThemeSwitcher, ...) render inline, so they must outrank sticky chrome such as
+// the Navbar (z-50 / z-[60]) and Sidebar (z-40). Kept below Modal (z-[100]) and tooltips.
+export const POPUP_Z_CLASS = "z-[70]";
+
 export interface TooltipPortalState {
   rect: DOMRect;
   root: Element | DocumentFragment;

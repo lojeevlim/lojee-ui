@@ -288,7 +288,7 @@ push(`- **Inline \`style\`** is accepted by form controls; custom colors (hex) w
 push(``);
 push(`## 1.12 Composition patterns`);
 push(``);
-push(`- **Layout shell:** \`<App>\` with \`<Top>\` (Navbar), \`<Side>\` (Sidebar), \`<Main>\`, \`<Footer>\` — a CSS-grid shell generated from a matrix \`layout\` prop; \`<SideToggle>\` opens the drawer on small screens.`);
+push(`- **Layout shell:** \`<App>\` with \`<AppTop>\` (Navbar), \`<AppSide>\` (Sidebar), \`<AppMain>\`, \`<AppFoot>\` — a CSS-grid shell generated from a matrix \`layout\` prop; \`<SideToggle>\` opens the drawer on small screens.`);
 push(`- **Forms:** \`Label\` + \`Input\`/\`Textarea\`/\`Select\`/\`Checkbox\`/\`Radio\`/\`Switch\` … inside a Card; submit with \`Button\`; ready-made \`LoginForm\`, \`SignupForm\`, \`ProfileSettings\`, \`AccountSettings\`, \`PlanBilling\`.`);
 push(`- **Overlays:** \`Modal\` / \`Drawer\` / \`Sheet\` / \`AlertDialog\` / \`Popover\` take an \`open\` flag and \`onClose\`; place other components inside.`);
 push(`- **Feedback:** \`Alert\`, \`Toast\`/\`Notification\`, \`ProgressBar\`, \`Skeleton\`, \`LoadingState\`/\`EmptyState\`/\`ErrorState\`/\`SuccessState\`.`);

@@ -1082,6 +1082,7 @@ defineElement(
       variant: "string",
       color: "string", gradientTo: "string", gradientDirection: "string",
       collapsible: "boolean",
+      toggleTooltip: "boolean",
       header: "string",
       headerIcon: "string",
       footer: "string",

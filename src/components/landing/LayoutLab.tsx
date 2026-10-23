@@ -95,13 +95,15 @@ export default function LayoutLab() {
             </button>
           ))}
         </div>
-        <pre className="overflow-x-auto rounded-xl border border-border bg-surface-muted p-4 font-mono text-[12px] leading-relaxed text-fg"><code>{highlightCode(`<App layout={[
+        <pre className="overflow-x-auto rounded-xl border border-border bg-surface-muted p-4 font-mono text-[12px] leading-relaxed text-fg"><code>{highlightCode(`import { App, AppTop, AppSide, AppMain, AppFoot } from "lojee-ui";
+
+<App layout={[
 ${p.matrix.map((row) => `  [${row.map((c) => `"${c}"`).join(", ")}],`).join("\n")}
 ]}>
-  <Top>…</Top>
-  <Side>…</Side>
-  <Main>…</Main>
-  <Footer>…</Footer>
+  <AppTop>…</AppTop>
+  <AppSide>…</AppSide>
+  <AppMain>…</AppMain>
+  <AppFoot>…</AppFoot>
 </App>`)}</code></pre>
         <p className="text-xs text-fg-subtle">A layout is just a matrix of region names. Below a breakpoint the side region collapses into a drawer automatically.</p>
       </div>

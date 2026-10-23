@@ -246,6 +246,8 @@ export interface SidebarProps {
    * own. Works standalone with no other props needed — `Sidebar` tracks its own collapsed state
    * internally unless you pass `collapsed` yourself (see above). */
   collapsible?: boolean;
+  /** Show a tooltip ("Expand sidebar" / "Collapse sidebar") on the built-in `collapsible` toggle button. Default: false. */
+  toggleTooltip?: boolean;
   /** Called whenever the collapsed state changes — whether toggled by the built-in button in
    * uncontrolled mode, or requested while `collapsed` is a controlled prop. Optional either way;
    * only needed if something outside `Sidebar` cares about the current state. */
@@ -410,6 +412,7 @@ export function Sidebar({
   gradientDirection = "to-bottom",
   borderWidth,
   collapsible = false,
+  toggleTooltip = false,
   onCollapsedChange,
   onActiveItemChange,
   onNavigate,
@@ -846,6 +849,11 @@ export function Sidebar({
   // `collapsible` (no built-in button at all) still gets to show their own
   // icon-only header content while collapsed, same as before.
   const hideHeaderContent = collapsed && collapsible;
+  const toggleButton = (
+    <button type="button" onClick={toggleCollapsed} aria-label={toggleLabel} className={cx(toggleClasses, classNames?.toggle)}>
+      <Icon name="panel-left" size={16} />
+    </button>
+  );
 
   const panelContent = (
     <>
@@ -892,16 +900,13 @@ export function Sidebar({
           )}
           {collapsible && (
             <>
-              <Tooltip content={toggleLabel} position="right" transition={tooltipTransition} transitionDuration={tooltipTransitionDuration} color={tooltipColor} portal>
-                <button
-                  type="button"
-                  onClick={toggleCollapsed}
-                  aria-label={toggleLabel}
-                  className={cx(toggleClasses, classNames?.toggle)}
-                >
-                  <Icon name="panel-left" size={16} />
-                </button>
-              </Tooltip>
+              {toggleTooltip ? (
+                <Tooltip content={toggleLabel} position="right" transition={tooltipTransition} transitionDuration={tooltipTransitionDuration} color={tooltipColor} portal>
+                  {toggleButton}
+                </Tooltip>
+              ) : (
+                toggleButton
+              )}
             </>
           )}
         </div>

@@ -5,6 +5,7 @@ import { Icon } from "../Icons/Icon";
 import { DotScroll } from "../DotScroll/DotScroll";
 import { motionClass, motionState, motionStyle, DEFAULT_TRANSITION_MS, type TransitionVariant, type HoverEffect } from "../../../core/motion";
 import { usePresence } from "../../../core/usePresence";
+import { POPUP_Z_CLASS } from "../../../core/tooltipPortal";
 
 export interface ComboboxOption {
   label: string;
@@ -156,7 +157,7 @@ export function Combobox({
           role="listbox"
           viewportClassName="py-1"
           className={cx(
-            "absolute z-10 mt-1 w-full max-h-60 overflow-hidden rounded-lg border border-border bg-surface shadow-lg in-data-[design=clay]:rounded-3xl in-data-[design=clay]:border-transparent",
+            `absolute ${POPUP_Z_CLASS} mt-1 w-full max-h-60 overflow-hidden rounded-lg border border-border bg-surface shadow-lg in-data-[design=clay]:rounded-3xl in-data-[design=clay]:border-transparent`,
             motionClass(transition),
             classNames?.menu
           )}
