@@ -2,13 +2,31 @@
 export interface ChangelogCommit { sha: string; short: string; date: string; author: string; email: string; subject: string; body: string }
 
 export const PACKAGE_VERSION = "0.1.0-alpha.17";
-export const CHANGELOG_GENERATED_AT = "2026-10-14T02:36:27.712Z";
+export const CHANGELOG_GENERATED_AT = "2026-10-23T13:10:56.450Z";
 export const CHANGELOG: ChangelogCommit[] = [
+  {
+    "sha": "d16888f5df421ee638bb2dc7811916119237a3d6",
+    "short": "d16888f",
+    "date": "2026-10-23T21:10:35+08:00",
+    "author": "dev-lojee-zen",
+    "email": "lojeevlim@gmail.com",
+    "subject": "Update popup z-index, layout components and generated docs",
+    "body": ""
+  },
+  {
+    "sha": "f759c98e6ee9b5e07ef819357d0d26b1412ebe54",
+    "short": "f759c98",
+    "date": "2026-10-14T14:03:56+08:00",
+    "author": "dev-lojee-zen",
+    "email": "lojeevlim@gmail.com",
+    "subject": "Fix landing hero card press lag",
+    "body": "Batch layout reads in spillLight and track only on-screen cards, drop the\nbackdrop filter and blend mode from the pressed hero card, replace per-speck\ncanvas shadowBlur in ParticleTrail, trim particle counts and pause offscreen\nparticles, lazy-load the docs App."
+  },
   {
     "sha": "d75a5b7e754621d734737d7464103a0b1873fcc5",
     "short": "d75a5b7",
     "date": "2026-10-13T23:17:48+08:00",
-    "author": "lojeevlim",
+    "author": "dev-lojee-zen",
     "email": "lojeevlim@gmail.com",
     "subject": "Update changelog.ts",
     "body": ""
@@ -17,7 +35,7 @@ export const CHANGELOG: ChangelogCommit[] = [
     "sha": "10252a7d35c98f67598285efa166240e1d73af4f",
     "short": "10252a7",
     "date": "2026-10-13T22:11:21+08:00",
-    "author": "lojeevlim",
+    "author": "dev-lojee-zen",
     "email": "lojeevlim@gmail.com",
     "subject": "Rename Select onSelect to onOptionSelect to avoid clashing with the native handler type",
     "body": "Regenerated API docs, COMPONENTS.md and changelog."
@@ -26,7 +44,7 @@ export const CHANGELOG: ChangelogCommit[] = [
     "sha": "dc04dc94e31537ed3857514bc29816a3771b1f8e",
     "short": "dc04dc9",
     "date": "2026-10-13T22:05:35+08:00",
-    "author": "lojeevlim",
+    "author": "dev-lojee-zen",
     "email": "lojeevlim@gmail.com",
     "subject": "Select onOpenChange/onSelect events, picker z-index, drop Card glass badge",
     "body": "- Select: onOpenChange (web component: \"openchange\") and onSelect props; onKeyDown now reaches the trigger button\n- DatePicker/TimePicker: raise root to z-50 while open so the popup stays above neighbours\n- Navbar \"Items with icons\": remove hoverEffect from the demos and code samples\n- Card showcase: remove the \"Coming soon\" badge from the glass variant\n- Regenerated API docs and changelog"
