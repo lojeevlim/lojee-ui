@@ -9641,7 +9641,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
             "name": "collapsible",
             "type": "boolean",
             "required": false,
-            "description": "Inside an `<App>`: while the App is collapsed (narrow screens) show a menu toggle in the brand area that opens the sidebar drawer, so only the toggle is visible there (default: false). React only, and only inside an `<App>` — it has no effect outside one, while the App isn't collapsed, or on the `<l-navbar>` web component (use `<l-side-toggle>` there).",
+            "description": "Inside an `<App>` / `<l-app>`: while the App is collapsed (narrow screens) show a menu toggle in the brand area that opens the sidebar drawer, so only the toggle is visible there (default: false). Has no effect outside an App or while the App isn't collapsed.",
             "default": "false"
           },
           {
@@ -9769,6 +9769,7 @@ export const API_DOCS: Record<string, ApiDoc> = {
           "props": {
             "brand": "string",
             "sticky": "boolean",
+            "collapsible": "boolean",
             "bordered": "boolean",
             "variant": "string",
             "color": "string",

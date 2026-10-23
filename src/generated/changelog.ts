@@ -2,8 +2,26 @@
 export interface ChangelogCommit { sha: string; short: string; date: string; author: string; email: string; subject: string; body: string }
 
 export const PACKAGE_VERSION = "0.1.0-alpha.18";
-export const CHANGELOG_GENERATED_AT = "2026-10-23T15:10:07.205Z";
+export const CHANGELOG_GENERATED_AT = "2026-10-23T18:50:01.268Z";
 export const CHANGELOG: ChangelogCommit[] = [
+  {
+    "sha": "08081a55aa82c0b532aeefafe8f0bd3cef58cdfe",
+    "short": "08081a5",
+    "date": "2026-10-24T02:46:01+08:00",
+    "author": "dev-lojee-zen",
+    "email": "lojeevlim@gmail.com",
+    "subject": "Fix l-navbar collapsible in l-app; raise Card above siblings while a dropdown is open",
+    "body": ""
+  },
+  {
+    "sha": "a6b739f430375acd9403c589bf3caadb44326fc2",
+    "short": "a6b739f",
+    "date": "2026-10-23T23:19:45+08:00",
+    "author": "dev-lojee-zen",
+    "email": "lojeevlim@gmail.com",
+    "subject": "Landing: scroll-driven Tailwind/lojee-ui toggle, LUI monogram logo, light Bento Grapefruit default",
+    "body": ""
+  },
   {
     "sha": "f4fca6340655d0ae816c159f6c23ce57bf6c2a7d",
     "short": "f4fca63",
