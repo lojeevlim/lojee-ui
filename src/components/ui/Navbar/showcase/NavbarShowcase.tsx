@@ -3,6 +3,8 @@ import { Navbar, type NavbarItemSpec } from "../Navbar";
 import { Button } from "../../Buttons/Button";
 import { Avatar } from "../../Avatar/Avatar";
 import CodeBlock from "../../CodeBlock";
+import { Sidebar } from "../../Sidebar/Sidebar";
+import { App, Top, Side, Main } from "../../AppLayout/App";
 import { SectionLabel, TransitionPreview } from "../../ShowcaseHelpers";
 
 const BASIC_ITEMS: NavbarItemSpec[] = [{ label: "Home", active: true }, { label: "Products" }, { label: "Pricing" }];
@@ -264,6 +266,48 @@ const items = [
 <script>document.getElementById("nav").items = items;</script>`,
               vue: `<l-navbar brand="App" items-align="center" :items="items" />`,
               angular: `<l-navbar brand="App" items-align="center" [items]="items"></l-navbar>`,
+            }}
+          />
+        </section>
+
+        <section>
+          <SectionLabel sub="Inside an App, collapsible shows a toggle button in the navbar when the App is narrow (mobile) — the sidebar hides and the toggle opens it as a drawer. On wide screens the sidebar stays docked and no toggle shows. The App measures its own width, so the narrow example below collapses even on a desktop screen.">
+            Collapsible
+          </SectionLabel>
+          <div className="grid gap-4 md:grid-cols-2">
+            {[{ label: "Narrow (mobile) — toggle only", width: 360 }, { label: "Wide — sidebar docked", width: "100%" }].map((demo) => (
+              <div key={demo.label}>
+                <p className="mb-1.5 text-xs font-medium text-fg-subtle">{demo.label}</p>
+                <div className="overflow-hidden rounded-lg border border-border" style={{ width: demo.width, maxWidth: "100%", height: 260 }}>
+                  <App className="h-full">
+                    <Top>
+                      <Navbar collapsible brand="App" items={BASIC_ITEMS} />
+                    </Top>
+                    <Side>
+                      <Sidebar width={200} height="100%" collapsible={false} items={[{ label: "Dashboard", icon: "home", active: true }, { label: "Team", icon: "users" }]} />
+                    </Side>
+                    <Main>
+                      <p className="text-xs text-fg-muted">Resize or compare: below 448px the sidebar becomes a drawer.</p>
+                    </Main>
+                  </App>
+                </div>
+              </div>
+            ))}
+          </div>
+          <CodeBlock
+            variants={{
+              react: `import { App, AppTop, AppSide, AppMain, Navbar, Sidebar } from "lojee-ui";
+
+<App>
+  <AppTop>
+    <Navbar collapsible brand="App" items={items} />
+  </AppTop>
+  <AppSide>
+    <Sidebar width={200} items={sidebarItems} />
+  </AppSide>
+  <AppMain>{children}</AppMain>
+</App>
+// React only. For <l-navbar> use <l-side-toggle> in the brand slot instead.`,
             }}
           />
         </section>

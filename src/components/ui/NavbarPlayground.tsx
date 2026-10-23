@@ -2,6 +2,8 @@ import { useState } from "react";
 import { PREVIEW_PAGE_BG } from "./playgroundUtils";
 import { Navbar, type NavbarVariant, type NavbarScrollGlowEffect, type NavbarItemsAlign } from "./Navbar/Navbar";
 import { Avatar } from "./Avatar/Avatar";
+import { Sidebar } from "./Sidebar/Sidebar";
+import { App, Top, Side, Main } from "./AppLayout/App";
 import { OptionGroup, GradientColorSwatches, PlaygroundLayout, AppWindowFrame } from "./PlaygroundHelpers";
 import { cx } from "../../core/tokens";
 import type { CodeBlockVariants } from "./CodeBlock";
@@ -25,6 +27,9 @@ export default function NavbarPlayground() {
   const [brand, setBrand] = useState("App");
   const [sticky, setSticky] = useState(false);
   const [bordered, setBordered] = useState(true);
+  // React-only: inside an <App>, shows a sidebar toggle in the navbar while the App is narrow (mobile).
+  const [collapsible, setCollapsible] = useState(false);
+  const [mobileWidth, setMobileWidth] = useState(true);
   // Scroll animations — scroll inside the preview to see them (they work with a sticky bar).
   const [itemsAlign, setItemsAlign] = useState<NavbarItemsAlign>("left");
   const [scrollBackground, setScrollBackground] = useState(false);
@@ -57,6 +62,7 @@ export default function NavbarPlayground() {
       {...motion.props}
       brand={brand ? <span className={onDark ? "text-white" : undefined}>{brand}</span> : undefined}
       sticky={sticky}
+      collapsible={collapsible}
       itemsAlign={itemsAlign}
       scrollBackground={scrollBackground}
       scrollGlow={scrollGlow ? scrollGlowEffect : false}
@@ -76,7 +82,27 @@ export default function NavbarPlayground() {
   // Navbar docks to the top of a page — shown with scrollable content below
   // it so toggling `sticky` demonstrates something real: pinned in place vs.
   // scrolling away with the rest of the page.
-  const preview = (
+  // `collapsible` only does something inside an <App> (it reads the App's collapsed state), so the preview
+  // swaps to a real mini App — pinned to a phone-sized width by default so the toggle shows right away.
+  const preview = collapsible ? (
+    <AppWindowFrame>
+      <div className={cx("min-h-56 flex-1", PREVIEW_PAGE_BG)}>
+        <div className="mx-auto h-64 max-w-full overflow-hidden" style={{ width: mobileWidth ? 360 : "100%" }}>
+          <App className="h-full">
+            <Top>{navbar}</Top>
+            <Side>
+              <Sidebar width={200} height="100%" collapsible={false} items={[{ label: "Dashboard", icon: "home", active: true }, { label: "Team", icon: "users" }]} />
+            </Side>
+            <Main>
+              <p className="text-xs text-fg-muted">
+                {mobileWidth ? "Narrow App: the sidebar is hidden — tap the navbar toggle to open it." : "Wide App: the sidebar is docked, so no toggle shows."}
+              </p>
+            </Main>
+          </App>
+        </div>
+      </div>
+    </AppWindowFrame>
+  ) : (
     <AppWindowFrame>
       {/* A `position: sticky` element can only stay stuck within the bounds of its own immediate
           parent's box — once you scroll past that parent's bottom edge, it scrolls away with it, since
@@ -101,6 +127,8 @@ export default function NavbarPlayground() {
 
   const brandAttr = brand ? ` brand="${brand}"` : "";
   const stickyAttr = sticky ? " sticky" : "";
+  // React only — the custom elements can't see <l-app>'s context (use <l-side-toggle> there instead).
+  const collapsibleAttrJsx = collapsible ? " collapsible" : "";
   const alignAttrJsx = itemsAlign !== "left" ? ` itemsAlign="${itemsAlign}"` : "";
   const alignAttrHtml = itemsAlign !== "left" ? ` items-align="${itemsAlign}"` : "";
   const scrollEffectAttr = scrollGlow && scrollGlowEffect !== "spread";
@@ -121,11 +149,24 @@ export default function NavbarPlayground() {
   const motionAttrs = motion.attrs;
   const defaultActiveItemAttrHtml = defaultActiveItemValue ? ` default-active-item="${defaultActiveItemValue}"` : "";
 
-  const code = `<Navbar${brandAttr}${stickyAttr}${alignAttrJsx}${scrollAttrsJsx}${borderedAttrJsx}${variantAttr}${colorAttr}${borderWidthAttrJsx}${defaultActiveItemAttrJsx}${motionAttrs}
+  const navbarJsx = `<Navbar${brandAttr}${stickyAttr}${collapsibleAttrJsx}${alignAttrJsx}${scrollAttrsJsx}${borderedAttrJsx}${variantAttr}${colorAttr}${borderWidthAttrJsx}${defaultActiveItemAttrJsx}${motionAttrs}
   onActiveItemChange={(item) => console.log(item)}
   items={${itemsLiteral}}
   actions={<Avatar initials="JD" size="sm" />}
 />`;
+  const code = collapsible
+    ? `import { App, AppTop, AppSide, AppMain, Navbar, Sidebar } from "lojee-ui";
+
+<App>
+  <AppTop>
+    ${navbarJsx.replace(/\n/g, "\n    ")}
+  </AppTop>
+  <AppSide>
+    <Sidebar width={200} items={sidebarItems} />
+  </AppSide>
+  <AppMain>{children}</AppMain>
+</App>`
+    : navbarJsx;
 
   // Custom-element markup: `brand` stays a plain snapshot attribute (simple
   // text), while `actions` (an Avatar component) is projected as light-DOM
@@ -244,6 +285,18 @@ export class AppComponent {
             <input type="checkbox" checked={bordered} onChange={(e) => setBordered(e.target.checked)} />
             Bordered
           </label>
+        </div>
+        <div className="flex items-center gap-4">
+          <label className="flex items-center gap-2 text-xs font-medium text-fg-subtle">
+            <input type="checkbox" checked={collapsible} onChange={(e) => setCollapsible(e.target.checked)} />
+            Collapsible (in App)
+          </label>
+          {collapsible && (
+            <label className="flex items-center gap-2 text-xs font-medium text-fg-subtle">
+              <input type="checkbox" checked={mobileWidth} onChange={(e) => setMobileWidth(e.target.checked)} />
+              Mobile width
+            </label>
+          )}
         </div>
         <div className="flex items-center gap-4">
           <label className="flex items-center gap-2 text-xs font-medium text-fg-subtle">
