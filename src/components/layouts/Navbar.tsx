@@ -66,7 +66,7 @@ export default function NavbarLayout({ activeNav = "components", onNavChange, sh
               <SideToggle />
             ))}
           <button type="button" onClick={() => navigate("/")} aria-label="lojeeUI home" className="rounded-md px-1 py-1 transition-opacity hover:opacity-80 max-sm:hidden">
-            <Logo size={28} className="text-[15px] max-sm:[&>span]:hidden" />
+            <Logo size={28} />
           </button>
         </>
       }

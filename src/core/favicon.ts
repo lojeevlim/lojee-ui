@@ -1,7 +1,7 @@
-// Keeps the browser-tab icon in the theme's accent color: the logo petals are redrawn with the `--color-accent-*` stops whenever the
+// Keeps the browser-tab icon in the theme's accent color: the logo stroke is redrawn with the `--color-accent-*` stops whenever the
 // accent (or mode) changes on <html>. Browser-only; call once at startup.
 
-import { logoMarkMarkup } from "./logoMark";
+import { LOGO_GLYPH_VIEWBOX, logoGlyphMarkup } from "./logoMark";
 
 const SHADES = [400, 500, 600, 700];
 
@@ -39,7 +39,7 @@ export function syncFaviconWithTheme(): () => void {
     const key = colors.join();
     if (key === last) return;
     last = key;
-    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" fill="none">${logoMarkMarkup(colors as string[], "f")}</svg>`;
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="${LOGO_GLYPH_VIEWBOX}" fill="none">${logoGlyphMarkup(colors as string[], "f")}</svg>`;
     link!.href = "data:image/svg+xml," + encodeURIComponent(svg);
   };
   apply();

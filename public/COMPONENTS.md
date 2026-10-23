@@ -11162,30 +11162,31 @@ const items = [
 // "left" | "center" | "right"
 ```
 
-#### Sticky
+#### Collapsible
 
-Set sticky so the bar pins to the top of its scroll container.
+Inside an App, collapsible shows a toggle button in the navbar when the App is narrow (mobile) — the sidebar hides and the toggle opens it as a drawer. On wide screens the sidebar stays docked and no toggle shows. The App measures its own width, so the narrow example below collapses even on a desktop screen.
 
 ```tsx
-<div className="h-64 overflow-y-auto">
-  <Navbar
-    sticky
-    scrollBackground
-    brand="App"
-    items={[{ label: "Home" }, { label: "Products" }]}
-  />
-  <div className="p-6 space-y-4">
-    {rows.map((row, i) => <p key={i}>{row}</p>)}
-  </div>
-</div>
+import { App, AppTop, AppSide, AppMain, Navbar, Sidebar } from "lojee-ui";
+
+<App>
+  <AppTop>
+    <Navbar collapsible brand="App" items={items} />
+  </AppTop>
+  <AppSide>
+    <Sidebar width={200} items={sidebarItems} />
+  </AppSide>
+  <AppMain>{children}</AppMain>
+</App>
+// React only. For <l-navbar> use <l-side-toggle> in the brand slot instead.
 ```
 
-_5 more examples are on the docs page._
+_6 more examples are on the docs page._
 
 ### Navbar · 11. Component Composition
 
 - Built from `Navbar`, `NavbarItem` — use them together as shown in the examples above.
-- Combined in its own examples with: `Avatar`, `Button`.
+- Combined in its own examples with: `App`, `Avatar`, `Button`, `Sidebar`.
 - Data-driven: pass `items` instead of child components (works the same as a Web Component).
 
 ### Navbar · 12. Accessibility

@@ -258,29 +258,49 @@ function CutStat({ value, label, active }: { value: number; label: string; activ
   );
 }
 
-// The section pins to the screen and the scroll "writes" the code: TYPING_END is the share of the pinned scroll it takes to write it all, and the output fades up once that is done.
-const TYPING_END = 0.8;
+// The section pins to the screen and the scroll "writes" the code in two phases: Tailwind types in during [0, A_END], the scroll then holds (and snaps) until
+// FLIP_AT, where the switch flips to lojee-ui by itself, and the lojee code types in during [FLIP_AT, B_END]. Everything derives from the scroll progress, so scrolling back reverses it.
+const A_END = 0.35;
+const FLIP_AT = 0.5;
+const B_END = 0.9;
+const COMPARE_REST = [0.42, 0.93]; // where scrolling settles: Tailwind written and held, and the lojee version written
 
 export function CodeCompare() {
   const track = useRef<HTMLDivElement>(null);
   const stage = useRef<HTMLDivElement>(null);
+  const progress = useRef(0);
   const [lojee, setLojee] = useState(false);
-  const [written, setWritten] = useState(0); // 0..1: how much of the code has been written
+  const [written, setWritten] = useState(0); // 0..1: how much of the current version's code has been written
+  const reduceMotion = useRef(false);
+  const lock = useRef<{ to: boolean; t: number } | null>(null); // a clicked switch state the scroll is still travelling to
   const classCut = pct(countClasses(PLAIN), countClasses(LOJEE));
   const tagCut = pct(countTags(PLAIN), countTags(LOJEE));
+  useStepSnap(track, stage, COMPARE_REST, [FLIP_AT]);
   useEffect(() => {
     const el = track.current;
     const card = stage.current;
     if (!el || !card) return;
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    reduceMotion.current = reduce;
     let raf = 0;
     const update = () => {
       raf = 0;
+      if (reduce) {
+        setWritten(1);
+        return;
+      }
       const r = el.getBoundingClientRect();
       const top = parseFloat(getComputedStyle(card).top) || 0;
       const span = Math.max(1, r.height - card.offsetHeight);
       const p = Math.min(1, Math.max(0, (top - r.top) / span));
-      setWritten(reduce ? 1 : Math.min(1, p / TYPING_END));
+      progress.current = p;
+      const b = p >= FLIP_AT;
+      if (lock.current) {
+        if (b === lock.current.to || performance.now() - lock.current.t > 1500) lock.current = null;
+        else return; // still travelling to the clicked state: don't flip the switch back
+      }
+      setLojee(b);
+      setWritten(b ? Math.min(1, (p - FLIP_AT) / (B_END - FLIP_AT)) : Math.min(1, p / A_END));
     };
     const onScroll = () => {
       if (!raf) raf = requestAnimationFrame(update);
@@ -294,19 +314,36 @@ export function CodeCompare() {
       window.removeEventListener("resize", onScroll);
     };
   }, []);
+  // A click on the switch scrolls to the matching rest position (the scroll position is the source of truth); with reduced motion it just flips.
+  const flip = (next: boolean) => {
+    const el = track.current;
+    const card = stage.current;
+    if (reduceMotion.current || !el || !card) {
+      setLojee(next);
+      return;
+    }
+    const r = el.getBoundingClientRect();
+    const span = Math.max(1, r.height - card.offsetHeight);
+    const top = parseFloat(getComputedStyle(card).top) || 0;
+    // Absolute target from the track's real position (progress.current is clamped, so it is wrong when the track isn't fully pinned).
+    const target = window.scrollY + r.top - top + COMPARE_REST[next ? 1 : 0] * span;
+    lock.current = { to: next, t: performance.now() };
+    setLojee(next);
+    window.scrollTo({ top: target, behavior: "smooth" });
+  };
   const full = lojee ? LOJEE : PLAIN;
   const n = Math.round(written * full.length);
   const done = written >= 1;
   const code = done ? full : full.slice(0, n) + (n > 0 ? "▍" : "");
   return (
     <section>
-      <div ref={track} style={{ height: "calc(100svh - 4rem + 150vh)" }}>
+      <div ref={track} style={{ height: "calc(100svh - 4rem + 250vh)" }}>
         <div ref={stage} className="sticky top-16 flex min-h-[calc(100svh-4rem)] items-center">
           <div className="mx-auto w-full max-w-6xl px-5 py-6 max-lg:[zoom:0.75] md:py-8 [@media(min-width:1024px)_and_(max-height:820px)]:[zoom:0.88]">
             <Heading eyebrow="Less to write" title="The same card, a fraction of the code" body="A profile form written with plain Tailwind classes, and again with lojee-ui. Flip the switch to compare the code and what it renders. Counted from the code shown." />
             <div className="mb-6 flex items-center justify-center gap-4 max-lg:mb-3">
               <span className={`text-sm font-semibold transition-colors ${lojee ? "text-fg-subtle" : "text-fg"}`}>Tailwind</span>
-              <Switch aria-label="Show the lojee-ui version" size="lg" checked={lojee} onChange={(e) => setLojee(e.target.checked)} />
+              <Switch aria-label="Show the lojee-ui version" size="lg" checked={lojee} onChange={(e) => flip(e.target.checked)} />
               <span className={`text-sm font-semibold transition-colors ${lojee ? "text-fg" : "text-fg-subtle"}`}>lojee-ui</span>
             </div>
             <div className="grid items-start gap-4 max-lg:gap-2 lg:grid-cols-[1.4fr_1fr]">
