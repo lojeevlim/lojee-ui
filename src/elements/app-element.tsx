@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { Menu } from "lucide-react";
 import { App, Top, Side, Main, Foot, type MainPadding, type MainMargin, type MainRounded } from "../components/ui/AppLayout/App";
-import { useAppLayout } from "../components/ui/AppLayout/appLayoutContext";
+import { useAppLayout, AppLayoutCtx } from "../components/ui/AppLayout/appLayoutContext";
+import { Navbar, type NavbarProps } from "../components/ui/Navbar/Navbar";
+import { APP_BREAKPOINTS } from "../components/ui/AppLayout/breakpoints";
 import { ThemeProvider } from "../components/ui/Theme/ThemeProvider";
 import type { AppTheme, GridLayout } from "../components/ui/AppLayout/appLayout";
 import type { AppBreakpoint } from "../components/ui/AppLayout/breakpoints";
@@ -142,6 +144,34 @@ export function SideToggleElement({ label = "Open navigation" }: { label?: strin
     >
       <Menu size={20} />
     </button>
+  );
+}
+
+/** `<l-navbar>`: the Navbar, plus `collapsible` inside an `<l-app>`. The navbar lives in its own shadow root, so it can't see the App's React
+ * context; this mirrors the nearest `<l-app>`'s `data-collapsed` / `data-side-open` host attributes into one and sends the toggle event back up. */
+export function NavbarElement(props: NavbarProps) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const [app, setApp] = useState({ isCollapsed: false, sideOpen: false, breakpoint: "md" as AppBreakpoint });
+  useEffect(() => {
+    const appHost = hostOf(ref.current)?.closest("l-app");
+    if (!appHost) return;
+    const sync = () => {
+      const bp = appHost.getAttribute("collapse-below") as AppBreakpoint | null;
+      const next = { isCollapsed: appHost.hasAttribute("data-collapsed"), sideOpen: appHost.hasAttribute("data-side-open"), breakpoint: bp && bp in APP_BREAKPOINTS ? bp : "md" };
+      setApp((prev) => (prev.isCollapsed === next.isCollapsed && prev.sideOpen === next.sideOpen && prev.breakpoint === next.breakpoint ? prev : next));
+    };
+    const obs = new MutationObserver(sync);
+    obs.observe(appHost, { attributes: true, attributeFilter: ["data-collapsed", "data-side-open", "collapse-below"] });
+    sync();
+    return () => obs.disconnect();
+  }, []);
+  // The App's own HostBridge listens for this event on <l-app> and flips the drawer.
+  const setSideOpen = () => hostOf(ref.current)?.dispatchEvent(new CustomEvent(TOGGLE_EVENT, { bubbles: true, composed: true }));
+  return (
+    <AppLayoutCtx.Provider value={{ ...app, setSideOpen }}>
+      <span ref={ref} hidden />
+      <Navbar {...props} />
+    </AppLayoutCtx.Provider>
   );
 }
 

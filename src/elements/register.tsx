@@ -26,7 +26,7 @@ import { MapElement } from "./map-element";
 import { defineAppSections } from "./app-sections";
 import { withSlots, withTrimmedHost } from "./with-slots";
 import { ThemeSwitcher } from "../components/ui/ThemeSwitcher/ThemeSwitcher";
-import { AppElement, SideToggleElement, ThemeProviderElement } from "./app-element";
+import { AppElement, NavbarElement, SideToggleElement, ThemeProviderElement } from "./app-element";
 import { withInlineEvents } from "./inline-events";
 import { Badge } from "../components/ui/Badge/Badge";
 import { Avatar } from "../components/ui/Avatar/Avatar";
@@ -83,7 +83,6 @@ import { ContextMenu } from "../components/ui/ContextMenu/ContextMenu";
 import { CommandMenu } from "../components/ui/CommandMenu/CommandMenu";
 import { Notification } from "../components/ui/Notification/Notification";
 import { ProgressBar } from "../components/ui/ProgressBar/ProgressBar";
-import { Navbar } from "../components/ui/Navbar/Navbar";
 import { NavbarItem } from "../components/ui/Navbar/NavbarItem";
 import { SidebarElement } from "./sidebar-element";
 import { sidebarRegionClass } from "./sidebar-regions";
@@ -1016,11 +1015,12 @@ defineElement(
 // string) and project via `<slot name="actions">`/the default `<slot>` the same way.
 defineElement(
   "l-navbar",
-  r2wc(withHostBlock(withTailwind(Navbar)), {
+  r2wc(withHostBlock(withTailwind(NavbarElement)), {
     shadow: "open",
     props: {
       brand: "string",
       sticky: "boolean",
+      collapsible: "boolean",
       bordered: "boolean",
       variant: "string",
       color: "string", gradientTo: "string", gradientDirection: "string",

@@ -84,6 +84,8 @@ export function Card({
       {...lightAttrs}
       className={cx(
         "rounded-xl",
+        // A dropdown / listbox open inside the card rises above the cards after it, so its options are never covered or cut off.
+        "has-[[role=menu],[role=listbox]]:relative has-[[role=menu],[role=listbox]]:z-[60]",
         VARIANT_CLASSES[variant],
         PADDING_CLASSES[padding],
         hoverable && "transition-shadow hover:shadow-lg",

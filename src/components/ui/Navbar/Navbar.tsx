@@ -95,9 +95,8 @@ export interface NavbarProps {
   onActiveItemChange?: (item: NavbarItemSpec) => void;
   /** Sticks to the top of its scroll container (default: false). */
   sticky?: boolean;
-  /** Inside an `<App>`: while the App is collapsed (narrow screens) show a menu toggle in the brand area that opens
-   * the sidebar drawer, so only the toggle is visible there (default: false). React only, and only inside an `<App>` — it has no effect outside one, while the App isn't
-   * collapsed, or on the `<l-navbar>` web component (use `<l-side-toggle>` there). */
+  /** Inside an `<App>` / `<l-app>`: while the App is collapsed (narrow screens) show a menu toggle in the brand area that opens
+   * the sidebar drawer, so only the toggle is visible there (default: false). Has no effect outside an App or while the App isn't collapsed. */
   collapsible?: boolean;
   /** Bottom border (default: true) — only meaningful for "light"/"dark"/"gradient". Has no effect on
    * "minimal" (never shows a border, by design — the whole point of that one) or on the detached-panel
