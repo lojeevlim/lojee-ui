@@ -7,12 +7,10 @@ import AboutPage from './components/layouts/AboutPage.tsx'
 import CodeFrameworkProvider from './components/layouts/CodeFrameworkProvider.tsx'
 import { ThemeProvider } from './components/ui/Theme/ThemeProvider.tsx'
 import { syncFaviconWithTheme } from './core/favicon'
+import { SITE_THEME } from './siteTheme'
 
 // The docs app (all showcases + API docs) loads only when a docs route is opened, keeping the landing page light.
 const App = lazy(() => import('./App.tsx'))
-
-// The site's own default look (until a visitor picks something else in the theme switcher, which is remembered).
-const SITE_THEME = { defaultMode: 'light', defaultAccent: '#f4727a', defaultDesign: 'bento', defaultActiveVariant: 'solid' } as const
 
 // The browser-tab icon follows the theme accent.
 syncFaviconWithTheme()

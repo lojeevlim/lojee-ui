@@ -104,6 +104,7 @@ import ColorPickerShowcase from './components/ui/ColorPicker'
 import CodeSnippetShowcase from './components/ui/CodeSnippet'
 import ThemeSwitcherShowcase from './components/ui/ThemeSwitcher'
 import { ThemeProvider } from './components/ui/Theme/ThemeProvider'
+import { SITE_THEME } from './siteTheme'
 import { App as AppShell, Top, Side, Main } from './components/ui/AppLayout/App'
 import type { GridLayout } from './components/ui/AppLayout/appLayout'
 import ChangelogShowcase from './components/ui/Changelog/ChangelogShowcase'
@@ -291,7 +292,7 @@ function App() {
   }
 
   return (
-    <ThemeProvider defaultMode="dark" defaultAccent="#4a56e2" defaultDesign="clay" defaultActiveVariant="solid">
+    <ThemeProvider {...SITE_THEME}>
 
       <AppShell layout={APP_LAYOUT} collapseBelow="3xl">
         <Top>
