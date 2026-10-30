@@ -16,6 +16,9 @@ try {
   console.warn("gen-changelog: git history unavailable — writing an empty changelog");
 }
 
+// Display name shown in the changelog for commits made under the old git user name.
+const AUTHOR_ALIASES = { "dev-lojee-zen": "lojeevlim" };
+
 const fromGit = raw
   .split(END)
   .map((r) => r.trim())
@@ -26,7 +29,7 @@ const fromGit = raw
       .split("\n")
       .map((l) => l.trim())
       .filter((l) => l && !/^co-authored-by:/i.test(l) && !/^generated with/i.test(l));
-    return { sha, short, date, author, email, subject: subject.trim(), body: lines.join("\n") };
+    return { sha, short, date, author: AUTHOR_ALIASES[author] ?? author, email, subject: subject.trim(), body: lines.join("\n") };
   });
 
 // Hosts such as Vercel clone only the last few commits (a shallow clone), so `git log` alone would drop the older history on every deploy —
